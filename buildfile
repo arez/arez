@@ -35,6 +35,4 @@ define 'arez' do
   end
 
   ipr.add_component_from_artifact(:idea_codestyle)
-
-  iml.add_jruby_facet
 end
