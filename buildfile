@@ -35,4 +35,5 @@ define 'arez' do
   end
 
   ipr.add_component_from_artifact(:idea_codestyle)
+  ipr.extra_modules << '../mobx/mobx.iml'
 end
