@@ -2,7 +2,7 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/single_intermediate_layout'
 
-PROVIDED_DEPS = [:javax_jsr305]
+PROVIDED_DEPS = [:javax_jsr305, :jetbrains_annotations]
 COMPILE_DEPS = []
 OPTIONAL_DEPS = []
 TEST_DEPS = []
