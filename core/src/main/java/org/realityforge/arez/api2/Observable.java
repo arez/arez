@@ -1,0 +1,207 @@
+package org.realityforge.arez.api2;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import javax.annotation.Nonnull;
+
+public abstract class Observable
+  extends Node
+{
+  private final ArrayList<Observer> _observers = new ArrayList<>();
+  /**
+   * True if passivation has been requested in transaction.
+   * Used to avoid adding duplicates to passivation list.
+   */
+  private boolean _pendingPassivation;
+  /**
+   * The id of the tracking that last observed the observable.
+   * This enables an optimization that skips adding this observer
+   * to the same tracking multiple times.
+   */
+  private int _lastTrackingId;
+  /**
+   * The state of the observer that is least stale.
+   * This cached value is used to avoid redundant propagations.
+   */
+  private ObserverState _leastStaleObserverState;
+
+  public Observable( @Nonnull final ArezContext context,
+                     @Nonnull final String name )
+  {
+    super( context, name );
+  }
+
+  void resetPendingPassivation()
+  {
+    _pendingPassivation = false;
+  }
+
+  void reportObserved()
+  {
+    getContext().getTracking().observe( this );
+  }
+
+  int getLastTrackingId()
+  {
+    return _lastTrackingId;
+  }
+
+  void setLastTrackingId( final int lastTrackingId )
+  {
+    _lastTrackingId = lastTrackingId;
+  }
+
+  /**
+   * Return true if this observable can passivate when it is no longer observable and activate when it is observable again..
+   */
+  protected boolean canPassivate()
+  {
+    return false;
+  }
+
+  /**
+   * Return true if observable is active and notifying observers.
+   */
+  protected boolean isActive()
+  {
+    return true;
+  }
+
+  /**
+   * Passivate the observable.
+   * This means that the observable no longer has any listeners and can release resources associated
+   * with generating values. (i.e. remove observers on any observables that are used to compute the
+   * value of this observable).
+   */
+  protected void passivate()
+  {
+    Guards.invariant( this::isActive,
+                      () -> String.format( "Invoked passivate on observable named '%s' when observable is not active.",
+                                           getName() ) );
+  }
+
+  /**
+   * Activate the observable.
+   * The reverse of {@link #passivate()}.
+   */
+  protected void activate()
+  {
+    Guards.invariant( () -> !isActive(),
+                      () -> String.format(
+                        "Invoked activate on observable named '%s' when observable is already active.",
+                        getName() ) );
+  }
+
+  @Nonnull
+  ArrayList<Observer> getObservers()
+  {
+    return _observers;
+  }
+
+  boolean hasObservers()
+  {
+    return getObservers().size() > 0;
+  }
+
+  void addObserver( @Nonnull final Observer observer )
+  {
+    Guards.invariant( () -> observer.getState() == ObserverState.NOT_TRACKING,
+                      () -> String.format(
+                        "Attempting to add observer named '%s' to observable named '%s' when observer is in state '%s' rather than the expected 'NOT_TRACKING'.",
+                        observer.getName(),
+                        getName(),
+                        observer.getState().name() ) );
+    Guards.invariant( () -> getObservers().contains( observer ),
+                      () -> String.format(
+                        "Attempting to add observer named '%s' to observable named '%s' when observer is already observing observable.",
+                        observer.getName(),
+                        getName() ) );
+
+    if ( !getObservers().add( observer ) )
+    {
+      Guards.fail( () -> String.format( "Failed to add observer named '%s' to observable named '%s'.",
+                                        observer.getName(),
+                                        getName() ) );
+    }
+
+    final ObserverState state = observer.getState();
+    if ( _leastStaleObserverState.ordinal() > state.ordinal() )
+    {
+      // In theory this code should never be executed.
+      // In future it should be removed.
+      Guards.fail( () -> String.format(
+        "Attempting to update _leastStaleObserverState to '%s' from '%s' when adding observer named '%s' to observable named '%s'.",
+        state.name(),
+        _leastStaleObserverState.name(),
+        observer.getName(),
+        getName() ) );
+      _leastStaleObserverState = state;
+    }
+  }
+
+  void removeObserver( @Nonnull final Observer observer )
+  {
+    Guards.invariant( () -> getContext().getTransaction().inBatch(),
+                      () -> String.format(
+                        "Attempted to remove observer named '%s' from observable named '%s' when not in batch.",
+                        observer.getName(),
+                        getName() ) );
+
+    final ArrayList<Observer> observers = getObservers();
+    if ( !observers.remove( observer ) )
+    {
+      Guards.fail( () -> String.format(
+        "Attempted to remove observer named '%s' from observable named '%s' when not in batch.",
+        observer.getName(),
+        getName() ) );
+    }
+    if ( observers.isEmpty() && canPassivate() )
+    {
+      queueForPassivation();
+    }
+  }
+
+  private void queueForPassivation()
+  {
+    if ( !_pendingPassivation )
+    {
+      _pendingPassivation = true;
+      getContext().getTransaction().queueForPassivation( this );
+    }
+  }
+
+  // Called by Atom when its value changes
+  void propagateChanged()
+  {
+    invariantLeastStaleObserverState();
+    if ( _leastStaleObserverState != ObserverState.STALE )
+    {
+      _leastStaleObserverState = ObserverState.STALE;
+
+      final ArrayList<Observer> observers = getObservers();
+      for ( final Observer observer : observers )
+      {
+        final ObserverState state = observer.getState();
+        if ( ObserverState.UP_TO_DATE == state )
+        {
+          observer.onBecomeStale();
+          observer.setState( ObserverState.STALE );
+        }
+      }
+    }
+    invariantLeastStaleObserverState();
+  }
+
+  private void invariantLeastStaleObserverState()
+  {
+    final ObserverState leastStaleObserverState =
+      getObservers().stream().
+        map( Observer::getState ).min( Comparator.comparing( Enum::ordinal ) ).orElse( ObserverState.NOT_TRACKING );
+    Guards.invariant( () -> leastStaleObserverState.ordinal() >= _leastStaleObserverState.ordinal(),
+                      () -> String.format(
+                        "Calculated leastStaleObserverState on observable named '%s' is '%s' which is unexpectedly less than cached value '%s'.",
+                        getName(),
+                        leastStaleObserverState.name(),
+                        _leastStaleObserverState.name() ) );
+  }
+}
