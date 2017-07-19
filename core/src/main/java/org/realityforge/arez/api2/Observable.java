@@ -190,6 +190,49 @@ public abstract class Observable
     invariantLeastStaleObserverState();
   }
 
+  // Called by ComputedValue when it recalculate and its value changed
+  void propagateChangeConfirmed()
+  {
+    invariantLeastStaleObserverState();
+    if ( ObserverState.STALE != _leastStaleObserverState )
+    {
+      _leastStaleObserverState = ObserverState.STALE;
+
+      for ( final Observer observer : getObservers() )
+      {
+        if ( ObserverState.POSSIBLY_STALE == observer.getState() )
+        {
+          observer.setState( ObserverState.STALE );
+        }
+        else if ( observer.getState() == ObserverState.UP_TO_DATE )
+        {
+          // this happens during computing of `observer`, just keep _leastStaleObserverState up to date.
+          _leastStaleObserverState = ObserverState.UP_TO_DATE;
+        }
+      }
+    }
+    invariantLeastStaleObserverState();
+  }
+
+  // Used by computed when its dependency changed, but we don't wan't to immediately recompute.
+  void propagateMaybeChanged()
+  {
+    invariantLeastStaleObserverState();
+    if ( ObserverState.UP_TO_DATE == _leastStaleObserverState )
+    {
+      _leastStaleObserverState = ObserverState.POSSIBLY_STALE;
+      for ( final Observer observer : getObservers() )
+      {
+        if ( observer.getState() == ObserverState.UP_TO_DATE )
+        {
+          observer.setState( ObserverState.POSSIBLY_STALE );
+          observer.onBecomeStale();
+        }
+      }
+    }
+    invariantLeastStaleObserverState();
+  }
+
   private void invariantLeastStaleObserverState()
   {
     final ObserverState leastStaleObserverState =
