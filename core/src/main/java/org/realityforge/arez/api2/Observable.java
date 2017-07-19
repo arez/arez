@@ -174,7 +174,7 @@ public abstract class Observable
   void propagateChanged()
   {
     invariantLeastStaleObserverState();
-    if ( _leastStaleObserverState != ObserverState.STALE )
+    if ( ObserverState.STALE != _leastStaleObserverState )
     {
       _leastStaleObserverState = ObserverState.STALE;
       for ( final Observer observer : getObservers() )
