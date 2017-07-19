@@ -177,9 +177,7 @@ public abstract class Observable
     if ( _leastStaleObserverState != ObserverState.STALE )
     {
       _leastStaleObserverState = ObserverState.STALE;
-
-      final ArrayList<Observer> observers = getObservers();
-      for ( final Observer observer : observers )
+      for ( final Observer observer : getObservers() )
       {
         final ObserverState state = observer.getState();
         if ( ObserverState.UP_TO_DATE == state )
