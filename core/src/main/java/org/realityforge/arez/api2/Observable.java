@@ -25,8 +25,7 @@ public abstract class Observable
    */
   private ObserverState _leastStaleObserverState;
 
-  public Observable( @Nonnull final ArezContext context,
-                     @Nonnull final String name )
+  protected Observable( @Nonnull final ArezContext context, @Nonnull final String name )
   {
     super( context, name );
   }
