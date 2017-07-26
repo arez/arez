@@ -30,22 +30,22 @@ public abstract class Observable
     super( context, name );
   }
 
-  void resetPendingPassivation()
+  final void resetPendingPassivation()
   {
     _pendingPassivation = false;
   }
 
-  void reportObserved()
+  final void reportObserved()
   {
     getContext().getTracking().observe( this );
   }
 
-  int getLastTrackingId()
+  final int getLastTrackingId()
   {
     return _lastTrackingId;
   }
 
-  void setLastTrackingId( final int lastTrackingId )
+  final void setLastTrackingId( final int lastTrackingId )
   {
     _lastTrackingId = lastTrackingId;
   }
@@ -92,17 +92,17 @@ public abstract class Observable
   }
 
   @Nonnull
-  ArrayList<Observer> getObservers()
+  final ArrayList<Observer> getObservers()
   {
     return _observers;
   }
 
-  boolean hasObservers()
+  final boolean hasObservers()
   {
     return getObservers().size() > 0;
   }
 
-  void addObserver( @Nonnull final Observer observer )
+  final void addObserver( @Nonnull final Observer observer )
   {
     Guards.invariant( () -> observer.getState() == ObserverState.NOT_TRACKING,
                       () -> String.format(
@@ -138,7 +138,7 @@ public abstract class Observable
     }
   }
 
-  void removeObserver( @Nonnull final Observer observer )
+  final void removeObserver( @Nonnull final Observer observer )
   {
     Guards.invariant( () -> getContext().getTransaction().inBatch(),
                       () -> String.format(
@@ -170,7 +170,7 @@ public abstract class Observable
   }
 
   // Called by Atom when its value changes
-  void propagateChanged()
+  final void propagateChanged()
   {
     invariantLeastStaleObserverState();
     if ( ObserverState.STALE != _leastStaleObserverState )
@@ -190,7 +190,7 @@ public abstract class Observable
   }
 
   // Called by ComputedValue when it recalculate and its value changed
-  void propagateChangeConfirmed()
+  final void propagateChangeConfirmed()
   {
     invariantLeastStaleObserverState();
     if ( ObserverState.STALE != _leastStaleObserverState )
@@ -214,7 +214,7 @@ public abstract class Observable
   }
 
   // Used by computed when its dependency changed, but we don't wan't to immediately recompute.
-  void propagateMaybeChanged()
+  final void propagateMaybeChanged()
   {
     invariantLeastStaleObserverState();
     if ( ObserverState.UP_TO_DATE == _leastStaleObserverState )
