@@ -26,6 +26,8 @@ final class Tracking
   private final Tracking _previous;
   /**
    * the list of observables that have been observed during tracking.
+   * This list can contain duplicates and the duplicates will be skipped when converting the list
+   * of observables to dependencies in the derivation.
    */
   private final ArrayList<Observable> _observables = new ArrayList<>();
 
@@ -68,13 +70,8 @@ final class Tracking
     if ( observable.getLastTrackingId() != _id )
     {
       final ArrayList<Observable> observables = getObservables();
-      //OPT: Can this contains() call be omitted? What happens if there are duplicates in Observables list?
-      // If it is needed can it be optimized it with a map+array pair?
-      if ( observables.contains( observable ) )
-      {
-        observable.setLastTrackingId( _id );
-        observables.add( observable );
-      }
+      observable.setLastTrackingId( _id );
+      observables.add( observable );
     }
   }
 }
