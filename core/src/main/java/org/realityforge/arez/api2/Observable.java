@@ -181,7 +181,6 @@ public abstract class Observable
         final ObserverState state = observer.getState();
         if ( ObserverState.UP_TO_DATE == state )
         {
-          observer.onBecomeStale();
           observer.setState( ObserverState.STALE );
         }
       }
@@ -225,7 +224,6 @@ public abstract class Observable
         if ( observer.getState() == ObserverState.UP_TO_DATE )
         {
           observer.setState( ObserverState.POSSIBLY_STALE );
-          observer.onBecomeStale();
         }
       }
     }
