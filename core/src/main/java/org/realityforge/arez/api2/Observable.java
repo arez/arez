@@ -24,10 +24,22 @@ public abstract class Observable
    * This cached value is used to avoid redundant propagations.
    */
   private ObserverState _leastStaleObserverState;
+  /**
+   * The derivation from which this observable is derived if any.
+   */
+  @Nullable
+  private final Derivation _derivation;
 
   protected Observable( @Nonnull final ArezContext context, @Nonnull final String name )
   {
     super( context, name );
+    _derivation = null;
+  }
+
+  protected Observable( @Nonnull final ArezContext context, @Nonnull final Derivation derivation )
+  {
+    super( context, Objects.requireNonNull( derivation ).getName() );
+    _derivation = derivation;
   }
 
   final void resetPendingPassivation()
@@ -50,12 +62,18 @@ public abstract class Observable
     _lastTrackingId = lastTrackingId;
   }
 
+  @Nullable
+  final Derivation getDerivation()
+  {
+    return _derivation;
+  }
+
   /**
    * Return true if this observable can passivate when it is no longer observable and activate when it is observable again..
    */
   protected boolean canPassivate()
   {
-    return false;
+    return null != _derivation;
   }
 
   /**
