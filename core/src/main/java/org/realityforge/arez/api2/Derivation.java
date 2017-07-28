@@ -10,6 +10,12 @@ public class Derivation
    */
   @Nonnull
   private ObserverState _dependenciesState = ObserverState.NOT_TRACKING;
+  /**
+   * The observables that this derivation is derived from.
+   * This corresponds to the list of observables that were observed whilst
+   * tracking the last derivation. THis list should contain no duplicates.
+   */
+  private final ArrayList<Observable> _dependencies = new ArrayList<>();
 
   public Derivation( @Nonnull final ArezContext context,
                      @Nonnull final String name )
@@ -25,5 +31,11 @@ public class Derivation
     {
       onBecomeStale();
     }
+  }
+
+  @Nonnull
+  protected final ArrayList<Observable> getDependencies()
+  {
+    return _dependencies;
   }
 }
