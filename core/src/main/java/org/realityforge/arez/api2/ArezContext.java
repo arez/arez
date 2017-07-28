@@ -81,8 +81,8 @@ public final class ArezContext
                         "Attempting to complete tracking '%s' but the active tracking is '%s'.",
                         String.valueOf( tracking ),
                         String.valueOf( _tracking ) ) );
-    _tracking = null;
     //bindDependencies(tracking);
+    _tracking = tracking.getPrevious();
   }
 
   /**
