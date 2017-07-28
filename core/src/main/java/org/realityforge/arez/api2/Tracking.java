@@ -55,11 +55,6 @@ final class Tracking
     return _previous;
   }
 
-  ArrayList<Observable> getObservables()
-  {
-    return _observables;
-  }
-
   void observe( @Nonnull final Observable observable )
   {
     /*
@@ -69,9 +64,8 @@ final class Tracking
      */
     if ( observable.getLastTrackingId() != _id )
     {
-      final ArrayList<Observable> observables = getObservables();
       observable.setLastTrackingId( _id );
-      observables.add( observable );
+      _observables.add( observable );
     }
   }
 }
