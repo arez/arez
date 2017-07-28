@@ -12,7 +12,7 @@ public class Derivation
    * The stalest state of the associated observables that are also derivations.
    */
   @Nonnull
-  private ObserverState _dependenciesState = ObserverState.NOT_TRACKING;
+  private ObserverState _state = ObserverState.NOT_TRACKING;
   /**
    * The observables that this derivation is derived from.
    * This corresponds to the list of observables that were observed whilst
@@ -30,13 +30,13 @@ public class Derivation
   @Override
   public final ObserverState getState()
   {
-    return _dependenciesState;
+    return _state;
   }
 
   @Override
   public final void setState( @Nonnull final ObserverState state )
   {
-    _dependenciesState = state;
+    _state = state;
     if ( state == ObserverState.STALE || state == ObserverState.POSSIBLY_STALE )
     {
       onBecomeStale();
