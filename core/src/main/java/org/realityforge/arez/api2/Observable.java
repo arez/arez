@@ -69,7 +69,7 @@ public abstract class Observable
   }
 
   /**
-   * Return true if this observable can passivate when it is no longer observable and activate when it is observable again..
+   * Return true if this observable can passivate when it is no longer observable and activate when it is observable again.
    */
   protected boolean canPassivate()
   {
