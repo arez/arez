@@ -24,7 +24,7 @@ public class Derivation
   }
 
   @Override
-  public void setState( @Nonnull final ObserverState state )
+  public final void setState( @Nonnull final ObserverState state )
   {
     _dependenciesState = state;
     if ( state == ObserverState.STALE || state == ObserverState.POSSIBLY_STALE )
