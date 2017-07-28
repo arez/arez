@@ -26,6 +26,13 @@ public class Derivation
     super( context, name );
   }
 
+  @Nonnull
+  @Override
+  public final ObserverState getState()
+  {
+    return _dependenciesState;
+  }
+
   @Override
   public final void setState( @Nonnull final ObserverState state )
   {
