@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 
 public class Derivation
   extends Node
+  implements Observer
 {
   /**
    * The stalest state of the associated observables that are also derivations.
@@ -41,6 +42,10 @@ public class Derivation
     {
       onBecomeStale();
     }
+  }
+
+  private void onBecomeStale()
+  {
   }
 
   @Nonnull

@@ -11,6 +11,4 @@ public interface Observer
   ObserverState getState();
 
   void setState( @Nonnull ObserverState state );
-
-  void onBecomeStale();
 }
