@@ -84,19 +84,18 @@ final class Tracking
     /*
      * Iterate through the list of observables, flagging observables and removing duplicates.
      */
-    final ArrayList<Observable> observables = _observables;
-    final int size = observables.size();
+    final int size = _observables.size();
     int currentIndex = 0;
     for ( int i = 0; i < size; i++ )
     {
-      final Observable observable = observables.get( i );
+      final Observable observable = _observables.get( i );
       if ( !observable.isInCurrentDependency() )
       {
         observable.setInCurrentDependency( true );
       }
       if ( i != currentIndex )
       {
-        observables.set( currentIndex, observable );
+        _observables.set( currentIndex, observable );
       }
       currentIndex++;
 
@@ -129,7 +128,7 @@ final class Tracking
     // new dependencies and need to be observed by the derivation
     for ( int i = currentIndex - 1; i >= 0; i-- )
     {
-      final Observable observable = observables.get( i );
+      final Observable observable = _observables.get( i );
       if ( observable.isInCurrentDependency() )
       {
         //Observable was not a dependency so it needs to be observed
