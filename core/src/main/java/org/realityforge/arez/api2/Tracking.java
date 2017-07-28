@@ -68,4 +68,81 @@ final class Tracking
       _observables.add( observable );
     }
   }
+
+  /**
+   * Completes the tracking by updating the dependencies on the derivation to match the
+   * observables that were observed during tracking.
+   */
+  final void completeTracking()
+  {
+    _derivation.invariantDependenciesUnique();
+    Guards.invariant( () -> _derivation.getState() != ObserverState.NOT_TRACKING,
+                      () -> "completeTracking expects derivation.dependenciesState != NOT_TRACKING" );
+
+    ObserverState newDerivationState = ObserverState.UP_TO_DATE;
+
+    /*
+     * Iterate through the list of observables, flagging observables and removing duplicates.
+     */
+    final ArrayList<Observable> observables = _observables;
+    final int size = observables.size();
+    int currentIndex = 0;
+    for ( int i = 0; i < size; i++ )
+    {
+      final Observable observable = observables.get( i );
+      if ( !observable.isInCurrentDependency() )
+      {
+        observable.setInCurrentDependency( true );
+      }
+      if ( i != currentIndex )
+      {
+        observables.set( currentIndex, observable );
+      }
+      currentIndex++;
+
+      final Derivation derivation = observable.getDerivation();
+      if ( null != derivation )
+      {
+        final ObserverState dependenciesState = derivation.getState();
+        if ( dependenciesState.ordinal() < newDerivationState.ordinal() )
+        {
+          newDerivationState = dependenciesState;
+        }
+      }
+    }
+
+    // Look through the old dependencies and any that are no longer tracked
+    // should no longer be observed.
+    final ArrayList<Observable> dependencies = _derivation.getDependencies();
+    for ( int i = dependencies.size() - 1; i >= 0; i-- )
+    {
+      final Observable observable = dependencies.get( i );
+      if ( !observable.isInCurrentDependency() )
+      {
+        // Old dependency was not part of tracking and needs to be unobserved
+        observable.removeObserver( _derivation );
+        observable.setInCurrentDependency( false );
+      }
+    }
+
+    // Look through the new observables and any that are still flagged must be
+    // new dependencies and need to be observed by the derivation
+    for ( int i = currentIndex - 1; i >= 0; i-- )
+    {
+      final Observable observable = observables.get( i );
+      if ( observable.isInCurrentDependency() )
+      {
+        //Observable was not a dependency so it needs to be observed
+        observable.addObserver( _derivation );
+        observable.setInCurrentDependency( false );
+      }
+    }
+
+    // Some new observed derivations may become stale during this derivation computation
+    // so they have had no chance to propagate staleness
+    if ( ObserverState.UP_TO_DATE != newDerivationState )
+    {
+      _derivation.setState( newDerivationState );
+    }
+  }
 }
