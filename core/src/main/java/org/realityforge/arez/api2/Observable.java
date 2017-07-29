@@ -52,7 +52,7 @@ public final class Observable
     _derivation = null;
   }
 
-  protected Observable( @Nonnull final ArezContext context, @Nonnull final Derivation derivation )
+  Observable( @Nonnull final ArezContext context, @Nonnull final Derivation derivation )
   {
     super( context, Objects.requireNonNull( derivation ).getName() );
     _derivation = derivation;
