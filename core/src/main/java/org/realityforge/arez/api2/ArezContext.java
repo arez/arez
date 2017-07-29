@@ -14,8 +14,11 @@ public final class ArezContext
   /**
    * Id of last tracking created.
    * A running sequence used to create unique id for tracking within the context.
+   *
+   * This needs to start at 1 as {@link Observable#NOT_IN_CURRENT_TRACKING} is used
+   * to optimize depndency tracking.
    */
-  private int _lastTrackingId;
+  private int _lastTrackingId = 1;
   /**
    * All changes in a context must occur within the scope of a transaction.
    * This references the current transaction.

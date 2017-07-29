@@ -9,6 +9,17 @@ import javax.annotation.Nullable;
 public abstract class Observable
   extends Node
 {
+  /**
+   * The value that _lastTrackingId is set to to optimize the detection of duplicate,
+   * existing and new dependencies during tracking completion.
+   */
+  private static final int IN_CURRENT_TRACKING = -1;
+  /**
+   * The value that _lastTrackingId is when the observer has been added as new dependency
+   * to derivation.
+   */
+  private static final int NOT_IN_CURRENT_TRACKING = 0;
+
   private final ArrayList<Observer> _observers = new ArrayList<>();
   /**
    * True if passivation has been requested in transaction.
@@ -19,6 +30,9 @@ public abstract class Observable
    * The id of the tracking that last observed the observable.
    * This enables an optimization that skips adding this observer
    * to the same tracking multiple times.
+   *
+   * The value may also be set to {@link #IN_CURRENT_TRACKING} during the completion
+   * of tracking operation.
    */
   private int _lastTrackingId;
   /**
@@ -26,16 +40,6 @@ public abstract class Observable
    * This cached value is used to avoid redundant propagations.
    */
   private ObserverState _leastStaleObserverState;
-  /**
-   * A flag indicating whether this dependency is part of the the "current"
-   * dependency during derivation process. This is used as part of optimization
-   * process in {@link Tracking#completeTracking()} and should be unused
-   * elsewhere.
-   *
-   * TODO: This can probably combined with _lastTrackingId which is another optimization
-   * for the same derivation mechanisms but used at a different time.
-   */
-  private boolean _inCurrentDependency;
   /**
    * The derivation from which this observable is derived if any.
    */
@@ -74,14 +78,19 @@ public abstract class Observable
     _lastTrackingId = lastTrackingId;
   }
 
-  final boolean isInCurrentDependency()
+  final boolean isInCurrentTracking()
   {
-    return _inCurrentDependency;
+    return IN_CURRENT_TRACKING == _lastTrackingId;
   }
 
-  final void setInCurrentDependency( final boolean inCurrentDependency )
+  final void putInCurrentTracking()
   {
-    _inCurrentDependency = inCurrentDependency;
+    _lastTrackingId = IN_CURRENT_TRACKING;
+  }
+
+  final void removeFromCurrentTracking()
+  {
+    _lastTrackingId = NOT_IN_CURRENT_TRACKING;
   }
 
   @Nullable
@@ -103,6 +112,7 @@ public abstract class Observable
    */
   private boolean isActive()
   {
+    //return null == _derivation || ObserverState.NOT_TRACKING != _derivation.getState();
     return true;
   }
 

@@ -89,9 +89,9 @@ final class Tracking
     for ( int i = 0; i < size; i++ )
     {
       final Observable observable = _observables.get( i );
-      if ( !observable.isInCurrentDependency() )
+      if ( !observable.isInCurrentTracking() )
       {
-        observable.setInCurrentDependency( true );
+        observable.putInCurrentTracking();
       }
       if ( i != currentIndex )
       {
@@ -116,11 +116,10 @@ final class Tracking
     for ( int i = dependencies.size() - 1; i >= 0; i-- )
     {
       final Observable observable = dependencies.get( i );
-      if ( !observable.isInCurrentDependency() )
+      if ( !observable.isInCurrentTracking() )
       {
         // Old dependency was not part of tracking and needs to be unobserved
         observable.removeObserver( _derivation );
-        observable.setInCurrentDependency( false );
       }
     }
 
@@ -129,11 +128,11 @@ final class Tracking
     for ( int i = currentIndex - 1; i >= 0; i-- )
     {
       final Observable observable = _observables.get( i );
-      if ( observable.isInCurrentDependency() )
+      if ( observable.isInCurrentTracking() )
       {
+        observable.removeFromCurrentTracking();
         //Observable was not a dependency so it needs to be observed
         observable.addObserver( _derivation );
-        observable.setInCurrentDependency( false );
       }
     }
 
