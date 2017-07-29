@@ -21,8 +21,7 @@ public class Derivation
    */
   private final ArrayList<Observable> _dependencies = new ArrayList<>();
 
-  public Derivation( @Nonnull final ArezContext context,
-                     @Nonnull final String name )
+  Derivation( @Nonnull final ArezContext context, @Nonnull final String name )
   {
     super( context, name );
   }
