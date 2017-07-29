@@ -11,14 +11,14 @@ public abstract class Node
   @Nullable
   private final String _name;
 
-  protected Node( @Nonnull final ArezContext context, @Nullable final String name )
+  Node( @Nonnull final ArezContext context, @Nullable final String name )
   {
     _context = Objects.requireNonNull( context );
     _name = ArezConfig.ENABLE_NAMES ? Objects.requireNonNull( name ) : null;
   }
 
   @Nonnull
-  protected final ArezContext getContext()
+  final ArezContext getContext()
   {
     return _context;
   }
