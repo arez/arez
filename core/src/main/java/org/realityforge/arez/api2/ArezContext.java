@@ -98,6 +98,26 @@ public final class ArezContext
   }
 
   /**
+   * Execute the supplied action and suspend any tracking tha is currently active for the duration of the action.
+   */
+  <T> T untrack( @Nonnull final Callable<T> action )
+    throws Exception
+  {
+    final Tracking tracking = _tracking;
+    _tracking = null;
+    try
+    {
+      return action.call();
+    }
+    finally
+    {
+      Guards.invariant( () -> null == _tracking, () -> "Untracked action left a _tracking active." );
+
+      _tracking = tracking;
+    }
+  }
+
+  /**
    * Execute the supplied action and track observables that are accessed during execution of the action.
    * The observables are collected on the {@link Tracking} instance and the derivation is updated on
    * completion of the tracking.
