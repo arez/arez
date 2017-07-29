@@ -6,7 +6,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public abstract class Observable
+public final class Observable
   extends Node
 {
   /**
