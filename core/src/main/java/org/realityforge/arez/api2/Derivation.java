@@ -48,7 +48,7 @@ public class Derivation
   }
 
   @Nonnull
-  protected final ArrayList<Observable> getDependencies()
+  final ArrayList<Observable> getDependencies()
   {
     return _dependencies;
   }
