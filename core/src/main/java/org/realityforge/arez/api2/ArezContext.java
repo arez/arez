@@ -25,6 +25,10 @@ public final class ArezContext
    */
   @Nullable
   private Transaction _transaction;
+  /**
+   * Next id of node created.
+   */
+  private int _nextNodeId = 1;
 
   public void beginTransaction( @Nonnull final String name )
   {
@@ -86,6 +90,11 @@ public final class ArezContext
                         String.valueOf( _tracking ) ) );
     tracking.completeTracking();
     _tracking = tracking.getPrevious();
+  }
+
+  int nextNodeId()
+  {
+    return _nextNodeId++;
   }
 
   /**
