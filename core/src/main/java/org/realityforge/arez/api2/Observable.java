@@ -25,6 +25,16 @@ public abstract class Observable
    */
   private ObserverState _leastStaleObserverState;
   /**
+   * A flag indicating whether this dependency is part of the the "current"
+   * dependency during derivation process. This is used as part of optimization
+   * process in {@link Tracking#completeTracking()} and should be unused
+   * elsewhere.
+   *
+   * TODO: This can probably combined with _lastTrackingId which is another optimization
+   * for the same derivation mechanisms but used at a different time.
+   */
+  private boolean _inCurrentDependency;
+  /**
    * The derivation from which this observable is derived if any.
    */
   @Nullable
@@ -60,6 +70,16 @@ public abstract class Observable
   final void setLastTrackingId( final int lastTrackingId )
   {
     _lastTrackingId = lastTrackingId;
+  }
+
+  final boolean isInCurrentDependency()
+  {
+    return _inCurrentDependency;
+  }
+
+  final void setInCurrentDependency( final boolean inCurrentDependency )
+  {
+    _inCurrentDependency = inCurrentDependency;
   }
 
   @Nullable
