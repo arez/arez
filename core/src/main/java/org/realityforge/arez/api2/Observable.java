@@ -154,7 +154,7 @@ public abstract class Observable
                         observer.getName(),
                         getName(),
                         observer.getState().name() ) );
-    Guards.invariant( () -> getObservers().contains( observer ),
+    Guards.invariant( () -> !getObservers().contains( observer ),
                       () -> String.format(
                         "Attempting to add observer named '%s' to observable named '%s' when observer is already observing observable.",
                         observer.getName(),
