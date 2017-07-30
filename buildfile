@@ -5,7 +5,7 @@ require 'buildr/single_intermediate_layout'
 PROVIDED_DEPS = [:javax_jsr305, :jetbrains_annotations]
 COMPILE_DEPS = []
 OPTIONAL_DEPS = []
-TEST_DEPS = []
+TEST_DEPS = [:guiceyloops]
 
 desc 'Arez: Simple, Scalable State Management Library'
 define 'arez' do

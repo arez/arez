@@ -9,3 +9,5 @@ artifacts:
 
   javax_jsr305: com.google.code.findbugs:jsr305:jar:3.0.1
   jetbrains_annotations: org.jetbrains:annotations:jar:15.0
+
+  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.92
