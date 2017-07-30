@@ -17,7 +17,7 @@ public class Derivation
   /**
    * The observables that this derivation is derived from.
    * This corresponds to the list of observables that were observed whilst
-   * tracking the last derivation. THis list should contain no duplicates.
+   * tracking the last derivation. This list should contain no duplicates.
    */
   private final ArrayList<Observable> _dependencies = new ArrayList<>();
 
