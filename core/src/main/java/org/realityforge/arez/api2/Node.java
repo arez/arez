@@ -28,7 +28,7 @@ public abstract class Node
   @Nonnull
   public final String getName()
   {
-    Guards.invariant( () -> ArezConfig.enableNames(),
+    Guards.invariant( ArezConfig::enableNames,
                       () -> "Node.getName() invoked when ArezConfig.ENABLE_NAMES is false" );
     assert null != _name;
     return _name;
