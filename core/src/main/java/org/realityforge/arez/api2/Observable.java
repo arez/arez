@@ -38,7 +38,8 @@ public abstract class Observable
    * The state of the observer that is least stale.
    * This cached value is used to avoid redundant propagations.
    */
-  private ObserverState _leastStaleObserverState;
+  @Nonnull
+  private ObserverState _leastStaleObserverState = ObserverState.NOT_TRACKING;
   /**
    * The derivation from which this observable is derived if any.
    */
