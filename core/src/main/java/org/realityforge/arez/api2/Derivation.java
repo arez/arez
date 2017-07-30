@@ -45,7 +45,7 @@ public class Derivation
     }
   }
 
-  private void onBecomeStale()
+  protected void onBecomeStale()
   {
   }
 
