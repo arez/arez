@@ -16,7 +16,7 @@ public abstract class Node
     _context = Objects.requireNonNull( context );
     _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
     Guards.invariant( () -> ArezConfig.enableNames() || null == name,
-                      () -> String.format( "Node passed a name '%s' but ArezConfig.ENABLE_NAMES is false", name ) );
+                      () -> String.format( "Node passed a name '%s' but ArezConfig.enableNames() is false", name ) );
   }
 
   @Nonnull
@@ -29,7 +29,7 @@ public abstract class Node
   public final String getName()
   {
     Guards.invariant( ArezConfig::enableNames,
-                      () -> "Node.getName() invoked when ArezConfig.ENABLE_NAMES is false" );
+                      () -> "Node.getName() invoked when ArezConfig.enableNames() is false" );
     assert null != _name;
     return _name;
   }
