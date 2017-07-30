@@ -2,11 +2,10 @@ package org.realityforge.arez.api2;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public final class Observable
+public abstract class Observable
   extends Node
 {
   /**
@@ -46,15 +45,9 @@ public final class Observable
   @Nullable
   private final Derivation _derivation;
 
-  protected Observable( @Nonnull final ArezContext context, @Nonnull final String name )
+  Observable( @Nonnull final ArezContext context, @Nullable final String name, @Nullable final Derivation derivation )
   {
     super( context, name );
-    _derivation = null;
-  }
-
-  Observable( @Nonnull final ArezContext context, @Nonnull final Derivation derivation )
-  {
-    super( context, Objects.requireNonNull( derivation ).getName() );
     _derivation = derivation;
   }
 
