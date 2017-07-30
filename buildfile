@@ -34,6 +34,7 @@ define 'arez' do
     test.compile.with TEST_DEPS
   end
 
+  ipr.add_default_testng_configuration(:jvm_args => '-Darez.dynamic_provider=true')
   ipr.add_component_from_artifact(:idea_codestyle)
   ipr.extra_modules << '../mobx/mobx.iml'
 end

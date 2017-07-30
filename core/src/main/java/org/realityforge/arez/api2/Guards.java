@@ -21,7 +21,7 @@ final class Guards
   static void invariant( @Nonnull final Supplier<Boolean> condition,
                          @Nonnull final Supplier<String> message )
   {
-    if ( ArezConfig.CHECK_INVARIANTS && !condition.get() )
+    if ( ArezConfig.checkInvariants() && !condition.get() )
     {
       fail( message );
     }
@@ -34,9 +34,9 @@ final class Guards
    */
   static void fail( @Nonnull final Supplier<String> message )
   {
-    if ( ArezConfig.CHECK_INVARIANTS )
+    if ( ArezConfig.checkInvariants() )
     {
-      throw new IllegalStateException( ArezConfig.VERBOSE_ERROR_MESSAGES ? message.get() : null );
+      throw new IllegalStateException( ArezConfig.verboseErrorMessages() ? message.get() : null );
     }
   }
 }

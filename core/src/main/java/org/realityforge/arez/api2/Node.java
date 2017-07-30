@@ -14,7 +14,9 @@ public abstract class Node
   Node( @Nonnull final ArezContext context, @Nullable final String name )
   {
     _context = Objects.requireNonNull( context );
-    _name = ArezConfig.ENABLE_NAMES ? Objects.requireNonNull( name ) : null;
+    _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
+    Guards.invariant( () -> ArezConfig.enableNames() || null == name,
+                      () -> String.format( "Node passed a name '%s' but ArezConfig.ENABLE_NAMES is false", name ) );
   }
 
   @Nonnull
@@ -26,7 +28,7 @@ public abstract class Node
   @Nonnull
   public final String getName()
   {
-    Guards.invariant( () -> ArezConfig.ENABLE_NAMES,
+    Guards.invariant( () -> ArezConfig.enableNames(),
                       () -> "Node.getName() invoked when ArezConfig.ENABLE_NAMES is false" );
     assert null != _name;
     return _name;
@@ -36,7 +38,7 @@ public abstract class Node
   @Override
   public final String toString()
   {
-    if ( ArezConfig.ENABLE_NAMES )
+    if ( ArezConfig.enableNames() )
     {
       return getName();
     }
