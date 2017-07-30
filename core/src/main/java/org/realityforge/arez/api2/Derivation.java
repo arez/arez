@@ -36,8 +36,10 @@ public class Derivation
   @Override
   public final void setState( @Nonnull final ObserverState state )
   {
+    final ObserverState originalState = _state;
     _state = state;
-    if ( state == ObserverState.STALE || state == ObserverState.POSSIBLY_STALE )
+    if ( ObserverState.UP_TO_DATE == originalState &&
+         ( ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state ) )
     {
       onBecomeStale();
     }
