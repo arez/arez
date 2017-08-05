@@ -12,8 +12,8 @@ final class Guards
   /**
    * Check an invariant in code base.
    * If the condition is false then an {@link IllegalStateException} is thrown.
-   * The invariant check will be skipped unless the configuration setting {@link ArezConfig#CHECK_INVARIANTS}
-   * is true. A null message is used rather than supplied message unless {@link ArezConfig#VERBOSE_ERROR_MESSAGES}
+   * The invariant check will be skipped unless the configuration setting {@link ArezConfig#checkInvariants()}
+   * is true. A null message is used rather than supplied message unless {@link ArezConfig#verboseErrorMessages()}
    * is true.
    *
    * @throws IllegalStateException if condition returns false.
@@ -29,8 +29,8 @@ final class Guards
 
   /**
    * Throw an IllegalStateException with supplied detail message.
-   * The exception is not thrown unless {@link ArezConfig#CHECK_INVARIANTS} is true.
-   * The exception will ignore the supplied message unless {@link ArezConfig#VERBOSE_ERROR_MESSAGES} is true.
+   * The exception is not thrown unless {@link ArezConfig#checkInvariants()} is true.
+   * The exception will ignore the supplied message unless {@link ArezConfig#verboseErrorMessages()} is true.
    */
   static void fail( @Nonnull final Supplier<String> message )
   {
