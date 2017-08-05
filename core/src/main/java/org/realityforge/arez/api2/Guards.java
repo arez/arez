@@ -1,5 +1,7 @@
 package org.realityforge.arez.api2;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 
@@ -36,7 +38,29 @@ final class Guards
   {
     if ( ArezConfig.checkInvariants() )
     {
-      throw new IllegalStateException( ArezConfig.verboseErrorMessages() ? message.get() : null );
+      if ( ArezConfig.verboseErrorMessages() )
+      {
+        throw new IllegalStateException( safeGetMessage( message ) );
+      }
+      else
+      {
+        throw new IllegalStateException();
+      }
+    }
+  }
+
+  @Nonnull
+  private static String safeGetMessage( @Nonnull final Supplier<String> message )
+  {
+    try
+    {
+      return message.get();
+    }
+    catch ( final IllegalStateException e )
+    {
+      final StringWriter out = new StringWriter();
+      e.printStackTrace( new PrintWriter( out ) );
+      return "Exception generated whilst attempting to get message for invariant failure.\n" + out.toString();
     }
   }
 }
