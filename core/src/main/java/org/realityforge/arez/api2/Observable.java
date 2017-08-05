@@ -148,12 +148,6 @@ public abstract class Observable
 
   final void addObserver( @Nonnull final Observer observer )
   {
-    Guards.invariant( () -> getContext().getTransaction().inBatch(),
-                      () -> String.format(
-                        "Attempted to add observer named '%s' from observable named '%s' when not in batch.",
-                        observer.getName(),
-                        getName() ) );
-
     Guards.invariant( () -> observer.getState() == ObserverState.NOT_TRACKING,
                       () -> String.format(
                         "Attempting to add observer named '%s' to observable named '%s' when observer is in state '%s' rather than the expected 'NOT_TRACKING'.",
