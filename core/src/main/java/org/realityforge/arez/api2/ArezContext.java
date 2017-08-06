@@ -32,13 +32,7 @@ public final class ArezContext
 
   public void beginTransaction( @Nonnull final String name )
   {
-    //noinspection ConstantConditions
-    Guards.invariant( () -> !isTransactionActive(),
-                      () -> String.format(
-                        "Attempting to begin transaction named '%s' when existing transaction named '%s' already active.",
-                        name,
-                        _transaction.getName() ) );
-    _transaction = new Transaction( name );
+    _transaction = new Transaction( _transaction, name );
   }
 
   public void commitTransaction()
@@ -47,7 +41,7 @@ public final class ArezContext
                       () -> "Attempting to commit transaction but no transaction is active." );
     assert null != _transaction;
     _transaction.commit();
-    _transaction = null;
+    _transaction = _transaction.getPrevious();
   }
 
   public boolean isTransactionActive()

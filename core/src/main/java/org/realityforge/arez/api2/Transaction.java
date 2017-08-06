@@ -27,6 +27,12 @@ public final class Transaction
     _previous = previous;
   }
 
+  @Nullable
+  final Transaction getPrevious()
+  {
+    return _previous;
+  }
+
   final void commit()
   {
     if ( isRootTransaction() )
