@@ -7,21 +7,16 @@ import javax.annotation.Nullable;
 public final class ArezContext
 {
   /**
-   * Id of last tracking created.
-   * A running sequence used to create unique id for tracking within the context.
-   *
-   * This needs to start at 1 as {@link Observable#NOT_IN_CURRENT_TRACKING} is used
-   * to optimize dependency tracking.
-   */
-  private int _lastTrackingId = 1;
-  /**
    * All changes in a context must occur within the scope of a transaction.
    * This references the current transaction.
    */
   @Nullable
   private Transaction _transaction;
   /**
-   * Next id of node created.
+   * Id of next node to be created.
+   *
+   * This needs to start at 1 as {@link Observable#NOT_IN_CURRENT_TRACKING} is used
+   * to optimize dependency tracking in transactions.
    */
   private int _nextNodeId = 1;
 
@@ -79,11 +74,6 @@ public final class ArezContext
                       () -> "Attempting to get current transaction but no transaction is active." );
     assert null != _transaction;
     return _transaction;
-  }
-
-  int nextLastTrackingId()
-  {
-    return _lastTrackingId++;
   }
 
   int nextNodeId()

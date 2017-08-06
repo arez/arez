@@ -33,7 +33,7 @@ public final class Transaction
   {
     super( context, name );
     _previous = previous;
-    _tracking = null != tracker ? new Tracking( tracker, context.nextLastTrackingId() ) : null;
+    _tracking = null != tracker ? new Tracking( tracker, getId() ) : null;
   }
 
   @Nullable
