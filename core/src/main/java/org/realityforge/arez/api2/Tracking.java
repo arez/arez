@@ -3,7 +3,6 @@ package org.realityforge.arez.api2;
 import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 final class Tracking
 {
@@ -11,7 +10,7 @@ final class Tracking
    * The underlying tracker.
    */
   @Nonnull
-  private final Observer _observer;
+  private final Observer _tracker;
   /**
    * Uniquely identifies the current execution of tracking derivation. This is cached on the
    * observables to optimize the avoidance of re-adding the same observable multiple times within
@@ -19,40 +18,21 @@ final class Tracking
    */
   private final int _id;
   /**
-   * Representation of the tracking that was active when this tracking was activated. When this
-   * derivation ceases to be tracked, the previous derivation will be restored.
-   */
-  @Nullable
-  private final Tracking _previous;
-  /**
    * the list of observables that have been observed during tracking.
    * This list can contain duplicates and the duplicates will be skipped when converting the list
    * of observables to dependencies in the derivation.
    */
   private final ArrayList<Observable> _observables = new ArrayList<>();
 
-  Tracking( @Nonnull final Observer observer, final int id, @Nullable final Tracking previous )
+  Tracking( @Nonnull final Observer tracker, final int id )
   {
-    _observer = Objects.requireNonNull( observer );
+    _tracker = Objects.requireNonNull( tracker );
     _id = id;
-    _previous = previous;
-  }
-
-  @Nonnull
-  Observer getObserver()
-  {
-    return _observer;
   }
 
   int getId()
   {
     return _id;
-  }
-
-  @Nullable
-  Tracking getPrevious()
-  {
-    return _previous;
   }
 
   void observe( @Nonnull final Observable observable )
@@ -75,8 +55,8 @@ final class Tracking
    */
   final void completeTracking()
   {
-    _observer.invariantDependenciesUnique();
-    Guards.invariant( () -> _observer.getState() != ObserverState.NOT_TRACKING,
+    _tracker.invariantDependenciesUnique();
+    Guards.invariant( () -> _tracker.getState() != ObserverState.NOT_TRACKING,
                       () -> "completeTracking expects derivation.dependenciesState != NOT_TRACKING" );
 
     ObserverState newDerivationState = ObserverState.UP_TO_DATE;
@@ -112,14 +92,14 @@ final class Tracking
 
     // Look through the old dependencies and any that are no longer tracked
     // should no longer be observed.
-    final ArrayList<Observable> dependencies = _observer.getDependencies();
+    final ArrayList<Observable> dependencies = _tracker.getDependencies();
     for ( int i = dependencies.size() - 1; i >= 0; i-- )
     {
       final Observable observable = dependencies.get( i );
       if ( !observable.isInCurrentTracking() )
       {
         // Old dependency was not part of tracking and needs to be unobserved
-        observable.removeObserver( _observer );
+        observable.removeObserver( _tracker );
       }
     }
 
@@ -132,7 +112,7 @@ final class Tracking
       {
         observable.removeFromCurrentTracking();
         //Observable was not a dependency so it needs to be observed
-        observable.addObserver( _observer );
+        observable.addObserver( _tracker );
       }
     }
 
@@ -140,7 +120,7 @@ final class Tracking
     // so they have had no chance to propagate staleness
     if ( ObserverState.UP_TO_DATE != newDerivationState )
     {
-      _observer.setState( newDerivationState );
+      _tracker.setState( newDerivationState );
     }
   }
 }

@@ -7,16 +7,11 @@ import javax.annotation.Nullable;
 public final class ArezContext
 {
   /**
-   * The current tracking.
-   */
-  @Nullable
-  private Tracking _tracking;
-  /**
    * Id of last tracking created.
    * A running sequence used to create unique id for tracking within the context.
    *
    * This needs to start at 1 as {@link Observable#NOT_IN_CURRENT_TRACKING} is used
-   * to optimize depndency tracking.
+   * to optimize dependency tracking.
    */
   private int _lastTrackingId = 1;
   /**
@@ -30,18 +25,46 @@ public final class ArezContext
    */
   private int _nextNodeId = 1;
 
-  public void beginTransaction( @Nonnull final String name )
+  private Transaction beginTransaction( @Nullable final String name, @Nullable final Observer tracker )
   {
-    _transaction = new Transaction( _transaction, name );
+    _transaction = new Transaction( this, _transaction, name, tracker );
+    return _transaction;
   }
 
-  public void commitTransaction()
+  private void commitTransaction( @Nonnull final Transaction transaction )
   {
-    Guards.invariant( this::isTransactionActive,
-                      () -> "Attempting to commit transaction but no transaction is active." );
+    Guards.invariant( () -> null != _transaction,
+                      () -> String.format( "Attempting to commit transaction named '%s' but no transaction is active.",
+                                           transaction.getName() ) );
     assert null != _transaction;
+    Guards.invariant( () -> _transaction == transaction,
+                      () -> String.format(
+                        "Attempting to commit transaction named '%s' but this does not match existing transaction named '%s'.",
+                        transaction.getName(),
+                        _transaction.getName() ) );
     _transaction.commit();
     _transaction = _transaction.getPrevious();
+  }
+
+  /**
+   * Execute the supplied action and track observables that are accessed during execution of the action.
+   * The observables are collected on the {@link Tracking} instance and the observer is updated on
+   * completion of the tracking.
+   */
+  <T> T transaction( @Nullable final String name,
+                     @Nullable final Observer tracker,
+                     @Nonnull final Callable<T> action )
+    throws Exception
+  {
+    final Transaction transaction = beginTransaction( name, tracker );
+    try
+    {
+      return action.call();
+    }
+    finally
+    {
+      commitTransaction( transaction );
+    }
   }
 
   public boolean isTransactionActive()
@@ -58,75 +81,13 @@ public final class ArezContext
     return _transaction;
   }
 
-  @Nonnull
-  Tracking getTracking()
+  int nextLastTrackingId()
   {
-    Guards.invariant( () -> null != _tracking,
-                      () -> "Attempting to get current tracking but no tracking is active." );
-    assert null != _tracking;
-    return _tracking;
-  }
-
-  @Nonnull
-  private Tracking beginTracking( @Nonnull final Observer observer )
-  {
-    final Tracking tracking = new Tracking( observer, ++_lastTrackingId, _tracking );
-    _tracking = tracking;
-    return tracking;
-  }
-
-  private void completeTracking( @Nonnull final Tracking tracking )
-  {
-    Guards.invariant( () -> tracking == _tracking,
-                      () -> String.format(
-                        "Attempting to complete tracking '%s' but the active tracking is '%s'.",
-                        String.valueOf( tracking ),
-                        String.valueOf( _tracking ) ) );
-    tracking.completeTracking();
-    _tracking = tracking.getPrevious();
+    return _lastTrackingId++;
   }
 
   int nextNodeId()
   {
     return _nextNodeId++;
-  }
-
-  /**
-   * Execute the supplied action and suspend any tracking tha is currently active for the duration of the action.
-   */
-  <T> T untrack( @Nonnull final Callable<T> action )
-    throws Exception
-  {
-    final Tracking tracking = _tracking;
-    _tracking = null;
-    try
-    {
-      return action.call();
-    }
-    finally
-    {
-      Guards.invariant( () -> null == _tracking, () -> "Untracked action left a _tracking active." );
-
-      _tracking = tracking;
-    }
-  }
-
-  /**
-   * Execute the supplied action and track observables that are accessed during execution of the action.
-   * The observables are collected on the {@link Tracking} instance and the observer is updated on
-   * completion of the tracking.
-   */
-  <T> T track( @Nonnull final Observer observer, @Nonnull final Callable<T> action )
-    throws Exception
-  {
-    final Tracking tracking = beginTracking( observer );
-    try
-    {
-      return action.call();
-    }
-    finally
-    {
-      completeTracking( tracking );
-    }
   }
 }

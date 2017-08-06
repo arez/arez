@@ -6,7 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public final class Transaction
-  extends ArezElement
+  extends Node
 {
   /**
    * List of observables that reached zero observers within the scope of the transaction.
@@ -20,11 +20,20 @@ public final class Transaction
    */
   @Nullable
   private final Transaction _previous;
+  /**
+   * The state associated with tracking transaction if transaction is trackable.
+   */
+  @Nullable
+  private final Tracking _tracking;
 
-  Transaction( @Nullable final Transaction previous, @Nonnull final String name )
+  Transaction( @Nonnull final ArezContext context,
+               @Nullable final Transaction previous,
+               @Nullable final String name,
+               @Nullable final Observer tracker )
   {
-    super( name );
+    super( context, name );
     _previous = previous;
+    _tracking = null != tracker ? new Tracking( tracker, context.nextLastTrackingId() ) : null;
   }
 
   @Nullable
@@ -33,8 +42,21 @@ public final class Transaction
     return _previous;
   }
 
+  @Nonnull
+  final Tracking getTracking()
+  {
+    Guards.invariant( () -> null != _tracking,
+                      () -> String.format( "Attempting to get current tracking for transaction named '%s' but no tracking is active.", getName() ) );
+    assert null != _tracking;
+    return _tracking;
+  }
+
   final void commit()
   {
+    if( null != _tracking )
+    {
+      _tracking.completeTracking();
+    }
     if ( isRootTransaction() )
     {
       //If you are the root transaction

@@ -59,7 +59,7 @@ public abstract class Observable
 
   final void reportObserved()
   {
-    getContext().getTracking().observe( this );
+    getContext().getTransaction().getTracking().observe( this );
   }
 
   final int getLastTrackingId()
