@@ -158,20 +158,20 @@ public final class Transaction
       if ( !observable.isInCurrentTracking() )
       {
         observable.putInCurrentTracking();
-      }
-      if ( i != currentIndex )
-      {
-        _observables.set( currentIndex, observable );
-      }
-      currentIndex++;
-
-      final Observer observer = observable.getObserver();
-      if ( null != observer )
-      {
-        final ObserverState dependenciesState = observer.getState();
-        if ( dependenciesState.ordinal() < newDerivationState.ordinal() )
+        if ( i != currentIndex )
         {
-          newDerivationState = dependenciesState;
+          _observables.set( currentIndex, observable );
+        }
+        currentIndex++;
+
+        final Observer observer = observable.getObserver();
+        if ( null != observer )
+        {
+          final ObserverState dependenciesState = observer.getState();
+          if ( dependenciesState.ordinal() < newDerivationState.ordinal() )
+          {
+            newDerivationState = dependenciesState;
+          }
         }
       }
     }
