@@ -30,11 +30,6 @@ final class Tracking
     _id = id;
   }
 
-  int getId()
-  {
-    return _id;
-  }
-
   void observe( @Nonnull final Observable observable )
   {
     /*
