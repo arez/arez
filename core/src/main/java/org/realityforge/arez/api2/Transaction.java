@@ -21,10 +21,15 @@ public final class Transaction
   @Nullable
   private final Transaction _previous;
   /**
-   * The state associated with tracking transaction if transaction is trackable.
+   * The tracker if transaction is trackable.
    */
-  @Nullable
-  private final Tracking _tracking;
+  private final Observer _tracker;
+  /**
+   * the list of observables that have been observed during tracking.
+   * This list can contain duplicates and the duplicates will be skipped when converting the list
+   * of observables to dependencies in the derivation.
+   */
+  private ArrayList<Observable> _observables;
 
   Transaction( @Nonnull final ArezContext context,
                @Nullable final Transaction previous,
@@ -33,7 +38,7 @@ public final class Transaction
   {
     super( context, name );
     _previous = previous;
-    _tracking = null != tracker ? new Tracking( tracker, getId() ) : null;
+    _tracker = tracker;
   }
 
   @Nullable
@@ -42,21 +47,9 @@ public final class Transaction
     return _previous;
   }
 
-  @Nonnull
-  final Tracking getTracking()
-  {
-    Guards.invariant( () -> null != _tracking,
-                      () -> String.format( "Attempting to get current tracking for transaction named '%s' but no tracking is active.", getName() ) );
-    assert null != _tracking;
-    return _tracking;
-  }
-
   final void commit()
   {
-    if( null != _tracking )
-    {
-      _tracking.completeTracking();
-    }
+    completeTracking();
     if ( isRootTransaction() )
     {
       //If you are the root transaction
@@ -111,6 +104,109 @@ public final class Transaction
                           observable.getName() ) );
     }
     _pendingPassivations.add( Objects.requireNonNull( observable ) );
+  }
+
+  void observe( @Nonnull final Observable observable )
+  {
+    /*
+     * This optimization attempts to stop the same observable being added multiple
+     * times to the observables list by caching the transaction id on the observable.
+     * This is purely an optimization but it is not perfect and may be defeated if
+     * the same observable is observed in a nested tracking transaction.
+     */
+    if ( observable.getLastTrackingId() != getId() )
+    {
+      observable.setLastTrackingId( getId() );
+      if ( null == _observables )
+      {
+        _observables = new ArrayList<>();
+      }
+      _observables.add( observable );
+    }
+  }
+
+  /**
+   * Completes the tracking by updating the dependencies on the derivation to match the
+   * observables that were observed during tracking.
+   */
+  private void completeTracking()
+  {
+    if ( null == _tracker )
+    {
+      return;
+    }
+    _tracker.invariantDependenciesUnique();
+    Guards.invariant( () -> _tracker.getState() != ObserverState.NOT_TRACKING,
+                      () -> "completeTracking expects derivation.dependenciesState != NOT_TRACKING" );
+
+    ObserverState newDerivationState = ObserverState.UP_TO_DATE;
+
+    if ( null == _observables )
+    {
+      return;
+    }
+
+    /*
+     * Iterate through the list of observables, flagging observables and removing duplicates.
+     */
+    final int size = _observables.size();
+    int currentIndex = 0;
+    for ( int i = 0; i < size; i++ )
+    {
+      final Observable observable = _observables.get( i );
+      if ( !observable.isInCurrentTracking() )
+      {
+        observable.putInCurrentTracking();
+      }
+      if ( i != currentIndex )
+      {
+        _observables.set( currentIndex, observable );
+      }
+      currentIndex++;
+
+      final Observer observer = observable.getObserver();
+      if ( null != observer )
+      {
+        final ObserverState dependenciesState = observer.getState();
+        if ( dependenciesState.ordinal() < newDerivationState.ordinal() )
+        {
+          newDerivationState = dependenciesState;
+        }
+      }
+    }
+
+    // Look through the old dependencies and any that are no longer tracked
+    // should no longer be observed.
+    final ArrayList<Observable> dependencies = _tracker.getDependencies();
+    for ( int i = dependencies.size() - 1; i >= 0; i-- )
+    {
+      final Observable observable = dependencies.get( i );
+      if ( !observable.isInCurrentTracking() )
+      {
+        // Old dependency was not part of tracking and needs to be unobserved
+        observable.removeObserver( _tracker );
+      }
+    }
+
+    // Look through the new observables and any that are still flagged must be
+    // new dependencies and need to be observed by the derivation
+    for ( int i = currentIndex - 1; i >= 0; i-- )
+    {
+      final Observable observable = _observables.get( i );
+      if ( observable.isInCurrentTracking() )
+      {
+        observable.removeFromCurrentTracking();
+        //Observable was not a dependency so it needs to be observed
+        observable.addObserver( _tracker );
+      }
+    }
+
+    // Some new observed derivations may become stale during this derivation computation
+    // so they have had no chance to propagate staleness
+    if ( ObserverState.UP_TO_DATE != newDerivationState )
+    {
+      _tracker.setState( newDerivationState );
+    }
   }
 
   private boolean isRootTransaction()
