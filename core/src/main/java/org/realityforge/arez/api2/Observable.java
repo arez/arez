@@ -9,12 +9,12 @@ public abstract class Observable
   extends Node
 {
   /**
-   * The value that _lastTrackingId is set to to optimize the detection of duplicate,
+   * The value that _lastTrackerTransactionId is set to to optimize the detection of duplicate,
    * existing and new dependencies during tracking completion.
    */
   private static final int IN_CURRENT_TRACKING = -1;
   /**
-   * The value that _lastTrackingId is when the observer has been added as new dependency
+   * The value that _lastTrackerTransactionId is when the observer has been added as new dependency
    * to derivation.
    */
   private static final int NOT_IN_CURRENT_TRACKING = 0;
@@ -33,7 +33,7 @@ public abstract class Observable
    * The value may also be set to {@link #IN_CURRENT_TRACKING} during the completion
    * of tracking operation.
    */
-  private int _lastTrackingId;
+  private int _lastTrackerTransactionId;
   /**
    * The state of the observer that is least stale.
    * This cached value is used to avoid redundant propagations.
@@ -62,29 +62,29 @@ public abstract class Observable
     getContext().getTransaction().observe( this );
   }
 
-  final int getLastTrackingId()
+  final int getLastTrackerTransactionId()
   {
-    return _lastTrackingId;
+    return _lastTrackerTransactionId;
   }
 
-  final void setLastTrackingId( final int lastTrackingId )
+  final void setLastTrackerTransactionId( final int lastTrackerTransactionId )
   {
-    _lastTrackingId = lastTrackingId;
+    _lastTrackerTransactionId = lastTrackerTransactionId;
   }
 
   final boolean isInCurrentTracking()
   {
-    return IN_CURRENT_TRACKING == _lastTrackingId;
+    return IN_CURRENT_TRACKING == _lastTrackerTransactionId;
   }
 
   final void putInCurrentTracking()
   {
-    _lastTrackingId = IN_CURRENT_TRACKING;
+    _lastTrackerTransactionId = IN_CURRENT_TRACKING;
   }
 
   final void removeFromCurrentTracking()
   {
-    _lastTrackingId = NOT_IN_CURRENT_TRACKING;
+    _lastTrackerTransactionId = NOT_IN_CURRENT_TRACKING;
   }
 
   @Nullable

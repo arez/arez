@@ -114,9 +114,10 @@ public final class Transaction
      * This is purely an optimization but it is not perfect and may be defeated if
      * the same observable is observed in a nested tracking transaction.
      */
-    if ( observable.getLastTrackingId() != getId() )
+    final int id = getId();
+    if ( observable.getLastTrackerTransactionId() != id )
     {
-      observable.setLastTrackingId( getId() );
+      observable.setLastTrackerTransactionId( id );
       if ( null == _observables )
       {
         _observables = new ArrayList<>();
