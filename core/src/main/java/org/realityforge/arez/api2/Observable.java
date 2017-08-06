@@ -44,12 +44,12 @@ public abstract class Observable
    * The derivation from which this observable is derived if any.
    */
   @Nullable
-  private final Derivation _derivation;
+  private final Observer _observer;
 
-  Observable( @Nonnull final ArezContext context, @Nullable final String name, @Nullable final Derivation derivation )
+  Observable( @Nonnull final ArezContext context, @Nullable final String name, @Nullable final Observer observer )
   {
     super( context, name );
-    _derivation = derivation;
+    _observer = observer;
   }
 
   final void resetPendingPassivation()
@@ -88,9 +88,9 @@ public abstract class Observable
   }
 
   @Nullable
-  final Derivation getDerivation()
+  final Observer getObserver()
   {
-    return _derivation;
+    return _observer;
   }
 
   /**
@@ -98,7 +98,7 @@ public abstract class Observable
    */
   final boolean canPassivate()
   {
-    return null != _derivation;
+    return null != _observer;
   }
 
   /**
@@ -106,7 +106,7 @@ public abstract class Observable
    */
   private boolean isActive()
   {
-    //return null == _derivation || ObserverState.NOT_TRACKING != _derivation.getState();
+    //return null == _observer || ObserverState.NOT_TRACKING != _observer.getState();
     return true;
   }
 

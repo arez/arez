@@ -8,10 +8,10 @@ import javax.annotation.Nullable;
 final class Tracking
 {
   /**
-   * The underlying derivation that is being tracked.
+   * The underlying tracker.
    */
   @Nonnull
-  private final Derivation _derivation;
+  private final Observer _observer;
   /**
    * Uniquely identifies the current execution of tracking derivation. This is cached on the
    * observables to optimize the avoidance of re-adding the same observable multiple times within
@@ -31,17 +31,17 @@ final class Tracking
    */
   private final ArrayList<Observable> _observables = new ArrayList<>();
 
-  Tracking( @Nonnull final Derivation derivation, final int id, @Nullable final Tracking previous )
+  Tracking( @Nonnull final Observer observer, final int id, @Nullable final Tracking previous )
   {
-    _derivation = Objects.requireNonNull( derivation );
+    _observer = Objects.requireNonNull( observer );
     _id = id;
     _previous = previous;
   }
 
   @Nonnull
-  Derivation getDerivation()
+  Observer getObserver()
   {
-    return _derivation;
+    return _observer;
   }
 
   int getId()
@@ -75,8 +75,8 @@ final class Tracking
    */
   final void completeTracking()
   {
-    _derivation.invariantDependenciesUnique();
-    Guards.invariant( () -> _derivation.getState() != ObserverState.NOT_TRACKING,
+    _observer.invariantDependenciesUnique();
+    Guards.invariant( () -> _observer.getState() != ObserverState.NOT_TRACKING,
                       () -> "completeTracking expects derivation.dependenciesState != NOT_TRACKING" );
 
     ObserverState newDerivationState = ObserverState.UP_TO_DATE;
@@ -99,10 +99,10 @@ final class Tracking
       }
       currentIndex++;
 
-      final Derivation derivation = observable.getDerivation();
-      if ( null != derivation )
+      final Observer observer = observable.getObserver();
+      if ( null != observer )
       {
-        final ObserverState dependenciesState = derivation.getState();
+        final ObserverState dependenciesState = observer.getState();
         if ( dependenciesState.ordinal() < newDerivationState.ordinal() )
         {
           newDerivationState = dependenciesState;
@@ -112,14 +112,14 @@ final class Tracking
 
     // Look through the old dependencies and any that are no longer tracked
     // should no longer be observed.
-    final ArrayList<Observable> dependencies = _derivation.getDependencies();
+    final ArrayList<Observable> dependencies = _observer.getDependencies();
     for ( int i = dependencies.size() - 1; i >= 0; i-- )
     {
       final Observable observable = dependencies.get( i );
       if ( !observable.isInCurrentTracking() )
       {
         // Old dependency was not part of tracking and needs to be unobserved
-        observable.removeObserver( _derivation );
+        observable.removeObserver( _observer );
       }
     }
 
@@ -132,7 +132,7 @@ final class Tracking
       {
         observable.removeFromCurrentTracking();
         //Observable was not a dependency so it needs to be observed
-        observable.addObserver( _derivation );
+        observable.addObserver( _observer );
       }
     }
 
@@ -140,7 +140,7 @@ final class Tracking
     // so they have had no chance to propagate staleness
     if ( ObserverState.UP_TO_DATE != newDerivationState )
     {
-      _derivation.setState( newDerivationState );
+      _observer.setState( newDerivationState );
     }
   }
 }

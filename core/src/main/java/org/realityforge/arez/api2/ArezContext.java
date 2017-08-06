@@ -68,9 +68,9 @@ public final class ArezContext
   }
 
   @Nonnull
-  private Tracking beginTracking( @Nonnull final Derivation derivation )
+  private Tracking beginTracking( @Nonnull final Observer observer )
   {
-    final Tracking tracking = new Tracking( derivation, ++_lastTrackingId, _tracking );
+    final Tracking tracking = new Tracking( observer, ++_lastTrackingId, _tracking );
     _tracking = tracking;
     return tracking;
   }
@@ -113,13 +113,13 @@ public final class ArezContext
 
   /**
    * Execute the supplied action and track observables that are accessed during execution of the action.
-   * The observables are collected on the {@link Tracking} instance and the derivation is updated on
+   * The observables are collected on the {@link Tracking} instance and the observer is updated on
    * completion of the tracking.
    */
-  <T> T track( @Nonnull final Derivation derivation, @Nonnull final Callable<T> action )
+  <T> T track( @Nonnull final Observer observer, @Nonnull final Callable<T> action )
     throws Exception
   {
-    final Tracking tracking = beginTracking( derivation );
+    final Tracking tracking = beginTracking( observer );
     try
     {
       return action.call();

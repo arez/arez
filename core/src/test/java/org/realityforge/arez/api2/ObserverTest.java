@@ -14,9 +14,9 @@ public class ObserverTest
   {
     TestObservable( @Nonnull final ArezContext context,
                     @Nullable final String name,
-                    @Nullable final Derivation derivation )
+                    @Nullable final Observer observer )
     {
-      super( context, name, derivation );
+      super( context, name, observer );
     }
   }
 
