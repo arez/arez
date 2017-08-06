@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 public final class Transaction
+  extends ArezElement
 {
   /**
    * List of observables that reached zero observers within the scope of the transaction.
@@ -12,25 +13,7 @@ public final class Transaction
    */
   private final ArrayList<Observable> _pendingPassivations = new ArrayList<>();
   @Nonnull
-  private final String _name;
   private int _batchDepth;
-
-  Transaction( @Nonnull final String name )
-  {
-    _name = Objects.requireNonNull( name );
-  }
-
-  @Nonnull
-  public String getName()
-  {
-    return _name;
-  }
-
-  @Override
-  public String toString()
-  {
-    return getName();
-  }
 
   boolean inBatch()
   {
