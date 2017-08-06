@@ -3,18 +3,57 @@
 [![Build Status](https://secure.travis-ci.org/realityforge/arez.png?branch=master)](http://travis-ci.org/realityforge/arez)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez/arez.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez%22%20a%3A%22arez%22)
 
-Arez is designed to be a simple, efficient and scalable state management library for
-client-side applications that shines no matter how complex the interrelationships are
-between elements within the system. It was a re-architecture of an existing library that
-has been in production use since ~2001, heavily influenced by [Mobx](https://mobx.js.org/).
+Arez is designed to be a simple, efficient and scalable state management library for client-side
+applications that shines no matter how complex the relationships between elements within the system.
 
 ## Architecture
 
-An Arez application consists of `observable` entities with `attributes` that can change over time.
-`Observers` receive notification when the attributes are modified. The observers can explicitly
-subscribe to changes or implicitly subscribe to changes by accessing attributes within the scope
-of a tracked method or `reaction`. The reaction will be triggered if any of the implicitly subscribed
-attributes are modified and the implicit subscription will be updated each time the reaction is
-triggered. Changes to an entity are made within the scope of an `action`. Actions can either notify
-observers immediately when an attribute is updated or delay notification until the completion of the
-action.
+An Arez application consists of `observable` values that can change over time. `Observers` watch the
+`observable` values and receive notifications when the `observable` values change. The observers can
+explicitly subscribe to change notifications or can implicitly subscribe by accessing the observable
+within a `tracking` transaction. (The observer associated with a tracking transaction is called the
+`Tracker`.) `Observable` values can only be read within the scope of a transaction. `Observable` values
+can only be modified within the scope of a `writeable` transaction. Transactions can be nested.
+
+Arez has the concept of a `ComputedValue` which is an `observable` value that is derived from other
+`observable` values. A `ComputedValue` is both an observable and an observer. However the calculation
+of the value can be passivated and not derived if there is no observers of the value. It is the mechanism
+via which Arez implements the memoization optimization technique.
+
+`Observers` can receive change notifications in a few ways;
+
+* `ComputedValue` sends a message indicating that it is `POSSIBLY_STALE` (i.e. May have changed).
+* `Observables` can send a message indicating that it is `STALE` (i.e. Has definitely changed).
+* `Observables` can send a message indicating how it was changed. (i.e. Value has changed from `1` to `2`, or array index 3 was deleted).
+
+`Observers` are typically notified at the completion of the top level transaction but may be notified
+immediately on change. `ComputedValue` values are notified immediately but will not recalculate unless
+accessed again or if the top-level transaction completes and they are not passivated.   
+
+There are a few separate types of observables in the system.
+
+* `Observerable` - abstract class from which all observables descend.
+* `AtomicObservable` - represents an "atomic" value where all changes involve replacing the value. 
+* `SetObservable` - represents an unordered set of "atomic" values.
+* `ListObservable` - represents an ordered set of "atomic" values.
+* `MapObservable` - a key-value collection where the key is a string and the value is an "atomic" value.
+
+"Atomic" values include the normal data types like boolean, integer, float but also include "references".
+
+Most of the `Observers` in the Arez system are active and will be scheduled to receive notifications when
+the top level transaction is completed.
+
+## System
+
+The primitives described above can be used to build up more complex reactive systems. The final system we
+will be building is based loosely on the concepts of [Mobx](https://mobx.js.org/). Within the system there
+will be;
+
+* _actions_: the methods responsible for changing the observable state. 
+* _reactions_: the methods executed if any observable state accessed within the method changes.
+* _computations_: the methods that produce an observable value that will be executed if any observable
+  state accessed within the method changes and any observer is observing resultant observable value.
+
+*Actions* are methods that are wrapped in a non-tracking, writeable transaction. *Reactions* are observers
+that call methods that are wrapped in a tracking transaction that may or may not be writeable. *Computations*
+are passivatable observers that call methods that are wrapped in a non-writeable, tracking transaction.
