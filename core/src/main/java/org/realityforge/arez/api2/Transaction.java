@@ -12,39 +12,6 @@ public final class Transaction
    * When the transaction completes, these observers are passivated
    */
   private final ArrayList<Observable> _pendingPassivations = new ArrayList<>();
-  @Nonnull
-  private int _batchDepth;
-
-  boolean inBatch()
-  {
-    return _batchDepth > 0;
-  }
-
-  public void batch( @Nonnull final Runnable action )
-  {
-    startBatch();
-    try
-    {
-      action.run();
-    }
-    finally
-    {
-      endBatch();
-    }
-  }
-
-  public void startBatch()
-  {
-    _batchDepth++;
-  }
-
-  public void endBatch()
-  {
-    _batchDepth--;
-    Guards.invariant( () -> _batchDepth >= 0,
-                      () -> String.format( "Invoked endBatch on transaction named '%s' when no batch is active.",
-                                           _name ) );
-  }
 
   void commit()
   {
