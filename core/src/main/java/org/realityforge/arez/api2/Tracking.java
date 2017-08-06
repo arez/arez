@@ -22,7 +22,7 @@ final class Tracking
    * This list can contain duplicates and the duplicates will be skipped when converting the list
    * of observables to dependencies in the derivation.
    */
-  private final ArrayList<Observable> _observables = new ArrayList<>();
+  private ArrayList<Observable> _observables;
 
   Tracking( @Nonnull final Observer tracker, final int id )
   {
@@ -45,6 +45,10 @@ final class Tracking
     if ( observable.getLastTrackingId() != _id )
     {
       observable.setLastTrackingId( _id );
+      if( null == _observables )
+      {
+        _observables = new ArrayList<>();
+      }
       _observables.add( observable );
     }
   }
@@ -60,6 +64,11 @@ final class Tracking
                       () -> "completeTracking expects derivation.dependenciesState != NOT_TRACKING" );
 
     ObserverState newDerivationState = ObserverState.UP_TO_DATE;
+
+    if ( null == _observables )
+    {
+      return;
+    }
 
     /*
      * Iterate through the list of observables, flagging observables and removing duplicates.
