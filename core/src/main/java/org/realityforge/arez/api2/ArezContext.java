@@ -42,9 +42,8 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied action and track observables that are accessed during execution of the action.
-   * The observables are collected on the {@link Tracking} instance and the observer is updated on
-   * completion of the tracking.
+   * Execute the supplied action in a transaction.
+   * The transaction is tracking if tracker is supplied and is named with specified name.
    */
   <T> T transaction( @Nullable final String name,
                      @Nullable final Observer tracker,
