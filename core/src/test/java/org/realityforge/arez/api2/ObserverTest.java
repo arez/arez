@@ -42,7 +42,7 @@ public class ObserverTest
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
 
-    final TestObserver observer = new TestObserver();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
 
     // Handle addition of observer in correct state
     observable.addObserver( observer );
@@ -62,7 +62,7 @@ public class ObserverTest
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
 
-    final TestObserver observer = new TestObserver();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
 
     // Handle addition of observer in incorrect state
     observer.setState( ObserverState.STALE );
@@ -71,8 +71,11 @@ public class ObserverTest
       expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
 
     assertEquals( exception.getMessage(),
-                  "Attempting to add observer named '" + observer.getName() + "' to observable named '" +
-                  observable.getName() + "' when observer is in state 'STALE' rather than the expected 'NOT_TRACKING'." );
+                  "Attempting to add observer named '" +
+                  observer.getName() +
+                  "' to observable named '" +
+                  observable.getName() +
+                  "' when observer is in state 'STALE' rather than the expected 'NOT_TRACKING'." );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -88,7 +91,7 @@ public class ObserverTest
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
 
-    final TestObserver observer = new TestObserver();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
 
     // Handle addition of observer in correct state
     observable.addObserver( observer );
