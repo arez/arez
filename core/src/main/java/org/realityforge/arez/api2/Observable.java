@@ -165,14 +165,6 @@ public abstract class Observable
     final ObserverState state = observer.getState();
     if ( _leastStaleObserverState.ordinal() > state.ordinal() )
     {
-      // In theory this code should never be executed.
-      // In future it should be removed.
-      Guards.fail( () -> String.format(
-        "Attempting to update _leastStaleObserverState to '%s' from '%s' when adding observer named '%s' to observable named '%s'.",
-        state.name(),
-        _leastStaleObserverState.name(),
-        observer.getName(),
-        getName() ) );
       _leastStaleObserverState = state;
     }
   }
