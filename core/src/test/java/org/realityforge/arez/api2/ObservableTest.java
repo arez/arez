@@ -62,6 +62,24 @@ public class ObservableTest
   }
 
   @Test
+  public void addObserver_updatesLestStaleObserverState()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
+    observable.setLeastStaleObserverState( ObserverState.STALE );
+
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    observer.setState( ObserverState.POSSIBLY_STALE );
+
+    observable.addObserver( observer );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
+
+    observable.invariantLeastStaleObserverState();
+  }
+
+  @Test
   public void addObserver_duplicate()
     throws Exception
   {
