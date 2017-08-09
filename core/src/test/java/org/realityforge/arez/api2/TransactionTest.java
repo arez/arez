@@ -62,6 +62,14 @@ public class TransactionTest
         assertEquals( transaction2.isRootTransaction(), false );
         assertEquals( transaction2.getRootTransaction(), transaction1 );
       } );
+
+      final Transaction transaction1b = context.getTransaction();
+      assertEquals( transaction1b.getName(), name );
+      assertEquals( transaction1b.getPrevious(), null );
+      assertEquals( transaction1b.getContext(), context );
+      assertEquals( transaction1b.getId(), nextNodeId );
+      assertEquals( transaction1b.isRootTransaction(), true );
+      assertEquals( transaction1b.getRootTransaction(), transaction1b );
     } );
 
     assertFalse( context.isTransactionActive() );
