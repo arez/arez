@@ -45,9 +45,9 @@ public final class ArezContext
    * Execute the supplied action in a transaction.
    * The transaction is tracking if tracker is supplied and is named with specified name.
    */
-  <T> T transaction( @Nullable final String name,
-                     @Nullable final Observer tracker,
-                     @Nonnull final Callable<T> action )
+  public <T> T transaction( @Nullable final String name,
+                            @Nullable final Observer tracker,
+                            @Nonnull final Callable<T> action )
     throws Exception
   {
     final Transaction transaction = beginTransaction( name, tracker );
