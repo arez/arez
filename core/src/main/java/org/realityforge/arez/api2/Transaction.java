@@ -210,13 +210,13 @@ final class Transaction
     }
   }
 
-  private boolean isRootTransaction()
+  final boolean isRootTransaction()
   {
     return null == _previous;
   }
 
   @Nonnull
-  private Transaction getRootTransaction()
+  final Transaction getRootTransaction()
   {
     if ( isRootTransaction() )
     {
