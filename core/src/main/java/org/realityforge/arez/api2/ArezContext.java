@@ -3,6 +3,7 @@ package org.realityforge.arez.api2;
 import java.util.concurrent.Callable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.jetbrains.annotations.TestOnly;
 
 public final class ArezContext
 {
@@ -98,5 +99,11 @@ public final class ArezContext
   int nextNodeId()
   {
     return _nextNodeId++;
+  }
+
+  @TestOnly
+  final int currentNextNodeId()
+  {
+    return _nextNodeId;
   }
 }
