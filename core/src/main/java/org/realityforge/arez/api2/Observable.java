@@ -148,12 +148,6 @@ public abstract class Observable
 
   final void addObserver( @Nonnull final Observer observer )
   {
-    Guards.invariant( () -> observer.getState() == ObserverState.NOT_TRACKING,
-                      () -> String.format(
-                        "Attempting to add observer named '%s' to observable named '%s' when observer is in state '%s' rather than the expected 'NOT_TRACKING'.",
-                        observer.getName(),
-                        getName(),
-                        observer.getState().name() ) );
     Guards.invariant( () -> !getObservers().contains( observer ),
                       () -> String.format(
                         "Attempting to add observer named '%s' to observable named '%s' when observer is already observing observable.",
