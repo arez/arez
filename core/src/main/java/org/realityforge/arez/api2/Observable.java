@@ -261,7 +261,7 @@ public abstract class Observable
     invariantLeastStaleObserverState();
   }
 
-  private void invariantLeastStaleObserverState()
+  final void invariantLeastStaleObserverState()
   {
     final ObserverState leastStaleObserverState =
       getObservers().stream().
@@ -278,6 +278,12 @@ public abstract class Observable
   final boolean isPendingPassivation()
   {
     return _pendingPassivation;
+  }
+
+  @TestOnly
+  final void setLeastStaleObserverState( @Nonnull final ObserverState leastStaleObserverState )
+  {
+    _leastStaleObserverState = leastStaleObserverState;
   }
 
   @Nonnull
