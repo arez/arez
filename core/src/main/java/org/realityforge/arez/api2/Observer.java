@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class Observer
   extends Node
@@ -20,7 +21,7 @@ public class Observer
    */
   private final ArrayList<Observable> _dependencies = new ArrayList<>();
 
-  Observer( @Nonnull final ArezContext context, @Nonnull final String name )
+  Observer( @Nonnull final ArezContext context, @Nullable final String name )
   {
     super( context, name );
   }
