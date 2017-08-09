@@ -6,7 +6,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObserverTest
+public class ObservableTest
   extends AbstractArezTest
 {
   static class TestObservable
