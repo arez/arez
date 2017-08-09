@@ -30,6 +30,8 @@ public class ObservableTest
     assertEquals( observable.getName(), name );
     assertEquals( observable.getContext(), context );
     assertEquals( observable.toString(), name );
+
+    observable.invariantLeastStaleObserverState();
   }
 
   @Test
@@ -52,6 +54,8 @@ public class ObservableTest
     assertEquals( observable.hasObservers(), true );
     assertEquals( observable.getObservers().get( 0 ), observer );
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.NOT_TRACKING );
+
+    observable.invariantLeastStaleObserverState();
   }
 
   @Test
@@ -83,5 +87,7 @@ public class ObservableTest
     assertEquals( observable.getObservers().size(), 1 );
     assertEquals( observable.hasObservers(), true );
     assertEquals( observable.getObservers().get( 0 ), observer );
+
+    observable.invariantLeastStaleObserverState();
   }
 }
