@@ -55,7 +55,6 @@ public class Observer
 
   final void invariantDependenciesUnique()
   {
-
     Guards.invariant( () -> getDependencies().size() == new HashSet<>( getDependencies() ).size(),
                       () -> String.format(
                         "The set of dependencies in derivation named '%s' is not unique. Current list: '%s'.",
