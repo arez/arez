@@ -21,7 +21,7 @@ public class ObservableTest
   }
 
   @Test
-  public void nodeState()
+  public void initialState()
     throws Exception
   {
     final ArezContext context = new ArezContext();
