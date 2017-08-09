@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.jetbrains.annotations.TestOnly;
 
 public abstract class Observable
   extends Node
@@ -279,5 +280,18 @@ public abstract class Observable
                         getName(),
                         leastStaleObserverState.name(),
                         _leastStaleObserverState.name() ) );
+  }
+
+  @TestOnly
+  final boolean isPendingPassivation()
+  {
+    return _pendingPassivation;
+  }
+
+  @Nonnull
+  @TestOnly
+  final ObserverState getLeastStaleObserverState()
+  {
+    return _leastStaleObserverState;
   }
 }
