@@ -246,7 +246,7 @@ public abstract class Observable
         {
           observer.setState( ObserverState.STALE );
         }
-        else if ( observer.getState() == ObserverState.UP_TO_DATE )
+        else if ( ObserverState.UP_TO_DATE == observer.getState() )
         {
           // this happens during computing of `observer`, just keep _leastStaleObserverState up to date.
           _leastStaleObserverState = ObserverState.UP_TO_DATE;
@@ -265,7 +265,7 @@ public abstract class Observable
       _leastStaleObserverState = ObserverState.POSSIBLY_STALE;
       for ( final Observer observer : getObservers() )
       {
-        if ( observer.getState() == ObserverState.UP_TO_DATE )
+        if ( ObserverState.UP_TO_DATE == observer.getState() )
         {
           observer.setState( ObserverState.POSSIBLY_STALE );
         }
