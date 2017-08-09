@@ -5,7 +5,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public final class Transaction
+final class Transaction
   extends Node
 {
   /**
