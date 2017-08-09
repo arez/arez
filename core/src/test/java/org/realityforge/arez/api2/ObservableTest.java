@@ -53,35 +53,6 @@ public class ObservableTest
   }
 
   @Test
-  public void addObserver_badState()
-    throws Exception
-  {
-    final ArezContext context = new ArezContext();
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
-
-    assertEquals( observable.getObservers().size(), 0 );
-    assertEquals( observable.hasObservers(), false );
-
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
-
-    // Handle addition of observer in incorrect state
-    observer.setState( ObserverState.STALE );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
-
-    assertEquals( exception.getMessage(),
-                  "Attempting to add observer named '" +
-                  observer.getName() +
-                  "' to observable named '" +
-                  observable.getName() +
-                  "' when observer is in state 'STALE' rather than the expected 'NOT_TRACKING'." );
-
-    assertEquals( observable.getObservers().size(), 0 );
-    assertEquals( observable.hasObservers(), false );
-  }
-
-  @Test
   public void addObserver_duplicate()
     throws Exception
   {
