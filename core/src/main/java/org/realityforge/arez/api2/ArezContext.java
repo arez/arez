@@ -61,6 +61,26 @@ public final class ArezContext
     }
   }
 
+  /**
+   * Execute the supplied action in a transaction.
+   * The transaction is tracking if tracker is supplied and is named with specified name.
+   */
+  public void transaction( @Nullable final String name,
+                           @Nullable final Observer tracker,
+                           @Nonnull final Action action )
+    throws Exception
+  {
+    final Transaction transaction = beginTransaction( name, tracker );
+    try
+    {
+      action.call();
+    }
+    finally
+    {
+      commitTransaction( transaction );
+    }
+  }
+
   public boolean isTransactionActive()
   {
     return null != _transaction;
