@@ -26,6 +26,8 @@ define 'arez' do
     compile.with PROVIDED_DEPS,
                  COMPILE_DEPS
 
+    test.options[:properties] = {'arez.dynamic_provider' => 'true'}
+
     package(:jar)
     package(:sources)
     package(:javadoc)
