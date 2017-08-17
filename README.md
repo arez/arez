@@ -28,12 +28,12 @@ via which Arez implements the memoization optimization technique.
 
 `Observers` are typically notified at the completion of the top level transaction but may be notified
 immediately on change. `ComputedValue` values are notified immediately but will not recalculate unless
-accessed again or if the top-level transaction completes and they are not passivated.   
+accessed again or if the top-level transaction completes and they are not passivated.
 
 There are a few separate types of observables in the system.
 
 * `Observerable` - abstract class from which all observables descend.
-* `AtomicObservable` - represents an "atomic" value where all changes involve replacing the value. 
+* `AtomicObservable` - represents an "atomic" value where all changes involve replacing the value.
 * `SetObservable` - represents an unordered set of "atomic" values.
 * `ListObservable` - represents an ordered set of "atomic" values.
 * `MapObservable` - a key-value collection where the key is a string and the value is an "atomic" value.
@@ -49,7 +49,7 @@ The primitives described above can be used to build up more complex reactive sys
 will be building is based loosely on the concepts of [Mobx](https://mobx.js.org/). Within the system there
 will be;
 
-* _actions_: the methods responsible for changing the observable state. 
+* _actions_: the methods responsible for changing the observable state.
 * _reactions_: the methods executed if any observable state accessed within the method changes.
 * _computations_: the methods that produce an observable value that will be executed if any observable
   state accessed within the method changes and any observer is observing resultant observable value.
