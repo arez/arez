@@ -1,5 +1,10 @@
 package org.realityforge.arez.api2;
 
+import org.jetbrains.annotations.TestOnly;
+
+/**
+ * Location of all compile time configuration settings for framework.
+ */
 final class ArezConfig
 {
   private static final Provider c_provider = createProvider();
@@ -38,6 +43,12 @@ final class ArezConfig
            new StaticProvider( verboseErrorMessages, checkInvariants, enableNames );
   }
 
+  /**
+   * Abstraction used to provide configuration settings for Arez system.
+   * This abstraction is used to allow converting configuration to compile time
+   * constants during GWT and/or closure compiler phases and thus allow elimination of
+   * code during production variants of the runtime.
+   */
   private interface Provider
   {
     boolean verboseErrorMessages();
@@ -47,6 +58,11 @@ final class ArezConfig
     boolean enableNames();
   }
 
+  /**
+   * A provider implementation that allows changing of values at runtime.
+   * Only really used during testing.
+   */
+  @TestOnly
   static final class DynamicProvider
     implements Provider
   {
@@ -97,6 +113,11 @@ final class ArezConfig
     }
   }
 
+  /**
+   * The normal provider implementation for statically defining properties.
+   * Properties do not change at runtime and can be used by GWT and closure compiler
+   * to set values at compile time and eliminate dead/unused code.
+   */
   private static final class StaticProvider
     implements Provider
   {
