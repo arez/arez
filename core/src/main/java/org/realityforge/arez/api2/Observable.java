@@ -47,6 +47,11 @@ public abstract class Observable
   @Nullable
   private final Observer _observer;
 
+  Observable( @Nonnull final ArezContext context, @Nullable final String name )
+  {
+    this( context, name, null );
+  }
+
   Observable( @Nonnull final ArezContext context, @Nullable final String name, @Nullable final Observer observer )
   {
     super( context, name );
