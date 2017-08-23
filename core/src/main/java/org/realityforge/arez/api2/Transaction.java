@@ -42,6 +42,21 @@ final class Transaction
     _tracker = tracker;
   }
 
+  final void begin()
+  {
+    startTracking();
+  }
+
+  private void startTracking()
+  {
+    if ( null != _tracker )
+    {
+      // Mark the tracker/observer as uptodate at the start of the transaction.
+      // If it is outdated during the transaction then completeTracking() will fix the state.
+      _tracker.setState( ObserverState.UP_TO_DATE );
+    }
+  }
+
   @Nullable
   final Transaction getPrevious()
   {
