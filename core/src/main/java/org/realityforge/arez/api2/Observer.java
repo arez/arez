@@ -53,11 +53,12 @@ public class Observer
     return _dependencies;
   }
 
-  final void invariantDependenciesUnique()
+  final void invariantDependenciesUnique( @Nonnull final String context )
   {
     Guards.invariant( () -> getDependencies().size() == new HashSet<>( getDependencies() ).size(),
                       () -> String.format(
-                        "The set of dependencies in derivation named '%s' is not unique. Current list: '%s'.",
+                        "%s: The set of dependencies in observer named '%s' is not unique. Current list: '%s'.",
+                        context,
                         getName(),
                         getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ).toString() ) );
   }

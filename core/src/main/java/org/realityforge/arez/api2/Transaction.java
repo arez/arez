@@ -137,7 +137,7 @@ final class Transaction
     {
       return;
     }
-    _tracker.invariantDependenciesUnique();
+    _tracker.invariantDependenciesUnique( "Pre completeTracking" );
     Guards.invariant( () -> _tracker.getState() != ObserverState.NOT_TRACKING,
                       () -> "completeTracking expects derivation.dependenciesState != NOT_TRACKING" );
 
