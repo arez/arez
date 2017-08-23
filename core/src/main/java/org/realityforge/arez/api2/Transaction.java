@@ -23,6 +23,7 @@ final class Transaction
   /**
    * The tracker if transaction is trackable.
    */
+  @Nullable
   private final Observer _tracker;
   /**
    * the list of observables that have been observed during tracking.
