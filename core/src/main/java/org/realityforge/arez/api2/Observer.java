@@ -2,6 +2,7 @@ package org.realityforge.arez.api2;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -19,7 +20,7 @@ public class Observer
    * This corresponds to the list of observables that were observed whilst
    * tracking the last derivation. This list should contain no duplicates.
    */
-  private final ArrayList<Observable> _dependencies = new ArrayList<>();
+  private ArrayList<Observable> _dependencies = new ArrayList<>();
 
   Observer( @Nonnull final ArezContext context, @Nullable final String name )
   {
@@ -51,6 +52,17 @@ public class Observer
   final ArrayList<Observable> getDependencies()
   {
     return _dependencies;
+  }
+
+  /**
+   * Replace the current set of dependencies with supplied dependencies.
+   * This should be the only mechanism via which the dependencies are updated.
+   */
+  final void replaceDependencies( @Nonnull final ArrayList<Observable> dependencies )
+  {
+    invariantDependenciesUnique( "Pre replaceDependencies" );
+    _dependencies = Objects.requireNonNull( dependencies );
+    invariantDependenciesUnique( "Post replaceDependencies" );
   }
 
   final void invariantDependenciesUnique( @Nonnull final String context )

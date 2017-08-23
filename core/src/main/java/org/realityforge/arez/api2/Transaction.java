@@ -224,6 +224,8 @@ final class Transaction
     {
       _tracker.setState( newDerivationState );
     }
+
+    _tracker.replaceDependencies( _observables );
   }
 
   final boolean isRootTransaction()
