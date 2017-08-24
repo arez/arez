@@ -59,27 +59,6 @@ final class Transaction
     }
   }
 
-  @TestOnly
-  @Nullable
-  final Observer getTracker()
-  {
-    return _tracker;
-  }
-
-  @TestOnly
-  @Nullable
-  final ArrayList<Observable> getPendingPassivations()
-  {
-    return _pendingPassivations;
-  }
-
-  @TestOnly
-  @Nullable
-  final ArrayList<Observable> getObservables()
-  {
-    return _observables;
-  }
-
   @Nullable
   final Transaction getPrevious()
   {
@@ -284,5 +263,26 @@ final class Transaction
       assert null != _previous;
       return _previous.getRootTransaction();
     }
+  }
+
+  @TestOnly
+  @Nullable
+  final Observer getTracker()
+  {
+    return _tracker;
+  }
+
+  @TestOnly
+  @Nullable
+  final ArrayList<Observable> getPendingPassivations()
+  {
+    return _pendingPassivations;
+  }
+
+  @TestOnly
+  @Nullable
+  final ArrayList<Observable> getObservables()
+  {
+    return _observables;
   }
 }
