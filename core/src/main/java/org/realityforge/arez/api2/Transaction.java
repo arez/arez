@@ -132,21 +132,24 @@ final class Transaction
 
   void observe( @Nonnull final Observable observable )
   {
+    if ( null != _tracker )
+    {
     /*
      * This optimization attempts to stop the same observable being added multiple
      * times to the observables list by caching the transaction id on the observable.
      * This is purely an optimization but it is not perfect and may be defeated if
      * the same observable is observed in a nested tracking transaction.
      */
-    final int id = getId();
-    if ( observable.getLastTrackerTransactionId() != id )
-    {
-      observable.setLastTrackerTransactionId( id );
-      if ( null == _observables )
+      final int id = getId();
+      if ( observable.getLastTrackerTransactionId() != id )
       {
-        _observables = new ArrayList<>();
+        observable.setLastTrackerTransactionId( id );
+        if ( null == _observables )
+        {
+          _observables = new ArrayList<>();
+        }
+        _observables.add( observable );
       }
-      _observables.add( observable );
     }
   }
 
