@@ -46,4 +46,115 @@ public class TransactionTest
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( transaction.getObservables(), null );
   }
+
+  @Test
+  public void beginTracking()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    assertEquals( tracker.getState(), ObserverState.NOT_TRACKING );
+
+    transaction.beginTracking();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+  }
+
+  @Test
+  public void observe()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+    transaction.beginTracking();
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    assertEquals( tracker.getDependencies().size(), 0 );
+    assertEquals( observable.getObservers().size(), 0 );
+    assertNull( transaction.getObservables() );
+    assertNotEquals( transaction.getId(), observable.getLastTrackerTransactionId() );
+
+    transaction.observe( observable );
+
+    assertEquals( tracker.getDependencies().size(), 0 );
+    assertEquals( observable.getObservers().size(), 0 );
+    assertEquals( transaction.getId(), observable.getLastTrackerTransactionId() );
+    assertNotNull( transaction.getObservables() );
+
+    assertTrue( transaction.getObservables().contains( observable ) );
+    assertEquals( transaction.getObservables().size(), 1 );
+  }
+
+  @Test
+  public void multipleObserves()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+    transaction.beginTracking();
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    assertEquals( tracker.getDependencies().size(), 0 );
+    assertEquals( observable.getObservers().size(), 0 );
+    assertNull( transaction.getObservables() );
+    assertNotEquals( transaction.getId(), observable.getLastTrackerTransactionId() );
+
+    transaction.observe( observable );
+    transaction.observe( observable );
+    transaction.observe( observable );
+    transaction.observe( observable );
+
+    assertEquals( tracker.getDependencies().size(), 0 );
+    assertEquals( observable.getObservers().size(), 0 );
+    assertEquals( transaction.getId(), observable.getLastTrackerTransactionId() );
+    assertNotNull( transaction.getObservables() );
+
+    assertTrue( transaction.getObservables().contains( observable ) );
+    assertEquals( transaction.getObservables().size(), 1 );
+  }
+
+  @Test
+  public void multipleObservesNestedTransactionInBetween()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+    transaction.beginTracking();
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    assertEquals( tracker.getDependencies().size(), 0 );
+    assertEquals( observable.getObservers().size(), 0 );
+    assertNull( transaction.getObservables() );
+    assertNotEquals( transaction.getId(), observable.getLastTrackerTransactionId() );
+
+    transaction.observe( observable );
+    transaction.observe( observable );
+
+    assertEquals( tracker.getDependencies().size(), 0 );
+    assertEquals( observable.getObservers().size(), 0 );
+    assertEquals( transaction.getId(), observable.getLastTrackerTransactionId() );
+    assertNotNull( transaction.getObservables() );
+
+    // Simulate a nested transaction that observes this observable by updating tracking id
+    observable.setLastTrackerTransactionId( context.nextNodeId() );
+
+    transaction.observe( observable );
+    transaction.observe( observable );
+
+    assertEquals( tracker.getDependencies().size(), 0 );
+    assertEquals( observable.getObservers().size(), 0 );
+    assertEquals( transaction.getId(), observable.getLastTrackerTransactionId() );
+    assertNotNull( transaction.getObservables() );
+
+    assertTrue( transaction.getObservables().contains( observable ) );
+
+    // Two instances of same observable is expected as the LastTrackerTransactionId
+    // failed to match causing duplicate to be added. This would normally be cleaned
+    // up at later time in process during completeTracking()
+    assertEquals( transaction.getObservables().size(), 2 );
+  }
 }
