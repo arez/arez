@@ -161,6 +161,8 @@ final class Transaction
   {
     if ( null == _tracker )
     {
+      Guards.invariant( () -> null == _observables,
+                        () -> "No associated tracker so _observables should be null." );
       return;
     }
     _tracker.invariantDependenciesUnique( "Pre completeTracking" );
