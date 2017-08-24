@@ -127,20 +127,24 @@ public class TransactionTest
       // The dependencies reference is only updated on completion
       assertTrue( dependencies == tracker.getDependencies() );
 
-      assertEquals( observable.getObservers().size(), 0,
-                    "Ensure observers are added on completion and not immediately" );
-      assertNotEquals( context.getTransaction().getId(),
-                       observable.getLastTrackerTransactionId(),
-                       "LastTrackerTransactionId should be updated immediately" );
+      assertEquals( tracker.getDependencies().size(), 0 );
+      assertEquals( observable.getObservers().size(), 0 );
+      assertNotEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
 
       observable.reportObserved();
 
+      assertEquals( tracker.getDependencies().size(),
+                    0,
+                    "Ensure observers are added on completion and not immediately" );
       assertEquals( observable.getObservers().size(), 0 );
-      assertEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
+      assertEquals( context.getTransaction().getId(),
+                    observable.getLastTrackerTransactionId(),
+                    "LastTrackerTransactionId should be updated immediately" );
 
       // Another observation should not change state as already observed
       observable.reportObserved();
 
+      assertEquals( tracker.getDependencies().size(), 0 );
       assertEquals( observable.getObservers().size(), 0 );
       assertEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
 
