@@ -46,10 +46,10 @@ final class Transaction
 
   final void begin()
   {
-    startTracking();
+    beginTracking();
   }
 
-  private void startTracking()
+  final void beginTracking()
   {
     if ( null != _tracker )
     {
