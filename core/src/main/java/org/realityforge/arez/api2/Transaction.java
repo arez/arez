@@ -173,6 +173,8 @@ final class Transaction
 
     if ( null == _observables )
     {
+      _tracker.setState( newDerivationState );
+      _tracker.replaceDependencies( new ArrayList<>() );
       return;
     }
 
