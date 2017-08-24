@@ -10,12 +10,12 @@ public abstract class Observable
   extends Node
 {
   /**
-   * The value that _lastTrackerTransactionId is set to to optimize the detection of duplicate,
+   * The value that _workState is set to to optimize the detection of duplicate,
    * existing and new dependencies during tracking completion.
    */
   private static final int IN_CURRENT_TRACKING = -1;
   /**
-   * The value that _lastTrackerTransactionId is when the observer has been added as new dependency
+   * The value that _workState is when the observer has been added as new dependency
    * to derivation.
    */
   private static final int NOT_IN_CURRENT_TRACKING = 0;
@@ -27,14 +27,19 @@ public abstract class Observable
    */
   private boolean _pendingPassivation;
   /**
-   * The id of the tracking that last observed the observable.
-   * This enables an optimization that skips adding this observer
-   * to the same tracking multiple times.
+   * The workState variable contains some data used during processing of observable
+   * at various stages.
    *
-   * The value may also be set to {@link #IN_CURRENT_TRACKING} during the completion
-   * of tracking operation.
+   * Within the scope of a tracking transaction, it is set to the id of the tracking
+   * observer if the observable was observed. This enables an optimization that skips
+   * adding this observer to the same observer multiple times. This optimization sometimes
+   * ignored as nested transactions that observe the same observer will reset this value.
+   *
+   * When completing a tracking transaction the value may be set to {@link #IN_CURRENT_TRACKING}
+   * or {@link #NOT_IN_CURRENT_TRACKING} but should be set to {@link #NOT_IN_CURRENT_TRACKING} after
+   * {@link Transaction#completeTracking()} method is completed..
    */
-  private int _lastTrackerTransactionId;
+  private int _workState;
   /**
    * The state of the observer that is least stale.
    * This cached value is used to avoid redundant propagations.
@@ -70,27 +75,27 @@ public abstract class Observable
 
   final int getLastTrackerTransactionId()
   {
-    return _lastTrackerTransactionId;
+    return _workState;
   }
 
   final void setLastTrackerTransactionId( final int lastTrackerTransactionId )
   {
-    _lastTrackerTransactionId = lastTrackerTransactionId;
+    _workState = lastTrackerTransactionId;
   }
 
   final boolean isInCurrentTracking()
   {
-    return IN_CURRENT_TRACKING == _lastTrackerTransactionId;
+    return IN_CURRENT_TRACKING == _workState;
   }
 
   final void putInCurrentTracking()
   {
-    _lastTrackerTransactionId = IN_CURRENT_TRACKING;
+    _workState = IN_CURRENT_TRACKING;
   }
 
   final void removeFromCurrentTracking()
   {
-    _lastTrackerTransactionId = NOT_IN_CURRENT_TRACKING;
+    _workState = NOT_IN_CURRENT_TRACKING;
   }
 
   @Nullable
