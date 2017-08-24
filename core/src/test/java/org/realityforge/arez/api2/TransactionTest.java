@@ -28,6 +28,21 @@ public class TransactionTest
   }
 
   @Test
+  public void rootTransaction()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction1 = new Transaction( context, null, ValueUtil.randomString(), null );
+    final Transaction transaction2 = new Transaction( context, transaction1, ValueUtil.randomString(), null );
+
+    assertEquals( transaction1.isRootTransaction(), true );
+    assertEquals( transaction1.getRootTransaction(), transaction1 );
+
+    assertEquals( transaction2.isRootTransaction(), false );
+    assertEquals( transaction2.getRootTransaction(), transaction1 );
+  }
+
+  @Test
   public void trackingCycleWithNoTracker()
   {
     final ArezContext context = new ArezContext();
