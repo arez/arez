@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.jetbrains.annotations.TestOnly;
 
 final class Transaction
   extends Node
@@ -55,6 +56,13 @@ final class Transaction
       // If it is outdated during the transaction then completeTracking() will fix the state.
       _tracker.setState( ObserverState.UP_TO_DATE );
     }
+  }
+
+  @TestOnly
+  @Nullable
+  final Observer getTracker()
+  {
+    return _tracker;
   }
 
   @Nullable
