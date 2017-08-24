@@ -164,4 +164,115 @@ public class TransactionTest
     // Ensure that the observable has observers updated
     assertEquals( observable.getObservers().size(), 1 );
   }
+
+  @Test
+  public void completeTracking_nestedTransactionsWithSameObservableAccessed()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+    assertThrows( context::getTransaction );
+
+    final Observer tracker1 = new Observer( context, ValueUtil.randomString() );
+    final Observer tracker2 = new Observer( context, ValueUtil.randomString() );
+    final Observer tracker3 = new Observer( context, ValueUtil.randomString() );
+
+    final ArrayList<Observable> dependencies1 = tracker1.getDependencies();
+    final ArrayList<Observable> dependencies2 = tracker2.getDependencies();
+    final ArrayList<Observable> dependencies3 = tracker3.getDependencies();
+
+    assertEquals( dependencies1.size(), 0 );
+    assertEquals( dependencies2.size(), 0 );
+    assertEquals( dependencies3.size(), 0 );
+
+    final Observable observable = new TestObservable( context, ValueUtil.randomString() );
+    assertEquals( observable.getObservers().size(), 0 );
+
+    assertEquals( tracker1.getState(), ObserverState.NOT_TRACKING );
+
+    context.transaction( ValueUtil.randomString(), tracker1, () -> {
+      assertEquals( tracker1.getState(), ObserverState.UP_TO_DATE );
+      // The dependencies reference is only updated on completion
+      assertTrue( dependencies1 == tracker1.getDependencies() );
+
+      observable.reportObserved();
+
+      assertEquals( tracker1.getDependencies().size(), 0 );
+      assertEquals( tracker2.getDependencies().size(), 0 );
+      assertEquals( tracker3.getDependencies().size(), 0 );
+      assertEquals( observable.getObservers().size(), 0 );
+      assertEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
+
+      context.transaction( ValueUtil.randomString(), tracker2, () -> {
+
+        assertEquals( tracker1.getDependencies().size(), 0 );
+        assertEquals( tracker2.getDependencies().size(), 0 );
+        assertEquals( tracker3.getDependencies().size(), 0 );
+        assertEquals( observable.getObservers().size(), 0 );
+        assertNotEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
+
+        observable.reportObserved();
+
+        assertEquals( tracker1.getDependencies().size(), 0 );
+        assertEquals( tracker2.getDependencies().size(), 0 );
+        assertEquals( tracker3.getDependencies().size(), 0 );
+        assertEquals( observable.getObservers().size(), 0 );
+        assertEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
+
+        context.transaction( ValueUtil.randomString(), tracker3, () -> {
+          assertEquals( tracker1.getDependencies().size(), 0 );
+          assertEquals( tracker2.getDependencies().size(), 0 );
+          assertEquals( tracker3.getDependencies().size(), 0 );
+          assertEquals( observable.getObservers().size(), 0 );
+          assertNotEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
+
+          observable.reportObserved();
+
+          assertEquals( tracker1.getDependencies().size(), 0 );
+          assertEquals( tracker2.getDependencies().size(), 0 );
+          assertEquals( tracker3.getDependencies().size(), 0 );
+          assertEquals( observable.getObservers().size(), 0 );
+          assertEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
+        } );
+
+        assertEquals( tracker1.getDependencies().size(), 0 );
+        assertEquals( tracker2.getDependencies().size(), 0 );
+        assertEquals( tracker3.getDependencies().size(), 1 );
+        assertEquals( tracker3.getDependencies().contains( observable ), true );
+        assertEquals( observable.getObservers().size(), 1 );
+        assertEquals( observable.getObservers().contains( tracker3 ), true );
+        assertNotEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
+      } );
+
+      assertEquals( tracker1.getDependencies().size(), 0 );
+      assertEquals( tracker2.getDependencies().size(), 1 );
+      assertEquals( tracker2.getDependencies().contains( observable ), true );
+      assertEquals( tracker3.getDependencies().size(), 1 );
+      assertEquals( tracker3.getDependencies().contains( observable ), true );
+      assertEquals( observable.getObservers().size(), 2 );
+      assertEquals( observable.getObservers().contains( tracker2 ), true );
+      assertEquals( observable.getObservers().contains( tracker3 ), true );
+      assertNotEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
+
+      // Another observation should not change state as already observed
+      observable.reportObserved();
+
+      assertEquals( observable.getObservers().size(), 2 );
+      assertEquals( tracker1.getDependencies().size(), 0 );
+    } );
+
+    // All the trackers should now have dependency tracked
+
+    assertEquals( tracker1.getDependencies().size(), 1 );
+    assertEquals( tracker1.getDependencies().contains( observable ), true );
+    assertEquals( tracker2.getDependencies().size(), 1 );
+    assertEquals( tracker2.getDependencies().contains( observable ), true );
+    assertEquals( tracker3.getDependencies().size(), 1 );
+    assertEquals( tracker3.getDependencies().contains( observable ), true );
+    assertEquals( observable.getObservers().size(), 3 );
+    assertEquals( observable.getObservers().contains( tracker1 ), true );
+    assertEquals( observable.getObservers().contains( tracker2 ), true );
+    assertEquals( observable.getObservers().contains( tracker3 ), true );
+  }
 }
