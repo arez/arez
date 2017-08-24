@@ -157,7 +157,7 @@ final class Transaction
    * Completes the tracking by updating the dependencies on the derivation to match the
    * observables that were observed during tracking.
    */
-  private void completeTracking()
+  final void completeTracking()
   {
     if ( null == _tracker )
     {
