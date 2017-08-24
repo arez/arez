@@ -32,7 +32,7 @@ public class NodeTest
   }
 
   @Test
-  public void basicOperation_namesDisabled()
+  public void noNameSuppliedWhenNamesDisabled()
     throws Exception
   {
     final ArezConfig.DynamicProvider provider = (ArezConfig.DynamicProvider) ArezConfig.getProvider();
@@ -43,5 +43,16 @@ public class NodeTest
     assertThrows( node::getName );
     assertEquals( node.getContext(), context );
     assertTrue( node.toString().startsWith( node.getClass().getName() + "@" ), "node.toString() == " + node );
+  }
+
+  @Test
+  public void nameSuppliedWhenNamesDisabled()
+    throws Exception
+  {
+    final ArezConfig.DynamicProvider provider = (ArezConfig.DynamicProvider) ArezConfig.getProvider();
+    provider.setEnableNames( false );
+
+    final ArezContext context = new ArezContext();
+    assertThrows( () -> new TestNode( context, ValueUtil.randomString() ) );
   }
 }
