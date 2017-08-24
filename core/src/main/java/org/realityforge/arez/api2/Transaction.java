@@ -66,6 +66,20 @@ final class Transaction
     return _tracker;
   }
 
+  @TestOnly
+  @Nullable
+  final ArrayList<Observable> getPendingPassivations()
+  {
+    return _pendingPassivations;
+  }
+
+  @TestOnly
+  @Nullable
+  final ArrayList<Observable> getObservables()
+  {
+    return _observables;
+  }
+
   @Nullable
   final Transaction getPrevious()
   {
