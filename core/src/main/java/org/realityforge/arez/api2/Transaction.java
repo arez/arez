@@ -138,11 +138,7 @@ final class Transaction
       if ( observable.getLastTrackerTransactionId() != id )
       {
         observable.setLastTrackerTransactionId( id );
-        if ( null == _observables )
-        {
-          _observables = new ArrayList<>();
-        }
-        _observables.add( observable );
+        safeGetObservables().add( observable );
       }
     }
   }
@@ -263,6 +259,19 @@ final class Transaction
       assert null != _previous;
       return _previous.getRootTransaction();
     }
+  }
+
+  /**
+   * Return the observables, initializing the array if necessary.
+   */
+  @Nonnull
+  final ArrayList<Observable> safeGetObservables()
+  {
+    if ( null == _observables )
+    {
+      _observables = new ArrayList<>();
+    }
+    return _observables;
   }
 
   @TestOnly
