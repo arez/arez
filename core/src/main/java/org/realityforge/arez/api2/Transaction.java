@@ -31,6 +31,7 @@ final class Transaction
    * This list can contain duplicates and the duplicates will be skipped when converting the list
    * of observables to dependencies in the derivation.
    */
+  @Nullable
   private ArrayList<Observable> _observables;
 
   Transaction( @Nonnull final ArezContext context,
