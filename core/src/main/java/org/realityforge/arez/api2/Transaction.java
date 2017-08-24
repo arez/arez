@@ -229,7 +229,7 @@ final class Transaction
     // required. We start from end of list and work back to avoid array copies.
     // We should replace _observables with a structure that works under both JS and Java
     // that avoids this by just allowing us to change current size
-    for( int i = _observables.size() - 1; i > currentIndex; i--)
+    for ( int i = _observables.size() - 1; i >= currentIndex; i-- )
     {
       _observables.remove( i );
     }
