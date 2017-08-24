@@ -316,4 +316,8 @@ public class TransactionIntegrationTest
 
     assertFalse( context.isTransactionActive() );
   }
+
+  // TODO: Add Test for observing multiple observables
+  // TODO: Add Test for observing multiple observables in nested transactions
+  // TODO: Add test that changes within transaction leave observer in partially stale state?
 }
