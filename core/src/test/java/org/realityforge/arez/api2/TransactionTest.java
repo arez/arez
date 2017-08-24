@@ -172,4 +172,42 @@ public class TransactionTest
     // up at later time in process during completeTracking()
     assertEquals( transaction.getObservables().size(), 2 );
   }
+
+  @Test
+  public void completeTracking_noObservables()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.STALE );
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    assertEquals( transaction.getObservables(), null );
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getDependencies().size(), 0 );
+  }
+
+  @Test
+  public void completeTracking_singleObservable()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.STALE );
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    transaction.safeGetObservables().add( observable );
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getDependencies().size(), 1 );
+    assertEquals( tracker.getDependencies().contains( observable ), true );
+    assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+  }
 }

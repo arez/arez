@@ -18,7 +18,7 @@ public abstract class Observable
    * The value that _workState is when the observer has been added as new dependency
    * to derivation.
    */
-  private static final int NOT_IN_CURRENT_TRACKING = 0;
+  static final int NOT_IN_CURRENT_TRACKING = 0;
 
   private final ArrayList<Observer> _observers = new ArrayList<>();
   /**
@@ -301,5 +301,11 @@ public abstract class Observable
   final ObserverState getLeastStaleObserverState()
   {
     return _leastStaleObserverState;
+  }
+
+  @TestOnly
+  final int getWorkState()
+  {
+    return _workState;
   }
 }
