@@ -112,7 +112,6 @@ public class TransactionTest
     assertFalse( context.isTransactionActive() );
     assertThrows( context::getTransaction );
 
-    final String name = ValueUtil.randomString();
     final Observer tracker = new Observer( context, ValueUtil.randomString() );
 
     final ArrayList<Observable> dependencies = tracker.getDependencies();
@@ -123,7 +122,7 @@ public class TransactionTest
 
     assertEquals( tracker.getState(), ObserverState.NOT_TRACKING );
 
-    context.transaction( name, tracker, () -> {
+    context.transaction( ValueUtil.randomString(), tracker, () -> {
       assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
       // The dependencies reference is only updated on completion
       assertTrue( dependencies == tracker.getDependencies() );
