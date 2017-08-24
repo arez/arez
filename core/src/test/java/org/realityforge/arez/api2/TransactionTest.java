@@ -5,6 +5,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+@SuppressWarnings( "Duplicates" )
 public class TransactionTest
   extends AbstractArezTest
 {
