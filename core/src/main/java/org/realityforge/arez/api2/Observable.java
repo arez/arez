@@ -159,6 +159,7 @@ public abstract class Observable
 
   final void addObserver( @Nonnull final Observer observer )
   {
+    invariantObserversLinked();
     Guards.invariant( () -> !getObservers().contains( observer ),
                       () -> String.format(
                         "Attempting to add observer named '%s' to observable named '%s' when observer is already observing observable.",
@@ -181,6 +182,7 @@ public abstract class Observable
 
   final void removeObserver( @Nonnull final Observer observer )
   {
+    invariantObserversLinked();
     final ArrayList<Observer> observers = getObservers();
     if ( !observers.remove( observer ) )
     {
@@ -193,6 +195,7 @@ public abstract class Observable
     {
       queueForPassivation();
     }
+    invariantObserversLinked();
   }
 
   private void queueForPassivation()
@@ -263,6 +266,16 @@ public abstract class Observable
       }
     }
     invariantLeastStaleObserverState();
+  }
+
+  final void invariantObserversLinked()
+  {
+    getObservers().forEach( observer ->
+                              Guards.invariant( () -> observer.getDependencies().contains( this ),
+                                                () -> String.format(
+                                                  "Observable named '%s' has observer named '%s' which does not contain observerable as dependency.",
+                                                  getName(),
+                                                  observer.getName() ) ) );
   }
 
   final void invariantLeastStaleObserverState()

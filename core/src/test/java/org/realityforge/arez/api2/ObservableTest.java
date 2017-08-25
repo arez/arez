@@ -93,6 +93,7 @@ public class ObservableTest
 
     // Handle addition of observer in correct state
     observable.addObserver( observer );
+    observer.getDependencies().add( observable );
 
     assertEquals( observable.getObservers().size(), 1 );
     assertEquals( observable.hasObservers(), true );
