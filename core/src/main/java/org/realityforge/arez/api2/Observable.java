@@ -181,12 +181,6 @@ public abstract class Observable
 
   final void removeObserver( @Nonnull final Observer observer )
   {
-    Guards.invariant( () -> getContext().isTransactionActive(),
-                      () -> String.format(
-                        "Attempted to remove observer named '%s' from observable named '%s' when not in transaction.",
-                        observer.getName(),
-                        getName() ) );
-
     final ArrayList<Observer> observers = getObservers();
     if ( !observers.remove( observer ) )
     {
