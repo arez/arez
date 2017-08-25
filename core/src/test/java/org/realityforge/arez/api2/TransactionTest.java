@@ -1,5 +1,6 @@
 package org.realityforge.arez.api2;
 
+import java.util.ArrayList;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -184,9 +185,12 @@ public class TransactionTest
 
     assertEquals( transaction.getObservables(), null );
 
+    final ArrayList<Observable> dependencies = tracker.getDependencies();
+
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
   }
 
@@ -203,9 +207,12 @@ public class TransactionTest
 
     transaction.safeGetObservables().add( observable );
 
+    final ArrayList<Observable> dependencies = tracker.getDependencies();
+
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertEquals( tracker.getDependencies().contains( observable ), true );
     assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
@@ -230,9 +237,12 @@ public class TransactionTest
     transaction.safeGetObservables().add( observable3 );
     transaction.safeGetObservables().add( observable4 );
 
+    final ArrayList<Observable> dependencies = tracker.getDependencies();
+
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 4 );
     assertEquals( tracker.getDependencies().contains( observable1 ), true );
     assertEquals( observable1.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
@@ -257,9 +267,12 @@ public class TransactionTest
     transaction.safeGetObservables().add( observable );
     transaction.safeGetObservables().add( observable );
 
+    final ArrayList<Observable> dependencies = tracker.getDependencies();
+
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertEquals( tracker.getDependencies().contains( observable ), true );
     assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
