@@ -210,4 +210,58 @@ public class TransactionTest
     assertEquals( tracker.getDependencies().contains( observable ), true );
     assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
   }
+
+  @Test
+  public void completeTracking_multipleObservable()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
+    final TestObservable observable2 = new TestObservable( context, ValueUtil.randomString() );
+    final TestObservable observable3 = new TestObservable( context, ValueUtil.randomString() );
+    final TestObservable observable4 = new TestObservable( context, ValueUtil.randomString() );
+
+    transaction.safeGetObservables().add( observable1 );
+    transaction.safeGetObservables().add( observable2 );
+    transaction.safeGetObservables().add( observable3 );
+    transaction.safeGetObservables().add( observable4 );
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getDependencies().size(), 4 );
+    assertEquals( tracker.getDependencies().contains( observable1 ), true );
+    assertEquals( observable1.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+    assertEquals( observable2.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+    assertEquals( observable3.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+    assertEquals( observable4.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+  }
+
+  @Test
+  public void completeTracking_singleObservableMultipleEntries()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    transaction.safeGetObservables().add( observable );
+    transaction.safeGetObservables().add( observable );
+    transaction.safeGetObservables().add( observable );
+    transaction.safeGetObservables().add( observable );
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getDependencies().size(), 1 );
+    assertEquals( tracker.getDependencies().contains( observable ), true );
+    assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+  }
 }
