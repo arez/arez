@@ -191,7 +191,7 @@ final class Transaction
         if ( null != observer )
         {
           final ObserverState dependenciesState = observer.getState();
-          if ( dependenciesState.ordinal() < newDerivationState.ordinal() )
+          if ( dependenciesState.ordinal() > newDerivationState.ordinal() )
           {
             newDerivationState = dependenciesState;
           }
