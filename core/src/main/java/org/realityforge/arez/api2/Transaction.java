@@ -98,7 +98,7 @@ final class Transaction
     }
   }
 
-  void queueForPassivation( @Nonnull final Observable observable )
+  final void queueForPassivation( @Nonnull final Observable observable )
   {
     Guards.invariant( observable::canPassivate,
                       () -> String.format(
