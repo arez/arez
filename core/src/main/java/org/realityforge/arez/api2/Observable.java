@@ -187,7 +187,7 @@ public abstract class Observable
     if ( !observers.remove( observer ) )
     {
       Guards.fail( () -> String.format(
-        "Attempted to remove observer named '%s' from observable named '%s' when not in batch.",
+        "Attempted to remove observer named '%s' from observable named '%s' but observer is not an observers.",
         observer.getName(),
         getName() ) );
     }
