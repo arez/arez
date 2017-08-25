@@ -129,6 +129,9 @@ public abstract class Observable
    */
   protected void passivate()
   {
+    Guards.invariant( () -> null != _observer,
+                      () -> String.format( "Invoked passivate on observable named '%s' when observer is null.",
+                                           getName() ) );
     Guards.invariant( this::isActive,
                       () -> String.format( "Invoked passivate on observable named '%s' when observable is not active.",
                                            getName() ) );
