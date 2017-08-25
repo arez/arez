@@ -441,4 +441,99 @@ public class TransactionTest
 
     observable.invariantLeastStaleObserverState();
   }
+
+  @Test
+  public void queueForPassivation_singleObserver()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    final TestObservable observable =
+      new TestObservable( context, ValueUtil.randomString(), new Observer( context, ValueUtil.randomString() ) );
+
+    assertNull( transaction.getPendingPassivations() );
+
+    transaction.queueForPassivation( observable );
+
+    assertNotNull( transaction.getPendingPassivations() );
+
+    assertEquals( transaction.getPendingPassivations().size(), 1 );
+    assertEquals( transaction.getPendingPassivations().contains( observable ), true );
+  }
+
+  @Test
+  public void queueForPassivation_nestedTransaction()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Transaction transaction1 = new Transaction( context, null, ValueUtil.randomString(), tracker );
+    final Transaction transaction2 = new Transaction( context, transaction1, ValueUtil.randomString(), tracker );
+
+    final TestObservable observable =
+      new TestObservable( context, ValueUtil.randomString(), new Observer( context, ValueUtil.randomString() ) );
+
+    assertNull( transaction1.getPendingPassivations() );
+    assertNull( transaction2.getPendingPassivations() );
+
+    transaction2.queueForPassivation( observable );
+
+    assertNotNull( transaction1.getPendingPassivations() );
+    assertNotNull( transaction2.getPendingPassivations() );
+
+    // Pending passivations list in both transactions should be the same instance
+    assertTrue( transaction1.getPendingPassivations() == transaction2.getPendingPassivations() );
+
+    assertEquals( transaction1.getPendingPassivations().size(), 1 );
+    assertEquals( transaction1.getPendingPassivations().contains( observable ), true );
+    assertEquals( transaction2.getPendingPassivations().size(), 1 );
+    assertEquals( transaction2.getPendingPassivations().contains( observable ), true );
+  }
+
+  @Test
+  public void queueForPassivation_observerAlreadyPassivated()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    final TestObservable observable =
+      new TestObservable( context, ValueUtil.randomString(), new Observer( context, ValueUtil.randomString() ) );
+
+    transaction.queueForPassivation( observable );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.queueForPassivation( observable ) );
+
+    assertEquals( exception.getMessage(),
+                  "Invoked queueForPassivation on transaction named '" +
+                  transaction.getName() + "' for observable named '" + observable.getName() +
+                  "' when pending passivation already exists for observable." );
+  }
+
+  @Test
+  public void queueForPassivation_observerNotPassivatable()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.queueForPassivation( observable ) );
+
+    assertEquals( exception.getMessage(),
+                  "Invoked queueForPassivation on transaction named '" +
+                  transaction.getName() + "' for observable named '" + observable.getName() +
+                  "' when observable can not be passivated." );
+  }
 }
