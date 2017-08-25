@@ -64,6 +64,7 @@ public class Observer
     invariantDependenciesUnique( "Pre replaceDependencies" );
     _dependencies = Objects.requireNonNull( dependencies );
     invariantDependenciesUnique( "Post replaceDependencies" );
+    invariantDependenciesBackLink( "Post replaceDependencies" );
   }
 
   final void invariantDependenciesUnique( @Nonnull final String context )
@@ -74,5 +75,16 @@ public class Observer
                         context,
                         getName(),
                         getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ).toString() ) );
+  }
+
+  final void invariantDependenciesBackLink( @Nonnull final String context )
+  {
+    getDependencies().forEach( observable ->
+                                 Guards.invariant( () -> observable.getObservers().contains( this ),
+                                                   () -> String.format(
+                                                     "%s: Observer named '%s' has dependency observer named '%s' which does not contain observer in list of observers.",
+                                                     context,
+                                                     getName(),
+                                                     observable.getName() ) ) );
   }
 }

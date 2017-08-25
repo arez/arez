@@ -53,6 +53,7 @@ final class Transaction
   {
     if ( null != _tracker )
     {
+      _tracker.invariantDependenciesBackLink( "Pre beginTracking" );
       // Mark the tracker/observer as uptodate at the start of the transaction.
       // If it is outdated during the transaction then completeTracking() will fix the state.
       _tracker.setState( ObserverState.UP_TO_DATE );
