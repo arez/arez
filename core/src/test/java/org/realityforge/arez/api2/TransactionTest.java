@@ -326,6 +326,9 @@ public class TransactionTest
     tracker.getDependencies().add( observable1 );
     tracker.getDependencies().add( observable2 );
 
+    observable1.getObservers().add( tracker );
+    observable2.getObservers().add( tracker );
+
     transaction.safeGetObservables().add( observable1 );
     transaction.safeGetObservables().add( observable2 );
 

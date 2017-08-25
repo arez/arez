@@ -251,6 +251,20 @@ final class Transaction
     {
       _tracker.replaceDependencies( _observables );
     }
+
+    /*
+     * Check invariants. In both java and non-java code this will be compiled out.
+     */
+    if ( ArezConfig.checkInvariants() )
+    {
+      for ( final Observable observable : _observables )
+      {
+        observable.invariantLeastStaleObserverState();
+        observable.invariantObserversLinked();
+      }
+      _tracker.invariantDependenciesUnique( "Post completeTracking" );
+      _tracker.invariantDependenciesBackLink( "Post completeTracking" );
+    }
   }
 
   final boolean isRootTransaction()
