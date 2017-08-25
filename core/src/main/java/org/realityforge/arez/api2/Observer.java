@@ -20,6 +20,7 @@ public class Observer
    * This corresponds to the list of observables that were observed whilst
    * tracking the last derivation. This list should contain no duplicates.
    */
+  @Nonnull
   private ArrayList<Observable> _dependencies = new ArrayList<>();
 
   Observer( @Nonnull final ArezContext context, @Nullable final String name )
