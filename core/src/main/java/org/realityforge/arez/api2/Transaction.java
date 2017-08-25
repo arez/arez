@@ -210,6 +210,10 @@ final class Transaction
         observable.removeObserver( _tracker );
         dependenciesChanged = true;
       }
+      else
+      {
+        observable.removeFromCurrentTracking();
+      }
     }
 
     // Look through the new observables and any that are still flagged must be
