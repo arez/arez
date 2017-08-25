@@ -277,4 +277,68 @@ public class TransactionTest
     assertEquals( tracker.getDependencies().contains( observable ), true );
     assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
   }
+
+  @Test
+  public void completeTracking_multipleObservableMultipleEntries()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
+    final TestObservable observable2 = new TestObservable( context, ValueUtil.randomString() );
+
+    /*
+     * Forcing the order 1, 1, 2, 1 means that the sequence needs to be collapsed and 2 will be moved so 1, 2
+     */
+    transaction.safeGetObservables().add( observable1 );
+    transaction.safeGetObservables().add( observable1 );
+    transaction.safeGetObservables().add( observable2 );
+    transaction.safeGetObservables().add( observable1 );
+
+    final ArrayList<Observable> dependencies = tracker.getDependencies();
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertTrue( tracker.getDependencies() != dependencies );
+    assertEquals( tracker.getDependencies().size(), 2 );
+    assertEquals( tracker.getDependencies().contains( observable1 ), true );
+    assertEquals( tracker.getDependencies().contains( observable2 ), true );
+    assertEquals( observable1.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+    assertEquals( observable2.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+  }
+
+  @Test
+  public void completeTracking_matchingExistingDependencies()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
+    final TestObservable observable2 = new TestObservable( context, ValueUtil.randomString() );
+
+    tracker.getDependencies().add( observable1 );
+    tracker.getDependencies().add( observable2 );
+
+    transaction.safeGetObservables().add( observable1 );
+    transaction.safeGetObservables().add( observable2 );
+
+    final ArrayList<Observable> dependencies = tracker.getDependencies();
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertTrue( tracker.getDependencies() == dependencies );
+    assertEquals( tracker.getDependencies().size(), 2 );
+    assertEquals( tracker.getDependencies().contains( observable1 ), true );
+    assertEquals( tracker.getDependencies().contains( observable2 ), true );
+    assertEquals( observable1.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+    assertEquals( observable2.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+  }
 }
