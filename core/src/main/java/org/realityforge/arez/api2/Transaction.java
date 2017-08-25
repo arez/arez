@@ -168,6 +168,7 @@ final class Transaction
       return;
     }
 
+    boolean dependenciesChanged = false;
     /*
      * Iterate through the list of observables, flagging observables and removing duplicates.
      */
@@ -207,6 +208,7 @@ final class Transaction
       {
         // Old dependency was not part of tracking and needs to be unobserved
         observable.removeObserver( _tracker );
+        dependenciesChanged = true;
       }
     }
 
@@ -220,6 +222,7 @@ final class Transaction
         observable.removeFromCurrentTracking();
         //Observable was not a dependency so it needs to be observed
         observable.addObserver( _tracker );
+        dependenciesChanged = true;
       }
     }
 
@@ -239,7 +242,10 @@ final class Transaction
       _observables.remove( i );
     }
 
-    _tracker.replaceDependencies( _observables );
+    if ( dependenciesChanged )
+    {
+      _tracker.replaceDependencies( _observables );
+    }
   }
 
   final boolean isRootTransaction()
