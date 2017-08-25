@@ -125,7 +125,7 @@ final class Transaction
     _pendingPassivations.add( Objects.requireNonNull( observable ) );
   }
 
-  void observe( @Nonnull final Observable observable )
+  final void observe( @Nonnull final Observable observable )
   {
     if ( null != _tracker )
     {
