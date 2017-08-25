@@ -117,8 +117,7 @@ public abstract class Observable
    */
   private boolean isActive()
   {
-    //return null == _observer || ObserverState.NOT_TRACKING != _observer.getState();
-    return true;
+    return null == _observer || ObserverState.NOT_TRACKING != _observer.getState();
   }
 
   /**
@@ -135,6 +134,8 @@ public abstract class Observable
     Guards.invariant( this::isActive,
                       () -> String.format( "Invoked passivate on observable named '%s' when observable is not active.",
                                            getName() ) );
+    assert null != _observer;
+    _observer.setState( ObserverState.NOT_TRACKING );
   }
 
   /**
