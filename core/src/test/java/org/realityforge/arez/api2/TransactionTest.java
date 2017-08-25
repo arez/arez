@@ -383,4 +383,62 @@ public class TransactionTest
     assertEquals( observable2.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
     assertEquals( observable3.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
   }
+
+  @Test
+  public void completeTracking_calculatedObservableUpToDate()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    final Observer calculator = new Observer( context, ValueUtil.randomString() );
+    calculator.setState( ObserverState.UP_TO_DATE );
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), calculator );
+
+    tracker.getDependencies().add( observable );
+    observable.getObservers().add( tracker );
+    transaction.safeGetObservables().add( observable );
+
+    final ArrayList<Observable> dependencies = tracker.getDependencies();
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertTrue( tracker.getDependencies() == dependencies );
+    assertEquals( tracker.getDependencies().size(), 1 );
+    assertEquals( tracker.getDependencies().contains( observable ), true );
+    assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+  }
+
+  @Test
+  public void completeTracking_calculatedObservableStale()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    final Observer calculator = new Observer( context, ValueUtil.randomString() );
+    calculator.setState( ObserverState.STALE );
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), calculator );
+
+    tracker.getDependencies().add( observable );
+    observable.getObservers().add( tracker );
+    transaction.safeGetObservables().add( observable );
+
+    final ArrayList<Observable> dependencies = tracker.getDependencies();
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.STALE );
+    assertTrue( tracker.getDependencies() == dependencies );
+    assertEquals( tracker.getDependencies().size(), 1 );
+    assertEquals( tracker.getDependencies().contains( observable ), true );
+    assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+
+    observable.invariantLeastStaleObserverState();
+  }
 }
