@@ -79,7 +79,10 @@ final class Transaction
 
   private void passivatePendingPassivations()
   {
-    assert isRootTransaction();
+    Guards.invariant( this::isRootTransaction,
+                      () -> String.format(
+                        "Invoked passivatePendingPassivations on transaction named '%s' which is not the root transaction.",
+                        getName() ) );
     if ( null != _pendingPassivations )
     {
       //WARNING: Passivations can be enqueued during the passivation process
