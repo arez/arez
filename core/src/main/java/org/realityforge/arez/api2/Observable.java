@@ -115,7 +115,7 @@ public abstract class Observable
   /**
    * Return true if observable is active and notifying observers.
    */
-  private boolean isActive()
+  final boolean isActive()
   {
     return null == _observer || ObserverState.NOT_TRACKING != _observer.getState();
   }
@@ -326,5 +326,11 @@ public abstract class Observable
   final int getWorkState()
   {
     return _workState;
+  }
+
+  @TestOnly
+  final void setPendingPassivation( final boolean pendingPassivation )
+  {
+    _pendingPassivation = pendingPassivation;
   }
 }

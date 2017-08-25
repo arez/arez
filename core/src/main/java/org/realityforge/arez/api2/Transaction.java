@@ -77,7 +77,7 @@ final class Transaction
     }
   }
 
-  private void passivatePendingPassivations()
+  final void passivatePendingPassivations()
   {
     Guards.invariant( this::isRootTransaction,
                       () -> String.format(

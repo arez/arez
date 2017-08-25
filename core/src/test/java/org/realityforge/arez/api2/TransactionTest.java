@@ -536,4 +536,79 @@ public class TransactionTest
                   transaction.getName() + "' for observable named '" + observable.getName() +
                   "' when observable can not be passivated." );
   }
+
+  @Test
+  public void passivatePendingPassivations_observableHasNoListeners()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), null );
+
+    final Observer calculator = new Observer( context, ValueUtil.randomString() );
+    calculator.setState( ObserverState.UP_TO_DATE );
+    final TestObservable observable =
+      new TestObservable( context, ValueUtil.randomString(), calculator );
+
+    observable.setPendingPassivation( true );
+    transaction.queueForPassivation( observable );
+
+    assertNotNull( transaction.getPendingPassivations() );
+    assertEquals( transaction.getPendingPassivations().size(), 1 );
+    assertEquals( transaction.getPendingPassivations().contains( observable ), true );
+    assertEquals( observable.isActive(), true );
+    assertEquals( observable.isPendingPassivation(), true );
+
+    transaction.passivatePendingPassivations();
+
+    assertEquals( observable.isPendingPassivation(), false );
+    assertEquals( observable.isActive(), false );
+    assertEquals( observable.getObserver(), calculator );
+    assertEquals( calculator.getState(), ObserverState.NOT_TRACKING );
+  }
+
+  @Test
+  public void passivatePendingPassivations_noPassivationsPending()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), null );
+
+    assertNull( transaction.getPendingPassivations() );
+
+    transaction.passivatePendingPassivations();
+
+    assertNull( transaction.getPendingPassivations() );
+  }
+
+  @Test
+  public void passivatePendingPassivations_observableHasListener()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), null );
+
+    final Observer otherObserver = new Observer( context, ValueUtil.randomString() );
+    otherObserver.setState( ObserverState.UP_TO_DATE );
+
+    final Observer calculator = new Observer( context, ValueUtil.randomString() );
+    calculator.setState( ObserverState.UP_TO_DATE );
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), calculator );
+
+    observable.setPendingPassivation( true );
+    transaction.queueForPassivation( observable );
+    otherObserver.getDependencies().add( observable );
+    observable.addObserver( otherObserver );
+
+    assertNotNull( transaction.getPendingPassivations() );
+    assertEquals( transaction.getPendingPassivations().size(), 1 );
+    assertEquals( transaction.getPendingPassivations().contains( observable ), true );
+    assertEquals( observable.isActive(), true );
+    assertEquals( observable.isPendingPassivation(), true );
+
+    transaction.passivatePendingPassivations();
+
+    assertEquals( observable.isPendingPassivation(), false );
+    assertEquals( observable.isActive(), true );
+    assertEquals( calculator.getState(), ObserverState.UP_TO_DATE );
+  }
 }
