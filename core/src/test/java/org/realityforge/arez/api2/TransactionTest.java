@@ -59,6 +59,50 @@ public class TransactionTest
   }
 
   @Test
+  public void commit()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
+    final Observer calculator = new Observer( context, ValueUtil.randomString() );
+    calculator.setState( ObserverState.UP_TO_DATE );
+    final TestObservable observable2 = new TestObservable( context, ValueUtil.randomString(), calculator );
+
+    tracker.getDependencies().add( observable2 );
+    observable2.getObservers().add( tracker );
+
+    observable2.setPendingPassivation( true );
+    transaction.queueForPassivation( observable2 );
+
+    assertNotNull( transaction.getPendingPassivations() );
+    assertEquals( transaction.getPendingPassivations().size(), 1 );
+    assertEquals( observable2.isActive(), true );
+    assertEquals( observable2.isPendingPassivation(), true );
+
+    transaction.safeGetObservables().add( observable1 );
+    final ArrayList<Observable> dependencies = tracker.getDependencies();
+
+    transaction.commit();
+
+    // The next code block essentially verifies it calls completeTracking
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertTrue( tracker.getDependencies() != dependencies );
+    assertEquals( tracker.getDependencies().size(), 1 );
+    assertEquals( tracker.getDependencies().contains( observable1 ), true );
+    assertEquals( observable1.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+
+    // This section essentially verifies passivatePendingPassivations() is called
+    assertEquals( observable2.isPendingPassivation(), false );
+    assertEquals( observable2.isActive(), false );
+    assertEquals( observable2.getObserver(), calculator );
+    assertEquals( calculator.getState(), ObserverState.NOT_TRACKING );
+  }
+
+  @Test
   public void trackingCycleWithNoTracker()
   {
     final ArezContext context = new ArezContext();
