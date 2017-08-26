@@ -107,4 +107,10 @@ public final class ArezContext
   {
     return _nextNodeId;
   }
+
+  @TestOnly
+  final void setTransaction( @Nullable final Transaction transaction )
+  {
+    _transaction = transaction;
+  }
 }
