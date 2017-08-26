@@ -168,38 +168,34 @@ final class Transaction
 
     ObserverState newDerivationState = ObserverState.UP_TO_DATE;
 
-    if ( null == _observables )
-    {
-      _tracker.setState( newDerivationState );
-      _tracker.replaceDependencies( new ArrayList<>() );
-      return;
-    }
-
     boolean dependenciesChanged = false;
-    /*
-     * Iterate through the list of observables, flagging observables and removing duplicates.
-     */
-    final int size = _observables.size();
     int currentIndex = 0;
-    for ( int i = 0; i < size; i++ )
+    if ( null != _observables )
     {
-      final Observable observable = _observables.get( i );
-      if ( !observable.isInCurrentTracking() )
+      /*
+       * Iterate through the list of observables, flagging observables and removing duplicates.
+       */
+      final int size = _observables.size();
+      for ( int i = 0; i < size; i++ )
       {
-        observable.putInCurrentTracking();
-        if ( i != currentIndex )
+        final Observable observable = _observables.get( i );
+        if ( !observable.isInCurrentTracking() )
         {
-          _observables.set( currentIndex, observable );
-        }
-        currentIndex++;
-
-        final Observer observer = observable.getObserver();
-        if ( null != observer )
-        {
-          final ObserverState dependenciesState = observer.getState();
-          if ( dependenciesState.ordinal() > newDerivationState.ordinal() )
+          observable.putInCurrentTracking();
+          if ( i != currentIndex )
           {
-            newDerivationState = dependenciesState;
+            _observables.set( currentIndex, observable );
+          }
+          currentIndex++;
+
+          final Observer observer = observable.getObserver();
+          if ( null != observer )
+          {
+            final ObserverState dependenciesState = observer.getState();
+            if ( dependenciesState.ordinal() > newDerivationState.ordinal() )
+            {
+              newDerivationState = dependenciesState;
+            }
           }
         }
       }
@@ -223,17 +219,20 @@ final class Transaction
       }
     }
 
-    // Look through the new observables and any that are still flagged must be
-    // new dependencies and need to be observed by the derivation
-    for ( int i = currentIndex - 1; i >= 0; i-- )
+    if ( null != _observables )
     {
-      final Observable observable = _observables.get( i );
-      if ( observable.isInCurrentTracking() )
+      // Look through the new observables and any that are still flagged must be
+      // new dependencies and need to be observed by the derivation
+      for ( int i = currentIndex - 1; i >= 0; i-- )
       {
-        observable.removeFromCurrentTracking();
-        //Observable was not a dependency so it needs to be observed
-        observable.addObserver( _tracker );
-        dependenciesChanged = true;
+        final Observable observable = _observables.get( i );
+        if ( observable.isInCurrentTracking() )
+        {
+          observable.removeFromCurrentTracking();
+          //Observable was not a dependency so it needs to be observed
+          observable.addObserver( _tracker );
+          dependenciesChanged = true;
+        }
       }
     }
 
@@ -248,14 +247,24 @@ final class Transaction
     // required. We start from end of list and work back to avoid array copies.
     // We should replace _observables with a structure that works under both JS and Java
     // that avoids this by just allowing us to change current size
-    for ( int i = _observables.size() - 1; i >= currentIndex; i-- )
+    if ( null != _observables )
     {
-      _observables.remove( i );
-    }
+      for ( int i = _observables.size() - 1; i >= currentIndex; i-- )
+      {
+        _observables.remove( i );
+      }
 
-    if ( dependenciesChanged )
+      if ( dependenciesChanged )
+      {
+        _tracker.replaceDependencies( _observables );
+      }
+    }
+    else
     {
-      _tracker.replaceDependencies( _observables );
+      if ( dependenciesChanged )
+      {
+        _tracker.replaceDependencies( new ArrayList<>() );
+      }
     }
 
     /*
@@ -263,10 +272,13 @@ final class Transaction
      */
     if ( ArezConfig.checkInvariants() )
     {
-      for ( final Observable observable : _observables )
+      if ( null != _observables )
       {
-        observable.invariantLeastStaleObserverState();
-        observable.invariantObserversLinked();
+        for ( final Observable observable : _observables )
+        {
+          observable.invariantLeastStaleObserverState();
+          observable.invariantObserversLinked();
+        }
       }
       _tracker.invariantDependenciesUnique( "Post completeTracking" );
       _tracker.invariantDependenciesBackLink( "Post completeTracking" );

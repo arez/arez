@@ -194,7 +194,7 @@ public class TransactionTest
   {
     final ArezContext context = new ArezContext();
     final Observer tracker = new Observer( context, ValueUtil.randomString() );
-    tracker.setState( ObserverState.STALE );
+    tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
 
@@ -205,7 +205,7 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
-    assertTrue( tracker.getDependencies() != dependencies );
+    assertTrue( tracker.getDependencies() == dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
   }
 
