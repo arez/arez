@@ -36,13 +36,26 @@ public class Observer
 
   public final void setState( @Nonnull final ObserverState state )
   {
-    final ObserverState originalState = _state;
-    _state = state;
-    if ( ObserverState.UP_TO_DATE == originalState &&
-         ( ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state ) )
+    if ( !state.equals( _state ) )
     {
-      onBecomeStale();
+      final ObserverState originalState = _state;
+      _state = state;
+      if ( ObserverState.UP_TO_DATE == originalState &&
+           ( ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state ) )
+      {
+        onBecomeStale();
+      }
+      else if ( ObserverState.NOT_TRACKING == _state )
+      {
+        onDeactivate();
+      }
     }
+  }
+
+  protected void onDeactivate()
+  {
+    getDependencies().forEach( dependency -> dependency.removeObserver( this ) );
+    getDependencies().clear();
   }
 
   protected void onBecomeStale()
