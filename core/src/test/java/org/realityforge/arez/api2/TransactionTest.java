@@ -210,6 +210,31 @@ public class TransactionTest
   }
 
   @Test
+  public void completeTracking_noNewObservablesButExistingObservables()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    // Setup existing observable dependency
+    final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
+    tracker.getDependencies().add( observable1 );
+    observable1.getObservers().add( tracker );
+
+    final ArrayList<Observable> dependencies = tracker.getDependencies();
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertTrue( tracker.getDependencies() != dependencies );
+    assertEquals( tracker.getDependencies().size(), 0 );
+    assertEquals( observable1.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+    assertEquals( observable1.getObservers().size(), 0 );
+  }
+
+  @Test
   public void completeTracking_singleObservable()
   {
     final ArezContext context = new ArezContext();
