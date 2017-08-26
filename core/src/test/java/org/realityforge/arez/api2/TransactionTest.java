@@ -614,4 +614,120 @@ public class TransactionTest
     assertEquals( observable.isActive(), true );
     assertEquals( calculator.getState(), ObserverState.UP_TO_DATE );
   }
+
+  @Test
+  public void passivatePendingPassivations_passivationCausesMorePendingPassivations()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), null );
+
+    //Setup transaction as queueForPassivation retrieves trnsaction from context
+    context.setTransaction( transaction );
+
+    final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
+
+    final Observer observer1 = new Observer( context, ValueUtil.randomString() );
+    observer1.setState( ObserverState.UP_TO_DATE );
+
+    observer1.getDependencies().add( observable1 );
+    observable1.getObservers().add( observer1 );
+
+    final TestObservable observable2 = new TestObservable( context, ValueUtil.randomString(), observer1 );
+
+    final Observer observer2 = new Observer( context, ValueUtil.randomString() );
+    observer2.setState( ObserverState.UP_TO_DATE );
+
+    observer2.getDependencies().add( observable2 );
+    observable2.getObservers().add( observer2 );
+
+    final TestObservable observable3 =
+      new TestObservable( context, ValueUtil.randomString(), observer2 );
+
+    observable3.setPendingPassivation( true );
+    transaction.queueForPassivation( observable3 );
+
+    assertNotNull( transaction.getPendingPassivations() );
+    assertEquals( transaction.getPendingPassivations().size(), 1 );
+    assertEquals( transaction.getPendingPassivations().contains( observable3 ), true );
+    assertEquals( observable3.isActive(), true );
+    assertEquals( observable3.isPendingPassivation(), true );
+
+    final int passivatedCount = transaction.passivatePendingPassivations();
+
+    //Chained calculated observer is passivated
+    assertEquals( passivatedCount, 2 );
+
+    assertEquals( observable3.isPendingPassivation(), false );
+    assertEquals( observable3.isActive(), false );
+    assertEquals( observable3.getObserver(), observer2 );
+    assertEquals( observable2.isPendingPassivation(), false );
+    assertEquals( observable2.isActive(), false );
+    assertEquals( observable2.getObserver(), observer1 );
+    assertEquals( observable1.isPendingPassivation(), false );
+    assertEquals( observable1.isActive(), true );
+    assertEquals( observable1.getObserver(), null );
+    assertEquals( observer2.getState(), ObserverState.NOT_TRACKING );
+    assertEquals( observer2.getDependencies().size(), 0 );
+    assertEquals( observable2.getObservers().size(), 0 );
+    assertEquals( observer1.getState(), ObserverState.NOT_TRACKING );
+    assertEquals( observer1.getDependencies().size(), 0 );
+    assertEquals( observable1.getObservers().size(), 0 );
+  }
+
+  @Test
+  public void passivatePendingPassivations_passivationCausesDeactivationButNoMorePendingPassivations()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), null );
+
+    final TestObservable baseObservable =
+      new TestObservable( context, ValueUtil.randomString() );
+    final Observer calculator = new Observer( context, ValueUtil.randomString() );
+    calculator.setState( ObserverState.UP_TO_DATE );
+
+    calculator.getDependencies().add( baseObservable );
+    baseObservable.getObservers().add( calculator );
+
+    final TestObservable derivedObservable =
+      new TestObservable( context, ValueUtil.randomString(), calculator );
+
+    derivedObservable.setPendingPassivation( true );
+    transaction.queueForPassivation( derivedObservable );
+
+    assertNotNull( transaction.getPendingPassivations() );
+    assertEquals( transaction.getPendingPassivations().size(), 1 );
+    assertEquals( transaction.getPendingPassivations().contains( derivedObservable ), true );
+    assertEquals( derivedObservable.isActive(), true );
+    assertEquals( derivedObservable.isPendingPassivation(), true );
+
+    final int passivatedCount = transaction.passivatePendingPassivations();
+
+    //baseObservable is not active so it needs to passivation
+    assertEquals( passivatedCount, 1 );
+
+    assertEquals( derivedObservable.isPendingPassivation(), false );
+    assertEquals( derivedObservable.isActive(), false );
+    assertEquals( derivedObservable.getObserver(), calculator );
+    assertEquals( calculator.getState(), ObserverState.NOT_TRACKING );
+    assertEquals( calculator.getDependencies().size(), 0 );
+    assertEquals( baseObservable.getObservers().size(), 0 );
+  }
+
+  @Test
+  public void passivatePendingPassivations_calledOnNonRootTransaction()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction1 = new Transaction( context, null, ValueUtil.randomString(), null );
+    final Transaction transaction2 = new Transaction( context, transaction1, ValueUtil.randomString(), null );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, transaction2::passivatePendingPassivations );
+
+    assertEquals( exception.getMessage(),
+                  "Invoked passivatePendingPassivations on transaction named '" +
+                  transaction2.getName() + "' which is not the root transaction." );
+  }
 }
