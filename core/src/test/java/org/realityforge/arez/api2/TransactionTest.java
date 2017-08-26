@@ -558,7 +558,8 @@ public class TransactionTest
     assertEquals( observable.isActive(), true );
     assertEquals( observable.isPendingPassivation(), true );
 
-    transaction.passivatePendingPassivations();
+    final int passivatedCount = transaction.passivatePendingPassivations();
+    assertEquals( passivatedCount, 1 );
 
     assertEquals( observable.isPendingPassivation(), false );
     assertEquals( observable.isActive(), false );
@@ -575,7 +576,8 @@ public class TransactionTest
 
     assertNull( transaction.getPendingPassivations() );
 
-    transaction.passivatePendingPassivations();
+    final int passivatedCount = transaction.passivatePendingPassivations();
+    assertEquals( passivatedCount, 0 );
 
     assertNull( transaction.getPendingPassivations() );
   }
@@ -605,7 +607,8 @@ public class TransactionTest
     assertEquals( observable.isActive(), true );
     assertEquals( observable.isPendingPassivation(), true );
 
-    transaction.passivatePendingPassivations();
+    final int passivatedCount = transaction.passivatePendingPassivations();
+    assertEquals( passivatedCount, 0 );
 
     assertEquals( observable.isPendingPassivation(), false );
     assertEquals( observable.isActive(), true );

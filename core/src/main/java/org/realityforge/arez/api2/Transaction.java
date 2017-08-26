@@ -77,12 +77,13 @@ final class Transaction
     }
   }
 
-  final void passivatePendingPassivations()
+  final int passivatePendingPassivations()
   {
     Guards.invariant( this::isRootTransaction,
                       () -> String.format(
                         "Invoked passivatePendingPassivations on transaction named '%s' which is not the root transaction.",
                         getName() ) );
+    int count = 0;
     if ( null != _pendingPassivations )
     {
       //WARNING: Passivations can be enqueued during the passivation process
@@ -96,9 +97,11 @@ final class Transaction
         if ( !observable.hasObservers() )
         {
           observable.passivate();
+          count++;
         }
       }
     }
+    return count;
   }
 
   final void queueForPassivation( @Nonnull final Observable observable )
