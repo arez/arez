@@ -44,6 +44,21 @@ public class TransactionTest
   }
 
   @Test
+  public void begin()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), tracker );
+
+    assertEquals( tracker.getState(), ObserverState.NOT_TRACKING );
+
+    transaction.begin();
+
+    //Just verify that it ultimately invokes beginTracking
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+  }
+
+  @Test
   public void trackingCycleWithNoTracker()
   {
     final ArezContext context = new ArezContext();
