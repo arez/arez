@@ -30,7 +30,9 @@ Observer
 * Derivation (can read state to derive state) (a.k.a. Computation in mobx). Will be re-executed if it is
   called within a transaction and is not uptodate, otherwise queued like reaction for after root
   transaction completes. Derivations are read-only transactions and should not try to change state except
-  for owned or newly created observables
+  for owned or newly created observables.
+* Currently the derivation can only own a single observable and that observable hitting zero listeners results
+  in deactivation. It is possible a derivation can generate multiple "owned" observables?
 * NOT YET: A list of notifications scheduled by dependencies if it opted in as a message receiving Observer. 
 
 
