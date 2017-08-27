@@ -11,7 +11,30 @@ the view needs to be re-rendered. Arez also optimizes for developer efficiency b
 for the developer to monitor or even think about when state changes and instead react to those changes
 on demand. 
 
-## Architecture
+## Architecture v3 Notes
+
+This sections contains the notes for the next version of Arez and just consists of a bunch of notes
+that will be expanded over time as the library is fleshed out.
+
+Observable
+* list of observers.
+* the cached least stalest state of these observers.
+* cached working state field.
+* owner derivation if any.
+* NOT YET: A list of notifications about changes in latest transaction (Or is this in transaction?) Notifications may collapse (i.e. atomic Observables just update with the last value where Array/Map will accumulate)
+
+Observer
+* Reaction (can read/write state & create side-effects). Will be scheduled after root transaction completes
+  if it becomes stale during any transaction. Transactions typically explicitly indicate their transaction
+  status.
+* Derivation (can read state to derive state) (a.k.a. Computation in mobx). Will be re-executed if it is
+  called within a transaction and is not uptodate, otherwise queued like reaction for after root
+  transaction completes. Derivations are read-only transactions and should not try to change state except
+  for owned or newly created observables
+* NOT YET: A list of notifications scheduled by dependencies if it opted in as a message receiving Observer. 
+
+
+## Architecture v2 Notes
 
 An Arez application consists of `observable` values that can change over time. `Observers` watch the
 `observable` values and receive notifications when the `observable` values change. The observers can
