@@ -98,7 +98,7 @@ public class TransactionTest
     // This section essentially verifies passivatePendingPassivations() is called
     assertEquals( observable2.isPendingPassivation(), false );
     assertEquals( observable2.isActive(), false );
-    assertEquals( observable2.getObserver(), calculator );
+    assertEquals( observable2.getOwner(), calculator );
     assertEquals( calculator.getState(), ObserverState.NOT_TRACKING );
   }
 
@@ -647,7 +647,7 @@ public class TransactionTest
 
     assertEquals( observable.isPendingPassivation(), false );
     assertEquals( observable.isActive(), false );
-    assertEquals( observable.getObserver(), calculator );
+    assertEquals( observable.getOwner(), calculator );
     assertEquals( calculator.getState(), ObserverState.NOT_TRACKING );
   }
 
@@ -744,13 +744,13 @@ public class TransactionTest
 
     assertEquals( observable3.isPendingPassivation(), false );
     assertEquals( observable3.isActive(), false );
-    assertEquals( observable3.getObserver(), observer2 );
+    assertEquals( observable3.getOwner(), observer2 );
     assertEquals( observable2.isPendingPassivation(), false );
     assertEquals( observable2.isActive(), false );
-    assertEquals( observable2.getObserver(), observer1 );
+    assertEquals( observable2.getOwner(), observer1 );
     assertEquals( observable1.isPendingPassivation(), false );
     assertEquals( observable1.isActive(), true );
-    assertEquals( observable1.getObserver(), null );
+    assertEquals( observable1.getOwner(), null );
     assertEquals( observer2.getState(), ObserverState.NOT_TRACKING );
     assertEquals( observer2.getDependencies().size(), 0 );
     assertEquals( observable2.getObservers().size(), 0 );
@@ -793,7 +793,7 @@ public class TransactionTest
 
     assertEquals( derivedObservable.isPendingPassivation(), false );
     assertEquals( derivedObservable.isActive(), false );
-    assertEquals( derivedObservable.getObserver(), calculator );
+    assertEquals( derivedObservable.getOwner(), calculator );
     assertEquals( calculator.getState(), ObserverState.NOT_TRACKING );
     assertEquals( calculator.getDependencies().size(), 0 );
     assertEquals( baseObservable.getObservers().size(), 0 );

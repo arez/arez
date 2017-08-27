@@ -50,17 +50,17 @@ public abstract class Observable
    * The derivation from which this observable is derived if any.
    */
   @Nullable
-  private final Observer _observer;
+  private final Observer _owner;
 
   Observable( @Nonnull final ArezContext context, @Nullable final String name )
   {
     this( context, name, null );
   }
 
-  Observable( @Nonnull final ArezContext context, @Nullable final String name, @Nullable final Observer observer )
+  Observable( @Nonnull final ArezContext context, @Nullable final String name, @Nullable final Observer owner )
   {
     super( context, name );
-    _observer = observer;
+    _owner = owner;
   }
 
   final void resetPendingPassivation()
@@ -99,9 +99,9 @@ public abstract class Observable
   }
 
   @Nullable
-  final Observer getObserver()
+  final Observer getOwner()
   {
-    return _observer;
+    return _owner;
   }
 
   /**
@@ -109,7 +109,7 @@ public abstract class Observable
    */
   final boolean canPassivate()
   {
-    return null != _observer;
+    return null != _owner;
   }
 
   /**
@@ -117,7 +117,7 @@ public abstract class Observable
    */
   final boolean isActive()
   {
-    return null == _observer || ObserverState.NOT_TRACKING != _observer.getState();
+    return null == _owner || ObserverState.NOT_TRACKING != _owner.getState();
   }
 
   /**
@@ -128,14 +128,14 @@ public abstract class Observable
    */
   protected void passivate()
   {
-    Guards.invariant( () -> null != _observer,
-                      () -> String.format( "Invoked passivate on observable named '%s' when observer is null.",
+    Guards.invariant( () -> null != _owner,
+                      () -> String.format( "Invoked passivate on observable named '%s' when owner is null.",
                                            getName() ) );
     Guards.invariant( this::isActive,
                       () -> String.format( "Invoked passivate on observable named '%s' when observable is not active.",
                                            getName() ) );
-    assert null != _observer;
-    _observer.setState( ObserverState.NOT_TRACKING );
+    assert null != _owner;
+    _owner.setState( ObserverState.NOT_TRACKING );
   }
 
   /**

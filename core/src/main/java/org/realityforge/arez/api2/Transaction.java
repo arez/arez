@@ -188,10 +188,10 @@ final class Transaction
           }
           currentIndex++;
 
-          final Observer observer = observable.getObserver();
-          if ( null != observer )
+          final Observer owner = observable.getOwner();
+          if ( null != owner )
           {
-            final ObserverState dependenciesState = observer.getState();
+            final ObserverState dependenciesState = owner.getState();
             if ( dependenciesState.ordinal() > newDerivationState.ordinal() )
             {
               newDerivationState = dependenciesState;
