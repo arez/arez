@@ -47,7 +47,7 @@ public abstract class Observable
   @Nonnull
   private ObserverState _leastStaleObserverState = ObserverState.NOT_TRACKING;
   /**
-   * The derivation from which this observable is derived if any.
+   * The derivation that created this observable if any.
    */
   @Nullable
   private final Observer _owner;
