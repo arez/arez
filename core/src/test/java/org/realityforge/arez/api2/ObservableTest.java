@@ -117,7 +117,7 @@ public class ObservableTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
-    observable.propagateChanged();
+    observable.reportChanged();
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.STALE );
     assertEquals( observer.getState(), ObserverState.STALE );

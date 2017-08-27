@@ -217,7 +217,7 @@ public abstract class Observable
   }
 
   // Called by Atom when its value changes
-  final void propagateChanged()
+  final void reportChanged()
   {
     invariantLeastStaleObserverState();
     if ( ObserverState.STALE != _leastStaleObserverState )
@@ -236,7 +236,7 @@ public abstract class Observable
   }
 
   // Called by ComputedValue when it recalculate and its value changed
-  final void propagateChangeConfirmed()
+  final void reportChangeConfirmed()
   {
     invariantLeastStaleObserverState();
     if ( ObserverState.STALE != _leastStaleObserverState )
@@ -260,7 +260,7 @@ public abstract class Observable
   }
 
   // Used by computed when its dependency changed, but we don't wan't to immediately recompute.
-  final void propagateMaybeChanged()
+  final void reportMaybeChanged()
   {
     invariantLeastStaleObserverState();
     if ( ObserverState.UP_TO_DATE == _leastStaleObserverState )
