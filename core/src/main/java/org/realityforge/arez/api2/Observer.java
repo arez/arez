@@ -54,8 +54,6 @@ public class Observer
 
   protected void onBecomeUnobserved()
   {
-    getDependencies().forEach( dependency -> dependency.removeObserver( this ) );
-    getDependencies().clear();
   }
 
   protected void onBecomeStale()

@@ -50,14 +50,14 @@ public abstract class Observable
    * The derivation that created this observable if any.
    */
   @Nullable
-  private final Observer _owner;
+  private final Derivation _owner;
 
   Observable( @Nonnull final ArezContext context, @Nullable final String name )
   {
     this( context, name, null );
   }
 
-  Observable( @Nonnull final ArezContext context, @Nullable final String name, @Nullable final Observer owner )
+  Observable( @Nonnull final ArezContext context, @Nullable final String name, @Nullable final Derivation owner )
   {
     super( context, name );
     _owner = owner;
@@ -99,7 +99,7 @@ public abstract class Observable
   }
 
   @Nullable
-  final Observer getOwner()
+  final Derivation getOwner()
   {
     return _owner;
   }
@@ -113,11 +113,11 @@ public abstract class Observable
   }
 
   /**
-   * Return true if observable is active and notifying observers.
+   * Return true if observable is notifying observers.
    */
   final boolean isActive()
   {
-    return null == _owner || ObserverState.NOT_TRACKING != _owner.getState();
+    return null == _owner || _owner.isActive();
   }
 
   /**
@@ -131,10 +131,10 @@ public abstract class Observable
     Guards.invariant( () -> null != _owner,
                       () -> String.format( "Invoked passivate on observable named '%s' when owner is null.",
                                            getName() ) );
-    Guards.invariant( this::isActive,
+    assert null != _owner;
+    Guards.invariant( _owner::isActive,
                       () -> String.format( "Invoked passivate on observable named '%s' when observable is not active.",
                                            getName() ) );
-    assert null != _owner;
     _owner.setState( ObserverState.NOT_TRACKING );
   }
 

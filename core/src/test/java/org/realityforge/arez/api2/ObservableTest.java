@@ -1,7 +1,5 @@
 package org.realityforge.arez.api2;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -9,17 +7,6 @@ import static org.testng.Assert.*;
 public class ObservableTest
   extends AbstractArezTest
 {
-  static class TestObservable
-    extends Observable
-  {
-    TestObservable( @Nonnull final ArezContext context,
-                    @Nullable final String name,
-                    @Nullable final Observer observer )
-    {
-      super( context, name, observer );
-    }
-  }
-
   @Test
   public void initialState()
     throws Exception
