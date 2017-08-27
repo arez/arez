@@ -14,8 +14,7 @@ public class Derivation
   @Override
   protected void onBecomeUnobserved()
   {
-    getDependencies().forEach( dependency -> dependency.removeObserver( this ) );
-    getDependencies().clear();
+    clearObservers();
   }
 
   /**

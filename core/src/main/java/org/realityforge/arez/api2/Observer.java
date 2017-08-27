@@ -60,6 +60,12 @@ public class Observer
   {
   }
 
+  final void clearObservers()
+  {
+    getDependencies().forEach( dependency -> dependency.removeObserver( this ) );
+    getDependencies().clear();
+  }
+
   @Nonnull
   final ArrayList<Observable> getDependencies()
   {
