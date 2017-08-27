@@ -206,11 +206,11 @@ public abstract class Observable
   {
     Guards.invariant( this::canPassivate,
                       () -> String.format(
-                        "Attempted to invoke queueForPassivation() on observable named '%s' but observer is not able to be passivated.",
+                        "Attempted to invoke queueForPassivation() on observable named '%s' but observable is not able to be passivated.",
                         getName() ) );
     Guards.invariant( () -> getObservers().isEmpty(),
                       () -> String.format(
-                        "Attempted to invoke queueForPassivation() on observable named '%s' but observer has observers.",
+                        "Attempted to invoke queueForPassivation() on observable named '%s' but observable has observers.",
                         getName() ) );
     if ( !_pendingPassivation )
     {
