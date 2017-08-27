@@ -20,6 +20,21 @@ public final class ArezContext
    * to optimize dependency tracking in transactions.
    */
   private int _nextNodeId = 1;
+  /**
+   * Reaction Scheduler.
+   * Currently hard-coded, in the future potentially configurable.
+   */
+  private final ReactionScheduler _scheduler = new ReactionScheduler( this );
+
+  final void scheduleReaction( @Nonnull final Reaction reaction )
+  {
+    _scheduler.scheduleReaction( reaction );
+  }
+
+  final void runPendingReactions()
+  {
+    _scheduler.runPendingReactions();
+  }
 
   private Transaction beginTransaction( @Nullable final String name, @Nullable final Observer tracker )
   {

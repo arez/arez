@@ -78,7 +78,7 @@ final class Transaction
     {
       // Only the root transactions performs passivations and reschedules reactions.
       passivatePendingPassivations();
-      //TODO: schedule notifications here
+      getContext().runPendingReactions();
     }
   }
 

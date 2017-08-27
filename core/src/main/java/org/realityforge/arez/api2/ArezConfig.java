@@ -28,6 +28,11 @@ final class ArezConfig
     return getProvider().enableNames();
   }
 
+  static boolean purgeReactionsWhenRunawayDetected()
+  {
+    return getProvider().purgeReactionsWhenRunawayDetected();
+  }
+
   static Provider getProvider()
   {
     return c_provider;
@@ -38,9 +43,11 @@ final class ArezConfig
     final boolean verboseErrorMessages = "true".equals( System.getProperty( "arez.verbose_error_messages", "false" ) );
     final boolean checkInvariants = "true".equals( System.getProperty( "arez.check_invariants", "false" ) );
     final boolean enableNames = "true".equals( System.getProperty( "arez.enable_names", "false" ) );
+    final boolean purgeReactions =
+      "true".equals( System.getProperty( "arez.purge_reactions_when_runaway_detected", "true" ) );
     return System.getProperty( "arez.dynamic_provider", "false" ).equals( "true" ) ?
-           new DynamicProvider( verboseErrorMessages, checkInvariants, enableNames ) :
-           new StaticProvider( verboseErrorMessages, checkInvariants, enableNames );
+           new DynamicProvider( verboseErrorMessages, checkInvariants, enableNames, purgeReactions ) :
+           new StaticProvider( verboseErrorMessages, checkInvariants, enableNames, purgeReactions );
   }
 
   /**
@@ -56,6 +63,8 @@ final class ArezConfig
     boolean checkInvariants();
 
     boolean enableNames();
+
+    boolean purgeReactionsWhenRunawayDetected();
   }
 
   /**
@@ -69,14 +78,17 @@ final class ArezConfig
     private boolean _verboseErrorMessages;
     private boolean _checkInvariants;
     private boolean _enableNames;
+    private boolean _purgeReactionsWhenRunawayDetected;
 
     DynamicProvider( final boolean verboseErrorMessages,
                      final boolean checkInvariants,
-                     final boolean enableNames )
+                     final boolean enableNames,
+                     final boolean purgeReactionsWhenRunawayDetected )
     {
       _verboseErrorMessages = verboseErrorMessages;
       _checkInvariants = checkInvariants;
       _enableNames = enableNames;
+      _purgeReactionsWhenRunawayDetected = purgeReactionsWhenRunawayDetected;
     }
 
     void setVerboseErrorMessages( final boolean verboseErrorMessages )
@@ -94,6 +106,11 @@ final class ArezConfig
       _enableNames = enableNames;
     }
 
+    void setPurgeReactionsWhenRunawayDetected( final boolean purgeReactionsWhenRunawayDetected )
+    {
+      _purgeReactionsWhenRunawayDetected = purgeReactionsWhenRunawayDetected;
+    }
+
     @Override
     public boolean verboseErrorMessages()
     {
@@ -110,6 +127,12 @@ final class ArezConfig
     public boolean enableNames()
     {
       return _enableNames;
+    }
+
+    @Override
+    public boolean purgeReactionsWhenRunawayDetected()
+    {
+      return _purgeReactionsWhenRunawayDetected;
     }
   }
 
@@ -124,14 +147,17 @@ final class ArezConfig
     private final boolean _verboseErrorMessages;
     private final boolean _checkInvariants;
     private final boolean _enableNames;
+    private final boolean _purgeReactionsWhenRunawayDetected;
 
     StaticProvider( final boolean verboseErrorMessages,
                     final boolean checkInvariants,
-                    final boolean enableNames )
+                    final boolean enableNames,
+                    final boolean purgeReactionsWhenRunawayDetected )
     {
       _verboseErrorMessages = verboseErrorMessages;
       _checkInvariants = checkInvariants;
       _enableNames = enableNames;
+      _purgeReactionsWhenRunawayDetected = purgeReactionsWhenRunawayDetected;
     }
 
     @Override
@@ -150,6 +176,12 @@ final class ArezConfig
     public boolean enableNames()
     {
       return _enableNames;
+    }
+
+    @Override
+    public boolean purgeReactionsWhenRunawayDetected()
+    {
+      return _purgeReactionsWhenRunawayDetected;
     }
   }
 }
