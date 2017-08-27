@@ -10,8 +10,10 @@ final class Transaction
   extends Node
 {
   /**
-   * List of observables that reached zero observers within the scope of the transaction.
-   * When the transaction completes, these observers are passivated
+   * A list of observables that have reached zero observers within the scope of the root transaction.
+   * When the root transaction completes, these observers are passivated if they still have no observers.
+   * It should be noted that this list is owned by the root transaction and a reference is copied to all
+   * non-root transactions that attempt to passivate an observable.
    */
   @Nullable
   private ArrayList<Observable> _pendingPassivations;
@@ -22,14 +24,16 @@ final class Transaction
   @Nullable
   private final Transaction _previous;
   /**
-   * The tracker if transaction is trackable.
+   * The tracking observer if the transaction is trackable.
    */
   @Nullable
   private final Observer _tracker;
   /**
    * the list of observables that have been observed during tracking.
-   * This list can contain duplicates and the duplicates will be skipped when converting the list
-   * of observables to dependencies in the derivation.
+   * This list may contain duplicates but the duplicates will be eliminated when converting the list
+   * of observables to dependencies to pass to the tracking observer.
+   *
+   * This should be null unless the _tracker is non null.
    */
   @Nullable
   private ArrayList<Observable> _observables;
@@ -54,8 +58,9 @@ final class Transaction
     if ( null != _tracker )
     {
       _tracker.invariantDependenciesBackLink( "Pre beginTracking" );
-      // Mark the tracker/observer as uptodate at the start of the transaction.
-      // If it is outdated during the transaction then completeTracking() will fix the state.
+      // Mark the tracker as up to date at the start of the transaction.
+      // If it is made stale during the transaction then completeTracking() will fix the
+      // state of the _tracker.
       _tracker.setState( ObserverState.UP_TO_DATE );
     }
   }
@@ -71,7 +76,7 @@ final class Transaction
     completeTracking();
     if ( isRootTransaction() )
     {
-      //If you are the root transaction
+      // Only the root transactions performs passivations and reschedules reactions.
       passivatePendingPassivations();
       //TODO: schedule notifications here
     }
@@ -87,8 +92,8 @@ final class Transaction
     if ( null != _pendingPassivations )
     {
       //WARNING: Passivations can be enqueued during the passivation process
-      // so always need to call _pendingPassivations.size() through each iteration
-      // of loop to ensure new passivations are collected.
+      // so we always need to call _pendingPassivations.size() through each iteration
+      // of the loop to ensure that new pending passivations are passivated.
       //noinspection ForLoopReplaceableByForEach
       for ( int i = 0; i < _pendingPassivations.size(); i++ )
       {
@@ -138,8 +143,9 @@ final class Transaction
     /*
      * This optimization attempts to stop the same observable being added multiple
      * times to the observables list by caching the transaction id on the observable.
-     * This is purely an optimization but it is not perfect and may be defeated if
-     * the same observable is observed in a nested tracking transaction.
+     * This is optimization may be defeated if the same observable is observed in a
+     * nested tracking transaction in which case the same observable may appear multiple.
+     * times in the _observables list. However completeTracking will eliminate duplicates.
      */
       final int id = getId();
       if ( observable.getLastTrackerTransactionId() != id )
@@ -151,8 +157,10 @@ final class Transaction
   }
 
   /**
-   * Completes the tracking by updating the dependencies on the derivation to match the
-   * observables that were observed during tracking.
+   * Completes the tracking by updating the dependencies on the observer to match the
+   * observables that were observed during tracking. The _tracker is added or removed
+   * as an observer on an observable if the observer is a new dependency or previously
+   * was a dependency but no longer is, respectively.
    */
   final void completeTracking()
   {
@@ -173,7 +181,7 @@ final class Transaction
     if ( null != _observables )
     {
       /*
-       * Iterate through the list of observables, flagging observables and removing duplicates.
+       * Iterate through the list of observables, flagging observables and "removing" duplicates.
        */
       final int size = _observables.size();
       for ( int i = 0; i < size; i++ )
@@ -209,7 +217,7 @@ final class Transaction
       final Observable observable = dependencies.get( i );
       if ( !observable.isInCurrentTracking() )
       {
-        // Old dependency was not part of tracking and needs to be unobserved
+        // Old dependency was not part of current tracking and needs to be unobserved
         observable.removeObserver( _tracker );
         dependenciesChanged = true;
       }
@@ -222,7 +230,7 @@ final class Transaction
     if ( null != _observables )
     {
       // Look through the new observables and any that are still flagged must be
-      // new dependencies and need to be observed by the derivation
+      // new dependencies and need to be observed by the observer
       for ( int i = currentIndex - 1; i >= 0; i-- )
       {
         final Observable observable = _observables.get( i );
@@ -236,8 +244,9 @@ final class Transaction
       }
     }
 
-    // Some new observed derivations may become stale during this derivation computation
-    // so they have had no chance to propagate staleness
+    // Some newly observed derivation owned observables may have become stale during
+    // tracking operation but they have had no chance to propagate staleness to this
+    // observer so rectify this.
     if ( ObserverState.UP_TO_DATE != newDerivationState )
     {
       _tracker.setState( newDerivationState );
