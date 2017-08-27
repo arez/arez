@@ -47,12 +47,12 @@ public class Observer
       }
       else if ( ObserverState.NOT_TRACKING == _state )
       {
-        onDeactivate();
+        onBecomeUnobserved();
       }
     }
   }
 
-  protected void onDeactivate()
+  protected void onBecomeUnobserved()
   {
     getDependencies().forEach( dependency -> dependency.removeObserver( this ) );
     getDependencies().clear();
