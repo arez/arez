@@ -53,6 +53,11 @@ final class Transaction
     _previous = previous;
     _type = type;
     _tracker = tracker;
+
+    Guards.invariant( () -> TransactionType.READ_WRITE_OWNED != type || null != tracker,
+                      () -> String.format(
+                        "Attempted to create transaction named '%s' with mode READ_WRITE_OWNED but no tracker specified.",
+                        getName() ) );
   }
 
   @Nonnull

@@ -29,6 +29,21 @@ public class TransactionTest
   }
 
   @Test
+  public void construction_with_READ_WRITE_OWNED_but_no_tracker()
+  {
+    final ArezContext context = new ArezContext();
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Transaction( context, null, name, TransactionType.READ_WRITE_OWNED, null ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempted to create transaction named '" + name +
+                  "' with mode READ_WRITE_OWNED but no tracker specified." );
+  }
+
+  @Test
   public void rootTransaction()
   {
     final ArezContext context = new ArezContext();
