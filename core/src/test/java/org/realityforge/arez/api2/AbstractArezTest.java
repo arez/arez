@@ -13,6 +13,7 @@ public abstract class AbstractArezTest
     provider.setEnableNames( true );
     provider.setVerboseErrorMessages( true );
     provider.setCheckInvariants( true );
+    provider.setPurgeReactionsWhenRunawayDetected( false );
     provider.setEnforceTransactionType( true );
   }
 
@@ -24,6 +25,7 @@ public abstract class AbstractArezTest
     provider.setEnableNames( false );
     provider.setVerboseErrorMessages( false );
     provider.setCheckInvariants( false );
+    provider.setPurgeReactionsWhenRunawayDetected( true );
     provider.setEnforceTransactionType( false );
   }
 }
