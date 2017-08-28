@@ -169,6 +169,91 @@ final class Transaction
     }
   }
 
+  final void reportChanged( @Nonnull final Observable observable )
+  {
+    verifyWriteAllowed( observable );
+    observable.invariantLeastStaleObserverState();
+
+    if ( ObserverState.STALE != observable.getLeastStaleObserverState() )
+    {
+      observable.setLeastStaleObserverState( ObserverState.STALE );
+      for ( final Observer observer : observable.getObservers() )
+      {
+        final ObserverState state = observer.getState();
+        if ( ObserverState.UP_TO_DATE == state )
+        {
+          observer.setState( ObserverState.STALE );
+        }
+      }
+    }
+    observable.invariantLeastStaleObserverState();
+  }
+
+  final void reportMaybeChanged( @Nonnull final Observable observable )
+  {
+    verifyWriteAllowed( observable );
+    observable.invariantLeastStaleObserverState();
+    if ( ObserverState.UP_TO_DATE == observable.getLeastStaleObserverState() )
+    {
+      observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+      for ( final Observer observer : observable.getObservers() )
+      {
+        if ( ObserverState.UP_TO_DATE == observer.getState() )
+        {
+          observer.setState( ObserverState.POSSIBLY_STALE );
+        }
+      }
+    }
+    observable.invariantLeastStaleObserverState();
+  }
+
+  final void reportChangeConfirmed( @Nonnull final Observable observable )
+  {
+    verifyWriteAllowed( observable );
+    observable.invariantLeastStaleObserverState();
+    if ( ObserverState.STALE != observable.getLeastStaleObserverState() )
+    {
+      observable.setLeastStaleObserverState( ObserverState.STALE );
+
+      for ( final Observer observer : observable.getObservers() )
+      {
+        if ( ObserverState.POSSIBLY_STALE == observer.getState() )
+        {
+          observer.setState( ObserverState.STALE );
+        }
+        else if ( ObserverState.UP_TO_DATE == observer.getState() )
+        {
+          // this happens during computing of `observer`, just keep _leastStaleObserverState up to date.
+          observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+        }
+      }
+    }
+    observable.invariantLeastStaleObserverState();
+  }
+
+  final void verifyWriteAllowed( @Nonnull final Observable observable )
+  {
+    if ( ArezConfig.enforceTransactionType() )
+    {
+      if ( TransactionType.READ_ONLY == _type )
+      {
+        Guards.fail( () -> String.format(
+          "Transaction named '%s' attempted to change observable named '%s' but transaction is READ_ONLY.",
+          getName(),
+          observable.getName() ) );
+      }
+      else if ( TransactionType.READ_WRITE_OWNED == _type )
+      {
+        Guards.invariant( () -> !observable.hasObservers() || observable.getOwner() == _tracker,
+                          () -> String.format(
+                            "Transaction named '%s' attempted to change observable named '%s' and transaction is " +
+                            "READ_WRITE_OWNED but the observable has not been created by the transaction.",
+                            getName(),
+                            observable.getName() ) );
+      }
+    }
+  }
+
   /**
    * Completes the tracking by updating the dependencies on the observer to match the
    * observables that were observed during tracking. The _tracker is added or removed

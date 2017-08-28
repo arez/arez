@@ -181,6 +181,17 @@ public abstract class Observable
     }
   }
 
+  final void setLeastStaleObserverState( @Nonnull final ObserverState leastStaleObserverState )
+  {
+    _leastStaleObserverState = leastStaleObserverState;
+  }
+
+  @Nonnull
+  final ObserverState getLeastStaleObserverState()
+  {
+    return _leastStaleObserverState;
+  }
+
   final void removeObserver( @Nonnull final Observer observer )
   {
     invariantObserversLinked();
@@ -219,62 +230,19 @@ public abstract class Observable
   // Called by Atom when its value changes
   final void reportChanged()
   {
-    invariantLeastStaleObserverState();
-    if ( ObserverState.STALE != _leastStaleObserverState )
-    {
-      _leastStaleObserverState = ObserverState.STALE;
-      for ( final Observer observer : getObservers() )
-      {
-        final ObserverState state = observer.getState();
-        if ( ObserverState.UP_TO_DATE == state )
-        {
-          observer.setState( ObserverState.STALE );
-        }
-      }
-    }
-    invariantLeastStaleObserverState();
+    getContext().getTransaction().reportChanged( this );
   }
 
   // Called by ComputedValue when it recalculate and its value changed
   final void reportChangeConfirmed()
   {
-    invariantLeastStaleObserverState();
-    if ( ObserverState.STALE != _leastStaleObserverState )
-    {
-      _leastStaleObserverState = ObserverState.STALE;
-
-      for ( final Observer observer : getObservers() )
-      {
-        if ( ObserverState.POSSIBLY_STALE == observer.getState() )
-        {
-          observer.setState( ObserverState.STALE );
-        }
-        else if ( ObserverState.UP_TO_DATE == observer.getState() )
-        {
-          // this happens during computing of `observer`, just keep _leastStaleObserverState up to date.
-          _leastStaleObserverState = ObserverState.UP_TO_DATE;
-        }
-      }
-    }
-    invariantLeastStaleObserverState();
+    getContext().getTransaction().reportChangeConfirmed( this );
   }
 
   // Used by computed when its dependency changed, but we don't wan't to immediately recompute.
   final void reportMaybeChanged()
   {
-    invariantLeastStaleObserverState();
-    if ( ObserverState.UP_TO_DATE == _leastStaleObserverState )
-    {
-      _leastStaleObserverState = ObserverState.POSSIBLY_STALE;
-      for ( final Observer observer : getObservers() )
-      {
-        if ( ObserverState.UP_TO_DATE == observer.getState() )
-        {
-          observer.setState( ObserverState.POSSIBLY_STALE );
-        }
-      }
-    }
-    invariantLeastStaleObserverState();
+    getContext().getTransaction().reportMaybeChanged( this );
   }
 
   final void invariantObserversLinked()
@@ -304,19 +272,6 @@ public abstract class Observable
   final boolean isPendingPassivation()
   {
     return _pendingPassivation;
-  }
-
-  @TestOnly
-  final void setLeastStaleObserverState( @Nonnull final ObserverState leastStaleObserverState )
-  {
-    _leastStaleObserverState = leastStaleObserverState;
-  }
-
-  @Nonnull
-  @TestOnly
-  final ObserverState getLeastStaleObserverState()
-  {
-    return _leastStaleObserverState;
   }
 
   @TestOnly
