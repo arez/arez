@@ -174,6 +174,11 @@ final class Transaction
     }
   }
 
+  /**
+   * Called to report that this observable has changed.
+   * This is called when the observable has definitely changed and should
+   * not be called for derived values that may have changed.
+   */
   final void reportChanged( @Nonnull final Observable observable )
   {
     verifyWriteAllowed( observable );
