@@ -28,6 +28,11 @@ final class ArezConfig
     return getProvider().enableNames();
   }
 
+  static boolean enforceTransactionType()
+  {
+    return getProvider().enforceTransactionType();
+  }
+
   static boolean purgeReactionsWhenRunawayDetected()
   {
     return getProvider().purgeReactionsWhenRunawayDetected();
@@ -45,9 +50,20 @@ final class ArezConfig
     final boolean enableNames = "true".equals( System.getProperty( "arez.enable_names", "false" ) );
     final boolean purgeReactions =
       "true".equals( System.getProperty( "arez.purge_reactions_when_runaway_detected", "true" ) );
+    final boolean enforceTransactionType =
+      "true".equals( System.getProperty( "arez.enforce_transaction_type", "false" ) );
+
     return System.getProperty( "arez.dynamic_provider", "false" ).equals( "true" ) ?
-           new DynamicProvider( verboseErrorMessages, checkInvariants, enableNames, purgeReactions ) :
-           new StaticProvider( verboseErrorMessages, checkInvariants, enableNames, purgeReactions );
+           new DynamicProvider( verboseErrorMessages,
+                                checkInvariants,
+                                enableNames,
+                                purgeReactions,
+                                enforceTransactionType ) :
+           new StaticProvider( verboseErrorMessages,
+                               checkInvariants,
+                               enableNames,
+                               purgeReactions,
+                               enforceTransactionType );
   }
 
   /**
@@ -65,6 +81,8 @@ final class ArezConfig
     boolean enableNames();
 
     boolean purgeReactionsWhenRunawayDetected();
+
+    boolean enforceTransactionType();
   }
 
   /**
@@ -79,16 +97,19 @@ final class ArezConfig
     private boolean _checkInvariants;
     private boolean _enableNames;
     private boolean _purgeReactionsWhenRunawayDetected;
+    private boolean _enforceTransactionType;
 
     DynamicProvider( final boolean verboseErrorMessages,
                      final boolean checkInvariants,
                      final boolean enableNames,
-                     final boolean purgeReactionsWhenRunawayDetected )
+                     final boolean purgeReactionsWhenRunawayDetected,
+                     final boolean enforceTransactionType )
     {
       _verboseErrorMessages = verboseErrorMessages;
       _checkInvariants = checkInvariants;
       _enableNames = enableNames;
       _purgeReactionsWhenRunawayDetected = purgeReactionsWhenRunawayDetected;
+      _enforceTransactionType = enforceTransactionType;
     }
 
     void setVerboseErrorMessages( final boolean verboseErrorMessages )
@@ -111,6 +132,11 @@ final class ArezConfig
       _purgeReactionsWhenRunawayDetected = purgeReactionsWhenRunawayDetected;
     }
 
+    void setEnforceTransactionType( final boolean enforceTransactionType )
+    {
+      _enforceTransactionType = enforceTransactionType;
+    }
+
     @Override
     public boolean verboseErrorMessages()
     {
@@ -133,6 +159,12 @@ final class ArezConfig
     public boolean purgeReactionsWhenRunawayDetected()
     {
       return _purgeReactionsWhenRunawayDetected;
+    }
+
+    @Override
+    public boolean enforceTransactionType()
+    {
+      return _enforceTransactionType;
     }
   }
 
@@ -148,16 +180,19 @@ final class ArezConfig
     private final boolean _checkInvariants;
     private final boolean _enableNames;
     private final boolean _purgeReactionsWhenRunawayDetected;
+    private final boolean _enforceTransactionType;
 
     StaticProvider( final boolean verboseErrorMessages,
                     final boolean checkInvariants,
                     final boolean enableNames,
-                    final boolean purgeReactionsWhenRunawayDetected )
+                    final boolean purgeReactionsWhenRunawayDetected,
+                    final boolean enforceTransactionType )
     {
       _verboseErrorMessages = verboseErrorMessages;
       _checkInvariants = checkInvariants;
       _enableNames = enableNames;
       _purgeReactionsWhenRunawayDetected = purgeReactionsWhenRunawayDetected;
+      _enforceTransactionType = enforceTransactionType;
     }
 
     @Override
@@ -182,6 +217,12 @@ final class ArezConfig
     public boolean purgeReactionsWhenRunawayDetected()
     {
       return _purgeReactionsWhenRunawayDetected;
+    }
+
+    @Override
+    public boolean enforceTransactionType()
+    {
+      return _enforceTransactionType;
     }
   }
 }
