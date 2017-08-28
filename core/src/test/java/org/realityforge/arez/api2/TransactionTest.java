@@ -941,4 +941,159 @@ public class TransactionTest
                   observable3.getName() + "' and transaction is READ_WRITE_OWNED but the observable has not been " +
                   "created by the transaction." );
   }
+
+  @Test
+  public void reportChanged_singleUpToDateObserver()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+
+    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    observer.setState( ObserverState.UP_TO_DATE );
+    observer.getDependencies().add( observable );
+    observable.getObservers().add( observer );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
+    context.setTransaction( transaction );
+    transaction.reportChanged( observable );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.STALE );
+    assertEquals( observer.getState(), ObserverState.STALE );
+  }
+
+  @Test
+  public void reportChanged_readOnlyTransaction()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+
+    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    observer.setState( ObserverState.UP_TO_DATE );
+    observer.getDependencies().add( observable );
+    observable.getObservers().add( observer );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
+    context.setTransaction( transaction );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.reportChanged( observable ) );
+
+    assertEquals( exception.getMessage(),
+                  "Transaction named '" + transaction.getName() + "' attempted to change observable named '" +
+                  observable.getName() + "' but transaction is READ_ONLY." );
+  }
+
+  @Test
+  public void reportChanged_singleObserver_notTrackingState()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    observable.setLeastStaleObserverState( ObserverState.NOT_TRACKING );
+
+    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    observer.setState( ObserverState.NOT_TRACKING );
+    observer.getDependencies().add( observable );
+    observable.getObservers().add( observer );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.NOT_TRACKING );
+    assertEquals( observer.getState(), ObserverState.NOT_TRACKING );
+
+    context.setTransaction( transaction );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.reportChanged( observable ) );
+
+    assertEquals( exception.getMessage(),
+                  "Transaction named '" + transaction.getName() + "' has attempted to explicitly " +
+                  "change observable named '" + observable.getName() + "' and observable is in unexpected " +
+                  "state NOT_TRACKING." );
+  }
+
+  @Test
+  public void reportChanged_singleObserver_possiblyStaleState()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+
+    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    observer.setState( ObserverState.POSSIBLY_STALE );
+    observer.getDependencies().add( observable );
+    observable.getObservers().add( observer );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
+
+    context.setTransaction( transaction );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.reportChanged( observable ) );
+
+    assertEquals( exception.getMessage(),
+                  "Transaction named '" + transaction.getName() + "' has attempted to explicitly " +
+                  "change observable named '" + observable.getName() + "' but observable is in state POSSIBLY_STALE " +
+                  "indicating it is derived and thus can not be explicitly changed." );
+  }
+
+  @Test
+  public void reportChanged_multipleObservers()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+
+    final Derivation observer1 = new Derivation( context, ValueUtil.randomString() );
+    observer1.setState( ObserverState.UP_TO_DATE );
+    observer1.getDependencies().add( observable );
+    observable.getObservers().add( observer1 );
+
+    final Derivation observer2 = new Derivation( context, ValueUtil.randomString() );
+    observer2.setState( ObserverState.STALE );
+    observer2.getDependencies().add( observable );
+    observable.getObservers().add( observer2 );
+
+    final Derivation observer3 = new Derivation( context, ValueUtil.randomString() );
+    observer3.setState( ObserverState.STALE );
+    observer3.getDependencies().add( observable );
+    observable.getObservers().add( observer3 );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer1.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer2.getState(), ObserverState.STALE );
+    assertEquals( observer3.getState(), ObserverState.STALE );
+
+    context.setTransaction( transaction );
+    transaction.reportChanged( observable );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.STALE );
+    assertEquals( observer1.getState(), ObserverState.STALE );
+    assertEquals( observer2.getState(), ObserverState.STALE );
+    assertEquals( observer3.getState(), ObserverState.STALE );
+  }
 }
