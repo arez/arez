@@ -845,4 +845,84 @@ public class TransactionTest
                   "Invoked passivatePendingPassivations on transaction named '" +
                   transaction2.getName() + "' which is not the root transaction." );
   }
+
+  @Test
+  public void verifyWriteAllowed_withReadOnlyTransaction_enforceTransactionType_set_to_false()
+  {
+    final ArezConfig.DynamicProvider provider = (ArezConfig.DynamicProvider) ArezConfig.getProvider();
+    provider.setEnforceTransactionType( false );
+
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionType.READ_ONLY, null );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    //Should produce no error
+    transaction.verifyWriteAllowed( observable );
+  }
+
+  @Test
+  public void verifyWriteAllowed_withReadOnlyTransaction()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionType.READ_ONLY, null );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.verifyWriteAllowed( observable ) );
+
+    assertEquals( exception.getMessage(),
+                  "Transaction named '" + transaction.getName() + "' attempted to change observable named '" +
+                  observable.getName() + "' but transaction is READ_ONLY." );
+  }
+
+  @Test
+  public void verifyWriteAllowed_withReadWriteTransaction()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionType.READ_WRITE, null );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    //Should produce no error
+    transaction.verifyWriteAllowed( observable );
+  }
+
+  @Test
+  public void verifyWriteAllowed_withReadWriteOwnedTransaction()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionType.READ_WRITE_OWNED, tracker );
+
+    final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString(), tracker );
+    final TestObservable observable2 = new TestObservable( context, ValueUtil.randomString() );
+    final TestObservable observable3 = new TestObservable( context, ValueUtil.randomString() );
+
+    tracker.getDependencies().add( observable3 );
+    observable3.getObservers().add( tracker );
+
+    //Should produce no error as it is owned by derivation
+    transaction.verifyWriteAllowed( observable1 );
+
+    // Should produce no errors as it has no observers and thus has been created in this transaction
+    transaction.verifyWriteAllowed( observable2 );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.verifyWriteAllowed( observable3 ) );
+
+    assertEquals( exception.getMessage(),
+                  "Transaction named '" + transaction.getName() + "' attempted to change observable named '" +
+                  observable3.getName() + "' and transaction is READ_WRITE_OWNED but the observable has not been " +
+                  "created by the transaction." );
+  }
 }
