@@ -24,6 +24,7 @@ public class TransactionTest
     assertEquals( transaction.getTracker(), null );
     assertEquals( transaction.getObservables(), null );
     assertEquals( transaction.getPendingPassivations(), null );
+    assertEquals( transaction.getMode(), TransactionMode.READ_ONLY );
 
     assertEquals( context.currentNextNodeId(), nextNodeId + 1 );
   }
