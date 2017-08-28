@@ -214,6 +214,12 @@ final class Transaction
     observable.invariantLeastStaleObserverState();
   }
 
+  /**
+   * Invoked with a derived observable when a dependency of the observable has
+   * changed. The observable may or may not have changed but the framework will
+   * recalculate the value during normal reaction cycle or when accessed within
+   * transaction scope and will update the state of the observable at that time.
+   */
   final void reportPossiblyChanged( @Nonnull final Observable observable )
   {
     Guards.invariant( () -> null != observable.getOwner(),
