@@ -10,6 +10,11 @@ final class Transaction
   extends Node
 {
   /**
+   * Determines which write operations are permitted within the scope of the transaction if any.
+   */
+  @Nonnull
+  private final TransactionType _type;
+  /**
    * A list of observables that have reached zero observers within the scope of the root transaction.
    * When the root transaction completes, these observers are passivated if they still have no observers.
    * It should be noted that this list is owned by the root transaction and a reference is copied to all
@@ -41,11 +46,19 @@ final class Transaction
   Transaction( @Nonnull final ArezContext context,
                @Nullable final Transaction previous,
                @Nullable final String name,
+               @Nonnull final TransactionType type,
                @Nullable final Observer tracker )
   {
     super( context, name );
     _previous = previous;
+    _type = type;
     _tracker = tracker;
+  }
+
+  @Nonnull
+  final TransactionType getType()
+  {
+    return _type;
   }
 
   final void begin()

@@ -38,7 +38,7 @@ public final class ArezContext
 
   private Transaction beginTransaction( @Nullable final String name, @Nullable final Observer tracker )
   {
-    _transaction = new Transaction( this, _transaction, name, tracker );
+    _transaction = new Transaction( this, _transaction, name, TransactionType.READ_ONLY, tracker );
     _transaction.begin();
     return _transaction;
   }
