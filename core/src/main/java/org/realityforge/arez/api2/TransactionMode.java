@@ -1,6 +1,6 @@
 package org.realityforge.arez.api2;
 
-public enum TransactionType
+public enum TransactionMode
 {
   /**
    * Can read state within the system.

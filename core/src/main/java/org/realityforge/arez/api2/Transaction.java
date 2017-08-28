@@ -13,7 +13,7 @@ final class Transaction
    * Determines which write operations are permitted within the scope of the transaction if any.
    */
   @Nonnull
-  private final TransactionType _type;
+  private final TransactionMode _mode;
   /**
    * A list of observables that have reached zero observers within the scope of the root transaction.
    * When the root transaction completes, these observers are passivated if they still have no observers.
@@ -46,24 +46,24 @@ final class Transaction
   Transaction( @Nonnull final ArezContext context,
                @Nullable final Transaction previous,
                @Nullable final String name,
-               @Nonnull final TransactionType type,
+               @Nonnull final TransactionMode mode,
                @Nullable final Observer tracker )
   {
     super( context, name );
     _previous = previous;
-    _type = type;
+    _mode = mode;
     _tracker = tracker;
 
-    Guards.invariant( () -> TransactionType.READ_WRITE_OWNED != type || null != tracker,
+    Guards.invariant( () -> TransactionMode.READ_WRITE_OWNED != mode || null != tracker,
                       () -> String.format(
                         "Attempted to create transaction named '%s' with mode READ_WRITE_OWNED but no tracker specified.",
                         getName() ) );
   }
 
   @Nonnull
-  final TransactionType getType()
+  final TransactionMode getMode()
   {
-    return _type;
+    return _mode;
   }
 
   final void begin()
@@ -240,14 +240,14 @@ final class Transaction
   {
     if ( ArezConfig.enforceTransactionType() )
     {
-      if ( TransactionType.READ_ONLY == _type )
+      if ( TransactionMode.READ_ONLY == _mode )
       {
         Guards.fail( () -> String.format(
           "Transaction named '%s' attempted to change observable named '%s' but transaction is READ_ONLY.",
           getName(),
           observable.getName() ) );
       }
-      else if ( TransactionType.READ_WRITE_OWNED == _type )
+      else if ( TransactionMode.READ_WRITE_OWNED == _mode )
       {
         Guards.invariant( () -> !observable.hasObservers() || observable.getOwner() == _tracker,
                           () -> String.format(
