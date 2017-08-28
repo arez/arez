@@ -189,6 +189,21 @@ final class Transaction
         {
           observer.setState( ObserverState.STALE );
         }
+        else
+        {
+          Guards.invariant( () -> ObserverState.POSSIBLY_STALE != state,
+                            () -> String.format( "Transaction named '%s' has attempted to explicitly change observable " +
+                                                 "named '%s' but observable is in state POSSIBLY_STALE indicating it is " +
+                                                 "derived and thus can not be explicitly changed.",
+                                                 getName(),
+                                                 observable.getName() ) );
+          Guards.invariant( () -> ObserverState.STALE == state,
+                            () -> String.format( "Transaction named '%s' has attempted to explicitly change observable " +
+                                                 "named '%s' and observable is in unexpected state %s.",
+                                                 getName(),
+                                                 observable.getName(),
+                                                 state.name() ) );
+        }
       }
     }
     observable.invariantLeastStaleObserverState();
