@@ -216,6 +216,11 @@ final class Transaction
 
   final void reportPossiblyChanged( @Nonnull final Observable observable )
   {
+    Guards.invariant( () -> null != observable.getOwner(),
+                      () -> String.format( "Transaction named '%s' has attempted to mark observable " +
+                                           "named '%s' as potentially changed but observable is not a derived value.",
+                                           getName(),
+                                           observable.getName() ) );
     verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
     if ( ObserverState.UP_TO_DATE == observable.getLeastStaleObserverState() )
@@ -223,9 +228,20 @@ final class Transaction
       observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
       for ( final Observer observer : observable.getObservers() )
       {
-        if ( ObserverState.UP_TO_DATE == observer.getState() )
+        final ObserverState state = observer.getState();
+        if ( ObserverState.UP_TO_DATE == state )
         {
           observer.setState( ObserverState.POSSIBLY_STALE );
+        }
+        else
+        {
+          Guards.invariant( () -> ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state,
+                            () -> String.format( "Transaction named '%s' has attempted to mark observable " +
+                                                 "named '%s' as potentially changed but observable is in " +
+                                                 "unexpected state %s.",
+                                                 getName(),
+                                                 observable.getName(),
+                                                 state.name() ) );
         }
       }
     }
