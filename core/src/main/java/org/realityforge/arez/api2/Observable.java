@@ -240,9 +240,9 @@ public abstract class Observable
   }
 
   // Used by computed when its dependency changed, but we don't wan't to immediately recompute.
-  final void reportMaybeChanged()
+  final void reportPossiblyChanged()
   {
-    getContext().getTransaction().reportMaybeChanged( this );
+    getContext().getTransaction().reportPossiblyChanged( this );
   }
 
   final void invariantObserversLinked()

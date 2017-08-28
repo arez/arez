@@ -214,7 +214,7 @@ final class Transaction
     observable.invariantLeastStaleObserverState();
   }
 
-  final void reportMaybeChanged( @Nonnull final Observable observable )
+  final void reportPossiblyChanged( @Nonnull final Observable observable )
   {
     verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
