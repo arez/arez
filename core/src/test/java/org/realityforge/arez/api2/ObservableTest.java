@@ -99,29 +99,4 @@ public class ObservableTest
 
     observable.invariantLeastStaleObserverState();
   }
-
-  @Test
-  public void propagateChanged()
-    throws Exception
-  {
-    final ArezContext context = new ArezContext();
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
-
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
-
-    observer.setState( ObserverState.UP_TO_DATE );
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
-
-    observable.addObserver( observer );
-
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
-
-    observable.reportChanged();
-
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.STALE );
-    assertEquals( observer.getState(), ObserverState.STALE );
-
-    observable.invariantLeastStaleObserverState();
-  }
 }
