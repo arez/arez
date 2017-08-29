@@ -14,7 +14,7 @@ public class Derivation
   @Override
   protected void onBecomeUnobserved()
   {
-    clearObservers();
+    clearDependencies();
   }
 
   /**
@@ -35,6 +35,6 @@ public class Derivation
                       () -> String.format( "Invoked passivate on derivation named '%s' when derivation is not active.",
                                            getName() ) );
     setState( ObserverState.NOT_TRACKING );
-    //clearObservers();
+    //clearDependencies();
   }
 }

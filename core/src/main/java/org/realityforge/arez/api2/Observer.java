@@ -60,7 +60,7 @@ public class Observer
   {
   }
 
-  final void clearObservers()
+  final void clearDependencies()
   {
     getDependencies().forEach( dependency -> dependency.removeObserver( this ) );
     getDependencies().clear();
