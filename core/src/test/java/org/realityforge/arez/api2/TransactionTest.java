@@ -299,6 +299,25 @@ public class TransactionTest
   }
 
   @Test
+  public void completeTracking_withBadTrackerState()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    tracker.setState( ObserverState.NOT_TRACKING );
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, transaction::completeTracking );
+
+    assertEquals( exception.getMessage(),
+                  "Transaction named '" + transaction.getName() + "' called completeTracking but _tracker " +
+                  "state of NOT_TRACKING is unexpected." );
+  }
+
+  @Test
   public void completeTracking_noNewObservablesButExistingObservables()
   {
     final ArezContext context = new ArezContext();
