@@ -2,6 +2,7 @@ package org.realityforge.arez.api2.test;
 
 import org.realityforge.arez.api2.AbstractArezTest;
 import org.realityforge.arez.api2.ArezContext;
+import org.realityforge.arez.api2.TransactionMode;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -20,7 +21,7 @@ public class TransactionApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.transaction( ValueUtil.randomString(), null, () -> {
+      context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
         assertTrue( context.isTransactionActive() );
         return expectedValue;
       } );
@@ -38,15 +39,15 @@ public class TransactionApiTest
 
     assertFalse( context.isTransactionActive() );
 
-    context.transaction( ValueUtil.randomString(), null, () -> {
+    context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
       assertTrue( context.isTransactionActive() );
 
       //First nested exception
-      context.transaction( ValueUtil.randomString(), null, () -> {
+      context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
         assertTrue( context.isTransactionActive() );
 
         //Second nested exception
-        context.transaction( ValueUtil.randomString(), null, () -> {
+        context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
           assertTrue( context.isTransactionActive() );
         } );
 
@@ -70,17 +71,17 @@ public class TransactionApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.transaction( ValueUtil.randomString(), null, () -> {
+      context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
         assertTrue( context.isTransactionActive() );
 
         //First nested exception
         final String v1 =
-          context.transaction( ValueUtil.randomString(), null, () -> {
+          context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
             assertTrue( context.isTransactionActive() );
 
             //Second nested exception
             final String v2 =
-              context.transaction( ValueUtil.randomString(), null, () -> {
+              context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
                 assertTrue( context.isTransactionActive() );
                 return expectedValue;
               } );

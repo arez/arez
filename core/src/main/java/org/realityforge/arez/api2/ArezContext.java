@@ -54,12 +54,15 @@ public final class ArezContext
    * Create a new transaction.
    *
    * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param mode    the transaciton mode.
    * @param tracker the observer that is tracking transaction if any.
    * @return the new transaction.
    */
-  private Transaction beginTransaction( @Nullable final String name, @Nullable final Observer tracker )
+  private Transaction beginTransaction( @Nullable final String name,
+                                        @Nonnull final TransactionMode mode,
+                                        @Nullable final Observer tracker )
   {
-    _transaction = new Transaction( this, _transaction, name, TransactionMode.READ_ONLY, tracker );
+    _transaction = new Transaction( this, _transaction, name, mode, tracker );
     _transaction.begin();
     return _transaction;
   }
@@ -91,19 +94,21 @@ public final class ArezContext
    * Execute the supplied action in a transaction.
    * The transaction is tracking if tracker is supplied and is named with specified name.
    *
+   * @param <T>     the type of return value.
    * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param mode    the transaciton mode.
    * @param tracker the observer that is tracking transaction if any.
    * @param action  the action to execute.
-   * @param <T> the type of return value.
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
   public <T> T transaction( @Nullable final String name,
+                            @Nonnull final TransactionMode mode,
                             @Nullable final Observer tracker,
                             @Nonnull final Callable<T> action )
     throws Exception
   {
-    final Transaction transaction = beginTransaction( name, tracker );
+    final Transaction transaction = beginTransaction( name, mode, tracker );
     try
     {
       return action.call();
@@ -119,16 +124,18 @@ public final class ArezContext
    * The transaction is tracking if tracker is supplied and is named with specified name.
    *
    * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param mode    the transaciton mode.
    * @param tracker the observer that is tracking transaction if any.
    * @param action  the action to execute.
    * @throws Exception if the action throws an an exception.
    */
   public void transaction( @Nullable final String name,
+                           @Nonnull final TransactionMode mode,
                            @Nullable final Observer tracker,
                            @Nonnull final Action action )
     throws Exception
   {
-    final Transaction transaction = beginTransaction( name, tracker );
+    final Transaction transaction = beginTransaction( name, mode, tracker );
     try
     {
       action.call();
