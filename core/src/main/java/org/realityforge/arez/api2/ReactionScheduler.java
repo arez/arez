@@ -142,7 +142,7 @@ final class ReactionScheduler
   {
     final List<String> reactionNames =
       ArezConfig.checkInvariants() && ArezConfig.verboseErrorMessages() ?
-      _pendingReactions.stream().map( ArezElement::getName ).collect( Collectors.toList() ) :
+      _pendingReactions.stream().map( Node::getName ).collect( Collectors.toList() ) :
       null;
 
     if ( ArezConfig.purgeReactionsWhenRunawayDetected() )
