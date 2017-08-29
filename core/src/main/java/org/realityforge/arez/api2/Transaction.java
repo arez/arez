@@ -261,7 +261,11 @@ final class Transaction
         }
         else if ( ObserverState.UP_TO_DATE == observer.getState() )
         {
-          // this happens during computing of `observer`, just keep _leastStaleObserverState up to date.
+          /*
+           * If the observer is a Derivation that is currently being calculated
+           * then it can be UP_TO_DATE so make sure we keep _leastStaleObserverState
+           * up to date.
+           */
           observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
         }
       }
