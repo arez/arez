@@ -280,6 +280,25 @@ public class TransactionTest
   }
 
   @Test
+  public void completeTracking_noTrackerButObservablesPresent_shouldFail()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    // This next line forces the creation of observables
+    transaction.safeGetObservables();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, transaction::completeTracking );
+
+    assertEquals( exception.getMessage(),
+                  "Transaction named '" + transaction.getName() + "' has no associated tracker so " +
+                  "_observables should be null but are not." );
+  }
+
+  @Test
   public void completeTracking_noNewObservablesButExistingObservables()
   {
     final ArezContext context = new ArezContext();
