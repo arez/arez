@@ -132,12 +132,16 @@ public class Observer
    */
   final void invariantDependenciesUnique( @Nonnull final String context )
   {
-    Guards.invariant( () -> getDependencies().size() == new HashSet<>( getDependencies() ).size(),
-                      () -> String.format(
-                        "%s: The set of dependencies in observer named '%s' is not unique. Current list: '%s'.",
-                        context,
-                        getName(),
-                        getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ).toString() ) );
+    // This invariant check should not be needed but this guarantees the (GWT) optimizer removes this code
+    if ( ArezConfig.checkInvariants() )
+    {
+      Guards.invariant( () -> getDependencies().size() == new HashSet<>( getDependencies() ).size(),
+                        () -> String.format(
+                          "%s: The set of dependencies in observer named '%s' is not unique. Current list: '%s'.",
+                          context,
+                          getName(),
+                          getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ).toString() ) );
+    }
   }
 
   /**
@@ -148,6 +152,7 @@ public class Observer
    */
   final void invariantDependenciesBackLink( @Nonnull final String context )
   {
+    // This invariant check should not be needed but this guarantees the (GWT) optimizer removes this code
     if ( ArezConfig.checkInvariants() )
     {
       getDependencies().forEach( observable ->
