@@ -5,6 +5,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 
+/**
+ * The ArezContext defines the top level container of interconnected observables and observers.
+ * The context also provides the mechanism for creating transactions to read and write state
+ * within the system.
+ */
 public final class ArezContext
 {
   /**
@@ -26,16 +31,32 @@ public final class ArezContext
    */
   private final ReactionScheduler _scheduler = new ReactionScheduler( this );
 
+  /**
+   * Pass the supplied reaction to the scheduler.
+   * The reaction should NOT be already pending execution.
+   *
+   * @param reaction the reaction to schedule.
+   */
   final void scheduleReaction( @Nonnull final Reaction reaction )
   {
     _scheduler.scheduleReaction( reaction );
   }
 
+  /**
+   * Run all pending reactions.
+   */
   final void runPendingReactions()
   {
     _scheduler.runPendingReactions();
   }
 
+  /**
+   * Create a new transaction.
+   *
+   * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param tracker the observer that is tracking transaction if any.
+   * @return the new transaction.
+   */
   private Transaction beginTransaction( @Nullable final String name, @Nullable final Observer tracker )
   {
     _transaction = new Transaction( this, _transaction, name, TransactionMode.READ_ONLY, tracker );
@@ -43,6 +64,14 @@ public final class ArezContext
     return _transaction;
   }
 
+  /**
+   * Commit the supplied transaction.
+   *
+   * This method verifies that the transaction active is the supplied transaction before committing
+   * the transaction and restoring the prior transaction if any.
+   *
+   * @param transaction the transaction.
+   */
   private void commitTransaction( @Nonnull final Transaction transaction )
   {
     Guards.invariant( () -> null != _transaction,
@@ -61,6 +90,13 @@ public final class ArezContext
   /**
    * Execute the supplied action in a transaction.
    * The transaction is tracking if tracker is supplied and is named with specified name.
+   *
+   * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param tracker the observer that is tracking transaction if any.
+   * @param action  the action to execute.
+   * @param <T> the type of return value.
+   * @return the value returned from the action.
+   * @throws Exception if the action throws an an exception.
    */
   public <T> T transaction( @Nullable final String name,
                             @Nullable final Observer tracker,
@@ -81,6 +117,11 @@ public final class ArezContext
   /**
    * Execute the supplied action in a transaction.
    * The transaction is tracking if tracker is supplied and is named with specified name.
+   *
+   * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param tracker the observer that is tracking transaction if any.
+   * @param action  the action to execute.
+   * @throws Exception if the action throws an an exception.
    */
   public void transaction( @Nullable final String name,
                            @Nullable final Observer tracker,
@@ -98,11 +139,23 @@ public final class ArezContext
     }
   }
 
+  /**
+   * Return true if there is a transaction in progress.
+   *
+   * @return true if there is a transaction in progress.
+   */
   public boolean isTransactionActive()
   {
     return null != _transaction;
   }
 
+  /**
+   * Return the current transaction.
+   * This method should not be invoked unless a transaction active and will throw an
+   * exception if invariant checks are enabled.
+   *
+   * @return the current transaction.
+   */
   @Nonnull
   Transaction getTransaction()
   {
@@ -112,6 +165,12 @@ public final class ArezContext
     return _transaction;
   }
 
+  /**
+   * Return next node id and increment internal counter.
+   * The id is a monotonically increasing number starting at 1.
+   *
+   * @return the next node id.
+   */
   int nextNodeId()
   {
     return _nextNodeId++;
