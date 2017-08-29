@@ -6,15 +6,15 @@ import javax.annotation.Nullable;
 class TestObservable
   extends Observable
 {
-  public TestObservable( @Nonnull final ArezContext context,
-                         @Nullable final String name )
+  TestObservable( @Nonnull final ArezContext context,
+                  @Nullable final String name )
   {
     super( context, name );
   }
 
-  public TestObservable( @Nonnull final ArezContext context,
-                         @Nullable final String name,
-                         @Nullable final Derivation derivation )
+  TestObservable( @Nonnull final ArezContext context,
+                  @Nullable final String name,
+                  @Nullable final Derivation derivation )
   {
     super( context, name, derivation );
   }
