@@ -324,9 +324,9 @@ final class Transaction
       return;
     }
     _tracker.invariantDependenciesUnique( "Pre completeTracking" );
-    Guards.invariant( () -> _tracker.getState() != ObserverState.NOT_TRACKING,
+    Guards.invariant( () -> _tracker.getState() != ObserverState.INACTIVE,
                       () -> String.format(
-                        "Transaction named '%s' called completeTracking but _tracker state of NOT_TRACKING is unexpected.",
+                        "Transaction named '%s' called completeTracking but _tracker state of INACTIVE is unexpected.",
                         getName() ) );
 
     ObserverState newDerivationState = ObserverState.UP_TO_DATE;

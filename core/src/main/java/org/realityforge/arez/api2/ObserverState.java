@@ -10,7 +10,7 @@ public enum ObserverState
    * Typically mean this tracker observer has not been run or if it is a derivation that
    * there is no observer observing the derived observables.
    */
-  NOT_TRACKING,
+  INACTIVE,
   /**
    * No change since last time observer was notified.
    */

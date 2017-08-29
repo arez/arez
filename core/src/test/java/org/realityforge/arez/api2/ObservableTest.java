@@ -33,7 +33,7 @@ public class ObservableTest
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.NOT_TRACKING );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
 
     final Observer observer = new Observer( context, ValueUtil.randomString() );
 
@@ -43,7 +43,7 @@ public class ObservableTest
     assertEquals( observable.getObservers().size(), 1 );
     assertEquals( observable.hasObservers(), true );
     assertEquals( observable.getObservers().get( 0 ), observer );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.NOT_TRACKING );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
 
     observable.invariantLeastStaleObserverState();
   }

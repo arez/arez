@@ -65,7 +65,7 @@ public class TransactionIntegrationTest
     final Observable observable = new TestObservable( context, ValueUtil.randomString() );
     assertEquals( observable.getObservers().size(), 0 );
 
-    assertEquals( tracker.getState(), ObserverState.NOT_TRACKING );
+    assertEquals( tracker.getState(), ObserverState.INACTIVE );
 
     final int nextNodeId = context.currentNextNodeId();
     final String name = ValueUtil.randomString();
@@ -148,7 +148,7 @@ public class TransactionIntegrationTest
     final Observable observable = new TestObservable( context, ValueUtil.randomString() );
     assertEquals( observable.getObservers().size(), 0 );
 
-    assertEquals( tracker1.getState(), ObserverState.NOT_TRACKING );
+    assertEquals( tracker1.getState(), ObserverState.INACTIVE );
 
     final int nextNodeId = context.currentNextNodeId();
     final String name1 = ValueUtil.randomString();

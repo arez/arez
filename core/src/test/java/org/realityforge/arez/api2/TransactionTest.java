@@ -69,7 +69,7 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
 
-    assertEquals( tracker.getState(), ObserverState.NOT_TRACKING );
+    assertEquals( tracker.getState(), ObserverState.INACTIVE );
 
     transaction.begin();
 
@@ -119,7 +119,7 @@ public class TransactionTest
     assertEquals( observable2.isPendingPassivation(), false );
     assertEquals( observable2.isActive(), false );
     assertEquals( observable2.getOwner(), derivation );
-    assertEquals( derivation.getState(), ObserverState.NOT_TRACKING );
+    assertEquals( derivation.getState(), ObserverState.INACTIVE );
   }
 
   @Test
@@ -151,7 +151,7 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
 
-    assertEquals( tracker.getState(), ObserverState.NOT_TRACKING );
+    assertEquals( tracker.getState(), ObserverState.INACTIVE );
 
     transaction.beginTracking();
 
@@ -304,7 +304,7 @@ public class TransactionTest
     final ArezContext context = new ArezContext();
 
     final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
-    tracker.setState( ObserverState.NOT_TRACKING );
+    tracker.setState( ObserverState.INACTIVE );
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
@@ -314,7 +314,7 @@ public class TransactionTest
 
     assertEquals( exception.getMessage(),
                   "Transaction named '" + transaction.getName() + "' called completeTracking but _tracker " +
-                  "state of NOT_TRACKING is unexpected." );
+                  "state of INACTIVE is unexpected." );
   }
 
   @Test
@@ -727,7 +727,7 @@ public class TransactionTest
     assertEquals( observable.isPendingPassivation(), false );
     assertEquals( observable.isActive(), false );
     assertEquals( observable.getOwner(), derivation );
-    assertEquals( derivation.getState(), ObserverState.NOT_TRACKING );
+    assertEquals( derivation.getState(), ObserverState.INACTIVE );
   }
 
   @Test
@@ -833,10 +833,10 @@ public class TransactionTest
     assertEquals( observable1.isPendingPassivation(), false );
     assertEquals( observable1.isActive(), true );
     assertEquals( observable1.getOwner(), null );
-    assertEquals( derivation2.getState(), ObserverState.NOT_TRACKING );
+    assertEquals( derivation2.getState(), ObserverState.INACTIVE );
     assertEquals( derivation2.getDependencies().size(), 0 );
     assertEquals( observable2.getObservers().size(), 0 );
-    assertEquals( derivation1.getState(), ObserverState.NOT_TRACKING );
+    assertEquals( derivation1.getState(), ObserverState.INACTIVE );
     assertEquals( derivation1.getDependencies().size(), 0 );
     assertEquals( observable1.getObservers().size(), 0 );
   }
@@ -877,7 +877,7 @@ public class TransactionTest
     assertEquals( derivedObservable.isPendingPassivation(), false );
     assertEquals( derivedObservable.isActive(), false );
     assertEquals( derivedObservable.getOwner(), derivation );
-    assertEquals( derivation.getState(), ObserverState.NOT_TRACKING );
+    assertEquals( derivation.getState(), ObserverState.INACTIVE );
     assertEquals( derivation.getDependencies().size(), 0 );
     assertEquals( baseObservable.getObservers().size(), 0 );
   }
@@ -1044,15 +1044,15 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
 
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
-    observable.setLeastStaleObserverState( ObserverState.NOT_TRACKING );
+    observable.setLeastStaleObserverState( ObserverState.INACTIVE );
 
     final Derivation observer = new Derivation( context, ValueUtil.randomString() );
-    observer.setState( ObserverState.NOT_TRACKING );
+    observer.setState( ObserverState.INACTIVE );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.NOT_TRACKING );
-    assertEquals( observer.getState(), ObserverState.NOT_TRACKING );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
 
     context.setTransaction( transaction );
 
@@ -1062,7 +1062,7 @@ public class TransactionTest
     assertEquals( exception.getMessage(),
                   "Transaction named '" + transaction.getName() + "' has attempted to explicitly " +
                   "change observable named '" + observable.getName() + "' and observable is in unexpected " +
-                  "state NOT_TRACKING." );
+                  "state INACTIVE." );
   }
 
   @Test

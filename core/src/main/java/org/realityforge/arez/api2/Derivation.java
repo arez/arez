@@ -22,7 +22,7 @@ public class Derivation
    */
   final boolean isActive()
   {
-    return ObserverState.NOT_TRACKING != getState();
+    return ObserverState.INACTIVE != getState();
   }
 
   /**
@@ -34,7 +34,7 @@ public class Derivation
     Guards.invariant( this::isActive,
                       () -> String.format( "Invoked passivate on derivation named '%s' when derivation is not active.",
                                            getName() ) );
-    setState( ObserverState.NOT_TRACKING );
+    setState( ObserverState.INACTIVE );
     //clearDependencies();
   }
 }

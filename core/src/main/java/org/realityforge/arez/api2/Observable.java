@@ -45,7 +45,7 @@ public abstract class Observable
    * This cached value is used to avoid redundant propagations.
    */
   @Nonnull
-  private ObserverState _leastStaleObserverState = ObserverState.NOT_TRACKING;
+  private ObserverState _leastStaleObserverState = ObserverState.INACTIVE;
   /**
    * The derivation that created this observable if any.
    */
@@ -259,7 +259,7 @@ public abstract class Observable
   {
     final ObserverState leastStaleObserverState =
       getObservers().stream().
-        map( Observer::getState ).min( Comparator.comparing( Enum::ordinal ) ).orElse( ObserverState.NOT_TRACKING );
+        map( Observer::getState ).min( Comparator.comparing( Enum::ordinal ) ).orElse( ObserverState.INACTIVE );
     Guards.invariant( () -> leastStaleObserverState.ordinal() >= _leastStaleObserverState.ordinal(),
                       () -> String.format(
                         "Calculated leastStaleObserverState on observable named '%s' is '%s' which is unexpectedly less than cached value '%s'.",

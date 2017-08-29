@@ -17,7 +17,7 @@ public class Observer
    * The stalest state of the associated observables that are also derivations.
    */
   @Nonnull
-  private ObserverState _state = ObserverState.NOT_TRACKING;
+  private ObserverState _state = ObserverState.INACTIVE;
   /**
    * The observables that this observer receives notifications from.
    * These are the dependencies within the dependency graph and will
@@ -50,8 +50,8 @@ public class Observer
    *
    * <ul>
    * <li>If the state changes from UP_TO_DATE to STALE or POSSIBLY_STALE then call the onBecomeStale hook method.</li>
-   * <li>If the state changes to NOT_TRACKING then call the onBecomeUnobserved hook method.</li>
-   * <li>If the state changes from NOT_TRACKING then call the onBecomeObserved hook method.</li>
+   * <li>If the state changes to INACTIVE then call the onBecomeUnobserved hook method.</li>
+   * <li>If the state changes from INACTIVE then call the onBecomeObserved hook method.</li>
    * </ul>
    *
    * @param state the state of the observer.
@@ -67,11 +67,11 @@ public class Observer
       {
         onBecomeStale();
       }
-      else if ( ObserverState.NOT_TRACKING == _state )
+      else if ( ObserverState.INACTIVE == _state )
       {
         onBecomeUnobserved();
       }
-      else if ( ObserverState.NOT_TRACKING == originalState )
+      else if ( ObserverState.INACTIVE == originalState )
       {
         onBecomeObserved();
       }
