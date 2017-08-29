@@ -1,5 +1,8 @@
 package org.realityforge.arez.api2;
 
+/**
+ * Interface for performing an action that does not return a value.
+ */
 @FunctionalInterface
 public interface Action
 {
