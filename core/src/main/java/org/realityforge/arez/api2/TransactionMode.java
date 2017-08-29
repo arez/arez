@@ -1,5 +1,8 @@
 package org.realityforge.arez.api2;
 
+/**
+ * The mode of the transaction that determines if the transaction can modify state.
+ */
 public enum TransactionMode
 {
   /**
