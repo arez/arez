@@ -245,6 +245,11 @@ final class Transaction
     observable.invariantLeastStaleObserverState();
   }
 
+  /**
+   * Invoked with a derived observable when the derived observable is actually
+   * changed. This is determined after the value is recalculated and converts
+   * a UPTODATE or POSSIBLY_STALE state to STALE.
+   */
   final void reportChangeConfirmed( @Nonnull final Observable observable )
   {
     Guards.invariant( () -> null != observable.getOwner(),
