@@ -51,7 +51,7 @@ final class Transaction
   {
     super( context, name );
     _previous = previous;
-    _mode = mode;
+    _mode = Objects.requireNonNull( mode );
     _tracker = tracker;
 
     Guards.invariant( () -> TransactionMode.READ_WRITE_OWNED != mode || null != tracker,
