@@ -2,6 +2,7 @@ package org.realityforge.arez.api2;
 
 import java.util.function.Supplier;
 import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Contract;
 
 final class Guards
 {
@@ -32,6 +33,7 @@ final class Guards
    * The exception is not thrown unless {@link ArezConfig#checkInvariants()} is true.
    * The exception will ignore the supplied message unless {@link ArezConfig#verboseErrorMessages()} is true.
    */
+  @Contract( "_ -> fail" )
   static void fail( @Nonnull final Supplier<String> message )
   {
     if ( ArezConfig.checkInvariants() )
