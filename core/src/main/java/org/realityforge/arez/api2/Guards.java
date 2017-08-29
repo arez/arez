@@ -27,9 +27,24 @@ final class Guards
   static void invariant( @Nonnull final Supplier<Boolean> condition,
                          @Nonnull final Supplier<String> message )
   {
-    if ( ArezConfig.checkInvariants() && !condition.get() )
+    if ( ArezConfig.checkInvariants() )
     {
-      fail( message );
+      boolean conditionResult = false;
+      try
+      {
+        conditionResult = condition.get();
+      }
+      catch ( final Throwable t )
+      {
+        fail( () -> "Error checking condition.\n" +
+                    "Message: " + ArezUtil.safeGetString( message ) + "\n" +
+                    "Throwable:\n" +
+                    ArezUtil.throwableToString( t ) );
+      }
+      if ( !conditionResult )
+      {
+        fail( message );
+      }
     }
   }
 
