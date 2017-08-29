@@ -4,6 +4,9 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Contract;
 
+/**
+ * A utility class used to perform assertions and invariant checks.
+ */
 final class Guards
 {
   private Guards()
@@ -17,6 +20,8 @@ final class Guards
    * is true. A null message is used rather than supplied message unless {@link ArezConfig#verboseErrorMessages()}
    * is true.
    *
+   * @param condition the condition to check.
+   * @param message   the message supplier used if verbose messages enabled.
    * @throws IllegalStateException if condition returns false.
    */
   static void invariant( @Nonnull final Supplier<Boolean> condition,
@@ -32,6 +37,9 @@ final class Guards
    * Throw an IllegalStateException with supplied detail message.
    * The exception is not thrown unless {@link ArezConfig#checkInvariants()} is true.
    * The exception will ignore the supplied message unless {@link ArezConfig#verboseErrorMessages()} is true.
+   *
+   * @param message the message supplier used if verbose messages enabled.
+   * @throws IllegalStateException when called.
    */
   @Contract( "_ -> fail" )
   static void fail( @Nonnull final Supplier<String> message )
