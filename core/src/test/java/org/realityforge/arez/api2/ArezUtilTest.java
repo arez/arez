@@ -22,4 +22,12 @@ public class ArezUtilTest
     assertTrue( text.startsWith( "Exception generated whilst attempting to get supplied message.\n" +
                                  "java.lang.RuntimeException: X\n" ) );
   }
+
+  @Test
+  public void throwableToString()
+    throws Exception
+  {
+    final String text = ArezUtil.throwableToString( new RuntimeException( "X" ) );
+    assertTrue( text.startsWith( "java.lang.RuntimeException: X\n" ) );
+  }
 }

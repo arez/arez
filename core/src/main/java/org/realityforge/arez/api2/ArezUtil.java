@@ -29,11 +29,23 @@ final class ArezUtil
     {
       return message.get();
     }
-    catch ( final Throwable e )
+    catch ( final Throwable t )
     {
-      final StringWriter out = new StringWriter();
-      e.printStackTrace( new PrintWriter( out ) );
-      return "Exception generated whilst attempting to get supplied message.\n" + out.toString();
+      return "Exception generated whilst attempting to get supplied message.\n" + throwableToString( t );
     }
+  }
+
+  /**
+   * Return string converted to stack trace.
+   *
+   * @param t the throwable to convert
+   * @return the stack trace.
+   */
+  @Nonnull
+  static String throwableToString( @Nonnull final Throwable t )
+  {
+    final StringWriter out = new StringWriter();
+    t.printStackTrace( new PrintWriter( out ) );
+    return out.toString();
   }
 }
