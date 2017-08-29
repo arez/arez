@@ -247,6 +247,12 @@ final class Transaction
 
   final void reportChangeConfirmed( @Nonnull final Observable observable )
   {
+    Guards.invariant( () -> null != observable.getOwner(),
+                      () -> String.format( "Transaction named '%s' has attempted to mark observable " +
+                                           "named '%s' as potentially changed but observable is not a derived value.",
+                                           getName(),
+                                           observable.getName() ) );
+
     verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
     if ( ObserverState.STALE != observable.getLeastStaleObserverState() )
