@@ -49,7 +49,15 @@ public class Observer
       {
         onBecomeUnobserved();
       }
+      else if ( ObserverState.NOT_TRACKING == originalState )
+      {
+        onBecomeObserved();
+      }
     }
+  }
+
+  protected void onBecomeObserved()
+  {
   }
 
   protected void onBecomeUnobserved()
