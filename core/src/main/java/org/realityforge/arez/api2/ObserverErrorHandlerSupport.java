@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.jetbrains.annotations.TestOnly;
 
 /**
  * Class supporting the propagation of errors for ObserverErrorHandler callback to multiple error handlers.
@@ -68,5 +69,12 @@ final class ObserverErrorHandlerSupport
         ArezLogger.log( message, nestedError );
       }
     }
+  }
+
+  @TestOnly
+  @Nonnull
+  ArrayList<ObserverErrorHandler> getErrorHandlers()
+  {
+    return _errorHandlers;
   }
 }
