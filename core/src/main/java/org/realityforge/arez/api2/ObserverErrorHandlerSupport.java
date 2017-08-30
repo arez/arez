@@ -22,7 +22,7 @@ final class ObserverErrorHandlerSupport
    *
    * @param handler the error handler.
    */
-  final void addObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
+  void addObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
     Guards.invariant( () -> !_errorHandlers.contains( handler ),
                       () -> "Attempting to add handler " + handler +
@@ -36,7 +36,7 @@ final class ObserverErrorHandlerSupport
    *
    * @param handler the error handler.
    */
-  final void removeObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
+  void removeObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
     Guards.invariant( () -> _errorHandlers.contains( handler ),
                       () -> "Attempting to remove handler " + handler + " that is not in the list of error handlers." );
