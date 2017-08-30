@@ -26,7 +26,7 @@ define 'arez' do
     compile.with PROVIDED_DEPS,
                  COMPILE_DEPS
 
-    test.options[:properties] = {'arez.dynamic_provider' => 'true'}
+    test.options[:properties] = {'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy'}
 
     package(:jar)
     package(:sources)
@@ -36,7 +36,7 @@ define 'arez' do
     test.compile.with TEST_DEPS
   end
 
-  ipr.add_default_testng_configuration(:jvm_args => '-Darez.dynamic_provider=true')
+  ipr.add_default_testng_configuration(:jvm_args => '-Darez.dynamic_provider=true -Darez.logger=proxy')
   ipr.add_component_from_artifact(:idea_codestyle)
   ipr.extra_modules << '../mobx/mobx.iml'
 end

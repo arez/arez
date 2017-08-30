@@ -16,6 +16,7 @@ public abstract class AbstractArezTest
     provider.setCheckInvariants( true );
     provider.setPurgeReactionsWhenRunawayDetected( false );
     provider.setEnforceTransactionType( true );
+    getProxyLogger().setLogger( new TestLogger() );
   }
 
   @AfterMethod
@@ -28,6 +29,19 @@ public abstract class AbstractArezTest
     provider.setCheckInvariants( false );
     provider.setPurgeReactionsWhenRunawayDetected( true );
     provider.setEnforceTransactionType( false );
+    getProxyLogger().setLogger( null );
+  }
+
+  @Nonnull
+  final TestLogger getTestLogger()
+  {
+    return (TestLogger) getProxyLogger().getLogger();
+  }
+
+  @Nonnull
+  private ArezLogger.ProxyLogger getProxyLogger()
+  {
+    return (ArezLogger.ProxyLogger) ArezLogger.getLogger();
   }
 
   @Nonnull
