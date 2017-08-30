@@ -37,7 +37,7 @@ public final class ArezContext
    *
    * @param reaction the reaction to schedule.
    */
-  final void scheduleReaction( @Nonnull final Reaction reaction )
+  void scheduleReaction( @Nonnull final Reaction reaction )
   {
     _scheduler.scheduleReaction( reaction );
   }
@@ -45,7 +45,7 @@ public final class ArezContext
   /**
    * Run all pending reactions.
    */
-  final void runPendingReactions()
+  void runPendingReactions()
   {
     _scheduler.runPendingReactions();
   }
@@ -184,13 +184,13 @@ public final class ArezContext
   }
 
   @TestOnly
-  final int currentNextNodeId()
+  int currentNextNodeId()
   {
     return _nextNodeId;
   }
 
   @TestOnly
-  final void setTransaction( @Nullable final Transaction transaction )
+  void setTransaction( @Nullable final Transaction transaction )
   {
     _transaction = transaction;
   }
