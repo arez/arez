@@ -20,8 +20,7 @@ public class GuardsTest
   public void fail_verboseErrorMessages_false()
     throws Exception
   {
-    final ArezConfig.DynamicProvider provider = (ArezConfig.DynamicProvider) ArezConfig.getProvider();
-    provider.setVerboseErrorMessages( false );
+    getConfigProvider().setVerboseErrorMessages( false );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Guards.fail( () -> "My Failure Reason" ) );
@@ -33,8 +32,7 @@ public class GuardsTest
   public void fail_checkInvariants_false()
     throws Exception
   {
-    final ArezConfig.DynamicProvider provider = (ArezConfig.DynamicProvider) ArezConfig.getProvider();
-    provider.setCheckInvariants( false );
+    getConfigProvider().setCheckInvariants( false );
 
     // No failure
     Guards.fail( () -> "My Failure Reason" );
@@ -77,8 +75,7 @@ public class GuardsTest
   public void invariant_verboseErrorMessages_false()
     throws Exception
   {
-    final ArezConfig.DynamicProvider provider = (ArezConfig.DynamicProvider) ArezConfig.getProvider();
-    provider.setVerboseErrorMessages( false );
+    getConfigProvider().setVerboseErrorMessages( false );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Guards.invariant( () -> false, () -> "My Failure Reason" ) );
@@ -90,8 +87,7 @@ public class GuardsTest
   public void invariant_checkInvariants_false()
     throws Exception
   {
-    final ArezConfig.DynamicProvider provider = (ArezConfig.DynamicProvider) ArezConfig.getProvider();
-    provider.setCheckInvariants( false );
+    getConfigProvider().setCheckInvariants( false );
 
     // No failure
     Guards.invariant( () -> false, () -> "My Failure Reason" );

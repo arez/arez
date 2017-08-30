@@ -40,8 +40,7 @@ public class NodeTest
   public void noNameSuppliedWhenNamesDisabled()
     throws Exception
   {
-    final ArezConfig.DynamicProvider provider = (ArezConfig.DynamicProvider) ArezConfig.getProvider();
-    provider.setEnableNames( false );
+    getConfigProvider().setEnableNames( false );
 
     final ArezContext context = new ArezContext();
     final int nextNodeId = context.currentNextNodeId();
@@ -59,8 +58,7 @@ public class NodeTest
   public void nameSuppliedWhenNamesDisabled()
     throws Exception
   {
-    final ArezConfig.DynamicProvider provider = (ArezConfig.DynamicProvider) ArezConfig.getProvider();
-    provider.setEnableNames( false );
+    getConfigProvider().setEnableNames( false );
 
     final ArezContext context = new ArezContext();
     final int nextNodeId = context.currentNextNodeId();

@@ -903,8 +903,7 @@ public class TransactionTest
   @Test
   public void verifyWriteAllowed_withReadOnlyTransaction_enforceTransactionType_set_to_false()
   {
-    final ArezConfig.DynamicProvider provider = (ArezConfig.DynamicProvider) ArezConfig.getProvider();
-    provider.setEnforceTransactionType( false );
+    getConfigProvider().setEnforceTransactionType( false );
 
     final ArezContext context = new ArezContext();
 
