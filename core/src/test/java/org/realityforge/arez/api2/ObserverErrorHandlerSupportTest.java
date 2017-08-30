@@ -28,7 +28,7 @@ public class ObserverErrorHandlerSupportTest
       assertEquals( throwableArg, throwable );
     };
     support.addObserverErrorHandler( handler );
-    assertEquals( support.getErrorHandlers().size(), 1 );
+    assertEquals( support.getObserverErrorHandlers().size(), 1 );
 
     support.onObserverError( observer, error, throwable );
 
@@ -40,7 +40,7 @@ public class ObserverErrorHandlerSupportTest
 
     support.removeObserverErrorHandler( handler );
 
-    assertEquals( support.getErrorHandlers().size(), 0 );
+    assertEquals( support.getObserverErrorHandlers().size(), 0 );
 
     support.onObserverError( observer, error, throwable );
 
@@ -102,7 +102,7 @@ public class ObserverErrorHandlerSupportTest
     support.addObserverErrorHandler( handler2 );
     support.addObserverErrorHandler( handler3 );
 
-    assertEquals( support.getErrorHandlers().size(), 3 );
+    assertEquals( support.getObserverErrorHandlers().size(), 3 );
 
     support.onObserverError( observer, error, throwable );
 

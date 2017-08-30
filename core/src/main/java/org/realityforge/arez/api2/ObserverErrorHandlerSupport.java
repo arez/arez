@@ -15,7 +15,7 @@ final class ObserverErrorHandlerSupport
   /**
    * The list of error handlers to call when an error is received.
    */
-  private final ArrayList<ObserverErrorHandler> _errorHandlers = new ArrayList<>();
+  private final ArrayList<ObserverErrorHandler> _observerErrorHandlers = new ArrayList<>();
 
   /**
    * Add error handler to the list of error handlers called.
@@ -25,10 +25,10 @@ final class ObserverErrorHandlerSupport
    */
   void addObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
-    Guards.invariant( () -> !_errorHandlers.contains( handler ),
+    Guards.invariant( () -> !_observerErrorHandlers.contains( handler ),
                       () -> "Attempting to add handler " + handler +
                             " that is already in the list of error handlers." );
-    _errorHandlers.add( Objects.requireNonNull( handler ) );
+    _observerErrorHandlers.add( Objects.requireNonNull( handler ) );
   }
 
   /**
@@ -39,9 +39,9 @@ final class ObserverErrorHandlerSupport
    */
   void removeObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
-    Guards.invariant( () -> _errorHandlers.contains( handler ),
+    Guards.invariant( () -> _observerErrorHandlers.contains( handler ),
                       () -> "Attempting to remove handler " + handler + " that is not in the list of error handlers." );
-    _errorHandlers.remove( Objects.requireNonNull( handler ) );
+    _observerErrorHandlers.remove( Objects.requireNonNull( handler ) );
   }
 
   /**
@@ -51,7 +51,7 @@ final class ObserverErrorHandlerSupport
                                @Nonnull final ObserverError error,
                                @Nullable final Throwable throwable )
   {
-    for ( final ObserverErrorHandler errorHandler : _errorHandlers )
+    for ( final ObserverErrorHandler errorHandler : _observerErrorHandlers )
     {
       try
       {
@@ -73,8 +73,8 @@ final class ObserverErrorHandlerSupport
 
   @TestOnly
   @Nonnull
-  ArrayList<ObserverErrorHandler> getErrorHandlers()
+  ArrayList<ObserverErrorHandler> getObserverErrorHandlers()
   {
-    return _errorHandlers;
+    return _observerErrorHandlers;
   }
 }
