@@ -5,7 +5,9 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( "Duplicates" )
+/**
+ * TODO: This class probably should be renamed to ArezContext test and the remainder of ArezContext tested.
+ */
 public class TransactionIntegrationTest
   extends AbstractArezTest
 {

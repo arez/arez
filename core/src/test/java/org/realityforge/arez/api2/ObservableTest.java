@@ -4,6 +4,9 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+/**
+ * TODO: This class does not fully test the Observable.
+ */
 public class ObservableTest
   extends AbstractArezTest
 {
