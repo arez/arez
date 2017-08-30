@@ -30,6 +30,11 @@ public final class ArezContext
    * Currently hard-coded, in the future potentially configurable.
    */
   private final ReactionScheduler _scheduler = new ReactionScheduler( this );
+  /**
+   * Support infrastructure for propagating observer errors.
+   */
+  @Nonnull
+  private final ObserverErrorHandlerSupport _observerErrorHandlerSupport = new ObserverErrorHandlerSupport();
 
   /**
    * Pass the supplied reaction to the scheduler.
@@ -181,6 +186,40 @@ public final class ArezContext
   int nextNodeId()
   {
     return _nextNodeId++;
+  }
+
+  /**
+   * Add error handler to the list of error handlers called.
+   * The handler should not already be in the list.
+   *
+   * @param handler the error handler.
+   */
+  public void addObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
+  {
+    getObserverErrorHandlerSupport().addObserverErrorHandler( handler );
+  }
+
+  /**
+   * Remove error handler from list of existing error handlers.
+   * The handler should already be in the list.
+   *
+   * @param handler the error handler.
+   */
+  public void removeObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
+  {
+    getObserverErrorHandlerSupport().removeObserverErrorHandler( handler );
+  }
+
+  @Nonnull
+  ObserverErrorHandler getObserverErrorHandler()
+  {
+    return _observerErrorHandlerSupport;
+  }
+
+  @Nonnull
+  ObserverErrorHandlerSupport getObserverErrorHandlerSupport()
+  {
+    return _observerErrorHandlerSupport;
   }
 
   @TestOnly
