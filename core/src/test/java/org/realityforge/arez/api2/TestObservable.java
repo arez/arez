@@ -3,7 +3,7 @@ package org.realityforge.arez.api2;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-class TestObservable
+final class TestObservable
   extends Observable
 {
   TestObservable( @Nonnull final ArezContext context,
