@@ -15,29 +15,30 @@ final class ArezConfig
 
   static boolean verboseErrorMessages()
   {
-    return getProvider().verboseErrorMessages();
+    return c_provider.verboseErrorMessages();
   }
 
   static boolean checkInvariants()
   {
-    return getProvider().checkInvariants();
+    return c_provider.checkInvariants();
   }
 
   static boolean enableNames()
   {
-    return getProvider().enableNames();
+    return c_provider.enableNames();
   }
 
   static boolean enforceTransactionType()
   {
-    return getProvider().enforceTransactionType();
+    return c_provider.enforceTransactionType();
   }
 
   static boolean purgeReactionsWhenRunawayDetected()
   {
-    return getProvider().purgeReactionsWhenRunawayDetected();
+    return c_provider.purgeReactionsWhenRunawayDetected();
   }
 
+  @TestOnly
   static Provider getProvider()
   {
     return c_provider;
