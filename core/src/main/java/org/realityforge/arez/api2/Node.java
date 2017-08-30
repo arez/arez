@@ -31,8 +31,8 @@ public abstract class Node
   {
     Guards.invariant( () -> ArezConfig.enableNames() || null == name,
                       () -> String.format( "Node passed a name '%s' but ArezConfig.enableNames() is false", name ) );
-    _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
     _context = Objects.requireNonNull( context );
+    _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
     _id = context.nextNodeId();
   }
 
