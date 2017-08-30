@@ -9,12 +9,7 @@ public class Derivation
   Derivation( @Nonnull final ArezContext context, @Nullable final String name )
   {
     super( context, name );
-  }
-
-  @Override
-  protected void onBecomeUnobserved()
-  {
-    clearDependencies();
+    setOnDeactivate( this::clearDependencies );
   }
 
   /**

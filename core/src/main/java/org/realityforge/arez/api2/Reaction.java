@@ -14,12 +14,7 @@ public class Reaction
   Reaction( @Nonnull final ArezContext context, @Nullable final String name )
   {
     super( context, name );
-  }
-
-  @Override
-  protected void onBecomeStale()
-  {
-    schedule();
+    setOnStale( this::schedule );
   }
 
   final boolean isScheduled()

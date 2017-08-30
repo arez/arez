@@ -14,6 +14,21 @@ public class Observer
   extends Node
 {
   /**
+   * Hook action called when the Observer changes from the INACTIVE state to any other state.
+   */
+  @Nullable
+  private Action _onActivate;
+  /**
+   * Hook action called when the Observer changes to the INACTIVE state to any other state.
+   */
+  @Nullable
+  private Action _onDeactivate;
+  /**
+   * Hook action called when the Observer changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE.
+   */
+  @Nullable
+  private Action _onStale;
+  /**
    * The stalest state of the associated observables that are also derivations.
    */
   @Nonnull
@@ -47,14 +62,9 @@ public class Observer
 
   /**
    * Set the state of the observer.
+   * Call the hook actions for relevant state change.
    *
-   * <ul>
-   * <li>If the state changes from UP_TO_DATE to STALE or POSSIBLY_STALE then call the onBecomeStale hook method.</li>
-   * <li>If the state changes to INACTIVE then call the onBecomeUnobserved hook method.</li>
-   * <li>If the state changes from INACTIVE then call the onBecomeObserved hook method.</li>
-   * </ul>
-   *
-   * @param state the state of the observer.
+   * @param state the new state of the observer.
    */
   public final void setState( @Nonnull final ObserverState state )
   {
@@ -65,29 +75,100 @@ public class Observer
       if ( ObserverState.UP_TO_DATE == originalState &&
            ( ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state ) )
       {
-        onBecomeStale();
+        runHook( getOnStale(), ObserverError.ON_STALE_ERROR );
       }
       else if ( ObserverState.INACTIVE == _state )
       {
-        onBecomeUnobserved();
+        runHook( getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR );
       }
       else if ( ObserverState.INACTIVE == originalState )
       {
-        onBecomeObserved();
+        runHook( getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
       }
     }
   }
 
-  protected void onBecomeObserved()
+  /**
+   * Run the supplied hook if non null.
+   *
+   * @param hook the hook to run.
+   */
+  private void runHook( @Nullable final Action hook, @Nonnull final ObserverError error )
   {
+    if ( null != hook )
+    {
+      try
+      {
+        hook.call();
+      }
+      catch ( final Exception e )
+      {
+        getContext().getObserverErrorHandler().onObserverError( this, error, e );
+      }
+    }
   }
 
-  protected void onBecomeUnobserved()
+  /**
+   * Set the onActivate hook.
+   *
+   * @param onActivate the hook.
+   */
+  final void setOnActivate( @Nullable final Action onActivate )
   {
+    _onActivate = onActivate;
   }
 
-  protected void onBecomeStale()
+  /**
+   * Return the onActivate hook.
+   *
+   * @return the onActivate hook.
+   */
+  @Nullable
+  final Action getOnActivate()
   {
+    return _onActivate;
+  }
+
+  /**
+   * Set the onDeactivate hook.
+   *
+   * @param onDeactivate the hook.
+   */
+  final void setOnDeactivate( @Nullable final Action onDeactivate )
+  {
+    _onDeactivate = onDeactivate;
+  }
+
+  /**
+   * Return the onDeactivate hook.
+   *
+   * @return the onDeactivate hook.
+   */
+  @Nullable
+  final Action getOnDeactivate()
+  {
+    return _onDeactivate;
+  }
+
+  /**
+   * Set the onStale hook.
+   *
+   * @param onStale the hook.
+   */
+  final void setOnStale( @Nullable final Action onStale )
+  {
+    _onStale = onStale;
+  }
+
+  /**
+   * Return the onStale hook.
+   *
+   * @return the onStale hook.
+   */
+  @Nullable
+  final Action getOnStale()
+  {
+    return _onStale;
   }
 
   /**
