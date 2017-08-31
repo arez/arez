@@ -174,13 +174,7 @@ public abstract class Observable
                         "Attempting to add observer named '%s' to observable named '%s' when observer is already observing observable.",
                         observer.getName(),
                         getName() ) );
-
-    if ( !getObservers().add( observer ) )
-    {
-      Guards.fail( () -> String.format( "Failed to add observer named '%s' to observable named '%s'.",
-                                        observer.getName(),
-                                        getName() ) );
-    }
+    getObservers().add( observer );
 
     final ObserverState state = observer.getState();
     if ( _leastStaleObserverState.ordinal() > state.ordinal() )
