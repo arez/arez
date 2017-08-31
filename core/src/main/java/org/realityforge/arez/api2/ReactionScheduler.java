@@ -137,7 +137,7 @@ final class ReactionScheduler
   {
     final String name = ArezConfig.enableNames() ? reaction.getName() : null;
     final TransactionMode mode = reaction.getMode();
-    //TODO implement
+    //TODO: _context.transaction( name, mode, reaction, );
   }
 
   private void onRunawayReactionsDetected()
