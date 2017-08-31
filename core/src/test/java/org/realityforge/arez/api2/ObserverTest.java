@@ -53,7 +53,55 @@ public class ObserverTest
   }
 
   @Test
-  public void invariantState_failsIfDependenciesPresentForInactive()
+  public void invariantDependenciesBackLink()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    observer.getDependencies().add( observable );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> observer.invariantDependenciesBackLink( "TEST1" ) );
+
+    assertEquals( exception.getMessage(),
+                  "TEST1: Observer named '" + observer.getName() + "' has dependency observable named '" +
+                  observable.getName() + "' which does not contain the observer in the list of observers." );
+
+    //Setup correct back link
+    observable.addObserver( observer );
+
+    // Back link created so should be good
+    observer.invariantDependenciesBackLink( "TEST2" );
+  }
+
+  @Test
+  public void invariantDependenciesUnique()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    observer.getDependencies().add( observable );
+
+    observer.invariantDependenciesUnique( "TEST1" );
+
+    // Add a duplicate
+    observer.getDependencies().add( observable );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> observer.invariantDependenciesUnique( "TEST2" ) );
+
+    assertEquals( exception.getMessage(),
+                  "TEST2: The set of dependencies in observer named '" + observer.getName() + "' is " +
+                  "not unique. Current list: '[" + observable.getName() + ", " + observable.getName() + "]'." );
+  }
+
+  @Test
+  public void invariantState()
     throws Exception
   {
     final ArezContext context = new ArezContext();
