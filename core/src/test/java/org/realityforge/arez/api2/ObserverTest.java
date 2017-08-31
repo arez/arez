@@ -1,5 +1,6 @@
 package org.realityforge.arez.api2;
 
+import java.util.ArrayList;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -118,5 +119,72 @@ public class ObserverTest
     assertEquals( exception.getMessage(),
                   "Observer named '" + observer.getName() + "' is inactive " +
                   "but still has dependencies: [" + observable.getName() + "]." );
+  }
+
+  @Test
+  public void replaceDependencies()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    final ArrayList<Observable> originalDependencies = observer.getDependencies();
+
+    assertEquals( originalDependencies.isEmpty(), true );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    final ArrayList<Observable> newDependencies = new ArrayList<>();
+    newDependencies.add( observable );
+    observable.addObserver( observer );
+
+    observer.replaceDependencies( newDependencies );
+
+    assertEquals( observer.getDependencies().size(), 1 );
+    assertTrue( observer.getDependencies() != originalDependencies );
+    assertTrue( observer.getDependencies().contains( observable ) );
+  }
+
+  @Test
+  public void replaceDependencies_duplicateDependency()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    final ArrayList<Observable> originalDependencies = observer.getDependencies();
+
+    assertEquals( originalDependencies.isEmpty(), true );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    final ArrayList<Observable> newDependencies = new ArrayList<>();
+    newDependencies.add( observable );
+    newDependencies.add( observable );
+    observable.addObserver( observer );
+
+    assertThrows( () -> observer.replaceDependencies( newDependencies ) );
+  }
+
+  @Test
+  public void replaceDependencies_notBacklinedDependency()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    final ArrayList<Observable> originalDependencies = observer.getDependencies();
+
+    assertEquals( originalDependencies.isEmpty(), true );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    final ArrayList<Observable> newDependencies = new ArrayList<>();
+    newDependencies.add( observable );
+
+    assertThrows( () -> observer.replaceDependencies( newDependencies ) );
   }
 }
