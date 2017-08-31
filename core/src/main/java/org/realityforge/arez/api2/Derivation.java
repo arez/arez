@@ -10,16 +10,4 @@ public class Derivation
   {
     super( context, name, mode );
   }
-
-  /**
-   * Passivate the derivation.
-   * The derivation will no longer generate new observable values and dependencies are released.
-   */
-  protected void passivate()
-  {
-    Guards.invariant( this::isActive,
-                      () -> String.format( "Invoked passivate on derivation named '%s' when derivation is not active.",
-                                           getName() ) );
-    setState( ObserverState.INACTIVE );
-  }
 }

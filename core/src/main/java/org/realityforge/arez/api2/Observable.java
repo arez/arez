@@ -132,7 +132,7 @@ public abstract class Observable
                       () -> String.format( "Invoked passivate on observable named '%s' when owner is null.",
                                            getName() ) );
     assert null != _owner;
-    _owner.passivate();
+    _owner.setState( ObserverState.INACTIVE );
   }
 
   /**
