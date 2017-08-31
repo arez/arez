@@ -6,9 +6,9 @@ import javax.annotation.Nullable;
 public class Derivation
   extends Reaction
 {
-  Derivation( @Nonnull final ArezContext context, @Nullable final String name )
+  Derivation( @Nonnull final ArezContext context, @Nullable final String name, @Nonnull final TransactionMode mode )
   {
-    super( context, name );
+    super( context, name, mode );
   }
 
   /**
