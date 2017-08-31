@@ -121,7 +121,7 @@ public class Observer
    *
    * @param hook the hook to run.
    */
-  private void runHook( @Nullable final Action hook, @Nonnull final ObserverError error )
+  final void runHook( @Nullable final Action hook, @Nonnull final ObserverError error )
   {
     if ( null != hook )
     {

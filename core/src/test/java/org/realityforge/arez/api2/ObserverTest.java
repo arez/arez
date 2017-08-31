@@ -1,6 +1,8 @@
 package org.realityforge.arez.api2;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -213,5 +215,59 @@ public class ObserverTest
     assertEquals( observer.getDependencies().size(), 0 );
     assertEquals( observable1.getObservers().size(), 0 );
     assertEquals( observable2.getObservers().size(), 0 );
+  }
+
+  @Test
+  public void runHook_nullHook()
+    throws Exception
+  {
+    final Observer observer = new Observer( new ArezContext(), ValueUtil.randomString() );
+
+    observer.runHook( null, ObserverError.ON_ACTIVATE_ERROR );
+  }
+
+  @Test
+  public void runHook_normalHook()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+
+    final AtomicInteger counter = new AtomicInteger();
+
+    observer.runHook( counter::incrementAndGet, ObserverError.ON_ACTIVATE_ERROR );
+
+    assertEquals( counter.get(), 1 );
+  }
+
+  @Test
+  public void runHook_hookThrowsException()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+
+    final Exception exception = new Exception( "X" );
+
+    final AtomicInteger handlerCallCount = new AtomicInteger();
+    final AtomicBoolean observerMatches = new AtomicBoolean( false );
+    final AtomicBoolean errorMatches = new AtomicBoolean( false );
+    final AtomicBoolean throwableMatches = new AtomicBoolean( false );
+
+    context.addObserverErrorHandler( ( ( observer1, error, throwable ) -> {
+      handlerCallCount.incrementAndGet();
+      observerMatches.set( observer == observer1 );
+      errorMatches.set( error == ObserverError.ON_ACTIVATE_ERROR );
+      throwableMatches.set( throwable == exception );
+    } ) );
+
+    observer.runHook( () -> {
+      throw exception;
+    }, ObserverError.ON_ACTIVATE_ERROR );
+
+    assertEquals( handlerCallCount.get(), 1 );
+    assertTrue( observerMatches.get(), "Observer matches" );
+    assertTrue( errorMatches.get(), "Error matches" );
+    assertTrue( throwableMatches.get(), "throwable matches" );
   }
 }
