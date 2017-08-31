@@ -135,6 +135,8 @@ final class ReactionScheduler
 
   private void invokeReaction( @Nonnull final Reaction reaction )
   {
+    final String name = ArezConfig.enableNames() ? reaction.getName() : null;
+    final TransactionMode mode = reaction.getMode();
     //TODO implement
   }
 
