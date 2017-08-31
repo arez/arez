@@ -51,4 +51,24 @@ public class ObserverTest
 
     observer.invariantState();
   }
+
+  @Test
+  public void invariantState_failsIfDependenciesPresentForInactive()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+
+    observer.invariantState();
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    observer.getDependencies().add( observable );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observer::invariantState );
+
+    assertEquals( exception.getMessage(),
+                  "Observer named '" + observer.getName() + "' is inactive " +
+                  "but still has dependencies: [" + observable.getName() + "]." );
+  }
 }
