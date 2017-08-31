@@ -75,6 +75,17 @@ public class Observer
   }
 
   /**
+   * Return true if the observer is not active.
+   * The inverse of {@link #isActive()}
+   *
+   * @return true if the Observer is inactive.
+   */
+  public final boolean isInactive()
+  {
+    return !isActive();
+  }
+
+  /**
    * Set the state of the observer.
    * Call the hook actions for relevant state change.
    *
