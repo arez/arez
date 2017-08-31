@@ -132,7 +132,7 @@ public abstract class Observable
                       () -> String.format( "Invoked passivate on observable named '%s' when owner is null.",
                                            getName() ) );
     assert null != _owner;
-    Guards.invariant( _owner::isInactive,
+    Guards.invariant( _owner::isActive,
                       () -> String.format( "Invoked passivate on observable named '%s' when owner is inactive.",
                                            getName() ) );
     _owner.setState( ObserverState.INACTIVE );
