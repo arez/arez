@@ -9,7 +9,6 @@ public class Derivation
   Derivation( @Nonnull final ArezContext context, @Nullable final String name )
   {
     super( context, name );
-    setOnDeactivate( this::clearDependencies );
   }
 
   /**
@@ -22,6 +21,5 @@ public class Derivation
                       () -> String.format( "Invoked passivate on derivation named '%s' when derivation is not active.",
                                            getName() ) );
     setState( ObserverState.INACTIVE );
-    //clearDependencies();
   }
 }

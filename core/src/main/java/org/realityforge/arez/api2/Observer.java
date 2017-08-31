@@ -94,6 +94,7 @@ public class Observer
       else if ( ObserverState.INACTIVE == _state )
       {
         runHook( getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR );
+        clearDependencies();
       }
       else if ( ObserverState.INACTIVE == originalState )
       {
