@@ -144,6 +144,9 @@ public abstract class Observable
    */
   protected void activate()
   {
+    Guards.invariant( () -> null != _owner,
+                      () -> String.format( "Invoked activate on observable named '%s' when owner is null.",
+                                           getName() ) );
     Guards.invariant( _owner::isInactive,
                       () -> String.format(
                         "Invoked activate on observable named '%s' when observable is already active.",
