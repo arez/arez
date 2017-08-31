@@ -270,4 +270,80 @@ public class ObserverTest
     assertTrue( errorMatches.get(), "Error matches" );
     assertTrue( throwableMatches.get(), "throwable matches" );
   }
+
+  @Test
+  public void setState()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+
+    final TestAction onActivate = new TestAction();
+    final TestAction onDeactivate = new TestAction();
+    final TestAction onStale = new TestAction();
+
+    observer.setOnActivate( onActivate );
+    observer.setOnDeactivate( onDeactivate );
+    observer.setOnStale( onStale );
+
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+
+    observer.setState( ObserverState.INACTIVE );
+
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( onActivate.getCalls(), 0 );
+    assertEquals( onDeactivate.getCalls(), 0 );
+    assertEquals( onStale.getCalls(), 0 );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 0 );
+    assertEquals( onStale.getCalls(), 0 );
+
+    observer.setState( ObserverState.POSSIBLY_STALE );
+
+    assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 0 );
+    assertEquals( onStale.getCalls(), 1 );
+
+    observer.setState( ObserverState.STALE );
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 0 );
+    assertEquals( onStale.getCalls(), 1 );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 0 );
+    assertEquals( onStale.getCalls(), 1 );
+
+    final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
+    final TestObservable observable2 = new TestObservable( context, ValueUtil.randomString() );
+
+    observer.getDependencies().add( observable1 );
+    observer.getDependencies().add( observable2 );
+    observable1.addObserver( observer );
+    observable2.addObserver( observer );
+
+    assertEquals( observer.getDependencies().size(), 2 );
+    assertEquals( observable1.getObservers().size(), 1 );
+    assertEquals( observable2.getObservers().size(), 1 );
+
+    observer.setState( ObserverState.INACTIVE );
+
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 1 );
+    assertEquals( onStale.getCalls(), 1 );
+
+    assertEquals( observer.getDependencies().size(), 0 );
+    assertEquals( observable1.getObservers().size(), 0 );
+    assertEquals( observable2.getObservers().size(), 0 );
+  }
 }
