@@ -69,7 +69,7 @@ public class Observer
    *
    * @return true if the Observer is active.
    */
-  public final boolean isActive()
+  final boolean isActive()
   {
     return ObserverState.INACTIVE != getState();
   }
@@ -80,7 +80,7 @@ public class Observer
    *
    * @return true if the Observer is inactive.
    */
-  public final boolean isInactive()
+  final boolean isInactive()
   {
     return !isActive();
   }
