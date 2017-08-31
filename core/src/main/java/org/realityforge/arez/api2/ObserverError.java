@@ -6,6 +6,10 @@ package org.realityforge.arez.api2;
 public enum ObserverError
 {
   /**
+   * Exception generated when the reaction is executing.
+   */
+  REACTION_ERROR,
+  /**
    * Exception generated in OnActivate hook action.
    */
   ON_ACTIVATE_ERROR,

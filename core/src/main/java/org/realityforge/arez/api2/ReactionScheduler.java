@@ -137,7 +137,15 @@ final class ReactionScheduler
   {
     final String name = ArezConfig.enableNames() ? reaction.getName() : null;
     final TransactionMode mode = reaction.getMode();
-    //TODO: _context.transaction( name, mode, reaction, );
+    final Action action = reaction.getAction();
+    try
+    {
+      getContext().transaction( name, mode, reaction, action );
+    }
+    catch ( final Throwable t )
+    {
+      getContext().getObserverErrorHandler().onObserverError( reaction, ObserverError.REACTION_ERROR, t );
+    }
   }
 
   private void onRunawayReactionsDetected()
@@ -167,5 +175,11 @@ final class ReactionScheduler
       reactionsScheduled++;
     }
     return reactionsScheduled;
+  }
+
+  @Nonnull
+  final ArezContext getContext()
+  {
+    return _context;
   }
 }
