@@ -24,6 +24,10 @@ public class Reaction
 
   final void schedule()
   {
+    Guards.invariant( this::isActive,
+                      () -> String.format(
+                        "Observer named '%s' is not active but an attempt has been made to schedule observer.",
+                        getName() ) );
     if ( !_scheduled )
     {
       _scheduled = true;

@@ -13,14 +13,6 @@ public class Derivation
   }
 
   /**
-   * Return true if derivation is generating new values.
-   */
-  final boolean isActive()
-  {
-    return ObserverState.INACTIVE != getState();
-  }
-
-  /**
    * Passivate the derivation.
    * The derivation will no longer generate new observable values and dependencies are released.
    */

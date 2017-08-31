@@ -61,6 +61,20 @@ public class Observer
   }
 
   /**
+   * Return true if the observer is active.
+   * Being "active" means that the state of the observer is not {@link ObserverState#INACTIVE}.
+   *
+   * <p>An inactive observer has no dependencies and depending on the type of observer may
+   * have other consequences. (i.e. An inactive {@link Reaction} will never be scheduled.</p>
+   *
+   * @return true if the Observer is active.
+   */
+  public final boolean isActive()
+  {
+    return ObserverState.INACTIVE != getState();
+  }
+
+  /**
    * Set the state of the observer.
    * Call the hook actions for relevant state change.
    *
