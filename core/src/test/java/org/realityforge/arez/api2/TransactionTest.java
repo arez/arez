@@ -1343,9 +1343,9 @@ public class TransactionTest
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    observer.setState( observable.getLeastStaleObserverState() );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
-    observer.setState( observable.getLeastStaleObserverState() );
 
     context.setTransaction( transaction );
     transaction.reportChangeConfirmed( observable );
@@ -1370,9 +1370,9 @@ public class TransactionTest
     observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
     final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    observer.setState( observable.getLeastStaleObserverState() );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
-    observer.setState( observable.getLeastStaleObserverState() );
 
     context.setTransaction( transaction );
     transaction.reportChangeConfirmed( observable );
@@ -1396,9 +1396,9 @@ public class TransactionTest
     observable.setLeastStaleObserverState( ObserverState.STALE );
 
     final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    observer.setState( observable.getLeastStaleObserverState() );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
-    observer.setState( observable.getLeastStaleObserverState() );
 
     context.setTransaction( transaction );
     transaction.reportChangeConfirmed( observable );
