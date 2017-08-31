@@ -140,7 +140,7 @@ final class ReactionScheduler
     final Action action = reaction.getAction();
     try
     {
-      getContext().transaction( name, mode, reaction, action );
+      //TODO: getContext().transaction( name, mode, reaction, action );
     }
     catch ( final Throwable t )
     {
