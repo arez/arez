@@ -1,6 +1,7 @@
 package org.realityforge.arez.api2;
 
 import java.util.ArrayList;
+import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -8,6 +9,9 @@ import static org.testng.Assert.*;
 public class TransactionTest
   extends AbstractArezTest
 {
+  private static final Action ACTION = () -> {
+  };
+
   @Test
   public void construction()
   {
@@ -65,7 +69,7 @@ public class TransactionTest
   public void begin()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
 
@@ -81,14 +85,15 @@ public class TransactionTest
   public void commit()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
 
     final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
-    final Derivation derivation = new Derivation( context, ValueUtil.randomString() );
+    final Derivation derivation =
+      newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
     final TestObservable observable2 = new TestObservable( context, ValueUtil.randomString(), derivation );
 
@@ -147,7 +152,7 @@ public class TransactionTest
   public void beginTracking()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
 
@@ -162,7 +167,7 @@ public class TransactionTest
   public void observe()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     transaction.beginTracking();
@@ -189,7 +194,7 @@ public class TransactionTest
   public void multipleObserves()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     transaction.beginTracking();
@@ -219,7 +224,7 @@ public class TransactionTest
   public void multipleObservesNestedTransactionInBetween()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     transaction.beginTracking();
@@ -262,7 +267,7 @@ public class TransactionTest
   public void completeTracking_noObservables()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
@@ -303,7 +308,7 @@ public class TransactionTest
   {
     final ArezContext context = new ArezContext();
 
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.INACTIVE );
 
     final Transaction transaction =
@@ -321,7 +326,7 @@ public class TransactionTest
   public void completeTracking_noNewObservablesButExistingObservables()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
@@ -347,7 +352,7 @@ public class TransactionTest
   public void completeTracking_singleObservable()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
@@ -372,7 +377,7 @@ public class TransactionTest
   public void completeTracking_multipleObservable()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
@@ -406,7 +411,7 @@ public class TransactionTest
   public void completeTracking_singleObservableMultipleEntries()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
@@ -434,7 +439,7 @@ public class TransactionTest
   public void completeTracking_multipleObservableMultipleEntries()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
@@ -468,7 +473,7 @@ public class TransactionTest
   public void completeTracking_matchingExistingDependencies()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
@@ -503,7 +508,7 @@ public class TransactionTest
   public void completeTracking_dependenciesChanged()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
@@ -543,13 +548,14 @@ public class TransactionTest
   public void completeTracking_calculatedObservableUpToDate()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
 
-    final Derivation derivation = new Derivation( context, ValueUtil.randomString() );
+    final Derivation derivation =
+      newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
 
@@ -572,13 +578,14 @@ public class TransactionTest
   public void completeTracking_calculatedObservableStale()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
 
-    final Derivation derivation = new Derivation( context, ValueUtil.randomString() );
+    final Derivation derivation =
+      newDerivation( context );
     derivation.setState( ObserverState.STALE );
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
 
@@ -603,14 +610,16 @@ public class TransactionTest
   public void queueForPassivation_singleObserver()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
 
     final TestObservable observable =
-      new TestObservable( context, ValueUtil.randomString(), new Derivation( context, ValueUtil.randomString() ) );
+      new TestObservable( context,
+                          ValueUtil.randomString(),
+                          newDerivation( context ) );
 
     assertNull( transaction.getPendingPassivations() );
 
@@ -626,7 +635,7 @@ public class TransactionTest
   public void queueForPassivation_nestedTransaction()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction1 =
@@ -635,7 +644,9 @@ public class TransactionTest
       new Transaction( context, transaction1, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
 
     final TestObservable observable =
-      new TestObservable( context, ValueUtil.randomString(), new Derivation( context, ValueUtil.randomString() ) );
+      new TestObservable( context,
+                          ValueUtil.randomString(),
+                          newDerivation( context ) );
 
     assertNull( transaction1.getPendingPassivations() );
     assertNull( transaction2.getPendingPassivations() );
@@ -658,14 +669,16 @@ public class TransactionTest
   public void queueForPassivation_observerAlreadyPassivated()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
 
     final TestObservable observable =
-      new TestObservable( context, ValueUtil.randomString(), new Derivation( context, ValueUtil.randomString() ) );
+      new TestObservable( context,
+                          ValueUtil.randomString(),
+                          newDerivation( context ) );
 
     transaction.queueForPassivation( observable );
 
@@ -682,7 +695,7 @@ public class TransactionTest
   public void queueForPassivation_observerNotPassivatable()
   {
     final ArezContext context = new ArezContext();
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
@@ -707,7 +720,8 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
-    final Derivation derivation = new Derivation( context, ValueUtil.randomString() );
+    final Derivation derivation =
+      newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
     final TestObservable observable =
       new TestObservable( context, ValueUtil.randomString(), derivation );
@@ -754,10 +768,12 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
-    final Derivation otherObserver = new Derivation( context, ValueUtil.randomString() );
+    final Derivation otherObserver =
+      newDerivation( context );
     otherObserver.setState( ObserverState.UP_TO_DATE );
 
-    final Derivation derivation = new Derivation( context, ValueUtil.randomString() );
+    final Derivation derivation =
+      newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
 
@@ -793,7 +809,8 @@ public class TransactionTest
 
     final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
 
-    final Derivation derivation1 = new Derivation( context, ValueUtil.randomString() );
+    final Derivation derivation1 =
+      newDerivation( context );
     derivation1.setState( ObserverState.UP_TO_DATE );
 
     derivation1.getDependencies().add( observable1 );
@@ -801,7 +818,8 @@ public class TransactionTest
 
     final TestObservable observable2 = new TestObservable( context, ValueUtil.randomString(), derivation1 );
 
-    final Derivation derivation2 = new Derivation( context, ValueUtil.randomString() );
+    final Derivation derivation2 =
+      newDerivation( context );
     derivation2.setState( ObserverState.UP_TO_DATE );
 
     derivation2.getDependencies().add( observable2 );
@@ -851,7 +869,8 @@ public class TransactionTest
 
     final TestObservable baseObservable =
       new TestObservable( context, ValueUtil.randomString() );
-    final Derivation derivation = new Derivation( context, ValueUtil.randomString() );
+    final Derivation derivation =
+      newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
     derivation.getDependencies().add( baseObservable );
@@ -953,7 +972,7 @@ public class TransactionTest
   {
     final ArezContext context = new ArezContext();
 
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
 
@@ -990,7 +1009,7 @@ public class TransactionTest
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer = newDerivation( context );
     observer.setState( ObserverState.UP_TO_DATE );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
@@ -1016,7 +1035,7 @@ public class TransactionTest
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer = newDerivation( context );
     observer.setState( ObserverState.UP_TO_DATE );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
@@ -1045,7 +1064,7 @@ public class TransactionTest
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
     observable.setLeastStaleObserverState( ObserverState.INACTIVE );
 
-    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer = newDerivation( context );
     observer.setState( ObserverState.INACTIVE );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
@@ -1075,7 +1094,7 @@ public class TransactionTest
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
     observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
-    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer = newDerivation( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
@@ -1105,17 +1124,17 @@ public class TransactionTest
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    final Derivation observer1 = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer1 = newDerivation( context );
     observer1.setState( ObserverState.UP_TO_DATE );
     observer1.getDependencies().add( observable );
     observable.getObservers().add( observer1 );
 
-    final Derivation observer2 = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer2 = newDerivation( context );
     observer2.setState( ObserverState.STALE );
     observer2.getDependencies().add( observable );
     observable.getObservers().add( observer2 );
 
-    final Derivation observer3 = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer3 = newDerivation( context );
     observer3.setState( ObserverState.STALE );
     observer3.getDependencies().add( observable );
     observable.getObservers().add( observer3 );
@@ -1142,13 +1161,14 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
 
-    final Derivation calculator = new Derivation( context, ValueUtil.randomString() );
+    final Derivation calculator =
+      newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
 
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), calculator );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer = newDerivation( context );
     observer.setState( ObserverState.UP_TO_DATE );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
@@ -1168,7 +1188,8 @@ public class TransactionTest
   {
     final ArezContext context = new ArezContext();
 
-    final Derivation calculator = new Derivation( context, ValueUtil.randomString() );
+    final Derivation calculator =
+      newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
@@ -1195,13 +1216,14 @@ public class TransactionTest
   {
     final ArezContext context = new ArezContext();
 
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
 
-    final Derivation calculator = new Derivation( context, ValueUtil.randomString() );
+    final Derivation calculator =
+      newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
 
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), calculator );
@@ -1231,13 +1253,14 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
-    final Derivation calculator = new Derivation( context, ValueUtil.randomString() );
+    final Derivation calculator =
+      newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
 
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), calculator );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer = newDerivation( context );
     observer.setState( ObserverState.UP_TO_DATE );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
@@ -1266,7 +1289,7 @@ public class TransactionTest
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer = newDerivation( context );
     observer.setState( ObserverState.UP_TO_DATE );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
@@ -1293,23 +1316,24 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
 
-    final Derivation calculator = new Derivation( context, ValueUtil.randomString() );
+    final Derivation calculator =
+      newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
 
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), calculator );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    final Derivation observer1 = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer1 = newDerivation( context );
     observer1.setState( ObserverState.UP_TO_DATE );
     observer1.getDependencies().add( observable );
     observable.getObservers().add( observer1 );
 
-    final Derivation observer2 = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer2 = newDerivation( context );
     observer2.setState( ObserverState.POSSIBLY_STALE );
     observer2.getDependencies().add( observable );
     observable.getObservers().add( observer2 );
 
-    final Derivation observer3 = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer3 = newDerivation( context );
     observer3.setState( ObserverState.STALE );
     observer3.getDependencies().add( observable );
     observable.getObservers().add( observer3 );
@@ -1336,13 +1360,14 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
 
-    final Derivation calculator = new Derivation( context, ValueUtil.randomString() );
+    final Derivation calculator =
+      newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
 
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), calculator );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer = newDerivation( context );
     observer.setState( observable.getLeastStaleObserverState() );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
@@ -1363,13 +1388,14 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
 
-    final Derivation calculator = new Derivation( context, ValueUtil.randomString() );
+    final Derivation calculator =
+      newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
 
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), calculator );
     observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
-    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer = newDerivation( context );
     observer.setState( observable.getLeastStaleObserverState() );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
@@ -1389,13 +1415,14 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
 
-    final Derivation calculator = new Derivation( context, ValueUtil.randomString() );
+    final Derivation calculator =
+      newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
 
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), calculator );
     observable.setLeastStaleObserverState( ObserverState.STALE );
 
-    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer = newDerivation( context );
     observer.setState( observable.getLeastStaleObserverState() );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
@@ -1412,7 +1439,8 @@ public class TransactionTest
   {
     final ArezContext context = new ArezContext();
 
-    final Derivation calculator = new Derivation( context, ValueUtil.randomString() );
+    final Derivation calculator =
+      newDerivation( context );
     calculator.setState( ObserverState.POSSIBLY_STALE );
 
     final Transaction transaction =
@@ -1436,13 +1464,14 @@ public class TransactionTest
   {
     final ArezContext context = new ArezContext();
 
-    final Derivation tracker = new Derivation( context, ValueUtil.randomString() );
+    final Derivation tracker = newDerivation( context );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
 
-    final Derivation calculator = new Derivation( context, ValueUtil.randomString() );
+    final Derivation calculator =
+      newDerivation( context );
     calculator.setState( ObserverState.POSSIBLY_STALE );
 
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), calculator );
@@ -1469,13 +1498,14 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
-    final Derivation calculator = new Derivation( context, ValueUtil.randomString() );
+    final Derivation calculator =
+      newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
 
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), calculator );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer = newDerivation( context );
     observer.setState( ObserverState.UP_TO_DATE );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
@@ -1504,7 +1534,7 @@ public class TransactionTest
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    final Derivation observer = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer = newDerivation( context );
     observer.setState( ObserverState.UP_TO_DATE );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
@@ -1531,23 +1561,24 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
 
-    final Derivation calculator = new Derivation( context, ValueUtil.randomString() );
+    final Derivation calculator =
+      newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
 
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), calculator );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    final Derivation observer1 = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer1 = newDerivation( context );
     observer1.setState( ObserverState.POSSIBLY_STALE );
     observer1.getDependencies().add( observable );
     observable.getObservers().add( observer1 );
 
-    final Derivation observer2 = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer2 = newDerivation( context );
     observer2.setState( ObserverState.POSSIBLY_STALE );
     observer2.getDependencies().add( observable );
     observable.getObservers().add( observer2 );
 
-    final Derivation observer3 = new Derivation( context, ValueUtil.randomString() );
+    final Derivation observer3 = newDerivation( context );
     observer3.setState( ObserverState.STALE );
     observer3.getDependencies().add( observable );
     observable.getObservers().add( observer3 );
@@ -1564,5 +1595,11 @@ public class TransactionTest
     assertEquals( observer1.getState(), ObserverState.STALE );
     assertEquals( observer2.getState(), ObserverState.STALE );
     assertEquals( observer3.getState(), ObserverState.STALE );
+  }
+
+  @Nonnull
+  private Derivation newDerivation( @Nonnull final ArezContext context )
+  {
+    return new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, ACTION );
   }
 }

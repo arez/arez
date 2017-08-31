@@ -16,12 +16,21 @@ public class Reaction
    */
   @Nonnull
   private final TransactionMode _mode;
+  /**
+   * The action executed as the reaction.
+   */
+  @Nonnull
+  private final Action _action;
 
-  Reaction( @Nonnull final ArezContext context, @Nullable final String name, @Nonnull final TransactionMode mode )
+  Reaction( @Nonnull final ArezContext context,
+            @Nullable final String name,
+            @Nonnull final TransactionMode mode,
+            @Nonnull final Action action )
   {
     super( context, name );
     setOnStale( this::schedule );
     _mode = Objects.requireNonNull( mode );
+    _action = Objects.requireNonNull( action );
   }
 
   /**
@@ -33,6 +42,17 @@ public class Reaction
   final TransactionMode getMode()
   {
     return _mode;
+  }
+
+  /**
+   * Return the action executed as the reaction.
+   *
+   * @return the action executed as the reaction.
+   */
+  @Nonnull
+  final Action getAction()
+  {
+    return _action;
   }
 
   final boolean isScheduled()
