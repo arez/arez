@@ -223,7 +223,7 @@ public abstract class Observable
                       () -> String.format(
                         "Attempted to invoke queueForPassivation() on observable named '%s' but observable is not able to be passivated.",
                         getName() ) );
-    Guards.invariant( () -> getObservers().isEmpty(),
+    Guards.invariant( () -> !hasObservers(),
                       () -> String.format(
                         "Attempted to invoke queueForPassivation() on observable named '%s' but observable has observers.",
                         getName() ) );
