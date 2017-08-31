@@ -20,7 +20,7 @@ public class ObservableTest
     assertEquals( observable.getName(), name );
     assertEquals( observable.getContext(), context );
     assertEquals( observable.toString(), name );
-    assertEquals( observable.isPendingPassivation(), false );
+    assertEquals( observable.isPendingDeactivation(), false );
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
 

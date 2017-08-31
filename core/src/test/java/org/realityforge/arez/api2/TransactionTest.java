@@ -27,7 +27,7 @@ public class TransactionTest
     assertEquals( transaction.getPrevious(), null );
     assertEquals( transaction.getTracker(), null );
     assertEquals( transaction.getObservables(), null );
-    assertEquals( transaction.getPendingPassivations(), null );
+    assertEquals( transaction.getPendingDeactivations(), null );
     assertEquals( transaction.getMode(), TransactionMode.READ_ONLY );
 
     assertEquals( context.currentNextNodeId(), nextNodeId + 1 );
@@ -100,13 +100,13 @@ public class TransactionTest
     tracker.getDependencies().add( observable2 );
     observable2.getObservers().add( tracker );
 
-    observable2.setPendingPassivation( true );
-    transaction.queueForPassivation( observable2 );
+    observable2.setPendingDeactivation( true );
+    transaction.queueForDeactivation( observable2 );
 
-    assertNotNull( transaction.getPendingPassivations() );
-    assertEquals( transaction.getPendingPassivations().size(), 1 );
+    assertNotNull( transaction.getPendingDeactivations() );
+    assertEquals( transaction.getPendingDeactivations().size(), 1 );
     assertEquals( observable2.isActive(), true );
-    assertEquals( observable2.isPendingPassivation(), true );
+    assertEquals( observable2.isPendingDeactivation(), true );
 
     transaction.safeGetObservables().add( observable1 );
     final ArrayList<Observable> dependencies = tracker.getDependencies();
@@ -120,8 +120,8 @@ public class TransactionTest
     assertEquals( tracker.getDependencies().contains( observable1 ), true );
     assertEquals( observable1.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
 
-    // This section essentially verifies passivatePendingPassivations() is called
-    assertEquals( observable2.isPendingPassivation(), false );
+    // This section essentially verifies processPendingDeactivations() is called
+    assertEquals( observable2.isPendingDeactivation(), false );
     assertEquals( observable2.isActive(), false );
     assertEquals( observable2.getOwner(), derivation );
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
@@ -584,8 +584,7 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
 
-    final Derivation derivation =
-      newDerivation( context );
+    final Derivation derivation = newDerivation( context );
     derivation.setState( ObserverState.STALE );
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
 
@@ -607,7 +606,7 @@ public class TransactionTest
   }
 
   @Test
-  public void queueForPassivation_singleObserver()
+  public void queueForDeactivation_singleObserver()
   {
     final ArezContext context = new ArezContext();
     final Derivation tracker = newDerivation( context );
@@ -621,18 +620,18 @@ public class TransactionTest
                           ValueUtil.randomString(),
                           newDerivation( context ) );
 
-    assertNull( transaction.getPendingPassivations() );
+    assertNull( transaction.getPendingDeactivations() );
 
-    transaction.queueForPassivation( observable );
+    transaction.queueForDeactivation( observable );
 
-    assertNotNull( transaction.getPendingPassivations() );
+    assertNotNull( transaction.getPendingDeactivations() );
 
-    assertEquals( transaction.getPendingPassivations().size(), 1 );
-    assertEquals( transaction.getPendingPassivations().contains( observable ), true );
+    assertEquals( transaction.getPendingDeactivations().size(), 1 );
+    assertEquals( transaction.getPendingDeactivations().contains( observable ), true );
   }
 
   @Test
-  public void queueForPassivation_nestedTransaction()
+  public void queueForDeactivation_nestedTransaction()
   {
     final ArezContext context = new ArezContext();
     final Derivation tracker = newDerivation( context );
@@ -648,25 +647,25 @@ public class TransactionTest
                           ValueUtil.randomString(),
                           newDerivation( context ) );
 
-    assertNull( transaction1.getPendingPassivations() );
-    assertNull( transaction2.getPendingPassivations() );
+    assertNull( transaction1.getPendingDeactivations() );
+    assertNull( transaction2.getPendingDeactivations() );
 
-    transaction2.queueForPassivation( observable );
+    transaction2.queueForDeactivation( observable );
 
-    assertNotNull( transaction1.getPendingPassivations() );
-    assertNotNull( transaction2.getPendingPassivations() );
+    assertNotNull( transaction1.getPendingDeactivations() );
+    assertNotNull( transaction2.getPendingDeactivations() );
 
-    // Pending passivations list in both transactions should be the same instance
-    assertTrue( transaction1.getPendingPassivations() == transaction2.getPendingPassivations() );
+    // Pending deactivations list in both transactions should be the same instance
+    assertTrue( transaction1.getPendingDeactivations() == transaction2.getPendingDeactivations() );
 
-    assertEquals( transaction1.getPendingPassivations().size(), 1 );
-    assertEquals( transaction1.getPendingPassivations().contains( observable ), true );
-    assertEquals( transaction2.getPendingPassivations().size(), 1 );
-    assertEquals( transaction2.getPendingPassivations().contains( observable ), true );
+    assertEquals( transaction1.getPendingDeactivations().size(), 1 );
+    assertEquals( transaction1.getPendingDeactivations().contains( observable ), true );
+    assertEquals( transaction2.getPendingDeactivations().size(), 1 );
+    assertEquals( transaction2.getPendingDeactivations().contains( observable ), true );
   }
 
   @Test
-  public void queueForPassivation_observerAlreadyPassivated()
+  public void queueForDeactivation_observerAlreadyDeactivated()
   {
     final ArezContext context = new ArezContext();
     final Derivation tracker = newDerivation( context );
@@ -680,19 +679,19 @@ public class TransactionTest
                           ValueUtil.randomString(),
                           newDerivation( context ) );
 
-    transaction.queueForPassivation( observable );
+    transaction.queueForDeactivation( observable );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> transaction.queueForPassivation( observable ) );
+      expectThrows( IllegalStateException.class, () -> transaction.queueForDeactivation( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Invoked queueForPassivation on transaction named '" +
+                  "Invoked queueForDeactivation on transaction named '" +
                   transaction.getName() + "' for observable named '" + observable.getName() +
-                  "' when pending passivation already exists for observable." );
+                  "' when pending deactivation already exists for observable." );
   }
 
   @Test
-  public void queueForPassivation_observerNotPassivatable()
+  public void queueForDeactivation_observerCanNotDeactivate()
   {
     final ArezContext context = new ArezContext();
     final Derivation tracker = newDerivation( context );
@@ -704,16 +703,16 @@ public class TransactionTest
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> transaction.queueForPassivation( observable ) );
+      expectThrows( IllegalStateException.class, () -> transaction.queueForDeactivation( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Invoked queueForPassivation on transaction named '" +
+                  "Invoked queueForDeactivation on transaction named '" +
                   transaction.getName() + "' for observable named '" + observable.getName() +
-                  "' when observable can not be passivated." );
+                  "' when observable can not be deactivated." );
   }
 
   @Test
-  public void passivatePendingPassivations_observableHasNoListeners()
+  public void processPendingDeactivations_observableHasNoListeners()
   {
     final ArezContext context = new ArezContext();
 
@@ -726,42 +725,42 @@ public class TransactionTest
     final TestObservable observable =
       new TestObservable( context, ValueUtil.randomString(), derivation );
 
-    observable.setPendingPassivation( true );
-    transaction.queueForPassivation( observable );
+    observable.setPendingDeactivation( true );
+    transaction.queueForDeactivation( observable );
 
-    assertNotNull( transaction.getPendingPassivations() );
-    assertEquals( transaction.getPendingPassivations().size(), 1 );
-    assertEquals( transaction.getPendingPassivations().contains( observable ), true );
+    assertNotNull( transaction.getPendingDeactivations() );
+    assertEquals( transaction.getPendingDeactivations().size(), 1 );
+    assertEquals( transaction.getPendingDeactivations().contains( observable ), true );
     assertEquals( observable.isActive(), true );
-    assertEquals( observable.isPendingPassivation(), true );
+    assertEquals( observable.isPendingDeactivation(), true );
 
-    final int passivatedCount = transaction.passivatePendingPassivations();
-    assertEquals( passivatedCount, 1 );
+    final int deactivationCount = transaction.processPendingDeactivations();
+    assertEquals( deactivationCount, 1 );
 
-    assertEquals( observable.isPendingPassivation(), false );
+    assertEquals( observable.isPendingDeactivation(), false );
     assertEquals( observable.isActive(), false );
     assertEquals( observable.getOwner(), derivation );
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
   }
 
   @Test
-  public void passivatePendingPassivations_noPassivationsPending()
+  public void processPendingDeactivations_noDeactivationsPending()
   {
     final ArezContext context = new ArezContext();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
-    assertNull( transaction.getPendingPassivations() );
+    assertNull( transaction.getPendingDeactivations() );
 
-    final int passivatedCount = transaction.passivatePendingPassivations();
-    assertEquals( passivatedCount, 0 );
+    final int deactivationCount = transaction.processPendingDeactivations();
+    assertEquals( deactivationCount, 0 );
 
-    assertNull( transaction.getPendingPassivations() );
+    assertNull( transaction.getPendingDeactivations() );
   }
 
   @Test
-  public void passivatePendingPassivations_observableHasListener()
+  public void processPendingDeactivations_observableHasListener()
   {
     final ArezContext context = new ArezContext();
 
@@ -777,34 +776,34 @@ public class TransactionTest
     derivation.setState( ObserverState.UP_TO_DATE );
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
 
-    observable.setPendingPassivation( true );
-    transaction.queueForPassivation( observable );
+    observable.setPendingDeactivation( true );
+    transaction.queueForDeactivation( observable );
     otherObserver.getDependencies().add( observable );
     observable.addObserver( otherObserver );
 
-    assertNotNull( transaction.getPendingPassivations() );
-    assertEquals( transaction.getPendingPassivations().size(), 1 );
-    assertEquals( transaction.getPendingPassivations().contains( observable ), true );
+    assertNotNull( transaction.getPendingDeactivations() );
+    assertEquals( transaction.getPendingDeactivations().size(), 1 );
+    assertEquals( transaction.getPendingDeactivations().contains( observable ), true );
     assertEquals( observable.isActive(), true );
-    assertEquals( observable.isPendingPassivation(), true );
+    assertEquals( observable.isPendingDeactivation(), true );
 
-    final int passivatedCount = transaction.passivatePendingPassivations();
-    assertEquals( passivatedCount, 0 );
+    final int deactivationCount = transaction.processPendingDeactivations();
+    assertEquals( deactivationCount, 0 );
 
-    assertEquals( observable.isPendingPassivation(), false );
+    assertEquals( observable.isPendingDeactivation(), false );
     assertEquals( observable.isActive(), true );
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
-  public void passivatePendingPassivations_passivationCausesMorePendingPassivations()
+  public void processPendingDeactivations_causesMorePendingDeactivations()
   {
     final ArezContext context = new ArezContext();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
-    //Setup transaction as queueForPassivation retrieves trnsaction from context
+    //Setup transaction as queueForDeactivation retrieves trnsaction from context
     context.setTransaction( transaction );
 
     final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
@@ -828,27 +827,27 @@ public class TransactionTest
     final TestObservable observable3 =
       new TestObservable( context, ValueUtil.randomString(), derivation2 );
 
-    observable3.setPendingPassivation( true );
-    transaction.queueForPassivation( observable3 );
+    observable3.setPendingDeactivation( true );
+    transaction.queueForDeactivation( observable3 );
 
-    assertNotNull( transaction.getPendingPassivations() );
-    assertEquals( transaction.getPendingPassivations().size(), 1 );
-    assertEquals( transaction.getPendingPassivations().contains( observable3 ), true );
+    assertNotNull( transaction.getPendingDeactivations() );
+    assertEquals( transaction.getPendingDeactivations().size(), 1 );
+    assertEquals( transaction.getPendingDeactivations().contains( observable3 ), true );
     assertEquals( observable3.isActive(), true );
-    assertEquals( observable3.isPendingPassivation(), true );
+    assertEquals( observable3.isPendingDeactivation(), true );
 
-    final int passivatedCount = transaction.passivatePendingPassivations();
+    final int deactivationCount = transaction.processPendingDeactivations();
 
-    //Chained calculated derivation is passivated
-    assertEquals( passivatedCount, 2 );
+    //Chained calculated derivation is deactivated
+    assertEquals( deactivationCount, 2 );
 
-    assertEquals( observable3.isPendingPassivation(), false );
+    assertEquals( observable3.isPendingDeactivation(), false );
     assertEquals( observable3.isActive(), false );
     assertEquals( observable3.getOwner(), derivation2 );
-    assertEquals( observable2.isPendingPassivation(), false );
+    assertEquals( observable2.isPendingDeactivation(), false );
     assertEquals( observable2.isActive(), false );
     assertEquals( observable2.getOwner(), derivation1 );
-    assertEquals( observable1.isPendingPassivation(), false );
+    assertEquals( observable1.isPendingDeactivation(), false );
     assertEquals( observable1.isActive(), true );
     assertEquals( observable1.getOwner(), null );
     assertEquals( derivation2.getState(), ObserverState.INACTIVE );
@@ -860,7 +859,7 @@ public class TransactionTest
   }
 
   @Test
-  public void passivatePendingPassivations_passivationCausesDeactivationButNoMorePendingPassivations()
+  public void processPendingDeactivations_producesNoMorePendingDeactivations()
   {
     final ArezContext context = new ArezContext();
 
@@ -879,21 +878,21 @@ public class TransactionTest
     final TestObservable derivedObservable =
       new TestObservable( context, ValueUtil.randomString(), derivation );
 
-    derivedObservable.setPendingPassivation( true );
-    transaction.queueForPassivation( derivedObservable );
+    derivedObservable.setPendingDeactivation( true );
+    transaction.queueForDeactivation( derivedObservable );
 
-    assertNotNull( transaction.getPendingPassivations() );
-    assertEquals( transaction.getPendingPassivations().size(), 1 );
-    assertEquals( transaction.getPendingPassivations().contains( derivedObservable ), true );
+    assertNotNull( transaction.getPendingDeactivations() );
+    assertEquals( transaction.getPendingDeactivations().size(), 1 );
+    assertEquals( transaction.getPendingDeactivations().contains( derivedObservable ), true );
     assertEquals( derivedObservable.isActive(), true );
-    assertEquals( derivedObservable.isPendingPassivation(), true );
+    assertEquals( derivedObservable.isPendingDeactivation(), true );
 
-    final int passivatedCount = transaction.passivatePendingPassivations();
+    final int deactivationCount = transaction.processPendingDeactivations();
 
-    //baseObservable is not active so it needs to passivation
-    assertEquals( passivatedCount, 1 );
+    //baseObservable is not active so it needs deactivation
+    assertEquals( deactivationCount, 1 );
 
-    assertEquals( derivedObservable.isPendingPassivation(), false );
+    assertEquals( derivedObservable.isPendingDeactivation(), false );
     assertEquals( derivedObservable.isActive(), false );
     assertEquals( derivedObservable.getOwner(), derivation );
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
@@ -902,7 +901,7 @@ public class TransactionTest
   }
 
   @Test
-  public void passivatePendingPassivations_calledOnNonRootTransaction()
+  public void processPendingDeactivations_calledOnNonRootTransaction()
   {
     final ArezContext context = new ArezContext();
 
@@ -912,10 +911,10 @@ public class TransactionTest
       new Transaction( context, transaction1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, transaction2::passivatePendingPassivations );
+      expectThrows( IllegalStateException.class, transaction2::processPendingDeactivations );
 
     assertEquals( exception.getMessage(),
-                  "Invoked passivatePendingPassivations on transaction named '" +
+                  "Invoked processPendingDeactivations on transaction named '" +
                   transaction2.getName() + "' which is not the root transaction." );
   }
 

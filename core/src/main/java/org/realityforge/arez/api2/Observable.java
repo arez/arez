@@ -22,10 +22,10 @@ public abstract class Observable
 
   private final ArrayList<Observer> _observers = new ArrayList<>();
   /**
-   * True if passivation has been requested in transaction.
-   * Used to avoid adding duplicates to passivation list.
+   * True if deactivation has been requested.
+   * Used to avoid adding duplicates to pending deactivation list.
    */
-  private boolean _pendingPassivation;
+  private boolean _pendingDeactivation;
   /**
    * The workState variable contains some data used during processing of observable
    * at various stages.
@@ -63,9 +63,9 @@ public abstract class Observable
     _owner = owner;
   }
 
-  final void resetPendingPassivation()
+  final void resetPendingDeactivation()
   {
-    _pendingPassivation = false;
+    _pendingDeactivation = false;
   }
 
   final void reportObserved()
@@ -105,9 +105,9 @@ public abstract class Observable
   }
 
   /**
-   * Return true if this observable can passivate when it is no longer observable and activate when it is observable again.
+   * Return true if this observable can deactivate when it is no longer observable and activate when it is observable again.
    */
-  final boolean canPassivate()
+  final boolean canDeactivate()
   {
     return null != _owner;
   }
@@ -121,26 +121,26 @@ public abstract class Observable
   }
 
   /**
-   * Passivate the observable.
+   * Deactivate the observable.
    * This means that the observable no longer has any listeners and can release resources associated
    * with generating values. (i.e. remove observers on any observables that are used to compute the
    * value of this observable).
    */
-  protected void passivate()
+  protected void deactivate()
   {
     Guards.invariant( () -> null != _owner,
-                      () -> String.format( "Invoked passivate on observable named '%s' when owner is null.",
+                      () -> String.format( "Invoked deactivate on observable named '%s' when owner is null.",
                                            getName() ) );
     assert null != _owner;
     Guards.invariant( _owner::isActive,
-                      () -> String.format( "Invoked passivate on observable named '%s' when owner is inactive.",
+                      () -> String.format( "Invoked deactivate on observable named '%s' when owner is inactive.",
                                            getName() ) );
     _owner.setState( ObserverState.INACTIVE );
   }
 
   /**
    * Activate the observable.
-   * The reverse of {@link #passivate()}.
+   * The reverse of {@link #deactivate()}.
    */
   protected void activate()
   {
@@ -210,27 +210,27 @@ public abstract class Observable
         observer.getName(),
         getName() ) );
     }
-    if ( observers.isEmpty() && canPassivate() )
+    if ( observers.isEmpty() && canDeactivate() )
     {
-      queueForPassivation();
+      queueForDeactivation();
     }
     invariantObserversLinked();
   }
 
-  private void queueForPassivation()
+  private void queueForDeactivation()
   {
-    Guards.invariant( this::canPassivate,
+    Guards.invariant( this::canDeactivate,
                       () -> String.format(
-                        "Attempted to invoke queueForPassivation() on observable named '%s' but observable is not able to be passivated.",
+                        "Attempted to invoke queueForDeactivation() on observable named '%s' but observable is not able to be deactivated.",
                         getName() ) );
     Guards.invariant( () -> !hasObservers(),
                       () -> String.format(
-                        "Attempted to invoke queueForPassivation() on observable named '%s' but observable has observers.",
+                        "Attempted to invoke queueForDeactivation() on observable named '%s' but observable has observers.",
                         getName() ) );
-    if ( !_pendingPassivation )
+    if ( !_pendingDeactivation )
     {
-      _pendingPassivation = true;
-      getContext().getTransaction().queueForPassivation( this );
+      _pendingDeactivation = true;
+      getContext().getTransaction().queueForDeactivation( this );
     }
   }
 
@@ -276,9 +276,9 @@ public abstract class Observable
   }
 
   @TestOnly
-  final boolean isPendingPassivation()
+  final boolean isPendingDeactivation()
   {
-    return _pendingPassivation;
+    return _pendingDeactivation;
   }
 
   @TestOnly
@@ -288,8 +288,8 @@ public abstract class Observable
   }
 
   @TestOnly
-  final void setPendingPassivation( final boolean pendingPassivation )
+  final void setPendingDeactivation( final boolean pendingDeactivation )
   {
-    _pendingPassivation = pendingPassivation;
+    _pendingDeactivation = pendingDeactivation;
   }
 }

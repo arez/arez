@@ -16,12 +16,12 @@ final class Transaction
   private final TransactionMode _mode;
   /**
    * A list of observables that have reached zero observers within the scope of the root transaction.
-   * When the root transaction completes, these observers are passivated if they still have no observers.
+   * When the root transaction completes, these observers are deactivated if they still have no observers.
    * It should be noted that this list is owned by the root transaction and a reference is copied to all
-   * non-root transactions that attempt to passivate an observable.
+   * non-root transactions that attempt to deactivate an observable.
    */
   @Nullable
-  private ArrayList<Observable> _pendingPassivations;
+  private ArrayList<Observable> _pendingDeactivations;
   /**
    * Reference to the transaction that was active when this transaction began. When this
    * transaction commits, the previous transaction will be restored.
@@ -94,32 +94,32 @@ final class Transaction
     completeTracking();
     if ( isRootTransaction() )
     {
-      // Only the root transactions performs passivations and reschedules reactions.
-      passivatePendingPassivations();
+      // Only the root transactions performs deactivations and reschedules reactions.
+      processPendingDeactivations();
       getContext().runPendingReactions();
     }
   }
 
-  final int passivatePendingPassivations()
+  final int processPendingDeactivations()
   {
     Guards.invariant( this::isRootTransaction,
                       () -> String.format(
-                        "Invoked passivatePendingPassivations on transaction named '%s' which is not the root transaction.",
+                        "Invoked processPendingDeactivations on transaction named '%s' which is not the root transaction.",
                         getName() ) );
     int count = 0;
-    if ( null != _pendingPassivations )
+    if ( null != _pendingDeactivations )
     {
-      //WARNING: Passivations can be enqueued during the passivation process
-      // so we always need to call _pendingPassivations.size() through each iteration
-      // of the loop to ensure that new pending passivations are passivated.
+      // WARNING: Deactivationss can be enqueued during the deactivation process
+      // so we always need to call _pendingDeactivations.size() through each iteration
+      // of the loop to ensure that new pending deactivations are deactivated.
       //noinspection ForLoopReplaceableByForEach
-      for ( int i = 0; i < _pendingPassivations.size(); i++ )
+      for ( int i = 0; i < _pendingDeactivations.size(); i++ )
       {
-        final Observable observable = _pendingPassivations.get( i );
-        observable.resetPendingPassivation();
+        final Observable observable = _pendingDeactivations.get( i );
+        observable.resetPendingDeactivation();
         if ( !observable.hasObservers() )
         {
-          observable.passivate();
+          observable.deactivate();
           count++;
         }
       }
@@ -127,31 +127,31 @@ final class Transaction
     return count;
   }
 
-  final void queueForPassivation( @Nonnull final Observable observable )
+  final void queueForDeactivation( @Nonnull final Observable observable )
   {
-    Guards.invariant( observable::canPassivate,
+    Guards.invariant( observable::canDeactivate,
                       () -> String.format(
-                        "Invoked queueForPassivation on transaction named '%s' for observable named '%s' when observable can not be passivated.",
+                        "Invoked queueForDeactivation on transaction named '%s' for observable named '%s' when observable can not be deactivated.",
                         getName(),
                         observable.getName() ) );
-    if ( null == _pendingPassivations )
+    if ( null == _pendingDeactivations )
     {
       final Transaction rootTransaction = getRootTransaction();
-      if ( null == rootTransaction._pendingPassivations )
+      if ( null == rootTransaction._pendingDeactivations )
       {
-        rootTransaction._pendingPassivations = new ArrayList<>();
+        rootTransaction._pendingDeactivations = new ArrayList<>();
       }
-      _pendingPassivations = rootTransaction._pendingPassivations;
+      _pendingDeactivations = rootTransaction._pendingDeactivations;
     }
     else
     {
-      Guards.invariant( () -> !_pendingPassivations.contains( observable ),
+      Guards.invariant( () -> !_pendingDeactivations.contains( observable ),
                         () -> String.format(
-                          "Invoked queueForPassivation on transaction named '%s' for observable named '%s' when pending passivation already exists for observable.",
+                          "Invoked queueForDeactivation on transaction named '%s' for observable named '%s' when pending deactivation already exists for observable.",
                           getName(),
                           observable.getName() ) );
     }
-    _pendingPassivations.add( Objects.requireNonNull( observable ) );
+    _pendingDeactivations.add( Objects.requireNonNull( observable ) );
   }
 
   final void observe( @Nonnull final Observable observable )
@@ -187,7 +187,8 @@ final class Transaction
     if ( ObserverState.STALE != observable.getLeastStaleObserverState() )
     {
       observable.setLeastStaleObserverState( ObserverState.STALE );
-      for ( final Observer observer : observable.getObservers() )
+      final ArrayList<Observer> observers = observable.getObservers();
+      for ( final Observer observer : observers )
       {
         final ObserverState state = observer.getState();
         if ( ObserverState.UP_TO_DATE == state )
@@ -490,9 +491,9 @@ final class Transaction
 
   @TestOnly
   @Nullable
-  final ArrayList<Observable> getPendingPassivations()
+  final ArrayList<Observable> getPendingDeactivations()
   {
-    return _pendingPassivations;
+    return _pendingDeactivations;
   }
 
   @TestOnly
