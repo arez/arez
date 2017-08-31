@@ -93,6 +93,7 @@ public class Observer
    */
   public final void setState( @Nonnull final ObserverState state )
   {
+    invariantState();
     if ( !state.equals( _state ) )
     {
       final ObserverState originalState = _state;
@@ -111,6 +112,7 @@ public class Observer
       {
         runHook( getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
       }
+      invariantState();
     }
   }
 
@@ -269,6 +271,23 @@ public class Observer
                                                        context,
                                                        getName(),
                                                        observable.getName() ) ) );
+    }
+  }
+
+  /**
+   * Ensure that state field and other fields of the Observer are consistent.
+   */
+  final void invariantState()
+  {
+    if ( isInactive() )
+    {
+      Guards.invariant( () -> getDependencies().isEmpty(),
+                        () -> String.format(
+                          "Observer named '%s' is inactive but still has dependencies: %s.",
+                          getName(),
+                          getDependencies().stream().
+                            map( Node::getName ).
+                            collect( Collectors.toList() ) ) );
     }
   }
 }
