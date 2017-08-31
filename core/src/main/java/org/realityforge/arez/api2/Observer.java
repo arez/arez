@@ -267,7 +267,7 @@ public class Observer
       getDependencies().forEach( observable ->
                                    Guards.invariant( () -> observable.getObservers().contains( this ),
                                                      () -> String.format(
-                                                       "%s: Observer named '%s' has dependency observer named '%s' which does not contain observer in list of observers.",
+                                                       "%s: Observer named '%s' has dependency observable named '%s' which does not contain the observer in the list of observers.",
                                                        context,
                                                        getName(),
                                                        observable.getName() ) ) );
