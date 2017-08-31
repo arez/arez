@@ -187,4 +187,31 @@ public class ObserverTest
 
     assertThrows( () -> observer.replaceDependencies( newDependencies ) );
   }
+
+  @Test
+  public void clearDependencies()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
+    final TestObservable observable2 = new TestObservable( context, ValueUtil.randomString() );
+
+    observer.getDependencies().add( observable1 );
+    observer.getDependencies().add( observable2 );
+    observable1.addObserver( observer );
+    observable2.addObserver( observer );
+
+    assertEquals( observer.getDependencies().size(), 2 );
+    assertEquals( observable1.getObservers().size(), 1 );
+    assertEquals( observable2.getObservers().size(), 1 );
+
+    observer.clearDependencies();
+
+    assertEquals( observer.getDependencies().size(), 0 );
+    assertEquals( observable1.getObservers().size(), 0 );
+    assertEquals( observable2.getObservers().size(), 0 );
+  }
 }
