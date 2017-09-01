@@ -178,4 +178,61 @@ public class ReactionSchedulerTest
 
     scheduler.onRunawayReactionsDetected();
   }
+
+  @Test
+  public void scheduleReaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = new ReactionScheduler( context );
+
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, o -> {
+      } );
+
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+
+    scheduler.scheduleReaction( observer );
+
+    assertEquals( scheduler.getPendingObservers().size(), 1 );
+    assertEquals( scheduler.getPendingObservers().contains( observer ), true );
+  }
+
+  @Test
+  public void scheduleReaction_badObserver_noReaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = new ReactionScheduler( context );
+
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> scheduler.scheduleReaction( observer ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempting to schedule observer named '" + observer.getName() +
+                  "' when observer has no reaction." );
+  }
+
+  @Test
+  public void scheduleReaction_observerAlreadyScheduled()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = new ReactionScheduler( context );
+
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, o -> {
+      } );
+
+    scheduler.getPendingObservers().add( observer );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> scheduler.scheduleReaction( observer ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempting to schedule observer named '" + observer.getName() +
+                  "' when observer is already pending." );
+  }
 }
