@@ -229,6 +229,13 @@ public final class ArezContext
   }
 
   @TestOnly
+  @Nonnull
+  final ReactionScheduler getScheduler()
+  {
+    return _scheduler;
+  }
+
+  @TestOnly
   void setTransaction( @Nullable final Transaction transaction )
   {
     _transaction = transaction;
