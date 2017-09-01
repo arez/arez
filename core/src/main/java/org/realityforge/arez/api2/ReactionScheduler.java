@@ -54,12 +54,22 @@ final class ReactionScheduler
     _context = Objects.requireNonNull( context );
   }
 
+  /**
+   * Return the maximum number of rounds before runaway reaction is detected.
+   *
+   * @return the maximum number of rounds.
+   */
   @Nonnegative
   int getMaxReactionRounds()
   {
     return _maxReactionRounds;
   }
 
+  /**
+   * Set the maximum number of rounds before a runaway reaction is detected.
+   *
+   * @param maxReactionRounds the maximum number of rounds.
+   */
   void setMaxReactionRounds( @Nonnegative final int maxReactionRounds )
   {
     Guards.invariant( () -> maxReactionRounds >= 0,
@@ -68,11 +78,23 @@ final class ReactionScheduler
     _maxReactionRounds = maxReactionRounds;
   }
 
+  /**
+   * Return true if we are currently running reactions.
+   *
+   * @return true if we are currently running reactions.
+   */
   boolean isRunningReactions()
   {
     return 0 != _currentReactionRound;
   }
 
+  /**
+   * Add the specified observer to the list of pending observers.
+   * The observer must have a reaction and must not already be in
+   * the list of pending observers.
+   *
+   * @param observer the observer.
+   */
   void scheduleReaction( @Nonnull final Observer observer )
   {
     Guards.invariant( observer::hasReaction,
