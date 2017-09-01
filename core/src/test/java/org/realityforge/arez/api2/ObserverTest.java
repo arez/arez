@@ -334,7 +334,7 @@ public class ObserverTest
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 1 );
 
-    observer.setScheduled( false );
+    observer.clearScheduledFlag();
     context.getScheduler().getPendingObservers().remove( observer );
     assertEquals( observer.isScheduled(), false );
 
@@ -418,7 +418,7 @@ public class ObserverTest
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 1 );
 
-    observer.setScheduled( false );
+    observer.clearScheduledFlag();
     assertEquals( observer.isScheduled(), false );
 
     observer.setState( ObserverState.STALE );

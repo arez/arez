@@ -281,9 +281,12 @@ public class Observer
     return _scheduled;
   }
 
-  final void setScheduled( final boolean scheduled )
+  /**
+   * Clear the scheduled flag. This is called when the observer's reaction is executed so it can be scheduled again.
+   */
+  final void clearScheduledFlag()
   {
-    _scheduled = scheduled;
+    _scheduled = false;
   }
 
   /**

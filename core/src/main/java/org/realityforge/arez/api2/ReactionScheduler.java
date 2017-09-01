@@ -133,7 +133,7 @@ final class ReactionScheduler
      */
     _remainingReactionsInCurrentRound--;
     final Observer observer = _pendingObservers.remove( pendingObserverCount - 1 );
-    observer.setScheduled( false );
+    observer.clearScheduledFlag();
     invokeObserver( observer );
     return true;
   }
