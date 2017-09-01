@@ -142,6 +142,7 @@ final class ReactionScheduler
     final String name = ArezConfig.enableNames() ? observer.getName() : null;
     final TransactionMode mode = observer.getMode();
     final Reaction reaction = observer.getReaction();
+    assert null != reaction;
     try
     {
       //TODO: getContext().transaction( name, mode, observer, () -> reaction.react( observer ) );
