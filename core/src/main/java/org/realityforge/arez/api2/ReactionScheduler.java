@@ -148,6 +148,14 @@ final class ReactionScheduler
     return true;
   }
 
+  /**
+   * Run a reaction for the supplied observer.
+   * The reaction is executed in a transaction with the name and mode defined
+   * by the observer. If the reaction throws an exception, the exception is reported
+   * to the context global ObserverErrorHandlers
+   *
+   * @param observer the observer to run reaction for.
+   */
   void invokeObserver( @Nonnull final Observer observer )
   {
     final String name = ArezConfig.enableNames() ? observer.getName() : null;
@@ -164,6 +172,11 @@ final class ReactionScheduler
     }
   }
 
+  /**
+   * Called when runaway reactions detected.
+   * Depending on configuration will optionally purge the pending
+   * observers and optionally fail an invariant check.
+   */
   void onRunawayReactionsDetected()
   {
     final List<String> observerNames =
