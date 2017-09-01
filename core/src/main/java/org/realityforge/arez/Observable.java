@@ -222,14 +222,13 @@ public abstract class Observable
                         "Attempt to invoke removeObserver on observable named '%s' when there is no active transaction.",
                         getName() ) );
     invariantObserversLinked();
+    Guards.invariant( () -> hasObserver( observer ),
+                      () -> String.format(
+                        "Attempting to remove observer named '%s' from observable named '%s' when observer is already observing observable.",
+                        observer.getName(),
+                        getName() ) );
     final ArrayList<Observer> observers = getObservers();
-    if ( !observers.remove( observer ) )
-    {
-      Guards.fail( () -> String.format(
-        "Attempted to remove observer named '%s' from observable named '%s' but observer is not an observers.",
-        observer.getName(),
-        getName() ) );
-    }
+    observers.remove( observer );
     if ( observers.isEmpty() && canDeactivate() )
     {
       queueForDeactivation();
