@@ -22,7 +22,7 @@ import org.jetbrains.annotations.TestOnly;
  */
 final class ReactionScheduler
 {
-  private static final int DEFAULT_MAX_REACTION_ROUNDS = 100;
+  static final int DEFAULT_MAX_REACTION_ROUNDS = 100;
   @Nonnull
   private final ArezContext _context;
   /**
