@@ -335,6 +335,7 @@ public class ObserverTest
     assertEquals( onStale.getCalls(), 1 );
 
     observer.setScheduled( false );
+    context.getScheduler().getPendingObservers().remove( observer );
     assertEquals( observer.isScheduled(), false );
 
     observer.setState( ObserverState.STALE );
