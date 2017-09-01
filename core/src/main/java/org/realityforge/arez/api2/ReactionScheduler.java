@@ -55,12 +55,12 @@ final class ReactionScheduler
   }
 
   @Nonnegative
-  final int getMaxReactionRounds()
+  int getMaxReactionRounds()
   {
     return _maxReactionRounds;
   }
 
-  final void setMaxReactionRounds( @Nonnegative final int maxReactionRounds )
+  void setMaxReactionRounds( @Nonnegative final int maxReactionRounds )
   {
     Guards.invariant( () -> maxReactionRounds >= 0,
                       () -> String.format( "Attempting to set maxReactionRounds to negative value %d.",
@@ -68,12 +68,12 @@ final class ReactionScheduler
     _maxReactionRounds = maxReactionRounds;
   }
 
-  final boolean isRunningReactions()
+  boolean isRunningReactions()
   {
     return 0 != _currentReactionRound;
   }
 
-  final void scheduleReaction( @Nonnull final Observer observer )
+  void scheduleReaction( @Nonnull final Observer observer )
   {
     Guards.invariant( observer::hasReaction,
                       () -> String.format(
@@ -86,7 +86,7 @@ final class ReactionScheduler
     _pendingObservers.add( Objects.requireNonNull( observer ) );
   }
 
-  final void runPendingObservers()
+  void runPendingObservers()
   {
     // If we are already running observers, then newly scheduled observers will
     // be picked up by that process, otherwise lets start scheduler.
@@ -96,7 +96,7 @@ final class ReactionScheduler
     }
   }
 
-  private boolean runObserver()
+  boolean runObserver()
   {
     final int pendingObserverCount = _pendingObservers.size();
     // If we have reached the last observer in this round then
@@ -138,7 +138,7 @@ final class ReactionScheduler
     return true;
   }
 
-  private void invokeObserver( @Nonnull final Observer observer )
+  void invokeObserver( @Nonnull final Observer observer )
   {
     final String name = ArezConfig.enableNames() ? observer.getName() : null;
     final TransactionMode mode = observer.getMode();
@@ -173,7 +173,7 @@ final class ReactionScheduler
                      String.valueOf( observerNames ) ) );
   }
 
-  final int observerScheduler()
+  int observerScheduler()
   {
     int observersScheduled = 0;
     while ( runObserver() )
@@ -184,26 +184,26 @@ final class ReactionScheduler
   }
 
   @Nonnull
-  final ArezContext getContext()
+  ArezContext getContext()
   {
     return _context;
   }
 
   @TestOnly
   @Nonnull
-  public ArrayList<Observer> getPendingObservers()
+  ArrayList<Observer> getPendingObservers()
   {
     return _pendingObservers;
   }
 
   @TestOnly
-  final int getCurrentReactionRound()
+  int getCurrentReactionRound()
   {
     return _currentReactionRound;
   }
 
   @TestOnly
-  final int getRemainingReactionsInCurrentRound()
+  int getRemainingReactionsInCurrentRound()
   {
     return _remainingReactionsInCurrentRound;
   }
