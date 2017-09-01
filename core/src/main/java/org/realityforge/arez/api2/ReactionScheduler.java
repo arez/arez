@@ -164,7 +164,7 @@ final class ReactionScheduler
     }
   }
 
-  private void onRunawayReactionsDetected()
+  void onRunawayReactionsDetected()
   {
     final List<String> observerNames =
       ArezConfig.checkInvariants() && ArezConfig.verboseErrorMessages() ?

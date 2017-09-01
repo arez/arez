@@ -122,4 +122,61 @@ public class ReactionSchedulerTest
     assertEquals( callCount.get(), 1 );
     assertEquals( errorCount.get(), 1 );
   }
+
+  @Test
+  public void onRunawayReactionsDetected()
+    throws Exception
+  {
+    getConfigProvider().setPurgeReactionsWhenRunawayDetected( true );
+
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = new ReactionScheduler( context );
+
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    scheduler.getPendingObservers().add( observer );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, scheduler::onRunawayReactionsDetected );
+
+    assertEquals( exception.getMessage(),
+                  "Runaway reaction(s) detected. Observers still running after " +
+                  scheduler.getMaxReactionRounds() + " rounds. Current observers include: [" +
+                  observer.getName() + "]" );
+
+    // Ensure observers purged
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+  }
+
+  @Test
+  public void onRunawayReactionsDetected_noPurgeCOnfigured()
+    throws Exception
+  {
+    getConfigProvider().setPurgeReactionsWhenRunawayDetected( false );
+
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = new ReactionScheduler( context );
+
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    scheduler.getPendingObservers().add( observer );
+
+    assertThrows( IllegalStateException.class, scheduler::onRunawayReactionsDetected );
+
+    // Ensure observers not purged
+    assertEquals( scheduler.getPendingObservers().size(), 1 );
+  }
+
+  @Test
+  public void onRunawayReactionsDetected_invariantCheckingDisabled()
+    throws Exception
+  {
+    getConfigProvider().setCheckInvariants( false );
+
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = new ReactionScheduler( context );
+
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    scheduler.getPendingObservers().add( observer );
+
+    scheduler.onRunawayReactionsDetected();
+  }
 }
