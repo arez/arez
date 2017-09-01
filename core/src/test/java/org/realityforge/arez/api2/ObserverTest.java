@@ -3,6 +3,7 @@ package org.realityforge.arez.api2;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -428,5 +429,74 @@ public class ObserverTest
     assertEquals( onActivate.getCalls(), 1 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 1 );
+  }
+
+  @Test
+  public void schedule()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, o -> {
+    } );
+    setCurrentTransaction( context, observer );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    assertEquals( observer.isScheduled(), false );
+
+    observer.schedule();
+
+    assertEquals( observer.isScheduled(), true );
+    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
+    assertEquals( context.getScheduler().getPendingObservers().contains( observer ), true );
+
+    //Duplicate schedule should not result in it being added again
+    observer.schedule();
+
+    assertEquals( observer.isScheduled(), true );
+    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
+    assertEquals( context.getScheduler().getPendingObservers().contains( observer ), true );
+  }
+
+  @Test
+  public void schedule_whenNoReaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    setCurrentTransaction( context, observer );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::schedule );
+
+    assertEquals( exception.getMessage(),
+                  "Observer named '" + observer.getName() + "' has no reaction but an attempt " +
+                  "has been made to schedule observer." );
+  }
+
+  @Test
+  public void schedule_whenInactive()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, o -> {
+    } );
+    setCurrentTransaction( context, observer );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::schedule );
+
+    assertEquals( exception.getMessage(),
+                  "Observer named '" + observer.getName() + "' is not active but an attempt has " +
+                  "been made to schedule observer." );
+  }
+
+  private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
+  {
+    context.setTransaction( new Transaction( context,
+                                             null,
+                                             ValueUtil.randomString(),
+                                             observer.getMode(),
+                                             observer ) );
   }
 }
