@@ -96,6 +96,16 @@ final class ReactionScheduler
     }
   }
 
+  int observerScheduler()
+  {
+    int observersScheduled = 0;
+    while ( runObserver() )
+    {
+      observersScheduled++;
+    }
+    return observersScheduled;
+  }
+
   boolean runObserver()
   {
     final int pendingObserverCount = _pendingObservers.size();
@@ -171,16 +181,6 @@ final class ReactionScheduler
                      "Runaway reaction(s) detected. Observers still running after %d rounds. Current observers include: %s",
                      _maxReactionRounds,
                      String.valueOf( observerNames ) ) );
-  }
-
-  int observerScheduler()
-  {
-    int observersScheduled = 0;
-    while ( runObserver() )
-    {
-      observersScheduled++;
-    }
-    return observersScheduled;
   }
 
   @Nonnull
