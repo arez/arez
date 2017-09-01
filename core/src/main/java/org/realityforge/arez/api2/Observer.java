@@ -45,7 +45,7 @@ public class Observer
   private ArrayList<Observable> _dependencies = new ArrayList<>();
   /**
    * Flag indicating whether this observer has been scheduled.
-   * Should always be false unless _action is non-null.
+   * Should always be false unless _reaction is non-null.
    */
   private boolean _scheduled;
   /**
@@ -54,10 +54,10 @@ public class Observer
   @Nonnull
   private final TransactionMode _mode;
   /**
-   * The action executed as the reaction.
+   * The code responsible for responding to changes if any.
    */
   @Nullable
-  private final Action _action;
+  private final Reaction _reaction;
 
   Observer( @Nonnull final ArezContext context, @Nullable final String name )
   {
@@ -67,11 +67,11 @@ public class Observer
   Observer( @Nonnull final ArezContext context,
             @Nullable final String name,
             @Nonnull final TransactionMode mode,
-            @Nullable final Action action )
+            @Nullable final Reaction reaction )
   {
     super( context, name );
     _mode = Objects.requireNonNull( mode );
-    _action = action;
+    _reaction = reaction;
   }
 
   /**
@@ -97,24 +97,24 @@ public class Observer
   }
 
   /**
-   * Return the action executed as the reaction.
+   * Return the reaction.
    *
-   * @return the action executed as the reaction.
+   * @return the reaction.
    */
   @Nullable
-  final Action getAction()
+  final Reaction getReaction()
   {
-    return _action;
+    return _reaction;
   }
 
   /**
-   * Return true if Observer has associated action.
+   * Return true if Observer has an associated reaction.
    *
-   * @return true if Observer has associated action.
+   * @return true if Observer has an associated reaction.
    */
-  final boolean hasAction()
+  final boolean hasReaction()
   {
-    return null != _action;
+    return null != _reaction;
   }
 
   /**
@@ -160,7 +160,7 @@ public class Observer
            ( ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state ) )
       {
         runHook( getOnStale(), ObserverError.ON_STALE_ERROR );
-        if ( hasAction() )
+        if ( hasReaction() )
         {
           schedule();
         }

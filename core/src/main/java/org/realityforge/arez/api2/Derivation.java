@@ -9,9 +9,9 @@ public class Derivation
   Derivation( @Nonnull final ArezContext context,
               @Nullable final String name,
               @Nonnull final TransactionMode mode,
-              @Nonnull final Action action )
+              @Nonnull final Reaction reaction )
   {
-    super( context, name, mode, action );
+    super( context, name, mode, reaction );
   }
 
   /**

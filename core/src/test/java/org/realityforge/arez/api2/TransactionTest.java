@@ -9,9 +9,6 @@ import static org.testng.Assert.*;
 public class TransactionTest
   extends AbstractArezTest
 {
-  private static final Action ACTION = () -> {
-  };
-
   @Test
   public void construction()
   {
@@ -1576,6 +1573,8 @@ public class TransactionTest
   @Nonnull
   private Derivation newDerivation( @Nonnull final ArezContext context )
   {
-    return new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, ACTION );
+    //Create a reaction that just observes the same dependencies
+    final Reaction reaction = observer -> observer.getDependencies().forEach( Observable::reportObserved );
+    return new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
   }
 }

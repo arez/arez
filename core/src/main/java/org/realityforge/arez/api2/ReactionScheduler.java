@@ -74,7 +74,7 @@ final class ReactionScheduler
 
   final void scheduleReaction( @Nonnull final Observer observer )
   {
-    Guards.invariant( observer::hasAction,
+    Guards.invariant( observer::hasReaction,
                       () -> String.format(
                         "Attempting to schedule observer named '%s' when observer has no reaction.",
                         observer.getName() ) );
@@ -141,10 +141,10 @@ final class ReactionScheduler
   {
     final String name = ArezConfig.enableNames() ? observer.getName() : null;
     final TransactionMode mode = observer.getMode();
-    final Action action = observer.getAction();
+    final Reaction reaction = observer.getReaction();
     try
     {
-      //TODO: getContext().transaction( name, mode, observer, action );
+      //TODO: getContext().transaction( name, mode, observer, () -> reaction.react( observer ) );
     }
     catch ( final Throwable t )
     {
