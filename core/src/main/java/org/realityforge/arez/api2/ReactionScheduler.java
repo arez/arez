@@ -90,7 +90,7 @@ final class ReactionScheduler
   {
     // If we are already running observers, then newly scheduled observers will
     // be picked up by that process, otherwise lets start scheduler.
-    if ( 0 == _currentReactionRound )
+    if ( !isRunningReactions() )
     {
       observerScheduler();
     }
