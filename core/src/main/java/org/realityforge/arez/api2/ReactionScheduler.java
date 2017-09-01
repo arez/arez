@@ -83,7 +83,6 @@ final class ReactionScheduler
                         "Attempting to schedule observer named '%s' when observer is already pending.",
                         observer.getName() ) );
     _pendingObservers.add( Objects.requireNonNull( observer ) );
-    runPendingObservers();
   }
 
   final void runPendingObservers()
