@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import org.jetbrains.annotations.TestOnly;
 
 /**
  * The scheduler is responsible for scheduling observer reactions.
@@ -184,5 +185,24 @@ final class ReactionScheduler
   final ArezContext getContext()
   {
     return _context;
+  }
+
+  @TestOnly
+  @Nonnull
+  public ArrayList<Observer> getPendingObservers()
+  {
+    return _pendingObservers;
+  }
+
+  @TestOnly
+  final int getCurrentReactionRound()
+  {
+    return _currentReactionRound;
+  }
+
+  @TestOnly
+  final int getRemainingReactionsInCurrentRound()
+  {
+    return _remainingReactionsInCurrentRound;
   }
 }
