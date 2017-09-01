@@ -271,6 +271,11 @@ public class Observer
     getDependencies().clear();
   }
 
+  /**
+   * Return true if this observer has a pending reaction.
+   *
+   * @return true if this observer has a pending reaction.
+   */
   final boolean isScheduled()
   {
     return _scheduled;
@@ -281,6 +286,11 @@ public class Observer
     _scheduled = scheduled;
   }
 
+  /**
+   * Schedule this observer if it does not already have a reaction pending.
+   *
+   * This method should not be invoked unless {@link #hasReaction()} returns true.
+   */
   final void schedule()
   {
     Guards.invariant( this::isActive,
