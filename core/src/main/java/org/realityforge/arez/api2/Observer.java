@@ -276,7 +276,6 @@ public class Observer
     return _scheduled;
   }
 
-  @TestOnly
   final void setScheduled( final boolean scheduled )
   {
     _scheduled = scheduled;
