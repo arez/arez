@@ -146,7 +146,7 @@ final class ReactionScheduler
     assert null != reaction;
     try
     {
-      //TODO: getContext().transaction( name, mode, observer, () -> reaction.react( observer ) );
+      getContext().transaction( name, mode, observer, () -> reaction.react( observer ) );
     }
     catch ( final Throwable t )
     {
