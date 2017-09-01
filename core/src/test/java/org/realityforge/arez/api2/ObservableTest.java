@@ -33,13 +33,14 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    setCurrentTransaction( context, observer );
+
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
-
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
 
     // Handle addition of observer in correct state
     observable.addObserver( observer );
@@ -77,12 +78,13 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    setCurrentTransaction( context, observer );
+
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
-
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
 
     // Handle addition of observer in correct state
     observable.addObserver( observer );

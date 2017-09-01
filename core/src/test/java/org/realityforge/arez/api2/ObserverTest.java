@@ -82,6 +82,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = new Observer( context, ValueUtil.randomString() );
+    setCurrentTransaction( context, observer );
 
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
     observer.getDependencies().add( observable );

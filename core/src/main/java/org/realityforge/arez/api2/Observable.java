@@ -128,6 +128,10 @@ public abstract class Observable
    */
   protected void deactivate()
   {
+    Guards.invariant( () -> getContext().isTransactionActive(),
+                      () -> String.format(
+                        "Attempt to invoke deactivate on observable named '%s' when there is no active transaction.",
+                        getName() ) );
     Guards.invariant( () -> null != _owner,
                       () -> String.format( "Invoked deactivate on observable named '%s' when owner is null.",
                                            getName() ) );
@@ -144,6 +148,10 @@ public abstract class Observable
    */
   protected void activate()
   {
+    Guards.invariant( () -> getContext().isTransactionActive(),
+                      () -> String.format(
+                        "Attempt to invoke activate on observable named '%s' when there is no active transaction.",
+                        getName() ) );
     Guards.invariant( () -> null != _owner,
                       () -> String.format( "Invoked activate on observable named '%s' when owner is null.",
                                            getName() ) );
@@ -173,6 +181,10 @@ public abstract class Observable
 
   final void addObserver( @Nonnull final Observer observer )
   {
+    Guards.invariant( () -> getContext().isTransactionActive(),
+                      () -> String.format(
+                        "Attempt to invoke addObserver on observable named '%s' when there is no active transaction.",
+                        getName() ) );
     invariantObserversLinked();
     Guards.invariant( () -> !hasObserver( observer ),
                       () -> String.format(
@@ -190,6 +202,10 @@ public abstract class Observable
 
   final void setLeastStaleObserverState( @Nonnull final ObserverState leastStaleObserverState )
   {
+    Guards.invariant( () -> getContext().isTransactionActive(),
+                      () -> String.format(
+                        "Attempt to invoke setLeastStaleObserverState on observable named '%s' when there is no active transaction.",
+                        getName() ) );
     _leastStaleObserverState = leastStaleObserverState;
   }
 
@@ -201,6 +217,10 @@ public abstract class Observable
 
   final void removeObserver( @Nonnull final Observer observer )
   {
+    Guards.invariant( () -> getContext().isTransactionActive(),
+                      () -> String.format(
+                        "Attempt to invoke removeObserver on observable named '%s' when there is no active transaction.",
+                        getName() ) );
     invariantObserversLinked();
     final ArrayList<Observer> observers = getObservers();
     if ( !observers.remove( observer ) )
@@ -219,6 +239,10 @@ public abstract class Observable
 
   private void queueForDeactivation()
   {
+    Guards.invariant( () -> getContext().isTransactionActive(),
+                      () -> String.format(
+                        "Attempt to invoke queueForDeactivation on observable named '%s' when there is no active transaction.",
+                        getName() ) );
     Guards.invariant( this::canDeactivate,
                       () -> String.format(
                         "Attempted to invoke queueForDeactivation() on observable named '%s' but observable is not able to be deactivated.",
