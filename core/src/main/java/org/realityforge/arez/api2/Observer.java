@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.jetbrains.annotations.TestOnly;
 
 /**
  * A node within Arez that is notified of changes in 0 or more Observables.
@@ -273,6 +274,12 @@ public class Observer
   final boolean isScheduled()
   {
     return _scheduled;
+  }
+
+  @TestOnly
+  final void setScheduled( final boolean scheduled )
+  {
+    _scheduled = scheduled;
   }
 
   final void schedule()
