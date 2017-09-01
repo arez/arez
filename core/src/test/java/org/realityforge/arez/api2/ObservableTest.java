@@ -1,5 +1,6 @@
 package org.realityforge.arez.api2;
 
+import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -56,10 +57,12 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    setCurrentTransaction( context, observer );
+
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
     observable.setLeastStaleObserverState( ObserverState.STALE );
 
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
     observer.setState( ObserverState.POSSIBLY_STALE );
 
     observable.addObserver( observer );
@@ -101,5 +104,14 @@ public class ObservableTest
     assertEquals( observable.getObservers().get( 0 ), observer );
 
     observable.invariantLeastStaleObserverState();
+  }
+
+  private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
+  {
+    context.setTransaction( new Transaction( context,
+                                             null,
+                                             ValueUtil.randomString(),
+                                             observer.getMode(),
+                                             observer ) );
   }
 }

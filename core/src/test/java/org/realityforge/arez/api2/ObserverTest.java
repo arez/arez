@@ -150,6 +150,8 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = new Observer( context, ValueUtil.randomString() );
+    setCurrentTransaction( context, observer );
+
     observer.setState( ObserverState.UP_TO_DATE );
 
     final ArrayList<Observable> originalDependencies = observer.getDependencies();
@@ -175,6 +177,8 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = new Observer( context, ValueUtil.randomString() );
+    setCurrentTransaction( context, observer );
+
     observer.setState( ObserverState.UP_TO_DATE );
 
     final ArrayList<Observable> originalDependencies = observer.getDependencies();
@@ -197,6 +201,8 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = new Observer( context, ValueUtil.randomString() );
+    setCurrentTransaction( context, observer );
+
     observer.setState( ObserverState.UP_TO_DATE );
 
     final ArrayList<Observable> originalDependencies = observer.getDependencies();
@@ -217,6 +223,8 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = new Observer( context, ValueUtil.randomString() );
+    setCurrentTransaction( context, observer );
+
     observer.setState( ObserverState.UP_TO_DATE );
 
     final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
@@ -300,6 +308,7 @@ public class ObserverTest
     final Reaction reaction = o -> {
     };
     final Observer observer = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
+    setCurrentTransaction( context, observer );
 
     final TestAction onActivate = new TestAction();
     final TestAction onDeactivate = new TestAction();
@@ -392,6 +401,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = new Observer( context, ValueUtil.randomString() );
+    setCurrentTransaction( context, observer );
 
     final TestAction onActivate = new TestAction();
     final TestAction onDeactivate = new TestAction();
@@ -429,6 +439,21 @@ public class ObserverTest
     assertEquals( onActivate.getCalls(), 1 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 1 );
+  }
+
+  @Test
+  public void setState_noTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> observer.setState( ObserverState.UP_TO_DATE ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempt to invoke setState on observer named '" + observer.getName() + "' when " +
+                  "there is no active transaction." );
   }
 
   @Test

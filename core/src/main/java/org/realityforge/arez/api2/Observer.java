@@ -151,6 +151,10 @@ public class Observer
    */
   public final void setState( @Nonnull final ObserverState state )
   {
+    Guards.invariant( () -> getContext().isTransactionActive(),
+                      () -> String.format(
+                        "Attempt to invoke setState on observer named '%s' when there is no active transaction.",
+                        getName() ) );
     invariantState();
     if ( !state.equals( _state ) )
     {
