@@ -37,14 +37,14 @@ public final class ArezContext
   private final ObserverErrorHandlerSupport _observerErrorHandlerSupport = new ObserverErrorHandlerSupport();
 
   /**
-   * Pass the supplied reaction to the scheduler.
-   * The reaction should NOT be already pending execution.
+   * Pass the supplied observer to the scheduler.
+   * The observer should NOT be already pending execution.
    *
-   * @param reaction the reaction to schedule.
+   * @param observer the reaction to schedule.
    */
-  void scheduleReaction( @Nonnull final Reaction reaction )
+  void scheduleReaction( @Nonnull final Observer observer )
   {
-    _scheduler.scheduleReaction( reaction );
+    _scheduler.scheduleReaction( observer );
   }
 
   /**
@@ -52,7 +52,7 @@ public final class ArezContext
    */
   void runPendingReactions()
   {
-    _scheduler.runPendingReactions();
+    _scheduler.runPendingObservers();
   }
 
   /**

@@ -4,7 +4,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class Derivation
-  extends Reaction
+  extends Observer
 {
   Derivation( @Nonnull final ArezContext context,
               @Nullable final String name,

@@ -8,15 +8,15 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 /**
- * The reaction scheduler is responsible for scheduling reactions.
+ * The scheduler is responsible for scheduling observer reactions.
  *
- * <p>When state has changed or potentially changed, reactions are en-queued onto {@link #_pendingReactions}.
- * Reactions are processed in rounds. Each round involves processing the number of reactions that are
- * pending at the start of the round. Processing reactions can produce more reactions and thus another
- * round is scheduled if there is more reactions generated.</p>
+ * <p>When state has changed or potentially changed, observers are en-queued onto {@link #_pendingObservers}.
+ * Observers are processed in rounds. Each round involves processing the number of observers that are
+ * pending at the start of the round. Processing observers can schedule more observers and thus another
+ * round is scheduled if more observers are scheduled during the round.</p>
  *
  * If {@link #_maxReactionRounds} is not <tt>0</tt> and the number of rounds exceeds the value of
- * {@link #_maxReactionRounds} then it is assumed that we have a runaway reaction that does not
+ * {@link #_maxReactionRounds} then it is assumed that we have a runaway observer that does not
  * terminate or stabilize and a failure is triggered.
  */
 final class ReactionScheduler
@@ -25,12 +25,12 @@ final class ReactionScheduler
   @Nonnull
   private final ArezContext _context;
   /**
-   * Reactions that have been scheduled but are not yet running.
+   * Observers that have been scheduled but are not yet running.
    *
    * In future this should be a circular buffer.
    */
   @Nonnull
-  private final ArrayList<Reaction> _pendingReactions = new ArrayList<>();
+  private final ArrayList<Observer> _pendingObservers = new ArrayList<>();
   /**
    * The current reaction round.
    */
@@ -72,34 +72,38 @@ final class ReactionScheduler
     return 0 != _currentReactionRound;
   }
 
-  final void scheduleReaction( @Nonnull final Reaction reaction )
+  final void scheduleReaction( @Nonnull final Observer observer )
   {
-    Guards.invariant( () -> !_pendingReactions.contains( reaction ),
+    Guards.invariant( observer::hasAction,
                       () -> String.format(
-                        "Attempting to schedule reaction named '%s' when reaction is already pending.",
-                        reaction.getName() ) );
-    _pendingReactions.add( Objects.requireNonNull( reaction ) );
-    runPendingReactions();
+                        "Attempting to schedule observer named '%s' when observer has no reaction.",
+                        observer.getName() ) );
+    Guards.invariant( () -> !_pendingObservers.contains( observer ),
+                      () -> String.format(
+                        "Attempting to schedule observer named '%s' when observer is already pending.",
+                        observer.getName() ) );
+    _pendingObservers.add( Objects.requireNonNull( observer ) );
+    runPendingObservers();
   }
 
-  final void runPendingReactions()
+  final void runPendingObservers()
   {
-    // If we are already running reactions, then new reactions will
-    // already be picked up. Otherwise lets start scheduler.
+    // If we are already running observers, then newly scheduled observers will
+    // be picked up by that process, otherwise lets start scheduler.
     if ( 0 == _currentReactionRound )
     {
-      reactionScheduler();
+      observerScheduler();
     }
   }
 
-  private boolean runReaction()
+  private boolean runObserver()
   {
-    final int pendingReactionCount = _pendingReactions.size();
-    // If we have reached the last reaction in this round then
+    final int pendingObserverCount = _pendingObservers.size();
+    // If we have reached the last observer in this round then
     // determine if we need any more rounds and if we do ensure
     if ( 0 == _remainingReactionsInCurrentRound )
     {
-      if ( 0 == pendingReactionCount )
+      if ( 0 == pendingObserverCount )
       {
         _currentReactionRound = 0;
         return false;
@@ -113,14 +117,14 @@ final class ReactionScheduler
       else
       {
         _currentReactionRound = _currentReactionRound + 1;
-        _remainingReactionsInCurrentRound = pendingReactionCount;
+        _remainingReactionsInCurrentRound = pendingObserverCount;
       }
     }
     /*
-     * If we get to here there are still reactions that need processing and we have not
-     * exceeded our round budget. So we pop the last reaction off the list and process it.
+     * If we get to here there are still observers that need processing and we have not
+     * exceeded our round budget. So we pop the last observer off the list and process it.
      *
-     * NOTE: The selection of the "last" reaction is arbitrary and we could choose the first
+     * NOTE: The selection of the "last" observer is arbitrary and we could choose the first
      * or any other. However we select the last as it is the most efficient and does not
      * involve any memory allocations or copies. If we were using a circular buffer we could
      * easily have chosen the first. (This may be a better option as it means we could have a
@@ -128,53 +132,53 @@ final class ReactionScheduler
      * first.)
      */
     _remainingReactionsInCurrentRound--;
-    final Reaction reaction = _pendingReactions.remove( pendingReactionCount - 1 );
-    invokeReaction( reaction );
+    final Observer observer = _pendingObservers.remove( pendingObserverCount - 1 );
+    invokeObserver( observer );
     return true;
   }
 
-  private void invokeReaction( @Nonnull final Reaction reaction )
+  private void invokeObserver( @Nonnull final Observer observer )
   {
-    final String name = ArezConfig.enableNames() ? reaction.getName() : null;
-    final TransactionMode mode = reaction.getMode();
-    final Action action = reaction.getAction();
+    final String name = ArezConfig.enableNames() ? observer.getName() : null;
+    final TransactionMode mode = observer.getMode();
+    final Action action = observer.getAction();
     try
     {
-      //TODO: getContext().transaction( name, mode, reaction, action );
+      //TODO: getContext().transaction( name, mode, observer, action );
     }
     catch ( final Throwable t )
     {
-      getContext().getObserverErrorHandler().onObserverError( reaction, ObserverError.REACTION_ERROR, t );
+      getContext().getObserverErrorHandler().onObserverError( observer, ObserverError.REACTION_ERROR, t );
     }
   }
 
   private void onRunawayReactionsDetected()
   {
-    final List<String> reactionNames =
+    final List<String> observerNames =
       ArezConfig.checkInvariants() && ArezConfig.verboseErrorMessages() ?
-      _pendingReactions.stream().map( Node::getName ).collect( Collectors.toList() ) :
+      _pendingObservers.stream().map( Node::getName ).collect( Collectors.toList() ) :
       null;
 
     if ( ArezConfig.purgeReactionsWhenRunawayDetected() )
     {
-      _pendingReactions.clear();
+      _pendingObservers.clear();
     }
 
     Guards.fail( () ->
                    String.format(
-                     "Runaway reaction(s) detected. Reactions still running after %d rounds. Current reactions include: %s",
+                     "Runaway reaction(s) detected. Observers still running after %d rounds. Current observers include: %s",
                      _maxReactionRounds,
-                     String.valueOf( reactionNames ) ) );
+                     String.valueOf( observerNames ) ) );
   }
 
-  final int reactionScheduler()
+  final int observerScheduler()
   {
-    int reactionsScheduled = 0;
-    while ( runReaction() )
+    int observersScheduled = 0;
+    while ( runObserver() )
     {
-      reactionsScheduled++;
+      observersScheduled++;
     }
-    return reactionsScheduled;
+    return observersScheduled;
   }
 
   @Nonnull

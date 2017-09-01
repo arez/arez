@@ -43,10 +43,35 @@ public class Observer
    */
   @Nonnull
   private ArrayList<Observable> _dependencies = new ArrayList<>();
+  /**
+   * Flag indicating whether this observer has been scheduled.
+   * Should always be false unless _action is non-null.
+   */
+  private boolean _scheduled;
+  /**
+   * The transaction mode in which the observer executes.
+   */
+  @Nonnull
+  private final TransactionMode _mode;
+  /**
+   * The action executed as the reaction.
+   */
+  @Nullable
+  private final Action _action;
 
   Observer( @Nonnull final ArezContext context, @Nullable final String name )
   {
+    this( context, name, TransactionMode.READ_ONLY, null );
+  }
+
+  Observer( @Nonnull final ArezContext context,
+            @Nullable final String name,
+            @Nonnull final TransactionMode mode,
+            @Nullable final Action action )
+  {
     super( context, name );
+    _mode = Objects.requireNonNull( mode );
+    _action = action;
   }
 
   /**
@@ -61,11 +86,44 @@ public class Observer
   }
 
   /**
+   * Return the transaction mode in which the observer executes.
+   *
+   * @return the transaction mode in which the observer executes.
+   */
+  @Nonnull
+  final TransactionMode getMode()
+  {
+    return _mode;
+  }
+
+  /**
+   * Return the action executed as the reaction.
+   *
+   * @return the action executed as the reaction.
+   */
+  @Nullable
+  final Action getAction()
+  {
+    return _action;
+  }
+
+  /**
+   * Return true if Observer has associated action.
+   *
+   * @return true if Observer has associated action.
+   */
+  final boolean hasAction()
+  {
+    return null != _action;
+  }
+
+  /**
    * Return true if the observer is active.
    * Being "active" means that the state of the observer is not {@link ObserverState#INACTIVE}.
    *
    * <p>An inactive observer has no dependencies and depending on the type of observer may
-   * have other consequences. (i.e. An inactive {@link Reaction} will never be scheduled.</p>
+   * have other consequences. i.e. An inactive observer will never be scheduled even if it has a
+   * reaction.</p>
    *
    * @return true if the Observer is active.
    */
@@ -102,6 +160,10 @@ public class Observer
            ( ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state ) )
       {
         runHook( getOnStale(), ObserverError.ON_STALE_ERROR );
+        if ( hasAction() )
+        {
+          schedule();
+        }
       }
       else if ( ObserverState.INACTIVE == _state )
       {
@@ -206,6 +268,24 @@ public class Observer
   {
     getDependencies().forEach( dependency -> dependency.removeObserver( this ) );
     getDependencies().clear();
+  }
+
+  final boolean isScheduled()
+  {
+    return _scheduled;
+  }
+
+  final void schedule()
+  {
+    Guards.invariant( this::isActive,
+                      () -> String.format(
+                        "Observer named '%s' is not active but an attempt has been made to schedule observer.",
+                        getName() ) );
+    if ( !_scheduled )
+    {
+      _scheduled = true;
+      getContext().scheduleReaction( this );
+    }
   }
 
   /**
