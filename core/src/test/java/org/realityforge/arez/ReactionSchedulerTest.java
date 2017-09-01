@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -234,5 +235,56 @@ public class ReactionSchedulerTest
     assertEquals( exception.getMessage(),
                   "Attempting to schedule observer named '" + observer.getName() +
                   "' when observer is already pending." );
+  }
+
+  @Test
+  public void runObserver_singlePendingObserver()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = context.getScheduler();
+
+    final TestReaction reaction = new TestReaction();
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
+    setCurrentTransaction( context, observer );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+    //observer has reaction so setStale should result in reschedule
+    observer.setState( ObserverState.STALE );
+
+    assertEquals( observer.isScheduled(), true );
+    assertEquals( scheduler.getPendingObservers().size(), 1 );
+    assertEquals( scheduler.getCurrentReactionRound(), 0 );
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+
+    final boolean ran = scheduler.runObserver();
+
+    assertEquals( ran, true );
+    assertEquals( reaction.getCallCount(), 1 );
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+    assertEquals( scheduler.getCurrentReactionRound(), 1 );
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( observer.isScheduled(), false );
+
+    reaction.assertObserver( 0, observer );
+
+    final boolean ran2 = scheduler.runObserver();
+
+    assertEquals( ran2, false );
+    assertEquals( reaction.getCallCount(), 1 );
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+    assertEquals( scheduler.getCurrentReactionRound(), 0 );
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( observer.isScheduled(), false );
+  }
+
+  private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
+  {
+    context.setTransaction( new Transaction( context,
+                                             null,
+                                             ValueUtil.randomString(),
+                                             observer.getMode(),
+                                             observer ) );
   }
 }
