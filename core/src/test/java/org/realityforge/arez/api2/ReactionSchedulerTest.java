@@ -88,7 +88,6 @@ public class ReactionSchedulerTest
     assertEquals( errorCount.get(), 0 );
   }
 
-
   @Test
   public void invokeObserver_reactionGeneratesError()
     throws Exception
