@@ -1,5 +1,7 @@
 package org.realityforge.arez.api2;
 
+import java.util.concurrent.atomic.AtomicInteger;
+import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -52,5 +54,72 @@ public class ReactionSchedulerTest
       expectThrows( IllegalStateException.class, () -> scheduler.setMaxReactionRounds( -1 ) );
 
     assertEquals( exception.getMessage(), "Attempting to set maxReactionRounds to negative value -1." );
+  }
+
+  @Test
+  public void invokeObserver()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = new ReactionScheduler( context );
+
+    final String name = ValueUtil.randomString();
+    final TransactionMode mode = TransactionMode.READ_ONLY;
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final AtomicInteger errorCount = new AtomicInteger();
+
+    context.addObserverErrorHandler( ( observer, error, throwable ) -> errorCount.incrementAndGet() );
+
+    final Reaction reaction = observer -> {
+      callCount.incrementAndGet();
+      assertEquals( observer.getContext(), context );
+      assertEquals( context.isTransactionActive(), true );
+      assertEquals( context.getTransaction().getName(), name );
+      assertEquals( context.getTransaction().getMode(), mode );
+      assertEquals( observer.getName(), name );
+    };
+
+    final Observer observer = new Observer( context, name, mode, reaction );
+
+    scheduler.invokeObserver( observer );
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( errorCount.get(), 0 );
+  }
+
+
+  @Test
+  public void invokeObserver_reactionGeneratesError()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = new ReactionScheduler( context );
+
+    final String name = ValueUtil.randomString();
+    final TransactionMode mode = TransactionMode.READ_ONLY;
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final AtomicInteger errorCount = new AtomicInteger();
+
+    final RuntimeException exception = new RuntimeException( "X" );
+
+    context.addObserverErrorHandler( ( observer, error, throwable ) -> {
+      errorCount.incrementAndGet();
+      assertEquals( error, ObserverError.REACTION_ERROR );
+      assertEquals( throwable, exception );
+    } );
+
+    final Reaction reaction = observer -> {
+      callCount.incrementAndGet();
+      throw exception;
+    };
+
+    final Observer observer = new Observer( context, name, mode, reaction );
+
+    scheduler.invokeObserver( observer );
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( errorCount.get(), 1 );
   }
 }
