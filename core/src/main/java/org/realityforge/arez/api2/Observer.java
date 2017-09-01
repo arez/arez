@@ -293,6 +293,10 @@ public class Observer
    */
   final void schedule()
   {
+    Guards.invariant( this::hasReaction,
+                      () -> String.format(
+                        "Observer named '%s' has no reaction but an attempt has been made to schedule observer.",
+                        getName() ) );
     Guards.invariant( this::isActive,
                       () -> String.format(
                         "Observer named '%s' is not active but an attempt has been made to schedule observer.",
