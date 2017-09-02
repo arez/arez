@@ -17,6 +17,8 @@ public class ArezContextTest
 
     assertFalse( context.isTransactionActive() );
     assertThrows( context::getTransaction );
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
+    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
 
     final Observable observable = new TestObservable( context, ValueUtil.randomString() );
     assertEquals( observable.getObservers().size(), 0 );
