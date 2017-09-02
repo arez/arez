@@ -108,6 +108,28 @@ public class ObservableTest
     observable.invariantLeastStaleObserverState();
   }
 
+  @Test
+  public void addObserver_noActiveTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempt to invoke addObserver on observable named '" +
+                  observable.getName() + "' when there is no active transaction." );
+
+    assertEquals( observable.getObservers().size(), 0 );
+    assertEquals( observable.hasObservers(), false );
+
+    observable.invariantLeastStaleObserverState();
+  }
+
   private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
     context.setTransaction( new Transaction( context,
