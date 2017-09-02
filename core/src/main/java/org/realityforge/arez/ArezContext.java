@@ -78,9 +78,9 @@ public final class ArezContext
    * @param tracker the observer that is tracking transaction if any.
    * @return the new transaction.
    */
-  private Transaction beginTransaction( @Nullable final String name,
-                                        @Nonnull final TransactionMode mode,
-                                        @Nullable final Observer tracker )
+  Transaction beginTransaction( @Nullable final String name,
+                                @Nonnull final TransactionMode mode,
+                                @Nullable final Observer tracker )
   {
     _transaction = new Transaction( this, _transaction, name, mode, tracker );
     _transaction.begin();
@@ -95,7 +95,7 @@ public final class ArezContext
    *
    * @param transaction the transaction.
    */
-  private void commitTransaction( @Nonnull final Transaction transaction )
+  void commitTransaction( @Nonnull final Transaction transaction )
   {
     Guards.invariant( () -> null != _transaction,
                       () -> String.format( "Attempting to commit transaction named '%s' but no transaction is active.",
