@@ -61,17 +61,17 @@ final class Transaction
   }
 
   @Nonnull
-  final TransactionMode getMode()
+  TransactionMode getMode()
   {
     return _mode;
   }
 
-  final void begin()
+  void begin()
   {
     beginTracking();
   }
 
-  final void beginTracking()
+  void beginTracking()
   {
     if ( null != _tracker )
     {
@@ -84,12 +84,12 @@ final class Transaction
   }
 
   @Nullable
-  final Transaction getPrevious()
+  Transaction getPrevious()
   {
     return _previous;
   }
 
-  final void commit()
+  void commit()
   {
     completeTracking();
     if ( isRootTransaction() )
@@ -100,7 +100,7 @@ final class Transaction
     }
   }
 
-  final int processPendingDeactivations()
+  int processPendingDeactivations()
   {
     Guards.invariant( this::isRootTransaction,
                       () -> String.format(
@@ -127,7 +127,7 @@ final class Transaction
     return count;
   }
 
-  final void queueForDeactivation( @Nonnull final Observable observable )
+  void queueForDeactivation( @Nonnull final Observable observable )
   {
     Guards.invariant( observable::canDeactivate,
                       () -> String.format(
@@ -154,7 +154,7 @@ final class Transaction
     _pendingDeactivations.add( Objects.requireNonNull( observable ) );
   }
 
-  final void observe( @Nonnull final Observable observable )
+  void observe( @Nonnull final Observable observable )
   {
     if ( null != _tracker )
     {
@@ -188,7 +188,7 @@ final class Transaction
    * This is called when the observable has definitely changed and should
    * not be called for derived values that may have changed.
    */
-  final void reportChanged( @Nonnull final Observable observable )
+  void reportChanged( @Nonnull final Observable observable )
   {
     verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
@@ -230,7 +230,7 @@ final class Transaction
    * recalculate the value during normal reaction cycle or when accessed within
    * transaction scope and will update the state of the observable at that time.
    */
-  final void reportPossiblyChanged( @Nonnull final Observable observable )
+  void reportPossiblyChanged( @Nonnull final Observable observable )
   {
     Guards.invariant( () -> null != observable.getOwner(),
                       () -> String.format( "Transaction named '%s' has attempted to mark observable " +
@@ -260,7 +260,7 @@ final class Transaction
    * changed. This is determined after the value is recalculated and converts
    * a UPTODATE or POSSIBLY_STALE state to STALE.
    */
-  final void reportChangeConfirmed( @Nonnull final Observable observable )
+  void reportChangeConfirmed( @Nonnull final Observable observable )
   {
     Guards.invariant( () -> null != observable.getOwner(),
                       () -> String.format( "Transaction named '%s' has attempted to mark observable " +
@@ -294,7 +294,7 @@ final class Transaction
     observable.invariantLeastStaleObserverState();
   }
 
-  final void verifyWriteAllowed( @Nonnull final Observable observable )
+  void verifyWriteAllowed( @Nonnull final Observable observable )
   {
     if ( ArezConfig.enforceTransactionType() )
     {
@@ -323,7 +323,7 @@ final class Transaction
    * as an observer on an observable if the observer is a new dependency or previously
    * was a dependency but no longer is, respectively.
    */
-  final void completeTracking()
+  void completeTracking()
   {
     if ( null == _tracker )
     {
@@ -459,13 +459,13 @@ final class Transaction
     }
   }
 
-  final boolean isRootTransaction()
+  boolean isRootTransaction()
   {
     return null == _previous;
   }
 
   @Nonnull
-  final Transaction getRootTransaction()
+  Transaction getRootTransaction()
   {
     if ( isRootTransaction() )
     {
@@ -482,7 +482,7 @@ final class Transaction
    * Return the observables, initializing the array if necessary.
    */
   @Nonnull
-  final ArrayList<Observable> safeGetObservables()
+  ArrayList<Observable> safeGetObservables()
   {
     if ( null == _observables )
     {
@@ -493,21 +493,21 @@ final class Transaction
 
   @TestOnly
   @Nullable
-  final Observer getTracker()
+  Observer getTracker()
   {
     return _tracker;
   }
 
   @TestOnly
   @Nullable
-  final ArrayList<Observable> getPendingDeactivations()
+  ArrayList<Observable> getPendingDeactivations()
   {
     return _pendingDeactivations;
   }
 
   @TestOnly
   @Nullable
-  final ArrayList<Observable> getObservables()
+  ArrayList<Observable> getObservables()
   {
     return _observables;
   }
