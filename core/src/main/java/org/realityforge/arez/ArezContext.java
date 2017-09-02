@@ -49,7 +49,8 @@ public final class ArezContext
                                   @Nullable final Reaction reaction,
                                   final boolean runImmediately )
   {
-    final Observer observer = new Observer( this, ArezConfig.enableNames() ? name : null, mode, reaction );
+    final Observer observer =
+      new Observer( this, ArezConfig.enableNames() ? name : null, mode, reaction );
     if ( runImmediately )
     {
       if ( observer.hasReaction() )
