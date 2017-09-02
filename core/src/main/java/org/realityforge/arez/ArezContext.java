@@ -51,18 +51,15 @@ public final class ArezContext
   {
     final Observer observer =
       new Observer( this, ArezConfig.enableNames() ? name : null, mode, reaction );
-    if ( runImmediately )
+    if ( observer.hasReaction() )
     {
-      if ( observer.hasReaction() )
+      if ( runImmediately )
       {
         invokeReaction( observer );
       }
       else
       {
-        Guards.fail( () -> String.format(
-          "Attempted to run observer named '%s' on creation but observer specified no reaction.",
-          observer.getName() ) );
-
+        scheduleReaction( observer );
       }
     }
     return observer;
