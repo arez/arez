@@ -80,7 +80,7 @@ public class Observer
    * @return the state of the observer.
    */
   @Nonnull
-  public final ObserverState getState()
+  final ObserverState getState()
   {
     return _state;
   }
@@ -149,7 +149,7 @@ public class Observer
    *
    * @param state the new state of the observer.
    */
-  public final void setState( @Nonnull final ObserverState state )
+  final void setState( @Nonnull final ObserverState state )
   {
     Guards.invariant( () -> getContext().isTransactionActive(),
                       () -> String.format(
