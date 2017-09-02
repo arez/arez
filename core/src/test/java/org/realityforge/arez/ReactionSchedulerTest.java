@@ -375,7 +375,11 @@ public class ReactionSchedulerTest
 
     assertEquals( scheduler.runObserver(), false );
 
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getCurrentReactionRound(), 0 );
     assertEquals( scheduler.isReactionsRunning(), false );
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+
     assertEquals( reactions[ 0 ].getCallCount(), 1 );
     assertEquals( reactions[ 1 ].getCallCount(), 1 );
     assertEquals( reactions[ 2 ].getCallCount(), 2 );
@@ -392,6 +396,8 @@ public class ReactionSchedulerTest
   public void runObserver_RunawayReactionsDetected()
     throws Exception
   {
+    getConfigProvider().setPurgeReactionsWhenRunawayDetected( true );
+
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = context.getScheduler();
 
@@ -437,7 +443,11 @@ public class ReactionSchedulerTest
                   "Current observers include: [" + toSchedule.getName() + "]" );
 
     assertEquals( reactionCount.get(), 20 );
+
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getCurrentReactionRound(), 0 );
     assertEquals( scheduler.isReactionsRunning(), false );
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
   }
 
   @Test
