@@ -380,6 +380,55 @@ public class ReactionSchedulerTest
     assertEquals( reactions[ 9 ].getCallCount(), 1 );
   }
 
+  @Test( timeOut = 5000L )
+  public void runObserver_RunawayReactionsDetected()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = context.getScheduler();
+
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    setCurrentTransaction( context, observer );
+
+    final TestReaction reaction = new TestReaction()
+    {
+      @Override
+      public void react( @Nonnull final Observer observer )
+        throws Exception
+      {
+        super.react( observer );
+        observer.setState( ObserverState.STALE );
+      }
+    };
+    final Observer toSchedule = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    toSchedule.setState( ObserverState.UP_TO_DATE );
+    observable.addObserver( toSchedule );
+    toSchedule.getDependencies().add( observable );
+
+    //observer has reaction so setStale should result in reschedule
+    toSchedule.setState( ObserverState.STALE );
+    assertEquals( toSchedule.isScheduled(), true );
+
+    context.getScheduler().setMaxReactionRounds( 20 );
+
+    final AtomicInteger reactionCount = new AtomicInteger();
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> {
+        while ( scheduler.runObserver() )
+        {
+          reactionCount.incrementAndGet();
+        }
+      } );
+    assertEquals( exception.getMessage(),
+                  "Runaway reaction(s) detected. Observers still running after 20 rounds. " +
+                  "Current observers include: [" + toSchedule.getName() + "]" );
+
+    assertEquals( reactionCount.get(), 20 );
+  }
+
   private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
     context.setTransaction( new Transaction( context,
