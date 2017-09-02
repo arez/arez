@@ -44,6 +44,7 @@ public final class ArezContext
    * @param reaction the reaction defining observer.
    * @param runImmediately true to invoke reaction immediately, false to schedule reaction for next reaction cycle.
    */
+  @Nonnull
   public Observer createObserver( @Nullable final String name,
                                   @Nonnull final TransactionMode mode,
                                   @Nullable final Reaction reaction,
