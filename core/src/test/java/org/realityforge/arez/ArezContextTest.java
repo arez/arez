@@ -571,4 +571,23 @@ public class ArezContextTest
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
     assertEquals( context.getScheduler().getPendingObservers().contains( observer ), true );
   }
+
+  @Test
+  public void createObserver_runImmediately()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final TransactionMode mode = TransactionMode.READ_ONLY;
+    final TestReaction reaction = new TestReaction();
+    final Observer observer =
+      context.createObserver( name, mode, reaction, true );
+
+    assertEquals( observer.getName(), name );
+    assertEquals( observer.getMode(), mode );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getReaction(), reaction );
+    assertEquals( reaction.getCallCount(), 1 );
+  }
 }
