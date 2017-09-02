@@ -131,6 +131,21 @@ public class ObservableTest
   }
 
   @Test
+  public void setLeastStaleObserverState()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
+    setCurrentTransaction( context, observer );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+  }
+
+  @Test
   public void setLeastStaleObserverState_noActiveTransaction()
     throws Exception
   {
