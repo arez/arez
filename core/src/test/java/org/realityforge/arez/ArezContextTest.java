@@ -407,4 +407,23 @@ public class ArezContextTest
     assertEquals( context.nextNodeId(), 2 );
     assertEquals( context.currentNextNodeId(), 2 );
   }
+
+  @Test
+  public void observerErrorHandler()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final ObserverErrorHandler handler = ( observer, error, throwable ) -> {
+    };
+
+    context.addObserverErrorHandler( handler );
+
+    assertEquals( context.getObserverErrorHandlerSupport().getObserverErrorHandlers().size(), 1 );
+    assertEquals( context.getObserverErrorHandlerSupport().getObserverErrorHandlers().contains( handler ), true );
+
+    context.removeObserverErrorHandler( handler );
+
+    assertEquals( context.getObserverErrorHandlerSupport().getObserverErrorHandlers().size(), 0 );
+  }
 }
