@@ -7,6 +7,10 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+/**
+ * This class tests all the public methods of ArezContext
+ * that should be visible outside package.
+ */
 public class ArezContextApiTest
   extends AbstractArezTest
 {
