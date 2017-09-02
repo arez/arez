@@ -282,6 +282,36 @@ public class ReactionSchedulerTest
   }
 
   @Test
+  public void runObserver_insideTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = context.getScheduler();
+
+    final TestReaction reaction = new TestReaction();
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
+    setCurrentTransaction( context, observer );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+    //observer has reaction so setStale should result in reschedule
+    observer.setState( ObserverState.STALE );
+
+    assertEquals( observer.isScheduled(), true );
+    assertEquals( scheduler.getPendingObservers().size(), 1 );
+    assertEquals( scheduler.getCurrentReactionRound(), 0 );
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, scheduler::runObserver );
+
+    assertEquals( exception.getMessage(),
+                  "Invoked runObserver when transaction named '" +
+                  context.getTransaction().getName() +
+                  "' is active." );
+  }
+
+  @Test
   public void runObserver_multiplePendingObservers()
     throws Exception
   {
