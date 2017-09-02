@@ -5,10 +5,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-/**
- * TODO: This class probably should be renamed to ArezContext test and the remainder of ArezContext tested.
- */
-public class TransactionIntegrationTest
+public class ArezContextTest
   extends AbstractArezTest
 {
   @Test
@@ -318,8 +315,4 @@ public class TransactionIntegrationTest
 
     assertFalse( context.isTransactionActive() );
   }
-
-  // TODO: Add Test for observing multiple observables
-  // TODO: Add Test for observing multiple observables in nested transactions
-  // TODO: Add test that changes within transaction leave observer in partially stale state?
 }
