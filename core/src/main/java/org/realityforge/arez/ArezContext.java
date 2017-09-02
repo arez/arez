@@ -226,7 +226,7 @@ public final class ArezContext
 
   @TestOnly
   @Nonnull
-  final ReactionScheduler getScheduler()
+  ReactionScheduler getScheduler()
   {
     return _scheduler;
   }
