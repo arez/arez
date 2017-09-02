@@ -414,6 +414,59 @@ public class ReactionSchedulerTest
     assertEquals( scheduler.getPendingObservers().size(), 0 );
   }
 
+  @Test( timeOut = 5000L )
+  public void runObserver_RunawayReactionsDetected_invariantChecksDisabled()
+    throws Exception
+  {
+    getConfigProvider().setPurgeReactionsWhenRunawayDetected( true );
+    getConfigProvider().setCheckInvariants( false );
+
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = context.getScheduler();
+
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    setCurrentTransaction( context, observer );
+
+    final TestReaction reaction = new TestReaction()
+    {
+      @Override
+      public void react( @Nonnull final Observer observer )
+        throws Exception
+      {
+        super.react( observer );
+        observer.setState( ObserverState.STALE );
+      }
+    };
+    final Observer toSchedule = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    toSchedule.setState( ObserverState.UP_TO_DATE );
+    observable.addObserver( toSchedule );
+    toSchedule.getDependencies().add( observable );
+
+    //observer has reaction so setStale should result in reschedule
+    toSchedule.setState( ObserverState.STALE );
+    assertEquals( toSchedule.isScheduled(), true );
+
+    context.setTransaction( null );
+
+    context.getScheduler().setMaxReactionRounds( 20 );
+
+    final AtomicInteger reactionCount = new AtomicInteger();
+    while ( scheduler.runObserver() )
+    {
+      reactionCount.incrementAndGet();
+    }
+
+    assertEquals( reactionCount.get(), 20 );
+
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getCurrentReactionRound(), 0 );
+    assertEquals( scheduler.isReactionsRunning(), false );
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+  }
+
   @Test
   public void runPendingObservers()
     throws Exception
