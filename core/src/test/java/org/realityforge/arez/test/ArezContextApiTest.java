@@ -47,9 +47,10 @@ public class ArezContextApiTest
         assertTrue( context.isTransactionActive() );
 
         //Second nested exception
-        context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
-          assertTrue( context.isTransactionActive() );
-        } );
+        context.transaction( ValueUtil.randomString(),
+                             TransactionMode.READ_ONLY,
+                             null,
+                             () -> assertTrue( context.isTransactionActive() ) );
 
         assertTrue( context.isTransactionActive() );
       } );
