@@ -138,7 +138,7 @@ final class ReactionScheduler
   {
     /*
      * All reactions expect to run as top level transactions so
-     * there should be no transaciton active.
+     * there should be no transaction active.
      */
     Guards.invariant( () -> !getContext().isTransactionActive(),
                       () -> String.format( "Invoked runObserver when transaction named '%s' is active.",
