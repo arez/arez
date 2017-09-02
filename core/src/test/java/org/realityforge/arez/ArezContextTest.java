@@ -428,4 +428,21 @@ public class ArezContextTest
 
     assertEquals( context.getObserverErrorHandlerSupport().getObserverErrorHandlers().size(), 0 );
   }
+
+  @Test
+  public void scheduleReaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+
+    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+
+    context.scheduleReaction( observer );
+
+    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
+    assertEquals( context.getScheduler().getPendingObservers().contains( observer ), true );
+  }
 }
