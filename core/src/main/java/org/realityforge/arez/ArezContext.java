@@ -36,6 +36,30 @@ public final class ArezContext
   @Nonnull
   private final ObserverErrorHandlerSupport _observerErrorHandlerSupport = new ObserverErrorHandlerSupport();
 
+  public Observer createObserver( @Nullable final String name,
+                                  @Nonnull final TransactionMode mode,
+                                  @Nullable final Reaction reaction,
+                                  final boolean runImmediately )
+  {
+    final Observer observer = new Observer( this, ArezConfig.enableNames() ? name : null, mode, reaction );
+    if ( runImmediately )
+    {
+      if ( observer.hasReaction() )
+      {
+        _scheduler.invokeObserver( observer );
+      }
+      else
+      {
+        Guards.invariant( () -> null != _transaction,
+                          () -> String.format(
+                            "Attempted to run observer named '%s' on creation but observer specified no reaction.",
+                            observer.getName() ) );
+
+      }
+    }
+    return observer;
+  }
+
   /**
    * Pass the supplied observer to the scheduler.
    * The observer should NOT be already pending execution.
