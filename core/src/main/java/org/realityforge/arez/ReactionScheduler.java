@@ -108,11 +108,22 @@ final class ReactionScheduler
     _pendingObservers.add( Objects.requireNonNull( observer ) );
   }
 
+  /**
+   * Return true if reactions are currently running, false otherwise.
+   *
+   * @return true if reactions are currently running, false otherwise.
+   */
   boolean isReactionsRunning()
   {
     return 0 != _currentReactionRound;
   }
 
+  /**
+   * If the schedule is not already running pending observers then run pending observers until
+   * complete or runaway reaction detected.
+   *
+   * @return the number of reactions executed
+   */
   int runPendingObservers()
   {
     // Each reaction creates a top level transaction that attempts to run call
@@ -134,6 +145,25 @@ final class ReactionScheduler
     }
   }
 
+  /**
+   * Execute the next pending observer if any.
+   * <ul>
+   *   <li>
+   *     If there is any reactions left in this round then run the next reaction and consume a token.
+   *   </li>
+   *   <li>
+   *     If there are more rounds left in budget and more pending observers then start a new round,
+   *     allocating a number of tokens equal to the number of pending reactions, run the next reaction
+   *     and consume a token.
+   *   </li>
+   *   <li>
+   *     Otherwise runaway reactions detected, so act appropriately. (In development this means
+   *     purging pending observers and failing an invariant check)
+   *   </li>
+   * </ul>
+   *
+   * @return true if an observer was ran, false otherwise.
+   */
   boolean runObserver()
   {
     /*
