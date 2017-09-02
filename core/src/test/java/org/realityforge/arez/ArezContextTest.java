@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -314,5 +315,85 @@ public class ArezContextTest
     } );
 
     assertFalse( context.isTransactionActive() );
+  }
+
+  @Test
+  public void invokeObserver()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final TransactionMode mode = TransactionMode.READ_ONLY;
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final AtomicInteger errorCount = new AtomicInteger();
+
+    context.addObserverErrorHandler( ( observer, error, throwable ) -> errorCount.incrementAndGet() );
+
+    final Reaction reaction = observer -> {
+      callCount.incrementAndGet();
+      assertEquals( observer.getContext(), context );
+      assertEquals( context.isTransactionActive(), true );
+      assertEquals( context.getTransaction().getName(), name );
+      assertEquals( context.getTransaction().getMode(), mode );
+      assertEquals( observer.getName(), name );
+    };
+
+    final Observer observer = new Observer( context, name, mode, reaction );
+
+    context.invokeObserver( observer );
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( errorCount.get(), 0 );
+  }
+
+  @Test
+  public void invokeObserver_whenObserverHasNoReaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.invokeObserver( observer ) );
+
+    assertEquals( exception.getMessage(),
+                  "invokeObserver called for observer named '" +
+                  observer.getName() + "' but observer has no associated reaction." );
+  }
+
+  @Test
+  public void invokeObserver_reactionGeneratesError()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final TransactionMode mode = TransactionMode.READ_ONLY;
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final AtomicInteger errorCount = new AtomicInteger();
+
+    final RuntimeException exception = new RuntimeException( "X" );
+
+    context.addObserverErrorHandler( ( observer, error, throwable ) -> {
+      errorCount.incrementAndGet();
+      assertEquals( error, ObserverError.REACTION_ERROR );
+      assertEquals( throwable, exception );
+    } );
+
+    final Reaction reaction = observer -> {
+      callCount.incrementAndGet();
+      throw exception;
+    };
+
+    final Observer observer = new Observer( context, name, mode, reaction );
+
+    context.invokeObserver( observer );
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( errorCount.get(), 1 );
   }
 }

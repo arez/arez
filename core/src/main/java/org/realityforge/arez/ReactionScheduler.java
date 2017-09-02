@@ -210,32 +210,8 @@ final class ReactionScheduler
     _remainingReactionsInCurrentRound--;
     final Observer observer = _pendingObservers.remove( 0 );
     observer.clearScheduledFlag();
-    invokeObserver( observer );
+    getContext().invokeObserver( observer );
     return true;
-  }
-
-  /**
-   * Run a reaction for the supplied observer.
-   * The reaction is executed in a transaction with the name and mode defined
-   * by the observer. If the reaction throws an exception, the exception is reported
-   * to the context global ObserverErrorHandlers
-   *
-   * @param observer the observer to run reaction for.
-   */
-  void invokeObserver( @Nonnull final Observer observer )
-  {
-    final String name = ArezConfig.enableNames() ? observer.getName() : null;
-    final TransactionMode mode = observer.getMode();
-    final Reaction reaction = observer.getReaction();
-    assert null != reaction;
-    try
-    {
-      getContext().transaction( name, mode, observer, () -> reaction.react( observer ) );
-    }
-    catch ( final Throwable t )
-    {
-      getContext().getObserverErrorHandler().onObserverError( observer, ObserverError.REACTION_ERROR, t );
-    }
   }
 
   /**
