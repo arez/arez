@@ -200,21 +200,6 @@ public abstract class Observable
     }
   }
 
-  final void setLeastStaleObserverState( @Nonnull final ObserverState leastStaleObserverState )
-  {
-    Guards.invariant( () -> getContext().isTransactionActive(),
-                      () -> String.format(
-                        "Attempt to invoke setLeastStaleObserverState on observable named '%s' when there is no active transaction.",
-                        getName() ) );
-    _leastStaleObserverState = leastStaleObserverState;
-  }
-
-  @Nonnull
-  final ObserverState getLeastStaleObserverState()
-  {
-    return _leastStaleObserverState;
-  }
-
   final void removeObserver( @Nonnull final Observer observer )
   {
     Guards.invariant( () -> getContext().isTransactionActive(),
@@ -255,6 +240,21 @@ public abstract class Observable
       _pendingDeactivation = true;
       getContext().getTransaction().queueForDeactivation( this );
     }
+  }
+
+  final void setLeastStaleObserverState( @Nonnull final ObserverState leastStaleObserverState )
+  {
+    Guards.invariant( () -> getContext().isTransactionActive(),
+                      () -> String.format(
+                        "Attempt to invoke setLeastStaleObserverState on observable named '%s' when there is no active transaction.",
+                        getName() ) );
+    _leastStaleObserverState = leastStaleObserverState;
+  }
+
+  @Nonnull
+  final ObserverState getLeastStaleObserverState()
+  {
+    return _leastStaleObserverState;
   }
 
   // Called by Atom when its value changes
