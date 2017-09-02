@@ -108,6 +108,11 @@ final class ReactionScheduler
     _pendingObservers.add( Objects.requireNonNull( observer ) );
   }
 
+  boolean isReactionsRunning()
+  {
+    return 0 != _currentReactionRound;
+  }
+
   int runPendingObservers()
   {
     int observersScheduled = 0;

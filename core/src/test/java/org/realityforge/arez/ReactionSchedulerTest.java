@@ -349,6 +349,7 @@ public class ReactionSchedulerTest
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 1 );
     assertEquals( scheduler.getPendingObservers().size(), round2Size );
+    assertEquals( scheduler.isReactionsRunning(), true );
 
     for ( int i = 0; i < round2Size; i++ )
     {
@@ -359,6 +360,7 @@ public class ReactionSchedulerTest
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 2 );
     assertEquals( scheduler.getPendingObservers().size(), round3Size );
+    assertEquals( scheduler.isReactionsRunning(), true );
 
     for ( int i = 0; i < round3Size; i++ )
     {
@@ -369,9 +371,11 @@ public class ReactionSchedulerTest
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 3 );
     assertEquals( scheduler.getPendingObservers().size(), 0 );
+    assertEquals( scheduler.isReactionsRunning(), true );
 
     assertEquals( scheduler.runObserver(), false );
 
+    assertEquals( scheduler.isReactionsRunning(), false );
     assertEquals( reactions[ 0 ].getCallCount(), 1 );
     assertEquals( reactions[ 1 ].getCallCount(), 1 );
     assertEquals( reactions[ 2 ].getCallCount(), 2 );
@@ -433,6 +437,7 @@ public class ReactionSchedulerTest
                   "Current observers include: [" + toSchedule.getName() + "]" );
 
     assertEquals( reactionCount.get(), 20 );
+    assertEquals( scheduler.isReactionsRunning(), false );
   }
 
   @Test
@@ -489,6 +494,7 @@ public class ReactionSchedulerTest
 
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 0 );
+    assertEquals( scheduler.isReactionsRunning(), false );
     assertEquals( scheduler.getPendingObservers().size(), 0 );
   }
 
