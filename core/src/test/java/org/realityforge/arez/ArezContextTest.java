@@ -611,4 +611,21 @@ public class ArezContextTest
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
   }
 
+  @Test
+  public void createObserver_notAReaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final TransactionMode mode = TransactionMode.READ_ONLY;
+    final Observer observer =
+      context.createObserver( name, mode, null, false );
+
+    assertEquals( observer.getName(), name );
+    assertEquals( observer.getMode(), mode );
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.getReaction(), null );
+    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+  }
 }
