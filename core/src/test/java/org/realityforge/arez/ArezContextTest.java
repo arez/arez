@@ -33,6 +33,22 @@ public class ArezContextTest
   }
 
   @Test
+  public void commitTransaction_matchingRootTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    transaction.begin();
+    context.setTransaction( transaction );
+
+    context.commitTransaction( transaction );
+
+    assertEquals( context.isTransactionActive(), false );
+  }
+
+  @Test
   public void transactionsCanProduceValues()
     throws Exception
   {
