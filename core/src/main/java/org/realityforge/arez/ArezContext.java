@@ -93,6 +93,10 @@ public final class ArezContext
                         _transaction.getName() ) );
     _transaction.commit();
     _transaction = _transaction.getPrevious();
+    if ( null == _transaction )
+    {
+      runPendingReactions();
+    }
   }
 
   /**

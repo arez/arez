@@ -94,9 +94,8 @@ final class Transaction
     completeTracking();
     if ( isRootTransaction() )
     {
-      // Only the root transactions performs deactivations and reschedules reactions.
+      // Only the root transactions performs deactivations.
       processPendingDeactivations();
-      getContext().runPendingReactions();
     }
   }
 
