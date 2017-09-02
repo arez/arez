@@ -50,10 +50,9 @@ public final class ArezContext
       }
       else
       {
-        Guards.invariant( () -> null != _transaction,
-                          () -> String.format(
-                            "Attempted to run observer named '%s' on creation but observer specified no reaction.",
-                            observer.getName() ) );
+        Guards.fail( () -> String.format(
+          "Attempted to run observer named '%s' on creation but observer specified no reaction.",
+          observer.getName() ) );
 
       }
     }
