@@ -108,17 +108,7 @@ final class ReactionScheduler
     _pendingObservers.add( Objects.requireNonNull( observer ) );
   }
 
-  void runPendingObservers()
-  {
-    // If we are already running observers, then newly scheduled observers will
-    // be picked up by that process, otherwise lets start scheduler.
-    if ( !isRunningReactions() )
-    {
-      observerScheduler();
-    }
-  }
-
-  int observerScheduler()
+  int runPendingObservers()
   {
     int observersScheduled = 0;
     while ( runObserver() )

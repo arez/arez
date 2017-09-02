@@ -430,7 +430,7 @@ public class ReactionSchedulerTest
   }
 
   @Test
-  public void observerScheduler()
+  public void runPendingObservers()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -477,7 +477,7 @@ public class ReactionSchedulerTest
       observers[ i ].setState( ObserverState.STALE );
     }
 
-    assertEquals( scheduler.observerScheduler(), 15 );
+    assertEquals( scheduler.runPendingObservers(), 15 );
 
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 0 );
