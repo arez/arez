@@ -3,7 +3,9 @@ package org.realityforge.arez.test;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.AbstractArezTest;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Observer;
 import org.realityforge.arez.ObserverErrorHandler;
+import org.realityforge.arez.ObserverState;
 import org.realityforge.arez.Reaction;
 import org.realityforge.arez.TransactionMode;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -17,6 +19,42 @@ import static org.testng.Assert.*;
 public class ArezContextApiTest
   extends AbstractArezTest
 {
+  @Test
+  public void createObserver_notReaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final Observer observer =
+      context.createObserver( name, TransactionMode.READ_ONLY, null, false );
+
+    assertEquals( observer.getName(), name );
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+  }
+
+  @Test
+  public void createReactionObserver()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final String name = ValueUtil.randomString();
+    final Reaction reaction = o -> callCount.incrementAndGet();
+    final Observer observer =
+      context.createObserver( name, TransactionMode.READ_ONLY, reaction, true );
+
+    assertEquals( observer.getName(), name );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( callCount.get(), 1 );
+
+    observer.dispose();
+
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+  }
+
   @Test
   public void observerErrorHandler()
     throws Exception

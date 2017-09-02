@@ -96,7 +96,7 @@ public class Observer
    * @return the state of the observer.
    */
   @Nonnull
-  final ObserverState getState()
+  public final ObserverState getState()
   {
     return _state;
   }
