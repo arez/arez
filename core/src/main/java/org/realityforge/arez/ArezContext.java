@@ -48,14 +48,6 @@ public final class ArezContext
   }
 
   /**
-   * Run all pending reactions.
-   */
-  void runPendingReactions()
-  {
-    _scheduler.runPendingObservers();
-  }
-
-  /**
    * Create a new transaction.
    *
    * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
@@ -95,7 +87,7 @@ public final class ArezContext
     _transaction = _transaction.getPrevious();
     if ( null == _transaction )
     {
-      runPendingReactions();
+      _scheduler.runPendingObservers();
     }
   }
 
