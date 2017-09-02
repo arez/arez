@@ -75,6 +75,22 @@ public class Observer
   }
 
   /**
+   * Make the Observer INACTIVE and release any resources associated with observer.
+   * The applications should NOT interact with the Observer after it has been disposed.
+   */
+  public final void dispose()
+  {
+    try
+    {
+      getContext().transaction( getName(), getMode(), this, () -> setState( ObserverState.INACTIVE ) );
+    }
+    catch ( final Throwable t )
+    {
+      getContext().getObserverErrorHandler().onObserverError( this, ObserverError.DISPOSE_ERROR, t );
+    }
+  }
+
+  /**
    * Return the state of the observer.
    *
    * @return the state of the observer.

@@ -517,6 +517,25 @@ public class ObserverTest
                   "been made to schedule observer." );
   }
 
+  @Test
+  public void dispose()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, o -> {
+    } );
+    setCurrentTransaction( context, observer );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    context.setTransaction( null );
+
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
+    observer.dispose();
+
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+  }
+
   private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
     context.setTransaction( new Transaction( context,
