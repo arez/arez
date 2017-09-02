@@ -130,6 +130,27 @@ public class ObservableTest
     observable.invariantLeastStaleObserverState();
   }
 
+  @Test
+  public void setLeastStaleObserverState_noActiveTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempt to invoke setLeastStaleObserverState on observable named '" +
+                  observable.getName() + "' when there is no active transaction." );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+  }
+
   private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
     context.setTransaction( new Transaction( context,
