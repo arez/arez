@@ -429,6 +429,61 @@ public class ReactionSchedulerTest
     assertEquals( reactionCount.get(), 20 );
   }
 
+  @Test
+  public void observerScheduler()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = context.getScheduler();
+
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    setCurrentTransaction( context, observer );
+
+    final Observer[] observers = new Observer[ 10 ];
+    final Observable[] observables = new Observable[ observers.length ];
+    final TestReaction[] reactions = new TestReaction[ observers.length ];
+    for ( int i = 0; i < observers.length; i++ )
+    {
+      final int currentIndex = i;
+      if ( i != 0 && 0 == i % 2 )
+      {
+        reactions[ i ] = new TestReaction()
+        {
+          @Override
+          public void react( @Nonnull final Observer observer )
+            throws Exception
+          {
+            super.react( observer );
+            if ( ( currentIndex == 8 && getCallCount() <= 2 ) || getCallCount() <= 1 )
+            {
+              observers[ currentIndex ].setState( ObserverState.STALE );
+            }
+          }
+        };
+      }
+      else
+      {
+        reactions[ i ] = new TestReaction();
+      }
+      observers[ i ] = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reactions[ i ] );
+      observables[ i ] = new TestObservable( context, ValueUtil.randomString() );
+
+      observers[ i ].setState( ObserverState.UP_TO_DATE );
+      observables[ i ].addObserver( observers[ i ] );
+      observers[ i ].getDependencies().add( observables[ i ] );
+
+      //observer has reaction so setStale should result in reschedule
+      observers[ i ].setState( ObserverState.STALE );
+    }
+
+    assertEquals( scheduler.observerScheduler(), 15 );
+
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getCurrentReactionRound(), 0 );
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+  }
+
   private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
     context.setTransaction( new Transaction( context,
