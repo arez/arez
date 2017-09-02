@@ -120,6 +120,13 @@ final class ReactionScheduler
 
   boolean runObserver()
   {
+    /*
+     * All reactions expect to run as top level transactions so
+     * there should be no transaciton active.
+     */
+    Guards.invariant( () -> !getContext().isTransactionActive(),
+                      () -> String.format( "Invoked runObserver when transaction named '%s' is active.",
+                                           getContext().getTransaction().getName() ) );
     final int pendingObserverCount = _pendingObservers.size();
     // If we have reached the last observer in this round then
     // determine if we need any more rounds and if we do ensure

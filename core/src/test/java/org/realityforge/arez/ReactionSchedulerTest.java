@@ -253,6 +253,8 @@ public class ReactionSchedulerTest
     //observer has reaction so setStale should result in reschedule
     observer.setState( ObserverState.STALE );
 
+    context.setTransaction( null );
+
     assertEquals( observer.isScheduled(), true );
     assertEquals( scheduler.getPendingObservers().size(), 1 );
     assertEquals( scheduler.getCurrentReactionRound(), 0 );
@@ -330,6 +332,8 @@ public class ReactionSchedulerTest
       observers[ i ].setState( ObserverState.STALE );
       assertEquals( observers[ i ].isScheduled(), true );
     }
+
+    context.setTransaction( null );
 
     assertEquals( scheduler.getPendingObservers().size(), observers.length );
     assertEquals( scheduler.getCurrentReactionRound(), 0 );
@@ -412,6 +416,8 @@ public class ReactionSchedulerTest
     toSchedule.setState( ObserverState.STALE );
     assertEquals( toSchedule.isScheduled(), true );
 
+    context.setTransaction( null );
+
     context.getScheduler().setMaxReactionRounds( 20 );
 
     final AtomicInteger reactionCount = new AtomicInteger();
@@ -476,6 +482,8 @@ public class ReactionSchedulerTest
       //observer has reaction so setStale should result in reschedule
       observers[ i ].setState( ObserverState.STALE );
     }
+
+    context.setTransaction( null );
 
     assertEquals( scheduler.runPendingObservers(), 15 );
 
