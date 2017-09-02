@@ -193,6 +193,28 @@ public class TransactionTest
   }
 
   @Test
+  public void observe_noObserveIfOwnedByTracker()
+  {
+    final ArezContext context = new ArezContext();
+    final Derivation tracker = newDerivation( context );
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    context.setTransaction( transaction );
+
+    transaction.beginTracking();
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), tracker );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.observe( observable ) );
+
+    assertEquals( exception.getMessage(),
+                  "Invoked observe on transaction named '" +
+                  transaction.getName() + "' for observable named '" + observable.getName() +
+                  "' where the observable is owned by the tracker." );
+  }
+
+  @Test
   public void multipleObserves()
   {
     final ArezContext context = new ArezContext();

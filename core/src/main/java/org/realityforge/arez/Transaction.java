@@ -158,6 +158,11 @@ final class Transaction
   {
     if ( null != _tracker )
     {
+      Guards.invariant( () -> _tracker != observable.getOwner(),
+                        () -> String.format(
+                          "Invoked observe on transaction named '%s' for observable named '%s' where the observable is owned by the tracker.",
+                          getName(),
+                          observable.getName() ) );
       /*
        * This optimization attempts to stop the same observable being added multiple
        * times to the observables list by caching the transaction id on the observable.
