@@ -156,15 +156,16 @@ final class ReactionScheduler
      * If we get to here there are still observers that need processing and we have not
      * exceeded our round budget. So we pop the last observer off the list and process it.
      *
-     * NOTE: The selection of the "last" observer is arbitrary and we could choose the first
-     * or any other. However we select the last as it is the most efficient and does not
-     * involve any memory allocations or copies. If we were using a circular buffer we could
-     * easily have chosen the first. (This may be a better option as it means we could have a
-     * lower value for _maxReactionRounds as processing would be width first rather than depth
-     * first.)
+     * NOTE: The selection of the first observer ensures that the same observer is not
+     * scheduled multiple times within a single round. This means that when runaway reaction
+     * detection code is active, the list of pending observers contains those observers
+     * that have likely lead to the runaway reaction.
+     *
+     * However this is very inefficient as it involves memory allocations and/or copies. We should
+     * move to using a circular buffer that avoids both of these scenarios.
      */
     _remainingReactionsInCurrentRound--;
-    final Observer observer = _pendingObservers.remove( pendingObserverCount - 1 );
+    final Observer observer = _pendingObservers.remove( 0 );
     observer.clearScheduledFlag();
     invokeObserver( observer );
     return true;
