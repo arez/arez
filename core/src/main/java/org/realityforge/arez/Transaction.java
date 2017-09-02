@@ -158,13 +158,13 @@ final class Transaction
   {
     if ( null != _tracker )
     {
-    /*
-     * This optimization attempts to stop the same observable being added multiple
-     * times to the observables list by caching the transaction id on the observable.
-     * This is optimization may be defeated if the same observable is observed in a
-     * nested tracking transaction in which case the same observable may appear multiple.
-     * times in the _observables list. However completeTracking will eliminate duplicates.
-     */
+      /*
+       * This optimization attempts to stop the same observable being added multiple
+       * times to the observables list by caching the transaction id on the observable.
+       * This is optimization may be defeated if the same observable is observed in a
+       * nested tracking transaction in which case the same observable may appear multiple.
+       * times in the _observables list. However completeTracking will eliminate duplicates.
+       */
       final int id = getId();
       if ( observable.getLastTrackerTransactionId() != id )
       {
