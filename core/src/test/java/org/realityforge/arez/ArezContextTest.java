@@ -49,6 +49,28 @@ public class ArezContextTest
   }
 
   @Test
+  public void commitTransaction_nonMatchingRootTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    transaction.begin();
+    context.setTransaction( transaction );
+
+    final Transaction transaction2 =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    transaction2.begin();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.commitTransaction( transaction2 ) );
+    assertEquals( exception.getMessage(),
+                  "Attempting to commit transaction named '" + transaction2.getName() +
+                  "' but this does not match existing transaction named '" + transaction.getName() + "'." );
+  }
+
+  @Test
   public void transactionsCanProduceValues()
     throws Exception
   {
