@@ -9,6 +9,28 @@ import static org.testng.Assert.*;
 public class ArezContextTest
   extends AbstractArezTest
 {
+  @Test
+  public void beginTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final String name = ValueUtil.randomString();
+    final TransactionMode mode = TransactionMode.READ_ONLY;
+    final Observer tracker = null;
+    final Transaction transaction = context.beginTransaction( name, mode, tracker );
+
+    assertTrue( context.isTransactionActive() );
+
+    assertEquals( context.getTransaction(), transaction );
+    assertEquals( transaction.getContext(), context );
+    assertEquals( transaction.getName(), name );
+    assertEquals( transaction.getMode(), mode );
+    assertEquals( transaction.getTracker(), tracker );
+    assertEquals( transaction.getPrevious(), null );
+  }
 
   @Test
   public void transactionsCanProduceValues()
@@ -17,6 +39,7 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     assertFalse( context.isTransactionActive() );
+
     final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
     assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
 
