@@ -318,7 +318,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void invokeObserver()
+  public void invokeReaction()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -342,14 +342,14 @@ public class ArezContextTest
 
     final Observer observer = new Observer( context, name, mode, reaction );
 
-    context.invokeObserver( observer );
+    context.invokeReaction( observer );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( errorCount.get(), 0 );
   }
 
   @Test
-  public void invokeObserver_whenObserverHasNoReaction()
+  public void invokeReaction_whenObserverHasNoReaction()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -357,15 +357,15 @@ public class ArezContextTest
     final Observer observer = new Observer( context, ValueUtil.randomString() );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.invokeObserver( observer ) );
+      expectThrows( IllegalStateException.class, () -> context.invokeReaction( observer ) );
 
     assertEquals( exception.getMessage(),
-                  "invokeObserver called for observer named '" +
+                  "invokeReaction called for observer named '" +
                   observer.getName() + "' but observer has no associated reaction." );
   }
 
   @Test
-  public void invokeObserver_reactionGeneratesError()
+  public void invokeReaction_reactionGeneratesError()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -391,7 +391,7 @@ public class ArezContextTest
 
     final Observer observer = new Observer( context, name, mode, reaction );
 
-    context.invokeObserver( observer );
+    context.invokeReaction( observer );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( errorCount.get(), 1 );

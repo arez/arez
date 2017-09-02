@@ -46,7 +46,7 @@ public final class ArezContext
     {
       if ( observer.hasReaction() )
       {
-        invokeObserver( observer );
+        invokeReaction( observer );
       }
       else
       {
@@ -216,14 +216,14 @@ public final class ArezContext
    *
    * @param observer the observer to run reaction for.
    */
-  void invokeObserver( @Nonnull final Observer observer )
+  void invokeReaction( @Nonnull final Observer observer )
   {
     final String name = ArezConfig.enableNames() ? observer.getName() : null;
     final TransactionMode mode = observer.getMode();
     final Reaction reaction = observer.getReaction();
     Guards.invariant( () -> null != reaction,
                       () -> String.format(
-                        "invokeObserver called for observer named '%s' but observer has no associated reaction.",
+                        "invokeReaction called for observer named '%s' but observer has no associated reaction.",
                         name ) );
     assert null != reaction;
     try
