@@ -71,6 +71,23 @@ public class ArezContextTest
   }
 
   @Test
+  public void commitTransaction_noTransactionActive()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    transaction.begin();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.commitTransaction( transaction ) );
+    assertEquals( exception.getMessage(),
+                  "Attempting to commit transaction named '" + transaction.getName() +
+                  "' but no transaction is active." );
+  }
+
+  @Test
   public void transactionsCanProduceValues()
     throws Exception
   {
