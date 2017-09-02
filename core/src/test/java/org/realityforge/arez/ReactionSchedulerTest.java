@@ -508,6 +508,39 @@ public class ReactionSchedulerTest
     assertEquals( scheduler.getPendingObservers().size(), 0 );
   }
 
+  @Test
+  public void runPendingObservers_avoidRunningIfAlreadyRunning()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = context.getScheduler();
+
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    setCurrentTransaction( context, observer );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+    //observer has reaction so setStale should result in reschedule
+    observer.setState( ObserverState.STALE );
+
+    context.setTransaction( null );
+
+    assertEquals( observer.isScheduled(), true );
+    assertEquals( scheduler.getPendingObservers().size(), 1 );
+    assertEquals( scheduler.getCurrentReactionRound(), 0 );
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+
+    // Trick the schedule into thinking that it is currently running
+    scheduler.setCurrentReactionRound( 1 );
+
+    assertEquals( scheduler.runPendingObservers(), 0 );
+
+    // Make t he scheduler think it is no longer running
+    scheduler.setCurrentReactionRound( 0 );
+
+    assertEquals( scheduler.runPendingObservers(), 1 );
+  }
+
   private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
     context.setTransaction( new Transaction( context,

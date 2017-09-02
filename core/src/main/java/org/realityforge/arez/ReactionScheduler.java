@@ -115,12 +115,23 @@ final class ReactionScheduler
 
   int runPendingObservers()
   {
-    int observersScheduled = 0;
-    while ( runObserver() )
+    // Each reaction creates a top level transaction that attempts to run call
+    // this method when it completes. Rather than allow this if it is detected
+    // that we are running reactions already then just abort and assume the top
+    // most invocation of runPendingObservers will handle scheduling
+    if ( !isReactionsRunning() )
     {
-      observersScheduled++;
+      int observersScheduled = 0;
+      while ( runObserver() )
+      {
+        observersScheduled++;
+      }
+      return observersScheduled;
     }
-    return observersScheduled;
+    else
+    {
+      return 0;
+    }
   }
 
   boolean runObserver()
@@ -244,5 +255,11 @@ final class ReactionScheduler
   int getRemainingReactionsInCurrentRound()
   {
     return _remainingReactionsInCurrentRound;
+  }
+
+  @TestOnly
+  void setCurrentReactionRound( final int currentReactionRound )
+  {
+    _currentReactionRound = currentReactionRound;
   }
 }
