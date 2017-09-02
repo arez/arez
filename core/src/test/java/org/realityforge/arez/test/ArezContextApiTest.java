@@ -1,7 +1,10 @@
 package org.realityforge.arez.test;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.AbstractArezTest;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.ObserverErrorHandler;
+import org.realityforge.arez.Reaction;
 import org.realityforge.arez.TransactionMode;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -14,6 +17,33 @@ import static org.testng.Assert.*;
 public class ArezContextApiTest
   extends AbstractArezTest
 {
+  @Test
+  public void observerErrorHandler()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final ObserverErrorHandler handler = ( observer, error, throwable ) -> callCount.incrementAndGet();
+    context.addObserverErrorHandler( handler );
+
+    final Reaction reaction = o -> {
+      throw new RuntimeException();
+    };
+    // This will run immediately and generate an exception
+    context.createObserver( ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction, true );
+
+    assertEquals( callCount.get(), 1 );
+
+    context.removeObserverErrorHandler( handler );
+
+    // This will run immediately and generate an exception
+    context.createObserver( ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction, true );
+
+    assertEquals( callCount.get(), 1 );
+  }
+
   @Test
   public void transactionsCanProduceValues()
     throws Exception
