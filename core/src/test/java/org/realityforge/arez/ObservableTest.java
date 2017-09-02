@@ -47,7 +47,7 @@ public class ObservableTest
 
     assertEquals( observable.getObservers().size(), 1 );
     assertEquals( observable.hasObservers(), true );
-    assertEquals( observable.getObservers().get( 0 ), observer );
+    assertEquals( observable.hasObserver( observer ), true );
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
 
     observable.invariantLeastStaleObserverState();
@@ -92,7 +92,7 @@ public class ObservableTest
 
     assertEquals( observable.getObservers().size(), 1 );
     assertEquals( observable.hasObservers(), true );
-    assertEquals( observable.getObservers().get( 0 ), observer );
+    assertEquals( observable.hasObserver( observer ), true );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
@@ -103,7 +103,7 @@ public class ObservableTest
 
     assertEquals( observable.getObservers().size(), 1 );
     assertEquals( observable.hasObservers(), true );
-    assertEquals( observable.getObservers().get( 0 ), observer );
+    assertEquals( observable.hasObserver( observer ), true );
 
     observable.invariantLeastStaleObserverState();
   }
