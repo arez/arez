@@ -244,7 +244,7 @@ public final class ArezContext
    */
   public void addObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
-    getObserverErrorHandlerSupport().addObserverErrorHandler( handler );
+    _observerErrorHandlerSupport.addObserverErrorHandler( handler );
   }
 
   /**
@@ -255,7 +255,7 @@ public final class ArezContext
    */
   public void removeObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
-    getObserverErrorHandlerSupport().removeObserverErrorHandler( handler );
+    _observerErrorHandlerSupport.removeObserverErrorHandler( handler );
   }
 
   @Nonnull
@@ -264,6 +264,7 @@ public final class ArezContext
     return _observerErrorHandlerSupport;
   }
 
+  @TestOnly
   @Nonnull
   ObserverErrorHandlerSupport getObserverErrorHandlerSupport()
   {
