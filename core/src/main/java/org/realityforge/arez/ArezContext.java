@@ -149,7 +149,7 @@ public final class ArezContext
    * The transaction is tracking if tracker is supplied and is named with specified name.
    *
    * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
-   * @param mode    the transaciton mode.
+   * @param mode    the transaction mode.
    * @param tracker the observer that is tracking transaction if any.
    * @param action  the action to execute.
    * @throws Exception if the action throws an an exception.
