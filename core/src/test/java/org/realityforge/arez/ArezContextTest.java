@@ -404,7 +404,7 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     assertEquals( context.currentNextNodeId(), 1 );
-    assertEquals( context.nextNodeId(), 2 );
+    assertEquals( context.nextNodeId(), 1 );
     assertEquals( context.currentNextNodeId(), 2 );
   }
 
