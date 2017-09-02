@@ -279,6 +279,107 @@ public class ReactionSchedulerTest
     assertEquals( observer.isScheduled(), false );
   }
 
+  @Test
+  public void runObserver_multiplePendingObservers()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ReactionScheduler scheduler = context.getScheduler();
+
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    setCurrentTransaction( context, observer );
+
+    final int round1Size = 10;
+    final int round2Size = 4;
+    final int round3Size = 1;
+    final Observer[] observers = new Observer[ round1Size ];
+    final Observable[] observables = new Observable[ observers.length ];
+    final TestReaction[] reactions = new TestReaction[ observers.length ];
+    for ( int i = 0; i < observers.length; i++ )
+    {
+      final int currentIndex = i;
+      if ( i != 0 && 0 == i % 2 )
+      {
+        reactions[ i ] = new TestReaction()
+        {
+          @Override
+          public void react( @Nonnull final Observer observer )
+            throws Exception
+          {
+            super.react( observer );
+            if ( ( currentIndex == 8 && getCallCount() <= 2 ) || getCallCount() <= 1 )
+            {
+              observers[ currentIndex ].setState( ObserverState.STALE );
+            }
+          }
+        };
+      }
+      else
+      {
+        reactions[ i ] = new TestReaction();
+      }
+      observers[ i ] = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reactions[ i ] );
+      observables[ i ] = new TestObservable( context, ValueUtil.randomString() );
+
+      observers[ i ].setState( ObserverState.UP_TO_DATE );
+      observables[ i ].addObserver( observers[ i ] );
+      observers[ i ].getDependencies().add( observables[ i ] );
+
+      //observer has reaction so setStale should result in reschedule
+      observers[ i ].setState( ObserverState.STALE );
+      assertEquals( observers[ i ].isScheduled(), true );
+    }
+
+    assertEquals( scheduler.getPendingObservers().size(), observers.length );
+    assertEquals( scheduler.getCurrentReactionRound(), 0 );
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+
+    // Start from last observer and go down to first
+    for ( int i = 0; i < round1Size; i++ )
+    {
+      assertEquals( scheduler.runObserver(), true );
+      assertEquals( scheduler.getCurrentReactionRound(), 1 );
+    }
+
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getCurrentReactionRound(), 1 );
+    assertEquals( scheduler.getPendingObservers().size(), round2Size );
+
+    for ( int i = 0; i < round2Size; i++ )
+    {
+      assertEquals( scheduler.runObserver(), true );
+      assertEquals( scheduler.getCurrentReactionRound(), 2 );
+    }
+
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getCurrentReactionRound(), 2 );
+    assertEquals( scheduler.getPendingObservers().size(), round3Size );
+
+    for ( int i = 0; i < round3Size; i++ )
+    {
+      assertEquals( scheduler.runObserver(), true );
+      assertEquals( scheduler.getCurrentReactionRound(), 3 );
+    }
+
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getCurrentReactionRound(), 3 );
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+
+    assertEquals( scheduler.runObserver(), false );
+
+    assertEquals( reactions[ 0 ].getCallCount(), 1 );
+    assertEquals( reactions[ 1 ].getCallCount(), 1 );
+    assertEquals( reactions[ 2 ].getCallCount(), 2 );
+    assertEquals( reactions[ 3 ].getCallCount(), 1 );
+    assertEquals( reactions[ 4 ].getCallCount(), 2 );
+    assertEquals( reactions[ 5 ].getCallCount(), 1 );
+    assertEquals( reactions[ 6 ].getCallCount(), 2 );
+    assertEquals( reactions[ 7 ].getCallCount(), 1 );
+    assertEquals( reactions[ 8 ].getCallCount(), 3 );
+    assertEquals( reactions[ 9 ].getCallCount(), 1 );
+  }
+
   private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
     context.setTransaction( new Transaction( context,

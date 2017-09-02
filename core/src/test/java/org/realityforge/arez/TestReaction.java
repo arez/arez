@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import static org.testng.Assert.*;
 
-final class TestReaction
+class TestReaction
   implements Reaction
 {
   private final ArrayList<Observer> _observers = new ArrayList<>();
