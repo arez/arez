@@ -396,4 +396,15 @@ public class ArezContextTest
     assertEquals( callCount.get(), 1 );
     assertEquals( errorCount.get(), 1 );
   }
+
+  @Test
+  public void nextNodeId()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    assertEquals( context.currentNextNodeId(), 1 );
+    assertEquals( context.nextNodeId(), 2 );
+    assertEquals( context.currentNextNodeId(), 2 );
+  }
 }
