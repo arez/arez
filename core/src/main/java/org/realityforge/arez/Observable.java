@@ -155,7 +155,7 @@ public class Observable
                       () -> String.format(
                         "Invoked activate on observable named '%s' when observable is already active.",
                         getName() ) );
-    _owner.setState( ObserverState.STALE );
+    _owner.setState( ObserverState.UP_TO_DATE );
   }
 
   @Nonnull
