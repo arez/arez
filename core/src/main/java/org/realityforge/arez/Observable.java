@@ -47,7 +47,7 @@ public class Observable
   @Nonnull
   private ObserverState _leastStaleObserverState = ObserverState.INACTIVE;
   /**
-   * The derivation that created this observable if any.
+   * The observer that created this observable if any.
    */
   @Nullable
   private final Derivation _owner;
