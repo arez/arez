@@ -13,7 +13,7 @@ public abstract class Observable
    * The value that _workState is set to to optimize the detection of duplicate,
    * existing and new dependencies during tracking completion.
    */
-  private static final int IN_CURRENT_TRACKING = -1;
+  static final int IN_CURRENT_TRACKING = -1;
   /**
    * The value that _workState is when the observer has been added as new dependency
    * to derivation.
