@@ -375,6 +375,33 @@ public class ObservableTest
     assertNull( context.getTransaction().getPendingDeactivations() );
   }
 
+  @Test
+  public void queueForDeactivation_whereDependenciesPresent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Derivation derivation =
+      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    derivation.setState( ObserverState.UP_TO_DATE );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
+
+    assertEquals( observable.isPendingDeactivation(), false );
+
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    observable.addObserver( observer );
+    observer.getDependencies().add( observable );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observable::queueForDeactivation );
+
+    assertEquals( exception.getMessage(),
+                  "Attempted to invoke queueForDeactivation() on observable named '" +
+                  observable.getName() + "' but observable has observers." );
+  }
+
   private void setCurrentTransaction( final ArezContext context )
   {
     setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
