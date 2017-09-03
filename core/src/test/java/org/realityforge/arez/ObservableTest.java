@@ -228,6 +228,45 @@ public class ObservableTest
   }
 
   @Test
+  public void removeObserver_whenNoTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    setCurrentTransaction( context, observer );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
+
+    assertEquals( observable.getObservers().size(), 0 );
+    assertEquals( observable.hasObservers(), false );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observable.getObservers().add( observer );
+    observer.getDependencies().add( observable );
+
+    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( observable.hasObservers(), true );
+    assertEquals( observable.hasObserver( observer ), true );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+
+    context.setTransaction( null );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> observable.removeObserver( observer ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempt to invoke removeObserver on observable named '" +
+                  observable.getName() + "' when there is no active transaction." );
+
+    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( observable.hasObservers(), true );
+    assertEquals( observable.hasObserver( observer ), true );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+  }
+
+  @Test
   public void setLeastStaleObserverState()
     throws Exception
   {
