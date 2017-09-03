@@ -166,6 +166,28 @@ public class ObservableTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
   }
 
+  @Test
+  public void invariantLeastStaleObserverState_noObservers()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    observable.setLeastStaleObserverState( ObserverState.STALE );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observable::invariantLeastStaleObserverState );
+
+    assertEquals( exception.getMessage(),
+                  "Calculated leastStaleObserverState on observable named '" +
+                  observable.getName() + "' is 'INACTIVE' which is unexpectedly less than cached value 'STALE'." );
+
+    observable.setLeastStaleObserverState( ObserverState.INACTIVE );
+
+    observable.invariantLeastStaleObserverState();
+  }
+
   private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
     context.setTransaction( new Transaction( context,
