@@ -27,6 +27,12 @@ public class ObservableTest
     assertEquals( observable.getWorkState(), 0 );
     assertEquals( observable.isInCurrentTracking(), false );
 
+    // Fields for calculated observables in this non-calculated variant
+    assertEquals( observable.getOwner(), null );
+    assertEquals( observable.canDeactivate(), false );
+
+    assertEquals( observable.isActive(), true );
+
     observable.invariantLeastStaleObserverState();
   }
 
