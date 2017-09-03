@@ -459,8 +459,8 @@ public final class Observer
     if ( isDerivation() && isActive() )
     {
       Guards.invariant( () -> !getDerivedValue().getObservers().isEmpty(),
-                        () -> String.format( "Observer named '%s' is a derivation and active but the derived value has no observers.",
-                                             getName() ) );
+                        () -> String.format( "Observer named '%s' is a derivation and active but the derived " +
+                                             "value has no observers.", getName() ) );
     }
   }
 }
