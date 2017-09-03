@@ -668,6 +668,23 @@ public class ObservableTest
                   observable.getName() + "' when owner is inactive." );
   }
 
+  @Test
+  public void deactivate_noOwner()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observable::deactivate );
+
+    assertEquals( exception.getMessage(),
+                  "Invoked deactivate on observable named '" +
+                  observable.getName() + "' when owner is null." );
+  }
+
   private void setCurrentTransaction( final ArezContext context )
   {
     setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
