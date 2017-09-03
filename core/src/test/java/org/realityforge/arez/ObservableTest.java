@@ -751,6 +751,23 @@ public class ObservableTest
                   observable.getName() + "' when observable is already active." );
   }
 
+  @Test
+  public void activate_noOwner()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observable::activate );
+
+    assertEquals( exception.getMessage(),
+                  "Invoked activate on observable named '" +
+                  observable.getName() + "' when owner is null." );
+  }
+
   private void setCurrentTransaction( final ArezContext context )
   {
     setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
