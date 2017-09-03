@@ -1086,6 +1086,24 @@ public class TransactionTest
   }
 
   @Test
+  public void reportChanged_noObservers()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    context.setTransaction( transaction );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+
+    transaction.reportChanged( observable );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+  }
+
+  @Test
   public void reportChanged_singleUpToDateObserver()
   {
     final ArezContext context = new ArezContext();
