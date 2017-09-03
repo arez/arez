@@ -267,6 +267,28 @@ public class ObservableTest
   }
 
   @Test
+  public void removeObserver_whenNoSuchObserver()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    setCurrentTransaction( context, observer );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
+
+    assertEquals( observable.getObservers().size(), 0 );
+    assertEquals( observable.hasObservers(), false );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> observable.removeObserver( observer ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempting to remove observer named '" + observer.getName() + "' from observable named '" +
+                  observable.getName() + "' when observer is already observing observable." );
+  }
+
+  @Test
   public void setLeastStaleObserverState()
     throws Exception
   {
