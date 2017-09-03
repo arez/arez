@@ -444,5 +444,12 @@ public final class Observer
                             map( Node::getName ).
                             collect( Collectors.toList() ) ) );
     }
+    if ( isDerivation() )
+    {
+      Guards.invariant( () -> Objects.equals( getDerivedValue().getOwner(), this ),
+                        () -> String.format(
+                          "Observer named '%s' has a derived value that does not link back to observer.",
+                          getName() ) );
+    }
   }
 }
