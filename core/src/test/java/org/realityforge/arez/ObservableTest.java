@@ -228,6 +228,48 @@ public class ObservableTest
   }
 
   @Test
+  public void removeObserver_onDerivation()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    setCurrentTransaction( context, observer );
+
+    final Derivation derivation =
+      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+
+    assertEquals( observable.getObservers().size(), 0 );
+    assertEquals( observable.hasObservers(), false );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observable.getObservers().add( observer );
+    observer.getDependencies().add( observable );
+
+    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( observable.hasObservers(), true );
+    assertEquals( observable.hasObserver( observer ), true );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+
+    observable.removeObserver( observer );
+
+    assertEquals( observable.getObservers().size(), 0 );
+    assertEquals( observable.hasObservers(), false );
+    assertEquals( observable.hasObserver( observer ), false );
+    // It should be updated that it is not removeObserver that updates LeastStaleObserverState
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+
+    assertEquals( observable.isPendingDeactivation(), true );
+    final ArrayList<Observable> pendingDeactivations = context.getTransaction().getPendingDeactivations();
+    assertNotNull( pendingDeactivations );
+    assertEquals( pendingDeactivations.size(), 1 );
+    assertEquals( pendingDeactivations.contains( observable ), true );
+  }
+
+  @Test
   public void removeObserver_whenNoTransaction()
     throws Exception
   {
