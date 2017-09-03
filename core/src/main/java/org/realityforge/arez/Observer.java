@@ -426,6 +426,7 @@ public final class Observer
                                                        context,
                                                        getName(),
                                                        observable.getName() ) ) );
+      invariantDerivationState();
     }
   }
 
