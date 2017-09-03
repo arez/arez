@@ -267,12 +267,12 @@ public class Observable
     return _leastStaleObserverState;
   }
 
-  final void reportObserved()
+  public final void reportObserved()
   {
     getContext().getTransaction().observe( this );
   }
 
-  final void reportChanged()
+  public final void reportChanged()
   {
     getContext().getTransaction().reportChanged( this );
   }
