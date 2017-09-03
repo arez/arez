@@ -52,6 +52,21 @@ public class ObservableTest
   }
 
   @Test
+  public void lastTrackerTransactionId()
+    throws Exception
+  {
+    final TestObservable observable = new TestObservable( new ArezContext(), ValueUtil.randomString(), null );
+
+    assertEquals( observable.getWorkState(), 0 );
+    assertEquals( observable.getLastTrackerTransactionId(), 0 );
+
+    observable.setLastTrackerTransactionId( 23 );
+
+    assertEquals( observable.getLastTrackerTransactionId(), 23 );
+    assertEquals( observable.getWorkState(), 23 );
+  }
+
+  @Test
   public void addObserver()
     throws Exception
   {
