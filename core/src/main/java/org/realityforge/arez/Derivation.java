@@ -3,6 +3,9 @@ package org.realityforge.arez;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * TODO: This class should be removed/collapsed into Observer. Potentially we need another field so we can determine which Observers are calculated.
+ */
 public class Derivation
   extends Observer
 {
