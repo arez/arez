@@ -88,7 +88,7 @@ public final class Observer
   }
 
   @Nonnull
-  final Observable getDerivedValue()
+  Observable getDerivedValue()
   {
     Guards.invariant( this::isDerivation,
                       () -> String.format(
@@ -98,7 +98,7 @@ public final class Observer
     return _derivedValue;
   }
 
-  final boolean isDerivation()
+  boolean isDerivation()
   {
     /*
      * We do not use "null != _derivedValue" as it is called from constructor of observable
@@ -140,7 +140,7 @@ public final class Observer
    * @return the transaction mode in which the observer executes.
    */
   @Nonnull
-  final TransactionMode getMode()
+  TransactionMode getMode()
   {
     return _mode;
   }
@@ -151,7 +151,7 @@ public final class Observer
    * @return the reaction.
    */
   @Nullable
-  final Reaction getReaction()
+  Reaction getReaction()
   {
     return _reaction;
   }
@@ -161,7 +161,7 @@ public final class Observer
    *
    * @return true if Observer has an associated reaction.
    */
-  final boolean hasReaction()
+  boolean hasReaction()
   {
     return null != _reaction;
   }
@@ -176,7 +176,7 @@ public final class Observer
    *
    * @return true if the Observer is active.
    */
-  final boolean isActive()
+  boolean isActive()
   {
     return ObserverState.INACTIVE != getState();
   }
@@ -187,7 +187,7 @@ public final class Observer
    *
    * @return true if the Observer is inactive.
    */
-  final boolean isInactive()
+  boolean isInactive()
   {
     return !isActive();
   }
@@ -198,7 +198,7 @@ public final class Observer
    *
    * @param state the new state of the observer.
    */
-  final void setState( @Nonnull final ObserverState state )
+  void setState( @Nonnull final ObserverState state )
   {
     Guards.invariant( () -> getContext().isTransactionActive(),
                       () -> String.format(
@@ -236,7 +236,7 @@ public final class Observer
    *
    * @param hook the hook to run.
    */
-  final void runHook( @Nullable final Action hook, @Nonnull final ObserverError error )
+  void runHook( @Nullable final Action hook, @Nonnull final ObserverError error )
   {
     if ( null != hook )
     {
@@ -256,7 +256,7 @@ public final class Observer
    *
    * @param onActivate the hook.
    */
-  final void setOnActivate( @Nullable final Action onActivate )
+  void setOnActivate( @Nullable final Action onActivate )
   {
     _onActivate = onActivate;
   }
@@ -267,7 +267,7 @@ public final class Observer
    * @return the onActivate hook.
    */
   @Nullable
-  final Action getOnActivate()
+  Action getOnActivate()
   {
     return _onActivate;
   }
@@ -277,7 +277,7 @@ public final class Observer
    *
    * @param onDeactivate the hook.
    */
-  final void setOnDeactivate( @Nullable final Action onDeactivate )
+  void setOnDeactivate( @Nullable final Action onDeactivate )
   {
     _onDeactivate = onDeactivate;
   }
@@ -288,7 +288,7 @@ public final class Observer
    * @return the onDeactivate hook.
    */
   @Nullable
-  final Action getOnDeactivate()
+  Action getOnDeactivate()
   {
     return _onDeactivate;
   }
@@ -298,7 +298,7 @@ public final class Observer
    *
    * @param onStale the hook.
    */
-  final void setOnStale( @Nullable final Action onStale )
+  void setOnStale( @Nullable final Action onStale )
   {
     _onStale = onStale;
   }
@@ -309,7 +309,7 @@ public final class Observer
    * @return the onStale hook.
    */
   @Nullable
-  final Action getOnStale()
+  Action getOnStale()
   {
     return _onStale;
   }
@@ -317,7 +317,7 @@ public final class Observer
   /**
    * Remove all dependencies, removing this observer from all dependencies in the process.
    */
-  final void clearDependencies()
+  void clearDependencies()
   {
     getDependencies().forEach( dependency -> dependency.removeObserver( this ) );
     getDependencies().clear();
@@ -328,7 +328,7 @@ public final class Observer
    *
    * @return true if this observer has a pending reaction.
    */
-  final boolean isScheduled()
+  boolean isScheduled()
   {
     return _scheduled;
   }
@@ -336,7 +336,7 @@ public final class Observer
   /**
    * Clear the scheduled flag. This is called when the observer's reaction is executed so it can be scheduled again.
    */
-  final void clearScheduledFlag()
+  void clearScheduledFlag()
   {
     _scheduled = false;
   }
@@ -346,7 +346,7 @@ public final class Observer
    *
    * This method should not be invoked unless {@link #hasReaction()} returns true.
    */
-  final void schedule()
+  void schedule()
   {
     Guards.invariant( this::hasReaction,
                       () -> String.format(
@@ -369,7 +369,7 @@ public final class Observer
    * @return the dependencies.
    */
   @Nonnull
-  final ArrayList<Observable> getDependencies()
+  ArrayList<Observable> getDependencies()
   {
     return _dependencies;
   }
@@ -380,7 +380,7 @@ public final class Observer
    *
    * @param dependencies the new set of dependencies.
    */
-  final void replaceDependencies( @Nonnull final ArrayList<Observable> dependencies )
+  void replaceDependencies( @Nonnull final ArrayList<Observable> dependencies )
   {
     invariantDependenciesUnique( "Pre replaceDependencies" );
     _dependencies = Objects.requireNonNull( dependencies );
@@ -394,7 +394,7 @@ public final class Observer
    *
    * @param context some useful debugging context used in invariant checks.
    */
-  final void invariantDependenciesUnique( @Nonnull final String context )
+  void invariantDependenciesUnique( @Nonnull final String context )
   {
     // This invariant check should not be needed but this guarantees the (GWT) optimizer removes this code
     if ( ArezConfig.checkInvariants() )
@@ -414,7 +414,7 @@ public final class Observer
    *
    * @param context some useful debugging context used in invariant checks.
    */
-  final void invariantDependenciesBackLink( @Nonnull final String context )
+  void invariantDependenciesBackLink( @Nonnull final String context )
   {
     // This invariant check should not be needed but this guarantees the (GWT) optimizer removes this code
     if ( ArezConfig.checkInvariants() )
@@ -433,7 +433,7 @@ public final class Observer
   /**
    * Ensure that state field and other fields of the Observer are consistent.
    */
-  final void invariantState()
+  void invariantState()
   {
     if ( isInactive() )
     {
@@ -454,7 +454,7 @@ public final class Observer
     }
   }
 
-  final void invariantDerivationState()
+  void invariantDerivationState()
   {
     if ( isDerivation() && isActive() )
     {
