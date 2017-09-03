@@ -65,6 +65,20 @@ public class ObserverTest
   }
 
   @Test
+  public void initialStateForDerivation()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
+
+    assertEquals( observer.isDerivation(), true );
+
+    assertEquals( observer.getDerivedValue().getName(), observer.getName() );
+    assertEquals( observer.getDerivedValue().getOwner(), observer );
+  }
+
+  @Test
   public void initialState_whenSuppliedNoReaction()
     throws Exception
   {
