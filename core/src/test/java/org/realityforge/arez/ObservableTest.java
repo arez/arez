@@ -209,7 +209,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
+    setCurrentTransaction( context );
     final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
 
     observable.setLeastStaleObserverState( ObserverState.STALE );
@@ -231,7 +231,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
+    setCurrentTransaction( context );
 
     final Observer observer1 = new Observer( context, ValueUtil.randomString() );
     final Observer observer2 = new Observer( context, ValueUtil.randomString() );
@@ -270,7 +270,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
+    setCurrentTransaction( context );
 
     final Observer observer1 = new Observer( context, ValueUtil.randomString() );
     final Observer observer2 = new Observer( context, ValueUtil.randomString() );
@@ -302,6 +302,11 @@ public class ObservableTest
     observer3.getDependencies().add( observable );
 
     observable.invariantObserversLinked();
+  }
+
+  private void setCurrentTransaction( final ArezContext context )
+  {
+    setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
   }
 
   private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
