@@ -55,7 +55,7 @@ public abstract class AbstractArezTest
   }
 
   @Nonnull
-  protected final Field getField( @Nonnull final Class<?> type, @Nonnull final String fieldName )
+  final Field getField( @Nonnull final Class<?> type, @Nonnull final String fieldName )
     throws NoSuchFieldException
   {
     Class clazz = type;
@@ -77,20 +77,17 @@ public abstract class AbstractArezTest
     throw new IllegalStateException();
   }
 
-  protected final void setField( @Nonnull final Object object,
-                                 @Nonnull final String fieldName,
-                                 @Nullable final Object value )
+  final void setField( @Nonnull final Object object, @Nonnull final String fieldName, @Nullable final Object value )
     throws NoSuchFieldException, IllegalAccessException
   {
     getField( object.getClass(), fieldName ).set( object, value );
   }
 
-
   /**
    * Typically called to stop observer from being deactivate or stop invariant checks failing.
    */
   @Nonnull
-  protected Observer ensureDerivationHasObserver( @Nonnull final Observer observer )
+  final Observer ensureDerivationHasObserver( @Nonnull final Observer observer )
   {
     final Observer randomObserver = new Observer( observer.getContext(), ValueUtil.randomString() );
     observer.getDerivedValue().addObserver( randomObserver );
