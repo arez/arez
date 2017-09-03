@@ -550,6 +550,23 @@ public class ObserverTest
     assertEquals( observer.getState(), ObserverState.INACTIVE );
   }
 
+  @Test
+  public void getDerivedValue_throwsExceptionWhenNotDerived()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+
+    assertEquals( observer.isDerivation(), false );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::getDerivedValue );
+
+    assertEquals( exception.getMessage(),
+                  "Attempted to invoke getDerivedValue on observer named '" + observer.getName() +
+                  "' when is not a computed observer." );
+  }
+
   private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
     context.setTransaction( new Transaction( context,
