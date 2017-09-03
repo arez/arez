@@ -150,7 +150,7 @@ public class TransactionTest
   }
 
   @Test
-  public void beginTracking()
+  public void beginTracking_firstTracking()
   {
     final ArezContext context = new ArezContext();
     final Observer tracker = newDerivation( context );
