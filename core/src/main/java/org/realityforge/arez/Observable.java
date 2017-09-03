@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 
-public class Observable
+public final class Observable
   extends Node
 {
   /**
@@ -70,38 +70,38 @@ public class Observable
     }
   }
 
-  final void resetPendingDeactivation()
+  void resetPendingDeactivation()
   {
     _pendingDeactivation = false;
   }
 
-  final int getLastTrackerTransactionId()
+  int getLastTrackerTransactionId()
   {
     return _workState;
   }
 
-  final void setLastTrackerTransactionId( final int lastTrackerTransactionId )
+  void setLastTrackerTransactionId( final int lastTrackerTransactionId )
   {
     _workState = lastTrackerTransactionId;
   }
 
-  final boolean isInCurrentTracking()
+  boolean isInCurrentTracking()
   {
     return IN_CURRENT_TRACKING == _workState;
   }
 
-  final void putInCurrentTracking()
+  void putInCurrentTracking()
   {
     _workState = IN_CURRENT_TRACKING;
   }
 
-  final void removeFromCurrentTracking()
+  void removeFromCurrentTracking()
   {
     _workState = NOT_IN_CURRENT_TRACKING;
   }
 
   @Nullable
-  final Observer getOwner()
+  Observer getOwner()
   {
     return _owner;
   }
@@ -109,7 +109,7 @@ public class Observable
   /**
    * Return true if this observable can deactivate when it is no longer observable and activate when it is observable again.
    */
-  final boolean canDeactivate()
+  boolean canDeactivate()
   {
     return isCalculated();
   }
@@ -117,7 +117,7 @@ public class Observable
   /**
    * Return true if this observable is derived from an observer.
    */
-  final boolean isCalculated()
+  boolean isCalculated()
   {
     return null != _owner;
   }
@@ -125,7 +125,7 @@ public class Observable
   /**
    * Return true if observable is notifying observers.
    */
-  final boolean isActive()
+  boolean isActive()
   {
     return null == _owner || _owner.isActive();
   }
@@ -136,7 +136,7 @@ public class Observable
    * with generating values. (i.e. remove observers on any observables that are used to compute the
    * value of this observable).
    */
-  final void deactivate()
+  void deactivate()
   {
     Guards.invariant( () -> getContext().isTransactionActive(),
                       () -> String.format(
@@ -156,7 +156,7 @@ public class Observable
    * Activate the observable.
    * The reverse of {@link #deactivate()}.
    */
-  final void activate()
+  void activate()
   {
     Guards.invariant( () -> getContext().isTransactionActive(),
                       () -> String.format(
@@ -174,22 +174,22 @@ public class Observable
   }
 
   @Nonnull
-  final ArrayList<Observer> getObservers()
+  ArrayList<Observer> getObservers()
   {
     return _observers;
   }
 
-  final boolean hasObservers()
+  boolean hasObservers()
   {
     return getObservers().size() > 0;
   }
 
-  final boolean hasObserver( @Nonnull final Observer observer )
+  boolean hasObserver( @Nonnull final Observer observer )
   {
     return getObservers().contains( observer );
   }
 
-  final void addObserver( @Nonnull final Observer observer )
+  void addObserver( @Nonnull final Observer observer )
   {
     Guards.invariant( () -> getContext().isTransactionActive(),
                       () -> String.format(
@@ -210,7 +210,7 @@ public class Observable
     }
   }
 
-  final void removeObserver( @Nonnull final Observer observer )
+  void removeObserver( @Nonnull final Observer observer )
   {
     Guards.invariant( () -> getContext().isTransactionActive(),
                       () -> String.format(
@@ -231,7 +231,7 @@ public class Observable
     invariantObserversLinked();
   }
 
-  final void queueForDeactivation()
+  void queueForDeactivation()
   {
     Guards.invariant( () -> getContext().isTransactionActive(),
                       () -> String.format(
@@ -252,7 +252,7 @@ public class Observable
     }
   }
 
-  final void setLeastStaleObserverState( @Nonnull final ObserverState leastStaleObserverState )
+  void setLeastStaleObserverState( @Nonnull final ObserverState leastStaleObserverState )
   {
     Guards.invariant( () -> getContext().isTransactionActive(),
                       () -> String.format(
@@ -267,27 +267,27 @@ public class Observable
     return _leastStaleObserverState;
   }
 
-  public final void reportObserved()
+  public void reportObserved()
   {
     getContext().getTransaction().observe( this );
   }
 
-  public final void reportChanged()
+  public void reportChanged()
   {
     getContext().getTransaction().reportChanged( this );
   }
 
-  final void reportChangeConfirmed()
+  void reportChangeConfirmed()
   {
     getContext().getTransaction().reportChangeConfirmed( this );
   }
 
-  final void reportPossiblyChanged()
+  void reportPossiblyChanged()
   {
     getContext().getTransaction().reportPossiblyChanged( this );
   }
 
-  final void invariantOwner()
+  void invariantOwner()
   {
     if ( null != _owner )
     {
@@ -297,7 +297,7 @@ public class Observable
     }
   }
 
-  final void invariantObserversLinked()
+  void invariantObserversLinked()
   {
     getObservers().forEach( observer ->
                               Guards.invariant( () -> observer.getDependencies().contains( this ),
@@ -307,7 +307,7 @@ public class Observable
                                                   observer.getName() ) ) );
   }
 
-  final void invariantLeastStaleObserverState()
+  void invariantLeastStaleObserverState()
   {
     final ObserverState leastStaleObserverState =
       getObservers().stream().
@@ -321,19 +321,19 @@ public class Observable
   }
 
   @TestOnly
-  final boolean isPendingDeactivation()
+  boolean isPendingDeactivation()
   {
     return _pendingDeactivation;
   }
 
   @TestOnly
-  final int getWorkState()
+  int getWorkState()
   {
     return _workState;
   }
 
   @TestOnly
-  final void markAsPendingDeactivation()
+  void markAsPendingDeactivation()
   {
     _pendingDeactivation = true;
   }
