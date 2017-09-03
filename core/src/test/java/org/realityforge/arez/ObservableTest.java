@@ -15,7 +15,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final String name = ValueUtil.randomString();
-    final Observable observable = new Observable( context, name, null );
+    final Observable observable = new Observable( context, name );
     assertEquals( observable.getName(), name );
     assertEquals( observable.getContext(), context );
     assertEquals( observable.toString(), name );
@@ -81,7 +81,7 @@ public class ObservableTest
   public void currentTrackingWorkValue()
     throws Exception
   {
-    final Observable observable = new Observable( new ArezContext(), ValueUtil.randomString(), null );
+    final Observable observable = new Observable( new ArezContext(), ValueUtil.randomString() );
 
     assertEquals( observable.getWorkState(), 0 );
     assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
@@ -102,7 +102,7 @@ public class ObservableTest
   public void lastTrackerTransactionId()
     throws Exception
   {
-    final Observable observable = new Observable( new ArezContext(), ValueUtil.randomString(), null );
+    final Observable observable = new Observable( new ArezContext(), ValueUtil.randomString() );
 
     assertEquals( observable.getWorkState(), 0 );
     assertEquals( observable.getLastTrackerTransactionId(), 0 );
@@ -121,7 +121,7 @@ public class ObservableTest
     final Observer observer = new Observer( context, ValueUtil.randomString() );
     setCurrentTransaction( context, observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -146,7 +146,7 @@ public class ObservableTest
     final Observer observer = new Observer( context, ValueUtil.randomString() );
     setCurrentTransaction( context, observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
     observable.setLeastStaleObserverState( ObserverState.STALE );
 
     observer.setState( ObserverState.POSSIBLY_STALE );
@@ -166,7 +166,7 @@ public class ObservableTest
     final Observer observer = new Observer( context, ValueUtil.randomString() );
     setCurrentTransaction( context, observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -200,7 +200,7 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     final Observer observer = new Observer( context, ValueUtil.randomString() );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
@@ -223,7 +223,7 @@ public class ObservableTest
     final Observer observer = new Observer( context, ValueUtil.randomString() );
     setCurrentTransaction( context, observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -298,7 +298,7 @@ public class ObservableTest
     final Observer observer = new Observer( context, ValueUtil.randomString() );
     setCurrentTransaction( context, observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -337,7 +337,7 @@ public class ObservableTest
     final Observer observer = new Observer( context, ValueUtil.randomString() );
     setCurrentTransaction( context, observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -358,7 +358,7 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     final Observer observer = new Observer( context, ValueUtil.randomString() );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
     setCurrentTransaction( context, observer );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
