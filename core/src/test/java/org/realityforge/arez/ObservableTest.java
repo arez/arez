@@ -705,6 +705,31 @@ public class ObservableTest
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
   }
 
+  @Test
+  public void activate_outsideTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Derivation derivation =
+      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    derivation.setState( ObserverState.INACTIVE );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+
+    assertEquals( derivation.getState(), ObserverState.INACTIVE );
+
+    context.setTransaction( null );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observable::activate );
+
+    assertEquals( exception.getMessage(),
+                  "Attempt to invoke activate on observable named '" +
+                  observable.getName() + "' when there is no active transaction." );
+  }
+
   private void setCurrentTransaction( final ArezContext context )
   {
     setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
