@@ -61,6 +61,23 @@ public class ObservableTest
   }
 
   @Test
+  public void ownerMustBeADerivation()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+    final Observer owner =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+
+    final String name = ValueUtil.randomString();
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> new Observable( context, name, owner ) );
+
+    assertEquals( exception.getMessage(),
+                  "Observable named '" + name + "' has owner specified but owner is not a derivation." );
+  }
+
+  @Test
   public void currentTrackingWorkValue()
     throws Exception
   {
