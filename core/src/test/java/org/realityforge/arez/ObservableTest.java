@@ -376,6 +376,31 @@ public class ObservableTest
   }
 
   @Test
+  public void queueForDeactivation_whenNoTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Derivation derivation =
+      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    derivation.setState( ObserverState.UP_TO_DATE );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
+
+    assertEquals( observable.isPendingDeactivation(), false );
+
+    context.setTransaction( null );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observable::queueForDeactivation );
+
+    assertEquals( exception.getMessage(),
+                  "Attempt to invoke queueForDeactivation on observable named '" +
+                  observable.getName() + "' when there is no active transaction." );
+  }
+
+  @Test
   public void queueForDeactivation_observableIsNotAbleToBeDeactivated()
     throws Exception
   {
