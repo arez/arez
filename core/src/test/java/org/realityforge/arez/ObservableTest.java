@@ -730,6 +730,27 @@ public class ObservableTest
                   observable.getName() + "' when there is no active transaction." );
   }
 
+  @Test
+  public void activate_ownerInactive()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Derivation derivation =
+      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    derivation.setState( ObserverState.UP_TO_DATE );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observable::activate );
+
+    assertEquals( exception.getMessage(),
+                  "Invoked activate on observable named '" +
+                  observable.getName() + "' when observable is already active." );
+  }
+
   private void setCurrentTransaction( final ArezContext context )
   {
     setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
