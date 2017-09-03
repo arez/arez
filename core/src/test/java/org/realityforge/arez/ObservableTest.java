@@ -768,6 +768,25 @@ public class ObservableTest
                   observable.getName() + "' when owner is null." );
   }
 
+  @Test
+  public void reportObserved()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+
+    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
+
+    observable.reportObserved();
+
+    assertEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertEquals( context.getTransaction().safeGetObservables().size(), 1 );
+    assertEquals( context.getTransaction().safeGetObservables().contains( observable ), true );
+  }
+
   private void setCurrentTransaction( final ArezContext context )
   {
     setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
