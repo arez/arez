@@ -68,11 +68,6 @@ public abstract class Observable
     _pendingDeactivation = false;
   }
 
-  final void reportObserved()
-  {
-    getContext().getTransaction().observe( this );
-  }
-
   final int getLastTrackerTransactionId()
   {
     return _workState;
@@ -255,6 +250,11 @@ public abstract class Observable
   final ObserverState getLeastStaleObserverState()
   {
     return _leastStaleObserverState;
+  }
+
+  final void reportObserved()
+  {
+    getContext().getTransaction().observe( this );
   }
 
   // Called by Atom when its value changes
