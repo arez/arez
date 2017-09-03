@@ -354,6 +354,27 @@ public class ObservableTest
     assertEquals( pendingDeactivations.contains( observable ), true );
   }
 
+  @Test
+  public void queueForDeactivation_whereAlreadyPending()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Derivation derivation =
+      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    derivation.setState( ObserverState.UP_TO_DATE );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
+
+    observable.setPendingDeactivation( true );
+
+    observable.queueForDeactivation();
+
+    // No activation pending
+    assertNull( context.getTransaction().getPendingDeactivations() );
+  }
+
   private void setCurrentTransaction( final ArezContext context )
   {
     setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
