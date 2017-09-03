@@ -227,6 +227,45 @@ public class ObservableTest
     observable.invariantLeastStaleObserverState();
   }
 
+  @Test
+  public void invariantObserversLinked()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
+
+    final Observer observer1 = new Observer( context, ValueUtil.randomString() );
+    final Observer observer2 = new Observer( context, ValueUtil.randomString() );
+    final Observer observer3 = new Observer( context, ValueUtil.randomString() );
+
+    observer1.setState( ObserverState.UP_TO_DATE );
+    observer2.setState( ObserverState.POSSIBLY_STALE );
+    observer3.setState( ObserverState.STALE );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    observer1.getDependencies().add( observable );
+    observer2.getDependencies().add( observable );
+    //observer3.getDependencies().add( observable );
+
+    observable.addObserver( observer1 );
+    observable.addObserver( observer2 );
+    observable.addObserver( observer3 );
+
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observable::invariantObserversLinked );
+
+    assertEquals( exception.getMessage(),
+                  "Observable named '" + observable.getName() + "' has observer named '" +
+                  observer3.getName() + "' which does not contain observable as dependency." );
+
+    observer3.getDependencies().add( observable );
+
+    observable.invariantObserversLinked();
+  }
+
   private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
     context.setTransaction( new Transaction( context,
