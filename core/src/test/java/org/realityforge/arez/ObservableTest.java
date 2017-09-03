@@ -446,6 +446,27 @@ public class ObservableTest
                   observable.getName() + "' but observable has observers." );
   }
 
+  @Test
+  public void resetPendingDeactivation()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Derivation derivation =
+      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    derivation.setState( ObserverState.UP_TO_DATE );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
+    observable.setPendingDeactivation( true );
+
+    assertEquals( observable.isPendingDeactivation(), true );
+
+    observable.resetPendingDeactivation();
+
+    assertEquals( observable.isPendingDeactivation(), false );
+  }
+
   private void setCurrentTransaction( final ArezContext context )
   {
     setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
