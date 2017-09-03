@@ -37,6 +37,25 @@ public class ObservableTest
   }
 
   @Test
+  public void initialStateForCalculatedObservable()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+    final Derivation derivation =
+      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    derivation.setState( ObserverState.UP_TO_DATE );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
+    assertEquals( observable.getOwner(), derivation );
+    assertEquals( observable.canDeactivate(), true );
+
+    assertEquals( observable.isActive(), true );
+
+    observable.invariantLeastStaleObserverState();
+  }
+
+  @Test
   public void currentTrackingWorkValue()
     throws Exception
   {
