@@ -1,5 +1,6 @@
 package org.realityforge.arez;
 
+import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -327,6 +328,30 @@ public class ObservableTest
     observer3.getDependencies().add( observable );
 
     observable.invariantObserversLinked();
+  }
+
+  @Test
+  public void queueForDeactivation()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Derivation derivation =
+      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    derivation.setState( ObserverState.UP_TO_DATE );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
+
+    assertEquals( observable.isPendingDeactivation(), false );
+
+    observable.queueForDeactivation();
+
+    assertEquals( observable.isPendingDeactivation(), true );
+    final ArrayList<Observable> pendingDeactivations = context.getTransaction().getPendingDeactivations();
+    assertNotNull( pendingDeactivations );
+    assertEquals( pendingDeactivations.size(), 1 );
+    assertEquals( pendingDeactivations.contains( observable ), true );
   }
 
   private void setCurrentTransaction( final ArezContext context )
