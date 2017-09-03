@@ -166,6 +166,31 @@ public class TransactionTest
   }
 
   @Test
+  public void beginTracking()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = newDerivation( context );
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    context.setTransaction( transaction );
+
+    ensureDerivationHasObserver( tracker );
+
+    tracker.setState( ObserverState.STALE );
+    assertEquals( tracker.getState(), ObserverState.STALE );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    observable.setLeastStaleObserverState( ObserverState.STALE );
+    tracker.getDependencies().add( observable );
+    observable.addObserver( tracker );
+
+    transaction.beginTracking();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+  }
+
+  @Test
   public void observe()
   {
     final ArezContext context = new ArezContext();
