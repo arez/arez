@@ -685,6 +685,26 @@ public class ObservableTest
                   observable.getName() + "' when owner is null." );
   }
 
+  @Test
+  public void activate()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Derivation derivation =
+      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    derivation.setState( ObserverState.INACTIVE );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+
+    assertEquals( derivation.getState(), ObserverState.INACTIVE );
+
+    observable.activate();
+
+    assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
+  }
+
   private void setCurrentTransaction( final ArezContext context )
   {
     setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
