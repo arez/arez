@@ -841,6 +841,35 @@ public class ObservableTest
     assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
   }
 
+  @Test
+  public void reportChangeConfirmed()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE, new TestReaction() );
+    setCurrentTransaction( context, observer );
+
+    observer.setState( ObserverState.POSSIBLY_STALE );
+
+    final Derivation derivation =
+      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    derivation.setState( ObserverState.UP_TO_DATE );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+
+    observable.addObserver( observer );
+    observer.getDependencies().add( observable );
+
+    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
+
+    observable.reportChangeConfirmed();
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+  }
+
   private void setCurrentTransaction( final ArezContext context )
   {
     setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
