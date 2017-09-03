@@ -151,7 +151,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
 
