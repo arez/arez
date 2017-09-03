@@ -121,7 +121,7 @@ public abstract class Observable
    * with generating values. (i.e. remove observers on any observables that are used to compute the
    * value of this observable).
    */
-  protected void deactivate()
+  final void deactivate()
   {
     Guards.invariant( () -> getContext().isTransactionActive(),
                       () -> String.format(
@@ -141,7 +141,7 @@ public abstract class Observable
    * Activate the observable.
    * The reverse of {@link #deactivate()}.
    */
-  protected void activate()
+  final void activate()
   {
     Guards.invariant( () -> getContext().isTransactionActive(),
                       () -> String.format(
