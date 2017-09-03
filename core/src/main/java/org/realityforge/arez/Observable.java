@@ -2,6 +2,7 @@ package org.realityforge.arez;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
@@ -284,6 +285,16 @@ public class Observable
   final void reportPossiblyChanged()
   {
     getContext().getTransaction().reportPossiblyChanged( this );
+  }
+
+  final void invariantOwner()
+  {
+    if ( null != _owner )
+    {
+      Guards.invariant( () -> Objects.equals( _owner.getDerivedValue(), this ),
+                        () -> String.format( "Observable named '%s' has owner specified but owner does not link to " +
+                                             "observable as derived value.", getName() ) );
+    }
   }
 
   final void invariantObserversLinked()
