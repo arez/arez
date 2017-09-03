@@ -449,6 +449,26 @@ public class ObservableTest
   }
 
   @Test
+  public void invariantOwner_badObservableLink()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString(), observer );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observable::invariantOwner );
+
+    assertEquals( exception.getMessage(),
+                  "Observable named '" + observable.getName() + "' has owner specified but owner " +
+                  "does not link to observable as derived value." );
+  }
+
+  @Test
   public void invariantObserversLinked()
     throws Exception
   {
