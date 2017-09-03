@@ -257,19 +257,16 @@ public abstract class Observable
     getContext().getTransaction().observe( this );
   }
 
-  // Called by Atom when its value changes
   final void reportChanged()
   {
     getContext().getTransaction().reportChanged( this );
   }
 
-  // Called by ComputedValue when it recalculate and its value changed
   final void reportChangeConfirmed()
   {
     getContext().getTransaction().reportChangeConfirmed( this );
   }
 
-  // Used by computed when its dependency changed, but we don't wan't to immediately recompute.
   final void reportPossiblyChanged()
   {
     getContext().getTransaction().reportPossiblyChanged( this );
