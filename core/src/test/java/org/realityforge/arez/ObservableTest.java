@@ -603,6 +603,26 @@ public class ObservableTest
     assertEquals( observable.isPendingDeactivation(), false );
   }
 
+  @Test
+  public void deactivate()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Derivation derivation =
+      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    derivation.setState( ObserverState.UP_TO_DATE );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+
+    assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
+
+    observable.deactivate();
+
+    assertEquals( derivation.getState(), ObserverState.INACTIVE );
+  }
+
   private void setCurrentTransaction( final ArezContext context )
   {
     setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
