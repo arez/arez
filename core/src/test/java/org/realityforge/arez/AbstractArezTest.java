@@ -89,10 +89,12 @@ public abstract class AbstractArezTest
   /**
    * Typically called to stop observer from being deactivate or stop invariant checks failing.
    */
-  protected void ensureDerivationHasObserver( @Nonnull final Observer observer )
+  @Nonnull
+  protected Observer ensureDerivationHasObserver( @Nonnull final Observer observer )
   {
     final Observer randomObserver = new Observer( observer.getContext(), ValueUtil.randomString() );
     observer.getDerivedValue().addObserver( randomObserver );
     randomObserver.getDependencies().add( observer.getDerivedValue() );
+    return observer;
   }
 }
