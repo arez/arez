@@ -280,7 +280,7 @@ public abstract class Observable
     getObservers().forEach( observer ->
                               Guards.invariant( () -> observer.getDependencies().contains( this ),
                                                 () -> String.format(
-                                                  "Observable named '%s' has observer named '%s' which does not contain observerable as dependency.",
+                                                  "Observable named '%s' has observer named '%s' which does not contain observable as dependency.",
                                                   getName(),
                                                   observer.getName() ) ) );
   }
