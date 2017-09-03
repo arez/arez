@@ -22,6 +22,11 @@ public class ObservableTest
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
 
+    //All the same stuff
+    assertEquals( observable.getLastTrackerTransactionId(), 0 );
+    assertEquals( observable.getWorkState(), 0 );
+    assertEquals( observable.isInCurrentTracking(), false );
+
     observable.invariantLeastStaleObserverState();
   }
 
