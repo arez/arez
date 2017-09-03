@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 /**
  * A node within Arez that is notified of changes in 0 or more Observables.
  */
-public class Observer
+public final class Observer
   extends Node
 {
   /**
@@ -58,6 +58,11 @@ public class Observer
    */
   @Nullable
   private final Reaction _reaction;
+  /**
+   * The memoized observable value created by observer if any.
+   */
+  @Nullable
+  private final Observable _derivedValue;
 
   Observer( @Nonnull final ArezContext context, @Nullable final String name )
   {
@@ -72,6 +77,34 @@ public class Observer
     super( context, name );
     _mode = Objects.requireNonNull( mode );
     _reaction = reaction;
+    if ( TransactionMode.READ_WRITE_OWNED == mode )
+    {
+      _derivedValue = new Observable( context, name, this );
+    }
+    else
+    {
+      _derivedValue = null;
+    }
+  }
+
+  @Nonnull
+  final Observable getDerivedValue()
+  {
+    Guards.invariant( this::isDerivation,
+                      () -> String.format(
+                        "Attempted to invoke getDerivedValue on observer named '%s' when is not a computed observer.",
+                        getName() ) );
+    assert null != _derivedValue;
+    return _derivedValue;
+  }
+
+  final boolean isDerivation()
+  {
+    /*
+     * We do not use "null != _derivedValue" as it is called from constructor of observable
+     * prior to assigning it to _derivedValue.
+     */
+    return TransactionMode.READ_WRITE_OWNED == getMode();
   }
 
   /**

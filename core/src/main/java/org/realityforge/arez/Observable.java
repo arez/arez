@@ -50,17 +50,23 @@ public class Observable
    * The observer that created this observable if any.
    */
   @Nullable
-  private final Derivation _owner;
+  private final Observer _owner;
 
   Observable( @Nonnull final ArezContext context, @Nullable final String name )
   {
     this( context, name, null );
   }
 
-  Observable( @Nonnull final ArezContext context, @Nullable final String name, @Nullable final Derivation owner )
+  Observable( @Nonnull final ArezContext context, @Nullable final String name, @Nullable final Observer owner )
   {
     super( context, name );
     _owner = owner;
+    if ( null != _owner )
+    {
+      Guards.invariant( _owner::isDerivation,
+                        () -> String.format( "Observable named '%s' has owner specified but owner is not a derivation.",
+                                             getName() ) );
+    }
   }
 
   final void resetPendingDeactivation()
@@ -94,7 +100,7 @@ public class Observable
   }
 
   @Nullable
-  final Derivation getOwner()
+  final Observer getOwner()
   {
     return _owner;
   }

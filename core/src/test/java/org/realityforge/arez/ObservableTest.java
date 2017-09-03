@@ -45,11 +45,11 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
     assertEquals( observable.getOwner(), derivation );
     assertEquals( observable.canDeactivate(), true );
 
@@ -239,10 +239,10 @@ public class ObservableTest
     final Observer observer = new Observer( context, ValueUtil.randomString() );
     setCurrentTransaction( context, observer );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -477,11 +477,11 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
 
     assertEquals( observable.isPendingDeactivation(), false );
 
@@ -501,11 +501,11 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
 
     observable.markAsPendingDeactivation();
 
@@ -522,11 +522,11 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
 
     assertEquals( observable.isPendingDeactivation(), false );
 
@@ -566,11 +566,11 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
 
     assertEquals( observable.isPendingDeactivation(), false );
 
@@ -593,11 +593,11 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
     observable.markAsPendingDeactivation();
 
     assertEquals( observable.isPendingDeactivation(), true );
@@ -614,11 +614,11 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
 
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
 
@@ -634,11 +634,11 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
 
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
 
@@ -659,10 +659,10 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observable::deactivate );
@@ -696,11 +696,11 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
     derivation.setState( ObserverState.INACTIVE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
 
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
 
@@ -716,11 +716,11 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
     derivation.setState( ObserverState.INACTIVE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
 
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
 
@@ -741,11 +741,11 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observable::activate );
@@ -827,11 +827,11 @@ public class ObservableTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     observable.addObserver( observer );
@@ -856,11 +856,11 @@ public class ObservableTest
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 
-    final Derivation derivation =
-      new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer derivation =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = derivation.getDerivedValue();
     observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
     observable.addObserver( observer );
