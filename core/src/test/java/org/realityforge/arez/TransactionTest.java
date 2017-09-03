@@ -678,7 +678,7 @@ public class TransactionTest
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
-    ensureDerivationHasObserver( tracker );
+    final Observer observer = ensureDerivationHasObserver( tracker );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.STALE );
@@ -690,6 +690,8 @@ public class TransactionTest
 
     final ArrayList<Observable> dependencies = tracker.getDependencies();
 
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), ObserverState.STALE );
@@ -697,6 +699,9 @@ public class TransactionTest
     assertEquals( tracker.getDependencies().size(), 1 );
     assertEquals( tracker.getDependencies().contains( observable ), true );
     assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+
+    // Make sure the derivation observer has state updated
+    assertEquals( observer.getState(), ObserverState.STALE );
 
     observable.invariantLeastStaleObserverState();
   }
