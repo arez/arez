@@ -6,7 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 
-public abstract class Observable
+public class Observable
   extends Node
 {
   /**

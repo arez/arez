@@ -286,7 +286,7 @@ public class ReactionSchedulerTest
         reactions[ i ] = new TestReaction();
       }
       observers[ i ] = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reactions[ i ] );
-      observables[ i ] = new TestObservable( context, ValueUtil.randomString() );
+      observables[ i ] = new Observable( context, ValueUtil.randomString() );
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
       observables[ i ].addObserver( observers[ i ] );
@@ -380,7 +380,7 @@ public class ReactionSchedulerTest
       }
     };
     final Observer toSchedule = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     toSchedule.setState( ObserverState.UP_TO_DATE );
     observable.addObserver( toSchedule );
@@ -439,7 +439,7 @@ public class ReactionSchedulerTest
       }
     };
     final Observer toSchedule = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     toSchedule.setState( ObserverState.UP_TO_DATE );
     observable.addObserver( toSchedule );
@@ -505,7 +505,7 @@ public class ReactionSchedulerTest
         reactions[ i ] = new TestReaction();
       }
       observers[ i ] = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reactions[ i ] );
-      observables[ i ] = new TestObservable( context, ValueUtil.randomString() );
+      observables[ i ] = new Observable( context, ValueUtil.randomString() );
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
       observables[ i ].addObserver( observers[ i ] );

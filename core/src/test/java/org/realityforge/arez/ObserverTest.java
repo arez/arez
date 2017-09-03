@@ -84,7 +84,7 @@ public class ObserverTest
     final Observer observer = new Observer( context, ValueUtil.randomString() );
     setCurrentTransaction( context, observer );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
     observer.getDependencies().add( observable );
 
     final IllegalStateException exception =
@@ -108,7 +108,7 @@ public class ObserverTest
     final ArezContext context = new ArezContext();
     final Observer observer = new Observer( context, ValueUtil.randomString() );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     observer.getDependencies().add( observable );
 
@@ -134,7 +134,7 @@ public class ObserverTest
 
     observer.invariantState();
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
     observer.getDependencies().add( observable );
 
     final IllegalStateException exception =
@@ -159,7 +159,7 @@ public class ObserverTest
 
     assertEquals( originalDependencies.isEmpty(), true );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     final ArrayList<Observable> newDependencies = new ArrayList<>();
     newDependencies.add( observable );
@@ -186,7 +186,7 @@ public class ObserverTest
 
     assertEquals( originalDependencies.isEmpty(), true );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     final ArrayList<Observable> newDependencies = new ArrayList<>();
     newDependencies.add( observable );
@@ -210,7 +210,7 @@ public class ObserverTest
 
     assertEquals( originalDependencies.isEmpty(), true );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     final ArrayList<Observable> newDependencies = new ArrayList<>();
     newDependencies.add( observable );
@@ -228,8 +228,8 @@ public class ObserverTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
-    final TestObservable observable2 = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable1 = new Observable( context, ValueUtil.randomString() );
+    final Observable observable2 = new Observable( context, ValueUtil.randomString() );
 
     observer.getDependencies().add( observable1 );
     observer.getDependencies().add( observable2 );
@@ -372,8 +372,8 @@ public class ObserverTest
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 2 );
 
-    final TestObservable observable1 = new TestObservable( context, ValueUtil.randomString() );
-    final TestObservable observable2 = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable1 = new Observable( context, ValueUtil.randomString() );
+    final Observable observable2 = new Observable( context, ValueUtil.randomString() );
 
     observer.getDependencies().add( observable1 );
     observer.getDependencies().add( observable2 );

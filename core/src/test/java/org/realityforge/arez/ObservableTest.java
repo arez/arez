@@ -15,7 +15,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final String name = ValueUtil.randomString();
-    final TestObservable observable = new TestObservable( context, name, null );
+    final Observable observable = new Observable( context, name, null );
     assertEquals( observable.getName(), name );
     assertEquals( observable.getContext(), context );
     assertEquals( observable.toString(), name );
@@ -47,7 +47,7 @@ public class ObservableTest
       new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
     assertEquals( observable.getOwner(), derivation );
     assertEquals( observable.canDeactivate(), true );
 
@@ -60,7 +60,7 @@ public class ObservableTest
   public void currentTrackingWorkValue()
     throws Exception
   {
-    final TestObservable observable = new TestObservable( new ArezContext(), ValueUtil.randomString(), null );
+    final Observable observable = new Observable( new ArezContext(), ValueUtil.randomString(), null );
 
     assertEquals( observable.getWorkState(), 0 );
     assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
@@ -81,7 +81,7 @@ public class ObservableTest
   public void lastTrackerTransactionId()
     throws Exception
   {
-    final TestObservable observable = new TestObservable( new ArezContext(), ValueUtil.randomString(), null );
+    final Observable observable = new Observable( new ArezContext(), ValueUtil.randomString(), null );
 
     assertEquals( observable.getWorkState(), 0 );
     assertEquals( observable.getLastTrackerTransactionId(), 0 );
@@ -100,7 +100,7 @@ public class ObservableTest
     final Observer observer = new Observer( context, ValueUtil.randomString() );
     setCurrentTransaction( context, observer );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
+    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -125,7 +125,7 @@ public class ObservableTest
     final Observer observer = new Observer( context, ValueUtil.randomString() );
     setCurrentTransaction( context, observer );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
+    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
     observable.setLeastStaleObserverState( ObserverState.STALE );
 
     observer.setState( ObserverState.POSSIBLY_STALE );
@@ -145,7 +145,7 @@ public class ObservableTest
     final Observer observer = new Observer( context, ValueUtil.randomString() );
     setCurrentTransaction( context, observer );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
+    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -179,7 +179,7 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     final Observer observer = new Observer( context, ValueUtil.randomString() );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
+    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
@@ -201,7 +201,7 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     final Observer observer = new Observer( context, ValueUtil.randomString() );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), null );
+    final Observable observable = new Observable( context, ValueUtil.randomString(), null );
     setCurrentTransaction( context, observer );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
@@ -215,7 +215,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
 
@@ -236,7 +236,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     observable.setLeastStaleObserverState( ObserverState.STALE );
 
@@ -267,7 +267,7 @@ public class ObservableTest
     observer2.setState( ObserverState.POSSIBLY_STALE );
     observer3.setState( ObserverState.STALE );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     observer1.getDependencies().add( observable );
     observer2.getDependencies().add( observable );
@@ -306,7 +306,7 @@ public class ObservableTest
     observer2.setState( ObserverState.POSSIBLY_STALE );
     observer3.setState( ObserverState.STALE );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     observer1.getDependencies().add( observable );
     observer2.getDependencies().add( observable );
@@ -341,7 +341,7 @@ public class ObservableTest
       new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
 
     assertEquals( observable.isPendingDeactivation(), false );
 
@@ -365,7 +365,7 @@ public class ObservableTest
       new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
 
     observable.setPendingDeactivation( true );
 
@@ -386,7 +386,7 @@ public class ObservableTest
       new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
 
     assertEquals( observable.isPendingDeactivation(), false );
 
@@ -407,7 +407,7 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     assertEquals( observable.isPendingDeactivation(), false );
 
@@ -430,7 +430,7 @@ public class ObservableTest
       new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
 
     assertEquals( observable.isPendingDeactivation(), false );
 
@@ -457,7 +457,7 @@ public class ObservableTest
       new Derivation( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final TestObservable observable = new TestObservable( context, ValueUtil.randomString(), derivation );
+    final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
     observable.setPendingDeactivation( true );
 
     assertEquals( observable.isPendingDeactivation(), true );

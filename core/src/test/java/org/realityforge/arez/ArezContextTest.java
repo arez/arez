@@ -100,7 +100,7 @@ public class ArezContextTest
 
     final String expectedValue = ValueUtil.randomString();
 
-    final Observable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
     assertEquals( observable.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextNodeId();
@@ -146,7 +146,7 @@ public class ArezContextTest
     final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
     assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
 
-    final Observable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
     assertEquals( observable.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextNodeId();
@@ -190,7 +190,7 @@ public class ArezContextTest
     final ArrayList<Observable> dependencies = tracker.getDependencies();
     assertEquals( dependencies.size(), 0 );
 
-    final Observable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
     assertEquals( observable.getObservers().size(), 0 );
 
     assertEquals( tracker.getState(), ObserverState.INACTIVE );
@@ -273,7 +273,7 @@ public class ArezContextTest
     assertEquals( dependencies2.size(), 0 );
     assertEquals( dependencies3.size(), 0 );
 
-    final Observable observable = new TestObservable( context, ValueUtil.randomString() );
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
     assertEquals( observable.getObservers().size(), 0 );
 
     assertEquals( tracker1.getState(), ObserverState.INACTIVE );
