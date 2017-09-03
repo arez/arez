@@ -1515,6 +1515,27 @@ public class TransactionTest
   }
 
   @Test
+  public void reportChangeConfirmed_noObservers()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    context.setTransaction( transaction );
+
+    final Observer calculator = newDerivation( context );
+    calculator.setState( ObserverState.UP_TO_DATE );
+
+    final Observable observable = calculator.getDerivedValue();
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+
+    transaction.reportChangeConfirmed( observable );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+  }
+
+  @Test
   public void reportChangeConfirmed_singlePossiblyStaleObserver()
   {
     final ArezContext context = new ArezContext();

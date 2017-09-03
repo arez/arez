@@ -275,7 +275,7 @@ final class Transaction
 
     verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
-    if ( ObserverState.STALE != observable.getLeastStaleObserverState() )
+    if ( observable.hasObservers() && ObserverState.STALE != observable.getLeastStaleObserverState() )
     {
       observable.setLeastStaleObserverState( ObserverState.STALE );
 
