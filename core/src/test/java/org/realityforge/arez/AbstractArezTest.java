@@ -3,6 +3,7 @@ package org.realityforge.arez;
 import java.lang.reflect.Field;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -82,5 +83,16 @@ public abstract class AbstractArezTest
     throws NoSuchFieldException, IllegalAccessException
   {
     getField( object.getClass(), fieldName ).set( object, value );
+  }
+
+
+  /**
+   * Typically called to stop observer from being deactivate or stop invariant checks failing.
+   */
+  protected void ensureDerivationHasObserver( @Nonnull final Observer observer )
+  {
+    final Observer randomObserver = new Observer( observer.getContext(), ValueUtil.randomString() );
+    observer.getDerivedValue().addObserver( randomObserver );
+    randomObserver.getDependencies().add( observer.getDerivedValue() );
   }
 }

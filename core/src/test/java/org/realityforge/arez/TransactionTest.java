@@ -91,6 +91,8 @@ public class TransactionTest
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
+    ensureDerivationHasObserver( tracker );
+
     final Observable observable1 = new Observable( context, ValueUtil.randomString() );
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
@@ -303,6 +305,8 @@ public class TransactionTest
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
+    ensureDerivationHasObserver( tracker );
+
     assertEquals( transaction.getObservables(), null );
 
     final ArrayList<Observable> dependencies = tracker.getDependencies();
@@ -366,6 +370,8 @@ public class TransactionTest
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
+    ensureDerivationHasObserver( tracker );
+
     // Setup existing observable dependency
     final Observable observable1 = new Observable( context, ValueUtil.randomString() );
     tracker.getDependencies().add( observable1 );
@@ -394,6 +400,8 @@ public class TransactionTest
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
+    ensureDerivationHasObserver( tracker );
+
     final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     transaction.safeGetObservables().add( observable );
@@ -420,6 +428,8 @@ public class TransactionTest
     context.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
+
+    ensureDerivationHasObserver( tracker );
 
     final Observable observable1 = new Observable( context, ValueUtil.randomString() );
     final Observable observable2 = new Observable( context, ValueUtil.randomString() );
@@ -457,6 +467,8 @@ public class TransactionTest
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
+    ensureDerivationHasObserver( tracker );
+
     final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     transaction.safeGetObservables().add( observable );
@@ -486,6 +498,8 @@ public class TransactionTest
     context.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
+
+    ensureDerivationHasObserver( tracker );
 
     final Observable observable1 = new Observable( context, ValueUtil.randomString() );
     final Observable observable2 = new Observable( context, ValueUtil.randomString() );
@@ -523,6 +537,8 @@ public class TransactionTest
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
+    ensureDerivationHasObserver( tracker );
+
     final Observable observable1 = new Observable( context, ValueUtil.randomString() );
     final Observable observable2 = new Observable( context, ValueUtil.randomString() );
 
@@ -559,6 +575,8 @@ public class TransactionTest
     context.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
+
+    ensureDerivationHasObserver( tracker );
 
     // This dependency retained
     final Observable observable1 = new Observable( context, ValueUtil.randomString() );
@@ -601,6 +619,9 @@ public class TransactionTest
     context.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
+
+    ensureDerivationHasObserver( tracker );
+
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
     final Observable observable = derivation.getDerivedValue();
@@ -631,6 +652,8 @@ public class TransactionTest
     context.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
+
+    ensureDerivationHasObserver( tracker );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.STALE );
