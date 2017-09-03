@@ -376,6 +376,25 @@ public class ObservableTest
   }
 
   @Test
+  public void queueForDeactivation_observableIsNotAbleToBeDeactivated()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final TestObservable observable = new TestObservable( context, ValueUtil.randomString() );
+
+    assertEquals( observable.isPendingDeactivation(), false );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observable::queueForDeactivation );
+
+    assertEquals( exception.getMessage(),
+                  "Attempted to invoke queueForDeactivation() on observable named '" +
+                  observable.getName() + "' but observable is not able to be deactivated." );
+  }
+
+  @Test
   public void queueForDeactivation_whereDependenciesPresent()
     throws Exception
   {
