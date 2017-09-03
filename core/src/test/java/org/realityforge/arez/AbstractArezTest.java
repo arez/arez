@@ -1,6 +1,9 @@
 package org.realityforge.arez;
 
+import java.lang.reflect.Field;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -48,5 +51,36 @@ public abstract class AbstractArezTest
   final ArezConfig.DynamicProvider getConfigProvider()
   {
     return (ArezConfig.DynamicProvider) ArezConfig.getProvider();
+  }
+
+  @Nonnull
+  protected final Field getField( @Nonnull final Class<?> type, @Nonnull final String fieldName )
+    throws NoSuchFieldException
+  {
+    Class clazz = type;
+    while ( null != clazz && Object.class != clazz )
+    {
+      try
+      {
+        final Field field = clazz.getDeclaredField( fieldName );
+        field.setAccessible( true );
+        return field;
+      }
+      catch ( final Throwable t )
+      {
+        clazz = clazz.getSuperclass();
+      }
+    }
+
+    Assert.fail();
+    throw new IllegalStateException();
+  }
+
+  protected final void setField( @Nonnull final Object object,
+                                 @Nonnull final String fieldName,
+                                 @Nullable final Object value )
+    throws NoSuchFieldException, IllegalAccessException
+  {
+    getField( object.getClass(), fieldName ).set( object, value );
   }
 }
