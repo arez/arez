@@ -162,6 +162,26 @@ public class ObserverTest
   }
 
   @Test
+  public void invariantState_derivedNotLinkBack()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
+
+    observer.invariantState();
+
+    setField( observer, "_derivedValue", new Observable( context, ValueUtil.randomString() ) );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observer::invariantState );
+
+    assertEquals( exception.getMessage(),
+                  "Observer named '" + observer.getName() + "' has a derived value " +
+                  "that does not link back to observer." );
+  }
+
+  @Test
   public void replaceDependencies()
     throws Exception
   {
