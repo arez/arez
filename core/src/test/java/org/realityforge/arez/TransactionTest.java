@@ -1294,6 +1294,27 @@ public class TransactionTest
   }
 
   @Test
+  public void reportPossiblyChanged_noObserver()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    context.setTransaction( transaction );
+
+    final Observer calculator = newDerivation( context );
+    calculator.setState( ObserverState.UP_TO_DATE );
+
+    final Observable observable = calculator.getDerivedValue();
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+
+    transaction.reportPossiblyChanged( observable );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+  }
+
+  @Test
   public void reportPossiblyChanged_ownedObserver_transaction_READ_WRITE_OWNED()
   {
     final ArezContext context = new ArezContext();

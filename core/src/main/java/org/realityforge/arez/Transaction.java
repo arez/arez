@@ -244,7 +244,7 @@ final class Transaction
                                            observable.getName() ) );
     verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
-    if ( ObserverState.UP_TO_DATE == observable.getLeastStaleObserverState() )
+    if ( observable.hasObservers() && ObserverState.UP_TO_DATE == observable.getLeastStaleObserverState() )
     {
       observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
       for ( final Observer observer : observable.getObservers() )
