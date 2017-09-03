@@ -31,6 +31,27 @@ public class ObservableTest
   }
 
   @Test
+  public void currentTrackingWorkValue()
+    throws Exception
+  {
+    final TestObservable observable = new TestObservable( new ArezContext(), ValueUtil.randomString(), null );
+
+    assertEquals( observable.getWorkState(), 0 );
+    assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+    assertEquals( observable.isInCurrentTracking(), false );
+
+    observable.putInCurrentTracking();
+
+    assertEquals( observable.isInCurrentTracking(), true );
+    assertEquals( observable.getWorkState(), Observable.IN_CURRENT_TRACKING );
+
+    observable.removeFromCurrentTracking();
+
+    assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+    assertEquals( observable.isInCurrentTracking(), false );
+  }
+
+  @Test
   public void addObserver()
     throws Exception
   {
