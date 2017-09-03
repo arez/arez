@@ -1648,7 +1648,6 @@ public class TransactionTest
   @Nonnull
   private Observer newDerivation( @Nonnull final ArezContext context )
   {
-    //Create a reaction that just observes the same dependencies
     final Reaction reaction = observer -> observer.getDependencies().forEach( Observable::reportObserved );
     return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, reaction );
   }
