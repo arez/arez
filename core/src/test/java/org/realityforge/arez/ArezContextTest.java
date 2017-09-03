@@ -628,4 +628,29 @@ public class ArezContextTest
     assertEquals( observer.getReaction(), null );
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
   }
+
+  @Test
+  public void createObservable()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final Observable observable = context.createObservable( name );
+
+    assertEquals( observable.getName(), name );
+  }
+
+  @Test
+  public void createObservable_name_Null()
+    throws Exception
+  {
+    getConfigProvider().setEnableNames( false );
+
+    final ArezContext context = new ArezContext();
+
+    final Observable observable = context.createObservable( null );
+
+    assertNotNull( observable );
+  }
 }

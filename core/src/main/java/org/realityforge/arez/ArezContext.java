@@ -67,6 +67,17 @@ public final class ArezContext
   }
 
   /**
+   * Create a non-computed Observer with specified name.
+   *
+   * @param name the name of the observer. Should be non null if {@link ArezConfig#enableNames()} returns true, null otherwise.
+   */
+  @Nonnull
+  public Observable createObservable( @Nullable final String name )
+  {
+    return new Observable( this, ArezConfig.enableNames() ? name : null );
+  }
+
+  /**
    * Pass the supplied observer to the scheduler.
    * The observer should NOT be already pending execution.
    *
