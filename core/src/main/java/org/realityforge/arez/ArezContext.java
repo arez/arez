@@ -39,9 +39,9 @@ public final class ArezContext
   /**
    * Create an observer with specified parameters.
    *
-   * @param name the name of the observer. Should be non null if {@link ArezConfig#enableNames()} returns true, false otherwise.
-   * @param mode the mode in which the reaction is executed if any.
-   * @param reaction the reaction defining observer.
+   * @param name           the name of the observer. Should be non null if {@link ArezConfig#enableNames()} returns true, false otherwise.
+   * @param mode           the mode in which the reaction is executed if any.
+   * @param reaction       the reaction defining observer.
    * @param runImmediately true to invoke reaction immediately, false to schedule reaction for next reaction cycle.
    */
   @Nonnull
