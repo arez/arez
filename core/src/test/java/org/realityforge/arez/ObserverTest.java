@@ -182,6 +182,31 @@ public class ObserverTest
   }
 
   @Test
+  public void invariantDerivationState()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
+
+    observer.invariantDerivationState();
+
+    setCurrentTransaction( context, observer );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observer::invariantDerivationState );
+
+    assertEquals( exception.getMessage(),
+                  "Observer named '" + observer.getName() + "' is a derivation and active but the derived value has no observers." );
+
+    ensureDerivationHasObserver( observer );
+
+    observer.invariantDerivationState();
+  }
+
+  @Test
   public void replaceDependencies()
     throws Exception
   {
