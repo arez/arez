@@ -32,6 +32,8 @@ public class ObservableTest
     assertEquals( observable.getOwner(), null );
     assertEquals( observable.canDeactivate(), false );
 
+    assertEquals( observable.isCalculated(), false );
+
     assertEquals( observable.isActive(), true );
 
     observable.invariantLeastStaleObserverState();
@@ -50,6 +52,8 @@ public class ObservableTest
     final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
     assertEquals( observable.getOwner(), derivation );
     assertEquals( observable.canDeactivate(), true );
+
+    assertEquals( observable.isCalculated(), true );
 
     assertEquals( observable.isActive(), true );
 

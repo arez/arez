@@ -104,6 +104,14 @@ public class Observable
    */
   final boolean canDeactivate()
   {
+    return isCalculated();
+  }
+
+  /**
+   * Return true if this observable is derived from an observer.
+   */
+  final boolean isCalculated()
+  {
     return null != _owner;
   }
 
