@@ -221,7 +221,7 @@ public abstract class Observable
     invariantObserversLinked();
   }
 
-  private void queueForDeactivation()
+  final void queueForDeactivation()
   {
     Guards.invariant( () -> getContext().isTransactionActive(),
                       () -> String.format(
