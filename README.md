@@ -16,6 +16,14 @@ on demand.
 This sections contains the notes for the next version of Arez and just consists of a bunch of notes
 that will be expanded over time as the library is fleshed out.
 
+TODO:
+* Hooks so context-wide can get notified when observers
+ - created
+ - disposed
+ - deactivated
+ - activated
+(Is all this just dev tools?)
+
 Observable
 * list of observers.
 * the cached least stalest state of these observers.
