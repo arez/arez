@@ -40,6 +40,8 @@ public class ObserverTest
     assertEquals( observer.hasReaction(), true );
     assertEquals( observer.isScheduled(), false );
 
+    assertEquals( observer.isDerivation(), false );
+
     // All the hooks start out null
     assertEquals( observer.getOnActivate(), null );
     assertEquals( observer.getOnDeactivate(), null );
