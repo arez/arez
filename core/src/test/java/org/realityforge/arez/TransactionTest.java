@@ -99,7 +99,7 @@ public class TransactionTest
     tracker.getDependencies().add( observable2 );
     observable2.getObservers().add( tracker );
 
-    observable2.setPendingDeactivation( true );
+    observable2.markAsPendingDeactivation();
     transaction.queueForDeactivation( observable2 );
 
     assertNotNull( transaction.getPendingDeactivations() );
@@ -777,7 +777,7 @@ public class TransactionTest
     final Observable observable =
       new Observable( context, ValueUtil.randomString(), derivation );
 
-    observable.setPendingDeactivation( true );
+    observable.markAsPendingDeactivation();
     transaction.queueForDeactivation( observable );
 
     assertNotNull( transaction.getPendingDeactivations() );
@@ -827,7 +827,7 @@ public class TransactionTest
     derivation.setState( ObserverState.UP_TO_DATE );
     final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
 
-    observable.setPendingDeactivation( true );
+    observable.markAsPendingDeactivation();
     transaction.queueForDeactivation( observable );
     otherObserver.getDependencies().add( observable );
     observable.addObserver( otherObserver );
@@ -876,7 +876,7 @@ public class TransactionTest
     final Observable observable3 =
       new Observable( context, ValueUtil.randomString(), derivation2 );
 
-    observable3.setPendingDeactivation( true );
+    observable3.markAsPendingDeactivation();
     transaction.queueForDeactivation( observable3 );
 
     assertNotNull( transaction.getPendingDeactivations() );
@@ -927,7 +927,7 @@ public class TransactionTest
     final Observable derivedObservable =
       new Observable( context, ValueUtil.randomString(), derivation );
 
-    derivedObservable.setPendingDeactivation( true );
+    derivedObservable.markAsPendingDeactivation();
     transaction.queueForDeactivation( derivedObservable );
 
     assertNotNull( transaction.getPendingDeactivations() );

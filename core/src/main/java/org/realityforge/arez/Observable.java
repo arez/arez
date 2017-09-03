@@ -308,8 +308,8 @@ public class Observable
   }
 
   @TestOnly
-  final void setPendingDeactivation( final boolean pendingDeactivation )
+  final void markAsPendingDeactivation()
   {
-    _pendingDeactivation = pendingDeactivation;
+    _pendingDeactivation = true;
   }
 }

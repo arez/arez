@@ -503,7 +503,7 @@ public class ObservableTest
 
     final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
 
-    observable.setPendingDeactivation( true );
+    observable.markAsPendingDeactivation();
 
     observable.queueForDeactivation();
 
@@ -594,7 +594,7 @@ public class ObservableTest
     derivation.setState( ObserverState.UP_TO_DATE );
 
     final Observable observable = new Observable( context, ValueUtil.randomString(), derivation );
-    observable.setPendingDeactivation( true );
+    observable.markAsPendingDeactivation();
 
     assertEquals( observable.isPendingDeactivation(), true );
 
