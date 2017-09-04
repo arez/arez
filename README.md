@@ -24,6 +24,8 @@ TODO:
  - activated
 (Is all this just dev tools?)
 
+* dispose on calculated observer should defer until after reaction runs and should set isDisposed flag?
+
 Observable
 * list of observers.
 * the cached least stalest state of these observers.
