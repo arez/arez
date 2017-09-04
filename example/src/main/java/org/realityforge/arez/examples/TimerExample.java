@@ -7,7 +7,6 @@ import org.jetbrains.annotations.TestOnly;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
-import org.realityforge.arez.TransactionMode;
 
 public final class TimerExample
 {
