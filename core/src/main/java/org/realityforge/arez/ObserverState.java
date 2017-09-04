@@ -3,7 +3,7 @@ package org.realityforge.arez;
 /**
  * The state of the observer relative to the observers dependencies.
  */
-public enum ObserverState
+enum ObserverState
 {
   /**
    * The observer is not active and is not holding any data about it's dependencies.

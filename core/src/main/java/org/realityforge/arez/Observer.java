@@ -122,7 +122,7 @@ public final class Observer
    * @return the state of the observer.
    */
   @Nonnull
-  public ObserverState getState()
+  ObserverState getState()
   {
     return _state;
   }
