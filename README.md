@@ -25,6 +25,7 @@ TODO:
 (Is all this just dev tools?)
 
 * dispose on calculated observer should defer until after reaction runs and should set isDisposed flag?
+  Maybe all disposes should run after all reactions complete
 
 Observable
 * list of observers.
