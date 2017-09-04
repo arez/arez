@@ -137,7 +137,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void nonTrackingTransactionObservingSingleObservable()
+  public void nonTrackingProcedureObservingSingleObservable()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -151,7 +151,7 @@ public class ArezContextTest
 
     final int nextNodeId = context.currentNextNodeId();
     final String name = ValueUtil.randomString();
-    context.transaction( name, TransactionMode.READ_ONLY, null, () -> {
+    context.procedure( name, TransactionMode.READ_ONLY, null, () -> {
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
       assertEquals( transaction.getName(), name );
@@ -177,7 +177,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void trackingTransactionObservingSingleObservable()
+  public void trackingProcedureObservingSingleObservable()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -197,7 +197,7 @@ public class ArezContextTest
 
     final int nextNodeId = context.currentNextNodeId();
     final String name = ValueUtil.randomString();
-    context.transaction( name, TransactionMode.READ_ONLY, tracker, () -> {
+    context.procedure( name, TransactionMode.READ_ONLY, tracker, () -> {
 
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
@@ -253,7 +253,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void safeAction_withSingleObserver()
+  public void safeProcedure_withSingleObserver()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -273,7 +273,7 @@ public class ArezContextTest
 
     final int nextNodeId = context.currentNextNodeId();
     final String name = ValueUtil.randomString();
-    context.safeAction( name, TransactionMode.READ_ONLY, tracker, () -> {
+    context.safeProcedure( name, TransactionMode.READ_ONLY, tracker, () -> {
 
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
@@ -329,7 +329,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void nestedTrackingTransactionsAccessingSameObservable()
+  public void nestedTrackingProceduresAccessingSameObservable()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -359,7 +359,7 @@ public class ArezContextTest
     final String name2 = ValueUtil.randomString();
     final String name3 = ValueUtil.randomString();
 
-    context.transaction( name1, TransactionMode.READ_ONLY, tracker1, () -> {
+    context.procedure( name1, TransactionMode.READ_ONLY, tracker1, () -> {
       assertTrue( context.isTransactionActive() );
       final Transaction transaction1 = context.getTransaction();
       assertEquals( transaction1.getName(), name1 );
@@ -382,7 +382,7 @@ public class ArezContextTest
       assertEquals( observable.getObservers().size(), 0 );
       assertEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
 
-      context.transaction( name2, TransactionMode.READ_ONLY, tracker2, () -> {
+      context.procedure( name2, TransactionMode.READ_ONLY, tracker2, () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction2 = context.getTransaction();
         assertEquals( transaction2.getName(), name2 );
@@ -407,7 +407,7 @@ public class ArezContextTest
         assertEquals( observable.getObservers().size(), 0 );
         assertEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
 
-        context.transaction( name3, TransactionMode.READ_ONLY, tracker3, () -> {
+        context.procedure( name3, TransactionMode.READ_ONLY, tracker3, () -> {
           final Transaction transaction3 = context.getTransaction();
           assertEquals( transaction3.getName(), name3 );
           assertEquals( transaction3.getPrevious(), transaction2 );
@@ -477,7 +477,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void nestedNonTrackingTransactionsAccessingSameObservable()
+  public void nestedNonTrackingProceduresAccessingSameObservable()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -488,7 +488,7 @@ public class ArezContextTest
     final int nextNodeId = context.currentNextNodeId();
     final String name = ValueUtil.randomString();
     final String name2 = ValueUtil.randomString();
-    context.transaction( name, TransactionMode.READ_ONLY, null, () -> {
+    context.procedure( name, TransactionMode.READ_ONLY, null, () -> {
       assertTrue( context.isTransactionActive() );
       final Transaction transaction1 = context.getTransaction();
       assertEquals( transaction1.getName(), name );
@@ -498,7 +498,7 @@ public class ArezContextTest
       assertEquals( transaction1.isRootTransaction(), true );
       assertEquals( transaction1.getRootTransaction(), transaction1 );
 
-      context.transaction( name2, TransactionMode.READ_ONLY, null, () -> {
+      context.procedure( name2, TransactionMode.READ_ONLY, null, () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction2 = context.getTransaction();
         assertEquals( transaction2.getName(), name2 );

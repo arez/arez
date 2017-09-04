@@ -171,10 +171,10 @@ public final class ArezContext
    * @param action  the action to execute.
    * @throws Exception if the action throws an an exception.
    */
-  public void transaction( @Nullable final String name,
-                           @Nonnull final TransactionMode mode,
-                           @Nullable final Observer tracker,
-                           @Nonnull final Action action )
+  public void procedure( @Nullable final String name,
+                         @Nonnull final TransactionMode mode,
+                         @Nullable final Observer tracker,
+                         @Nonnull final Action action )
     throws Exception
   {
     final Transaction transaction = beginTransaction( name, mode, tracker );
@@ -198,10 +198,10 @@ public final class ArezContext
    * @param tracker the observer that is tracking transaction if any.
    * @param action  the action to execute.
    */
-  public void safeAction( @Nullable final String name,
-                          @Nonnull final TransactionMode mode,
-                          @Nullable final Observer tracker,
-                          @Nonnull final Runnable action )
+  public void safeProcedure( @Nullable final String name,
+                             @Nonnull final TransactionMode mode,
+                             @Nullable final Observer tracker,
+                             @Nonnull final Runnable action )
   {
     final Transaction transaction = beginTransaction( name, mode, tracker );
     try
@@ -271,7 +271,7 @@ public final class ArezContext
     assert null != reaction;
     try
     {
-      transaction( name, mode, observer, () -> reaction.react( observer ) );
+      procedure( name, mode, observer, () -> reaction.react( observer ) );
     }
     catch ( final Throwable t )
     {

@@ -106,10 +106,10 @@ public class ArezContextApiTest
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
     // Run an "action"
-    context.transaction( ValueUtil.randomString(),
-                         TransactionMode.READ_WRITE,
-                         null,
-                         observable::reportChanged );
+    context.procedure( ValueUtil.randomString(),
+                       TransactionMode.READ_WRITE,
+                       null,
+                       observable::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
@@ -143,19 +143,19 @@ public class ArezContextApiTest
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
     // Run an "action"
-    context.transaction( ValueUtil.randomString(),
-                         TransactionMode.READ_WRITE,
-                         null,
-                         observable1::reportChanged );
+    context.procedure( ValueUtil.randomString(),
+                       TransactionMode.READ_WRITE,
+                       null,
+                       observable1::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
     // Update observer1+observer2 in transactionm
-    context.transaction( ValueUtil.randomString(),
-                         TransactionMode.READ_WRITE,
-                         null,
-                         () -> {
+    context.procedure( ValueUtil.randomString(),
+                       TransactionMode.READ_WRITE,
+                       null,
+                       () -> {
                            observable1.reportChanged();
                            observable2.reportChanged();
                          } );
@@ -163,10 +163,10 @@ public class ArezContextApiTest
     assertEquals( reactionCount.get(), 3 );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
-    context.transaction( ValueUtil.randomString(),
-                         TransactionMode.READ_WRITE,
-                         null,
-                         () -> {
+    context.procedure( ValueUtil.randomString(),
+                       TransactionMode.READ_WRITE,
+                       null,
+                       () -> {
                            observable3.reportChanged();
                            observable4.reportChanged();
                          } );
@@ -175,10 +175,10 @@ public class ArezContextApiTest
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
     // observable4 should not cause a reaction as not observed
-    context.transaction( ValueUtil.randomString(),
-                         TransactionMode.READ_WRITE,
-                         null,
-                         observable4::reportChanged );
+    context.procedure( ValueUtil.randomString(),
+                       TransactionMode.READ_WRITE,
+                       null,
+                       observable4::reportChanged );
 
     assertEquals( reactionCount.get(), 4 );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
@@ -213,18 +213,18 @@ public class ArezContextApiTest
 
     assertFalse( context.isTransactionActive() );
 
-    context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
+    context.procedure( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
       assertTrue( context.isTransactionActive() );
 
       //First nested exception
-      context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
+      context.procedure( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
         assertTrue( context.isTransactionActive() );
 
         //Second nested exception
-        context.transaction( ValueUtil.randomString(),
-                             TransactionMode.READ_ONLY,
-                             null,
-                             () -> assertTrue( context.isTransactionActive() ) );
+        context.procedure( ValueUtil.randomString(),
+                           TransactionMode.READ_ONLY,
+                           null,
+                           () -> assertTrue( context.isTransactionActive() ) );
 
         assertTrue( context.isTransactionActive() );
       } );
