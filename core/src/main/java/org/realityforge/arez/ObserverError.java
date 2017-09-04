@@ -6,10 +6,6 @@ package org.realityforge.arez;
 public enum ObserverError
 {
   /**
-   * Exception generated when the observer is being disposed.
-   */
-  DISPOSE_ERROR,
-  /**
    * Exception generated when the reaction is executing.
    */
   REACTION_ERROR,

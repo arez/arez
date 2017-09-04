@@ -113,14 +113,7 @@ public final class Observer
    */
   public final void dispose()
   {
-    try
-    {
-      getContext().transaction( getName(), getMode(), this, () -> setState( ObserverState.INACTIVE ) );
-    }
-    catch ( final Throwable t )
-    {
-      getContext().getObserverErrorHandler().onObserverError( this, ObserverError.DISPOSE_ERROR, t );
-    }
+    getContext().safeAction( getName(), getMode(), this, () -> setState( ObserverState.INACTIVE ) );
   }
 
   /**
