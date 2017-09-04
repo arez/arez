@@ -707,6 +707,42 @@ public class TransactionTest
   }
 
   @Test
+  public void completeTracking_calculatedObservableStale_mustUpdateNewDependencies()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = newDerivation( context );
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    context.setTransaction( transaction );
+
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Observer observer = ensureDerivationHasObserver( tracker );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    final Observer derivation = newDerivation( context );
+    derivation.setState( ObserverState.POSSIBLY_STALE );
+
+    final Observable observable = derivation.getDerivedValue();
+
+    transaction.safeGetObservables().add( observable );
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( tracker.getDependencies().size(), 1 );
+    assertEquals( tracker.getDependencies().contains( observable ), true );
+    assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+
+    // Make sure the derivation observer has state updated
+    assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
+
+    observable.invariantLeastStaleObserverState();
+  }
+
+  @Test
   public void queueForDeactivation_singleObserver()
   {
     final ArezContext context = new ArezContext();

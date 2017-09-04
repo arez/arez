@@ -410,6 +410,11 @@ final class Transaction
           //Observable was not a dependency so it needs to be observed
           observable.addObserver( _tracker );
           dependenciesChanged = true;
+          final ObserverState leastStaleObserverState = observable.getLeastStaleObserverState();
+          if ( leastStaleObserverState == ObserverState.INACTIVE || leastStaleObserverState.ordinal() > newDerivationState.ordinal() )
+          {
+            observable.setLeastStaleObserverState( newDerivationState );
+          }
         }
       }
     }
