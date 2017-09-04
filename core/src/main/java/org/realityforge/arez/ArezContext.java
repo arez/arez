@@ -189,6 +189,32 @@ public final class ArezContext
   }
 
   /**
+   * Execute the supplied action in a transaction.
+   * The action is expected to not throw an exception.
+   * If a tracker is supplied then the transaction will be tracking.
+   *
+   * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param mode    the transaction mode.
+   * @param tracker the observer that is tracking transaction if any.
+   * @param action  the action to execute.
+   */
+  public void safeAction( @Nullable final String name,
+                          @Nonnull final TransactionMode mode,
+                          @Nullable final Observer tracker,
+                          @Nonnull final Runnable action )
+  {
+    final Transaction transaction = beginTransaction( name, mode, tracker );
+    try
+    {
+      action.run();
+    }
+    finally
+    {
+      commitTransaction( transaction );
+    }
+  }
+
+  /**
    * Return true if there is a transaction in progress.
    *
    * @return true if there is a transaction in progress.

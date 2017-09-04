@@ -253,6 +253,82 @@ public class ArezContextTest
   }
 
   @Test
+  public void safeAction_withSingleObserver()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+    assertThrows( context::getTransaction );
+
+    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+
+    final ArrayList<Observable> dependencies = tracker.getDependencies();
+    assertEquals( dependencies.size(), 0 );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    assertEquals( observable.getObservers().size(), 0 );
+
+    assertEquals( tracker.getState(), ObserverState.INACTIVE );
+
+    final int nextNodeId = context.currentNextNodeId();
+    final String name = ValueUtil.randomString();
+    context.safeAction( name, TransactionMode.READ_ONLY, tracker, () -> {
+
+      assertTrue( context.isTransactionActive() );
+      final Transaction transaction = context.getTransaction();
+      assertEquals( transaction.getName(), name );
+      assertEquals( transaction.getPrevious(), null );
+      assertEquals( transaction.getContext(), context );
+      assertEquals( transaction.getId(), nextNodeId );
+      assertEquals( transaction.getTracker(), tracker );
+
+      assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+
+      // The dependencies reference is only updated on completion
+      assertTrue( dependencies == tracker.getDependencies() );
+
+      assertEquals( tracker.getDependencies().size(), 0 );
+      assertEquals( observable.getObservers().size(), 0 );
+      assertNotEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
+
+      observable.reportObserved();
+
+      assertEquals( tracker.getDependencies().size(),
+                    0,
+                    "Ensure observers are added on completion and not immediately" );
+      assertEquals( observable.getObservers().size(), 0 );
+      assertEquals( context.getTransaction().getId(),
+                    observable.getLastTrackerTransactionId(),
+                    "LastTrackerTransactionId should be updated immediately" );
+
+      // Another observation should not change state as already observed
+      observable.reportObserved();
+
+      assertEquals( tracker.getDependencies().size(), 0 );
+      assertEquals( observable.getObservers().size(), 0 );
+      assertEquals( context.getTransaction().getId(), observable.getLastTrackerTransactionId() );
+
+      // The dependencies reference is only updated on completion
+      assertTrue( dependencies == tracker.getDependencies() );
+    } );
+
+    final ArrayList<Observable> postDependencies = tracker.getDependencies();
+
+    // The dependencies reference should be swapped out by now
+    assertFalse( dependencies == postDependencies );
+
+    // A single dependency that matches the observable
+    assertEquals( postDependencies.size(), 1 );
+    assertTrue( postDependencies.contains( observable ) );
+
+    // Ensure that the observable has observers updated
+    assertEquals( observable.getObservers().size(), 1 );
+
+    assertFalse( context.isTransactionActive() );
+  }
+
+  @Test
   public void nestedTrackingTransactionsAccessingSameObservable()
     throws Exception
   {
