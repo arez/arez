@@ -7,6 +7,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 
+/**
+ * The observable represents state that can be observed within the system.
+ */
 public final class Observable
   extends Node
 {
