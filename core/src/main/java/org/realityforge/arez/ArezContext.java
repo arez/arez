@@ -194,10 +194,10 @@ public final class ArezContext
    * The procedure may throw an exception.
    * If a tracker is supplied then the transaction will be tracking.
    *
-   * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
-   * @param mode    the transaction mode.
-   * @param tracker the observer that is tracking transaction if any.
-   * @param procedure  the procedure to execute.
+   * @param name      the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param mode      the transaction mode.
+   * @param tracker   the observer that is tracking transaction if any.
+   * @param procedure the procedure to execute.
    * @throws Exception if the procedure throws an an exception.
    */
   public void procedure( @Nullable final String name,
@@ -230,12 +230,12 @@ public final class ArezContext
   public void safeProcedure( @Nullable final String name,
                              @Nonnull final TransactionMode mode,
                              @Nullable final Observer tracker,
-                             @Nonnull final Runnable action )
+                             @Nonnull final SafeProcedure action )
   {
     final Transaction transaction = beginTransaction( name, mode, tracker );
     try
     {
-      action.run();
+      action.call();
     }
     finally
     {
