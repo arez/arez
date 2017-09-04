@@ -113,7 +113,7 @@ public final class Observer
    */
   public final void dispose()
   {
-    getContext().safeProcedure( getName(), getMode(), null, () -> setState( ObserverState.INACTIVE ) );
+    getContext().safeProcedure( getName(), false, null, () -> setState( ObserverState.INACTIVE ) );
   }
 
   /**

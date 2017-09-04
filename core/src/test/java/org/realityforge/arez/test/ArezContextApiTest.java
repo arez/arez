@@ -106,10 +106,7 @@ public class ArezContextApiTest
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
     // Run an "action"
-    context.procedure( ValueUtil.randomString(),
-                       TransactionMode.READ_WRITE,
-                       null,
-                       observable::reportChanged );
+    context.procedure( ValueUtil.randomString(), true, null, observable::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
@@ -143,17 +140,14 @@ public class ArezContextApiTest
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
     // Run an "action"
-    context.procedure( ValueUtil.randomString(),
-                       TransactionMode.READ_WRITE,
-                       null,
-                       observable1::reportChanged );
+    context.procedure( ValueUtil.randomString(), true, null, observable1::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
     // Update observer1+observer2 in transactionm
     context.procedure( ValueUtil.randomString(),
-                       TransactionMode.READ_WRITE,
+                       true,
                        null,
                        () -> {
                          observable1.reportChanged();
@@ -164,7 +158,7 @@ public class ArezContextApiTest
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
     context.procedure( ValueUtil.randomString(),
-                       TransactionMode.READ_WRITE,
+                       true,
                        null,
                        () -> {
                          observable3.reportChanged();
@@ -176,7 +170,7 @@ public class ArezContextApiTest
 
     // observable4 should not cause a reaction as not observed
     context.procedure( ValueUtil.randomString(),
-                       TransactionMode.READ_WRITE,
+                       true,
                        null,
                        observable4::reportChanged );
 
@@ -195,7 +189,7 @@ public class ArezContextApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.function( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
+      context.function( ValueUtil.randomString(), false, null, () -> {
         assertTrue( context.isTransactionActive() );
         return expectedValue;
       } );
@@ -206,25 +200,22 @@ public class ArezContextApiTest
   }
 
   @Test
-  public void transactionsCanBeNested()
+  public void proceduresCanBeNested()
     throws Exception
   {
     final ArezContext context = new ArezContext();
 
     assertFalse( context.isTransactionActive() );
 
-    context.procedure( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
+    context.procedure( ValueUtil.randomString(), false, null, () -> {
       assertTrue( context.isTransactionActive() );
 
       //First nested exception
-      context.procedure( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
+      context.procedure( ValueUtil.randomString(), false, null, () -> {
         assertTrue( context.isTransactionActive() );
 
         //Second nested exception
-        context.procedure( ValueUtil.randomString(),
-                           TransactionMode.READ_ONLY,
-                           null,
-                           () -> assertTrue( context.isTransactionActive() ) );
+        context.procedure( ValueUtil.randomString(), false, null, () -> assertTrue( context.isTransactionActive() ) );
 
         assertTrue( context.isTransactionActive() );
       } );
@@ -246,17 +237,17 @@ public class ArezContextApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.function( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
+      context.function( ValueUtil.randomString(), false, null, () -> {
         assertTrue( context.isTransactionActive() );
 
         //First nested exception
         final String v1 =
-          context.function( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
+          context.function( ValueUtil.randomString(), false, null, () -> {
             assertTrue( context.isTransactionActive() );
 
             //Second nested exception
             final String v2 =
-              context.function( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
+              context.function( ValueUtil.randomString(), false, null, () -> {
                 assertTrue( context.isTransactionActive() );
                 return expectedValue;
               } );
