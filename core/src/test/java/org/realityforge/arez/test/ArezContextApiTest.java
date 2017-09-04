@@ -3,6 +3,7 @@ package org.realityforge.arez.test;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.AbstractArezTest;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
 import org.realityforge.arez.ObserverErrorHandler;
 import org.realityforge.arez.ObserverState;
@@ -80,6 +81,38 @@ public class ArezContextApiTest
     context.createObserver( ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction, true );
 
     assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
+  public void interactionWithSingleObservable()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observable observable = context.createObservable( ValueUtil.randomString() );
+
+    final AtomicInteger reactionCount = new AtomicInteger();
+
+    final Observer observer =
+      context.createObserver( ValueUtil.randomString(),
+                              TransactionMode.READ_ONLY,
+                              o -> {
+                                observable.reportObserved();
+                                reactionCount.incrementAndGet();
+                              },
+                              true );
+
+    assertEquals( reactionCount.get(), 1 );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
+    // Run an "action"
+    context.transaction( ValueUtil.randomString(),
+                         TransactionMode.READ_WRITE,
+                         null,
+                         observable::reportChanged );
+
+    assertEquals( reactionCount.get(), 2 );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
