@@ -111,7 +111,7 @@ public final class Observer
    * Make the Observer INACTIVE and release any resources associated with observer.
    * The applications should NOT interact with the Observer after it has been disposed.
    */
-  public final void dispose()
+  public void dispose()
   {
     getContext().safeProcedure( getName(), false, null, () -> setState( ObserverState.INACTIVE ) );
   }
@@ -122,7 +122,7 @@ public final class Observer
    * @return the state of the observer.
    */
   @Nonnull
-  public final ObserverState getState()
+  public ObserverState getState()
   {
     return _state;
   }
