@@ -47,11 +47,11 @@ public class ObserverTest
     assertEquals( observer.getOnDeactivate(), null );
     assertEquals( observer.getOnStale(), null );
 
-    final Action onActivate = () -> {
+    final Procedure onActivate = () -> {
     };
-    final Action onDeactivate = () -> {
+    final Procedure onDeactivate = () -> {
     };
-    final Action onStale = () -> {
+    final Procedure onStale = () -> {
     };
 
     // Ensure hooks can be modified
@@ -372,9 +372,9 @@ public class ObserverTest
     final Observer observer = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
     setCurrentTransaction( context, observer );
 
-    final TestAction onActivate = new TestAction();
-    final TestAction onDeactivate = new TestAction();
-    final TestAction onStale = new TestAction();
+    final TestProcedure onActivate = new TestProcedure();
+    final TestProcedure onDeactivate = new TestProcedure();
+    final TestProcedure onStale = new TestProcedure();
 
     observer.setOnActivate( onActivate );
     observer.setOnDeactivate( onDeactivate );
@@ -465,9 +465,9 @@ public class ObserverTest
     final Observer observer = new Observer( context, ValueUtil.randomString() );
     setCurrentTransaction( context, observer );
 
-    final TestAction onActivate = new TestAction();
-    final TestAction onDeactivate = new TestAction();
-    final TestAction onStale = new TestAction();
+    final TestProcedure onActivate = new TestProcedure();
+    final TestProcedure onDeactivate = new TestProcedure();
+    final TestProcedure onStale = new TestProcedure();
 
     observer.setOnActivate( onActivate );
     observer.setOnDeactivate( onDeactivate );

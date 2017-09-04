@@ -17,17 +17,17 @@ public final class Observer
    * Hook action called when the Observer changes from the INACTIVE state to any other state.
    */
   @Nullable
-  private Action _onActivate;
+  private Procedure _onActivate;
   /**
    * Hook action called when the Observer changes to the INACTIVE state to any other state.
    */
   @Nullable
-  private Action _onDeactivate;
+  private Procedure _onDeactivate;
   /**
    * Hook action called when the Observer changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE.
    */
   @Nullable
-  private Action _onStale;
+  private Procedure _onStale;
   /**
    * The stalest state of the associated observables that are also derivations.
    */
@@ -229,7 +229,7 @@ public final class Observer
    *
    * @param hook the hook to run.
    */
-  void runHook( @Nullable final Action hook, @Nonnull final ObserverError error )
+  void runHook( @Nullable final Procedure hook, @Nonnull final ObserverError error )
   {
     if ( null != hook )
     {
@@ -249,7 +249,7 @@ public final class Observer
    *
    * @param onActivate the hook.
    */
-  void setOnActivate( @Nullable final Action onActivate )
+  void setOnActivate( @Nullable final Procedure onActivate )
   {
     _onActivate = onActivate;
   }
@@ -260,7 +260,7 @@ public final class Observer
    * @return the onActivate hook.
    */
   @Nullable
-  Action getOnActivate()
+  Procedure getOnActivate()
   {
     return _onActivate;
   }
@@ -270,7 +270,7 @@ public final class Observer
    *
    * @param onDeactivate the hook.
    */
-  void setOnDeactivate( @Nullable final Action onDeactivate )
+  void setOnDeactivate( @Nullable final Procedure onDeactivate )
   {
     _onDeactivate = onDeactivate;
   }
@@ -281,7 +281,7 @@ public final class Observer
    * @return the onDeactivate hook.
    */
   @Nullable
-  Action getOnDeactivate()
+  Procedure getOnDeactivate()
   {
     return _onDeactivate;
   }
@@ -291,7 +291,7 @@ public final class Observer
    *
    * @param onStale the hook.
    */
-  void setOnStale( @Nullable final Action onStale )
+  void setOnStale( @Nullable final Procedure onStale )
   {
     _onStale = onStale;
   }
@@ -302,7 +302,7 @@ public final class Observer
    * @return the onStale hook.
    */
   @Nullable
-  Action getOnStale()
+  Procedure getOnStale()
   {
     return _onStale;
   }

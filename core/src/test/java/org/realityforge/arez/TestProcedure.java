@@ -2,8 +2,8 @@ package org.realityforge.arez;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-final class TestAction
-  implements Action
+final class TestProcedure
+  implements Procedure
 {
   private final AtomicInteger _calls = new AtomicInteger();
 
