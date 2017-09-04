@@ -185,7 +185,7 @@ public class ArezContextApiTest
   }
 
   @Test
-  public void transactionsCanProduceValues()
+  public void function()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -195,7 +195,7 @@ public class ArezContextApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
+      context.function( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
         assertTrue( context.isTransactionActive() );
         return expectedValue;
       } );
@@ -236,7 +236,7 @@ public class ArezContextApiTest
   }
 
   @Test
-  public void valueProducingTransactionsCanBeNested()
+  public void nestedFunctions()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -246,17 +246,17 @@ public class ArezContextApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
+      context.function( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
         assertTrue( context.isTransactionActive() );
 
         //First nested exception
         final String v1 =
-          context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
+          context.function( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
             assertTrue( context.isTransactionActive() );
 
             //Second nested exception
             final String v2 =
-              context.transaction( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
+              context.function( ValueUtil.randomString(), TransactionMode.READ_ONLY, null, () -> {
                 assertTrue( context.isTransactionActive() );
                 return expectedValue;
               } );

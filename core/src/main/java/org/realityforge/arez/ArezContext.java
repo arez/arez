@@ -144,10 +144,10 @@ public final class ArezContext
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
-  public <T> T transaction( @Nullable final String name,
-                            @Nonnull final TransactionMode mode,
-                            @Nullable final Observer tracker,
-                            @Nonnull final Callable<T> action )
+  public <T> T function( @Nullable final String name,
+                         @Nonnull final TransactionMode mode,
+                         @Nullable final Observer tracker,
+                         @Nonnull final Callable<T> action )
     throws Exception
   {
     final Transaction transaction = beginTransaction( name, mode, tracker );

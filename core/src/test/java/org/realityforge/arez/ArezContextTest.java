@@ -88,7 +88,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void transactionsCanProduceValues()
+  public void function()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -107,7 +107,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
 
     final String v0 =
-      context.transaction( name, TransactionMode.READ_ONLY, null, () -> {
+      context.function( name, TransactionMode.READ_ONLY, null, () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), name );
