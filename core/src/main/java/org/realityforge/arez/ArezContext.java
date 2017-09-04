@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
@@ -155,6 +156,34 @@ public final class ArezContext
     try
     {
       return action.call();
+    }
+    finally
+    {
+      commitTransaction( transaction );
+    }
+  }
+
+  /**
+   * Execute the supplied function in a transaction.
+   * The action is expected to not throw an exception.
+   * If a tracker is supplied then the transaction will be tracking.
+   *
+   * @param <T>     the type of return value.
+   * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param mode    the transaciton mode.
+   * @param tracker the observer that is tracking transaction if any.
+   * @param action  the action to execute.
+   * @return the value returned from the action.
+   */
+  public <T> T safeFunction( @Nullable final String name,
+                             @Nonnull final TransactionMode mode,
+                             @Nullable final Observer tracker,
+                             @Nonnull final Supplier<T> action )
+  {
+    final Transaction transaction = beginTransaction( name, mode, tracker );
+    try
+    {
+      return action.get();
     }
     finally
     {

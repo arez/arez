@@ -137,6 +137,55 @@ public class ArezContextTest
   }
 
   @Test
+  public void safeFunction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
+    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+
+    final String expectedValue = ValueUtil.randomString();
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    assertEquals( observable.getObservers().size(), 0 );
+
+    final int nextNodeId = context.currentNextNodeId();
+    final String name = ValueUtil.randomString();
+
+    final String v0 =
+      context.safeFunction( name, TransactionMode.READ_ONLY, null, () -> {
+        assertTrue( context.isTransactionActive() );
+        final Transaction transaction = context.getTransaction();
+        assertEquals( transaction.getName(), name );
+        assertEquals( transaction.getPrevious(), null );
+        assertEquals( transaction.getContext(), context );
+        assertEquals( transaction.getId(), nextNodeId );
+
+        assertEquals( observable.getObservers().size(), 0 );
+        assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+
+        observable.reportObserved();
+
+        //Not tracking so no state updated
+        assertEquals( observable.getObservers().size(), 0 );
+        assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+
+        return expectedValue;
+      } );
+
+    assertFalse( context.isTransactionActive() );
+
+    assertEquals( v0, expectedValue );
+
+    //Observable still not updated
+    assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+    assertEquals( observable.getObservers().size(), 0 );
+  }
+
+  @Test
   public void nonTrackingProcedureObservingSingleObservable()
     throws Exception
   {
