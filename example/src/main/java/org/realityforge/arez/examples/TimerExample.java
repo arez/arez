@@ -61,16 +61,12 @@ public final class TimerExample
 
     final TimeModelImpl timeModel = new TimeModelImpl( context );
 
-    context.procedure( "Initial setup",
-                       TransactionMode.READ_WRITE,
-                       null,
-                       () -> timeModel.setTime( System.currentTimeMillis() ) );
+    context.procedure( "Initial setup", true, null, () -> timeModel.setTime( System.currentTimeMillis() ) );
 
     final Observer timePrinter =
       context.createObserver( "TimePrinter",
-                              TransactionMode.READ_ONLY,
-                              o -> System.out.println( "Current time: " +
-                                                       timeModel.getTime() ),
+                              false,
+                              o -> System.out.println( "Current time: " + timeModel.getTime() ),
                               true );
 
     final Timer timer = new Timer();
@@ -81,10 +77,7 @@ public final class TimerExample
       {
         try
         {
-          context.procedure( "Subsequent update",
-                             TransactionMode.READ_WRITE,
-                             null,
-                             () -> timeModel.setTime( System.currentTimeMillis() ) );
+          context.procedure( "Subsequent update", true, null, () -> timeModel.setTime( System.currentTimeMillis() ) );
         }
         catch ( final Exception e )
         {

@@ -8,7 +8,6 @@ import org.realityforge.arez.Observer;
 import org.realityforge.arez.ObserverErrorHandler;
 import org.realityforge.arez.ObserverState;
 import org.realityforge.arez.Reaction;
-import org.realityforge.arez.TransactionMode;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -27,8 +26,7 @@ public class ArezContextApiTest
     final ArezContext context = new ArezContext();
 
     final String name = ValueUtil.randomString();
-    final Observer observer =
-      context.createObserver( name, TransactionMode.READ_ONLY, null, false );
+    final Observer observer = context.createObserver( name, false, null, false );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
@@ -44,8 +42,7 @@ public class ArezContextApiTest
 
     final String name = ValueUtil.randomString();
     final Reaction reaction = o -> callCount.incrementAndGet();
-    final Observer observer =
-      context.createObserver( name, TransactionMode.READ_ONLY, reaction, true );
+    final Observer observer = context.createObserver( name, false, reaction, true );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
@@ -71,14 +68,14 @@ public class ArezContextApiTest
       throw new RuntimeException();
     };
     // This will run immediately and generate an exception
-    context.createObserver( ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction, true );
+    context.createObserver( ValueUtil.randomString(), false, reaction, true );
 
     assertEquals( callCount.get(), 1 );
 
     context.removeObserverErrorHandler( handler );
 
     // This will run immediately and generate an exception
-    context.createObserver( ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction, true );
+    context.createObserver( ValueUtil.randomString(), false, reaction, true );
 
     assertEquals( callCount.get(), 1 );
   }
@@ -95,7 +92,7 @@ public class ArezContextApiTest
 
     final Observer observer =
       context.createObserver( ValueUtil.randomString(),
-                              TransactionMode.READ_ONLY,
+                              false,
                               o -> {
                                 observable.reportObserved();
                                 reactionCount.incrementAndGet();
@@ -127,7 +124,7 @@ public class ArezContextApiTest
 
     final Observer observer =
       context.createObserver( ValueUtil.randomString(),
-                              TransactionMode.READ_ONLY,
+                              false,
                               o -> {
                                 observable1.reportObserved();
                                 observable2.reportObserved();

@@ -39,16 +39,17 @@ public final class ArezContext
    * Create an observer with specified parameters.
    *
    * @param name           the name of the observer. Should be non null if {@link ArezConfig#enableNames()} returns true, null otherwise.
-   * @param mode           the mode in which the reaction is executed if any.
+   * @param mutation       true if the reaction may modify state, false otherwise.
    * @param reaction       the reaction defining observer.
    * @param runImmediately true to invoke reaction immediately, false to schedule reaction for next reaction cycle.
    */
   @Nonnull
   public Observer createObserver( @Nullable final String name,
-                                  @Nonnull final TransactionMode mode,
+                                  final boolean mutation,
                                   @Nullable final Reaction reaction,
                                   final boolean runImmediately )
   {
+    final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =
       new Observer( this, ArezConfig.enableNames() ? name : null, mode, reaction );
     if ( observer.hasReaction() )

@@ -710,13 +710,12 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     final String name = ValueUtil.randomString();
-    final TransactionMode mode = TransactionMode.READ_ONLY;
     final TestReaction reaction = new TestReaction();
     final Observer observer =
-      context.createObserver( name, mode, reaction, true );
+      context.createObserver( name, true, reaction, true );
 
     assertEquals( observer.getName(), name );
-    assertEquals( observer.getMode(), mode );
+    assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getReaction(), reaction );
     assertEquals( reaction.getCallCount(), 1 );
@@ -729,13 +728,11 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     final String name = ValueUtil.randomString();
-    final TransactionMode mode = TransactionMode.READ_ONLY;
     final TestReaction reaction = new TestReaction();
-    final Observer observer =
-      context.createObserver( name, mode, reaction, false );
+    final Observer observer = context.createObserver( name, false, reaction, false );
 
     assertEquals( observer.getName(), name );
-    assertEquals( observer.getMode(), mode );
+    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
     assertEquals( observer.getReaction(), reaction );
     assertEquals( reaction.getCallCount(), 0 );
@@ -749,12 +746,10 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     final String name = ValueUtil.randomString();
-    final TransactionMode mode = TransactionMode.READ_ONLY;
-    final Observer observer =
-      context.createObserver( name, mode, null, false );
+    final Observer observer = context.createObserver( name, false, null, false );
 
     assertEquals( observer.getName(), name );
-    assertEquals( observer.getMode(), mode );
+    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
     assertEquals( observer.getReaction(), null );
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
