@@ -189,7 +189,7 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied action in a transaction.
+   * Execute the supplied procedure in a transaction.
    * The action is expected to not throw an exception.
    * If a tracker is supplied then the transaction will be tracking.
    *
