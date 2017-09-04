@@ -93,7 +93,7 @@ public final class ArezContext
    * Create a new transaction.
    *
    * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
-   * @param mode    the transaciton mode.
+   * @param mode    the transaction mode.
    * @param tracker the observer that is tracking transaction if any.
    * @return the new transaction.
    */
@@ -140,7 +140,7 @@ public final class ArezContext
    *
    * @param <T>     the type of return value.
    * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
-   * @param mode    the transaciton mode.
+   * @param mode    the transaction mode.
    * @param tracker the observer that is tracking transaction if any.
    * @param action  the action to execute.
    * @return the value returned from the action.
@@ -170,7 +170,7 @@ public final class ArezContext
    *
    * @param <T>     the type of return value.
    * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
-   * @param mode    the transaciton mode.
+   * @param mode    the transaction mode.
    * @param tracker the observer that is tracking transaction if any.
    * @param action  the action to execute.
    * @return the value returned from the action.
