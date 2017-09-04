@@ -162,8 +162,9 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied action in a transaction.
-   * The transaction is tracking if tracker is supplied and is named with specified name.
+   * Execute the supplied procedure in a transaction.
+   * The action may throw an exception.
+   * If a tracker is supplied then the transaction will be tracking.
    *
    * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
    * @param mode    the transaction mode.
