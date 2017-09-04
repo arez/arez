@@ -150,7 +150,7 @@ public final class ArezContext
                          @Nonnull final Function<T> action )
     throws Exception
   {
-    final TransactionMode mode = mutation ? TransactionMode.READ_WRITE : TransactionMode.READ_ONLY;
+    final TransactionMode mode = mutationToTransactionMode( mutation );
     final Transaction transaction = beginTransaction( name, mode, tracker );
     try
     {
@@ -179,7 +179,7 @@ public final class ArezContext
                              @Nullable final Observer tracker,
                              @Nonnull final SafeFunction<T> action )
   {
-    final TransactionMode mode = mutation ? TransactionMode.READ_WRITE : TransactionMode.READ_ONLY;
+    final TransactionMode mode = mutationToTransactionMode( mutation );
     final Transaction transaction = beginTransaction( name, mode, tracker );
     try
     {
@@ -208,7 +208,7 @@ public final class ArezContext
                          @Nonnull final Procedure procedure )
     throws Exception
   {
-    final TransactionMode mode = mutation ? TransactionMode.READ_WRITE : TransactionMode.READ_ONLY;
+    final TransactionMode mode = mutationToTransactionMode( mutation );
     procedure( name, mode, tracker, procedure );
   }
 
@@ -244,7 +244,7 @@ public final class ArezContext
                              @Nullable final Observer tracker,
                              @Nonnull final SafeProcedure action )
   {
-    final TransactionMode mode = mutation ? TransactionMode.READ_WRITE : TransactionMode.READ_ONLY;
+    final TransactionMode mode = mutationToTransactionMode( mutation );
     final Transaction transaction = beginTransaction( name, mode, tracker );
     try
     {
@@ -347,6 +347,18 @@ public final class ArezContext
   ObserverErrorHandler getObserverErrorHandler()
   {
     return _observerErrorHandlerSupport;
+  }
+
+  /**
+   * Convert flag to appropriate transaction mode.
+   *
+   * @param mutation true if the transaction may modify state, false otherwise.
+   * @return the READ_WRITE transaction mode if mutation is true else READ_ONLY.
+   */
+  @Nonnull
+  private TransactionMode mutationToTransactionMode( final boolean mutation )
+  {
+    return mutation ? TransactionMode.READ_WRITE : TransactionMode.READ_ONLY;
   }
 
   @TestOnly
