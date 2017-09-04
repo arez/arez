@@ -199,7 +199,8 @@ public class ObserverTest
       expectThrows( IllegalStateException.class, observer::invariantDerivationState );
 
     assertEquals( exception.getMessage(),
-                  "Observer named '" + observer.getName() + "' is a derivation and active but the derived value has no observers." );
+                  "Observer named '" + observer.getName() + "' is a derivation and " +
+                  "active but the derived value has no observers." );
 
     ensureDerivationHasObserver( observer );
 
