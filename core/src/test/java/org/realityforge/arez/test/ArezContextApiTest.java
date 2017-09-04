@@ -116,6 +116,75 @@ public class ArezContextApiTest
   }
 
   @Test
+  public void interactionWithMultipleObservable()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observable observable1 = context.createObservable( ValueUtil.randomString() );
+    final Observable observable2 = context.createObservable( ValueUtil.randomString() );
+    final Observable observable3 = context.createObservable( ValueUtil.randomString() );
+    final Observable observable4 = context.createObservable( ValueUtil.randomString() );
+
+    final AtomicInteger reactionCount = new AtomicInteger();
+
+    final Observer observer =
+      context.createObserver( ValueUtil.randomString(),
+                              TransactionMode.READ_ONLY,
+                              o -> {
+                                observable1.reportObserved();
+                                observable2.reportObserved();
+                                observable3.reportObserved();
+                                reactionCount.incrementAndGet();
+                              },
+                              true );
+
+    assertEquals( reactionCount.get(), 1 );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
+    // Run an "action"
+    context.transaction( ValueUtil.randomString(),
+                         TransactionMode.READ_WRITE,
+                         null,
+                         observable1::reportChanged );
+
+    assertEquals( reactionCount.get(), 2 );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
+    // Update observer1+observer2 in transactionm
+    context.transaction( ValueUtil.randomString(),
+                         TransactionMode.READ_WRITE,
+                         null,
+                         () -> {
+                           observable1.reportChanged();
+                           observable2.reportChanged();
+                         } );
+
+    assertEquals( reactionCount.get(), 3 );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
+    context.transaction( ValueUtil.randomString(),
+                         TransactionMode.READ_WRITE,
+                         null,
+                         () -> {
+                           observable3.reportChanged();
+                           observable4.reportChanged();
+                         } );
+
+    assertEquals( reactionCount.get(), 4 );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
+    // observable4 should not cause a reaction as not observed
+    context.transaction( ValueUtil.randomString(),
+                         TransactionMode.READ_WRITE,
+                         null,
+                         observable4::reportChanged );
+
+    assertEquals( reactionCount.get(), 4 );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+  }
+
+  @Test
   public void transactionsCanProduceValues()
     throws Exception
   {
