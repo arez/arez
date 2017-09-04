@@ -156,9 +156,9 @@ public class ArezContextApiTest
                        TransactionMode.READ_WRITE,
                        null,
                        () -> {
-                           observable1.reportChanged();
-                           observable2.reportChanged();
-                         } );
+                         observable1.reportChanged();
+                         observable2.reportChanged();
+                       } );
 
     assertEquals( reactionCount.get(), 3 );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
@@ -167,9 +167,9 @@ public class ArezContextApiTest
                        TransactionMode.READ_WRITE,
                        null,
                        () -> {
-                           observable3.reportChanged();
-                           observable4.reportChanged();
-                         } );
+                         observable3.reportChanged();
+                         observable4.reportChanged();
+                       } );
 
     assertEquals( reactionCount.get(), 4 );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
