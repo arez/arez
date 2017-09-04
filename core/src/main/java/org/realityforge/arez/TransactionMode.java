@@ -3,7 +3,7 @@ package org.realityforge.arez;
 /**
  * The mode of the transaction that determines if the transaction can modify state.
  */
-public enum TransactionMode
+enum TransactionMode
 {
   /**
    * Can read state within the system.
