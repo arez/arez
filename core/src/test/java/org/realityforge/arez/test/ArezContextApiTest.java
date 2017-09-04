@@ -6,7 +6,6 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
 import org.realityforge.arez.ObserverErrorHandler;
-import org.realityforge.arez.ObserverState;
 import org.realityforge.arez.Reaction;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -29,7 +28,7 @@ public class ArezContextApiTest
     final Observer observer = context.createObserver( name, false, null, false );
 
     assertEquals( observer.getName(), name );
-    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.isActive(), false );
   }
 
   @Test
@@ -45,12 +44,12 @@ public class ArezContextApiTest
     final Observer observer = context.createObserver( name, false, reaction, true );
 
     assertEquals( observer.getName(), name );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isActive(), true );
     assertEquals( callCount.get(), 1 );
 
     observer.dispose();
 
-    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.isActive(), false );
   }
 
   @Test
@@ -100,13 +99,13 @@ public class ArezContextApiTest
                               true );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isActive(), true );
 
     // Run an "action"
     context.procedure( ValueUtil.randomString(), true, null, observable::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isActive(), true );
   }
 
   @Test
@@ -134,13 +133,13 @@ public class ArezContextApiTest
                               true );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isActive(), true );
 
     // Run an "action"
     context.procedure( ValueUtil.randomString(), true, null, observable1::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isActive(), true );
 
     // Update observer1+observer2 in transactionm
     context.procedure( ValueUtil.randomString(),
@@ -152,7 +151,7 @@ public class ArezContextApiTest
                        } );
 
     assertEquals( reactionCount.get(), 3 );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isActive(), true );
 
     context.procedure( ValueUtil.randomString(),
                        true,
@@ -163,7 +162,7 @@ public class ArezContextApiTest
                        } );
 
     assertEquals( reactionCount.get(), 4 );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isActive(), true );
 
     // observable4 should not cause a reaction as not observed
     context.procedure( ValueUtil.randomString(),
@@ -172,7 +171,7 @@ public class ArezContextApiTest
                        observable4::reportChanged );
 
     assertEquals( reactionCount.get(), 4 );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isActive(), true );
   }
 
   @Test

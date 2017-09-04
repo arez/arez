@@ -91,7 +91,7 @@ public final class TimerExample
       public void run()
       {
         System.out.println( timeModel.getTimeObservable() );
-        System.out.println( timePrinter + "::" + timePrinter.getState() );
+        System.out.println( timePrinter + "::Active=" + timePrinter.isActive() );
       }
     }, 0, 1000 );
     Thread.sleep( 10 * 1000 );
