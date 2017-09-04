@@ -42,6 +42,7 @@ public final class ArezContext
    * @param mutation       true if the reaction may modify state, false otherwise.
    * @param reaction       the reaction defining observer.
    * @param runImmediately true to invoke reaction immediately, false to schedule reaction for next reaction cycle.
+   * @return the new Observer.
    */
   @Nonnull
   public Observer createObserver( @Nullable final String name,
@@ -70,6 +71,7 @@ public final class ArezContext
    * Create a non-computed Observer with specified name.
    *
    * @param name the name of the observer. Should be non null if {@link ArezConfig#enableNames()} returns true, null otherwise.
+   * @return the new Observer.
    */
   @Nonnull
   public Observable createObservable( @Nullable final String name )
