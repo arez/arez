@@ -1,6 +1,5 @@
 package org.realityforge.arez;
 
-import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
@@ -177,12 +176,12 @@ public final class ArezContext
   public <T> T safeFunction( @Nullable final String name,
                              @Nonnull final TransactionMode mode,
                              @Nullable final Observer tracker,
-                             @Nonnull final Supplier<T> action )
+                             @Nonnull final SafeFunction<T> action )
   {
     final Transaction transaction = beginTransaction( name, mode, tracker );
     try
     {
-      return action.get();
+      return action.call();
     }
     finally
     {
