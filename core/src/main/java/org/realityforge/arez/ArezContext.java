@@ -150,7 +150,7 @@ public final class ArezContext
                          @Nonnull final Function<T> action )
     throws Exception
   {
-    final TransactionMode mode = mutation ? TransactionMode.READ_WRITE_OWNED : TransactionMode.READ_ONLY;
+    final TransactionMode mode = mutation ? TransactionMode.READ_WRITE : TransactionMode.READ_ONLY;
     final Transaction transaction = beginTransaction( name, mode, tracker );
     try
     {
