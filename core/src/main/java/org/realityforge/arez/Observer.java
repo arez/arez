@@ -357,6 +357,18 @@ public final class Observer
   }
 
   /**
+   * Utility to mark all dependencies least stale observer as up to date.
+   * Used when the Observer is determined to be up todate.
+   */
+  void markDependenciesLeastStaleObserverAsUpToDate()
+  {
+    for ( final Observable dependency : getDependencies() )
+    {
+      dependency.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    }
+  }
+
+  /**
    * Return the dependencies.
    *
    * @return the dependencies.

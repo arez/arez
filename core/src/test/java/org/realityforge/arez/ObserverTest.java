@@ -614,6 +614,43 @@ public class ObserverTest
                   "' when is not a computed observer." );
   }
 
+  @Test
+  public void markDependenciesLeastStaleObserverAsUpToDate()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+
+    final Observable observable1 = new Observable( context, ValueUtil.randomString() );
+    final Observable observable2 = new Observable( context, ValueUtil.randomString() );
+    final Observable observable3 = new Observable( context, ValueUtil.randomString() );
+    final Observable observable4 = new Observable( context, ValueUtil.randomString() );
+
+    observer.getDependencies().add( observable1 );
+    observer.getDependencies().add( observable2 );
+    observer.getDependencies().add( observable3 );
+    observer.getDependencies().add( observable4 );
+
+    setCurrentTransaction( context, observer );
+
+    observable1.addObserver( observer );
+    observable2.addObserver( observer );
+    observable3.addObserver( observer );
+    observable4.addObserver( observer );
+
+    observable1.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observable2.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    observable3.setLeastStaleObserverState( ObserverState.STALE );
+    observable4.setLeastStaleObserverState( ObserverState.INACTIVE );
+
+    observer.markDependenciesLeastStaleObserverAsUpToDate();
+
+    assertEquals( observable1.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observable3.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observable4.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observable4.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+  }
+
   private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
     context.setTransaction( new Transaction( context,
