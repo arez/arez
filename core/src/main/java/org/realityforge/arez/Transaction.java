@@ -81,10 +81,7 @@ final class Transaction
       // state of the _tracker.
       _tracker.setState( ObserverState.UP_TO_DATE );
       // Ensure dependencies "LeastStaleObserverState" state is kept up to date.
-      for ( final Observable dependency : _tracker.getDependencies() )
-      {
-        dependency.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
-      }
+      _tracker.markDependenciesLeastStaleObserverAsUpToDate();
     }
   }
 
