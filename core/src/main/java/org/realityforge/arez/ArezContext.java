@@ -1,6 +1,5 @@
 package org.realityforge.arez;
 
-import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -149,7 +148,7 @@ public final class ArezContext
   public <T> T function( @Nullable final String name,
                          @Nonnull final TransactionMode mode,
                          @Nullable final Observer tracker,
-                         @Nonnull final Callable<T> action )
+                         @Nonnull final Function<T> action )
     throws Exception
   {
     final Transaction transaction = beginTransaction( name, mode, tracker );
