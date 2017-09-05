@@ -2,29 +2,36 @@ package org.realityforge.arez.examples;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.jetbrains.annotations.TestOnly;
 import org.realityforge.arez.ArezContext;
-import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
+import org.realityforge.arez.annotations.Action;
+import org.realityforge.arez.annotations.Observable;
 
 public final class TimerExample
 {
   public static abstract class TimeModel
   {
+    @Observable
     public abstract long getTime();
 
+    @Observable
     public abstract void setTime( long time );
+
+    @Action
     public void updateTime()
     {
       setTime( System.currentTimeMillis() );
     }
   }
 
+  @Generated( "ArezGenerator" )
   public static class TimeModelImpl
     extends TimeModel
   {
-    private final Observable $_time;
+    private final org.realityforge.arez.Observable $_time;
     private long _time;
 
     public TimeModelImpl( @Nonnull final ArezContext context )
@@ -51,7 +58,7 @@ public final class TimerExample
 
     @TestOnly
     @Nonnull
-    public Observable getTimeObservable()
+    public org.realityforge.arez.Observable getTimeObservable()
     {
       return $_time;
     }
