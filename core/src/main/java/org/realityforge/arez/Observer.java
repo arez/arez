@@ -374,11 +374,11 @@ public final class Observer
     assert null != reaction;
     try
     {
-      getContext().procedure( name, mode, observer, () -> reaction.react( observer ) );
+      getContext().procedure( name, mode, this, () -> reaction.react( this ) );
     }
     catch ( final Throwable t )
     {
-      getContext().getObserverErrorHandler().onObserverError( observer, ObserverError.REACTION_ERROR, t );
+      getContext().getObserverErrorHandler().onObserverError( this, ObserverError.REACTION_ERROR, t );
     }
   }
 
