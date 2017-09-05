@@ -306,6 +306,7 @@ public final class ArezContext
    */
   void invokeReaction( @Nonnull final Observer observer )
   {
+    observer.clearScheduledFlag();
     final String name = ArezConfig.enableNames() ? observer.getName() : null;
     final TransactionMode mode = observer.getMode();
     final Reaction reaction = observer.getReaction();
