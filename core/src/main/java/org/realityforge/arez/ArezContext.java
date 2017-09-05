@@ -215,10 +215,10 @@ public final class ArezContext
     procedure( name, mode, tracker, procedure );
   }
 
-  private void procedure( @Nullable final String name,
-                          @Nonnull final TransactionMode mode,
-                          @Nullable final Observer tracker,
-                          @Nonnull final Procedure procedure )
+  void procedure( @Nullable final String name,
+                  @Nonnull final TransactionMode mode,
+                  @Nullable final Observer tracker,
+                  @Nonnull final Procedure procedure )
     throws Exception
   {
     final Transaction transaction = beginTransaction( name, mode, tracker );
