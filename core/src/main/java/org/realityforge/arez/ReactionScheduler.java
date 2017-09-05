@@ -209,7 +209,7 @@ final class ReactionScheduler
      */
     _remainingReactionsInCurrentRound--;
     final Observer observer = _pendingObservers.remove( 0 );
-    getContext().invokeReaction( observer );
+    observer.invokeReaction();
     return true;
   }
 

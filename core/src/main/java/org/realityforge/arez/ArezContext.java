@@ -57,7 +57,7 @@ public final class ArezContext
     {
       if ( runImmediately )
       {
-        invokeReaction( observer );
+        observer.invokeReaction();
       }
       else
       {
@@ -294,35 +294,6 @@ public final class ArezContext
   int nextNodeId()
   {
     return _nextNodeId++;
-  }
-
-  /**
-   * Run a reaction for the supplied observer.
-   * The reaction is executed in a transaction with the name and mode defined
-   * by the observer. If the reaction throws an exception, the exception is reported
-   * to the context global ObserverErrorHandlers
-   *
-   * @param observer the observer to run reaction for.
-   */
-  void invokeReaction( @Nonnull final Observer observer )
-  {
-    observer.clearScheduledFlag();
-    final String name = ArezConfig.enableNames() ? observer.getName() : null;
-    final TransactionMode mode = observer.getMode();
-    final Reaction reaction = observer.getReaction();
-    Guards.invariant( () -> null != reaction,
-                      () -> String.format(
-                        "invokeReaction called for observer named '%s' but observer has no associated reaction.",
-                        name ) );
-    assert null != reaction;
-    try
-    {
-      procedure( name, mode, observer, () -> reaction.react( observer ) );
-    }
-    catch ( final Throwable t )
-    {
-      getObserverErrorHandler().onObserverError( observer, ObserverError.REACTION_ERROR, t );
-    }
   }
 
   /**

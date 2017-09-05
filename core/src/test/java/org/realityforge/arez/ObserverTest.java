@@ -652,6 +652,84 @@ public class ObserverTest
     assertEquals( observable4.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
 
+  @Test
+  public void invokeReaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final TransactionMode mode = TransactionMode.READ_ONLY;
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final AtomicInteger errorCount = new AtomicInteger();
+
+    context.addObserverErrorHandler( ( observer, error, throwable ) -> errorCount.incrementAndGet() );
+
+    final Reaction reaction = observer -> {
+      callCount.incrementAndGet();
+      assertEquals( observer.getContext(), context );
+      assertEquals( context.isTransactionActive(), true );
+      assertEquals( context.getTransaction().getName(), name );
+      assertEquals( context.getTransaction().getMode(), mode );
+      assertEquals( observer.getName(), name );
+    };
+
+    final Observer observer = new Observer( context, name, mode, reaction );
+
+    observer.invokeReaction();
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( errorCount.get(), 0 );
+  }
+
+  @Test
+  public void invokeReaction_whenObserverHasNoReaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observer observer = new Observer( context, ValueUtil.randomString() );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::invokeReaction );
+    assertEquals( exception.getMessage(),
+                  "invokeReaction called for observer named '" +
+                  observer.getName() + "' but observer has no associated reaction." );
+  }
+
+  @Test
+  public void invokeReaction_reactionGeneratesError()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final TransactionMode mode = TransactionMode.READ_ONLY;
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final AtomicInteger errorCount = new AtomicInteger();
+
+    final RuntimeException exception = new RuntimeException( "X" );
+
+    context.addObserverErrorHandler( ( observer, error, throwable ) -> {
+      errorCount.incrementAndGet();
+      assertEquals( error, ObserverError.REACTION_ERROR );
+      assertEquals( throwable, exception );
+    } );
+
+    final Reaction reaction = observer -> {
+      callCount.incrementAndGet();
+      throw exception;
+    };
+
+    final Observer observer = new Observer( context, name, mode, reaction );
+
+    observer.invokeReaction();
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( errorCount.get(), 1 );
+  }
+
   private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
     context.setTransaction( new Transaction( context,

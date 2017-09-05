@@ -357,6 +357,32 @@ public final class Observer
   }
 
   /**
+   * Run the reaction in a transaction with the name and mode defined
+   * by the observer. If the reaction throws an exception, the exception is reported
+   * to the context global ObserverErrorHandlers
+   */
+  void invokeReaction()
+  {
+    clearScheduledFlag();
+    final String name = ArezConfig.enableNames() ? getName() : null;
+    final TransactionMode mode = getMode();
+    final Reaction reaction = getReaction();
+    Guards.invariant( () -> null != reaction,
+                      () -> String.format(
+                        "invokeReaction called on observer named '%s' but observer has no associated reaction.",
+                        name ) );
+    assert null != reaction;
+    try
+    {
+      getContext().procedure( name, mode, observer, () -> reaction.react( observer ) );
+    }
+    catch ( final Throwable t )
+    {
+      getContext().getObserverErrorHandler().onObserverError( observer, ObserverError.REACTION_ERROR, t );
+    }
+  }
+
+  /**
    * Utility to mark all dependencies least stale observer as up to date.
    * Used when the Observer is determined to be up todate.
    */
