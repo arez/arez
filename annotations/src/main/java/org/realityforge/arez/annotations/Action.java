@@ -13,6 +13,13 @@ import java.lang.annotation.Target;
 public @interface Action
 {
   /**
+   * Return the name of the Action relative to the container.
+   *
+   * @return the name of the Action relative to the container.
+   */
+  String name() default "";
+
+  /**
    * Does the action mutate state or not.
    *
    * @return true if method should be wrapped in READ_WRITE transaction, false if it should it should be wrapped in READ_ONLY transaction.
