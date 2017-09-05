@@ -15,6 +15,10 @@ public final class TimerExample
     public abstract long getTime();
 
     public abstract void setTime( long time );
+    public void updateTime()
+    {
+      setTime( System.currentTimeMillis() );
+    }
   }
 
   public static class TimeModelImpl
@@ -60,7 +64,7 @@ public final class TimerExample
 
     final TimeModelImpl timeModel = new TimeModelImpl( context );
 
-    context.procedure( "Initial setup", true, null, () -> timeModel.setTime( System.currentTimeMillis() ) );
+    context.procedure( "Initial setup", true, null, timeModel::updateTime );
 
     final Observer timePrinter =
       context.createObserver( "TimePrinter",
@@ -76,7 +80,7 @@ public final class TimerExample
       {
         try
         {
-          context.procedure( "Subsequent update", true, null, () -> timeModel.setTime( System.currentTimeMillis() ) );
+          context.procedure( "Subsequent update", true, null, timeModel::updateTime );
         }
         catch ( final Exception e )
         {
