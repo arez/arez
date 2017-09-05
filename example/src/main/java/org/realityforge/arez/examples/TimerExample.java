@@ -9,10 +9,12 @@ import org.jetbrains.annotations.TestOnly;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Observer;
 import org.realityforge.arez.annotations.Action;
+import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
 
 public final class TimerExample
 {
+  @Container( name = "TimeModel" )
   public static abstract class TimeModel
   {
     @Observable
