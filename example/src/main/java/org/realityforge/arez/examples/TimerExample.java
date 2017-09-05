@@ -40,8 +40,10 @@ public final class TimerExample
     private final org.realityforge.arez.Observable $_time;
     private long _time;
 
-    public TimeModelImpl( @Nonnull final ArezContext context )
+    public TimeModelImpl( @Nonnull final ArezContext context, final long time )
     {
+      super();
+      _time = time;
       $_time = context.createObservable( getArezNamePrefix() + "time" );
     }
 
@@ -93,7 +95,7 @@ public final class TimerExample
   {
     final ArezContext context = new ArezContext();
 
-    final TimeModelImpl timeModel = new TimeModelImpl( context );
+    final TimeModelImpl timeModel = new TimeModelImpl( context, 0 );
 
     context.procedure( "Initial setup", true, null, timeModel::updateTime );
 
