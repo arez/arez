@@ -14,4 +14,10 @@ import java.lang.annotation.Target;
 @Target( ElementType.METHOD )
 public @interface Observable
 {
+  /**
+   * Return the name of the Observable relative to the container.
+   *
+   * @return the name of the Observable relative to the container.
+   */
+  String name() default "";
 }
