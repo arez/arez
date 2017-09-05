@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Observer;
@@ -31,12 +32,35 @@ public final class TimerExample
   public static class TimeModelImpl
     extends TimeModel
   {
+    /**
+     * This could be specified by annotation on container.
+     */
+    private static final String TYPE_PREFIX = "TimeModel";
+
     private final org.realityforge.arez.Observable $_time;
     private long _time;
 
     public TimeModelImpl( @Nonnull final ArezContext context )
     {
-      $_time = context.createObservable( "TimeModel.time" );
+      $_time = context.createObservable( getArezNamePrefix() + "time" );
+    }
+
+    @Nullable
+    private String getArezNamePrefix()
+    {
+      final String arezId = getArezId();
+      return TYPE_PREFIX + ( null == arezId ? "" : "." + arezId ) + ".";
+    }
+
+    /**
+     * This could be overridden by annotation on a field.
+     * Otherwise should default to value get from context.nextNodeId().
+     * This class specifically overrides it as we have a singleton.
+     */
+    @Nullable
+    private String getArezId()
+    {
+      return null;
     }
 
     @Override
