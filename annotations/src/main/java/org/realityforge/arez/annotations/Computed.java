@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
  * <p>The computed method is automatically wrapped in a READ_ONLY transaction
  * by the annotation parser.</p>
  */
-@Retention( RetentionPolicy.CLASS )
+@Retention( RetentionPolicy.RUNTIME )
 @Target( ElementType.METHOD )
 public @interface Computed
 {
