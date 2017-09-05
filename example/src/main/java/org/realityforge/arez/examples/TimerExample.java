@@ -17,13 +17,13 @@ public final class TimerExample
   @Container( name = "TimeModel" )
   public static abstract class TimeModel
   {
-    @Observable
+    @Observable( name = "time" )
     public abstract long getTime();
 
-    @Observable
+    @Observable( name = "time" )
     public abstract void setTime( long time );
 
-    @Action
+    @Action( name = "updateTime" )
     public void updateTime()
     {
       setTime( System.currentTimeMillis() );
