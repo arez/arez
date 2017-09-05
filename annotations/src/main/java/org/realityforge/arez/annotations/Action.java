@@ -14,6 +14,8 @@ public @interface Action
 {
   /**
    * Does the action mutate state or not.
+   *
+   * @return true if method should be wrapped in READ_WRITE transaction, false if it should it should be wrapped in READ_ONLY transaction.
    */
   boolean mutation() default true;
 }
