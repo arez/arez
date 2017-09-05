@@ -20,6 +20,17 @@ define 'arez' do
   pom.add_github_project('realityforge/arez')
   pom.add_developer('realityforge', 'Peter Donald')
 
+  define 'annotations' do
+    pom.provided_dependencies.concat PROVIDED_DEPS
+
+    compile.with PROVIDED_DEPS,
+                 COMPILE_DEPS
+
+    package(:jar)
+    package(:sources)
+    package(:javadoc)
+  end
+
   define 'core' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
