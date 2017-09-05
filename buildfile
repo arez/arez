@@ -52,6 +52,7 @@ define 'arez' do
 
     compile.with PROVIDED_DEPS,
                  COMPILE_DEPS,
+                 project('annotations'),
                  project('core')
 
     test.options[:properties] = {'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy'}
