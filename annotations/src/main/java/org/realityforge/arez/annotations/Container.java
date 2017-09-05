@@ -8,8 +8,8 @@ import java.lang.annotation.Target;
 /**
  * Marks classes that contain Observable properties.
  *
- * <p>The annotation controls the way that contained observables are named. If names are
- * not enabled in the system, this annotation has no effect.</p>
+ * <p>The annotation controls the way that contained actions and observables are
+ * named. If names are not enabled in the system, this annotation has no effect.</p>
  *
  * <p>The {@link #name()} value indicates the type name for all instances of this object.
  * If not specified it will default to the SimpleName of the class. i.e. The class
@@ -21,7 +21,10 @@ import java.lang.annotation.Target;
  *
  * <p>The name of any observables contained within the container follows the pattern
  * "[Container.name].[Container.id].[Observable.name]" for non singletons and
- * "[Container.name].[Observable.name]" for singletons.</p>
+ * "[Container.name].[Observable.name]" for singletons. Likewise, the name of any
+ * actions contained within the container follows the pattern
+ * "[Container.name].[Container.id].[Action.name]" for non singletons and
+ * "[Container.name].[Action.name]" for singletons.</p>
  */
 @Retention( RetentionPolicy.RUNTIME )
 @Target( ElementType.TYPE )
