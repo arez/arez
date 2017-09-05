@@ -46,13 +46,23 @@ final class ArezConfig
 
   private static Provider createProvider()
   {
-    final boolean verboseErrorMessages = "true".equals( System.getProperty( "arez.verbose_error_messages", "false" ) );
-    final boolean checkInvariants = "true".equals( System.getProperty( "arez.check_invariants", "false" ) );
-    final boolean enableNames = "true".equals( System.getProperty( "arez.enable_names", "false" ) );
+    final String environment = System.getProperty( "arez.environment", "production" );
+    if ( !"production".equals( environment ) && !"development".equals( environment ) )
+    {
+      final String message = "System property 'arez.environment' is set to invalid property " + environment;
+      throw new IllegalStateException( message );
+    }
+    final boolean development = environment.equals( "development" );
+    final boolean verboseErrorMessages =
+      "true".equals( System.getProperty( "arez.verbose_error_messages", development ? "true" : "false" ) );
+    final boolean checkInvariants =
+      "true".equals( System.getProperty( "arez.check_invariants", development ? "true" : "false" ) );
+    final boolean enableNames =
+      "true".equals( System.getProperty( "arez.enable_names", development ? "true" : "false" ) );
     final boolean purgeReactions =
       "true".equals( System.getProperty( "arez.purge_reactions_when_runaway_detected", "true" ) );
     final boolean enforceTransactionType =
-      "true".equals( System.getProperty( "arez.enforce_transaction_type", "false" ) );
+      "true".equals( System.getProperty( "arez.enforce_transaction_type", development ? "true" : "false" ) );
 
     return System.getProperty( "arez.dynamic_provider", "false" ).equals( "true" ) ?
            new DynamicProvider( verboseErrorMessages,
