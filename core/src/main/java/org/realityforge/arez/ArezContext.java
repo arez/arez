@@ -52,6 +52,24 @@ public final class ArezContext
   }
 
   /**
+   * Create an autorun observer.
+   *
+   * @param name           the name of the observer. Should be non null if {@link ArezConfig#enableNames()} returns true, null otherwise.
+   * @param mutation       true if the action may modify state, false otherwise.
+   * @param action         the action defining the observer.
+   * @param runImmediately true to invoke action immediately, false to schedule reaction for next reaction cycle.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer autorun( @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure action,
+                           final boolean runImmediately )
+  {
+    return createObserver( name, mutation, o -> action.call(), runImmediately );
+  }
+
+  /**
    * Create an observer with specified parameters.
    *
    * @param name           the name of the observer. Should be non null if {@link ArezConfig#enableNames()} returns true, null otherwise.

@@ -2,6 +2,7 @@ package org.realityforge.arez;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -636,6 +637,42 @@ public class ArezContextTest
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.getObserver().getName(), name );
     assertEquals( computedValue.getObservable().getName(), name );
+  }
+
+  @Test
+  public void autorun_runImmediately()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final AtomicInteger callCount = new AtomicInteger();
+    final Observer observer =
+      context.autorun( name, true, callCount::incrementAndGet, true );
+
+    assertEquals( observer.getName(), name );
+    assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.hasReaction(), true );
+    assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
+  public void autorun_notRunImmediately()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final AtomicInteger callCount = new AtomicInteger();
+    final Observer observer = context.autorun( name, false, callCount::incrementAndGet, false );
+
+    assertEquals( observer.getName(), name );
+    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.hasReaction(), true );
+    assertEquals( callCount.get(), 0 );
+    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
   }
 
   @Test
