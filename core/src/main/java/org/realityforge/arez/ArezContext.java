@@ -79,10 +79,10 @@ public final class ArezContext
    * @return the new Observer.
    */
   @Nonnull
-  public Observer createObserver( @Nullable final String name,
-                                  final boolean mutation,
-                                  @Nullable final Reaction reaction,
-                                  final boolean runImmediately )
+  Observer createObserver( @Nullable final String name,
+                           final boolean mutation,
+                           @Nullable final Reaction reaction,
+                           final boolean runImmediately )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =

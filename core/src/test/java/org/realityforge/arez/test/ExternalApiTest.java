@@ -9,7 +9,7 @@ import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
 import org.realityforge.arez.ObserverErrorHandler;
-import org.realityforge.arez.Reaction;
+import org.realityforge.arez.Procedure;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -21,19 +21,6 @@ import static org.testng.Assert.*;
 public class ExternalApiTest
   extends AbstractArezTest
 {
-  @Test
-  public void createObserver_notReaction()
-    throws Exception
-  {
-    final ArezContext context = new ArezContext();
-
-    final String name = ValueUtil.randomString();
-    final Observer observer = context.createObserver( name, false, null, false );
-
-    assertEquals( observer.getName(), name );
-    assertEquals( observer.isActive(), false );
-  }
-
   @Test
   public void createComputedValue()
     throws Exception
@@ -62,8 +49,7 @@ public class ExternalApiTest
     final AtomicInteger callCount = new AtomicInteger();
 
     final String name = ValueUtil.randomString();
-    final Reaction reaction = o -> callCount.incrementAndGet();
-    final Observer observer = context.createObserver( name, false, reaction, true );
+    final Observer observer = context.autorun( name, false, callCount::incrementAndGet, true );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.isActive(), true );
@@ -85,18 +71,18 @@ public class ExternalApiTest
     final ObserverErrorHandler handler = ( observer, error, throwable ) -> callCount.incrementAndGet();
     context.addObserverErrorHandler( handler );
 
-    final Reaction reaction = o -> {
+    final Procedure reaction = () -> {
       throw new RuntimeException();
     };
     // This will run immediately and generate an exception
-    context.createObserver( ValueUtil.randomString(), false, reaction, true );
+    context.autorun( ValueUtil.randomString(), false, reaction, true );
 
     assertEquals( callCount.get(), 1 );
 
     context.removeObserverErrorHandler( handler );
 
     // This will run immediately and generate an exception
-    context.createObserver( ValueUtil.randomString(), false, reaction, true );
+    context.autorun( ValueUtil.randomString(), false, reaction, true );
 
     assertEquals( callCount.get(), 1 );
   }
@@ -112,13 +98,13 @@ public class ExternalApiTest
     final AtomicInteger reactionCount = new AtomicInteger();
 
     final Observer observer =
-      context.createObserver( ValueUtil.randomString(),
-                              false,
-                              o -> {
-                                observable.reportObserved();
-                                reactionCount.incrementAndGet();
-                              },
-                              true );
+      context.autorun( ValueUtil.randomString(),
+                       false,
+                       () -> {
+                         observable.reportObserved();
+                         reactionCount.incrementAndGet();
+                       },
+                       true );
 
     assertEquals( reactionCount.get(), 1 );
     assertEquals( observer.isActive(), true );
@@ -144,15 +130,15 @@ public class ExternalApiTest
     final AtomicInteger reactionCount = new AtomicInteger();
 
     final Observer observer =
-      context.createObserver( ValueUtil.randomString(),
-                              false,
-                              o -> {
-                                observable1.reportObserved();
-                                observable2.reportObserved();
-                                observable3.reportObserved();
-                                reactionCount.incrementAndGet();
-                              },
-                              true );
+      context.autorun( ValueUtil.randomString(),
+                       false,
+                       () -> {
+                         observable1.reportObserved();
+                         observable2.reportObserved();
+                         observable3.reportObserved();
+                         reactionCount.incrementAndGet();
+                       },
+                       true );
 
     assertEquals( reactionCount.get(), 1 );
     assertEquals( observer.isActive(), true );
