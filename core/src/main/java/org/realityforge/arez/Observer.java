@@ -470,6 +470,7 @@ public final class Observer
             {
               //Ignored
             }
+            // Call to get() will update this state if ComputedValue changed
             if ( ObserverState.STALE == getState() )
             {
               return true;
