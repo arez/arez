@@ -79,5 +79,4 @@ public abstract class Node
       return super.toString();
     }
   }
-
 }
