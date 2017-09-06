@@ -23,6 +23,9 @@ public class ComputedValueTest
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.toString(), name );
 
+    // Value starts out as null
+    assertEquals( computedValue.getValue(), null );
+
     // Verify the linking of all child elements
     assertEquals( computedValue.getObserver().getName(), name );
     assertEquals( computedValue.getObserver().isDerivation(), true );
