@@ -206,6 +206,8 @@ final class ReactionScheduler
      *
      * However this is very inefficient as it involves memory allocations and/or copies. We should
      * move to using a circular buffer that avoids both of these scenarios.
+     *
+     * TODO: Replace _pendingObservers with CircularBuffer.
      */
     _remainingReactionsInCurrentRound--;
     final Observer observer = _pendingObservers.remove( 0 );
