@@ -557,13 +557,4 @@ public class ReactionSchedulerTest
 
     assertEquals( scheduler.runPendingObservers(), 1 );
   }
-
-  private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
-  {
-    context.setTransaction( new Transaction( context,
-                                             null,
-                                             ValueUtil.randomString(),
-                                             observer.getMode(),
-                                             observer ) );
-  }
 }
