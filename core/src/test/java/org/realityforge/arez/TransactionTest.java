@@ -1814,4 +1814,23 @@ public class TransactionTest
                   "dependency named '" + observer.getName() + "' that is UP_TO_DATE but is not the tracker of " +
                   "any transactions in the hierarchy: [" + transaction.getName() + "]." );
   }
+
+  @Test
+  public void invariantObserverIsTracker_trackerOfSurroundingTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, observer );
+    context.setTransaction( transaction );
+
+    observable.addObserver( observer );
+    observer.getDependencies().add( observable );
+
+    transaction.invariantObserverIsTracker( observable, observer );
+  }
 }
