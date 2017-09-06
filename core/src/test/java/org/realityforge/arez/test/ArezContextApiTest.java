@@ -1,9 +1,11 @@
 package org.realityforge.arez.test;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.AbstractArezTest;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
 import org.realityforge.arez.ObserverErrorHandler;
@@ -30,6 +32,25 @@ public class ArezContextApiTest
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.isActive(), false );
+  }
+
+  @Test
+  public void createComputedValue()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final ComputedValue<String> computedValue = context.createComputedValue( name, () -> "", Objects::equals );
+
+    context.procedure( ValueUtil.randomString(), false, null, () -> {
+      assertEquals( computedValue.getName(), name );
+      assertEquals( computedValue.get(), "" );
+
+      computedValue.dispose();
+
+      assertThrows( computedValue::get );
+    } );
   }
 
   @Test
