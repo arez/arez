@@ -1833,4 +1833,37 @@ public class TransactionTest
 
     transaction.invariantObserverIsTracker( observable, observer );
   }
+
+  @Test
+  public void invariantObserverIsTracker_trackerUpTransactionHierarchy()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, observer );
+    final Transaction transaction2 =
+      new Transaction( context, transaction, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction3 =
+      new Transaction( context,
+                       transaction2,
+                       ValueUtil.randomString(),
+                       TransactionMode.READ_WRITE,
+                       newReadOnlyObserver( context ) );
+    final Transaction transaction4 =
+      new Transaction( context,
+                       transaction3,
+                       ValueUtil.randomString(),
+                       TransactionMode.READ_WRITE,
+                       newReadOnlyObserver( context ) );
+    context.setTransaction( transaction4 );
+
+    observable.addObserver( observer );
+    observer.getDependencies().add( observable );
+
+    transaction.invariantObserverIsTracker( observable, observer );
+  }
 }
