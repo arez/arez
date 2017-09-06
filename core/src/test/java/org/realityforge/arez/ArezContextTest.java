@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -619,6 +620,22 @@ public class ArezContextTest
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
     assertEquals( context.getScheduler().getPendingObservers().contains( observer ), true );
+  }
+
+  @Test
+  public void createComputedValue()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final SafeFunction<String> function = () -> "";
+    final ComputedValue<String> computedValue = context.createComputedValue( name, function, Objects::equals );
+
+    assertEquals( computedValue.getName(), name );
+    assertEquals( computedValue.getContext(), context );
+    assertEquals( computedValue.getObserver().getName(), name );
+    assertEquals( computedValue.getObservable().getName(), name );
   }
 
   @Test

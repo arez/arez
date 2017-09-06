@@ -36,6 +36,22 @@ public final class ArezContext
   private final ObserverErrorHandlerSupport _observerErrorHandlerSupport = new ObserverErrorHandlerSupport();
 
   /**
+   * Create a ComputedValue with specified parameters.
+   *
+   * @param <T>                the type of the computed value.
+   * @param name               the name of the ComputedValue. Should be non-null if {@link ArezConfig#enableNames()} returns true, null otherwise.
+   * @param function           the function that computes the value.
+   * @param equalityComparator the comparator that determines whether the newly computed value differs from existing value.
+   */
+  @Nonnull
+  public <T> ComputedValue<T> createComputedValue( @Nullable final String name,
+                                                   @Nonnull final SafeFunction<T> function,
+                                                   @Nonnull final EqualityComparator<T> equalityComparator )
+  {
+    return new ComputedValue<T>( this, ArezConfig.enableNames() ? name : null, function, equalityComparator );
+  }
+
+  /**
    * Create an observer with specified parameters.
    *
    * @param name           the name of the observer. Should be non null if {@link ArezConfig#enableNames()} returns true, null otherwise.
