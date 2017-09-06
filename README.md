@@ -37,10 +37,6 @@ TODO:
 * ComputedValue - where can use function that takes args (that are Observables somehow?)
 
 Observable
-* list of observers.
-* the cached least stalest state of these observers.
-* cached working state field.
-* owner derivation if any.
 * NOT YET: A list of notifications about changes in latest transaction (Or is this in
   transaction?) Notifications may collapse (i.e. atomic Observables just update with the
   last value where Array/Map will accumulate)
