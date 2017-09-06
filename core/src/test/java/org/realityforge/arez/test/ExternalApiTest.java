@@ -201,6 +201,29 @@ public class ExternalApiTest
   }
 
   @Test
+  public void safeFunction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observable observable = context.createObservable( ValueUtil.randomString() );
+
+    assertNotInTransaction( observable );
+
+    final String expectedValue = ValueUtil.randomString();
+
+    final String v0 =
+      context.safeFunction( ValueUtil.randomString(), false, () -> {
+        assertInTransaction( observable );
+        return expectedValue;
+      } );
+
+    assertNotInTransaction( observable );
+
+    assertEquals( v0, expectedValue );
+  }
+
+  @Test
   public void proceduresCanBeNested()
     throws Exception
   {
