@@ -292,11 +292,52 @@ final class Transaction
            * has a ComputedValue dependency has recalculated as part of the reaction.
            * So make sure we keep _leastStaleObserverState up to date.
            */
+          invariantObserverIsTracker( observable, observer );
           observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
         }
       }
     }
     observable.invariantLeastStaleObserverState();
+  }
+
+  /**
+   * Verifies that the specified observer is a tracker for the current
+   * transaction or one of the parent transactions.
+   *
+   * @param observable the observable which the observer is observing. Used when constructing invariant message.
+   * @param observer the observer.
+   */
+  void invariantObserverIsTracker( @Nonnull final Observable observable, @Nonnull final Observer observer )
+  {
+    // The ArezConfig.checkInvariants() is not needed as the optimizing compilers will eventually
+    // eliminate this as dead code but this top level check short-cuts this and ensures that GWT compiler
+    // eliminates it in first pass.
+    if ( ArezConfig.checkInvariants() )
+    {
+      boolean found = false;
+      Transaction t = this;
+      final ArrayList<String> names = new ArrayList<>();
+      while ( null != t )
+      {
+        if ( t.getTracker() == observer )
+        {
+          found = true;
+          break;
+        }
+        names.add( ArezConfig.enableNames() ? t.getName() : String.valueOf( t.getId() ) );
+        t = t.getPrevious();
+      }
+      final boolean check = found;
+      Guards.invariant( () -> check,
+                        () -> String.format(
+                          "Transaction named '%s' attempted to call reportChangeConfirmed for observable " +
+                          "named '%s' and found a dependency named '%s' that is UP_TO_DATE but is not the " +
+                          "tracker of any transactions in the hierarchy: %s.",
+                          getName(),
+                          observable.getName(),
+                          observer.getName(),
+                          String.valueOf( names ) ) );
+    }
   }
 
   void verifyWriteAllowed( @Nonnull final Observable observable )
