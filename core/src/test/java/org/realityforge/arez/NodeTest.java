@@ -25,15 +25,11 @@ public class NodeTest
   {
     final ArezContext context = new ArezContext();
     final String name = ValueUtil.randomString();
-    final int nextNodeId = context.currentNextNodeId();
 
     final TestNode node = new TestNode( context, name );
-    assertEquals( node.getId(), nextNodeId );
     assertEquals( node.getContext(), context );
     assertEquals( node.getName(), name );
     assertEquals( node.toString(), name );
-
-    assertEquals( context.currentNextNodeId(), nextNodeId + 1 );
   }
 
   @Test
@@ -43,15 +39,11 @@ public class NodeTest
     getConfigProvider().setEnableNames( false );
 
     final ArezContext context = new ArezContext();
-    final int nextNodeId = context.currentNextNodeId();
 
     final TestNode node = new TestNode( context, null );
-    assertEquals( node.getId(), nextNodeId );
     assertEquals( node.getContext(), context );
     assertThrows( node::getName );
     assertTrue( node.toString().startsWith( node.getClass().getName() + "@" ), "node.toString() == " + node );
-
-    assertEquals( context.currentNextNodeId(), nextNodeId + 1 );
   }
 
   @Test
@@ -61,10 +53,7 @@ public class NodeTest
     getConfigProvider().setEnableNames( false );
 
     final ArezContext context = new ArezContext();
-    final int nextNodeId = context.currentNextNodeId();
 
     assertThrows( () -> new TestNode( context, ValueUtil.randomString() ) );
-
-    assertEquals( context.currentNextNodeId(), nextNodeId );
   }
 }

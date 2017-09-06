@@ -21,11 +21,6 @@ public abstract class Node
    */
   @Nullable
   private final String _name;
-  /**
-   * Uniquely identifies node within the system.
-   * It is used by certain sub-classes (i.e. Transaction) to optimize state tracking.
-   */
-  private final int _id;
 
   Node( @Nonnull final ArezContext context, @Nullable final String name )
   {
@@ -33,7 +28,6 @@ public abstract class Node
                       () -> String.format( "Node passed a name '%s' but ArezConfig.enableNames() is false", name ) );
     _context = Objects.requireNonNull( context );
     _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
-    _id = context.nextNodeId();
   }
 
   /**
@@ -50,11 +44,6 @@ public abstract class Node
                       () -> "ArezElement.getName() invoked when ArezConfig.enableNames() is false" );
     assert null != _name;
     return _name;
-  }
-
-  final int getId()
-  {
-    return _id;
   }
 
   @Nonnull

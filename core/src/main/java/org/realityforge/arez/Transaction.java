@@ -10,6 +10,11 @@ final class Transaction
   extends Node
 {
   /**
+   * Uniquely identifies the transaction within the system.
+   * It is used to optimize state tracking.
+   */
+  private final int _id;
+  /**
    * Determines which write operations are permitted within the scope of the transaction if any.
    */
   @Nonnull
@@ -50,6 +55,7 @@ final class Transaction
                @Nullable final Observer tracker )
   {
     super( context, name );
+    _id = context.nextNodeId();
     _previous = previous;
     _mode = Objects.requireNonNull( mode );
     _tracker = tracker;
@@ -58,6 +64,11 @@ final class Transaction
                       () -> String.format(
                         "Attempted to create transaction named '%s' with mode READ_WRITE_OWNED but no tracker specified.",
                         getName() ) );
+  }
+
+  int getId()
+  {
+    return _id;
   }
 
   @Nonnull

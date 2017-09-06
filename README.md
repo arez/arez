@@ -34,8 +34,6 @@ TODO:
 
 * Read-Write transactions should not be able to be nested within other types of transactions.
 
-* Move Node.getId() to Transaction.getId()
-
 * ComputedValue - where can use function that takes args (that are Observables somehow?)
 
 Observable

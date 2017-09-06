@@ -17,7 +17,6 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final String name = ValueUtil.randomString();
-    final int nextNodeId = context.currentNextNodeId();
     final Reaction reaction = o -> {
     };
     final Observer observer = new Observer( context, name, TransactionMode.READ_ONLY, reaction );
@@ -25,7 +24,6 @@ public class ObserverTest
     // Verify all "Node" behaviour
     assertEquals( observer.getContext(), context );
     assertEquals( observer.getName(), name );
-    assertEquals( observer.getId(), nextNodeId );
     assertEquals( observer.toString(), name );
 
     // Starts out inactive and inactive means no dependencies
