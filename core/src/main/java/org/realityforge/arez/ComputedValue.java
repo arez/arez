@@ -154,4 +154,10 @@ public final class ComputedValue<T>
   {
     return _value;
   }
+
+  @TestOnly
+  void setComputing( final boolean computing )
+  {
+    _computing = computing;
+  }
 }
