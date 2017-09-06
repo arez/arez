@@ -17,8 +17,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final String name = ValueUtil.randomString();
-    final Reaction reaction = o -> {
-    };
+    final Reaction reaction = new TestReaction();
     final Observer observer = new Observer( context, name, TransactionMode.READ_ONLY, reaction );
 
     // Verify all "Node" behaviour
