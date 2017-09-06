@@ -174,4 +174,29 @@ public class ComputedValueTest
     assertEquals( computedValue.get(), "" );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
   }
+
+  @Test
+  public void get_disposedComputedValue()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
+    final Observer observer = computedValue.getObserver();
+
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.STALE );
+    computedValue.setValue( "XXX" );
+
+    observer.setDisposed( true );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, computedValue::get );
+
+    assertEquals( exception.getMessage(),
+                  "ComputedValue named '" + computedValue.getName() + "' accessed after it " +
+                  "has been disposed." );
+  }
 }
