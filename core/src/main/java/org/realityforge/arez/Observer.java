@@ -430,44 +430,25 @@ public final class Observer
    */
   void invokeReaction()
   {
-    clearScheduledFlag();
-
-/*
-runReaction() {
-        if (!this.isDisposed) {
-            startBatch()
-            this._isScheduled = false
-            if (shouldCompute(this)) {
-                this._isTrackPending = true
-
-                this.onInvalidate()
-                if (this._isTrackPending && isSpyEnabled()) {
-                    // onInvalidate didn't trigger track right away..
-                    spyReport({
-                        object: this,
-                        type: "scheduled-reaction"
-                    })
-                }
-            }
-            endBatch()
-        }
-    }
-*/
-    final String name = ArezConfig.enableNames() ? getName() : null;
-    final TransactionMode mode = getMode();
-    final Reaction reaction = getReaction();
-    Guards.invariant( () -> null != reaction,
-                      () -> String.format(
-                        "invokeReaction called on observer named '%s' but observer has no associated reaction.",
-                        name ) );
-    assert null != reaction;
-    try
+    if ( isLive() )
     {
-      getContext().procedure( name, mode, this, () -> reaction.react( this ) );
-    }
-    catch ( final Throwable t )
-    {
-      getContext().getObserverErrorHandler().onObserverError( this, ObserverError.REACTION_ERROR, t );
+      clearScheduledFlag();
+      final String name = ArezConfig.enableNames() ? getName() : null;
+      final TransactionMode mode = getMode();
+      final Reaction reaction = getReaction();
+      Guards.invariant( () -> null != reaction,
+                        () -> String.format(
+                          "invokeReaction called on observer named '%s' but observer has no associated reaction.",
+                          name ) );
+      assert null != reaction;
+      try
+      {
+        getContext().procedure( name, mode, this, () -> reaction.react( this ) );
+      }
+      catch ( final Throwable t )
+      {
+        getContext().getObserverErrorHandler().onObserverError( this, ObserverError.REACTION_ERROR, t );
+      }
     }
   }
 

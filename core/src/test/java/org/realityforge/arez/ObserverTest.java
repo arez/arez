@@ -837,6 +837,29 @@ public class ObserverTest
   }
 
   @Test
+  public void invokeReaction_onDisposedObserver()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final TestReaction reaction = new TestReaction();
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
+
+    observer.setDisposed( true );
+
+    observer.invokeReaction();
+
+    assertEquals( reaction.getCallCount(), 0 );
+
+    observer.setDisposed( false );
+
+    observer.invokeReaction();
+
+    assertEquals( reaction.getCallCount(), 1 );
+  }
+
+  @Test
   public void invokeReaction_whenObserverHasNoReaction()
     throws Exception
   {
