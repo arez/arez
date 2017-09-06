@@ -3,6 +3,7 @@ package org.realityforge.arez;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.jetbrains.annotations.TestOnly;
 
 /**
  * The ComputedValue represents an Observable derived from other observables within
@@ -141,5 +142,11 @@ public final class ComputedValue<T>
         _computing = false;
       }
     }
+  }
+
+  @TestOnly
+  T getValue()
+  {
+    return _value;
   }
 }
