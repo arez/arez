@@ -106,7 +106,6 @@ public final class CalculatedModelExample
 
     context.procedure( "Initial setup",
                        true,
-                       null,
                        () -> {
                          person.setFirstName( "Bill" );
                          person.setLastName( "Smith" );
@@ -121,6 +120,6 @@ public final class CalculatedModelExample
                      () -> System.out.println( "Full Name: " + person.getFullName() ),
                      true );
 
-    context.procedure( "Name update", true, null, () -> person.setFirstName( "Fred" ) );
+    context.procedure( "Name update", true, () -> person.setFirstName( "Fred" ) );
   }
 }

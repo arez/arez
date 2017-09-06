@@ -99,7 +99,7 @@ public final class TimerExample
 
     final TimeModelImpl timeModel = new TimeModelImpl( context, 0 );
 
-    context.procedure( "Initial setup", true, null, timeModel::updateTime );
+    context.procedure( "Initial setup", true, timeModel::updateTime );
 
     final Observer timePrinter =
       context.autorun( "TimePrinter",
@@ -115,7 +115,7 @@ public final class TimerExample
       {
         try
         {
-          context.procedure( "Subsequent update", true, null, timeModel::updateTime );
+          context.procedure( "Subsequent update", true, timeModel::updateTime );
         }
         catch ( final Exception e )
         {
