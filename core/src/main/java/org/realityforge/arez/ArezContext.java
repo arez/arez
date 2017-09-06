@@ -141,7 +141,10 @@ public final class ArezContext
       Guards.invariant( () -> TransactionMode.READ_WRITE == _transaction.getMode(),
                         () -> String.format( "Attempting to create READ_WRITE transaction named '%s' but it is " +
                                              "nested in transaction named '%s' with mode %s which is not " +
-                                             "equal to READ_WRITE.", name, _transaction.getName(), mode.name() ) );
+                                             "equal to READ_WRITE.",
+                                             name,
+                                             _transaction.getName(),
+                                             _transaction.getMode().name() ) );
     }
     _transaction = new Transaction( this, _transaction, name, mode, tracker );
     _transaction.begin();

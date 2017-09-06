@@ -51,7 +51,7 @@ public class ArezContextTest
     assertEquals( exception.getMessage(),
                   "Attempting to create READ_WRITE transaction named '" + name +
                   "' but it is nested in transaction named '" + transaction.getName() + "' with " +
-                  "mode READ_WRITE which is not equal to READ_WRITE." );
+                  "mode READ_ONLY which is not equal to READ_WRITE." );
   }
 
   @Test
