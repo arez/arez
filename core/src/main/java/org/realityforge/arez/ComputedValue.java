@@ -66,7 +66,6 @@ public final class ComputedValue<T>
                       () -> String.format( "ComputedValue named '%s' accessed after it has been disposed.",
                                            getName() ) );
     getObservable().reportObserved();
-    //TODO: The shouldCompute should be part of invokeReaction
     if ( _observer.shouldCompute() )
     {
       _observer.invokeReaction();
