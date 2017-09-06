@@ -854,6 +854,36 @@ public class ObserverTest
   }
 
   @Test
+  public void shouldCompute_POSSIBLY_STALE_ComputableThrowsException()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final SafeFunction<String> function = () -> {
+      throw new IllegalStateException();
+    };
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
+
+    final Observer observer = computedValue.getObserver();
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.POSSIBLY_STALE );
+
+    final ComputedValue<String> computedValue2 =
+      new ComputedValue<>( context, ValueUtil.randomString(), function, Objects::equals );
+
+    observer.getDependencies().add( computedValue2.getObservable() );
+    computedValue2.getObservable().addObserver( observer );
+
+    // Set it to something random so it will change
+    computedValue2.setValue( ValueUtil.randomString() );
+
+    assertEquals( observer.shouldCompute(), false );
+
+    assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
+  }
+
+  @Test
   public void shouldCompute_POSSIBLY_STALE_whereDependencyRecomputesButDoesNotChange()
     throws Exception
   {
