@@ -85,7 +85,7 @@ public class ObserverTest
   public void initialState_whenSuppliedNoReaction()
     throws Exception
   {
-    final Observer observer = new Observer( new ArezContext(), ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserverWithNoReaction( new ArezContext() );
 
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getReaction(), null );
@@ -476,7 +476,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserverWithNoReaction( context );
     setCurrentTransaction( context, observer );
 
     final TestProcedure onActivate = new TestProcedure();
@@ -563,7 +563,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserverWithNoReaction( context );
     setCurrentTransaction( context, observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
@@ -713,7 +713,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
 
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserverWithNoReaction( context );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::invokeReaction );
     assertEquals( exception.getMessage(),

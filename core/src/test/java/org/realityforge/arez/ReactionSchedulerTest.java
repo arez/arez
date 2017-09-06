@@ -138,7 +138,7 @@ public class ReactionSchedulerTest
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = new ReactionScheduler( context );
 
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserverWithNoReaction( context );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> scheduler.scheduleReaction( observer ) );
