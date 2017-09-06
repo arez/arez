@@ -121,9 +121,7 @@ public class ReactionSchedulerTest
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = new ReactionScheduler( context );
 
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, o -> {
-      } );
+    final Observer observer = newReadOnlyObserver( context );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
 
@@ -157,9 +155,7 @@ public class ReactionSchedulerTest
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = new ReactionScheduler( context );
 
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, o -> {
-      } );
+    final Observer observer = newReadOnlyObserver( context );
 
     scheduler.getPendingObservers().add( observer );
 
@@ -178,9 +174,10 @@ public class ReactionSchedulerTest
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final TestReaction reaction = new TestReaction();
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
+    final Observer observer = newReadOnlyObserver( context );
+    final TestReaction reaction = (TestReaction) observer.getReaction();
+    assertNotNull( reaction );
+
     setCurrentTransaction( context, observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
@@ -222,9 +219,10 @@ public class ReactionSchedulerTest
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final TestReaction reaction = new TestReaction();
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
+    final Observer observer = newReadOnlyObserver( context );
+    final TestReaction reaction = (TestReaction) observer.getReaction();
+    assertNotNull( reaction );
+
     setCurrentTransaction( context, observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
@@ -252,8 +250,7 @@ public class ReactionSchedulerTest
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( context, observer );
 
     final int round1Size = 10;
@@ -365,8 +362,8 @@ public class ReactionSchedulerTest
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer observer = newReadOnlyObserver( context );
+
     setCurrentTransaction( context, observer );
 
     final TestReaction reaction = new TestReaction()
@@ -424,8 +421,8 @@ public class ReactionSchedulerTest
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer observer = newReadOnlyObserver( context );
+
     setCurrentTransaction( context, observer );
 
     final TestReaction reaction = new TestReaction()
@@ -474,8 +471,8 @@ public class ReactionSchedulerTest
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer observer = newReadOnlyObserver( context );
+
     setCurrentTransaction( context, observer );
 
     final Observer[] observers = new Observer[ 10 ];
@@ -532,8 +529,8 @@ public class ReactionSchedulerTest
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer observer = newReadOnlyObserver( context );
+
     setCurrentTransaction( context, observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
