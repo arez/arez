@@ -66,7 +66,7 @@ public class ReactionSchedulerTest
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = new ReactionScheduler( context );
 
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
     scheduler.getPendingObservers().add( observer );
 
     final IllegalStateException exception =
@@ -90,7 +90,7 @@ public class ReactionSchedulerTest
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = new ReactionScheduler( context );
 
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
     scheduler.getPendingObservers().add( observer );
 
     assertThrows( IllegalStateException.class, scheduler::onRunawayReactionsDetected );
