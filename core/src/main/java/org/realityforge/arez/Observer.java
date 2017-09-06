@@ -529,7 +529,7 @@ public final class Observer
    * @return the associated ComputedValue.
    */
   @Nonnull
-  ComputedValue getComputedValue()
+  ComputedValue<?> getComputedValue()
   {
     Guards.invariant( this::isDerivation,
                       () -> String.format(
