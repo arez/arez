@@ -305,7 +305,7 @@ final class Transaction
    * transaction or one of the parent transactions.
    *
    * @param observable the observable which the observer is observing. Used when constructing invariant message.
-   * @param observer the observer.
+   * @param observer   the observer.
    */
   void invariantObserverIsTracker( @Nonnull final Observable observable, @Nonnull final Observer observer )
   {
