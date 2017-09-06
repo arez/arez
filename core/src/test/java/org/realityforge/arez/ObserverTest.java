@@ -592,6 +592,30 @@ public class ObserverTest
   }
 
   @Test
+  public void schedule_when_Disposed()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadOnlyObserver( context );
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setDisposed( true );
+
+    assertEquals( observer.isScheduled(), false );
+
+    observer.schedule();
+
+    assertEquals( observer.isScheduled(), false );
+
+    observer.setDisposed( false );
+
+    observer.schedule();
+
+    assertEquals( observer.isScheduled(), true );
+  }
+
+  @Test
   public void schedule_whenNoReaction()
     throws Exception
   {
