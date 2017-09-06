@@ -122,9 +122,8 @@ public final class Observer
   Observable getDerivedValue()
   {
     Guards.invariant( this::isDerivation,
-                      () -> String.format(
-                        "Attempted to invoke getDerivedValue on observer named '%s' when is not a computed observer.",
-                        getName() ) );
+                      () -> String.format( "Attempted to invoke getDerivedValue on observer named " +
+                                           "'%s' when is not a computed observer.", getName() ) );
     assert null != _derivedValue;
     return _derivedValue;
   }
