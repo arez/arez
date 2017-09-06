@@ -78,6 +78,7 @@ public abstract class AbstractArezTest
     throw new IllegalStateException();
   }
 
+  @SuppressWarnings( "SameParameterValue" )
   final void setField( @Nonnull final Object object, @Nonnull final String fieldName, @Nullable final Object value )
     throws NoSuchFieldException, IllegalAccessException
   {
