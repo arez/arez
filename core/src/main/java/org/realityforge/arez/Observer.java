@@ -14,6 +14,11 @@ public final class Observer
   extends Node
 {
   /**
+   * The reference to the ComputedValue if this observer is a derivation.
+   */
+  @Nullable
+  private final ComputedValue<?> _computedValue;
+  /**
    * Hook action called when the Observer changes from the INACTIVE state to any other state.
    */
   @Nullable
@@ -69,12 +74,32 @@ public final class Observer
     this( context, name, TransactionMode.READ_ONLY, null );
   }
 
+  Observer( @Nonnull final ComputedValue<?> computedValue )
+  {
+    this( computedValue.getContext(),
+          computedValue.getName(),
+          computedValue,
+          TransactionMode.READ_WRITE_OWNED,
+          o -> computedValue.compute() );
+    setOnStale( () -> getDerivedValue().reportPossiblyChanged() );
+  }
+
   Observer( @Nonnull final ArezContext context,
             @Nullable final String name,
             @Nonnull final TransactionMode mode,
             @Nullable final Reaction reaction )
   {
+    this( context, name, null, mode, reaction );
+  }
+
+  private Observer( @Nonnull final ArezContext context,
+                    @Nullable final String name,
+                    @Nullable final ComputedValue<?> computedValue,
+                    @Nonnull final TransactionMode mode,
+                    @Nullable final Reaction reaction )
+  {
     super( context, name );
+    _computedValue = computedValue;
     _mode = Objects.requireNonNull( mode );
     _reaction = reaction;
     if ( TransactionMode.READ_WRITE_OWNED == mode )
@@ -494,5 +519,23 @@ public final class Observer
                         () -> String.format( "Observer named '%s' is a derivation and active but the derived " +
                                              "value has no observers.", getName() ) );
     }
+  }
+
+  /**
+   * Return the ComputedValue for Observer.
+   * This should not be called if observer is not a derivation and will generate an invariant failure
+   * if invariants are enabled.
+   *
+   * @return the associated ComputedValue.
+   */
+  @Nonnull
+  ComputedValue getComputedValue()
+  {
+    Guards.invariant( this::isDerivation,
+                      () -> String.format(
+                        "Attempted to invoke getComputedValue on observer named '%s' when is not a computed observer.",
+                        getName() ) );
+    assert null != _computedValue;
+    return _computedValue;
   }
 }

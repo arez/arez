@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import java.lang.reflect.Field;
+import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -104,7 +105,7 @@ public abstract class AbstractArezTest
   @Nonnull
   protected final Observer newDerivation( @Nonnull final ArezContext context )
   {
-    return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
+    return new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals ).getObserver();
   }
 
   @Nonnull

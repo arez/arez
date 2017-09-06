@@ -76,6 +76,9 @@ public class ObserverTest
 
     assertEquals( observer.getDerivedValue().getName(), observer.getName() );
     assertEquals( observer.getDerivedValue().getOwner(), observer );
+
+    assertEquals( observer.getComputedValue().getName(), observer.getName() );
+    assertEquals( observer.getComputedValue().getObserver(), observer );
   }
 
   @Test
@@ -624,6 +627,22 @@ public class ObserverTest
 
     assertEquals( exception.getMessage(),
                   "Attempted to invoke getDerivedValue on observer named '" + observer.getName() +
+                  "' when is not a computed observer." );
+  }
+
+  @Test
+  public void getComputedValue_throwsExceptionWhenNotDerived()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadOnlyObserver( context );
+
+    assertEquals( observer.isDerivation(), false );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::getComputedValue );
+
+    assertEquals( exception.getMessage(),
+                  "Attempted to invoke getComputedValue on observer named '" + observer.getName() +
                   "' when is not a computed observer." );
   }
 
