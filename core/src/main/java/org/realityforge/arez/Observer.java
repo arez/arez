@@ -126,6 +126,9 @@ public final class Observer
   @Nonnull
   Observable getDerivedValue()
   {
+    Guards.invariant( this::isLive,
+                      () -> String.format( "Attempted to invoke getDerivedValue on disposed observer named '%s'.",
+                                           getName() ) );
     Guards.invariant( this::isDerivation,
                       () -> String.format( "Attempted to invoke getDerivedValue on observer named " +
                                            "'%s' when is not a computed observer.", getName() ) );

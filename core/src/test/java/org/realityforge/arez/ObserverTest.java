@@ -693,6 +693,25 @@ public class ObserverTest
   }
 
   @Test
+  public void getDerivedValue_onDisposedObserver()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newDerivation( context );
+
+    observer.setDisposed( true );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::getDerivedValue );
+
+    assertEquals( exception.getMessage(),
+                  "Attempted to invoke getDerivedValue on disposed observer named '" + observer.getName() + "'." );
+
+    observer.setDisposed( false );
+
+    assertEquals( observer.getDerivedValue().getName(), observer.getName() );
+  }
+
+  @Test
   public void getComputedValue_throwsExceptionWhenNotDerived()
     throws Exception
   {
