@@ -154,7 +154,7 @@ public final class Observer
     if ( !_disposed )
     {
       _disposed = true;
-      getContext().safeProcedure( getName(), false, null, () -> setState( ObserverState.INACTIVE ) );
+      getContext().safeProcedure( getName(), false, () -> setState( ObserverState.INACTIVE ) );
     }
   }
 

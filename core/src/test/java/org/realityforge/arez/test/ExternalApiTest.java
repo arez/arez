@@ -30,7 +30,7 @@ public class ExternalApiTest
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue = context.createComputedValue( name, () -> "", Objects::equals );
 
-    context.procedure( ValueUtil.randomString(), false, null, () -> {
+    context.procedure( ValueUtil.randomString(), false, () -> {
       assertEquals( computedValue.getName(), name );
       assertEquals( computedValue.get(), "" );
 
@@ -110,7 +110,7 @@ public class ExternalApiTest
     assertEquals( observer.isActive(), true );
 
     // Run an "action"
-    context.procedure( ValueUtil.randomString(), true, null, observable::reportChanged );
+    context.procedure( ValueUtil.randomString(), true, observable::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( observer.isActive(), true );
@@ -144,7 +144,7 @@ public class ExternalApiTest
     assertEquals( observer.isActive(), true );
 
     // Run an "action"
-    context.procedure( ValueUtil.randomString(), true, null, observable1::reportChanged );
+    context.procedure( ValueUtil.randomString(), true, observable1::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( observer.isActive(), true );
@@ -152,7 +152,6 @@ public class ExternalApiTest
     // Update observer1+observer2 in transaction
     context.procedure( ValueUtil.randomString(),
                        true,
-                       null,
                        () -> {
                          observable1.reportChanged();
                          observable2.reportChanged();
@@ -163,7 +162,6 @@ public class ExternalApiTest
 
     context.procedure( ValueUtil.randomString(),
                        true,
-                       null,
                        () -> {
                          observable3.reportChanged();
                          observable4.reportChanged();
@@ -173,10 +171,7 @@ public class ExternalApiTest
     assertEquals( observer.isActive(), true );
 
     // observable4 should not cause a reaction as not observed
-    context.procedure( ValueUtil.randomString(),
-                       true,
-                       null,
-                       observable4::reportChanged );
+    context.procedure( ValueUtil.randomString(), true, observable4::reportChanged );
 
     assertEquals( reactionCount.get(), 4 );
     assertEquals( observer.isActive(), true );
@@ -195,7 +190,7 @@ public class ExternalApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.function( ValueUtil.randomString(), false, null, () -> {
+      context.function( ValueUtil.randomString(), false, () -> {
         assertInTransaction( observable );
         return expectedValue;
       } );
@@ -214,15 +209,15 @@ public class ExternalApiTest
 
     assertNotInTransaction( observable );
 
-    context.procedure( ValueUtil.randomString(), false, null, () -> {
+    context.procedure( ValueUtil.randomString(), false, () -> {
       assertInTransaction( observable );
 
       //First nested exception
-      context.procedure( ValueUtil.randomString(), false, null, () -> {
+      context.procedure( ValueUtil.randomString(), false, () -> {
         assertInTransaction( observable );
 
         //Second nested exception
-        context.procedure( ValueUtil.randomString(), false, null, () -> assertInTransaction( observable ) );
+        context.procedure( ValueUtil.randomString(), false, () -> assertInTransaction( observable ) );
 
         assertInTransaction( observable );
       } );
@@ -246,17 +241,17 @@ public class ExternalApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.function( ValueUtil.randomString(), false, null, () -> {
+      context.function( ValueUtil.randomString(), false, () -> {
         assertInTransaction( observable );
 
         //First nested exception
         final String v1 =
-          context.function( ValueUtil.randomString(), false, null, () -> {
+          context.function( ValueUtil.randomString(), false, () -> {
             assertInTransaction( observable );
 
             //Second nested exception
             final String v2 =
-              context.function( ValueUtil.randomString(), false, null, () -> {
+              context.function( ValueUtil.randomString(), false, () -> {
                 assertInTransaction( observable );
                 return expectedValue;
               } );

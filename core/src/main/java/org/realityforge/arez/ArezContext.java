@@ -171,24 +171,19 @@ public final class ArezContext
   /**
    * Execute the supplied function in a transaction.
    * The action may throw an exception.
-   * If a tracker is supplied then the transaction will be tracking.
    *
    * @param <T>      the type of return value.
    * @param name     the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
    * @param mutation true if the action may modify state, false otherwise.
-   * @param tracker  the observer that is tracking transaction if any.
    * @param action   the action to execute.
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
-  public <T> T function( @Nullable final String name,
-                         final boolean mutation,
-                         @Nullable final Observer tracker,
-                         @Nonnull final Function<T> action )
+  public <T> T function( @Nullable final String name, final boolean mutation, @Nonnull final Function<T> action )
     throws Exception
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
-    final Transaction transaction = beginTransaction( name, mode, tracker );
+    final Transaction transaction = beginTransaction( name, mode, null );
     try
     {
       return action.call();
@@ -202,22 +197,19 @@ public final class ArezContext
   /**
    * Execute the supplied function in a transaction.
    * The action is expected to not throw an exception.
-   * If a tracker is supplied then the transaction will be tracking.
    *
    * @param <T>      the type of return value.
    * @param name     the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
    * @param mutation true if the action may modify state, false otherwise.
-   * @param tracker  the observer that is tracking transaction if any.
    * @param action   the action to execute.
    * @return the value returned from the action.
    */
   public <T> T safeFunction( @Nullable final String name,
                              final boolean mutation,
-                             @Nullable final Observer tracker,
                              @Nonnull final SafeFunction<T> action )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
-    final Transaction transaction = beginTransaction( name, mode, tracker );
+    final Transaction transaction = beginTransaction( name, mode, null );
     try
     {
       return action.call();
@@ -231,22 +223,17 @@ public final class ArezContext
   /**
    * Execute the supplied procedure in a transaction.
    * The procedure may throw an exception.
-   * If a tracker is supplied then the transaction will be tracking.
    *
    * @param name      the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
    * @param mutation  true if the action may modify state, false otherwise.
-   * @param tracker   the observer that is tracking transaction if any.
    * @param procedure the procedure to execute.
    * @throws Exception if the procedure throws an an exception.
    */
-  public void procedure( @Nullable final String name,
-                         final boolean mutation,
-                         @Nullable final Observer tracker,
-                         @Nonnull final Procedure procedure )
+  public void procedure( @Nullable final String name, final boolean mutation, @Nonnull final Procedure procedure )
     throws Exception
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
-    procedure( name, mode, tracker, procedure );
+    procedure( name, mode, null, procedure );
   }
 
   void procedure( @Nullable final String name,
@@ -269,20 +256,17 @@ public final class ArezContext
   /**
    * Execute the supplied procedure in a transaction.
    * The action is expected to not throw an exception.
-   * If a tracker is supplied then the transaction will be tracking.
    *
    * @param name     the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
    * @param mutation true if the action may modify state, false otherwise.
-   * @param tracker  the observer that is tracking transaction if any.
    * @param action   the action to execute.
    */
   public void safeProcedure( @Nullable final String name,
                              final boolean mutation,
-                             @Nullable final Observer tracker,
                              @Nonnull final SafeProcedure action )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
-    final Transaction transaction = beginTransaction( name, mode, tracker );
+    final Transaction transaction = beginTransaction( name, mode, null );
     try
     {
       action.call();
