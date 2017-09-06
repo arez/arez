@@ -56,7 +56,7 @@ public abstract class AbstractArezTest
   }
 
   @Nonnull
-  final Field getField( @Nonnull final Class<?> type, @Nonnull final String fieldName )
+  private Field getField( @Nonnull final Class<?> type, @Nonnull final String fieldName )
     throws NoSuchFieldException
   {
     Class clazz = type;
