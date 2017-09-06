@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -823,5 +824,79 @@ public class ObserverTest
     observer.setState( ObserverState.STALE );
 
     assertEquals( observer.shouldCompute(), true );
+  }
+
+  @Test
+  public void shouldCompute_POSSIBLY_STALE()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
+
+    final Observer observer = computedValue.getObserver();
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.POSSIBLY_STALE );
+
+    final ComputedValue<String> computedValue2 =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
+
+    observer.getDependencies().add( computedValue2.getObservable() );
+    computedValue2.getObservable().addObserver( observer );
+
+    // Set it to something random so it will change
+    computedValue2.setValue( ValueUtil.randomString() );
+
+    assertEquals( observer.shouldCompute(), true );
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+  }
+
+  @Test
+  public void shouldCompute_POSSIBLY_STALE_whereDependencyRecomputesButDoesNotChange()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
+
+    final Observer observer = computedValue.getObserver();
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.POSSIBLY_STALE );
+
+    final ComputedValue<String> computedValue2 =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
+
+    observer.getDependencies().add( computedValue2.getObservable() );
+    computedValue2.getObservable().addObserver( observer );
+
+    // Set it to same so no change
+    computedValue2.setValue( "" );
+
+    assertEquals( observer.shouldCompute(), false );
+
+    assertEquals( computedValue2.getObserver().getState(), ObserverState.UP_TO_DATE );
+  }
+
+  @Test
+  public void shouldCompute_POSSIBLY_STALE_ignoresNonComputedDependencies()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
+
+    final Observer observer = computedValue.getObserver();
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.POSSIBLY_STALE );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    observer.getDependencies().add( observable );
+    observable.addObserver( observer );
+
+    assertEquals( observer.shouldCompute(), false );
   }
 }
