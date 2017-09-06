@@ -94,6 +94,39 @@ public class ObserverTest
   }
 
   @Test
+  public void construct_with_READ_WRITE_OWNED_but_noComputableValue()
+    throws Exception
+  {
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( new ArezContext(), name, null, TransactionMode.READ_WRITE_OWNED, null ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempted to construct an observer named '" + name + "' with READ_WRITE_OWNED " +
+                  "transaction mode but no ComputedValue." );
+  }
+
+
+  @Test
+  public void construct_with_READ_ONLY_but_ComputableValue()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final String name = ValueUtil.randomString();
+
+    final ComputedValue<?> computedValue = newDerivation( context ).getComputedValue();
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( context, name, computedValue, TransactionMode.READ_ONLY, null ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempted to construct an observer named '" + name + "' with READ_ONLY " +
+                  "transaction mode and a ComputedValue." );
+  }
+
+  @Test
   public void invariantDependenciesBackLink()
     throws Exception
   {

@@ -92,13 +92,24 @@ public final class Observer
     this( context, name, null, mode, reaction );
   }
 
-  private Observer( @Nonnull final ArezContext context,
-                    @Nullable final String name,
-                    @Nullable final ComputedValue<?> computedValue,
-                    @Nonnull final TransactionMode mode,
-                    @Nullable final Reaction reaction )
+  Observer( @Nonnull final ArezContext context,
+            @Nullable final String name,
+            @Nullable final ComputedValue<?> computedValue,
+            @Nonnull final TransactionMode mode,
+            @Nullable final Reaction reaction )
   {
     super( context, name );
+    if ( TransactionMode.READ_WRITE_OWNED == mode )
+    {
+      Guards.invariant( () -> null != computedValue,
+                        () -> String.format( "Attempted to construct an observer named '%s' with READ_WRITE_OWNED " +
+                                             "transaction mode but no ComputedValue.", getName() ) );
+    }
+    else if ( null != computedValue )
+    {
+      Guards.fail( () -> String.format( "Attempted to construct an observer named '%s' with %s " +
+                                        "transaction mode and a ComputedValue.", getName(), mode ) );
+    }
     _computedValue = computedValue;
     _mode = Objects.requireNonNull( mode );
     _reaction = reaction;
