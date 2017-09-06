@@ -98,7 +98,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( context, observer );
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
@@ -123,7 +123,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
 
@@ -147,7 +147,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
 
     observer.invariantState();
 
@@ -190,7 +190,7 @@ public class ObserverTest
 
     observer.invariantDerivationState();
 
-    setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
+    setCurrentTransaction( context, newReadOnlyObserver( context ) );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -227,7 +227,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( context, observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
@@ -254,7 +254,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( context, observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
@@ -278,7 +278,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( context, observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
@@ -300,7 +300,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( context, observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
@@ -328,7 +328,7 @@ public class ObserverTest
   public void runHook_nullHook()
     throws Exception
   {
-    final Observer observer = new Observer( new ArezContext(), ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( new ArezContext() );
 
     observer.runHook( null, ObserverError.ON_ACTIVATE_ERROR );
   }
@@ -338,7 +338,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
 
     final AtomicInteger counter = new AtomicInteger();
 
@@ -352,7 +352,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
 
     final Exception exception = new Exception( "X" );
 
@@ -383,9 +383,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Reaction reaction = o -> {
-    };
-    final Observer observer = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
+    final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( context, observer );
 
     final TestProcedure onActivate = new TestProcedure();
@@ -524,7 +522,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> observer.setState( ObserverState.UP_TO_DATE ) );
@@ -539,8 +537,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, o -> {
-    } );
+    final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( context, observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
@@ -583,8 +580,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, o -> {
-    } );
+    final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( context, observer );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::schedule );
@@ -599,8 +595,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, o -> {
-    } );
+    final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( context, observer );
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -618,8 +613,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer observer = newReadOnlyObserver( context );
 
     assertEquals( observer.isDerivation(), false );
 
@@ -650,8 +644,7 @@ public class ObserverTest
   public void markDependenciesLeastStaleObserverAsUpToDate()
   {
     final ArezContext context = new ArezContext();
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer observer = newReadOnlyObserver( context );
 
     final Observable observable1 = new Observable( context, ValueUtil.randomString() );
     final Observable observable2 = new Observable( context, ValueUtil.randomString() );
