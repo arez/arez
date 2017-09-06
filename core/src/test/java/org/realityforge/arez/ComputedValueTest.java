@@ -147,7 +147,7 @@ public class ComputedValueTest
       new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
     final Observer observer = computedValue.getObserver();
 
-    setCurrentTransaction( observer );
+    setCurrentTransaction( context );
 
     observer.setState( ObserverState.UP_TO_DATE );
     computedValue.setValue( "XXX" );
@@ -166,7 +166,7 @@ public class ComputedValueTest
       new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
     final Observer observer = computedValue.getObserver();
 
-    setCurrentTransaction( observer );
+    setCurrentTransaction( context );
 
     observer.setState( ObserverState.STALE );
     computedValue.setValue( "XXX" );
