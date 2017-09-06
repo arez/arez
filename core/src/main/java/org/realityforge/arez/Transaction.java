@@ -288,9 +288,9 @@ final class Transaction
         else if ( ObserverState.UP_TO_DATE == observer.getState() )
         {
           /*
-           * If the observer is a Derivation that is currently being calculated
-           * then it can be UP_TO_DATE so make sure we keep _leastStaleObserverState
-           * up to date.
+           * This happens when the observer is reacting to the change and this
+           * has a ComputedValue dependency has recalculated as part of the reaction.
+           * So make sure we keep _leastStaleObserverState up to date.
            */
           observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
         }
