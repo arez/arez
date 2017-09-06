@@ -24,6 +24,8 @@ TODO:
  - activated
 (Is all this just dev tools?)
 
+* Read-Write transactions should not be able to be nested within other types of transactions.
+
 * dispose on calculated observer should defer until after reaction runs and should set isDisposed flag?
   Maybe all disposes should run after all reactions complete
 
