@@ -69,11 +69,6 @@ public final class Observer
   @Nullable
   private final Observable _derivedValue;
 
-  Observer( @Nonnull final ArezContext context, @Nullable final String name )
-  {
-    this( context, name, TransactionMode.READ_ONLY, null );
-  }
-
   Observer( @Nonnull final ComputedValue<?> computedValue )
   {
     this( computedValue.getContext(),
@@ -400,6 +395,28 @@ public final class Observer
   void invokeReaction()
   {
     clearScheduledFlag();
+
+/*
+runReaction() {
+        if (!this.isDisposed) {
+            startBatch()
+            this._isScheduled = false
+            if (shouldCompute(this)) {
+                this._isTrackPending = true
+
+                this.onInvalidate()
+                if (this._isTrackPending && isSpyEnabled()) {
+                    // onInvalidate didn't trigger track right away..
+                    spyReport({
+                        object: this,
+                        type: "scheduled-reaction"
+                    })
+                }
+            }
+            endBatch()
+        }
+    }
+*/
     final String name = ArezConfig.enableNames() ? getName() : null;
     final TransactionMode mode = getMode();
     final Reaction reaction = getReaction();
