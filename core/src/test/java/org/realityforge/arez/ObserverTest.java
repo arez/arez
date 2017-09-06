@@ -691,12 +691,12 @@ public class ObserverTest
     assertEquals( observer.isLive(), false );
     assertEquals( observer.isDisposed(), true );
 
-    final int currentNextNodeId = context.currentNextNodeId();
+    final int currentNextTransactionId = context.currentNextTransactionId();
 
     observer.dispose();
 
     // This verifies no new transactions were created
-    assertEquals( context.currentNextNodeId(), currentNextNodeId );
+    assertEquals( context.currentNextTransactionId(), currentNextTransactionId );
   }
 
   @Test

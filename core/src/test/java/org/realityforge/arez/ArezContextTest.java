@@ -104,7 +104,7 @@ public class ArezContextTest
     final Observable observable = new Observable( context, ValueUtil.randomString() );
     assertEquals( observable.getObservers().size(), 0 );
 
-    final int nextNodeId = context.currentNextNodeId();
+    final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
 
     final String v0 =
@@ -154,7 +154,7 @@ public class ArezContextTest
     final Observable observable = new Observable( context, ValueUtil.randomString() );
     assertEquals( observable.getObservers().size(), 0 );
 
-    final int nextNodeId = context.currentNextNodeId();
+    final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
 
     final String v0 =
@@ -201,7 +201,7 @@ public class ArezContextTest
     final Observable observable = new Observable( context, ValueUtil.randomString() );
     assertEquals( observable.getObservers().size(), 0 );
 
-    final int nextNodeId = context.currentNextNodeId();
+    final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
     context.procedure( name, false, null, () -> {
       assertTrue( context.isTransactionActive() );
@@ -247,7 +247,7 @@ public class ArezContextTest
 
     assertEquals( tracker.getState(), ObserverState.INACTIVE );
 
-    final int nextNodeId = context.currentNextNodeId();
+    final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
     context.procedure( name, false, tracker, () -> {
 
@@ -323,7 +323,7 @@ public class ArezContextTest
 
     assertEquals( tracker.getState(), ObserverState.INACTIVE );
 
-    final int nextNodeId = context.currentNextNodeId();
+    final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
     context.safeProcedure( name, false, tracker, () -> {
 
@@ -406,7 +406,7 @@ public class ArezContextTest
 
     assertEquals( tracker1.getState(), ObserverState.INACTIVE );
 
-    final int nextNodeId = context.currentNextNodeId();
+    final int nextNodeId = context.currentNextTransactionId();
     final String name1 = ValueUtil.randomString();
     final String name2 = ValueUtil.randomString();
     final String name3 = ValueUtil.randomString();
@@ -540,7 +540,7 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
     assertThrows( context::getTransaction );
 
-    final int nextNodeId = context.currentNextNodeId();
+    final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
     final String name2 = ValueUtil.randomString();
     context.procedure( name, false, null, () -> {
@@ -582,9 +582,9 @@ public class ArezContextTest
   {
     final ArezContext context = new ArezContext();
 
-    assertEquals( context.currentNextNodeId(), 1 );
-    assertEquals( context.nextNodeId(), 1 );
-    assertEquals( context.currentNextNodeId(), 2 );
+    assertEquals( context.currentNextTransactionId(), 1 );
+    assertEquals( context.nextTransactionId(), 1 );
+    assertEquals( context.currentNextTransactionId(), 2 );
   }
 
   @Test

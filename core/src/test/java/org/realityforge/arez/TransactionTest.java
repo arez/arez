@@ -13,7 +13,7 @@ public class TransactionTest
   {
     final ArezContext context = new ArezContext();
     final String name1 = ValueUtil.randomString();
-    final int nextNodeId = context.currentNextNodeId();
+    final int nextNodeId = context.currentNextTransactionId();
 
     final Transaction transaction = new Transaction( context, null, name1, TransactionMode.READ_ONLY, null );
 
@@ -26,7 +26,7 @@ public class TransactionTest
     assertEquals( transaction.getPendingDeactivations(), null );
     assertEquals( transaction.getMode(), TransactionMode.READ_ONLY );
 
-    assertEquals( context.currentNextNodeId(), nextNodeId + 1 );
+    assertEquals( context.currentNextTransactionId(), nextNodeId + 1 );
   }
 
   @Test
@@ -299,7 +299,7 @@ public class TransactionTest
     assertNotNull( transaction.getObservables() );
 
     // Simulate a nested transaction that observes this observable by updating tracking id
-    observable.setLastTrackerTransactionId( context.nextNodeId() );
+    observable.setLastTrackerTransactionId( context.nextTransactionId() );
 
     transaction.observe( observable );
     transaction.observe( observable );

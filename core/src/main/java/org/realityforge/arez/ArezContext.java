@@ -18,12 +18,12 @@ public final class ArezContext
   @Nullable
   private Transaction _transaction;
   /**
-   * Id of next node to be created.
+   * Id of next transaction to be created.
    *
    * This needs to start at 1 as {@link Observable#NOT_IN_CURRENT_TRACKING} is used
    * to optimize dependency tracking in transactions.
    */
-  private int _nextNodeId = 1;
+  private int _nextTransactionId = 1;
   /**
    * Reaction Scheduler.
    * Currently hard-coded, in the future potentially configurable.
@@ -302,14 +302,14 @@ public final class ArezContext
   }
 
   /**
-   * Return next node id and increment internal counter.
+   * Return next transaction id and increment internal counter.
    * The id is a monotonically increasing number starting at 1.
    *
-   * @return the next node id.
+   * @return the next transaction id.
    */
-  int nextNodeId()
+  int nextTransactionId()
   {
-    return _nextNodeId++;
+    return _nextTransactionId++;
   }
 
   /**
@@ -360,9 +360,9 @@ public final class ArezContext
   }
 
   @TestOnly
-  int currentNextNodeId()
+  int currentNextTransactionId()
   {
-    return _nextNodeId;
+    return _nextTransactionId;
   }
 
   @TestOnly

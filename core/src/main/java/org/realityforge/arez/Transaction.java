@@ -55,7 +55,7 @@ final class Transaction
                @Nullable final Observer tracker )
   {
     super( context, name );
-    _id = context.nextNodeId();
+    _id = context.nextTransactionId();
     _previous = previous;
     _mode = Objects.requireNonNull( mode );
     _tracker = tracker;
