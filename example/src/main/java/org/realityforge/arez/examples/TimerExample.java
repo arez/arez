@@ -105,7 +105,7 @@ public final class TimerExample
   {
     final ArezContext context = new ArezContext();
 
-    final TimeModelImpl timeModel = new TimeModelImpl( context, 0 );
+    final TimeModel timeModel = new TimeModelImpl( context, 0 );
 
     timeModel.updateTime();
 
@@ -130,7 +130,7 @@ public final class TimerExample
       @Override
       public void run()
       {
-        System.out.println( timeModel.getTimeObservable() );
+        System.out.println( ( (TimeModelImpl) timeModel ).getTimeObservable() );
         System.out.println( timePrinter + "::Active=" + timePrinter.isActive() );
       }
     }, 0, 1000 );
