@@ -41,7 +41,9 @@ Observable
 * the cached least stalest state of these observers.
 * cached working state field.
 * owner derivation if any.
-* NOT YET: A list of notifications about changes in latest transaction (Or is this in transaction?) Notifications may collapse (i.e. atomic Observables just update with the last value where Array/Map will accumulate)
+* NOT YET: A list of notifications about changes in latest transaction (Or is this in
+  transaction?) Notifications may collapse (i.e. atomic Observables just update with the
+  last value where Array/Map will accumulate)
 
 Observer
 * Reaction (can read/write state & create side-effects). Will be scheduled after root transaction completes
