@@ -280,6 +280,8 @@ public final class Observer
       }
       else if ( ObserverState.INACTIVE == originalState )
       {
+        Guards.invariant( this::isLive,
+                          () -> String.format( "Attempted to activate disposed observer named '%s'.", getName() ) );
         runHook( getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
       }
       invariantState();

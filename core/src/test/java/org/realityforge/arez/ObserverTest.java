@@ -551,6 +551,31 @@ public class ObserverTest
   }
 
   @Test
+  public void setState_activateWhenDisposed()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newDerivation( context );
+    setCurrentTransaction( observer );
+
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+
+    observer.setDisposed( true );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> observer.setState( ObserverState.UP_TO_DATE ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempted to activate disposed observer named '" + observer.getName() + "'." );
+
+    observer.setDisposed( false );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+  }
+
+  @Test
   public void setState_noTransaction()
     throws Exception
   {
