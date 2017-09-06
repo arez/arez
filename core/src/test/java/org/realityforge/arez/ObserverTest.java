@@ -693,7 +693,7 @@ public class ObserverTest
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::invokeReaction );
     assertEquals( exception.getMessage(),
-                  "invokeReaction called for observer named '" +
+                  "invokeReaction called on observer named '" +
                   observer.getName() + "' but observer has no associated reaction." );
   }
 
