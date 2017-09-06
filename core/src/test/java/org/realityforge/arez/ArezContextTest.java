@@ -35,6 +35,26 @@ public class ArezContextTest
   }
 
   @Test
+  public void beginTransaction_attemptToNest_READ_WRITE_in_READ_ONLY()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    setCurrentTransaction( newReadOnlyObserver( context ) );
+    final Transaction transaction = context.getTransaction();
+
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> context.beginTransaction( name, TransactionMode.READ_WRITE, null ) );
+    assertEquals( exception.getMessage(),
+                  "Attempting to create READ_WRITE transaction named '" + name +
+                  "' but it is nested in transaction named '" + transaction.getName() + "' with " +
+                  "mode READ_WRITE which is not equal to READ_WRITE." );
+  }
+
+  @Test
   public void commitTransaction_matchingRootTransaction()
     throws Exception
   {
