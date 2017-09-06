@@ -70,8 +70,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
+    final Observer observer = newDerivation( context );
 
     assertEquals( observer.isDerivation(), true );
 
@@ -165,8 +164,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
+    final Observer observer = newDerivation( context );
 
     observer.invariantState();
 
@@ -185,8 +183,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
+    final Observer observer = newDerivation( context );
 
     observer.invariantDerivationState();
 
@@ -211,8 +208,7 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
+    final Observer observer = newDerivation( context );
 
     observer.invariantDerivationState();
 
