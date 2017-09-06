@@ -612,7 +612,7 @@ runReaction() {
                             map( Node::getName ).
                             collect( Collectors.toList() ) ) );
     }
-    if ( isDerivation() )
+    if ( isDerivation() && isLive() )
     {
       Guards.invariant( () -> Objects.equals( getDerivedValue().getOwner(), this ),
                         () -> String.format(
