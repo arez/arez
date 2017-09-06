@@ -90,7 +90,7 @@ public abstract class AbstractArezTest
   @Nonnull
   final Observer ensureDerivationHasObserver( @Nonnull final Observer observer )
   {
-    final Observer randomObserver = new Observer( observer.getContext(), ValueUtil.randomString() );
+    final Observer randomObserver = newReadOnlyObserver( observer.getContext() );
     observer.getDerivedValue().addObserver( randomObserver );
     randomObserver.getDependencies().add( observer.getDerivedValue() );
     return observer;
