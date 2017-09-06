@@ -62,9 +62,9 @@ public final class ComputedValue<T>
   {
     Guards.invariant( () -> !_computing,
                       () -> String.format( "Detected a cycle deriving ComputedValue named '%s'.", getName() ) );
-    //Guards.invariant( () -> !_observer.isDisposed(),
-    //                  () -> String.format( "ComputedValue named '%s' accessed after it has been disposed.",
-    //                                       getName() ) );
+    Guards.invariant( () -> !_observer.isDisposed(),
+                      () -> String.format( "ComputedValue named '%s' accessed after it has been disposed.",
+                                           getName() ) );
     getObservable().reportObserved();
     //TODO: The shouldCompute should be part of invokeReaction
     if ( _observer.shouldCompute() )
