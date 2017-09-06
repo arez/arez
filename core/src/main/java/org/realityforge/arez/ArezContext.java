@@ -48,7 +48,7 @@ public final class ArezContext
                                                    @Nonnull final SafeFunction<T> function,
                                                    @Nonnull final EqualityComparator<T> equalityComparator )
   {
-    return new ComputedValue<T>( this, ArezConfig.enableNames() ? name : null, function, equalityComparator );
+    return new ComputedValue<>( this, ArezConfig.enableNames() ? name : null, function, equalityComparator );
   }
 
   /**
