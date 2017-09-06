@@ -1,7 +1,6 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -612,8 +611,7 @@ public class ArezContextTest
   {
     final ArezContext context = new ArezContext();
 
-    final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    final Observer observer = newReadOnlyObserver( context );
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
