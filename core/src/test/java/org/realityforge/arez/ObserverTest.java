@@ -191,7 +191,7 @@ public class ObserverTest
 
     observer.invariantDerivationState();
 
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( context, new Observer( context, ValueUtil.randomString() ) );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -203,6 +203,23 @@ public class ObserverTest
                   "active but the derived value has no observers." );
 
     ensureDerivationHasObserver( observer );
+
+    observer.invariantDerivationState();
+  }
+
+  @Test
+  public void invariantDerivationState_observerCanHaveNoDependenciesIfItIsTracker()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
+
+    observer.invariantDerivationState();
+
+    setCurrentTransaction( context, observer );
+
+    observer.setState( ObserverState.UP_TO_DATE );
 
     observer.invariantDerivationState();
   }
