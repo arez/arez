@@ -108,7 +108,6 @@ public class ObserverTest
                   "transaction mode but no ComputedValue." );
   }
 
-
   @Test
   public void construct_with_READ_ONLY_but_ComputableValue()
     throws Exception
