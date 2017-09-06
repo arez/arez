@@ -251,7 +251,10 @@ final class Transaction
         {
           observer.setState( ObserverState.POSSIBLY_STALE );
         }
-        assert ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state;
+        else
+        {
+          assert ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state;
+        }
       }
     }
     observable.invariantLeastStaleObserverState();
