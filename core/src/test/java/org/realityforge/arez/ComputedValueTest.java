@@ -116,4 +116,24 @@ public class ComputedValueTest
     // Verify state does not change
     assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
   }
+
+  @Test
+  public void dispose()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observer observer = newDerivation( context );
+    final ComputedValue<?> computedValue = observer.getComputedValue();
+
+    setCurrentTransaction( observer );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    assertEquals( observer.isDisposed(), false );
+
+    computedValue.dispose();
+
+    assertEquals( observer.isDisposed(), true );
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+  }
 }
