@@ -145,6 +145,12 @@ public final class ComputedValue<T>
   }
 
   @TestOnly
+  void setValue( final T value )
+  {
+    _value = value;
+  }
+
+  @TestOnly
   T getValue()
   {
     return _value;
