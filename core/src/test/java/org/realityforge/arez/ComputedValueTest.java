@@ -199,4 +199,33 @@ public class ComputedValueTest
                   "ComputedValue named '" + computedValue.getName() + "' accessed after it " +
                   "has been disposed." );
   }
+
+  @Test
+  public void get_cycleDetected()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
+    final Observer observer = computedValue.getObserver();
+
+    setCurrentTransaction( context );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+    computedValue.setValue( "XXX" );
+
+    computedValue.setComputing( true );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, computedValue::get );
+
+    assertEquals( exception.getMessage(),
+                  "Detected a cycle deriving ComputedValue named '" + computedValue.getName() + "'." );
+
+    computedValue.setComputing( false );
+
+    assertEquals( computedValue.get(), "XXX" );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+  }
 }
