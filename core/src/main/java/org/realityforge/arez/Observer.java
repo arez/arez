@@ -431,6 +431,54 @@ public final class Observer
   }
 
   /**
+   * Determine if any dependency of the Observer has actually changed.
+   * If the state is POSSIBLY_STALE then recalculate any ComputedValue dependencies.
+   * If any ComputedValue dependencies actually changed then the STALE state will
+   * be propagated.
+   *
+   * <p>By iterating over the dependencies in the same order that they were reported and
+   * stopping on the first change, all the recalculations are only called for ComputedValues
+   * that will be tracked by derivation. That is because we assume that if the first N
+   * dependencies of the derivation doesn't change then the derivation should run the same way
+   * up until accessing N-th dependency.</p>
+   *
+   * @return true if the Observer should be recomputed.
+   */
+  boolean shouldCompute()
+  {
+    switch ( getState() )
+    {
+      case UP_TO_DATE:
+        return false;
+      case INACTIVE:
+      case STALE:
+        return true;
+      case POSSIBLY_STALE:
+      {
+        for ( final Observable observable : getDependencies() )
+        {
+          if ( observable.isCalculated() )
+          {
+            final Observer owner = observable.getOwner();
+            assert null != owner;
+            final ComputedValue computedValue = owner.getComputedValue();
+            computedValue.get();
+            if ( ObserverState.STALE == getState() )
+            {
+              return true;
+            }
+          }
+        }
+      }
+    }
+    /*
+     * This results in POSSIBLY_STALE returning to UP_TO_DATE
+     */
+    markDependenciesLeastStaleObserverAsUpToDate();
+    return false;
+  }
+
+  /**
    * Return the dependencies.
    *
    * @return the dependencies.
