@@ -893,19 +893,19 @@ public class ObservableTest
   }
 
   @Nonnull
-  protected Observer newReadWriteObserver( @Nonnull final ArezContext context )
+  private Observer newReadWriteObserver( @Nonnull final ArezContext context )
   {
     return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE, new TestReaction() );
   }
 
   @Nonnull
-  protected Observer newDerivation( @Nonnull final ArezContext context )
+  private Observer newDerivation( @Nonnull final ArezContext context )
   {
     return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
   }
 
   @Nonnull
-  protected Observer newReadOnlyObserver( @Nonnull final ArezContext context )
+  private Observer newReadOnlyObserver( @Nonnull final ArezContext context )
   {
     return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
   }
