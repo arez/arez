@@ -280,7 +280,7 @@ public final class ArezContext
    *
    * @return true if there is a transaction in progress.
    */
-  public boolean isTransactionActive()
+  boolean isTransactionActive()
   {
     return null != _transaction;
   }

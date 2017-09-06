@@ -1,6 +1,7 @@
 package org.realityforge.arez.test;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.annotation.Nonnull;
 import org.realityforge.arez.AbstractArezTest;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Observable;
@@ -180,17 +181,19 @@ public class ArezContextApiTest
   {
     final ArezContext context = new ArezContext();
 
-    assertFalse( context.isTransactionActive() );
+    final Observable observable = context.createObservable( ValueUtil.randomString() );
+
+    assertNotInTransaction( observable );
 
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
       context.function( ValueUtil.randomString(), false, null, () -> {
-        assertTrue( context.isTransactionActive() );
+        assertInTransaction( observable );
         return expectedValue;
       } );
 
-    assertFalse( context.isTransactionActive() );
+    assertNotInTransaction( observable );
 
     assertEquals( v0, expectedValue );
   }
@@ -200,26 +203,27 @@ public class ArezContextApiTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
+    final Observable observable = context.createObservable( ValueUtil.randomString() );
 
-    assertFalse( context.isTransactionActive() );
+    assertNotInTransaction( observable );
 
     context.procedure( ValueUtil.randomString(), false, null, () -> {
-      assertTrue( context.isTransactionActive() );
+      assertInTransaction( observable );
 
       //First nested exception
       context.procedure( ValueUtil.randomString(), false, null, () -> {
-        assertTrue( context.isTransactionActive() );
+        assertInTransaction( observable );
 
         //Second nested exception
-        context.procedure( ValueUtil.randomString(), false, null, () -> assertTrue( context.isTransactionActive() ) );
+        context.procedure( ValueUtil.randomString(), false, null, () -> assertInTransaction( observable ) );
 
-        assertTrue( context.isTransactionActive() );
+        assertInTransaction( observable );
       } );
 
-      assertTrue( context.isTransactionActive() );
+      assertInTransaction( observable );
     } );
 
-    assertFalse( context.isTransactionActive() );
+    assertNotInTransaction( observable );
   }
 
   @Test
@@ -228,37 +232,55 @@ public class ArezContextApiTest
   {
     final ArezContext context = new ArezContext();
 
-    assertFalse( context.isTransactionActive() );
+    final Observable observable = context.createObservable( ValueUtil.randomString() );
+
+    assertNotInTransaction( observable );
 
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
       context.function( ValueUtil.randomString(), false, null, () -> {
-        assertTrue( context.isTransactionActive() );
+        assertInTransaction( observable );
 
         //First nested exception
         final String v1 =
           context.function( ValueUtil.randomString(), false, null, () -> {
-            assertTrue( context.isTransactionActive() );
+            assertInTransaction( observable );
 
             //Second nested exception
             final String v2 =
               context.function( ValueUtil.randomString(), false, null, () -> {
-                assertTrue( context.isTransactionActive() );
+                assertInTransaction( observable );
                 return expectedValue;
               } );
 
-            assertTrue( context.isTransactionActive() );
+            assertInTransaction( observable );
 
             return v2;
           } );
 
-        assertTrue( context.isTransactionActive() );
+        assertInTransaction( observable );
         return v1;
       } );
 
-    assertFalse( context.isTransactionActive() );
+    assertNotInTransaction( observable );
 
     assertEquals( v0, expectedValue );
+  }
+
+  /**
+   * Test we are in a transaction by trying to observe an observable.
+   */
+  private void assertInTransaction( @Nonnull final Observable observable )
+  {
+    observable.reportObserved();
+  }
+
+  /**
+   * Test we are not in a transaction by trying to observe an observable.
+   */
+  private void assertNotInTransaction( @Nonnull final Observable observable )
+  {
+    assertThrows( observable::reportObserved );
   }
 }
