@@ -39,6 +39,7 @@ public final class TimerExample
      */
     private static final String TYPE_PREFIX = "TimeModel";
 
+    private final ArezContext $_context;
     private final org.realityforge.arez.Observable $_time;
     private long _time;
 
@@ -46,6 +47,7 @@ public final class TimerExample
     {
       super();
       _time = time;
+      $_context = context;
       $_time = context.createObservable( getArezNamePrefix() + "time" );
     }
 
@@ -84,6 +86,12 @@ public final class TimerExample
       }
     }
 
+    @Override
+    public void updateTime()
+    {
+      $_context.safeProcedure( getArezNamePrefix() + "updateTime", true, () -> super.updateTime() );
+    }
+
     @TestOnly
     @Nonnull
     public org.realityforge.arez.Observable getTimeObservable()
@@ -99,7 +107,7 @@ public final class TimerExample
 
     final TimeModelImpl timeModel = new TimeModelImpl( context, 0 );
 
-    context.procedure( "Initial setup", true, timeModel::updateTime );
+    timeModel.updateTime();
 
     final Observer timePrinter =
       context.autorun( "TimePrinter",
@@ -113,14 +121,7 @@ public final class TimerExample
       @Override
       public void run()
       {
-        try
-        {
-          context.procedure( "Subsequent update", true, timeModel::updateTime );
-        }
-        catch ( final Exception e )
-        {
-          e.printStackTrace();
-        }
+        timeModel.updateTime();
       }
     }, 0, 100 );
 
