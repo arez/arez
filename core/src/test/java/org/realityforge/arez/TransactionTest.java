@@ -1787,4 +1787,31 @@ public class TransactionTest
     assertEquals( observer2.getState(), ObserverState.STALE );
     assertEquals( observer3.getState(), ObserverState.STALE );
   }
+
+  @Test
+  public void invariantObserverIsTracker_notTracker()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    context.setTransaction( transaction );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+
+    final Observer observer = newReadOnlyObserver( context );
+
+    observable.addObserver( observer );
+    observer.getDependencies().add( observable );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.invariantObserverIsTracker( observable, observer ) );
+
+    assertEquals( exception.getMessage(),
+                  "Transaction named '" + transaction.getName() + "' attempted to call " +
+                  "reportChangeConfirmed for observable named '" + observable.getName() + "' and found a " +
+                  "dependency named '" + observer.getName() + "' that is UP_TO_DATE but is not the tracker of " +
+                  "any transactions in the hierarchy: [" + transaction.getName() + "]." );
+  }
 }
