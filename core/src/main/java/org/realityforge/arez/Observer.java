@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.jetbrains.annotations.TestOnly;
 
 /**
  * A node within Arez that is notified of changes in 0 or more Observables.
@@ -644,5 +645,11 @@ runReaction() {
                         getName() ) );
     assert null != _computedValue;
     return _computedValue;
+  }
+
+  @TestOnly
+  void setDisposed( final boolean disposed )
+  {
+    _disposed = disposed;
   }
 }
