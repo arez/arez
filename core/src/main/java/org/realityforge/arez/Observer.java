@@ -77,7 +77,7 @@ public final class Observer
   Observer( @Nonnull final ComputedValue<?> computedValue )
   {
     this( computedValue.getContext(),
-          computedValue.getName(),
+          ArezConfig.enableNames() ? computedValue.getName() : null,
           computedValue,
           TransactionMode.READ_WRITE_OWNED,
           o -> computedValue.compute() );
