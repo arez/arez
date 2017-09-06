@@ -62,7 +62,7 @@ public final class ComputedValue<T>
   {
     Guards.invariant( () -> !_computing,
                       () -> String.format( "Detected a cycle deriving ComputedValue named '%s'.", getName() ) );
-    //Guards.invariant( () -> _observer.isDisposed(),
+    //Guards.invariant( () -> !_observer.isDisposed(),
     //                  () -> String.format( "ComputedValue named '%s' accessed after it has been disposed.",
     //                                       getName() ) );
     getObservable().reportObserved();
