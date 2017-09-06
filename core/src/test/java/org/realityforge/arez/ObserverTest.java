@@ -635,10 +635,21 @@ public class ObserverTest
     context.setTransaction( null );
 
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isLive(), true );
+    assertEquals( observer.isDisposed(), false );
 
     observer.dispose();
 
     assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.isLive(), false );
+    assertEquals( observer.isDisposed(), true );
+
+    final int currentNextNodeId = context.currentNextNodeId();
+
+    observer.dispose();
+
+    // This verifies no new transactions were created
+    assertEquals( context.currentNextNodeId(), currentNextNodeId );
   }
 
   @Test

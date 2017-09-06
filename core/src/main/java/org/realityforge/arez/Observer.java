@@ -68,6 +68,10 @@ public final class Observer
    */
   @Nullable
   private final Observable _derivedValue;
+  /**
+   * Flag set to true after Observer has been disposed.
+   */
+  private boolean _disposed;
 
   Observer( @Nonnull final ComputedValue<?> computedValue )
   {
@@ -143,7 +147,31 @@ public final class Observer
    */
   public void dispose()
   {
-    getContext().safeProcedure( getName(), false, null, () -> setState( ObserverState.INACTIVE ) );
+    if ( !_disposed )
+    {
+      _disposed = true;
+      getContext().safeProcedure( getName(), false, null, () -> setState( ObserverState.INACTIVE ) );
+    }
+  }
+
+  /**
+   * Return true after dispose() method has been invoked.
+   *
+   * @return true if observer is disposed.
+   */
+  boolean isDisposed()
+  {
+    return _disposed;
+  }
+
+  /**
+   * Return true before dispose() method has been invoked.
+   *
+   * @return true if observer has not been disposed.
+   */
+  boolean isLive()
+  {
+    return !isDisposed();
   }
 
   /**
