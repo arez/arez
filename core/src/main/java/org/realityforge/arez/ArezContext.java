@@ -136,6 +136,13 @@ public final class ArezContext
                                 @Nonnull final TransactionMode mode,
                                 @Nullable final Observer tracker )
   {
+    if ( TransactionMode.READ_WRITE == mode && null != _transaction )
+    {
+      Guards.invariant( () -> TransactionMode.READ_WRITE == _transaction.getMode(),
+                        () -> String.format( "Attempting to create READ_WRITE transaction named '%s' but it is " +
+                                             "nested in transaction named '%s' with mode %s which is not " +
+                                             "equal to READ_WRITE.", name, _transaction.getName(), mode.name() ) );
+    }
     _transaction = new Transaction( this, _transaction, name, mode, tracker );
     _transaction.begin();
     return _transaction;
