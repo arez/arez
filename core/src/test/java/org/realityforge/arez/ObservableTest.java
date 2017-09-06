@@ -868,8 +868,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observer observer =
-      newReadWriteObserver( context );
+    final Observer observer = newReadWriteObserver( context );
     setCurrentTransaction( context, observer );
 
     observer.setState( ObserverState.POSSIBLY_STALE );
