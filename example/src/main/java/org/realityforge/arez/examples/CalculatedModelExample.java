@@ -4,22 +4,19 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.Observable;
+import org.realityforge.arez.annotations.Container;
 
 public final class CalculatedModelExample
 {
+  @Container( name = "Person", singleton = true )
   public static abstract class PersonModel
   {
-    @Observable
     public abstract String getFirstName();
 
-    @Observable
     public abstract void setFirstName( @Nonnull String firstName );
 
-    @Observable
     public abstract String getLastName();
 
-    @Observable
     public abstract void setLastName( @Nonnull String lastName );
 
     @Computed
