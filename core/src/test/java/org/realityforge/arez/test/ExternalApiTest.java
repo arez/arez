@@ -149,7 +149,7 @@ public class ExternalApiTest
     assertEquals( reactionCount.get(), 2 );
     assertEquals( observer.isActive(), true );
 
-    // Update observer1+observer2 in transactionm
+    // Update observer1+observer2 in transaction
     context.procedure( ValueUtil.randomString(),
                        true,
                        null,
