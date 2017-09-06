@@ -785,4 +785,17 @@ public class ObserverTest
     assertEquals( callCount.get(), 1 );
     assertEquals( errorCount.get(), 1 );
   }
+
+  @Test
+  public void shouldCompute_UP_TO_DATE()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadOnlyObserver( context );
+    setCurrentTransaction( context, observer );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    assertEquals( observer.shouldCompute(), false );
+  }
 }
