@@ -131,7 +131,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
     observer.getDependencies().add( observable );
@@ -222,7 +222,7 @@ public class ObserverTest
 
     observer.invariantDerivationState();
 
-    setCurrentTransaction( context, newReadOnlyObserver( context ) );
+    setCurrentTransaction( newReadOnlyObserver( context ) );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -247,7 +247,7 @@ public class ObserverTest
 
     observer.invariantDerivationState();
 
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -260,7 +260,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -287,7 +287,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -311,7 +311,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -333,7 +333,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -416,7 +416,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final TestProcedure onActivate = new TestProcedure();
     final TestProcedure onDeactivate = new TestProcedure();
@@ -509,7 +509,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserverWithNoReaction( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final TestProcedure onActivate = new TestProcedure();
     final TestProcedure onDeactivate = new TestProcedure();
@@ -570,7 +570,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -596,7 +596,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserverWithNoReaction( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -613,7 +613,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::schedule );
 
@@ -628,7 +628,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
     observer.setState( ObserverState.UP_TO_DATE );
 
     context.setTransaction( null );
@@ -688,7 +688,7 @@ public class ObserverTest
     observer.getDependencies().add( observable3 );
     observer.getDependencies().add( observable4 );
 
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observable1.addObserver( observer );
     observable2.addObserver( observer );
@@ -792,7 +792,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
 

@@ -116,7 +116,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
 
@@ -141,7 +141,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
     observable.setLeastStaleObserverState( ObserverState.STALE );
@@ -161,7 +161,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
 
@@ -218,7 +218,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
 
@@ -251,7 +251,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final Observer derivation = newDerivation( context );
 
@@ -292,7 +292,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
 
@@ -331,7 +331,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
 
@@ -355,7 +355,7 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
@@ -818,7 +818,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadWriteObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -842,7 +842,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadWriteObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -869,7 +869,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newReadWriteObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 

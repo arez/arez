@@ -1532,7 +1532,7 @@ public class TransactionTest
     final ArezContext context = new ArezContext();
 
     final Observer calculator = newDerivation( context );
-    setCurrentTransaction( context, calculator );
+    setCurrentTransaction( calculator );
 
     calculator.setState( ObserverState.UP_TO_DATE );
 

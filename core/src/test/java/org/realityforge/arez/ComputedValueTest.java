@@ -67,7 +67,7 @@ public class ComputedValueTest
     final EqualityComparator<String> comparator = Objects::equals;
     final ComputedValue<String> computedValue = new ComputedValue<>( context, name, function, comparator );
 
-    setCurrentTransaction( context, computedValue.getObserver() );
+    setCurrentTransaction( computedValue.getObserver() );
 
     final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
@@ -98,7 +98,7 @@ public class ComputedValueTest
     final EqualityComparator<String> comparator = Objects::equals;
     final ComputedValue<String> computedValue = new ComputedValue<>( context, name, function, comparator );
 
-    setCurrentTransaction( context, computedValue.getObserver() );
+    setCurrentTransaction( computedValue.getObserver() );
 
     final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );

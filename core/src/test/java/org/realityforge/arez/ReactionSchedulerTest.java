@@ -178,7 +178,7 @@ public class ReactionSchedulerTest
     final TestReaction reaction = (TestReaction) observer.getReaction();
     assertNotNull( reaction );
 
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
     //observer has reaction so setStale should result in reschedule
@@ -223,7 +223,7 @@ public class ReactionSchedulerTest
     final TestReaction reaction = (TestReaction) observer.getReaction();
     assertNotNull( reaction );
 
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
     //observer has reaction so setStale should result in reschedule
@@ -251,7 +251,7 @@ public class ReactionSchedulerTest
     final ReactionScheduler scheduler = context.getScheduler();
 
     final Observer observer = newReadOnlyObserver( context );
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final int round1Size = 10;
     final int round2Size = 4;
@@ -364,7 +364,7 @@ public class ReactionSchedulerTest
 
     final Observer observer = newReadOnlyObserver( context );
 
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final TestReaction reaction = new TestReaction()
     {
@@ -423,7 +423,7 @@ public class ReactionSchedulerTest
 
     final Observer observer = newReadOnlyObserver( context );
 
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final TestReaction reaction = new TestReaction()
     {
@@ -473,7 +473,7 @@ public class ReactionSchedulerTest
 
     final Observer observer = newReadOnlyObserver( context );
 
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     final Observer[] observers = new Observer[ 10 ];
     final Observable[] observables = new Observable[ observers.length ];
@@ -531,7 +531,7 @@ public class ReactionSchedulerTest
 
     final Observer observer = newReadOnlyObserver( context );
 
-    setCurrentTransaction( context, observer );
+    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
     //observer has reaction so setStale should result in reschedule
