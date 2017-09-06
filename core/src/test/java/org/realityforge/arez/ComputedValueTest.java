@@ -136,4 +136,23 @@ public class ComputedValueTest
     assertEquals( observer.isDisposed(), true );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
   }
+
+  @Test
+  public void get_upToDateComputedValue()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
+    final Observer observer = computedValue.getObserver();
+
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+    computedValue.setValue( "XXX" );
+
+    assertEquals( computedValue.get(), "XXX" );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+  }
 }
