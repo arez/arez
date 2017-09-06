@@ -236,7 +236,7 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
     assertThrows( context::getTransaction );
 
-    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    final Observer tracker = newReadOnlyObserver( context );
 
     final ArrayList<Observable> dependencies = tracker.getDependencies();
     assertEquals( dependencies.size(), 0 );
@@ -312,7 +312,7 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
     assertThrows( context::getTransaction );
 
-    final Observer tracker = new Observer( context, ValueUtil.randomString() );
+    final Observer tracker = newReadOnlyObserver( context );
 
     final ArrayList<Observable> dependencies = tracker.getDependencies();
     assertEquals( dependencies.size(), 0 );
@@ -388,9 +388,9 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
     assertThrows( context::getTransaction );
 
-    final Observer tracker1 = new Observer( context, ValueUtil.randomString() );
-    final Observer tracker2 = new Observer( context, ValueUtil.randomString() );
-    final Observer tracker3 = new Observer( context, ValueUtil.randomString() );
+    final Observer tracker1 = newReadOnlyObserver( context );
+    final Observer tracker2 = newReadOnlyObserver( context );
+    final Observer tracker3 = newReadOnlyObserver( context );
 
     final ArrayList<Observable> dependencies1 = tracker1.getDependencies();
     final ArrayList<Observable> dependencies2 = tracker2.getDependencies();
