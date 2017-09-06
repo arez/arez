@@ -709,6 +709,26 @@ public class ObserverTest
   }
 
   @Test
+  public void getComputedValue_whenDisposed()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newDerivation( context );
+
+    observer.setDisposed( true );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::getComputedValue );
+
+    assertEquals( exception.getMessage(),
+                  "Attempted to invoke getComputedValue on disposed observer named '" +
+                  observer.getName() + "'." );
+
+    observer.setDisposed( false );
+
+    assertEquals( observer.getComputedValue().getName(), observer.getName() );
+  }
+
+  @Test
   public void markDependenciesLeastStaleObserverAsUpToDate()
   {
     final ArezContext context = new ArezContext();

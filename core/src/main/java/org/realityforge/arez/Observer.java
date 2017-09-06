@@ -639,6 +639,9 @@ runReaction() {
   @Nonnull
   ComputedValue<?> getComputedValue()
   {
+    Guards.invariant( this::isLive,
+                      () -> String.format( "Attempted to invoke getComputedValue on disposed observer named '%s'.",
+                                           getName() ) );
     Guards.invariant( this::isDerivation,
                       () -> String.format(
                         "Attempted to invoke getComputedValue on observer named '%s' when is not a computed observer.",
