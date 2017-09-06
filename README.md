@@ -36,9 +36,6 @@ TODO:
 
 * Move Node.getId() to Transaction.getId()
 
-* dispose on calculated observer should defer until after reaction runs and should set isDisposed flag?
-  Maybe all disposes should run after all reactions complete
-
 * ComputedValue - where can use function that takes args (that are Observables somehow?)
 
 Observable
