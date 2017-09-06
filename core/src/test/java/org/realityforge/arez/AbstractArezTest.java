@@ -94,4 +94,36 @@ public abstract class AbstractArezTest
     randomObserver.getDependencies().add( observer.getDerivedValue() );
     return observer;
   }
+
+  @Nonnull
+  protected final Observer newReadWriteObserver( @Nonnull final ArezContext context )
+  {
+    return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE, new TestReaction() );
+  }
+
+  @Nonnull
+  protected final Observer newDerivation( @Nonnull final ArezContext context )
+  {
+    return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
+  }
+
+  @Nonnull
+  protected final Observer newReadOnlyObserver( @Nonnull final ArezContext context )
+  {
+    return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+  }
+
+  protected final void setCurrentTransaction( @Nonnull final ArezContext context )
+  {
+    setCurrentTransaction( context, newReadOnlyObserver( context ) );
+  }
+
+  protected final void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
+  {
+    context.setTransaction( new Transaction( context,
+                                             null,
+                                             ValueUtil.randomString(),
+                                             observer.getMode(),
+                                             observer ) );
+  }
 }
