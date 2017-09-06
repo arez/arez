@@ -155,4 +155,23 @@ public class ComputedValueTest
     assertEquals( computedValue.get(), "XXX" );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
   }
+
+  @Test
+  public void get_staleComputedValue()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
+    final Observer observer = computedValue.getObserver();
+
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.STALE );
+    computedValue.setValue( "XXX" );
+
+    assertEquals( computedValue.get(), "" );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+  }
 }
