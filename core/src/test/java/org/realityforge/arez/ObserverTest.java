@@ -3,7 +3,6 @@ package org.realityforge.arez;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -745,14 +744,5 @@ public class ObserverTest
 
     assertEquals( callCount.get(), 1 );
     assertEquals( errorCount.get(), 1 );
-  }
-
-  private void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
-  {
-    context.setTransaction( new Transaction( context,
-                                             null,
-                                             ValueUtil.randomString(),
-                                             observer.getMode(),
-                                             observer ) );
   }
 }
