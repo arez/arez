@@ -1,7 +1,6 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
-import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -1792,11 +1791,5 @@ public class TransactionTest
     assertEquals( observer1.getState(), ObserverState.STALE );
     assertEquals( observer2.getState(), ObserverState.STALE );
     assertEquals( observer3.getState(), ObserverState.STALE );
-  }
-
-  @Nonnull
-  private Observer newDerivation( @Nonnull final ArezContext context )
-  {
-    return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, new TestReaction() );
   }
 }
