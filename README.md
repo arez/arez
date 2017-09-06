@@ -24,6 +24,14 @@ TODO:
  - activated
 (Is all this just dev tools?)
 
+* Introduce a separate type of invariant check that detects bad usage. Current invariant checks combine
+  checks types. Separate them out so can independently control. (Usually to disable framework checks but
+  enable usage checks). The checks currently are;
+  - verifying that the framework internals are consistent with expectations
+    - Are ComputedValue backlinked from Observables correctly
+  - verifying the framework is used correctly
+    - ComputedValues should not cause cycles during recalculation
+
 * Read-Write transactions should not be able to be nested within other types of transactions.
 
 * dispose on calculated observer should defer until after reaction runs and should set isDisposed flag?
