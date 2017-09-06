@@ -122,11 +122,17 @@ public abstract class AbstractArezTest
 
   protected final void setCurrentTransaction( @Nonnull final ArezContext context )
   {
-    setCurrentTransaction( context, newReadOnlyObserver( context ) );
+    setCurrentTransaction( newReadOnlyObserver( context ) );
   }
 
   protected final void setCurrentTransaction( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
+    setCurrentTransaction( observer );
+  }
+
+  protected final void setCurrentTransaction( @Nonnull final Observer observer )
+  {
+    final ArezContext context = observer.getContext();
     context.setTransaction( new Transaction( context,
                                              null,
                                              ValueUtil.randomString(),
