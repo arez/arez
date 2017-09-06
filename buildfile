@@ -58,6 +58,7 @@ define 'arez' do
 
     test.options[:properties] = {'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy'}
     test.options[:java_args] = '-ea'
+
     package(:jar)
     package(:sources)
     package(:javadoc)
