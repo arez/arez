@@ -2,7 +2,6 @@ package org.realityforge.arez;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -15,7 +14,7 @@ public class ObserverErrorHandlerSupportTest
     final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
 
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
 
@@ -87,7 +86,7 @@ public class ObserverErrorHandlerSupportTest
     final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
 
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
 
@@ -123,7 +122,7 @@ public class ObserverErrorHandlerSupportTest
     final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
 
     final ArezContext context = new ArezContext();
-    final Observer observer = new Observer( context, ValueUtil.randomString() );
+    final Observer observer = newReadOnlyObserver( context );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
 
