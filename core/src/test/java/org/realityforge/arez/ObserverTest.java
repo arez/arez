@@ -798,4 +798,17 @@ public class ObserverTest
 
     assertEquals( observer.shouldCompute(), false );
   }
+
+  @Test
+  public void shouldCompute_INACTIVE()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadOnlyObserver( context );
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.INACTIVE );
+
+    assertEquals( observer.shouldCompute(), true );
+  }
 }
