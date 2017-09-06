@@ -1531,27 +1531,22 @@ public class TransactionTest
   {
     final ArezContext context = new ArezContext();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
-
     final Observer calculator = newDerivation( context );
+    setCurrentTransaction( context, calculator );
+
     calculator.setState( ObserverState.UP_TO_DATE );
 
     final Observable observable = calculator.getDerivedValue();
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    final Observer observer = newDerivation( context );
-    observer.setState( observable.getLeastStaleObserverState() );
-    observer.getDependencies().add( observable );
-    observable.getObservers().add( observer );
+    calculator.getDependencies().add( observable );
+    observable.getObservers().add( calculator );
 
-    context.setTransaction( transaction );
-    transaction.reportChangeConfirmed( observable );
+    context.getTransaction().reportChangeConfirmed( observable );
 
     // Assume observer is being updated so keep that state
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( calculator.getState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
