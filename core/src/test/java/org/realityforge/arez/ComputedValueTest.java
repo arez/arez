@@ -113,6 +113,7 @@ public class ComputedValueTest
     computedValue.compute();
 
     assertEquals( computedValue.getValue(), value1 );
+    // Verify state does not change
     assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
   }
 }
