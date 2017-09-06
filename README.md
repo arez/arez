@@ -32,8 +32,6 @@ TODO:
   - verifying the framework is used correctly
     - ComputedValues should not cause cycles during recalculation
 
-* Read-Write transactions should not be able to be nested within other types of transactions.
-
 * ComputedValue - where can use function that takes args (that are Observables somehow?)
 
 Observable
