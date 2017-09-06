@@ -112,14 +112,14 @@ public final class CalculatedModelExample
                          person.setLastName( "Smith" );
                        } );
 
-    context.createObserver( "NamePrinter",
-                            false,
-                            o -> System.out.println( "First Name: " + person.getFirstName() ),
-                            true );
-    context.createObserver( "Printer",
-                            false,
-                            o -> System.out.println( "Full Name: " + person.getFullName() ),
-                            true );
+    context.autorun( "NamePrinter",
+                     false,
+                     () -> System.out.println( "First Name: " + person.getFirstName() ),
+                     true );
+    context.autorun( "Printer",
+                     false,
+                     () -> System.out.println( "Full Name: " + person.getFullName() ),
+                     true );
 
     context.procedure( "Name update", true, null, () -> person.setFirstName( "Fred" ) );
   }

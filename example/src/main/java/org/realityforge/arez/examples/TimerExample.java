@@ -102,10 +102,10 @@ public final class TimerExample
     context.procedure( "Initial setup", true, null, timeModel::updateTime );
 
     final Observer timePrinter =
-      context.createObserver( "TimePrinter",
-                              false,
-                              o -> System.out.println( "Current time: " + timeModel.getTime() ),
-                              true );
+      context.autorun( "TimePrinter",
+                       false,
+                       () -> System.out.println( "Current time: " + timeModel.getTime() ),
+                       true );
 
     final Timer timer = new Timer();
     timer.schedule( new TimerTask()
