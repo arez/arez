@@ -3,7 +3,7 @@ import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
 
 @Container( name = "Time", singleton = true )
-public abstract class TimeModel
+public class TimeModel
 {
   private long _time;
 
