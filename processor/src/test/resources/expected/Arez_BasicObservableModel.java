@@ -7,6 +7,10 @@ import org.realityforge.arez.Observable;
 public final class Arez_BasicObservableModel
   extends BasicObservableModel
 {
+  private static volatile long $$arez$$_nextId;
+
+  private final long $$arez$$_id;
+
   @Nonnull
   private final ArezContext $$arez$$_context;
 
@@ -16,9 +20,15 @@ public final class Arez_BasicObservableModel
   public Arez_BasicObservableModel( @Nonnull final ArezContext $$arez$$_context )
   {
     super();
+    this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time =
-      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "BasicObservableModel.time" : null );
+      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+  }
+
+  private String $$arez$$_id()
+  {
+    return "BasicObservableModel." + $$arez$$_id + ".";
   }
 
   @Override
