@@ -125,13 +125,17 @@ final class ContainerDescriptorParser
                                           @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( !method.getModifiers().contains( Modifier.FINAL ) )
-    {
-      throw new ArezProcessorException( "@ContainerId target must be final", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.STATIC ) )
+    if ( method.getModifiers().contains( Modifier.STATIC ) )
     {
       throw new ArezProcessorException( "@ContainerId target must not be static", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ArezProcessorException( "@ContainerId target must not be private", method );
+    }
+    else if ( !method.getModifiers().contains( Modifier.FINAL ) )
+    {
+      throw new ArezProcessorException( "@ContainerId target must be final", method );
     }
     else if ( TypeKind.VOID == method.getReturnType().getKind() )
     {
