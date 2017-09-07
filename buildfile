@@ -65,6 +65,9 @@ define 'arez' do
     package(:jar)
     package(:sources)
     package(:javadoc)
+
+    test.using :testng
+    test.compile.with TEST_DEPS
   end
 
   define 'example' do
