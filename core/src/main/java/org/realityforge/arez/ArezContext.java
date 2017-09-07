@@ -180,6 +180,16 @@ public final class ArezContext
   }
 
   /**
+   * Return true if user should pass names into API methods, false if should pass null.
+   *
+   * @return true if user should pass names into API methods, false if should pass null.
+   */
+  public boolean areNamesEnabled()
+  {
+    return ArezConfig.enableNames();
+  }
+
+  /**
    * Execute the supplied function in a transaction.
    * The action may throw an exception.
    *

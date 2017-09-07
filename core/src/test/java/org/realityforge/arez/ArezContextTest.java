@@ -11,6 +11,13 @@ public class ArezContextTest
   extends AbstractArezTest
 {
   @Test
+  public void areNamesEnabled()
+  {
+    final ArezContext context = new ArezContext();
+    assertTrue( context.areNamesEnabled() );
+  }
+
+  @Test
   public void beginTransaction()
     throws Exception
   {
