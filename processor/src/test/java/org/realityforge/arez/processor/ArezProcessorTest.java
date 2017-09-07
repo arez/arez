@@ -39,6 +39,7 @@ public class ArezProcessorTest
     return new Object[][]
       {
         new Object[]{ "ContainerIdNotFinalModel", "@ContainerId target must be final" },
+        new Object[]{ "ContainerIdNotStaticModel", "@ContainerId target must not be static" },
         new Object[]{ "ObservableAndActionMethodModel", "Method can not be annotated with both @Action and @Observable" },
         new Object[]{ "ObservableAndComputedMethodModel", "Method can not be annotated with both @Observable and @Computed" },
         new Object[]{ "ObservableAndContainerIdMethodModel", "Method can not be annotated with both @Observable and @ContainerId" },
