@@ -14,13 +14,13 @@ public final class Arez_TimeModel
   {
     super( time );
     this.$arez$_context = $arez$_context;
-    $arez$_time = context.createObservable( "Time.time" );
+    this.$arez$_time = $arez$_context.createObservable( "Time.time" );
   }
 
   @Override
   public long getTime()
   {
-    $arez$_time.reportObserved();
+    this.$arez$_time.reportObserved();
     return super.getTime();
   }
 
@@ -29,7 +29,7 @@ public final class Arez_TimeModel
   {
     if ( super.getTime() != time )
     {
-      $arez$_time.reportChanged();
+      this.$arez$_time.reportChanged();
       super.setTime( time );
     }
   }
@@ -37,6 +37,6 @@ public final class Arez_TimeModel
   @Override
   public void updateTime()
   {
-    $arez$_context.safeProcedure( "Time.updateTime", true, () -> super.updateTime() );
+    this.$arez$_context.safeProcedure( "Time.updateTime", true, () -> super.updateTime() );
   }
 }
