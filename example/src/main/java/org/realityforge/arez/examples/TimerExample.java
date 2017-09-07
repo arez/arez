@@ -4,7 +4,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Observer;
@@ -14,89 +13,76 @@ import org.realityforge.arez.annotations.Observable;
 
 public final class TimerExample
 {
-  @Container( name = "TimeModel" )
+  @Container( name = "Time", singleton = true )
   public static abstract class TimeModel
   {
-    @Observable( name = "time" )
-    public abstract long getTime();
+    private long _time;
 
-    @Observable( name = "time" )
-    public abstract void setTime( long time );
+    TimeModel( final long time )
+    {
+      _time = time;
+    }
 
-    @Action( name = "updateTime" )
+    @Observable
+    public long getTime()
+    {
+      return _time;
+    }
+
+    public void setTime( final long time )
+    {
+      _time = time;
+    }
+
+    @Action
     public void updateTime()
     {
       setTime( System.currentTimeMillis() );
     }
   }
 
-  @Generated( "ArezGenerator" )
-  public static class TimeModelImpl
+  @Generated( "org.realityforge.arez.processor.ArezProcessor" )
+  public static final class Arez_TimeModel
     extends TimeModel
   {
-    /**
-     * This could be specified by annotation on container.
-     */
-    private static final String TYPE_PREFIX = "TimeModel";
+    private final ArezContext $arez$_context;
+    private final org.realityforge.arez.Observable $arez$_time;
 
-    private final ArezContext $_context;
-    private final org.realityforge.arez.Observable $_time;
-    private long _time;
-
-    public TimeModelImpl( @Nonnull final ArezContext context, final long time )
+    public Arez_TimeModel( @Nonnull final ArezContext context, final long time )
     {
-      super();
-      _time = time;
-      $_context = context;
-      $_time = context.createObservable( getArezNamePrefix() + "time" );
-    }
-
-    @Nullable
-    private String getArezNamePrefix()
-    {
-      final String arezId = getArezId();
-      return TYPE_PREFIX + ( null == arezId ? "" : "." + arezId ) + ".";
-    }
-
-    /**
-     * This could be overridden by annotation on a field.
-     * Otherwise should default to value get from context.nextNodeId().
-     * This class specifically overrides it as we have a singleton.
-     */
-    @Nullable
-    private String getArezId()
-    {
-      return null;
+      super( time );
+      $arez$_context = context;
+      $arez$_time = context.createObservable( "Time.time" );
     }
 
     @Override
     public long getTime()
     {
-      $_time.reportObserved();
-      return _time;
+      $arez$_time.reportObserved();
+      return super.getTime();
     }
 
     @Override
     public void setTime( final long time )
     {
-      if ( _time != time )
+      if ( super.getTime() != time )
       {
-        $_time.reportChanged();
-        _time = time;
+        $arez$_time.reportChanged();
+        super.setTime( time );
       }
     }
 
     @Override
     public void updateTime()
     {
-      $_context.safeProcedure( getArezNamePrefix() + "updateTime", true, () -> super.updateTime() );
+      $arez$_context.safeProcedure( "Time.updateTime", true, () -> super.updateTime() );
     }
 
     @TestOnly
     @Nonnull
     public org.realityforge.arez.Observable getTimeObservable()
     {
-      return $_time;
+      return $arez$_time;
     }
   }
 
@@ -105,7 +91,7 @@ public final class TimerExample
   {
     final ArezContext context = new ArezContext();
 
-    final TimeModel timeModel = new TimeModelImpl( context, 0 );
+    final TimeModel timeModel = new Arez_TimeModel( context, 0 );
 
     timeModel.updateTime();
 
@@ -130,7 +116,7 @@ public final class TimerExample
       @Override
       public void run()
       {
-        System.out.println( ( (TimeModelImpl) timeModel ).getTimeObservable() );
+        System.out.println( ( (Arez_TimeModel) timeModel ).getTimeObservable() );
         System.out.println( timePrinter + "::Active=" + timePrinter.isActive() );
       }
     }, 0, 1000 );
