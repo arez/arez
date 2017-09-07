@@ -2,11 +2,11 @@ package org.realityforge.arez.processor;
 
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
@@ -70,6 +70,20 @@ public final class ArezProcessor
     throws ArezProcessorException
   {
     throw new ArezProcessorException( message, element );
+  }
+
+  private void emitTypeSpec( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )
+    throws IOException
+  {
+    emitJavaFile( convertTypeSpecToJavaFile( packageName, typeSpec ) );
+  }
+
+  @Nonnull
+  private JavaFile convertTypeSpecToJavaFile( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )
+  {
+    return JavaFile.builder( packageName, typeSpec ).
+        skipJavaLangImports( true ).
+        build();
   }
 
   private void emitJavaFile( @Nonnull final JavaFile javaFile )
