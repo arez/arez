@@ -2,6 +2,7 @@ package org.realityforge.arez.processor;
 
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
@@ -36,6 +37,7 @@ import org.realityforge.arez.annotations.Container;
 public final class ArezProcessor
   extends AbstractJavaPoetProcessor
 {
+  private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "org.realityforge.arez", "ArezContext" );
   /**
    * {@inheritDoc}
    */
