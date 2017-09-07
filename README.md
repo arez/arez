@@ -16,6 +16,12 @@ on demand.
 This sections contains the notes for the next version of Arez and just consists of a bunch of notes
 that will be expanded over time as the library is fleshed out.
 
+Processor Tests:
+* Copy annotations on observable methods
+* Copy annotations on constructor
+* Copy annotations on actions
+* Override names
+
 TODO:
 * Hooks so context-wide can get notified when observers
  - created
