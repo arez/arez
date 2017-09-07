@@ -93,6 +93,15 @@ public final class ArezProcessor
     final StringBuilder superCall = new StringBuilder();
     superCall.append( "super(" );
     final ArrayList<String> parameterNames = new ArrayList<>();
+
+    // Add the first context class parameter
+    {
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( AREZ_CONTEXT_CLASSNAME, CONTEXT_FIELD_NAME, Modifier.FINAL ).
+          addAnnotation( Nonnull.class );
+      builder.addParameter( param.build() );
+    }
+
     boolean firstParam = true;
     for ( final VariableElement element : constructor.getParameters() )
     {
