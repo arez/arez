@@ -111,7 +111,7 @@ public final class ArezProcessor
       builder.addField( field.build() );
     }
 
-    for ( final ObservableDescriptor observable : descriptor.getObservables().values() )
+    for ( final ObservableDescriptor observable : descriptor.getObservables() )
     {
       final FieldSpec.Builder field =
         FieldSpec.builder( OBSERVABLE_CLASSNAME, fieldName( observable ), Modifier.FINAL, Modifier.PRIVATE ).
@@ -188,7 +188,7 @@ public final class ArezProcessor
     }
 
     final String prefix = descriptor.getName().isEmpty() ? "" : descriptor.getName() + ".";
-    for ( final ObservableDescriptor observable : descriptor.getObservables().values() )
+    for ( final ObservableDescriptor observable : descriptor.getObservables() )
     {
       builder.addStatement( "this.$N = $N.createObservable( $S )",
                             fieldName( observable ),

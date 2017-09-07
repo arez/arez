@@ -1,5 +1,6 @@
 package org.realityforge.arez.processor;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,8 @@ final class ContainerDescriptor
   @Nonnull
   private final TypeElement _element;
   private final Map<String, ObservableDescriptor> _observables = new HashMap<>();
-  private final Map<String, ObservableDescriptor> _roObservables = Collections.unmodifiableMap( _observables );
+  private final Collection<ObservableDescriptor> _roObservables =
+    Collections.unmodifiableCollection( _observables.values() );
 
   ContainerDescriptor( @Nonnull final String name,
                        final boolean singleton,
@@ -70,7 +72,7 @@ final class ContainerDescriptor
   }
 
   @Nonnull
-  Map<String, ObservableDescriptor> getObservables()
+  Collection<ObservableDescriptor> getObservables()
   {
     return _roObservables;
   }
