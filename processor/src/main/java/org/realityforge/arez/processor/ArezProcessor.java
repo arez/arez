@@ -112,6 +112,10 @@ public final class ArezProcessor
     return FIELD_PREFIX + observable.getName();
   }
 
+  /**
+   * Build all constructors as they appear on the Container class.
+   * Arez Observable fields are populated as required and parameters are passed up to superclass.
+   */
   private void buildConstructors( @Nonnull final ContainerDescriptor descriptor,
                                   @Nonnull final TypeSpec.Builder builder )
   {
@@ -121,6 +125,9 @@ public final class ArezProcessor
     }
   }
 
+  /**
+   * Build a constructor based on the supplied constructor
+   */
   @Nonnull
   private MethodSpec buildConstructor( @Nonnull final ContainerDescriptor descriptor,
                                        @Nonnull final ExecutableElement constructor )
