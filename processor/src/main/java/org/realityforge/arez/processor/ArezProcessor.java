@@ -89,6 +89,53 @@ public final class ArezProcessor
 
     buildConstructors( descriptor, builder );
 
+    for ( final ObservableDescriptor observable : descriptor.getObservables() )
+    {
+      builder.addMethod( buildObservableGetter( descriptor, observable ) );
+    }
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildObservableGetter( @Nonnull final ContainerDescriptor descriptor,
+                                            @Nonnull final ObservableDescriptor observable )
+    throws ArezProcessorException
+  {
+    final ExecutableElement getter = observable.getGetter();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( getter.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( getter, builder );
+
+    builder.addAnnotation( Override.class );
+    builder.returns( TypeName.get( getter.getReturnType() ) );
+
+    final StringBuilder superCall = new StringBuilder();
+    superCall.append( "return super." );
+    superCall.append( getter.getSimpleName() );
+    superCall.append( "(" );
+
+    final ArrayList<String> parameterNames = new ArrayList<>();
+
+    boolean firstParam = true;
+    for ( final VariableElement element : getter.getParameters() )
+    {
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
+      ProcessorUtil.copyDocumentedAnnotations( element, param );
+      builder.addParameter( param.build() );
+      parameterNames.add( element.getSimpleName().toString() );
+      if ( !firstParam )
+      {
+        superCall.append( "," );
+      }
+      firstParam = false;
+      superCall.append( "$N" );
+    }
+
+    superCall.append( ")" );
+    builder.addStatement( "this.$N.reportObserved()", fieldName( observable ) );
+    builder.addStatement( superCall.toString(), parameterNames.toArray() );
+
     return builder.build();
   }
 
