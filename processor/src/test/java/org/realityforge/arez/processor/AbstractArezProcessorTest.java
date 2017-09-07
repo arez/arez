@@ -14,8 +14,8 @@ abstract class AbstractArezProcessorTest
     assertSuccessfulCompile( "input/" + file + ".java", "expected/" + file + ".java" );
   }
 
-  void assertSuccessfulCompile( @Nonnull final String inputResource,
-                                @Nonnull final String expectedOutputResource )
+  private void assertSuccessfulCompile( @Nonnull final String inputResource,
+                                        @Nonnull final String expectedOutputResource )
   {
     final JavaFileObject source = JavaFileObjects.forResource( inputResource );
     assert_().about( JavaSourceSubjectFactory.javaSource() ).
