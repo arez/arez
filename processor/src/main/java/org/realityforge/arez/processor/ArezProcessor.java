@@ -97,6 +97,9 @@ public final class ArezProcessor
     return builder.build();
   }
 
+  /**
+   * Generate the getter that reports that ensures that the access is reported as Observable.
+   */
   @Nonnull
   private MethodSpec buildObservableGetter( @Nonnull final ContainerDescriptor descriptor,
                                             @Nonnull final ObservableDescriptor observable )
