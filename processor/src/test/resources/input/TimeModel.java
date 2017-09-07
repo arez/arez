@@ -18,6 +18,7 @@ public class TimeModel
     return _time;
   }
 
+  @Observable
   public void setTime( final long time )
   {
     _time = time;
