@@ -7,13 +7,12 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.AbstractProcessor;
 import javax.lang.model.element.Element;
-import org.jetbrains.annotations.Contract;
 import static javax.tools.Diagnostic.Kind.ERROR;
 
-public abstract class AbstractJavaPoetProcessor
+abstract class AbstractJavaPoetProcessor
   extends AbstractProcessor
 {
-  protected final void processElements( @Nonnull final Set<? extends Element> elements )
+  final void processElements( @Nonnull final Set<? extends Element> elements )
   {
     for ( final Element element : elements )
     {
@@ -35,7 +34,7 @@ public abstract class AbstractJavaPoetProcessor
   protected abstract void process( @Nonnull Element element )
     throws IOException, ArezProcessorException;
 
-  protected final void emitTypeSpec( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )
+  final void emitTypeSpec( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )
     throws IOException
   {
     emitJavaFile( convertTypeSpecToJavaFile( packageName, typeSpec ) );
