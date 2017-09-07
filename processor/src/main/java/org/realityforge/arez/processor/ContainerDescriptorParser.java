@@ -139,6 +139,11 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "@Observable target must not be final", method );
     }
+    else if ( method.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ArezProcessorException( "@Observable target must not be static", method );
+    }
+
     final TypeMirror returnType = method.getReturnType();
     final String methodName = method.getSimpleName().toString();
     String name;

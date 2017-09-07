@@ -18,6 +18,8 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "StaticObservableGetterModel", "@Observable target must not be static" },
+        new Object[]{ "StaticObservableSetterModel", "@Observable target must not be static" },
         new Object[]{ "FinalObservableGetterModel", "@Observable target must not be final" },
         new Object[]{ "FinalObservableSetterModel", "@Observable target must not be final" },
         new Object[]{ "NonStaticNestedModel", "@Container target must not be a non-static nested class" },
