@@ -39,7 +39,8 @@ public final class ArezProcessor
   extends AbstractJavaPoetProcessor
 {
   private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "org.realityforge.arez", "ArezContext" );
-  private static final String CONTEXT_FIELD_NAME = "$$arez$$_context";
+  private static final String FIELD_PREFIX = "$$arez$$_";
+  private static final String CONTEXT_FIELD_NAME = FIELD_PREFIX + "context";
 
   /**
    * {@inheritDoc}
