@@ -79,6 +79,15 @@ public final class ArezProcessor
       addAnnotation( generatedAnnotation );
     ProcessorUtil.copyAccessModifiers( element, builder );
 
+    buildFields( descriptor, builder );
+
+    buildConstructors( descriptor, builder );
+
+    return builder.build();
+  }
+
+  private void buildFields( @Nonnull final ContainerDescriptor descriptor, @Nonnull final TypeSpec.Builder builder )
+  {
     // Create the field that contains the context variable if it is needed
     if ( descriptor.shouldStoreContext() )
     {
@@ -88,12 +97,28 @@ public final class ArezProcessor
       builder.addField( field.build() );
     }
 
-    for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( element ) )
+    for ( final ObservableDescriptor observable : descriptor.getObservables().values() )
+    {
+      final FieldSpec.Builder field =
+        FieldSpec.builder( OBSERVABLE_CLASSNAME, fieldName( observable ), Modifier.FINAL, Modifier.PRIVATE ).
+          addAnnotation( Nonnull.class );
+      builder.addField( field.build() );
+    }
+  }
+
+  @Nonnull
+  private String fieldName( @Nonnull final ObservableDescriptor observable )
+  {
+    return FIELD_PREFIX + observable.getName();
+  }
+
+  private void buildConstructors( @Nonnull final ContainerDescriptor descriptor,
+                                  @Nonnull final TypeSpec.Builder builder )
+  {
+    for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( descriptor.getElement() ) )
     {
       builder.addMethod( buildConstructor( descriptor, constructor ) );
     }
-
-    return builder.build();
   }
 
   @Nonnull
@@ -137,6 +162,16 @@ public final class ArezProcessor
     {
       builder.addStatement( "this.$N = $N", CONTEXT_FIELD_NAME, CONTEXT_FIELD_NAME );
     }
+
+    final String prefix = descriptor.getName().isEmpty() ? "" : descriptor.getName() + ".";
+    for ( final ObservableDescriptor observable : descriptor.getObservables().values() )
+    {
+      builder.addStatement( "this.$N = $N.createObservable( $S )",
+                            fieldName( observable ),
+                            CONTEXT_FIELD_NAME,
+                            prefix + observable.getName() );
+    }
+
     return builder.build();
   }
 }
