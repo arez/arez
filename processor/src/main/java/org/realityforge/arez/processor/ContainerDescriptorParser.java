@@ -93,6 +93,10 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "Method can not be annotated with both @Observable and @Computed", method );
     }
+    else if ( null != observable && null != containerId )
+    {
+      throw new ArezProcessorException( "Method can not be annotated with both @Observable and @ContainerId", method );
+    }
     else if ( null != containerId && null != computed )
     {
       throw new ArezProcessorException( "Method can not be annotated with both @ContainerId and @Computed", method );
