@@ -7,6 +7,22 @@ import org.testng.annotations.Test;
 public class ArezProcessorTest
   extends AbstractArezProcessorTest
 {
+
+  @DataProvider( name = "successfulCompiles" )
+  public Object[][] successfulCompiles()
+  {
+    return new Object[][]
+      {
+        new Object[]{ "BasicObservableModel" }
+      };
+  }
+
+  @Test( dataProvider = "successfulCompiles" )
+  public void processSuccessfulCompile( @Nonnull final String classname )
+  {
+    assertSuccessfulCompile( classname );
+  }
+
   @Test
   public void processTimeModel()
   {
