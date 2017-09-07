@@ -18,12 +18,13 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
-        new Object[]{ "AbstractModel", "@Container target must not be abstract" }
+        new Object[]{ "AbstractModel", "@Container target must not be abstract" },
+        new Object[]{ "FinalModel", "@Container target must not be final" }
       };
   }
 
   @Test( dataProvider = "failedCompiles" )
-  public void processAbstractModel( @Nonnull final String classname, @Nonnull final String errorMessageFragment )
+  public void processFailedCompile( @Nonnull final String classname, @Nonnull final String errorMessageFragment )
   {
     assertFailedCompile( classname, errorMessageFragment );
   }
