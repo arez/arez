@@ -82,4 +82,20 @@ final class ProcessorUtil
       map( m -> (ExecutableElement) m ).
       collect( Collectors.toList() );
   }
+
+  static void copyAccessModifiers( @Nonnull final TypeElement element, @Nonnull final TypeSpec.Builder builder )
+  {
+    if ( element.getModifiers().contains( Modifier.PUBLIC ) )
+    {
+      builder.addModifiers( Modifier.PUBLIC );
+    }
+    else if ( element.getModifiers().contains( Modifier.PROTECTED ) )
+    {
+      builder.addModifiers( Modifier.PROTECTED );
+    }
+    else if ( element.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      builder.addModifiers( Modifier.PRIVATE );
+    }
+  }
 }
