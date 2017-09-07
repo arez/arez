@@ -41,6 +41,6 @@ public final class ArezProcessor
   protected void process( @Nonnull final Element element )
     throws IOException, ArezProcessorException
   {
-    fail( "Not yet implemented", element );
+    throw new ArezProcessorException( "Not yet implemented", element );
   }
 }

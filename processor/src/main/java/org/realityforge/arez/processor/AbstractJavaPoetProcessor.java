@@ -35,13 +35,6 @@ public abstract class AbstractJavaPoetProcessor
   protected abstract void process( @Nonnull Element element )
     throws IOException, ArezProcessorException;
 
-  @Contract( "_, _ -> fail" )
-  protected final ArezProcessorException fail( @Nonnull final String message, @Nonnull final Element element )
-    throws ArezProcessorException
-  {
-    throw new ArezProcessorException( message, element );
-  }
-
   protected final void emitTypeSpec( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )
     throws IOException
   {
