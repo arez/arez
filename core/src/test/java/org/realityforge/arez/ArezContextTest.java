@@ -80,6 +80,7 @@ public class ArezContextTest
                   "' but it is nested in transaction named '" + transaction.getName() + "' with " +
                   "mode READ_WRITE_OWNED which is not equal to READ_WRITE." );
   }
+
   @Test
   public void commitTransaction_matchingRootTransaction()
     throws Exception
