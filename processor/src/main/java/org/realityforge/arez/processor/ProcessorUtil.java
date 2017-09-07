@@ -126,4 +126,16 @@ final class ProcessorUtil
       }
     }
   }
+
+  static void copyDocumentedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                         @Nonnull final ParameterSpec.Builder builder )
+  {
+    for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
+    {
+      if ( null != annotation.getAnnotationType().asElement().getAnnotation( Documented.class ) )
+      {
+        builder.addAnnotation( AnnotationSpec.get( annotation ) );
+      }
+    }
+  }
 }
