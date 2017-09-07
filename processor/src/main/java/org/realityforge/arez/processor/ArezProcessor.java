@@ -3,6 +3,7 @@ package org.realityforge.arez.processor;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
@@ -76,16 +77,26 @@ public final class ArezProcessor
       addAnnotation( generatedAnnotation );
     ProcessorUtil.copyAccessModifiers( element, builder );
 
+    // Create the field that contains the context variable if it is needed
+    if ( descriptor.shouldStoreContext() )
+    {
+      final FieldSpec.Builder field =
+        FieldSpec.builder( AREZ_CONTEXT_CLASSNAME, CONTEXT_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE ).
+          addAnnotation( Nonnull.class );
+      builder.addField( field.build() );
+    }
+
     for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( element ) )
     {
-      builder.addMethod( buildConstructor( constructor ) );
+      builder.addMethod( buildConstructor( descriptor, constructor ) );
     }
 
     return builder.build();
   }
 
   @Nonnull
-  private MethodSpec buildConstructor( @Nonnull final ExecutableElement constructor )
+  private MethodSpec buildConstructor( @Nonnull final ContainerDescriptor descriptor,
+                                       @Nonnull final ExecutableElement constructor )
   {
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
     ProcessorUtil.copyAccessModifiers( constructor, builder );
@@ -120,7 +131,10 @@ public final class ArezProcessor
 
     superCall.append( ")" );
     builder.addStatement( superCall.toString(), parameterNames.toArray() );
-
+    if ( descriptor.shouldStoreContext() )
+    {
+      builder.addStatement( "this.$N = $N", CONTEXT_FIELD_NAME, CONTEXT_FIELD_NAME );
+    }
     return builder.build();
   }
 }
