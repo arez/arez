@@ -114,10 +114,42 @@ final class ContainerDescriptorParser
     {
       processComputed( descriptor, computed, method );
     }
-
-    if ( null != containerId )
+    else if ( null != containerId )
     {
+      processContainerId( descriptor, containerId, method );
+    }
+  }
 
+  private static void processContainerId( @Nonnull final ContainerDescriptor descriptor,
+                                          @Nonnull final ContainerId containerId,
+                                          @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    if ( !method.getModifiers().contains( Modifier.FINAL ) )
+    {
+      throw new ArezProcessorException( "@ContainerId target must be final", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ArezProcessorException( "@ContainerId target must not be static", method );
+    }
+    else if ( TypeKind.VOID == method.getReturnType().getKind() )
+    {
+      throw new ArezProcessorException( "@ContainerId target must return a value", method );
+    }
+    else if ( 0 != method.getParameters().size() )
+    {
+      throw new ArezProcessorException( "@ContainerId target must not have any parameters", method );
+    }
+    final ExecutableElement existing = descriptor.getContainerId();
+    if ( null != existing )
+    {
+      throw new ArezProcessorException( "@ContainerId target duplicates existing method named " +
+                                        existing.getSimpleName(), method );
+    }
+    else
+    {
+      descriptor.setContainerId( method );
     }
   }
 

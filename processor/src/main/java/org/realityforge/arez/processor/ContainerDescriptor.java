@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
@@ -22,6 +24,8 @@ final class ContainerDescriptor
   private final PackageElement _packageElement;
   @Nonnull
   private final TypeElement _element;
+  @Nullable
+  private ExecutableElement _containerId;
   private final Map<String, ObservableDescriptor> _observables = new HashMap<>();
   private final Collection<ObservableDescriptor> _roObservables =
     Collections.unmodifiableCollection( _observables.values() );
@@ -75,6 +79,17 @@ final class ContainerDescriptor
   Collection<ObservableDescriptor> getObservables()
   {
     return _roObservables;
+  }
+
+  @Nullable
+  ExecutableElement getContainerId()
+  {
+    return _containerId;
+  }
+
+  void setContainerId( @Nonnull final ExecutableElement containerId )
+  {
+    _containerId = containerId;
   }
 
   boolean shouldStoreContext()
