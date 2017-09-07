@@ -15,6 +15,7 @@ final class ContainerDescriptor
 {
   @Nonnull
   private final String _name;
+  private final boolean _singleton;
   @Nonnull
   private final PackageElement _packageElement;
   @Nonnull
@@ -23,10 +24,12 @@ final class ContainerDescriptor
   private final Map<String, ObservableDescriptor> _roObservables = Collections.unmodifiableMap( _observables );
 
   ContainerDescriptor( @Nonnull final String name,
+                       final boolean singleton,
                        @Nonnull final PackageElement packageElement,
                        @Nonnull final TypeElement element )
   {
     _name = Objects.requireNonNull( name );
+    _singleton = singleton;
     _packageElement = Objects.requireNonNull( packageElement );
     _element = Objects.requireNonNull( element );
   }
@@ -35,6 +38,11 @@ final class ContainerDescriptor
   String getName()
   {
     return _name;
+  }
+
+  boolean isSingleton()
+  {
+    return _singleton;
   }
 
   @Nonnull
