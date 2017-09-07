@@ -1,6 +1,7 @@
 package org.realityforge.arez.processor;
 
 import com.google.auto.service.AutoService;
+import com.squareup.javapoet.JavaFile;
 import java.io.IOException;
 import java.util.Set;
 import javax.annotation.Nonnull;
@@ -69,6 +70,12 @@ public final class ArezProcessor
     throws ArezProcessorException
   {
     throw new ArezProcessorException( message, element );
+  }
+
+  private void emitJavaFile( @Nonnull final JavaFile javaFile )
+    throws IOException
+  {
+    javaFile.writeTo( processingEnv.getFiler() );
   }
 
   @Nonnull
