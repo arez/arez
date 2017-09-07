@@ -8,8 +8,14 @@ import static com.google.common.truth.Truth.assert_;
 
 abstract class AbstractArezProcessorTest
 {
-  void assertProcessor( @Nonnull final String inputResource,
-                        @Nonnull final String expectedOutputResource )
+  void assertSuccessfulCompile( @Nonnull final String resourceKey )
+  {
+    final String file = resourceKey.replaceAll( "\\.", "/" );
+    assertSuccessfulCompile( "input/" + file + ".java", "expected/" + file + ".java" );
+  }
+
+  void assertSuccessfulCompile( @Nonnull final String inputResource,
+                                @Nonnull final String expectedOutputResource )
   {
     final JavaFileObject source = JavaFileObjects.forResource( inputResource );
     assert_().about( JavaSourceSubjectFactory.javaSource() ).
