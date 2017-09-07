@@ -31,8 +31,7 @@ abstract class AbstractArezProcessorTest
     assertSuccessfulCompile( input.toString(), expected.toString() );
   }
 
-  private void assertSuccessfulCompile( @Nonnull final String inputResource,
-                                        @Nonnull final String expectedOutputResource )
+  void assertSuccessfulCompile( @Nonnull final String inputResource, @Nonnull final String expectedOutputResource )
   {
     final JavaFileObject source = JavaFileObjects.forResource( inputResource );
     assert_().about( JavaSourceSubjectFactory.javaSource() ).
