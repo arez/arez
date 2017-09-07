@@ -13,6 +13,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "ObservableWithExceptionModel" },
         new Object[]{ "BasicObservableModel" }
       };
   }
