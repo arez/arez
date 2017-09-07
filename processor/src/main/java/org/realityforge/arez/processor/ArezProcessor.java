@@ -54,6 +54,9 @@ public final class ArezProcessor
     return false;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void process( @Nonnull final Element element )
     throws IOException, ArezProcessorException
@@ -63,6 +66,9 @@ public final class ArezProcessor
     emitTypeSpec( descriptor.getPackageElement().getQualifiedName().toString(), builder( descriptor ) );
   }
 
+  /**
+   * Build the enhanced class for specified container.
+   */
   @Nonnull
   private TypeSpec builder( @Nonnull final ContainerDescriptor descriptor )
     throws ArezProcessorException
@@ -86,6 +92,14 @@ public final class ArezProcessor
     return builder.build();
   }
 
+  /**
+   * Build the fields required to make class Observable. This involves;
+   * <ul>
+   *   <li>the context field if there is any @Action methods.</li>
+   *   <li>the observable object for every @Observable.</li>
+   *   <li>the ComputedValue object for every @Computed method.</li>
+   * </ul>
+   */
   private void buildFields( @Nonnull final ContainerDescriptor descriptor, @Nonnull final TypeSpec.Builder builder )
   {
     // Create the field that contains the context variable if it is needed
@@ -106,6 +120,9 @@ public final class ArezProcessor
     }
   }
 
+  /**
+   * Return the name of the field for specified Observable.
+   */
   @Nonnull
   private String fieldName( @Nonnull final ObservableDescriptor observable )
   {
