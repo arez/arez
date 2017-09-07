@@ -38,6 +38,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "ObservableAndActionMethodModel", "Method can not be annotated with both @Action and @Observable" },
         new Object[]{ "BadObservableNameModel", "Method annotated with @Observable specified invalid name -ace" },
         new Object[]{ "BadObservableName2Model", "Method annotated with @Observable specified invalid name ace-" },
         new Object[]{ "ExtraParameterSetterModel", "Method annotated with @Observable should be a setter or getter" },
