@@ -41,4 +41,29 @@ abstract class AbstractArezProcessorTest
       compilesWithoutError().
       and().generatesSources( JavaFileObjects.forResource( expectedOutputResource ) );
   }
+
+  void assertFailedCompile( @Nonnull final String classname, @Nonnull final String errorMessageFragment )
+  {
+    final String[] elements = classname.contains( "." ) ? classname.split( "." ) : new String[]{ classname };
+    final StringBuilder input = new StringBuilder();
+    input.append( "bad_input" );
+    for ( final String element : elements )
+    {
+      input.append( '/' );
+      input.append( element );
+    }
+    input.append( ".java" );
+    assertFailedCompileResource( input.toString(), errorMessageFragment );
+  }
+
+  private void assertFailedCompileResource( @Nonnull final String inputResource,
+                                            @Nonnull final String errorMessageFragment )
+  {
+    final JavaFileObject source = JavaFileObjects.forResource( inputResource );
+    assert_().about( JavaSourceSubjectFactory.javaSource() ).
+      that( source ).
+      processedWith( new ArezProcessor() ).
+      failsToCompile().
+      withErrorContaining( errorMessageFragment );
+  }
 }
