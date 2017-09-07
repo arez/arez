@@ -19,7 +19,9 @@ that will be expanded over time as the library is fleshed out.
 Processor Tests:
 * Copy annotations on observable methods
 * Copy annotations on constructor
+* Copy exceptions on constructor
 * Copy annotations on actions
+* Copy exceptions on actions
 * Override names
 
 TODO:
