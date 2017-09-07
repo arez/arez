@@ -35,7 +35,7 @@ public @interface Container
    *
    * @return the name of the type.
    */
-  String name() default "";
+  String name() default "<default>";
 
   /**
    * Return true if the container can only have a single instance, false otherwise.
