@@ -54,6 +54,7 @@ define 'arez' do
     compile.with PROVIDED_DEPS,
                  COMPILE_DEPS,
                  :autoservice,
+                 :autocommon,
                  :javapoet,
                  :guava,
                  project('annotations')
