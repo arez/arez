@@ -91,7 +91,7 @@ public final class ArezProcessor
 
     for ( final ObservableDescriptor observable : descriptor.getObservables() )
     {
-      builder.addMethod( buildObservableGetter( descriptor, observable ) );
+      builder.addMethod( buildObservableGetter( observable ) );
     }
 
     return builder.build();
@@ -101,8 +101,7 @@ public final class ArezProcessor
    * Generate the getter that reports that ensures that the access is reported as Observable.
    */
   @Nonnull
-  private MethodSpec buildObservableGetter( @Nonnull final ContainerDescriptor descriptor,
-                                            @Nonnull final ObservableDescriptor observable )
+  private MethodSpec buildObservableGetter( @Nonnull final ObservableDescriptor observable )
     throws ArezProcessorException
   {
     final ExecutableElement getter = observable.getGetter();
