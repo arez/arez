@@ -40,6 +40,7 @@ public class ArezProcessorTest
       {
         new Object[]{ "ContainerIdNotFinalModel", "@ContainerId target must be final" },
         new Object[]{ "ContainerIdNotStaticModel", "@ContainerId target must not be static" },
+        new Object[]{ "ContainerIdNotPrivateModel", "@ContainerId target must not be private" },
         new Object[]{ "ObservableAndActionMethodModel", "Method can not be annotated with both @Action and @Observable" },
         new Object[]{ "ObservableAndComputedMethodModel", "Method can not be annotated with both @Observable and @Computed" },
         new Object[]{ "ObservableAndContainerIdMethodModel", "Method can not be annotated with both @Observable and @ContainerId" },
