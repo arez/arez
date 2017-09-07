@@ -6,7 +6,7 @@ import javax.annotation.Nonnull;
  * Interface implemented by code to react to changes for an observer.
  */
 @FunctionalInterface
-public interface Reaction
+interface Reaction
 {
   /**
    * React to changes, or throw an exception if unable to do so.
