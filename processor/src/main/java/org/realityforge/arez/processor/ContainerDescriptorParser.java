@@ -3,6 +3,7 @@ package org.realityforge.arez.processor;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
@@ -30,7 +31,7 @@ final class ContainerDescriptorParser
   {
     final PackageElement packageElement = elementUtils.getPackageOf( element );
     final TypeElement typeElement = (TypeElement) element;
-    if ( !element.getKind().isClass() )
+    if ( ElementKind.CLASS != element.getKind() )
     {
       throw new ArezProcessorException( "@Container target must be a class", element );
     }

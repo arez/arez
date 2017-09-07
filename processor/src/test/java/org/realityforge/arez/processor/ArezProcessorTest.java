@@ -18,6 +18,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "EnumModel", "@Container target must be a class" },
         new Object[]{ "InterfaceModel", "@Container target must be a class" },
         new Object[]{ "AbstractModel", "@Container target must not be abstract" },
         new Object[]{ "FinalModel", "@Container target must not be final" }
