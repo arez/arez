@@ -1,0 +1,62 @@
+package org.realityforge.arez.processor;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import javax.annotation.Nonnull;
+import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
+
+/**
+ * The class that represents the parsed state of Container annotated class.
+ */
+final class ContainerDescriptor
+{
+  @Nonnull
+  private final String _name;
+  @Nonnull
+  private final PackageElement _packageElement;
+  @Nonnull
+  private final TypeElement _element;
+  private final Map<String, ObservableDescriptor> _observables = new HashMap<>();
+  private final Map<String, ObservableDescriptor> _roObservables = Collections.unmodifiableMap( _observables );
+
+  ContainerDescriptor( @Nonnull final String name,
+                       @Nonnull final PackageElement packageElement,
+                       @Nonnull final TypeElement element )
+  {
+    _name = Objects.requireNonNull( name );
+    _packageElement = Objects.requireNonNull( packageElement );
+    _element = Objects.requireNonNull( element );
+  }
+
+  @Nonnull
+  String getName()
+  {
+    return _name;
+  }
+
+  @Nonnull
+  PackageElement getPackageElement()
+  {
+    return _packageElement;
+  }
+
+  @Nonnull
+  TypeElement getElement()
+  {
+    return _element;
+  }
+
+  ObservableDescriptor getObservableByName( @Nonnull final String name )
+  {
+    return _observables.computeIfAbsent( name, n -> new ObservableDescriptor( this, n ) );
+  }
+
+  @Nonnull
+  Map<String, ObservableDescriptor> getObservables()
+  {
+    return _roObservables;
+  }
+}
