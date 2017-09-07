@@ -7,6 +7,10 @@ import org.realityforge.arez.Observable;
 public final class Arez_ObservableWithCtorModel
   extends ObservableWithCtorModel
 {
+  private static volatile long $$arez$$_nextId;
+
+  private final long $$arez$$_id;
+
   @Nonnull
   private final ArezContext $$arez$$_context;
 
@@ -16,8 +20,15 @@ public final class Arez_ObservableWithCtorModel
   public Arez_ObservableWithCtorModel( @Nonnull final ArezContext $$arez$$_context, final long time )
   {
     super( time );
+    this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_time = $$arez$$_context.createObservable( "ObservableWithCtorModel.time" );
+    this.$$arez$$_time =
+      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+  }
+
+  private String $$arez$$_id()
+  {
+    return "ObservableWithCtorModel." + $$arez$$_id + ".";
   }
 
   @Override

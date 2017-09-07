@@ -1,3 +1,4 @@
+
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
@@ -7,6 +8,10 @@ import org.realityforge.arez.Observable;
 public final class Arez_ObservableWithExceptionModel
   extends ObservableWithExceptionModel
 {
+  private static volatile long $$arez$$_nextId;
+
+  private final long $$arez$$_id;
+
   @Nonnull
   private final ArezContext $$arez$$_context;
 
@@ -16,8 +21,15 @@ public final class Arez_ObservableWithExceptionModel
   public Arez_ObservableWithExceptionModel( @Nonnull final ArezContext $$arez$$_context )
   {
     super();
+    this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_time = $$arez$$_context.createObservable( "ObservableWithExceptionModel.time" );
+    this.$$arez$$_time =
+      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+  }
+
+  private String $$arez$$_id()
+  {
+    return "ObservableWithExceptionModel." + $$arez$$_id + ".";
   }
 
   @Override
