@@ -41,7 +41,13 @@ public final class ArezProcessor
   public boolean process( final Set<? extends TypeElement> annotations, final RoundEnvironment env )
   {
     final Set<? extends Element> elements = env.getElementsAnnotatedWith( Container.class );
-    for ( Element element : elements )
+    processElements( elements );
+    return false;
+  }
+
+  private void processElements( @Nonnull final Set<? extends Element> elements )
+  {
+    for ( final Element element : elements )
     {
       try
       {
@@ -56,7 +62,6 @@ public final class ArezProcessor
         e.print( getMessager() );
       }
     }
-    return false;
   }
 
   private void process( @Nonnull final Element element )
