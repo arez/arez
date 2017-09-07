@@ -74,4 +74,9 @@ final class ContainerDescriptor
   {
     return _roObservables;
   }
+
+  boolean shouldStoreContext()
+  {
+    return true;
+  }
 }
