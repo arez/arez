@@ -38,6 +38,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "ContainerIdMustNotHaveParametersModel", "@ContainerId target must not have any parameters" },
         new Object[]{ "ContainerIdMustReturnValueModel", "@ContainerId target must return a value" },
         new Object[]{ "ContainerIdNotFinalModel", "@ContainerId target must be final" },
         new Object[]{ "ContainerIdNotStaticModel", "@ContainerId target must not be static" },
