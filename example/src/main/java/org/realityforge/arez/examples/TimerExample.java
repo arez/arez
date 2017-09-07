@@ -13,14 +13,32 @@ import org.realityforge.arez.annotations.Observable;
 
 public final class TimerExample
 {
+  public interface TimeModelExtension
+  {
+    TimeModel self();
+
+    @Action
+    default void resetTime()
+    {
+      self().setTime( 0 );
+    }
+  }
+
   @Container( name = "Time", singleton = true )
-  public static abstract class TimeModel
+  public static class TimeModel
+    implements TimeModelExtension
   {
     private long _time;
 
     TimeModel( final long time )
     {
       _time = time;
+    }
+
+    @Override
+    public TimeModel self()
+    {
+      return this;
     }
 
     @Observable
@@ -78,6 +96,12 @@ public final class TimerExample
       $arez$_context.safeProcedure( "Time.updateTime", true, () -> super.updateTime() );
     }
 
+    @Override
+    public void resetTime()
+    {
+      $arez$_context.safeProcedure( "Time.updateTime", true, () -> super.resetTime() );
+    }
+
     @TestOnly
     @Nonnull
     public org.realityforge.arez.Observable getTimeObservable()
@@ -120,6 +144,15 @@ public final class TimerExample
         System.out.println( timePrinter + "::Active=" + timePrinter.isActive() );
       }
     }, 0, 1000 );
+
+    timer.schedule( new TimerTask()
+    {
+      @Override
+      public void run()
+      {
+        timeModel.resetTime();
+      }
+    }, 0, 500 );
     Thread.sleep( 10 * 1000 );
     System.exit( 0 );
   }
