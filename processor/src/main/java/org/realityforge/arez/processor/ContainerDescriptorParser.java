@@ -62,7 +62,7 @@ final class ContainerDescriptorParser
       processMethod( descriptor, method );
     }
     //TODO: Validate observers/populate here
-
+    //TODO: Validate that there is no name collision between Action/Observable/Computed methods
     //TODO: Validate that there is at least one action or observable in class
 
     return descriptor;
