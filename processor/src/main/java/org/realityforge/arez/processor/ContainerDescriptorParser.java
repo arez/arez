@@ -135,6 +135,10 @@ final class ContainerDescriptorParser
                                          @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
+    if ( method.getModifiers().contains( Modifier.FINAL ) )
+    {
+      throw new ArezProcessorException( "@Observable target must not be final", method );
+    }
     final TypeMirror returnType = method.getReturnType();
     final String methodName = method.getSimpleName().toString();
     String name;
