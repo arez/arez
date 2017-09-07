@@ -48,6 +48,25 @@ define 'arez' do
     test.compile.with TEST_DEPS
   end
 
+  define 'processor' do
+    pom.provided_dependencies.concat PROVIDED_DEPS
+
+    compile.with PROVIDED_DEPS,
+                 COMPILE_DEPS,
+                 :autoservice,
+                 :javapoet,
+                 :guava,
+                 :modeshape_common,
+                 project('annotations')
+
+    test.with :compile_testing,
+              :truth
+
+    package(:jar)
+    package(:sources)
+    package(:javadoc)
+  end
+
   define 'example' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
