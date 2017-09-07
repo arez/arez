@@ -19,5 +19,5 @@ public @interface Observable
    *
    * @return the name of the Observable relative to the container.
    */
-  String name() default "";
+  String name() default "<default>";
 }
