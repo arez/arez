@@ -6,7 +6,7 @@ import org.realityforge.arez.annotations.Observable;
 public class ContainerIdNotFinalModel
 {
   @ContainerId
-  private long getId()
+  long getId()
   {
     return 0;
   }
