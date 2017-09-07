@@ -24,16 +24,15 @@ final class ContainerDescriptorParser
     final TypeElement typeElement = (TypeElement) element;
     if ( !element.getKind().isClass() )
     {
-      throw new ArezProcessorException( "@" + Container.class.getSimpleName() + " target must be a class", element );
+      throw new ArezProcessorException( "@Container target must be a class", element );
     }
     else if ( element.getModifiers().contains( Modifier.ABSTRACT ) )
     {
-      throw new ArezProcessorException( "@" + Container.class.getSimpleName() + " target must not be abstract",
-                                        element );
+      throw new ArezProcessorException( "@Container target must not be abstract", element );
     }
     else if ( element.getModifiers().contains( Modifier.FINAL ) )
     {
-      throw new ArezProcessorException( "@" + Container.class.getSimpleName() + " target must not be final", element );
+      throw new ArezProcessorException( "@Container target must not be final", element );
     }
     final Container container = typeElement.getAnnotation( Container.class );
     final String name =
