@@ -111,6 +111,7 @@ public final class ArezProcessor
     final ExecutableElement setter = observable.getSetter();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( setter.getSimpleName().toString() );
     ProcessorUtil.copyAccessModifiers( setter, builder );
+    ProcessorUtil.copyExceptions( getter, builder );
 
     builder.addAnnotation( Override.class );
 
@@ -151,6 +152,7 @@ public final class ArezProcessor
     final ExecutableElement getter = observable.getGetter();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( getter.getSimpleName().toString() );
     ProcessorUtil.copyAccessModifiers( getter, builder );
+    ProcessorUtil.copyExceptions( getter, builder );
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( getter.getReturnType() ) );
