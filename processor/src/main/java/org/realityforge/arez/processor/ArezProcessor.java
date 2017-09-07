@@ -14,8 +14,6 @@ import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 import org.jetbrains.annotations.Contract;
 import org.realityforge.arez.annotations.Container;
 import static javax.tools.Diagnostic.Kind.ERROR;
@@ -94,17 +92,5 @@ public final class ArezProcessor
     throws IOException
   {
     javaFile.writeTo( processingEnv.getFiler() );
-  }
-
-  @Nonnull
-  private Elements getElements()
-  {
-    return processingEnv.getElementUtils();
-  }
-
-  @Nonnull
-  private Types getTypes()
-  {
-    return processingEnv.getTypeUtils();
   }
 }
