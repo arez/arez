@@ -54,10 +54,12 @@ public final class ArezProcessor
   private TypeSpec builder( @Nonnull final ContainerDescriptor descriptor )
     throws ArezProcessorException
   {
+    final TypeElement element = descriptor.getElement();
+
     final AnnotationSpec generatedAnnotation =
       AnnotationSpec.builder( Generated.class ).addMember( "value", "$S", getClass().getName() ).build();
 
-    final TypeSpec.Builder builder = TypeSpec.classBuilder( "Arez_" + descriptor.getElement().getSimpleName() ).
+    final TypeSpec.Builder builder = TypeSpec.classBuilder( "Arez_" + element.getSimpleName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( descriptor.asDeclaredType() ) ).
       addModifiers( Modifier.FINAL ).
       addAnnotation( generatedAnnotation );
