@@ -29,8 +29,8 @@ public final class Arez_TimeModel
   {
     if ( super.getTime() != time )
     {
-      this.$arez$_time.reportChanged();
       super.setTime( time );
+      this.$arez$_time.reportChanged();
     }
   }
 
