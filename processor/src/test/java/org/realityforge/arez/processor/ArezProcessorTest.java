@@ -10,7 +10,7 @@ public class ArezProcessorTest
   @Test
   public void processTimeModel()
   {
-    assertSuccessfulCompile( "TimeModel" );
+    assertSuccessfulCompile( "BasicObservableModel" );
   }
 
   @DataProvider( name = "failedCompiles" )
