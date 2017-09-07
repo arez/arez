@@ -37,7 +37,7 @@ define 'arez' do
     compile.with PROVIDED_DEPS,
                  COMPILE_DEPS
 
-    test.options[:properties] = {'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy'}
+    test.options[:properties] = { 'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy' }
     test.options[:java_args] = ['-ea']
 
     package(:jar)
@@ -75,7 +75,7 @@ define 'arez' do
                  project('annotations'),
                  project('core')
 
-    test.options[:properties] = {'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy'}
+    test.options[:properties] = { 'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy' }
     test.options[:java_args] = ['-ea']
 
     package(:jar)
