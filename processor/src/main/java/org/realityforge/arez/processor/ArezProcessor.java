@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Messager;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -55,11 +54,11 @@ public final class ArezProcessor
       }
       catch ( final IOException ioe )
       {
-        getMessager().printMessage( ERROR, ioe.getMessage() );
+        processingEnv.getMessager().printMessage( ERROR, ioe.getMessage() );
       }
       catch ( final ArezProcessorException e )
       {
-        e.print( getMessager() );
+        e.print( processingEnv.getMessager() );
       }
     }
   }
@@ -101,12 +100,6 @@ public final class ArezProcessor
   private Elements getElements()
   {
     return processingEnv.getElementUtils();
-  }
-
-  @Nonnull
-  private Messager getMessager()
-  {
-    return processingEnv.getMessager();
   }
 
   @Nonnull
