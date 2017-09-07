@@ -10,7 +10,7 @@ public final class Arez_TimeModel
   private final ArezContext $arez$_context;
   private final Observable $arez$_time;
 
-  public Arez_TimeModel( @Nonnull final ArezContext $arez$_context, final long time )
+  protected Arez_TimeModel( @Nonnull final ArezContext $arez$_context, final long time )
   {
     super( time );
     this.$arez$_context = $arez$_context;
