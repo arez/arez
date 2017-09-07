@@ -42,6 +42,7 @@ public final class ArezContext
    * @param name               the name of the ComputedValue. Should be non-null if {@link ArezConfig#enableNames()} returns true, null otherwise.
    * @param function           the function that computes the value.
    * @param equalityComparator the comparator that determines whether the newly computed value differs from existing value.
+   * @return the ComputedValue instance.
    */
   @Nonnull
   public <T> ComputedValue<T> createComputedValue( @Nullable final String name,
