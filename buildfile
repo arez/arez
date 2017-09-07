@@ -57,6 +57,7 @@ define 'arez' do
                  :autocommon,
                  :javapoet,
                  :guava,
+                 Java.tools_jar,
                  project('annotations')
 
     test.with :compile_testing,
