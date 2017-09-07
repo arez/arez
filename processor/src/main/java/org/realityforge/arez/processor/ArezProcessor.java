@@ -259,8 +259,9 @@ public final class ArezProcessor
     final String prefix = descriptor.getName().isEmpty() ? "" : descriptor.getName() + ".";
     for ( final ObservableDescriptor observable : descriptor.getObservables() )
     {
-      builder.addStatement( "this.$N = $N.createObservable( $S )",
+      builder.addStatement( "this.$N = $N.createObservable( this.$N.areNamesEnabled() ? $S : null )",
                             fieldName( observable ),
+                            CONTEXT_FIELD_NAME,
                             CONTEXT_FIELD_NAME,
                             prefix + observable.getName() );
     }

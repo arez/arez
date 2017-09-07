@@ -17,7 +17,8 @@ public final class Arez_BasicObservableModel
   {
     super();
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_time = $$arez$$_context.createObservable( "BasicObservableModel.time" );
+    this.$$arez$$_time =
+      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "BasicObservableModel.time" : null );
   }
 
   @Override
