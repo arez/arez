@@ -27,9 +27,10 @@ public class ArezProcessorTest
   }
 
   @Test
-  public void processTimeModel()
+  public void processWIP()
   {
-    assertSuccessfulCompile( "BasicObservableModel" );
+    //assertSuccessfulCompile( "NestedTimeModel" );
+    //assertSuccessfulCompile( "input/NestedTimeModel.java", "expected/NestedTimeModel$Arez_Model.java" );
   }
 
   @DataProvider( name = "failedCompiles" )
