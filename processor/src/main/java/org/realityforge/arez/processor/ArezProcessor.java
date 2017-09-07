@@ -2,8 +2,12 @@ package org.realityforge.arez.processor;
 
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Set;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -13,8 +17,10 @@ import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 import org.realityforge.arez.annotations.Container;
 
 /**
@@ -60,22 +66,47 @@ public final class ArezProcessor
       AnnotationSpec.builder( Generated.class ).addMember( "value", "$S", getClass().getName() ).build();
 
     final TypeSpec.Builder builder = TypeSpec.classBuilder( "Arez_" + element.getSimpleName() ).
+      superclass( TypeName.get( element.asType() ) ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( descriptor.asDeclaredType() ) ).
       addModifiers( Modifier.FINAL ).
       addAnnotation( generatedAnnotation );
+    ProcessorUtil.copyAccessModifiers( element, builder );
 
-    if ( descriptor.getElement().getModifiers().contains( Modifier.PUBLIC ) )
+    for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( element ) )
     {
-      builder.addModifiers( Modifier.PUBLIC );
+      builder.addMethod( buildConstructor( constructor ) );
     }
-    else if ( descriptor.getElement().getModifiers().contains( Modifier.PROTECTED ) )
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildConstructor( @Nonnull final ExecutableElement constructor )
+  {
+    final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
+    ProcessorUtil.copyAccessModifiers( constructor, builder );
+
+    final StringBuilder superCall = new StringBuilder();
+    superCall.append( "super(" );
+    final ArrayList<String> parameterNames = new ArrayList<>();
+    boolean firstParam = true;
+    for ( final VariableElement element : constructor.getParameters() )
     {
-      builder.addModifiers( Modifier.PROTECTED );
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
+      ProcessorUtil.copyDocumentedAnnotations( element, param );
+      builder.addParameter( param.build() );
+      parameterNames.add( element.getSimpleName().toString() );
+      if ( !firstParam )
+      {
+        superCall.append( "," );
+      }
+      firstParam = false;
+      superCall.append( "$N" );
     }
-    else if ( descriptor.getElement().getModifiers().contains( Modifier.PRIVATE ) )
-    {
-      builder.addModifiers( Modifier.PRIVATE );
-    }
+
+    superCall.append( ")" );
+    builder.addStatement( superCall.toString(), parameterNames.toArray() );
 
     return builder.build();
   }
