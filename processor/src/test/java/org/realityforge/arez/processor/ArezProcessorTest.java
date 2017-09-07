@@ -18,6 +18,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "NonStaticNestedModel", "@Container target must not be a non-static nested class" },
         new Object[]{ "EnumModel", "@Container target must be a class" },
         new Object[]{ "InterfaceModel", "@Container target must be a class" },
         new Object[]{ "AbstractModel", "@Container target must not be abstract" },

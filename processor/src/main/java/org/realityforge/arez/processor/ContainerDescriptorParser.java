@@ -43,6 +43,11 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "@Container target must not be final", element );
     }
+    else if ( NestingKind.TOP_LEVEL != typeElement.getNestingKind() &&
+              !element.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ArezProcessorException( "@Container target must not be a non-static nested class", element );
+    }
     final Container container = typeElement.getAnnotation( Container.class );
     final String name =
       container.name().equals( "<default>" ) ? typeElement.getSimpleName().toString() : container.name();
