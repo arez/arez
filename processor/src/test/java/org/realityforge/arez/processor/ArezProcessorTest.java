@@ -18,6 +18,8 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "DuplicateSetterModel", "@Observable defines duplicate setter for observable named field" },
+        new Object[]{ "DuplicateGetterModel", "@Observable defines duplicate getter for observable named field" },
         new Object[]{ "StaticObservableGetterModel", "@Observable target must not be static" },
         new Object[]{ "StaticObservableSetterModel", "@Observable target must not be static" },
         new Object[]{ "FinalObservableGetterModel", "@Observable target must not be final" },
