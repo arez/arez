@@ -38,6 +38,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "ContainerIdMustReturnValueModel", "@ContainerId target must return a value" },
         new Object[]{ "ContainerIdNotFinalModel", "@ContainerId target must be final" },
         new Object[]{ "ContainerIdNotStaticModel", "@ContainerId target must not be static" },
         new Object[]{ "ContainerIdNotPrivateModel", "@ContainerId target must not be private" },
