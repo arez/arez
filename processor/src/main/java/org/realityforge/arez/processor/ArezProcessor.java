@@ -95,9 +95,9 @@ public final class ArezProcessor
   /**
    * Build the fields required to make class Observable. This involves;
    * <ul>
-   *   <li>the context field if there is any @Action methods.</li>
-   *   <li>the observable object for every @Observable.</li>
-   *   <li>the ComputedValue object for every @Computed method.</li>
+   * <li>the context field if there is any @Action methods.</li>
+   * <li>the observable object for every @Observable.</li>
+   * <li>the ComputedValue object for every @Computed method.</li>
    * </ul>
    */
   private void buildFields( @Nonnull final ContainerDescriptor descriptor, @Nonnull final TypeSpec.Builder builder )
