@@ -79,12 +79,6 @@ public final class ArezProcessor
   }
 
   @Nonnull
-  private Filer getFiler()
-  {
-    return processingEnv.getFiler();
-  }
-
-  @Nonnull
   private Elements getElements()
   {
     return processingEnv.getElementUtils();
