@@ -3,6 +3,7 @@ package org.realityforge.arez.processor;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -10,6 +11,7 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Set;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -92,7 +94,49 @@ public final class ArezProcessor
     for ( final ObservableDescriptor observable : descriptor.getObservables() )
     {
       builder.addMethod( buildObservableGetter( observable ) );
+      builder.addMethod( buildObservableSetter( observable ) );
     }
+
+    return builder.build();
+  }
+
+  /**
+   * Generate the setter that reports that ensures that the access is reported as Observable.
+   */
+  @Nonnull
+  private MethodSpec buildObservableSetter( @Nonnull final ObservableDescriptor observable )
+    throws ArezProcessorException
+  {
+    final ExecutableElement getter = observable.getGetter();
+    final ExecutableElement setter = observable.getSetter();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( setter.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( setter, builder );
+
+    builder.addAnnotation( Override.class );
+
+    final VariableElement element = setter.getParameters().get( 0 );
+    final String paramName = element.getSimpleName().toString();
+    final TypeName type = TypeName.get( element.asType() );
+    final ParameterSpec.Builder param =
+      ParameterSpec.builder( type, paramName, Modifier.FINAL );
+    ProcessorUtil.copyDocumentedAnnotations( element, param );
+    builder.addParameter( param.build() );
+
+    final CodeBlock.Builder codeBlock = CodeBlock.builder();
+    final String accessor = "super." + getter.getSimpleName() + "()";
+    final String mutator = "super." + setter.getSimpleName() + "($N)";
+    if ( type.isPrimitive() )
+    {
+      codeBlock.beginControlFlow( "if ( $N != " + accessor + " )", paramName );
+    }
+    else
+    {
+      codeBlock.beginControlFlow( "if ( !$T.equals($N, " + accessor + ") )", Objects.class, paramName );
+    }
+    codeBlock.addStatement( mutator, paramName );
+    codeBlock.addStatement( "this.$N.reportObserved()", fieldName( observable ) );
+    codeBlock.endControlFlow();
+    builder.addCode( codeBlock.build() );
 
     return builder.build();
   }
@@ -110,34 +154,8 @@ public final class ArezProcessor
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( getter.getReturnType() ) );
-
-    final StringBuilder superCall = new StringBuilder();
-    superCall.append( "return super." );
-    superCall.append( getter.getSimpleName() );
-    superCall.append( "(" );
-
-    final ArrayList<String> parameterNames = new ArrayList<>();
-
-    boolean firstParam = true;
-    for ( final VariableElement element : getter.getParameters() )
-    {
-      final ParameterSpec.Builder param =
-        ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
-      ProcessorUtil.copyDocumentedAnnotations( element, param );
-      builder.addParameter( param.build() );
-      parameterNames.add( element.getSimpleName().toString() );
-      if ( !firstParam )
-      {
-        superCall.append( "," );
-      }
-      firstParam = false;
-      superCall.append( "$N" );
-    }
-
-    superCall.append( ")" );
     builder.addStatement( "this.$N.reportObserved()", fieldName( observable ) );
-    builder.addStatement( superCall.toString(), parameterNames.toArray() );
-
+    builder.addStatement( "return super." + getter.getSimpleName() + "()" );
     return builder.build();
   }
 
