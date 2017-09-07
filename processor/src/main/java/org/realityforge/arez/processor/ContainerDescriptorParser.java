@@ -38,6 +38,8 @@ final class ContainerDescriptorParser
     final String name =
       container.name().equals( "<default>" ) ? typeElement.getSimpleName().toString() : container.name();
 
-    return new ContainerDescriptor( name, container.singleton(), packageElement, typeElement );
+    final ContainerDescriptor descriptor =
+      new ContainerDescriptor( name, container.singleton(), packageElement, typeElement );
+    return descriptor;
   }
 }
