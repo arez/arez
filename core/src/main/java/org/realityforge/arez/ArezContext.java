@@ -39,7 +39,7 @@ public final class ArezContext
    * Create a ComputedValue with specified parameters.
    *
    * @param <T>                the type of the computed value.
-   * @param name               the name of the ComputedValue. Should be non-null if {@link ArezConfig#enableNames()} returns true, null otherwise.
+   * @param name               the name of the ComputedValue. Should be non-null if {@link #areNamesEnabled()} returns true, null otherwise.
    * @param function           the function that computes the value.
    * @param equalityComparator the comparator that determines whether the newly computed value differs from existing value.
    * @return the ComputedValue instance.
@@ -55,7 +55,7 @@ public final class ArezContext
   /**
    * Create an autorun observer.
    *
-   * @param name           the name of the observer. Should be non null if {@link ArezConfig#enableNames()} returns true, null otherwise.
+   * @param name           the name of the observer. Should be non null if {@link #areNamesEnabled()} returns true, null otherwise.
    * @param mutation       true if the action may modify state, false otherwise.
    * @param action         the action defining the observer.
    * @param runImmediately true to invoke action immediately, false to schedule reaction for next reaction cycle.
@@ -73,7 +73,7 @@ public final class ArezContext
   /**
    * Create an observer with specified parameters.
    *
-   * @param name           the name of the observer. Should be non null if {@link ArezConfig#enableNames()} returns true, null otherwise.
+   * @param name           the name of the observer. Should be non null if {@link #areNamesEnabled()} returns true, null otherwise.
    * @param mutation       true if the reaction may modify state, false otherwise.
    * @param reaction       the reaction defining observer.
    * @param runImmediately true to invoke reaction immediately, false to schedule reaction for next reaction cycle.
@@ -105,7 +105,7 @@ public final class ArezContext
   /**
    * Create a non-computed Observer with specified name.
    *
-   * @param name the name of the observer. Should be non null if {@link ArezConfig#enableNames()} returns true, null otherwise.
+   * @param name the name of the observer. Should be non null if {@link #areNamesEnabled()} returns true, null otherwise.
    * @return the new Observer.
    */
   @Nonnull
@@ -128,7 +128,7 @@ public final class ArezContext
   /**
    * Create a new transaction.
    *
-   * @param name    the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param name    the name of the transaction. Should be non-null if {@link #areNamesEnabled()} is true, false otherwise.
    * @param mode    the transaction mode.
    * @param tracker the observer that is tracking transaction if any.
    * @return the new transaction.
@@ -194,7 +194,7 @@ public final class ArezContext
    * The action may throw an exception.
    *
    * @param <T>      the type of return value.
-   * @param name     the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param name     the name of the transaction. Should be non-null if {@link #areNamesEnabled()} is true, false otherwise.
    * @param mutation true if the action may modify state, false otherwise.
    * @param action   the action to execute.
    * @return the value returned from the action.
@@ -220,7 +220,7 @@ public final class ArezContext
    * The action is expected to not throw an exception.
    *
    * @param <T>      the type of return value.
-   * @param name     the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param name     the name of the transaction. Should be non-null if {@link #areNamesEnabled()} is true, false otherwise.
    * @param mutation true if the action may modify state, false otherwise.
    * @param action   the action to execute.
    * @return the value returned from the action.
@@ -245,7 +245,7 @@ public final class ArezContext
    * Execute the supplied procedure in a transaction.
    * The procedure may throw an exception.
    *
-   * @param name      the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param name      the name of the transaction. Should be non-null if {@link #areNamesEnabled()} is true, false otherwise.
    * @param mutation  true if the action may modify state, false otherwise.
    * @param procedure the procedure to execute.
    * @throws Exception if the procedure throws an an exception.
@@ -278,7 +278,7 @@ public final class ArezContext
    * Execute the supplied procedure in a transaction.
    * The action is expected to not throw an exception.
    *
-   * @param name     the name of the transaction. Should be non-null if {@link ArezConfig#enableNames()} is true, false otherwise.
+   * @param name     the name of the transaction. Should be non-null if {@link #areNamesEnabled()} is true, false otherwise.
    * @param mutation true if the action may modify state, false otherwise.
    * @param action   the action to execute.
    */
