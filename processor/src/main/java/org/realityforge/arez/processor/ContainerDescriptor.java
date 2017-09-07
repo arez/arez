@@ -7,6 +7,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.DeclaredType;
 
 /**
  * The class that represents the parsed state of Container annotated class.
@@ -43,6 +44,12 @@ final class ContainerDescriptor
   boolean isSingleton()
   {
     return _singleton;
+  }
+
+  @Nonnull
+  DeclaredType asDeclaredType()
+  {
+    return (DeclaredType) _element.asType();
   }
 
   @Nonnull
