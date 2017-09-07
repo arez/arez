@@ -60,7 +60,8 @@ define 'arez' do
                  project('annotations')
 
     test.with :compile_testing,
-              :truth
+              :truth,
+              project('core')
 
     package(:jar)
     package(:sources)
