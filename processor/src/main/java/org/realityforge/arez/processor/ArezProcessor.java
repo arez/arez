@@ -98,7 +98,7 @@ public final class ArezProcessor
   }
 
   /**
-   * Generate the getter that reports that ensures that the access is reported as Observable.
+   * Generate the getter that ensures that the access is reported.
    */
   @Nonnull
   private MethodSpec buildObservableGetter( @Nonnull final ObservableDescriptor observable )
