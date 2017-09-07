@@ -87,8 +87,8 @@ public final class ArezProcessor
   private JavaFile convertTypeSpecToJavaFile( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )
   {
     return JavaFile.builder( packageName, typeSpec ).
-        skipJavaLangImports( true ).
-        build();
+      skipJavaLangImports( true ).
+      build();
   }
 
   private void emitJavaFile( @Nonnull final JavaFile javaFile )
