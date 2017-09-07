@@ -22,6 +22,15 @@ public class ExternalApiTest
   extends AbstractArezTest
 {
   @Test
+  public void areNamesEnabled()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    assertTrue( context.areNamesEnabled() );
+  }
+
+  @Test
   public void createComputedValue()
     throws Exception
   {
