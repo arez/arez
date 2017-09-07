@@ -8,9 +8,9 @@ import static com.google.common.truth.Truth.assert_;
 
 abstract class AbstractArezProcessorTest
 {
-  void assertSuccessfulCompile( @Nonnull final String resourceKey )
+  void assertSuccessfulCompile( @Nonnull final String classname )
   {
-    final String file = resourceKey.replaceAll( "\\.", "/" );
+    final String file = classname.replaceAll( "\\.", "/" );
     assertSuccessfulCompile( "input/" + file + ".java", "expected/" + file + ".java" );
   }
 
