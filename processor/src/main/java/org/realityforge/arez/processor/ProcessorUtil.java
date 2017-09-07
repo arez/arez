@@ -73,4 +73,13 @@ final class ProcessorUtil
       }
     }
   }
+
+  @Nonnull
+  static List<ExecutableElement> getConstructors( @Nonnull final TypeElement element )
+  {
+    return element.getEnclosedElements().stream().
+      filter( m -> m.getKind() == ElementKind.CONSTRUCTOR ).
+      map( m -> (ExecutableElement) m ).
+      collect( Collectors.toList() );
+  }
 }
