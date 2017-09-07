@@ -15,6 +15,7 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVariable;
 
+@SuppressWarnings( "Duplicates" )
 final class ProcessorUtil
 {
   private ProcessorUtil()
