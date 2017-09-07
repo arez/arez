@@ -138,4 +138,12 @@ final class ProcessorUtil
       }
     }
   }
+
+  static void copyExceptions( @Nonnull final ExecutableElement method, @Nonnull final MethodSpec.Builder builder )
+  {
+    for ( final TypeMirror thrownType : method.getThrownTypes() )
+    {
+      builder.addException( TypeName.get( thrownType ) );
+    }
+  }
 }
