@@ -56,7 +56,6 @@ define 'arez' do
                  :autoservice,
                  :javapoet,
                  :guava,
-                 :modeshape_common,
                  project('annotations')
 
     test.with :compile_testing,
