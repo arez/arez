@@ -198,7 +198,14 @@ final class ContainerDescriptorParser
     if ( !annotation.name().equals( "<default>" ) )
     {
       name = annotation.name();
-      //TODO: Validate name here
+      if ( !name.isEmpty() )
+      {
+        if ( !isJavaIdentifier( name ) )
+        {
+          throw new ArezProcessorException( "Method annotated with @Observable specified invalid name " + name,
+                                            method );
+        }
+      }
     }
     final ObservableDescriptor observable = descriptor.getObservableByName( name );
     if ( setter )
@@ -218,6 +225,27 @@ final class ContainerDescriptorParser
                                           "observable named " + name, method );
       }
       observable.setGetter( method );
+    }
+  }
+
+  private static boolean isJavaIdentifier( @Nonnull final String value )
+  {
+    if ( !Character.isJavaIdentifierStart( value.charAt( 0 ) ) )
+    {
+      return false;
+    }
+    else
+    {
+      final int length = value.length();
+      for ( int i = 1; i < length; i++ )
+      {
+        if ( !Character.isJavaIdentifierPart( value.charAt( i ) ) )
+        {
+          return false;
+        }
+      }
+
+      return true;
     }
   }
 }

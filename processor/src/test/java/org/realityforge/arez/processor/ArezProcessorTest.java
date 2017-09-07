@@ -18,6 +18,8 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "BadObservableNameModel", "Method annotated with @Observable specified invalid name -ace" },
+        new Object[]{ "BadObservableName2Model", "Method annotated with @Observable specified invalid name ace-" },
         new Object[]{ "ExtraParameterSetterModel", "Method annotated with @Observable should be a setter or getter" },
         new Object[]{ "ExtraParameterGetterModel", "Method annotated with @Observable should be a setter or getter" },
         new Object[]{ "DuplicateSetterModel", "@Observable defines duplicate setter for observable named field" },
