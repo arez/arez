@@ -61,7 +61,7 @@ final class ContainerDescriptorParser
       processMethod( descriptor, method );
     }
     //TODO: Validate observers/populate here
-    //TODO: Validate that there is no name collision between Action/Observable/Computed methods
+
     if ( descriptor.getObservables().isEmpty() &&
          descriptor.getActions().isEmpty() &&
          descriptor.getComputeds().isEmpty() )
@@ -221,6 +221,22 @@ final class ContainerDescriptorParser
       }
     }
 
+    final ActionDescriptor action = descriptor.getAction( name );
+    if ( null != action )
+    {
+      throw new ArezProcessorException( "Method annotated with @Computed specified name " + name +
+                                        " that duplicates @Action defined by method " +
+                                        action.getAction().getSimpleName(), method );
+    }
+    final ObservableDescriptor observable = descriptor.getObservable( name );
+    if ( null != observable )
+    {
+      final ExecutableElement element =
+        observable.hasGetter() ? observable.getGetter() : observable.getSetter();
+      throw new ArezProcessorException( "Method annotated with @Computed specified name " + name +
+                                        " that duplicates @Observable defined by method " +
+                                        element.getSimpleName(), method );
+    }
     final ComputedDescriptor computed = descriptor.getComputed( name );
     if ( null != computed )
     {
@@ -262,6 +278,22 @@ final class ContainerDescriptorParser
       }
     }
 
+    final ComputedDescriptor computed = descriptor.getComputed( name );
+    if ( null != computed )
+    {
+      throw new ArezProcessorException( "Method annotated with @Action specified name " + name +
+                                        " that duplicates @Computed defined by method " +
+                                        computed.getComputed().getSimpleName(), method );
+    }
+    final ObservableDescriptor observable = descriptor.getObservable( name );
+    if ( null != observable )
+    {
+      final ExecutableElement element =
+        observable.hasGetter() ? observable.getGetter() : observable.getSetter();
+      throw new ArezProcessorException( "Method annotated with @Computed specified name " + name +
+                                        " that duplicates @Observable defined by method " +
+                                        element.getSimpleName(), method );
+    }
     final ActionDescriptor action = descriptor.getAction( name );
     if ( null != action )
     {
@@ -351,7 +383,21 @@ final class ContainerDescriptorParser
         }
       }
     }
-    final ObservableDescriptor observable = descriptor.getObservableByName( name );
+    final ActionDescriptor action = descriptor.getAction( name );
+    if ( null != action )
+    {
+      throw new ArezProcessorException( "Method annotated with @Observable specified name " + name +
+                                        " that duplicates @Action defined by method " +
+                                        action.getAction().getSimpleName(), method );
+    }
+    final ComputedDescriptor computed = descriptor.getComputed( name );
+    if ( null != computed )
+    {
+      throw new ArezProcessorException( "Method annotated with @Observable specified name " + name +
+                                        " that duplicates @Computed defined by method " +
+                                        computed.getComputed().getSimpleName(), method );
+    }
+    final ObservableDescriptor observable = descriptor.findOrCreateObservable( name );
     if ( setter )
     {
       if ( observable.hasSetter() )

@@ -76,9 +76,16 @@ final class ContainerDescriptor
     return _element;
   }
 
-  ObservableDescriptor getObservableByName( @Nonnull final String name )
+  @Nonnull
+  ObservableDescriptor findOrCreateObservable( @Nonnull final String name )
   {
     return _observables.computeIfAbsent( name, n -> new ObservableDescriptor( this, n ) );
+  }
+
+  @Nullable
+  ObservableDescriptor getObservable( @Nonnull final String name )
+  {
+    return _observables.get( name );
   }
 
   @Nonnull
