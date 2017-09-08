@@ -5,7 +5,7 @@ import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
 
-@Container( name = "Person", singleton = true )
+@Container
 public class PersonModel
 {
   @Nonnull
@@ -26,7 +26,6 @@ public class PersonModel
     return _firstName;
   }
 
-  @Observable
   public void setFirstName( @Nonnull final String firstName )
   {
     _firstName = firstName;
@@ -39,7 +38,6 @@ public class PersonModel
     return _lastName;
   }
 
-  @Observable
   public void setLastName( @Nonnull final String lastName )
   {
     _lastName = lastName;
