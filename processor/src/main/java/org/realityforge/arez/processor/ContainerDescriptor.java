@@ -111,5 +111,4 @@ final class ContainerDescriptor
   {
     _containerId = containerId;
   }
-
 }
