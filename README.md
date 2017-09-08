@@ -23,7 +23,6 @@ Processor Tests:
 * Copy annotations on actions
 * Copy exceptions on actions
 * @Observable only required on one of getter/setter
-* Override names
 * How to deal with static inner classes?
 * All different primitive types for fields.
 
