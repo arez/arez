@@ -63,11 +63,16 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
-        new Object[]{ "MissingObservableGetterModel", "@Observable target defined setter but no getter was defined and no getter could be automatically determined" },
-        new Object[]{ "MissingObservableSetterModel", "@Observable target defined getter but no setter was defined and no setter could be automatically determined" },
-        new Object[]{ "ActionAndComputedSameNameModel", "Method annotated with @Action specified name x that duplicates @Computed defined by method m1" },
-        new Object[]{ "ActionAndObservableSameNameModel", "Method annotated with @Observable specified name x that duplicates @Action defined by method m1" },
-        new Object[]{ "ComputedAndObservableSameNameModel", "Method annotated with @Observable specified name x that duplicates @Computed defined by method m1" },
+        new Object[]{ "MissingObservableGetterModel",
+                      "@Observable target defined setter but no getter was defined and no getter could be automatically determined" },
+        new Object[]{ "MissingObservableSetterModel",
+                      "@Observable target defined getter but no setter was defined and no setter could be automatically determined" },
+        new Object[]{ "ActionAndComputedSameNameModel",
+                      "Method annotated with @Action specified name x that duplicates @Computed defined by method m1" },
+        new Object[]{ "ActionAndObservableSameNameModel",
+                      "Method annotated with @Observable specified name x that duplicates @Action defined by method m1" },
+        new Object[]{ "ComputedAndObservableSameNameModel",
+                      "Method annotated with @Observable specified name x that duplicates @Computed defined by method m1" },
         new Object[]{ "FinalComputedModel", "@Computed target must not be final" },
         new Object[]{ "StaticComputedModel", "@Computed target must not be static" },
         new Object[]{ "VoidComputedModel", "@Computed target must not have a void return type" },
