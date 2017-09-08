@@ -266,6 +266,7 @@ public final class ArezProcessor
   {
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
     ProcessorUtil.copyAccessModifiers( constructor, builder );
+    ProcessorUtil.copyExceptions( constructor, builder );
 
     final StringBuilder superCall = new StringBuilder();
     superCall.append( "super(" );
