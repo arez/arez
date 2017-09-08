@@ -45,7 +45,6 @@ public class ArezProcessorTest
   public void processWIP()
   {
     assertSuccessfulCompile( "ObservableWithAnnotatedCtorModel" );
-    //assertSuccessfulCompile( "input/NestedTimeModel.java", "expected/NestedTimeModel$Arez_Model.java" );
   }
 
   @DataProvider( name = "failedCompiles" )
