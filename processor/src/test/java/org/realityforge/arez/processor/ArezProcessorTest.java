@@ -13,6 +13,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "ObservableWithExceptingCtorModel" },
         new Object[]{ "OverrideNamesInModel" },
         new Object[]{ "SingletonModel" },
         new Object[]{ "ContainerIdOnModel" },
