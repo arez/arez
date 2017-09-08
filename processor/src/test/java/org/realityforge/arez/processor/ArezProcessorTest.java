@@ -42,12 +42,6 @@ public class ArezProcessorTest
     assertSuccessfulCompile( classname );
   }
 
-  @Test
-  public void processWIP()
-  {
-    assertSuccessfulCompile( "ObservableWithAnnotatedCtorModel" );
-  }
-
   @DataProvider( name = "failedCompiles" )
   public Object[][] failedCompiles()
   {
