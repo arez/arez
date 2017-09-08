@@ -56,6 +56,8 @@ public class ArezProcessorTest
         new Object[]{ "StaticComputedModel", "@Computed target must not be static" },
         new Object[]{ "VoidComputedModel", "@Computed target must not have a void return type" },
         new Object[]{ "ParameterizedComputedModel", "@Computed target must not have parameters" },
+        new Object[]{ "BadActionNameModel", "Method annotated with @Action specified invalid name -ace" },
+        new Object[]{ "BadActionName2Model", "Method annotated with @Action specified invalid name ace-" },
         new Object[]{ "BadComputedNameModel", "Method annotated with @Computed specified invalid name -ace" },
         new Object[]{ "BadComputedName2Model", "Method annotated with @Computed specified invalid name ace-" },
         new Object[]{ "EmptyContainerModel", "@Container target has no methods annotated with @Action, @Computed or @Observable" },
