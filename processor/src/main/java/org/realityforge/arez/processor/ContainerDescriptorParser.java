@@ -122,12 +122,11 @@ final class ContainerDescriptorParser
     }
     else if ( null != containerId )
     {
-      processContainerId( descriptor, containerId, method );
+      processContainerId( descriptor, method );
     }
   }
 
   private static void processContainerId( @Nonnull final ContainerDescriptor descriptor,
-                                          @Nonnull final ContainerId containerId,
                                           @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
