@@ -21,6 +21,8 @@ import org.realityforge.arez.annotations.Observable;
 
 final class ContainerDescriptorParser
 {
+  private static final String SENTINEL_NAME = "<default>";
+
   private ContainerDescriptorParser()
   {
   }
@@ -51,7 +53,7 @@ final class ContainerDescriptorParser
     }
     final Container container = typeElement.getAnnotation( Container.class );
     final String name =
-      container.name().equals( "<default>" ) ? typeElement.getSimpleName().toString() : container.name();
+      container.name().equals( SENTINEL_NAME ) ? typeElement.getSimpleName().toString() : container.name();
 
     final ContainerDescriptor descriptor =
       new ContainerDescriptor( name, container.singleton(), packageElement, typeElement );
@@ -188,7 +190,7 @@ final class ContainerDescriptorParser
     }
 
     final String name;
-    if ( annotation.name().equals( "<default>" ) )
+    if ( annotation.name().equals( SENTINEL_NAME ) )
     {
       name = method.getSimpleName().toString();
     }
@@ -278,7 +280,7 @@ final class ContainerDescriptorParser
       }
     }
     // Override name if supplied by user
-    if ( !annotation.name().equals( "<default>" ) )
+    if ( !annotation.name().equals( SENTINEL_NAME ) )
     {
       name = annotation.name();
       if ( !name.isEmpty() )
