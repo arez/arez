@@ -1,6 +1,7 @@
 import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
 
+@SuppressWarnings( "WeakerAccess" )
 @Container
 public class ObservableWithCtorModel
 {
