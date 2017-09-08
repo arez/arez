@@ -125,7 +125,11 @@ final class ContainerDescriptorParser
                                           @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.STATIC ) )
+    if ( descriptor.isSingleton() )
+    {
+      throw new ArezProcessorException( "@ContainerId must not exist if @Container is a singleton", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.STATIC ) )
     {
       throw new ArezProcessorException( "@ContainerId target must not be static", method );
     }
