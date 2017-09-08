@@ -17,8 +17,6 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 Processor Tests:
-* Copy annotations on actions
-* Copy exceptions on actions
 * @Observable only required on one of getter/setter
 * How to deal with static inner classes?
 * Interfaces with default methods.
