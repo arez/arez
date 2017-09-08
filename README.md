@@ -22,6 +22,7 @@ Processor Tests:
 * Copy exceptions on actions
 * @Observable only required on one of getter/setter
 * How to deal with static inner classes?
+* Interfaces with default methods.
 
 TODO:
 * Hooks so context-wide can get notified when observers
