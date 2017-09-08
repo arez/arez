@@ -19,7 +19,6 @@ that will be expanded over time as the library is fleshed out.
 Processor Tests:
 * @Observable only required on one of getter/setter
 * How to deal with static inner classes?
-* Interfaces with default methods.
 * Validate observers getters+setters are populated
 * Validate that there is no name collision between Action/Observable/Computed methods
 
