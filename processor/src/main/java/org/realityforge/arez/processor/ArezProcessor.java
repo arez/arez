@@ -44,6 +44,8 @@ public final class ArezProcessor
   private static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "org.realityforge.arez", "Observable" );
   private static final String FIELD_PREFIX = "$$arez$$_";
   private static final String CONTEXT_FIELD_NAME = FIELD_PREFIX + "context";
+  private static final String NEXT_ID_FIELD_NAME = FIELD_PREFIX + "nextId";
+  private static final String ID_FIELD_NAME = FIELD_PREFIX + "id";
 
   /**
    * {@inheritDoc}
@@ -90,6 +92,11 @@ public final class ArezProcessor
     buildFields( descriptor, builder );
 
     buildConstructors( descriptor, builder );
+
+    if ( !descriptor.isSingleton() )
+    {
+      builder.addMethod( buildIdGetter( descriptor ) );
+    }
 
     for ( final ObservableDescriptor observable : descriptor.getObservables() )
     {
@@ -143,6 +150,34 @@ public final class ArezProcessor
   }
 
   /**
+   * Generate the getter for id.
+   */
+  @Nonnull
+  private MethodSpec buildIdGetter( @Nonnull final ContainerDescriptor descriptor )
+    throws ArezProcessorException
+  {
+    assert !descriptor.isSingleton();
+
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( ID_FIELD_NAME ).
+        addModifiers( Modifier.PRIVATE );
+
+    builder.returns( TypeName.get( String.class ) );
+    final ExecutableElement containerId = descriptor.getContainerId();
+    final String prefix = descriptor.getName().isEmpty() ? "" : descriptor.getName() + ".";
+
+    if ( null == containerId )
+    {
+      builder.addStatement( "return $S + $N + $S", prefix, ID_FIELD_NAME, "." );
+    }
+    else
+    {
+      builder.addStatement( "return $S + $N() + $S", prefix, containerId.getSimpleName(), "." );
+    }
+    return builder.build();
+  }
+
+  /**
    * Generate the getter that ensures that the access is reported.
    */
   @Nonnull
@@ -171,6 +206,18 @@ public final class ArezProcessor
    */
   private void buildFields( @Nonnull final ContainerDescriptor descriptor, @Nonnull final TypeSpec.Builder builder )
   {
+    // If we don't have a method for object id but we need one then synthesize it
+    if ( !descriptor.isSingleton() && null == descriptor.getContainerId() )
+    {
+      final FieldSpec.Builder nextIdField =
+        FieldSpec.builder( TypeName.LONG, NEXT_ID_FIELD_NAME, Modifier.VOLATILE, Modifier.STATIC, Modifier.PRIVATE );
+      builder.addField( nextIdField.build() );
+
+      final FieldSpec.Builder idField =
+        FieldSpec.builder( TypeName.LONG, ID_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE );
+      builder.addField( idField.build() );
+    }
+
     // Create the field that contains the context variable if it is needed
     if ( descriptor.shouldStoreContext() )
     {
@@ -251,6 +298,14 @@ public final class ArezProcessor
 
     superCall.append( ")" );
     builder.addStatement( superCall.toString(), parameterNames.toArray() );
+
+    final ExecutableElement containerId = descriptor.getContainerId();
+    // Synthesize Id if required
+    if ( !descriptor.isSingleton() && null == containerId )
+    {
+      builder.addStatement( "this.$N = $N++", ID_FIELD_NAME, NEXT_ID_FIELD_NAME );
+    }
+
     if ( descriptor.shouldStoreContext() )
     {
       builder.addStatement( "this.$N = $N", CONTEXT_FIELD_NAME, CONTEXT_FIELD_NAME );
@@ -259,11 +314,23 @@ public final class ArezProcessor
     final String prefix = descriptor.getName().isEmpty() ? "" : descriptor.getName() + ".";
     for ( final ObservableDescriptor observable : descriptor.getObservables() )
     {
-      builder.addStatement( "this.$N = $N.createObservable( this.$N.areNamesEnabled() ? $S : null )",
-                            fieldName( observable ),
-                            CONTEXT_FIELD_NAME,
-                            CONTEXT_FIELD_NAME,
-                            prefix + observable.getName() );
+      if ( descriptor.isSingleton() )
+      {
+        builder.addStatement( "this.$N = $N.createObservable( this.$N.areNamesEnabled() ? $S : null )",
+                              fieldName( observable ),
+                              CONTEXT_FIELD_NAME,
+                              CONTEXT_FIELD_NAME,
+                              prefix + observable.getName() );
+      }
+      else
+      {
+        builder.addStatement( "this.$N = $N.createObservable( this.$N.areNamesEnabled() ? $N() + $S : null )",
+                              fieldName( observable ),
+                              CONTEXT_FIELD_NAME,
+                              CONTEXT_FIELD_NAME,
+                              ID_FIELD_NAME,
+                              observable.getName() );
+      }
     }
 
     return builder.build();
