@@ -7,8 +7,10 @@ import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.TypeVariableName;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public final class ArezProcessor
 {
   private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "org.realityforge.arez", "ArezContext" );
   private static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "org.realityforge.arez", "Observable" );
+  private static final ClassName COMPUTED_VALUE_CLASSNAME = ClassName.get( "org.realityforge.arez", "ComputedValue" );
   private static final String FIELD_PREFIX = "$$arez$$_";
   private static final String CONTEXT_FIELD_NAME = FIELD_PREFIX + "context";
   private static final String NEXT_ID_FIELD_NAME = FIELD_PREFIX + "nextId";
@@ -112,11 +115,36 @@ public final class ArezProcessor
       builder.addMethod( buildAction( descriptor, action ) );
     }
 
+    for ( final ComputedDescriptor computed : descriptor.getComputeds() )
+    {
+      builder.addMethod( buildComputed( computed ) );
+    }
+
     return builder.build();
   }
 
   /**
-   * Generate the setter that reports that ensures that the access is reported as Observable.
+   * Generate the wrapper around Computed method.
+   */
+  @Nonnull
+  private MethodSpec buildComputed( @Nonnull final ComputedDescriptor descriptor )
+    throws ArezProcessorException
+  {
+    final ExecutableElement computed = descriptor.getComputed();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( computed.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( computed, builder );
+    ProcessorUtil.copyExceptions( computed, builder );
+    builder.addAnnotation( Override.class );
+    final TypeMirror returnType = computed.getReturnType();
+    builder.returns( TypeName.get( returnType ) );
+
+    builder.addStatement( "return this.$N.get()", FIELD_PREFIX + descriptor.getName() );
+
+    return builder.build();
+  }
+
+  /**
+   * Generate the action wrapper.
    */
   @Nonnull
   private MethodSpec buildAction( @Nonnull final ContainerDescriptor containerDescriptor,
@@ -352,6 +380,23 @@ public final class ArezProcessor
           addAnnotation( Nonnull.class );
       builder.addField( field.build() );
     }
+    for ( final ComputedDescriptor computed : descriptor.getComputeds() )
+    {
+      final TypeVariableName fieldType =
+        TypeVariableName.get( "org.realityforge.arez.ComputedValue",
+                              TypeName.get( computed.getComputed().getReturnType() ).box() );
+
+      final ParameterizedTypeName typeName =
+        ParameterizedTypeName.get( COMPUTED_VALUE_CLASSNAME,
+                                   TypeName.get( computed.getComputed().getReturnType() ).box() );
+      final FieldSpec.Builder field =
+        FieldSpec.builder( typeName,
+                           FIELD_PREFIX + computed.getName(),
+                           Modifier.FINAL,
+                           Modifier.PRIVATE ).
+          addAnnotation( Nonnull.class );
+      builder.addField( field.build() );
+    }
   }
 
   /**
@@ -445,6 +490,33 @@ public final class ArezProcessor
                               CONTEXT_FIELD_NAME,
                               ID_FIELD_NAME,
                               observable.getName() );
+      }
+    }
+    for ( final ComputedDescriptor computed : descriptor.getComputeds() )
+    {
+      if ( descriptor.isSingleton() )
+      {
+        //context.createComputedValue( "Person.fullName", super::getFullName, Objects::equals )
+        builder.addStatement( "this.$N = this.$N.createComputedValue( this.$N.areNamesEnabled() ? $S : null, " +
+                              "super::$N, $T::equals )",
+                              FIELD_PREFIX + computed.getName(),
+                              CONTEXT_FIELD_NAME,
+                              CONTEXT_FIELD_NAME,
+                              getPrefix( descriptor ) + computed.getName(),
+                              computed.getComputed().getSimpleName().toString(),
+                              Objects.class );
+      }
+      else
+      {
+        builder.addStatement( "this.$N = this.$N.createComputedValue( this.$N.areNamesEnabled() ? $N() + $S : null, " +
+                              "super::$N, $T::equals )",
+                              FIELD_PREFIX + computed.getName(),
+                              CONTEXT_FIELD_NAME,
+                              CONTEXT_FIELD_NAME,
+                              ID_FIELD_NAME,
+                              computed.getName(),
+                              computed.getComputed().getSimpleName().toString(),
+                              Objects.class );
       }
     }
 
