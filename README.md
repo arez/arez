@@ -20,6 +20,9 @@ Processor Tests:
 * @Observable only required on one of getter/setter
 * How to deal with static inner classes?
 * Interfaces with default methods.
+* Validate observers getters+setters are populated
+* Validate that there is no name collision between Action/Observable/Computed methods
+* Computable fields
 
 TODO:
 * Hooks so context-wide can get notified when observers
