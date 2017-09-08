@@ -32,6 +32,9 @@ final class ContainerDescriptor
   private final Map<String, ActionDescriptor> _actions = new HashMap<>();
   private final Collection<ActionDescriptor> _roActions =
     Collections.unmodifiableCollection( _actions.values() );
+  private final Map<String, ComputedDescriptor> _computeds = new HashMap<>();
+  private final Collection<ComputedDescriptor> _roComputeds =
+    Collections.unmodifiableCollection( _computeds.values() );
 
   ContainerDescriptor( @Nonnull final String name,
                        final boolean singleton,
@@ -99,6 +102,23 @@ final class ContainerDescriptor
   Collection<ActionDescriptor> getActions()
   {
     return _roActions;
+  }
+
+  void addComputed( @Nonnull final ComputedDescriptor computed )
+  {
+    _computeds.put( computed.getName(), computed );
+  }
+
+  @Nullable
+  ComputedDescriptor getComputed( @Nonnull final String name )
+  {
+    return _computeds.get( name );
+  }
+
+  @Nonnull
+  Collection<ComputedDescriptor> getComputeds()
+  {
+    return _roComputeds;
   }
 
   @Nullable
