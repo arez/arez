@@ -55,8 +55,7 @@ final class ContainerDescriptorParser
     final ContainerDescriptor descriptor =
       new ContainerDescriptor( name, container.singleton(), packageElement, typeElement );
 
-    final List<ExecutableElement> methods = ProcessorUtil.getMethods( typeElement );
-    for ( final ExecutableElement method : methods )
+    for ( final ExecutableElement method : ProcessorUtil.getMethods( typeElement ) )
     {
       processMethod( descriptor, method );
     }
