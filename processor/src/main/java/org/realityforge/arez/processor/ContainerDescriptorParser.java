@@ -170,7 +170,68 @@ final class ContainerDescriptorParser
                                        @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    //TODO:
+    if ( method.getModifiers().contains( Modifier.FINAL ) )
+    {
+      throw new ArezProcessorException( "@Computed target must not be final", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ArezProcessorException( "@Computed target must not be static", method );
+    }
+    else if ( TypeKind.VOID == method.getReturnType().getKind() )
+    {
+      throw new ArezProcessorException( "@Computed target must not have a void return type", method );
+    }
+    else if ( !method.getParameters().isEmpty() )
+    {
+      throw new ArezProcessorException( "@Computed target must not have parameters", method );
+    }
+    else if ( !method.getThrownTypes().isEmpty() )
+    {
+      throw new ArezProcessorException( "@Computed target must not throw exceptions", method );
+    }
+
+    final String name;
+    if ( annotation.name().equals( SENTINEL_NAME ) )
+    {
+      final String methodName = method.getSimpleName().toString();
+      if ( methodName.startsWith( "get" ) &&
+           methodName.length() > 4 &&
+           Character.isUpperCase( methodName.charAt( 3 ) ) )
+      {
+        name = Character.toLowerCase( methodName.charAt( 3 ) ) + methodName.substring( 4 );
+      }
+      else if ( methodName.startsWith( "is" ) &&
+                methodName.length() > 3 &&
+                Character.isUpperCase( methodName.charAt( 2 ) ) )
+      {
+        name = Character.toLowerCase( methodName.charAt( 2 ) ) + methodName.substring( 3 );
+      }
+      else
+      {
+        name = methodName;
+      }
+    }
+    else
+    {
+      name = annotation.name();
+      if ( name.isEmpty() || !isJavaIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "Method annotated with @Computed specified invalid name " + name, method );
+      }
+    }
+
+    final ComputedDescriptor computed = descriptor.getComputed( name );
+    if ( null != computed )
+    {
+      throw new ArezProcessorException( "Method annotated with @Computed specified name " + name +
+                                        " that duplicates computed defined by method " +
+                                        computed.getComputed().getSimpleName(), method );
+    }
+    else
+    {
+      descriptor.addComputed( new ComputedDescriptor( name, method ) );
+    }
   }
 
   private static void processAction( @Nonnull final ContainerDescriptor descriptor,
