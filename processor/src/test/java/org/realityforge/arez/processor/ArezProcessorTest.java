@@ -59,6 +59,7 @@ public class ArezProcessorTest
         new Object[]{ "BadActionNameModel", "Method annotated with @Action specified invalid name -ace" },
         new Object[]{ "BadActionName2Model", "Method annotated with @Action specified invalid name ace-" },
         new Object[]{ "DuplicateActionModel", "Method annotated with @Action specified name ace that duplicates action defined by method setField" },
+        new Object[]{ "DuplicateComputedModel", "Method annotated with @Computed specified name ace that duplicates computed defined by method getX" },
         new Object[]{ "BadComputedNameModel", "Method annotated with @Computed specified invalid name -ace" },
         new Object[]{ "BadComputedName2Model", "Method annotated with @Computed specified invalid name ace-" },
         new Object[]{ "EmptyContainerModel", "@Container target has no methods annotated with @Action, @Computed or @Observable" },
