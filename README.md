@@ -16,9 +16,6 @@ on demand.
 This sections contains the notes for the next version of Arez and just consists of a bunch of notes
 that will be expanded over time as the library is fleshed out.
 
-Processor Tests:
-* How to deal with static inner classes?
-
 TODO:
 * Hooks so context-wide can get notified when observers
  - created

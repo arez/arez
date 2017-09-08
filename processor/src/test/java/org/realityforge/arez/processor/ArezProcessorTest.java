@@ -45,6 +45,19 @@ public class ArezProcessorTest
     assertSuccessfulCompile( classname );
   }
 
+  @Test
+  public void processSuccessfulNestedCompile()
+  {
+    assertSuccessfulCompile( "input/NestedModel.java", "expected/NestedModel$Arez_BasicActionModel.java" );
+  }
+
+  @Test
+  public void processSuccessfulNestedNestedCompile()
+  {
+    assertSuccessfulCompile( "input/NestedNestedModel.java",
+                             "expected/NestedNestedModel$Something$Arez_BasicActionModel.java" );
+  }
+
   @DataProvider( name = "failedCompiles" )
   public Object[][] failedCompiles()
   {

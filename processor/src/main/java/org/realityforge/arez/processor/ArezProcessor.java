@@ -26,6 +26,7 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeKind;
@@ -88,7 +89,16 @@ public final class ArezProcessor
     final AnnotationSpec generatedAnnotation =
       AnnotationSpec.builder( Generated.class ).addMember( "value", "$S", getClass().getName() ).build();
 
-    final TypeSpec.Builder builder = TypeSpec.classBuilder( "Arez_" + element.getSimpleName() ).
+    final StringBuilder name = new StringBuilder( "Arez_" + element.getSimpleName() );
+
+    TypeElement t = element;
+    while(NestingKind.TOP_LEVEL != t.getNestingKind() )
+    {
+      t = (TypeElement) t.getEnclosingElement();
+      name.insert( 0, t.getSimpleName() + "$" );
+    }
+
+    final TypeSpec.Builder builder = TypeSpec.classBuilder( name.toString() ).
       superclass( TypeName.get( element.asType() ) ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( descriptor.asDeclaredType() ) ).
       addModifiers( Modifier.FINAL ).
