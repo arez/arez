@@ -96,6 +96,8 @@ define 'arez' do
                  project('annotations').compile.dependencies,
                  project('core').package(:jar),
                  project('core').compile.dependencies,
+                 project('extras').package(:jar),
+                 project('extras').compile.dependencies,
                  project('processor').package(:jar),
                  project('processor').compile.dependencies
 
