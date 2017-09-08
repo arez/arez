@@ -17,7 +17,7 @@ public @interface Action
    *
    * @return the name of the Action relative to the container.
    */
-  String name() default "";
+  String name() default "<default>";
 
   /**
    * Does the action mutate state or not.
