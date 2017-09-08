@@ -1,8 +1,13 @@
 package org.realityforge.arez.processor;
 
+import com.google.testing.compile.JavaFileObjects;
+import com.google.testing.compile.JavaSourcesSubjectFactory;
+import java.util.Arrays;
 import javax.annotation.Nonnull;
+import javax.tools.JavaFileObject;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import static com.google.common.truth.Truth.assert_;
 
 public class ArezProcessorTest
   extends AbstractArezProcessorTest
@@ -13,7 +18,6 @@ public class ArezProcessorTest
     return new Object[][]
       {
         new Object[]{ "ObservableGuessingModel" },
-        new Object[]{ "DefaultMethodsModel" },
         new Object[]{ "AnnotationsOnModel" },
         new Object[]{ "ComputedWithNameVariationsModel" },
         new Object[]{ "BasicComputedModel" },
@@ -56,6 +60,18 @@ public class ArezProcessorTest
   {
     assertSuccessfulCompile( "input/NestedNestedModel.java",
                              "expected/NestedNestedModel$Something$Arez_BasicActionModel.java" );
+  }
+
+  @Test
+  public void processSuccessfulWhereAnnotationsSourcedFromInterface()
+  {
+    final JavaFileObject source1 = JavaFileObjects.forResource( "input/DefaultMethodsModel.java" );
+    final JavaFileObject source2 = JavaFileObjects.forResource( "input/MyAnnotatedInterface.java" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Arrays.asList( source1, source2 ) ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      and().generatesSources( JavaFileObjects.forResource( "expected/Arez_DefaultMethodsModel.java" ) );
   }
 
   @DataProvider( name = "failedCompiles" )
