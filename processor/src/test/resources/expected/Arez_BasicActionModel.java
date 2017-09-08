@@ -28,8 +28,8 @@ public final class Arez_BasicActionModel
   @Override
   public void doStuff( final long time )
   {
-    $$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null,
-                                    true,
-                                    () -> super.doStuff( time ) );
+    this.$$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null,
+                                         true,
+                                         () -> super.doStuff( time ) );
   }
 }

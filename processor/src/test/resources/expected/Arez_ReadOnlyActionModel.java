@@ -28,8 +28,10 @@ public final class Arez_ReadOnlyActionModel
   @Override
   public int queryStuff( final long time )
   {
-    return $$arez$$_context.safeFunction( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "queryStuff" : null,
-                                          false,
-                                          () -> super.queryStuff( time ) );
+    return this.$$arez$$_context.safeFunction( this.$$arez$$_context.areNamesEnabled() ?
+                                               $$arez$$_id() + "queryStuff" :
+                                               null,
+                                               false,
+                                               () -> super.queryStuff( time ) );
   }
 }

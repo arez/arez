@@ -33,9 +33,9 @@ public final class Arez_UnsafeSpecificFunctionActionModel
   {
     try
     {
-      return $$arez$$_context.function( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null,
-                                        true,
-                                        () -> super.doStuff( time ) );
+      return this.$$arez$$_context.function( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null,
+                                             true,
+                                             () -> super.doStuff( time ) );
     }
     catch ( final ParseException e )
     {

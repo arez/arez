@@ -112,8 +112,4 @@ final class ContainerDescriptor
     _containerId = containerId;
   }
 
-  boolean shouldStoreContext()
-  {
-    return true;
-  }
 }

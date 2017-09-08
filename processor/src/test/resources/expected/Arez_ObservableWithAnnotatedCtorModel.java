@@ -27,7 +27,7 @@ public final class Arez_ObservableWithAnnotatedCtorModel
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time =
-      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
   }
 
   private String $$arez$$_id()

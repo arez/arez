@@ -42,33 +42,33 @@ public final class Arez_DifferentObservableTypesModel
   {
     super();
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_v6 = $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
-                                                          "DifferentObservableTypesModel.v6" :
-                                                          null );
-    this.$$arez$$_v7 = $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
-                                                          "DifferentObservableTypesModel.v7" :
-                                                          null );
-    this.$$arez$$_v8 = $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
-                                                          "DifferentObservableTypesModel.v8" :
-                                                          null );
-    this.$$arez$$_v9 = $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
-                                                          "DifferentObservableTypesModel.v9" :
-                                                          null );
-    this.$$arez$$_v1 = $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
-                                                          "DifferentObservableTypesModel.v1" :
-                                                          null );
-    this.$$arez$$_v2 = $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
-                                                          "DifferentObservableTypesModel.v2" :
-                                                          null );
-    this.$$arez$$_v3 = $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
-                                                          "DifferentObservableTypesModel.v3" :
-                                                          null );
-    this.$$arez$$_v4 = $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
-                                                          "DifferentObservableTypesModel.v4" :
-                                                          null );
-    this.$$arez$$_v5 = $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
-                                                          "DifferentObservableTypesModel.v5" :
-                                                          null );
+    this.$$arez$$_v6 = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
+                                                               "DifferentObservableTypesModel.v6" :
+                                                               null );
+    this.$$arez$$_v7 = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
+                                                               "DifferentObservableTypesModel.v7" :
+                                                               null );
+    this.$$arez$$_v8 = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
+                                                               "DifferentObservableTypesModel.v8" :
+                                                               null );
+    this.$$arez$$_v9 = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
+                                                               "DifferentObservableTypesModel.v9" :
+                                                               null );
+    this.$$arez$$_v1 = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
+                                                               "DifferentObservableTypesModel.v1" :
+                                                               null );
+    this.$$arez$$_v2 = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
+                                                               "DifferentObservableTypesModel.v2" :
+                                                               null );
+    this.$$arez$$_v3 = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
+                                                               "DifferentObservableTypesModel.v3" :
+                                                               null );
+    this.$$arez$$_v4 = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
+                                                               "DifferentObservableTypesModel.v4" :
+                                                               null );
+    this.$$arez$$_v5 = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
+                                                               "DifferentObservableTypesModel.v5" :
+                                                               null );
   }
 
   @Override

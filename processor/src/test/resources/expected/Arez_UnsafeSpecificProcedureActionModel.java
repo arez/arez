@@ -33,9 +33,9 @@ public final class Arez_UnsafeSpecificProcedureActionModel
   {
     try
     {
-      $$arez$$_context.procedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null,
-                                  true,
-                                  () -> super.doStuff( time ) );
+      this.$$arez$$_context.procedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null,
+                                       true,
+                                       () -> super.doStuff( time ) );
     }
     catch ( final ParseException e )
     {

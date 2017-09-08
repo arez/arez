@@ -29,8 +29,8 @@ public final class Arez_UnsafeProcedureActionModel
   public void doStuff( final long time )
     throws Exception
   {
-    $$arez$$_context.procedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null,
-                                true,
-                                () -> super.doStuff( time ) );
+    this.$$arez$$_context.procedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null,
+                                     true,
+                                     () -> super.doStuff( time ) );
   }
 }

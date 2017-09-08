@@ -142,7 +142,7 @@ public final class ArezProcessor
     {
       statement.append( "return " );
     }
-    statement.append( "$N." );
+    statement.append( "this.$N." );
     parameterNames.add( CONTEXT_FIELD_NAME );
 
     if ( isProcedure && isSafe )
@@ -338,8 +338,7 @@ public final class ArezProcessor
       builder.addField( idField.build() );
     }
 
-    // Create the field that contains the context variable if it is needed
-    if ( descriptor.shouldStoreContext() )
+    // Create the field that contains the context
     {
       final FieldSpec.Builder field =
         FieldSpec.builder( AREZ_CONTEXT_CLASSNAME, CONTEXT_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE ).
@@ -427,16 +426,13 @@ public final class ArezProcessor
       builder.addStatement( "this.$N = $N++", ID_FIELD_NAME, NEXT_ID_FIELD_NAME );
     }
 
-    if ( descriptor.shouldStoreContext() )
-    {
-      builder.addStatement( "this.$N = $N", CONTEXT_FIELD_NAME, CONTEXT_FIELD_NAME );
-    }
+    builder.addStatement( "this.$N = $N", CONTEXT_FIELD_NAME, CONTEXT_FIELD_NAME );
 
     for ( final ObservableDescriptor observable : descriptor.getObservables() )
     {
       if ( descriptor.isSingleton() )
       {
-        builder.addStatement( "this.$N = $N.createObservable( this.$N.areNamesEnabled() ? $S : null )",
+        builder.addStatement( "this.$N = this.$N.createObservable( this.$N.areNamesEnabled() ? $S : null )",
                               fieldName( observable ),
                               CONTEXT_FIELD_NAME,
                               CONTEXT_FIELD_NAME,
@@ -444,7 +440,7 @@ public final class ArezProcessor
       }
       else
       {
-        builder.addStatement( "this.$N = $N.createObservable( this.$N.areNamesEnabled() ? $N() + $S : null )",
+        builder.addStatement( "this.$N = this.$N.createObservable( this.$N.areNamesEnabled() ? $N() + $S : null )",
                               fieldName( observable ),
                               CONTEXT_FIELD_NAME,
                               CONTEXT_FIELD_NAME,

@@ -23,7 +23,9 @@ public final class Arez_OverrideNamesInModel
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_myField =
-      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myField" : null );
+      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
+                                              $$arez$$_id() + "myField" :
+                                              null );
   }
 
   private String $$arez$$_id()
@@ -51,8 +53,8 @@ public final class Arez_OverrideNamesInModel
   @Override
   public void doAction()
   {
-    $$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myAction" : null,
-                                    true,
-                                    () -> super.doAction() );
+    this.$$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myAction" : null,
+                                         true,
+                                         () -> super.doAction() );
   }
 }

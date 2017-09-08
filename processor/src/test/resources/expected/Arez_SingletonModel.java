@@ -18,7 +18,7 @@ public final class Arez_SingletonModel
     super();
     this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time =
-      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.time" : null );
+      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.time" : null );
   }
 
   @Override
@@ -41,8 +41,8 @@ public final class Arez_SingletonModel
   @Override
   public void doStuff( final long time )
   {
-    $$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.doStuff" : null,
-                                    true,
-                                    () -> super.doStuff( time ) );
+    this.$$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.doStuff" : null,
+                                         true,
+                                         () -> super.doStuff( time ) );
   }
 }

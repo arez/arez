@@ -27,9 +27,11 @@ public final class Arez_BasicModelWithDifferentAccessLevels
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time =
-      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
     this.$$arez$$_value =
-      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "value" : null );
+      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
+                                              $$arez$$_id() + "value" :
+                                              null );
   }
 
   protected Arez_BasicModelWithDifferentAccessLevels( @Nonnull final ArezContext $$arez$$_context, final String value )
@@ -38,9 +40,11 @@ public final class Arez_BasicModelWithDifferentAccessLevels
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time =
-      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
     this.$$arez$$_value =
-      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "value" : null );
+      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
+                                              $$arez$$_id() + "value" :
+                                              null );
   }
 
   public Arez_BasicModelWithDifferentAccessLevels( @Nonnull final ArezContext $$arez$$_context,
@@ -51,9 +55,11 @@ public final class Arez_BasicModelWithDifferentAccessLevels
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time =
-      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
     this.$$arez$$_value =
-      $$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "value" : null );
+      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
+                                              $$arez$$_id() + "value" :
+                                              null );
   }
 
   private String $$arez$$_id()
@@ -98,24 +104,24 @@ public final class Arez_BasicModelWithDifferentAccessLevels
   @Override
   void doAction3()
   {
-    $$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction3" : null,
-                                    true,
-                                    () -> super.doAction3() );
+    this.$$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction3" : null,
+                                         true,
+                                         () -> super.doAction3() );
   }
 
   @Override
   protected void doAction2()
   {
-    $$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction2" : null,
-                                    true,
-                                    () -> super.doAction2() );
+    this.$$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction2" : null,
+                                         true,
+                                         () -> super.doAction2() );
   }
 
   @Override
   public void doAction()
   {
-    $$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction" : null,
-                                    true,
-                                    () -> super.doAction() );
+    this.$$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction" : null,
+                                         true,
+                                         () -> super.doAction() );
   }
 }

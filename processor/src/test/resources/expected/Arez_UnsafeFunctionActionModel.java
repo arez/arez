@@ -29,8 +29,8 @@ public final class Arez_UnsafeFunctionActionModel
   public int doStuff( final long time )
     throws Exception
   {
-    return $$arez$$_context.function( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null,
-                                      true,
-                                      () -> super.doStuff( time ) );
+    return this.$$arez$$_context.function( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null,
+                                           true,
+                                           () -> super.doStuff( time ) );
   }
 }
