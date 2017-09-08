@@ -13,6 +13,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "OverrideNamesInModel" },
         new Object[]{ "SingletonModel" },
         new Object[]{ "ContainerIdOnModel" },
         new Object[]{ "BasicModelWithDifferentAccessLevels" },
