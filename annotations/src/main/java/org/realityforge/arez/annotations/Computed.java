@@ -20,4 +20,10 @@ import java.lang.annotation.Target;
 @Target( ElementType.METHOD )
 public @interface Computed
 {
+  /**
+   * Return the name of the type.
+   *
+   * @return the name of the type.
+   */
+  String name() default "<default>";
 }
