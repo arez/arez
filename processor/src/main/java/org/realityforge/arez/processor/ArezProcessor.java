@@ -290,7 +290,7 @@ public final class ArezProcessor
       codeBlock.beginControlFlow( "if ( !$T.equals($N, " + accessor + ") )", Objects.class, paramName );
     }
     codeBlock.addStatement( mutator, paramName );
-    codeBlock.addStatement( "this.$N.reportObserved()", fieldName( observable ) );
+    codeBlock.addStatement( "this.$N.reportChanged()", fieldName( observable ) );
     codeBlock.endControlFlow();
     builder.addCode( codeBlock.build() );
 

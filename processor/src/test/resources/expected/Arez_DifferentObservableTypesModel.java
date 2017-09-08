@@ -84,7 +84,7 @@ public final class Arez_DifferentObservableTypesModel
     if ( v6 != super.getV6() )
     {
       super.setV6( v6 );
-      this.$$arez$$_v6.reportObserved();
+      this.$$arez$$_v6.reportChanged();
     }
   }
 
@@ -101,7 +101,7 @@ public final class Arez_DifferentObservableTypesModel
     if ( v7 != super.getV7() )
     {
       super.setV7( v7 );
-      this.$$arez$$_v7.reportObserved();
+      this.$$arez$$_v7.reportChanged();
     }
   }
 
@@ -118,7 +118,7 @@ public final class Arez_DifferentObservableTypesModel
     if ( v8 != super.getV8() )
     {
       super.setV8( v8 );
-      this.$$arez$$_v8.reportObserved();
+      this.$$arez$$_v8.reportChanged();
     }
   }
 
@@ -135,7 +135,7 @@ public final class Arez_DifferentObservableTypesModel
     if ( !Objects.equals( v9, super.getV9() ) )
     {
       super.setV9( v9 );
-      this.$$arez$$_v9.reportObserved();
+      this.$$arez$$_v9.reportChanged();
     }
   }
 
@@ -152,7 +152,7 @@ public final class Arez_DifferentObservableTypesModel
     if ( v1 != super.isV1() )
     {
       super.setV1( v1 );
-      this.$$arez$$_v1.reportObserved();
+      this.$$arez$$_v1.reportChanged();
     }
   }
 
@@ -169,7 +169,7 @@ public final class Arez_DifferentObservableTypesModel
     if ( v2 != super.getV2() )
     {
       super.setV2( v2 );
-      this.$$arez$$_v2.reportObserved();
+      this.$$arez$$_v2.reportChanged();
     }
   }
 
@@ -186,7 +186,7 @@ public final class Arez_DifferentObservableTypesModel
     if ( v3 != super.getV3() )
     {
       super.setV3( v3 );
-      this.$$arez$$_v3.reportObserved();
+      this.$$arez$$_v3.reportChanged();
     }
   }
 
@@ -203,7 +203,7 @@ public final class Arez_DifferentObservableTypesModel
     if ( v4 != super.getV4() )
     {
       super.setV4( v4 );
-      this.$$arez$$_v4.reportObserved();
+      this.$$arez$$_v4.reportChanged();
     }
   }
 
@@ -220,7 +220,7 @@ public final class Arez_DifferentObservableTypesModel
     if ( v5 != super.getV5() )
     {
       super.setV5( v5 );
-      this.$$arez$$_v5.reportObserved();
+      this.$$arez$$_v5.reportChanged();
     }
   }
 }

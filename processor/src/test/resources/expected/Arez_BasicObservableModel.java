@@ -44,7 +44,7 @@ public final class Arez_BasicObservableModel
     if ( time != super.getTime() )
     {
       super.setTime( time );
-      this.$$arez$$_time.reportObserved();
+      this.$$arez$$_time.reportChanged();
     }
   }
 }

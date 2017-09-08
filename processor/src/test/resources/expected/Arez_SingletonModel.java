@@ -42,7 +42,7 @@ public final class Arez_SingletonModel
     if ( time != super.getTime() )
     {
       super.setTime( time );
-      this.$$arez$$_time.reportObserved();
+      this.$$arez$$_time.reportChanged();
     }
   }
 

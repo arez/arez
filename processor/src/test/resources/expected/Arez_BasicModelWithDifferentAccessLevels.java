@@ -80,7 +80,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels
     if ( time != super.getTime() )
     {
       super.setTime( time );
-      this.$$arez$$_time.reportObserved();
+      this.$$arez$$_time.reportChanged();
     }
   }
 
@@ -97,7 +97,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels
     if ( !Objects.equals( value, super.getValue() ) )
     {
       super.setValue( value );
-      this.$$arez$$_value.reportObserved();
+      this.$$arez$$_value.reportChanged();
     }
   }
 

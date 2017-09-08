@@ -47,7 +47,7 @@ public final class Arez_ObservableWithSpecificExceptionModel
     if ( time != super.getTime() )
     {
       super.setTime( time );
-      this.$$arez$$_time.reportObserved();
+      this.$$arez$$_time.reportChanged();
     }
   }
 }

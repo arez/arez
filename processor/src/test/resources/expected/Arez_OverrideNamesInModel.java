@@ -53,7 +53,7 @@ public final class Arez_OverrideNamesInModel
     if ( time != super.getTime() )
     {
       super.setTime( time );
-      this.$$arez$$_myField.reportObserved();
+      this.$$arez$$_myField.reportChanged();
     }
   }
 

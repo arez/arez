@@ -44,7 +44,7 @@ public final class Arez_ObservableModelWithUnconventionalNames
     if ( time != super.time() )
     {
       super.time( time );
-      this.$$arez$$_time.reportObserved();
+      this.$$arez$$_time.reportChanged();
     }
   }
 }
