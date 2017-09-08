@@ -13,6 +13,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "UnsafeProcedureActionModel" },
         new Object[]{ "ReadOnlyActionModel" },
         new Object[]{ "BasicFunctionActionModel" },
         new Object[]{ "BasicActionModel" },
