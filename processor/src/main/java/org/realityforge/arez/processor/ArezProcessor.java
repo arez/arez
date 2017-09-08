@@ -134,6 +134,7 @@ public final class ArezProcessor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( computed.getSimpleName().toString() );
     ProcessorUtil.copyAccessModifiers( computed, builder );
     ProcessorUtil.copyExceptions( computed, builder );
+    ProcessorUtil.copyDocumentedAnnotations( computed, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = computed.getReturnType();
     builder.returns( TypeName.get( returnType ) );
@@ -155,6 +156,7 @@ public final class ArezProcessor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( action.getSimpleName().toString() );
     ProcessorUtil.copyAccessModifiers( action, builder );
     ProcessorUtil.copyExceptions( action, builder );
+    ProcessorUtil.copyDocumentedAnnotations( action, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = action.getReturnType();
     builder.returns( TypeName.get( returnType ) );
@@ -268,6 +270,7 @@ public final class ArezProcessor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( setter.getSimpleName().toString() );
     ProcessorUtil.copyAccessModifiers( setter, builder );
     ProcessorUtil.copyExceptions( getter, builder );
+    ProcessorUtil.copyDocumentedAnnotations( setter, builder );
 
     builder.addAnnotation( Override.class );
 
@@ -276,6 +279,7 @@ public final class ArezProcessor
     final TypeName type = TypeName.get( element.asType() );
     final ParameterSpec.Builder param =
       ParameterSpec.builder( type, paramName, Modifier.FINAL );
+    ProcessorUtil.copyDocumentedAnnotations( element, param );
     builder.addParameter( param.build() );
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
@@ -335,6 +339,7 @@ public final class ArezProcessor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( getter.getSimpleName().toString() );
     ProcessorUtil.copyAccessModifiers( getter, builder );
     ProcessorUtil.copyExceptions( getter, builder );
+    ProcessorUtil.copyDocumentedAnnotations( getter, builder );
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( getter.getReturnType() ) );
