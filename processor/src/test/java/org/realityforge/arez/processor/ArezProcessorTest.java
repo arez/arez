@@ -54,6 +54,7 @@ public class ArezProcessorTest
       {
         new Object[]{ "FinalComputedModel", "@Computed target must not be final" },
         new Object[]{ "StaticComputedModel", "@Computed target must not be static" },
+        new Object[]{ "VoidComputedModel", "@Computed target must not have a void return type" },
         new Object[]{ "EmptyContainerModel", "@Container target has no methods annotated with @Action, @Computed or @Observable" },
         new Object[]{ "ContainerIdOnSingletonModel", "@ContainerId must not exist if @Container is a singleton" },
         new Object[]{ "ContainerIdDuplicatedModel", "@ContainerId target duplicates existing method named getId" },
