@@ -166,7 +166,7 @@ final class ContainerDescriptorParser
   }
 
   private static void processComputed( @Nonnull final ContainerDescriptor descriptor,
-                                       @Nonnull final Computed computed,
+                                       @Nonnull final Computed annotation,
                                        @Nonnull final ExecutableElement method )
   {
     //TODO:
