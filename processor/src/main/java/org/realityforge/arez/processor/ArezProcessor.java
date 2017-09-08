@@ -10,6 +10,7 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;
@@ -200,7 +201,30 @@ public final class ArezProcessor
     }
 
     statement.append( ") )" );
-    builder.addStatement( statement.toString(), parameterNames.toArray() );
+
+    if ( isSafe || action.getThrownTypes().stream().anyMatch( t -> t.toString().equals( "java.lang.Exception" ) ) )
+    {
+      builder.addStatement( statement.toString(), parameterNames.toArray() );
+    }
+    else
+    {
+      final CodeBlock.Builder codeBlock = CodeBlock.builder();
+      codeBlock.beginControlFlow( "try" );
+      codeBlock.addStatement( statement.toString(), parameterNames.toArray() );
+
+      for ( final TypeMirror exception : action.getThrownTypes() )
+      {
+        codeBlock.nextControlFlow( "catch( final $T e )", exception );
+        codeBlock.addStatement( "throw e" );
+      }
+
+      codeBlock.nextControlFlow( "catch( final $T e )", RuntimeException.class );
+      codeBlock.addStatement( "throw e" );
+      codeBlock.nextControlFlow( "catch( final $T e )", Exception.class );
+      codeBlock.addStatement( "throw new $T( e )", UndeclaredThrowableException.class );
+      codeBlock.endControlFlow();
+      builder.addCode( codeBlock.build() );
+    }
 
     return builder.build();
   }
