@@ -52,7 +52,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
-        new Object[]{ "EmptyContainerModel", "@Container target has no methods annotated with @Action or @Observable" },
+        new Object[]{ "EmptyContainerModel", "@Container target has no methods annotated with @Action, @Computed or @Observable" },
         new Object[]{ "ContainerIdOnSingletonModel", "@ContainerId must not exist if @Container is a singleton" },
         new Object[]{ "ContainerIdDuplicatedModel", "@ContainerId target duplicates existing method named getId" },
         new Object[]{ "ContainerIdMustNotHaveParametersModel", "@ContainerId target must not have any parameters" },

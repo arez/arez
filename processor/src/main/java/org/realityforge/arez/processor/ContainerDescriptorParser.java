@@ -62,10 +62,12 @@ final class ContainerDescriptorParser
     }
     //TODO: Validate observers/populate here
     //TODO: Validate that there is no name collision between Action/Observable/Computed methods
-    if ( descriptor.getObservables().isEmpty() && descriptor.getActions().isEmpty() )
+    if ( descriptor.getObservables().isEmpty() &&
+         descriptor.getActions().isEmpty() &&
+         descriptor.getComputeds().isEmpty() )
     {
-      throw new ArezProcessorException( "@Container target has no methods annotated with @Action or @Observable",
-                                        typeElement );
+      throw new ArezProcessorException( "@Container target has no methods annotated with @Action, " +
+                                        "@Computed or @Observable", typeElement );
     }
 
     return descriptor;
