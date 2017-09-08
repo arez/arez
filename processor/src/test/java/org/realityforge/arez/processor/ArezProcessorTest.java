@@ -13,6 +13,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "ContainerIdOnModel" },
         new Object[]{ "BasicModelWithDifferentAccessLevels" },
         new Object[]{ "ObservableWithCtorModel" },
         new Object[]{ "ObservableWithExceptionModel" },
