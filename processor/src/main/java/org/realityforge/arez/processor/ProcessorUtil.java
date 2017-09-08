@@ -43,13 +43,6 @@ final class ProcessorUtil
   }
 
   @Nonnull
-  static TypeName[] getTypeArgumentsAsTypeNames( @Nonnull final DeclaredType declaredType )
-  {
-    final List<TypeVariableName> variables = getTypeArgumentsAsNames( declaredType );
-    return variables.toArray( new TypeName[ variables.size() ] );
-  }
-
-  @Nonnull
   static List<ExecutableElement> getMethods( @Nonnull final TypeElement element )
   {
     final Map<String, ExecutableElement> methodMap = new LinkedHashMap<>();
