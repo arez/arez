@@ -30,6 +30,7 @@ import org.realityforge.arez.annotations.Container;
 /**
  * Annotation processor that analyzes Arez annotated source and generates Observable models.
  */
+@SuppressWarnings( "Duplicates" )
 @AutoService( Processor.class )
 @SupportedAnnotationTypes( { "org.realityforge.arez.annotations.Action",
                              "org.realityforge.arez.annotations.Computed",
