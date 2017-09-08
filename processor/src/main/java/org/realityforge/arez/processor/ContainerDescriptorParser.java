@@ -169,10 +169,46 @@ final class ContainerDescriptorParser
   }
 
   private static void processAction( @Nonnull final ContainerDescriptor descriptor,
-                                     @Nonnull final Action action,
+                                     @Nonnull final Action annotation,
                                      @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
   {
-    //TODO:
+    if ( method.getModifiers().contains( Modifier.FINAL ) )
+    {
+      throw new ArezProcessorException( "@Action target must not be final", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ArezProcessorException( "@Action target must not be static", method );
+    }
+
+    final TypeMirror returnType = method.getReturnType();
+
+    final String name;
+    if ( annotation.name().equals( "<default>" ) )
+    {
+      name = method.getSimpleName().toString();
+    }
+    else
+    {
+      name = annotation.name();
+      if ( name.isEmpty() || !isJavaIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "Method annotated with @Action specified invalid name " + name, method );
+      }
+    }
+
+    final ActionDescriptor action = descriptor.getAction( name );
+    if ( null != action )
+    {
+      throw new ArezProcessorException( "Method annotated with @Action specified name " + name +
+                                        " that duplicates action defined by method " +
+                                        action.getAction().getSimpleName(), method );
+    }
+    else
+    {
+      descriptor.addAction( new ActionDescriptor( name, annotation.mutation(), method ) );
+    }
   }
 
   private static void processObservable( @Nonnull final ContainerDescriptor descriptor,

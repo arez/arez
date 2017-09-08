@@ -29,6 +29,9 @@ final class ContainerDescriptor
   private final Map<String, ObservableDescriptor> _observables = new HashMap<>();
   private final Collection<ObservableDescriptor> _roObservables =
     Collections.unmodifiableCollection( _observables.values() );
+  private final Map<String, ActionDescriptor> _actions = new HashMap<>();
+  private final Collection<ActionDescriptor> _roActions =
+    Collections.unmodifiableCollection( _actions.values() );
 
   ContainerDescriptor( @Nonnull final String name,
                        final boolean singleton,
@@ -79,6 +82,23 @@ final class ContainerDescriptor
   Collection<ObservableDescriptor> getObservables()
   {
     return _roObservables;
+  }
+
+  void addAction( @Nonnull final ActionDescriptor action )
+  {
+    _actions.put( action.getName(), action );
+  }
+
+  @Nullable
+  ActionDescriptor getAction( @Nonnull final String name )
+  {
+    return _actions.get( name );
+  }
+
+  @Nonnull
+  Collection<ActionDescriptor> getActions()
+  {
+    return _roActions;
   }
 
   @Nullable
