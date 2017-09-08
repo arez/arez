@@ -22,7 +22,6 @@ Processor Tests:
 * Copy exceptions on actions
 * @Observable only required on one of getter/setter
 * How to deal with static inner classes?
-* All different primitive types for fields.
 
 TODO:
 * Hooks so context-wide can get notified when observers
