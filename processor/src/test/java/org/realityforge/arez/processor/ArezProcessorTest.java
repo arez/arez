@@ -13,6 +13,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "ObservableModelWithUnconventionalNames" },
         new Object[]{ "DifferentObservableTypesModel" },
         new Object[]{ "ObservableWithExceptingCtorModel" },
         new Object[]{ "OverrideNamesInModel" },
