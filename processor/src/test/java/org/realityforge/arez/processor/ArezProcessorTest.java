@@ -13,6 +13,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "ComputedWithNameVariationsModel" },
         new Object[]{ "BasicComputedModel" },
         new Object[]{ "UnsafeSpecificFunctionActionModel" },
         new Object[]{ "UnsafeSpecificProcedureActionModel" },
