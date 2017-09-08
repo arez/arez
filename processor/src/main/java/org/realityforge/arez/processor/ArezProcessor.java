@@ -127,7 +127,6 @@ public final class ArezProcessor
     final TypeName type = TypeName.get( element.asType() );
     final ParameterSpec.Builder param =
       ParameterSpec.builder( type, paramName, Modifier.FINAL );
-    ProcessorUtil.copyDocumentedAnnotations( element, param );
     builder.addParameter( param.build() );
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
