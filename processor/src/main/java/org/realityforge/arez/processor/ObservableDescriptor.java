@@ -26,12 +26,6 @@ final class ObservableDescriptor
   }
 
   @Nonnull
-  ContainerDescriptor getContainerDescriptor()
-  {
-    return _containerDescriptor;
-  }
-
-  @Nonnull
   String getName()
   {
     return _name;
