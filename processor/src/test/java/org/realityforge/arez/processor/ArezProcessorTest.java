@@ -13,6 +13,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "ObservableWithAnnotatedCtorModel" },
         new Object[]{ "ObservableModelWithUnconventionalNames" },
         new Object[]{ "DifferentObservableTypesModel" },
         new Object[]{ "ObservableWithExceptingCtorModel" },
@@ -35,7 +36,7 @@ public class ArezProcessorTest
   @Test
   public void processWIP()
   {
-    //assertSuccessfulCompile( "NestedTimeModel" );
+    assertSuccessfulCompile( "ObservableWithAnnotatedCtorModel" );
     //assertSuccessfulCompile( "input/NestedTimeModel.java", "expected/NestedTimeModel$Arez_Model.java" );
   }
 
