@@ -1,6 +1,7 @@
 package org.realityforge.arez.processor;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -55,11 +56,7 @@ final class ContainerDescriptorParser
     final ContainerDescriptor descriptor =
       new ContainerDescriptor( name, container.singleton(), packageElement, typeElement );
 
-    for ( final ExecutableElement method : ProcessorUtil.getMethods( typeElement ) )
-    {
-      processMethod( descriptor, method );
-    }
-    //TODO: Validate observers/populate here
+    processMethods( typeElement, descriptor );
 
     if ( descriptor.getObservables().isEmpty() &&
          descriptor.getActions().isEmpty() &&
@@ -72,8 +69,92 @@ final class ContainerDescriptorParser
     return descriptor;
   }
 
-  private static void processMethod( @Nonnull final ContainerDescriptor descriptor,
-                                     @Nonnull final ExecutableElement method )
+  private static void processMethods( @Nonnull final TypeElement typeElement,
+                                      @Nonnull final ContainerDescriptor descriptor )
+    throws ArezProcessorException
+  {
+    final Map<String, ExecutableElement> getters = new HashMap<>();
+    final Map<String, ExecutableElement> setters = new HashMap<>();
+    for ( final ExecutableElement method : ProcessorUtil.getMethods( typeElement ) )
+    {
+      if ( !processMethod( descriptor, method ) )
+      {
+        /*
+         * If we get here the method was not annotated so we can try to detect if it is a
+         * candidate @Observable in case some @Observables are not fully specified.
+         */
+        if ( method.getModifiers().contains( Modifier.FINAL ) )
+        {
+          continue;
+        }
+        else if ( method.getModifiers().contains( Modifier.STATIC ) )
+        {
+          continue;
+        }
+
+        final boolean voidReturn = method.getReturnType().getKind() == TypeKind.VOID;
+        final int parameterCount = method.getParameters().size();
+        final String methodName = method.getSimpleName().toString();
+        if ( voidReturn &&
+             1 == parameterCount &&
+             methodName.startsWith( "set" ) &&
+             ( methodName.length() > 3 && Character.isUpperCase( methodName.charAt( 3 ) ) ) )
+        {
+          final String observableName = Character.toLowerCase( methodName.charAt( 3 ) ) + methodName.substring( 4 );
+          setters.put( observableName, method );
+        }
+        else if ( !voidReturn &&
+                  0 == parameterCount &&
+                  methodName.startsWith( "get" ) &&
+                  ( methodName.length() > 3 && Character.isUpperCase( methodName.charAt( 3 ) ) ) )
+        {
+          final String observableName = Character.toLowerCase( methodName.charAt( 3 ) ) + methodName.substring( 4 );
+          getters.put( observableName, method );
+        }
+        else if ( !voidReturn &&
+                  0 == parameterCount &&
+                  methodName.startsWith( "is" ) &&
+                  ( methodName.length() > 2 && Character.isUpperCase( methodName.charAt( 2 ) ) ) )
+        {
+          final String observableName = Character.toLowerCase( methodName.charAt( 2 ) ) + methodName.substring( 3 );
+          getters.put( observableName, method );
+        }
+      }
+    }
+
+    for ( final ObservableDescriptor observable : descriptor.getObservables() )
+    {
+      if ( !observable.hasSetter() )
+      {
+        final ExecutableElement element = setters.get( observable.getName() );
+        if ( null != element )
+        {
+          observable.setSetter( element );
+        }
+        else
+        {
+          throw new ArezProcessorException( "@Observable target defined getter but no setter was defined and no " +
+                                            " setter could be automatically determined", observable.getGetter() );
+        }
+      }
+      else if ( !observable.hasGetter() )
+      {
+        final ExecutableElement element = getters.get( observable.getName() );
+        if ( null != element )
+        {
+          observable.setGetter( element );
+        }
+        else
+        {
+          throw new ArezProcessorException( "@Observable target defined setter but no getter was defined and no " +
+                                            "getter could be automatically determined", observable.getSetter() );
+        }
+      }
+    }
+  }
+
+  private static boolean processMethod( @Nonnull final ContainerDescriptor descriptor,
+                                        @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     final Action action = method.getAnnotation( Action.class );
@@ -109,18 +190,26 @@ final class ContainerDescriptorParser
     if ( null != observable )
     {
       processObservable( descriptor, observable, method );
+      return true;
     }
     else if ( null != action )
     {
       processAction( descriptor, action, method );
+      return true;
     }
     else if ( null != computed )
     {
       processComputed( descriptor, computed, method );
+      return true;
     }
     else if ( null != containerId )
     {
       processContainerId( descriptor, method );
+      return true;
+    }
+    else
+    {
+      return false;
     }
   }
 
@@ -334,7 +423,7 @@ final class ContainerDescriptorParser
       }
 
       if ( methodName.startsWith( "set" ) &&
-           methodName.length() > 4 &&
+           methodName.length() > 3 &&
            Character.isUpperCase( methodName.charAt( 3 ) ) )
       {
         name = Character.toLowerCase( methodName.charAt( 3 ) ) + methodName.substring( 4 );
@@ -353,7 +442,7 @@ final class ContainerDescriptorParser
         throw new ArezProcessorException( "Method annotated with @Observable should be a setter or getter", method );
       }
       if ( methodName.startsWith( "get" ) &&
-           methodName.length() > 4 &&
+           methodName.length() > 3 &&
            Character.isUpperCase( methodName.charAt( 3 ) ) )
       {
         name = Character.toLowerCase( methodName.charAt( 3 ) ) + methodName.substring( 4 );

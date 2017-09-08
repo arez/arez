@@ -12,6 +12,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "ObservableGuessingModel" },
         new Object[]{ "DefaultMethodsModel" },
         new Object[]{ "AnnotationsOnModel" },
         new Object[]{ "ComputedWithNameVariationsModel" },

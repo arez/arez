@@ -17,7 +17,6 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 Processor Tests:
-* @Observable only required on one of getter/setter
 * How to deal with static inner classes?
 
 TODO:
