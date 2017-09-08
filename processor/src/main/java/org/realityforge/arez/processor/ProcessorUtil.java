@@ -69,7 +69,7 @@ final class ProcessorUtil
     {
       if ( member.getKind() == ElementKind.METHOD )
       {
-        methods.put( member.getSimpleName().toString(), (ExecutableElement) member );
+        methods.put( member.toString(), (ExecutableElement) member );
       }
     }
   }
