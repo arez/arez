@@ -13,6 +13,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "SingletonModel" },
         new Object[]{ "ContainerIdOnModel" },
         new Object[]{ "BasicModelWithDifferentAccessLevels" },
         new Object[]{ "ObservableWithCtorModel" },
