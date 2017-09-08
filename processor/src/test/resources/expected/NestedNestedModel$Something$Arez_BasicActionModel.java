@@ -4,7 +4,7 @@ import org.realityforge.arez.ArezContext;
 
 @Generated( "org.realityforge.arez.processor.ArezProcessor" )
 public final class NestedNestedModel$Something$Arez_BasicActionModel
-  extends NestedModel.BasicActionModel
+  extends NestedNestedModel.Something.BasicActionModel
 {
   private static volatile long $$arez$$_nextId;
 
