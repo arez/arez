@@ -19,7 +19,6 @@ that will be expanded over time as the library is fleshed out.
 Processor Tests:
 * @Observable only required on one of getter/setter
 * How to deal with static inner classes?
-* Validate observers getters+setters are populated
 
 TODO:
 * Hooks so context-wide can get notified when observers
