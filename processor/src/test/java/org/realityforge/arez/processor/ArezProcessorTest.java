@@ -13,6 +13,7 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "BasicFunctionActionModel" },
         new Object[]{ "BasicActionModel" },
         new Object[]{ "ObservableWithAnnotatedCtorModel" },
         new Object[]{ "ObservableModelWithUnconventionalNames" },
