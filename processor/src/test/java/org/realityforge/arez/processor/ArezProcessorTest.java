@@ -62,6 +62,7 @@ public class ArezProcessorTest
         new Object[]{ "DuplicateComputedModel", "Method annotated with @Computed specified name ace that duplicates computed defined by method getX" },
         new Object[]{ "BadComputedNameModel", "Method annotated with @Computed specified invalid name -ace" },
         new Object[]{ "BadComputedName2Model", "Method annotated with @Computed specified invalid name ace-" },
+        new Object[]{ "ComputedThrowsExceptionModel", "@Computed target must not throw exceptions" },
         new Object[]{ "EmptyContainerModel", "@Container target has no methods annotated with @Action, @Computed or @Observable" },
         new Object[]{ "ContainerIdOnSingletonModel", "@ContainerId must not exist if @Container is a singleton" },
         new Object[]{ "ContainerIdDuplicatedModel", "@ContainerId target duplicates existing method named getId" },
