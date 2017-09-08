@@ -75,10 +75,10 @@ define 'arez' do
   define 'example' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
-    compile.with PROVIDED_DEPS,
-                 COMPILE_DEPS,
-                 project('annotations'),
-                 project('core'),
+    compile.with project('annotations').package(:jar),
+                 project('annotations').compile.dependencies,
+                 project('core').package(:jar),
+                 project('core').compile.dependencies,
                  project('processor').package(:jar),
                  project('processor').compile.dependencies
 
