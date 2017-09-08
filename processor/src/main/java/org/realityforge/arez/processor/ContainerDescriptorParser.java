@@ -186,8 +186,6 @@ final class ContainerDescriptorParser
       throw new ArezProcessorException( "@Action target must not be static", method );
     }
 
-    final TypeMirror returnType = method.getReturnType();
-
     final String name;
     if ( annotation.name().equals( "<default>" ) )
     {
