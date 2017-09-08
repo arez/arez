@@ -25,6 +25,7 @@ Processor Tests:
 * @Observable only required on one of getter/setter
 * Override names
 * How to deal with static inner classes?
+* All different primitive types for fields.
 
 TODO:
 * Hooks so context-wide can get notified when observers
