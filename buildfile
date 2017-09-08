@@ -78,7 +78,9 @@ define 'arez' do
     compile.with PROVIDED_DEPS,
                  COMPILE_DEPS,
                  project('annotations'),
-                 project('core')
+                 project('core'),
+                 project('processor').package(:jar),
+                 project('processor').compile.dependencies
 
     test.options[:properties] = { 'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy' }
     test.options[:java_args] = ['-ea']
