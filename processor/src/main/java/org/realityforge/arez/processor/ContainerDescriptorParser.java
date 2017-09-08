@@ -134,7 +134,7 @@ final class ContainerDescriptorParser
         else
         {
           throw new ArezProcessorException( "@Observable target defined getter but no setter was defined and no " +
-                                            " setter could be automatically determined", observable.getGetter() );
+                                            "setter could be automatically determined", observable.getGetter() );
         }
       }
       else if ( !observable.hasGetter() )
