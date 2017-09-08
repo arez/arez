@@ -47,4 +47,12 @@ public final class Arez_OverrideNamesInModel
       this.$$arez$$_myField.reportObserved();
     }
   }
+
+  @Override
+  public void doAction()
+  {
+    $$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myAction" : null,
+                                    true,
+                                    () -> super.doAction() );
+  }
 }

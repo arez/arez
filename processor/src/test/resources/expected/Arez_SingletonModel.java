@@ -37,4 +37,12 @@ public final class Arez_SingletonModel
       this.$$arez$$_time.reportObserved();
     }
   }
+
+  @Override
+  public void doStuff( final long time )
+  {
+    $$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.doStuff" : null,
+                                    true,
+                                    () -> super.doStuff( time ) );
+  }
 }

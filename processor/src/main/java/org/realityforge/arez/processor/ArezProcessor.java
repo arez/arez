@@ -25,6 +25,8 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
 import org.realityforge.arez.annotations.Container;
 
 /**
@@ -104,6 +106,101 @@ public final class ArezProcessor
       builder.addMethod( buildObservableGetter( observable ) );
       builder.addMethod( buildObservableSetter( observable ) );
     }
+
+    for ( final ActionDescriptor action : descriptor.getActions() )
+    {
+      builder.addMethod( buildAction( descriptor, action ) );
+    }
+
+    return builder.build();
+  }
+
+  /**
+   * Generate the setter that reports that ensures that the access is reported as Observable.
+   */
+  @Nonnull
+  private MethodSpec buildAction( @Nonnull final ContainerDescriptor containerDescriptor,
+                                  @Nonnull final ActionDescriptor descriptor )
+    throws ArezProcessorException
+  {
+    final ExecutableElement action = descriptor.getAction();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( action.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( action, builder );
+    ProcessorUtil.copyExceptions( action, builder );
+    builder.addAnnotation( Override.class );
+    final TypeMirror returnType = action.getReturnType();
+    builder.returns( TypeName.get( returnType ) );
+
+    final boolean isProcedure = returnType.getKind() == TypeKind.VOID;
+    final boolean isSafe = action.getThrownTypes().isEmpty();
+
+    final StringBuilder statement = new StringBuilder();
+    final ArrayList<String> parameterNames = new ArrayList<>();
+
+    if ( !isProcedure )
+    {
+      statement.append( "return " );
+    }
+    statement.append( "$N." );
+    parameterNames.add( CONTEXT_FIELD_NAME );
+
+    if ( isProcedure && isSafe )
+    {
+      statement.append( "safeProcedure" );
+    }
+    else if ( isProcedure )
+    {
+      statement.append( "procedure" );
+    }
+    else if ( isSafe )
+    {
+      statement.append( "safeFunction" );
+    }
+    else
+    {
+      statement.append( "function" );
+    }
+
+    statement.append( "(" );
+
+    if ( containerDescriptor.isSingleton() )
+    {
+      statement.append( "this.$N.areNamesEnabled() ? $S : null" );
+      parameterNames.add( CONTEXT_FIELD_NAME );
+      parameterNames.add( getPrefix( containerDescriptor ) + descriptor.getName() );
+    }
+    else
+    {
+      statement.append( "this.$N.areNamesEnabled() ? $N() + $S : null" );
+      parameterNames.add( CONTEXT_FIELD_NAME );
+      parameterNames.add( ID_FIELD_NAME );
+      parameterNames.add( descriptor.getName() );
+    }
+
+    statement.append( ", " );
+    statement.append( descriptor.isMutation() );
+    statement.append( ", () -> super." );
+    statement.append( action.getSimpleName() );
+    statement.append( "(" );
+
+    boolean firstParam = true;
+    for ( final VariableElement element : action.getParameters() )
+    {
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
+      ProcessorUtil.copyDocumentedAnnotations( element, param );
+      builder.addParameter( param.build() );
+      parameterNames.add( element.getSimpleName().toString() );
+      if ( !firstParam )
+      {
+        statement.append( "," );
+      }
+      firstParam = false;
+      statement.append( "$N" );
+    }
+
+    statement.append( ") )" );
+    builder.addStatement( statement.toString(), parameterNames.toArray() );
 
     return builder.build();
   }

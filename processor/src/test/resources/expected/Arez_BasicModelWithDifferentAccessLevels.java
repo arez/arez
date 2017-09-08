@@ -94,4 +94,28 @@ public final class Arez_BasicModelWithDifferentAccessLevels
       this.$$arez$$_value.reportObserved();
     }
   }
+
+  @Override
+  void doAction3()
+  {
+    $$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction3" : null,
+                                    true,
+                                    () -> super.doAction3() );
+  }
+
+  @Override
+  protected void doAction2()
+  {
+    $$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction2" : null,
+                                    true,
+                                    () -> super.doAction2() );
+  }
+
+  @Override
+  public void doAction()
+  {
+    $$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction" : null,
+                                    true,
+                                    () -> super.doAction() );
+  }
 }
