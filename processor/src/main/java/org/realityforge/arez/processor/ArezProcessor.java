@@ -69,8 +69,7 @@ public final class ArezProcessor
   protected void process( @Nonnull final Element element )
     throws IOException, ArezProcessorException
   {
-    final ContainerDescriptor descriptor =
-      ContainerDescriptorParser.parse( element, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
+    final ContainerDescriptor descriptor = ContainerDescriptorParser.parse( element, processingEnv.getElementUtils() );
     emitTypeSpec( descriptor.getPackageElement().getQualifiedName().toString(), builder( descriptor ) );
   }
 
