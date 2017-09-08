@@ -164,15 +164,14 @@ public final class ArezProcessor
 
     builder.returns( TypeName.get( String.class ) );
     final ExecutableElement containerId = descriptor.getContainerId();
-    final String prefix = descriptor.getName().isEmpty() ? "" : descriptor.getName() + ".";
 
     if ( null == containerId )
     {
-      builder.addStatement( "return $S + $N + $S", prefix, ID_FIELD_NAME, "." );
+      builder.addStatement( "return $S + $N + $S", getPrefix( descriptor ), ID_FIELD_NAME, "." );
     }
     else
     {
-      builder.addStatement( "return $S + $N() + $S", prefix, containerId.getSimpleName(), "." );
+      builder.addStatement( "return $S + $N() + $S", getPrefix( descriptor ), containerId.getSimpleName(), "." );
     }
     return builder.build();
   }
@@ -312,7 +311,6 @@ public final class ArezProcessor
       builder.addStatement( "this.$N = $N", CONTEXT_FIELD_NAME, CONTEXT_FIELD_NAME );
     }
 
-    final String prefix = descriptor.getName().isEmpty() ? "" : descriptor.getName() + ".";
     for ( final ObservableDescriptor observable : descriptor.getObservables() )
     {
       if ( descriptor.isSingleton() )
@@ -321,7 +319,7 @@ public final class ArezProcessor
                               fieldName( observable ),
                               CONTEXT_FIELD_NAME,
                               CONTEXT_FIELD_NAME,
-                              prefix + observable.getName() );
+                              getPrefix( descriptor ) + observable.getName() );
       }
       else
       {
@@ -335,5 +333,14 @@ public final class ArezProcessor
     }
 
     return builder.build();
+  }
+
+  /**
+   * Get prefix specified by container if any.
+   */
+  @Nonnull
+  private String getPrefix( @Nonnull final ContainerDescriptor descriptor )
+  {
+    return descriptor.getName().isEmpty() ? "" : descriptor.getName() + ".";
   }
 }
