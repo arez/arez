@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 public class ArezProcessorTest
   extends AbstractArezProcessorTest
 {
-
   @DataProvider( name = "successfulCompiles" )
   public Object[][] successfulCompiles()
   {
