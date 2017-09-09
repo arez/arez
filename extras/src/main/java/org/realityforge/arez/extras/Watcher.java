@@ -12,15 +12,34 @@ import org.realityforge.arez.SafeFunction;
 /**
  * This class is used to wait until a condition is true, then run effect and remove watch.
  *
+ * <p>The condition function is run in a read-only, tracking transaction and will be re-evaluated
+ * any time any of the observed elements are updated. The effect procedure is run in either a
+ * read-only or read-write, non-tracking transaction.</p>
+ *
  * <p>This is a good example of how the primitives provided by Arez can be glued together
  * to create higher level reactive elements.</p>
  */
 public final class Watcher
 {
+  /**
+   * The Computed value representing condition.
+   */
   @Nonnull
   private final ComputedValue<Boolean> _conditionValue;
+  /**
+   * The observer that is observing condition, waiting until it is true.
+   */
   private final Observer _observer;
 
+  /**
+   * Create the watcher.
+   *
+   * @param context   the Arez system to watch.
+   * @param name      the debug name (if any) used when naming the underlying Arez resources.
+   * @param mutation  true if the effect can mutate state, false otherwise.
+   * @param condition The function that determines when th effect is run.
+   * @param effect    The procedure that is executed when the condition is true.
+   */
   public Watcher( @Nonnull final ArezContext context,
                   @Nullable final String name,
                   final boolean mutation,
@@ -38,6 +57,9 @@ public final class Watcher
     _observer = context.autorun( name, mutation, procedure, true );
   }
 
+  /**
+   * Cancel the watch if it has not been triggered and release all underlying resources.
+   */
   public void dispose()
   {
     _conditionValue.dispose();
