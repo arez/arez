@@ -10,7 +10,7 @@ import org.realityforge.arez.Procedure;
 import org.realityforge.arez.SafeFunction;
 
 /**
- * This class is used to watch state and when a condition is true, then run effect and remove watch.
+ * This class is used to wait until a condition is true, then run effect and remove watch.
  *
  * <p>This is a good example of how the primitives provided by Arez can be glued together
  * to create higher level reactive elements.</p>
