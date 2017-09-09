@@ -25,13 +25,13 @@ public final class Watcher
                   @Nullable final String name,
                   final boolean mutation,
                   @Nonnull final SafeFunction<Boolean> condition,
-                  @Nonnull final Procedure action )
+                  @Nonnull final Procedure effect )
   {
     _conditionValue = context.createComputedValue( name, condition, Objects::equals );
     final Procedure procedure = () -> {
       if ( Boolean.TRUE == _conditionValue.get() )
       {
-        context.procedure( name, mutation, action );
+        context.procedure( name, mutation, effect );
         dispose();
       }
     };
