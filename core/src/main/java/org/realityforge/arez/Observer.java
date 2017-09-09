@@ -154,7 +154,9 @@ public final class Observer
     if ( !_disposed )
     {
       _disposed = true;
-      getContext().safeProcedure( getName(), false, () -> setState( ObserverState.INACTIVE ) );
+      getContext().safeProcedure( ArezConfig.enableNames() ? getName() : null,
+                                  false,
+                                  () -> setState( ObserverState.INACTIVE ) );
     }
   }
 
