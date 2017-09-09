@@ -115,6 +115,6 @@ define 'arez' do
   ipr.add_default_testng_configuration(:jvm_args => '-ea -Darez.dynamic_provider=true -Darez.logger=proxy')
   ipr.add_component_from_artifact(:idea_codestyle)
   ipr.extra_modules << '../mobx/mobx.iml'
-  ipr.extra_modules << '../mobx/mobx-react.iml'
-  ipr.extra_modules << '../mobx/mobx-util.iml'
+  ipr.extra_modules << '../mobx-react/mobx-react.iml'
+  ipr.extra_modules << '../mobx-utils/mobx-utils.iml'
 end
