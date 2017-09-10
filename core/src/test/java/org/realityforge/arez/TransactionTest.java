@@ -1132,11 +1132,11 @@ public class TransactionTest
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     transaction.reportChanged( observable );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
@@ -1206,14 +1206,14 @@ public class TransactionTest
     context.setTransaction( transaction );
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
-    observable.setLeastStaleObserverState( ObserverState.INACTIVE );
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final Observer observer = newDerivation( context );
     observer.setState( ObserverState.INACTIVE );
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
 
     context.setTransaction( transaction );
@@ -1343,11 +1343,11 @@ public class TransactionTest
 
     final Observable observable = calculator.getDerivedValue();
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     transaction.reportPossiblyChanged( observable );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
@@ -1559,11 +1559,11 @@ public class TransactionTest
 
     final Observable observable = calculator.getDerivedValue();
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     transaction.reportChangeConfirmed( observable );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
 
   @Test

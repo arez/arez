@@ -122,7 +122,7 @@ public class ObservableTest
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     // Handle addition of observer in correct state
     observable.addObserver( observer );
@@ -130,7 +130,7 @@ public class ObservableTest
     assertEquals( observable.getObservers().size(), 1 );
     assertEquals( observable.hasObservers(), true );
     assertEquals( observable.hasObserver( observer ), true );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     observable.invariantLeastStaleObserverState();
   }
@@ -224,7 +224,6 @@ public class ObservableTest
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
 
     observer.setState( ObserverState.UP_TO_DATE );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
@@ -259,7 +258,6 @@ public class ObservableTest
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
 
     observer.setState( ObserverState.UP_TO_DATE );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
@@ -298,7 +296,6 @@ public class ObservableTest
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
 
     observer.setState( ObserverState.UP_TO_DATE );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
@@ -337,7 +334,7 @@ public class ObservableTest
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> observable.removeObserver( observer ) );
@@ -357,7 +354,7 @@ public class ObservableTest
     final Observable observable = new Observable( context, ValueUtil.randomString() );
     setCurrentTransaction( observer );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
@@ -370,7 +367,7 @@ public class ObservableTest
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
@@ -380,7 +377,30 @@ public class ObservableTest
                   "Attempt to invoke setLeastStaleObserverState on observable named '" +
                   observable.getName() + "' when there is no active transaction." );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.INACTIVE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+  }
+
+  @Test
+  public void setLeastStaleObserverState_Passing_INACTIVE()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadOnlyObserver( context );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    setCurrentTransaction( observer );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> observable.setLeastStaleObserverState( ObserverState.INACTIVE ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempt to invoke setLeastStaleObserverState on observable named '" +
+                  observable.getName() + "' with invalid value INACTIVE." );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
@@ -400,7 +420,7 @@ public class ObservableTest
                   "Calculated leastStaleObserverState on observable named '" +
                   observable.getName() + "' is 'UP_TO_DATE' which is unexpectedly less than cached value 'STALE'." );
 
-    observable.setLeastStaleObserverState( ObserverState.INACTIVE );
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     observable.invariantLeastStaleObserverState();
   }
@@ -415,20 +435,24 @@ public class ObservableTest
     final Observer observer1 = newReadOnlyObserver( context );
     final Observer observer2 = newReadOnlyObserver( context );
     final Observer observer3 = newReadOnlyObserver( context );
+    final Observer observer4 = newDerivation( context );
 
     observer1.setState( ObserverState.UP_TO_DATE );
     observer2.setState( ObserverState.POSSIBLY_STALE );
     observer3.setState( ObserverState.STALE );
+    observer4.setState( ObserverState.INACTIVE );
 
     final Observable observable = new Observable( context, ValueUtil.randomString() );
 
     observer1.getDependencies().add( observable );
     observer2.getDependencies().add( observable );
     observer3.getDependencies().add( observable );
+    observer4.getDependencies().add( observable );
 
     observable.addObserver( observer1 );
     observable.addObserver( observer2 );
     observable.addObserver( observer3 );
+    observable.addObserver( observer4 );
 
     observable.setLeastStaleObserverState( ObserverState.STALE );
 

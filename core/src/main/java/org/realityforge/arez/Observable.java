@@ -49,7 +49,7 @@ public final class Observable
    * This cached value is used to avoid redundant propagations.
    */
   @Nonnull
-  private ObserverState _leastStaleObserverState = ObserverState.INACTIVE;
+  private ObserverState _leastStaleObserverState = ObserverState.UP_TO_DATE;
   /**
    * The observer that created this observable if any.
    */
@@ -206,7 +206,7 @@ public final class Observable
                         getName() ) );
     getObservers().add( observer );
 
-    final ObserverState state = observer.getState();
+    final ObserverState state = ObserverState.INACTIVE == observer.getState() ? ObserverState.UP_TO_DATE : observer.getState();
     if ( _leastStaleObserverState.ordinal() > state.ordinal() )
     {
       _leastStaleObserverState = state;
@@ -261,6 +261,10 @@ public final class Observable
                       () -> String.format(
                         "Attempt to invoke setLeastStaleObserverState on observable named '%s' when there is no active transaction.",
                         getName() ) );
+    Guards.invariant( () -> ObserverState.INACTIVE != leastStaleObserverState,
+                      () -> String.format(
+                        "Attempt to invoke setLeastStaleObserverState on observable named '%s' with invalid value INACTIVE.",
+                        getName() ) );
     _leastStaleObserverState = leastStaleObserverState;
   }
 
@@ -314,7 +318,8 @@ public final class Observable
   {
     final ObserverState leastStaleObserverState =
       getObservers().stream().
-        map( Observer::getState ).min( Comparator.comparing( Enum::ordinal ) ).orElse( ObserverState.UP_TO_DATE );
+        map( Observer::getState ).map( s -> s == ObserverState.INACTIVE ? ObserverState.UP_TO_DATE : s ).
+        min( Comparator.comparing( Enum::ordinal ) ).orElse( ObserverState.UP_TO_DATE );
     Guards.invariant( () -> leastStaleObserverState.ordinal() >= _leastStaleObserverState.ordinal(),
                       () -> String.format(
                         "Calculated leastStaleObserverState on observable named '%s' is '%s' which is unexpectedly less than cached value '%s'.",
