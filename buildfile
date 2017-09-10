@@ -8,7 +8,7 @@ OPTIONAL_DEPS = []
 TEST_DEPS = [:guiceyloops]
 
 # JDK options passed to test environment. Essentially turns assertions on.
-AREZ_TEST_OPTIONS = { 'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy' }
+AREZ_TEST_OPTIONS = { 'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy', 'arez.environment' => 'development' }
 
 desc 'Arez: Simple, Scalable State Management Library'
 define 'arez' do
