@@ -314,7 +314,7 @@ public final class Observable
   {
     final ObserverState leastStaleObserverState =
       getObservers().stream().
-        map( Observer::getState ).min( Comparator.comparing( Enum::ordinal ) ).orElse( ObserverState.INACTIVE );
+        map( Observer::getState ).min( Comparator.comparing( Enum::ordinal ) ).orElse( ObserverState.UP_TO_DATE );
     Guards.invariant( () -> leastStaleObserverState.ordinal() >= _leastStaleObserverState.ordinal(),
                       () -> String.format(
                         "Calculated leastStaleObserverState on observable named '%s' is '%s' which is unexpectedly less than cached value '%s'.",

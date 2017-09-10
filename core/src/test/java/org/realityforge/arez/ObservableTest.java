@@ -398,7 +398,7 @@ public class ObservableTest
 
     assertEquals( exception.getMessage(),
                   "Calculated leastStaleObserverState on observable named '" +
-                  observable.getName() + "' is 'INACTIVE' which is unexpectedly less than cached value 'STALE'." );
+                  observable.getName() + "' is 'UP_TO_DATE' which is unexpectedly less than cached value 'STALE'." );
 
     observable.setLeastStaleObserverState( ObserverState.INACTIVE );
 
