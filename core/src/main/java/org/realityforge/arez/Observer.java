@@ -155,8 +155,9 @@ public final class Observer
     {
       _disposed = true;
       getContext().safeProcedure( ArezConfig.enableNames() ? getName() : null,
-                                  false,
-                                  () -> setState( ObserverState.INACTIVE ) );
+                                  TransactionMode.READ_ONLY,
+                                  this,
+                                  () -> getContext().getTransaction().markTrackerAsDisposed() );
     }
   }
 
@@ -608,7 +609,7 @@ public final class Observer
 
   void invariantDerivationState()
   {
-    if ( isDerivation() && isActive() )
+    if ( isDerivation() && isActive() && !isDisposed() )
     {
       Guards.invariant( () -> !getDerivedValue().getObservers().isEmpty() ||
                               Objects.equals( getContext().getTransaction().getTracker(), this ),

@@ -47,6 +47,10 @@ final class Transaction
    */
   @Nullable
   private ArrayList<Observable> _observables;
+  /**
+   * Flag set to true when the current tracker should be disposed at the end.
+   */
+  private boolean _disposeTracker;
 
   Transaction( @Nonnull final ArezContext context,
                @Nullable final Transaction previous,
@@ -64,6 +68,16 @@ final class Transaction
                       () -> String.format(
                         "Attempted to create transaction named '%s' with mode READ_WRITE_OWNED but no tracker specified.",
                         getName() ) );
+  }
+
+  void markTrackerAsDisposed()
+  {
+    Guards.invariant( () -> null != _tracker,
+                      () -> String.format( "Attempted to invoke markTrackerAsDisposed on transaction named " +
+                                           "'%s' when there is no tracker associated with the transaction.",
+                                           getName() ) );
+    assert null != _tracker;
+    _disposeTracker = true;
   }
 
   int getId()
@@ -505,6 +519,11 @@ final class Transaction
       }
     }
 
+    if ( _disposeTracker )
+    {
+      _tracker.setState( ObserverState.INACTIVE );
+    }
+
     /*
      * Check invariants. In both java and non-java code this will be compiled out.
      */
@@ -567,6 +586,12 @@ final class Transaction
   ArrayList<Observable> getPendingDeactivations()
   {
     return _pendingDeactivations;
+  }
+
+  @TestOnly
+  boolean shouldDisposeTracker()
+  {
+    return _disposeTracker;
   }
 
   @TestOnly

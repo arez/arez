@@ -393,9 +393,39 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     context.setTransaction( transaction );
 
-    tracker.dispose();
+    ensureDerivationHasObserver( tracker );
+
+    transaction.markTrackerAsDisposed();
+    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setDisposed( true );
+
+    // This dependency "retained" (until tracker disposed)
+    final Observable observable1 = new Observable( context, ValueUtil.randomString() );
+    // This dependency no longer observed
+    final Observable observable2 = new Observable( context, ValueUtil.randomString() );
+    // This dependency newly observed (until tracker disposed)
+    final Observable observable3 = new Observable( context, ValueUtil.randomString() );
+
+    tracker.getDependencies().add( observable1 );
+    tracker.getDependencies().add( observable2 );
+
+    observable1.getObservers().add( tracker );
+    observable2.getObservers().add( tracker );
+
+    transaction.safeGetObservables().add( observable1 );
+    transaction.safeGetObservables().add( observable3 );
+
+    final ArrayList<Observable> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.INACTIVE );
+    final ArrayList<Observable> dependencies1 = tracker.getDependencies();
+    assertTrue( dependencies1 != dependencies );
+    assertEquals( tracker.getDependencies().size(), 0 );
+    assertEquals( observable1.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+    assertEquals( observable2.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+    assertEquals( observable3.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
   }
 
   @Test
@@ -1884,5 +1914,41 @@ public class TransactionTest
     observer.getDependencies().add( observable );
 
     transaction.invariantObserverIsTracker( observable, observer );
+  }
+
+  @Test
+  public void markTrackerAsDisposed_whenNoTracker()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    context.setTransaction( transaction );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, transaction::markTrackerAsDisposed );
+
+    assertEquals( exception.getMessage(),
+                  "Attempted to invoke markTrackerAsDisposed on transaction named '" + transaction.getName() +
+                  "' when there is no tracker associated with the transaction." );
+  }
+
+  @Test
+  public void markTrackerAsDisposed()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observer tracker = newDerivation( context );
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    context.setTransaction( transaction );
+
+    assertEquals( transaction.shouldDisposeTracker(), false );
+
+    transaction.markTrackerAsDisposed();
+
+    assertEquals( transaction.shouldDisposeTracker(), true );
   }
 }
