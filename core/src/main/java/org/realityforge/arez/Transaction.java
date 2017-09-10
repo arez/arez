@@ -101,10 +101,20 @@ final class Transaction
     if ( null != _tracker )
     {
       _tracker.invariantDependenciesBackLink( "Pre beginTracking" );
-      // Mark the tracker as up to date at the start of the transaction.
-      // If it is made stale during the transaction then completeTracking() will fix the
-      // state of the _tracker.
-      _tracker.setState( ObserverState.UP_TO_DATE );
+
+      /*
+       * In the scenario where we are disposing the tracker, the tracker will
+       * already be marked as disposed so we should not try to set the state to
+       * up to date and will instead rely on completeTracking to force the state
+       * to INACTIVE.
+       */
+      if ( !_tracker.isDisposed() )
+      {
+        // Mark the tracker as up to date at the start of the transaction.
+        // If it is made stale during the transaction then completeTracking() will fix the
+        // state of the _tracker.
+        _tracker.setState( ObserverState.UP_TO_DATE );
+      }
       // Ensure dependencies "LeastStaleObserverState" state is kept up to date.
       _tracker.markDependenciesLeastStaleObserverAsUpToDate();
     }
