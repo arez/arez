@@ -724,6 +724,13 @@ public class TransactionTest
     derivation.setState( ObserverState.POSSIBLY_STALE );
 
     final Observable observable = derivation.getDerivedValue();
+    observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+
+    final Observer observer = newReadOnlyObserver( context );
+    observer.setState( ObserverState.STALE );
+
+    observer.getDependencies().add( observable );
+    observable.getObservers().add( observer );
 
     transaction.safeGetObservables().add( observable );
 

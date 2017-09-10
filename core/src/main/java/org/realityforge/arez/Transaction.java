@@ -449,6 +449,15 @@ final class Transaction
       }
     }
 
+    // Some newly observed derivation owned observables may have become stale during
+    // tracking operation but they have had no chance to propagate staleness to this
+    // observer so rectify this.
+    // NOTE: This must occur before subsequent observable.addObserver() calls
+    if ( !_tracker.isDisposed() && ObserverState.UP_TO_DATE != newDerivationState )
+    {
+      _tracker.setState( newDerivationState );
+    }
+
     if ( null != _observables )
     {
       // Look through the new observables and any that are still flagged must be
@@ -470,14 +479,6 @@ final class Transaction
           }
         }
       }
-    }
-
-    // Some newly observed derivation owned observables may have become stale during
-    // tracking operation but they have had no chance to propagate staleness to this
-    // observer so rectify this.
-    if ( ObserverState.UP_TO_DATE != newDerivationState )
-    {
-      _tracker.setState( newDerivationState );
     }
 
     // Ugly hack to remove the elements from the end of the list that are no longer
