@@ -62,7 +62,7 @@ public final class Watcher
    */
   public void dispose()
   {
-    _conditionValue.dispose();
     _observer.dispose();
+    _conditionValue.dispose();
   }
 }
