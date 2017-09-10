@@ -391,10 +391,10 @@ final class Transaction
       return;
     }
     _tracker.invariantDependenciesUnique( "Pre completeTracking" );
-    Guards.invariant( () -> _tracker.getState() != ObserverState.INACTIVE,
+    Guards.invariant( () -> _tracker.getState() != ObserverState.INACTIVE || _tracker.isDisposed(),
                       () -> String.format(
-                        "Transaction named '%s' called completeTracking but _tracker state of INACTIVE is unexpected.",
-                        getName() ) );
+                        "Transaction named '%s' called completeTracking but _tracker state of INACTIVE is " +
+                        "not expected when tracker has not been disposed.", getName() ) );
 
     ObserverState newDerivationState = ObserverState.UP_TO_DATE;
 

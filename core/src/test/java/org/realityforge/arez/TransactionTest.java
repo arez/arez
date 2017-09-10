@@ -379,7 +379,23 @@ public class TransactionTest
 
     assertEquals( exception.getMessage(),
                   "Transaction named '" + transaction.getName() + "' called completeTracking but _tracker " +
-                  "state of INACTIVE is unexpected." );
+                  "state of INACTIVE is not expected when tracker has not been disposed." );
+  }
+
+  @Test
+  public void completeTracking_withDisposedTracker()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observer tracker = newDerivation( context );
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    context.setTransaction( transaction );
+
+    tracker.dispose();
+
+    transaction.completeTracking();
   }
 
   @Test
