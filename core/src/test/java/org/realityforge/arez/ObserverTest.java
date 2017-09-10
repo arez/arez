@@ -855,6 +855,26 @@ public class ObserverTest
   }
 
   @Test
+  public void invokeReaction_onUpToDateObserver()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final TestReaction reaction = new TestReaction();
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
+
+    setCurrentTransaction( context );
+    observer.setState( ObserverState.UP_TO_DATE );
+    context.setTransaction( null );
+
+    //Invoke reaction
+    observer.invokeReaction();
+
+    assertEquals( reaction.getCallCount(), 0 );
+  }
+
+  @Test
   public void invokeReaction_whenObserverHasNoReaction()
     throws Exception
   {

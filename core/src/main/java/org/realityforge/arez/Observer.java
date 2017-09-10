@@ -446,7 +446,11 @@ public final class Observer
       assert null != reaction;
       try
       {
-        getContext().procedure( name, mode, this, () -> reaction.react( this ) );
+        // ComputedValues may have calculated their values and thus be up to date so no need to recalculate.
+        if ( ObserverState.UP_TO_DATE != getState() )
+        {
+          getContext().procedure( name, mode, this, () -> reaction.react( this ) );
+        }
       }
       catch ( final Throwable t )
       {
