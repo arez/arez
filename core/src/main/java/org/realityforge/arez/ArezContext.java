@@ -181,7 +181,7 @@ public final class ArezContext
    * triggered if there is no transaction active. This method is typically used after one or more Observers
    * have been created outside a transaction with the runImmediately flag set to false and the caller wants
    * to force the observers to react. Otherwise the Observers will not be schedule until the next top-level
-   * transaction completes.</p>
+   * transaction completes.
    */
   public void triggerScheduler()
   {
