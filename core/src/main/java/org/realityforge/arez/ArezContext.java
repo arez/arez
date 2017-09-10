@@ -253,8 +253,7 @@ public final class ArezContext
   public void procedure( @Nullable final String name, final boolean mutation, @Nonnull final Procedure procedure )
     throws Exception
   {
-    final TransactionMode mode = mutationToTransactionMode( mutation );
-    procedure( name, mode, null, procedure );
+    procedure( name, mutationToTransactionMode( mutation ), null, procedure );
   }
 
   void procedure( @Nullable final String name,
