@@ -8,14 +8,7 @@ public final class CalculatedModelExample
     throws Exception
   {
     final ArezContext context = new ArezContext();
-
-    context.addObserverErrorHandler( ( observer, error, throwable ) -> {
-      System.out.println( "Observer error: " + error + "\nobserver: " + observer );
-      if ( null != throwable )
-      {
-        throwable.printStackTrace( System.out );
-      }
-    } );
+    ExampleUtil.logAllErrors( context );
 
     final PersonModel person = new Arez_PersonModel( context, "Bill", "Smith" );
 

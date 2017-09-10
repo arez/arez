@@ -12,6 +12,7 @@ public final class TimerExample
     throws Exception
   {
     final ArezContext context = new ArezContext();
+    ExampleUtil.logAllErrors( context );
 
     final TimeModel timeModel = new Arez_TimeModel( context, 0 );
 
