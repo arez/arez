@@ -139,4 +139,31 @@ public class WatcherTest
     assertEquals( effectRun.get(), 0 );
     assertEquals( errorCount.get(), 2 );
   }
+
+  @Test
+  public void verifyEffectWhenReadOnlyTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final AtomicInteger errorCount = new AtomicInteger();
+
+    final ObserverErrorHandler handler = ( observer, error, throwable ) -> errorCount.incrementAndGet();
+    context.addObserverErrorHandler( handler );
+
+    final Observable observable = context.createObservable( ValueUtil.randomString() );
+
+    final AtomicInteger effectRun = new AtomicInteger();
+
+    final Procedure effect = () -> {
+      effectRun.incrementAndGet();
+      observable.reportObserved();
+      observable.reportChanged();
+    };
+
+    new Watcher( context, ValueUtil.randomString(), false, () -> true, effect );
+
+    assertEquals( effectRun.get(), 1 );
+    assertEquals( errorCount.get(), 1 );
+  }
 }
