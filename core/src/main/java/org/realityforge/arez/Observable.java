@@ -206,7 +206,8 @@ public final class Observable
                         getName() ) );
     getObservers().add( observer );
 
-    final ObserverState state = ObserverState.INACTIVE == observer.getState() ? ObserverState.UP_TO_DATE : observer.getState();
+    final ObserverState state =
+      ObserverState.INACTIVE == observer.getState() ? ObserverState.UP_TO_DATE : observer.getState();
     if ( _leastStaleObserverState.ordinal() > state.ordinal() )
     {
       _leastStaleObserverState = state;
