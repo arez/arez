@@ -7,6 +7,9 @@ COMPILE_DEPS = []
 OPTIONAL_DEPS = []
 TEST_DEPS = [:guiceyloops]
 
+# JDK options passed to test environment. Essentially turns assertions on.
+AREZ_TEST_OPTIONS = { 'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy' }
+
 desc 'Arez: Simple, Scalable State Management Library'
 define 'arez' do
   project.group = 'org.realityforge.arez'
@@ -37,7 +40,7 @@ define 'arez' do
     compile.with PROVIDED_DEPS,
                  COMPILE_DEPS
 
-    test.options[:properties] = { 'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy' }
+    test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
 
     package(:jar)
@@ -54,7 +57,7 @@ define 'arez' do
     compile.with project('core').package(:jar),
                  project('core').compile.dependencies
 
-    test.options[:properties] = { 'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy' }
+    test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
 
     package(:jar)
@@ -101,7 +104,7 @@ define 'arez' do
                  project('processor').package(:jar),
                  project('processor').compile.dependencies
 
-    test.options[:properties] = { 'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy' }
+    test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
 
     package(:jar)
