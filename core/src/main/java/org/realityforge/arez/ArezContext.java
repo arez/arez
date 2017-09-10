@@ -285,8 +285,15 @@ public final class ArezContext
                              final boolean mutation,
                              @Nonnull final SafeProcedure action )
   {
-    final TransactionMode mode = mutationToTransactionMode( mutation );
-    final Transaction transaction = beginTransaction( name, mode, null );
+    safeProcedure( name, mutationToTransactionMode( mutation ), null, action );
+  }
+
+  void safeProcedure( @Nullable final String name,
+                      @Nonnull final TransactionMode mode,
+                      @Nullable final Observer tracker,
+                      @Nonnull final SafeProcedure action )
+  {
+    final Transaction transaction = beginTransaction( name, mode, tracker );
     try
     {
       action.call();
