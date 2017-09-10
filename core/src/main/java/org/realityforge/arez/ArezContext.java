@@ -173,6 +173,18 @@ public final class ArezContext
                         _transaction.getName() ) );
     _transaction.commit();
     _transaction = _transaction.getPrevious();
+    triggerScheduler();
+  }
+
+  /**
+   * Method invoked to trigger the scheduler to run any pending reactions. The scheduler will only be
+   * triggered if there is no transaction active. This method is typically used after one or more Observers
+   * have been created outside a transaction with the runImmediately flag set to false and the caller wants
+   * to force the observers to react. Otherwise the Observers will not be schedule until the next top-level
+   * transaction completes.</p>
+   */
+  public void triggerScheduler()
+  {
     if ( null == _transaction )
     {
       _scheduler.runPendingObservers();

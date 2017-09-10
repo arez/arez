@@ -18,6 +18,21 @@ public class ArezContextTest
   }
 
   @Test
+  public void triggerScheduler()
+  {
+    final ArezContext context = new ArezContext();
+    final AtomicInteger callCount = new AtomicInteger();
+
+    context.autorun( ValueUtil.randomString(), false, callCount::incrementAndGet, false );
+
+    assertEquals( callCount.get(), 0 );
+
+    context.triggerScheduler();
+
+    assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
   public void beginTransaction()
     throws Exception
   {

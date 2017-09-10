@@ -18,9 +18,25 @@ import static org.testng.Assert.*;
  * This class tests all the public API of Arez and identifies all
  * the elements that should be visible outside package.
  */
+@SuppressWarnings( "Duplicates" )
 public class ExternalApiTest
   extends AbstractArezTest
 {
+  @Test
+  public void triggerScheduler()
+  {
+    final ArezContext context = new ArezContext();
+    final AtomicInteger callCount = new AtomicInteger();
+
+    context.autorun( ValueUtil.randomString(), false, callCount::incrementAndGet, false );
+
+    assertEquals( callCount.get(), 0 );
+
+    context.triggerScheduler();
+
+    assertEquals( callCount.get(), 1 );
+  }
+
   @Test
   public void areNamesEnabled()
     throws Exception
