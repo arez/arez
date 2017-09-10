@@ -113,6 +113,34 @@ public class ExternalApiTest
   }
 
   @Test
+  public void safeProcedure_interactionWithSingleObservable()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observable observable = context.createObservable( ValueUtil.randomString() );
+
+    final AtomicInteger reactionCount = new AtomicInteger();
+
+    final Observer observer =
+      context.autorun( ValueUtil.randomString(),
+                       false,
+                       () -> {
+                         observable.reportObserved();
+                         reactionCount.incrementAndGet();
+                       },
+                       true );
+
+    assertEquals( reactionCount.get(), 1 );
+    assertEquals( observer.isActive(), true );
+
+    context.safeProcedure( ValueUtil.randomString(), true, observable::reportChanged );
+
+    assertEquals( reactionCount.get(), 2 );
+    assertEquals( observer.isActive(), true );
+  }
+
+  @Test
   public void interactionWithSingleObservable()
     throws Exception
   {
