@@ -364,7 +364,7 @@ final class Transaction
       }
       else if ( TransactionMode.READ_WRITE_OWNED == _mode )
       {
-        Guards.invariant( () -> !observable.hasObservers() || observable.getOwner() == _tracker,
+        Guards.invariant( () -> observable.getOwner() == _tracker,
                           () -> String.format(
                             "Transaction named '%s' attempted to change observable named '%s' and transaction is " +
                             "READ_WRITE_OWNED but the observable has not been created by the transaction.",

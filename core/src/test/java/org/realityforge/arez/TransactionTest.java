@@ -1105,23 +1105,19 @@ public class TransactionTest
 
     final Observable observable1 = tracker.getDerivedValue();
     final Observable observable2 = new Observable( context, ValueUtil.randomString() );
-    final Observable observable3 = new Observable( context, ValueUtil.randomString() );
 
-    tracker.getDependencies().add( observable3 );
-    observable3.getObservers().add( tracker );
+    tracker.getDependencies().add( observable2 );
+    observable2.getObservers().add( tracker );
 
     //Should produce no error as it is owned by derivation
     transaction.verifyWriteAllowed( observable1 );
 
-    // Should produce no errors as it has no observers and thus has been created in this transaction
-    transaction.verifyWriteAllowed( observable2 );
-
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> transaction.verifyWriteAllowed( observable3 ) );
+      expectThrows( IllegalStateException.class, () -> transaction.verifyWriteAllowed( observable2 ) );
 
     assertEquals( exception.getMessage(),
                   "Transaction named '" + transaction.getName() + "' attempted to change observable named '" +
-                  observable3.getName() + "' and transaction is READ_WRITE_OWNED but the observable has not been " +
+                  observable2.getName() + "' and transaction is READ_WRITE_OWNED but the observable has not been " +
                   "created by the transaction." );
   }
 
