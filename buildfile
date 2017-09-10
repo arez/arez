@@ -119,5 +119,6 @@ define 'arez' do
   ipr.add_component_from_artifact(:idea_codestyle)
   ipr.extra_modules << '../mobx/mobx.iml'
   ipr.extra_modules << '../mobx-react/mobx-react.iml'
+  ipr.extra_modules << '../mobx-react-devtools/mobx-react-devtools.iml'
   ipr.extra_modules << '../mobx-utils/mobx-utils.iml'
 end
