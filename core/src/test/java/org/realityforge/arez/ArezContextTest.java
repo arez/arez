@@ -419,13 +419,25 @@ public class ArezContextTest
   {
     final ArezContext context = new ArezContext();
 
+    final Object event = new Object();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
     final SpyEventHandler handler = e -> {
+      callCount.incrementAndGet();
+      assertEquals( e, event );
     };
 
     context.addSpyEventHandler( handler );
 
     assertEquals( context.getSpyEventHandlerSupport().getSpyEventHandlers().size(), 1 );
     assertEquals( context.getSpyEventHandlerSupport().getSpyEventHandlers().contains( handler ), true );
+
+    assertEquals( callCount.get(), 0 );
+
+    context.getSpyEventHandler().onSpyEvent( event );
+
+    assertEquals( callCount.get(), 1 );
 
     context.removeSpyEventHandler( handler );
 
