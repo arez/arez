@@ -43,4 +43,11 @@ public @interface Container
    * @return true if the container can only have a single instance, false otherwise.
    */
   boolean singleton() default false;
+
+  /**
+   * Return true if the generated container should implement Disposable interface that releases resources from Arez system.
+   *
+   * @return true if the container should implement Disposable.
+   */
+  boolean disposable() default true;
 }
