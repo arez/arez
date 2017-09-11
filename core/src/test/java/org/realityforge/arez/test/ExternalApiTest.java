@@ -11,6 +11,7 @@ import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
 import org.realityforge.arez.ObserverErrorHandler;
 import org.realityforge.arez.Procedure;
+import org.realityforge.arez.SpyEventHandler;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -45,6 +46,13 @@ public class ExternalApiTest
     final ArezContext context = new ArezContext();
 
     assertTrue( context.areNamesEnabled() );
+  }
+
+  @Test
+  public void areSpiesEnabled()
+  {
+    final ArezContext context = new ArezContext();
+    assertTrue( context.areSpiesEnabled() );
   }
 
   @Test
@@ -109,6 +117,30 @@ public class ExternalApiTest
 
     // This will run immediately and generate an exception
     context.autorun( ValueUtil.randomString(), false, reaction, true );
+
+    assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
+  public void spyEventHandler()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final SpyEventHandler handler = e -> callCount.incrementAndGet();
+    context.addSpyEventHandler( handler );
+
+    // Generate an event
+    context.createObservable( ValueUtil.randomString() );
+
+    assertEquals( callCount.get(), 1 );
+
+    context.removeSpyEventHandler( handler );
+
+    // Generate an event
+    context.createObservable( ValueUtil.randomString() );
 
     assertEquals( callCount.get(), 1 );
   }
