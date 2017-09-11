@@ -95,6 +95,38 @@ public class ObservableTest
   }
 
   @Test
+  public void dispose_readWriteTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+
+    final Observer observer = newReadOnlyObserver( context );
+
+    setCurrentTransaction( newReadWriteObserver( context ) );
+
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    observable.getObservers().add( observer );
+    observer.getDependencies().add( observable );
+
+    assertEquals( observable.isDisposed(), false );
+
+    final int currentNextTransactionId = context.currentNextTransactionId();
+
+    observable.dispose();
+
+    // No transaction created so new id
+    assertEquals( context.currentNextTransactionId(), currentNextTransactionId );
+
+    assertEquals( observable.isDisposed(), true );
+    assertEquals( observable.getWorkState(), Observable.DISPOSED );
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+  }
+  @Test
   public void ownerMustBeADerivation()
     throws Exception
   {
