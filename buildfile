@@ -117,6 +117,10 @@ define 'arez' do
 
     test.using :testng
     test.compile.with TEST_DEPS
+
+    # The generators are configured to generate to here.
+    # TODO: Generate generators configuration
+    iml.main_source_directories << _('generated/processors/main/java')
   end
 
   ipr.add_default_testng_configuration(:jvm_args => '-ea -Darez.dynamic_provider=true -Darez.logger=proxy -Darez.environment=development')
