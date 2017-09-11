@@ -543,6 +543,7 @@ public final class Observer
     _dependencies = Objects.requireNonNull( dependencies );
     invariantDependenciesUnique( "Post replaceDependencies" );
     invariantDependenciesBackLink( "Post replaceDependencies" );
+    invariantDependenciesNotDisposed();
   }
 
   /**
