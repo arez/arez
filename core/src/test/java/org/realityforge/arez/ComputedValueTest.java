@@ -140,6 +140,30 @@ public class ComputedValueTest
   }
 
   @Test
+  public void dispose_nestedInReadOnlyTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observer observer = newDerivation( context );
+    final ComputedValue<?> computedValue = observer.getComputedValue();
+
+    setCurrentTransaction( newReadOnlyObserver( context ) );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    assertEquals( observer.isDisposed(), false );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, computedValue::dispose );
+
+    assertEquals( exception.getMessage(),
+                  "Attempting to create READ_WRITE transaction named '" + computedValue.getName() +
+                  "' but it is nested in transaction named '" + context.getTransaction().getName() +
+                  "' with mode READ_ONLY which is not equal to READ_WRITE." );
+
+    assertEquals( observer.isDisposed(), false );
+  }
+
+  @Test
   public void get_upToDateComputedValue()
     throws Exception
   {
