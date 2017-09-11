@@ -21,6 +21,7 @@ public abstract class AbstractArezTest
     provider.setCheckInvariants( true );
     provider.setPurgeReactionsWhenRunawayDetected( false );
     provider.setEnforceTransactionType( true );
+    provider.setEnableSpy( true );
     getProxyLogger().setLogger( new TestLogger() );
   }
 
@@ -34,6 +35,7 @@ public abstract class AbstractArezTest
     provider.setCheckInvariants( false );
     provider.setPurgeReactionsWhenRunawayDetected( true );
     provider.setEnforceTransactionType( false );
+    provider.setEnableSpy( false );
     getProxyLogger().setLogger( null );
   }
 

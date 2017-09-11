@@ -63,18 +63,22 @@ final class ArezConfig
       "true".equals( System.getProperty( "arez.purge_reactions_when_runaway_detected", "true" ) );
     final boolean enforceTransactionType =
       "true".equals( System.getProperty( "arez.enforce_transaction_type", development ? "true" : "false" ) );
+    final boolean enableSpy =
+      "true".equals( System.getProperty( "arez.enable_spy", development ? "true" : "false" ) );
 
     return System.getProperty( "arez.dynamic_provider", "false" ).equals( "true" ) ?
            new DynamicProvider( verboseErrorMessages,
                                 checkInvariants,
                                 enableNames,
                                 purgeReactions,
-                                enforceTransactionType ) :
+                                enforceTransactionType,
+                                enableSpy ) :
            new StaticProvider( verboseErrorMessages,
                                checkInvariants,
                                enableNames,
                                purgeReactions,
-                               enforceTransactionType );
+                               enforceTransactionType,
+                               enableSpy );
   }
 
   /**
@@ -94,6 +98,8 @@ final class ArezConfig
     boolean purgeReactionsWhenRunawayDetected();
 
     boolean enforceTransactionType();
+
+    boolean enableSpy();
   }
 
   /**
@@ -109,18 +115,21 @@ final class ArezConfig
     private boolean _enableNames;
     private boolean _purgeReactionsWhenRunawayDetected;
     private boolean _enforceTransactionType;
+    private boolean _enableSpy;
 
     DynamicProvider( final boolean verboseErrorMessages,
                      final boolean checkInvariants,
                      final boolean enableNames,
                      final boolean purgeReactionsWhenRunawayDetected,
-                     final boolean enforceTransactionType )
+                     final boolean enforceTransactionType,
+                     final boolean enableSpy )
     {
       _verboseErrorMessages = verboseErrorMessages;
       _checkInvariants = checkInvariants;
       _enableNames = enableNames;
       _purgeReactionsWhenRunawayDetected = purgeReactionsWhenRunawayDetected;
       _enforceTransactionType = enforceTransactionType;
+      _enableSpy = enableSpy;
     }
 
     void setVerboseErrorMessages( final boolean verboseErrorMessages )
@@ -148,6 +157,11 @@ final class ArezConfig
       _enforceTransactionType = enforceTransactionType;
     }
 
+    void setEnableSpy( final boolean enableSpy )
+    {
+      _enableSpy = enableSpy;
+    }
+
     @Override
     public boolean verboseErrorMessages()
     {
@@ -176,6 +190,12 @@ final class ArezConfig
     public boolean enforceTransactionType()
     {
       return _enforceTransactionType;
+    }
+
+    @Override
+    public boolean enableSpy()
+    {
+      return _enableSpy;
     }
   }
 
@@ -192,18 +212,21 @@ final class ArezConfig
     private final boolean _enableNames;
     private final boolean _purgeReactionsWhenRunawayDetected;
     private final boolean _enforceTransactionType;
+    private final boolean _enableSpy;
 
     StaticProvider( final boolean verboseErrorMessages,
                     final boolean checkInvariants,
                     final boolean enableNames,
                     final boolean purgeReactionsWhenRunawayDetected,
-                    final boolean enforceTransactionType )
+                    final boolean enforceTransactionType,
+                    final boolean enableSpy )
     {
       _verboseErrorMessages = verboseErrorMessages;
       _checkInvariants = checkInvariants;
       _enableNames = enableNames;
       _purgeReactionsWhenRunawayDetected = purgeReactionsWhenRunawayDetected;
       _enforceTransactionType = enforceTransactionType;
+      _enableSpy = enableSpy;
     }
 
     @Override
@@ -234,6 +257,12 @@ final class ArezConfig
     public boolean enforceTransactionType()
     {
       return _enforceTransactionType;
+    }
+
+    @Override
+    public boolean enableSpy()
+    {
+      return _enableSpy;
     }
   }
 }
