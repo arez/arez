@@ -90,6 +90,10 @@ define 'arez' do
 
     test.using :testng
     test.compile.with TEST_DEPS
+
+    iml.test_source_directories << _('src/test/resources/input')
+    iml.test_source_directories << _('src/test/resources/expected')
+    iml.test_source_directories << _('src/test/resources/bad_input')
   end
 
   define 'example' do
