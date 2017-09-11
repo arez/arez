@@ -24,6 +24,8 @@ TODO:
  - activated
 (Is all this just dev tools?)
 
+* Consider removing Observer from the public API so instead just Disposable is returned from autorun.
+
 * Add @PreDispose and @PostDispose annotations that can be applied to methods that are called before and after a
   container is disposed.
 
