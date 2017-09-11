@@ -1008,6 +1008,38 @@ public class TransactionTest
   }
 
   @Test
+  public void processPendingDeactivations_observableHasListenerAndIsDisposed()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    context.setTransaction( transaction );
+
+    final Observer otherObserver = newDerivation( context );
+    otherObserver.setState( ObserverState.UP_TO_DATE );
+
+    final Observer derivation = newDerivation( context );
+    derivation.setState( ObserverState.UP_TO_DATE );
+    final Observable observable = derivation.getDerivedValue();
+
+    observable.markAsPendingDeactivation();
+    transaction.queueForDeactivation( observable );
+    otherObserver.getDependencies().add( observable );
+    observable.addObserver( otherObserver );
+
+    observable.setWorkState( Observable.DISPOSED );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, transaction::processPendingDeactivations );
+
+    assertEquals( exception.getMessage(),
+                  "Attempting to deactivate disposed observable named '" + observable.getName() +
+                  "' in transaction named '" + transaction.getName() + "' but the observable still has observers." );
+
+  }
+
+  @Test
   public void processPendingDeactivations_causesMorePendingDeactivations()
   {
     final ArezContext context = new ArezContext();

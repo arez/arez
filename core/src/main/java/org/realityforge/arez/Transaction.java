@@ -159,6 +159,13 @@ final class Transaction
       {
         final Observable observable = _pendingDeactivations.get( i );
         observable.resetPendingDeactivation();
+        if ( observable.isDisposed() )
+        {
+          Guards.invariant( () -> !observable.hasObservers(),
+                            () -> String.format( "Attempting to deactivate disposed observable named '%s' in " +
+                                                 "transaction named '%s' but the observable still has observers.",
+                                                 observable.getName(), getName() ) );
+        }
         if ( !observable.hasObservers() )
         {
           observable.deactivate();
