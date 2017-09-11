@@ -1,0 +1,152 @@
+package org.realityforge.arez;
+
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
+import org.testng.annotations.Test;
+import static org.testng.Assert.*;
+
+public class SpyEventHandlerSupportTest
+  extends AbstractArezTest
+{
+  @Test
+  public void basicOperation()
+  {
+    final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+
+    final Object event = new Object();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final SpyEventHandler handler = e -> {
+      callCount.incrementAndGet();
+      assertEquals( e, event );
+    };
+
+    support.addSpyEventHandler( handler );
+    assertEquals( support.getSpyEventHandlers().size(), 1 );
+
+    support.onSpyEvent( event );
+
+    assertEquals( callCount.get(), 1 );
+
+    support.onSpyEvent( event );
+
+    assertEquals( callCount.get(), 2 );
+
+    support.removeSpyEventHandler( handler );
+
+    assertEquals( support.getSpyEventHandlers().size(), 0 );
+
+    support.onSpyEvent( event );
+
+    // Not called again
+    assertEquals( callCount.get(), 2 );
+  }
+
+  @Test
+  public void addSpyEventHandler_alreadyExists()
+    throws Exception
+  {
+    final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+
+    final SpyEventHandler handler = e -> {
+    };
+    support.addSpyEventHandler( handler );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> support.addSpyEventHandler( handler ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempting to add handler " + handler + " that is already in the list of spy handlers." );
+  }
+
+  @Test
+  public void removeSpyEventHandler_noExists()
+    throws Exception
+  {
+    final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+
+    final SpyEventHandler handler = e -> {
+    };
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> support.removeSpyEventHandler( handler ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempting to remove handler " + handler + " that is not in the list of spy handlers." );
+  }
+
+  @Test
+  public void multipleHandlers()
+  {
+    final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+
+    final Object event = new Object();
+
+    final AtomicInteger callCount1 = new AtomicInteger();
+    final AtomicInteger callCount2 = new AtomicInteger();
+    final AtomicInteger callCount3 = new AtomicInteger();
+
+    final SpyEventHandler handler1 = e -> callCount1.incrementAndGet();
+    final SpyEventHandler handler2 = e -> callCount2.incrementAndGet();
+    final SpyEventHandler handler3 = e -> callCount3.incrementAndGet();
+    support.addSpyEventHandler( handler1 );
+    support.addSpyEventHandler( handler2 );
+    support.addSpyEventHandler( handler3 );
+
+    assertEquals( support.getSpyEventHandlers().size(), 3 );
+
+    support.onSpyEvent( event );
+
+    assertEquals( callCount1.get(), 1 );
+    assertEquals( callCount2.get(), 1 );
+    assertEquals( callCount3.get(), 1 );
+
+    support.onSpyEvent( event );
+
+    assertEquals( callCount1.get(), 2 );
+    assertEquals( callCount2.get(), 2 );
+    assertEquals( callCount3.get(), 2 );
+  }
+
+  @Test
+  public void onSpyEvent_whereOneHandlerGeneratesError()
+  {
+    final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+
+    final Object event = new Object();
+
+    final AtomicInteger callCount1 = new AtomicInteger();
+    final AtomicInteger callCount3 = new AtomicInteger();
+
+    final RuntimeException exception = new RuntimeException( "X" );
+
+    final SpyEventHandler handler1 = e -> callCount1.incrementAndGet();
+    final SpyEventHandler handler2 = e -> {
+      throw exception;
+    };
+    final SpyEventHandler handler3 = e -> callCount3.incrementAndGet();
+    support.addSpyEventHandler( handler1 );
+    support.addSpyEventHandler( handler2 );
+    support.addSpyEventHandler( handler3 );
+
+    support.onSpyEvent( event );
+
+    assertEquals( callCount1.get(), 1 );
+    assertEquals( callCount3.get(), 1 );
+
+    final ArrayList<TestLogger.LogEntry> entries = getTestLogger().getEntries();
+    assertEquals( entries.size(), 1 );
+    final TestLogger.LogEntry entry1 = entries.get( 0 );
+    assertEquals( entry1.getMessage(),
+                  "Exception when notifying spy handler '" + handler2 + "' of '" + event + "' event." );
+    assertEquals( entry1.getThrowable(), exception );
+
+    support.onSpyEvent( event );
+
+    assertEquals( callCount1.get(), 2 );
+    assertEquals( callCount3.get(), 2 );
+
+    assertEquals( getTestLogger().getEntries().size(), 2 );
+  }
+}
