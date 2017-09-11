@@ -10,7 +10,6 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
@@ -397,10 +396,6 @@ public final class ArezProcessor
     }
     for ( final ComputedDescriptor computed : descriptor.getComputeds() )
     {
-      final TypeVariableName fieldType =
-        TypeVariableName.get( "org.realityforge.arez.ComputedValue",
-                              TypeName.get( computed.getComputed().getReturnType() ).box() );
-
       final ParameterizedTypeName typeName =
         ParameterizedTypeName.get( COMPUTED_VALUE_CLASSNAME,
                                    TypeName.get( computed.getComputed().getReturnType() ).box() );
