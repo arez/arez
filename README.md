@@ -52,7 +52,6 @@ Observer
   for owned or newly created observables. Derivations are implemented as extensions of Reactions but it is unclear
   whether the concept is independent of reaction as some Derivations could listen to data change messages and updated
   based on that?.
-* Should we implement "set or derive" values? i.e. If set takle that value else take derived value?
 * Currently the derivation can only own a single observable and that observable hitting zero listeners results
   in deactivation. It is possible a derivation can generate multiple "owned" observables?
 * NOT YET: A list of notifications scheduled by dependencies if it opted in as a message receiving Observer. 
