@@ -233,6 +233,11 @@ final class Transaction
    */
   void reportChanged( @Nonnull final Observable observable )
   {
+    Guards.invariant( () -> !observable.isDisposed(),
+                      () -> String.format( "Invoked reportChanged on transaction named '%s' for observable " +
+                                           "named '%s' where the observable is disposed.",
+                                           getName(),
+                                           observable.getName() ) );
     verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
 

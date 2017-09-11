@@ -1219,6 +1219,38 @@ public class TransactionTest
   }
 
   @Test
+  public void reportChanged_withDisposedObservable()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    context.setTransaction( transaction );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+
+    final Observer observer = newDerivation( context );
+    observer.setState( ObserverState.UP_TO_DATE );
+    observer.getDependencies().add( observable );
+    observable.getObservers().add( observer );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
+    context.setTransaction( transaction );
+
+    observable.setWorkState( Observable.DISPOSED );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.reportChanged( observable ) );
+
+    assertEquals( exception.getMessage(),
+                  "Invoked reportChanged on transaction named '" + transaction.getName() +
+                  "' for observable named '" + observable.getName() + "' where the observable is disposed." );
+  }
+
+  @Test
   public void reportChanged_readOnlyTransaction()
   {
     final ArezContext context = new ArezContext();
