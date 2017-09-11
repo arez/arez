@@ -2,11 +2,13 @@ import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 
 @Generated( "org.realityforge.arez.processor.ArezProcessor" )
 public final class Arez_ObservableGuessingModel
   extends ObservableGuessingModel
+  implements Disposable
 {
   private static volatile long $$arez$$_nextId;
 
@@ -41,6 +43,14 @@ public final class Arez_ObservableGuessingModel
   private String $$arez$$_id()
   {
     return "ObservableGuessingModel." + $$arez$$_id + ".";
+  }
+
+  @Override
+  public void dispose()
+  {
+    $$arez$$_string.dispose();
+    $$arez$$_foo.dispose();
+    $$arez$$_time.dispose();
   }
 
   @Override

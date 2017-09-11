@@ -3,12 +3,10 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
-import org.realityforge.arez.Disposable;
 
 @Generated( "org.realityforge.arez.processor.ArezProcessor" )
-public final class Arez_BasicComputedModel
-  extends BasicComputedModel
-  implements Disposable
+public final class Arez_NotDisposableModel
+  extends NotDisposableModel
 {
   private static volatile long $$arez$$_nextId;
 
@@ -20,7 +18,7 @@ public final class Arez_BasicComputedModel
   @Nonnull
   private final ComputedValue<Long> $$arez$$_time;
 
-  public Arez_BasicComputedModel( @Nonnull final ArezContext $$arez$$_context )
+  public Arez_NotDisposableModel( @Nonnull final ArezContext $$arez$$_context )
   {
     super();
     this.$$arez$$_id = $$arez$$_nextId++;
@@ -32,13 +30,7 @@ public final class Arez_BasicComputedModel
 
   private String $$arez$$_id()
   {
-    return "BasicComputedModel." + $$arez$$_id + ".";
-  }
-
-  @Override
-  public void dispose()
-  {
-    $$arez$$_time.dispose();
+    return "NotDisposableModel." + $$arez$$_id + ".";
   }
 
   @Override

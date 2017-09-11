@@ -3,11 +3,13 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
+import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 
 @Generated( "org.realityforge.arez.processor.ArezProcessor" )
 public final class Arez_SingletonModel
   extends SingletonModel
+  implements Disposable
 {
   @Nonnull
   private final ArezContext $$arez$$_context;
@@ -27,6 +29,13 @@ public final class Arez_SingletonModel
     this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ?
                                                                          "SingletonModel.someValue" :
                                                                          null, super::someValue, Objects::equals );
+  }
+
+  @Override
+  public void dispose()
+  {
+    $$arez$$_someValue.dispose();
+    $$arez$$_time.dispose();
   }
 
   @Override

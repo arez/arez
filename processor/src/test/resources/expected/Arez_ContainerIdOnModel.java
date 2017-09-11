@@ -1,11 +1,13 @@
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 
 @Generated( "org.realityforge.arez.processor.ArezProcessor" )
 public final class Arez_ContainerIdOnModel
   extends ContainerIdOnModel
+  implements Disposable
 {
   @Nonnull
   private final ArezContext $$arez$$_context;
@@ -24,6 +26,12 @@ public final class Arez_ContainerIdOnModel
   private String $$arez$$_id()
   {
     return "ContainerIdOnModel." + getId() + ".";
+  }
+
+  @Override
+  public void dispose()
+  {
+    $$arez$$_time.dispose();
   }
 
   @Override

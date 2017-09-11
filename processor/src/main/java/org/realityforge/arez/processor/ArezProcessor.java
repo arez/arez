@@ -49,6 +49,7 @@ public final class ArezProcessor
   private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "org.realityforge.arez", "ArezContext" );
   private static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "org.realityforge.arez", "Observable" );
   private static final ClassName COMPUTED_VALUE_CLASSNAME = ClassName.get( "org.realityforge.arez", "ComputedValue" );
+  private static final ClassName DISPOSABLE_CLASSNAME = ClassName.get( "org.realityforge.arez", "Disposable" );
   private static final String FIELD_PREFIX = "$$arez$$_";
   private static final String CONTEXT_FIELD_NAME = FIELD_PREFIX + "context";
   private static final String NEXT_ID_FIELD_NAME = FIELD_PREFIX + "nextId";
@@ -104,6 +105,11 @@ public final class ArezProcessor
       addAnnotation( generatedAnnotation );
     ProcessorUtil.copyAccessModifiers( element, builder );
 
+    if ( descriptor.isDisposable() )
+    {
+      builder.addSuperinterface( DISPOSABLE_CLASSNAME );
+    }
+
     buildFields( descriptor, builder );
 
     buildConstructors( descriptor, builder );
@@ -111,6 +117,11 @@ public final class ArezProcessor
     if ( !descriptor.isSingleton() )
     {
       builder.addMethod( buildIdGetter( descriptor ) );
+    }
+
+    if ( descriptor.isDisposable() )
+    {
+      builder.addMethod( buildDispose( descriptor ) );
     }
 
     for ( final ObservableDescriptor observable : descriptor.getObservables() )
@@ -334,6 +345,32 @@ public final class ArezProcessor
     {
       builder.addStatement( "return $S + $N() + $S", getPrefix( descriptor ), containerId.getSimpleName(), "." );
     }
+    return builder.build();
+  }
+
+  /**
+   * Generate the dispose method.
+   */
+  @Nonnull
+  private MethodSpec buildDispose( @Nonnull final ContainerDescriptor descriptor )
+    throws ArezProcessorException
+  {
+    assert descriptor.isDisposable();
+
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "dispose" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class );
+
+    for ( final ComputedDescriptor computed : descriptor.getComputeds() )
+    {
+      builder.addStatement( "$N.dispose()", FIELD_PREFIX + computed.getName() );
+    }
+    for ( final ObservableDescriptor observable : descriptor.getObservables() )
+    {
+      builder.addStatement( "$N.dispose()", fieldName( observable ) );
+    }
+
     return builder.build();
   }
 

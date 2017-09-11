@@ -2,11 +2,13 @@ import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 
 @Generated( "org.realityforge.arez.processor.ArezProcessor" )
 public final class Arez_DifferentObservableTypesModel
   extends DifferentObservableTypesModel
+  implements Disposable
 {
   @Nonnull
   private final ArezContext $$arez$$_context;
@@ -69,6 +71,20 @@ public final class Arez_DifferentObservableTypesModel
     this.$$arez$$_v5 = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
                                                                "DifferentObservableTypesModel.v5" :
                                                                null );
+  }
+
+  @Override
+  public void dispose()
+  {
+    $$arez$$_v6.dispose();
+    $$arez$$_v7.dispose();
+    $$arez$$_v8.dispose();
+    $$arez$$_v9.dispose();
+    $$arez$$_v1.dispose();
+    $$arez$$_v2.dispose();
+    $$arez$$_v3.dispose();
+    $$arez$$_v4.dispose();
+    $$arez$$_v5.dispose();
   }
 
   @Override

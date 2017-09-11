@@ -1,12 +1,13 @@
-
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 
 @Generated( "org.realityforge.arez.processor.ArezProcessor" )
 public final class Arez_ObservableWithExceptionModel
   extends ObservableWithExceptionModel
+  implements Disposable
 {
   private static volatile long $$arez$$_nextId;
 
@@ -30,6 +31,12 @@ public final class Arez_ObservableWithExceptionModel
   private String $$arez$$_id()
   {
     return "ObservableWithExceptionModel." + $$arez$$_id + ".";
+  }
+
+  @Override
+  public void dispose()
+  {
+    $$arez$$_time.dispose();
   }
 
   @Override

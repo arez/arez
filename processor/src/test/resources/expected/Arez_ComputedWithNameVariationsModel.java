@@ -3,10 +3,12 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
+import org.realityforge.arez.Disposable;
 
 @Generated( "org.realityforge.arez.processor.ArezProcessor" )
 public final class Arez_ComputedWithNameVariationsModel
   extends ComputedWithNameVariationsModel
+  implements Disposable
 {
   private static volatile long $$arez$$_nextId;
 
@@ -50,6 +52,15 @@ public final class Arez_ComputedWithNameVariationsModel
   private String $$arez$$_id()
   {
     return "ComputedWithNameVariationsModel." + $$arez$$_id + ".";
+  }
+
+  @Override
+  public void dispose()
+  {
+    $$arez$$_helper.dispose();
+    $$arez$$_ready.dispose();
+    $$arez$$_foo.dispose();
+    $$arez$$_time.dispose();
   }
 
   @Override
