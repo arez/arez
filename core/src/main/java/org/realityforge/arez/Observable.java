@@ -339,11 +339,18 @@ public final class Observable
     return _leastStaleObserverState;
   }
 
+  /**
+   * Notify Arez that this observable has been "observed" in the current transaction.
+   */
   public void reportObserved()
   {
     getContext().getTransaction().observe( this );
   }
 
+  /**
+   * Notify Arez that this observable has changed.
+   * This is called when the observable has definitely changed.
+   */
   public void reportChanged()
   {
     getContext().getTransaction().reportChanged( this );
