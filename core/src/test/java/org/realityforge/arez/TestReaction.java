@@ -13,7 +13,7 @@ class TestReaction
   public void react( @Nonnull final Observer observer )
     throws Exception
   {
-    observer.getDependencies().forEach( Observable::reportObserved );
+    observer.getDependencies().stream().filter( o -> !o.isDisposed() ).forEach( Observable::reportObserved );
     _observers.add( observer );
   }
 
