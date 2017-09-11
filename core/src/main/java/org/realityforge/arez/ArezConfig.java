@@ -63,7 +63,11 @@ final class ArezConfig
       "true".equals( System.getProperty( "arez.purge_reactions_when_runaway_detected", "true" ) );
     final boolean enforceTransactionType =
       "true".equals( System.getProperty( "arez.enforce_transaction_type", development ? "true" : "false" ) );
+    /*
+     * Spy's use debug names so we can not enable spys without names.
+     */
     final boolean enableSpy =
+      enableNames &&
       "true".equals( System.getProperty( "arez.enable_spy", development ? "true" : "false" ) );
 
     return System.getProperty( "arez.dynamic_provider", "false" ).equals( "true" ) ?
@@ -195,7 +199,7 @@ final class ArezConfig
     @Override
     public boolean enableSpy()
     {
-      return _enableSpy;
+      return enableNames() && _enableSpy;
     }
   }
 
