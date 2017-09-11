@@ -21,6 +21,7 @@ public class ObservableTest
     assertEquals( observable.isPendingDeactivation(), false );
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
+    assertEquals( observable.isDisposed(), false );
 
     //All the same stuff
     assertEquals( observable.getLastTrackerTransactionId(), 0 );
