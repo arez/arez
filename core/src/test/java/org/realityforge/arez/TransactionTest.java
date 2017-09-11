@@ -1952,4 +1952,29 @@ public class TransactionTest
     assertEquals( transaction.shouldDisposeTracker(), true );
     assertEquals( tracker.isDisposed(), true );
   }
+
+  @Test
+  public void markTrackerAsDisposed_butTransactionREAD_ONLY()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observer tracker = newDerivation( context );
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    context.setTransaction( transaction );
+
+    assertEquals( transaction.shouldDisposeTracker(), false );
+    assertEquals( tracker.isDisposed(), false );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, transaction::markTrackerAsDisposed );
+
+    assertEquals( exception.getMessage(),
+                  "Attempted to invoke markTrackerAsDisposed on transaction named '" + transaction.getName() +
+                  "' when the transaction mode is READ_ONLY and not READ_WRITE." );
+
+    assertEquals( transaction.shouldDisposeTracker(), false );
+    assertEquals( tracker.isDisposed(), false );
+  }
 }

@@ -76,6 +76,11 @@ final class Transaction
                       () -> String.format( "Attempted to invoke markTrackerAsDisposed on transaction named " +
                                            "'%s' when there is no tracker associated with the transaction.",
                                            getName() ) );
+    Guards.invariant( () -> TransactionMode.READ_WRITE == getMode(),
+                      () -> String.format( "Attempted to invoke markTrackerAsDisposed on transaction named " +
+                                           "'%s' when the transaction mode is %s and not READ_WRITE.",
+                                           getName(),
+                                           getMode().name() ) );
     assert null != _tracker;
     _tracker.setDisposed( true );
     _disposeTracker = true;
