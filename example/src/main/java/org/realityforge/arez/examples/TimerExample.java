@@ -43,7 +43,7 @@ public final class TimerExample
       @Override
       public void run()
       {
-        System.out.println( timePrinter + "::Active=" + timePrinter.isActive() );
+        System.out.println( timePrinter );
       }
     }, 0, 1000 );
 
