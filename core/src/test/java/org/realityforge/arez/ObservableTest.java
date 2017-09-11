@@ -857,12 +857,9 @@ public class ObservableTest
 
     final Observable observable = derivation.getDerivedValue();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::deactivate );
+    observable.deactivate();
 
-    assertEquals( exception.getMessage(),
-                  "Invoked deactivate on observable named '" +
-                  observable.getName() + "' when owner is inactive." );
+    assertEquals( derivation.getState(), ObserverState.INACTIVE );
   }
 
   @Test

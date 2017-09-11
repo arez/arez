@@ -203,10 +203,14 @@ public final class Observable
                       () -> String.format( "Invoked deactivate on observable named '%s' when owner is null.",
                                            getName() ) );
     assert null != _owner;
-    Guards.invariant( _owner::isActive,
-                      () -> String.format( "Invoked deactivate on observable named '%s' when owner is inactive.",
-                                           getName() ) );
-    _owner.setState( ObserverState.INACTIVE );
+    if ( _owner.isActive() )
+    {
+      /*
+       * It is possible for the owner to already be deactivated if dispose() is explicitly
+       * called within the transaction.
+       */
+      _owner.setState( ObserverState.INACTIVE );
+    }
   }
 
   /**
