@@ -54,7 +54,7 @@ final class ContainerDescriptorParser
       container.name().equals( SENTINEL_NAME ) ? typeElement.getSimpleName().toString() : container.name();
 
     final ContainerDescriptor descriptor =
-      new ContainerDescriptor( name, container.singleton(), packageElement, typeElement );
+      new ContainerDescriptor( name, container.singleton(), container.disposable(), packageElement, typeElement );
 
     processMethods( typeElement, descriptor );
 
