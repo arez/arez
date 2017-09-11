@@ -430,7 +430,7 @@ final class Transaction
 
     boolean dependenciesChanged = false;
     int currentIndex = 0;
-    if ( null != _observables )
+    if ( null != _observables && !_tracker.isDisposed() )
     {
       /*
        * Iterate through the list of observables, flagging observables and "removing" duplicates.
@@ -439,7 +439,7 @@ final class Transaction
       for ( int i = 0; i < size; i++ )
       {
         final Observable observable = _observables.get( i );
-        if ( !observable.isInCurrentTracking() )
+        if ( !observable.isInCurrentTracking() && !observable.isDisposed() )
         {
           observable.putInCurrentTracking();
           if ( i != currentIndex )
