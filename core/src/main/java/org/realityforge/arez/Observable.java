@@ -99,7 +99,12 @@ public final class Observable
 
   void setLastTrackerTransactionId( final int lastTrackerTransactionId )
   {
-    _workState = lastTrackerTransactionId;
+    setWorkState( lastTrackerTransactionId );
+  }
+
+  void setWorkState( final int workState )
+  {
+    _workState = workState;
   }
 
   boolean isInCurrentTracking()
