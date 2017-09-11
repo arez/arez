@@ -100,7 +100,7 @@ public final class Observable
     }
   }
 
-  void performDispose()
+  private void performDispose()
   {
     reportChanged();
     _workState = DISPOSED;
