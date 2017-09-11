@@ -1,6 +1,8 @@
 package org.realityforge.arez.examples;
 
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Disposable;
+import org.realityforge.arez.Observer;
 
 public final class CodeModelExample
 {
@@ -13,13 +15,18 @@ public final class CodeModelExample
 
     final CodeModel codeModel = new Arez_CodeModel( context, "com.example", "MyType" );
 
-    context.autorun( "Printer",
-                     false,
-                     () -> System.out.println( "Qualified Name: " + codeModel.getQualifiedName() ),
-                     true );
+    final Observer observer =
+      context.autorun( "Printer",
+                       false,
+                       () -> System.out.println( "Qualified Name: " +
+                                                 codeModel.getQualifiedName() ),
+                       true );
 
     context.procedure( "Specific Qualified Name", true, () -> codeModel.setQualifiedName( "com.biz.Fred" ) );
     context.procedure( "Reset Qualified Name to default", true, () -> codeModel.setQualifiedName( null ) );
     context.procedure( "Change Local Name", true, () -> codeModel.setName( "MyType2" ) );
+
+    observer.dispose();
+    context.procedure( "Dispose Model", true, ( (Disposable) codeModel )::dispose );
   }
 }
