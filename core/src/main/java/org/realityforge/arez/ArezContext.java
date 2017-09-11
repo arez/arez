@@ -424,6 +424,17 @@ public final class ArezContext
     getSpyEventHandlerSupport().removeSpyEventHandler( handler );
   }
 
+  /**
+   * Return true if spy events will be propagated.
+   * This means spies are enabled and there is at least one spy event handler present.
+   *
+   * @return true if spy events will be propagated, false otherwise.
+   */
+  boolean willPropagateSpyEvents()
+  {
+    return ArezConfig.enableSpy() && !getSpyEventHandlerSupport().getSpyEventHandlers().isEmpty();
+  }
+
   @Nonnull
   SpyEventHandlerSupport getSpyEventHandlerSupport()
   {

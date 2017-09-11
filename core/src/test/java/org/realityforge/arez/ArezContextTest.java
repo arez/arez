@@ -428,7 +428,11 @@ public class ArezContextTest
       assertEquals( e, event );
     };
 
+    assertFalse( context.willPropagateSpyEvents() );
+
     context.addSpyEventHandler( handler );
+
+    assertTrue( context.willPropagateSpyEvents() );
 
     assertEquals( context.getSpyEventHandlerSupport().getSpyEventHandlers().size(), 1 );
     assertEquals( context.getSpyEventHandlerSupport().getSpyEventHandlers().contains( handler ), true );
@@ -440,6 +444,8 @@ public class ArezContextTest
     assertEquals( callCount.get(), 1 );
 
     context.removeSpyEventHandler( handler );
+
+    assertFalse( context.willPropagateSpyEvents() );
 
     assertEquals( context.getSpyEventHandlerSupport().getSpyEventHandlers().size(), 0 );
   }
