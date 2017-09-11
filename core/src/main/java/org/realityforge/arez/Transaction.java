@@ -549,6 +549,7 @@ final class Transaction
       }
       _tracker.invariantDependenciesUnique( "Post completeTracking" );
       _tracker.invariantDependenciesBackLink( "Post completeTracking" );
+      _tracker.invariantDependenciesNotDisposed();
     }
   }
 
