@@ -55,7 +55,7 @@ public class ExternalApiTest
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue = context.createComputedValue( name, () -> "", Objects::equals );
 
-    context.procedure( ValueUtil.randomString(), false, () -> {
+    context.procedure( ValueUtil.randomString(), true, () -> {
       assertEquals( computedValue.getName(), name );
       assertEquals( computedValue.get(), "" );
 

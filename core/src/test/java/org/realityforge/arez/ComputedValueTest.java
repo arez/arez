@@ -131,6 +131,8 @@ public class ComputedValueTest
 
     assertEquals( observer.isDisposed(), false );
 
+    context.setTransaction( null );
+
     computedValue.dispose();
 
     assertEquals( observer.isDisposed(), true );

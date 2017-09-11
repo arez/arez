@@ -390,14 +390,13 @@ public class TransactionTest
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, tracker );
     context.setTransaction( transaction );
 
     ensureDerivationHasObserver( tracker );
 
-    transaction.markTrackerAsDisposed();
     tracker.setState( ObserverState.UP_TO_DATE );
-    tracker.setDisposed( true );
+    transaction.markTrackerAsDisposed();
 
     // This dependency "retained" (until tracker disposed)
     final Observable observable1 = new Observable( context, ValueUtil.randomString() );
@@ -1942,13 +1941,15 @@ public class TransactionTest
 
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, tracker );
     context.setTransaction( transaction );
 
     assertEquals( transaction.shouldDisposeTracker(), false );
+    assertEquals( tracker.isDisposed(), false );
 
     transaction.markTrackerAsDisposed();
 
     assertEquals( transaction.shouldDisposeTracker(), true );
+    assertEquals( tracker.isDisposed(), true );
   }
 }

@@ -77,6 +77,7 @@ final class Transaction
                                            "'%s' when there is no tracker associated with the transaction.",
                                            getName() ) );
     assert null != _tracker;
+    _tracker.setDisposed( true );
     _disposeTracker = true;
   }
 

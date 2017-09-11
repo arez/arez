@@ -6,13 +6,13 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.jetbrains.annotations.TestOnly;
 
 /**
  * A node within Arez that is notified of changes in 0 or more Observables.
  */
 public final class Observer
   extends Node
+  implements Disposable
 {
   /**
    * The reference to the ComputedValue if this observer is a derivation.
@@ -149,16 +149,21 @@ public final class Observer
    * Make the Observer INACTIVE and release any resources associated with observer.
    * The applications should NOT interact with the Observer after it has been disposed.
    */
+  @Override
   public void dispose()
   {
     if ( !_disposed )
     {
-      _disposed = true;
       getContext().safeProcedure( ArezConfig.enableNames() ? getName() : null,
-                                  TransactionMode.READ_ONLY,
+                                  TransactionMode.READ_WRITE,
                                   this,
                                   () -> getContext().getTransaction().markTrackerAsDisposed() );
     }
+  }
+
+  void setDisposed( final boolean disposed )
+  {
+    _disposed = disposed;
   }
 
   /**
@@ -660,11 +665,5 @@ public final class Observer
                         getName() ) );
     assert null != _computedValue;
     return _computedValue;
-  }
-
-  @TestOnly
-  void setDisposed( final boolean disposed )
-  {
-    _disposed = disposed;
   }
 }
