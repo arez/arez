@@ -126,6 +126,41 @@ public class ObservableTest
 
     assertEquals( observer.getState(), ObserverState.STALE );
   }
+
+  @Test
+  public void dispose_readOnlyTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+
+    final Observer observer = newReadOnlyObserver( context );
+
+    setCurrentTransaction( newReadOnlyObserver( context ) );
+
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    observable.getObservers().add( observer );
+    observer.getDependencies().add( observable );
+
+    assertEquals( observable.isDisposed(), false );
+
+    final int currentNextTransactionId = context.currentNextTransactionId();
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observable::dispose );
+
+    assertEquals( exception.getMessage(),
+                  "Transaction named '" + context.getTransaction().getName() + "' attempted to change " +
+                  "observable named '" + observable.getName() + "' but transaction is READ_ONLY." );
+
+    // No transaction created so new id
+    assertEquals( context.currentNextTransactionId(), currentNextTransactionId );
+
+    assertEquals( observable.isDisposed(), false );
+  }
+
   @Test
   public void ownerMustBeADerivation()
     throws Exception
