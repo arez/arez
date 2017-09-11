@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.AbstractArezTest;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.ArezTestUtil;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
@@ -77,12 +78,12 @@ public class ExternalApiTest
     final Observer observer = context.autorun( name, false, callCount::incrementAndGet, true );
 
     assertEquals( observer.getName(), name );
-    assertEquals( observer.isActive(), true );
+    assertEquals( ArezTestUtil.isActive( observer ), true );
     assertEquals( callCount.get(), 1 );
 
     observer.dispose();
 
-    assertEquals( observer.isActive(), false );
+    assertEquals( ArezTestUtil.isActive( observer ), false );
   }
 
   @Test
@@ -132,12 +133,12 @@ public class ExternalApiTest
                        true );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( observer.isActive(), true );
+    assertEquals( ArezTestUtil.isActive( observer ), true );
 
     context.safeProcedure( ValueUtil.randomString(), true, observable::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( observer.isActive(), true );
+    assertEquals( ArezTestUtil.isActive( observer ), true );
   }
 
   @Test
@@ -160,13 +161,13 @@ public class ExternalApiTest
                        true );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( observer.isActive(), true );
+    assertEquals( ArezTestUtil.isActive( observer ), true );
 
     // Run an "action"
     context.procedure( ValueUtil.randomString(), true, observable::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( observer.isActive(), true );
+    assertEquals( ArezTestUtil.isActive( observer ), true );
   }
 
   @Test
@@ -194,13 +195,13 @@ public class ExternalApiTest
                        true );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( observer.isActive(), true );
+    assertEquals( ArezTestUtil.isActive( observer ), true );
 
     // Run an "action"
     context.procedure( ValueUtil.randomString(), true, observable1::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( observer.isActive(), true );
+    assertEquals( ArezTestUtil.isActive( observer ), true );
 
     // Update observer1+observer2 in transaction
     context.procedure( ValueUtil.randomString(),
@@ -211,7 +212,7 @@ public class ExternalApiTest
                        } );
 
     assertEquals( reactionCount.get(), 3 );
-    assertEquals( observer.isActive(), true );
+    assertEquals( ArezTestUtil.isActive( observer ), true );
 
     context.procedure( ValueUtil.randomString(),
                        true,
@@ -221,13 +222,13 @@ public class ExternalApiTest
                        } );
 
     assertEquals( reactionCount.get(), 4 );
-    assertEquals( observer.isActive(), true );
+    assertEquals( ArezTestUtil.isActive( observer ), true );
 
     // observable4 should not cause a reaction as not observed
     context.procedure( ValueUtil.randomString(), true, observable4::reportChanged );
 
     assertEquals( reactionCount.get(), 4 );
-    assertEquals( observer.isActive(), true );
+    assertEquals( ArezTestUtil.isActive( observer ), true );
   }
 
   @Test
