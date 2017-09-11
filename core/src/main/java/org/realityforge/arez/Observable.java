@@ -14,6 +14,10 @@ public final class Observable
   extends Node
 {
   /**
+   * The value of _workState when the Observable is should longer be used.
+   */
+  static final int DISPOSED = -2;
+  /**
    * The value that _workState is set to to optimize the detection of duplicate,
    * existing and new dependencies during tracking completion.
    */
@@ -71,6 +75,16 @@ public final class Observable
                         () -> String.format( "Observable named '%s' has owner specified but owner is not a derivation.",
                                              getName() ) );
     }
+  }
+
+  /**
+   * Return true if dispose() has been invoked on this Observable.
+   *
+   * @return true if dispose() has been invoked on this Observable, false otherwise.
+   */
+  boolean isDisposed()
+  {
+    return DISPOSED == _workState;
   }
 
   void resetPendingDeactivation()
