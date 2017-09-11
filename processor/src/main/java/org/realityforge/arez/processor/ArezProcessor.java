@@ -91,7 +91,7 @@ public final class ArezProcessor
     final StringBuilder name = new StringBuilder( "Arez_" + element.getSimpleName() );
 
     TypeElement t = element;
-    while(NestingKind.TOP_LEVEL != t.getNestingKind() )
+    while ( NestingKind.TOP_LEVEL != t.getNestingKind() )
     {
       t = (TypeElement) t.getEnclosingElement();
       name.insert( 0, t.getSimpleName() + "$" );
