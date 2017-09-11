@@ -1382,6 +1382,41 @@ public class TransactionTest
   }
 
   @Test
+  public void reportPossiblyChanged_onDisposedObservable()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    context.setTransaction( transaction );
+
+    final Observer calculator = newDerivation( context );
+    calculator.setState( ObserverState.UP_TO_DATE );
+
+    final Observable observable = calculator.getDerivedValue();
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+
+    final Observer observer = newDerivation( context );
+    observer.setState( ObserverState.UP_TO_DATE );
+    observer.getDependencies().add( observable );
+    observable.getObservers().add( observer );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
+    context.setTransaction( transaction );
+
+    observable.setWorkState( Observable.DISPOSED );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.reportPossiblyChanged( observable ) );
+
+    assertEquals( exception.getMessage(),
+                  "Invoked reportPossiblyChanged on transaction named '" + transaction.getName() +
+                  "' for observable named '" + observable.getName() + "' where the observable is disposed." );
+  }
+
+  @Test
   public void reportPossiblyChanged_noObserver()
   {
     final ArezContext context = new ArezContext();
