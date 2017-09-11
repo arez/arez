@@ -156,6 +156,27 @@ public class ObservableTest
   }
 
   @Test
+  public void addObserver_whenObservableDisposed()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadOnlyObserver( context );
+    setCurrentTransaction( observer );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+
+    observable.setWorkState( Observable.DISPOSED );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempting to add observer named '" + observer.getName() + "' to observable named '" +
+                  observable.getName() + "' when observable is disposed." );
+  }
+
+  @Test
   public void addObserver_whenObserverDisposed()
     throws Exception
   {

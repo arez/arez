@@ -223,6 +223,9 @@ public final class Observable
                         "Attempting to add observer named '%s' to observable named '%s' when observer is already observing observable.",
                         observer.getName(),
                         getName() ) );
+    Guards.invariant( () -> !isDisposed(),
+                      () -> String.format( "Attempting to add observer named '%s' to observable named '%s' when " +
+                                           "observable is disposed.", observer.getName(), getName() ) );
     Guards.invariant( () -> !observer.isDisposed(),
                       () -> String.format( "Attempting to add observer named '%s' to observable named '%s' when " +
                                            "observer is disposed.", observer.getName(), getName() ) );
