@@ -17,9 +17,6 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
-* Figure out a strategy so that when you dispose a ComputedValue it somehow removes itself from all observers
-  and schedules them for reaction?
-
 * Hooks so context-wide can get notified when observers
  - created
  - disposed
