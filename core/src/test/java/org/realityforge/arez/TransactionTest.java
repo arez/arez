@@ -1598,6 +1598,32 @@ public class TransactionTest
   }
 
   @Test
+  public void reportChangeConfirmed_disposedObservable()
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observer calculator = newDerivation( context );
+    setCurrentTransaction( calculator );
+
+    calculator.setState( ObserverState.UP_TO_DATE );
+
+    final Observable observable = calculator.getDerivedValue();
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+
+    calculator.getDependencies().add( observable );
+    observable.getObservers().add( calculator );
+
+    observable.setWorkState( Observable.DISPOSED );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.getTransaction().reportChangeConfirmed( observable ) );
+
+    assertEquals( exception.getMessage(),
+                  "Invoked reportChangeConfirmed on transaction named '" + context.getTransaction().getName() +
+                  "' for observable named '" + observable.getName() + "' where the observable is disposed." );
+  }
+
+  @Test
   public void reportChangeConfirmed_noObservers()
   {
     final ArezContext context = new ArezContext();

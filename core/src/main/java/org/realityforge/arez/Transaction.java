@@ -308,6 +308,11 @@ final class Transaction
    */
   void reportChangeConfirmed( @Nonnull final Observable observable )
   {
+    Guards.invariant( () -> !observable.isDisposed(),
+                      () -> String.format( "Invoked reportChangeConfirmed on transaction named '%s' for observable " +
+                                           "named '%s' where the observable is disposed.",
+                                           getName(),
+                                           observable.getName() ) );
     Guards.invariant( () -> null != observable.getOwner(),
                       () -> String.format( "Transaction named '%s' has attempted to mark observable " +
                                            "named '%s' as potentially changed but observable is not a derived value.",
