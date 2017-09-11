@@ -38,6 +38,11 @@ final class ArezConfig
     return c_provider.purgeReactionsWhenRunawayDetected();
   }
 
+  static boolean enableSpy()
+  {
+    return c_provider.enableSpy();
+  }
+
   @TestOnly
   static Provider getProvider()
   {
