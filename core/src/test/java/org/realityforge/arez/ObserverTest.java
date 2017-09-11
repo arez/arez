@@ -149,6 +149,32 @@ public class ObserverTest
   }
 
   @Test
+  public void invariantDependenciesNotDisposed()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadOnlyObserver( context );
+    setCurrentTransaction( observer );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    observer.getDependencies().add( observable );
+    observable.addObserver( observer );
+
+    observable.setWorkState( Observable.DISPOSED );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observer::invariantDependenciesNotDisposed );
+
+    assertEquals( exception.getMessage(),
+                  "Observer named '" + observer.getName() + "' has dependency observable named '" +
+                  observable.getName() + "' which is disposed." );
+
+    observable.setWorkState( 0 );
+
+    observer.invariantDependenciesNotDisposed();
+  }
+
+  @Test
   public void invariantDependenciesUnique()
     throws Exception
   {

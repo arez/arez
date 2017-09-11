@@ -588,6 +588,24 @@ public final class Observer
   }
 
   /**
+   * Ensure all dependencies are not disposed.
+   */
+  void invariantDependenciesNotDisposed()
+  {
+    // This invariant check should not be needed but this guarantees the (GWT) optimizer removes this code
+    if ( ArezConfig.checkInvariants() )
+    {
+      getDependencies().forEach( observable ->
+                                   Guards.invariant( () -> !observable.isDisposed(),
+                                                     () -> String.format(
+                                                       "Observer named '%s' has dependency observable named '%s' which is disposed.",
+                                                       getName(),
+                                                       observable.getName() ) ) );
+      invariantDerivationState();
+    }
+  }
+
+  /**
    * Ensure that state field and other fields of the Observer are consistent.
    */
   void invariantState()
