@@ -12,6 +12,7 @@ import org.jetbrains.annotations.TestOnly;
  */
 public final class Observable
   extends Node
+  implements Disposable
 {
   /**
    * The value of _workState when the Observable is should longer be used.
@@ -75,6 +76,40 @@ public final class Observable
                         () -> String.format( "Observable named '%s' has owner specified but owner is not a derivation.",
                                              getName() ) );
     }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void dispose()
+  {
+    if ( !isDisposed() )
+    {
+      if ( getContext().isTransactionActive() )
+      {
+        performDispose();
+      }
+      else
+      {
+        getContext().safeProcedure( ArezConfig.enableNames() ? getName() : null,
+                                    TransactionMode.READ_WRITE,
+                                    null,
+                                    this::performDispose );
+      }
+    }
+  }
+
+  void performDispose()
+  {
+    reportChanged();
+    _workState = DISPOSED;
+    // All dependencies should have been released by the time it comes to deactivate phase.
+    // The Observable has been marked as changed, forcing all observers to re-evaluate and
+    // ultimately this will result in their removal of this Observable as a dependency as
+    // it is an error to invoke reportObserved(). Once all dependencies are removed then
+    // this Observable will be deactivated if it is a ComputedValue. Thus no need to call
+    // queueForDeactivation() here.
   }
 
   /**
