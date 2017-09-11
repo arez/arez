@@ -18,6 +18,13 @@ public class ArezContextTest
   }
 
   @Test
+  public void areSpiesEnabled()
+  {
+    final ArezContext context = new ArezContext();
+    assertTrue( context.areSpiesEnabled() );
+  }
+
+  @Test
   public void triggerScheduler()
   {
     final ArezContext context = new ArezContext();

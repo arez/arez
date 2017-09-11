@@ -202,6 +202,16 @@ public final class ArezContext
   }
 
   /**
+   * Return true if spies are enabled.
+   *
+   * @return true if spies are enabled, false otherwise.
+   */
+  public boolean areSpiesEnabled()
+  {
+    return ArezConfig.enableSpy();
+  }
+
+  /**
    * Execute the supplied function in a transaction.
    * The action may throw an exception.
    *
