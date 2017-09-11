@@ -34,6 +34,12 @@ public final class ArezContext
    */
   @Nonnull
   private final ObserverErrorHandlerSupport _observerErrorHandlerSupport = new ObserverErrorHandlerSupport();
+  /**
+   * Support infrastructure for propagating spy events.
+   */
+  @Nullable
+  private final SpyEventHandlerSupport _spyEventHandlerSupport =
+    ArezConfig.enableSpy() ? new SpyEventHandlerSupport() : null;
 
   /**
    * Create a ComputedValue with specified parameters.
@@ -389,6 +395,47 @@ public final class ArezContext
   ObserverErrorHandler getObserverErrorHandler()
   {
     return _observerErrorHandlerSupport;
+  }
+
+  /**
+   * Add spy handler to the list of spy handlers called.
+   * The handler should not already be in the list.
+   * This method should not be called if spy's are disabled.
+   *
+   * @param handler the error handler.
+   */
+  public void addSpyEventHandler( @Nonnull final SpyEventHandler handler )
+  {
+    Guards.invariant( this::areSpiesEnabled,
+                      () -> "Attempting to add SpyEventHandler but spies are not enabled." );
+    getSpyEventHandlerSupport().addSpyEventHandler( handler );
+  }
+
+  /**
+   * Remove error handler from list of existing error handlers.
+   * The handler should already be in the list.
+   *
+   * @param handler the error handler.
+   */
+  public void removeSpyEventHandler( @Nonnull final SpyEventHandler handler )
+  {
+    Guards.invariant( this::areSpiesEnabled,
+                      () -> "Attempting to remove SpyEventHandler but spies are not enabled." );
+    getSpyEventHandlerSupport().removeSpyEventHandler( handler );
+  }
+
+  @Nonnull
+  SpyEventHandlerSupport getSpyEventHandlerSupport()
+  {
+    assert null != _spyEventHandlerSupport;
+    return _spyEventHandlerSupport;
+  }
+
+  @Nonnull
+  SpyEventHandler getSpyEventHandler()
+  {
+    assert null != _spyEventHandlerSupport;
+    return _spyEventHandlerSupport;
   }
 
   /**

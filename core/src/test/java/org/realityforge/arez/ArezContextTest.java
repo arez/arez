@@ -414,6 +414,57 @@ public class ArezContextTest
   }
 
   @Test
+  public void spyEventHandler()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyEventHandler handler = e -> {
+    };
+
+    context.addSpyEventHandler( handler );
+
+    assertEquals( context.getSpyEventHandlerSupport().getSpyEventHandlers().size(), 1 );
+    assertEquals( context.getSpyEventHandlerSupport().getSpyEventHandlers().contains( handler ), true );
+
+    context.removeSpyEventHandler( handler );
+
+    assertEquals( context.getSpyEventHandlerSupport().getSpyEventHandlers().size(), 0 );
+  }
+
+  @Test
+  public void addSpyEventHandler_whenSpiesDisabled()
+    throws Exception
+  {
+    getConfigProvider().setEnableSpy( false );
+
+    final SpyEventHandler handler = e -> {
+    };
+
+    final ArezContext context = new ArezContext();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.addSpyEventHandler( handler ) );
+    assertEquals( exception.getMessage(), "Attempting to add SpyEventHandler but spies are not enabled." );
+  }
+
+  @Test
+  public void removeSpyEventHandler_whenSpiesDisabled()
+    throws Exception
+  {
+    getConfigProvider().setEnableSpy( false );
+
+    final SpyEventHandler handler = e -> {
+    };
+
+    final ArezContext context = new ArezContext();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.removeSpyEventHandler( handler ) );
+    assertEquals( exception.getMessage(), "Attempting to remove SpyEventHandler but spies are not enabled." );
+  }
+
+  @Test
   public void scheduleReaction()
     throws Exception
   {
