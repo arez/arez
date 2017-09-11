@@ -12,7 +12,7 @@ package org.realityforge.arez;
 public interface Disposable
 {
   /**
-   * Dispose element. See {@link Disposable} for a description of the implications.
+   * Dispose the element. See {@link Disposable} for a description of the implications.
    */
   void dispose();
 }
