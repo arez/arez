@@ -219,6 +219,34 @@ public class TransactionTest
   }
 
   @Test
+  public void observe_onDisposedObservable()
+  {
+    final ArezContext context = new ArezContext();
+    final Observer tracker = newDerivation( context );
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    context.setTransaction( transaction );
+
+    transaction.beginTracking();
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+
+    assertEquals( tracker.getDependencies().size(), 0 );
+    assertEquals( observable.getObservers().size(), 0 );
+    assertNull( transaction.getObservables() );
+    assertNotEquals( transaction.getId(), observable.getLastTrackerTransactionId() );
+
+    observable.setWorkState( Observable.DISPOSED );
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.observe( observable ) );
+
+    assertEquals( exception.getMessage(),
+                  "Invoked observe on transaction named '" +
+                  transaction.getName() + "' for observable named '" + observable.getName() +
+                  "' where the observable is disposed." );
+  }
+
+  @Test
   public void observe_noObserveIfOwnedByTracker()
   {
     final ArezContext context = new ArezContext();

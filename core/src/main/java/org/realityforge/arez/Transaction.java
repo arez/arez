@@ -198,6 +198,9 @@ final class Transaction
 
   void observe( @Nonnull final Observable observable )
   {
+    Guards.invariant( () -> !observable.isDisposed(),
+                      () -> String.format( "Invoked observe on transaction named '%s' for observable named '%s' " +
+                                           "where the observable is disposed.", getName(), observable.getName() ) );
     if ( null != _tracker )
     {
       /*
