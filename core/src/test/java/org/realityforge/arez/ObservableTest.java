@@ -3,6 +3,7 @@ package org.realityforge.arez;
 import java.util.ArrayList;
 import org.realityforge.arez.spy.ComputedValueActivatedEvent;
 import org.realityforge.arez.spy.ComputedValueDeactivatedEvent;
+import org.realityforge.arez.spy.ObservableChangedEvent;
 import org.realityforge.arez.spy.ObservableDisposedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -130,7 +131,6 @@ public class ObservableTest
 
     assertEquals( event.getObservable(), observable );
   }
-
 
   @Test
   public void dispose_generates_no_spyEvent_forCOmputedValue()
@@ -1123,6 +1123,38 @@ public class ObservableTest
     observable.reportChanged();
 
     assertEquals( observer.getState(), ObserverState.STALE );
+  }
+
+  @Test
+  public void reportChanged_generates_spyEvent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadWriteObserver( context );
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+
+    observable.addObserver( observer );
+    observer.getDependencies().add( observable );
+
+    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.addSpyEventHandler( handler );
+
+    observable.reportChanged();
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+
+    handler.assertEventCount( 1 );
+
+    final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 0 );
+    assertEquals( event.getObservable(), observable );
   }
 
   @Test

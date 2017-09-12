@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 import org.realityforge.arez.spy.ComputedValueActivatedEvent;
 import org.realityforge.arez.spy.ComputedValueDeactivatedEvent;
+import org.realityforge.arez.spy.ObservableChangedEvent;
 import org.realityforge.arez.spy.ObservableDisposedEvent;
 
 /**
@@ -368,6 +369,10 @@ public final class Observable
   public void reportChanged()
   {
     getContext().getTransaction().reportChanged( this );
+    if ( getContext().willPropagateSpyEvents() )
+    {
+      getContext().reportSpyEvent( new ObservableChangedEvent( this ) );
+    }
   }
 
   void reportChangeConfirmed()
