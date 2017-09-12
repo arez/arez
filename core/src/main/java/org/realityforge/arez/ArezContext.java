@@ -3,6 +3,7 @@ package org.realityforge.arez;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
+import org.realityforge.arez.spy.ObservableCreated;
 
 /**
  * The ArezContext defines the top level container of interconnected observables and observers.
@@ -117,7 +118,12 @@ public final class ArezContext
   @Nonnull
   public Observable createObservable( @Nullable final String name )
   {
-    return new Observable( this, ArezConfig.enableNames() ? name : null );
+    final Observable observable = new Observable( this, ArezConfig.enableNames() ? name : null );
+    if ( willPropagateSpyEvents() )
+    {
+      reportSpyEvent( new ObservableCreated( observable ) );
+    }
+    return observable;
   }
 
   void reportSpyEvent( @Nonnull final Object event )
