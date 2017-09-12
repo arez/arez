@@ -7,8 +7,18 @@ import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 
 final class Transaction
-  extends Node
 {
+  /**
+   * Reference to the system to which this transaction belongs.
+   */
+  @Nonnull
+  private final ArezContext _context;
+  /**
+   * A human consumable name for transaction. It should be non-null if {@link ArezConfig#enableNames()} returns
+   * true and <tt>null</tt> otherwise.
+   */
+  @Nullable
+  private final String _name;
   /**
    * Uniquely identifies the transaction within the system.
    * It is used to optimize state tracking.
@@ -58,7 +68,10 @@ final class Transaction
                @Nonnull final TransactionMode mode,
                @Nullable final Observer tracker )
   {
-    super( context, name );
+    Guards.invariant( () -> ArezConfig.enableNames() || null == name,
+                      () -> String.format( "Node passed a name '%s' but ArezConfig.enableNames() is false", name ) );
+    _context = Objects.requireNonNull( context );
+    _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
     _id = context.nextTransactionId();
     _previous = previous;
     _mode = Objects.requireNonNull( mode );
@@ -68,6 +81,38 @@ final class Transaction
                       () -> String.format(
                         "Attempted to create transaction named '%s' with mode READ_WRITE_OWNED but no tracker specified.",
                         getName() ) );
+  }
+
+  /**
+   * Return the name of the node.
+   * This method should NOT be invoked unless {@link ArezConfig#enableNames()} returns true and will throw an
+   * exception if invariant checking is enabled.
+   *
+   * @return the name of the node.
+   */
+  @Nonnull
+  String getName()
+  {
+    Guards.invariant( ArezConfig::enableNames,
+                      () -> "ArezElement.getName() invoked when ArezConfig.enableNames() is false" );
+    assert null != _name;
+    return _name;
+  }
+
+  @Nonnull
+  ArezContext getContext()
+  {
+    return _context;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public String toString()
+  {
+    return ArezConfig.enableNames() ? getName() : super.toString();
   }
 
   void markTrackerAsDisposed()

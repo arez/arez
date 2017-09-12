@@ -18,6 +18,7 @@ public class TransactionTest
     final Transaction transaction = new Transaction( context, null, name1, TransactionMode.READ_ONLY, null );
 
     assertEquals( transaction.getName(), name1 );
+    assertEquals( transaction.toString(), name1 );
     assertEquals( transaction.getContext(), context );
     assertEquals( transaction.getId(), nextNodeId );
     assertEquals( transaction.getPrevious(), null );
