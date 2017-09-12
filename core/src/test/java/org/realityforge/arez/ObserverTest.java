@@ -44,12 +44,9 @@ public class ObserverTest
     assertEquals( observer.getOnDeactivate(), null );
     assertEquals( observer.getOnStale(), null );
 
-    final Procedure onActivate = () -> {
-    };
-    final Procedure onDeactivate = () -> {
-    };
-    final Procedure onStale = () -> {
-    };
+    final Procedure onActivate = new NoopProcedure();
+    final Procedure onDeactivate = new NoopProcedure();
+    final Procedure onStale = new NoopProcedure();
 
     // Ensure hooks can be modified
     observer.setOnActivate( onActivate );
