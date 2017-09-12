@@ -53,8 +53,10 @@ public class NodeTest
 
     final TestNode node = new TestNode( context, null );
     assertEquals( node.getContext(), context );
-    assertThrows( node::getName );
     assertTrue( node.toString().startsWith( node.getClass().getName() + "@" ), "node.toString() == " + node );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, node::getName );
+    assertEquals( exception.getMessage(), "Node.getName() invoked when ArezConfig.enableNames() is false" );
   }
 
   @Test
