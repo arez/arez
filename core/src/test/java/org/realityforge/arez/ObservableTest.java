@@ -1210,4 +1210,38 @@ public class ObservableTest
 
     assertEquals( observer.getState(), ObserverState.STALE );
   }
+
+  @Test
+  public void reportChangeConfirmed_generates_spyEvent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadWriteObserver( context );
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.POSSIBLY_STALE );
+
+    final Observer derivation = newDerivation( context );
+    derivation.setState( ObserverState.UP_TO_DATE );
+
+    final Observable observable = derivation.getDerivedValue();
+    observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+
+    observable.addObserver( observer );
+    observer.getDependencies().add( observable );
+
+    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.addSpyEventHandler( handler );
+
+    observable.reportChangeConfirmed();
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+
+    handler.assertEventCount( 1 );
+    final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 0 );
+    assertEquals( event.getObservable(), observable );
+  }
 }

@@ -377,6 +377,10 @@ public final class Observable
 
   void reportChangeConfirmed()
   {
+    if ( getContext().willPropagateSpyEvents() )
+    {
+      getContext().reportSpyEvent( new ObservableChangedEvent( this ) );
+    }
     getContext().getTransaction().reportChangeConfirmed( this );
   }
 
