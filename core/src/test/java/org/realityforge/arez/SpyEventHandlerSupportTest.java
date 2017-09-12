@@ -49,8 +49,7 @@ public class SpyEventHandlerSupportTest
   {
     final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
 
-    final SpyEventHandler handler = e -> {
-    };
+    final SpyEventHandler handler = new TestSpyEventHandler();
     support.addSpyEventHandler( handler );
 
     final IllegalStateException exception =
@@ -66,8 +65,7 @@ public class SpyEventHandlerSupportTest
   {
     final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
 
-    final SpyEventHandler handler = e -> {
-    };
+    final SpyEventHandler handler = new TestSpyEventHandler();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> support.removeSpyEventHandler( handler ) );

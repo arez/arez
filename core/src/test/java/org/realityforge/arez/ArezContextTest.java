@@ -525,8 +525,7 @@ public class ArezContextTest
   {
     getConfigProvider().setEnableSpy( false );
 
-    final SpyEventHandler handler = e -> {
-    };
+    final SpyEventHandler handler = new TestSpyEventHandler();
 
     final ArezContext context = new ArezContext();
 
@@ -541,8 +540,7 @@ public class ArezContextTest
   {
     getConfigProvider().setEnableSpy( false );
 
-    final SpyEventHandler handler = e -> {
-    };
+    final SpyEventHandler handler = new TestSpyEventHandler();
 
     final ArezContext context = new ArezContext();
 
