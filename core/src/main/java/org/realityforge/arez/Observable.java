@@ -201,9 +201,8 @@ public final class Observable
   void deactivate()
   {
     Guards.invariant( () -> getContext().isTransactionActive(),
-                      () -> String.format(
-                        "Attempt to invoke deactivate on observable named '%s' when there is no active transaction.",
-                        getName() ) );
+                      () -> String.format( "Attempt to invoke deactivate on observable named '%s' when there is " +
+                                           "no active transaction.", getName() ) );
     Guards.invariant( () -> null != _owner,
                       () -> String.format( "Invoked deactivate on observable named '%s' when owner is null.",
                                            getName() ) );
