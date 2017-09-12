@@ -19,7 +19,7 @@ that will be expanded over time as the library is fleshed out.
 TODO:
 * spy events:
  - observer created/disposed
- - computed created/disposed
+ - computed disposed
  - Observable.reportChange (+ optional "change" description?)
  - scheduled-reaction
  - action start/completed

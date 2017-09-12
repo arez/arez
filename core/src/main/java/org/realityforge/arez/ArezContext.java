@@ -3,6 +3,7 @@ package org.realityforge.arez;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
+import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
 
@@ -57,7 +58,13 @@ public final class ArezContext
                                                    @Nonnull final SafeFunction<T> function,
                                                    @Nonnull final EqualityComparator<T> equalityComparator )
   {
-    return new ComputedValue<>( this, ArezConfig.enableNames() ? name : null, function, equalityComparator );
+    final ComputedValue<T> computedValue =
+      new ComputedValue<>( this, ArezConfig.enableNames() ? name : null, function, equalityComparator );
+    if ( willPropagateSpyEvents() )
+    {
+      reportSpyEvent( new ComputedValueCreatedEvent( computedValue ) );
+    }
+    return computedValue;
   }
 
   /**
