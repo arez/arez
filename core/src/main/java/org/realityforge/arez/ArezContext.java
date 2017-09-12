@@ -7,6 +7,7 @@ import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
+import org.realityforge.arez.spy.TransactionCompletedEvent;
 import org.realityforge.arez.spy.TransactionStartedEvent;
 
 /**
@@ -212,6 +213,14 @@ public final class ArezContext
                         transaction.getName(),
                         _transaction.getName() ) );
     _transaction.commit();
+    if ( willPropagateSpyEvents() )
+    {
+      final String name = _transaction.getName();
+      final boolean mutation = TransactionMode.READ_WRITE == _transaction.getMode();
+      final Observer tracker = _transaction.getTracker();
+      final long duration = System.currentTimeMillis() - _transaction.getStartedAt();
+      reportSpyEvent( new TransactionCompletedEvent( name, mutation, tracker, duration ) );
+    }
     _transaction = _transaction.getPrevious();
     triggerScheduler();
   }
