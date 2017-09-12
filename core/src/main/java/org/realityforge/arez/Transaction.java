@@ -94,7 +94,7 @@ final class Transaction
   String getName()
   {
     Guards.invariant( ArezConfig::enableNames,
-                      () -> "ArezElement.getName() invoked when ArezConfig.enableNames() is false" );
+                      () -> "Transaction.getName() invoked when ArezConfig.enableNames() is false" );
     assert null != _name;
     return _name;
   }
