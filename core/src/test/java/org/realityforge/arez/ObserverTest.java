@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.spy.ComputeCompletedEvent;
 import org.realityforge.arez.spy.ComputeStartedEvent;
+import org.realityforge.arez.spy.ObserverDisposedEvent;
 import org.realityforge.arez.spy.ReactionCompletedEvent;
 import org.realityforge.arez.spy.ReactionStartedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -723,6 +724,54 @@ public class ObserverTest
 
     // This verifies no new transactions were created
     assertEquals( context.currentNextTransactionId(), currentNextTransactionId );
+  }
+
+  @Test
+  public void dispose_generates_spyEvent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadOnlyObserver( context );
+    setCurrentTransaction( observer );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    context.setTransaction( null );
+
+    assertEquals( observer.isDisposed(), false );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.addSpyEventHandler( handler );
+
+    observer.dispose();
+
+    assertEquals( observer.isDisposed(), true );
+
+    handler.assertEventCount( 1 );
+    final ObserverDisposedEvent event = handler.assertEvent( ObserverDisposedEvent.class, 0 );
+    assertEquals( event.getObserver(), observer );
+  }
+
+  @Test
+  public void dispose_does_not_generate_spyEvent_forDerivedValues()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newDerivation( context );
+    setCurrentTransaction( observer );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    context.setTransaction( null );
+
+    assertEquals( observer.isDisposed(), false );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.addSpyEventHandler( handler );
+
+    observer.dispose();
+
+    assertEquals( observer.isDisposed(), true );
+
+    handler.assertEventCount( 0 );
   }
 
   @Test

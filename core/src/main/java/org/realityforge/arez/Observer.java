@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.arez.spy.ComputeCompletedEvent;
 import org.realityforge.arez.spy.ComputeStartedEvent;
+import org.realityforge.arez.spy.ObserverDisposedEvent;
 import org.realityforge.arez.spy.ReactionCompletedEvent;
 import org.realityforge.arez.spy.ReactionStartedEvent;
 
@@ -161,6 +162,10 @@ public final class Observer
                                   TransactionMode.READ_WRITE,
                                   this,
                                   () -> getContext().getTransaction().markTrackerAsDisposed() );
+      if ( getContext().willPropagateSpyEvents() && !isDerivation() )
+      {
+        getContext().reportSpyEvent( new ObserverDisposedEvent( this ) );
+      }
     }
   }
 
