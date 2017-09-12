@@ -26,8 +26,23 @@ public class TransactionTest
     assertEquals( transaction.getObservables(), null );
     assertEquals( transaction.getPendingDeactivations(), null );
     assertEquals( transaction.getMode(), TransactionMode.READ_ONLY );
+    assertNotEquals( transaction.getStartedAt(), 0 );
 
     assertEquals( context.currentNextTransactionId(), nextNodeId + 1 );
+  }
+
+  @Test
+  public void construction_whenSpyDisabled()
+  {
+    getConfigProvider().setEnableSpy( false );
+
+    final Transaction transaction =
+      new Transaction( new ArezContext(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    // Re-enable spy so can read field
+    getConfigProvider().setEnableSpy( true );
+
+    assertEquals( transaction.getStartedAt(), 0 );
   }
 
   @Test
@@ -2130,5 +2145,19 @@ public class TransactionTest
 
     assertEquals( transaction.shouldDisposeTracker(), false );
     assertEquals( tracker.isDisposed(), false );
+  }
+
+  @Test
+  public void getStartedAt_whenSpyDisabled()
+  {
+    getConfigProvider().setEnableSpy( false );
+
+    final Transaction transaction =
+      new Transaction( new ArezContext(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, transaction::getStartedAt );
+
+    assertEquals( exception.getMessage(), "Transaction.getStartedAt() invoked when ArezConfig.enableSpy() is false" );
   }
 }

@@ -44,6 +44,10 @@ final class Transaction
   @Nullable
   private final Transaction _previous;
   /**
+   * Time at which transaction started. Is only set if {@link ArezConfig#enableSpy()} return true.
+   */
+  private final long _startedAt;
+  /**
    * The tracking observer if the transaction is trackable.
    */
   @Nullable
@@ -76,6 +80,7 @@ final class Transaction
     _previous = previous;
     _mode = Objects.requireNonNull( mode );
     _tracker = tracker;
+    _startedAt = ArezConfig.enableSpy() ? System.currentTimeMillis() : 0;
 
     Guards.invariant( () -> TransactionMode.READ_WRITE_OWNED != mode || null != tracker,
                       () -> String.format(
@@ -103,6 +108,13 @@ final class Transaction
   ArezContext getContext()
   {
     return _context;
+  }
+
+  long getStartedAt()
+  {
+    Guards.invariant( ArezConfig::enableSpy,
+                      () -> "Transaction.getStartedAt() invoked when ArezConfig.enableSpy() is false" );
+    return _startedAt;
   }
 
   /**
