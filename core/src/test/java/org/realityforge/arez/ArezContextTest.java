@@ -590,7 +590,7 @@ public class ArezContextTest
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.addSpyEventHandler( handler );
-    
+
     final ComputedValue<String> computedValue =
       context.createComputedValue( ValueUtil.randomString(), () -> "", Objects::equals );
 
