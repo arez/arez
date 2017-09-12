@@ -131,6 +131,38 @@ public class ObservableTest
     assertEquals( event.getObservable(), observable );
   }
 
+
+  @Test
+  public void dispose_generates_no_spyEvent_forCOmputedValue()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observer observer = newDerivation( context );
+    final Observable observable = observer.getDerivedValue();
+
+    setCurrentTransaction( context );
+
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    observable.getObservers().add( observer );
+    observer.getDependencies().add( observable );
+
+    context.setTransaction( null );
+
+    assertEquals( observable.isDisposed(), false );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.addSpyEventHandler( handler );
+
+    observable.dispose();
+
+    assertEquals( observable.isDisposed(), true );
+
+    handler.assertEventCountAtLeast( 0 );
+  }
+
   @Test
   public void dispose_readWriteTransaction()
     throws Exception
