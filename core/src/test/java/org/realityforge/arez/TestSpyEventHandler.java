@@ -21,7 +21,7 @@ final class TestSpyEventHandler
     final Object event = _events.get( index );
     assertTrue( type.isInstance( event ),
                 "Expected event at index " + index + " to be of type " + type + " but is " +
-                event + " which is of type " + event.getClass() );
+                " of type " + event.getClass() + " with value " + event );
     return type.cast( event );
   }
 
