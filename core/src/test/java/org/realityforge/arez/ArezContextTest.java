@@ -460,13 +460,6 @@ public class ArezContextTest
 
     final Object event = new Object();
 
-    final AtomicInteger callCount = new AtomicInteger();
-
-    final SpyEventHandler handler = e -> {
-      callCount.incrementAndGet();
-      assertEquals( e, event );
-    };
-
     assertFalse( context.willPropagateSpyEvents() );
 
     final IllegalStateException exception =
