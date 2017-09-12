@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.spy.ComputeCompletedEvent;
 import org.realityforge.arez.spy.ComputeStartedEvent;
+import org.realityforge.arez.spy.ObservableChangedEvent;
 import org.realityforge.arez.spy.ObserverDisposedEvent;
 import org.realityforge.arez.spy.ReactionCompletedEvent;
 import org.realityforge.arez.spy.ReactionStartedEvent;
@@ -949,14 +950,18 @@ public class ObserverTest
 
     computedValue.getObserver().invokeReaction();
 
-    handler.assertEventCount( 2 );
+    handler.assertEventCount( 3 );
 
     {
       final ComputeStartedEvent event = handler.assertEvent( ComputeStartedEvent.class, 0 );
       assertEquals( event.getComputedValue(), computedValue );
     }
     {
-      final ComputeCompletedEvent event = handler.assertEvent( ComputeCompletedEvent.class, 1 );
+      final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 1 );
+      assertEquals( event.getObservable(), computedValue.getObservable() );
+    }
+    {
+      final ComputeCompletedEvent event = handler.assertEvent( ComputeCompletedEvent.class, 2 );
       assertEquals( event.getComputedValue(), computedValue );
       assertTrue( event.getDuration() >= 0 );
     }

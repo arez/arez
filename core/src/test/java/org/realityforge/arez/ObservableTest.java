@@ -127,7 +127,7 @@ public class ObservableTest
     assertEquals( observable.isDisposed(), true );
 
     handler.assertEventCountAtLeast( 1 );
-    final ObservableDisposedEvent event = handler.assertEvent( ObservableDisposedEvent.class, 0 );
+    final ObservableDisposedEvent event = handler.assertEvent( ObservableDisposedEvent.class, 1 );
 
     assertEquals( event.getObservable(), observable );
   }
