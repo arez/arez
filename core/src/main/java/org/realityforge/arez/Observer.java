@@ -311,7 +311,7 @@ public final class Observer
       }
       catch ( final Exception e )
       {
-        getContext().getObserverErrorHandler().onObserverError( this, error, e );
+        getContext().reportObserverError( this, error, e );
       }
     }
   }
@@ -459,7 +459,7 @@ public final class Observer
       }
       catch ( final Throwable t )
       {
-        getContext().getObserverErrorHandler().onObserverError( this, ObserverError.REACTION_ERROR, t );
+        getContext().reportObserverError( this, ObserverError.REACTION_ERROR, t );
       }
     }
   }

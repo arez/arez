@@ -401,7 +401,20 @@ public class ArezContextTest
   {
     final ArezContext context = new ArezContext();
 
-    final ObserverErrorHandler handler = ( observer, error, throwable ) -> {
+    final ObserverError observerError = ObserverError.REACTION_ERROR;
+    final Throwable throwable = new Throwable();
+    final Procedure action = () -> {
+    };
+    final Observer observer =
+      context.autorun( ValueUtil.randomString(), true, action, true );
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final ObserverErrorHandler handler = ( o, e, t ) -> {
+      callCount.incrementAndGet();
+      assertEquals( o, observer );
+      assertEquals( e, observerError );
+      assertEquals( t, throwable );
     };
 
     context.addObserverErrorHandler( handler );
@@ -409,9 +422,19 @@ public class ArezContextTest
     assertEquals( context.getObserverErrorHandlerSupport().getObserverErrorHandlers().size(), 1 );
     assertEquals( context.getObserverErrorHandlerSupport().getObserverErrorHandlers().contains( handler ), true );
 
+    assertEquals( callCount.get(), 0 );
+
+    context.reportObserverError( observer, observerError, throwable );
+
+    assertEquals( callCount.get(), 1 );
+
     context.removeObserverErrorHandler( handler );
 
     assertEquals( context.getObserverErrorHandlerSupport().getObserverErrorHandlers().size(), 0 );
+
+    context.reportObserverError( observer, observerError, throwable );
+
+    assertEquals( callCount.get(), 1 );
   }
 
   @Test

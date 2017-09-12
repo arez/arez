@@ -405,10 +405,18 @@ public final class ArezContext
     _observerErrorHandlerSupport.removeObserverErrorHandler( handler );
   }
 
-  @Nonnull
-  ObserverErrorHandler getObserverErrorHandler()
+  /**
+   * Report an error in observer.
+   *
+   * @param observer  the observer that generated error.
+   * @param error     the type of the error.
+   * @param throwable the exception that caused error if any.
+   */
+  void reportObserverError( @Nonnull final Observer observer,
+                            @Nonnull final ObserverError error,
+                            @Nullable final Throwable throwable )
   {
-    return _observerErrorHandlerSupport;
+    _observerErrorHandlerSupport.onObserverError( observer, error, throwable );
   }
 
   /**
