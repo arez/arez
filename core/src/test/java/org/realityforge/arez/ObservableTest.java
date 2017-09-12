@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
+import org.realityforge.arez.spy.ObservableDisposed;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -92,6 +93,40 @@ public class ObservableTest
     assertEquals( observable.getWorkState(), Observable.DISPOSED );
 
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+  }
+
+  @Test
+  public void dispose_spyEventHandlerAdded()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+
+    final Observer observer = newReadOnlyObserver( context );
+
+    setCurrentTransaction( context );
+
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    observable.getObservers().add( observer );
+    observer.getDependencies().add( observable );
+
+    context.setTransaction( null );
+
+    assertEquals( observable.isDisposed(), false );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.addSpyEventHandler( handler );
+
+    observable.dispose();
+
+    assertEquals( observable.isDisposed(), true );
+
+    handler.assertEventCount( 1 );
+    final ObservableDisposed event = handler.assertEvent( ObservableDisposed.class, 0 );
+
+    assertEquals( event.getObservable(), observable );
   }
 
   @Test
