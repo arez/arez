@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
+import org.realityforge.arez.spy.ObserverCreatedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -652,6 +653,25 @@ public class ArezContextTest
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getReaction(), reaction );
     assertEquals( reaction.getCallCount(), 1 );
+  }
+
+  @Test
+  public void createObserver_generates_spyEvent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.addSpyEventHandler( handler );
+
+    final Observer observer =
+      context.createObserver( ValueUtil.randomString(), true, new TestReaction(), false );
+
+    handler.assertEventCount( 1 );
+
+    final ObserverCreatedEvent event = handler.assertEvent( ObserverCreatedEvent.class, 0 );
+
+    assertEquals( event.getObserver(), observer );
   }
 
   @Test

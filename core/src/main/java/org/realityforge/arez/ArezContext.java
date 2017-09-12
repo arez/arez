@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
+import org.realityforge.arez.spy.ObserverCreatedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
 
 /**
@@ -113,6 +114,10 @@ public final class ArezContext
       {
         scheduleReaction( observer );
       }
+    }
+    if ( willPropagateSpyEvents() )
+    {
+      reportSpyEvent( new ObserverCreatedEvent( observer ) );
     }
     return observer;
   }
