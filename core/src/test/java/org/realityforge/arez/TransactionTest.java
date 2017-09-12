@@ -766,7 +766,7 @@ public class TransactionTest
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
-    final Observer observer = ensureDerivationHasObserver( tracker );
+    ensureDerivationHasObserver( tracker );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.STALE );
