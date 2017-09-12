@@ -7,6 +7,7 @@ import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
+import org.realityforge.arez.spy.TransactionStartedEvent;
 
 /**
  * The ArezContext defines the top level container of interconnected observables and observers.
@@ -182,6 +183,12 @@ public final class ArezContext
     }
     _transaction = new Transaction( this, _transaction, name, mode, tracker );
     _transaction.begin();
+    if ( willPropagateSpyEvents() )
+    {
+      assert null != name;
+      final boolean mutation = TransactionMode.READ_WRITE == _transaction.getMode();
+      reportSpyEvent( new TransactionStartedEvent( name, mutation, tracker ) );
+    }
     return _transaction;
   }
 

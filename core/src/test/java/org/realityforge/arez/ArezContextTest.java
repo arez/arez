@@ -6,6 +6,7 @@ import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
+import org.realityforge.arez.spy.TransactionStartedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -65,6 +66,26 @@ public class ArezContextTest
     assertEquals( transaction.getTracker(), tracker );
     assertEquals( transaction.getPrevious(), null );
     assertEquals( transaction.getMode(), TransactionMode.READ_ONLY );
+  }
+
+  @Test
+  public void beginTransaction_generates_spyEvent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.addSpyEventHandler( handler );
+
+    final String name = ValueUtil.randomString();
+    final Observer tracker = null;
+    context.beginTransaction( name, TransactionMode.READ_ONLY, tracker );
+
+    handler.assertEventCount( 1 );
+    final TransactionStartedEvent event = handler.assertEvent( TransactionStartedEvent.class, 0 );
+    assertEquals( event.getName(), name );
+    assertEquals( event.isMutation(), false );
+    assertEquals( event.getTracker(), tracker );
   }
 
   @Test
