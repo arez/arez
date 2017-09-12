@@ -65,6 +65,10 @@ public class NodeTest
 
     final ArezContext context = new ArezContext();
 
-    assertThrows( () -> new TestNode( context, ValueUtil.randomString() ) );
+    final String name = ValueUtil.randomString();
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> new TestNode( context, name ) );
+
+    assertEquals( exception.getMessage(), "Node passed a name '" + name + "' but ArezConfig.enableNames() is false" );
   }
 }
