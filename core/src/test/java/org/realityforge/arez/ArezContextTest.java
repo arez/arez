@@ -403,8 +403,7 @@ public class ArezContextTest
 
     final ObserverError observerError = ObserverError.REACTION_ERROR;
     final Throwable throwable = new Throwable();
-    final Procedure action = () -> {
-    };
+    final Procedure action = new NoopProcedure();
     final Observer observer =
       context.autorun( ValueUtil.randomString(), true, action, true );
 
