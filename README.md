@@ -17,12 +17,12 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
-* Hooks so context-wide can get notified when observers
- - created
- - disposed
- - deactivated
- - activated
-(Is all this just dev tools?)
+* spy events:
+ - observer created/disposed
+ - computed created/disposed and deactivated/activated
+ - Observable.reportChange (+ optional "change" description?)
+ - scheduled-reaction
+ - action start/completed
 
 * Consider removing Observer from the public API so instead just Disposable is returned from autorun.
 
