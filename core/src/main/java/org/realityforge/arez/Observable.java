@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
+import org.realityforge.arez.spy.ComputedValueActivatedEvent;
 import org.realityforge.arez.spy.ComputedValueDeactivatedEvent;
 import org.realityforge.arez.spy.ObservableDisposedEvent;
 
@@ -241,6 +242,10 @@ public final class Observable
                         "Invoked activate on observable named '%s' when observable is already active.",
                         getName() ) );
     _owner.setState( ObserverState.UP_TO_DATE );
+    if ( getContext().willPropagateSpyEvents() )
+    {
+      getContext().reportSpyEvent( new ComputedValueActivatedEvent( _owner.getComputedValue() ) );
+    }
   }
 
   @Nonnull

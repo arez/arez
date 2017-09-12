@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
+import org.realityforge.arez.spy.ComputedValueActivatedEvent;
 import org.realityforge.arez.spy.ComputedValueDeactivatedEvent;
 import org.realityforge.arez.spy.ObservableDisposedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -958,6 +959,34 @@ public class ObservableTest
     observable.activate();
 
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
+  }
+
+  @Test
+  public void activate_when_spyEventHandler_present()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( context );
+
+    final Observer derivation = newDerivation( context );
+    derivation.setState( ObserverState.INACTIVE );
+
+    final Observable observable = derivation.getDerivedValue();
+
+    assertEquals( derivation.getState(), ObserverState.INACTIVE );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.addSpyEventHandler( handler );
+
+    observable.activate();
+
+    assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
+
+    handler.assertEventCount( 1 );
+
+    final ComputedValueActivatedEvent event = handler.assertEvent( ComputedValueActivatedEvent.class, 0 );
+    assertEquals( event.getComputedValue(), derivation.getComputedValue() );
+
   }
 
   @Test
