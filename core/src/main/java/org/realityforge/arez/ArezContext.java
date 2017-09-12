@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 import org.realityforge.arez.spy.ObservableCreated;
+import org.realityforge.arez.spy.ObserverErrorEvent;
 
 /**
  * The ArezContext defines the top level container of interconnected observables and observers.
@@ -416,6 +417,10 @@ public final class ArezContext
                             @Nonnull final ObserverError error,
                             @Nullable final Throwable throwable )
   {
+    if ( willPropagateSpyEvents() )
+    {
+      reportSpyEvent( new ObserverErrorEvent( observer, error, throwable ) );
+    }
     _observerErrorHandlerSupport.onObserverError( observer, error, throwable );
   }
 

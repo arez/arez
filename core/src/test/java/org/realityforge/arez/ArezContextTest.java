@@ -3,6 +3,7 @@ package org.realityforge.arez;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.spy.ObservableCreated;
+import org.realityforge.arez.spy.ObserverErrorEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -434,6 +435,32 @@ public class ArezContextTest
     context.reportObserverError( observer, observerError, throwable );
 
     assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
+  public void reportObserverError_when_spyEventHandler_PResent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final ObserverError observerError = ObserverError.REACTION_ERROR;
+    final Throwable throwable = new Throwable();
+    final Procedure action = new NoopProcedure();
+    final Observer observer =
+      context.autorun( ValueUtil.randomString(), ValueUtil.randomBoolean(), action, ValueUtil.randomBoolean() );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.addSpyEventHandler( handler );
+
+    context.reportObserverError( observer, observerError, throwable );
+
+    handler.assertEventCount( 1 );
+
+    final ObserverErrorEvent event = handler.assertEvent( ObserverErrorEvent.class, 0 );
+
+    assertEquals( event.getObserver(), observer );
+    assertEquals( event.getError(), observerError );
+    assertEquals( event.getThrowable(), throwable );
   }
 
   @Test
