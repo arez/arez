@@ -4,6 +4,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
+import org.realityforge.arez.spy.ComputedValueDisposedEvent;
 
 /**
  * The ComputedValue represents an Observable derived from other observables within
@@ -39,6 +40,10 @@ public final class ComputedValue<T>
    * causes a recalculation of the ComputedValue.
    */
   private boolean _computing;
+  /**
+   * FLag indicating whether dispose() method has been invoked.
+   */
+  private boolean _disposed;
 
   ComputedValue( @Nonnull final ArezContext context,
                  @Nullable final String name,
@@ -78,8 +83,16 @@ public final class ComputedValue<T>
    */
   public void dispose()
   {
-    _observer.dispose();
-    _value = null;
+    if ( !_disposed )
+    {
+      _observer.dispose();
+      _value = null;
+      if ( getContext().willPropagateSpyEvents() )
+      {
+        getContext().reportSpyEvent( new ComputedValueDisposedEvent( this ) );
+      }
+      _disposed = true;
+    }
   }
 
   /**
