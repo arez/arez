@@ -885,6 +885,7 @@ public class ObserverTest
     }
   }
 
+  @SuppressWarnings( "ConstantConditions" )
   @Test
   public void invokeReaction_ComputedValue_SpyEventHandlerPresent()
     throws Exception
@@ -908,7 +909,7 @@ public class ObserverTest
     {
       final ComputeCompletedEvent event = handler.assertEvent( ComputeCompletedEvent.class, 1 );
       assertEquals( event.getComputedValue(), computedValue );
-      assertTrue( event.getDuration() > 0 );
+      assertTrue( event.getDuration() >= 0 );
     }
   }
 
