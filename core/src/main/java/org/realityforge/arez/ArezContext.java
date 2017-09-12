@@ -144,7 +144,7 @@ public final class ArezContext
     Guards.invariant( this::willPropagateSpyEvents,
                       () -> String.format( "Attempting to report SpyEvent '%s' but willPropagateSpyEvents() " +
                                            "returns false.", String.valueOf( event ) ) );
-    getSpyEventHandler().onSpyEvent( event );
+    getSpyEventHandlerSupport().onSpyEvent( event );
   }
 
   /**
@@ -476,13 +476,6 @@ public final class ArezContext
 
   @Nonnull
   SpyEventHandlerSupport getSpyEventHandlerSupport()
-  {
-    assert null != _spyEventHandlerSupport;
-    return _spyEventHandlerSupport;
-  }
-
-  @Nonnull
-  SpyEventHandler getSpyEventHandler()
   {
     assert null != _spyEventHandlerSupport;
     return _spyEventHandlerSupport;
