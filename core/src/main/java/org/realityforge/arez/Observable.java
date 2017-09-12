@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
+import org.realityforge.arez.spy.ComputedValueDeactivatedEvent;
 import org.realityforge.arez.spy.ObservableDisposedEvent;
 
 /**
@@ -214,6 +215,10 @@ public final class Observable
        * called within the transaction.
        */
       _owner.setState( ObserverState.INACTIVE );
+      if ( getContext().willPropagateSpyEvents() )
+      {
+        getContext().reportSpyEvent( new ComputedValueDeactivatedEvent( _owner.getComputedValue() ) );
+      }
     }
   }
 
