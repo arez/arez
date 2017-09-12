@@ -439,7 +439,7 @@ public class ArezContextTest
 
     assertEquals( callCount.get(), 0 );
 
-    context.getSpyEventHandler().onSpyEvent( event );
+    context.reportSpyEvent( event );
 
     assertEquals( callCount.get(), 1 );
 
@@ -448,6 +448,32 @@ public class ArezContextTest
     assertFalse( context.willPropagateSpyEvents() );
 
     assertEquals( context.getSpyEventHandlerSupport().getSpyEventHandlers().size(), 0 );
+  }
+
+  @Test
+  public void reportSpyEvent_when_willPropagateSpyEvents_returnsFalse()
+    throws Exception
+  {
+    getConfigProvider().setEnableSpy( false );
+
+    final ArezContext context = new ArezContext();
+
+    final Object event = new Object();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final SpyEventHandler handler = e -> {
+      callCount.incrementAndGet();
+      assertEquals( e, event );
+    };
+
+    assertFalse( context.willPropagateSpyEvents() );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.reportSpyEvent( event ) );
+    assertEquals( exception.getMessage(), "Attempting to report SpyEvent '" + event +
+                                          "' but willPropagateSpyEvents() returns false." );
+
   }
 
   @Test

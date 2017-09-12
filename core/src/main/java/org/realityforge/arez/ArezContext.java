@@ -120,6 +120,14 @@ public final class ArezContext
     return new Observable( this, ArezConfig.enableNames() ? name : null );
   }
 
+  void reportSpyEvent( @Nonnull final Object event )
+  {
+    Guards.invariant( this::willPropagateSpyEvents,
+                      () -> String.format( "Attempting to report SpyEvent '%s' but willPropagateSpyEvents() " +
+                                           "returns false.", String.valueOf( event ) ) );
+    getSpyEventHandler().onSpyEvent( event );
+  }
+
   /**
    * Pass the supplied observer to the scheduler.
    * The observer should NOT be already pending execution.
