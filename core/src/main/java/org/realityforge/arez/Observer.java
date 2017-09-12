@@ -6,6 +6,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.realityforge.arez.spy.ComputeCompletedEvent;
+import org.realityforge.arez.spy.ComputeStartedEvent;
+import org.realityforge.arez.spy.ReactionCompletedEvent;
+import org.realityforge.arez.spy.ReactionStartedEvent;
 
 /**
  * A node within Arez that is notified of changes in 0 or more Observables.
@@ -449,6 +453,23 @@ public final class Observer
                           "invokeReaction called on observer named '%s' but observer has no associated reaction.",
                           name ) );
       assert null != reaction;
+      final long start;
+      if ( getContext().willPropagateSpyEvents() )
+      {
+        start = System.currentTimeMillis();
+        if ( isDerivation() )
+        {
+          getContext().reportSpyEvent( new ComputeStartedEvent( getComputedValue() ) );
+        }
+        else
+        {
+          getContext().reportSpyEvent( new ReactionStartedEvent( this ) );
+        }
+      }
+      else
+      {
+        start = 0;
+      }
       try
       {
         // ComputedValues may have calculated their values and thus be up to date so no need to recalculate.
@@ -460,6 +481,18 @@ public final class Observer
       catch ( final Throwable t )
       {
         getContext().reportObserverError( this, ObserverError.REACTION_ERROR, t );
+      }
+      if ( getContext().willPropagateSpyEvents() )
+      {
+        final long duration = System.currentTimeMillis() - start;
+        if ( isDerivation() )
+        {
+          getContext().reportSpyEvent( new ComputeCompletedEvent( getComputedValue(), duration ) );
+        }
+        else
+        {
+          getContext().reportSpyEvent( new ReactionCompletedEvent( this, duration ) );
+        }
       }
     }
   }

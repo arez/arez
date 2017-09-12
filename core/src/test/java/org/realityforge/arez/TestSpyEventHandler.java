@@ -30,7 +30,12 @@ final class TestSpyEventHandler
     assertEquals( eventCount(), count );
   }
 
-  int eventCount()
+  void assertEventCountAtLeast( final int count )
+  {
+    assertTrue( eventCount() >= count );
+  }
+
+  private int eventCount()
   {
     return _events.size();
   }

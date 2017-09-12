@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.realityforge.arez.spy.ComputeCompletedEvent;
+import org.realityforge.arez.spy.ComputeStartedEvent;
+import org.realityforge.arez.spy.ReactionCompletedEvent;
+import org.realityforge.arez.spy.ReactionStartedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -852,6 +856,60 @@ public class ObserverTest
 
     assertEquals( callCount.get(), 1 );
     assertEquals( errorCount.get(), 0 );
+  }
+
+  @Test
+  public void invokeReaction_Observer_SpyEventHandlerPresent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.addSpyEventHandler( handler );
+
+    final Observer observer =
+      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, o -> Thread.sleep( 1 ) );
+
+    observer.invokeReaction();
+
+    handler.assertEventCount( 2 );
+
+    {
+      final ReactionStartedEvent event = handler.assertEvent( ReactionStartedEvent.class, 0 );
+      assertEquals( event.getObserver(), observer );
+    }
+    {
+      final ReactionCompletedEvent event = handler.assertEvent( ReactionCompletedEvent.class, 1 );
+      assertEquals( event.getObserver(), observer );
+      assertTrue( event.getDuration() > 0 );
+    }
+  }
+
+  @Test
+  public void invokeReaction_ComputedValue_SpyEventHandlerPresent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.addSpyEventHandler( handler );
+
+    final ComputedValue<Integer> computedValue =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> 1, Objects::equals );
+
+    computedValue.getObserver().invokeReaction();
+
+    handler.assertEventCount( 2 );
+
+    {
+      final ComputeStartedEvent event = handler.assertEvent( ComputeStartedEvent.class, 0 );
+      assertEquals( event.getComputedValue(), computedValue );
+    }
+    {
+      final ComputeCompletedEvent event = handler.assertEvent( ComputeCompletedEvent.class, 1 );
+      assertEquals( event.getComputedValue(), computedValue );
+      assertTrue( event.getDuration() > 0 );
+    }
   }
 
   @Test
