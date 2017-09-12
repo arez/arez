@@ -84,11 +84,11 @@ final class Transaction
   }
 
   /**
-   * Return the name of the node.
+   * Return the name of the transaction.
    * This method should NOT be invoked unless {@link ArezConfig#enableNames()} returns true and will throw an
    * exception if invariant checking is enabled.
    *
-   * @return the name of the node.
+   * @return the name of the transaction.
    */
   @Nonnull
   String getName()
