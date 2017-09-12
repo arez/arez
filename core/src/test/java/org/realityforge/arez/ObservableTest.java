@@ -1,7 +1,7 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
-import org.realityforge.arez.spy.ObservableDisposed;
+import org.realityforge.arez.spy.ObservableDisposedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -124,7 +124,7 @@ public class ObservableTest
     assertEquals( observable.isDisposed(), true );
 
     handler.assertEventCount( 1 );
-    final ObservableDisposed event = handler.assertEvent( ObservableDisposed.class, 0 );
+    final ObservableDisposedEvent event = handler.assertEvent( ObservableDisposedEvent.class, 0 );
 
     assertEquals( event.getObservable(), observable );
   }

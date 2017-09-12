@@ -7,12 +7,12 @@ import org.realityforge.arez.Observable;
 /**
  * Notification when Observable is disposed.
  */
-public final class ObservableDisposed
+public final class ObservableDisposedEvent
 {
   @Nonnull
   private final Observable _observable;
 
-  public ObservableDisposed( @Nonnull final Observable observable )
+  public ObservableDisposedEvent( @Nonnull final Observable observable )
   {
     _observable = Objects.requireNonNull( observable );
   }

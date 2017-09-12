@@ -3,7 +3,7 @@ package org.realityforge.arez;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
-import org.realityforge.arez.spy.ObservableCreated;
+import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
 
 /**
@@ -122,7 +122,7 @@ public final class ArezContext
     final Observable observable = new Observable( this, ArezConfig.enableNames() ? name : null );
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObservableCreated( observable ) );
+      reportSpyEvent( new ObservableCreatedEvent( observable ) );
     }
     return observable;
   }

@@ -7,12 +7,12 @@ import org.realityforge.arez.Observable;
 /**
  * Notification when Observable is created.
  */
-public final class ObservableCreated
+public final class ObservableCreatedEvent
 {
   @Nonnull
   private final Observable _observable;
 
-  public ObservableCreated( @Nonnull final Observable observable )
+  public ObservableCreatedEvent( @Nonnull final Observable observable )
   {
     _observable = Objects.requireNonNull( observable );
   }

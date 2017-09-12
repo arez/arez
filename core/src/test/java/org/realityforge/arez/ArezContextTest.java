@@ -2,7 +2,7 @@ package org.realityforge.arez;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.realityforge.arez.spy.ObservableCreated;
+import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -697,7 +697,7 @@ public class ArezContextTest
 
     assertEquals( observable.getName(), name );
     handler.assertEventCount( 1 );
-    final ObservableCreated event = handler.assertEvent( ObservableCreated.class, 0 );
+    final ObservableCreatedEvent event = handler.assertEvent( ObservableCreatedEvent.class, 0 );
     assertEquals( event.getObservable(), observable );
   }
 

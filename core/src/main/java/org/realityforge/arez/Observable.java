@@ -6,7 +6,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
-import org.realityforge.arez.spy.ObservableDisposed;
+import org.realityforge.arez.spy.ObservableDisposedEvent;
 
 /**
  * The observable represents state that can be observed within the system.
@@ -113,7 +113,7 @@ public final class Observable
     // queueForDeactivation() here.
     if ( getContext().willPropagateSpyEvents() )
     {
-      getContext().reportSpyEvent( new ObservableDisposed( this ) );
+      getContext().reportSpyEvent( new ObservableDisposedEvent( this ) );
     }
   }
 
