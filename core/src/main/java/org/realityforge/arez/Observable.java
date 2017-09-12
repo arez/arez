@@ -15,7 +15,6 @@ import org.realityforge.arez.spy.ObservableDisposedEvent;
  */
 public final class Observable
   extends Node
-  implements Disposable
 {
   /**
    * The value of _workState when the Observable is should longer be used.
@@ -124,6 +123,7 @@ public final class Observable
    *
    * @return true if dispose() has been invoked on this Observable, false otherwise.
    */
+  @Override
   boolean isDisposed()
   {
     return DISPOSED == _workState;

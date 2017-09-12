@@ -81,9 +81,10 @@ public final class ComputedValue<T>
   /**
    * Dispose the ComputedValue so that it can no longer be used.
    */
+  @Override
   public void dispose()
   {
-    if ( !_disposed )
+    if ( !isDisposed() )
     {
       _observer.dispose();
       _value = null;
@@ -93,6 +94,12 @@ public final class ComputedValue<T>
       }
       _disposed = true;
     }
+  }
+
+  @Override
+  boolean isDisposed()
+  {
+    return _disposed;
   }
 
   /**

@@ -17,6 +17,17 @@ public class NodeTest
     {
       super( context, name );
     }
+
+    @Override
+    boolean isDisposed()
+    {
+      return true;
+    }
+
+    @Override
+    public void dispose()
+    {
+    }
   }
 
   @Test

@@ -27,8 +27,6 @@ TODO:
 
 * Add structure to buildfile to setup annotation processor
 
-* Make Node implement Disposable.
-
 * Consider removing Observer from the public API so instead just Disposable (or Node) is returned from autorun.
 
 * Add @PreDispose and @PostDispose annotations that can be applied to methods that are called before and after a

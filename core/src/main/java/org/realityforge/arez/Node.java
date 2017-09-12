@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
  * The node is a named element within a specific Arez system that forms part of the dependency graph.
  */
 public abstract class Node
+  implements Disposable
 {
   /**
    * Reference to the system to which this node belongs.
@@ -51,6 +52,11 @@ public abstract class Node
   {
     return _context;
   }
+
+  /**
+   * Return true if dispose() has been called.
+   */
+  abstract boolean isDisposed();
 
   /**
    * {@inheritDoc}

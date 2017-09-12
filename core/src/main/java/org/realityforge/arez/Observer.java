@@ -16,7 +16,6 @@ import org.realityforge.arez.spy.ReactionStartedEvent;
  */
 public final class Observer
   extends Node
-  implements Disposable
 {
   /**
    * The reference to the ComputedValue if this observer is a derivation.
@@ -175,6 +174,7 @@ public final class Observer
    *
    * @return true if observer is disposed.
    */
+  @Override
   boolean isDisposed()
   {
     return _disposed;
