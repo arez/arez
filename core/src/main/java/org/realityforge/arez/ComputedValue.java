@@ -96,6 +96,9 @@ public final class ComputedValue<T>
     }
   }
 
+  /**
+   * Return true if dispose() has been called.
+   */
   @Override
   boolean isDisposed()
   {
