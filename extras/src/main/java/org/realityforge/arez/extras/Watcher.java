@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
+import org.realityforge.arez.Node;
 import org.realityforge.arez.Observer;
 import org.realityforge.arez.Procedure;
 import org.realityforge.arez.SafeFunction;
@@ -20,6 +21,7 @@ import org.realityforge.arez.SafeFunction;
  * to create higher level reactive elements.</p>
  */
 public final class Watcher
+  extends Node
 {
   /**
    * The Computed value representing condition.
@@ -46,6 +48,7 @@ public final class Watcher
                   @Nonnull final SafeFunction<Boolean> condition,
                   @Nonnull final Procedure effect )
   {
+    super( context, name );
     _conditionValue = context.createComputedValue( name, condition, Objects::equals );
     final Procedure procedure = () -> {
       if ( Boolean.TRUE == _conditionValue.get() )
@@ -70,6 +73,7 @@ public final class Watcher
   /**
    * Cancel the watch if it has not been triggered and release all underlying resources.
    */
+  @Override
   public void dispose()
   {
     _observer.dispose();

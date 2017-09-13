@@ -35,7 +35,10 @@ public class WatcherTest
     };
     final Procedure procedure = effectRun::incrementAndGet;
 
-    new Watcher( context, name, mutation, condition, procedure );
+    final Watcher watcher = new Watcher( context, name, mutation, condition, procedure );
+
+    assertEquals( watcher.getName(), name );
+    assertEquals( watcher.toString(), name );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
