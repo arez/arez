@@ -19,7 +19,6 @@ that will be expanded over time as the library is fleshed out.
 TODO:
 * spy events:
  - Observable.reportChange (+ optional "change" description?)
- - scheduled-reaction
  
 * Add combined javadocs target
 
