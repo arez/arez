@@ -54,11 +54,6 @@ public abstract class Node
   }
 
   /**
-   * Return true if dispose() has been called.
-   */
-  abstract boolean isDisposed();
-
-  /**
    * {@inheritDoc}
    */
   @Nonnull

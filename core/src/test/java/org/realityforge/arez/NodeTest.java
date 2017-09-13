@@ -19,12 +19,6 @@ public class NodeTest
     }
 
     @Override
-    boolean isDisposed()
-    {
-      return true;
-    }
-
-    @Override
     public void dispose()
     {
     }

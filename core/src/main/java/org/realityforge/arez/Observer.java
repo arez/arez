@@ -179,7 +179,6 @@ public final class Observer
    *
    * @return true if observer is disposed.
    */
-  @Override
   boolean isDisposed()
   {
     return _disposed;

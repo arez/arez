@@ -124,7 +124,6 @@ public final class Observable
    *
    * @return true if dispose() has been invoked on this Observable, false otherwise.
    */
-  @Override
   boolean isDisposed()
   {
     return DISPOSED == _workState;
