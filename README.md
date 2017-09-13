@@ -20,8 +20,7 @@ TODO:
 * spy events:
  - Observable.reportChange (+ optional "change" description?)
  - scheduled-reaction
- - action start/completed
-
+ 
 * Add combined javadocs target
 
 * Add structure to buildfile to setup annotation processor
