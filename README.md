@@ -36,7 +36,7 @@ TODO:
   - verifying the framework is used correctly
     - ComputedValues should not cause cycles during recalculation
 
-* ComputedValue - where can use function that takes args (that are Observables somehow?)
+* Add @Memoized annotation to methods that makes the method call act as a ComputedValue based on parameters.
 
 * Support optional parameter parameter to report*Changed that describes the change (i.e.
   AtomicChange(FromValue, ToValue), MapAdd(Key, Value) etc). Propagate this change as a
