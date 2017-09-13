@@ -21,6 +21,7 @@ import org.realityforge.arez.spy.ObserverCreatedEvent;
 import org.realityforge.arez.spy.ObserverDisposedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
 import org.realityforge.arez.spy.ReactionCompletedEvent;
+import org.realityforge.arez.spy.ReactionScheduledEvent;
 import org.realityforge.arez.spy.ReactionStartedEvent;
 import org.realityforge.arez.spy.TransactionCompletedEvent;
 import org.realityforge.arez.spy.TransactionStartedEvent;
@@ -36,6 +37,9 @@ final class SpyUtil
 
   static
   {
+    emitter( ObserverCreatedEvent.class,
+             IndentType.NONE,
+             e -> "Observer Created " + e.getObserver().getName() );
     emitter( ObserverCreatedEvent.class,
              IndentType.NONE,
              e -> "Observer Created " + e.getObserver().getName() );
@@ -69,6 +73,9 @@ final class SpyUtil
     emitter( ReactionStartedEvent.class,
              IndentType.IN,
              e -> "Reaction Started " + e.getObserver().getName() );
+    emitter( ReactionScheduledEvent.class,
+             IndentType.NONE,
+             e -> "Reaction Scheduled " + e.getObserver().getName() );
     emitter( ReactionCompletedEvent.class,
              IndentType.OUT,
              e -> "Reaction Completed " + e.getObserver().getName() + " [" + e.getDuration() + "]" );

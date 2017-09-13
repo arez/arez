@@ -5,6 +5,7 @@ import org.realityforge.arez.spy.ComputedValueActivatedEvent;
 import org.realityforge.arez.spy.ComputedValueDeactivatedEvent;
 import org.realityforge.arez.spy.ObservableChangedEvent;
 import org.realityforge.arez.spy.ObservableDisposedEvent;
+import org.realityforge.arez.spy.ReactionScheduledEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -1150,10 +1151,12 @@ public class ObservableTest
 
     assertEquals( observer.getState(), ObserverState.STALE );
 
-    handler.assertEventCount( 1 );
+    handler.assertEventCount( 2 );
 
     final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 0 );
     assertEquals( event.getObservable(), observable );
+
+    handler.assertEvent( ReactionScheduledEvent.class, 1 );
   }
 
   @Test

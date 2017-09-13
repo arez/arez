@@ -7,6 +7,7 @@ import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
+import org.realityforge.arez.spy.ReactionScheduledEvent;
 import org.realityforge.arez.spy.TransactionCompletedEvent;
 import org.realityforge.arez.spy.TransactionStartedEvent;
 
@@ -148,6 +149,10 @@ public final class ArezContext
    */
   void scheduleReaction( @Nonnull final Observer observer )
   {
+    if ( willPropagateSpyEvents() )
+    {
+      getSpy().reportSpyEvent( new ReactionScheduledEvent( observer ) );
+    }
     _scheduler.scheduleReaction( observer );
   }
 

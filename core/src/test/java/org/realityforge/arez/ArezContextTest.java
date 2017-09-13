@@ -6,6 +6,7 @@ import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
+import org.realityforge.arez.spy.ReactionScheduledEvent;
 import org.realityforge.arez.spy.TransactionCompletedEvent;
 import org.realityforge.arez.spy.TransactionStartedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -543,6 +544,27 @@ public class ArezContextTest
   }
 
   @Test
+  public void scheduleReaction_generates_spyEvent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observer observer = newReadOnlyObserver( context );
+
+    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+    context.scheduleReaction( observer );
+
+    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
+
+    handler.assertEventCount( 1 );
+    final ReactionScheduledEvent event = handler.assertEvent( ReactionScheduledEvent.class, 0 );
+    assertEquals( event.getObserver(), observer );
+  }
+
+  @Test
   public void createComputedValue()
     throws Exception
   {
@@ -642,11 +664,10 @@ public class ArezContextTest
     final Observer observer =
       context.createObserver( ValueUtil.randomString(), true, new TestReaction(), false );
 
-    handler.assertEventCount( 1 );
+    handler.assertEventCount( 2 );
 
-    final ObserverCreatedEvent event = handler.assertEvent( ObserverCreatedEvent.class, 0 );
-
-    assertEquals( event.getObserver(), observer );
+    assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver(), observer );
+    assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver(), observer );
   }
 
   @Test
