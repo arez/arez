@@ -5,13 +5,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class SpyEventHandlerSupportTest
+public class SpyImplTest
   extends AbstractArezTest
 {
   @Test
   public void basicOperation()
+    throws Exception
   {
-    final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+    final SpyImpl spy = new SpyImpl();
 
     final Object event = new Object();
 
@@ -22,32 +23,49 @@ public class SpyEventHandlerSupportTest
       assertEquals( e, event );
     };
 
-    support.addSpyEventHandler( handler );
-    assertEquals( support.getSpyEventHandlers().size(), 1 );
+    assertFalse( spy.willPropagateSpyEvents() );
 
-    support.onSpyEvent( event );
+    spy.addSpyEventHandler( handler );
+
+    assertTrue( spy.willPropagateSpyEvents() );
+
+    assertEquals( spy.getSpyEventHandlers().size(), 1 );
+    assertEquals( spy.getSpyEventHandlers().contains( handler ), true );
+
+    assertEquals( callCount.get(), 0 );
+
+    spy.reportSpyEvent( event );
 
     assertEquals( callCount.get(), 1 );
 
-    support.onSpyEvent( event );
+    spy.removeSpyEventHandler( handler );
 
-    assertEquals( callCount.get(), 2 );
+    assertFalse( spy.willPropagateSpyEvents() );
 
-    support.removeSpyEventHandler( handler );
+    assertEquals( spy.getSpyEventHandlers().size(), 0 );
+  }
 
-    assertEquals( support.getSpyEventHandlers().size(), 0 );
+  @Test
+  public void reportSpyEvent_whenNoListeners()
+  {
+    final SpyImpl spy = new SpyImpl();
 
-    support.onSpyEvent( event );
+    assertFalse( spy.willPropagateSpyEvents() );
 
-    // Not called again
-    assertEquals( callCount.get(), 2 );
+    final Object event = new Object();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> spy.reportSpyEvent( event ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempting to report SpyEvent '" + event + "' but willPropagateSpyEvents() returns false." );
   }
 
   @Test
   public void addSpyEventHandler_alreadyExists()
     throws Exception
   {
-    final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+    final SpyImpl support = new SpyImpl();
 
     final SpyEventHandler handler = new TestSpyEventHandler();
     support.addSpyEventHandler( handler );
@@ -63,7 +81,7 @@ public class SpyEventHandlerSupportTest
   public void removeSpyEventHandler_noExists()
     throws Exception
   {
-    final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+    final SpyImpl support = new SpyImpl();
 
     final SpyEventHandler handler = new TestSpyEventHandler();
 
@@ -77,7 +95,7 @@ public class SpyEventHandlerSupportTest
   @Test
   public void multipleHandlers()
   {
-    final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+    final SpyImpl support = new SpyImpl();
 
     final Object event = new Object();
 
@@ -94,13 +112,13 @@ public class SpyEventHandlerSupportTest
 
     assertEquals( support.getSpyEventHandlers().size(), 3 );
 
-    support.onSpyEvent( event );
+    support.reportSpyEvent( event );
 
     assertEquals( callCount1.get(), 1 );
     assertEquals( callCount2.get(), 1 );
     assertEquals( callCount3.get(), 1 );
 
-    support.onSpyEvent( event );
+    support.reportSpyEvent( event );
 
     assertEquals( callCount1.get(), 2 );
     assertEquals( callCount2.get(), 2 );
@@ -110,7 +128,7 @@ public class SpyEventHandlerSupportTest
   @Test
   public void onSpyEvent_whereOneHandlerGeneratesError()
   {
-    final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+    final SpyImpl support = new SpyImpl();
 
     final Object event = new Object();
 
@@ -128,7 +146,7 @@ public class SpyEventHandlerSupportTest
     support.addSpyEventHandler( handler2 );
     support.addSpyEventHandler( handler3 );
 
-    support.onSpyEvent( event );
+    support.reportSpyEvent( event );
 
     assertEquals( callCount1.get(), 1 );
     assertEquals( callCount3.get(), 1 );
@@ -140,7 +158,7 @@ public class SpyEventHandlerSupportTest
                   "Exception when notifying spy handler '" + handler2 + "' of '" + event + "' event." );
     assertEquals( entry1.getThrowable(), exception );
 
-    support.onSpyEvent( event );
+    support.reportSpyEvent( event );
 
     assertEquals( callCount1.get(), 2 );
     assertEquals( callCount3.get(), 2 );

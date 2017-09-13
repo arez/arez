@@ -8,8 +8,8 @@ import org.jetbrains.annotations.TestOnly;
 /**
  * Class supporting the propagation of events to SpyEventHandler callbacks.
  */
-final class SpyEventHandlerSupport
-  implements SpyEventHandler
+final class SpyImpl
+  implements Spy
 {
   /**
    * The list of spy handlers to call when an event is received.
@@ -17,12 +17,10 @@ final class SpyEventHandlerSupport
   private final ArrayList<SpyEventHandler> _spyEventHandlers = new ArrayList<>();
 
   /**
-   * Add a spy handler to the list of handlers.
-   * The handler should not already be in the list.
-   *
-   * @param handler the spy handler.
+   * {@inheritDoc}
    */
-  void addSpyEventHandler( @Nonnull final SpyEventHandler handler )
+  @Override
+  public void addSpyEventHandler( @Nonnull final SpyEventHandler handler )
   {
     Guards.invariant( () -> !_spyEventHandlers.contains( handler ),
                       () -> "Attempting to add handler " + handler +
@@ -31,12 +29,10 @@ final class SpyEventHandlerSupport
   }
 
   /**
-   * Remove spy handler from list of existing handlers.
-   * The handler should already be in the list.
-   *
-   * @param handler the spy handler.
+   * {@inheritDoc}
    */
-  void removeSpyEventHandler( @Nonnull final SpyEventHandler handler )
+  @Override
+  public void removeSpyEventHandler( @Nonnull final SpyEventHandler handler )
   {
     Guards.invariant( () -> _spyEventHandlers.contains( handler ),
                       () -> "Attempting to remove handler " + handler + " that is not in the list of spy handlers." );
@@ -47,8 +43,11 @@ final class SpyEventHandlerSupport
    * {@inheritDoc}
    */
   @Override
-  public void onSpyEvent( @Nonnull final Object event )
+  public void reportSpyEvent( @Nonnull final Object event )
   {
+    Guards.invariant( this::willPropagateSpyEvents,
+                      () -> String.format( "Attempting to report SpyEvent '%s' but willPropagateSpyEvents() " +
+                                           "returns false.", String.valueOf( event ) ) );
     for ( final SpyEventHandler handler : _spyEventHandlers )
     {
       try
@@ -65,6 +64,15 @@ final class SpyEventHandlerSupport
         ArezLogger.log( message, error );
       }
     }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean willPropagateSpyEvents()
+  {
+    return ArezConfig.enableSpy() && !getSpyEventHandlers().isEmpty();
   }
 
   @TestOnly

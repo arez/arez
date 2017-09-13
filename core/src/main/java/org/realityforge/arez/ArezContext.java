@@ -41,11 +41,10 @@ public final class ArezContext
   @Nonnull
   private final ObserverErrorHandlerSupport _observerErrorHandlerSupport = new ObserverErrorHandlerSupport();
   /**
-   * Support infrastructure for propagating spy events.
+   * Support infrastructure for supporting spy events.
    */
   @Nullable
-  private final SpyEventHandlerSupport _spyEventHandlerSupport =
-    ArezConfig.enableSpy() ? new SpyEventHandlerSupport() : null;
+  private final SpyImpl _spy = ArezConfig.enableSpy() ? new SpyImpl() : null;
 
   /**
    * Create a ComputedValue with specified parameters.
@@ -65,7 +64,7 @@ public final class ArezContext
       new ComputedValue<>( this, ArezConfig.enableNames() ? name : null, function, equalityComparator );
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ComputedValueCreatedEvent( computedValue ) );
+      getSpy().reportSpyEvent( new ComputedValueCreatedEvent( computedValue ) );
     }
     return computedValue;
   }
@@ -119,7 +118,7 @@ public final class ArezContext
     }
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObserverCreatedEvent( observer ) );
+      getSpy().reportSpyEvent( new ObserverCreatedEvent( observer ) );
     }
     return observer;
   }
@@ -136,17 +135,9 @@ public final class ArezContext
     final Observable observable = new Observable( this, ArezConfig.enableNames() ? name : null );
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObservableCreatedEvent( observable ) );
+      getSpy().reportSpyEvent( new ObservableCreatedEvent( observable ) );
     }
     return observable;
-  }
-
-  void reportSpyEvent( @Nonnull final Object event )
-  {
-    Guards.invariant( this::willPropagateSpyEvents,
-                      () -> String.format( "Attempting to report SpyEvent '%s' but willPropagateSpyEvents() " +
-                                           "returns false.", String.valueOf( event ) ) );
-    getSpyEventHandlerSupport().onSpyEvent( event );
   }
 
   /**
@@ -188,7 +179,7 @@ public final class ArezContext
     {
       assert null != name;
       final boolean mutation = TransactionMode.READ_WRITE == _transaction.getMode();
-      reportSpyEvent( new TransactionStartedEvent( name, mutation, tracker ) );
+      getSpy().reportSpyEvent( new TransactionStartedEvent( name, mutation, tracker ) );
     }
     return _transaction;
   }
@@ -219,7 +210,7 @@ public final class ArezContext
       final boolean mutation = TransactionMode.READ_WRITE == _transaction.getMode();
       final Observer tracker = _transaction.getTracker();
       final long duration = System.currentTimeMillis() - _transaction.getStartedAt();
-      reportSpyEvent( new TransactionCompletedEvent( name, mutation, tracker, duration ) );
+      getSpy().reportSpyEvent( new TransactionCompletedEvent( name, mutation, tracker, duration ) );
     }
     _transaction = _transaction.getPrevious();
     triggerScheduler();
@@ -447,36 +438,9 @@ public final class ArezContext
   {
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObserverErrorEvent( observer, error, throwable ) );
+      getSpy().reportSpyEvent( new ObserverErrorEvent( observer, error, throwable ) );
     }
     _observerErrorHandlerSupport.onObserverError( observer, error, throwable );
-  }
-
-  /**
-   * Add spy handler to the list of spy handlers called.
-   * The handler should not already be in the list.
-   * This method should not be called if spy's are disabled.
-   *
-   * @param handler the error handler.
-   */
-  public void addSpyEventHandler( @Nonnull final SpyEventHandler handler )
-  {
-    Guards.invariant( this::areSpiesEnabled,
-                      () -> "Attempting to add SpyEventHandler but spies are not enabled." );
-    getSpyEventHandlerSupport().addSpyEventHandler( handler );
-  }
-
-  /**
-   * Remove error handler from list of existing error handlers.
-   * The handler should already be in the list.
-   *
-   * @param handler the error handler.
-   */
-  public void removeSpyEventHandler( @Nonnull final SpyEventHandler handler )
-  {
-    Guards.invariant( this::areSpiesEnabled,
-                      () -> "Attempting to remove SpyEventHandler but spies are not enabled." );
-    getSpyEventHandlerSupport().removeSpyEventHandler( handler );
   }
 
   /**
@@ -485,16 +449,23 @@ public final class ArezContext
    *
    * @return true if spy events will be propagated, false otherwise.
    */
-  boolean willPropagateSpyEvents()
+  private boolean willPropagateSpyEvents()
   {
-    return ArezConfig.enableSpy() && !getSpyEventHandlerSupport().getSpyEventHandlers().isEmpty();
+    return areSpiesEnabled() && getSpy().willPropagateSpyEvents();
   }
 
+  /**
+   * Return the spy associated with context.
+   * This method should not be invoked unless {@link #areSpiesEnabled()} returns true.
+   *
+   * @return the spy associated with context.
+   */
   @Nonnull
-  SpyEventHandlerSupport getSpyEventHandlerSupport()
+  public Spy getSpy()
   {
-    assert null != _spyEventHandlerSupport;
-    return _spyEventHandlerSupport;
+    Guards.invariant( this::areSpiesEnabled, () -> "Attempting to get Spy but spies are not enabled." );
+    assert null != _spy;
+    return _spy;
   }
 
   /**

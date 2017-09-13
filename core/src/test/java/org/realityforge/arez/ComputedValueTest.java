@@ -159,7 +159,7 @@ public class ComputedValueTest
     context.setTransaction( null );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     computedValue.dispose();
 

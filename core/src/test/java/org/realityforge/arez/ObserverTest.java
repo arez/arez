@@ -743,7 +743,7 @@ public class ObserverTest
     assertEquals( observer.isDisposed(), false );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     observer.dispose();
 
@@ -770,7 +770,7 @@ public class ObserverTest
     assertEquals( observer.isDisposed(), false );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     observer.dispose();
 
@@ -921,7 +921,7 @@ public class ObserverTest
     final ArezContext context = new ArezContext();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     final Observer observer =
       new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, o -> Thread.sleep( 1 ) );
@@ -951,7 +951,7 @@ public class ObserverTest
     final ArezContext context = new ArezContext();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     final ComputedValue<Integer> computedValue =
       new ComputedValue<>( context, ValueUtil.randomString(), () -> 1, Objects::equals );

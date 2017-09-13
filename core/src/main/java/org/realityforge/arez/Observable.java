@@ -113,9 +113,9 @@ public final class Observable
     // it is an error to invoke reportObserved(). Once all dependencies are removed then
     // this Observable will be deactivated if it is a ComputedValue. Thus no need to call
     // queueForDeactivation() here.
-    if ( getContext().willPropagateSpyEvents() && !isCalculated() )
+    if ( willPropagateSpyEvents() && !isCalculated() )
     {
-      getContext().reportSpyEvent( new ObservableDisposedEvent( this ) );
+      reportSpyEvent( new ObservableDisposedEvent( this ) );
     }
   }
 
@@ -217,9 +217,9 @@ public final class Observable
        * called within the transaction.
        */
       _owner.setState( ObserverState.INACTIVE );
-      if ( getContext().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() )
       {
-        getContext().reportSpyEvent( new ComputedValueDeactivatedEvent( _owner.getComputedValue() ) );
+        reportSpyEvent( new ComputedValueDeactivatedEvent( _owner.getComputedValue() ) );
       }
     }
   }
@@ -243,9 +243,9 @@ public final class Observable
                         "Invoked activate on observable named '%s' when observable is already active.",
                         getName() ) );
     _owner.setState( ObserverState.UP_TO_DATE );
-    if ( getContext().willPropagateSpyEvents() )
+    if ( willPropagateSpyEvents() )
     {
-      getContext().reportSpyEvent( new ComputedValueActivatedEvent( _owner.getComputedValue() ) );
+      reportSpyEvent( new ComputedValueActivatedEvent( _owner.getComputedValue() ) );
     }
   }
 
@@ -369,17 +369,17 @@ public final class Observable
   public void reportChanged()
   {
     getContext().getTransaction().reportChanged( this );
-    if ( getContext().willPropagateSpyEvents() )
+    if ( willPropagateSpyEvents() )
     {
-      getContext().reportSpyEvent( new ObservableChangedEvent( this ) );
+      reportSpyEvent( new ObservableChangedEvent( this ) );
     }
   }
 
   void reportChangeConfirmed()
   {
-    if ( getContext().willPropagateSpyEvents() )
+    if ( willPropagateSpyEvents() )
     {
-      getContext().reportSpyEvent( new ObservableChangedEvent( this ) );
+      reportSpyEvent( new ObservableChangedEvent( this ) );
     }
     getContext().getTransaction().reportChangeConfirmed( this );
   }

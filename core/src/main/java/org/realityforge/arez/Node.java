@@ -74,4 +74,37 @@ public abstract class Node
       return super.toString();
     }
   }
+
+  /**
+   * Return true if spy events will be propagated.
+   * This means spies are enabled and there is at least one spy event handler present.
+   *
+   * @return true if spy events will be propagated, false otherwise.
+   */
+  protected final boolean willPropagateSpyEvents()
+  {
+    return ArezConfig.enableSpy() && getSpy().willPropagateSpyEvents();
+  }
+
+  /**
+   * Return the spy associated with context.
+   * This method should not be invoked unless {@link ArezConfig#enableSpy()} returns true.
+   *
+   * @return the spy associated with context.
+   */
+  @Nonnull
+  protected final Spy getSpy()
+  {
+    return getContext().getSpy();
+  }
+
+  /**
+   * Report a spy event.
+   *
+   * @param event the event that occurred.
+   */
+  protected final void reportSpyEvent( @Nonnull final Object event )
+  {
+    getSpy().reportSpyEvent( event );
+  }
 }

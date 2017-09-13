@@ -76,7 +76,7 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
     final Observer tracker = null;
@@ -153,7 +153,7 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
     final Observer tracker = null;
@@ -501,7 +501,7 @@ public class ArezContextTest
       context.autorun( ValueUtil.randomString(), ValueUtil.randomBoolean(), action, ValueUtil.randomBoolean() );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     context.reportObserverError( observer, observerError, throwable );
 
@@ -515,89 +515,15 @@ public class ArezContextTest
   }
 
   @Test
-  public void spyEventHandler()
-    throws Exception
-  {
-    final ArezContext context = new ArezContext();
-
-    final Object event = new Object();
-
-    final AtomicInteger callCount = new AtomicInteger();
-
-    final SpyEventHandler handler = e -> {
-      callCount.incrementAndGet();
-      assertEquals( e, event );
-    };
-
-    assertFalse( context.willPropagateSpyEvents() );
-
-    context.addSpyEventHandler( handler );
-
-    assertTrue( context.willPropagateSpyEvents() );
-
-    assertEquals( context.getSpyEventHandlerSupport().getSpyEventHandlers().size(), 1 );
-    assertEquals( context.getSpyEventHandlerSupport().getSpyEventHandlers().contains( handler ), true );
-
-    assertEquals( callCount.get(), 0 );
-
-    context.reportSpyEvent( event );
-
-    assertEquals( callCount.get(), 1 );
-
-    context.removeSpyEventHandler( handler );
-
-    assertFalse( context.willPropagateSpyEvents() );
-
-    assertEquals( context.getSpyEventHandlerSupport().getSpyEventHandlers().size(), 0 );
-  }
-
-  @Test
-  public void reportSpyEvent_when_willPropagateSpyEvents_returnsFalse()
+  public void getSpy_whenSpiesDisabled()
     throws Exception
   {
     getConfigProvider().setEnableSpy( false );
 
     final ArezContext context = new ArezContext();
 
-    final Object event = new Object();
-
-    assertFalse( context.willPropagateSpyEvents() );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.reportSpyEvent( event ) );
-    assertEquals( exception.getMessage(), "Attempting to report SpyEvent '" + event +
-                                          "' but willPropagateSpyEvents() returns false." );
-
-  }
-
-  @Test
-  public void addSpyEventHandler_whenSpiesDisabled()
-    throws Exception
-  {
-    getConfigProvider().setEnableSpy( false );
-
-    final SpyEventHandler handler = new TestSpyEventHandler();
-
-    final ArezContext context = new ArezContext();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.addSpyEventHandler( handler ) );
-    assertEquals( exception.getMessage(), "Attempting to add SpyEventHandler but spies are not enabled." );
-  }
-
-  @Test
-  public void removeSpyEventHandler_whenSpiesDisabled()
-    throws Exception
-  {
-    getConfigProvider().setEnableSpy( false );
-
-    final SpyEventHandler handler = new TestSpyEventHandler();
-
-    final ArezContext context = new ArezContext();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.removeSpyEventHandler( handler ) );
-    assertEquals( exception.getMessage(), "Attempting to remove SpyEventHandler but spies are not enabled." );
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getSpy );
+    assertEquals( exception.getMessage(), "Attempting to get Spy but spies are not enabled." );
   }
 
   @Test
@@ -639,7 +565,7 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     final ComputedValue<String> computedValue =
       context.createComputedValue( ValueUtil.randomString(), () -> "", Objects::equals );
@@ -711,7 +637,7 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     final Observer observer =
       context.createObserver( ValueUtil.randomString(), true, new TestReaction(), false );
@@ -776,7 +702,7 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
     final Observable observable = context.createObservable( name );

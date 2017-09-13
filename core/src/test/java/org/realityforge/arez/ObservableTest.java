@@ -120,7 +120,7 @@ public class ObservableTest
     assertEquals( observable.isDisposed(), false );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     observable.dispose();
 
@@ -153,7 +153,7 @@ public class ObservableTest
     assertEquals( observable.isDisposed(), false );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     observable.dispose();
 
@@ -905,7 +905,7 @@ public class ObservableTest
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     observable.deactivate();
 
@@ -1007,7 +1007,7 @@ public class ObservableTest
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     observable.activate();
 
@@ -1144,7 +1144,7 @@ public class ObservableTest
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     observable.reportChanged();
 
@@ -1233,7 +1233,7 @@ public class ObservableTest
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     observable.reportChangeConfirmed();
 

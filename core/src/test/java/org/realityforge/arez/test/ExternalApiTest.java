@@ -130,14 +130,14 @@ public class ExternalApiTest
     final AtomicInteger callCount = new AtomicInteger();
 
     final SpyEventHandler handler = e -> callCount.incrementAndGet();
-    context.addSpyEventHandler( handler );
+    context.getSpy().addSpyEventHandler( handler );
 
     // Generate an event
     context.createObservable( ValueUtil.randomString() );
 
     assertEquals( callCount.get(), 1 );
 
-    context.removeSpyEventHandler( handler );
+    context.getSpy().removeSpyEventHandler( handler );
 
     // Generate an event
     context.createObservable( ValueUtil.randomString() );

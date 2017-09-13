@@ -162,9 +162,9 @@ public final class Observer
                                   TransactionMode.READ_WRITE,
                                   this,
                                   () -> getContext().getTransaction().markTrackerAsDisposed() );
-      if ( getContext().willPropagateSpyEvents() && !isDerivation() )
+      if ( willPropagateSpyEvents() && !isDerivation() )
       {
-        getContext().reportSpyEvent( new ObserverDisposedEvent( this ) );
+        reportSpyEvent( new ObserverDisposedEvent( this ) );
       }
     }
   }
@@ -459,16 +459,16 @@ public final class Observer
                           name ) );
       assert null != reaction;
       final long start;
-      if ( getContext().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() )
       {
         start = System.currentTimeMillis();
         if ( isDerivation() )
         {
-          getContext().reportSpyEvent( new ComputeStartedEvent( getComputedValue() ) );
+          reportSpyEvent( new ComputeStartedEvent( getComputedValue() ) );
         }
         else
         {
-          getContext().reportSpyEvent( new ReactionStartedEvent( this ) );
+          reportSpyEvent( new ReactionStartedEvent( this ) );
         }
       }
       else
@@ -487,16 +487,16 @@ public final class Observer
       {
         getContext().reportObserverError( this, ObserverError.REACTION_ERROR, t );
       }
-      if ( getContext().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() )
       {
         final long duration = System.currentTimeMillis() - start;
         if ( isDerivation() )
         {
-          getContext().reportSpyEvent( new ComputeCompletedEvent( getComputedValue(), duration ) );
+          reportSpyEvent( new ComputeCompletedEvent( getComputedValue(), duration ) );
         }
         else
         {
-          getContext().reportSpyEvent( new ReactionCompletedEvent( this, duration ) );
+          reportSpyEvent( new ReactionCompletedEvent( this, duration ) );
         }
       }
     }

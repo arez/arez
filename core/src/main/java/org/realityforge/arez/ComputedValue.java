@@ -88,9 +88,9 @@ public final class ComputedValue<T>
     {
       _observer.dispose();
       _value = null;
-      if ( getContext().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() )
       {
-        getContext().reportSpyEvent( new ComputedValueDisposedEvent( this ) );
+        reportSpyEvent( new ComputedValueDisposedEvent( this ) );
       }
       _disposed = true;
     }
