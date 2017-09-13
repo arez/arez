@@ -57,7 +57,7 @@ public class ExternalApiTest
 
   @Test
   public void createComputedValue()
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
 
@@ -175,7 +175,7 @@ public class ExternalApiTest
 
   @Test
   public void interactionWithSingleObservable()
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
 
@@ -204,7 +204,7 @@ public class ExternalApiTest
 
   @Test
   public void interactionWithMultipleObservable()
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
 
@@ -265,7 +265,7 @@ public class ExternalApiTest
 
   @Test
   public void function()
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
 
@@ -311,7 +311,7 @@ public class ExternalApiTest
 
   @Test
   public void proceduresCanBeNested()
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
     final Observable observable = context.createObservable( ValueUtil.randomString() );
@@ -339,7 +339,7 @@ public class ExternalApiTest
 
   @Test
   public void nestedFunctions()
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
 

@@ -7,7 +7,7 @@ import org.realityforge.arez.Observer;
 public final class CodeModelExample
 {
   public static void main( final String[] args )
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
 

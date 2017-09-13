@@ -15,7 +15,7 @@ public class WatcherTest
 {
   @Test
   public void basicOperation()
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
 
@@ -62,7 +62,7 @@ public class WatcherTest
 
   @Test
   public void dispose_releasesResources()
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
 
@@ -98,7 +98,7 @@ public class WatcherTest
 
   @Test
   public void conditionReadOnlyTransaction()
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
 

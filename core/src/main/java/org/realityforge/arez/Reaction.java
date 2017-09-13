@@ -12,8 +12,8 @@ interface Reaction
    * React to changes, or throw an exception if unable to do so.
    *
    * @param observer the observer of changes.
-   * @throws Exception if there is an error reacting to changes.
+   * @throws Throwable if there is an error reacting to changes.
    */
   void react( @Nonnull Observer observer )
-    throws Exception;
+    throws Throwable;
 }

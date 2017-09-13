@@ -318,9 +318,9 @@ public final class Observer
       {
         hook.call();
       }
-      catch ( final Exception e )
+      catch ( final Throwable t )
       {
-        getContext().reportObserverError( this, error, e );
+        getContext().reportObserverError( this, error, t );
       }
     }
   }

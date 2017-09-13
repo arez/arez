@@ -5,7 +5,7 @@ import org.realityforge.arez.ArezContext;
 public final class CalculatedModelExample
 {
   public static void main( final String[] args )
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
     ExampleUtil.logAllErrors( context );

@@ -2,8 +2,10 @@ package org.realityforge.arez.examples;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Observer;
+import org.realityforge.arez.SpyEventHandler;
 import org.realityforge.arez.extras.Watcher;
 
 public final class TimerExample
@@ -13,6 +15,15 @@ public final class TimerExample
   {
     final ArezContext context = new ArezContext();
     ExampleUtil.logAllErrors( context );
+
+    context.getSpy().addSpyEventHandler( new SpyEventHandler()
+    {
+      @Override
+      public void onSpyEvent( @Nonnull final Object event )
+      {
+        System.out.println( event );
+      }
+    } );
 
     final TimeModel timeModel = new Arez_TimeModel( context, 0 );
 

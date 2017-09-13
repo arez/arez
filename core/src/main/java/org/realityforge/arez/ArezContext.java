@@ -263,7 +263,7 @@ public final class ArezContext
    * @throws Exception if the action throws an an exception.
    */
   public <T> T function( @Nullable final String name, final boolean mutation, @Nonnull final Function<T> action )
-    throws Exception
+    throws Throwable
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
     final Transaction transaction = beginTransaction( name, mode, null );
@@ -310,10 +310,10 @@ public final class ArezContext
    * @param name      the name of the transaction. Should be non-null if {@link #areNamesEnabled()} is true, false otherwise.
    * @param mutation  true if the action may modify state, false otherwise.
    * @param procedure the procedure to execute.
-   * @throws Exception if the procedure throws an an exception.
+   * @throws Throwable if the procedure throws an an exception.
    */
   public void procedure( @Nullable final String name, final boolean mutation, @Nonnull final Procedure procedure )
-    throws Exception
+    throws Throwable
   {
     procedure( name, mutationToTransactionMode( mutation ), null, procedure );
   }
@@ -322,7 +322,7 @@ public final class ArezContext
                   @Nonnull final TransactionMode mode,
                   @Nullable final Observer tracker,
                   @Nonnull final Procedure procedure )
-    throws Exception
+    throws Throwable
   {
     final Transaction transaction = beginTransaction( name, mode, tracker );
     try

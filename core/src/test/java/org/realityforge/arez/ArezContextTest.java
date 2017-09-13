@@ -213,7 +213,7 @@ public class ArezContextTest
 
   @Test
   public void function()
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
 
@@ -353,7 +353,7 @@ public class ArezContextTest
 
   @Test
   public void nonTrackingProcedureObservingSingleObservable()
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
 
@@ -393,7 +393,7 @@ public class ArezContextTest
 
   @Test
   public void nestedProceduresAccessingSameObservable()
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = new ArezContext();
 
