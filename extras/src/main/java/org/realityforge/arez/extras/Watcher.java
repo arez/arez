@@ -54,7 +54,10 @@ public final class Watcher
         dispose();
       }
     };
-    _observer = context.autorun( name, mutation, procedure, false );
+    /*
+     * Mutation needs to be true as dispose is considered a WRITE operation.
+     */
+    _observer = context.autorun( name, true, procedure, false );
     /*
      * Need to define autorun/Observer and have it assigned to variable before
      * it can be run. This is incase the dispose() method is invoked as part of
