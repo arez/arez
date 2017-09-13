@@ -105,6 +105,10 @@ public final class ArezContext
     final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =
       new Observer( this, ArezConfig.enableNames() ? name : null, mode, reaction );
+    if ( willPropagateSpyEvents() )
+    {
+      getSpy().reportSpyEvent( new ObserverCreatedEvent( observer ) );
+    }
     if ( observer.hasReaction() )
     {
       if ( runImmediately )
@@ -115,10 +119,6 @@ public final class ArezContext
       {
         scheduleReaction( observer );
       }
-    }
-    if ( willPropagateSpyEvents() )
-    {
-      getSpy().reportSpyEvent( new ObserverCreatedEvent( observer ) );
     }
     return observer;
   }
