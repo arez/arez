@@ -367,11 +367,11 @@ public final class Observable
    */
   public void reportChanged()
   {
-    getContext().getTransaction().reportChanged( this );
     if ( willPropagateSpyEvents() )
     {
       reportSpyEvent( new ObservableChangedEvent( this ) );
     }
+    getContext().getTransaction().reportChanged( this );
   }
 
   void reportChangeConfirmed()
