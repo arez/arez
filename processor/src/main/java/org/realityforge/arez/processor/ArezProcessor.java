@@ -50,10 +50,18 @@ public final class ArezProcessor
   private static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "org.realityforge.arez", "Observable" );
   private static final ClassName COMPUTED_VALUE_CLASSNAME = ClassName.get( "org.realityforge.arez", "ComputedValue" );
   private static final ClassName DISPOSABLE_CLASSNAME = ClassName.get( "org.realityforge.arez", "Disposable" );
+  private static final ClassName ACTION_STARTED_CLASSNAME =
+    ClassName.get( "org.realityforge.arez.spy", "ActionStartedEvent" );
+  private static final ClassName ACTION_COMPLETED_CLASSNAME =
+    ClassName.get( "org.realityforge.arez.spy", "ActionCompletedEvent" );
   private static final String FIELD_PREFIX = "$$arez$$_";
   private static final String CONTEXT_FIELD_NAME = FIELD_PREFIX + "context";
   private static final String NEXT_ID_FIELD_NAME = FIELD_PREFIX + "nextId";
   private static final String ID_FIELD_NAME = FIELD_PREFIX + "id";
+  private static final String STARTED_AT_VARIABLE_NAME = FIELD_PREFIX + "startedAt";
+  private static final String DURATION_VARIABLE_NAME = FIELD_PREFIX + "duration";
+  private static final String RESULT_VARIABLE_NAME = FIELD_PREFIX + "result";
+  private static final String COMPLETED_VARIABLE_NAME = FIELD_PREFIX + "completed";
 
   /**
    * {@inheritDoc}
@@ -185,11 +193,13 @@ public final class ArezProcessor
     final boolean isSafe = action.getThrownTypes().isEmpty();
 
     final StringBuilder statement = new StringBuilder();
-    final ArrayList<String> parameterNames = new ArrayList<>();
+    final ArrayList<Object> parameterNames = new ArrayList<>();
 
     if ( !isProcedure )
     {
-      statement.append( "return " );
+      statement.append( "final $T $N = " );
+      parameterNames.add( TypeName.get( returnType ) );
+      parameterNames.add( RESULT_VARIABLE_NAME );
     }
     statement.append( "this.$N." );
     parameterNames.add( CONTEXT_FIELD_NAME );
@@ -251,31 +261,159 @@ public final class ArezProcessor
 
     statement.append( ") )" );
 
-    if ( isSafe || action.getThrownTypes().stream().anyMatch( t -> t.toString().equals( "java.lang.Exception" ) ) )
+    builder.addStatement( "$T $N = false", boolean.class, COMPLETED_VARIABLE_NAME );
+    builder.addStatement( "$T $N = 0L", long.class, STARTED_AT_VARIABLE_NAME );
+
+    final CodeBlock.Builder codeBlock = CodeBlock.builder();
+    codeBlock.beginControlFlow( "try" );
+
+    actionStartedSpyEvent( codeBlock, containerDescriptor, descriptor );
+    codeBlock.addStatement( statement.toString(), parameterNames.toArray() );
+    codeBlock.addStatement( "$N = true", COMPLETED_VARIABLE_NAME );
+    actionCompletedSpyEvent( codeBlock, containerDescriptor, descriptor, isProcedure );
+    if ( !isProcedure )
     {
-      builder.addStatement( statement.toString(), parameterNames.toArray() );
+      codeBlock.addStatement( "return $N", RESULT_VARIABLE_NAME );
+    }
+
+    for ( final TypeMirror exception : action.getThrownTypes() )
+    {
+      codeBlock.nextControlFlow( "catch( final $T e )", exception );
+      codeBlock.addStatement( "throw e" );
+    }
+
+    if ( action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.Throwable" ) ) )
+    {
+      if ( action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.Exception" ) ) )
+      {
+        if ( action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) ) )
+        {
+          codeBlock.nextControlFlow( "catch( final $T e )", RuntimeException.class );
+          codeBlock.addStatement( "throw e" );
+        }
+        codeBlock.nextControlFlow( "catch( final $T e )", Exception.class );
+        codeBlock.addStatement( "throw new $T( e )", UndeclaredThrowableException.class );
+      }
+      codeBlock.nextControlFlow( "catch( final $T e )", Error.class );
+      codeBlock.addStatement( "throw e", UndeclaredThrowableException.class );
+      codeBlock.nextControlFlow( "catch( final $T e )", Throwable.class );
+      codeBlock.addStatement( "throw new $T( e )", UndeclaredThrowableException.class );
+    }
+    codeBlock.nextControlFlow( "finally" );
+
+    // Send completed spy event if necessary
+    codeBlock.beginControlFlow( "if ( !$N )", COMPLETED_VARIABLE_NAME );
+    codeBlock.addStatement( "final $T $N = null", TypeName.get( returnType ).box(), RESULT_VARIABLE_NAME );
+    actionCompletedSpyEvent( codeBlock, containerDescriptor, descriptor, isProcedure );
+    codeBlock.endControlFlow();
+
+    codeBlock.endControlFlow();
+    builder.addCode( codeBlock.build() );
+
+    return builder.build();
+  }
+
+  private void actionStartedSpyEvent( @Nonnull final CodeBlock.Builder codeBlock,
+                                      @Nonnull final ContainerDescriptor containerDescriptor,
+                                      @Nonnull final ActionDescriptor descriptor )
+  {
+    final CodeBlock.Builder spyCodeBlock = CodeBlock.builder();
+    spyCodeBlock.beginControlFlow( "if ( this.$N.areSpiesEnabled() && this.$N.getSpy().willPropagateSpyEvents() )",
+                                   CONTEXT_FIELD_NAME,
+                                   CONTEXT_FIELD_NAME );
+    spyCodeBlock.addStatement( "$N = $T.currentTimeMillis()", STARTED_AT_VARIABLE_NAME, System.class );
+
+    final StringBuilder sb = new StringBuilder();
+    final ArrayList<Object> reportParameters = new ArrayList<>();
+    sb.append( "this.$N.getSpy().reportSpyEvent( new $T( " );
+    reportParameters.add( CONTEXT_FIELD_NAME );
+    reportParameters.add( ACTION_STARTED_CLASSNAME );
+    if ( !containerDescriptor.isSingleton() )
+    {
+      sb.append( "$N() + $S" );
+      reportParameters.add( ID_FIELD_NAME );
+      reportParameters.add( descriptor.getName() );
     }
     else
     {
-      final CodeBlock.Builder codeBlock = CodeBlock.builder();
-      codeBlock.beginControlFlow( "try" );
-      codeBlock.addStatement( statement.toString(), parameterNames.toArray() );
-
-      for ( final TypeMirror exception : action.getThrownTypes() )
-      {
-        codeBlock.nextControlFlow( "catch( final $T e )", exception );
-        codeBlock.addStatement( "throw e" );
-      }
-
-      codeBlock.nextControlFlow( "catch( final $T e )", RuntimeException.class );
-      codeBlock.addStatement( "throw e" );
-      codeBlock.nextControlFlow( "catch( final $T e )", Exception.class );
-      codeBlock.addStatement( "throw new $T( e )", UndeclaredThrowableException.class );
-      codeBlock.endControlFlow();
-      builder.addCode( codeBlock.build() );
+      sb.append( "$S" );
+      reportParameters.add( getPrefix( containerDescriptor ) + descriptor.getName() );
     }
+    sb.append( ", new Object[]{" );
+    boolean firstParam = true;
+    for ( final VariableElement element : descriptor.getAction().getParameters() )
+    {
+      if ( !firstParam )
+      {
+        sb.append( "," );
+      }
+      firstParam = false;
+      sb.append( element.getSimpleName().toString() );
+    }
+    sb.append( "} ) )" );
 
-    return builder.build();
+    spyCodeBlock.addStatement( sb.toString(), reportParameters.toArray() );
+    spyCodeBlock.endControlFlow();
+    codeBlock.add( spyCodeBlock.build() );
+  }
+
+  private void actionCompletedSpyEvent( @Nonnull final CodeBlock.Builder codeBlock,
+                                        @Nonnull final ContainerDescriptor containerDescriptor,
+                                        @Nonnull final ActionDescriptor descriptor,
+                                        final boolean isProcedure )
+  {
+    final CodeBlock.Builder spyCodeBlock = CodeBlock.builder();
+    spyCodeBlock.beginControlFlow( "if ( this.$N.areSpiesEnabled() && this.$N.getSpy().willPropagateSpyEvents() )",
+                                   CONTEXT_FIELD_NAME,
+                                   CONTEXT_FIELD_NAME );
+    spyCodeBlock.addStatement( "final long $N = $T.currentTimeMillis() - $N",
+                               DURATION_VARIABLE_NAME,
+                               System.class,
+                               STARTED_AT_VARIABLE_NAME );
+
+    final StringBuilder sb = new StringBuilder();
+    final ArrayList<Object> reportParameters = new ArrayList<>();
+    sb.append( "this.$N.getSpy().reportSpyEvent( new $T( " );
+    reportParameters.add( CONTEXT_FIELD_NAME );
+    reportParameters.add( ACTION_COMPLETED_CLASSNAME );
+    if ( !containerDescriptor.isSingleton() )
+    {
+      sb.append( "$N() + $S" );
+      reportParameters.add( ID_FIELD_NAME );
+      reportParameters.add( descriptor.getName() );
+    }
+    else
+    {
+      sb.append( "$S" );
+      reportParameters.add( getPrefix( containerDescriptor ) + descriptor.getName() );
+    }
+    sb.append( ", new Object[]{" );
+    boolean firstParam = true;
+    for ( final VariableElement element : descriptor.getAction().getParameters() )
+    {
+      if ( !firstParam )
+      {
+        sb.append( "," );
+      }
+      firstParam = false;
+      sb.append( element.getSimpleName().toString() );
+    }
+    sb.append( "}, " );
+    if ( !isProcedure )
+    {
+      sb.append( "$N" );
+      reportParameters.add( RESULT_VARIABLE_NAME );
+    }
+    else
+    {
+      sb.append( "null" );
+    }
+    sb.append( ", $N ) )" );
+    reportParameters.add( DURATION_VARIABLE_NAME );
+
+    spyCodeBlock.addStatement( sb.toString(), reportParameters.toArray() );
+    spyCodeBlock.endControlFlow();
+    codeBlock.add( spyCodeBlock.build() );
   }
 
   /**

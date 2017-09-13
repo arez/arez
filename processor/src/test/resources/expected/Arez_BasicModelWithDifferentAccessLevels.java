@@ -1,15 +1,15 @@
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
+import org.realityforge.arez.spy.ActionCompletedEvent;
+import org.realityforge.arez.spy.ActionStartedEvent;
 
-@Generated( "org.realityforge.arez.processor.ArezProcessor" )
-public final class Arez_BasicModelWithDifferentAccessLevels
-  extends BasicModelWithDifferentAccessLevels
-  implements Disposable
-{
+@Generated("org.realityforge.arez.processor.ArezProcessor")
+public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWithDifferentAccessLevels implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -23,111 +23,167 @@ public final class Arez_BasicModelWithDifferentAccessLevels
   @Nonnull
   private final Observable $$arez$$_value;
 
-  Arez_BasicModelWithDifferentAccessLevels( @Nonnull final ArezContext $$arez$$_context )
-  {
+  Arez_BasicModelWithDifferentAccessLevels(@Nonnull final ArezContext $$arez$$_context) {
     super();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_time =
-      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
-    this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
-                                                                  $$arez$$_id() + "value" :
-                                                                  null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+    this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "value" : null );
   }
 
-  protected Arez_BasicModelWithDifferentAccessLevels( @Nonnull final ArezContext $$arez$$_context, final String value )
-  {
-    super( value );
+  protected Arez_BasicModelWithDifferentAccessLevels(@Nonnull final ArezContext $$arez$$_context, final String value) {
+    super(value);
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_time =
-      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
-    this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
-                                                                  $$arez$$_id() + "value" :
-                                                                  null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+    this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "value" : null );
   }
 
-  public Arez_BasicModelWithDifferentAccessLevels( @Nonnull final ArezContext $$arez$$_context,
-                                                   final String value,
-                                                   final long time )
-  {
-    super( value, time );
+  public Arez_BasicModelWithDifferentAccessLevels(@Nonnull final ArezContext $$arez$$_context, final String value, final long time) {
+    super(value,time);
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_time =
-      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
-    this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
-                                                                  $$arez$$_id() + "value" :
-                                                                  null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+    this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "value" : null );
   }
 
-  private String $$arez$$_id()
-  {
+  private String $$arez$$_id() {
     return "BasicModelWithDifferentAccessLevels." + $$arez$$_id + ".";
   }
 
   @Override
-  public void dispose()
-  {
+  public void dispose() {
     $$arez$$_time.dispose();
     $$arez$$_value.dispose();
   }
 
   @Override
-  protected long getTime()
-  {
+  protected long getTime() {
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
-  public void setTime( final long time )
-  {
-    if ( time != super.getTime() )
-    {
-      super.setTime( time );
+  public void setTime(final long time) {
+    if ( time != super.getTime() ) {
+      super.setTime(time);
       this.$$arez$$_time.reportChanged();
     }
   }
 
   @Override
-  String getValue()
-  {
+  String getValue() {
     this.$$arez$$_value.reportObserved();
     return super.getValue();
   }
 
   @Override
-  public void setValue( final String value )
-  {
-    if ( !Objects.equals( value, super.getValue() ) )
-    {
-      super.setValue( value );
+  public void setValue(final String value) {
+    if ( !Objects.equals(value, super.getValue()) ) {
+      super.setValue(value);
       this.$$arez$$_value.reportChanged();
     }
   }
 
   @Override
-  void doAction3()
-  {
-    this.$$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction3" : null,
-                                         true,
-                                         () -> super.doAction3() );
+  void doAction3() {
+    boolean $$arez$$_completed = false;
+    long $$arez$$_startedAt = 0L;
+    try {
+      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+        $$arez$$_startedAt = System.currentTimeMillis();
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + "doAction3", new Object[]{} ) );
+      }
+      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction3" : null, true, () -> super.doAction3() );
+      $$arez$$_completed = true;
+      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+        final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction3", new Object[]{}, null, $$arez$$_duration ) );
+      }
+    } catch( final RuntimeException e ) {
+      throw e;
+    } catch( final Exception e ) {
+      throw new UndeclaredThrowableException( e );
+    } catch( final Error e ) {
+      throw e;
+    } catch( final Throwable e ) {
+      throw new UndeclaredThrowableException( e );
+    } finally {
+      if ( !$$arez$$_completed ) {
+        final Void $$arez$$_result = null;
+        if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+          final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction3", new Object[]{}, null, $$arez$$_duration ) );
+        }
+      }
+    }
   }
 
   @Override
-  protected void doAction2()
-  {
-    this.$$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction2" : null,
-                                         true,
-                                         () -> super.doAction2() );
+  protected void doAction2() {
+    boolean $$arez$$_completed = false;
+    long $$arez$$_startedAt = 0L;
+    try {
+      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+        $$arez$$_startedAt = System.currentTimeMillis();
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + "doAction2", new Object[]{} ) );
+      }
+      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction2" : null, true, () -> super.doAction2() );
+      $$arez$$_completed = true;
+      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+        final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction2", new Object[]{}, null, $$arez$$_duration ) );
+      }
+    } catch( final RuntimeException e ) {
+      throw e;
+    } catch( final Exception e ) {
+      throw new UndeclaredThrowableException( e );
+    } catch( final Error e ) {
+      throw e;
+    } catch( final Throwable e ) {
+      throw new UndeclaredThrowableException( e );
+    } finally {
+      if ( !$$arez$$_completed ) {
+        final Void $$arez$$_result = null;
+        if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+          final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction2", new Object[]{}, null, $$arez$$_duration ) );
+        }
+      }
+    }
   }
 
   @Override
-  public void doAction()
-  {
-    this.$$arez$$_context.safeProcedure( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction" : null,
-                                         true,
-                                         () -> super.doAction() );
+  public void doAction() {
+    boolean $$arez$$_completed = false;
+    long $$arez$$_startedAt = 0L;
+    try {
+      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+        $$arez$$_startedAt = System.currentTimeMillis();
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + "doAction", new Object[]{} ) );
+      }
+      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction" : null, true, () -> super.doAction() );
+      $$arez$$_completed = true;
+      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+        final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction", new Object[]{}, null, $$arez$$_duration ) );
+      }
+    } catch( final RuntimeException e ) {
+      throw e;
+    } catch( final Exception e ) {
+      throw new UndeclaredThrowableException( e );
+    } catch( final Error e ) {
+      throw e;
+    } catch( final Throwable e ) {
+      throw new UndeclaredThrowableException( e );
+    } finally {
+      if ( !$$arez$$_completed ) {
+        final Void $$arez$$_result = null;
+        if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+          final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction", new Object[]{}, null, $$arez$$_duration ) );
+        }
+      }
+    }
   }
 }

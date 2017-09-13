@@ -17,6 +17,8 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "FunctionActionThrowsRuntimeExceptionModel" },
+        new Object[]{ "FunctionActionThrowsThrowableModel" },
         new Object[]{ "NotDisposableModel" },
         new Object[]{ "ObservableGuessingModel" },
         new Object[]{ "AnnotationsOnModel" },
