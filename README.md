@@ -9,7 +9,7 @@ Arez trades memory for efficiency, execution efficiency and developer efficiency
 reactions to state changes such as re-rendering views unless the underlying data actually changes and
 the view needs to be re-rendered. Arez also optimizes for developer efficiency by eliminating the need
 for the developer to monitor or even think about when state changes and instead react to those changes
-on demand. 
+on demand.
 
 ## Architecture v3 Notes
 
@@ -58,7 +58,7 @@ Observer
   based on that?.
 * Currently the derivation can only own a single observable and that observable hitting zero listeners results
   in deactivation. It is possible a derivation can generate multiple "owned" observables?
-* NOT YET: A list of notifications scheduled by dependencies if it opted in as a message receiving Observer. 
+* NOT YET: A list of notifications scheduled by dependencies if it opted in as a message receiving Observer.
 
 
 ## Architecture v2 Notes
