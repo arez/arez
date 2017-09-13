@@ -23,7 +23,7 @@ public abstract class Node
   @Nullable
   private final String _name;
 
-  Node( @Nonnull final ArezContext context, @Nullable final String name )
+  protected Node( @Nonnull final ArezContext context, @Nullable final String name )
   {
     Guards.invariant( () -> ArezConfig.enableNames() || null == name,
                       () -> String.format( "Node passed a name '%s' but ArezConfig.enableNames() is false", name ) );
