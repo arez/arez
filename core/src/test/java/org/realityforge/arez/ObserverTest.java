@@ -10,6 +10,8 @@ import org.realityforge.arez.spy.ObservableChangedEvent;
 import org.realityforge.arez.spy.ObserverDisposedEvent;
 import org.realityforge.arez.spy.ReactionCompletedEvent;
 import org.realityforge.arez.spy.ReactionStartedEvent;
+import org.realityforge.arez.spy.TransactionCompletedEvent;
+import org.realityforge.arez.spy.TransactionStartedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -747,8 +749,10 @@ public class ObserverTest
 
     assertEquals( observer.isDisposed(), true );
 
-    handler.assertEventCount( 1 );
-    final ObserverDisposedEvent event = handler.assertEvent( ObserverDisposedEvent.class, 0 );
+    handler.assertEventCount( 3 );
+    handler.assertEvent( TransactionStartedEvent.class, 0 );
+    handler.assertEvent( TransactionCompletedEvent.class, 1 );
+    final ObserverDisposedEvent event = handler.assertEvent( ObserverDisposedEvent.class, 2 );
     assertEquals( event.getObserver(), observer );
   }
 
@@ -772,7 +776,9 @@ public class ObserverTest
 
     assertEquals( observer.isDisposed(), true );
 
-    handler.assertEventCount( 0 );
+    handler.assertEventCount( 2 );
+    handler.assertEvent( TransactionStartedEvent.class, 0 );
+    handler.assertEvent( TransactionCompletedEvent.class, 1 );
   }
 
   @Test
@@ -922,14 +928,16 @@ public class ObserverTest
 
     observer.invokeReaction();
 
-    handler.assertEventCount( 2 );
+    handler.assertEventCount( 4 );
 
     {
       final ReactionStartedEvent event = handler.assertEvent( ReactionStartedEvent.class, 0 );
       assertEquals( event.getObserver(), observer );
     }
+    handler.assertEvent( TransactionStartedEvent.class, 1 );
+    handler.assertEvent( TransactionCompletedEvent.class, 2 );
     {
-      final ReactionCompletedEvent event = handler.assertEvent( ReactionCompletedEvent.class, 1 );
+      final ReactionCompletedEvent event = handler.assertEvent( ReactionCompletedEvent.class, 3 );
       assertEquals( event.getObserver(), observer );
       assertTrue( event.getDuration() > 0 );
     }
@@ -950,18 +958,20 @@ public class ObserverTest
 
     computedValue.getObserver().invokeReaction();
 
-    handler.assertEventCount( 3 );
+    handler.assertEventCount( 5 );
 
     {
       final ComputeStartedEvent event = handler.assertEvent( ComputeStartedEvent.class, 0 );
       assertEquals( event.getComputedValue(), computedValue );
     }
+    handler.assertEvent( TransactionStartedEvent.class, 1 );
     {
-      final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 1 );
+      final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 2 );
       assertEquals( event.getObservable(), computedValue.getObservable() );
     }
+    handler.assertEvent( TransactionCompletedEvent.class, 3 );
     {
-      final ComputeCompletedEvent event = handler.assertEvent( ComputeCompletedEvent.class, 2 );
+      final ComputeCompletedEvent event = handler.assertEvent( ComputeCompletedEvent.class, 4 );
       assertEquals( event.getComputedValue(), computedValue );
       assertTrue( event.getDuration() >= 0 );
     }

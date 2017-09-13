@@ -3,6 +3,8 @@ package org.realityforge.arez;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.arez.spy.ComputedValueDisposedEvent;
+import org.realityforge.arez.spy.TransactionCompletedEvent;
+import org.realityforge.arez.spy.TransactionStartedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -146,9 +148,6 @@ public class ComputedValueTest
   {
     final ArezContext context = new ArezContext();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.addSpyEventHandler( handler );
-
     final Observer observer = newDerivation( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
@@ -159,13 +158,19 @@ public class ComputedValueTest
 
     context.setTransaction( null );
 
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.addSpyEventHandler( handler );
+
     computedValue.dispose();
 
     assertEquals( observer.isDisposed(), true );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
 
-    handler.assertEventCount( 1 );
-    final ComputedValueDisposedEvent event = handler.assertEvent( ComputedValueDisposedEvent.class, 0 );
+    handler.assertEventCount( 3 );
+
+    handler.assertEvent( TransactionStartedEvent.class, 0 );
+    handler.assertEvent( TransactionCompletedEvent.class, 1 );
+    final ComputedValueDisposedEvent event = handler.assertEvent( ComputedValueDisposedEvent.class, 2 );
     assertEquals( event.getComputedValue(), computedValue );
   }
 
