@@ -543,7 +543,6 @@ public final class ArezProcessor
     {
       if ( descriptor.isSingleton() )
       {
-        //context.createComputedValue( "Person.fullName", super::getFullName, Objects::equals )
         builder.addStatement( "this.$N = this.$N.createComputedValue( this.$N.areNamesEnabled() ? $S : null, " +
                               "super::$N, $T::equals )",
                               FIELD_PREFIX + computed.getName(),
