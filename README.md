@@ -17,9 +17,6 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
-* spy events:
- - Observable.reportChange (+ optional "change" description?)
- 
 * Add combined javadocs target
 
 * Add structure to buildfile to setup annotation processor
@@ -39,10 +36,11 @@ TODO:
 
 * ComputedValue - where can use function that takes args (that are Observables somehow?)
 
-Observable
-* NOT YET: A list of notifications about changes in latest transaction (Or is this in
-  transaction?) Notifications may collapse (i.e. atomic Observables just update with the
-  last value where Array/Map will accumulate)
+* Support optional parameter parameter to report*Changed that describes the change (i.e.
+  AtomicChange(FromValue, ToValue), MapAdd(Key, Value) etc). Propagate this change as a
+  spy event. Observers can choose to pull from this change queue rather than naively
+  reacting to changes. These changes should be processed in order and there may be some
+  value to allowing it to be processed inline.
 
 Observer
 * Reaction (can read/write state & create side-effects). Will be scheduled after root transaction completes
