@@ -21,8 +21,6 @@ TODO:
 
 * Change ActionCompletedEvent so it explicitly records exception generated as part of action.
 
-* Add structure to buildfile to setup annotation processor
-
 * Consider removing Observer from the public API so instead just Disposable (or Node) is returned from autorun.
 
 * Add @PreDispose and @PostDispose annotations that can be applied to methods that are called before and after a

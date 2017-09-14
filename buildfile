@@ -119,7 +119,6 @@ define 'arez' do
     test.compile.with TEST_DEPS
 
     # The generators are configured to generate to here.
-    # TODO: Generate generators configuration
     iml.main_source_directories << _('generated/processors/main/java')
   end
 
@@ -129,4 +128,13 @@ define 'arez' do
   ipr.extra_modules << '../mobx-react/mobx-react.iml'
   ipr.extra_modules << '../mobx-react-devtools/mobx-react-devtools.iml'
   ipr.extra_modules << '../mobx-utils/mobx-utils.iml'
+  ipr.add_component('CompilerConfiguration') do |component|
+    component.annotationProcessing do |xml|
+      xml.profile(:default => true, :name => 'Default', :enabled => true) do
+        xml.sourceOutputDir :name => 'generated/processors/main/java'
+        xml.sourceTestOutputDir :name => 'generated/processors/test/java'
+        xml.outputRelativeToContentRoot :value => true
+      end
+    end
+  end
 end
