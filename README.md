@@ -19,8 +19,6 @@ that will be expanded over time as the library is fleshed out.
 TODO:
 * Add an Active Observable/Observer/ComputedValue that allows user to supply onActivate, onDeactivate, onStale
 
-* Translate all the constraints from ArezProcessor to javadocs. 
-
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build. 
 
 * Add @PreDispose and @PostDispose annotations that can be applied to methods that are called before and after a
