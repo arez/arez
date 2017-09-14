@@ -24,9 +24,6 @@ TODO:
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build. 
 
-* Add @PreDispose and @PostDispose annotations that can be applied to methods that are called before and after a
-  container is disposed.
-
 * Introduce a separate type of invariant check that detects bad usage. Current invariant checks combine
   checks types. Separate them out so can independently control. (Usually to disable framework checks but
   enable usage checks). The checks currently are;

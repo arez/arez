@@ -1,5 +1,6 @@
 package org.realityforge.arez.processor;
 
+import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Nonnull;
@@ -18,6 +19,8 @@ import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.ContainerId;
 import org.realityforge.arez.annotations.Observable;
+import org.realityforge.arez.annotations.PostDispose;
+import org.realityforge.arez.annotations.PreDispose;
 
 final class ContainerDescriptorParser
 {
@@ -157,35 +160,14 @@ final class ContainerDescriptorParser
                                         @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
+    verifyNoDuplicateAnnotations( method );
+
     final Action action = method.getAnnotation( Action.class );
     final Observable observable = method.getAnnotation( Observable.class );
     final Computed computed = method.getAnnotation( Computed.class );
     final ContainerId containerId = method.getAnnotation( ContainerId.class );
-
-    if ( null != action && null != observable )
-    {
-      throw new ArezProcessorException( "Method can not be annotated with both @Action and @Observable", method );
-    }
-    else if ( null != action && null != computed )
-    {
-      throw new ArezProcessorException( "Method can not be annotated with both @Action and @Computed", method );
-    }
-    else if ( null != action && null != containerId )
-    {
-      throw new ArezProcessorException( "Method can not be annotated with both @Action and @ContainerId", method );
-    }
-    else if ( null != observable && null != computed )
-    {
-      throw new ArezProcessorException( "Method can not be annotated with both @Observable and @Computed", method );
-    }
-    else if ( null != observable && null != containerId )
-    {
-      throw new ArezProcessorException( "Method can not be annotated with both @Observable and @ContainerId", method );
-    }
-    else if ( null != containerId && null != computed )
-    {
-      throw new ArezProcessorException( "Method can not be annotated with both @ContainerId and @Computed", method );
-    }
+    final PreDispose preDispose = method.getAnnotation( PreDispose.class );
+    final PostDispose postDispose = method.getAnnotation( PostDispose.class );
 
     if ( null != observable )
     {
@@ -207,9 +189,51 @@ final class ContainerDescriptorParser
       processContainerId( descriptor, method );
       return true;
     }
+    else if ( null != preDispose )
+    {
+      processPreDispose( descriptor, method );
+      return true;
+    }
+    else if ( null != postDispose )
+    {
+      processPostDispose( descriptor, method );
+      return true;
+    }
     else
     {
       return false;
+    }
+  }
+
+  private static void verifyNoDuplicateAnnotations( @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    @SuppressWarnings( "unchecked" )
+    final Class<? extends Annotation>[] annotationTypes =
+      new Class[]{ Action.class,
+                   Observable.class,
+                   Computed.class,
+                   ContainerId.class,
+                   PreDispose.class,
+                   PostDispose.class };
+    for ( int i = 0; i < annotationTypes.length; i++ )
+    {
+      final Class<? extends Annotation> type1 = annotationTypes[ i ];
+      final Object annotation1 = method.getAnnotation( type1 );
+      if ( null != annotation1 )
+      {
+        for ( int j = i + 1; j < annotationTypes.length; j++ )
+        {
+          final Class<? extends Annotation> type2 = annotationTypes[ j ];
+          final Object annotation2 = method.getAnnotation( type2 );
+          if ( null != annotation2 )
+          {
+            final String message =
+              "Method can not be annotated with both @" + type1.getSimpleName() + " and @" + type2.getSimpleName();
+            throw new ArezProcessorException( message, method );
+          }
+        }
+      }
     }
   }
 
@@ -250,6 +274,86 @@ final class ContainerDescriptorParser
     else
     {
       descriptor.setContainerId( method );
+    }
+  }
+
+  private static void processPreDispose( @Nonnull final ContainerDescriptor descriptor,
+                                         @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    if ( !descriptor.rawIsDisposable() )
+    {
+      throw new ArezProcessorException( "@PreDispose must not exist if @Container set disposable to false", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ArezProcessorException( "@PreDispose target must not be static", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ArezProcessorException( "@PreDispose target must not be private", method );
+    }
+    else if ( !method.getParameters().isEmpty() )
+    {
+      throw new ArezProcessorException( "@PreDispose target must not have any parameters", method );
+    }
+    else if ( TypeKind.VOID != method.getReturnType().getKind() )
+    {
+      throw new ArezProcessorException( "@PreDispose target must not return a value", method );
+    }
+    else if ( !method.getThrownTypes().isEmpty() )
+    {
+      throw new ArezProcessorException( "@PreDispose target must not throw any exceptions", method );
+    }
+    final ExecutableElement existing = descriptor.getPreDispose();
+    if ( null != existing )
+    {
+      throw new ArezProcessorException( "@PreDispose target duplicates existing method named " +
+                                        existing.getSimpleName(), method );
+    }
+    else
+    {
+      descriptor.setPreDispose( method );
+    }
+  }
+
+  private static void processPostDispose( @Nonnull final ContainerDescriptor descriptor,
+                                          @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    if ( !descriptor.rawIsDisposable() )
+    {
+      throw new ArezProcessorException( "@PostDispose must not exist if @Container set disposable to false", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ArezProcessorException( "@PostDispose target must not be static", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ArezProcessorException( "@PostDispose target must not be private", method );
+    }
+    else if ( !method.getParameters().isEmpty() )
+    {
+      throw new ArezProcessorException( "@PostDispose target must not have any parameters", method );
+    }
+    else if ( TypeKind.VOID != method.getReturnType().getKind() )
+    {
+      throw new ArezProcessorException( "@PostDispose target must not return a value", method );
+    }
+    else if ( !method.getThrownTypes().isEmpty() )
+    {
+      throw new ArezProcessorException( "@PostDispose target must not throw any exceptions", method );
+    }
+    final ExecutableElement existing = descriptor.getPostDispose();
+    if ( null != existing )
+    {
+      throw new ArezProcessorException( "@PostDispose target duplicates existing method named " +
+                                        existing.getSimpleName(), method );
+    }
+    else
+    {
+      descriptor.setPostDispose( method );
     }
   }
 

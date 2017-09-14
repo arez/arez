@@ -516,6 +516,11 @@ public final class ArezProcessor
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "if ( !isDisposed() )" );
     codeBlock.addStatement( "$N = true", DISPOSED_FIELD_NAME );
+    final ExecutableElement preDispose = descriptor.getPreDispose();
+    if ( null != preDispose )
+    {
+      codeBlock.addStatement( "super.$N()", preDispose.getSimpleName() );
+    }
     for ( final ComputedDescriptor computed : descriptor.getComputeds() )
     {
       codeBlock.addStatement( "$N.dispose()", FIELD_PREFIX + computed.getName() );
@@ -524,7 +529,11 @@ public final class ArezProcessor
     {
       codeBlock.addStatement( "$N.dispose()", fieldName( observable ) );
     }
-
+    final ExecutableElement postDispose = descriptor.getPostDispose();
+    if ( null != postDispose )
+    {
+      codeBlock.addStatement( "super.$N()", postDispose.getSimpleName() );
+    }
     codeBlock.endControlFlow();
 
     builder.addCode( codeBlock.build() );

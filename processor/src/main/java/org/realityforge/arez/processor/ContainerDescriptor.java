@@ -27,6 +27,10 @@ final class ContainerDescriptor
   private final TypeElement _element;
   @Nullable
   private ExecutableElement _containerId;
+  @Nullable
+  private ExecutableElement _preDispose;
+  @Nullable
+  private ExecutableElement _postDispose;
   private final Map<String, ObservableDescriptor> _observables = new HashMap<>();
   private final Collection<ObservableDescriptor> _roObservables =
     Collections.unmodifiableCollection( _observables.values() );
@@ -64,6 +68,11 @@ final class ContainerDescriptor
   boolean isDisposable()
   {
     return _disposable && !( getObservables().isEmpty() && getComputeds().isEmpty() );
+  }
+
+  boolean rawIsDisposable()
+  {
+    return _disposable;
   }
 
   @Nonnull
@@ -145,5 +154,27 @@ final class ContainerDescriptor
   void setContainerId( @Nonnull final ExecutableElement containerId )
   {
     _containerId = containerId;
+  }
+
+  @Nullable
+  ExecutableElement getPreDispose()
+  {
+    return _preDispose;
+  }
+
+  void setPreDispose( @Nullable final ExecutableElement preDispose )
+  {
+    _preDispose = preDispose;
+  }
+
+  @Nullable
+  ExecutableElement getPostDispose()
+  {
+    return _postDispose;
+  }
+
+  void setPostDispose( @Nullable final ExecutableElement postDispose )
+  {
+    _postDispose = postDispose;
   }
 }
