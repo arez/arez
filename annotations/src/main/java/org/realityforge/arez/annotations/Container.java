@@ -42,6 +42,7 @@ public @interface Container
 {
   /**
    * Return the name of the type.
+   * The value must conform to the requirements of a java identifier.
    * This can be set to the empty string in which case the {@link Observable}, {@link Computed} and
    * {@link Action} sub-elements will have no type prefix.
    *
