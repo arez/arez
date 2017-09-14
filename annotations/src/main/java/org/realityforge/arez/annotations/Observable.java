@@ -24,6 +24,8 @@ import java.lang.annotation.Target;
  *
  * <p>The method that is annotated with @Observable must also comply with the following constraints:</p>
  * <ul>
+ * <li>Must not be private</li>
+ * <li>Must not be static</li>
  * <li>Must not be final</li>
  * <li>Must not be abstract</li>
  * </ul>
