@@ -85,6 +85,11 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "StaticActionModel", "@Action target must not be static" },
+        new Object[]{ "PrivateActionModel", "@Action target must not be private" },
+        new Object[]{ "PrivateComputedModel", "@Computed target must not be private" },
+        new Object[]{ "PrivateObservableGetterModel", "@Observable target must not be private" },
+        new Object[]{ "PrivateObservableSetterModel", "@Observable target must not be private" },
         new Object[]{ "MissingObservableGetterModel",
                       "@Observable target defined setter but no getter was defined and no getter could be automatically determined" },
         new Object[]{ "MissingObservableSetterModel",
