@@ -7,6 +7,14 @@ import java.lang.annotation.Target;
 
 /**
  * Methods marked with this annotation are invoked in an Arez transaction.
+ *
+ * <p>The method that is annotated with @Action must comply with the additional constraints:</p>
+ * <ul>
+ * <li>Must not be private</li>
+ * <li>Must not be static</li>
+ * <li>Must not be final</li>
+ * <li>Must not be abstract</li>
+ * </ul>
  */
 @Retention( RetentionPolicy.RUNTIME )
 @Target( ElementType.METHOD )
