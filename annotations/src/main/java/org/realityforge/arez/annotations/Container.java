@@ -26,6 +26,15 @@ import java.lang.annotation.Target;
  * is the empty string then the "<tt>[Container.name].</tt>" element of name will be elided.
  * If the value of {@link #singleton()} is true then the "<tt>[Container.id].</tt>" element
  * of the name will be elided.</p>
+ *
+ * <p>The type that is annotated with @Container must comply with the additional constraints:</p>
+ * <ul>
+ * <li>Must be a class, not an interface or enum</li>
+ * <li>Must be concrete, not abstract</li>
+ * <li>Must not be final</li>
+ * <li>Must not be a non-static nested class</li>
+ * <li>Must have at least one method annotated with {@link Action}, {@link Computed} or {@link Observable}</li>
+ * </ul>
  */
 @Retention( RetentionPolicy.RUNTIME )
 @Target( ElementType.TYPE )
