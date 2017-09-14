@@ -2,7 +2,7 @@ package org.realityforge.arez.spy;
 
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.Observer;
+import org.realityforge.arez.Node;
 
 /**
  * Notification when Observer is disposed.
@@ -10,15 +10,15 @@ import org.realityforge.arez.Observer;
 public final class ObserverDisposedEvent
 {
   @Nonnull
-  private final Observer _observer;
+  private final Node _observer;
 
-  public ObserverDisposedEvent( @Nonnull final Observer observer )
+  public ObserverDisposedEvent( @Nonnull final Node observer )
   {
     _observer = Objects.requireNonNull( observer );
   }
 
   @Nonnull
-  public Observer getObserver()
+  public Node getObserver()
   {
     return _observer;
   }

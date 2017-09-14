@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Node;
-import org.realityforge.arez.Observer;
 import org.realityforge.arez.Procedure;
 import org.realityforge.arez.SafeFunction;
 
@@ -31,7 +30,7 @@ public final class Watcher
   /**
    * The observer that is observing condition, waiting until it is true.
    */
-  private final Observer _observer;
+  private final Node _observer;
 
   /**
    * Create the watcher.

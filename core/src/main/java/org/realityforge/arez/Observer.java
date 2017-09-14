@@ -15,7 +15,7 @@ import org.realityforge.arez.spy.ReactionStartedEvent;
 /**
  * A node within Arez that is notified of changes in 0 or more Observables.
  */
-public final class Observer
+final class Observer
   extends Node
 {
   /**

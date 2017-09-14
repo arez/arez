@@ -2,7 +2,7 @@ package org.realityforge.arez.spy;
 
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.Observer;
+import org.realityforge.arez.Node;
 
 /**
  * Notification when Observer starts reaction to some changes.
@@ -10,15 +10,15 @@ import org.realityforge.arez.Observer;
 public final class ReactionStartedEvent
 {
   @Nonnull
-  private final Observer _observer;
+  private final Node _observer;
 
-  public ReactionStartedEvent( @Nonnull final Observer observer )
+  public ReactionStartedEvent( @Nonnull final Node observer )
   {
     _observer = Objects.requireNonNull( observer );
   }
 
   @Nonnull
-  public Observer getObserver()
+  public Node getObserver()
   {
     return _observer;
   }

@@ -8,8 +8,8 @@ public final class ArezTestUtil
   {
   }
 
-  public static boolean isActive( @Nonnull final Observer observer )
+  public static boolean isActive( @Nonnull final Node observer )
   {
-    return observer.isActive();
+    return ( (Observer) observer ).isActive();
   }
 }

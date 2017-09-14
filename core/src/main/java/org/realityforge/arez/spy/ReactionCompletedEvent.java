@@ -3,7 +3,7 @@ package org.realityforge.arez.spy;
 import java.util.Objects;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.Observer;
+import org.realityforge.arez.Node;
 
 /**
  * Notification when Observer completes reaction.
@@ -11,11 +11,11 @@ import org.realityforge.arez.Observer;
 public final class ReactionCompletedEvent
 {
   @Nonnull
-  private final Observer _observer;
+  private final Node _observer;
   @Nonnegative
   private final long _duration;
 
-  public ReactionCompletedEvent( @Nonnull final Observer observer, @Nonnegative final long duration )
+  public ReactionCompletedEvent( @Nonnull final Node observer, @Nonnegative final long duration )
   {
     assert duration >= 0;
     _observer = Objects.requireNonNull( observer );
@@ -23,7 +23,7 @@ public final class ReactionCompletedEvent
   }
 
   @Nonnull
-  public Observer getObserver()
+  public Node getObserver()
   {
     return _observer;
   }

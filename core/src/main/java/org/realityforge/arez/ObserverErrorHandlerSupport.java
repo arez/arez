@@ -48,7 +48,7 @@ final class ObserverErrorHandlerSupport
    * {@inheritDoc}
    */
   @Override
-  public void onObserverError( @Nonnull final Observer observer,
+  public void onObserverError( @Nonnull final Node observer,
                                @Nonnull final ObserverError error,
                                @Nullable final Throwable throwable )
   {

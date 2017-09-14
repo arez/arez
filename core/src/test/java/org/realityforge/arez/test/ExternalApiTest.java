@@ -7,8 +7,8 @@ import org.realityforge.arez.AbstractArezTest;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ArezTestUtil;
 import org.realityforge.arez.ComputedValue;
+import org.realityforge.arez.Node;
 import org.realityforge.arez.Observable;
-import org.realityforge.arez.Observer;
 import org.realityforge.arez.ObserverErrorHandler;
 import org.realityforge.arez.Procedure;
 import org.realityforge.arez.SpyEventHandler;
@@ -83,7 +83,7 @@ public class ExternalApiTest
     final AtomicInteger callCount = new AtomicInteger();
 
     final String name = ValueUtil.randomString();
-    final Observer observer = context.autorun( name, false, callCount::incrementAndGet, true );
+    final Node observer = context.autorun( name, false, callCount::incrementAndGet, true );
 
     assertEquals( observer.getName(), name );
     assertEquals( ArezTestUtil.isActive( observer ), true );
@@ -155,7 +155,7 @@ public class ExternalApiTest
 
     final AtomicInteger reactionCount = new AtomicInteger();
 
-    final Observer observer =
+    final Node observer =
       context.autorun( ValueUtil.randomString(),
                        false,
                        () -> {
@@ -183,7 +183,7 @@ public class ExternalApiTest
 
     final AtomicInteger reactionCount = new AtomicInteger();
 
-    final Observer observer =
+    final Node observer =
       context.autorun( ValueUtil.randomString(),
                        false,
                        () -> {
@@ -215,7 +215,7 @@ public class ExternalApiTest
 
     final AtomicInteger reactionCount = new AtomicInteger();
 
-    final Observer observer =
+    final Node observer =
       context.autorun( ValueUtil.randomString(),
                        false,
                        () -> {

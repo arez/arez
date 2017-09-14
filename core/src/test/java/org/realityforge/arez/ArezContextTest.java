@@ -457,7 +457,7 @@ public class ArezContextTest
     final ObserverError observerError = ObserverError.REACTION_ERROR;
     final Throwable throwable = new Throwable();
     final Procedure action = new NoopProcedure();
-    final Observer observer =
+    final Observer observer = (Observer)
       context.autorun( ValueUtil.randomString(), true, action, true );
 
     final AtomicInteger callCount = new AtomicInteger();
@@ -498,7 +498,7 @@ public class ArezContextTest
     final ObserverError observerError = ObserverError.REACTION_ERROR;
     final Throwable throwable = new Throwable();
     final Procedure action = new NoopProcedure();
-    final Observer observer =
+    final Observer observer = (Observer)
       context.autorun( ValueUtil.randomString(), ValueUtil.randomBoolean(), action, ValueUtil.randomBoolean() );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
@@ -606,7 +606,7 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer =
+    final Observer observer = (Observer)
       context.autorun( name, true, callCount::incrementAndGet, true );
 
     assertEquals( observer.getName(), name );
@@ -624,7 +624,8 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = context.autorun( name, false, callCount::incrementAndGet, false );
+    final Observer observer = (Observer)
+      context.autorun( name, false, callCount::incrementAndGet, false );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );

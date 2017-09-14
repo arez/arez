@@ -16,5 +16,5 @@ public interface ObserverErrorHandler
    * @param error     the type of the error.
    * @param throwable the exception that caused error if any.
    */
-  void onObserverError( @Nonnull Observer observer, @Nonnull ObserverError error, @Nullable Throwable throwable );
+  void onObserverError( @Nonnull Node observer, @Nonnull ObserverError error, @Nullable Throwable throwable );
 }
