@@ -27,9 +27,6 @@ TODO:
 
 * Support whyRun if config enables it. Possibly through Spy interface?
 
-* Document the fact that AnnotationProcessor collects annotations from interfaces and super classes,
-  including default methods.
-
 * Add an Active Observable/Observer/ComputedValue that allows user to supply onActivate, onDeactivate, onStale
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build. 

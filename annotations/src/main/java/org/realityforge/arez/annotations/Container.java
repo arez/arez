@@ -35,6 +35,11 @@ import java.lang.annotation.Target;
  * <li>Must not be a non-static nested class</li>
  * <li>Must have at least one method annotated with {@link Action}, {@link Computed} or {@link Observable}</li>
  * </ul>
+ *
+ * <p>The annotation processor that handles this annotation will analyze all super classes and super
+ * interfaces. This includes analysis of default methods on interfaces. So it is perfectly valid to
+ * add {@link Observable}, {@link Computed}, {@link Action}, {@link PreDispose} and {@link PostDispose}
+ * annotations to default methods on implemented interfaces.</p>
  */
 @Retention( RetentionPolicy.RUNTIME )
 @Target( ElementType.TYPE )
