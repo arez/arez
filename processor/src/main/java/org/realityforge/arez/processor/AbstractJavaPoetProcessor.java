@@ -22,7 +22,7 @@ abstract class AbstractJavaPoetProcessor
       }
       catch ( final IOException ioe )
       {
-        processingEnv.getMessager().printMessage( ERROR, ioe.getMessage() );
+        processingEnv.getMessager().printMessage( ERROR, ioe.getMessage(), element );
       }
       catch ( final ArezProcessorException e )
       {
