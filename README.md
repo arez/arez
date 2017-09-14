@@ -17,6 +17,8 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
+* AsyncReactions?
+
 * Add an Active Observable/Observer/ComputedValue that allows user to supply onActivate, onDeactivate, onStale
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build. 
