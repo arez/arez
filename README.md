@@ -17,6 +17,9 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
+* Document the fact that AnnotationProcessor collects annotations from interfaces and super classes,
+  including default methods.
+
 * AsyncReactions?
 
 * Add an Active Observable/Observer/ComputedValue that allows user to supply onActivate, onDeactivate, onStale
