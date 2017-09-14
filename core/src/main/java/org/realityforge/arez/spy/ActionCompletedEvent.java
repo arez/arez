@@ -14,20 +14,28 @@ public final class ActionCompletedEvent
   private final String _name;
   @Nonnull
   private final Object[] _parameters;
+  private final boolean _expectsResult;
   @Nullable
   private final Object _result;
+  @Nullable
+  private final Throwable _throwable;
   @Nonnegative
   private final long _duration;
 
   public ActionCompletedEvent( @Nonnull final String name,
                                @Nonnull final Object[] parameters,
+                               final boolean expectsResult,
                                @Nullable final Object result,
+                               @Nullable final Throwable throwable,
                                @Nonnegative final long duration )
   {
     assert duration >= 0;
+    assert null == throwable || null == result;
     _name = Objects.requireNonNull( name );
     _parameters = Objects.requireNonNull( parameters );
+    _expectsResult = expectsResult;
     _result = result;
+    _throwable = throwable;
     _duration = duration;
   }
 
@@ -43,10 +51,21 @@ public final class ActionCompletedEvent
     return _parameters;
   }
 
+  public boolean isExpectsResult()
+  {
+    return _expectsResult;
+  }
+
   @Nullable
   public Object getResult()
   {
     return _result;
+  }
+
+  @Nullable
+  public Throwable getThrowable()
+  {
+    return _throwable;
   }
 
   @Nonnegative

@@ -25,6 +25,7 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
 
   @Override
   public int doStuff(final long time) throws Throwable {
+    Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;
     try {
@@ -36,7 +37,7 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doStuff", new Object[]{time}, $$arez$$_result, $$arez$$_duration ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doStuff", new Object[]{time}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
       }
       return $$arez$$_result;
     } catch( final Throwable e ) {
@@ -46,7 +47,7 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
         final Integer $$arez$$_result = null;
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doStuff", new Object[]{time}, $$arez$$_result, $$arez$$_duration ) );
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doStuff", new Object[]{time}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
         }
       }
     }

@@ -58,6 +58,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
 
   @Override
   public void doAction() {
+    Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;
     try {
@@ -69,21 +70,25 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "myAction", new Object[]{}, null, $$arez$$_duration ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "myAction", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
     } catch( final RuntimeException e ) {
+      $$arez$$_throwable = e;
       throw e;
     } catch( final Exception e ) {
+      $$arez$$_throwable = e;
       throw new UndeclaredThrowableException( e );
     } catch( final Error e ) {
+      $$arez$$_throwable = e;
       throw e;
     } catch( final Throwable e ) {
+      $$arez$$_throwable = e;
       throw new UndeclaredThrowableException( e );
     } finally {
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "myAction", new Object[]{}, null, $$arez$$_duration ) );
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "myAction", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
         }
       }
     }

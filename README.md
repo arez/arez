@@ -17,8 +17,6 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
-* Change ActionCompletedEvent so it explicitly records exception generated as part of action.
-
 * Add @PreDispose and @PostDispose annotations that can be applied to methods that are called before and after a
   container is disposed.
 

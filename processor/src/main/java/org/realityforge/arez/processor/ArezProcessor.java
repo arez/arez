@@ -62,6 +62,7 @@ public final class ArezProcessor
   private static final String DURATION_VARIABLE_NAME = FIELD_PREFIX + "duration";
   private static final String RESULT_VARIABLE_NAME = FIELD_PREFIX + "result";
   private static final String COMPLETED_VARIABLE_NAME = FIELD_PREFIX + "completed";
+  private static final String THROWABLE_VARIABLE_NAME = FIELD_PREFIX + "throwable";
 
   /**
    * {@inheritDoc}
@@ -261,6 +262,7 @@ public final class ArezProcessor
 
     statement.append( ") )" );
 
+    builder.addStatement( "$T $N = null", Throwable.class, THROWABLE_VARIABLE_NAME );
     builder.addStatement( "$T $N = false", boolean.class, COMPLETED_VARIABLE_NAME );
     builder.addStatement( "$T $N = 0L", long.class, STARTED_AT_VARIABLE_NAME );
 
@@ -289,14 +291,18 @@ public final class ArezProcessor
         if ( action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) ) )
         {
           codeBlock.nextControlFlow( "catch( final $T e )", RuntimeException.class );
+          codeBlock.addStatement( "$N = e", THROWABLE_VARIABLE_NAME );
           codeBlock.addStatement( "throw e" );
         }
         codeBlock.nextControlFlow( "catch( final $T e )", Exception.class );
+        codeBlock.addStatement( "$N = e", THROWABLE_VARIABLE_NAME );
         codeBlock.addStatement( "throw new $T( e )", UndeclaredThrowableException.class );
       }
       codeBlock.nextControlFlow( "catch( final $T e )", Error.class );
-      codeBlock.addStatement( "throw e", UndeclaredThrowableException.class );
+      codeBlock.addStatement( "$N = e", THROWABLE_VARIABLE_NAME );
+      codeBlock.addStatement( "throw e" );
       codeBlock.nextControlFlow( "catch( final $T e )", Throwable.class );
+      codeBlock.addStatement( "$N = e", THROWABLE_VARIABLE_NAME );
       codeBlock.addStatement( "throw new $T( e )", UndeclaredThrowableException.class );
     }
     codeBlock.nextControlFlow( "finally" );
@@ -402,16 +408,18 @@ public final class ArezProcessor
       sb.append( element.getSimpleName().toString() );
     }
     sb.append( "}, " );
-    if ( !isProcedure )
+    if ( isProcedure )
     {
-      sb.append( "$N" );
-      reportParameters.add( RESULT_VARIABLE_NAME );
+      sb.append( "false, null" );
     }
     else
     {
-      sb.append( "null" );
+      sb.append( "true, $N" );
+      reportParameters.add( RESULT_VARIABLE_NAME );
     }
-    sb.append( ", $N ) )" );
+
+    sb.append( ", $N, $N ) )" );
+    reportParameters.add( THROWABLE_VARIABLE_NAME );
     reportParameters.add( DURATION_VARIABLE_NAME );
 
     spyCodeBlock.addStatement( sb.toString(), reportParameters.toArray() );

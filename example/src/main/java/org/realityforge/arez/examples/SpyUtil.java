@@ -116,8 +116,8 @@ final class SpyUtil
                   e.getName() +
                   "(" +
                   Arrays.toString( e.getParameters() ) +
-                  ") = " +
-                  e.getResult() +
+                  ")" + ( e.isExpectsResult() && null == e.getThrowable() ? " = " + e.getResult() : "" ) +
+                  ( null != e.getThrowable() ? "threw " + e.getThrowable() : "" ) +
                   " Duration [" +
                   e.getDuration() +
                   "]" );
