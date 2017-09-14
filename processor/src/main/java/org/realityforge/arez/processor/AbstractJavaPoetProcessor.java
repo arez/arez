@@ -26,7 +26,7 @@ abstract class AbstractJavaPoetProcessor
       }
       catch ( final ArezProcessorException e )
       {
-        e.print( processingEnv.getMessager() );
+        processingEnv.getMessager().printMessage( ERROR, e.getMessage(), e.getElement() );
       }
     }
   }

@@ -1,5 +1,6 @@
 package org.realityforge.arez.processor;
 
+import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.Messager;
 import javax.lang.model.element.Element;
@@ -17,15 +18,10 @@ class ArezProcessorException
     _element = Objects.requireNonNull( element );
   }
 
-  void print( @Nonnull final Messager messager )
+  @Nonnull
+  Element getElement()
   {
-    if ( null != _element )
-    {
-      messager.printMessage( Diagnostic.Kind.ERROR, getMessage(), _element );
-    }
-    else
-    {
-      messager.printMessage( Diagnostic.Kind.ERROR, getMessage() );
-    }
+    return _element;
   }
+
 }
