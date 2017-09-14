@@ -5,11 +5,8 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
 
-@Generated( "org.realityforge.arez.processor.ArezProcessor" )
-public final class Arez_ComputedWithNameVariationsModel
-  extends ComputedWithNameVariationsModel
-  implements Disposable
-{
+@Generated("org.realityforge.arez.processor.ArezProcessor")
+public final class Arez_ComputedWithNameVariationsModel extends ComputedWithNameVariationsModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -29,34 +26,22 @@ public final class Arez_ComputedWithNameVariationsModel
   @Nonnull
   private final ComputedValue<Long> $$arez$$_time;
 
-  public Arez_ComputedWithNameVariationsModel( @Nonnull final ArezContext $$arez$$_context )
-  {
+  public Arez_ComputedWithNameVariationsModel(@Nonnull final ArezContext $$arez$$_context) {
     super();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_helper = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ?
-                                                                      $$arez$$_id() + "helper" :
-                                                                      null, super::helper, Objects::equals );
-    this.$$arez$$_ready = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ?
-                                                                     $$arez$$_id() + "ready" :
-                                                                     null, super::isReady, Objects::equals );
-    this.$$arez$$_foo =
-      this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "foo" : null,
-                                                 super::myFooHelperMethod,
-                                                 Objects::equals );
-    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ?
-                                                                    $$arez$$_id() + "time" :
-                                                                    null, super::getTime, Objects::equals );
+    this.$$arez$$_helper = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "helper" : null, super::helper, Objects::equals );
+    this.$$arez$$_ready = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "ready" : null, super::isReady, Objects::equals );
+    this.$$arez$$_foo = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "foo" : null, super::myFooHelperMethod, Objects::equals );
+    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null, super::getTime, Objects::equals );
   }
 
-  private String $$arez$$_id()
-  {
+  private String $$arez$$_id() {
     return "ComputedWithNameVariationsModel." + $$arez$$_id + ".";
   }
 
   @Override
-  public void dispose()
-  {
+  public void dispose() {
     $$arez$$_helper.dispose();
     $$arez$$_ready.dispose();
     $$arez$$_foo.dispose();
@@ -64,26 +49,22 @@ public final class Arez_ComputedWithNameVariationsModel
   }
 
   @Override
-  public String helper()
-  {
+  public String helper() {
     return this.$$arez$$_helper.get();
   }
 
   @Override
-  public boolean isReady()
-  {
+  public boolean isReady() {
     return this.$$arez$$_ready.get();
   }
 
   @Override
-  public String myFooHelperMethod()
-  {
+  public String myFooHelperMethod() {
     return this.$$arez$$_foo.get();
   }
 
   @Override
-  public long getTime()
-  {
+  public long getTime() {
     return this.$$arez$$_time.get();
   }
 }

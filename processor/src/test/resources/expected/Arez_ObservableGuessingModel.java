@@ -5,11 +5,8 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 
-@Generated( "org.realityforge.arez.processor.ArezProcessor" )
-public final class Arez_ObservableGuessingModel
-  extends ObservableGuessingModel
-  implements Disposable
-{
+@Generated("org.realityforge.arez.processor.ArezProcessor")
+public final class Arez_ObservableGuessingModel extends ObservableGuessingModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -26,80 +23,64 @@ public final class Arez_ObservableGuessingModel
   @Nonnull
   private final Observable $$arez$$_time;
 
-  public Arez_ObservableGuessingModel( @Nonnull final ArezContext $$arez$$_context )
-  {
+  public Arez_ObservableGuessingModel(@Nonnull final ArezContext $$arez$$_context) {
     super();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_string = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ?
-                                                                   $$arez$$_id() + "string" :
-                                                                   null );
-    this.$$arez$$_foo =
-      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "foo" : null );
-    this.$$arez$$_time =
-      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+    this.$$arez$$_string = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "string" : null );
+    this.$$arez$$_foo = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "foo" : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
   }
 
-  private String $$arez$$_id()
-  {
+  private String $$arez$$_id() {
     return "ObservableGuessingModel." + $$arez$$_id + ".";
   }
 
   @Override
-  public void dispose()
-  {
+  public void dispose() {
     $$arez$$_string.dispose();
     $$arez$$_foo.dispose();
     $$arez$$_time.dispose();
   }
 
   @Override
-  public String getString()
-  {
+  public String getString() {
     this.$$arez$$_string.reportObserved();
     return super.getString();
   }
 
   @Override
-  public void setString( final String v )
-  {
-    if ( !Objects.equals( v, super.getString() ) )
-    {
-      super.setString( v );
+  public void setString(final String v) {
+    if ( !Objects.equals(v, super.getString()) ) {
+      super.setString(v);
       this.$$arez$$_string.reportChanged();
     }
   }
 
   @Override
-  public boolean isFoo()
-  {
+  public boolean isFoo() {
     this.$$arez$$_foo.reportObserved();
     return super.isFoo();
   }
 
   @Override
-  public void setFoo( final boolean x )
-  {
-    if ( x != super.isFoo() )
-    {
-      super.setFoo( x );
+  public void setFoo(final boolean x) {
+    if ( x != super.isFoo() ) {
+      super.setFoo(x);
       this.$$arez$$_foo.reportChanged();
     }
   }
 
   @Override
-  public long getTime()
-  {
+  public long getTime() {
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
-  public void setTime( final long time )
-  {
-    if ( time != super.getTime() )
-    {
-      super.setTime( time );
+  public void setTime(final long time) {
+    if ( time != super.getTime() ) {
+      super.setTime(time);
       this.$$arez$$_time.reportChanged();
     }
   }

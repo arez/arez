@@ -4,10 +4,8 @@ import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 
-@Generated( "org.realityforge.arez.processor.ArezProcessor" )
-public final class Arez_NotDisposableModel
-  extends NotDisposableModel
-{
+@Generated("org.realityforge.arez.processor.ArezProcessor")
+public final class Arez_NotDisposableModel extends NotDisposableModel {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -18,24 +16,19 @@ public final class Arez_NotDisposableModel
   @Nonnull
   private final ComputedValue<Long> $$arez$$_time;
 
-  public Arez_NotDisposableModel( @Nonnull final ArezContext $$arez$$_context )
-  {
+  public Arez_NotDisposableModel(@Nonnull final ArezContext $$arez$$_context) {
     super();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ?
-                                                                    $$arez$$_id() + "time" :
-                                                                    null, super::getTime, Objects::equals );
+    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null, super::getTime, Objects::equals );
   }
 
-  private String $$arez$$_id()
-  {
+  private String $$arez$$_id() {
     return "NotDisposableModel." + $$arez$$_id + ".";
   }
 
   @Override
-  public long getTime()
-  {
+  public long getTime() {
     return this.$$arez$$_time.get();
   }
 }

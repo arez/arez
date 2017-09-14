@@ -4,11 +4,8 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 
-@Generated( "org.realityforge.arez.processor.ArezProcessor" )
-public final class Arez_ObservableWithExceptingCtorModel
-  extends ObservableWithExceptingCtorModel
-  implements Disposable
-{
+@Generated("org.realityforge.arez.processor.ArezProcessor")
+public final class Arez_ObservableWithExceptingCtorModel extends ObservableWithExceptingCtorModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -19,40 +16,32 @@ public final class Arez_ObservableWithExceptingCtorModel
   @Nonnull
   private final Observable $$arez$$_time;
 
-  public Arez_ObservableWithExceptingCtorModel( @Nonnull final ArezContext $$arez$$_context )
-    throws Exception
-  {
+  public Arez_ObservableWithExceptingCtorModel(@Nonnull final ArezContext $$arez$$_context) throws Exception {
     super();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_time =
-      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
   }
 
-  private String $$arez$$_id()
-  {
+  private String $$arez$$_id() {
     return "ObservableWithExceptingCtorModel." + $$arez$$_id + ".";
   }
 
   @Override
-  public void dispose()
-  {
+  public void dispose() {
     $$arez$$_time.dispose();
   }
 
   @Override
-  public long getTime()
-  {
+  public long getTime() {
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
-  public void setTime( final long time )
-  {
-    if ( time != super.getTime() )
-    {
-      super.setTime( time );
+  public void setTime(final long time) {
+    if ( time != super.getTime() ) {
+      super.setTime(time);
       this.$$arez$$_time.reportChanged();
     }
   }

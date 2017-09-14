@@ -4,11 +4,8 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 
-@Generated( "org.realityforge.arez.processor.ArezProcessor" )
-public final class Arez_ObservableModelWithUnconventionalNames
-  extends ObservableModelWithUnconventionalNames
-  implements Disposable
-{
+@Generated("org.realityforge.arez.processor.ArezProcessor")
+public final class Arez_ObservableModelWithUnconventionalNames extends ObservableModelWithUnconventionalNames implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -19,39 +16,32 @@ public final class Arez_ObservableModelWithUnconventionalNames
   @Nonnull
   private final Observable $$arez$$_time;
 
-  public Arez_ObservableModelWithUnconventionalNames( @Nonnull final ArezContext $$arez$$_context )
-  {
+  public Arez_ObservableModelWithUnconventionalNames(@Nonnull final ArezContext $$arez$$_context) {
     super();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_time =
-      this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
   }
 
-  private String $$arez$$_id()
-  {
+  private String $$arez$$_id() {
     return "ObservableModelWithUnconventionalNames." + $$arez$$_id + ".";
   }
 
   @Override
-  public void dispose()
-  {
+  public void dispose() {
     $$arez$$_time.dispose();
   }
 
   @Override
-  public long time()
-  {
+  public long time() {
     this.$$arez$$_time.reportObserved();
     return super.time();
   }
 
   @Override
-  public void time( final long time )
-  {
-    if ( time != super.time() )
-    {
-      super.time( time );
+  public void time(final long time) {
+    if ( time != super.time() ) {
+      super.time(time);
       this.$$arez$$_time.reportChanged();
     }
   }
