@@ -8,12 +8,13 @@ import javax.tools.Diagnostic;
 class ArezProcessorException
   extends Exception
 {
+  @Nonnull
   private final Element _element;
 
   ArezProcessorException( @Nonnull final String message, @Nonnull final Element element )
   {
     super( message );
-    _element = element;
+    _element = Objects.requireNonNull( element );
   }
 
   void print( @Nonnull final Messager messager )
