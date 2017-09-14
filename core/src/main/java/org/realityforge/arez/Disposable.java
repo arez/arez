@@ -1,5 +1,7 @@
 package org.realityforge.arez;
 
+import javax.annotation.Nonnull;
+
 /**
  * Interface that allows caller to release any resources associated with element.
  * It is safe to invoke {@link #dispose()} multiple times on a element. Dispose
@@ -15,4 +17,17 @@ public interface Disposable
    * Dispose the element. See {@link Disposable} for a description of the implications.
    */
   void dispose();
+
+  /**
+   * Dispose the supplied object if it is Disposable, else do nothing.
+   *
+   * @param object the object to dispose.
+   */
+  static void dispose( @Nonnull final Object object )
+  {
+    if ( object instanceof Disposable )
+    {
+      ( (Disposable) object ).dispose();
+    }
+  }
 }
