@@ -38,21 +38,6 @@ TODO:
   of the change then an UnspecifiedChange() will be passed through. There may be some value to allowing
   it to be processed inline when it changes rather than as a reaction.
 
-Observer
-* Reaction (can read/write state & create side-effects). Will be scheduled after root transaction completes
-  if it becomes stale during any transaction. Transactions typically explicitly indicate their transaction
-  status.
-* Derivation (can read state to derive state) (a.k.a. Computation in mobx). Will be re-executed if it is
-  called within a transaction and is not uptodate, otherwise queued like reaction for after root
-  transaction completes. Derivations are read-only transactions and should not try to change state except
-  for owned or newly created observables. Derivations are implemented as extensions of Reactions but it is unclear
-  whether the concept is independent of reaction as some Derivations could listen to data change messages and updated
-  based on that?.
-* Currently the derivation can only own a single observable and that observable hitting zero listeners results
-  in deactivation. It is possible a derivation can generate multiple "owned" observables?
-* NOT YET: A list of notifications scheduled by dependencies if it opted in as a message receiving Observer.
-
-
 ## Architecture v2 Notes
 
 An Arez application consists of `observable` values that can change over time. `Observers` watch the
