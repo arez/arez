@@ -17,6 +17,8 @@ import java.lang.annotation.Target;
  * <ul>
  * <li>Must have 0 parameters</li>
  * <li>Must return a value</li>
+ * <li>Must not be private</li>
+ * <li>Must not be static</li>
  * <li>Must not be final</li>
  * <li>Must not be abstract</li>
  * <li>Must not throw exceptions</li>
