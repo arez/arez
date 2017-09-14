@@ -691,7 +691,7 @@ public class ObservableTest
 
     final Observer observer = newDerivation( context );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString(), observer );
+    final Observable observable = new Observable( context, observer.getName(), observer );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observable::invariantOwner );

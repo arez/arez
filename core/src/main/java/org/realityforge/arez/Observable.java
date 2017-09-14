@@ -78,6 +78,7 @@ public final class Observable
       Guards.invariant( _owner::isDerivation,
                         () -> String.format( "Observable named '%s' has owner specified but owner is not a derivation.",
                                              getName() ) );
+      assert !ArezConfig.enableNames() || _owner.getName().equals( name );
     }
   }
 

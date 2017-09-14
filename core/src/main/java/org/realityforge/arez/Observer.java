@@ -108,6 +108,8 @@ final class Observer
       Guards.invariant( () -> null != computedValue,
                         () -> String.format( "Attempted to construct an observer named '%s' with READ_WRITE_OWNED " +
                                              "transaction mode but no ComputedValue.", getName() ) );
+      assert null != computedValue;
+      assert !ArezConfig.enableNames() || computedValue.getName().equals( name );
     }
     else if ( null != computedValue )
     {
