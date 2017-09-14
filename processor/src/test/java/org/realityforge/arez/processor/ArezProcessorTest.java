@@ -48,18 +48,21 @@ public class ArezProcessorTest
 
   @Test( dataProvider = "successfulCompiles" )
   public void processSuccessfulCompile( @Nonnull final String classname )
+    throws Exception
   {
     assertSuccessfulCompile( classname );
   }
 
   @Test
   public void processSuccessfulNestedCompile()
+    throws Exception
   {
     assertSuccessfulCompile( "input/NestedModel.java", "expected/NestedModel$Arez_BasicActionModel.java" );
   }
 
   @Test
   public void processSuccessfulNestedNestedCompile()
+    throws Exception
   {
     assertSuccessfulCompile( "input/NestedNestedModel.java",
                              "expected/NestedNestedModel$Something$Arez_BasicActionModel.java" );
@@ -145,6 +148,7 @@ public class ArezProcessorTest
 
   @Test( dataProvider = "failedCompiles" )
   public void processFailedCompile( @Nonnull final String classname, @Nonnull final String errorMessageFragment )
+    throws Exception
   {
     assertFailedCompile( classname, errorMessageFragment );
   }

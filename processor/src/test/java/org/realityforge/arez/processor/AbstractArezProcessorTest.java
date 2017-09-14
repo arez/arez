@@ -9,6 +9,7 @@ import static com.google.common.truth.Truth.assert_;
 abstract class AbstractArezProcessorTest
 {
   void assertSuccessfulCompile( @Nonnull final String classname )
+    throws Exception
   {
     final String[] elements = classname.contains( "." ) ? classname.split( "." ) : new String[]{ classname };
     final StringBuilder input = new StringBuilder();
@@ -32,6 +33,7 @@ abstract class AbstractArezProcessorTest
   }
 
   void assertSuccessfulCompile( @Nonnull final String inputResource, @Nonnull final String expectedOutputResource )
+    throws Exception
   {
     final JavaFileObject source = JavaFileObjects.forResource( inputResource );
     assert_().about( JavaSourceSubjectFactory.javaSource() ).
@@ -42,6 +44,7 @@ abstract class AbstractArezProcessorTest
   }
 
   void assertFailedCompile( @Nonnull final String classname, @Nonnull final String errorMessageFragment )
+    throws Exception
   {
     final String[] elements = classname.contains( "." ) ? classname.split( "." ) : new String[]{ classname };
     final StringBuilder input = new StringBuilder();
@@ -57,6 +60,7 @@ abstract class AbstractArezProcessorTest
 
   private void assertFailedCompileResource( @Nonnull final String inputResource,
                                             @Nonnull final String errorMessageFragment )
+    throws Exception
   {
     final JavaFileObject source = JavaFileObjects.forResource( inputResource );
     assert_().about( JavaSourceSubjectFactory.javaSource() ).
