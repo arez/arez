@@ -6,6 +6,8 @@ import org.realityforge.arez.Observable;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_ContainerIdOnModel extends ContainerIdOnModel implements Disposable {
+  private boolean $$arez$$_disposed;
+
   @Nonnull
   private final ArezContext $$arez$$_context;
 
@@ -23,8 +25,16 @@ public final class Arez_ContainerIdOnModel extends ContainerIdOnModel implements
   }
 
   @Override
+  public boolean isDisposed() {
+    return $$arez$$_disposed;
+  }
+
+  @Override
   public void dispose() {
-    $$arez$$_time.dispose();
+    if ( !isDisposed() ) {
+      $$arez$$_disposed = true;
+      $$arez$$_time.dispose();
+    }
   }
 
   @Override

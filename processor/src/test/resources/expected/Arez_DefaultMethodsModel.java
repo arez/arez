@@ -11,6 +11,8 @@ import org.realityforge.arez.spy.ActionStartedEvent;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implements Disposable {
+  private boolean $$arez$$_disposed;
+
   @Nonnull
   private final ArezContext $$arez$$_context;
 
@@ -28,9 +30,17 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
   }
 
   @Override
+  public boolean isDisposed() {
+    return $$arez$$_disposed;
+  }
+
+  @Override
   public void dispose() {
-    $$arez$$_someValue.dispose();
-    $$arez$$_time.dispose();
+    if ( !isDisposed() ) {
+      $$arez$$_disposed = true;
+      $$arez$$_someValue.dispose();
+      $$arez$$_time.dispose();
+    }
   }
 
   @Override

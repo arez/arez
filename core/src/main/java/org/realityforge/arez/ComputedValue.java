@@ -97,9 +97,10 @@ public final class ComputedValue<T>
   }
 
   /**
-   * Return true if dispose() has been called.
+   * {@inheritDoc}
    */
-  boolean isDisposed()
+  @Override
+  public boolean isDisposed()
   {
     return _disposed;
   }

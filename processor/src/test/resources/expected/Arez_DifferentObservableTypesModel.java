@@ -7,6 +7,8 @@ import org.realityforge.arez.Observable;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesModel implements Disposable {
+  private boolean $$arez$$_disposed;
+
   @Nonnull
   private final ArezContext $$arez$$_context;
 
@@ -52,16 +54,24 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
+  public boolean isDisposed() {
+    return $$arez$$_disposed;
+  }
+
+  @Override
   public void dispose() {
-    $$arez$$_v6.dispose();
-    $$arez$$_v7.dispose();
-    $$arez$$_v8.dispose();
-    $$arez$$_v9.dispose();
-    $$arez$$_v1.dispose();
-    $$arez$$_v2.dispose();
-    $$arez$$_v3.dispose();
-    $$arez$$_v4.dispose();
-    $$arez$$_v5.dispose();
+    if ( !isDisposed() ) {
+      $$arez$$_disposed = true;
+      $$arez$$_v6.dispose();
+      $$arez$$_v7.dispose();
+      $$arez$$_v8.dispose();
+      $$arez$$_v9.dispose();
+      $$arez$$_v1.dispose();
+      $$arez$$_v2.dispose();
+      $$arez$$_v3.dispose();
+      $$arez$$_v4.dispose();
+      $$arez$$_v5.dispose();
+    }
   }
 
   @Override

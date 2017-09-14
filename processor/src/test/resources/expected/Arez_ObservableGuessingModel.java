@@ -11,6 +11,8 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
 
   private final long $$arez$$_id;
 
+  private boolean $$arez$$_disposed;
+
   @Nonnull
   private final ArezContext $$arez$$_context;
 
@@ -37,10 +39,18 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   }
 
   @Override
+  public boolean isDisposed() {
+    return $$arez$$_disposed;
+  }
+
+  @Override
   public void dispose() {
-    $$arez$$_string.dispose();
-    $$arez$$_foo.dispose();
-    $$arez$$_time.dispose();
+    if ( !isDisposed() ) {
+      $$arez$$_disposed = true;
+      $$arez$$_string.dispose();
+      $$arez$$_foo.dispose();
+      $$arez$$_time.dispose();
+    }
   }
 
   @Override

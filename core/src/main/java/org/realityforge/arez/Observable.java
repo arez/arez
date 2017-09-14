@@ -120,11 +120,10 @@ public final class Observable
   }
 
   /**
-   * Return true if dispose() has been invoked on this Observable.
-   *
-   * @return true if dispose() has been invoked on this Observable, false otherwise.
+   * {@inheritDoc}
    */
-  boolean isDisposed()
+  @Override
+  public boolean isDisposed()
   {
     return DISPOSED == _workState;
   }

@@ -31,6 +31,10 @@ public final class Watcher
    * The observer that is observing condition, waiting until it is true.
    */
   private final Node _observer;
+  /**
+   * Has dispose() been called.
+   */
+  private boolean _disposed;
 
   /**
    * Create the watcher.
@@ -75,7 +79,19 @@ public final class Watcher
   @Override
   public void dispose()
   {
-    _observer.dispose();
-    _conditionValue.dispose();
+    if ( !_disposed )
+    {
+      _observer.dispose();
+      _conditionValue.dispose();
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isDisposed()
+  {
+    return _disposed;
   }
 }

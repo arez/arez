@@ -15,6 +15,8 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
 
   private final long $$arez$$_id;
 
+  private boolean $$arez$$_disposed;
+
   @Nonnull
   private final ArezContext $$arez$$_context;
 
@@ -37,9 +39,17 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   }
 
   @Override
+  public boolean isDisposed() {
+    return $$arez$$_disposed;
+  }
+
+  @Override
   public void dispose() {
-    $$arez$$_myComputed.dispose();
-    $$arez$$_myField.dispose();
+    if ( !isDisposed() ) {
+      $$arez$$_disposed = true;
+      $$arez$$_myComputed.dispose();
+      $$arez$$_myField.dispose();
+    }
   }
 
   @Override

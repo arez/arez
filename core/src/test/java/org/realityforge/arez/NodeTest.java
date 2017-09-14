@@ -22,6 +22,12 @@ public class NodeTest
     public void dispose()
     {
     }
+
+    @Override
+    public boolean isDisposed()
+    {
+      return false;
+    }
   }
 
   @Test

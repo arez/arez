@@ -14,6 +14,8 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   private final long $$arez$$_id;
 
+  private boolean $$arez$$_disposed;
+
   @Nonnull
   private final ArezContext $$arez$$_context;
 
@@ -52,9 +54,17 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   }
 
   @Override
+  public boolean isDisposed() {
+    return $$arez$$_disposed;
+  }
+
+  @Override
   public void dispose() {
-    $$arez$$_time.dispose();
-    $$arez$$_value.dispose();
+    if ( !isDisposed() ) {
+      $$arez$$_disposed = true;
+      $$arez$$_time.dispose();
+      $$arez$$_value.dispose();
+    }
   }
 
   @Override

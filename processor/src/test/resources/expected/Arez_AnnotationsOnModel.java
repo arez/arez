@@ -15,6 +15,8 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
 
   private final long $$arez$$_id;
 
+  private boolean $$arez$$_disposed;
+
   @Nonnull
   private final ArezContext $$arez$$_context;
 
@@ -37,9 +39,17 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   }
 
   @Override
+  public boolean isDisposed() {
+    return $$arez$$_disposed;
+  }
+
+  @Override
   public void dispose() {
-    $$arez$$_someValue.dispose();
-    $$arez$$_time.dispose();
+    if ( !isDisposed() ) {
+      $$arez$$_disposed = true;
+      $$arez$$_someValue.dispose();
+      $$arez$$_time.dispose();
+    }
   }
 
   @Nonnull

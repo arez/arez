@@ -11,6 +11,8 @@ public final class Arez_BasicComputedModel extends BasicComputedModel implements
 
   private final long $$arez$$_id;
 
+  private boolean $$arez$$_disposed;
+
   @Nonnull
   private final ArezContext $$arez$$_context;
 
@@ -29,8 +31,16 @@ public final class Arez_BasicComputedModel extends BasicComputedModel implements
   }
 
   @Override
+  public boolean isDisposed() {
+    return $$arez$$_disposed;
+  }
+
+  @Override
   public void dispose() {
-    $$arez$$_time.dispose();
+    if ( !isDisposed() ) {
+      $$arez$$_disposed = true;
+      $$arez$$_time.dispose();
+    }
   }
 
   @Override

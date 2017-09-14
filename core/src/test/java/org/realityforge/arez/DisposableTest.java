@@ -16,6 +16,7 @@ public class DisposableTest
       _disposed = true;
     }
 
+    @Override
     public boolean isDisposed()
     {
       return _disposed;
@@ -23,20 +24,25 @@ public class DisposableTest
   }
 
   @Test
-  public void dispose_randomObject()
+  public void randomObject()
     throws Exception
   {
     //No exception but no action
-    Disposable.dispose( new Object() );
+    final Object object = new Object();
+    assertEquals( Disposable.isDisposed( object ), false );
+    Disposable.dispose( object );
+    assertEquals( Disposable.isDisposed( object ), false );
   }
 
   @Test
-  public void dispose_disposable()
+  public void disposable()
     throws Exception
   {
     final TestDisposable object = new TestDisposable();
     assertEquals( object.isDisposed(), false );
+    assertEquals( Disposable.isDisposed( object ), false );
     Disposable.dispose( object );
     assertEquals( object.isDisposed(), true );
+    assertEquals( Disposable.isDisposed( object ), true );
   }
 }

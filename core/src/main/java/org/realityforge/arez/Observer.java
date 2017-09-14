@@ -175,11 +175,10 @@ final class Observer
   }
 
   /**
-   * Return true after dispose() method has been invoked.
-   *
-   * @return true if observer is disposed.
+   * {@inheritDoc}
    */
-  boolean isDisposed()
+  @Override
+  public boolean isDisposed()
   {
     return _disposed;
   }

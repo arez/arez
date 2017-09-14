@@ -58,6 +58,7 @@ public final class ArezProcessor
   private static final String CONTEXT_FIELD_NAME = FIELD_PREFIX + "context";
   private static final String NEXT_ID_FIELD_NAME = FIELD_PREFIX + "nextId";
   private static final String ID_FIELD_NAME = FIELD_PREFIX + "id";
+  private static final String DISPOSED_FIELD_NAME = FIELD_PREFIX + "disposed";
   private static final String STARTED_AT_VARIABLE_NAME = FIELD_PREFIX + "startedAt";
   private static final String DURATION_VARIABLE_NAME = FIELD_PREFIX + "duration";
   private static final String RESULT_VARIABLE_NAME = FIELD_PREFIX + "result";
@@ -130,6 +131,7 @@ public final class ArezProcessor
 
     if ( descriptor.isDisposable() )
     {
+      builder.addMethod( buildIsDisposed( descriptor ) );
       builder.addMethod( buildDispose( descriptor ) );
     }
 
@@ -511,14 +513,41 @@ public final class ArezProcessor
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class );
 
+    final CodeBlock.Builder codeBlock = CodeBlock.builder();
+    codeBlock.beginControlFlow( "if ( !isDisposed() )" );
+    codeBlock.addStatement( "$N = true", DISPOSED_FIELD_NAME );
     for ( final ComputedDescriptor computed : descriptor.getComputeds() )
     {
-      builder.addStatement( "$N.dispose()", FIELD_PREFIX + computed.getName() );
+      codeBlock.addStatement( "$N.dispose()", FIELD_PREFIX + computed.getName() );
     }
     for ( final ObservableDescriptor observable : descriptor.getObservables() )
     {
-      builder.addStatement( "$N.dispose()", fieldName( observable ) );
+      codeBlock.addStatement( "$N.dispose()", fieldName( observable ) );
     }
+
+    codeBlock.endControlFlow();
+
+    builder.addCode( codeBlock.build() );
+
+    return builder.build();
+  }
+
+  /**
+   * Generate the isDisposed method.
+   */
+  @Nonnull
+  private MethodSpec buildIsDisposed( @Nonnull final ContainerDescriptor descriptor )
+    throws ArezProcessorException
+  {
+    assert descriptor.isDisposable();
+
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "isDisposed" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class ).
+        returns( TypeName.BOOLEAN );
+
+    builder.addStatement( "return $N", DISPOSED_FIELD_NAME );
 
     return builder.build();
   }
@@ -563,6 +592,13 @@ public final class ArezProcessor
       final FieldSpec.Builder idField =
         FieldSpec.builder( TypeName.LONG, ID_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE );
       builder.addField( idField.build() );
+    }
+
+    if ( descriptor.isDisposable() )
+    {
+      final FieldSpec.Builder disposableField =
+        FieldSpec.builder( TypeName.BOOLEAN, DISPOSED_FIELD_NAME, Modifier.PRIVATE );
+      builder.addField( disposableField.build() );
     }
 
     // Create the field that contains the context

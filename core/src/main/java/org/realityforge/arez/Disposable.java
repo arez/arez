@@ -10,13 +10,22 @@ import javax.annotation.Nonnull;
  * performing dispose. Once an element is disposed, no other methods should be invoked
  * on element.
  */
-@FunctionalInterface
 public interface Disposable
 {
   /**
    * Dispose the element. See {@link Disposable} for a description of the implications.
    */
   void dispose();
+
+  /**
+   * Return true if dispose() has been called on object.
+   * This is very useful when the Disposable is a @Computed value representing
+   * the selected item in a UI component but the item can be disposed by other
+   * agents within the system. (i.e. The item was removed from the server).
+   *
+   * @return true if dispose has been called.
+   */
+  boolean isDisposed();
 
   /**
    * Dispose the supplied object if it is Disposable, else do nothing.
@@ -29,5 +38,16 @@ public interface Disposable
     {
       ( (Disposable) object ).dispose();
     }
+  }
+
+  /**
+   * Return true if the parameter is Disposable and has been disposed, else return false.
+   *
+   * @param object the object to check disposed state.
+   * @return true if the parameter is Disposable and has been disposed, else return false.
+   */
+  static boolean isDisposed( @Nonnull final Object object )
+  {
+    return object instanceof Disposable && ( (Disposable) object ).isDisposed();
   }
 }
