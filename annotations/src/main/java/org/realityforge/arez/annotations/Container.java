@@ -6,25 +6,26 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marks classes that contain Observable properties.
+ * Annotation that marks classes to be processed by Arez annotation processor.
+ * Classes with this annotation can contain {@link Observable} properties,
+ * {@link Computed} properties and {@link Action} methods.
  *
  * <p>The annotation controls the way that contained actions and observables are
- * named. If names are not enabled in the system, this annotation has no effect.</p>
- *
- * <p>The {@link #name()} value indicates the type name for all instances of this object.
- * If not specified it will default to the SimpleName of the class. i.e. The class
- * <tt>com.biz.models.MyModel</tt> will default to a name of "MyModel".</p>
- *
- * <p>The {@link #singleton()} indicates whether there are expected to be multiple
- * instances of this type. If the method returns true then the debug name of
- * contained observables will not include the "id" of the instance.</p>
- *
- * <p>The name of any observables contained within the container follows the pattern
- * "[Container.name].[Container.id].[Observable.name]" for non singletons and
- * "[Container.name].[Observable.name]" for singletons. Likewise, the name of any
- * actions contained within the container follows the pattern
- * "[Container.name].[Container.id].[Action.name]" for non singletons and
- * "[Container.name].[Action.name]" for singletons.</p>
+ * named (if names are enabled in the system.</p>
+ * <ul>
+ * <li>The value returned by {@link #name()} indicates the type name for instances
+ * of this object. If not specified it will default to the SimpleName of the class.
+ * i.e. The class <tt>com.biz.models.MyModel</tt> will default to a name of
+ * "MyModel".</li>
+ * <li>The {@link #singleton()} method indicates whether there are expected to be
+ * multiple instances of this type or just one. If the method returns true then the
+ * debug name of contained observables will not include the "id" of the instance.</li>
+ * </ul>
+ * <p>The name of any elements contained within the container follows the pattern
+ * "<tt>[Container.name].[Container.id].[Element.name]</tt>". If the value of {@link #name()}
+ * is the empty string then the "<tt>[Container.name].</tt>" element of name will be elided.
+ * If the value of {@link #singleton()} is true then the "<tt>[Container.id].</tt>" element
+ * of the name will be elided.</p>
  */
 @Retention( RetentionPolicy.RUNTIME )
 @Target( ElementType.TYPE )
@@ -32,6 +33,8 @@ public @interface Container
 {
   /**
    * Return the name of the type.
+   * This can be set to the empty string in which case the {@link Observable}, {@link Computed} and
+   * {@link Action} sub-elements will have no type prefix.
    *
    * @return the name of the type.
    */
@@ -45,9 +48,9 @@ public @interface Container
   boolean singleton() default false;
 
   /**
-   * Return true if the generated container should implement Disposable interface that releases resources from Arez system.
+   * Return true if the generated container should implement Disposable interface.
    *
-   * @return true if the container should implement Disposable.
+   * @return true if the generated container should implement Disposable interface, false otherwise.
    */
   boolean disposable() default true;
 }
