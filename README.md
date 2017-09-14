@@ -17,6 +17,10 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
+* Add container (a.k.a. scope) to actions, ComputedValue and Observables???
+
+* Support whyRun if config enables it. Possibly through Spy interface?
+
 * Document the fact that AnnotationProcessor collects annotations from interfaces and super classes,
   including default methods.
 
