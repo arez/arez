@@ -122,6 +122,8 @@ define 'arez' do
     iml.main_source_directories << _('generated/processors/main/java')
   end
 
+  doc.from(projects(%w(arez:annotations arez:core arez:processor arez:extras))).using(:javadoc, :windowtitle => 'Arez')
+
   ipr.add_default_testng_configuration(:jvm_args => '-ea -Darez.dynamic_provider=true -Darez.logger=proxy -Darez.environment=development')
   ipr.add_component_from_artifact(:idea_codestyle)
   ipr.extra_modules << '../mobx/mobx.iml'

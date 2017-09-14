@@ -17,8 +17,6 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
-* Add combined javadocs target
-
 * Change ActionCompletedEvent so it explicitly records exception generated as part of action.
 
 * Consider removing Observer from the public API so instead just Disposable (or Node) is returned from autorun.
