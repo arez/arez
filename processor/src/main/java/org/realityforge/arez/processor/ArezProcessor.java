@@ -33,7 +33,7 @@ import javax.lang.model.type.TypeMirror;
 import org.realityforge.arez.annotations.Container;
 
 /**
- * Annotation processor that analyzes Arez annotated source and generates Observable models.
+ * Annotation processor that analyzes Arez annotated source and generates models from the annotations.
  */
 @SuppressWarnings( "Duplicates" )
 @AutoService( Processor.class )
