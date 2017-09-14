@@ -6,24 +6,31 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Methods marked with this annotation are computed values within Arez.
+ * Methods marked with this annotation are ComputedValues within Arez.
  *
- * <p>The method should take zero parameters, return a single value and throw no
- * exception. The value should be derived from other Observables within the Arez system
+ * <p>The return value should be derived from other Observables within the Arez system
  * and the value returned by the method should not change unless the state of the other
- * Observables changes. The method should NOT modify other state in the system.</p>
+ * {@link Observable}s change. The method is wrapped in a READ_ONLY transaction and
+ * thus can not modify other state in the system.</p>
  *
- * <p>The computed method is automatically wrapped in a READ_ONLY transaction
- * by the annotation parser.</p>
+ * <p>The method that is annotated with @Computed must comply with the additional constraints:</p>
+ * <ul>
+ * <li>Must have 0 parameters</li>
+ * <li>Must return a value</li>
+ * <li>Must not be final</li>
+ * <li>Must not be abstract</li>
+ * <li>Must not throw exceptions</li>
+ * </ul>
  */
 @Retention( RetentionPolicy.RUNTIME )
 @Target( ElementType.METHOD )
 public @interface Computed
 {
   /**
-   * Return the name of the type.
+   * Return the name of the ComputedValue relative to the container.
+   * The value must conform to the requirements of a java identifier.
    *
-   * @return the name of the type.
+   * @return the name of the ComputedValue relative to the container.
    */
   String name() default "<default>";
 }
