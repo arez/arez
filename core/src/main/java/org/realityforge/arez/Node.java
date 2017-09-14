@@ -6,7 +6,12 @@ import javax.annotation.Nullable;
 
 /**
  * A node within an Arez dependency graph.
- * The node is a named element within a specific Arez system that forms part of the dependency graph.
+ * The node is a named element within a specific Arez system that forms part of the
+ * dependency graph.
+ *
+ * <p>The Node class can be extended by classes outside the Arez core package. Typically this is
+ * done when a collection of primitive types (i.e. Observables, Observers, ComputedValues etc) are
+ * aggregated to form a single abstraction within the reactive system.</p>
  */
 public abstract class Node
   implements Disposable
