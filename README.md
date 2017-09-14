@@ -30,11 +30,13 @@ TODO:
 
 * Add @Memoized annotation to methods that makes the method call act as a ComputedValue based on parameters.
 
-* Support optional parameter parameter to report*Changed that describes the change (i.e.
-  AtomicChange(FromValue, ToValue), MapAdd(Key, Value) etc). Propagate this change as a
-  spy event. Observers can choose to pull from this change queue rather than naively
-  reacting to changes. These changes should be processed in order and there may be some
-  value to allowing it to be processed inline.
+* Support optional change parameter to report*Changed that describes the change (i.e. 
+  AtomicChange(FromValue, ToValue), MapAdd(Key, Value), Disposed() etc). Also Propagate this change
+  as a spy event. Observers opt-in to receiving these change events. If an Observer opts in then the
+  accumulated changes can be pulled from the current transaction via the context. The change list will
+  consist of all changes that have occurred in the order they occurred. If a Change object was not part
+  of the change then an UnspecifiedChange() will be passed through. There may be some value to allowing
+  it to be processed inline when it changes rather than as a reaction.
 
 Observer
 * Reaction (can read/write state & create side-effects). Will be scheduled after root transaction completes
