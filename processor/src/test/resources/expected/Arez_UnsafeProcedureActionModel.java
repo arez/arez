@@ -41,6 +41,7 @@ public final class Arez_UnsafeProcedureActionModel extends UnsafeProcedureAction
 
   @Override
   public void doStuff(final long time) throws Exception {
+    assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;

@@ -41,6 +41,7 @@ public final class Arez_BasicFunctionActionModel extends BasicFunctionActionMode
 
   @Override
   public int doStuff(final long time) {
+    assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;

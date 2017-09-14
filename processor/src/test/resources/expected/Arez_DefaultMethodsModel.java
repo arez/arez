@@ -59,6 +59,7 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
 
   @Override
   public void doStuff(final long time) {
+    assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;

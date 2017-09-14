@@ -69,6 +69,7 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
 
   @Override
   public void doStuff(@Nonnull final String time) {
+    assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;

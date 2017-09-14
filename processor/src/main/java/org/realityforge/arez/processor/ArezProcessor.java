@@ -264,6 +264,11 @@ public final class ArezProcessor
 
     statement.append( ") )" );
 
+    if ( containerDescriptor.isDisposable() )
+    {
+      builder.addStatement( "assert !$N", DISPOSED_FIELD_NAME );
+    }
+
     builder.addStatement( "$T $N = null", Throwable.class, THROWABLE_VARIABLE_NAME );
     builder.addStatement( "$T $N = false", boolean.class, COMPLETED_VARIABLE_NAME );
     builder.addStatement( "$T $N = 0L", long.class, STARTED_AT_VARIABLE_NAME );

@@ -41,6 +41,7 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
 
   @Override
   public int queryStuff(final long time) {
+    assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;

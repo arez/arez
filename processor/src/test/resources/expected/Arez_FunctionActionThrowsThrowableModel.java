@@ -40,6 +40,7 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
 
   @Override
   public int doStuff(final long time) throws Throwable {
+    assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;

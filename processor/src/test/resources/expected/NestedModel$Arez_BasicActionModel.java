@@ -41,6 +41,7 @@ public final class NestedModel$Arez_BasicActionModel extends NestedModel.BasicAc
 
   @Override
   public void doStuff(final long time) {
+    assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;

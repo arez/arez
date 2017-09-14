@@ -41,6 +41,7 @@ public final class Arez_FunctionActionThrowsRuntimeExceptionModel extends Functi
 
   @Override
   public int doStuff(final long time) throws RuntimeException {
+    assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;

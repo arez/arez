@@ -97,6 +97,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   void doAction3() {
+    assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;
@@ -135,6 +136,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   protected void doAction2() {
+    assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;
@@ -173,6 +175,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   public void doAction() {
+    assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;

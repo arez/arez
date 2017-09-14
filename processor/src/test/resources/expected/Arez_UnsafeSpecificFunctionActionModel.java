@@ -42,6 +42,7 @@ public final class Arez_UnsafeSpecificFunctionActionModel extends UnsafeSpecific
 
   @Override
   public int doStuff(final long time) throws ParseException {
+    assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
     long $$arez$$_startedAt = 0L;
