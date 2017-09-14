@@ -18,7 +18,6 @@ that will be expanded over time as the library is fleshed out.
 
 TODO:
 * Disposed Elements should not support actions.
-* All elements should implement Disposable unless disabled
 
 * Add an Active Observable/Observer/ComputedValue that allows user to supply onActivate, onDeactivate, onStale
 

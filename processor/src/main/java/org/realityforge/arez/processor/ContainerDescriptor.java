@@ -67,11 +67,6 @@ final class ContainerDescriptor
 
   boolean isDisposable()
   {
-    return _disposable && !( getObservables().isEmpty() && getComputeds().isEmpty() );
-  }
-
-  boolean rawIsDisposable()
-  {
     return _disposable;
   }
 

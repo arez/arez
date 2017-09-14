@@ -281,7 +281,7 @@ final class ContainerDescriptorParser
                                          @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( !descriptor.rawIsDisposable() )
+    if ( !descriptor.isDisposable() )
     {
       throw new ArezProcessorException( "@PreDispose must not exist if @Container set disposable to false", method );
     }
@@ -321,7 +321,7 @@ final class ContainerDescriptorParser
                                           @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( !descriptor.rawIsDisposable() )
+    if ( !descriptor.isDisposable() )
     {
       throw new ArezProcessorException( "@PostDispose must not exist if @Container set disposable to false", method );
     }
