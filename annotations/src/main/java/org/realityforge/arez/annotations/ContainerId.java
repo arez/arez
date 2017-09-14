@@ -17,8 +17,8 @@ import java.lang.annotation.Target;
  * should call this method to get the ID of the container. This ID should be
  * constant and unique (enough) to identify container. It is used when generating
  * debug names for observables nested within the container. If this annotation is
- * not present the Annotation processor will synthesize an ID by calling
- * ArezContext.nextNodeId()</p>
+ * not present the Annotation processor will synthesize an ID as a
+ * monotonically increasing integer for each instance of the type.</p>
  */
 @Retention( RetentionPolicy.RUNTIME )
 @Target( ElementType.METHOD )
