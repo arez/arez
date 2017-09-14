@@ -16,6 +16,7 @@ public @interface Observable
 {
   /**
    * Return the name of the Observable relative to the container.
+   * The value must conform to the requirements of a java identifier.
    *
    * @return the name of the Observable relative to the container.
    */
