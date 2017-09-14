@@ -2,9 +2,7 @@ package org.realityforge.arez.processor;
 
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import javax.annotation.processing.Messager;
 import javax.lang.model.element.Element;
-import javax.tools.Diagnostic;
 
 class ArezProcessorException
   extends Exception
@@ -23,5 +21,4 @@ class ArezProcessorException
   {
     return _element;
   }
-
 }
