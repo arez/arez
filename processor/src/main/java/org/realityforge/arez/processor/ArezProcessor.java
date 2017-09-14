@@ -303,7 +303,10 @@ public final class ArezProcessor
 
     // Send completed spy event if necessary
     codeBlock.beginControlFlow( "if ( !$N )", COMPLETED_VARIABLE_NAME );
-    codeBlock.addStatement( "final $T $N = null", TypeName.get( returnType ).box(), RESULT_VARIABLE_NAME );
+    if ( !isProcedure )
+    {
+      codeBlock.addStatement( "final $T $N = null", TypeName.get( returnType ).box(), RESULT_VARIABLE_NAME );
+    }
     actionCompletedSpyEvent( codeBlock, containerDescriptor, descriptor, isProcedure );
     codeBlock.endControlFlow();
 

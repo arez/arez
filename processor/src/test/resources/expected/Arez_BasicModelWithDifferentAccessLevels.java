@@ -110,7 +110,6 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       throw new UndeclaredThrowableException( e );
     } finally {
       if ( !$$arez$$_completed ) {
-        final Void $$arez$$_result = null;
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
           this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction3", new Object[]{}, null, $$arez$$_duration ) );
@@ -144,7 +143,6 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       throw new UndeclaredThrowableException( e );
     } finally {
       if ( !$$arez$$_completed ) {
-        final Void $$arez$$_result = null;
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
           this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction2", new Object[]{}, null, $$arez$$_duration ) );
@@ -178,7 +176,6 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       throw new UndeclaredThrowableException( e );
     } finally {
       if ( !$$arez$$_completed ) {
-        final Void $$arez$$_result = null;
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
           this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction", new Object[]{}, null, $$arez$$_duration ) );

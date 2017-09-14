@@ -49,7 +49,6 @@ public final class Arez_BasicActionModel extends BasicActionModel {
       throw new UndeclaredThrowableException( e );
     } finally {
       if ( !$$arez$$_completed ) {
-        final Void $$arez$$_result = null;
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
           this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doStuff", new Object[]{time}, null, $$arez$$_duration ) );
