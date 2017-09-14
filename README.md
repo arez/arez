@@ -17,6 +17,8 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
+* Consider classes like `spy.TransactionInfo` that mirror any classes we want to Introspect from spy.
+
 * Test whether AnnotationProcessor handles classes in sub-packages
 
 * Test whether AnnotationProcessor handles interfaces on super-classes and super-super classes etc.
