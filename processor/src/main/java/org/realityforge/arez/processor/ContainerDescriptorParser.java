@@ -258,7 +258,11 @@ final class ContainerDescriptorParser
                                        @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.FINAL ) )
+    if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ArezProcessorException( "@Computed target must not be private", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.FINAL ) )
     {
       throw new ArezProcessorException( "@Computed target must not be final", method );
     }
@@ -343,7 +347,11 @@ final class ContainerDescriptorParser
                                      @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.FINAL ) )
+    if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ArezProcessorException( "@Action target must not be private", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.FINAL ) )
     {
       throw new ArezProcessorException( "@Action target must not be final", method );
     }
@@ -400,7 +408,11 @@ final class ContainerDescriptorParser
                                          @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.FINAL ) )
+    if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ArezProcessorException( "@Observable target must not be private", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.FINAL ) )
     {
       throw new ArezProcessorException( "@Observable target must not be final", method );
     }
