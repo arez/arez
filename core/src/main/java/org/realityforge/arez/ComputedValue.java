@@ -106,6 +106,16 @@ public final class ComputedValue<T>
   }
 
   /**
+   * Return true if the ComputedValue is currently being computed.
+   *
+   * @return true if the ComputedValue is currently being computed.
+   */
+  boolean isComputing()
+  {
+    return _computing;
+  }
+
+  /**
    * Return the Observer created to represent the ComputedValue.
    *
    * @return the Observer created to represent the ComputedValue.
