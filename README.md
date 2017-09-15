@@ -22,6 +22,9 @@ TODO:
 * Add Async helper to extras. Can be canceled/disposed. Has an Observable state field that indicates
   current status. Triggers an "Action" on async completion. Useful for handling async http calls etc.
 
+* Add Spy event such as ContainerDefinitionStarted/ContainerDefinitionCompleted when defining container
+  instances.
+
 * Add container (a.k.a. scope) to actions, ComputedValue and Observables???
 
 * Support whyRun if config enables it. Possibly through Spy interface?
