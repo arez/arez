@@ -219,6 +219,8 @@ public class SpyImplTest
     assertEquals( spy.getObservers( computedValue ).size(), 1 );
     // Ensure the underlying list has the Observer in places
     assertEquals( computedValue.getObservable().getObservers().size(), 1 );
+
+    assertUnmodifiable( spy.getObservers( computedValue ) );
   }
 
   @Test
@@ -293,6 +295,8 @@ public class SpyImplTest
     final List<Observable> dependencies = spy.getDependencies( computedValue );
     assertEquals( dependencies.size(), 1 );
     assertEquals( dependencies.contains( observable ), true );
+
+    assertUnmodifiable( dependencies );
   }
 
   @Test
@@ -327,6 +331,8 @@ public class SpyImplTest
     assertEquals( dependencies.size(), 2 );
     assertEquals( dependencies.contains( observable2 ), true );
     assertEquals( dependencies.contains( observable3 ), true );
+
+    assertUnmodifiable( dependencies );
   }
 
   @Test
