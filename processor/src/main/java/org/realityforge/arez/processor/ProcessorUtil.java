@@ -119,7 +119,9 @@ final class ProcessorUtil
   {
     for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
     {
-      if ( null != annotation.getAnnotationType().asElement().getAnnotation( Documented.class ) )
+      final DeclaredType annotationType = annotation.getAnnotationType();
+      if ( !annotationType.toString().startsWith( "org.realityforge.arez.annotations." ) &&
+           null != annotationType.asElement().getAnnotation( Documented.class ) )
       {
         builder.addAnnotation( AnnotationSpec.get( annotation ) );
       }

@@ -1,5 +1,6 @@
 package org.realityforge.arez.annotations;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -20,6 +21,7 @@ import java.lang.annotation.Target;
  * not present the Annotation processor will synthesize an ID as a
  * monotonically increasing integer for each instance of the type.</p>
  */
+@Documented
 @Retention( RetentionPolicy.RUNTIME )
 @Target( ElementType.METHOD )
 public @interface ContainerId
