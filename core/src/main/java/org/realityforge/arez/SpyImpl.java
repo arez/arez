@@ -99,6 +99,14 @@ final class SpyImpl
     return getContext().isTransactionActive();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isComputing( @Nonnull final ComputedValue<?> computedValue )
+  {
+    return computedValue.isComputing();
+  }
   @TestOnly
   @Nonnull
   ArrayList<SpyEventHandler> getSpyEventHandlers()

@@ -44,4 +44,15 @@ public interface Spy
    * @return true if there is a transaction active.
    */
   boolean isTransactionActive();
+
+  /**
+   * Return true if the specified ComputedValue is "computing".
+   * This implies that the current transaction or one of the parent transactions is calculating the
+   * ComputedValue at the moment.
+   *
+   * @param computedValue the ComputedValue.
+   * @return true if there is a transaction active.
+   */
+  boolean isComputing( @Nonnull final ComputedValue<?> computedValue );
+
 }

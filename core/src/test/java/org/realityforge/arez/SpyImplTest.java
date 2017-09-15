@@ -180,4 +180,20 @@ public class SpyImplTest
 
     assertEquals( spy.isTransactionActive(), true );
   }
+
+  @Test
+  public void isComputing()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final Observer observer = newDerivation( context );
+    final ComputedValue<?> computedValue = observer.getComputedValue();
+
+    assertEquals( spy.isComputing( computedValue ), false );
+    computedValue.setComputing( true );
+    assertEquals( spy.isComputing( computedValue ), true );
+  }
 }
