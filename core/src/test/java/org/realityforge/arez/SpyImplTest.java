@@ -12,7 +12,7 @@ public class SpyImplTest
   public void basicOperation()
     throws Exception
   {
-    final SpyImpl spy = new SpyImpl();
+    final SpyImpl spy = new SpyImpl( new ArezContext() );
 
     final Object event = new Object();
 
@@ -48,7 +48,7 @@ public class SpyImplTest
   @Test
   public void reportSpyEvent_whenNoListeners()
   {
-    final SpyImpl spy = new SpyImpl();
+    final SpyImpl spy = new SpyImpl( new ArezContext() );
 
     assertFalse( spy.willPropagateSpyEvents() );
 
@@ -65,7 +65,7 @@ public class SpyImplTest
   public void addSpyEventHandler_alreadyExists()
     throws Exception
   {
-    final SpyImpl support = new SpyImpl();
+    final SpyImpl support = new SpyImpl( new ArezContext() );
 
     final SpyEventHandler handler = new TestSpyEventHandler();
     support.addSpyEventHandler( handler );
@@ -81,7 +81,7 @@ public class SpyImplTest
   public void removeSpyEventHandler_noExists()
     throws Exception
   {
-    final SpyImpl support = new SpyImpl();
+    final SpyImpl support = new SpyImpl( new ArezContext() );
 
     final SpyEventHandler handler = new TestSpyEventHandler();
 
@@ -95,7 +95,7 @@ public class SpyImplTest
   @Test
   public void multipleHandlers()
   {
-    final SpyImpl support = new SpyImpl();
+    final SpyImpl support = new SpyImpl( new ArezContext() );
 
     final Object event = new Object();
 
@@ -128,7 +128,7 @@ public class SpyImplTest
   @Test
   public void onSpyEvent_whereOneHandlerGeneratesError()
   {
-    final SpyImpl support = new SpyImpl();
+    final SpyImpl support = new SpyImpl( new ArezContext() );
 
     final Object event = new Object();
 
@@ -164,5 +164,20 @@ public class SpyImplTest
     assertEquals( callCount3.get(), 2 );
 
     assertEquals( getTestLogger().getEntries().size(), 2 );
+  }
+
+  @Test
+  public void isTransactionActive()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    assertEquals( spy.isTransactionActive(), false );
+
+    setCurrentTransaction( context );
+
+    assertEquals( spy.isTransactionActive(), true );
   }
 }

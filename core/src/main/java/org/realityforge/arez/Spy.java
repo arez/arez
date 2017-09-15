@@ -37,4 +37,11 @@ public interface Spy
    * @param event the event that occurred.
    */
   void reportSpyEvent( @Nonnull Object event );
+
+  /**
+   * Return true if there is a transaction active.
+   *
+   * @return true if there is a transaction active.
+   */
+  boolean isTransactionActive();
 }

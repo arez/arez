@@ -12,9 +12,18 @@ final class SpyImpl
   implements Spy
 {
   /**
+   * The containing context.
+   */
+  private final ArezContext _context;
+  /**
    * The list of spy handlers to call when an event is received.
    */
   private final ArrayList<SpyEventHandler> _spyEventHandlers = new ArrayList<>();
+
+  SpyImpl( @Nonnull final ArezContext context )
+  {
+    _context = Objects.requireNonNull( context );
+  }
 
   /**
    * {@inheritDoc}
@@ -73,6 +82,21 @@ final class SpyImpl
   public boolean willPropagateSpyEvents()
   {
     return ArezConfig.enableSpy() && !getSpyEventHandlers().isEmpty();
+  }
+
+  @Nonnull
+  ArezContext getContext()
+  {
+    return _context;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isTransactionActive()
+  {
+    return getContext().isTransactionActive();
   }
 
   @TestOnly

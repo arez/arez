@@ -45,7 +45,7 @@ public final class ArezContext
    * Support infrastructure for supporting spy events.
    */
   @Nullable
-  private final SpyImpl _spy = ArezConfig.enableSpy() ? new SpyImpl() : null;
+  private final SpyImpl _spy = ArezConfig.enableSpy() ? new SpyImpl( this ) : null;
 
   /**
    * Create a ComputedValue with specified parameters.
