@@ -114,7 +114,7 @@ public final class Observable
     // it is an error to invoke reportObserved(). Once all dependencies are removed then
     // this Observable will be deactivated if it is a ComputedValue. Thus no need to call
     // queueForDeactivation() here.
-    if ( willPropagateSpyEvents() && !isCalculated() )
+    if ( willPropagateSpyEvents() )
     {
       reportSpyEvent( new ObservableDisposedEvent( this ) );
     }
