@@ -69,7 +69,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     final Observer observer = newReadOnlyObserver( context );
 
@@ -104,7 +104,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     final Observer observer = newReadOnlyObserver( context );
 
@@ -169,7 +169,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     final Observer observer = newReadOnlyObserver( context );
 
@@ -202,7 +202,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     final Observer observer = newReadOnlyObserver( context );
 
@@ -250,7 +250,7 @@ public class ObservableTest
   public void currentTrackingWorkValue()
     throws Exception
   {
-    final Observable observable = new Observable( new ArezContext(), ValueUtil.randomString() );
+    final Observable observable = newObservable( new ArezContext() );
 
     assertEquals( observable.getWorkState(), 0 );
     assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
@@ -271,7 +271,7 @@ public class ObservableTest
   public void lastTrackerTransactionId()
     throws Exception
   {
-    final Observable observable = new Observable( new ArezContext(), ValueUtil.randomString() );
+    final Observable observable = newObservable( new ArezContext() );
 
     assertEquals( observable.getWorkState(), 0 );
     assertEquals( observable.getLastTrackerTransactionId(), 0 );
@@ -290,7 +290,7 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -315,7 +315,7 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.STALE );
 
     observer.setState( ObserverState.POSSIBLY_STALE );
@@ -335,7 +335,7 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     observable.setWorkState( Observable.DISPOSED );
@@ -356,7 +356,7 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     observer.setDisposed( true );
@@ -377,7 +377,7 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -411,7 +411,7 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
@@ -434,7 +434,7 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -506,7 +506,7 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -544,7 +544,7 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -565,7 +565,7 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
     setCurrentTransaction( observer );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
@@ -579,7 +579,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
@@ -601,7 +601,7 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
     setCurrentTransaction( observer );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
@@ -623,7 +623,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     observable.setLeastStaleObserverState( ObserverState.STALE );
 
@@ -656,7 +656,7 @@ public class ObservableTest
     observer3.setState( ObserverState.STALE );
     observer4.setState( ObserverState.INACTIVE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     observer1.getDependencies().add( observable );
     observer2.getDependencies().add( observable );
@@ -716,7 +716,7 @@ public class ObservableTest
     observer2.setState( ObserverState.POSSIBLY_STALE );
     observer3.setState( ObserverState.STALE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     observer1.getDependencies().add( observable );
     observer2.getDependencies().add( observable );
@@ -814,7 +814,7 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     assertEquals( observable.isPendingDeactivation(), false );
 
@@ -964,7 +964,7 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observable::deactivate );
@@ -1072,7 +1072,7 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observable::activate );
@@ -1089,7 +1089,7 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
@@ -1111,7 +1111,7 @@ public class ObservableTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     observable.addObserver( observer );
@@ -1135,7 +1135,7 @@ public class ObservableTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     observable.addObserver( observer );

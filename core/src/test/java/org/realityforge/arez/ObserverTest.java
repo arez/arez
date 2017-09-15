@@ -136,7 +136,7 @@ public class ObserverTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
     observer.getDependencies().add( observable );
 
     final IllegalStateException exception =
@@ -161,7 +161,7 @@ public class ObserverTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
     observer.getDependencies().add( observable );
     observable.addObserver( observer );
 
@@ -186,7 +186,7 @@ public class ObserverTest
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     observer.getDependencies().add( observable );
 
@@ -212,7 +212,7 @@ public class ObserverTest
 
     observer.invariantState();
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
     observer.getDependencies().add( observable );
 
     final IllegalStateException exception =
@@ -232,7 +232,7 @@ public class ObserverTest
 
     observer.invariantState();
 
-    setField( observer, "_derivedValue", new Observable( context, ValueUtil.randomString() ) );
+    setField( observer, "_derivedValue", newObservable( context ) );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observer::invariantState );
@@ -297,7 +297,7 @@ public class ObserverTest
 
     assertEquals( originalDependencies.isEmpty(), true );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     final ArrayList<Observable> newDependencies = new ArrayList<>();
     newDependencies.add( observable );
@@ -324,7 +324,7 @@ public class ObserverTest
 
     assertEquals( originalDependencies.isEmpty(), true );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     final ArrayList<Observable> newDependencies = new ArrayList<>();
     newDependencies.add( observable );
@@ -348,7 +348,7 @@ public class ObserverTest
 
     assertEquals( originalDependencies.isEmpty(), true );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
 
     final ArrayList<Observable> newDependencies = new ArrayList<>();
     newDependencies.add( observable );
@@ -366,8 +366,8 @@ public class ObserverTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable1 = new Observable( context, ValueUtil.randomString() );
-    final Observable observable2 = new Observable( context, ValueUtil.randomString() );
+    final Observable observable1 = newObservable( context );
+    final Observable observable2 = newObservable( context );
 
     observer.getDependencies().add( observable1 );
     observer.getDependencies().add( observable2 );
@@ -508,8 +508,8 @@ public class ObserverTest
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 2 );
 
-    final Observable observable1 = new Observable( context, ValueUtil.randomString() );
-    final Observable observable2 = new Observable( context, ValueUtil.randomString() );
+    final Observable observable1 = newObservable( context );
+    final Observable observable2 = newObservable( context );
 
     observer.getDependencies().add( observable1 );
     observer.getDependencies().add( observable2 );
@@ -858,9 +858,9 @@ public class ObserverTest
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
 
-    final Observable observable1 = new Observable( context, ValueUtil.randomString() );
-    final Observable observable2 = new Observable( context, ValueUtil.randomString() );
-    final Observable observable3 = new Observable( context, ValueUtil.randomString() );
+    final Observable observable1 = newObservable( context );
+    final Observable observable2 = newObservable( context );
+    final Observable observable3 = newObservable( context );
 
     observer.getDependencies().add( observable1 );
     observer.getDependencies().add( observable2 );
@@ -1203,7 +1203,7 @@ public class ObserverTest
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
     observer.getDependencies().add( observable );
     observable.addObserver( observer );
 
