@@ -198,6 +198,16 @@ final class SpyImpl
     return observable.getOwner().getComputedValue();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public List<Node> getObservers( @Nonnull final Observable observable )
+  {
+    return Collections.unmodifiableList( new ArrayList<>( observable.getObservers() ) );
+  }
+
   @TestOnly
   @Nonnull
   ArrayList<SpyEventHandler> getSpyEventHandlers()

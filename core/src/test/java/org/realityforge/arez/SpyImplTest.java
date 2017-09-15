@@ -3,6 +3,7 @@ package org.realityforge.arez;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -353,5 +354,33 @@ public class SpyImplTest
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
     assertEquals( spy.asComputedValue( observable ), computedValue );
+  }
+
+  @Test
+  public void Observable_getObservers()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final Observable observable = newObservable( context );
+
+    assertEquals( spy.getObservers( observable ).size(), 0 );
+
+    final Observer observer = newReadOnlyObserver( context );
+    observable.getObservers().add( observer );
+
+    final List<Node> observers = spy.getObservers( observable );
+    assertEquals( observers.size(), 1 );
+    assertEquals( observers.contains( observer ), true );
+
+    assertUnmodifiable( observers );
+  }
+
+  private <T> void assertUnmodifiable( @Nonnull final List<T> list )
+  {
+    assertThrows( UnsupportedOperationException.class, () -> list.remove( 0 ) );
+    assertThrows( UnsupportedOperationException.class, () -> list.add( list.get( 0 ) ) );
   }
 }

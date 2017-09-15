@@ -95,4 +95,14 @@ public interface Spy
    * @return the ComputedValue instance.
    */
   ComputedValue<?> asComputedValue( @Nonnull final Observable observable );
+
+  /**
+   * Return the list of observers for the Observable.
+   * The list is an immutable copy of the observers of the {@link Observable}.
+   *
+   * @param observable the Observable.
+   * @return the list of observers for Observable.
+   */
+  @Nonnull
+  List<Node> getObservers( @Nonnull final Observable observable );
 }
