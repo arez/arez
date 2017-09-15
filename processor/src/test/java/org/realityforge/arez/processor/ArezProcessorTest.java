@@ -81,6 +81,21 @@ public class ArezProcessorTest
       and().generatesSources( JavaFileObjects.forResource( "expected/Arez_DefaultMethodsModel.java" ) );
   }
 
+  @Test
+  public void processSuccessfulWhereTraceInheritanceChain()
+  {
+    final JavaFileObject source1 = JavaFileObjects.forResource( "input/com/example/inheritance/BaseModel.java" );
+    final JavaFileObject source2 = JavaFileObjects.forResource( "input/com/example/inheritance/ParentModel.java" );
+    final JavaFileObject source3 = JavaFileObjects.forResource( "input/com/example/inheritance/MyModel.java" );
+    final JavaFileObject source4 = JavaFileObjects.forResource( "input/com/example/inheritance/MyInterface1.java" );
+    final JavaFileObject source5 = JavaFileObjects.forResource( "input/com/example/inheritance/MyInterface2.java" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Arrays.asList( source1, source2, source3, source4, source5 ) ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      and().generatesSources( JavaFileObjects.forResource( "expected/com/example/inheritance/Arez_MyModel.java" ) );
+  }
+
   @DataProvider( name = "failedCompiles" )
   public Object[][] failedCompiles()
   {
