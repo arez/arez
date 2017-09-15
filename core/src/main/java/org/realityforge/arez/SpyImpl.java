@@ -180,6 +180,15 @@ final class SpyImpl
     return t;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isComputedValue( @Nonnull final Observable observable )
+  {
+    return observable.hasOwner();
+  }
+
   @TestOnly
   @Nonnull
   ArrayList<SpyEventHandler> getSpyEventHandlers()

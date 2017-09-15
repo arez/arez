@@ -78,4 +78,12 @@ public interface Spy
    */
   @Nonnull
   List<Observable> getDependencies( @Nonnull final ComputedValue<?> computedValue );
+
+  /**
+   * Return true if the Observable is a ComputedValue.
+   *
+   * @param observable the Observable.
+   * @return true if the Observable is a ComputedValue.
+   */
+  boolean isComputedValue( @Nonnull final Observable observable );
 }

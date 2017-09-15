@@ -327,4 +327,16 @@ public class SpyImplTest
     assertEquals( dependencies.contains( observable2 ), true );
     assertEquals( dependencies.contains( observable3 ), true );
   }
+
+  @Test
+  public void isComputedValue()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    assertEquals( spy.isComputedValue( newDerivation( context ).getDerivedValue() ), true );
+    assertEquals( spy.isComputedValue( newObservable( context ) ), false );
+  }
 }
