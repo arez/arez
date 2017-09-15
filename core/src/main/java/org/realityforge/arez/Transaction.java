@@ -641,6 +641,12 @@ final class Transaction
     }
   }
 
+  @Nullable
+  ArrayList<Observable> getObservables()
+  {
+    return _observables;
+  }
+
   boolean isRootTransaction()
   {
     return null == _previous;
@@ -691,12 +697,5 @@ final class Transaction
   boolean shouldDisposeTracker()
   {
     return _disposeTracker;
-  }
-
-  @TestOnly
-  @Nullable
-  ArrayList<Observable> getObservables()
-  {
-    return _observables;
   }
 }
