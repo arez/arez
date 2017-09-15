@@ -128,18 +128,27 @@ final class SpyImpl
   Transaction getTransactionComputing( @Nonnull final ComputedValue<?> computedValue )
   {
     assert computedValue.isComputing();
-    Transaction t = getContext().getTransaction();
-    while ( null != t && t.getTracker() != computedValue.getObserver() )
-    {
-      t = t.getPrevious();
-    }
-    final Transaction transaction = t;
+    final Transaction transaction = getTrackerTransaction( computedValue.getObserver() );
     Guards.invariant( () -> transaction != null,
                       () -> String.format( "ComputedValue named '%s' is marked as computing but unable to locate " +
                                            "transaction responsible for computing ComputedValue",
                                            computedValue.getName() ) );
     assert null != transaction;
     return transaction;
+  }
+
+  /**
+   * Get transaction with specified observer as tracker.
+   */
+  @Nullable
+  private Transaction getTrackerTransaction( @Nonnull final Observer observer )
+  {
+    Transaction t = getContext().getTransaction();
+    while ( null != t && t.getTracker() != observer )
+    {
+      t = t.getPrevious();
+    }
+    return t;
   }
 
   @TestOnly
