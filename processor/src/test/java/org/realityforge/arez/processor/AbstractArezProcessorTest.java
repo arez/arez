@@ -17,7 +17,7 @@ abstract class AbstractArezProcessorTest
   void assertSuccessfulCompile( @Nonnull final String classname )
     throws Exception
   {
-    final String[] elements = classname.contains( "." ) ? classname.split( "." ) : new String[]{ classname };
+    final String[] elements = classname.contains( "." ) ? classname.split( "\\." ) : new String[]{ classname };
     final StringBuilder input = new StringBuilder();
     final StringBuilder expected = new StringBuilder();
     input.append( "input" );
