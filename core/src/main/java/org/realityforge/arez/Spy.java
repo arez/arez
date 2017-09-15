@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 /**
  * Interface for interacting with spy system.
  */
+@Unsupported( "This services is primary here to support DevTools and will evolve as requirements dictate" )
 public interface Spy
 {
   /**
