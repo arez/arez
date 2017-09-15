@@ -377,7 +377,7 @@ public class SpyImplTest
     final Observer observer = newReadOnlyObserver( context );
     observable.getObservers().add( observer );
 
-    final List<Node> observers = spy.getObservers( observable );
+    final List<Observer> observers = spy.getObservers( observable );
     assertEquals( observers.size(), 1 );
     assertEquals( observers.contains( observer ), true );
 
