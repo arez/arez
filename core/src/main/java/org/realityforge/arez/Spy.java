@@ -61,6 +61,7 @@ public interface Spy
    * Return the list of observers for ComputedValue.
    * The list is an immutable copy of the observers of the {@link ComputedValue}.
    *
+   * @param computedValue the ComputedValue.
    * @return the list of observers for ComputedValue.
    */
   @Nonnull
@@ -72,6 +73,7 @@ public interface Spy
    * If the {@link ComputedValue} is currently being computed (i.e. {@link #isComputing(ComputedValue)}
    * returns true) then the dependencies are provisional and
    *
+   * @param computedValue the ComputedValue.
    * @return the list of dependencies for ComputedValue.
    */
   @Nonnull
