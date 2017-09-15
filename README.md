@@ -31,7 +31,7 @@ TODO:
 
 * Add an Active Observable/Observer/ComputedValue that allows user to supply onActivate, onDeactivate, onStale
 
-* Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build. 
+* Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
 * Introduce a separate type of invariant check that detects bad usage. Current invariant checks combine
   checks types. Separate them out so can independently control. (Usually to disable framework checks but
@@ -43,7 +43,7 @@ TODO:
 
 * Add @Memoized annotation to methods that makes the method call act as a ComputedValue based on parameters.
 
-* Support optional change parameter to report*Changed that describes the change (i.e. 
+* Support optional change parameter to report*Changed that describes the change (i.e.
   AtomicChange(FromValue, ToValue), MapAdd(Key, Value), Disposed() etc). Also Propagate this change
   as a spy event. Observers opt-in to receiving these change events. If an Observer opts in then the
   accumulated changes can be pulled from the current transaction via the context. The change list will
