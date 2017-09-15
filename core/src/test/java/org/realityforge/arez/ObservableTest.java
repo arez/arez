@@ -34,7 +34,7 @@ public class ObservableTest
     assertEquals( observable.isInCurrentTracking(), false );
 
     // Fields for calculated observables in this non-calculated variant
-    assertEquals( observable.getOwner(), null );
+    assertEquals( observable.hasOwner(), false );
     assertEquals( observable.canDeactivate(), false );
 
     assertEquals( observable.hasOwner(), false );

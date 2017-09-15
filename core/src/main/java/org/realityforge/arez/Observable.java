@@ -164,9 +164,10 @@ public final class Observable
     _workState = NOT_IN_CURRENT_TRACKING;
   }
 
-  @Nullable
+  @Nonnull
   Observer getOwner()
   {
+    assert null != _owner;
     return _owner;
   }
 

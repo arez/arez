@@ -1106,7 +1106,7 @@ public class TransactionTest
     assertEquals( observable2.getOwner(), derivation1 );
     assertEquals( observable1.isPendingDeactivation(), false );
     assertEquals( observable1.isActive(), true );
-    assertEquals( observable1.getOwner(), null );
+    assertEquals( observable1.hasOwner(), false );
     assertEquals( derivation2.getState(), ObserverState.INACTIVE );
     assertEquals( derivation2.getDependencies().size(), 0 );
     assertEquals( observable2.getObservers().size(), 0 );

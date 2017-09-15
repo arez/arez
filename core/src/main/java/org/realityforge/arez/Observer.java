@@ -544,7 +544,6 @@ final class Observer
           if ( observable.hasOwner() )
           {
             final Observer owner = observable.getOwner();
-            assert null != owner;
             final ComputedValue computedValue = owner.getComputedValue();
             computedValue.get();
             // Call to get() will update this state if ComputedValue changed
@@ -666,7 +665,8 @@ final class Observer
     }
     if ( isDerivation() && isLive() )
     {
-      Guards.invariant( () -> Objects.equals( getDerivedValue().getOwner(), this ),
+      Guards.invariant( () -> Objects.equals( getDerivedValue().hasOwner() ? getDerivedValue().getOwner() : null,
+                                              this ),
                         () -> String.format(
                           "Observer named '%s' has a derived value that does not link back to observer.",
                           getName() ) );
