@@ -51,6 +51,12 @@ TODO:
   of the change then an UnspecifiedChange() will be passed through. There may be some value to allowing
   it to be processed inline when it changes rather than as a reaction.
 
+### GWT TODO
+
+* Add `.gwt.xml` configuration to get compilable inside GWT with both production and non-production
+  variants. Also need to add source to jars. One alternative approach is to add "GWT" variants of
+  artifacts so that non-GWT projects don't have burden of additional config and source being shipped
+  inside jar.
 ## Architecture v2 Notes
 
 An Arez application consists of `observable` values that can change over time. `Observers` watch the
