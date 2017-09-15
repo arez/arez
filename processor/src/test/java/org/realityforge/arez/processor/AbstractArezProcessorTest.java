@@ -53,6 +53,12 @@ abstract class AbstractArezProcessorTest
         {
           Files.delete( target );
         }
+
+        final File dir = target.getParent().toFile();
+        if ( !dir.exists() )
+        {
+          assertTrue( dir.mkdirs() );
+        }
         Files.copy( fileObject.openInputStream(), target );
       }
     }
