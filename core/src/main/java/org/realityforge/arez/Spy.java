@@ -105,4 +105,21 @@ public interface Spy
    */
   @Nonnull
   List<Node> getObservers( @Nonnull final Observable observable );
+
+  /**
+   * Return true if the Observable is a ComputedValue.
+   *
+   * @param observer the Observer.
+   * @return true if the Observer is a ComputedValue.
+   */
+  boolean isComputedValue( @Nonnull final Node observer );
+
+  /**
+   * Convert the Observer to a ComputedValue.
+   * This method should only be called if {@link #isComputedValue(Node)} returns true.
+   *
+   * @param observer the Observer.
+   * @return the ComputedValue instance.
+   */
+  ComputedValue<?> asComputedValue( @Nonnull final Node observer );
 }

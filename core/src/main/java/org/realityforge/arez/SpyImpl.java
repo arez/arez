@@ -208,6 +208,26 @@ final class SpyImpl
     return Collections.unmodifiableList( new ArrayList<>( observable.getObservers() ) );
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isComputedValue( @Nonnull final Node observer )
+  {
+    assert observer instanceof Observer;
+    return ( (Observer) observer ).isDerivation();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ComputedValue<?> asComputedValue( @Nonnull final Node observer )
+  {
+    assert observer instanceof Observer;
+    return ( (Observer) observer ).getComputedValue();
+  }
+
   @TestOnly
   @Nonnull
   ArrayList<SpyEventHandler> getSpyEventHandlers()

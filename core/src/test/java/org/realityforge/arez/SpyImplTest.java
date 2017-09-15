@@ -384,6 +384,32 @@ public class SpyImplTest
     assertUnmodifiable( observers );
   }
 
+  @Test
+  public void Observer_isComputedValue()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    assertEquals( spy.isComputedValue( newDerivation( context ) ), true );
+    assertEquals( spy.isComputedValue( newReadOnlyObserver( context ) ), false );
+  }
+
+  @Test
+  public void Observer_asComputedValue()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final Observer observer = newDerivation( context );
+    final ComputedValue<?> computedValue = observer.getComputedValue();
+
+    assertEquals( spy.asComputedValue( observer ), computedValue );
+  }
+
   private <T> void assertUnmodifiable( @Nonnull final List<T> list )
   {
     assertThrows( UnsupportedOperationException.class, () -> list.remove( 0 ) );
