@@ -65,7 +65,7 @@ public interface Spy
    * @return the list of observers for ComputedValue.
    */
   @Nonnull
-  List<Node> getObservers( @Nonnull final ComputedValue<?> computedValue );
+  List<Observer> getObservers( @Nonnull final ComputedValue<?> computedValue );
 
   /**
    * Return the list of dependencies of the ComputedValue.
@@ -104,7 +104,7 @@ public interface Spy
    * @return the list of observers for Observable.
    */
   @Nonnull
-  List<Node> getObservers( @Nonnull final Observable observable );
+  List<Observer> getObservers( @Nonnull final Observable observable );
 
   /**
    * Return true if the Observable is a ComputedValue.
@@ -112,14 +112,14 @@ public interface Spy
    * @param observer the Observer.
    * @return true if the Observer is a ComputedValue.
    */
-  boolean isComputedValue( @Nonnull final Node observer );
+  boolean isComputedValue( @Nonnull final Observer observer );
 
   /**
    * Convert the Observer to a ComputedValue.
-   * This method should only be called if {@link #isComputedValue(Node)} returns true.
+   * This method should only be called if {@link #isComputedValue(Observer)} returns true.
    *
    * @param observer the Observer.
    * @return the ComputedValue instance.
    */
-  ComputedValue<?> asComputedValue( @Nonnull final Node observer );
+  ComputedValue<?> asComputedValue( @Nonnull final Observer observer );
 }

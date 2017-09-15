@@ -2,7 +2,7 @@ package org.realityforge.arez.spy;
 
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.Node;
+import org.realityforge.arez.Observer;
 
 /**
  * Notification when reaction scheduled.
@@ -10,15 +10,15 @@ import org.realityforge.arez.Node;
 public final class ReactionScheduledEvent
 {
   @Nonnull
-  private final Node _observer;
+  private final Observer _observer;
 
-  public ReactionScheduledEvent( @Nonnull final Node observer )
+  public ReactionScheduledEvent( @Nonnull final Observer observer )
   {
     _observer = Objects.requireNonNull( observer );
   }
 
   @Nonnull
-  public Node getObserver()
+  public Observer getObserver()
   {
     return _observer;
   }

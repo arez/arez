@@ -3,7 +3,7 @@ package org.realityforge.arez.spy;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.arez.Node;
+import org.realityforge.arez.Observer;
 
 /**
  * Notification when Transaction starts.
@@ -14,11 +14,11 @@ public final class TransactionStartedEvent
   private final String _name;
   private final boolean _mutation;
   @Nullable
-  private final Node _tracker;
+  private final Observer _tracker;
 
   public TransactionStartedEvent( @Nonnull final String name,
                                   final boolean mutation,
-                                  @Nullable final Node tracker )
+                                  @Nullable final Observer tracker )
   {
     _name = Objects.requireNonNull( name );
     _mutation = mutation;
@@ -37,7 +37,7 @@ public final class TransactionStartedEvent
   }
 
   @Nullable
-  public Node getTracker()
+  public Observer getTracker()
   {
     return _tracker;
   }

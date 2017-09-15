@@ -117,7 +117,7 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public List<Node> getObservers( @Nonnull final ComputedValue<?> computedValue )
+  public List<Observer> getObservers( @Nonnull final ComputedValue<?> computedValue )
   {
     return Collections.unmodifiableList( new ArrayList<>( computedValue.getObservable().getObservers() ) );
   }
@@ -203,7 +203,7 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public List<Node> getObservers( @Nonnull final Observable observable )
+  public List<Observer> getObservers( @Nonnull final Observable observable )
   {
     return Collections.unmodifiableList( new ArrayList<>( observable.getObservers() ) );
   }
@@ -212,9 +212,8 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
-  public boolean isComputedValue( @Nonnull final Node observer )
+  public boolean isComputedValue( @Nonnull final Observer observer )
   {
-    assert observer instanceof Observer;
     return ( (Observer) observer ).isDerivation();
   }
 
@@ -222,9 +221,8 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
-  public ComputedValue<?> asComputedValue( @Nonnull final Node observer )
+  public ComputedValue<?> asComputedValue( @Nonnull final Observer observer )
   {
-    assert observer instanceof Observer;
     return ( (Observer) observer ).getComputedValue();
   }
 
