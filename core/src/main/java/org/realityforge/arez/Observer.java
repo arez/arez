@@ -541,7 +541,7 @@ final class Observer
       {
         for ( final Observable observable : getDependencies() )
         {
-          if ( observable.isCalculated() )
+          if ( observable.hasOwner() )
           {
             final Observer owner = observable.getOwner();
             assert null != owner;

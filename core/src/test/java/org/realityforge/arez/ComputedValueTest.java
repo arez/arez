@@ -34,7 +34,7 @@ public class ComputedValueTest
     assertEquals( computedValue.getObserver().isDerivation(), true );
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
     assertEquals( computedValue.getObservable().getName(), name );
-    assertEquals( computedValue.getObservable().isCalculated(), true );
+    assertEquals( computedValue.getObservable().hasOwner(), true );
     assertEquals( computedValue.getObservable().getOwner(), computedValue.getObserver() );
   }
 

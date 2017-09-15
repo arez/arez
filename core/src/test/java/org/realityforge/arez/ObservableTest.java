@@ -37,7 +37,7 @@ public class ObservableTest
     assertEquals( observable.getOwner(), null );
     assertEquals( observable.canDeactivate(), false );
 
-    assertEquals( observable.isCalculated(), false );
+    assertEquals( observable.hasOwner(), false );
 
     assertEquals( observable.isActive(), true );
 
@@ -57,7 +57,7 @@ public class ObservableTest
     assertEquals( observable.getOwner(), derivation );
     assertEquals( observable.canDeactivate(), true );
 
-    assertEquals( observable.isCalculated(), true );
+    assertEquals( observable.hasOwner(), true );
 
     assertEquals( observable.isActive(), true );
 

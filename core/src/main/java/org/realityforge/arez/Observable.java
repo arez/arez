@@ -175,13 +175,13 @@ public final class Observable
    */
   boolean canDeactivate()
   {
-    return isCalculated();
+    return hasOwner();
   }
 
   /**
    * Return true if this observable is derived from an observer.
    */
-  boolean isCalculated()
+  boolean hasOwner()
   {
     return null != _owner;
   }
