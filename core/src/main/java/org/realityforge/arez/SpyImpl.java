@@ -1,7 +1,10 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import org.jetbrains.annotations.TestOnly;
 
@@ -117,6 +120,28 @@ final class SpyImpl
   {
     return Collections.unmodifiableList( new ArrayList<>( computedValue.getObservable().getObservers() ) );
   }
+
+  /**
+   * Return the transaction that is computing specified ComputedValue.
+   */
+  @Nonnull
+  Transaction getTransactionComputing( @Nonnull final ComputedValue<?> computedValue )
+  {
+    assert computedValue.isComputing();
+    Transaction t = getContext().getTransaction();
+    while ( null != t && t.getTracker() != computedValue.getObserver() )
+    {
+      t = t.getPrevious();
+    }
+    final Transaction transaction = t;
+    Guards.invariant( () -> transaction != null,
+                      () -> String.format( "ComputedValue named '%s' is marked as computing but unable to locate " +
+                                           "transaction responsible for computing ComputedValue",
+                                           computedValue.getName() ) );
+    assert null != transaction;
+    return transaction;
+  }
+
   @TestOnly
   @Nonnull
   ArrayList<SpyEventHandler> getSpyEventHandlers()

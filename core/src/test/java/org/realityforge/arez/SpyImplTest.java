@@ -3,6 +3,7 @@ package org.realityforge.arez;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -217,5 +218,34 @@ public class SpyImplTest
     assertEquals( spy.getObservers( computedValue ).size(), 1 );
     // Ensure the underlying list has the Observer in places
     assertEquals( computedValue.getObservable().getObservers().size(), 1 );
+  }
+
+  @Test
+  public void getTransactionComputing()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final Observer observer = newDerivation( context );
+    final Observer observer2 = newReadOnlyObserver( context );
+    final ComputedValue<?> computedValue = observer.getComputedValue();
+
+    computedValue.setComputing( true );
+
+    final Transaction transaction =
+      new Transaction( context, null, observer.getName(), observer.getMode(), observer );
+    context.setTransaction( transaction );
+
+    // This picks up where it is the first transaction in stack
+    assertEquals( spy.getTransactionComputing( computedValue ), transaction );
+
+    final Transaction transaction2 =
+      new Transaction( context, transaction, ValueUtil.randomString(), observer2.getMode(), observer2 );
+    context.setTransaction( transaction2 );
+
+    // This picks up where it is not the first transaction in stack
+    assertEquals( spy.getTransactionComputing( computedValue ), transaction );
   }
 }
