@@ -1,5 +1,6 @@
 package org.realityforge.arez;
 
+import java.util.List;
 import javax.annotation.Nonnull;
 
 /**
@@ -55,4 +56,12 @@ public interface Spy
    */
   boolean isComputing( @Nonnull final ComputedValue<?> computedValue );
 
+  /**
+   * Return the list of observers for ComputedValue.
+   * The list is an immutable copy of the observers of the {@link ComputedValue}.
+   *
+   * @return the list of observers for ComputedValue.
+   */
+  @Nonnull
+  List<Node> getObservers( @Nonnull final ComputedValue<?> computedValue );
 }

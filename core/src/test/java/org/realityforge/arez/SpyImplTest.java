@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -195,5 +196,26 @@ public class SpyImplTest
     assertEquals( spy.isComputing( computedValue ), false );
     computedValue.setComputing( true );
     assertEquals( spy.isComputing( computedValue ), true );
+  }
+
+  @Test
+  public void getObservers()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final ComputedValue<?> computedValue = newDerivation( context ).getComputedValue();
+
+    assertEquals( spy.getObservers( computedValue ).size(), 0 );
+
+    final Observer observer = newReadOnlyObserver( context );
+    observer.getDependencies().add( computedValue.getObservable() );
+    computedValue.getObservable().getObservers().add( observer );
+
+    assertEquals( spy.getObservers( computedValue ).size(), 1 );
+    // Ensure the underlying list has the Observer in places
+    assertEquals( computedValue.getObservable().getObservers().size(), 1 );
   }
 }

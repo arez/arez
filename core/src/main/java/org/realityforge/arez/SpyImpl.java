@@ -107,6 +107,16 @@ final class SpyImpl
   {
     return computedValue.isComputing();
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public List<Node> getObservers( @Nonnull final ComputedValue<?> computedValue )
+  {
+    return Collections.unmodifiableList( new ArrayList<>( computedValue.getObservable().getObservers() ) );
+  }
   @TestOnly
   @Nonnull
   ArrayList<SpyEventHandler> getSpyEventHandlers()
