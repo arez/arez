@@ -250,6 +250,29 @@ public class SpyImplTest
   }
 
   @Test
+  public void getTransactionComputing_missingTracker()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final Observer observer = newDerivation( context );
+    final ComputedValue<?> computedValue = observer.getComputedValue();
+
+    computedValue.setComputing( true );
+
+    setCurrentTransaction( context );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> spy.getTransactionComputing( computedValue ) );
+
+    assertEquals( exception.getMessage(),
+                  "ComputedValue named '" + computedValue.getName() + "' is marked as computing but unable " +
+                  "to locate transaction responsible for computing ComputedValue" );
+  }
+
+  @Test
   public void getDependencies()
     throws Exception
   {
