@@ -248,4 +248,60 @@ public class SpyImplTest
     // This picks up where it is not the first transaction in stack
     assertEquals( spy.getTransactionComputing( computedValue ), transaction );
   }
+
+  @Test
+  public void getDependencies()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final Observer observer = newDerivation( context );
+    final ComputedValue<?> computedValue = observer.getComputedValue();
+
+    assertEquals( spy.getDependencies( computedValue ).size(), 0 );
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    observable.getObservers().add( computedValue.getObserver() );
+    computedValue.getObserver().getDependencies().add( observable );
+
+    final List<Observable> dependencies = spy.getDependencies( computedValue );
+    assertEquals( dependencies.size(), 1 );
+    assertEquals( dependencies.contains( observable ), true );
+  }
+
+  @Test
+  public void getDependenciesDuringComputation()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final Observer observer = newDerivation( context );
+    final ComputedValue<?> computedValue = observer.getComputedValue();
+
+    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable2 = new Observable( context, ValueUtil.randomString() );
+    final Observable observable3 = new Observable( context, ValueUtil.randomString() );
+
+    observable.getObservers().add( computedValue.getObserver() );
+    computedValue.getObserver().getDependencies().add( observable );
+
+    computedValue.setComputing( true );
+
+    setCurrentTransaction( computedValue.getObserver() );
+
+    assertEquals( spy.getDependencies( computedValue ).size(), 0 );
+
+    context.getTransaction().safeGetObservables().add( observable2 );
+    context.getTransaction().safeGetObservables().add( observable3 );
+    context.getTransaction().safeGetObservables().add( observable2 );
+
+    final List<Observable> dependencies = spy.getDependencies( computedValue );
+    assertEquals( dependencies.size(), 2 );
+    assertEquals( dependencies.contains( observable2 ), true );
+    assertEquals( dependencies.contains( observable3 ), true );
+  }
 }

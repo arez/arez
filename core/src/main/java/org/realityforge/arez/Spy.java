@@ -64,4 +64,15 @@ public interface Spy
    */
   @Nonnull
   List<Node> getObservers( @Nonnull final ComputedValue<?> computedValue );
+
+  /**
+   * Return the list of dependencies of the ComputedValue.
+   * The list is an immutable copy of the dependencies of the {@link ComputedValue}.
+   * If the {@link ComputedValue} is currently being computed (i.e. {@link #isComputing(ComputedValue)}
+   * returns true) then the dependencies are provisional and
+   *
+   * @return the list of dependencies for ComputedValue.
+   */
+  @Nonnull
+  List<Observable> getDependencies( @Nonnull final ComputedValue<?> computedValue );
 }

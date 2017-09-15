@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 
 /**
@@ -119,6 +120,34 @@ final class SpyImpl
   public List<Node> getObservers( @Nonnull final ComputedValue<?> computedValue )
   {
     return Collections.unmodifiableList( new ArrayList<>( computedValue.getObservable().getObservers() ) );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public List<Observable> getDependencies( @Nonnull final ComputedValue<?> computedValue )
+  {
+    if ( computedValue.isComputing() )
+    {
+      final Transaction transaction = getTransactionComputing( computedValue );
+      final ArrayList<Observable> observables = transaction.getObservables();
+      if ( null == observables )
+      {
+        return Collections.emptyList();
+      }
+      else
+      {
+        // Copy the list removing any duplicates that may exist.
+        final List<Observable> list = observables.stream().distinct().collect( Collectors.toList() );
+        return Collections.unmodifiableList( list );
+      }
+    }
+    else
+    {
+      return Collections.unmodifiableList( new ArrayList<>( computedValue.getObserver().getDependencies() ) );
+    }
   }
 
   /**
