@@ -57,6 +57,12 @@ TODO:
   variants. Also need to add source to jars. One alternative approach is to add "GWT" variants of
   artifacts so that non-GWT projects don't have burden of additional config and source being shipped
   inside jar.
+* Add a browser-extras project that combines various browser utils and saves the results in state.
+  This will probably involve bringing in Elemental2. This may result in tools like
+
+    - Online. i.e. Reflecting `window.navigator.onLine` and listening for change via
+      `window.addEventListener("offline", ...)` and `window.addEventListener("online", ...)`
+
 ## Architecture v2 Notes
 
 An Arez application consists of `observable` values that can change over time. `Observers` watch the
