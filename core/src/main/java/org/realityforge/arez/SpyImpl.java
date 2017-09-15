@@ -107,6 +107,15 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
+  public boolean isActive( @Nonnull final ComputedValue<?> computedValue )
+  {
+    return computedValue.getObserver().isActive();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public boolean isComputing( @Nonnull final ComputedValue<?> computedValue )
   {
     return computedValue.isComputing();

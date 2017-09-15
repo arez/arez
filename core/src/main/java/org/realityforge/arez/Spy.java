@@ -58,6 +58,15 @@ public interface Spy
   boolean isComputing( @Nonnull final ComputedValue<?> computedValue );
 
   /**
+   * Return true if the ComputedValue is active.
+   * A ComputedValue is active if there is one or more Observers and the value will be calculated.
+   *
+   * @param computedValue the ComputedValue.
+   * @return true if the ComputedValue is active.
+   */
+  boolean isActive( @Nonnull final ComputedValue<?> computedValue );
+
+  /**
    * Return the list of observers for ComputedValue.
    * The list is an immutable copy of the observers of the {@link ComputedValue}.
    *

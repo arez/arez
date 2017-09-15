@@ -185,6 +185,23 @@ public class SpyImplTest
   }
 
   @Test
+  public void isActive()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final Observer observer = newDerivation( context );
+    final ComputedValue<?> computedValue = observer.getComputedValue();
+
+    assertEquals( spy.isActive( computedValue ), false );
+    setCurrentTransaction( context );
+    computedValue.getObserver().setState( ObserverState.UP_TO_DATE );
+    assertEquals( spy.isActive( computedValue ), true );
+  }
+
+  @Test
   public void isComputing()
     throws Exception
   {
