@@ -189,6 +189,15 @@ final class SpyImpl
     return observable.hasOwner();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ComputedValue<?> asComputedValue( @Nonnull final Observable observable )
+  {
+    return observable.getOwner().getComputedValue();
+  }
+
   @TestOnly
   @Nonnull
   ArrayList<SpyEventHandler> getSpyEventHandlers()

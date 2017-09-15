@@ -339,4 +339,19 @@ public class SpyImplTest
     assertEquals( spy.isComputedValue( newDerivation( context ).getDerivedValue() ), true );
     assertEquals( spy.isComputedValue( newObservable( context ) ), false );
   }
+
+  @Test
+  public void asComputedValue()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final Observer observer = newDerivation( context );
+    final Observable observable = observer.getDerivedValue();
+    final ComputedValue<?> computedValue = observer.getComputedValue();
+
+    assertEquals( spy.asComputedValue( observable ), computedValue );
+  }
 }

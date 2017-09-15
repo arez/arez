@@ -86,4 +86,13 @@ public interface Spy
    * @return true if the Observable is a ComputedValue.
    */
   boolean isComputedValue( @Nonnull final Observable observable );
+
+  /**
+   * Convert the Observable to a ComputedValue.
+   * This method should only be called if {@link #isComputedValue(Observable)} returns true.
+   *
+   * @param observable the Observable.
+   * @return the ComputedValue instance.
+   */
+  ComputedValue<?> asComputedValue( @Nonnull final Observable observable );
 }
