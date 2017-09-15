@@ -285,7 +285,7 @@ public class SpyImplTest
 
     assertEquals( spy.getDependencies( computedValue ).size(), 0 );
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
     observable.getObservers().add( computedValue.getObserver() );
     computedValue.getObserver().getDependencies().add( observable );
 
@@ -305,9 +305,9 @@ public class SpyImplTest
     final Observer observer = newDerivation( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
-    final Observable observable = new Observable( context, ValueUtil.randomString() );
-    final Observable observable2 = new Observable( context, ValueUtil.randomString() );
-    final Observable observable3 = new Observable( context, ValueUtil.randomString() );
+    final Observable observable = newObservable( context );
+    final Observable observable2 = newObservable( context );
+    final Observable observable3 = newObservable( context );
 
     observable.getObservers().add( computedValue.getObserver() );
     computedValue.getObserver().getDependencies().add( observable );
