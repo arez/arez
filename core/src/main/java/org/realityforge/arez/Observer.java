@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.jetbrains.annotations.TestOnly;
 import org.realityforge.arez.spy.ComputeCompletedEvent;
 import org.realityforge.arez.spy.ComputeStartedEvent;
 import org.realityforge.arez.spy.ObserverDisposedEvent;
@@ -703,5 +704,11 @@ public final class Observer
                         getName() ) );
     assert null != _computedValue;
     return _computedValue;
+  }
+
+  @TestOnly
+  void markAsScheduled()
+  {
+    _scheduled = true;
   }
 }
