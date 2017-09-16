@@ -35,8 +35,7 @@ CONTENT
   if File.exist?(project._('src/main/super'))
     dependencies << project.file(project._('src/main/super'))
   end
-  # TODO: This next line disables GWT compile until we can get source compatible with GWT
-  unless ENV['GWT'] == 'no' || true
+  unless ENV['GWT'] == 'no'
     project.gwt(gwt_modules.collect {|gwt_module| "#{gwt_module}Test"},
                 { :java_args => %w(-Xms512M -Xmx1024M), :dependencies => dependencies })
   end
