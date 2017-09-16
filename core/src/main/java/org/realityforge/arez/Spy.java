@@ -2,6 +2,7 @@ package org.realityforge.arez;
 
 import java.util.List;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.spy.TransactionInfo;
 
 /**
  * Interface for interacting with spy system.
@@ -46,6 +47,15 @@ public interface Spy
    * @return true if there is a transaction active.
    */
   boolean isTransactionActive();
+
+  /**
+   * Return the current transaction.
+   * This method should not be invoked unless {@link #isTransactionActive()} returns true.
+   *
+   * @return the current transaction.
+   */
+  @Nonnull
+  TransactionInfo getTransaction();
 
   /**
    * Return true if the specified ComputedValue is "computing".

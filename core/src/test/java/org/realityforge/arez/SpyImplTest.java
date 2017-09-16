@@ -427,6 +427,33 @@ public class SpyImplTest
     assertEquals( spy.asComputedValue( observer ), computedValue );
   }
 
+  @Test
+  public void getTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    setCurrentTransaction( context );
+
+    assertEquals( spy.getTransaction().getName(), context.getTransaction().getName() );
+  }
+
+  @Test
+  public void getTransaction_whenNoTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, spy::getTransaction );
+
+    assertEquals( exception.getMessage(),
+                  "Spy.getTransaction() invoked but no transaction active." );
+  }
+
   private <T> void assertUnmodifiable( @Nonnull final List<T> list )
   {
     assertThrows( UnsupportedOperationException.class, () -> list.remove( 0 ) );

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
+import org.realityforge.arez.spy.TransactionInfo;
 
 /**
  * Class supporting the propagation of events to SpyEventHandler callbacks.
@@ -101,6 +102,17 @@ final class SpyImpl
   public boolean isTransactionActive()
   {
     return getContext().isTransactionActive();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public TransactionInfo getTransaction()
+  {
+    Guards.invariant( this::isTransactionActive, () -> "Spy.getTransaction() invoked but no transaction active." );
+    return new TransactionInfoImpl( getContext().getTransaction() );
   }
 
   /**
