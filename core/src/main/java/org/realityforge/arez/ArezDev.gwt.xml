@@ -1,0 +1,10 @@
+<module>
+  <inherits name="org.realityforge.arez.Arez"/>
+
+  <set-property name="arez.environment" value="development"/>
+
+  <set-property name="arez.verbose_error_messages" value="true"/>
+  <set-property name="arez.check_invariants" value="true"/>
+  <set-property name="arez.enable_names" value="true"/>
+  <set-property name="arez.enforce_transaction_type" value="true"/>
+</module>

@@ -45,7 +45,7 @@ define 'arez' do
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
 
-    gwt_enhance(project, ['org.realityforge.arez.Arez'])
+    gwt_enhance(project, %w(org.realityforge.arez.Arez org.realityforge.arez.ArezDev))
 
     package(:jar)
     package(:sources)
