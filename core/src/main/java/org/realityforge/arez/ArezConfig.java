@@ -69,7 +69,7 @@ final class ArezConfig
     final boolean enforceTransactionType =
       "true".equals( System.getProperty( "arez.enforce_transaction_type", development ? "true" : "false" ) );
     /*
-     * Spy's use debug names so we can not enable spys without names.
+     * Spy's use debug names so we can not enable spies without names.
      */
     final boolean enableSpy =
       enableNames &&
