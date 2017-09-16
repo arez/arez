@@ -22,6 +22,8 @@ public @interface Unsupported
 {
   /**
    * Specify the reason why this element is unsupported.
+   *
+   * @return the reason why this element is unsupported.
    */
   String value() default "";
 }
