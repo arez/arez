@@ -80,10 +80,10 @@ public final class ArezContext
    * @return the new Observer.
    */
   @Nonnull
-  public Node autorun( @Nullable final String name,
-                       final boolean mutation,
-                       @Nonnull final Procedure action,
-                       final boolean runImmediately )
+  public Observer autorun( @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure action,
+                           final boolean runImmediately )
   {
     return createObserver( name, mutation, o -> action.call(), runImmediately );
   }

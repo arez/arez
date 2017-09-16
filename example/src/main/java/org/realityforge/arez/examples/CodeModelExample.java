@@ -2,7 +2,7 @@ package org.realityforge.arez.examples;
 
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
-import org.realityforge.arez.Node;
+import org.realityforge.arez.Observer;
 
 public final class CodeModelExample
 {
@@ -16,7 +16,7 @@ public final class CodeModelExample
 
     final CodeModel codeModel = new Arez_CodeModel( context, "com.example", "MyType" );
 
-    final Node observer =
+    final Observer observer =
       context.autorun( "Printer",
                        false,
                        () -> System.out.println( "Qualified Name: " +

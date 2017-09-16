@@ -3,7 +3,7 @@ package org.realityforge.arez.examples;
 import java.util.Timer;
 import java.util.TimerTask;
 import org.realityforge.arez.ArezContext;
-import org.realityforge.arez.Node;
+import org.realityforge.arez.Observer;
 import org.realityforge.arez.extras.Watcher;
 
 public final class TimerExample
@@ -24,7 +24,7 @@ public final class TimerExample
                  false,
                  () -> 0 == timeModel.getTime(),
                  () -> System.out.println( "TimeModel reset. Time should not jump about. Un-Subscribing!" ) );
-    final Node timePrinter =
+    final Observer timePrinter =
       context.autorun( "TimePrinter",
                        false,
                        () -> System.out.println( "Current time: " + timeModel.getTime() ),
