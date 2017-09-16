@@ -29,6 +29,8 @@ define 'arez' do
     compile.with PROVIDED_DEPS,
                  COMPILE_DEPS
 
+    gwt_enhance(project, ['org.realityforge.arez.annotations.Annotations'])
+
     package(:jar)
     package(:sources)
     package(:javadoc)
@@ -42,6 +44,8 @@ define 'arez' do
 
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
+
+    gwt_enhance(project, ['org.realityforge.arez.Arez'])
 
     package(:jar)
     package(:sources)
@@ -59,6 +63,8 @@ define 'arez' do
 
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
+
+    gwt_enhance(project, ['org.realityforge.arez.extras.Extras'])
 
     package(:jar)
     package(:sources)

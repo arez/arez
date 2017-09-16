@@ -20,3 +20,7 @@ artifacts:
   #test deps
   compile_testing: com.google.testing.compile:compile-testing:jar:0.11
   truth: com.google.truth:truth:jar:0.35
+
+  # GWT deps
+  gwt_user: com.google.gwt:gwt-user:jar:2.8.1
+  gwt_dev: com.google.gwt:gwt-dev:jar:2.8.1
