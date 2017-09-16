@@ -3,4 +3,5 @@
 
   <source path=""/>
   <source path="spy"/>
+  <super-source path="super" />
 </module>
