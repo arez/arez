@@ -143,7 +143,7 @@ public interface Spy
   boolean isScheduled( @Nonnull final Observer observer );
 
   /**
-   * Return true if the Observable is a ComputedValue.
+   * Return true if the Observer is a ComputedValue.
    *
    * @param observer the Observer.
    * @return true if the Observer is a ComputedValue.
