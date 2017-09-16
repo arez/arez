@@ -492,6 +492,63 @@ public class SpyImplTest
     assertEquals( spy.isScheduled( observer ), true );
   }
 
+  @Test
+  public void Observer_getDependencies()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final Observer observer = newReadOnlyObserver( context );
+
+    assertEquals( spy.getDependencies( observer ).size(), 0 );
+
+    final Observable observable = newObservable( context );
+    observable.getObservers().add( observer );
+    observer.getDependencies().add( observable );
+
+    final List<Observable> dependencies = spy.getDependencies( observer );
+    assertEquals( dependencies.size(), 1 );
+    assertEquals( dependencies.contains( observable ), true );
+
+    assertUnmodifiable( dependencies );
+  }
+
+
+  @Test
+  public void Ovserver_getDependenciesWhileRunning()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final Observer observer = newReadOnlyObserver( context );
+
+    final Observable observable = newObservable( context );
+    final Observable observable2 = newObservable( context );
+    final Observable observable3 = newObservable( context );
+
+    observable.getObservers().add( observer );
+    observer.getDependencies().add( observable );
+
+    setCurrentTransaction( observer );
+
+    assertEquals( spy.getDependencies( observer ).size(), 0 );
+
+    context.getTransaction().safeGetObservables().add( observable2 );
+    context.getTransaction().safeGetObservables().add( observable3 );
+    context.getTransaction().safeGetObservables().add( observable2 );
+
+    final List<Observable> dependencies = spy.getDependencies( observer );
+    assertEquals( dependencies.size(), 2 );
+    assertEquals( dependencies.contains( observable2 ), true );
+    assertEquals( dependencies.contains( observable3 ), true );
+
+    assertUnmodifiable( dependencies );
+  }
+
   private <T> void assertUnmodifiable( @Nonnull final List<T> list )
   {
     assertThrows( UnsupportedOperationException.class, () -> list.remove( 0 ) );

@@ -265,6 +265,34 @@ final class SpyImpl
     return ( (Observer) observer ).getComputedValue();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public List<Observable> getDependencies( @Nonnull final Observer observer )
+  {
+    final Transaction transaction = isTransactionActive() ? getTrackerTransaction( observer ) : null;
+    if ( null != transaction )
+    {
+      final ArrayList<Observable> observables = transaction.getObservables();
+      if ( null == observables )
+      {
+        return Collections.emptyList();
+      }
+      else
+      {
+        // Copy the list removing any duplicates that may exist.
+        final List<Observable> list = observables.stream().distinct().collect( Collectors.toList() );
+        return Collections.unmodifiableList( list );
+      }
+    }
+    else
+    {
+      return Collections.unmodifiableList( new ArrayList<>( observer.getDependencies() ) );
+    }
+  }
+
   @TestOnly
   @Nonnull
   ArrayList<SpyEventHandler> getSpyEventHandlers()
