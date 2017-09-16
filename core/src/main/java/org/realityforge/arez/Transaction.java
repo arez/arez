@@ -679,7 +679,6 @@ final class Transaction
     return _observables;
   }
 
-  @TestOnly
   @Nullable
   Observer getTracker()
   {
