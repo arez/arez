@@ -80,5 +80,8 @@ public class TransactionInfoImplTest
     final TransactionInfo parent = info.getParent();
     assertNotNull( parent );
     assertEquals( parent.getName(), transaction1.getName() );
+
+    // Ensure the same instance is returned if parent is called multiple times
+    assertTrue( info.getParent() == parent );
   }
 }
