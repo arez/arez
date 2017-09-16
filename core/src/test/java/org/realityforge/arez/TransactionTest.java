@@ -43,6 +43,21 @@ public class TransactionTest
   }
 
   @Test
+  public void construct_withNameWhenNamesDisabled()
+  {
+    getConfigProvider().setEnableNames( false );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class,
+                                                          () -> new Transaction( new ArezContext(),
+                                                                                 null,
+                                                                                 "X",
+                                                                                 TransactionMode.READ_ONLY,
+                                                                                 null ) );
+
+    assertEquals( exception.getMessage(), "Transaction passed a name 'X' but ArezConfig.enableNames() is false" );
+  }
+
+  @Test
   public void construction_whenSpyDisabled()
   {
     getConfigProvider().setEnableSpy( false );
