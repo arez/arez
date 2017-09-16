@@ -56,9 +56,7 @@ TODO:
 ### GWT TODO
 
 * Add `.gwt.xml` configuration to get compilable inside GWT with both production and non-production
-  variants. Also need to add source to jars. One alternative approach is to add "GWT" variants of
-  artifacts so that non-GWT projects don't have burden of additional config and source being shipped
-  inside jar.
+  variants.
 * Add a browser-extras project that combines various browser utils and saves the results in state.
   This will probably involve bringing in Elemental2. This may result in tools like
 
