@@ -40,6 +40,8 @@ TODO:
     - ComputedValues should not cause cycles during recalculation
 
 * Add @Memoized annotation to methods that makes the method call act as a ComputedValue based on parameters.
+  This could be a low priority as can "fake" it by defining a @Computed method tha invokes the method and returns
+  values.
 
 * Support optional change parameter to report*Changed that describes the change (i.e.
   AtomicChange(FromValue, ToValue), MapAdd(Key, Value), Disposed() etc). Also Propagate this change
