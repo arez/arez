@@ -548,6 +548,19 @@ public class SpyImplTest
     assertUnmodifiable( dependencies );
   }
 
+  @Test
+  public void isReadOnly()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    assertEquals( spy.isReadOnly( newReadOnlyObserver( context ) ), true );
+    assertEquals( spy.isReadOnly( newDerivation( context ) ), true );
+    assertEquals( spy.isReadOnly( newReadWriteObserver( context ) ), false );
+  }
+
   private <T> void assertUnmodifiable( @Nonnull final List<T> list )
   {
     assertThrows( UnsupportedOperationException.class, () -> list.remove( 0 ) );

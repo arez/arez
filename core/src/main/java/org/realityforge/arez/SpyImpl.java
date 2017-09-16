@@ -251,6 +251,15 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
+  public boolean isReadOnly( @Nonnull final Observer observer )
+  {
+    return TransactionMode.READ_WRITE != observer.getMode();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public boolean isComputedValue( @Nonnull final Observer observer )
   {
     return ( (Observer) observer ).isDerivation();
