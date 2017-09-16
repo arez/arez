@@ -515,7 +515,6 @@ public class SpyImplTest
     assertUnmodifiable( dependencies );
   }
 
-
   @Test
   public void Ovserver_getDependenciesWhileRunning()
     throws Exception
