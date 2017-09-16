@@ -205,6 +205,15 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
+  public boolean isRunning( @Nonnull final Observer observer )
+  {
+    return isTransactionActive() && null != getTrackerTransaction( observer );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public boolean isScheduled( @Nonnull final Observer observer )
   {
     return observer.isScheduled();

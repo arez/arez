@@ -455,6 +455,27 @@ public class SpyImplTest
   }
 
   @Test
+  public void isRunning()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final Observer observer = newReadOnlyObserver( context );
+
+    assertEquals( spy.isRunning( observer ), false );
+
+    setCurrentTransaction( observer );
+
+    assertEquals( spy.isRunning( observer ), true );
+
+    setCurrentTransaction( context );
+
+    assertEquals( spy.isRunning( observer ), false );
+  }
+
+  @Test
   public void isScheduled()
     throws Exception
   {
