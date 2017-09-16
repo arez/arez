@@ -90,7 +90,8 @@ public interface Spy
    * Return the list of dependencies of the ComputedValue.
    * The list is an immutable copy of the dependencies of the {@link ComputedValue}.
    * If the {@link ComputedValue} is currently being computed (i.e. {@link #isComputing(ComputedValue)}
-   * returns true) then the dependencies are provisional and
+   * returns true) then the dependencies are provisional and may be added to as transaction
+   * completes.
    *
    * @param computedValue the ComputedValue.
    * @return the list of dependencies for ComputedValue.
