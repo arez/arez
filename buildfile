@@ -58,7 +58,7 @@ define 'arez' do
   define 'extras' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
-    compile.with project('core').package(:jar),
+    compile.with project('core').package(:jar, :classifier => :gwt),
                  project('core').compile.dependencies
 
     test.options[:properties] = AREZ_TEST_OPTIONS
