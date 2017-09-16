@@ -171,12 +171,9 @@ public final class ArezContext
     if ( TransactionMode.READ_WRITE == mode && null != _transaction )
     {
       Guards.invariant( () -> TransactionMode.READ_WRITE == _transaction.getMode(),
-                        () -> String.format( "Attempting to create READ_WRITE transaction named '%s' but it is " +
-                                             "nested in transaction named '%s' with mode %s which is not " +
-                                             "equal to READ_WRITE.",
-                                             name,
-                                             _transaction.getName(),
-                                             _transaction.getMode().name() ) );
+                        () -> "Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
+                              "nested in transaction named '" + _transaction.getName() + "' with mode " +
+                              _transaction.getMode().name() + " which is not equal to READ_WRITE." );
     }
     _transaction = new Transaction( this, _transaction, name, mode, tracker );
     _transaction.begin();
@@ -200,14 +197,12 @@ public final class ArezContext
   void commitTransaction( @Nonnull final Transaction transaction )
   {
     Guards.invariant( () -> null != _transaction,
-                      () -> String.format( "Attempting to commit transaction named '%s' but no transaction is active.",
-                                           transaction.getName() ) );
+                      () -> "Attempting to commit transaction named '" + transaction.getName() +
+                            "' but no transaction is active." );
     assert null != _transaction;
     Guards.invariant( () -> _transaction == transaction,
-                      () -> String.format(
-                        "Attempting to commit transaction named '%s' but this does not match existing transaction named '%s'.",
-                        transaction.getName(),
-                        _transaction.getName() ) );
+                      () -> "Attempting to commit transaction named '" + transaction.getName() + "' but this does " +
+                            "not match existing transaction named '" + _transaction.getName() + "'." );
     _transaction.commit();
     if ( willPropagateSpyEvents() )
     {

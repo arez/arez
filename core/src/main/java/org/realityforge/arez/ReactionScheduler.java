@@ -73,8 +73,7 @@ final class ReactionScheduler
   void setMaxReactionRounds( @Nonnegative final int maxReactionRounds )
   {
     Guards.invariant( () -> maxReactionRounds >= 0,
-                      () -> String.format( "Attempting to set maxReactionRounds to negative value %d.",
-                                           maxReactionRounds ) );
+                      () -> "Attempting to set maxReactionRounds to negative value " + maxReactionRounds + "." );
     _maxReactionRounds = maxReactionRounds;
   }
 
@@ -98,13 +97,11 @@ final class ReactionScheduler
   void scheduleReaction( @Nonnull final Observer observer )
   {
     Guards.invariant( observer::hasReaction,
-                      () -> String.format(
-                        "Attempting to schedule observer named '%s' when observer has no reaction.",
-                        observer.getName() ) );
+                      () -> "Attempting to schedule observer named '" + observer.getName() +
+                            "' when observer has no reaction." );
     Guards.invariant( () -> !_pendingObservers.contains( observer ),
-                      () -> String.format(
-                        "Attempting to schedule observer named '%s' when observer is already pending.",
-                        observer.getName() ) );
+                      () -> "Attempting to schedule observer named '" + observer.getName() +
+                            "' when observer is already pending." );
     _pendingObservers.add( Objects.requireNonNull( observer ) );
   }
 
@@ -148,18 +145,18 @@ final class ReactionScheduler
   /**
    * Execute the next pending observer if any.
    * <ul>
-   *   <li>
-   *     If there is any reactions left in this round then run the next reaction and consume a token.
-   *   </li>
-   *   <li>
-   *     If there are more rounds left in budget and more pending observers then start a new round,
-   *     allocating a number of tokens equal to the number of pending reactions, run the next reaction
-   *     and consume a token.
-   *   </li>
-   *   <li>
-   *     Otherwise runaway reactions detected, so act appropriately. (In development this means
-   *     purging pending observers and failing an invariant check)
-   *   </li>
+   * <li>
+   * If there is any reactions left in this round then run the next reaction and consume a token.
+   * </li>
+   * <li>
+   * If there are more rounds left in budget and more pending observers then start a new round,
+   * allocating a number of tokens equal to the number of pending reactions, run the next reaction
+   * and consume a token.
+   * </li>
+   * <li>
+   * Otherwise runaway reactions detected, so act appropriately. (In development this means
+   * purging pending observers and failing an invariant check)
+   * </li>
    * </ul>
    *
    * @return true if an observer was ran, false otherwise.
@@ -171,8 +168,8 @@ final class ReactionScheduler
      * there should be no transaction active.
      */
     Guards.invariant( () -> !getContext().isTransactionActive(),
-                      () -> String.format( "Invoked runObserver when transaction named '%s' is active.",
-                                           getContext().getTransaction().getName() ) );
+                      () -> "Invoked runObserver when transaction named '" +
+                            getContext().getTransaction().getName() + "' is active." );
     final int pendingObserverCount = _pendingObservers.size();
     // If we have reached the last observer in this round then
     // determine if we need any more rounds and if we do ensure
@@ -232,11 +229,8 @@ final class ReactionScheduler
       _pendingObservers.clear();
     }
 
-    Guards.fail( () ->
-                   String.format(
-                     "Runaway reaction(s) detected. Observers still running after %d rounds. Current observers include: %s",
-                     _maxReactionRounds,
-                     String.valueOf( observerNames ) ) );
+    Guards.fail( () -> "Runaway reaction(s) detected. Observers still running after " + _maxReactionRounds +
+                       " rounds. Current observers include: " + observerNames );
   }
 
   @Nonnull

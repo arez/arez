@@ -84,8 +84,7 @@ final class TransactionInfoImpl
   {
     final Observer tracker = getTransaction().getTracker();
     Guards.invariant( () -> null != tracker,
-                      () -> String.format( "Invoked getTracker on TransactionInfo named '%s' but no tracker exists.",
-                                           getName() ) );
+                      () -> "Invoked getTracker on TransactionInfo named '" + getName() + "' but no tracker exists." );
     assert null != tracker;
     return tracker;
   }

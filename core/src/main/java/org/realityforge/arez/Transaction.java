@@ -73,7 +73,7 @@ final class Transaction
                @Nullable final Observer tracker )
   {
     Guards.invariant( () -> ArezConfig.enableNames() || null == name,
-                      () -> String.format( "Transaction passed a name '%s' but ArezConfig.enableNames() is false", name ) );
+                      () -> "Transaction passed a name '" + name + "' but ArezConfig.enableNames() is false" );
     _context = Objects.requireNonNull( context );
     _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
     _id = context.nextTransactionId();
@@ -83,9 +83,8 @@ final class Transaction
     _startedAt = ArezConfig.enableSpy() ? System.currentTimeMillis() : 0;
 
     Guards.invariant( () -> TransactionMode.READ_WRITE_OWNED != mode || null != tracker,
-                      () -> String.format(
-                        "Attempted to create transaction named '%s' with mode READ_WRITE_OWNED but no tracker specified.",
-                        getName() ) );
+                      () -> "Attempted to create transaction named '" + getName() +
+                            "' with mode READ_WRITE_OWNED but no tracker specified." );
   }
 
   /**
@@ -130,14 +129,11 @@ final class Transaction
   void markTrackerAsDisposed()
   {
     Guards.invariant( () -> null != _tracker,
-                      () -> String.format( "Attempted to invoke markTrackerAsDisposed on transaction named " +
-                                           "'%s' when there is no tracker associated with the transaction.",
-                                           getName() ) );
+                      () -> "Attempted to invoke markTrackerAsDisposed on transaction named '" + getName() +
+                            "' when there is no tracker associated with the transaction." );
     Guards.invariant( () -> TransactionMode.READ_WRITE == getMode(),
-                      () -> String.format( "Attempted to invoke markTrackerAsDisposed on transaction named " +
-                                           "'%s' when the transaction mode is %s and not READ_WRITE.",
-                                           getName(),
-                                           getMode().name() ) );
+                      () -> "Attempted to invoke markTrackerAsDisposed on transaction named '" + getName() +
+                            "' when the transaction mode is " + getMode().name() + " and not READ_WRITE." );
     assert null != _tracker;
     _tracker.setDisposed( true );
     _disposeTracker = true;
@@ -202,9 +198,8 @@ final class Transaction
   int processPendingDeactivations()
   {
     Guards.invariant( this::isRootTransaction,
-                      () -> String.format(
-                        "Invoked processPendingDeactivations on transaction named '%s' which is not the root transaction.",
-                        getName() ) );
+                      () -> "Invoked processPendingDeactivations on transaction named '" + getName() +
+                            "' which is not the root transaction." );
     int count = 0;
     if ( null != _pendingDeactivations )
     {
@@ -219,9 +214,8 @@ final class Transaction
         if ( observable.isDisposed() )
         {
           Guards.invariant( () -> !observable.hasObservers(),
-                            () -> String.format( "Attempting to deactivate disposed observable named '%s' in " +
-                                                 "transaction named '%s' but the observable still has observers.",
-                                                 observable.getName(), getName() ) );
+                            () -> "Attempting to deactivate disposed observable named '" + observable.getName() + "' " +
+                                  "in transaction named '" + getName() + "' but the observable still has observers." );
         }
         if ( !observable.hasObservers() )
         {
@@ -236,10 +230,8 @@ final class Transaction
   void queueForDeactivation( @Nonnull final Observable observable )
   {
     Guards.invariant( observable::canDeactivate,
-                      () -> String.format(
-                        "Invoked queueForDeactivation on transaction named '%s' for observable named '%s' when observable can not be deactivated.",
-                        getName(),
-                        observable.getName() ) );
+                      () -> "Invoked queueForDeactivation on transaction named '" + getName() + "' for observable " +
+                            "named '" + observable.getName() + "' when observable can not be deactivated." );
     if ( null == _pendingDeactivations )
     {
       final Transaction rootTransaction = getRootTransaction();
@@ -252,10 +244,9 @@ final class Transaction
     else
     {
       Guards.invariant( () -> !_pendingDeactivations.contains( observable ),
-                        () -> String.format(
-                          "Invoked queueForDeactivation on transaction named '%s' for observable named '%s' when pending deactivation already exists for observable.",
-                          getName(),
-                          observable.getName() ) );
+                        () -> "Invoked queueForDeactivation on transaction named '" + getName() + "' for " +
+                              "observable named '" + observable.getName() + "' when pending deactivation " +
+                              "already exists for observable." );
     }
     _pendingDeactivations.add( Objects.requireNonNull( observable ) );
   }
@@ -263,8 +254,8 @@ final class Transaction
   void observe( @Nonnull final Observable observable )
   {
     Guards.invariant( () -> !observable.isDisposed(),
-                      () -> String.format( "Invoked observe on transaction named '%s' for observable named '%s' " +
-                                           "where the observable is disposed.", getName(), observable.getName() ) );
+                      () -> "Invoked observe on transaction named '" + getName() + "' for observable named '" +
+                            observable.getName() + "' where the observable is disposed." );
     if ( null != _tracker )
     {
       /*
@@ -272,10 +263,8 @@ final class Transaction
        * observed during own generation process.
        */
       Guards.invariant( () -> !observable.hasOwner() || _tracker != observable.getOwner(),
-                        () -> String.format(
-                          "Invoked observe on transaction named '%s' for observable named '%s' where the observable is owned by the tracker.",
-                          getName(),
-                          observable.getName() ) );
+                        () -> "Invoked observe on transaction named '" + getName() + "' for observable named '" +
+                              observable.getName() + "' where the observable is owned by the tracker." );
       observable.invariantOwner();
       /*
        * This optimization attempts to stop the same observable being added multiple
@@ -301,10 +290,8 @@ final class Transaction
   void reportChanged( @Nonnull final Observable observable )
   {
     Guards.invariant( () -> !observable.isDisposed(),
-                      () -> String.format( "Invoked reportChanged on transaction named '%s' for observable " +
-                                           "named '%s' where the observable is disposed.",
-                                           getName(),
-                                           observable.getName() ) );
+                      () -> "Invoked reportChanged on transaction named '" + getName() + "' for observable " +
+                            "named '" + observable.getName() + "' where the observable is disposed." );
     verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
 
@@ -322,17 +309,14 @@ final class Transaction
         else
         {
           Guards.invariant( () -> ObserverState.POSSIBLY_STALE != state,
-                            () -> String.format( "Transaction named '%s' has attempted to explicitly change observable " +
-                                                 "named '%s' but observable is in state POSSIBLY_STALE indicating it is " +
-                                                 "derived and thus can not be explicitly changed.",
-                                                 getName(),
-                                                 observable.getName() ) );
+                            () -> "Transaction named '" + getName() + "' has attempted to explicitly " +
+                                  "change observable named '" + observable.getName() + "' but observable " +
+                                  "is in state POSSIBLY_STALE indicating it is derived and thus can not " +
+                                  "be explicitly changed." );
           Guards.invariant( () -> ObserverState.STALE == state,
-                            () -> String.format( "Transaction named '%s' has attempted to explicitly change observable " +
-                                                 "named '%s' and observable is in unexpected state %s.",
-                                                 getName(),
-                                                 observable.getName(),
-                                                 state.name() ) );
+                            () -> "Transaction named '" + getName() + "' has attempted to explicitly " +
+                                  "change observable named '" + observable.getName() + "' and observable " +
+                                  "is in unexpected state " + state.name() + "." );
         }
       }
     }
@@ -348,15 +332,11 @@ final class Transaction
   void reportPossiblyChanged( @Nonnull final Observable observable )
   {
     Guards.invariant( () -> !observable.isDisposed(),
-                      () -> String.format( "Invoked reportPossiblyChanged on transaction named '%s' for observable " +
-                                           "named '%s' where the observable is disposed.",
-                                           getName(),
-                                           observable.getName() ) );
+                      () -> "Invoked reportPossiblyChanged on transaction named '" + getName() + "' for " +
+                            "observable named '" + observable.getName() + "' where the observable is disposed." );
     Guards.invariant( observable::hasOwner,
-                      () -> String.format( "Transaction named '%s' has attempted to mark observable " +
-                                           "named '%s' as potentially changed but observable is not a derived value.",
-                                           getName(),
-                                           observable.getName() ) );
+                      () -> "Transaction named '" + getName() + "' has attempted to mark observable named '" +
+                            observable.getName() + "' as potentially changed but observable is not a derived value." );
     verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
     if ( observable.hasObservers() && ObserverState.UP_TO_DATE == observable.getLeastStaleObserverState() )
@@ -386,15 +366,12 @@ final class Transaction
   void reportChangeConfirmed( @Nonnull final Observable observable )
   {
     Guards.invariant( () -> !observable.isDisposed(),
-                      () -> String.format( "Invoked reportChangeConfirmed on transaction named '%s' for observable " +
-                                           "named '%s' where the observable is disposed.",
-                                           getName(),
-                                           observable.getName() ) );
+                      () -> "Invoked reportChangeConfirmed on transaction named '" +
+                            getName() + "' for observable named '" +
+                            observable.getName() + "' where the observable is disposed." );
     Guards.invariant( observable::hasOwner,
-                      () -> String.format( "Transaction named '%s' has attempted to mark observable " +
-                                           "named '%s' as potentially changed but observable is not a derived value.",
-                                           getName(),
-                                           observable.getName() ) );
+                      () -> "Transaction named '" + getName() + "' has attempted to mark observable named '" +
+                            observable.getName() + "' as potentially changed but observable is not a derived value." );
 
     verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
@@ -452,14 +429,10 @@ final class Transaction
       }
       final boolean check = found;
       Guards.invariant( () -> check,
-                        () -> String.format(
-                          "Transaction named '%s' attempted to call reportChangeConfirmed for observable " +
-                          "named '%s' and found a dependency named '%s' that is UP_TO_DATE but is not the " +
-                          "tracker of any transactions in the hierarchy: %s.",
-                          getName(),
-                          observable.getName(),
-                          observer.getName(),
-                          String.valueOf( names ) ) );
+                        () -> "Transaction named '" + getName() + "' attempted to call reportChangeConfirmed " +
+                              "for observable named '" + observable.getName() + "' and found a dependency named '" +
+                              observer.getName() + "' that is UP_TO_DATE but is not the tracker of any " +
+                              "transactions in the hierarchy: " + names + "." );
     }
   }
 
@@ -469,19 +442,15 @@ final class Transaction
     {
       if ( TransactionMode.READ_ONLY == _mode )
       {
-        Guards.fail( () -> String.format(
-          "Transaction named '%s' attempted to change observable named '%s' but transaction is READ_ONLY.",
-          getName(),
-          observable.getName() ) );
+        Guards.fail( () -> "Transaction named '" + getName() + "' attempted to change observable named '" +
+                           observable.getName() + "' but transaction is READ_ONLY." );
       }
       else if ( TransactionMode.READ_WRITE_OWNED == _mode )
       {
         Guards.invariant( () -> observable.hasOwner() && observable.getOwner() == _tracker,
-                          () -> String.format(
-                            "Transaction named '%s' attempted to change observable named '%s' and transaction is " +
-                            "READ_WRITE_OWNED but the observable has not been created by the transaction.",
-                            getName(),
-                            observable.getName() ) );
+                          () -> "Transaction named '" + getName() + "' attempted to change observable named '" +
+                                observable.getName() + "' and transaction is READ_WRITE_OWNED but the observable " +
+                                "has not been created by the transaction." );
       }
     }
   }
@@ -497,16 +466,14 @@ final class Transaction
     if ( null == _tracker )
     {
       Guards.invariant( () -> null == _observables,
-                        () -> String.format(
-                          "Transaction named '%s' has no associated tracker so _observables should be null but are not.",
-                          getName() ) );
+                        () -> "Transaction named '" + getName() + "' has no associated tracker so " +
+                              "_observables should be null but are not." );
       return;
     }
     _tracker.invariantDependenciesUnique( "Pre completeTracking" );
     Guards.invariant( () -> _tracker.getState() != ObserverState.INACTIVE || _tracker.isDisposed(),
-                      () -> String.format(
-                        "Transaction named '%s' called completeTracking but _tracker state of INACTIVE is " +
-                        "not expected when tracker has not been disposed.", getName() ) );
+                      () -> "Transaction named '" + getName() + "' called completeTracking but _tracker state " +
+                            "of INACTIVE is not expected when tracker has not been disposed." );
 
     ObserverState newDerivationState = ObserverState.UP_TO_DATE;
 

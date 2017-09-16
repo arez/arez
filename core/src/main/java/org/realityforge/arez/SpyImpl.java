@@ -60,8 +60,8 @@ final class SpyImpl
   public void reportSpyEvent( @Nonnull final Object event )
   {
     Guards.invariant( this::willPropagateSpyEvents,
-                      () -> String.format( "Attempting to report SpyEvent '%s' but willPropagateSpyEvents() " +
-                                           "returns false.", String.valueOf( event ) ) );
+                      () -> "Attempting to report SpyEvent '" + event + "' but willPropagateSpyEvents() " +
+                            "returns false." );
     for ( final SpyEventHandler handler : _spyEventHandlers )
     {
       try
@@ -71,10 +71,8 @@ final class SpyImpl
       catch ( final Throwable error )
       {
         final String message =
-          ArezUtil.safeGetString( () ->
-                                    String.format( "Exception when notifying spy handler '%s' of '%s' event.",
-                                                   String.valueOf( handler ),
-                                                   String.valueOf( event ) ) );
+          ArezUtil.safeGetString( () -> "Exception when notifying spy handler '" + handler + "' of '" +
+                                        event + "' event." );
         ArezLogger.log( message, error );
       }
     }
@@ -180,9 +178,8 @@ final class SpyImpl
     assert computedValue.isComputing();
     final Transaction transaction = getTrackerTransaction( computedValue.getObserver() );
     Guards.invariant( () -> transaction != null,
-                      () -> String.format( "ComputedValue named '%s' is marked as computing but unable to locate " +
-                                           "transaction responsible for computing ComputedValue",
-                                           computedValue.getName() ) );
+                      () -> "ComputedValue named '" + computedValue.getName() + "' is marked as computing but " +
+                            "unable to locate transaction responsible for computing ComputedValue" );
     assert null != transaction;
     return transaction;
   }

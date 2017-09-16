@@ -61,12 +61,8 @@ final class ObserverErrorHandlerSupport
       catch ( final Throwable nestedError )
       {
         final String message =
-          ArezUtil.safeGetString( () ->
-                                    String.format(
-                                      "Exception when notifying error handler '%s' of '%s' error in observer named '%s'.",
-                                      String.valueOf( errorHandler ),
-                                      error.name(),
-                                      observer.getName() ) );
+          ArezUtil.safeGetString( () -> "Exception when notifying error handler '" + errorHandler + "' of '" +
+                                        error.name() + "' error in observer named '" + observer.getName() + "'." );
         ArezLogger.log( message, nestedError );
       }
     }
