@@ -73,7 +73,7 @@ final class Transaction
                @Nullable final Observer tracker )
   {
     Guards.invariant( () -> ArezConfig.enableNames() || null == name,
-                      () -> String.format( "Node passed a name '%s' but ArezConfig.enableNames() is false", name ) );
+                      () -> String.format( "Transaction passed a name '%s' but ArezConfig.enableNames() is false", name ) );
     _context = Objects.requireNonNull( context );
     _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
     _id = context.nextTransactionId();
