@@ -32,7 +32,7 @@ public class TransactionTest
   }
 
   @Test
-  public void getName_whennamesDisabled()
+  public void getName_whenNamesDisabled()
   {
     getConfigProvider().setEnableNames( false );
 
