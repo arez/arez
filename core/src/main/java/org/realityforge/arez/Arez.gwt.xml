@@ -4,4 +4,27 @@
   <source path=""/>
   <source path="spy"/>
   <super-source path="super"/>
+
+  <!--
+    These properties are all defined in org.realityforge.arez.ArezConfig
+    See that class for a better understanding of what these properties do.
+  -->
+
+  <define-property name="arez.environment" values="development,production"/>
+  <set-property name="arez.environment" value="production"/>
+
+  <define-property name="arez.verbose_error_messages" values="true,false"/>
+  <set-property name="arez.verbose_error_messages" value="false"/>
+
+  <define-property name="arez.check_invariants" values="true,false"/>
+  <set-property name="arez.check_invariants" value="false"/>
+
+  <define-property name="arez.enable_names" values="true,false"/>
+  <set-property name="arez.enable_names" value="false"/>
+
+  <define-property name="arez.enforce_transaction_type" values="true,false"/>
+  <set-property name="arez.enforce_transaction_type" value="false"/>
+
+  <define-property name="arez.purge_reactions_when_runaway_detected" values="true,false"/>
+  <set-property name="arez.purge_reactions_when_runaway_detected" value="true"/>
 </module>
