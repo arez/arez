@@ -6,5 +6,5 @@
 /reports
 /target
 /tmp
-/example/generated
+/*/generated
 /**/Wip.java
