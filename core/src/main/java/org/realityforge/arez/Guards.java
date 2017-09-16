@@ -39,7 +39,7 @@ final class Guards
         fail( () -> "Error checking condition.\n" +
                     "Message: " + ArezUtil.safeGetString( message ) + "\n" +
                     "Throwable:\n" +
-                    ArezUtil.throwableToString( t ) );
+                    ThrowableUtil.throwableToString( t ) );
       }
       if ( !conditionResult )
       {

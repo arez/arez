@@ -1,7 +1,5 @@
 package org.realityforge.arez;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 
@@ -31,21 +29,8 @@ final class ArezUtil
     }
     catch ( final Throwable t )
     {
-      return "Exception generated whilst attempting to get supplied message.\n" + throwableToString( t );
+      return "Exception generated whilst attempting to get supplied message.\n" + ThrowableUtil.throwableToString( t );
     }
   }
 
-  /**
-   * Return string converted to stack trace.
-   *
-   * @param t the throwable to convert
-   * @return the stack trace.
-   */
-  @Nonnull
-  static String throwableToString( @Nonnull final Throwable t )
-  {
-    final StringWriter out = new StringWriter();
-    t.printStackTrace( new PrintWriter( out ) );
-    return out.toString();
-  }
 }
