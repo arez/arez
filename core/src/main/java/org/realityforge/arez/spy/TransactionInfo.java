@@ -28,6 +28,8 @@ public interface TransactionInfo
   /**
    * Return the parent transaction if any.
    * The parent transaction was the one that was active when this transaction began.
+   *
+   * @return the parent transaction if any.
    */
   @Nullable
   TransactionInfo getParent();
