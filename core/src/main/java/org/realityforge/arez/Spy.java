@@ -126,6 +126,14 @@ public interface Spy
   List<Observer> getObservers( @Nonnull final Observable observable );
 
   /**
+   * Return true if the Observer is scheduled to run.
+   *
+   * @param observer the Observer.
+   * @return true if the Observer is scheduled to run.
+   */
+  boolean isScheduled( @Nonnull final Observer observer );
+
+  /**
    * Return true if the Observable is a ComputedValue.
    *
    * @param observer the Observer.

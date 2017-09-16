@@ -454,6 +454,23 @@ public class SpyImplTest
                   "Spy.getTransaction() invoked but no transaction active." );
   }
 
+  @Test
+  public void isScheduled()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final SpyImpl spy = new SpyImpl( context );
+
+    final Observer observer = newReadOnlyObserver( context );
+
+    assertEquals( spy.isScheduled( observer ), false );
+
+    observer.markAsScheduled();
+
+    assertEquals( spy.isScheduled( observer ), true );
+  }
+
   private <T> void assertUnmodifiable( @Nonnull final List<T> list )
   {
     assertThrows( UnsupportedOperationException.class, () -> list.remove( 0 ) );

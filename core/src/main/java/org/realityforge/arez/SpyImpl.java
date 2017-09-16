@@ -205,6 +205,15 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
+  public boolean isScheduled( @Nonnull final Observer observer )
+  {
+    return observer.isScheduled();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public boolean isComputedValue( @Nonnull final Observable observable )
   {
     return observable.hasOwner();
