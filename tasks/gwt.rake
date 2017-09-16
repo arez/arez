@@ -45,6 +45,7 @@ CONTENT
     extra_deps.each do |dep|
       j.include("#{dep}/*")
     end
+    j.include("#{project._('src/main/super')}/*") if File.exist?(project._('src/main/super'))
     j.include("#{project._(:source, :main, :java)}/*")
   end
 
