@@ -25,6 +25,11 @@ public final class ArezContext
   @Nullable
   private Transaction _transaction;
   /**
+   * Id of next node to be created.
+   * This is only used if {@link #areNamesEnabled()} returns true but no name has been supplied.
+   */
+  private int _nextNodeId = 1;
+  /**
    * Id of next transaction to be created.
    *
    * This needs to start at 1 as {@link Observable#NOT_IN_CURRENT_TRACKING} is used
@@ -68,6 +73,23 @@ public final class ArezContext
       getSpy().reportSpyEvent( new ComputedValueCreatedEvent( computedValue ) );
     }
     return computedValue;
+  }
+
+  /**
+   * Build name for node.
+   * If {@link #areNamesEnabled()} returns false then this method will return null, otherwise the specified
+   * name will be returned or a name synthesized from the prefix and a running number if no name is specified.
+   *
+   * @param prefix the prefix used if this method needs to generate name.
+   * @param name   the name specified by the user.
+   * @return the name.
+   */
+  @Nullable
+  String toName( @Nonnull final String prefix, @Nullable final String name )
+  {
+    return ArezConfig.enableNames() ?
+           null != name ? name : prefix + "@" + _nextNodeId++ :
+           null;
   }
 
   /**
@@ -504,5 +526,17 @@ public final class ArezContext
   void setTransaction( @Nullable final Transaction transaction )
   {
     _transaction = transaction;
+  }
+
+  @TestOnly
+  void setNextNodeId( final int nextNodeId )
+  {
+    _nextNodeId = nextNodeId;
+  }
+
+  @TestOnly
+  int getNextNodeId()
+  {
+    return _nextNodeId;
   }
 }

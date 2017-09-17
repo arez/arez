@@ -32,6 +32,28 @@ public class ArezContextTest
   }
 
   @Test
+  public void toName()
+  {
+    final ArezContext context = new ArezContext();
+
+    // Use passed in name
+    assertEquals( context.toName( "ComputedValue", "MyName" ), "MyName" );
+
+    //synthesize name
+    context.setNextNodeId( 1 );
+    assertEquals( context.toName( "ComputedValue", null ), "ComputedValue@1" );
+    assertEquals( context.getNextNodeId(), 2 );
+
+    getConfigProvider().setEnableNames( false );
+
+    //Ignore name
+    assertEquals( context.toName( "ComputedValue", "MyName" ), null );
+
+    //Null name also fine
+    assertEquals( context.toName( "ComputedValue", null ), null );
+  }
+
+  @Test
   public void triggerScheduler()
   {
     final ArezContext context = new ArezContext();
