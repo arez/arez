@@ -147,7 +147,6 @@ define 'arez' do
                  :jsinterop_annotations,
                  :jsinterop_annotations_sources
 
-
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
 
