@@ -32,9 +32,6 @@ CONTENT
 
   dependencies =
     project.compile.dependencies + [project.compile.target] + extra_deps + [dir] + [Buildr.artifact(:gwt_user)]
-  if File.exist?(project._('src/main/super'))
-    dependencies << project.file(project._('src/main/super'))
-  end
   unless ENV['GWT'] == 'no'
     project.gwt(gwt_modules.collect {|gwt_module| "#{gwt_module}Test"},
                 { :java_args => %w(-Xms512M -Xmx1024M), :dependencies => dependencies })
@@ -44,7 +41,6 @@ CONTENT
     extra_deps.each do |dep|
       j.include("#{dep}/*")
     end
-    j.include("#{project._('src/main/super')}/*") if File.exist?(project._('src/main/super'))
     j.include("#{project._(:source, :main, :java)}/*")
   end
 
