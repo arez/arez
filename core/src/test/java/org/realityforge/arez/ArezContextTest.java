@@ -37,6 +37,7 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     // Use passed in name
+    context.setNextNodeId( ValueUtil.randomInt() );
     assertEquals( context.toName( "ComputedValue", "MyName" ), "MyName" );
 
     //synthesize name
