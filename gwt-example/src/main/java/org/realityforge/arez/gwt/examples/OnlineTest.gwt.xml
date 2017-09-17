@@ -1,0 +1,8 @@
+<module>
+  <inherits name="elemental2.dom.Dom"/>
+  <inherits name="org.realityforge.arez.Arez"/>
+
+  <source path=""/>
+
+  <entry-point class='org.realityforge.arez.gwt.examples.OnlineTest'/>
+</module>
