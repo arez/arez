@@ -1,4 +1,3 @@
-import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -117,13 +116,13 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       throw e;
     } catch( final Exception e ) {
       $$arez$$_throwable = e;
-      throw new UndeclaredThrowableException( e );
+      throw new IllegalStateException( e );
     } catch( final Error e ) {
       $$arez$$_throwable = e;
       throw e;
     } catch( final Throwable e ) {
       $$arez$$_throwable = e;
-      throw new UndeclaredThrowableException( e );
+      throw new IllegalStateException( e );
     } finally {
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
@@ -156,13 +155,13 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       throw e;
     } catch( final Exception e ) {
       $$arez$$_throwable = e;
-      throw new UndeclaredThrowableException( e );
+      throw new IllegalStateException( e );
     } catch( final Error e ) {
       $$arez$$_throwable = e;
       throw e;
     } catch( final Throwable e ) {
       $$arez$$_throwable = e;
-      throw new UndeclaredThrowableException( e );
+      throw new IllegalStateException( e );
     } finally {
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
@@ -195,13 +194,13 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       throw e;
     } catch( final Exception e ) {
       $$arez$$_throwable = e;
-      throw new UndeclaredThrowableException( e );
+      throw new IllegalStateException( e );
     } catch( final Error e ) {
       $$arez$$_throwable = e;
       throw e;
     } catch( final Throwable e ) {
       $$arez$$_throwable = e;
-      throw new UndeclaredThrowableException( e );
+      throw new IllegalStateException( e );
     } finally {
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {

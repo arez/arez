@@ -1,4 +1,3 @@
-import java.lang.reflect.UndeclaredThrowableException;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
@@ -61,13 +60,13 @@ public final class Arez_BasicActionModel extends BasicActionModel implements Dis
       throw e;
     } catch( final Exception e ) {
       $$arez$$_throwable = e;
-      throw new UndeclaredThrowableException( e );
+      throw new IllegalStateException( e );
     } catch( final Error e ) {
       $$arez$$_throwable = e;
       throw e;
     } catch( final Throwable e ) {
       $$arez$$_throwable = e;
-      throw new UndeclaredThrowableException( e );
+      throw new IllegalStateException( e );
     } finally {
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {

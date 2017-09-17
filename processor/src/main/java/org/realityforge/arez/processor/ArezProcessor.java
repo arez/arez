@@ -11,7 +11,6 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
-import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;
@@ -303,14 +302,14 @@ public final class ArezProcessor
         }
         codeBlock.nextControlFlow( "catch( final $T e )", Exception.class );
         codeBlock.addStatement( "$N = e", THROWABLE_VARIABLE_NAME );
-        codeBlock.addStatement( "throw new $T( e )", UndeclaredThrowableException.class );
+        codeBlock.addStatement( "throw new $T( e )", IllegalStateException.class );
       }
       codeBlock.nextControlFlow( "catch( final $T e )", Error.class );
       codeBlock.addStatement( "$N = e", THROWABLE_VARIABLE_NAME );
       codeBlock.addStatement( "throw e" );
       codeBlock.nextControlFlow( "catch( final $T e )", Throwable.class );
       codeBlock.addStatement( "$N = e", THROWABLE_VARIABLE_NAME );
-      codeBlock.addStatement( "throw new $T( e )", UndeclaredThrowableException.class );
+      codeBlock.addStatement( "throw new $T( e )", IllegalStateException.class );
     }
     codeBlock.nextControlFlow( "finally" );
 
