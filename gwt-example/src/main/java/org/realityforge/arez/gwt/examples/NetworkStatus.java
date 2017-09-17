@@ -2,28 +2,35 @@ package org.realityforge.arez.gwt.examples;
 
 import elemental2.dom.DomGlobal;
 import org.realityforge.arez.annotations.Action;
+import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
 
 @Container( singleton = true )
 public class NetworkStatus
 {
-  private boolean _onLine;
+  private boolean _rawOnLine;
 
-  @Observable
+  @Computed
   public boolean isOnLine()
   {
-    return _onLine;
+    return isRawOnLine();
   }
 
-  public void setOnLine( final boolean onLine )
+  @Observable
+  boolean isRawOnLine()
   {
-    _onLine = onLine;
+    return _rawOnLine;
+  }
+
+  void setRawOnLine( final boolean rawOnLine )
+  {
+    _rawOnLine = rawOnLine;
   }
 
   @Action
   public void updateOnlineStatus()
   {
-    setOnLine( DomGlobal.navigator.onLine );
+    setRawOnLine( DomGlobal.navigator.onLine );
   }
 }
