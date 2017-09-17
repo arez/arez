@@ -3,6 +3,7 @@ package org.realityforge.arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
+import javax.annotation.Nonnull;
 
 /**
  * Annotation that marks classes to be processed by Arez annotation processor.
@@ -52,6 +53,7 @@ public @interface Container
    *
    * @return the name of the type.
    */
+  @Nonnull
   String name() default "<default>";
 
   /**

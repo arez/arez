@@ -3,6 +3,7 @@ package org.realityforge.arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
+import javax.annotation.Nonnull;
 
 /**
  * Annotation applied to methods that expose an Observable value in Arez.
@@ -43,5 +44,6 @@ public @interface Observable
    *
    * @return the name of the Observable relative to the container.
    */
+  @Nonnull
   String name() default "<default>";
 }
