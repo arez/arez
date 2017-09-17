@@ -74,6 +74,41 @@ define 'arez' do
     test.compile.with TEST_DEPS
   end
 
+  define 'browser-extras' do
+    pom.provided_dependencies.concat PROVIDED_DEPS
+
+    compile.with project('annotations').package(:jar, :classifier => :gwt),
+                 project('annotations').compile.dependencies,
+                 project('core').package(:jar, :classifier => :gwt),
+                 project('core').compile.dependencies,
+                 project('extras').package(:jar, :classifier => :gwt),
+                 project('extras').compile.dependencies,
+                 project('processor').package(:jar),
+                 project('processor').compile.dependencies,
+                 :elemental2_core,
+                 :elemental2_dom,
+                 :elemental2_promise,
+                 :jsinterop_base,
+                 :jsinterop_base_sources,
+                 :jsinterop_annotations,
+                 :jsinterop_annotations_sources
+
+    test.options[:properties] = AREZ_TEST_OPTIONS
+    test.options[:java_args] = ['-ea']
+
+    package(:jar)
+    package(:sources)
+    package(:javadoc)
+
+    test.using :testng
+    test.compile.with TEST_DEPS
+
+    gwt_enhance(project, ['org.realityforge.arez.browser.extras.BrowserExtras'])
+
+    # The generators are configured to generate to here.
+    iml.main_source_directories << _('generated/processors/main/java')
+  end
+
   define 'processor' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
@@ -131,21 +166,8 @@ define 'arez' do
   define 'gwt-example' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
-    compile.with project('annotations').package(:jar, :classifier => :gwt),
-                 project('annotations').compile.dependencies,
-                 project('core').package(:jar, :classifier => :gwt),
-                 project('core').compile.dependencies,
-                 project('extras').package(:jar, :classifier => :gwt),
-                 project('extras').compile.dependencies,
-                 project('processor').package(:jar),
-                 project('processor').compile.dependencies,
-                 :elemental2_core,
-                 :elemental2_dom,
-                 :elemental2_promise,
-                 :jsinterop_base,
-                 :jsinterop_base_sources,
-                 :jsinterop_annotations,
-                 :jsinterop_annotations_sources
+    compile.with project('browser-extras').package(:jar, :classifier => :gwt),
+                 project('browser-extras').compile.dependencies
 
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
@@ -158,9 +180,6 @@ define 'arez' do
     test.compile.with TEST_DEPS
 
     iml.add_gwt_facet({ 'org.realityforge.arez.gwt.examples.OnlineTest' => true }, :settings => { :compilerMaxHeapSize => '1024' }, :gwt_dev_artifact => :gwt_dev)
-
-    # The generators are configured to generate to here.
-    iml.main_source_directories << _('generated/processors/main/java')
   end
 
   doc.from(projects(%w(arez:annotations arez:core arez:processor arez:extras))).using(:javadoc, :windowtitle => 'Arez')

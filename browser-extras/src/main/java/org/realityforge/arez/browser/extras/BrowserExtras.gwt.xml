@@ -1,0 +1,6 @@
+<module>
+  <inherits name="org.realityforge.arez.Arez"/>
+  <inherits name="org.realityforge.arez.extras.Extras"/>
+
+  <source path=""/>
+</module>

@@ -5,6 +5,7 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.browser.extras.NetworkStatus;
 
 public class OnlineTest
   implements EntryPoint
@@ -14,9 +15,10 @@ public class OnlineTest
   {
     final ArezContext context = new ArezContext();
 
-    final NetworkStatus networkStatus = new Arez_NetworkStatus( context );
+    final NetworkStatus networkStatus = NetworkStatus.create( context );
     networkStatus.updateOnlineStatus();
 
+    //TODO: Bake the next couple of listeners into onActivate+onDeactivate of ComputedValue
     DomGlobal.window.addEventListener( "online", e -> networkStatus.updateOnlineStatus() );
     DomGlobal.window.addEventListener( "offline", e -> networkStatus.updateOnlineStatus() );
 
