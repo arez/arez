@@ -55,8 +55,6 @@ TODO:
 
 ### GWT TODO
 
-* Add `.gwt.xml` configuration to get compilable inside GWT with both production and non-production
-  variants.
 * Add a browser-extras project that combines various browser utils and saves the results in state.
   This will probably involve bringing in Elemental2. This may result in tools like
 
