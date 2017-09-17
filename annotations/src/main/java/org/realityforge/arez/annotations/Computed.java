@@ -3,6 +3,7 @@ package org.realityforge.arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
+import javax.annotation.Nonnull;
 
 /**
  * Methods marked with this annotation are ComputedValues within Arez.
@@ -36,5 +37,6 @@ public @interface Computed
    *
    * @return the name of the ComputedValue relative to the container.
    */
+  @Nonnull
   String name() default "<default>";
 }
