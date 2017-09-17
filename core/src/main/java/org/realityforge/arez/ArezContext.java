@@ -67,7 +67,7 @@ public final class ArezContext
                                                    @Nonnull final EqualityComparator<T> equalityComparator )
   {
     final ComputedValue<T> computedValue =
-      new ComputedValue<>( this, ArezConfig.enableNames() ? name : null, function, equalityComparator );
+      new ComputedValue<>( this, toName( "ComputedValue", name ), function, equalityComparator );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ComputedValueCreatedEvent( computedValue ) );
@@ -95,7 +95,7 @@ public final class ArezContext
   /**
    * Create an autorun observer.
    *
-   * @param name           the name of the observer. Should be non null if {@link #areNamesEnabled()} returns true, null otherwise.
+   * @param name           the name of the observer.
    * @param mutation       true if the action may modify state, false otherwise.
    * @param action         the action defining the observer.
    * @param runImmediately true to invoke action immediately, false to schedule reaction for next reaction cycle.
@@ -113,7 +113,7 @@ public final class ArezContext
   /**
    * Create an observer with specified parameters.
    *
-   * @param name           the name of the observer. Should be non null if {@link #areNamesEnabled()} returns true, null otherwise.
+   * @param name           the name of the observer.
    * @param mutation       true if the reaction may modify state, false otherwise.
    * @param reaction       the reaction defining observer.
    * @param runImmediately true to invoke reaction immediately, false to schedule reaction for next reaction cycle.
@@ -127,7 +127,7 @@ public final class ArezContext
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =
-      new Observer( this, ArezConfig.enableNames() ? name : null, mode, reaction );
+      new Observer( this, toName( "Observer", name ), mode, reaction );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObserverCreatedEvent( observer ) );
@@ -278,7 +278,7 @@ public final class ArezContext
    * The action may throw an exception.
    *
    * @param <T>      the type of return value.
-   * @param name     the name of the transaction. Should be non-null if {@link #areNamesEnabled()} is true, false otherwise.
+   * @param name     the name of the transaction.
    * @param mutation true if the action may modify state, false otherwise.
    * @param action   the action to execute.
    * @return the value returned from the action.
@@ -288,7 +288,7 @@ public final class ArezContext
     throws Throwable
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
-    final Transaction transaction = beginTransaction( name, mode, null );
+    final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, null );
     try
     {
       return action.call();
@@ -304,7 +304,7 @@ public final class ArezContext
    * The action is expected to not throw an exception.
    *
    * @param <T>      the type of return value.
-   * @param name     the name of the transaction. Should be non-null if {@link #areNamesEnabled()} is true, false otherwise.
+   * @param name     the name of the transaction.
    * @param mutation true if the action may modify state, false otherwise.
    * @param action   the action to execute.
    * @return the value returned from the action.
@@ -314,7 +314,7 @@ public final class ArezContext
                              @Nonnull final SafeFunction<T> action )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
-    final Transaction transaction = beginTransaction( name, mode, null );
+    final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, null );
     try
     {
       return action.call();
@@ -329,7 +329,7 @@ public final class ArezContext
    * Execute the supplied procedure in a transaction.
    * The procedure may throw an exception.
    *
-   * @param name      the name of the transaction. Should be non-null if {@link #areNamesEnabled()} is true, false otherwise.
+   * @param name      the name of the transaction.
    * @param mutation  true if the action may modify state, false otherwise.
    * @param procedure the procedure to execute.
    * @throws Throwable if the procedure throws an an exception.
@@ -346,7 +346,7 @@ public final class ArezContext
                   @Nonnull final Procedure procedure )
     throws Throwable
   {
-    final Transaction transaction = beginTransaction( name, mode, tracker );
+    final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
     try
     {
       procedure.call();
@@ -361,7 +361,7 @@ public final class ArezContext
    * Execute the supplied procedure in a transaction.
    * The action is expected to not throw an exception.
    *
-   * @param name     the name of the transaction. Should be non-null if {@link #areNamesEnabled()} is true, false otherwise.
+   * @param name     the name of the transaction.
    * @param mutation true if the action may modify state, false otherwise.
    * @param action   the action to execute.
    */
@@ -377,7 +377,7 @@ public final class ArezContext
                       @Nullable final Observer tracker,
                       @Nonnull final SafeProcedure action )
   {
-    final Transaction transaction = beginTransaction( name, mode, tracker );
+    final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
     try
     {
       action.call();
