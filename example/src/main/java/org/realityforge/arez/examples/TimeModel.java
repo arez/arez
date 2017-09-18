@@ -1,6 +1,7 @@
 package org.realityforge.arez.examples;
 
 import java.text.ParseException;
+import javax.annotation.Nonnull;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
@@ -10,6 +11,12 @@ public class TimeModel
   implements TimeModelExtension
 {
   private long _time;
+
+  @Nonnull
+  public static TimeModel create( final long time )
+  {
+    return new Arez_TimeModel( time );
+  }
 
   TimeModel( final long time )
   {

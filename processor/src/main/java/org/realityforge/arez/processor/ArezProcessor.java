@@ -46,6 +46,7 @@ import org.realityforge.arez.annotations.Container;
 public final class ArezProcessor
   extends AbstractJavaPoetProcessor
 {
+  private static final ClassName AREZ_CLASSNAME = ClassName.get( "org.realityforge.arez", "Arez" );
   private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "org.realityforge.arez", "ArezContext" );
   private static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "org.realityforge.arez", "Observable" );
   private static final ClassName COMPUTED_VALUE_CLASSNAME = ClassName.get( "org.realityforge.arez", "ComputedValue" );
@@ -699,14 +700,6 @@ public final class ArezProcessor
     superCall.append( "super(" );
     final ArrayList<String> parameterNames = new ArrayList<>();
 
-    // Add the first context class parameter
-    {
-      final ParameterSpec.Builder param =
-        ParameterSpec.builder( AREZ_CONTEXT_CLASSNAME, CONTEXT_FIELD_NAME, Modifier.FINAL ).
-          addAnnotation( Nonnull.class );
-      builder.addParameter( param.build() );
-    }
-
     boolean firstParam = true;
     for ( final VariableElement element : constructor.getParameters() )
     {
@@ -726,14 +719,14 @@ public final class ArezProcessor
     superCall.append( ")" );
     builder.addStatement( superCall.toString(), parameterNames.toArray() );
 
+    builder.addStatement( "this.$N = $T.context()", CONTEXT_FIELD_NAME, AREZ_CLASSNAME );
+
     final ExecutableElement containerId = descriptor.getContainerId();
     // Synthesize Id if required
     if ( !descriptor.isSingleton() && null == containerId )
     {
       builder.addStatement( "this.$N = $N++", ID_FIELD_NAME, NEXT_ID_FIELD_NAME );
     }
-
-    builder.addStatement( "this.$N = $N", CONTEXT_FIELD_NAME, CONTEXT_FIELD_NAME );
 
     for ( final ObservableDescriptor observable : descriptor.getObservables() )
     {

@@ -3,6 +3,7 @@ package com.example;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
@@ -27,10 +28,10 @@ public final class Arez_SubpackageModel extends SubpackageModel implements Dispo
   @Nonnull
   private final ComputedValue<Integer> $$arez$$_someValue;
 
-  public Arez_SubpackageModel(@Nonnull final ArezContext $$arez$$_context) {
+  public Arez_SubpackageModel() {
     super();
+    this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
     this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "someValue" : null, super::someValue, Objects::equals, null, null, null );
   }

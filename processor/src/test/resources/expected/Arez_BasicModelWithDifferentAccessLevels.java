@@ -1,6 +1,7 @@
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
@@ -24,26 +25,26 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   @Nonnull
   private final Observable $$arez$$_value;
 
-  Arez_BasicModelWithDifferentAccessLevels(@Nonnull final ArezContext $$arez$$_context) {
+  Arez_BasicModelWithDifferentAccessLevels() {
     super();
+    this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
     this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "value" : null );
   }
 
-  protected Arez_BasicModelWithDifferentAccessLevels(@Nonnull final ArezContext $$arez$$_context, final String value) {
+  protected Arez_BasicModelWithDifferentAccessLevels(final String value) {
     super(value);
+    this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
     this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "value" : null );
   }
 
-  public Arez_BasicModelWithDifferentAccessLevels(@Nonnull final ArezContext $$arez$$_context, final String value, final long time) {
+  public Arez_BasicModelWithDifferentAccessLevels(final String value, final long time) {
     super(value,time);
+    this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
     this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "value" : null );
   }

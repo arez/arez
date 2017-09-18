@@ -1,6 +1,7 @@
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
@@ -21,9 +22,9 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
   @Nonnull
   private final ComputedValue<Integer> $$arez$$_someValue;
 
-  public Arez_DefaultMethodsModel(@Nonnull final ArezContext $$arez$$_context) {
+  public Arez_DefaultMethodsModel() {
     super();
-    this.$$arez$$_context = $$arez$$_context;
+    this.$$arez$$_context = Arez.context();
     this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "DefaultMethodsModel.time" : null );
     this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? "DefaultMethodsModel.someValue" : null, super::someValue, Objects::equals, null, null, null );
   }

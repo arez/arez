@@ -31,9 +31,9 @@ public class IdleStatus
   private boolean _rawIdle;
   private double _timeoutId;
 
-  public static IdleStatus create( @Nonnull final ArezContext context )
+  public static IdleStatus create()
   {
-    return new Arez_IdleStatus( Objects.requireNonNull( context ) );
+    return new Arez_IdleStatus();
   }
 
   IdleStatus()

@@ -18,8 +18,8 @@ public class OnlineTest
     ExampleUtil.logAllErrors( context );
     context.getSpy().addSpyEventHandler( SpyUtil::emitEvent );
 
-    final NetworkStatus networkStatus = NetworkStatus.create( context );
-    final IdleStatus idleStatus = IdleStatus.create( context );
+    final NetworkStatus networkStatus = NetworkStatus.create();
+    final IdleStatus idleStatus = IdleStatus.create();
 
     context.autorun( "Status Printer", false, () -> printNetworkStatus( networkStatus ), true );
     context.autorun( "IDLE Status Printer", false, () -> printIdleStatus( idleStatus ), true );

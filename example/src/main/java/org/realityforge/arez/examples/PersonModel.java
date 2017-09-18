@@ -14,7 +14,13 @@ public class PersonModel
   @Nonnull
   private String _lastName;
 
-  public PersonModel( @Nonnull final String firstName, @Nonnull final String lastName )
+  @Nonnull
+  public static PersonModel create( @Nonnull final String firstName, @Nonnull final String lastName )
+  {
+    return new Arez_PersonModel( firstName, lastName );
+  }
+
+  PersonModel( @Nonnull final String firstName, @Nonnull final String lastName )
   {
     _firstName = firstName;
     _lastName = lastName;

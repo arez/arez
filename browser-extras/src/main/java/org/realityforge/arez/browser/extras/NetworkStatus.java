@@ -2,9 +2,7 @@ package org.realityforge.arez.browser.extras;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
-import java.util.Objects;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Container;
@@ -18,9 +16,10 @@ public class NetworkStatus
   private final EventListener _listener;
   private boolean _rawOnLine;
 
-  public static NetworkStatus create( @Nonnull final ArezContext context )
+  @Nonnull
+  public static NetworkStatus create()
   {
-    return new Arez_NetworkStatus( Objects.requireNonNull( context ) );
+    return new Arez_NetworkStatus();
   }
 
   NetworkStatus()

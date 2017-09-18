@@ -16,7 +16,7 @@ public final class TimerExample
 
     context.getSpy().addSpyEventHandler( SpyUtil::emitEvent );
 
-    final TimeModel timeModel = new Arez_TimeModel( context, 0 );
+    final TimeModel timeModel = TimeModel.create( 0 );
 
     timeModel.updateTime();
 

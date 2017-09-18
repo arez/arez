@@ -1,6 +1,7 @@
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 
@@ -16,10 +17,10 @@ public final class Arez_NotDisposableModel extends NotDisposableModel {
   @Nonnull
   private final ComputedValue<Long> $$arez$$_time;
 
-  public Arez_NotDisposableModel(@Nonnull final ArezContext $$arez$$_context) {
+  public Arez_NotDisposableModel() {
     super();
+    this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null, super::getTime, Objects::equals, null, null, null );
   }
 

@@ -14,7 +14,7 @@ public final class CodeModelExample
     ExampleUtil.logAllErrors( context );
     context.getSpy().addSpyEventHandler( SpyUtil::emitEvent );
 
-    final CodeModel codeModel = new Arez_CodeModel( context, "com.example", "MyType" );
+    final CodeModel codeModel = CodeModel.create( "com.example", "MyType" );
 
     final Observer observer =
       context.autorun( "Printer",

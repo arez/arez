@@ -17,7 +17,13 @@ public class CodeModel
   @Nullable
   private String _qualifiedName;
 
-  public CodeModel( @Nonnull final String packageName, @Nonnull final String name )
+  @Nonnull
+  public static CodeModel create( @Nonnull final String packageName, @Nonnull final String name )
+  {
+    return new Arez_CodeModel( packageName, name );
+  }
+
+  CodeModel( @Nonnull final String packageName, @Nonnull final String name )
   {
     _packageName = packageName;
     _name = name;

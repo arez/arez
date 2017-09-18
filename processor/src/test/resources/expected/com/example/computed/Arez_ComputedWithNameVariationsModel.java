@@ -3,6 +3,7 @@ package com.example.computed;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
@@ -30,10 +31,10 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
   @Nonnull
   private final ComputedValue<Long> $$arez$$_time;
 
-  public Arez_ComputedWithNameVariationsModel(@Nonnull final ArezContext $$arez$$_context) {
+  public Arez_ComputedWithNameVariationsModel() {
     super();
+    this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_helper = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "helper" : null, super::helper, Objects::equals, null, null, null );
     this.$$arez$$_ready = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "ready" : null, super::isReady, Objects::equals, null, null, null );
     this.$$arez$$_foo = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "foo" : null, super::myFooHelperMethod, Objects::equals, null, null, null );

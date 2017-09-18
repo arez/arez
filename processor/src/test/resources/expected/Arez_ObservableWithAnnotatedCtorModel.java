@@ -1,6 +1,7 @@
 import javax.annotation.Generated;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
@@ -19,10 +20,10 @@ public final class Arez_ObservableWithAnnotatedCtorModel extends ObservableWithA
   @Nonnull
   private final Observable $$arez$$_time;
 
-  public Arez_ObservableWithAnnotatedCtorModel(@Nonnull final ArezContext $$arez$$_context, @Nonnegative final long time, final long other, @Nonnull final String foo) {
+  public Arez_ObservableWithAnnotatedCtorModel(@Nonnegative final long time, final long other, @Nonnull final String foo) {
     super(time,other,foo);
+    this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
   }
 

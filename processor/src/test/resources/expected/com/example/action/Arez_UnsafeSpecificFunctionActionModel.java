@@ -3,6 +3,7 @@ package com.example.action;
 import java.text.ParseException;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.spy.ActionCompletedEvent;
@@ -19,10 +20,10 @@ public final class Arez_UnsafeSpecificFunctionActionModel extends UnsafeSpecific
   @Nonnull
   private final ArezContext $$arez$$_context;
 
-  public Arez_UnsafeSpecificFunctionActionModel(@Nonnull final ArezContext $$arez$$_context) {
+  public Arez_UnsafeSpecificFunctionActionModel() {
     super();
+    this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_context = $$arez$$_context;
   }
 
   private String $$arez$$_id() {

@@ -1,6 +1,7 @@
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
@@ -39,9 +40,9 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   @Nonnull
   private final Observable $$arez$$_v5;
 
-  public Arez_DifferentObservableTypesModel(@Nonnull final ArezContext $$arez$$_context) {
+  public Arez_DifferentObservableTypesModel() {
     super();
-    this.$$arez$$_context = $$arez$$_context;
+    this.$$arez$$_context = Arez.context();
     this.$$arez$$_v6 = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "DifferentObservableTypesModel.v6" : null );
     this.$$arez$$_v7 = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "DifferentObservableTypesModel.v7" : null );
     this.$$arez$$_v8 = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "DifferentObservableTypesModel.v8" : null );

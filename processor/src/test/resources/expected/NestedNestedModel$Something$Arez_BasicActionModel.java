@@ -1,5 +1,6 @@
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.spy.ActionCompletedEvent;
@@ -16,10 +17,10 @@ public final class NestedNestedModel$Something$Arez_BasicActionModel extends Nes
   @Nonnull
   private final ArezContext $$arez$$_context;
 
-  public NestedNestedModel$Something$Arez_BasicActionModel(@Nonnull final ArezContext $$arez$$_context) {
+  public NestedNestedModel$Something$Arez_BasicActionModel() {
     super();
+    this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_context = $$arez$$_context;
   }
 
   private String $$arez$$_id() {

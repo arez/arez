@@ -10,7 +10,7 @@ public final class CalculatedModelExample
     final ArezContext context = new ArezContext();
     ExampleUtil.logAllErrors( context );
 
-    final PersonModel person = new Arez_PersonModel( context, "Bill", "Smith" );
+    final PersonModel person = PersonModel.create( "Bill", "Smith" );
 
     context.autorun( "NamePrinter",
                      false,
