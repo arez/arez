@@ -7,11 +7,6 @@ public class ActionDuplicatesObservableNameModel
 {
   private long _field;
 
-  @Action
-  public void field()
-  {
-  }
-
   @Observable
   public long getField()
   {
@@ -22,5 +17,10 @@ public class ActionDuplicatesObservableNameModel
   public void setField( final long field )
   {
     _field = field;
+  }
+
+  @Action
+  public void field()
+  {
   }
 }
