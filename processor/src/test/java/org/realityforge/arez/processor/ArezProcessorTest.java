@@ -33,6 +33,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.computed.ComputedWithHooksModel" },
         new Object[]{ "com.example.computed.BasicComputedModel" },
         new Object[]{ "com.example.computed.TypeParametersModel" },
+        new Object[]{ "DisposingModel" },
         new Object[]{ "ObservableTypeParametersModel" },
         new Object[]{ "TypeParametersOnModel" },
         new Object[]{ "NotDisposableModel" },
