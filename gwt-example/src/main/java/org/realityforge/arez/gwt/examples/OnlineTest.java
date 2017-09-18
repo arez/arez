@@ -14,6 +14,8 @@ public class OnlineTest
   public void onModuleLoad()
   {
     final ArezContext context = new ArezContext();
+    ExampleUtil.logAllErrors( context );
+    context.getSpy().addSpyEventHandler( SpyUtil::emitEvent );
 
     final NetworkStatus networkStatus = NetworkStatus.create( context );
 
