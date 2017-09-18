@@ -25,7 +25,8 @@ public @interface OnActivate
 {
   /**
    * Return the name of the ComputedValue that this method is associated with.
-   * Must be specified.
+   * This value will be derived if the method name matches the pattern "on[Name]Activate",
+   * otherwise it must be specified.
    *
    * @return the name of the ComputedValue.
    */
