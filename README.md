@@ -17,6 +17,9 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
+* Add some way to have a ThreadLocal ArezContext (in JVM) or Global/Zoned ArezContext (In Javascript)
+  and update all the generated models to use this by default.
+
 * Add support for @PostConstruct on generated models
 
 * Add Async helper to extras. Can be canceled/disposed. Has an Observable state field that indicates
