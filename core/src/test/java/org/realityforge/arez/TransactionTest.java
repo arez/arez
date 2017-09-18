@@ -787,7 +787,7 @@ public class TransactionTest
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
     context.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
@@ -827,7 +827,7 @@ public class TransactionTest
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
     context.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
