@@ -26,7 +26,7 @@ public class OnlineTest
   {
     final String message = "Network Status: " + ( networkStatus.isOnLine() ? "Online" : "Offline" );
     DomGlobal.console.log( message );
-    final Element element = DomGlobal.document.querySelector( "#app" );
+    final Element element = DomGlobal.document.querySelector( "#network" );
     element.textContent = message;
   }
 }
