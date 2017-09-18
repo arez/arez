@@ -90,6 +90,7 @@ public abstract class AbstractArezTest
   /**
    * Typically called to stop observer from being deactivate or stop invariant checks failing.
    */
+  @SuppressWarnings( "UnusedReturnValue" )
   @Nonnull
   final Observer ensureDerivationHasObserver( @Nonnull final Observer observer )
   {
