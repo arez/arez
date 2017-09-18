@@ -22,9 +22,6 @@ TODO:
 
 * Add support for @PostConstruct on generated models
 
-* Test multiple parameters in actions
-* Test preDispose and postDispose generation
-
 * Add Async helper to extras. Can be canceled/disposed. Has an Observable state field that indicates
   current status. Triggers an "Action" on async completion. Useful for handling async http calls etc.
 
