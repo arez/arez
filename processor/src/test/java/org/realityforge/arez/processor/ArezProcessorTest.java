@@ -107,6 +107,9 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "ActionDuplicatesObservableNameModel",
+                      "Method annotated with @Observable specified name field that duplicates @Action defined by method field" },
+
         new Object[]{ "OnActivateNoComputedModel",
                       "@OnActivate exists but there is no corresponding @Computed" },
         new Object[]{ "OnActivateBadNameModel",

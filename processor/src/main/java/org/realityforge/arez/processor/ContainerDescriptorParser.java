@@ -795,7 +795,7 @@ final class ContainerDescriptorParser
     {
       final ExecutableElement element =
         observable.hasGetter() ? observable.getGetter() : observable.getSetter();
-      throw new ArezProcessorException( "Method annotated with @Computed specified name " + name +
+      throw new ArezProcessorException( "Method annotated with @Action specified name " + name +
                                         " that duplicates @Observable defined by method " +
                                         element.getSimpleName(), method );
     }
