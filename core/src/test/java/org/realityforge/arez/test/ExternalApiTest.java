@@ -7,7 +7,6 @@ import org.realityforge.arez.AbstractArezTest;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ArezTestUtil;
 import org.realityforge.arez.ComputedValue;
-import org.realityforge.arez.Node;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
 import org.realityforge.arez.ObserverErrorHandler;

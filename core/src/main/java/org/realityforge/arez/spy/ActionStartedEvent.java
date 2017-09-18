@@ -2,7 +2,6 @@ package org.realityforge.arez.spy;
 
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.ComputedValue;
 
 /**
  * Notification when Action starts.
