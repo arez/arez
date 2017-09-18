@@ -1,5 +1,4 @@
 import org.realityforge.arez.annotations.Container;
-import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.PreDispose;
 
 @Container
