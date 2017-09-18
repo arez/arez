@@ -57,9 +57,6 @@ TODO:
 * Add a browser-extras project that combines various browser utils and saves the results in state.
   This will probably involve bringing in Elemental2. This may result in tools like
 
-    - Online. i.e. Reflecting `window.navigator.onLine` and listening for change via
-      `window.addEventListener("offline", ...)` and `window.addEventListener("online", ...)`
-
     - URL Location. Have state for proposed location, actual location and target location
       and listen to hash changes. Listen to changes based on window object. If "proposed"
       matches the "target" then proposed succeeds. Target is set when code wants to initiate
