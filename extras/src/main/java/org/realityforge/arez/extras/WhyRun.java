@@ -3,7 +3,6 @@ package org.realityforge.arez.extras;
 import java.util.List;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ComputedValue;
-import org.realityforge.arez.Node;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
 import org.realityforge.arez.Spy;
@@ -59,41 +58,25 @@ public final class WhyRun
   /**
    * Return a human readable explanation why the specified observer is/will run.
    *
+   * @param observer the observer that we want to investigate.
    * @return a human readable explanation why the node is/will run.
    */
   @Unsupported( "Expect the output format to change and evolve over time as Spy capabilities improve." )
   @Nonnull
-  public String whyRun( @Nonnull final Node node )
+  public String whyRun( @Nonnull final Observer observer )
   {
-    if ( node instanceof ComputedValue )
+    if ( getSpy().isComputedValue( observer ) )
     {
-      return whyRun( (ComputedValue<?>) node );
-    }
-    else if ( node instanceof Observer )
-    {
-      final Observer observer = (Observer) node;
-      if ( getSpy().isComputedValue( observer ) )
-      {
-        return whyRun( getSpy().asComputedValue( observer ) );
-      }
-      else
-      {
-        return whyRun( observer );
-      }
-    }
-    else if ( node instanceof Observable )
-    {
-      return whyRun( (Observable) node );
+      return whyRun( getSpy().asComputedValue( observer ) );
     }
     else
     {
-      return "WhyRun? " + node.getClass().getSimpleName() + " '" + node.getName() + "' is not a " +
-             "known type of node. Unable to determine WhyRun?";
+      return whyRunObserver( observer );
     }
   }
 
   @Nonnull
-  String whyRun( @Nonnull final Observer observer )
+  String whyRunObserver( @Nonnull final Observer observer )
   {
     final StringBuilder sb = new StringBuilder();
     sb.append( "WhyRun? Observer '" );
