@@ -1,5 +1,6 @@
 package org.realityforge.arez;
 
+import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
@@ -55,6 +56,34 @@ public final class ArezContext
   /**
    * Create a ComputedValue with specified parameters.
    *
+   * @param <T>      the type of the computed value.
+   * @param function the function that computes the value.
+   * @return the ComputedValue instance.
+   */
+  @Nonnull
+  public <T> ComputedValue<T> createComputedValue( @Nonnull final SafeFunction<T> function )
+  {
+    return createComputedValue( null, function );
+  }
+
+  /**
+   * Create a ComputedValue with specified parameters.
+   *
+   * @param <T>      the type of the computed value.
+   * @param name     the name of the ComputedValue. Should be non-null if {@link #areNamesEnabled()} returns true, null otherwise.
+   * @param function the function that computes the value.
+   * @return the ComputedValue instance.
+   */
+  @Nonnull
+  public <T> ComputedValue<T> createComputedValue( @Nullable final String name,
+                                                   @Nonnull final SafeFunction<T> function )
+  {
+    return createComputedValue( name, function, Objects::equals );
+  }
+
+  /**
+   * Create a ComputedValue with specified parameters.
+   *
    * @param <T>                the type of the computed value.
    * @param name               the name of the ComputedValue. Should be non-null if {@link #areNamesEnabled()} returns true, null otherwise.
    * @param function           the function that computes the value.
@@ -66,8 +95,35 @@ public final class ArezContext
                                                    @Nonnull final SafeFunction<T> function,
                                                    @Nonnull final EqualityComparator<T> equalityComparator )
   {
+    return createComputedValue( name, function, equalityComparator, null, null, null );
+  }
+
+  /**
+   * Create a ComputedValue with specified parameters.
+   *
+   * @param <T>                the type of the computed value.
+   * @param name               the name of the ComputedValue.
+   * @param function           the function that computes the value.
+   * @param equalityComparator the comparator that determines whether the newly computed value differs from existing value.
+   * @param onActivate         the procedure to invoke when ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDeactivate       the procedure to invoke when ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onStale            the procedure to invoke when ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @return the ComputedValue instance.
+   */
+  @Nonnull
+  public <T> ComputedValue<T> createComputedValue( @Nullable final String name,
+                                                   @Nonnull final SafeFunction<T> function,
+                                                   @Nonnull final EqualityComparator<T> equalityComparator,
+                                                   @Nullable final Procedure onActivate,
+                                                   @Nullable final Procedure onDeactivate,
+                                                   @Nullable final Procedure onStale )
+  {
     final ComputedValue<T> computedValue =
       new ComputedValue<>( this, toName( "ComputedValue", name ), function, equalityComparator );
+    final Observer observer = computedValue.getObserver();
+    observer.setOnActivate( onActivate );
+    observer.setOnDeactivate( onDeactivate );
+    observer.setOnStale( onStale );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ComputedValueCreatedEvent( computedValue ) );

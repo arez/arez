@@ -37,7 +37,6 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     // Use passed in name
-    context.setNextNodeId( ValueUtil.randomInt() );
     assertEquals( context.toName( "ComputedValue", "MyName" ), "MyName" );
 
     //synthesize name
@@ -594,12 +593,58 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> "";
+    final Procedure onActivate = ValueUtil::randomString;
+    final Procedure onDeactivate = ValueUtil::randomString;
+    final Procedure onStale = ValueUtil::randomString;
+    final ComputedValue<String> computedValue =
+      context.createComputedValue( name, function, Objects::equals, onActivate, onDeactivate, onStale );
+
+    assertEquals( computedValue.getName(), name );
+    assertEquals( computedValue.getContext(), context );
+    assertEquals( computedValue.getObserver().getName(), name );
+    assertEquals( computedValue.getObservable().getName(), name );
+    assertEquals( computedValue.getObserver().getOnActivate(), onActivate );
+    assertEquals( computedValue.getObserver().getOnDeactivate(), onDeactivate );
+    assertEquals( computedValue.getObserver().getOnStale(), onStale );
+  }
+
+  @Test
+  public void createComputedValue_pass_no_hooks()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final SafeFunction<String> function = () -> "";
     final ComputedValue<String> computedValue = context.createComputedValue( name, function, Objects::equals );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.getObserver().getName(), name );
     assertEquals( computedValue.getObservable().getName(), name );
+    assertEquals( computedValue.getObserver().getOnActivate(), null );
+    assertEquals( computedValue.getObserver().getOnDeactivate(), null );
+    assertEquals( computedValue.getObserver().getOnStale(), null );
+  }
+
+  @Test
+  public void createComputedValue_minimumParameters()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    context.setNextNodeId( 22 );
+    final SafeFunction<String> function = () -> "";
+    final ComputedValue<String> computedValue = context.createComputedValue( function );
+
+    final String name = "ComputedValue@22";
+    assertEquals( computedValue.getName(), name );
+    assertEquals( computedValue.getContext(), context );
+    assertEquals( computedValue.getObserver().getName(), name );
+    assertEquals( computedValue.getObservable().getName(), name );
+    assertEquals( computedValue.getObserver().getOnActivate(), null );
+    assertEquals( computedValue.getObserver().getOnDeactivate(), null );
+    assertEquals( computedValue.getObserver().getOnStale(), null );
   }
 
   @Test
