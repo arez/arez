@@ -1,3 +1,5 @@
+package com.example.action;
+
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
@@ -6,7 +8,8 @@ import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_ActionTypeParametersModel<T extends Integer> extends ActionTypeParametersModel<T> implements Disposable {
+public final class Arez_ActionTypeParametersModel<T extends Integer> extends ActionTypeParametersModel<T>
+  implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -23,7 +26,7 @@ public final class Arez_ActionTypeParametersModel<T extends Integer> extends Act
   }
 
   private String $$arez$$_id() {
-    return "ActionTypeParametersModel." + $$arez$$_id + ".";
+    return "com.example.action.ActionTypeParametersModel." + $$arez$$_id + ".";
   }
 
   @Override

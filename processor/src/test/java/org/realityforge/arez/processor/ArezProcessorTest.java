@@ -18,6 +18,7 @@ public class ArezProcessorTest
     return new Object[][]
       {
         new Object[]{ "com.example.SubpackageModel" },
+        new Object[]{ "com.example.action.ActionTypeParametersModel" },
         new Object[]{ "com.example.action.FunctionActionThrowsRuntimeExceptionModel" },
         new Object[]{ "com.example.action.FunctionActionThrowsThrowableModel" },
         new Object[]{ "com.example.action.UnsafeSpecificFunctionActionModel" },
