@@ -1,0 +1,237 @@
+package org.realityforge.arez.extras;
+
+import java.util.List;
+import javax.annotation.Nonnull;
+import org.realityforge.arez.ComputedValue;
+import org.realityforge.arez.Node;
+import org.realityforge.arez.Observable;
+import org.realityforge.arez.Observer;
+import org.realityforge.arez.Spy;
+import org.realityforge.arez.Unsupported;
+import org.realityforge.arez.spy.TransactionInfo;
+
+@Unsupported( "This class relies on unsupported Spy API and will co-evolve with Spy capabilities." )
+public final class WhyRun
+{
+  @Nonnull
+  private final Spy _spy;
+
+  public WhyRun( @Nonnull final Spy spy )
+  {
+    _spy = spy;
+  }
+
+  /**
+   * Return a human readable explanation why the current transaction is running.
+   * This method will cause an invariant failure if called outside a transaction.
+   *
+   * @return a human readable explanation why the current transaction is running.
+   */
+  @Unsupported( "Expect the output format to change and evolve over time as Spy capabilities improve." )
+  @Nonnull
+  public String whyRun()
+  {
+    if ( !getSpy().isTransactionActive() )
+    {
+      return "WhyRun invoked when no active transaction.";
+    }
+    else
+    {
+      final TransactionInfo transaction = getSpy().getTransaction();
+      return whyRun( transaction );
+    }
+  }
+
+  @Nonnull
+  String whyRun( @Nonnull final TransactionInfo transaction )
+  {
+    if ( !transaction.isTracking() )
+    {
+      return "WhyRun Tracking transaction '" + transaction.getName() + "'.";
+    }
+    else
+    {
+      //final TransactionInfo transaction = getSpy().getTransaction();
+      return whyRun( transaction.getTracker() );
+    }
+  }
+
+  /**
+   * Return a human readable explanation why the specified observer is/will run.
+   *
+   * @return a human readable explanation why the node is/will run.
+   */
+  @Unsupported( "Expect the output format to change and evolve over time as Spy capabilities improve." )
+  @Nonnull
+  public String whyRun( @Nonnull final Node node )
+  {
+    if ( node instanceof ComputedValue )
+    {
+      return whyRun( (ComputedValue<?>) node );
+    }
+    else if ( node instanceof Observer )
+    {
+      final Observer observer = (Observer) node;
+      if ( getSpy().isComputedValue( observer ) )
+      {
+        return whyRun( getSpy().asComputedValue( observer ) );
+      }
+      else
+      {
+        return whyRun( observer );
+      }
+    }
+    else if ( node instanceof Observable )
+    {
+      return whyRun( (Observable) node );
+    }
+    else
+    {
+      return "WhyRun? " + node.getClass().getSimpleName() + " '" + node.getName() + "' is not a " +
+             "known type of node. Unable to determine WhyRun?";
+    }
+  }
+
+  @Nonnull
+  String whyRun( @Nonnull final Observer observer )
+  {
+    final StringBuilder sb = new StringBuilder();
+    sb.append( "WhyRun? Observer '" );
+    sb.append( observer.getName() );
+    sb.append( "':\n" );
+    sb.append( "  * Status: " );
+    final boolean running = getSpy().isRunning( observer );
+    if ( running )
+    {
+      final TransactionInfo transaction = getSpy().getTransaction();
+      if ( transaction.isTracking() && transaction.getTracker() == observer )
+      {
+        sb.append( "Running (Current Transaction)" );
+      }
+      else
+      {
+        sb.append( "Running (Suspended Transaction)" );
+      }
+    }
+    else if ( observer.isDisposed() )
+    {
+      sb.append( "Disposed" );
+    }
+    else if ( getSpy().isScheduled( observer ) )
+    {
+      sb.append( "Scheduled" );
+    }
+    else
+    {
+      sb.append( "Idle" );
+    }
+    sb.append( "\n" );
+    sb.append( "  * The Observer runs in a " );
+    sb.append( getSpy().isReadOnly( observer ) ? "read only" : "read-write" );
+    sb.append( " tracking transaction\n" );
+    sb.append( "  * The Observer will run if any of the following observables change:\n" );
+    for ( final Observable observable : getSpy().getDependencies( observer ) )
+    {
+      sb.append( "    - " );
+      describeObservable( sb, observable );
+      sb.append( "\n" );
+    }
+    if ( running )
+    {
+      sb.append( "    -  (... or any other observable that is accessed in the remainder of the observers transaction)\n" );
+    }
+    return sb.toString();
+  }
+
+  private void describeObservable( @Nonnull final StringBuilder sb,
+                                   @Nonnull final Observable observable )
+  {
+    if ( getSpy().isComputedValue( observable ) )
+    {
+      sb.append( "ComputedValue '" );
+      sb.append( getSpy().asComputedValue( observable ).getName() );
+      sb.append( "'" );
+    }
+    else
+    {
+      sb.append( "Observable '" );
+      sb.append( observable.getName() );
+      sb.append( "'" );
+    }
+  }
+
+  @Nonnull
+  String whyRun( @Nonnull final Observable observable )
+  {
+    if ( getSpy().isComputedValue( observable ) )
+    {
+      return whyRun( getSpy().asComputedValue( observable ) );
+    }
+    else
+    {
+      return "WhyRun? Observable '" + observable.getName() + "' is passive and is not explicitly scheduled to run.";
+    }
+  }
+
+  @Nonnull
+  String whyRun( @Nonnull final ComputedValue<?> computedValue )
+  {
+    final StringBuilder sb = new StringBuilder();
+    sb.append( "WhyRun? ComputedValue '" );
+    sb.append( computedValue.getName() );
+    sb.append( "':\n" );
+    sb.append( "  * Status: " );
+    if ( getSpy().isActive( computedValue ) )
+    {
+      final List<Observer> observers = getSpy().getObservers( computedValue );
+      sb.append( "Active (The value is used by" );
+      sb.append( observers.size() );
+      sb.append( " observers)\n" );
+      sb.append( "  * If the ComputedValue changes the following observers will react:\n" );
+      for ( final Observer observer : observers )
+      {
+        sb.append( "    - " );
+        if ( getSpy().isComputedValue( observer ) )
+        {
+          sb.append( "ComputedValue '" );
+          sb.append( getSpy().asComputedValue( observer ).getName() );
+          sb.append( "'" );
+        }
+        else
+        {
+          sb.append( "Observer '" );
+          sb.append( observer.getName() );
+          sb.append( "'" );
+        }
+        sb.append( "\n" );
+      }
+
+      sb.append( "  * The ComputedValue will recalculate if any of the following observables change\n" );
+      for ( final Observable observable : getSpy().getDependencies( computedValue ) )
+      {
+        sb.append( "    - " );
+        describeObservable( sb, observable );
+        sb.append( "\n" );
+      }
+      if ( getSpy().isTransactionActive() && getSpy().isComputing( computedValue ) )
+      {
+        sb.append( "    -  (... or any other observable is accessed the remainder of the transaction computing value)\n" );
+      }
+    }
+    else if ( computedValue.isDisposed() )
+    {
+      sb.append( "Disposed (The value has been disposed)\n" );
+    }
+    else
+    {
+      sb.append( "Inactive (The value is not used by any observers)\n" );
+    }
+    return sb.toString();
+  }
+
+  @Nonnull
+  private Spy getSpy()
+  {
+    return _spy;
+  }
+}
