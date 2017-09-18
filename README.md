@@ -29,8 +29,6 @@ TODO:
 
 * Support whyRun if config enables it. Possibly through Spy interface?
 
-* Add an Active Observable/Observer/ComputedValue that allows user to supply onActivate, onDeactivate, onStale
-
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
 * Introduce a separate type of invariant check that detects bad usage. Current invariant checks combine

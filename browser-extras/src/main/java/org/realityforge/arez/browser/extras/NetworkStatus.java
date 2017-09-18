@@ -35,15 +35,15 @@ public class NetworkStatus
     return isRawOnLine();
   }
 
-  @OnActivate( name = "onLine" )
-  public final void onActivate()
+  @OnActivate
+  final void onOnLineActivate()
   {
     DomGlobal.window.addEventListener( "online", _listener );
     DomGlobal.window.addEventListener( "offline", _listener );
   }
 
-  @OnDeactivate( name = "onLine" )
-  public final void onDeactivate()
+  @OnDeactivate
+  final void onOnLineDeactivate()
   {
     DomGlobal.window.removeEventListener( "online", _listener );
     DomGlobal.window.removeEventListener( "offline", _listener );
@@ -61,7 +61,7 @@ public class NetworkStatus
   }
 
   @Action
-  public void updateOnlineStatus()
+  void updateOnlineStatus()
   {
     setRawOnLine( DomGlobal.navigator.onLine );
   }

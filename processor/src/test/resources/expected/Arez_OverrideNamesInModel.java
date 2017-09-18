@@ -30,7 +30,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_myField = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myField" : null );
-    this.$$arez$$_myComputed = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myComputed" : null, super::compute, Objects::equals );
+    this.$$arez$$_myComputed = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myComputed" : null, super::compute, Objects::equals, null, null, null );
   }
 
   private String $$arez$$_id() {

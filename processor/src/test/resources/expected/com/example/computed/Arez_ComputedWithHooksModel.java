@@ -8,7 +8,7 @@ import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_BasicComputedModel extends BasicComputedModel implements Disposable {
+public final class Arez_ComputedWithHooksModel extends ComputedWithHooksModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -21,15 +21,15 @@ public final class Arez_BasicComputedModel extends BasicComputedModel implements
   @Nonnull
   private final ComputedValue<Long> $$arez$$_time;
 
-  public Arez_BasicComputedModel(@Nonnull final ArezContext $$arez$$_context) {
+  public Arez_ComputedWithHooksModel(@Nonnull final ArezContext $$arez$$_context) {
     super();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null, super::getTime, Objects::equals, null, null, null );
+    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null, super::getTime, Objects::equals, this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale );
   }
 
   private String $$arez$$_id() {
-    return "BasicComputedModel." + $$arez$$_id + ".";
+    return "ComputedWithHooksModel." + $$arez$$_id + ".";
   }
 
   @Override

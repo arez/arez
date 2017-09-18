@@ -28,6 +28,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.action.BasicFunctionActionModel" },
         new Object[]{ "com.example.action.BasicActionModel" },
         new Object[]{ "com.example.computed.ComputedWithNameVariationsModel" },
+        new Object[]{ "com.example.computed.ComputedWithHooksModel" },
         new Object[]{ "com.example.computed.BasicComputedModel" },
         new Object[]{ "NotDisposableModel" },
         new Object[]{ "ObservableGuessingModel" },

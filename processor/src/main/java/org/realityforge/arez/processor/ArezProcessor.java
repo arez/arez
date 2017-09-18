@@ -739,29 +739,61 @@ public final class ArezProcessor
     }
     for ( final ComputedDescriptor computed : descriptor.getComputeds() )
     {
+      final ArrayList<Object> parameters = new ArrayList<>();
+      final StringBuilder sb = new StringBuilder();
+      sb.append( "this.$N = this.$N.createComputedValue( this.$N.areNamesEnabled() ? " );
+      parameters.add( FIELD_PREFIX + computed.getName() );
+      parameters.add( CONTEXT_FIELD_NAME );
+      parameters.add( CONTEXT_FIELD_NAME );
       if ( descriptor.isSingleton() )
       {
-        builder.addStatement( "this.$N = this.$N.createComputedValue( this.$N.areNamesEnabled() ? $S : null, " +
-                              "super::$N, $T::equals )",
-                              FIELD_PREFIX + computed.getName(),
-                              CONTEXT_FIELD_NAME,
-                              CONTEXT_FIELD_NAME,
-                              getPrefix( descriptor ) + computed.getName(),
-                              computed.getComputed().getSimpleName().toString(),
-                              Objects.class );
+        sb.append( "$S" );
+        parameters.add( getPrefix( descriptor ) + computed.getName() );
       }
       else
       {
-        builder.addStatement( "this.$N = this.$N.createComputedValue( this.$N.areNamesEnabled() ? $N() + $S : null, " +
-                              "super::$N, $T::equals )",
-                              FIELD_PREFIX + computed.getName(),
-                              CONTEXT_FIELD_NAME,
-                              CONTEXT_FIELD_NAME,
-                              ID_FIELD_NAME,
-                              computed.getName(),
-                              computed.getComputed().getSimpleName().toString(),
-                              Objects.class );
+        sb.append( "$N() + $S" );
+        parameters.add( ID_FIELD_NAME );
+        parameters.add( computed.getName() );
       }
+      sb.append( " : null, super::$N, $T::equals, " );
+      parameters.add( computed.getComputed().getSimpleName().toString() );
+      parameters.add( Objects.class );
+
+      if ( null != computed.getOnActivate() )
+      {
+        sb.append( "this::$N" );
+        parameters.add( computed.getOnActivate().getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+      sb.append( ", " );
+
+      if ( null != computed.getOnDeactivate() )
+      {
+        sb.append( "this::$N" );
+        parameters.add( computed.getOnDeactivate().getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+      sb.append( ", " );
+
+      if ( null != computed.getOnStale() )
+      {
+        sb.append( "this::$N" );
+        parameters.add( computed.getOnStale().getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+
+      sb.append( " )" );
+      builder.addStatement( sb.toString(), parameters.toArray() );
     }
 
     return builder.build();

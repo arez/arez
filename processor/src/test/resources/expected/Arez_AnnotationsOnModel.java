@@ -30,7 +30,7 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
-    this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "someValue" : null, super::someValue, Objects::equals );
+    this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "someValue" : null, super::someValue, Objects::equals, null, null, null );
   }
 
   private String $$arez$$_id() {

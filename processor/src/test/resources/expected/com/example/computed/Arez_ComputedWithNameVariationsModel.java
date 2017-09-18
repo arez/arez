@@ -34,10 +34,10 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
     super();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
-    this.$$arez$$_helper = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "helper" : null, super::helper, Objects::equals );
-    this.$$arez$$_ready = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "ready" : null, super::isReady, Objects::equals );
-    this.$$arez$$_foo = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "foo" : null, super::myFooHelperMethod, Objects::equals );
-    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null, super::getTime, Objects::equals );
+    this.$$arez$$_helper = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "helper" : null, super::helper, Objects::equals, null, null, null );
+    this.$$arez$$_ready = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "ready" : null, super::isReady, Objects::equals, null, null, null );
+    this.$$arez$$_foo = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "foo" : null, super::myFooHelperMethod, Objects::equals, null, null, null );
+    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null, super::getTime, Objects::equals, null, null, null );
   }
 
   private String $$arez$$_id() {

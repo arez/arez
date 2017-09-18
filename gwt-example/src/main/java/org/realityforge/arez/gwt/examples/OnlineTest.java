@@ -16,10 +16,6 @@ public class OnlineTest
     final ArezContext context = new ArezContext();
 
     final NetworkStatus networkStatus = NetworkStatus.create( context );
-    networkStatus.updateOnlineStatus();
-
-    //TODO: This line should not be needed once processor enhanced
-    networkStatus.onActivate();
 
     context.autorun( "Status Printer", false, () -> printNetworkStatus( networkStatus ), true );
   }

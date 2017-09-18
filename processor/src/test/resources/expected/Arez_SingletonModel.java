@@ -25,7 +25,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
     super();
     this.$$arez$$_context = $$arez$$_context;
     this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.time" : null );
-    this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.someValue" : null, super::someValue, Objects::equals );
+    this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.someValue" : null, super::someValue, Objects::equals, null, null, null );
   }
 
   @Override
