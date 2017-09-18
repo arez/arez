@@ -54,13 +54,10 @@ TODO:
 
 ### GWT TODO
 
-* Add a browser-extras project that combines various browser utils and saves the results in state.
-  This will probably involve bringing in Elemental2. This may result in tools like
-
-    - URL Location. Have state for proposed location, actual location and target location
-      and listen to hash changes. Listen to changes based on window object. If "proposed"
-      matches the "target" then proposed succeeds. Target is set when code wants to initiate
-      changes.
+* URL Location. Have state for proposed location, actual location and target location
+  and listen to hash changes. Listen to changes based on window object. If "proposed"
+  matches the "target" then proposed succeeds. Target is set when code wants to initiate
+  changes.
 
 ## Architecture v2 Notes
 
