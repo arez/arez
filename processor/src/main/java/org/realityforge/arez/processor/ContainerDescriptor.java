@@ -26,6 +26,8 @@ final class ContainerDescriptor
   @Nonnull
   private final TypeElement _element;
   @Nullable
+  private ExecutableElement _postConstruct;
+  @Nullable
   private ExecutableElement _containerId;
   @Nullable
   private ExecutableElement _preDispose;
@@ -149,6 +151,17 @@ final class ContainerDescriptor
   void setContainerId( @Nonnull final ExecutableElement containerId )
   {
     _containerId = containerId;
+  }
+
+  @Nullable
+  ExecutableElement getPostConstruct()
+  {
+    return _postConstruct;
+  }
+
+  void setPostConstruct( @Nullable final ExecutableElement postConstruct )
+  {
+    _postConstruct = postConstruct;
   }
 
   @Nullable

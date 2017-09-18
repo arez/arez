@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 import javax.annotation.Nonnull;
+import javax.annotation.PostConstruct;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.Computed;
@@ -37,8 +38,12 @@ public class IdleStatus
 
   IdleStatus()
   {
-    _lastActivityAt = System.currentTimeMillis();
-    //TODO: This should be in @PostConstruct method - resetLastActivityTime();
+  }
+
+  @PostConstruct
+  final void postConstruct()
+  {
+    resetLastActivityTime();
   }
 
   @Computed

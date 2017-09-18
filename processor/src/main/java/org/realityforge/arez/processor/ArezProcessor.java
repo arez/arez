@@ -177,7 +177,9 @@ public final class ArezProcessor
     }
     else
     {
-      builder.addStatement( "return ($T) this.$N.get()", TypeName.get( computed.getReturnType() ).box(), FIELD_PREFIX + descriptor.getName() );
+      builder.addStatement( "return ($T) this.$N.get()",
+                            TypeName.get( computed.getReturnType() ).box(),
+                            FIELD_PREFIX + descriptor.getName() );
     }
 
     return builder.build();
@@ -810,6 +812,12 @@ public final class ArezProcessor
 
       sb.append( " )" );
       builder.addStatement( sb.toString(), parameters.toArray() );
+    }
+
+    final ExecutableElement postConstruct = descriptor.getPostConstruct();
+    if ( null != postConstruct )
+    {
+      builder.addStatement( "super.$N()", postConstruct.getSimpleName().toString() );
     }
 
     return builder.build();

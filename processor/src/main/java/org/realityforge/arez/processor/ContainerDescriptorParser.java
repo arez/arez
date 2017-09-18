@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Nonnull;
+import javax.annotation.PostConstruct;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
@@ -206,6 +207,7 @@ final class ContainerDescriptorParser
     final Observable observable = method.getAnnotation( Observable.class );
     final Computed computed = method.getAnnotation( Computed.class );
     final ContainerId containerId = method.getAnnotation( ContainerId.class );
+    final PostConstruct postConstruct = method.getAnnotation( PostConstruct.class );
     final PreDispose preDispose = method.getAnnotation( PreDispose.class );
     final PostDispose postDispose = method.getAnnotation( PostDispose.class );
     final OnActivate onActivate = method.getAnnotation( OnActivate.class );
@@ -230,6 +232,11 @@ final class ContainerDescriptorParser
     else if ( null != containerId )
     {
       processContainerId( descriptor, method );
+      return true;
+    }
+    else if ( null != postConstruct )
+    {
+      processPostConstruct( descriptor, method );
       return true;
     }
     else if ( null != preDispose )
@@ -272,6 +279,7 @@ final class ContainerDescriptorParser
                    Observable.class,
                    Computed.class,
                    ContainerId.class,
+                   PostConstruct.class,
                    PreDispose.class,
                    PostDispose.class,
                    OnActivate.class,
@@ -335,6 +343,38 @@ final class ContainerDescriptorParser
     else
     {
       descriptor.setContainerId( method );
+    }
+  }
+
+  private static void processPostConstruct( @Nonnull final ContainerDescriptor descriptor,
+                                            @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    if ( method.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ArezProcessorException( "@PostConstruct target must not be static", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ArezProcessorException( "@PostConstruct target must not be private", method );
+    }
+    else if ( TypeKind.VOID != method.getReturnType().getKind() )
+    {
+      throw new ArezProcessorException( "@PostConstruct target must not return a value", method );
+    }
+    else if ( 0 != method.getParameters().size() )
+    {
+      throw new ArezProcessorException( "@PostConstruct target must not have any parameters", method );
+    }
+    final ExecutableElement existing = descriptor.getPostConstruct();
+    if ( null != existing )
+    {
+      throw new ArezProcessorException( "@PostConstruct target duplicates existing method named " +
+                                        existing.getSimpleName(), method );
+    }
+    else
+    {
+      descriptor.setPostConstruct( method );
     }
   }
 
