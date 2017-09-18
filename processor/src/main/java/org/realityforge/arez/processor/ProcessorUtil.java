@@ -88,10 +88,6 @@ final class ProcessorUtil
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
-    else if ( element.getModifiers().contains( Modifier.PROTECTED ) )
-    {
-      builder.addModifiers( Modifier.PROTECTED );
-    }
   }
 
   static void copyAccessModifiers( @Nonnull final ExecutableElement element, @Nonnull final MethodSpec.Builder builder )
