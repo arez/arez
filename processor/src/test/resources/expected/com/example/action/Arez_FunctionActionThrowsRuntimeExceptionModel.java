@@ -1,3 +1,5 @@
+package com.example.action;
+
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;

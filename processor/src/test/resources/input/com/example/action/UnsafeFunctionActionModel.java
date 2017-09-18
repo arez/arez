@@ -1,12 +1,14 @@
+package com.example.action;
+
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.Container;
 
 @Container
-public class FunctionActionThrowsRuntimeExceptionModel
+public class UnsafeFunctionActionModel
 {
   @Action
   public int doStuff( final long time )
-    throws RuntimeException
+    throws Exception
   {
     return 0;
   }

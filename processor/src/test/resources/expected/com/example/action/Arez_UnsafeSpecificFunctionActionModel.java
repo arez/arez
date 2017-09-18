@@ -1,3 +1,6 @@
+package com.example.action;
+
+import java.text.ParseException;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
@@ -6,7 +9,7 @@ import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_UnsafeFunctionActionModel extends UnsafeFunctionActionModel implements Disposable {
+public final class Arez_UnsafeSpecificFunctionActionModel extends UnsafeSpecificFunctionActionModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -16,14 +19,14 @@ public final class Arez_UnsafeFunctionActionModel extends UnsafeFunctionActionMo
   @Nonnull
   private final ArezContext $$arez$$_context;
 
-  public Arez_UnsafeFunctionActionModel(@Nonnull final ArezContext $$arez$$_context) {
+  public Arez_UnsafeSpecificFunctionActionModel(@Nonnull final ArezContext $$arez$$_context) {
     super();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
   }
 
   private String $$arez$$_id() {
-    return "UnsafeFunctionActionModel." + $$arez$$_id + ".";
+    return "UnsafeSpecificFunctionActionModel." + $$arez$$_id + ".";
   }
 
   @Override
@@ -39,7 +42,7 @@ public final class Arez_UnsafeFunctionActionModel extends UnsafeFunctionActionMo
   }
 
   @Override
-  public int doStuff(final long time) throws Exception {
+  public int doStuff(final long time) throws ParseException {
     assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
@@ -56,8 +59,14 @@ public final class Arez_UnsafeFunctionActionModel extends UnsafeFunctionActionMo
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doStuff", new Object[]{time}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
       }
       return $$arez$$_result;
-    } catch( final Exception e ) {
+    } catch( final ParseException e ) {
       throw e;
+    } catch( final RuntimeException e ) {
+      $$arez$$_throwable = e;
+      throw e;
+    } catch( final Exception e ) {
+      $$arez$$_throwable = e;
+      throw new IllegalStateException( e );
     } catch( final Error e ) {
       $$arez$$_throwable = e;
       throw e;

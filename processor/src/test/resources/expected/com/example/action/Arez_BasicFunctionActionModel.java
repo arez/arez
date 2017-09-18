@@ -1,3 +1,5 @@
+package com.example.action;
+
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ArezContext;
@@ -6,7 +8,7 @@ import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActionThrowsThrowableModel implements Disposable {
+public final class Arez_BasicFunctionActionModel extends BasicFunctionActionModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -16,14 +18,14 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
   @Nonnull
   private final ArezContext $$arez$$_context;
 
-  public Arez_FunctionActionThrowsThrowableModel(@Nonnull final ArezContext $$arez$$_context) {
+  public Arez_BasicFunctionActionModel(@Nonnull final ArezContext $$arez$$_context) {
     super();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
   }
 
   private String $$arez$$_id() {
-    return "FunctionActionThrowsThrowableModel." + $$arez$$_id + ".";
+    return "BasicFunctionActionModel." + $$arez$$_id + ".";
   }
 
   @Override
@@ -39,7 +41,7 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
   }
 
   @Override
-  public int doStuff(final long time) throws Throwable {
+  public int doStuff(final long time) {
     assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;
@@ -49,15 +51,25 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + "doStuff", new Object[]{time} ) );
       }
-      final int $$arez$$_result = this.$$arez$$_context.function(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null, true, () -> super.doStuff(time) );
+      final int $$arez$$_result = this.$$arez$$_context.safeFunction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null, true, () -> super.doStuff(time) );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doStuff", new Object[]{time}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
       }
       return $$arez$$_result;
-    } catch( final Throwable e ) {
+    } catch( final RuntimeException e ) {
+      $$arez$$_throwable = e;
       throw e;
+    } catch( final Exception e ) {
+      $$arez$$_throwable = e;
+      throw new IllegalStateException( e );
+    } catch( final Error e ) {
+      $$arez$$_throwable = e;
+      throw e;
+    } catch( final Throwable e ) {
+      $$arez$$_throwable = e;
+      throw new IllegalStateException( e );
     } finally {
       if ( !$$arez$$_completed ) {
         final Integer $$arez$$_result = null;

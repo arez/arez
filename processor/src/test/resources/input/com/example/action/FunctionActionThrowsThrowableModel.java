@@ -1,13 +1,14 @@
-import java.text.ParseException;
+package com.example.action;
+
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.Container;
 
 @Container
-public class UnsafeSpecificFunctionActionModel
+public class FunctionActionThrowsThrowableModel
 {
   @Action
   public int doStuff( final long time )
-    throws ParseException
+    throws Throwable
   {
     return 0;
   }
