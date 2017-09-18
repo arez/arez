@@ -18,9 +18,8 @@ public class OnlineTest
     final NetworkStatus networkStatus = NetworkStatus.create( context );
     networkStatus.updateOnlineStatus();
 
-    //TODO: Bake the next couple of listeners into onActivate+onDeactivate of ComputedValue
-    DomGlobal.window.addEventListener( "online", e -> networkStatus.updateOnlineStatus() );
-    DomGlobal.window.addEventListener( "offline", e -> networkStatus.updateOnlineStatus() );
+    //TODO: This line should not be needed once processor enhanced
+    networkStatus.onActivate();
 
     context.autorun( "Status Printer", false, () -> printNetworkStatus( networkStatus ), true );
   }
