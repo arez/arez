@@ -19,6 +19,7 @@ public class ArezProcessorTest
       {
         new Object[]{ "com.example.SubpackageModel" },
         new Object[]{ "com.example.action.ActionTypeParametersModel" },
+        new Object[]{ "com.example.action.NewTypeParametersModel" },
         new Object[]{ "com.example.action.FunctionActionThrowsRuntimeExceptionModel" },
         new Object[]{ "com.example.action.FunctionActionThrowsThrowableModel" },
         new Object[]{ "com.example.action.UnsafeSpecificFunctionActionModel" },
@@ -31,6 +32,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.computed.ComputedWithNameVariationsModel" },
         new Object[]{ "com.example.computed.ComputedWithHooksModel" },
         new Object[]{ "com.example.computed.BasicComputedModel" },
+        new Object[]{ "com.example.computed.TypeParametersModel" },
+        new Object[]{ "ObservableTypeParametersModel" },
         new Object[]{ "TypeParametersOnModel" },
         new Object[]{ "NotDisposableModel" },
         new Object[]{ "ObservableGuessingModel" },

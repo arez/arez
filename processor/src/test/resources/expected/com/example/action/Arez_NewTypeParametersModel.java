@@ -8,7 +8,7 @@ import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_ActionTypeParametersModel<T extends Integer> extends ActionTypeParametersModel<T> implements Disposable {
+public final class Arez_NewTypeParametersModel extends NewTypeParametersModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -18,14 +18,14 @@ public final class Arez_ActionTypeParametersModel<T extends Integer> extends Act
   @Nonnull
   private final ArezContext $$arez$$_context;
 
-  public Arez_ActionTypeParametersModel(@Nonnull final ArezContext $$arez$$_context) {
+  public Arez_NewTypeParametersModel(@Nonnull final ArezContext $$arez$$_context) {
     super();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_context = $$arez$$_context;
   }
 
   private String $$arez$$_id() {
-    return "ActionTypeParametersModel." + $$arez$$_id + ".";
+    return "NewTypeParametersModel." + $$arez$$_id + ".";
   }
 
   @Override
@@ -41,7 +41,7 @@ public final class Arez_ActionTypeParametersModel<T extends Integer> extends Act
   }
 
   @Override
-  public T doStuff() {
+  public <T extends Integer> T doStuff() {
     assert !$$arez$$_disposed;
     Throwable $$arez$$_throwable = null;
     boolean $$arez$$_completed = false;

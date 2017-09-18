@@ -10,6 +10,7 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.WildcardTypeName;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -164,12 +165,20 @@ public final class ArezProcessor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( computed.getSimpleName().toString() );
     ProcessorUtil.copyAccessModifiers( computed, builder );
     ProcessorUtil.copyExceptions( computed, builder );
+    ProcessorUtil.copyTypeParameters( computed, builder );
     ProcessorUtil.copyDocumentedAnnotations( computed, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = computed.getReturnType();
     builder.returns( TypeName.get( returnType ) );
 
-    builder.addStatement( "return this.$N.get()", FIELD_PREFIX + descriptor.getName() );
+    if ( computed.getTypeParameters().isEmpty() )
+    {
+      builder.addStatement( "return this.$N.get()", FIELD_PREFIX + descriptor.getName() );
+    }
+    else
+    {
+      builder.addStatement( "return ($T) this.$N.get()", TypeName.get( computed.getReturnType() ).box(), FIELD_PREFIX + descriptor.getName() );
+    }
 
     return builder.build();
   }
@@ -186,6 +195,7 @@ public final class ArezProcessor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( action.getSimpleName().toString() );
     ProcessorUtil.copyAccessModifiers( action, builder );
     ProcessorUtil.copyExceptions( action, builder );
+    ProcessorUtil.copyTypeParameters( action, builder );
     ProcessorUtil.copyDocumentedAnnotations( action, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = action.getReturnType();
@@ -444,7 +454,8 @@ public final class ArezProcessor
     final ExecutableElement setter = observable.getSetter();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( setter.getSimpleName().toString() );
     ProcessorUtil.copyAccessModifiers( setter, builder );
-    ProcessorUtil.copyExceptions( getter, builder );
+    ProcessorUtil.copyExceptions( setter, builder );
+    ProcessorUtil.copyTypeParameters( setter, builder );
     ProcessorUtil.copyDocumentedAnnotations( setter, builder );
 
     builder.addAnnotation( Override.class );
@@ -576,6 +587,7 @@ public final class ArezProcessor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( getter.getSimpleName().toString() );
     ProcessorUtil.copyAccessModifiers( getter, builder );
     ProcessorUtil.copyExceptions( getter, builder );
+    ProcessorUtil.copyTypeParameters( getter, builder );
     ProcessorUtil.copyDocumentedAnnotations( getter, builder );
 
     builder.addAnnotation( Override.class );
@@ -631,9 +643,12 @@ public final class ArezProcessor
     }
     for ( final ComputedDescriptor computed : descriptor.getComputeds() )
     {
+      final TypeName parameterType =
+        computed.getComputed().getTypeParameters().isEmpty() ?
+        TypeName.get( computed.getComputed().getReturnType() ).box() :
+        WildcardTypeName.subtypeOf( TypeName.OBJECT );
       final ParameterizedTypeName typeName =
-        ParameterizedTypeName.get( COMPUTED_VALUE_CLASSNAME,
-                                   TypeName.get( computed.getComputed().getReturnType() ).box() );
+        ParameterizedTypeName.get( COMPUTED_VALUE_CLASSNAME, parameterType );
       final FieldSpec.Builder field =
         FieldSpec.builder( typeName,
                            FIELD_PREFIX + computed.getName(),
@@ -676,6 +691,7 @@ public final class ArezProcessor
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
     ProcessorUtil.copyAccessModifiers( constructor, builder );
     ProcessorUtil.copyExceptions( constructor, builder );
+    ProcessorUtil.copyTypeParameters( constructor, builder );
 
     final StringBuilder superCall = new StringBuilder();
     superCall.append( "super(" );

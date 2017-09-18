@@ -20,6 +20,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
@@ -132,6 +133,14 @@ final class ProcessorUtil
     for ( final TypeMirror thrownType : method.getThrownTypes() )
     {
       builder.addException( TypeName.get( thrownType ) );
+    }
+  }
+
+  static void copyTypeParameters( @Nonnull final ExecutableElement action, @Nonnull final MethodSpec.Builder builder )
+  {
+    for ( final TypeParameterElement typeParameter : action.getTypeParameters() )
+    {
+      builder.addTypeVariable( TypeVariableName.get( typeParameter ) );
     }
   }
 }
