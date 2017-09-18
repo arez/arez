@@ -30,6 +30,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.computed.ComputedWithNameVariationsModel" },
         new Object[]{ "com.example.computed.ComputedWithHooksModel" },
         new Object[]{ "com.example.computed.BasicComputedModel" },
+        new Object[]{ "TypeParametersOnModel" },
         new Object[]{ "NotDisposableModel" },
         new Object[]{ "ObservableGuessingModel" },
         new Object[]{ "AnnotationsOnModel" },
