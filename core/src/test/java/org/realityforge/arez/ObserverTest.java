@@ -533,6 +533,66 @@ public class ObserverTest
   }
 
   @Test
+  public void setState_onComputedValue()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newDerivation( context );
+    final Observable derivedValue = observer.getDerivedValue();
+    setCurrentTransaction( observer );
+
+    final Observer watcher = ensureDerivationHasObserver( observer );
+    watcher.setState( ObserverState.UP_TO_DATE );
+
+    final TestProcedure onStale = new TestProcedure();
+
+    observer.setOnStale( onStale );
+
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+
+    observer.setState( ObserverState.INACTIVE );
+
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( onStale.getCalls(), 0 );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( onStale.getCalls(), 0 );
+
+    observer.setState( ObserverState.POSSIBLY_STALE );
+
+    assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( observer.isScheduled(), true );
+    assertEquals( onStale.getCalls(), 1 );
+    assertEquals( watcher.getState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( derivedValue.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
+
+    observer.clearScheduledFlag();
+    context.getScheduler().getPendingObservers().remove( observer );
+    assertEquals( observer.isScheduled(), false );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( onStale.getCalls(), 1 );
+
+    watcher.setState( ObserverState.UP_TO_DATE );
+    derivedValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+
+    observer.setState( ObserverState.STALE );
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observer.isScheduled(), true );
+    assertEquals( onStale.getCalls(), 2 );
+
+    assertEquals( watcher.getState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( derivedValue.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
+  }
+
+  @Test
   public void setState_withNoReaction()
     throws Exception
   {

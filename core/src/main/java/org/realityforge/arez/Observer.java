@@ -86,7 +86,6 @@ public final class Observer
           computedValue,
           TransactionMode.READ_WRITE_OWNED,
           o -> computedValue.compute() );
-    setOnStale( () -> getDerivedValue().reportPossiblyChanged() );
   }
 
   Observer( @Nonnull final ArezContext context,
@@ -283,6 +282,12 @@ public final class Observer
       if ( ObserverState.UP_TO_DATE == originalState &&
            ( ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state ) )
       {
+        // Have to check _derivedValue here as isDerivation() will be true
+        // during construction, prior to _derivedValue being set.
+        if ( null != _derivedValue )
+        {
+          _derivedValue.reportPossiblyChanged();
+        }
         runHook( getOnStale(), ObserverError.ON_STALE_ERROR );
         if ( hasReaction() )
         {
