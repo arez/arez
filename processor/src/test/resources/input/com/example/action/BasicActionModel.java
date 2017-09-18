@@ -7,7 +7,7 @@ import org.realityforge.arez.annotations.Container;
 public class BasicActionModel
 {
   @Action
-  public void doStuff( final long time )
+  public void doStuff( final long time, float someOtherParameter )
   {
   }
 }
