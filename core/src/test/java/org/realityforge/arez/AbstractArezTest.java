@@ -23,6 +23,7 @@ public abstract class AbstractArezTest
     provider.setEnforceTransactionType( true );
     provider.setEnableSpy( true );
     getProxyLogger().setLogger( new TestLogger() );
+    Arez.setProvider( null );
   }
 
   @AfterMethod
