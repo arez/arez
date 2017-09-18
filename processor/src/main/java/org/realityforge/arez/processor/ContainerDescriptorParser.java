@@ -19,6 +19,9 @@ import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.ContainerId;
 import org.realityforge.arez.annotations.Observable;
+import org.realityforge.arez.annotations.OnActivate;
+import org.realityforge.arez.annotations.OnDeactivate;
+import org.realityforge.arez.annotations.OnStale;
 import org.realityforge.arez.annotations.PostDispose;
 import org.realityforge.arez.annotations.PreDispose;
 
@@ -61,6 +64,8 @@ final class ContainerDescriptorParser
 
     processMethods( typeElement, descriptor );
 
+    validateComputedHookMethods( descriptor );
+
     if ( descriptor.getObservables().isEmpty() &&
          descriptor.getActions().isEmpty() &&
          descriptor.getComputeds().isEmpty() )
@@ -70,6 +75,33 @@ final class ContainerDescriptorParser
     }
 
     return descriptor;
+  }
+
+  private static void validateComputedHookMethods( final ContainerDescriptor descriptor )
+    throws ArezProcessorException
+  {
+    for ( final ComputedDescriptor computed : descriptor.getComputeds() )
+    {
+      if ( !computed.hasComputed() )
+      {
+        if ( null != computed.getOnActivate() )
+        {
+          throw new ArezProcessorException( "@OnActivate exists but there is no corresponding @Computed",
+                                            computed.getOnActivate() );
+        }
+        else if ( null != computed.getOnDeactivate() )
+        {
+          throw new ArezProcessorException( "@OnDeactivate exists but there is no corresponding @Computed",
+                                            computed.getOnDeactivate() );
+        }
+        else
+        {
+          final ExecutableElement onStale = computed.getOnStale();
+          assert null != onStale;
+          throw new ArezProcessorException( "@OnStale exists but there is no corresponding @Computed", onStale );
+        }
+      }
+    }
   }
 
   private static void processMethods( @Nonnull final TypeElement typeElement,
@@ -125,6 +157,14 @@ final class ContainerDescriptorParser
       }
     }
 
+    linkUnAnnotatedObservables( descriptor, getters, setters );
+  }
+
+  private static void linkUnAnnotatedObservables( @Nonnull final ContainerDescriptor descriptor,
+                                                  @Nonnull final Map<String, ExecutableElement> getters,
+                                                  @Nonnull final Map<String, ExecutableElement> setters )
+    throws ArezProcessorException
+  {
     for ( final ObservableDescriptor observable : descriptor.getObservables() )
     {
       if ( !observable.hasSetter() )
@@ -168,6 +208,9 @@ final class ContainerDescriptorParser
     final ContainerId containerId = method.getAnnotation( ContainerId.class );
     final PreDispose preDispose = method.getAnnotation( PreDispose.class );
     final PostDispose postDispose = method.getAnnotation( PostDispose.class );
+    final OnActivate onActivate = method.getAnnotation( OnActivate.class );
+    final OnDeactivate onDeactivate = method.getAnnotation( OnDeactivate.class );
+    final OnStale onStale = method.getAnnotation( OnStale.class );
 
     if ( null != observable )
     {
@@ -199,6 +242,21 @@ final class ContainerDescriptorParser
       processPostDispose( descriptor, method );
       return true;
     }
+    else if ( null != onActivate )
+    {
+      processOnActivate( descriptor, onActivate, method );
+      return true;
+    }
+    else if ( null != onDeactivate )
+    {
+      processOnDeactivate( descriptor, onDeactivate, method );
+      return true;
+    }
+    else if ( null != onStale )
+    {
+      processOnStale( descriptor, onStale, method );
+      return true;
+    }
     else
     {
       return false;
@@ -215,7 +273,10 @@ final class ContainerDescriptorParser
                    Computed.class,
                    ContainerId.class,
                    PreDispose.class,
-                   PostDispose.class };
+                   PostDispose.class,
+                   OnActivate.class,
+                   OnDeactivate.class,
+                   OnStale.class };
     for ( int i = 0; i < annotationTypes.length; i++ )
     {
       final Class<? extends Annotation> type1 = annotationTypes[ i ];
@@ -314,6 +375,241 @@ final class ContainerDescriptorParser
     else
     {
       descriptor.setPreDispose( method );
+    }
+  }
+
+  private static void processOnActivate( @Nonnull final ContainerDescriptor descriptor,
+                                         @Nonnull final OnActivate annotation,
+                                         @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    if ( method.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ArezProcessorException( "@OnActivate target must not be static", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ArezProcessorException( "@OnActivate target must not be private", method );
+    }
+    else if ( !method.getParameters().isEmpty() )
+    {
+      throw new ArezProcessorException( "@OnActivate target must not have any parameters", method );
+    }
+    else if ( TypeKind.VOID != method.getReturnType().getKind() )
+    {
+      throw new ArezProcessorException( "@OnActivate target must not return a value", method );
+    }
+    else if ( !method.getThrownTypes().isEmpty() )
+    {
+      throw new ArezProcessorException( "@OnActivate target must not throw any exceptions", method );
+    }
+    final String name;
+    if ( annotation.name().equals( SENTINEL_NAME ) )
+    {
+      final String methodName = method.getSimpleName().toString();
+      final String suffix = "Activate";
+      final int suffixLength = suffix.length();
+      final int length = methodName.length();
+      if ( methodName.startsWith( "on" ) &&
+           methodName.endsWith( suffix ) &&
+           length > ( 2 + suffixLength ) &&
+           Character.isUpperCase( methodName.charAt( 2 ) ) )
+      {
+        name = Character.toLowerCase( methodName.charAt( 2 ) ) +
+               methodName.substring( 3, length - suffixLength );
+      }
+      else
+      {
+        throw new ArezProcessorException( "Unable to derive name for @OnActivate as does not match " +
+                                          "on[Name]" + suffix + " pattern. Please specify name.", method );
+      }
+    }
+    else
+    {
+      name = annotation.name();
+      if ( name.isEmpty() || !isJavaIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "Method annotated with @OnActivate specified invalid name " + name, method );
+      }
+    }
+    final ComputedDescriptor computed = descriptor.getComputed( name );
+
+    if ( null != computed )
+    {
+      final ExecutableElement existing = computed.getOnActivate();
+      if ( null != existing )
+      {
+        throw new ArezProcessorException( "@OnActivate target duplicates existing method named " +
+                                          existing.getSimpleName(),
+                                          method );
+      }
+      else
+      {
+        computed.setOnActivate( method );
+      }
+    }
+    else
+    {
+      final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
+      computedDescriptor.setOnActivate( method );
+      descriptor.addComputed( computedDescriptor );
+    }
+  }
+
+  private static void processOnDeactivate( @Nonnull final ContainerDescriptor descriptor,
+                                           @Nonnull final OnDeactivate annotation,
+                                           @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    if ( method.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ArezProcessorException( "@OnDeactivate target must not be static", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ArezProcessorException( "@OnDeactivate target must not be private", method );
+    }
+    else if ( !method.getParameters().isEmpty() )
+    {
+      throw new ArezProcessorException( "@OnDeactivate target must not have any parameters", method );
+    }
+    else if ( TypeKind.VOID != method.getReturnType().getKind() )
+    {
+      throw new ArezProcessorException( "@OnDeactivate target must not return a value", method );
+    }
+    else if ( !method.getThrownTypes().isEmpty() )
+    {
+      throw new ArezProcessorException( "@OnDeactivate target must not throw any exceptions", method );
+    }
+    final String name;
+    if ( annotation.name().equals( SENTINEL_NAME ) )
+    {
+      final String methodName = method.getSimpleName().toString();
+      final String suffix = "Deactivate";
+      final int suffixLength = suffix.length();
+      final int length = methodName.length();
+      if ( methodName.startsWith( "on" ) &&
+           methodName.endsWith( suffix ) &&
+           length > ( 2 + suffixLength ) &&
+           Character.isUpperCase( methodName.charAt( 2 ) ) )
+      {
+        name = Character.toLowerCase( methodName.charAt( 2 ) ) +
+               methodName.substring( 3, length - suffixLength );
+      }
+      else
+      {
+        throw new ArezProcessorException( "Unable to derive name for @OnDeactivate as does not match " +
+                                          "on[Name]" + suffix + " pattern. Please specify name.", method );
+      }
+    }
+    else
+    {
+      name = annotation.name();
+      if ( name.isEmpty() || !isJavaIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "Method annotated with @OnDeactivate specified invalid name " + name,
+                                          method );
+      }
+    }
+    final ComputedDescriptor computed = descriptor.getComputed( name );
+
+    if ( null != computed )
+    {
+      final ExecutableElement existing = computed.getOnDeactivate();
+      if ( null != existing )
+      {
+        throw new ArezProcessorException( "@OnDeactivate target duplicates existing method named " +
+                                          existing.getSimpleName(),
+                                          method );
+      }
+      else
+      {
+        computed.setOnDeactivate( method );
+      }
+    }
+    else
+    {
+      final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
+      computedDescriptor.setOnDeactivate( method );
+      descriptor.addComputed( computedDescriptor );
+    }
+  }
+
+  private static void processOnStale( @Nonnull final ContainerDescriptor descriptor,
+                                      @Nonnull final OnStale annotation,
+                                      @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    if ( method.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ArezProcessorException( "@OnStale target must not be static", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ArezProcessorException( "@OnStale target must not be private", method );
+    }
+    else if ( !method.getParameters().isEmpty() )
+    {
+      throw new ArezProcessorException( "@OnStale target must not have any parameters", method );
+    }
+    else if ( TypeKind.VOID != method.getReturnType().getKind() )
+    {
+      throw new ArezProcessorException( "@OnStale target must not return a value", method );
+    }
+    else if ( !method.getThrownTypes().isEmpty() )
+    {
+      throw new ArezProcessorException( "@OnStale target must not throw any exceptions", method );
+    }
+    final String name;
+    if ( annotation.name().equals( SENTINEL_NAME ) )
+    {
+      final String methodName = method.getSimpleName().toString();
+      final String suffix = "Stale";
+      final int suffixLength = suffix.length();
+      final int length = methodName.length();
+      if ( methodName.startsWith( "on" ) &&
+           methodName.endsWith( suffix ) &&
+           length > ( 2 + suffixLength ) &&
+           Character.isUpperCase( methodName.charAt( 2 ) ) )
+      {
+        name = Character.toLowerCase( methodName.charAt( 2 ) ) +
+               methodName.substring( 3, length - suffixLength );
+      }
+      else
+      {
+        throw new ArezProcessorException( "Unable to derive name for @OnStale as does not match " +
+                                          "on[Name]" + suffix + " pattern. Please specify name.", method );
+      }
+    }
+    else
+    {
+      name = annotation.name();
+      if ( name.isEmpty() || !isJavaIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "Method annotated with @OnStale specified invalid name " + name, method );
+      }
+    }
+    final ComputedDescriptor computed = descriptor.getComputed( name );
+
+    if ( null != computed )
+    {
+      final ExecutableElement existing = computed.getOnStale();
+      if ( null != existing )
+      {
+        throw new ArezProcessorException( "@OnStale target duplicates existing method named " +
+                                          existing.getSimpleName(),
+                                          method );
+      }
+      else
+      {
+        computed.setOnStale( method );
+      }
+    }
+    else
+    {
+      final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
+      computedDescriptor.setOnStale( method );
+      descriptor.addComputed( computedDescriptor );
     }
   }
 
@@ -436,13 +732,22 @@ final class ContainerDescriptorParser
     final ComputedDescriptor computed = descriptor.getComputed( name );
     if ( null != computed )
     {
-      throw new ArezProcessorException( "Method annotated with @Computed specified name " + name +
-                                        " that duplicates computed defined by method " +
-                                        computed.getComputed().getSimpleName(), method );
+      if ( computed.hasComputed() )
+      {
+        throw new ArezProcessorException( "Method annotated with @Computed specified name " + name +
+                                          " that duplicates computed defined by method " +
+                                          computed.getDefiner().getSimpleName(), method );
+      }
+      else
+      {
+        computed.setComputed( method );
+      }
     }
     else
     {
-      descriptor.addComputed( new ComputedDescriptor( name, method ) );
+      final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
+      computedDescriptor.setComputed( method );
+      descriptor.addComputed( computedDescriptor );
     }
   }
 
@@ -483,7 +788,7 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "Method annotated with @Action specified name " + name +
                                         " that duplicates @Computed defined by method " +
-                                        computed.getComputed().getSimpleName(), method );
+                                        computed.getDefiner().getSimpleName(), method );
     }
     final ObservableDescriptor observable = descriptor.getObservable( name );
     if ( null != observable )
@@ -599,7 +904,7 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "Method annotated with @Observable specified name " + name +
                                         " that duplicates @Computed defined by method " +
-                                        computed.getComputed().getSimpleName(), method );
+                                        computed.getDefiner().getSimpleName(), method );
     }
     final ObservableDescriptor observable = descriptor.findOrCreateObservable( name );
     if ( setter )
