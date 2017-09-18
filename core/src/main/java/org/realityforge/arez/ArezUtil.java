@@ -32,5 +32,4 @@ final class ArezUtil
       return "Exception generated whilst attempting to get supplied message.\n" + ThrowableUtil.throwableToString( t );
     }
   }
-
 }
