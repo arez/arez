@@ -117,11 +117,6 @@ public class IdleStatus
     _timeout = timeout;
   }
 
-  private long getIdleTimeout()
-  {
-    return getLastActivityAt() + getTimeout();
-  }
-
   public void setEvents( @Nonnull final Collection<String> events )
   {
     final Collection<String> oldEvents = _events;
@@ -153,6 +148,11 @@ public class IdleStatus
   void setLastActivityAt( final long lastActivityAt )
   {
     _lastActivityAt = lastActivityAt;
+  }
+
+  private long getIdleTimeout()
+  {
+    return getLastActivityAt() + getTimeout();
   }
 
   private long getTimeToWait()
