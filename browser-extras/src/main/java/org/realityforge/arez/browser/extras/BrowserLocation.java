@@ -90,6 +90,10 @@ public class BrowserLocation
       setLocation( targetLocation );
     }
     setHash( targetLocation );
+    /*
+     * setHash does not trigger a "hashchange" event so explicitly call the hook here
+     */
+    updateBrowserLocation();
   }
 
   /**
