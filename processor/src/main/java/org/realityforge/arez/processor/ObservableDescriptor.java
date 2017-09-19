@@ -78,4 +78,17 @@ final class ObservableDescriptor
   {
     _setter = Objects.requireNonNull( setter );
   }
+
+  @Nonnull
+  ExecutableElement getDefiner()
+  {
+    if ( null != _getter )
+    {
+      return _getter;
+    }
+    else
+    {
+      return Objects.requireNonNull( _setter );
+    }
+  }
 }
