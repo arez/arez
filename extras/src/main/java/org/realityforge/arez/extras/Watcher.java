@@ -67,8 +67,8 @@ public final class Watcher
     _observer = context.autorun( name, true, procedure, false );
     /*
      * Need to define autorun/Observer and have it assigned to variable before
-     * it can be run. This is incase the dispose() method is invoked as part of
-     * effect or the condition starts tru and calls dispose.
+     * it can be run. This is in-case the dispose() method is invoked as part of
+     * effect or the condition starts true and calls dispose.
      * Dispose would get a NullPointerException as _observer would be null.
      */
     context.triggerScheduler();
