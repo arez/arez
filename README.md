@@ -27,7 +27,8 @@ TODO:
 
 * Add container (a.k.a. scope) to actions, ComputedValue and Observables???
 
-* Support whyRun if config enables it. Possibly through Spy interface?
+* Enhance WhyRun and write tests for it. In browser environment use console group functions and
+  colorization to make it more attractive as a debugging experience.
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
