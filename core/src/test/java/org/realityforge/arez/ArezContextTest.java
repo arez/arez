@@ -683,6 +683,23 @@ public class ArezContextTest
   }
 
   @Test
+  public void autorun_minimumParametersForMutation()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    context.setNextNodeId( 22 );
+    final AtomicInteger callCount = new AtomicInteger();
+    final Observer observer = context.autorun( true, callCount::incrementAndGet );
+
+    assertEquals( observer.getName(), "Observer@22" );
+    assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.hasReaction(), true );
+    assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
   public void autorun_runImmediately()
     throws Exception
   {

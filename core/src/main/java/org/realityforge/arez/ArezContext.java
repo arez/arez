@@ -176,6 +176,19 @@ public final class ArezContext
   /**
    * Create an autorun observer and run immediately.
    *
+   * @param mutation true if the action may modify state, false otherwise.
+   * @param action   the action defining the observer.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer autorun( final boolean mutation, @Nonnull final Procedure action )
+  {
+    return autorun( null, mutation, action );
+  }
+
+  /**
+   * Create an autorun observer and run immediately.
+   *
    * @param name     the name of the observer.
    * @param mutation true if the action may modify state, false otherwise.
    * @param action   the action defining the observer.
