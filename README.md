@@ -40,7 +40,7 @@ TODO:
   - verifying the framework is used correctly
     - ComputedValues should not cause cycles during recalculation
 
-* Add @Memoized annotation to methods that makes the method call act as a ComputedValue based on parameters.
+* Add `@Memoized` annotation to methods that makes the method call act as a ComputedValue based on parameters.
   This could be a low priority as can "fake" it by defining a @Computed method tha invokes the method and returns
   values.
 
