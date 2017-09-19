@@ -90,12 +90,6 @@ public class IdleStatus
   }
 
   @Observable
-  public Collection<String> getEvents()
-  {
-    return _events;
-  }
-
-  @Observable
   void setRawIdle( final boolean rawIdle )
   {
     _rawIdle = rawIdle;
@@ -115,6 +109,12 @@ public class IdleStatus
   public void setTimeout( final long timeout )
   {
     _timeout = timeout;
+  }
+
+  @Observable
+  public Collection<String> getEvents()
+  {
+    return _events;
   }
 
   public void setEvents( @Nonnull final Collection<String> events )
