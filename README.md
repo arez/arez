@@ -49,13 +49,6 @@ TODO:
   of the change then an UnspecifiedChange() will be passed through. There may be some value to allowing
   it to be processed inline when it changes rather than as a reaction.
 
-### GWT TODO
-
-* URL Location. Have state for proposed location, actual location and target location
-  and listen to hash changes. Listen to changes based on window object. If "proposed"
-  matches the "target" then proposed succeeds. Target is set when code wants to initiate
-  changes.
-
 ## Architecture v2 Notes
 
 An Arez application consists of `observable` values that can change over time. `Observers` watch the
