@@ -6,6 +6,16 @@ PROVIDED_DEPS = [:javax_jsr305, :jetbrains_annotations]
 COMPILE_DEPS = []
 OPTIONAL_DEPS = []
 TEST_DEPS = [:guiceyloops]
+GWT_DEPS =
+  [
+    :elemental2_core,
+    :elemental2_dom,
+    :elemental2_promise,
+    :jsinterop_base,
+    :jsinterop_base_sources,
+    :jsinterop_annotations,
+    :jsinterop_annotations_sources
+  ]
 
 # JDK options passed to test environment. Essentially turns assertions on.
 AREZ_TEST_OPTIONS = { 'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy', 'arez.environment' => 'development' }
@@ -85,13 +95,7 @@ define 'arez' do
                  project('extras').compile.dependencies,
                  project('processor').package(:jar),
                  project('processor').compile.dependencies,
-                 :elemental2_core,
-                 :elemental2_dom,
-                 :elemental2_promise,
-                 :jsinterop_base,
-                 :jsinterop_base_sources,
-                 :jsinterop_annotations,
-                 :jsinterop_annotations_sources
+                 GWT_DEPS
 
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
