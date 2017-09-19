@@ -6,6 +6,7 @@ import elemental2.dom.EventListener;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
+import org.realityforge.arez.Unsupported;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
@@ -26,6 +27,7 @@ import org.realityforge.arez.annotations.PreDispose;
  * route should be updated.</p>
  */
 @Container( singleton = true )
+@Unsupported( "This is still considered experimental and will likely evolve over time" )
 public class BrowserLocation
 {
   private final EventListener _listener = this::updateBrowserLocation;
