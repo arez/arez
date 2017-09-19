@@ -4,6 +4,7 @@ import com.google.gwt.core.client.EntryPoint;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.browser.extras.IdleStatus;
 import org.realityforge.arez.browser.extras.NetworkStatus;
@@ -14,7 +15,7 @@ public class OnlineTest
   @Override
   public void onModuleLoad()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     ExampleUtil.logAllErrors( context );
     context.getSpy().addSpyEventHandler( SpyUtil::emitEvent );
 
