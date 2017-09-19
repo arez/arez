@@ -12,6 +12,11 @@ final class ExampleUtil
   {
   }
 
+  static void spyEvents()
+  {
+    Arez.context().getSpy().addSpyEventHandler( SpyUtil::emitEvent );
+  }
+
   static void whyRun()
   {
     DomGlobal.console.log( new WhyRun( Arez.context().getSpy() ).whyRun() );
