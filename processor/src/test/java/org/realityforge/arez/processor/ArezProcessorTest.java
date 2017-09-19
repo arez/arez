@@ -111,7 +111,6 @@ public class ArezProcessorTest
       {
         new Object[]{ "ActionDuplicatesObservableNameModel",
                       "Method annotated with @Action specified name field that duplicates @Observable defined by method getField" },
-
         new Object[]{ "OnActivateNoComputedModel",
                       "@OnActivate exists but there is no corresponding @Computed" },
         new Object[]{ "OnActivateBadNameModel",
@@ -122,7 +121,6 @@ public class ArezProcessorTest
         new Object[]{ "OnActivateReturnValueModel", "@OnActivate target must not return a value" },
         new Object[]{ "OnActivateThrowsExceptionModel", "@OnActivate target must not throw any exceptions" },
         new Object[]{ "OnActivateDuplicateModel", "@OnActivate target duplicates existing method named foo" },
-
         new Object[]{ "OnDeactivateNoComputedModel",
                       "@OnDeactivate exists but there is no corresponding @Computed" },
         new Object[]{ "OnDeactivateBadNameModel",
@@ -133,7 +131,6 @@ public class ArezProcessorTest
         new Object[]{ "OnDeactivateReturnValueModel", "@OnDeactivate target must not return a value" },
         new Object[]{ "OnDeactivateThrowsExceptionModel", "@OnDeactivate target must not throw any exceptions" },
         new Object[]{ "OnDeactivateDuplicateModel", "@OnDeactivate target duplicates existing method named foo" },
-
         new Object[]{ "OnStaleNoComputedModel",
                       "@OnStale exists but there is no corresponding @Computed" },
         new Object[]{ "OnStaleBadNameModel",
@@ -144,7 +141,6 @@ public class ArezProcessorTest
         new Object[]{ "OnStaleReturnValueModel", "@OnStale target must not return a value" },
         new Object[]{ "OnStaleThrowsExceptionModel", "@OnStale target must not throw any exceptions" },
         new Object[]{ "OnStaleDuplicateModel", "@OnStale target duplicates existing method named foo" },
-
         new Object[]{ "PreDisposeNotDisposableModel",
                       "@PreDispose must not exist if @Container set disposable to false" },
         new Object[]{ "PreDisposePrivateModel", "@PreDispose target must not be private" },
@@ -153,7 +149,6 @@ public class ArezProcessorTest
         new Object[]{ "PreDisposeReturnValueModel", "@PreDispose target must not return a value" },
         new Object[]{ "PreDisposeThrowsExceptionModel", "@PreDispose target must not throw any exceptions" },
         new Object[]{ "PreDisposeDuplicateModel", "@PreDispose target duplicates existing method named foo" },
-
         new Object[]{ "PostDisposeNotDisposableModel",
                       "@PostDispose must not exist if @Container set disposable to false" },
         new Object[]{ "PostDisposePrivateModel", "@PostDispose target must not be private" },
@@ -162,7 +157,6 @@ public class ArezProcessorTest
         new Object[]{ "PostDisposeReturnValueModel", "@PostDispose target must not return a value" },
         new Object[]{ "PostDisposeThrowsExceptionModel", "@PostDispose target must not throw any exceptions" },
         new Object[]{ "PostDisposeDuplicateModel", "@PostDispose target duplicates existing method named foo" },
-
         new Object[]{ "AutorunPrivateModel", "@Autorun target must not be private" },
         new Object[]{ "AutorunStaticModel", "@Autorun target must not be static" },
         new Object[]{ "AutorunParametersModel", "@Autorun target must not have any parameters" },
@@ -170,7 +164,6 @@ public class ArezProcessorTest
         new Object[]{ "AutorunThrowsExceptionModel", "@Autorun target must not throw any exceptions" },
         new Object[]{ "AutorunDuplicateModel", "Method annotated with @Autorun specified name doStuff that duplicates autorun defined by method foo" },
         new Object[]{ "AutorunBadNameModel", "Method annotated with @Autorun specified invalid name -ace" },
-
         new Object[]{ "StaticActionModel", "@Action target must not be static" },
         new Object[]{ "PrivateActionModel", "@Action target must not be private" },
         new Object[]{ "PrivateComputedModel", "@Computed target must not be private" },
