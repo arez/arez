@@ -37,11 +37,7 @@ import org.realityforge.arez.annotations.Container;
  */
 @SuppressWarnings( "Duplicates" )
 @AutoService( Processor.class )
-@SupportedAnnotationTypes( { "org.realityforge.arez.annotations.Action",
-                             "org.realityforge.arez.annotations.Computed",
-                             "org.realityforge.arez.annotations.Container",
-                             "org.realityforge.arez.annotations.ContainerId",
-                             "org.realityforge.arez.annotations.Observable" } )
+@SupportedAnnotationTypes( { "org.realityforge.arez.annotations.*", "javax.annotation.PostConstruct" } )
 @SupportedSourceVersion( SourceVersion.RELEASE_8 )
 public final class ArezProcessor
   extends AbstractJavaPoetProcessor
