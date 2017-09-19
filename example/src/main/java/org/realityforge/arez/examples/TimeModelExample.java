@@ -7,7 +7,7 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Observer;
 import org.realityforge.arez.extras.Watcher;
 
-public final class TimerExample
+public final class TimeModelExample
 {
   public static void main( final String[] args )
     throws Exception
