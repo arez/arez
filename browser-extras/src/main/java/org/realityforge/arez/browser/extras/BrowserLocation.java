@@ -162,10 +162,9 @@ public class BrowserLocation
        * This code is needed to remove the stray #.
        * See https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-url-with-javascript-without-page-r/5298684#5298684
        */
-      DomGlobal.window.history.pushState( "",
-                                          DomGlobal.document.title,
-                                          JsObjects.<String>get( DomGlobal.window.location, "pathname" ) +
-                                          JsObjects.<String>get( DomGlobal.window.location, "search" ) );
+      final String url = JsObjects.<String>get( DomGlobal.window.location, "pathname" ) +
+                         JsObjects.<String>get( DomGlobal.window.location, "search" );
+      DomGlobal.window.history.pushState( "", DomGlobal.document.title, url );
     }
     else
     {
