@@ -1,6 +1,5 @@
 package org.realityforge.arez;
 
-import elemental2.dom.DomGlobal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
