@@ -24,11 +24,10 @@ public class OnlineTest
     final IdleStatus idleStatus = IdleStatus.create();
     final BrowserLocation browserLocation = BrowserLocation.create();
 
-    context.autorun( "Status Printer", false, () -> printNetworkStatus( networkStatus ), true );
-    context.autorun( "IDLE Status Printer", false, () -> printIdleStatus( idleStatus ), true );
-
-    context.autorun( "Location Cleaner", true, () -> cleanLocation( browserLocation ), true );
-    context.autorun( "Location Printer", false, () -> printBrowserLocation( browserLocation ), true );
+    context.autorun( "Status Printer", () -> printNetworkStatus( networkStatus ) );
+    context.autorun( "IDLE Status Printer", () -> printIdleStatus( idleStatus ) );
+    context.autorun( "Location Cleaner", true, () -> cleanLocation( browserLocation ) );
+    context.autorun( "Location Printer", () -> printBrowserLocation( browserLocation ) );
 
     DomGlobal.document.querySelector( "#route_base" ).
       addEventListener( "click", e -> browserLocation.changeLocation( "" ) );

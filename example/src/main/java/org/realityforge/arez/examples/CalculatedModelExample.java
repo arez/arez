@@ -14,13 +14,9 @@ public final class CalculatedModelExample
     final PersonModel person = PersonModel.create( "Bill", "Smith" );
 
     context.autorun( "NamePrinter",
-                     false,
-                     () -> System.out.println( "First Name: " + person.getFirstName() ),
-                     true );
+                     () -> System.out.println( "First Name: " + person.getFirstName() ) );
     context.autorun( "Printer",
-                     false,
-                     () -> System.out.println( "Full Name: " + person.getFullName() ),
-                     true );
+                     () -> System.out.println( "Full Name: " + person.getFullName() ) );
 
     context.procedure( "Name update", true, () -> person.setFirstName( "Fred" ) );
     context.procedure( "Name update2", true, () -> person.setLastName( "Donaldo" ) );

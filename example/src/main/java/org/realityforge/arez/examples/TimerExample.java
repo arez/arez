@@ -26,10 +26,7 @@ public final class TimerExample
                  () -> 0 == timeModel.getTime(),
                  () -> System.out.println( "TimeModel reset. Time should not jump about. Un-Subscribing!" ) );
     final Observer timePrinter =
-      context.autorun( "TimePrinter",
-                       false,
-                       () -> System.out.println( "Current time: " + timeModel.getTime() ),
-                       true );
+      context.autorun( "TimePrinter", () -> System.out.println( "Current time: " + timeModel.getTime() ) );
 
     final Timer timer = new Timer();
     timer.schedule( new TimerTask()

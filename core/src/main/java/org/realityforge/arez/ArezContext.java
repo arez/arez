@@ -149,6 +149,47 @@ public final class ArezContext
   }
 
   /**
+   * Create a read-only autorun observer and run immediately.
+   *
+   * @param action the action defining the observer.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer autorun( @Nonnull final Procedure action )
+  {
+    return autorun( null, action );
+  }
+
+  /**
+   * Create a read-only autorun observer and run immediately.
+   *
+   * @param name   the name of the observer.
+   * @param action the action defining the observer.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer autorun( @Nullable final String name, @Nonnull final Procedure action )
+  {
+    return autorun( name, false, action );
+  }
+
+  /**
+   * Create an autorun observer and run immediately.
+   *
+   * @param name     the name of the observer.
+   * @param mutation true if the action may modify state, false otherwise.
+   * @param action   the action defining the observer.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer autorun( @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure action )
+  {
+    return autorun( name, mutation, action, true );
+  }
+
+  /**
    * Create an autorun observer.
    *
    * @param name           the name of the observer.

@@ -479,7 +479,7 @@ public class ArezContextTest
     final ObserverError observerError = ObserverError.REACTION_ERROR;
     final Throwable throwable = new Throwable();
     final Procedure action = new NoopProcedure();
-    final Observer observer = context.autorun( ValueUtil.randomString(), true, action, true );
+    final Observer observer = context.autorun( ValueUtil.randomString(), true, action );
 
     final AtomicInteger callCount = new AtomicInteger();
 
@@ -663,6 +663,23 @@ public class ArezContextTest
 
     final ComputedValueCreatedEvent event = handler.assertEvent( ComputedValueCreatedEvent.class, 0 );
     assertEquals( event.getComputedValue(), computedValue );
+  }
+
+  @Test
+  public void autorun_minimumParameters()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    context.setNextNodeId( 22 );
+    final AtomicInteger callCount = new AtomicInteger();
+    final Observer observer = context.autorun( callCount::incrementAndGet );
+
+    assertEquals( observer.getName(), "Observer@22" );
+    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.hasReaction(), true );
+    assertEquals( callCount.get(), 1 );
   }
 
   @Test

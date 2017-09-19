@@ -19,10 +19,7 @@ public final class CodeModelExample
 
     final Observer observer =
       context.autorun( "Printer",
-                       false,
-                       () -> System.out.println( "Qualified Name: " +
-                                                 codeModel.getQualifiedName() ),
-                       true );
+                       () -> System.out.println( "Qualified Name: " + codeModel.getQualifiedName() ) );
 
     context.procedure( "Specific Qualified Name", true, () -> codeModel.setQualifiedName( "com.biz.Fred" ) );
     context.procedure( "Reset Qualified Name to default", true, () -> codeModel.setQualifiedName( null ) );
