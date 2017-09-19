@@ -59,6 +59,9 @@ TODO:
   as described above to make it efficient. (However current applications just rescan the repository each
   time they want to execute a query in many cases - which we may be able to get away with)
 
+* Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
+  https://github.com/zalmoxisus/mobx-remotedev
+
 ## Architecture v2 Notes
 
 An Arez application consists of `observable` values that can change over time. `Observers` watch the
