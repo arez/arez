@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
+import org.realityforge.arez.Unsupported;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Container;
@@ -14,6 +15,7 @@ import org.realityforge.arez.annotations.OnActivate;
 import org.realityforge.arez.annotations.OnDeactivate;
 import org.realityforge.arez.annotations.PreDispose;
 
+@Unsupported( "This is still considered experimental and will likely evolve over time" )
 @Container( singleton = true )
 public class IdleStatus
 {
