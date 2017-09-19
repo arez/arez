@@ -17,6 +17,8 @@ GWT_DEPS =
     :jsinterop_annotations_sources
   ]
 
+GWT_EXAMPLES=%w(IdleStatusExample OnlineTest).collect{|c| "org.realityforge.arez.gwt.examples.#{c}"}
+
 # JDK options passed to test environment. Essentially turns assertions on.
 AREZ_TEST_OPTIONS = { 'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy', 'arez.environment' => 'development' }
 
@@ -183,7 +185,11 @@ define 'arez' do
     test.using :testng
     test.compile.with TEST_DEPS
 
-    iml.add_gwt_facet({ 'org.realityforge.arez.gwt.examples.OnlineTest' => true }, :settings => { :compilerMaxHeapSize => '1024' }, :gwt_dev_artifact => :gwt_dev)
+    gwt_modules = {}
+    GWT_EXAMPLES.each do |gwt_module|
+      gwt_modules[gwt_module] = false
+    end
+    iml.add_gwt_facet(gwt_modules, :settings => { :compilerMaxHeapSize => '1024' }, :gwt_dev_artifact => :gwt_dev)
   end
 
   doc.from(projects(%w(arez:annotations arez:core arez:processor arez:extras arez:browser-extras))).using(:javadoc, :windowtitle => 'Arez')
@@ -197,11 +203,16 @@ define 'arez' do
   ipr.extra_modules << '../mobx-react-devtools/mobx-react-devtools.iml'
   ipr.extra_modules << '../mobx-utils/mobx-utils.iml'
 
-  ipr.add_gwt_configuration(project('gwt-example'),
-                            :gwt_module => 'org.realityforge.arez.gwt.examples.OnlineTest',
-                            :start_javascript_debugger => false,
-                            :vm_parameters => "-Xmx3G -Djava.io.tmpdir=#{_('tmp/gwt')}",
-                            :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export')}/")
+  GWT_EXAMPLES.each do |gwt_module|
+    short_name = gwt_module.gsub(/.*\./, '')
+    puts gwt_module
+    ipr.add_gwt_configuration(project('gwt-example'),
+                              :name => short_name,
+                              :gwt_module => gwt_module,
+                              :start_javascript_debugger => false,
+                              :vm_parameters => "-Xmx3G -Djava.io.tmpdir=#{_("tmp/gwt/#{short_name}")}",
+                              :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export', short_name)}/")
+  end
 
   ipr.add_component('CompilerConfiguration') do |component|
     component.annotationProcessing do |xml|
