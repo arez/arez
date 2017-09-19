@@ -1,7 +1,6 @@
 package org.realityforge.arez.browser.extras;
 
 import elemental2.dom.DomGlobal;
-import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -30,7 +29,7 @@ import org.realityforge.arez.annotations.PreDispose;
 @Unsupported( "This is still considered experimental and will likely evolve over time" )
 public class BrowserLocation
 {
-  private final EventListener _listener = this::updateBrowserLocation;
+  private final EventListener _listener = e -> updateBrowserLocation();
 
   /**
    * The location according to the application.
@@ -137,7 +136,7 @@ public class BrowserLocation
   }
 
   @Action
-  void updateBrowserLocation( @Nonnull final Event event )
+  void updateBrowserLocation()
   {
     final String location = getHash();
     setBrowserLocation( location );
