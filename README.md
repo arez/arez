@@ -52,6 +52,13 @@ TODO:
   of the change then an UnspecifiedChange() will be passed through. There may be some value to allowing
   it to be processed inline when it changes rather than as a reaction.
 
+* Figure out a way how to handle "repositories" as in replicant and friends. A repository allows you to
+  get all instances of entities of type. This could be handled as a series of `@Observable` maps that
+  map a `@Container` annotated class + `@ContainerId` field to an instance. We could also have `@Memoized`
+  queries on the repositories. To make this efficient we may need to start to support the "change parameter"
+  as described above to make it efficient. (However current applications just rescan the repository each
+  time they want to execute a query in many cases - which we may be able to get away with)
+
 ## Architecture v2 Notes
 
 An Arez application consists of `observable` values that can change over time. `Observers` watch the
