@@ -205,7 +205,6 @@ define 'arez' do
 
   GWT_EXAMPLES.each do |gwt_module|
     short_name = gwt_module.gsub(/.*\./, '')
-    puts gwt_module
     ipr.add_gwt_configuration(project('gwt-example'),
                               :name => short_name,
                               :gwt_module => gwt_module,
