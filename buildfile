@@ -186,7 +186,7 @@ define 'arez' do
     iml.add_gwt_facet({ 'org.realityforge.arez.gwt.examples.OnlineTest' => true }, :settings => { :compilerMaxHeapSize => '1024' }, :gwt_dev_artifact => :gwt_dev)
   end
 
-  doc.from(projects(%w(arez:annotations arez:core arez:processor arez:extras))).using(:javadoc, :windowtitle => 'Arez')
+  doc.from(projects(%w(arez:annotations arez:core arez:processor arez:extras arez:browser-extras))).using(:javadoc, :windowtitle => 'Arez')
 
   iml.excluded_directories << project._('tmp/gwt')
 
