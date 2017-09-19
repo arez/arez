@@ -28,7 +28,7 @@ public final class Arez
   }
 
   /**
-   * Interface for supplying an instance of an ArezContext to the caller.,
+   * Interface for supplying an instance of an ArezContext to the caller.
    */
   @FunctionalInterface
   public interface ContextProvider
