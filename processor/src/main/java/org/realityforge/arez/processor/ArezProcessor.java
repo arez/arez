@@ -45,6 +45,7 @@ public final class ArezProcessor
   private static final ClassName AREZ_CLASSNAME = ClassName.get( "org.realityforge.arez", "Arez" );
   private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "org.realityforge.arez", "ArezContext" );
   private static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "org.realityforge.arez", "Observable" );
+  private static final ClassName OBSERVER_CLASSNAME = ClassName.get( "org.realityforge.arez", "Observer" );
   private static final ClassName COMPUTED_VALUE_CLASSNAME = ClassName.get( "org.realityforge.arez", "ComputedValue" );
   private static final ClassName DISPOSABLE_CLASSNAME = ClassName.get( "org.realityforge.arez", "Disposable" );
   private static final ClassName ACTION_STARTED_CLASSNAME =
@@ -136,6 +137,11 @@ public final class ArezProcessor
     {
       builder.addMethod( buildObservableGetter( observable ) );
       builder.addMethod( buildObservableSetter( observable ) );
+    }
+
+    for ( final AutorunDescriptor autorun : descriptor.getAutoruns() )
+    {
+      builder.addMethod( buildAutorun( descriptor, autorun ) );
     }
 
     for ( final ActionDescriptor action : descriptor.getActions() )
@@ -333,6 +339,56 @@ public final class ArezProcessor
 
     codeBlock.endControlFlow();
     builder.addCode( codeBlock.build() );
+
+    return builder.build();
+  }
+
+  /**
+   * Generate the autorun wrapper.
+   * This is wrapped in case the user ever wants to explicitly call method
+   */
+  @Nonnull
+  private MethodSpec buildAutorun( @Nonnull final ContainerDescriptor containerDescriptor,
+                                   @Nonnull final AutorunDescriptor descriptor )
+    throws ArezProcessorException
+  {
+    final ExecutableElement autorun = descriptor.getAutorun();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( autorun.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( autorun, builder );
+    ProcessorUtil.copyExceptions( autorun, builder );
+    ProcessorUtil.copyTypeParameters( autorun, builder );
+    ProcessorUtil.copyDocumentedAnnotations( autorun, builder );
+    builder.addAnnotation( Override.class );
+    final TypeMirror returnType = autorun.getReturnType();
+    builder.returns( TypeName.get( returnType ) );
+
+    final StringBuilder statement = new StringBuilder();
+    final ArrayList<Object> parameterNames = new ArrayList<>();
+
+    statement.append( "this.$N." );
+    parameterNames.add( CONTEXT_FIELD_NAME );
+
+    statement.append( "safeProcedure(this.$N.areNamesEnabled() ? " );
+    parameterNames.add( CONTEXT_FIELD_NAME );
+
+    if ( containerDescriptor.isSingleton() )
+    {
+      statement.append( "$S" );
+      parameterNames.add( getPrefix( containerDescriptor ) + descriptor.getName() );
+    }
+    else
+    {
+      statement.append( "$N() + $S" );
+      parameterNames.add( ID_FIELD_NAME );
+      parameterNames.add( descriptor.getName() );
+    }
+    statement.append( " : null, " );
+    statement.append( descriptor.isMutation() );
+    statement.append( ", () -> super." );
+    statement.append( autorun.getSimpleName() );
+    statement.append( "() )" );
+
+    builder.addStatement( statement.toString(), parameterNames.toArray() );
 
     return builder.build();
   }
@@ -535,6 +591,10 @@ public final class ArezProcessor
     {
       codeBlock.addStatement( "super.$N()", preDispose.getSimpleName() );
     }
+    for ( final AutorunDescriptor autorun : descriptor.getAutoruns() )
+    {
+      codeBlock.addStatement( "$N.dispose()", fieldName( autorun ) );
+    }
     for ( final ComputedDescriptor computed : descriptor.getComputeds() )
     {
       codeBlock.addStatement( "$N.dispose()", FIELD_PREFIX + computed.getName() );
@@ -656,6 +716,23 @@ public final class ArezProcessor
           addAnnotation( Nonnull.class );
       builder.addField( field.build() );
     }
+
+    for ( final AutorunDescriptor autorun : descriptor.getAutoruns() )
+    {
+      final FieldSpec.Builder field =
+        FieldSpec.builder( OBSERVER_CLASSNAME, fieldName( autorun ), Modifier.FINAL, Modifier.PRIVATE ).
+          addAnnotation( Nonnull.class );
+      builder.addField( field.build() );
+    }
+  }
+
+  /**
+   * Return the name of the field for specified Autorun.
+   */
+  @Nonnull
+  private String fieldName( @Nonnull final AutorunDescriptor autorun )
+  {
+    return FIELD_PREFIX + autorun.getName();
   }
 
   /**
@@ -801,6 +878,37 @@ public final class ArezProcessor
 
       sb.append( " )" );
       builder.addStatement( sb.toString(), parameters.toArray() );
+    }
+    for ( final AutorunDescriptor autorun : descriptor.getAutoruns() )
+    {
+      final ArrayList<Object> parameters = new ArrayList<>();
+      final StringBuilder sb = new StringBuilder();
+      sb.append( "this.$N = this.$N.autorun( this.$N.areNamesEnabled() ? " );
+      parameters.add( fieldName( autorun ) );
+      parameters.add( CONTEXT_FIELD_NAME );
+      parameters.add( CONTEXT_FIELD_NAME );
+      if ( descriptor.isSingleton() )
+      {
+        sb.append( "$S" );
+        parameters.add( getPrefix( descriptor ) + autorun.getName() );
+      }
+      else
+      {
+        sb.append( "$N() + $S" );
+        parameters.add( ID_FIELD_NAME );
+        parameters.add( autorun.getName() );
+      }
+      sb.append( " : null, " );
+      sb.append( autorun.isMutation() );
+      sb.append( ", () -> super.$N(), false )" );
+      parameters.add( autorun.getAutorun().getSimpleName().toString() );
+
+      builder.addStatement( sb.toString(), parameters.toArray() );
+    }
+
+    if ( !descriptor.getAutoruns().isEmpty() )
+    {
+      builder.addStatement( "$N.triggerScheduler()", CONTEXT_FIELD_NAME );
     }
 
     final ExecutableElement postConstruct = descriptor.getPostConstruct();

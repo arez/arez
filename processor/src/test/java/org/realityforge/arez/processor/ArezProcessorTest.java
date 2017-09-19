@@ -29,6 +29,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.action.ReadOnlyActionModel" },
         new Object[]{ "com.example.action.BasicFunctionActionModel" },
         new Object[]{ "com.example.action.BasicActionModel" },
+        new Object[]{ "com.example.autorun.BasicAutorunModel" },
+        new Object[]{ "com.example.autorun.ReadWriteAutorunModel" },
         new Object[]{ "com.example.computed.ComputedWithNameVariationsModel" },
         new Object[]{ "com.example.computed.ComputedWithHooksModel" },
         new Object[]{ "com.example.computed.BasicComputedModel" },

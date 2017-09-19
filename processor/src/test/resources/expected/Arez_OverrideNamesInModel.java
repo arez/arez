@@ -6,6 +6,7 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
+import org.realityforge.arez.Observer;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
 
@@ -26,12 +27,17 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   @Nonnull
   private final ComputedValue<Integer> $$arez$$_myComputed;
 
+  @Nonnull
+  private final Observer $$arez$$_zzzzzz;
+
   public Arez_OverrideNamesInModel() {
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_myField = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myField" : null );
     this.$$arez$$_myComputed = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myComputed" : null, super::compute, Objects::equals, null, null, null );
+    this.$$arez$$_zzzzzz = this.$$arez$$_context.autorun( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "zzzzzz" : null, true, () -> super.zapZap(), false );
+    $$arez$$_context.triggerScheduler();
   }
 
   private String $$arez$$_id() {
@@ -47,6 +53,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
+      $$arez$$_zzzzzz.dispose();
       $$arez$$_myComputed.dispose();
       $$arez$$_myField.dispose();
     }
@@ -64,6 +71,11 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
       super.setTime(time);
       this.$$arez$$_myField.reportChanged();
     }
+  }
+
+  @Override
+  public void zapZap() {
+    this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "zzzzzz" : null, true, () -> super.zapZap() );
   }
 
   @Override

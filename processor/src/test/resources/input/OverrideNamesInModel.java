@@ -1,4 +1,5 @@
 import org.realityforge.arez.annotations.Action;
+import org.realityforge.arez.annotations.Autorun;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
@@ -19,6 +20,11 @@ public class OverrideNamesInModel
 
   @Action( name = "myAction" )
   public void doAction()
+  {
+  }
+
+  @Autorun( name = "zzzzzz" )
+  public void zapZap()
   {
   }
 
