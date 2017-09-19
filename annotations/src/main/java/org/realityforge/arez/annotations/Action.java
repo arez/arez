@@ -10,6 +10,7 @@ import javax.annotation.Nonnull;
  *
  * <p>The method that is annotated with @Action must comply with the additional constraints:</p>
  * <ul>
+ * <li>Must not be annotated with {@link ContainerId}, {@link Observable}, {@link Computed}, {@link javax.annotation.PostConstruct}, {@link PreDispose}, {@link PostDispose}, {@link OnActivate}, {@link OnDeactivate} or {@link OnStale}</li>
  * <li>Must not be private</li>
  * <li>Must not be static</li>
  * <li>Must not be final</li>
