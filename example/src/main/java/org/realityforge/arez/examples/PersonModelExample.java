@@ -3,7 +3,7 @@ package org.realityforge.arez.examples;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 
-public final class CalculatedModelExample
+public final class PersonModelExample
 {
   public static void main( final String[] args )
     throws Throwable
