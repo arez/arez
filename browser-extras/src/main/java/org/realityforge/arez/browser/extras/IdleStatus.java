@@ -44,6 +44,12 @@ public class IdleStatus
     resetLastActivityTime();
   }
 
+  @PreDispose
+  final void preDispose()
+  {
+    cancelTimeout();
+  }
+
   @Computed
   public boolean isIdle()
   {
@@ -81,12 +87,6 @@ public class IdleStatus
   {
     _active = false;
     _events.forEach( e -> DomGlobal.window.removeEventListener( e, _listener ) );
-  }
-
-  @PreDispose
-  final void onDispose()
-  {
-    cancelTimeout();
   }
 
   @Observable
