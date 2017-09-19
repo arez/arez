@@ -19,6 +19,11 @@ import org.realityforge.arez.annotations.PreDispose;
  * sees it and update the location as the application sees it via {@link #changeLocation(String)}
  * if the browser location is valid. Otherwise the browser location should be reset to the application
  * location.
+ *
+ * <p>It should be noted that this class is not a router but a primitive that can be used to
+ * implement a router. Observing the application location will allow the application to update
+ * the view. Observing the browser location will allow the application to decide whether the
+ * route should be updated.</p>
  */
 @Container( singleton = true )
 public class BrowserLocation
