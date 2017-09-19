@@ -444,6 +444,36 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "@OnActivate target must not throw any exceptions", method );
     }
+    final String name = deriveOnActivateName( method, annotation );
+    final ComputedDescriptor computed = descriptor.getComputed( name );
+
+    if ( null != computed )
+    {
+      final ExecutableElement existing = computed.getOnActivate();
+      if ( null != existing )
+      {
+        throw new ArezProcessorException( "@OnActivate target duplicates existing method named " +
+                                          existing.getSimpleName(),
+                                          method );
+      }
+      else
+      {
+        computed.setOnActivate( method );
+      }
+    }
+    else
+    {
+      final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
+      computedDescriptor.setOnActivate( method );
+      descriptor.addComputed( computedDescriptor );
+    }
+  }
+
+  @Nonnull
+  private static String deriveOnActivateName( @Nonnull final ExecutableElement method,
+                                              @Nonnull final OnActivate annotation )
+    throws ArezProcessorException
+  {
     final String name;
     if ( annotation.name().equals( SENTINEL_NAME ) )
     {
@@ -473,28 +503,7 @@ final class ContainerDescriptorParser
         throw new ArezProcessorException( "Method annotated with @OnActivate specified invalid name " + name, method );
       }
     }
-    final ComputedDescriptor computed = descriptor.getComputed( name );
-
-    if ( null != computed )
-    {
-      final ExecutableElement existing = computed.getOnActivate();
-      if ( null != existing )
-      {
-        throw new ArezProcessorException( "@OnActivate target duplicates existing method named " +
-                                          existing.getSimpleName(),
-                                          method );
-      }
-      else
-      {
-        computed.setOnActivate( method );
-      }
-    }
-    else
-    {
-      final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
-      computedDescriptor.setOnActivate( method );
-      descriptor.addComputed( computedDescriptor );
-    }
+    return name;
   }
 
   private static void processOnDeactivate( @Nonnull final ContainerDescriptor descriptor,
@@ -522,6 +531,36 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "@OnDeactivate target must not throw any exceptions", method );
     }
+    final String name = deriveOnDeactivateName( method, annotation );
+    final ComputedDescriptor computed = descriptor.getComputed( name );
+
+    if ( null != computed )
+    {
+      final ExecutableElement existing = computed.getOnDeactivate();
+      if ( null != existing )
+      {
+        throw new ArezProcessorException( "@OnDeactivate target duplicates existing method named " +
+                                          existing.getSimpleName(),
+                                          method );
+      }
+      else
+      {
+        computed.setOnDeactivate( method );
+      }
+    }
+    else
+    {
+      final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
+      computedDescriptor.setOnDeactivate( method );
+      descriptor.addComputed( computedDescriptor );
+    }
+  }
+
+  @Nonnull
+  private static String deriveOnDeactivateName( @Nonnull final ExecutableElement method,
+                                                @Nonnull final OnDeactivate annotation )
+    throws ArezProcessorException
+  {
     final String name;
     if ( annotation.name().equals( SENTINEL_NAME ) )
     {
@@ -552,28 +591,7 @@ final class ContainerDescriptorParser
                                           method );
       }
     }
-    final ComputedDescriptor computed = descriptor.getComputed( name );
-
-    if ( null != computed )
-    {
-      final ExecutableElement existing = computed.getOnDeactivate();
-      if ( null != existing )
-      {
-        throw new ArezProcessorException( "@OnDeactivate target duplicates existing method named " +
-                                          existing.getSimpleName(),
-                                          method );
-      }
-      else
-      {
-        computed.setOnDeactivate( method );
-      }
-    }
-    else
-    {
-      final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
-      computedDescriptor.setOnDeactivate( method );
-      descriptor.addComputed( computedDescriptor );
-    }
+    return name;
   }
 
   private static void processOnStale( @Nonnull final ContainerDescriptor descriptor,
@@ -601,6 +619,35 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "@OnStale target must not throw any exceptions", method );
     }
+    final String name = deriveOnStaleName( method, annotation );
+    final ComputedDescriptor computed = descriptor.getComputed( name );
+
+    if ( null != computed )
+    {
+      final ExecutableElement existing = computed.getOnStale();
+      if ( null != existing )
+      {
+        throw new ArezProcessorException( "@OnStale target duplicates existing method named " +
+                                          existing.getSimpleName(),
+                                          method );
+      }
+      else
+      {
+        computed.setOnStale( method );
+      }
+    }
+    else
+    {
+      final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
+      computedDescriptor.setOnStale( method );
+      descriptor.addComputed( computedDescriptor );
+    }
+  }
+
+  @Nonnull
+  private static String deriveOnStaleName( @Nonnull final ExecutableElement method, final @Nonnull OnStale annotation )
+    throws ArezProcessorException
+  {
     final String name;
     if ( annotation.name().equals( SENTINEL_NAME ) )
     {
@@ -630,28 +677,7 @@ final class ContainerDescriptorParser
         throw new ArezProcessorException( "Method annotated with @OnStale specified invalid name " + name, method );
       }
     }
-    final ComputedDescriptor computed = descriptor.getComputed( name );
-
-    if ( null != computed )
-    {
-      final ExecutableElement existing = computed.getOnStale();
-      if ( null != existing )
-      {
-        throw new ArezProcessorException( "@OnStale target duplicates existing method named " +
-                                          existing.getSimpleName(),
-                                          method );
-      }
-      else
-      {
-        computed.setOnStale( method );
-      }
-    }
-    else
-    {
-      final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
-      computedDescriptor.setOnStale( method );
-      descriptor.addComputed( computedDescriptor );
-    }
+    return name;
   }
 
   private static void processPostDispose( @Nonnull final ContainerDescriptor descriptor,
@@ -724,6 +750,36 @@ final class ContainerDescriptorParser
       throw new ArezProcessorException( "@Computed target must not throw exceptions", method );
     }
 
+    final String name = deriveComputedName( method, annotation );
+
+    checkNameUnique( descriptor, name, method, Computed.class );
+    final ComputedDescriptor computed = descriptor.getComputed( name );
+    if ( null != computed )
+    {
+      if ( computed.hasComputed() )
+      {
+        throw new ArezProcessorException( "Method annotated with @Computed specified name " + name +
+                                          " that duplicates computed defined by method " +
+                                          computed.getDefiner().getSimpleName(), method );
+      }
+      else
+      {
+        computed.setComputed( method );
+      }
+    }
+    else
+    {
+      final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
+      computedDescriptor.setComputed( method );
+      descriptor.addComputed( computedDescriptor );
+    }
+  }
+
+  @Nonnull
+  private static String deriveComputedName( @Nonnull final ExecutableElement method,
+                                            @Nonnull final Computed annotation )
+    throws ArezProcessorException
+  {
     final String name;
     if ( annotation.name().equals( SENTINEL_NAME ) )
     {
@@ -753,28 +809,7 @@ final class ContainerDescriptorParser
         throw new ArezProcessorException( "Method annotated with @Computed specified invalid name " + name, method );
       }
     }
-
-    checkNameUnique( descriptor, name, method, Computed.class );
-    final ComputedDescriptor computed = descriptor.getComputed( name );
-    if ( null != computed )
-    {
-      if ( computed.hasComputed() )
-      {
-        throw new ArezProcessorException( "Method annotated with @Computed specified name " + name +
-                                          " that duplicates computed defined by method " +
-                                          computed.getDefiner().getSimpleName(), method );
-      }
-      else
-      {
-        computed.setComputed( method );
-      }
-    }
-    else
-    {
-      final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
-      computedDescriptor.setComputed( method );
-      descriptor.addComputed( computedDescriptor );
-    }
+    return name;
   }
 
   private static void processAction( @Nonnull final ContainerDescriptor descriptor,
@@ -795,6 +830,25 @@ final class ContainerDescriptorParser
       throw new ArezProcessorException( "@Action target must not be static", method );
     }
 
+    final String name = deriveActionName( method, annotation );
+    checkNameUnique( descriptor, name, method, Action.class );
+    final ActionDescriptor action = descriptor.getAction( name );
+    if ( null != action )
+    {
+      throw new ArezProcessorException( "Method annotated with @Action specified name " + name +
+                                        " that duplicates action defined by method " +
+                                        action.getAction().getSimpleName(), method );
+    }
+    else
+    {
+      descriptor.addAction( new ActionDescriptor( name, annotation.mutation(), method ) );
+    }
+  }
+
+  @Nonnull
+  private static String deriveActionName( @Nonnull final ExecutableElement method, @Nonnull final Action annotation )
+    throws ArezProcessorException
+  {
     final String name;
     if ( annotation.name().equals( SENTINEL_NAME ) )
     {
@@ -808,19 +862,7 @@ final class ContainerDescriptorParser
         throw new ArezProcessorException( "Method annotated with @Action specified invalid name " + name, method );
       }
     }
-
-    checkNameUnique( descriptor, name, method, Action.class );
-    final ActionDescriptor action = descriptor.getAction( name );
-    if ( null != action )
-    {
-      throw new ArezProcessorException( "Method annotated with @Action specified name " + name +
-                                        " that duplicates action defined by method " +
-                                        action.getAction().getSimpleName(), method );
-    }
-    else
-    {
-      descriptor.addAction( new ActionDescriptor( name, annotation.mutation(), method ) );
-    }
+    return name;
   }
 
   private static void processObservable( @Nonnull final ContainerDescriptor descriptor,
