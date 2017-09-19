@@ -82,8 +82,8 @@ public class OnlineTest
   private void printNetworkStatus( @Nonnull final NetworkStatus networkStatus )
   {
     final String message = "Network Status: " + ( networkStatus.isOnLine() ? "Online" : "Offline" );
-    DomGlobal.console.log( message );
     final Element element = DomGlobal.document.querySelector( "#network" );
     element.textContent = message;
+    DomGlobal.console.log( message );
   }
 }
