@@ -5,5 +5,5 @@
 
   <source path=""/>
 
-  <entry-point class='org.realityforge.arez.gwt.examples.OnlineTest'/>
+  <entry-point class='org.realityforge.arez.gwt.examples.NetworkStatusExample'/>
 </module>

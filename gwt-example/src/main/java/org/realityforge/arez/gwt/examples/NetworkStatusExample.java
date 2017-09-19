@@ -10,7 +10,7 @@ import org.realityforge.arez.browser.extras.BrowserLocation;
 import org.realityforge.arez.browser.extras.IdleStatus;
 import org.realityforge.arez.browser.extras.NetworkStatus;
 
-public class OnlineTest
+public class NetworkStatusExample
   implements EntryPoint
 {
   @Override
