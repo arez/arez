@@ -16,6 +16,7 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import org.realityforge.arez.annotations.Action;
+import org.realityforge.arez.annotations.Autorun;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.ContainerId;
@@ -952,6 +953,14 @@ final class ContainerDescriptorParser
       if ( null != element )
       {
         throw toException( name, sourceType, sourceMethod, Observable.class, element.getDefiner() );
+      }
+    }
+    if ( Autorun.class != sourceType )
+    {
+      final AutorunDescriptor element = descriptor.getAutorun( name );
+      if ( null != element )
+      {
+        throw toException( name, sourceType, sourceMethod, Autorun.class, element.getAutorun() );
       }
     }
   }
