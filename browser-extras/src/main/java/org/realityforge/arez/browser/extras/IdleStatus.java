@@ -123,7 +123,7 @@ public class IdleStatus
   }
 
   @Observable
-  void setEvents( @Nonnull final Collection<String> events )
+  public void setEvents( @Nonnull final Collection<String> events )
   {
     final Collection<String> oldEvents = _events;
     _events = Arrays.asList( events.toArray( new String[ events.size() ] ) );
