@@ -89,11 +89,7 @@ public class BrowserLocation
     {
       setLocation( targetLocation );
     }
-    else
-    {
-      //TODO: This next line should be an @Autorun when supported
-      setHash( targetLocation );
-    }
+    setHash( targetLocation );
   }
 
   /**
