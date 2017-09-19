@@ -42,6 +42,9 @@ final class ContainerDescriptor
   private final Map<String, ComputedDescriptor> _computeds = new HashMap<>();
   private final Collection<ComputedDescriptor> _roComputeds =
     Collections.unmodifiableCollection( _computeds.values() );
+  private final Map<String, AutorunDescriptor> _autoruns = new HashMap<>();
+  private final Collection<AutorunDescriptor> _roAutoruns =
+    Collections.unmodifiableCollection( _autoruns.values() );
 
   ContainerDescriptor( @Nonnull final String name,
                        final boolean singleton,
@@ -123,6 +126,18 @@ final class ContainerDescriptor
   Collection<ActionDescriptor> getActions()
   {
     return _roActions;
+  }
+
+  @Nullable
+  AutorunDescriptor getAutorun( @Nonnull final String name )
+  {
+    return _autoruns.get( name );
+  }
+
+  @Nonnull
+  Collection<AutorunDescriptor> getAutoruns()
+  {
+    return _roAutoruns;
   }
 
   void addComputed( @Nonnull final ComputedDescriptor computed )
