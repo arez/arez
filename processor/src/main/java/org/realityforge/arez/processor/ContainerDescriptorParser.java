@@ -753,22 +753,7 @@ final class ContainerDescriptorParser
       }
     }
 
-    final ActionDescriptor action = descriptor.getAction( name );
-    if ( null != action )
-    {
-      throw new ArezProcessorException( "Method annotated with @Computed specified name " + name +
-                                        " that duplicates @Action defined by method " +
-                                        action.getAction().getSimpleName(), method );
-    }
-    final ObservableDescriptor observable = descriptor.getObservable( name );
-    if ( null != observable )
-    {
-      final ExecutableElement element =
-        observable.hasGetter() ? observable.getGetter() : observable.getSetter();
-      throw new ArezProcessorException( "Method annotated with @Computed specified name " + name +
-                                        " that duplicates @Observable defined by method " +
-                                        element.getSimpleName(), method );
-    }
+    checkNameUnique( descriptor, name, method, Computed.class );
     final ComputedDescriptor computed = descriptor.getComputed( name );
     if ( null != computed )
     {
@@ -823,22 +808,7 @@ final class ContainerDescriptorParser
       }
     }
 
-    final ComputedDescriptor computed = descriptor.getComputed( name );
-    if ( null != computed )
-    {
-      throw new ArezProcessorException( "Method annotated with @Action specified name " + name +
-                                        " that duplicates @Computed defined by method " +
-                                        computed.getDefiner().getSimpleName(), method );
-    }
-    final ObservableDescriptor observable = descriptor.getObservable( name );
-    if ( null != observable )
-    {
-      final ExecutableElement element =
-        observable.hasGetter() ? observable.getGetter() : observable.getSetter();
-      throw new ArezProcessorException( "Method annotated with @Action specified name " + name +
-                                        " that duplicates @Observable defined by method " +
-                                        element.getSimpleName(), method );
-    }
+    checkNameUnique( descriptor, name, method, Action.class );
     final ActionDescriptor action = descriptor.getAction( name );
     if ( null != action )
     {
@@ -932,20 +902,7 @@ final class ContainerDescriptorParser
         }
       }
     }
-    final ActionDescriptor action = descriptor.getAction( name );
-    if ( null != action )
-    {
-      throw new ArezProcessorException( "Method annotated with @Observable specified name " + name +
-                                        " that duplicates @Action defined by method " +
-                                        action.getAction().getSimpleName(), method );
-    }
-    final ComputedDescriptor computed = descriptor.getComputed( name );
-    if ( null != computed )
-    {
-      throw new ArezProcessorException( "Method annotated with @Observable specified name " + name +
-                                        " that duplicates @Computed defined by method " +
-                                        computed.getDefiner().getSimpleName(), method );
-    }
+    checkNameUnique( descriptor, name, method, Observable.class );
     final ObservableDescriptor observable = descriptor.findOrCreateObservable( name );
     if ( setter )
     {
@@ -965,6 +922,50 @@ final class ContainerDescriptorParser
       }
       observable.setGetter( method );
     }
+  }
+
+  private static void checkNameUnique( @Nonnull final ContainerDescriptor descriptor,
+                                       @Nonnull final String name,
+                                       @Nonnull final ExecutableElement sourceMethod,
+                                       @Nonnull final Class<? extends Annotation> sourceType )
+    throws ArezProcessorException
+  {
+    if ( Action.class != sourceType )
+    {
+      final ActionDescriptor element = descriptor.getAction( name );
+      if ( null != element )
+      {
+        throw toException( name, sourceType, sourceMethod, Action.class, element.getAction() );
+      }
+    }
+    if ( Computed.class != sourceType )
+    {
+      final ComputedDescriptor element = descriptor.getComputed( name );
+      if ( null != element )
+      {
+        throw toException( name, sourceType, sourceMethod, Computed.class, element.getComputed() );
+      }
+    }
+    if ( Observable.class != sourceType )
+    {
+      final ObservableDescriptor element = descriptor.getObservable( name );
+      if ( null != element )
+      {
+        throw toException( name, sourceType, sourceMethod, Observable.class, element.getDefiner() );
+      }
+    }
+  }
+
+  @Nonnull
+  private static ArezProcessorException toException( @Nonnull final String name,
+                                                     @Nonnull final Class<? extends Annotation> source,
+                                                     @Nonnull final ExecutableElement sourceMethod,
+                                                     @Nonnull final Class<? extends Annotation> target,
+                                                     @Nonnull final ExecutableElement targetElement )
+  {
+    return new ArezProcessorException( "Method annotated with @" + source.getSimpleName() + " specified name " +
+                                       name + " that duplicates @" + target.getSimpleName() + " defined by " +
+                                       "method " + targetElement.getSimpleName(), sourceMethod );
   }
 
   private static boolean isJavaIdentifier( @Nonnull final String value )
