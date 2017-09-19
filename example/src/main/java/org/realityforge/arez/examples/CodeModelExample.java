@@ -1,5 +1,6 @@
 package org.realityforge.arez.examples;
 
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observer;
@@ -9,7 +10,7 @@ public final class CodeModelExample
   public static void main( final String[] args )
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     ExampleUtil.logAllErrors( context );
     context.getSpy().addSpyEventHandler( SpyUtil::emitEvent );

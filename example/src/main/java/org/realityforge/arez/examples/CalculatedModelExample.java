@@ -1,5 +1,6 @@
 package org.realityforge.arez.examples;
 
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 
 public final class CalculatedModelExample
@@ -7,7 +8,7 @@ public final class CalculatedModelExample
   public static void main( final String[] args )
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     ExampleUtil.logAllErrors( context );
 
     final PersonModel person = PersonModel.create( "Bill", "Smith" );
