@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
  *
  * <p>The method must also conform to the following constraints:</p>
  * <ul>
- * <li>Must not be annotated with {@link ContainerId}, {@link Observable}, {@link Computed}, {@link Action}, {@link javax.annotation.PostConstruct}, {@link PreDispose}, {@link PostDispose}, {@link OnActivate} or {@link OnStale}</li>
+ * <li>Must not be annotated with {@link Autorun}, {@link ContainerId}, {@link Observable}, {@link Computed}, {@link Action}, {@link javax.annotation.PostConstruct}, {@link PreDispose}, {@link PostDispose}, {@link OnActivate} or {@link OnStale}</li>
  * <li>Must have 0 parameters</li>
  * <li>Must not return a value</li>
  * <li>Must not be private</li>
