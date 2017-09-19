@@ -70,10 +70,11 @@ final class ContainerDescriptorParser
 
     if ( descriptor.getObservables().isEmpty() &&
          descriptor.getActions().isEmpty() &&
-         descriptor.getComputeds().isEmpty() )
+         descriptor.getComputeds().isEmpty() &&
+         descriptor.getAutoruns().isEmpty() )
     {
       throw new ArezProcessorException( "@Container target has no methods annotated with @Action, " +
-                                        "@Computed or @Observable", typeElement );
+                                        "@Computed, @Observable or @Autorun", typeElement );
     }
 
     return descriptor;
@@ -205,6 +206,7 @@ final class ContainerDescriptorParser
     verifyNoDuplicateAnnotations( method );
 
     final Action action = method.getAnnotation( Action.class );
+    final Autorun autorun = method.getAnnotation( Autorun.class );
     final Observable observable = method.getAnnotation( Observable.class );
     final Computed computed = method.getAnnotation( Computed.class );
     final ContainerId containerId = method.getAnnotation( ContainerId.class );
@@ -223,6 +225,11 @@ final class ContainerDescriptorParser
     else if ( null != action )
     {
       processAction( descriptor, action, method );
+      return true;
+    }
+    else if ( null != autorun )
+    {
+      processAutorun( descriptor, autorun, method );
       return true;
     }
     else if ( null != computed )
@@ -277,6 +284,7 @@ final class ContainerDescriptorParser
     @SuppressWarnings( "unchecked" )
     final Class<? extends Annotation>[] annotationTypes =
       new Class[]{ Action.class,
+                   Autorun.class,
                    Observable.class,
                    Computed.class,
                    ContainerId.class,
@@ -860,6 +868,71 @@ final class ContainerDescriptorParser
       if ( name.isEmpty() || !isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Action specified invalid name " + name, method );
+      }
+    }
+    return name;
+  }
+
+  private static void processAutorun( @Nonnull final ContainerDescriptor descriptor,
+                                      @Nonnull final Autorun annotation,
+                                      @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ArezProcessorException( "@Autorun target must not be private", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.FINAL ) )
+    {
+      throw new ArezProcessorException( "@Autorun target must not be final", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ArezProcessorException( "@Autorun target must not be static", method );
+    }
+    else if ( !method.getParameters().isEmpty() )
+    {
+      throw new ArezProcessorException( "@Autorun target must not have any parameters", method );
+    }
+    else if ( !method.getThrownTypes().isEmpty() )
+    {
+      throw new ArezProcessorException( "@Autorun target must not throw any exceptions", method );
+    }
+    else if ( TypeKind.VOID != method.getReturnType().getKind() )
+    {
+      throw new ArezProcessorException( "@Autorun target must not return a value", method );
+    }
+
+    final String name = deriveAutorunName( method, annotation );
+    checkNameUnique( descriptor, name, method, Autorun.class );
+    final AutorunDescriptor autorun = descriptor.getAutorun( name );
+    if ( null != autorun )
+    {
+      throw new ArezProcessorException( "Method annotated with @Autorun specified name " + name +
+                                        " that duplicates autorun defined by method " +
+                                        autorun.getAutorun().getSimpleName(), method );
+    }
+    else
+    {
+      descriptor.addAutorun( new AutorunDescriptor( name, annotation.mutation(), method ) );
+    }
+  }
+
+  @Nonnull
+  private static String deriveAutorunName( @Nonnull final ExecutableElement method, @Nonnull final Autorun annotation )
+    throws ArezProcessorException
+  {
+    final String name;
+    if ( annotation.name().equals( SENTINEL_NAME ) )
+    {
+      name = method.getSimpleName().toString();
+    }
+    else
+    {
+      name = annotation.name();
+      if ( name.isEmpty() || !isJavaIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "Method annotated with @Autorun specified invalid name " + name, method );
       }
     }
     return name;

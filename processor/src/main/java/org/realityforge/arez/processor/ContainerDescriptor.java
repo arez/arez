@@ -128,6 +128,11 @@ final class ContainerDescriptor
     return _roActions;
   }
 
+  void addAutorun( @Nonnull final AutorunDescriptor autorun )
+  {
+    _autoruns.put( autorun.getName(), autorun );
+  }
+
   @Nullable
   AutorunDescriptor getAutorun( @Nonnull final String name )
   {
