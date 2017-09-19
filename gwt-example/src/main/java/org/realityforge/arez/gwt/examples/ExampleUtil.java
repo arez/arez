@@ -13,7 +13,6 @@ final class ExampleUtil
   static void logAllErrors( @Nonnull final ArezContext context )
   {
     context.addObserverErrorHandler( ( observer, error, throwable ) -> {
-
       DomGlobal.console.log( "Observer error: " + error + "\nobserver: " + observer );
       if ( null != throwable )
       {
