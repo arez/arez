@@ -122,7 +122,6 @@ public class IdleStatus
     return getLastActivityAt() + getTimeout();
   }
 
-  @Observable
   public void setEvents( @Nonnull final Collection<String> events )
   {
     final Collection<String> oldEvents = _events;
