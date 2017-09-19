@@ -476,10 +476,10 @@ public class ObserverTest
     observer.setState( ObserverState.POSSIBLY_STALE );
 
     assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
-    assertEquals( observer.isScheduled(), true );
+    assertEquals( observer.isScheduled(), false );
     assertEquals( onActivate.getCalls(), 1 );
     assertEquals( onDeactivate.getCalls(), 0 );
-    assertEquals( onStale.getCalls(), 1 );
+    assertEquals( onStale.getCalls(), 0 );
 
     observer.clearScheduledFlag();
     context.getScheduler().getPendingObservers().remove( observer );
@@ -487,8 +487,7 @@ public class ObserverTest
 
     observer.setState( ObserverState.STALE );
     assertEquals( observer.getState(), ObserverState.STALE );
-    //Is scheduled false as only attempts to schedule when going from UP_TO_DATE to STALE
-    assertEquals( observer.isScheduled(), false );
+    assertEquals( observer.isScheduled(), true );
     assertEquals( onActivate.getCalls(), 1 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 1 );
@@ -624,7 +623,7 @@ public class ObserverTest
     assertEquals( observer.isScheduled(), false );
     assertEquals( onActivate.getCalls(), 1 );
     assertEquals( onDeactivate.getCalls(), 0 );
-    assertEquals( onStale.getCalls(), 1 );
+    assertEquals( onStale.getCalls(), 0 );
 
     observer.clearScheduledFlag();
     assertEquals( observer.isScheduled(), false );

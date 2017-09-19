@@ -1,5 +1,6 @@
 package org.realityforge.arez;
 
+import elemental2.dom.DomGlobal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
@@ -279,15 +280,21 @@ public final class Observer
     {
       final ObserverState originalState = _state;
       _state = state;
-      if ( ObserverState.UP_TO_DATE == originalState &&
-           ( ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state ) )
+      if ( null == _derivedValue && ObserverState.STALE == state )
+      {
+        runHook( getOnStale(), ObserverError.ON_STALE_ERROR );
+        if ( hasReaction() )
+        {
+          schedule();
+        }
+      }
+      else if ( null != _derivedValue &&
+                ObserverState.UP_TO_DATE == originalState &&
+                ( ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state ) )
       {
         // Have to check _derivedValue here as isDerivation() will be true
         // during construction, prior to _derivedValue being set.
-        if ( null != _derivedValue )
-        {
-          _derivedValue.reportPossiblyChanged();
-        }
+        _derivedValue.reportPossiblyChanged();
         runHook( getOnStale(), ObserverError.ON_STALE_ERROR );
         if ( hasReaction() )
         {

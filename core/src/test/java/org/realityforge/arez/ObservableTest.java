@@ -1242,8 +1242,8 @@ public class ObservableTest
 
     assertEquals( observer.getState(), ObserverState.STALE );
 
-    handler.assertEventCount( 1 );
-    final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 0 );
-    assertEquals( event.getObservable(), observable );
+    handler.assertEventCount( 2 );
+    assertEquals( handler.assertEvent( ObservableChangedEvent.class, 0 ).getObservable(), observable );
+    assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver(), observer );
   }
 }
