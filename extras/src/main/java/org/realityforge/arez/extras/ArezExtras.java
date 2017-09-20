@@ -31,6 +31,7 @@ public final class ArezExtras
    *
    * @param condition The function that determines when the effect is run.
    * @param effect    The procedure that is executed when the condition is true.
+   * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
    */
   public static Node when( @Nonnull final SafeFunction<Boolean> condition,
                            @Nonnull final Procedure effect )
@@ -45,6 +46,7 @@ public final class ArezExtras
    * @param mutation  true if the effect can mutate state, false otherwise.
    * @param condition The function that determines when the effect is run.
    * @param effect    The procedure that is executed when the condition is true.
+   * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
    */
   public static Node when( final boolean mutation,
                            @Nonnull final SafeFunction<Boolean> condition,
@@ -57,12 +59,13 @@ public final class ArezExtras
    * Wait until a condition is true, then run effect.
    * The condition function is run in a read-only, tracking transaction and will be re-evaluated
    * any time any of the observed elements are updated. The effect procedure is run in either a
-   * read-only or read-write, non-tracking transaction.</p>
+   * read-only or read-write, non-tracking transaction.
    *
    * @param name      the debug name (if any) used when naming the underlying Arez resources.
    * @param mutation  true if the effect can mutate state, false otherwise.
    * @param condition The function that determines when the effect is run.
    * @param effect    The procedure that is executed when the condition is true.
+   * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
    */
   public static Node when( @Nullable final String name,
                            final boolean mutation,
