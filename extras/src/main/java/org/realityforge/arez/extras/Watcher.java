@@ -21,7 +21,7 @@ import org.realityforge.arez.SafeFunction;
  * <p>This is a good example of how the primitives provided by Arez can be glued together
  * to create higher level reactive elements.</p>
  */
-public final class Watcher
+final class Watcher
   extends Node
 {
   /**
@@ -47,11 +47,11 @@ public final class Watcher
    * @param condition The function that determines when the effect is run.
    * @param effect    The procedure that is executed when the condition is true.
    */
-  public Watcher( @Nonnull final ArezContext context,
-                  @Nullable final String name,
-                  final boolean mutation,
-                  @Nonnull final SafeFunction<Boolean> condition,
-                  @Nonnull final Procedure effect )
+  Watcher( @Nonnull final ArezContext context,
+           @Nullable final String name,
+           final boolean mutation,
+           @Nonnull final SafeFunction<Boolean> condition,
+           @Nonnull final Procedure effect )
   {
     super( context, name );
     _conditionValue = context.createComputedValue( name, condition, Objects::equals );

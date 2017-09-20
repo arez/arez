@@ -5,7 +5,7 @@ import java.util.TimerTask;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Observer;
-import org.realityforge.arez.extras.Watcher;
+import org.realityforge.arez.extras.ArezExtras;
 
 public final class TimeModelExample
 {
@@ -21,10 +21,8 @@ public final class TimeModelExample
 
     timeModel.updateTime();
 
-    new Watcher( context, "Watcher",
-                 false,
-                 () -> 0 == timeModel.getTime(),
-                 () -> System.out.println( "TimeModel reset. Time should not jump about. Un-Subscribing!" ) );
+    ArezExtras.when( () -> 0 == timeModel.getTime(),
+                     () -> System.out.println( "TimeModel reset. Time should not jump about. Un-Subscribing!" ) );
     final Observer timePrinter =
       context.autorun( "TimePrinter", () -> System.out.println( "Current time: " + timeModel.getTime() ) );
 
