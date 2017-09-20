@@ -75,6 +75,42 @@ public final class WhyRun
     }
   }
 
+  /**
+   * Return the status of specified observer as human readable string.
+   *
+   * @param observer the Observer.
+   * @return the status description.
+   */
+  @Nonnull
+  final String describeStatus( @Nonnull final Observer observer )
+  {
+    final boolean running = getSpy().isRunning( observer );
+    if ( running )
+    {
+      final TransactionInfo transaction = getSpy().getTransaction();
+      if ( transaction.isTracking() && transaction.getTracker() == observer )
+      {
+        return "Running (Current Transaction)";
+      }
+      else
+      {
+        return "Running (Suspended Transaction)";
+      }
+    }
+    else if ( observer.isDisposed() )
+    {
+      return "Disposed";
+    }
+    else if ( getSpy().isScheduled( observer ) )
+    {
+      return "Scheduled";
+    }
+    else
+    {
+      return "Idle";
+    }
+  }
+
   @Nonnull
   private String whyRunObserver( @Nonnull final Observer observer )
   {
@@ -83,31 +119,7 @@ public final class WhyRun
     sb.append( observer.getName() );
     sb.append( "':\n" );
     sb.append( "  Status: " );
-    final boolean running = getSpy().isRunning( observer );
-    if ( running )
-    {
-      final TransactionInfo transaction = getSpy().getTransaction();
-      if ( transaction.isTracking() && transaction.getTracker() == observer )
-      {
-        sb.append( "Running (Current Transaction)" );
-      }
-      else
-      {
-        sb.append( "Running (Suspended Transaction)" );
-      }
-    }
-    else if ( observer.isDisposed() )
-    {
-      sb.append( "Disposed" );
-    }
-    else if ( getSpy().isScheduled( observer ) )
-    {
-      sb.append( "Scheduled" );
-    }
-    else
-    {
-      sb.append( "Idle" );
-    }
+    sb.append( describeStatus( observer ) );
     sb.append( "\n" );
     sb.append( "  Mode: " );
     sb.append( getSpy().isReadOnly( observer ) ? "read only" : "read-write" );
@@ -119,7 +131,7 @@ public final class WhyRun
       describeObservable( sb, observable );
       sb.append( "\n" );
     }
-    if ( running )
+    if ( getSpy().isRunning( observer ) )
     {
       sb.append( "    -  (... or any other observable that is accessed in the remainder of the observers transaction)\n" );
     }
