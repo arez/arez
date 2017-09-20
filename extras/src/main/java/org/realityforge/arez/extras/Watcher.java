@@ -43,7 +43,7 @@ public final class Watcher
    * @param context   the Arez system to watch.
    * @param name      the debug name (if any) used when naming the underlying Arez resources.
    * @param mutation  true if the effect can mutate state, false otherwise.
-   * @param condition The function that determines when th effect is run.
+   * @param condition The function that determines when the effect is run.
    * @param effect    The procedure that is executed when the condition is true.
    */
   public Watcher( @Nonnull final ArezContext context,
