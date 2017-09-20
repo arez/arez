@@ -2,6 +2,7 @@ package org.realityforge.arez.extras;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.realityforge.arez.AbstractArezExtrasTest;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.ObserverErrorHandler;
@@ -12,6 +13,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class WatcherTest
+  extends AbstractArezExtrasTest
 {
   @Test
   public void basicOperation()
