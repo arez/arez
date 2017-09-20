@@ -78,7 +78,6 @@ public class NetworkStatus
   @OnActivate
   final void onOnLineActivate()
   {
-    updateOnlineStatus();
     DomGlobal.window.addEventListener( "online", _listener );
     DomGlobal.window.addEventListener( "offline", _listener );
   }
