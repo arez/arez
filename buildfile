@@ -8,6 +8,7 @@ OPTIONAL_DEPS = []
 TEST_DEPS = [:guiceyloops]
 GWT_DEPS =
   [
+    :gwt_user,
     :elemental2_core,
     :elemental2_dom,
     :elemental2_promise,
