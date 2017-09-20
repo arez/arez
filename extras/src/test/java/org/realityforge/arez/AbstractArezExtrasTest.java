@@ -18,7 +18,7 @@ public abstract class AbstractArezExtrasTest
     provider.setPurgeReactionsWhenRunawayDetected( false );
     provider.setEnforceTransactionType( true );
     provider.setEnableSpy( true );
-    getProxyLogger().setLogger( new TestLogger() );
+    getProxyLogger().setLogger( null );
     Arez.setProvider( null );
   }
 
