@@ -18,7 +18,7 @@ import org.realityforge.arez.annotations.OnDeactivate;
 import org.realityforge.arez.annotations.PreDispose;
 
 /**
- * Observable model declares state that tracks when the user is "idle".
+ * An observable model that declares state that tracks when the user is "idle".
  * A user is considered idle if they have not interacted with the browser
  * for specific amount of time.
  *
