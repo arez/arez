@@ -76,13 +76,13 @@ public final class WhyRun
   }
 
   @Nonnull
-  String whyRunObserver( @Nonnull final Observer observer )
+  private String whyRunObserver( @Nonnull final Observer observer )
   {
     final StringBuilder sb = new StringBuilder();
     sb.append( "WhyRun? Observer '" );
     sb.append( observer.getName() );
     sb.append( "':\n" );
-    sb.append( "  * Status: " );
+    sb.append( "  Status: " );
     final boolean running = getSpy().isRunning( observer );
     if ( running )
     {
@@ -109,9 +109,9 @@ public final class WhyRun
       sb.append( "Idle" );
     }
     sb.append( "\n" );
-    sb.append( "  * The Observer runs in a " );
+    sb.append( "  Mode: " );
     sb.append( getSpy().isReadOnly( observer ) ? "read only" : "read-write" );
-    sb.append( " tracking transaction\n" );
+    sb.append( "\n" );
     sb.append( "  * The Observer will run if any of the following observables change:\n" );
     for ( final Observable observable : getSpy().getDependencies( observer ) )
     {
@@ -144,20 +144,7 @@ public final class WhyRun
   }
 
   @Nonnull
-  String whyRun( @Nonnull final Observable observable )
-  {
-    if ( getSpy().isComputedValue( observable ) )
-    {
-      return whyRun( getSpy().asComputedValue( observable ) );
-    }
-    else
-    {
-      return "WhyRun? Observable '" + observable.getName() + "' is passive and is not explicitly scheduled to run.";
-    }
-  }
-
-  @Nonnull
-  String whyRun( @Nonnull final ComputedValue<?> computedValue )
+  private String whyRun( @Nonnull final ComputedValue<?> computedValue )
   {
     final StringBuilder sb = new StringBuilder();
     sb.append( "WhyRun? ComputedValue '" );
