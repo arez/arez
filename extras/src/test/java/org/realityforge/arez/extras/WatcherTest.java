@@ -89,9 +89,12 @@ public class WatcherTest
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
+    assertEquals( watcher.isDisposed(), false );
 
     result.set( true );
     watcher.dispose();
+
+    assertEquals( watcher.isDisposed(), true );
 
     context.procedure( ValueUtil.randomString(), true, observable::reportChanged );
 

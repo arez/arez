@@ -84,6 +84,7 @@ public final class Watcher
     {
       _observer.dispose();
       _conditionValue.dispose();
+      _disposed = true;
     }
   }
 
