@@ -3,6 +3,7 @@ package org.realityforge.arez.extras;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.jetbrains.annotations.TestOnly;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Node;
@@ -95,5 +96,11 @@ public final class Watcher
   public boolean isDisposed()
   {
     return _disposed;
+  }
+
+  @TestOnly
+  Observer getObserver()
+  {
+    return _observer;
   }
 }
