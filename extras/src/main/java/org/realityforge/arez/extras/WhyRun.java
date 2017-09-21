@@ -2,6 +2,7 @@ package org.realityforge.arez.extras;
 
 import java.util.List;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
@@ -13,11 +14,11 @@ import org.realityforge.arez.spy.TransactionInfo;
 public final class WhyRun
 {
   @Nonnull
-  private final Spy _spy;
+  private final ArezContext _context;
 
-  public WhyRun( @Nonnull final Spy spy )
+  public WhyRun( @Nonnull final ArezContext context )
   {
-    _spy = spy;
+    _context = context;
   }
 
   /**
@@ -214,6 +215,6 @@ public final class WhyRun
   @Nonnull
   private Spy getSpy()
   {
-    return _spy;
+    return _context.getSpy();
   }
 }

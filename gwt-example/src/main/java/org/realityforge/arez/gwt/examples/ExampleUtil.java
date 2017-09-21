@@ -19,7 +19,7 @@ final class ExampleUtil
 
   static void whyRun()
   {
-    DomGlobal.console.log( new WhyRun( Arez.context().getSpy() ).whyRun() );
+    DomGlobal.console.log( new WhyRun( Arez.context() ).whyRun() );
   }
 
   static void logAllErrors( @Nonnull final ArezContext context )
