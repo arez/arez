@@ -17,11 +17,6 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
-* function/procedure/safe* should have variants that accept tracker - the transaction name and mode
-  are derived from tracker.
-
-* add factory methods for creating observers where reactions are not themselves (i.e. not autorun)
-
 * Add Async helper to extras. Can be canceled/disposed. Has an Observable state field that indicates
   current status. Triggers an "Action" on async completion. Useful for handling async http calls etc.
 
