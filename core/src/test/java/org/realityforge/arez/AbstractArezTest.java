@@ -108,7 +108,7 @@ public abstract class AbstractArezTest
   @Nonnull
   final Observer newReadWriteObserver( @Nonnull final ArezContext context )
   {
-    return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE, new TestReaction() );
+    return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_WRITE, new TestReaction(), false );
   }
 
   @Nonnull
@@ -120,7 +120,7 @@ public abstract class AbstractArezTest
   @Nonnull
   final Observer newReadOnlyObserver( @Nonnull final ArezContext context )
   {
-    return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );
+    return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction(), false );
   }
 
   @Nonnull

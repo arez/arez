@@ -95,7 +95,8 @@ public class ObserverTest
                                         name,
                                         null,
                                         TransactionMode.READ_WRITE_OWNED,
-                                        new TestReaction() ) );
+                                        new TestReaction(),
+                                        false ) );
 
     assertEquals( exception.getMessage(),
                   "Attempted to construct an observer named '" + name + "' with READ_WRITE_OWNED " +
@@ -112,7 +113,12 @@ public class ObserverTest
     final ComputedValue<?> computedValue = newDerivation( context ).getComputedValue();
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new Observer( context, name, computedValue, TransactionMode.READ_ONLY, new TestReaction() ) );
+                    () -> new Observer( context,
+                                        name,
+                                        computedValue,
+                                        TransactionMode.READ_ONLY,
+                                        new TestReaction(),
+                                        false ) );
 
     assertEquals( exception.getMessage(),
                   "Attempted to construct an observer named '" + name + "' with READ_ONLY " +

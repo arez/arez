@@ -77,6 +77,10 @@ public final class Observer
   @Nullable
   private final Observable _derivedValue;
   /**
+   * Flag set to true if Observer can be passed as tracker into one of the transaciton emthods.
+   */
+  private final boolean _canTrackExplicitly;
+  /**
    * Flag set to true after Observer has been disposed.
    */
   private boolean _disposed;
@@ -89,8 +93,9 @@ public final class Observer
           TransactionMode.READ_WRITE_OWNED,
           o -> o.getContext().procedure( ArezConfig.enableNames() ? o.getName() : null,
                                          o.getMode(),
-                                         o,
-                                         computedValue::compute ) );
+                                         computedValue::compute,
+                                         o ),
+          false );
   }
 
   Observer( @Nonnull final ArezContext context,
@@ -98,14 +103,24 @@ public final class Observer
             @Nonnull final TransactionMode mode,
             @Nonnull final Reaction reaction )
   {
-    this( context, name, null, mode, reaction );
+    this( context, name, mode, reaction, false );
+  }
+
+  Observer( @Nonnull final ArezContext context,
+            @Nullable final String name,
+            @Nonnull final TransactionMode mode,
+            @Nonnull final Reaction reaction,
+            final boolean canTrackExplicitly )
+  {
+    this( context, name, null, mode, reaction, canTrackExplicitly );
   }
 
   Observer( @Nonnull final ArezContext context,
             @Nullable final String name,
             @Nullable final ComputedValue<?> computedValue,
             @Nonnull final TransactionMode mode,
-            @Nonnull final Reaction reaction )
+            @Nonnull final Reaction reaction,
+            final boolean canTrackExplicitly )
   {
     super( context, name );
     if ( TransactionMode.READ_WRITE_OWNED == mode )
@@ -115,6 +130,8 @@ public final class Observer
                        "transaction mode but no ComputedValue." );
       assert null != computedValue;
       assert !ArezConfig.enableNames() || computedValue.getName().equals( name );
+      invariant( () -> !canTrackExplicitly,
+                 () -> "Attempted to construct an ComputedValue '" + getName() + "' that could track explicitly." );
     }
     else if ( null != computedValue )
     {
@@ -124,6 +141,7 @@ public final class Observer
     _computedValue = computedValue;
     _mode = Objects.requireNonNull( mode );
     _reaction = Objects.requireNonNull( reaction );
+    _canTrackExplicitly = canTrackExplicitly;
     if ( TransactionMode.READ_WRITE_OWNED == mode )
     {
       _derivedValue = new Observable( context, name, this );
@@ -146,6 +164,11 @@ public final class Observer
     return _derivedValue;
   }
 
+  boolean canTrackExplicitly()
+  {
+    return _canTrackExplicitly;
+  }
+
   boolean isDerivation()
   {
     /*
@@ -166,8 +189,8 @@ public final class Observer
     {
       getContext().safeProcedure( ArezConfig.enableNames() ? getName() : null,
                                   TransactionMode.READ_WRITE,
-                                  this,
-                                  () -> getContext().getTransaction().markTrackerAsDisposed() );
+                                  () -> getContext().getTransaction().markTrackerAsDisposed(),
+                                  this );
       if ( willPropagateSpyEvents() && !isDerivation() )
       {
         reportSpyEvent( new ObserverDisposedEvent( this ) );

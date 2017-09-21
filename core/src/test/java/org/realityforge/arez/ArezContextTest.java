@@ -797,13 +797,13 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final TestReaction reaction = new TestReaction();
-    final Observer observer =
-      context.createObserver( name, true, reaction, true );
+    final Observer observer = context.createObserver( name, true, reaction, true, false );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getReaction(), reaction );
+    assertEquals( observer.canTrackExplicitly(), false );
     assertEquals( reaction.getCallCount(), 1 );
   }
 
@@ -817,7 +817,7 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final Observer observer =
-      context.createObserver( ValueUtil.randomString(), true, new TestReaction(), false );
+      context.createObserver( ValueUtil.randomString(), true, new TestReaction(), false, false );
 
     handler.assertEventCount( 2 );
 
@@ -833,14 +833,27 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final TestReaction reaction = new TestReaction();
-    final Observer observer = context.createObserver( name, false, reaction, false );
+    final Observer observer = context.createObserver( name, false, reaction, false, false );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
     assertEquals( observer.getReaction(), reaction );
+    assertEquals( observer.canTrackExplicitly(), false );
     assertEquals( reaction.getCallCount(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
+  }
+
+  @Test
+  public void createObserver_canTrackExplicitly()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observer observer =
+      context.createObserver( ValueUtil.randomString(), false, new TestReaction(), false, true );
+
+    assertEquals( observer.canTrackExplicitly(), true );
   }
 
   @Test
