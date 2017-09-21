@@ -757,22 +757,6 @@ public class ArezContextTest
   }
 
   @Test
-  public void reaction_minimumParameters()
-    throws Exception
-  {
-    final ArezContext context = new ArezContext();
-
-    context.setNextNodeId( 22 );
-    final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = context.reaction( callCount::incrementAndGet );
-
-    assertEquals( observer.getName(), "Observer@22" );
-    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
-    assertEquals( callCount.get(), 1 );
-  }
-
-  @Test
   public void autorun_minimumParameters()
     throws Exception
   {
@@ -854,6 +838,55 @@ public class ArezContextTest
 
     assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver(), observer );
     assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver(), observer );
+  }
+
+  @Test
+  public void reaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final String name = ValueUtil.randomString();
+    final AtomicInteger callCount = new AtomicInteger();
+    final Observer observer = context.reaction( name, false, callCount::incrementAndGet );
+
+    assertEquals( observer.getName(), name );
+    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( callCount.get(), 0 );
+    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+
+    handler.assertEventCount( 1 );
+
+    assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver(), observer );
+  }
+
+  @Test
+  public void reaction_minimalParameters()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final int nextNodeId = context.getNextNodeId();
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final Observer observer = context.reaction( callCount::incrementAndGet );
+
+    assertEquals( observer.getName(), "Observer@" + nextNodeId );
+    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( callCount.get(), 0 );
+    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+
+    handler.assertEventCount( 1 );
+
+    assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver(), observer );
   }
 
   @Test

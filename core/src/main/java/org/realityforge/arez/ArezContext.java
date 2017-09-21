@@ -232,6 +232,56 @@ public final class ArezContext
   }
 
   /**
+   * Create a "reaction" observer with a read-only tracker transaction.
+   * The "reaction" observer triggers the action any time any of the tracked dependencies are updated.
+   * To track dependencies, this returned observer must be passed as tracker to {@link #function(Observer, Function)}.
+   *
+   * @param action the action invoked as the reaction.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer reaction( @Nonnull final Procedure action )
+  {
+    return reaction( false, action );
+  }
+
+  /**
+   * Create a "reaction" observer.
+   * The "reaction" observer triggers the action any time any of the tracked dependencies are updated.
+   * To track dependencies, this returned observer must be passed as tracker to {@link #function(Observer, Function)}.
+   *
+   * @param mutation true if the observer may modify state during tracking, false otherwise.
+   * @param action   the action invoked as the reaction.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer reaction( final boolean mutation, @Nonnull final Procedure action )
+  {
+    return reaction( null, mutation, action );
+  }
+
+  /**
+   * Create a "reaction" observer.
+   * The "reaction" observer triggers the action any time any of the tracked dependencies are updated.
+   * To track dependencies, this returned observer must be passed as tracker to {@link #function(Observer, Function)}.
+   *
+   * @param name     the name of the observer.
+   * @param mutation true if the observer may modify state during tracking, false otherwise.
+   * @param action   the action invoked as the reaction.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer reaction( @Nullable final String name,
+                            final boolean mutation,
+                            @Nonnull final Procedure action )
+  {
+    return createObserver( name,
+                           mutation,
+                           o -> procedure( name, o.getMode(), action, o ),
+                           true );
+  }
+
+  /**
    * Create an observer with specified parameters.
    *
    * @param name     the name of the observer.
