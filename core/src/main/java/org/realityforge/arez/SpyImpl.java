@@ -258,7 +258,7 @@ final class SpyImpl
   @Override
   public boolean isComputedValue( @Nonnull final Observer observer )
   {
-    return ( (Observer) observer ).isDerivation();
+    return observer.isDerivation();
   }
 
   /**
