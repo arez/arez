@@ -301,9 +301,6 @@ public class ArezContextTest
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), "Transaction@" + nextNodeId );
-        assertEquals( transaction.getPrevious(), null );
-        assertEquals( transaction.getContext(), context );
-        assertEquals( transaction.getId(), nextNodeId );
         assertEquals( transaction.getMode(), TransactionMode.READ_WRITE );
 
         return expectedValue;
@@ -381,9 +378,6 @@ public class ArezContextTest
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), "Transaction@" + nextNodeId );
-        assertEquals( transaction.getPrevious(), null );
-        assertEquals( transaction.getContext(), context );
-        assertEquals( transaction.getId(), nextNodeId );
         assertEquals( transaction.getMode(), TransactionMode.READ_WRITE );
         return expectedValue;
       } );
