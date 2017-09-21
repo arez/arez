@@ -275,7 +275,10 @@ public final class ArezContext
                             final boolean mutation,
                             @Nonnull final Procedure action )
   {
-    return createObserver( name, mutation, o -> action.call(), true );
+    return createObserver( name,
+                           mutation,
+                           o -> procedure( name, o.getMode(), action, o ),
+                           true );
   }
 
   /**
