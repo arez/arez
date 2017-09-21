@@ -542,13 +542,13 @@ public final class ArezContext
   public void procedure( @Nullable final String name, final boolean mutation, @Nonnull final Procedure procedure )
     throws Throwable
   {
-    procedure( name, mutationToTransactionMode( mutation ), null, procedure );
+    procedure( name, mutationToTransactionMode( mutation ), procedure, null );
   }
 
   void procedure( @Nullable final String name,
                   @Nonnull final TransactionMode mode,
-                  @Nullable final Observer tracker,
-                  @Nonnull final Procedure procedure )
+                  @Nonnull final Procedure procedure,
+                  @Nullable final Observer tracker )
     throws Throwable
   {
     final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
@@ -597,13 +597,13 @@ public final class ArezContext
                              final boolean mutation,
                              @Nonnull final SafeProcedure action )
   {
-    safeProcedure( name, mutationToTransactionMode( mutation ), null, action );
+    safeProcedure( name, mutationToTransactionMode( mutation ), action, null );
   }
 
   void safeProcedure( @Nullable final String name,
                       @Nonnull final TransactionMode mode,
-                      @Nullable final Observer tracker,
-                      @Nonnull final SafeProcedure action )
+                      @Nonnull final SafeProcedure action,
+                      @Nullable final Observer tracker )
   {
     final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
     try

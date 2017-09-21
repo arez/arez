@@ -14,7 +14,7 @@ class TestReaction
     throws Exception
   {
     observer.getContext().
-      safeProcedure( observer.getName(), observer.getMode(), observer, () -> performReact( observer ) );
+      safeProcedure( observer.getName(), observer.getMode(), () -> performReact( observer ), observer );
   }
 
   void performReact( @Nonnull final Observer observer )
