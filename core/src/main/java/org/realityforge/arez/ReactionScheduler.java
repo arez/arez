@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import org.jetbrains.annotations.TestOnly;
+import org.realityforge.braincheck.BrainCheckConfig;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * The scheduler is responsible for scheduling observer reactions.
@@ -72,8 +74,8 @@ final class ReactionScheduler
    */
   void setMaxReactionRounds( @Nonnegative final int maxReactionRounds )
   {
-    Guards.invariant( () -> maxReactionRounds >= 0,
-                      () -> "Attempting to set maxReactionRounds to negative value " + maxReactionRounds + "." );
+    invariant( () -> maxReactionRounds >= 0,
+               () -> "Attempting to set maxReactionRounds to negative value " + maxReactionRounds + "." );
     _maxReactionRounds = maxReactionRounds;
   }
 
@@ -96,12 +98,12 @@ final class ReactionScheduler
    */
   void scheduleReaction( @Nonnull final Observer observer )
   {
-    Guards.invariant( observer::hasReaction,
-                      () -> "Attempting to schedule observer named '" + observer.getName() +
-                            "' when observer has no reaction." );
-    Guards.invariant( () -> !_pendingObservers.contains( observer ),
-                      () -> "Attempting to schedule observer named '" + observer.getName() +
-                            "' when observer is already pending." );
+    invariant( observer::hasReaction,
+               () -> "Attempting to schedule observer named '" + observer.getName() +
+                     "' when observer has no reaction." );
+    invariant( () -> !_pendingObservers.contains( observer ),
+               () -> "Attempting to schedule observer named '" + observer.getName() +
+                     "' when observer is already pending." );
     _pendingObservers.add( Objects.requireNonNull( observer ) );
   }
 
@@ -167,9 +169,9 @@ final class ReactionScheduler
      * All reactions expect to run as top level transactions so
      * there should be no transaction active.
      */
-    Guards.invariant( () -> !getContext().isTransactionActive(),
-                      () -> "Invoked runObserver when transaction named '" +
-                            getContext().getTransaction().getName() + "' is active." );
+    invariant( () -> !getContext().isTransactionActive(),
+               () -> "Invoked runObserver when transaction named '" +
+                     getContext().getTransaction().getName() + "' is active." );
     final int pendingObserverCount = _pendingObservers.size();
     // If we have reached the last observer in this round then
     // determine if we need any more rounds and if we do ensure
@@ -220,7 +222,7 @@ final class ReactionScheduler
   void onRunawayReactionsDetected()
   {
     final List<String> observerNames =
-      ArezConfig.checkInvariants() && ArezConfig.verboseErrorMessages() ?
+      BrainCheckConfig.checkInvariants() && BrainCheckConfig.verboseErrorMessages() ?
       _pendingObservers.stream().map( Node::getName ).collect( Collectors.toList() ) :
       null;
 
@@ -229,8 +231,8 @@ final class ReactionScheduler
       _pendingObservers.clear();
     }
 
-    Guards.fail( () -> "Runaway reaction(s) detected. Observers still running after " + _maxReactionRounds +
-                       " rounds. Current observers include: " + observerNames );
+    fail( () -> "Runaway reaction(s) detected. Observers still running after " + _maxReactionRounds +
+                " rounds. Current observers include: " + observerNames );
   }
 
   @Nonnull

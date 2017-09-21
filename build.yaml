@@ -5,7 +5,7 @@ repositories:
    - https://stocksoftware.artifactoryonline.com/stocksoftware/oss
 
 artifacts:
-  idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.9
+  idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.10
 
   javax_jsr305: com.google.code.findbugs:jsr305:jar:3.0.1
   jetbrains_annotations: org.jetbrains:annotations:jar:15.0
@@ -34,3 +34,5 @@ artifacts:
   elemental2_core: com.google.elemental2:elemental2-core:jar:1.0.0-beta-1
   elemental2_dom: com.google.elemental2:elemental2-dom:jar:1.0.0-beta-1
   elemental2_promise: com.google.elemental2:elemental2-promise:jar:1.0.0-beta-1
+
+  braincheck: org.realityforge.braincheck:braincheck:jar:gwt:1.0.0

@@ -21,7 +21,14 @@ GWT_DEPS =
 GWT_EXAMPLES=%w(IdleStatusExample BrowserLocationExample NetworkStatusExample).collect{|c| "org.realityforge.arez.gwt.examples.#{c}"}
 
 # JDK options passed to test environment. Essentially turns assertions on.
-AREZ_TEST_OPTIONS = { 'arez.dynamic_provider' => 'true', 'arez.logger' => 'proxy', 'arez.environment' => 'development' }
+AREZ_TEST_OPTIONS =
+  {
+    'braincheck.dynamic_provider' => 'true',
+    'braincheck.environment' => 'development',
+    'arez.dynamic_provider' => 'true',
+    'arez.logger' => 'proxy',
+    'arez.environment' => 'development'
+  }
 
 desc 'Arez: Simple, Scalable State Management Library'
 define 'arez' do
@@ -53,7 +60,8 @@ define 'arez' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
     compile.with PROVIDED_DEPS,
-                 COMPILE_DEPS
+                 COMPILE_DEPS,
+                 :braincheck
 
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
@@ -197,7 +205,7 @@ define 'arez' do
 
   iml.excluded_directories << project._('tmp/gwt')
 
-  ipr.add_default_testng_configuration(:jvm_args => '-ea -Darez.dynamic_provider=true -Darez.logger=proxy -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources')
+  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.dynamic_provider=true -Dbraincheck.environment=development -Darez.dynamic_provider=true -Darez.logger=proxy -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources')
   ipr.add_component_from_artifact(:idea_codestyle)
   ipr.extra_modules << '../mobx/mobx.iml'
   ipr.extra_modules << '../mobx-react/mobx-react.iml'

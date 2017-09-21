@@ -5,6 +5,8 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
+import org.realityforge.braincheck.BrainCheckConfig;
+import static org.realityforge.braincheck.Guards.*;
 
 final class Transaction
 {
@@ -72,8 +74,8 @@ final class Transaction
                @Nonnull final TransactionMode mode,
                @Nullable final Observer tracker )
   {
-    Guards.invariant( () -> ArezConfig.enableNames() || null == name,
-                      () -> "Transaction passed a name '" + name + "' but ArezConfig.enableNames() is false" );
+    invariant( () -> ArezConfig.enableNames() || null == name,
+               () -> "Transaction passed a name '" + name + "' but ArezConfig.enableNames() is false" );
     _context = Objects.requireNonNull( context );
     _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
     _id = context.nextTransactionId();
@@ -82,9 +84,9 @@ final class Transaction
     _tracker = tracker;
     _startedAt = ArezConfig.enableSpy() ? System.currentTimeMillis() : 0;
 
-    Guards.invariant( () -> TransactionMode.READ_WRITE_OWNED != mode || null != tracker,
-                      () -> "Attempted to create transaction named '" + getName() +
-                            "' with mode READ_WRITE_OWNED but no tracker specified." );
+    invariant( () -> TransactionMode.READ_WRITE_OWNED != mode || null != tracker,
+               () -> "Attempted to create transaction named '" + getName() +
+                     "' with mode READ_WRITE_OWNED but no tracker specified." );
   }
 
   /**
@@ -97,8 +99,8 @@ final class Transaction
   @Nonnull
   String getName()
   {
-    Guards.invariant( ArezConfig::enableNames,
-                      () -> "Transaction.getName() invoked when ArezConfig.enableNames() is false" );
+    invariant( ArezConfig::enableNames,
+               () -> "Transaction.getName() invoked when ArezConfig.enableNames() is false" );
     assert null != _name;
     return _name;
   }
@@ -111,8 +113,8 @@ final class Transaction
 
   long getStartedAt()
   {
-    Guards.invariant( ArezConfig::enableSpy,
-                      () -> "Transaction.getStartedAt() invoked when ArezConfig.enableSpy() is false" );
+    invariant( ArezConfig::enableSpy,
+               () -> "Transaction.getStartedAt() invoked when ArezConfig.enableSpy() is false" );
     return _startedAt;
   }
 
@@ -128,12 +130,12 @@ final class Transaction
 
   void markTrackerAsDisposed()
   {
-    Guards.invariant( () -> null != _tracker,
-                      () -> "Attempted to invoke markTrackerAsDisposed on transaction named '" + getName() +
-                            "' when there is no tracker associated with the transaction." );
-    Guards.invariant( () -> TransactionMode.READ_WRITE == getMode(),
-                      () -> "Attempted to invoke markTrackerAsDisposed on transaction named '" + getName() +
-                            "' when the transaction mode is " + getMode().name() + " and not READ_WRITE." );
+    invariant( () -> null != _tracker,
+               () -> "Attempted to invoke markTrackerAsDisposed on transaction named '" + getName() +
+                     "' when there is no tracker associated with the transaction." );
+    invariant( () -> TransactionMode.READ_WRITE == getMode(),
+               () -> "Attempted to invoke markTrackerAsDisposed on transaction named '" + getName() +
+                     "' when the transaction mode is " + getMode().name() + " and not READ_WRITE." );
     assert null != _tracker;
     _tracker.setDisposed( true );
     _disposeTracker = true;
@@ -197,9 +199,9 @@ final class Transaction
 
   int processPendingDeactivations()
   {
-    Guards.invariant( this::isRootTransaction,
-                      () -> "Invoked processPendingDeactivations on transaction named '" + getName() +
-                            "' which is not the root transaction." );
+    invariant( this::isRootTransaction,
+               () -> "Invoked processPendingDeactivations on transaction named '" + getName() +
+                     "' which is not the root transaction." );
     int count = 0;
     if ( null != _pendingDeactivations )
     {
@@ -213,9 +215,9 @@ final class Transaction
         observable.resetPendingDeactivation();
         if ( observable.isDisposed() )
         {
-          Guards.invariant( () -> !observable.hasObservers(),
-                            () -> "Attempting to deactivate disposed observable named '" + observable.getName() + "' " +
-                                  "in transaction named '" + getName() + "' but the observable still has observers." );
+          invariant( () -> !observable.hasObservers(),
+                     () -> "Attempting to deactivate disposed observable named '" + observable.getName() + "' " +
+                           "in transaction named '" + getName() + "' but the observable still has observers." );
         }
         if ( !observable.hasObservers() )
         {
@@ -229,9 +231,9 @@ final class Transaction
 
   void queueForDeactivation( @Nonnull final Observable observable )
   {
-    Guards.invariant( observable::canDeactivate,
-                      () -> "Invoked queueForDeactivation on transaction named '" + getName() + "' for observable " +
-                            "named '" + observable.getName() + "' when observable can not be deactivated." );
+    invariant( observable::canDeactivate,
+               () -> "Invoked queueForDeactivation on transaction named '" + getName() + "' for observable " +
+                     "named '" + observable.getName() + "' when observable can not be deactivated." );
     if ( null == _pendingDeactivations )
     {
       final Transaction rootTransaction = getRootTransaction();
@@ -243,28 +245,28 @@ final class Transaction
     }
     else
     {
-      Guards.invariant( () -> !_pendingDeactivations.contains( observable ),
-                        () -> "Invoked queueForDeactivation on transaction named '" + getName() + "' for " +
-                              "observable named '" + observable.getName() + "' when pending deactivation " +
-                              "already exists for observable." );
+      invariant( () -> !_pendingDeactivations.contains( observable ),
+                 () -> "Invoked queueForDeactivation on transaction named '" + getName() + "' for " +
+                       "observable named '" + observable.getName() + "' when pending deactivation " +
+                       "already exists for observable." );
     }
     _pendingDeactivations.add( Objects.requireNonNull( observable ) );
   }
 
   void observe( @Nonnull final Observable observable )
   {
-    Guards.invariant( () -> !observable.isDisposed(),
-                      () -> "Invoked observe on transaction named '" + getName() + "' for observable named '" +
-                            observable.getName() + "' where the observable is disposed." );
+    invariant( () -> !observable.isDisposed(),
+               () -> "Invoked observe on transaction named '" + getName() + "' for observable named '" +
+                     observable.getName() + "' where the observable is disposed." );
     if ( null != _tracker )
     {
       /*
        * This invariant is in place as owned observables are generated by the tracker and thus should not be
        * observed during own generation process.
        */
-      Guards.invariant( () -> !observable.hasOwner() || _tracker != observable.getOwner(),
-                        () -> "Invoked observe on transaction named '" + getName() + "' for observable named '" +
-                              observable.getName() + "' where the observable is owned by the tracker." );
+      invariant( () -> !observable.hasOwner() || _tracker != observable.getOwner(),
+                 () -> "Invoked observe on transaction named '" + getName() + "' for observable named '" +
+                       observable.getName() + "' where the observable is owned by the tracker." );
       observable.invariantOwner();
       /*
        * This optimization attempts to stop the same observable being added multiple
@@ -289,9 +291,9 @@ final class Transaction
    */
   void reportChanged( @Nonnull final Observable observable )
   {
-    Guards.invariant( () -> !observable.isDisposed(),
-                      () -> "Invoked reportChanged on transaction named '" + getName() + "' for observable " +
-                            "named '" + observable.getName() + "' where the observable is disposed." );
+    invariant( () -> !observable.isDisposed(),
+               () -> "Invoked reportChanged on transaction named '" + getName() + "' for observable " +
+                     "named '" + observable.getName() + "' where the observable is disposed." );
     verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
 
@@ -308,15 +310,15 @@ final class Transaction
         }
         else
         {
-          Guards.invariant( () -> ObserverState.POSSIBLY_STALE != state,
-                            () -> "Transaction named '" + getName() + "' has attempted to explicitly " +
-                                  "change observable named '" + observable.getName() + "' but observable " +
-                                  "is in state POSSIBLY_STALE indicating it is derived and thus can not " +
-                                  "be explicitly changed." );
-          Guards.invariant( () -> ObserverState.STALE == state,
-                            () -> "Transaction named '" + getName() + "' has attempted to explicitly " +
-                                  "change observable named '" + observable.getName() + "' and observable " +
-                                  "is in unexpected state " + state.name() + "." );
+          invariant( () -> ObserverState.POSSIBLY_STALE != state,
+                     () -> "Transaction named '" + getName() + "' has attempted to explicitly " +
+                           "change observable named '" + observable.getName() + "' but observable " +
+                           "is in state POSSIBLY_STALE indicating it is derived and thus can not " +
+                           "be explicitly changed." );
+          invariant( () -> ObserverState.STALE == state,
+                     () -> "Transaction named '" + getName() + "' has attempted to explicitly " +
+                           "change observable named '" + observable.getName() + "' and observable " +
+                           "is in unexpected state " + state.name() + "." );
         }
       }
     }
@@ -331,12 +333,12 @@ final class Transaction
    */
   void reportPossiblyChanged( @Nonnull final Observable observable )
   {
-    Guards.invariant( () -> !observable.isDisposed(),
-                      () -> "Invoked reportPossiblyChanged on transaction named '" + getName() + "' for " +
-                            "observable named '" + observable.getName() + "' where the observable is disposed." );
-    Guards.invariant( observable::hasOwner,
-                      () -> "Transaction named '" + getName() + "' has attempted to mark observable named '" +
-                            observable.getName() + "' as potentially changed but observable is not a derived value." );
+    invariant( () -> !observable.isDisposed(),
+               () -> "Invoked reportPossiblyChanged on transaction named '" + getName() + "' for " +
+                     "observable named '" + observable.getName() + "' where the observable is disposed." );
+    invariant( observable::hasOwner,
+               () -> "Transaction named '" + getName() + "' has attempted to mark observable named '" +
+                     observable.getName() + "' as potentially changed but observable is not a derived value." );
     verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
     if ( observable.hasObservers() && ObserverState.UP_TO_DATE == observable.getLeastStaleObserverState() )
@@ -365,13 +367,13 @@ final class Transaction
    */
   void reportChangeConfirmed( @Nonnull final Observable observable )
   {
-    Guards.invariant( () -> !observable.isDisposed(),
-                      () -> "Invoked reportChangeConfirmed on transaction named '" +
-                            getName() + "' for observable named '" +
-                            observable.getName() + "' where the observable is disposed." );
-    Guards.invariant( observable::hasOwner,
-                      () -> "Transaction named '" + getName() + "' has attempted to mark observable named '" +
-                            observable.getName() + "' as potentially changed but observable is not a derived value." );
+    invariant( () -> !observable.isDisposed(),
+               () -> "Invoked reportChangeConfirmed on transaction named '" +
+                     getName() + "' for observable named '" +
+                     observable.getName() + "' where the observable is disposed." );
+    invariant( observable::hasOwner,
+               () -> "Transaction named '" + getName() + "' has attempted to mark observable named '" +
+                     observable.getName() + "' as potentially changed but observable is not a derived value." );
 
     verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
@@ -412,7 +414,7 @@ final class Transaction
     // The ArezConfig.checkInvariants() is not needed as the optimizing compilers will eventually
     // eliminate this as dead code but this top level check short-cuts this and ensures that GWT compiler
     // eliminates it in first pass.
-    if ( ArezConfig.checkInvariants() )
+    if ( BrainCheckConfig.checkInvariants() )
     {
       boolean found = false;
       Transaction t = this;
@@ -428,11 +430,11 @@ final class Transaction
         t = t.getPrevious();
       }
       final boolean check = found;
-      Guards.invariant( () -> check,
-                        () -> "Transaction named '" + getName() + "' attempted to call reportChangeConfirmed " +
-                              "for observable named '" + observable.getName() + "' and found a dependency named '" +
-                              observer.getName() + "' that is UP_TO_DATE but is not the tracker of any " +
-                              "transactions in the hierarchy: " + names + "." );
+      invariant( () -> check,
+                 () -> "Transaction named '" + getName() + "' attempted to call reportChangeConfirmed " +
+                       "for observable named '" + observable.getName() + "' and found a dependency named '" +
+                       observer.getName() + "' that is UP_TO_DATE but is not the tracker of any " +
+                       "transactions in the hierarchy: " + names + "." );
     }
   }
 
@@ -442,15 +444,15 @@ final class Transaction
     {
       if ( TransactionMode.READ_ONLY == _mode )
       {
-        Guards.fail( () -> "Transaction named '" + getName() + "' attempted to change observable named '" +
-                           observable.getName() + "' but transaction is READ_ONLY." );
+        fail( () -> "Transaction named '" + getName() + "' attempted to change observable named '" +
+                    observable.getName() + "' but transaction is READ_ONLY." );
       }
       else if ( TransactionMode.READ_WRITE_OWNED == _mode )
       {
-        Guards.invariant( () -> observable.hasOwner() && observable.getOwner() == _tracker,
-                          () -> "Transaction named '" + getName() + "' attempted to change observable named '" +
-                                observable.getName() + "' and transaction is READ_WRITE_OWNED but the observable " +
-                                "has not been created by the transaction." );
+        invariant( () -> observable.hasOwner() && observable.getOwner() == _tracker,
+                   () -> "Transaction named '" + getName() + "' attempted to change observable named '" +
+                         observable.getName() + "' and transaction is READ_WRITE_OWNED but the observable " +
+                         "has not been created by the transaction." );
       }
     }
   }
@@ -465,15 +467,15 @@ final class Transaction
   {
     if ( null == _tracker )
     {
-      Guards.invariant( () -> null == _observables,
-                        () -> "Transaction named '" + getName() + "' has no associated tracker so " +
-                              "_observables should be null but are not." );
+      invariant( () -> null == _observables,
+                 () -> "Transaction named '" + getName() + "' has no associated tracker so " +
+                       "_observables should be null but are not." );
       return;
     }
     _tracker.invariantDependenciesUnique( "Pre completeTracking" );
-    Guards.invariant( () -> _tracker.getState() != ObserverState.INACTIVE || _tracker.isDisposed(),
-                      () -> "Transaction named '" + getName() + "' called completeTracking but _tracker state " +
-                            "of INACTIVE is not expected when tracker has not been disposed." );
+    invariant( () -> _tracker.getState() != ObserverState.INACTIVE || _tracker.isDisposed(),
+               () -> "Transaction named '" + getName() + "' called completeTracking but _tracker state " +
+                     "of INACTIVE is not expected when tracker has not been disposed." );
 
     ObserverState newDerivationState = ObserverState.UP_TO_DATE;
 
@@ -592,7 +594,7 @@ final class Transaction
     /*
      * Check invariants. In both java and non-java code this will be compiled out.
      */
-    if ( ArezConfig.checkInvariants() )
+    if ( BrainCheckConfig.checkInvariants() )
     {
       if ( null != _observables )
       {

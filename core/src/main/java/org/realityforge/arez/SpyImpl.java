@@ -9,6 +9,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 import org.realityforge.arez.spy.TransactionInfo;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * Class supporting the propagation of events to SpyEventHandler callbacks.
@@ -36,9 +37,8 @@ final class SpyImpl
   @Override
   public void addSpyEventHandler( @Nonnull final SpyEventHandler handler )
   {
-    Guards.invariant( () -> !_spyEventHandlers.contains( handler ),
-                      () -> "Attempting to add handler " + handler +
-                            " that is already in the list of spy handlers." );
+    invariant( () -> !_spyEventHandlers.contains( handler ),
+               () -> "Attempting to add handler " + handler + " that is already in the list of spy handlers." );
     _spyEventHandlers.add( Objects.requireNonNull( handler ) );
   }
 
@@ -48,8 +48,8 @@ final class SpyImpl
   @Override
   public void removeSpyEventHandler( @Nonnull final SpyEventHandler handler )
   {
-    Guards.invariant( () -> _spyEventHandlers.contains( handler ),
-                      () -> "Attempting to remove handler " + handler + " that is not in the list of spy handlers." );
+    invariant( () -> _spyEventHandlers.contains( handler ),
+               () -> "Attempting to remove handler " + handler + " that is not in the list of spy handlers." );
     _spyEventHandlers.remove( Objects.requireNonNull( handler ) );
   }
 
@@ -59,9 +59,8 @@ final class SpyImpl
   @Override
   public void reportSpyEvent( @Nonnull final Object event )
   {
-    Guards.invariant( this::willPropagateSpyEvents,
-                      () -> "Attempting to report SpyEvent '" + event + "' but willPropagateSpyEvents() " +
-                            "returns false." );
+    invariant( this::willPropagateSpyEvents,
+               () -> "Attempting to report SpyEvent '" + event + "' but willPropagateSpyEvents() returns false." );
     for ( final SpyEventHandler handler : _spyEventHandlers )
     {
       try
@@ -109,7 +108,7 @@ final class SpyImpl
   @Override
   public TransactionInfo getTransaction()
   {
-    Guards.invariant( this::isTransactionActive, () -> "Spy.getTransaction() invoked but no transaction active." );
+    invariant( this::isTransactionActive, () -> "Spy.getTransaction() invoked but no transaction active." );
     return new TransactionInfoImpl( getContext().getTransaction() );
   }
 
@@ -177,9 +176,9 @@ final class SpyImpl
   {
     assert computedValue.isComputing();
     final Transaction transaction = getTrackerTransaction( computedValue.getObserver() );
-    Guards.invariant( () -> transaction != null,
-                      () -> "ComputedValue named '" + computedValue.getName() + "' is marked as computing but " +
-                            "unable to locate transaction responsible for computing ComputedValue" );
+    invariant( () -> transaction != null,
+               () -> "ComputedValue named '" + computedValue.getName() + "' is marked as computing but " +
+                     "unable to locate transaction responsible for computing ComputedValue" );
     assert null != transaction;
     return transaction;
   }

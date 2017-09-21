@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * Class supporting the propagation of errors for ObserverErrorHandler callback to multiple error handlers.
@@ -25,9 +26,8 @@ final class ObserverErrorHandlerSupport
    */
   void addObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
-    Guards.invariant( () -> !_observerErrorHandlers.contains( handler ),
-                      () -> "Attempting to add handler " + handler +
-                            " that is already in the list of error handlers." );
+    invariant( () -> !_observerErrorHandlers.contains( handler ),
+               () -> "Attempting to add handler " + handler + " that is already in the list of error handlers." );
     _observerErrorHandlers.add( Objects.requireNonNull( handler ) );
   }
 
@@ -39,8 +39,8 @@ final class ObserverErrorHandlerSupport
    */
   void removeObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
-    Guards.invariant( () -> _observerErrorHandlers.contains( handler ),
-                      () -> "Attempting to remove handler " + handler + " that is not in the list of error handlers." );
+    invariant( () -> _observerErrorHandlers.contains( handler ),
+               () -> "Attempting to remove handler " + handler + " that is not in the list of error handlers." );
     _observerErrorHandlers.remove( Objects.requireNonNull( handler ) );
   }
 

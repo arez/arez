@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import javax.annotation.Nonnull;
+import org.realityforge.braincheck.BrainCheckTestUtil;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -11,10 +12,12 @@ public abstract class AbstractArezExtrasTest
   protected void beforeTest()
     throws Exception
   {
+    BrainCheckTestUtil.setVerboseErrorMessages( true );
+    BrainCheckTestUtil.setCheckInvariants( true );
+    BrainCheckTestUtil.setCheckApiInvariants( true );
+
     final ArezConfig.DynamicProvider provider = getConfigProvider();
     provider.setEnableNames( true );
-    provider.setVerboseErrorMessages( true );
-    provider.setCheckInvariants( true );
     provider.setPurgeReactionsWhenRunawayDetected( false );
     provider.setEnforceTransactionType( true );
     provider.setEnableSpy( true );
@@ -26,10 +29,12 @@ public abstract class AbstractArezExtrasTest
   protected void afterTest()
     throws Exception
   {
+    BrainCheckTestUtil.setVerboseErrorMessages( false );
+    BrainCheckTestUtil.setCheckInvariants( false );
+    BrainCheckTestUtil.setCheckApiInvariants( false );
+
     final ArezConfig.DynamicProvider provider = getConfigProvider();
     provider.setEnableNames( false );
-    provider.setVerboseErrorMessages( false );
-    provider.setCheckInvariants( false );
     provider.setPurgeReactionsWhenRunawayDetected( true );
     provider.setEnforceTransactionType( false );
     provider.setEnableSpy( false );
@@ -48,6 +53,7 @@ public abstract class AbstractArezExtrasTest
     return (ArezConfig.DynamicProvider) ArezConfig.getProvider();
   }
 
+  @SuppressWarnings( "SameParameterValue" )
   protected void setEnableNames( final boolean enableNames )
   {
     getConfigProvider().setEnableNames( enableNames );

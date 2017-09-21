@@ -3,6 +3,7 @@ package org.realityforge.arez;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * A node within an Arez dependency graph.
@@ -30,8 +31,8 @@ public abstract class Node
 
   protected Node( @Nonnull final ArezContext context, @Nullable final String name )
   {
-    Guards.invariant( () -> ArezConfig.enableNames() || null == name,
-                      () -> "Node passed a name '" + name + "' but ArezConfig.enableNames() is false" );
+    invariant( () -> ArezConfig.enableNames() || null == name,
+               () -> "Node passed a name '" + name + "' but ArezConfig.enableNames() is false" );
     _context = Objects.requireNonNull( context );
     _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
   }
@@ -46,8 +47,7 @@ public abstract class Node
   @Nonnull
   public final String getName()
   {
-    Guards.invariant( ArezConfig::enableNames,
-                      () -> "Node.getName() invoked when ArezConfig.enableNames() is false" );
+    invariant( ArezConfig::enableNames, () -> "Node.getName() invoked when ArezConfig.enableNames() is false" );
     assert null != _name;
     return _name;
   }

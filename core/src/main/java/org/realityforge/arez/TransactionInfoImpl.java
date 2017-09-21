@@ -4,6 +4,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.arez.spy.TransactionInfo;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * Adapter of Transaction to TransactionInfo for spy capabilities.
@@ -83,8 +84,8 @@ final class TransactionInfoImpl
   public Observer getTracker()
   {
     final Observer tracker = getTransaction().getTracker();
-    Guards.invariant( () -> null != tracker,
-                      () -> "Invoked getTracker on TransactionInfo named '" + getName() + "' but no tracker exists." );
+    invariant( () -> null != tracker,
+               () -> "Invoked getTracker on TransactionInfo named '" + getName() + "' but no tracker exists." );
     assert null != tracker;
     return tracker;
   }

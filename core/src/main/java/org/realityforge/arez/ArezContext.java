@@ -11,6 +11,7 @@ import org.realityforge.arez.spy.ObserverErrorEvent;
 import org.realityforge.arez.spy.ReactionScheduledEvent;
 import org.realityforge.arez.spy.TransactionCompletedEvent;
 import org.realityforge.arez.spy.TransactionStartedEvent;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * The ArezContext defines the top level container of interconnected observables and observers.
@@ -302,10 +303,10 @@ public final class ArezContext
   {
     if ( TransactionMode.READ_WRITE == mode && null != _transaction )
     {
-      Guards.invariant( () -> TransactionMode.READ_WRITE == _transaction.getMode(),
-                        () -> "Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
-                              "nested in transaction named '" + _transaction.getName() + "' with mode " +
-                              _transaction.getMode().name() + " which is not equal to READ_WRITE." );
+      invariant( () -> TransactionMode.READ_WRITE == _transaction.getMode(),
+                 () -> "Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
+                       "nested in transaction named '" + _transaction.getName() + "' with mode " +
+                       _transaction.getMode().name() + " which is not equal to READ_WRITE." );
     }
     _transaction = new Transaction( this, _transaction, name, mode, tracker );
     _transaction.begin();
@@ -328,13 +329,13 @@ public final class ArezContext
    */
   void commitTransaction( @Nonnull final Transaction transaction )
   {
-    Guards.invariant( () -> null != _transaction,
-                      () -> "Attempting to commit transaction named '" + transaction.getName() +
-                            "' but no transaction is active." );
+    invariant( () -> null != _transaction,
+               () -> "Attempting to commit transaction named '" + transaction.getName() +
+                     "' but no transaction is active." );
     assert null != _transaction;
-    Guards.invariant( () -> _transaction == transaction,
-                      () -> "Attempting to commit transaction named '" + transaction.getName() + "' but this does " +
-                            "not match existing transaction named '" + _transaction.getName() + "'." );
+    invariant( () -> _transaction == transaction,
+               () -> "Attempting to commit transaction named '" + transaction.getName() + "' but this does " +
+                     "not match existing transaction named '" + _transaction.getName() + "'." );
     _transaction.commit();
     if ( willPropagateSpyEvents() )
     {
@@ -518,8 +519,7 @@ public final class ArezContext
   @Nonnull
   Transaction getTransaction()
   {
-    Guards.invariant( this::isTransactionActive,
-                      () -> "Attempting to get current transaction but no transaction is active." );
+    invariant( this::isTransactionActive, () -> "Attempting to get current transaction but no transaction is active." );
     assert null != _transaction;
     return _transaction;
   }
@@ -595,7 +595,7 @@ public final class ArezContext
   @Nonnull
   public Spy getSpy()
   {
-    Guards.invariant( this::areSpiesEnabled, () -> "Attempting to get Spy but spies are not enabled." );
+    invariant( this::areSpiesEnabled, () -> "Attempting to get Spy but spies are not enabled." );
     assert null != _spy;
     return _spy;
   }

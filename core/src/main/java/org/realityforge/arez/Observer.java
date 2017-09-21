@@ -12,6 +12,8 @@ import org.realityforge.arez.spy.ComputeStartedEvent;
 import org.realityforge.arez.spy.ObserverDisposedEvent;
 import org.realityforge.arez.spy.ReactionCompletedEvent;
 import org.realityforge.arez.spy.ReactionStartedEvent;
+import org.realityforge.braincheck.BrainCheckConfig;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * A node within Arez that is notified of changes in 0 or more Observables.
@@ -105,16 +107,16 @@ public final class Observer
     super( context, name );
     if ( TransactionMode.READ_WRITE_OWNED == mode )
     {
-      Guards.invariant( () -> null != computedValue,
-                        () -> "Attempted to construct an observer named '" + getName() + "' with READ_WRITE_OWNED " +
-                              "transaction mode but no ComputedValue." );
+      invariant( () -> null != computedValue,
+                 () -> "Attempted to construct an observer named '" + getName() + "' with READ_WRITE_OWNED " +
+                       "transaction mode but no ComputedValue." );
       assert null != computedValue;
       assert !ArezConfig.enableNames() || computedValue.getName().equals( name );
     }
     else if ( null != computedValue )
     {
-      Guards.fail( () -> "Attempted to construct an observer named '" + getName() + "' with " + mode.name() +
-                         " transaction mode and a ComputedValue." );
+      fail( () -> "Attempted to construct an observer named '" + getName() + "' with " + mode.name() +
+                  " transaction mode and a ComputedValue." );
     }
     _computedValue = computedValue;
     _mode = Objects.requireNonNull( mode );
@@ -132,11 +134,11 @@ public final class Observer
   @Nonnull
   Observable getDerivedValue()
   {
-    Guards.invariant( this::isLive,
-                      () -> "Attempted to invoke getDerivedValue on disposed observer named '" + getName() + "'." );
-    Guards.invariant( this::isDerivation,
-                      () -> "Attempted to invoke getDerivedValue on observer named '" + getName() + "' when is not " +
-                            "a computed observer." );
+    invariant( this::isLive,
+               () -> "Attempted to invoke getDerivedValue on disposed observer named '" + getName() + "'." );
+    invariant( this::isDerivation,
+               () -> "Attempted to invoke getDerivedValue on observer named '" + getName() + "' when is not " +
+                     "a computed observer." );
     assert null != _derivedValue;
     return _derivedValue;
   }
@@ -271,9 +273,9 @@ public final class Observer
    */
   void setState( @Nonnull final ObserverState state )
   {
-    Guards.invariant( () -> getContext().isTransactionActive(),
-                      () -> "Attempt to invoke setState on observer named '" + getName() + "' when there is " +
-                            "no active transaction." );
+    invariant( () -> getContext().isTransactionActive(),
+               () -> "Attempt to invoke setState on observer named '" + getName() + "' when there is " +
+                     "no active transaction." );
     invariantState();
     if ( !state.equals( _state ) )
     {
@@ -307,8 +309,7 @@ public final class Observer
       }
       else if ( ObserverState.INACTIVE == originalState )
       {
-        Guards.invariant( this::isLive,
-                          () -> "Attempted to activate disposed observer named '" + getName() + "'." );
+        invariant( this::isLive, () -> "Attempted to activate disposed observer named '" + getName() + "'." );
         runHook( getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
       }
       invariantState();
@@ -434,12 +435,12 @@ public final class Observer
   {
     if ( isLive() )
     {
-      Guards.invariant( this::hasReaction,
-                        () -> "Observer named '" + getName() + "' has no reaction but an attempt has been made " +
-                              "to schedule observer." );
-      Guards.invariant( this::isActive,
-                        () -> "Observer named '" + getName() + "' is not active but an attempt has been made " +
-                              "to schedule observer." );
+      invariant( this::hasReaction,
+                 () -> "Observer named '" + getName() + "' has no reaction but an attempt has been made " +
+                       "to schedule observer." );
+      invariant( this::isActive,
+                 () -> "Observer named '" + getName() + "' is not active but an attempt has been made " +
+                       "to schedule observer." );
       if ( !_scheduled )
       {
         _scheduled = true;
@@ -461,9 +462,9 @@ public final class Observer
       final String name = ArezConfig.enableNames() ? getName() : null;
       final TransactionMode mode = getMode();
       final Reaction reaction = getReaction();
-      Guards.invariant( () -> null != reaction,
-                        () -> "invokeReaction called on observer named '" + name + "' but observer has " +
-                              "no associated reaction." );
+      invariant( () -> null != reaction,
+                 () -> "invokeReaction called on observer named '" + name + "' but observer has " +
+                       "no associated reaction." );
       assert null != reaction;
       final long start;
       if ( willPropagateSpyEvents() )
@@ -604,12 +605,12 @@ public final class Observer
   void invariantDependenciesUnique( @Nonnull final String context )
   {
     // This invariant check should not be needed but this guarantees the (GWT) optimizer removes this code
-    if ( ArezConfig.checkInvariants() )
+    if ( BrainCheckConfig.checkInvariants() )
     {
-      Guards.invariant( () -> getDependencies().size() == new HashSet<>( getDependencies() ).size(),
-                        () -> context + ": The set of dependencies in observer named '" + getName() + "' is " +
-                              "not unique. Current list: '" +
-                              getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ) + "'." );
+      invariant( () -> getDependencies().size() == new HashSet<>( getDependencies() ).size(),
+                 () -> context + ": The set of dependencies in observer named '" + getName() + "' is " +
+                       "not unique. Current list: '" +
+                       getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ) + "'." );
     }
   }
 
@@ -622,14 +623,14 @@ public final class Observer
   void invariantDependenciesBackLink( @Nonnull final String context )
   {
     // This invariant check should not be needed but this guarantees the (GWT) optimizer removes this code
-    if ( ArezConfig.checkInvariants() )
+    if ( BrainCheckConfig.checkInvariants() )
     {
       getDependencies().forEach( observable ->
-                                   Guards.invariant( () -> observable.getObservers().contains( this ),
-                                                     () -> context + ": Observer named '" + getName() + "' has " +
-                                                           "dependency observable named '" + observable.getName() +
-                                                           "' which does not contain the observer in the list of " +
-                                                           "observers." ) );
+                                   invariant( () -> observable.getObservers().contains( this ),
+                                              () -> context + ": Observer named '" + getName() + "' has " +
+                                                    "dependency observable named '" + observable.getName() +
+                                                    "' which does not contain the observer in the list of " +
+                                                    "observers." ) );
       invariantDerivationState();
     }
   }
@@ -640,13 +641,13 @@ public final class Observer
   void invariantDependenciesNotDisposed()
   {
     // This invariant check should not be needed but this guarantees the (GWT) optimizer removes this code
-    if ( ArezConfig.checkInvariants() )
+    if ( BrainCheckConfig.checkInvariants() )
     {
       getDependencies().forEach( observable ->
-                                   Guards.invariant( () -> !observable.isDisposed(),
-                                                     () -> "Observer named '" + getName() + "' has dependency " +
-                                                           "observable named '" + observable.getName() +
-                                                           "' which is disposed." ) );
+                                   invariant( () -> !observable.isDisposed(),
+                                              () -> "Observer named '" + getName() + "' has dependency " +
+                                                    "observable named '" + observable.getName() +
+                                                    "' which is disposed." ) );
       invariantDerivationState();
     }
   }
@@ -658,16 +659,16 @@ public final class Observer
   {
     if ( isInactive() )
     {
-      Guards.invariant( () -> getDependencies().isEmpty(),
-                        () -> "Observer named '" + getName() + "' is inactive but still has dependencies: " +
-                              getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ) + "." );
+      invariant( () -> getDependencies().isEmpty(),
+                 () -> "Observer named '" + getName() + "' is inactive but still has dependencies: " +
+                       getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ) + "." );
     }
     if ( isDerivation() && isLive() )
     {
-      Guards.invariant( () -> Objects.equals( getDerivedValue().hasOwner() ? getDerivedValue().getOwner() : null,
-                                              this ),
-                        () -> "Observer named '" + getName() + "' has a derived value that does not " +
-                              "link back to observer." );
+      invariant( () -> Objects.equals( getDerivedValue().hasOwner() ? getDerivedValue().getOwner() : null,
+                                       this ),
+                 () -> "Observer named '" + getName() + "' has a derived value that does not " +
+                       "link back to observer." );
     }
   }
 
@@ -675,10 +676,10 @@ public final class Observer
   {
     if ( isDerivation() && isActive() && !isDisposed() )
     {
-      Guards.invariant( () -> !getDerivedValue().getObservers().isEmpty() ||
-                              Objects.equals( getContext().getTransaction().getTracker(), this ),
-                        () -> "Observer named '" + getName() + "' is a derivation and active but the " +
-                              "derived value has no observers." );
+      invariant( () -> !getDerivedValue().getObservers().isEmpty() ||
+                       Objects.equals( getContext().getTransaction().getTracker(), this ),
+                 () -> "Observer named '" + getName() + "' is a derivation and active but the " +
+                       "derived value has no observers." );
     }
   }
 
@@ -692,11 +693,11 @@ public final class Observer
   @Nonnull
   ComputedValue<?> getComputedValue()
   {
-    Guards.invariant( this::isLive,
-                      () -> "Attempted to invoke getComputedValue on disposed observer named '" + getName() + "'." );
-    Guards.invariant( this::isDerivation,
-                      () -> "Attempted to invoke getComputedValue on observer named '" + getName() + "' when " +
-                            "is not a computed observer." );
+    invariant( this::isLive,
+               () -> "Attempted to invoke getComputedValue on disposed observer named '" + getName() + "'." );
+    invariant( this::isDerivation,
+               () -> "Attempted to invoke getComputedValue on observer named '" + getName() + "' when " +
+                     "is not a computed observer." );
     assert null != _computedValue;
     return _computedValue;
   }

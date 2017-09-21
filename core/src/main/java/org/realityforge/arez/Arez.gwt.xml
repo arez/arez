@@ -1,5 +1,6 @@
 <module>
   <inherits name="com.google.gwt.core.Core"/>
+  <inherits name="org.realityforge.braincheck.BrainCheck"/>
 
   <source path=""/>
   <source path="spy"/>
@@ -11,12 +12,6 @@
 
   <define-property name="arez.environment" values="development,production"/>
   <set-property name="arez.environment" value="production"/>
-
-  <define-property name="arez.verbose_error_messages" values="true,false"/>
-  <set-property name="arez.verbose_error_messages" value="false"/>
-
-  <define-property name="arez.check_invariants" values="true,false"/>
-  <set-property name="arez.check_invariants" value="false"/>
 
   <define-property name="arez.enable_names" values="true,false"/>
   <set-property name="arez.enable_names" value="false"/>

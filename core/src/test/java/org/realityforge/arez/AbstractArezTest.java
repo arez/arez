@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.realityforge.braincheck.BrainCheckTestUtil;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -15,10 +16,11 @@ public abstract class AbstractArezTest
   protected void beforeTest()
     throws Exception
   {
+    BrainCheckTestUtil.setVerboseErrorMessages( true );
+    BrainCheckTestUtil.setCheckInvariants( true );
+    BrainCheckTestUtil.setCheckApiInvariants( true );
     final ArezConfig.DynamicProvider provider = getConfigProvider();
     provider.setEnableNames( true );
-    provider.setVerboseErrorMessages( true );
-    provider.setCheckInvariants( true );
     provider.setPurgeReactionsWhenRunawayDetected( false );
     provider.setEnforceTransactionType( true );
     provider.setEnableSpy( true );
@@ -30,10 +32,11 @@ public abstract class AbstractArezTest
   protected void afterTest()
     throws Exception
   {
+    BrainCheckTestUtil.setVerboseErrorMessages( false );
+    BrainCheckTestUtil.setCheckInvariants( false );
+    BrainCheckTestUtil.setCheckApiInvariants( false );
     final ArezConfig.DynamicProvider provider = getConfigProvider();
     provider.setEnableNames( false );
-    provider.setVerboseErrorMessages( false );
-    provider.setCheckInvariants( false );
     provider.setPurgeReactionsWhenRunawayDetected( true );
     provider.setEnforceTransactionType( false );
     provider.setEnableSpy( false );

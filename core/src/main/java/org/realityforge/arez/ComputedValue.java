@@ -5,6 +5,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 import org.realityforge.arez.spy.ComputedValueDisposedEvent;
+import org.realityforge.braincheck.BrainCheckConfig;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * The ComputedValue represents an Observable derived from other observables within
@@ -65,10 +67,10 @@ public final class ComputedValue<T>
    */
   public T get()
   {
-    Guards.invariant( () -> !_computing,
-                      () -> "Detected a cycle deriving ComputedValue named '" + getName() + "'." );
-    Guards.invariant( _observer::isLive,
-                      () -> "ComputedValue named '" + getName() + "' accessed after it has been disposed." );
+    invariant( () -> !_computing,
+               () -> "Detected a cycle deriving ComputedValue named '" + getName() + "'." );
+    invariant( _observer::isLive,
+               () -> "ComputedValue named '" + getName() + "' accessed after it has been disposed." );
     getObservable().reportObserved();
     if ( _observer.shouldCompute() )
     {
@@ -158,7 +160,7 @@ public final class ComputedValue<T>
    */
   T computeValue()
   {
-    if ( ArezConfig.checkInvariants() )
+    if ( BrainCheckConfig.checkInvariants() )
     {
       _computing = true;
     }
@@ -168,7 +170,7 @@ public final class ComputedValue<T>
     }
     finally
     {
-      if ( ArezConfig.checkInvariants() )
+      if ( BrainCheckConfig.checkInvariants() )
       {
         _computing = false;
       }

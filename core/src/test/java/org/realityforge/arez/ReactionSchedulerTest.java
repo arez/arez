@@ -2,6 +2,7 @@ package org.realityforge.arez;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
+import org.realityforge.braincheck.BrainCheckTestUtil;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -104,7 +105,7 @@ public class ReactionSchedulerTest
   public void onRunawayReactionsDetected_invariantCheckingDisabled()
     throws Exception
   {
-    getConfigProvider().setCheckInvariants( false );
+    BrainCheckTestUtil.setCheckInvariants( false );
 
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = new ReactionScheduler( context );
@@ -417,7 +418,7 @@ public class ReactionSchedulerTest
     throws Exception
   {
     getConfigProvider().setPurgeReactionsWhenRunawayDetected( true );
-    getConfigProvider().setCheckInvariants( false );
+    BrainCheckTestUtil.setCheckInvariants( false );
 
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = context.getScheduler();

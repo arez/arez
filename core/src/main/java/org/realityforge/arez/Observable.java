@@ -10,6 +10,7 @@ import org.realityforge.arez.spy.ComputedValueActivatedEvent;
 import org.realityforge.arez.spy.ComputedValueDeactivatedEvent;
 import org.realityforge.arez.spy.ObservableChangedEvent;
 import org.realityforge.arez.spy.ObservableDisposedEvent;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * The observable represents state that can be observed within the system.
@@ -75,9 +76,9 @@ public final class Observable
     _owner = owner;
     if ( null != _owner )
     {
-      Guards.invariant( _owner::isDerivation,
-                        () -> "Observable named '" + getName() + "' has owner specified " +
-                              "but owner is not a derivation." );
+      invariant( _owner::isDerivation,
+                 () -> "Observable named '" + getName() + "' has owner specified " +
+                       "but owner is not a derivation." );
       assert !ArezConfig.enableNames() || _owner.getName().equals( name );
     }
   }
@@ -203,11 +204,11 @@ public final class Observable
    */
   void deactivate()
   {
-    Guards.invariant( () -> getContext().isTransactionActive(),
-                      () -> "Attempt to invoke deactivate on observable named '" + getName() +
-                            "' when there is no active transaction." );
-    Guards.invariant( () -> null != _owner,
-                      () -> "Invoked deactivate on observable named '" + getName() + "' when owner is null." );
+    invariant( () -> getContext().isTransactionActive(),
+               () -> "Attempt to invoke deactivate on observable named '" + getName() +
+                     "' when there is no active transaction." );
+    invariant( () -> null != _owner,
+               () -> "Invoked deactivate on observable named '" + getName() + "' when owner is null." );
     assert null != _owner;
     if ( _owner.isActive() )
     {
@@ -229,15 +230,15 @@ public final class Observable
    */
   void activate()
   {
-    Guards.invariant( () -> getContext().isTransactionActive(),
-                      () -> "Attempt to invoke activate on observable named '" + getName() + "' when there " +
-                            "is no active transaction." );
-    Guards.invariant( () -> null != _owner,
-                      () -> "Invoked activate on observable named '" + getName() + "' when owner is null." );
+    invariant( () -> getContext().isTransactionActive(),
+               () -> "Attempt to invoke activate on observable named '" + getName() + "' when there " +
+                     "is no active transaction." );
+    invariant( () -> null != _owner,
+               () -> "Invoked activate on observable named '" + getName() + "' when owner is null." );
     assert null != _owner;
-    Guards.invariant( _owner::isInactive,
-                      () -> "Invoked activate on observable named '" + getName() + "' when " +
-                            "observable is already active." );
+    invariant( _owner::isInactive,
+               () -> "Invoked activate on observable named '" + getName() + "' when " +
+                     "observable is already active." );
     _owner.setState( ObserverState.UP_TO_DATE );
     if ( willPropagateSpyEvents() )
     {
@@ -263,19 +264,19 @@ public final class Observable
 
   void addObserver( @Nonnull final Observer observer )
   {
-    Guards.invariant( () -> getContext().isTransactionActive(),
-                      () -> "Attempt to invoke addObserver on observable named '" + getName() +
-                            "' when there is no active transaction." );
+    invariant( () -> getContext().isTransactionActive(),
+               () -> "Attempt to invoke addObserver on observable named '" + getName() +
+                     "' when there is no active transaction." );
     invariantObserversLinked();
-    Guards.invariant( () -> !hasObserver( observer ),
-                      () -> "Attempting to add observer named '" + observer.getName() + "' to observable named '" +
-                            getName() + "' when observer is already observing observable." );
-    Guards.invariant( () -> !isDisposed(),
-                      () -> "Attempting to add observer named '" + observer.getName() + "' to observable named '" +
-                            getName() + "' when observable is disposed." );
-    Guards.invariant( observer::isLive,
-                      () -> "Attempting to add observer named '" + observer.getName() + "' to observable " +
-                            "named '" + getName() + "' when observer is disposed." );
+    invariant( () -> !hasObserver( observer ),
+               () -> "Attempting to add observer named '" + observer.getName() + "' to observable named '" +
+                     getName() + "' when observer is already observing observable." );
+    invariant( () -> !isDisposed(),
+               () -> "Attempting to add observer named '" + observer.getName() + "' to observable named '" +
+                     getName() + "' when observable is disposed." );
+    invariant( observer::isLive,
+               () -> "Attempting to add observer named '" + observer.getName() + "' to observable " +
+                     "named '" + getName() + "' when observer is disposed." );
     getObservers().add( observer );
 
     final ObserverState state =
@@ -288,13 +289,13 @@ public final class Observable
 
   void removeObserver( @Nonnull final Observer observer )
   {
-    Guards.invariant( () -> getContext().isTransactionActive(),
-                      () -> "Attempt to invoke removeObserver on observable named '" + getName() + "' " +
-                            "when there is no active transaction." );
+    invariant( () -> getContext().isTransactionActive(),
+               () -> "Attempt to invoke removeObserver on observable named '" + getName() + "' " +
+                     "when there is no active transaction." );
     invariantObserversLinked();
-    Guards.invariant( () -> hasObserver( observer ),
-                      () -> "Attempting to remove observer named '" + observer.getName() + "' from observable " +
-                            "named '" + getName() + "' when observer is already observing observable." );
+    invariant( () -> hasObserver( observer ),
+               () -> "Attempting to remove observer named '" + observer.getName() + "' from observable " +
+                     "named '" + getName() + "' when observer is already observing observable." );
     final ArrayList<Observer> observers = getObservers();
     observers.remove( observer );
     if ( observers.isEmpty() && canDeactivate() )
@@ -306,15 +307,15 @@ public final class Observable
 
   void queueForDeactivation()
   {
-    Guards.invariant( () -> getContext().isTransactionActive(),
-                      () -> "Attempt to invoke queueForDeactivation on observable named '" + getName() +
-                            "' when there is no active transaction." );
-    Guards.invariant( this::canDeactivate,
-                      () -> "Attempted to invoke queueForDeactivation() on observable named '" + getName() +
-                            "' but observable is not able to be deactivated." );
-    Guards.invariant( () -> !hasObservers(),
-                      () -> "Attempted to invoke queueForDeactivation() on observable named '" + getName() +
-                            "' but observable has observers." );
+    invariant( () -> getContext().isTransactionActive(),
+               () -> "Attempt to invoke queueForDeactivation on observable named '" + getName() +
+                     "' when there is no active transaction." );
+    invariant( this::canDeactivate,
+               () -> "Attempted to invoke queueForDeactivation() on observable named '" + getName() +
+                     "' but observable is not able to be deactivated." );
+    invariant( () -> !hasObservers(),
+               () -> "Attempted to invoke queueForDeactivation() on observable named '" + getName() +
+                     "' but observable has observers." );
     if ( !_pendingDeactivation )
     {
       _pendingDeactivation = true;
@@ -324,12 +325,12 @@ public final class Observable
 
   void setLeastStaleObserverState( @Nonnull final ObserverState leastStaleObserverState )
   {
-    Guards.invariant( () -> getContext().isTransactionActive(),
-                      () -> "Attempt to invoke setLeastStaleObserverState on observable named '" + getName() +
-                            "' when there is no active transaction." );
-    Guards.invariant( () -> ObserverState.INACTIVE != leastStaleObserverState,
-                      () -> "Attempt to invoke setLeastStaleObserverState on observable named '" + getName() +
-                            "' with invalid value INACTIVE." );
+    invariant( () -> getContext().isTransactionActive(),
+               () -> "Attempt to invoke setLeastStaleObserverState on observable named '" + getName() +
+                     "' when there is no active transaction." );
+    invariant( () -> ObserverState.INACTIVE != leastStaleObserverState,
+               () -> "Attempt to invoke setLeastStaleObserverState on observable named '" + getName() +
+                     "' with invalid value INACTIVE." );
     _leastStaleObserverState = leastStaleObserverState;
   }
 
@@ -378,19 +379,19 @@ public final class Observable
   {
     if ( null != _owner )
     {
-      Guards.invariant( () -> Objects.equals( _owner.getDerivedValue(), this ),
-                        () -> "Observable named '" + getName() + "' has owner specified but owner does not link to " +
-                              "observable as derived value." );
+      invariant( () -> Objects.equals( _owner.getDerivedValue(), this ),
+                 () -> "Observable named '" + getName() + "' has owner specified but owner does not link to " +
+                       "observable as derived value." );
     }
   }
 
   void invariantObserversLinked()
   {
     getObservers().forEach( observer ->
-                              Guards.invariant( () -> observer.getDependencies().contains( this ),
-                                                () -> "Observable named '" + getName() + "' has observer named '" +
-                                                      observer.getName() + "' which does not contain observable " +
-                                                      "as dependency." ) );
+                              invariant( () -> observer.getDependencies().contains( this ),
+                                         () -> "Observable named '" + getName() + "' has observer named '" +
+                                               observer.getName() + "' which does not contain observable " +
+                                               "as dependency." ) );
   }
 
   void invariantLeastStaleObserverState()
@@ -399,10 +400,10 @@ public final class Observable
       getObservers().stream().
         map( Observer::getState ).map( s -> s == ObserverState.INACTIVE ? ObserverState.UP_TO_DATE : s ).
         min( Comparator.comparing( Enum::ordinal ) ).orElse( ObserverState.UP_TO_DATE );
-    Guards.invariant( () -> leastStaleObserverState.ordinal() >= _leastStaleObserverState.ordinal(),
-                      () -> "Calculated leastStaleObserverState on observable named '" + getName() +
-                            "' is '" + leastStaleObserverState.name() + "' which is unexpectedly less " +
-                            "than cached value '" + _leastStaleObserverState.name() + "'." );
+    invariant( () -> leastStaleObserverState.ordinal() >= _leastStaleObserverState.ordinal(),
+               () -> "Calculated leastStaleObserverState on observable named '" + getName() +
+                     "' is '" + leastStaleObserverState.name() + "' which is unexpectedly less " +
+                     "than cached value '" + _leastStaleObserverState.name() + "'." );
   }
 
   @TestOnly

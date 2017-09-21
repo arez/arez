@@ -13,16 +13,6 @@ final class ArezConfig
   {
   }
 
-  static boolean verboseErrorMessages()
-  {
-    return c_provider.verboseErrorMessages();
-  }
-
-  static boolean checkInvariants()
-  {
-    return c_provider.checkInvariants();
-  }
-
   static boolean enableNames()
   {
     return c_provider.enableNames();
@@ -58,10 +48,6 @@ final class ArezConfig
       throw new IllegalStateException( message );
     }
     final boolean development = environment.equals( "development" );
-    final boolean verboseErrorMessages =
-      "true".equals( System.getProperty( "arez.verbose_error_messages", development ? "true" : "false" ) );
-    final boolean checkInvariants =
-      "true".equals( System.getProperty( "arez.check_invariants", development ? "true" : "false" ) );
     final boolean enableNames =
       "true".equals( System.getProperty( "arez.enable_names", development ? "true" : "false" ) );
     final boolean purgeReactions =
@@ -76,15 +62,11 @@ final class ArezConfig
       "true".equals( System.getProperty( "arez.enable_spy", development ? "true" : "false" ) );
 
     return System.getProperty( "arez.dynamic_provider", "false" ).equals( "true" ) ?
-           new DynamicProvider( verboseErrorMessages,
-                                checkInvariants,
-                                enableNames,
+           new DynamicProvider( enableNames,
                                 purgeReactions,
                                 enforceTransactionType,
                                 enableSpy ) :
-           new StaticProvider( verboseErrorMessages,
-                               checkInvariants,
-                               enableNames,
+           new StaticProvider( enableNames,
                                purgeReactions,
                                enforceTransactionType,
                                enableSpy );
@@ -98,10 +80,6 @@ final class ArezConfig
    */
   private interface Provider
   {
-    boolean verboseErrorMessages();
-
-    boolean checkInvariants();
-
     boolean enableNames();
 
     boolean purgeReactionsWhenRunawayDetected();
@@ -119,36 +97,20 @@ final class ArezConfig
   static final class DynamicProvider
     implements Provider
   {
-    private boolean _verboseErrorMessages;
-    private boolean _checkInvariants;
     private boolean _enableNames;
     private boolean _purgeReactionsWhenRunawayDetected;
     private boolean _enforceTransactionType;
     private boolean _enableSpy;
 
-    DynamicProvider( final boolean verboseErrorMessages,
-                     final boolean checkInvariants,
-                     final boolean enableNames,
+    DynamicProvider( final boolean enableNames,
                      final boolean purgeReactionsWhenRunawayDetected,
                      final boolean enforceTransactionType,
                      final boolean enableSpy )
     {
-      _verboseErrorMessages = verboseErrorMessages;
-      _checkInvariants = checkInvariants;
       _enableNames = enableNames;
       _purgeReactionsWhenRunawayDetected = purgeReactionsWhenRunawayDetected;
       _enforceTransactionType = enforceTransactionType;
       _enableSpy = enableSpy;
-    }
-
-    void setVerboseErrorMessages( final boolean verboseErrorMessages )
-    {
-      _verboseErrorMessages = verboseErrorMessages;
-    }
-
-    void setCheckInvariants( final boolean checkInvariants )
-    {
-      _checkInvariants = checkInvariants;
     }
 
     void setEnableNames( final boolean enableNames )
@@ -169,18 +131,6 @@ final class ArezConfig
     void setEnableSpy( final boolean enableSpy )
     {
       _enableSpy = enableSpy;
-    }
-
-    @Override
-    public boolean verboseErrorMessages()
-    {
-      return _verboseErrorMessages;
-    }
-
-    @Override
-    public boolean checkInvariants()
-    {
-      return _checkInvariants;
     }
 
     @Override
@@ -216,38 +166,20 @@ final class ArezConfig
   private static final class StaticProvider
     implements Provider
   {
-    private final boolean _verboseErrorMessages;
-    private final boolean _checkInvariants;
     private final boolean _enableNames;
     private final boolean _purgeReactionsWhenRunawayDetected;
     private final boolean _enforceTransactionType;
     private final boolean _enableSpy;
 
-    StaticProvider( final boolean verboseErrorMessages,
-                    final boolean checkInvariants,
-                    final boolean enableNames,
+    StaticProvider( final boolean enableNames,
                     final boolean purgeReactionsWhenRunawayDetected,
                     final boolean enforceTransactionType,
                     final boolean enableSpy )
     {
-      _verboseErrorMessages = verboseErrorMessages;
-      _checkInvariants = checkInvariants;
       _enableNames = enableNames;
       _purgeReactionsWhenRunawayDetected = purgeReactionsWhenRunawayDetected;
       _enforceTransactionType = enforceTransactionType;
       _enableSpy = enableSpy;
-    }
-
-    @Override
-    public boolean verboseErrorMessages()
-    {
-      return _verboseErrorMessages;
-    }
-
-    @Override
-    public boolean checkInvariants()
-    {
-      return _checkInvariants;
     }
 
     @Override
