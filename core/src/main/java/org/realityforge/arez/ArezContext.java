@@ -218,7 +218,10 @@ public final class ArezContext
                            @Nonnull final Procedure action,
                            final boolean runImmediately )
   {
-    return createObserver( name, mutation, o -> action.call(), runImmediately );
+    return createObserver( name,
+                           mutation,
+                           o -> procedure( name, o.getMode(), o, action ),
+                           runImmediately );
   }
 
   /**

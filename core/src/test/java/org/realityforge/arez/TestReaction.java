@@ -13,6 +13,12 @@ class TestReaction
   public void react( @Nonnull final Observer observer )
     throws Exception
   {
+    observer.getContext().
+      safeProcedure( observer.getName(), observer.getMode(), observer, () -> performReact( observer ) );
+  }
+
+  void performReact( @Nonnull final Observer observer )
+  {
     observer.getDependencies().stream().filter( o -> !o.isDisposed() ).forEach( Observable::reportObserved );
     _observers.add( observer );
   }

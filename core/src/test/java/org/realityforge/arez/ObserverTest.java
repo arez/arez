@@ -959,9 +959,7 @@ public class ObserverTest
     final Reaction reaction = observer -> {
       callCount.incrementAndGet();
       assertEquals( observer.getContext(), context );
-      assertEquals( context.isTransactionActive(), true );
-      assertEquals( context.getTransaction().getName(), name );
-      assertEquals( context.getTransaction().getMode(), mode );
+      assertEquals( context.isTransactionActive(), false );
       assertEquals( observer.getName(), name );
     };
 
@@ -987,16 +985,14 @@ public class ObserverTest
 
     observer.invokeReaction();
 
-    handler.assertEventCount( 4 );
+    handler.assertEventCount( 2 );
 
     {
       final ReactionStartedEvent event = handler.assertEvent( ReactionStartedEvent.class, 0 );
       assertEquals( event.getObserver(), observer );
     }
-    handler.assertEvent( TransactionStartedEvent.class, 1 );
-    handler.assertEvent( TransactionCompletedEvent.class, 2 );
     {
-      final ReactionCompletedEvent event = handler.assertEvent( ReactionCompletedEvent.class, 3 );
+      final ReactionCompletedEvent event = handler.assertEvent( ReactionCompletedEvent.class, 1 );
       assertEquals( event.getObserver(), observer );
       assertTrue( event.getDuration() > 0 );
     }

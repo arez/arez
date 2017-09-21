@@ -87,7 +87,10 @@ public final class Observer
           ArezConfig.enableNames() ? computedValue.getName() : null,
           computedValue,
           TransactionMode.READ_WRITE_OWNED,
-          o -> computedValue.compute() );
+          o -> o.getContext().procedure( ArezConfig.enableNames() ? o.getName() : null,
+                                         o.getMode(),
+                                         o,
+                                         computedValue::compute ) );
   }
 
   Observer( @Nonnull final ArezContext context,
@@ -460,7 +463,6 @@ public final class Observer
     {
       clearScheduledFlag();
       final String name = ArezConfig.enableNames() ? getName() : null;
-      final TransactionMode mode = getMode();
       final Reaction reaction = getReaction();
       invariant( () -> null != reaction,
                  () -> "invokeReaction called on observer named '" + name + "' but observer has " +
@@ -488,7 +490,7 @@ public final class Observer
         // ComputedValues may have calculated their values and thus be up to date so no need to recalculate.
         if ( ObserverState.UP_TO_DATE != getState() )
         {
-          getContext().procedure( name, mode, this, () -> reaction.react( this ) );
+          reaction.react( this );
         }
       }
       catch ( final Throwable t )

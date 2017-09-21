@@ -269,10 +269,9 @@ public class ReactionSchedulerTest
         reactions[ i ] = new TestReaction()
         {
           @Override
-          public void react( @Nonnull final Observer observer )
-            throws Exception
+          protected void performReact( @Nonnull final Observer observer )
           {
-            super.react( observer );
+            super.performReact( observer );
             if ( ( currentIndex == 8 && getCallCount() <= 2 ) || getCallCount() <= 1 )
             {
               observers[ currentIndex ].setState( ObserverState.STALE );
@@ -371,10 +370,9 @@ public class ReactionSchedulerTest
     final TestReaction reaction = new TestReaction()
     {
       @Override
-      public void react( @Nonnull final Observer observer )
-        throws Exception
+      protected void performReact( @Nonnull final Observer observer )
       {
-        super.react( observer );
+        super.performReact( observer );
         observer.setState( ObserverState.STALE );
       }
     };
@@ -488,10 +486,9 @@ public class ReactionSchedulerTest
         reactions[ i ] = new TestReaction()
         {
           @Override
-          public void react( @Nonnull final Observer observer )
-            throws Exception
+          protected void performReact( @Nonnull final Observer observer )
           {
-            super.react( observer );
+            super.performReact( observer );
             if ( ( currentIndex == 8 && getCallCount() <= 2 ) || getCallCount() <= 1 )
             {
               observers[ currentIndex ].setState( ObserverState.STALE );
