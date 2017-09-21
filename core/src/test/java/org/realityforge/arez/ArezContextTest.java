@@ -388,6 +388,24 @@ public class ArezContextTest
   }
 
   @Test
+  public void safeProcedure_minimalParameters()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final int nextNodeId = context.currentNextTransactionId();
+    context.safeProcedure( () -> {
+      assertTrue( context.isTransactionActive() );
+      assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
+      assertEquals( context.getTransaction().getName(), "Transaction@" + nextNodeId );
+    } );
+
+    assertFalse( context.isTransactionActive() );
+  }
+
+  @Test
   public void nonTrackingSafeProcedureObservingSingleObservable()
     throws Exception
   {

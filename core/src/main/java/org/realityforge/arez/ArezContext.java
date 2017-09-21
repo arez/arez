@@ -536,6 +536,29 @@ public final class ArezContext
   }
 
   /**
+   * Execute the supplied procedure in a read-write transaction.
+   * The action is expected to not throw an exception.
+   *
+   * @param action the action to execute.
+   */
+  public void safeProcedure( @Nonnull final SafeProcedure action )
+  {
+    safeProcedure( true, action );
+  }
+
+  /**
+   * Execute the supplied procedure in a transaction.
+   * The action is expected to not throw an exception.
+   *
+   * @param mutation true if the action may modify state, false otherwise.
+   * @param action   the action to execute.
+   */
+  public void safeProcedure( final boolean mutation, @Nonnull final SafeProcedure action )
+  {
+    safeProcedure( null, mutation, action );
+  }
+
+  /**
    * Execute the supplied procedure in a transaction.
    * The action is expected to not throw an exception.
    *
