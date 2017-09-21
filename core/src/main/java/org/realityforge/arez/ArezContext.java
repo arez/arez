@@ -385,6 +385,39 @@ public final class ArezContext
   }
 
   /**
+   * Execute the supplied function in a read-write transaction.
+   * The name is synthesized if {@link #areNamesEnabled()} returns true.
+   * The action may throw an exception.
+   *
+   * @param <T>    the type of return value.
+   * @param action the action to execute.
+   * @return the value returned from the action.
+   * @throws Exception if the action throws an an exception.
+   */
+  public <T> T function( @Nonnull final Function<T> action )
+    throws Throwable
+  {
+    return function( true, action );
+  }
+
+  /**
+   * Execute the supplied function in a transaction.
+   * The name is synthesized if {@link #areNamesEnabled()} returns true.
+   * The action may throw an exception.
+   *
+   * @param <T>      the type of return value.
+   * @param mutation true if the action may modify state, false otherwise.
+   * @param action   the action to execute.
+   * @return the value returned from the action.
+   * @throws Exception if the action throws an an exception.
+   */
+  public <T> T function( final boolean mutation, @Nonnull final Function<T> action )
+    throws Throwable
+  {
+    return function( null, mutation, action );
+  }
+
+  /**
    * Execute the supplied function in a transaction.
    * The action may throw an exception.
    *
