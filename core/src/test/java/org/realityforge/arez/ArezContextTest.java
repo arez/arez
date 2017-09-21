@@ -6,7 +6,9 @@ import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
+import org.realityforge.arez.spy.ReactionCompletedEvent;
 import org.realityforge.arez.spy.ReactionScheduledEvent;
+import org.realityforge.arez.spy.ReactionStartedEvent;
 import org.realityforge.arez.spy.TransactionCompletedEvent;
 import org.realityforge.arez.spy.TransactionStartedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -755,6 +757,22 @@ public class ArezContextTest
   }
 
   @Test
+  public void reaction_minimumParameters()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    context.setNextNodeId( 22 );
+    final AtomicInteger callCount = new AtomicInteger();
+    final Observer observer = context.reaction( callCount::incrementAndGet );
+
+    assertEquals( observer.getName(), "Observer@22" );
+    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
   public void autorun_minimumParameters()
     throws Exception
   {
@@ -792,6 +810,9 @@ public class ArezContextTest
   {
     final ArezContext context = new ArezContext();
 
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
     final Observer observer = context.autorun( name, true, callCount::incrementAndGet, true );
@@ -800,6 +821,14 @@ public class ArezContextTest
     assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
     assertEquals( callCount.get(), 1 );
+
+    handler.assertEventCount( 5 );
+
+    assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver(), observer );
+    assertEquals( handler.assertEvent( ReactionStartedEvent.class, 1 ).getObserver(), observer );
+    assertEquals( handler.assertEvent( TransactionStartedEvent.class, 2 ).getTracker(), observer );
+    assertEquals( handler.assertEvent( TransactionCompletedEvent.class, 3 ).getTracker(), observer );
+    assertEquals( handler.assertEvent( ReactionCompletedEvent.class, 4 ).getObserver(), observer );
   }
 
   @Test
@@ -807,6 +836,9 @@ public class ArezContextTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
@@ -817,24 +849,11 @@ public class ArezContextTest
     assertEquals( observer.getState(), ObserverState.INACTIVE );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
-  }
 
-  @Test
-  public void createObserver_runImmediately()
-    throws Exception
-  {
-    final ArezContext context = new ArezContext();
+    handler.assertEventCount( 2 );
 
-    final String name = ValueUtil.randomString();
-    final TestReaction reaction = new TestReaction();
-    final Observer observer = context.createObserver( name, true, reaction, true, false );
-
-    assertEquals( observer.getName(), name );
-    assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.getReaction(), reaction );
-    assertEquals( observer.canTrackExplicitly(), false );
-    assertEquals( reaction.getCallCount(), 1 );
+    assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver(), observer );
+    assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver(), observer );
   }
 
   @Test
@@ -847,31 +866,11 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final Observer observer =
-      context.createObserver( ValueUtil.randomString(), true, new TestReaction(), false, false );
+      context.createObserver( ValueUtil.randomString(), true, new TestReaction(), false );
 
-    handler.assertEventCount( 2 );
+    handler.assertEventCount( 1 );
 
     assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver(), observer );
-    assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver(), observer );
-  }
-
-  @Test
-  public void createObserver_notRunImmediately()
-    throws Exception
-  {
-    final ArezContext context = new ArezContext();
-
-    final String name = ValueUtil.randomString();
-    final TestReaction reaction = new TestReaction();
-    final Observer observer = context.createObserver( name, false, reaction, false, false );
-
-    assertEquals( observer.getName(), name );
-    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
-    assertEquals( observer.getState(), ObserverState.INACTIVE );
-    assertEquals( observer.getReaction(), reaction );
-    assertEquals( observer.canTrackExplicitly(), false );
-    assertEquals( reaction.getCallCount(), 0 );
-    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
   }
 
   @Test
@@ -881,7 +880,7 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     final Observer observer =
-      context.createObserver( ValueUtil.randomString(), false, new TestReaction(), false, true );
+      context.createObserver( ValueUtil.randomString(), false, new TestReaction(), false );
 
     assertEquals( observer.canTrackExplicitly(), true );
   }

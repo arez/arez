@@ -218,34 +218,8 @@ public final class ArezContext
                            @Nonnull final Procedure action,
                            final boolean runImmediately )
   {
-    return createObserver( name,
-                           mutation,
-                           o -> procedure( name, o.getMode(), o, action ),
-                           runImmediately );
-  }
-
-  /**
-   * Create an observer with specified parameters.
-   *
-   * @param name           the name of the observer.
-   * @param mutation       true if the reaction may modify state, false otherwise.
-   * @param reaction       the reaction defining observer.
-   * @param runImmediately true to invoke reaction immediately, false to schedule reaction for next reaction cycle.
-   * @return the new Observer.
-   */
-  @Nonnull
-  Observer createObserver( @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Reaction reaction,
-                           final boolean runImmediately )
-  {
-    final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =
-      new Observer( this, toName( "Observer", name ), mode, reaction );
-    if ( willPropagateSpyEvents() )
-    {
-      getSpy().reportSpyEvent( new ObserverCreatedEvent( observer ) );
-    }
+      createObserver( name, mutation, o -> procedure( name, o.getMode(), action, o ), false );
     if ( runImmediately )
     {
       observer.invokeReaction();
@@ -253,6 +227,29 @@ public final class ArezContext
     else
     {
       scheduleReaction( observer );
+    }
+    return observer;
+  }
+
+  /**
+   * Create an observer with specified parameters.
+   *
+   * @param name     the name of the observer.
+   * @param mutation true if the reaction may modify state, false otherwise.
+   * @param reaction the reaction defining observer.
+   * @return the new Observer.
+   */
+  @Nonnull
+  Observer createObserver( @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Reaction reaction,
+                           final boolean canTrackExplicitly )
+  {
+    final TransactionMode mode = mutationToTransactionMode( mutation );
+    final Observer observer = new Observer( this, toName( "Observer", name ), mode, reaction, canTrackExplicitly );
+    if ( willPropagateSpyEvents() )
+    {
+      getSpy().reportSpyEvent( new ObserverCreatedEvent( observer ) );
     }
     return observer;
   }
