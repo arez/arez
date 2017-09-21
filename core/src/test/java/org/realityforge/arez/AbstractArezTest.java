@@ -130,7 +130,7 @@ public abstract class AbstractArezTest
   }
 
   @Nonnull
-  protected final Observable newObservable( final ArezContext context )
+  final Observable newObservable( final ArezContext context )
   {
     return new Observable( context, ValueUtil.randomString() );
   }
