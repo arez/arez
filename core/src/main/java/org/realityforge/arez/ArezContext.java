@@ -504,6 +504,33 @@ public final class ArezContext
   }
 
   /**
+   * Execute the supplied function in a read-write transaction.
+   * The procedure may throw an exception.
+   *
+   * @param procedure the procedure to execute.
+   * @throws Throwable if the procedure throws an an exception.
+   */
+  public void procedure( @Nonnull final Procedure procedure )
+    throws Throwable
+  {
+    procedure( true, procedure );
+  }
+
+  /**
+   * Execute the supplied procedure in a transaction.
+   * The procedure may throw an exception.
+   *
+   * @param mutation  true if the action may modify state, false otherwise.
+   * @param procedure the procedure to execute.
+   * @throws Throwable if the procedure throws an an exception.
+   */
+  public void procedure( final boolean mutation, @Nonnull final Procedure procedure )
+    throws Throwable
+  {
+    procedure( null, mutation, procedure );
+  }
+
+  /**
    * Execute the supplied procedure in a transaction.
    * The procedure may throw an exception.
    *
