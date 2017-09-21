@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 import jsinterop.base.JsPropertyMap;
+import jsinterop.base.JsPropertyMapOfAny;
 import org.realityforge.arez.Unsupported;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.Container;
@@ -157,19 +158,20 @@ public class BrowserLocation
 
   private void setHash( @Nonnull final String hash )
   {
+    final JsPropertyMapOfAny map = JsPropertyMap.of( DomGlobal.window.location );
     if ( 0 == hash.length() )
     {
       /*
        * This code is needed to remove the stray #.
        * See https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-url-with-javascript-without-page-r/5298684#5298684
        */
-      final String url = JsPropertyMap.of( DomGlobal.window.location ).getAny( "pathname" ).asString() +
-                         JsPropertyMap.of( DomGlobal.window.location ).getAny( "search" ).asString();
+      final String url =
+        map.getAny( "pathname" ).asString() + map.getAny( "search" ).asString();
       DomGlobal.window.history.pushState( "", DomGlobal.document.title, url );
     }
     else
     {
-      JsPropertyMap.of( DomGlobal.window.location ).set( "hash", hash );
+      map.set( "hash", hash );
     }
   }
 }
