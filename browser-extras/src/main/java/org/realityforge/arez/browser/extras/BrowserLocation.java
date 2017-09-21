@@ -5,6 +5,7 @@ import elemental2.dom.EventListener;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
+import jsinterop.base.JsPropertyMap;
 import org.realityforge.arez.Unsupported;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.Container;
@@ -150,7 +151,7 @@ public class BrowserLocation
   @Nonnull
   private String getHash()
   {
-    final String hash = JsObjects.get( DomGlobal.window.location, "hash" );
+    final String hash = JsPropertyMap.of( DomGlobal.window.location ).getAny( "hash" ).asString();
     return null == hash ? "" : hash.substring( 1 );
   }
 
@@ -162,13 +163,13 @@ public class BrowserLocation
        * This code is needed to remove the stray #.
        * See https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-url-with-javascript-without-page-r/5298684#5298684
        */
-      final String url = JsObjects.<String>get( DomGlobal.window.location, "pathname" ) +
-                         JsObjects.<String>get( DomGlobal.window.location, "search" );
+      final String url = JsPropertyMap.of( DomGlobal.window.location ).getAny( "pathname" ).asString() +
+                         JsPropertyMap.of( DomGlobal.window.location ).getAny( "search" ).asString();
       DomGlobal.window.history.pushState( "", DomGlobal.document.title, url );
     }
     else
     {
-      JsObjects.set( DomGlobal.window.location, "hash", hash );
+      JsPropertyMap.of( DomGlobal.window.location ).set( "hash", hash );
     }
   }
 }
