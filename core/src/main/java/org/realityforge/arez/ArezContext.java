@@ -431,8 +431,16 @@ public final class ArezContext
   public <T> T function( @Nullable final String name, final boolean mutation, @Nonnull final Function<T> action )
     throws Throwable
   {
-    final TransactionMode mode = mutationToTransactionMode( mutation );
-    final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, null );
+    return function( name, mutationToTransactionMode( mutation ), action, null );
+  }
+
+  private <T> T function( @Nullable final String name,
+                          @Nonnull final TransactionMode mode,
+                          @Nonnull final Function<T> action,
+                          @Nullable final Observer tracker )
+    throws Throwable
+  {
+    final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
     try
     {
       return action.call();
