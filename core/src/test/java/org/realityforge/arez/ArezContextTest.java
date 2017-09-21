@@ -913,7 +913,7 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     final Observer observer =
-      context.createObserver( ValueUtil.randomString(), false, new TestReaction(), false );
+      context.createObserver( ValueUtil.randomString(), false, new TestReaction(), true );
 
     assertEquals( observer.canTrackExplicitly(), true );
   }
