@@ -365,6 +365,35 @@ public class ArezContextTest
   }
 
   @Test
+  public void safeFunction_minimalParameters()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final int nextNodeId = context.currentNextTransactionId();
+
+    final String expectedValue = ValueUtil.randomString();
+
+    final String v0 =
+      context.safeFunction( () -> {
+        assertTrue( context.isTransactionActive() );
+        final Transaction transaction = context.getTransaction();
+        assertEquals( transaction.getName(), "Transaction@" + nextNodeId );
+        assertEquals( transaction.getPrevious(), null );
+        assertEquals( transaction.getContext(), context );
+        assertEquals( transaction.getId(), nextNodeId );
+        assertEquals( transaction.getMode(), TransactionMode.READ_WRITE );
+        return expectedValue;
+      } );
+
+    assertFalse( context.isTransactionActive() );
+
+    assertEquals( v0, expectedValue );
+  }
+
+  @Test
   public void nonTrackingSafeProcedureObservingSingleObservable()
     throws Exception
   {

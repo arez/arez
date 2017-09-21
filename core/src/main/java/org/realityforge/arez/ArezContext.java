@@ -444,6 +444,33 @@ public final class ArezContext
   }
 
   /**
+   * Execute the supplied function in a read-write transaction.
+   * The action is expected to not throw an exception.
+   *
+   * @param <T>    the type of return value.
+   * @param action the action to execute.
+   * @return the value returned from the action.
+   */
+  public <T> T safeFunction( @Nonnull final SafeFunction<T> action )
+  {
+    return safeFunction( true, action );
+  }
+
+  /**
+   * Execute the supplied function in a transaction.
+   * The action is expected to not throw an exception.
+   *
+   * @param <T>      the type of return value.
+   * @param mutation true if the action may modify state, false otherwise.
+   * @param action   the action to execute.
+   * @return the value returned from the action.
+   */
+  public <T> T safeFunction( final boolean mutation, @Nonnull final SafeFunction<T> action )
+  {
+    return safeFunction( null, mutation, action );
+  }
+
+  /**
    * Execute the supplied function in a transaction.
    * The action is expected to not throw an exception.
    *
