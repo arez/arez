@@ -678,7 +678,6 @@ public class ArezContextTest
     assertEquals( observer.getName(), "Observer@22" );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.hasReaction(), true );
     assertEquals( callCount.get(), 1 );
   }
 
@@ -695,7 +694,6 @@ public class ArezContextTest
     assertEquals( observer.getName(), "Observer@22" );
     assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.hasReaction(), true );
     assertEquals( callCount.get(), 1 );
   }
 
@@ -712,7 +710,6 @@ public class ArezContextTest
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.hasReaction(), true );
     assertEquals( callCount.get(), 1 );
   }
 
@@ -729,7 +726,6 @@ public class ArezContextTest
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
-    assertEquals( observer.hasReaction(), true );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
   }
@@ -786,22 +782,6 @@ public class ArezContextTest
     assertEquals( observer.getReaction(), reaction );
     assertEquals( reaction.getCallCount(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
-  }
-
-  @Test
-  public void createObserver_notAReaction()
-    throws Exception
-  {
-    final ArezContext context = new ArezContext();
-
-    final String name = ValueUtil.randomString();
-    final Observer observer = context.createObserver( name, false, null, false );
-
-    assertEquals( observer.getName(), name );
-    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
-    assertEquals( observer.getState(), ObserverState.INACTIVE );
-    assertEquals( observer.getReaction(), null );
-    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
   }
 
   @Test

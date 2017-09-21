@@ -42,7 +42,6 @@ public class ObserverTest
     // Reaction attributes
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getReaction(), reaction );
-    assertEquals( observer.hasReaction(), true );
     assertEquals( observer.isScheduled(), false );
 
     assertEquals( observer.isDerivation(), false );
@@ -85,18 +84,6 @@ public class ObserverTest
   }
 
   @Test
-  public void initialState_whenSuppliedNoReaction()
-    throws Exception
-  {
-    final Observer observer = newReadOnlyObserverWithNoReaction( new ArezContext() );
-
-    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
-    assertEquals( observer.getReaction(), null );
-    assertEquals( observer.hasReaction(), false );
-    assertEquals( observer.isScheduled(), false );
-  }
-
-  @Test
   public void construct_with_READ_WRITE_OWNED_but_noComputableValue()
     throws Exception
   {
@@ -104,7 +91,11 @@ public class ObserverTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new Observer( new ArezContext(), name, null, TransactionMode.READ_WRITE_OWNED, null ) );
+                    () -> new Observer( new ArezContext(),
+                                        name,
+                                        null,
+                                        TransactionMode.READ_WRITE_OWNED,
+                                        new TestReaction() ) );
 
     assertEquals( exception.getMessage(),
                   "Attempted to construct an observer named '" + name + "' with READ_WRITE_OWNED " +
@@ -121,7 +112,7 @@ public class ObserverTest
     final ComputedValue<?> computedValue = newDerivation( context ).getComputedValue();
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new Observer( context, name, computedValue, TransactionMode.READ_ONLY, null ) );
+                    () -> new Observer( context, name, computedValue, TransactionMode.READ_ONLY, new TestReaction() ) );
 
     assertEquals( exception.getMessage(),
                   "Attempted to construct an observer named '" + name + "' with READ_ONLY " +
@@ -592,52 +583,6 @@ public class ObserverTest
   }
 
   @Test
-  public void setState_withNoReaction()
-    throws Exception
-  {
-    final ArezContext context = new ArezContext();
-    final Observer observer = newReadOnlyObserverWithNoReaction( context );
-    setCurrentTransaction( observer );
-
-    final TestProcedure onActivate = new TestProcedure();
-    final TestProcedure onDeactivate = new TestProcedure();
-    final TestProcedure onStale = new TestProcedure();
-
-    observer.setOnActivate( onActivate );
-    observer.setOnDeactivate( onDeactivate );
-    observer.setOnStale( onStale );
-
-    assertEquals( observer.getState(), ObserverState.INACTIVE );
-
-    observer.setState( ObserverState.UP_TO_DATE );
-
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.isScheduled(), false );
-    assertEquals( onActivate.getCalls(), 1 );
-    assertEquals( onDeactivate.getCalls(), 0 );
-    assertEquals( onStale.getCalls(), 0 );
-
-    observer.setState( ObserverState.POSSIBLY_STALE );
-
-    assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
-    assertEquals( observer.isScheduled(), false );
-    assertEquals( onActivate.getCalls(), 1 );
-    assertEquals( onDeactivate.getCalls(), 0 );
-    assertEquals( onStale.getCalls(), 0 );
-
-    observer.clearScheduledFlag();
-    assertEquals( observer.isScheduled(), false );
-
-    observer.setState( ObserverState.STALE );
-
-    assertEquals( observer.getState(), ObserverState.STALE );
-    assertEquals( observer.isScheduled(), false );
-    assertEquals( onActivate.getCalls(), 1 );
-    assertEquals( onDeactivate.getCalls(), 0 );
-    assertEquals( onStale.getCalls(), 1 );
-  }
-
-  @Test
   public void setState_activateWhenDisposed()
     throws Exception
   {
@@ -725,23 +670,6 @@ public class ObserverTest
     observer.schedule();
 
     assertEquals( observer.isScheduled(), true );
-  }
-
-  @Test
-  public void schedule_whenNoReaction()
-    throws Exception
-  {
-    final ArezContext context = new ArezContext();
-    final Observer observer = newReadOnlyObserverWithNoReaction( context );
-    setCurrentTransaction( observer );
-
-    observer.setState( ObserverState.UP_TO_DATE );
-
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::schedule );
-
-    assertEquals( exception.getMessage(),
-                  "Observer named '" + observer.getName() + "' has no reaction but an attempt " +
-                  "has been made to schedule observer." );
   }
 
   @Test
@@ -1073,20 +1001,6 @@ public class ObserverTest
     observer.invokeReaction();
 
     assertEquals( reaction.getCallCount(), 0 );
-  }
-
-  @Test
-  public void invokeReaction_whenObserverHasNoReaction()
-    throws Exception
-  {
-    final ArezContext context = new ArezContext();
-
-    final Observer observer = newReadOnlyObserverWithNoReaction( context );
-
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::invokeReaction );
-    assertEquals( exception.getMessage(),
-                  "invokeReaction called on observer named '" +
-                  observer.getName() + "' but observer has no associated reaction." );
   }
 
   @Test

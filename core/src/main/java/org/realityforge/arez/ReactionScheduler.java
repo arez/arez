@@ -98,9 +98,6 @@ final class ReactionScheduler
    */
   void scheduleReaction( @Nonnull final Observer observer )
   {
-    invariant( observer::hasReaction,
-               () -> "Attempting to schedule observer named '" + observer.getName() +
-                     "' when observer has no reaction." );
     invariant( () -> !_pendingObservers.contains( observer ),
                () -> "Attempting to schedule observer named '" + observer.getName() +
                      "' when observer is already pending." );

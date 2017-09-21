@@ -69,7 +69,7 @@ public final class Observer
   /**
    * The code responsible for responding to changes if any.
    */
-  @Nullable
+  @Nonnull
   private final Reaction _reaction;
   /**
    * The memoized observable value created by observer if any.
@@ -96,7 +96,7 @@ public final class Observer
   Observer( @Nonnull final ArezContext context,
             @Nullable final String name,
             @Nonnull final TransactionMode mode,
-            @Nullable final Reaction reaction )
+            @Nonnull final Reaction reaction )
   {
     this( context, name, null, mode, reaction );
   }
@@ -105,7 +105,7 @@ public final class Observer
             @Nullable final String name,
             @Nullable final ComputedValue<?> computedValue,
             @Nonnull final TransactionMode mode,
-            @Nullable final Reaction reaction )
+            @Nonnull final Reaction reaction )
   {
     super( context, name );
     if ( TransactionMode.READ_WRITE_OWNED == mode )
@@ -123,7 +123,7 @@ public final class Observer
     }
     _computedValue = computedValue;
     _mode = Objects.requireNonNull( mode );
-    _reaction = reaction;
+    _reaction = Objects.requireNonNull( reaction );
     if ( TransactionMode.READ_WRITE_OWNED == mode )
     {
       _derivedValue = new Observable( context, name, this );
@@ -226,20 +226,10 @@ public final class Observer
    *
    * @return the reaction.
    */
-  @Nullable
+  @Nonnull
   Reaction getReaction()
   {
     return _reaction;
-  }
-
-  /**
-   * Return true if Observer has an associated reaction.
-   *
-   * @return true if Observer has an associated reaction.
-   */
-  boolean hasReaction()
-  {
-    return null != _reaction;
   }
 
   /**
@@ -287,10 +277,7 @@ public final class Observer
       if ( null == _derivedValue && ObserverState.STALE == state )
       {
         runHook( getOnStale(), ObserverError.ON_STALE_ERROR );
-        if ( hasReaction() )
-        {
-          schedule();
-        }
+        schedule();
       }
       else if ( null != _derivedValue &&
                 ObserverState.UP_TO_DATE == originalState &&
@@ -300,10 +287,7 @@ public final class Observer
         // during construction, prior to _derivedValue being set.
         _derivedValue.reportPossiblyChanged();
         runHook( getOnStale(), ObserverError.ON_STALE_ERROR );
-        if ( hasReaction() )
-        {
-          schedule();
-        }
+        schedule();
       }
       else if ( ObserverState.INACTIVE == _state )
       {
@@ -431,16 +415,11 @@ public final class Observer
 
   /**
    * Schedule this observer if it does not already have a reaction pending.
-   *
-   * This method should not be invoked unless {@link #hasReaction()} returns true.
    */
   void schedule()
   {
     if ( isLive() )
     {
-      invariant( this::hasReaction,
-                 () -> "Observer named '" + getName() + "' has no reaction but an attempt has been made " +
-                       "to schedule observer." );
       invariant( this::isActive,
                  () -> "Observer named '" + getName() + "' is not active but an attempt has been made " +
                        "to schedule observer." );
@@ -462,12 +441,6 @@ public final class Observer
     if ( isLive() )
     {
       clearScheduledFlag();
-      final String name = ArezConfig.enableNames() ? getName() : null;
-      final Reaction reaction = getReaction();
-      invariant( () -> null != reaction,
-                 () -> "invokeReaction called on observer named '" + name + "' but observer has " +
-                       "no associated reaction." );
-      assert null != reaction;
       final long start;
       if ( willPropagateSpyEvents() )
       {
@@ -490,7 +463,7 @@ public final class Observer
         // ComputedValues may have calculated their values and thus be up to date so no need to recalculate.
         if ( ObserverState.UP_TO_DATE != getState() )
         {
-          reaction.react( this );
+          getReaction().react( this );
         }
       }
       catch ( final Throwable t )

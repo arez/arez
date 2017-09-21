@@ -118,12 +118,6 @@ public abstract class AbstractArezTest
   }
 
   @Nonnull
-  final Observer newReadOnlyObserverWithNoReaction( @Nonnull final ArezContext context )
-  {
-    return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-  }
-
-  @Nonnull
   final Observer newReadOnlyObserver( @Nonnull final ArezContext context )
   {
     return new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, new TestReaction() );

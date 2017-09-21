@@ -236,7 +236,7 @@ public final class ArezContext
   @Nonnull
   Observer createObserver( @Nullable final String name,
                            final boolean mutation,
-                           @Nullable final Reaction reaction,
+                           @Nonnull final Reaction reaction,
                            final boolean runImmediately )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
@@ -246,16 +246,13 @@ public final class ArezContext
     {
       getSpy().reportSpyEvent( new ObserverCreatedEvent( observer ) );
     }
-    if ( observer.hasReaction() )
+    if ( runImmediately )
     {
-      if ( runImmediately )
-      {
-        observer.invokeReaction();
-      }
-      else
-      {
-        scheduleReaction( observer );
-      }
+      observer.invokeReaction();
+    }
+    else
+    {
+      scheduleReaction( observer );
     }
     return observer;
   }

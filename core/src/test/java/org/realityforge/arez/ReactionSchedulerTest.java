@@ -134,23 +134,6 @@ public class ReactionSchedulerTest
   }
 
   @Test
-  public void scheduleReaction_badObserver_noReaction()
-    throws Exception
-  {
-    final ArezContext context = new ArezContext();
-    final ReactionScheduler scheduler = new ReactionScheduler( context );
-
-    final Observer observer = newReadOnlyObserverWithNoReaction( context );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> scheduler.scheduleReaction( observer ) );
-
-    assertEquals( exception.getMessage(),
-                  "Attempting to schedule observer named '" + observer.getName() +
-                  "' when observer has no reaction." );
-  }
-
-  @Test
   public void scheduleReaction_observerAlreadyScheduled()
     throws Exception
   {
