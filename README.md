@@ -20,8 +20,6 @@ TODO:
 * function/procedure/safe* should have variants that accept tracker - the transaction name and mode
   are derived from tracker.
 
-* Observers should not be able to have no reactions.
-
 * add factory methods for creating observers where reactions are not themselves (i.e. not autorun)
 
 
