@@ -90,7 +90,7 @@ public class ObservableTest
 
     observable.dispose();
 
-    // Multiple transactions created. 1 for dispose operaiton and one for reaction
+    // Multiple transactions created. 1 for dispose operation and one for reaction
     assertEquals( context.currentNextTransactionId(), currentNextTransactionId + 2 );
 
     assertEquals( observable.isDisposed(), true );
