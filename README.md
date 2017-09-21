@@ -30,12 +30,8 @@ TODO:
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
-* Introduce a separate type of invariant check that detects bad usage. Current invariant checks combine
-  checks types. Separate them out so can independently control. (Usually to disable framework checks but
-  enable usage checks). The checks currently are;
-  - verifying that the framework internals are consistent with expectations
-    - Are ComputedValue backlinked from Observables correctly
-  - verifying the framework is used correctly
+* Start using apiInvariant to check incorrect usage of the framework. Currently we use same invariant
+  checking code as verifying the behaviour of the framework. Example checks we should convert:
     - ComputedValues should not cause cycles during recalculation
 
 * Add `@Memoized` annotation to methods that makes the method call act as a ComputedValue based on parameters.
