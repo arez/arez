@@ -1,5 +1,6 @@
 package org.realityforge.arez;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.spy.ComputedValueCreatedEvent;
@@ -314,6 +315,83 @@ public class ArezContextTest
   }
 
   @Test
+  public void function_withReactionAsTracker()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final String expectedValue = ValueUtil.randomString();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final Observer reaction = context.reaction( callCount::incrementAndGet );
+
+    final Observable observable = newObservable( context );
+    assertEquals( observable.getObservers().size(), 0 );
+
+    final int nextNodeId = context.currentNextTransactionId();
+
+    final String v0 =
+      context.function( reaction, () -> {
+        assertTrue( context.isTransactionActive() );
+        final Transaction transaction = context.getTransaction();
+        assertEquals( transaction.getName(), reaction.getName() );
+        assertEquals( transaction.getMode(), reaction.getMode() );
+
+        assertEquals( observable.getObservers().size(), 0 );
+        assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+
+        observable.reportObserved();
+
+        // Tracking so state updated
+        final ArrayList<Observable> observables = transaction.getObservables();
+        assertNotNull( observables );
+        assertEquals( observables.size(), 1 );
+        assertEquals( observable.getObservers().size(), 0 );
+        assertEquals( observable.getLastTrackerTransactionId(), nextNodeId );
+
+        return expectedValue;
+      } );
+
+    assertFalse( context.isTransactionActive() );
+
+    assertEquals( v0, expectedValue );
+
+    assertEquals( observable.getLastTrackerTransactionId(), 0 );
+    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( reaction.getDependencies().size(), 1 );
+
+    // Reaction not called as the function sets up initial tracking
+    assertEquals( callCount.get(), 0 );
+
+    context.procedure( observable::reportChanged );
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( reaction.getDependencies().size(), 1 );
+  }
+
+  @Test
+  public void function_passingNonReactionAsTracker()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final Observer observer = newObserver( context );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.function( observer, callCount::incrementAndGet ) );
+    assertEquals( exception.getMessage(),
+                  "Attempted to track Observer named '" + observer.getName() + "' but tracker is not a reaction." );
+
+    assertEquals( callCount.get(), 0 );
+  }
+
+  @Test
   public void safeFunction()
     throws Exception
   {
@@ -390,6 +468,83 @@ public class ArezContextTest
   }
 
   @Test
+  public void safeFunction_withReactionAsTracker()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final String expectedValue = ValueUtil.randomString();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final Observer reaction = context.reaction( callCount::incrementAndGet );
+
+    final Observable observable = newObservable( context );
+    assertEquals( observable.getObservers().size(), 0 );
+
+    final int nextNodeId = context.currentNextTransactionId();
+
+    final String v0 =
+      context.safeFunction( reaction, () -> {
+        assertTrue( context.isTransactionActive() );
+        final Transaction transaction = context.getTransaction();
+        assertEquals( transaction.getName(), reaction.getName() );
+        assertEquals( transaction.getMode(), reaction.getMode() );
+
+        assertEquals( observable.getObservers().size(), 0 );
+        assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+
+        observable.reportObserved();
+
+        // Tracking so state updated
+        final ArrayList<Observable> observables = transaction.getObservables();
+        assertNotNull( observables );
+        assertEquals( observables.size(), 1 );
+        assertEquals( observable.getObservers().size(), 0 );
+        assertEquals( observable.getLastTrackerTransactionId(), nextNodeId );
+
+        return expectedValue;
+      } );
+
+    assertFalse( context.isTransactionActive() );
+
+    assertEquals( v0, expectedValue );
+
+    assertEquals( observable.getLastTrackerTransactionId(), 0 );
+    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( reaction.getDependencies().size(), 1 );
+
+    // Reaction not called as the function sets up initial tracking
+    assertEquals( callCount.get(), 0 );
+
+    context.procedure( observable::reportChanged );
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( reaction.getDependencies().size(), 1 );
+  }
+
+  @Test
+  public void safeFunction_passingNonReactionAsTracker()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final Observer observer = newObserver( context );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.safeFunction( observer, callCount::incrementAndGet ) );
+    assertEquals( exception.getMessage(),
+                  "Attempted to track Observer named '" + observer.getName() + "' but tracker is not a reaction." );
+
+    assertEquals( callCount.get(), 0 );
+  }
+
+  @Test
   public void safeProcedure_minimalParameters()
     throws Exception
   {
@@ -408,6 +563,76 @@ public class ArezContextTest
   }
 
   @Test
+  public void safeProcedure_withReactionAsTracker()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final Observer reaction = context.reaction( callCount::incrementAndGet );
+
+    final Observable observable = newObservable( context );
+    assertEquals( observable.getObservers().size(), 0 );
+
+    final int nextNodeId = context.currentNextTransactionId();
+
+    context.safeProcedure( reaction, () -> {
+      assertTrue( context.isTransactionActive() );
+      final Transaction transaction = context.getTransaction();
+      assertEquals( transaction.getName(), reaction.getName() );
+      assertEquals( transaction.getMode(), reaction.getMode() );
+
+      assertEquals( observable.getObservers().size(), 0 );
+      assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+
+      observable.reportObserved();
+
+      // Tracking so state updated
+      final ArrayList<Observable> observables = transaction.getObservables();
+      assertNotNull( observables );
+      assertEquals( observables.size(), 1 );
+      assertEquals( observable.getObservers().size(), 0 );
+      assertEquals( observable.getLastTrackerTransactionId(), nextNodeId );
+    } );
+
+    assertFalse( context.isTransactionActive() );
+
+    assertEquals( observable.getLastTrackerTransactionId(), 0 );
+    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( reaction.getDependencies().size(), 1 );
+
+    // Reaction not called as the function sets up initial tracking
+    assertEquals( callCount.get(), 0 );
+
+    context.procedure( observable::reportChanged );
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( reaction.getDependencies().size(), 1 );
+  }
+
+  @Test
+  public void safeProcedure_passingNonReactionAsTracker()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final Observer observer = newObserver( context );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.safeProcedure( observer, callCount::incrementAndGet ) );
+    assertEquals( exception.getMessage(),
+                  "Attempted to track Observer named '" + observer.getName() + "' but tracker is not a reaction." );
+
+    assertEquals( callCount.get(), 0 );
+  }
+
+  @Test
   public void procedure_minimalParameters()
     throws Throwable
   {
@@ -423,6 +648,76 @@ public class ArezContextTest
     } );
 
     assertFalse( context.isTransactionActive() );
+  }
+
+  @Test
+  public void procedure_passingNonReactionAsTracker()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final Observer observer = newObserver( context );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.procedure( observer, callCount::incrementAndGet ) );
+    assertEquals( exception.getMessage(),
+                  "Attempted to track Observer named '" + observer.getName() + "' but tracker is not a reaction." );
+
+    assertEquals( callCount.get(), 0 );
+  }
+
+  @Test
+  public void procedure_withReactionAsTracker()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final Observer reaction = context.reaction( callCount::incrementAndGet );
+
+    final Observable observable = newObservable( context );
+    assertEquals( observable.getObservers().size(), 0 );
+
+    final int nextNodeId = context.currentNextTransactionId();
+
+    context.procedure( reaction, () -> {
+      assertTrue( context.isTransactionActive() );
+      final Transaction transaction = context.getTransaction();
+      assertEquals( transaction.getName(), reaction.getName() );
+      assertEquals( transaction.getMode(), reaction.getMode() );
+
+      assertEquals( observable.getObservers().size(), 0 );
+      assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+
+      observable.reportObserved();
+
+      // Tracking so state updated
+      final ArrayList<Observable> observables = transaction.getObservables();
+      assertNotNull( observables );
+      assertEquals( observables.size(), 1 );
+      assertEquals( observable.getObservers().size(), 0 );
+      assertEquals( observable.getLastTrackerTransactionId(), nextNodeId );
+    } );
+
+    assertFalse( context.isTransactionActive() );
+
+    assertEquals( observable.getLastTrackerTransactionId(), 0 );
+    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( reaction.getDependencies().size(), 1 );
+
+    // Reaction not called as the function sets up initial tracking
+    assertEquals( callCount.get(), 0 );
+
+    context.procedure( observable::reportChanged );
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( reaction.getDependencies().size(), 1 );
   }
 
   @Test
