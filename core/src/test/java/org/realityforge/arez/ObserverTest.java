@@ -126,6 +126,27 @@ public class ObserverTest
   }
 
   @Test
+  public void construct_with_canExplicitlyTrack_and_ComputableValue()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final ComputedValue<?> computedValue = newDerivation( context ).getComputedValue();
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( context,
+                                        computedValue.getName(),
+                                        computedValue,
+                                        TransactionMode.READ_WRITE_OWNED,
+                                        new TestReaction(),
+                                        true ) );
+
+    assertEquals( exception.getMessage(),
+                  "Attempted to construct an ComputedValue '" + computedValue.getName() +
+                  "' that could track explicitly." );
+  }
+
+  @Test
   public void invariantDependenciesBackLink()
     throws Exception
   {
