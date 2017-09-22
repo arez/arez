@@ -44,7 +44,12 @@
 						</li>
 					{% endfor %}
 				</ul>
-
+				<ul>
+					<li class="nav-item top-level">
+						{% assign changelog = site.html_pages | where: 'url', '/changelog/' | first %}
+						<a href="{{ site.baseurl }}/api/index.html" target="_blank">Javadocs</a>
+					</li>
+				</ul>
 				<ul>
 					<li class="nav-item top-level {% if page.url == '/changelog/' %}current{% endif %}">
 						{% assign changelog = site.html_pages | where: 'url', '/changelog/' | first %}
