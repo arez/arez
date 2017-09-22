@@ -9,14 +9,6 @@ permalink: pretty
 gems:
   - jekyll-sitemap
 
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - README.md
-  - LICENCE
-  - _docs/_defaults.md
-  - _posts/_defaults.md
-
 collections:
   docs:
     title: Documentation
