@@ -208,6 +208,7 @@ define 'arez' do
   ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.dynamic_provider=true -Dbraincheck.environment=development -Darez.dynamic_provider=true -Darez.logger=proxy -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources')
   ipr.add_component_from_artifact(:idea_codestyle)
   ipr.extra_modules << '../mobx/mobx.iml'
+  ipr.extra_modules << '../mobx-docs/mobx-docs.iml'
   ipr.extra_modules << '../mobx-react/mobx-react.iml'
   ipr.extra_modules << '../mobx-react-devtools/mobx-react-devtools.iml'
   ipr.extra_modules << '../mobx-utils/mobx-utils.iml'
