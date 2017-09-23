@@ -80,7 +80,7 @@ final class ContainerDescriptorParser
     return descriptor;
   }
 
-  private static void validateComputedHookMethods( final ContainerDescriptor descriptor )
+  private static void validateComputedHookMethods( @Nonnull final ContainerDescriptor descriptor )
     throws ArezProcessorException
   {
     for ( final ComputedDescriptor computed : descriptor.getComputeds() )
