@@ -113,7 +113,7 @@ are passivatable observers that call methods that are wrapped in a non-writeable
 * The toolkit began life as an attempt to port [Mobx](https://mobx.js.org/) to java. Not all of the Mobx
   primitives make sense in a java world and there were places where it was felt that we could improve on
   the Mobx model in our environment so the "port" was thrown out and it became a reimplementation of similar
-  concepts. However there is some places (i.e. `Transaction.completeTracking()`) where the Mobx heritage is
+  concepts. However there are some places (i.e. `Transaction.completeTracking()`) where the Mobx heritage is
   clear. Credit goes to Michel Weststrate and the Mobx team for their amazing conceptual model and some
   inspirational talks.
 
