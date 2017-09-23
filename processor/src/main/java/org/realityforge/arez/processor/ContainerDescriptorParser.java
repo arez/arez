@@ -452,9 +452,8 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "@OnActivate target must not throw any exceptions", method );
     }
-    final String name = deriveOnActivateName( method, annotation );
+    final String name = deriveHookName( method, "Activate", annotation.name() );
     final ComputedDescriptor computed = descriptor.getComputed( name );
-
     if ( null != computed )
     {
       final ExecutableElement existing = computed.getOnActivate();
@@ -475,43 +474,6 @@ final class ContainerDescriptorParser
       computedDescriptor.setOnActivate( method );
       descriptor.addComputed( computedDescriptor );
     }
-  }
-
-  @Nonnull
-  private static String deriveOnActivateName( @Nonnull final ExecutableElement method,
-                                              @Nonnull final OnActivate annotation )
-    throws ArezProcessorException
-  {
-    final String name;
-    if ( annotation.name().equals( SENTINEL_NAME ) )
-    {
-      final String methodName = method.getSimpleName().toString();
-      final String suffix = "Activate";
-      final int suffixLength = suffix.length();
-      final int length = methodName.length();
-      if ( methodName.startsWith( "on" ) &&
-           methodName.endsWith( suffix ) &&
-           length > ( 2 + suffixLength ) &&
-           Character.isUpperCase( methodName.charAt( 2 ) ) )
-      {
-        name = Character.toLowerCase( methodName.charAt( 2 ) ) +
-               methodName.substring( 3, length - suffixLength );
-      }
-      else
-      {
-        throw new ArezProcessorException( "Unable to derive name for @OnActivate as does not match " +
-                                          "on[Name]" + suffix + " pattern. Please specify name.", method );
-      }
-    }
-    else
-    {
-      name = annotation.name();
-      if ( name.isEmpty() || !isJavaIdentifier( name ) )
-      {
-        throw new ArezProcessorException( "Method annotated with @OnActivate specified invalid name " + name, method );
-      }
-    }
-    return name;
   }
 
   private static void processOnDeactivate( @Nonnull final ContainerDescriptor descriptor,
@@ -539,7 +501,7 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "@OnDeactivate target must not throw any exceptions", method );
     }
-    final String name = deriveOnDeactivateName( method, annotation );
+    final String name = deriveHookName( method, "Deactivate", annotation.name() );
     final ComputedDescriptor computed = descriptor.getComputed( name );
 
     if ( null != computed )
@@ -562,44 +524,6 @@ final class ContainerDescriptorParser
       computedDescriptor.setOnDeactivate( method );
       descriptor.addComputed( computedDescriptor );
     }
-  }
-
-  @Nonnull
-  private static String deriveOnDeactivateName( @Nonnull final ExecutableElement method,
-                                                @Nonnull final OnDeactivate annotation )
-    throws ArezProcessorException
-  {
-    final String name;
-    if ( annotation.name().equals( SENTINEL_NAME ) )
-    {
-      final String methodName = method.getSimpleName().toString();
-      final String suffix = "Deactivate";
-      final int suffixLength = suffix.length();
-      final int length = methodName.length();
-      if ( methodName.startsWith( "on" ) &&
-           methodName.endsWith( suffix ) &&
-           length > ( 2 + suffixLength ) &&
-           Character.isUpperCase( methodName.charAt( 2 ) ) )
-      {
-        name = Character.toLowerCase( methodName.charAt( 2 ) ) +
-               methodName.substring( 3, length - suffixLength );
-      }
-      else
-      {
-        throw new ArezProcessorException( "Unable to derive name for @OnDeactivate as does not match " +
-                                          "on[Name]" + suffix + " pattern. Please specify name.", method );
-      }
-    }
-    else
-    {
-      name = annotation.name();
-      if ( name.isEmpty() || !isJavaIdentifier( name ) )
-      {
-        throw new ArezProcessorException( "Method annotated with @OnDeactivate specified invalid name " + name,
-                                          method );
-      }
-    }
-    return name;
   }
 
   private static void processOnStale( @Nonnull final ContainerDescriptor descriptor,
@@ -627,7 +551,7 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "@OnStale target must not throw any exceptions", method );
     }
-    final String name = deriveOnStaleName( method, annotation );
+    final String name = deriveHookName( method, "Stale", annotation.name() );
     final ComputedDescriptor computed = descriptor.getComputed( name );
 
     if ( null != computed )
@@ -653,39 +577,38 @@ final class ContainerDescriptorParser
   }
 
   @Nonnull
-  private static String deriveOnStaleName( @Nonnull final ExecutableElement method, final @Nonnull OnStale annotation )
+  private static String deriveHookName( @Nonnull final ExecutableElement method,
+                                        @Nonnull final String type,
+                                        @Nonnull final String name )
     throws ArezProcessorException
   {
-    final String name;
-    if ( annotation.name().equals( SENTINEL_NAME ) )
+    if ( name.equals( SENTINEL_NAME ) )
     {
       final String methodName = method.getSimpleName().toString();
-      final String suffix = "Stale";
-      final int suffixLength = suffix.length();
+      final int suffixLength = type.length();
       final int length = methodName.length();
       if ( methodName.startsWith( "on" ) &&
-           methodName.endsWith( suffix ) &&
+           methodName.endsWith( type ) &&
            length > ( 2 + suffixLength ) &&
            Character.isUpperCase( methodName.charAt( 2 ) ) )
       {
-        name = Character.toLowerCase( methodName.charAt( 2 ) ) +
-               methodName.substring( 3, length - suffixLength );
+        return Character.toLowerCase( methodName.charAt( 2 ) ) + methodName.substring( 3, length - suffixLength );
       }
       else
       {
-        throw new ArezProcessorException( "Unable to derive name for @OnStale as does not match " +
-                                          "on[Name]" + suffix + " pattern. Please specify name.", method );
+        throw new ArezProcessorException( "Unable to derive name for @On" + type + " as does not match " +
+                                          "on[Name]" + type + " pattern. Please specify name.", method );
       }
     }
     else
     {
-      name = annotation.name();
       if ( name.isEmpty() || !isJavaIdentifier( name ) )
       {
-        throw new ArezProcessorException( "Method annotated with @OnStale specified invalid name " + name, method );
+        throw new ArezProcessorException( "Method annotated with @On" + type + " specified invalid name " + name,
+                                          method );
       }
+      return name;
     }
-    return name;
   }
 
   private static void processPostDispose( @Nonnull final ContainerDescriptor descriptor,
