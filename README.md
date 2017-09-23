@@ -17,8 +17,6 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
-* Add @PreDestroy hook for models.
-
 * Enhance the code processor so that downstream products (i.e. ArezReact) can reuse the same code used
   for generating observable state, actions etc.
 
