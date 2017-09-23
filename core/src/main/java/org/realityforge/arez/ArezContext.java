@@ -106,9 +106,9 @@ public final class ArezContext
    * @param name               the name of the ComputedValue.
    * @param function           the function that computes the value.
    * @param equalityComparator the comparator that determines whether the newly computed value differs from existing value.
-   * @param onActivate         the procedure to invoke when ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate       the procedure to invoke when ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale            the procedure to invoke when ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onActivate         the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDeactivate       the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onStale            the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDispose          the procedure to invoke when the ComputedValue id disposed.
    * @return the ComputedValue instance.
    */
