@@ -116,6 +116,11 @@ are passivatable observers that call methods that are wrapped in a non-writeable
   concepts. However there are some places (i.e. `Transaction.completeTracking()`) where the Mobx heritage is
   clear. Credit goes to Michel Weststrate and the Mobx team for their amazing conceptual model and some
   inspirational talks.
+  
+* Other frameworks that influenced the development of Arez include;
+  - [Meteor Tracker](https://docs.meteor.com/api/tracker.html)
+  - [VueJS watchers and Computed properties](https://vuejs.org/v2/guide/computed.html)
+  -  KnockoutJS [Observables](http://knockoutjs.com/documentation/observables.html) and [Computed Observables](http://knockoutjs.com/documentation/computedObservables.html) 
 
 * The website is derived from the [Edition Template](https://github.com/CloudCannon/edition-jekyll-template)
   by [Cloud Cannon](https://cloudcannon.com/) that is licensed under the [MIT License](https://github.com/CloudCannon/edition-jekyll-template/blob/master/LICENSE).
