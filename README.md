@@ -64,11 +64,11 @@ TODO:
 ## Architecture v2 Notes
 
 An Arez application consists of `observable` values that can change over time. `Observers` watch the
-`observable` values and receive notifications when the `observable` values change. The observers can
-explicitly subscribe to change notifications or can implicitly subscribe by accessing the observable
-within a `tracking` transaction. (The observer associated with a tracking transaction is called the
-`Tracker`.) `Observable` values can only be read within the scope of a transaction. `Observable` values
-can only be modified within the scope of a `writeable` transaction. Transactions can be nested.
+`observable` values and receive notifications when the `observable` values change. The observers implicitly
+subscribe to change notifications by accessing the observable within a `tracking` transaction. (The observer
+associated with a tracking transaction is called the `Tracker`.) `Observable` values can only be read within
+the scope of a transaction. `Observable` values can only be modified within the scope of a `writeable`
+transaction. Transactions can be nested.
 
 Arez has the concept of a `ComputedValue` which is an `observable` value that is derived from other
 `observable` values. A `ComputedValue` is both an observable and an observer. However the calculation
