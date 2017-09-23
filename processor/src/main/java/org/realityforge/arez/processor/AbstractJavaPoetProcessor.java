@@ -37,20 +37,9 @@ abstract class AbstractJavaPoetProcessor
   final void emitTypeSpec( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )
     throws IOException
   {
-    emitJavaFile( convertTypeSpecToJavaFile( packageName, typeSpec ) );
-  }
-
-  @Nonnull
-  private JavaFile convertTypeSpecToJavaFile( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )
-  {
-    return JavaFile.builder( packageName, typeSpec ).
+    JavaFile.builder( packageName, typeSpec ).
       skipJavaLangImports( true ).
-      build();
-  }
-
-  private void emitJavaFile( @Nonnull final JavaFile javaFile )
-    throws IOException
-  {
-    javaFile.writeTo( processingEnv.getFiler() );
+      build().
+      writeTo( processingEnv.getFiler() );
   }
 }
