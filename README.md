@@ -17,6 +17,8 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
+* Add @PreDestroy hook for models.
+
 * Add onDispose hook for Observers.
 
 * Enhance the code processor so that downstream products (i.e. ArezReact) can reuse the same code used
