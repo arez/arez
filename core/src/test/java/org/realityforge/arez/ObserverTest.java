@@ -744,6 +744,28 @@ public class ObserverTest
   }
 
   @Test
+  public void dispose_invokedHook()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newDerivation( context );
+    setCurrentTransaction( observer );
+    observer.setState( ObserverState.UP_TO_DATE );
+    final AtomicInteger callCount = new AtomicInteger();
+    observer.setOnDispose( callCount::incrementAndGet );
+
+    context.setTransaction( null );
+
+    assertEquals( observer.isDisposed(), false );
+    assertEquals( callCount.get(), 0 );
+
+    observer.dispose();
+
+    assertEquals( observer.isDisposed(), true );
+    assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
   public void dispose_generates_spyEvent()
     throws Exception
   {

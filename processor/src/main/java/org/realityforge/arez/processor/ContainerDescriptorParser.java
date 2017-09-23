@@ -23,6 +23,7 @@ import org.realityforge.arez.annotations.ContainerId;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.OnActivate;
 import org.realityforge.arez.annotations.OnDeactivate;
+import org.realityforge.arez.annotations.OnDispose;
 import org.realityforge.arez.annotations.OnStale;
 import org.realityforge.arez.annotations.PostDispose;
 import org.realityforge.arez.annotations.PreDispose;
@@ -216,6 +217,7 @@ final class ContainerDescriptorParser
     final OnActivate onActivate = method.getAnnotation( OnActivate.class );
     final OnDeactivate onDeactivate = method.getAnnotation( OnDeactivate.class );
     final OnStale onStale = method.getAnnotation( OnStale.class );
+    final OnDispose onDispose = method.getAnnotation( OnDispose.class );
 
     if ( null != observable )
     {
@@ -270,6 +272,11 @@ final class ContainerDescriptorParser
     else if ( null != onStale )
     {
       processOnStale( descriptor, onStale, method );
+      return true;
+    }
+    else if ( null != onDispose )
+    {
+      processOnDispose( descriptor, onDispose, method );
       return true;
     }
     else
@@ -572,6 +579,57 @@ final class ContainerDescriptorParser
     {
       final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
       computedDescriptor.setOnStale( method );
+      descriptor.addComputed( computedDescriptor );
+    }
+  }
+
+  private static void processOnDispose( @Nonnull final ContainerDescriptor descriptor,
+                                        @Nonnull final OnDispose annotation,
+                                        @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    if ( method.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ArezProcessorException( "@OnDispose target must not be static", method );
+    }
+    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ArezProcessorException( "@OnDispose target must not be private", method );
+    }
+    else if ( !method.getParameters().isEmpty() )
+    {
+      throw new ArezProcessorException( "@OnDispose target must not have any parameters", method );
+    }
+    else if ( TypeKind.VOID != method.getReturnType().getKind() )
+    {
+      throw new ArezProcessorException( "@OnDispose target must not return a value", method );
+    }
+    else if ( !method.getThrownTypes().isEmpty() )
+    {
+      throw new ArezProcessorException( "@OnDispose target must not throw any exceptions", method );
+    }
+
+    final String name = deriveHookName( method, "Dispose", annotation.name() );
+
+    final ComputedDescriptor computed = descriptor.getComputed( name );
+    if ( null != computed )
+    {
+      final ExecutableElement existing = computed.getOnDispose();
+      if ( null != existing )
+      {
+        throw new ArezProcessorException( "@OnDispose target duplicates existing method named " +
+                                          existing.getSimpleName(),
+                                          method );
+      }
+      else
+      {
+        computed.setOnDispose( method );
+      }
+    }
+    else
+    {
+      final ComputedDescriptor computedDescriptor = new ComputedDescriptor( name );
+      computedDescriptor.setOnDispose( method );
       descriptor.addComputed( computedDescriptor );
     }
   }

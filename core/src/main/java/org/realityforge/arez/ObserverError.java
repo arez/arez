@@ -20,5 +20,9 @@ public enum ObserverError
   /**
    * Exception generated in OnStale hook action.
    */
-  ON_STALE_ERROR
+  ON_STALE_ERROR,
+  /**
+   * Exception generated in OnDispose hook action.
+   */
+  ON_DISPOSE_ERROR
 }

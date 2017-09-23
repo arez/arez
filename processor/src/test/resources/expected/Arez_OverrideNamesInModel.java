@@ -35,7 +35,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_myField = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myField" : null );
-    this.$$arez$$_myComputed = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myComputed" : null, super::compute, Objects::equals, null, null, null );
+    this.$$arez$$_myComputed = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myComputed" : null, super::compute, Objects::equals, null, null, null, null );
     this.$$arez$$_zzzzzz = this.$$arez$$_context.autorun( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "zzzzzz" : null, true, () -> super.zapZap(), false );
     $$arez$$_context.triggerScheduler();
   }

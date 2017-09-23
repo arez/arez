@@ -875,6 +875,17 @@ public final class ArezProcessor
       {
         sb.append( "null" );
       }
+      sb.append( ", " );
+
+      if ( null != computed.getOnDispose() )
+      {
+        sb.append( "this::$N" );
+        parameters.add( computed.getOnDispose().getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "null" );
+      }
 
       sb.append( " )" );
       builder.addStatement( sb.toString(), parameters.toArray() );

@@ -26,7 +26,8 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "DefaultMethodsModel.time" : null );
-    this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? "DefaultMethodsModel.someValue" : null, super::someValue, Objects::equals, null, null, null );
+    this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? "DefaultMethodsModel.someValue" : null, super::someValue, Objects::equals, null, null, null,
+                                                                         null );
   }
 
   @Override

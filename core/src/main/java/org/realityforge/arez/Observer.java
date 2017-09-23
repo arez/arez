@@ -42,6 +42,11 @@ public final class Observer
   @Nullable
   private Procedure _onStale;
   /**
+   * Hook action called when the Observer is disposed.
+   */
+  @Nullable
+  private Procedure _onDispose;
+  /**
    * The stalest state of the associated observables that are also derivations.
    */
   @Nonnull
@@ -187,6 +192,7 @@ public final class Observer
   {
     if ( !_disposed )
     {
+      runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
       getContext().safeProcedure( ArezConfig.enableNames() ? getName() : null,
                                   TransactionMode.READ_WRITE,
                                   () -> getContext().getTransaction().markTrackerAsDisposed(),
@@ -407,6 +413,27 @@ public final class Observer
   Procedure getOnStale()
   {
     return _onStale;
+  }
+
+  /**
+   * Set the onDispose hook.
+   *
+   * @param onDispose the hook.
+   */
+  void setOnDispose( @Nullable final Procedure onDispose )
+  {
+    _onDispose = onDispose;
+  }
+
+  /**
+   * Return the onDispose hook.
+   *
+   * @return the onDispose hook.
+   */
+  @Nullable
+  Procedure getOnDispose()
+  {
+    return _onDispose;
   }
 
   /**

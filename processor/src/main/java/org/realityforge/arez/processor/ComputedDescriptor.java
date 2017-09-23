@@ -20,6 +20,8 @@ final class ComputedDescriptor
   private ExecutableElement _onDeactivate;
   @Nullable
   private ExecutableElement _onStale;
+  @Nullable
+  private ExecutableElement _onDispose;
 
   ComputedDescriptor( @Nonnull final String name )
   {
@@ -61,6 +63,12 @@ final class ComputedDescriptor
     return _onStale;
   }
 
+  @Nullable
+  ExecutableElement getOnDispose()
+  {
+    return _onDispose;
+  }
+
   void setComputed( @Nonnull final ExecutableElement computed )
   {
     _computed = Objects.requireNonNull( computed );
@@ -81,6 +89,11 @@ final class ComputedDescriptor
     _onStale = Objects.requireNonNull( onStale );
   }
 
+  void setOnDispose( @Nonnull final ExecutableElement onDispose )
+  {
+    _onDispose = Objects.requireNonNull( onDispose );
+  }
+
   @Nonnull
   ExecutableElement getDefiner()
   {
@@ -95,6 +108,10 @@ final class ComputedDescriptor
     else if ( null != _onDeactivate )
     {
       return _onDeactivate;
+    }
+    else if ( null != _onDispose )
+    {
+      return _onDispose;
     }
     else
     {

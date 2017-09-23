@@ -96,7 +96,7 @@ public final class ArezContext
                                                    @Nonnull final SafeFunction<T> function,
                                                    @Nonnull final EqualityComparator<T> equalityComparator )
   {
-    return createComputedValue( name, function, equalityComparator, null, null, null );
+    return createComputedValue( name, function, equalityComparator, null, null, null, null );
   }
 
   /**
@@ -109,6 +109,7 @@ public final class ArezContext
    * @param onActivate         the procedure to invoke when ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate       the procedure to invoke when ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale            the procedure to invoke when ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDispose          the procedure to invoke when the ComputedValue id disposed.
    * @return the ComputedValue instance.
    */
   @Nonnull
@@ -117,7 +118,8 @@ public final class ArezContext
                                                    @Nonnull final EqualityComparator<T> equalityComparator,
                                                    @Nullable final Procedure onActivate,
                                                    @Nullable final Procedure onDeactivate,
-                                                   @Nullable final Procedure onStale )
+                                                   @Nullable final Procedure onStale,
+                                                   @Nullable final Procedure onDispose )
   {
     final ComputedValue<T> computedValue =
       new ComputedValue<>( this, toName( "ComputedValue", name ), function, equalityComparator );
@@ -125,6 +127,7 @@ public final class ArezContext
     observer.setOnActivate( onActivate );
     observer.setOnDeactivate( onDeactivate );
     observer.setOnStale( onStale );
+    observer.setOnDispose( onDispose );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ComputedValueCreatedEvent( computedValue ) );

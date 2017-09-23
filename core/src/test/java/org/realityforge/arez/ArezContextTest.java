@@ -982,8 +982,9 @@ public class ArezContextTest
     final Procedure onActivate = ValueUtil::randomString;
     final Procedure onDeactivate = ValueUtil::randomString;
     final Procedure onStale = ValueUtil::randomString;
+    final Procedure onDispose = ValueUtil::randomString;
     final ComputedValue<String> computedValue =
-      context.createComputedValue( name, function, Objects::equals, onActivate, onDeactivate, onStale );
+      context.createComputedValue( name, function, Objects::equals, onActivate, onDeactivate, onStale, onDispose );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
@@ -992,6 +993,7 @@ public class ArezContextTest
     assertEquals( computedValue.getObserver().getOnActivate(), onActivate );
     assertEquals( computedValue.getObserver().getOnDeactivate(), onDeactivate );
     assertEquals( computedValue.getObserver().getOnStale(), onStale );
+    assertEquals( computedValue.getObserver().getOnDispose(), onDispose );
   }
 
   @Test
