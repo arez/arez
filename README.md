@@ -17,6 +17,11 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
+* Add onDispose hook for Observers.
+
+* Enhance the code processor so that downstream products (i.e. ArezReact) can reuse the same code used
+  for generating observable state, actions etc.
+
 * Add Async helper to extras. Can be canceled/disposed. Has an Observable state field that indicates
   current status. Triggers an "Action" on async completion. Useful for handling async http calls etc.
 
