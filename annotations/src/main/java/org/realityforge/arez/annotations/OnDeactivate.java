@@ -6,7 +6,7 @@ import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
 
 /**
- * Identifies method that is called when ComputedValue changes to the INACTIVE state from any other state.
+ * Identifies method that is called when the ComputedValue changes to the INACTIVE state from any other state.
  *
  * <p>The method must also conform to the following constraints:</p>
  * <ul>
