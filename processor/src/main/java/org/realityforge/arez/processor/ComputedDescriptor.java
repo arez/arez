@@ -34,11 +34,6 @@ final class ComputedDescriptor
     return _name;
   }
 
-  boolean hasComputed()
-  {
-    return null != _computed;
-  }
-
   @Nonnull
   ExecutableElement getComputed()
   {
@@ -147,7 +142,7 @@ final class ComputedDescriptor
   void validate()
     throws ArezProcessorException
   {
-    if ( !hasComputed() )
+    if ( null == _computed )
     {
       if ( null != getOnActivate() )
       {
