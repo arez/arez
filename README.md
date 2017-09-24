@@ -24,9 +24,6 @@ TODO:
   
 * Action methods need to have type parameters copied
 
-* Enhance the code processor so that downstream products (i.e. ArezReact) can reuse the same code used
-  for generating observable state, actions etc.
-
 * Add Async helper to extras. Can be canceled/disposed. Has an Observable state field that indicates
   current status. Triggers an "Action" on async completion. Useful for handling async http calls etc.
 
