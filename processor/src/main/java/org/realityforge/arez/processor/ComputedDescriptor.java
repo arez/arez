@@ -1,10 +1,20 @@
 package org.realityforge.arez.processor;
 
+import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.WildcardTypeName;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.type.TypeMirror;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.OnActivate;
 import org.realityforge.arez.annotations.OnDeactivate;
@@ -22,6 +32,8 @@ final class ComputedDescriptor
   static final Pattern ON_DISPOSE_PATTERN = Pattern.compile( "^on([A-Z].*)Dispose$" );
 
   @Nonnull
+  private final ContainerDescriptor _containerDescriptor;
+  @Nonnull
   private final String _name;
   @Nullable
   private ExecutableElement _computed;
@@ -34,8 +46,9 @@ final class ComputedDescriptor
   @Nullable
   private ExecutableElement _onDispose;
 
-  ComputedDescriptor( @Nonnull final String name )
+  ComputedDescriptor( @Nonnull final ContainerDescriptor containerDescriptor, @Nonnull final String name )
   {
+    _containerDescriptor = Objects.requireNonNull( containerDescriptor );
     _name = Objects.requireNonNull( name );
   }
 
@@ -186,5 +199,134 @@ final class ComputedDescriptor
         throw new ArezProcessorException( "@OnStale exists but there is no corresponding @Computed", onStale );
       }
     }
+  }
+
+  void buildFields( @Nonnull final TypeSpec.Builder builder )
+  {
+    final TypeName parameterType =
+      getComputed().getTypeParameters().isEmpty() ?
+      TypeName.get( getComputed().getReturnType() ).box() :
+      WildcardTypeName.subtypeOf( TypeName.OBJECT );
+    final ParameterizedTypeName typeName =
+      ParameterizedTypeName.get( GeneratorUtil.COMPUTED_VALUE_CLASSNAME, parameterType );
+    final FieldSpec.Builder field =
+      FieldSpec.builder( typeName,
+                         GeneratorUtil.FIELD_PREFIX + getName(),
+                         Modifier.FINAL,
+                         Modifier.PRIVATE ).
+        addAnnotation( Nonnull.class );
+    builder.addField( field.build() );
+  }
+
+  void buildInitializer( @Nonnull MethodSpec.Builder builder )
+  {
+    final ArrayList<Object> parameters = new ArrayList<>();
+    final StringBuilder sb = new StringBuilder();
+    sb.append( "this.$N = this.$N.createComputedValue( this.$N.areNamesEnabled() ? " );
+    parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
+    parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
+    parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
+    if ( _containerDescriptor.isSingleton() )
+    {
+      sb.append( "$S" );
+      parameters.add( _containerDescriptor.getNamePrefix() + getName() );
+    }
+    else
+    {
+      sb.append( "$N() + $S" );
+      parameters.add( GeneratorUtil.ID_FIELD_NAME );
+      parameters.add( getName() );
+    }
+    sb.append( " : null, super::$N, $T::equals, " );
+    parameters.add( getComputed().getSimpleName().toString() );
+    parameters.add( Objects.class );
+
+    if ( null != getOnActivate() )
+    {
+      sb.append( "this::$N" );
+      parameters.add( getOnActivate().getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "null" );
+    }
+    sb.append( ", " );
+
+    if ( null != getOnDeactivate() )
+    {
+      sb.append( "this::$N" );
+      parameters.add( getOnDeactivate().getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "null" );
+    }
+    sb.append( ", " );
+
+    if ( null != getOnStale() )
+    {
+      sb.append( "this::$N" );
+      parameters.add( getOnStale().getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "null" );
+    }
+    sb.append( ", " );
+
+    if ( null != getOnDispose() )
+    {
+      sb.append( "this::$N" );
+      parameters.add( getOnDispose().getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "null" );
+    }
+
+    sb.append( " )" );
+    builder.addStatement( sb.toString(), parameters.toArray() );
+  }
+
+  void buildDisposer( @Nonnull final CodeBlock.Builder codeBlock )
+  {
+    codeBlock.addStatement( "$N.dispose()", GeneratorUtil.FIELD_PREFIX + getName() );
+  }
+
+  void buildMethods( @Nonnull final TypeSpec.Builder builder )
+    throws ArezProcessorException
+  {
+    builder.addMethod( buildComputed() );
+  }
+
+  /**
+   * Generate the wrapper around Computed method.
+   */
+  @Nonnull
+  private MethodSpec buildComputed()
+    throws ArezProcessorException
+  {
+    final ExecutableElement computed = getComputed();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( computed.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( computed, builder );
+    ProcessorUtil.copyExceptions( computed, builder );
+    ProcessorUtil.copyTypeParameters( computed, builder );
+    ProcessorUtil.copyDocumentedAnnotations( computed, builder );
+    builder.addAnnotation( Override.class );
+    final TypeMirror returnType = computed.getReturnType();
+    builder.returns( TypeName.get( returnType ) );
+
+    if ( computed.getTypeParameters().isEmpty() )
+    {
+      builder.addStatement( "return this.$N.get()", GeneratorUtil.FIELD_PREFIX + getName() );
+    }
+    else
+    {
+      builder.addStatement( "return ($T) this.$N.get()",
+                            TypeName.get( computed.getReturnType() ).box(),
+                            GeneratorUtil.FIELD_PREFIX + getName() );
+    }
+
+    return builder.build();
   }
 }

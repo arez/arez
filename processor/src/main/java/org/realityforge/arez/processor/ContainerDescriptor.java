@@ -1,6 +1,14 @@
 package org.realityforge.arez.processor;
 
+import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,13 +16,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
@@ -87,6 +98,15 @@ final class ContainerDescriptor
     return _name;
   }
 
+  /**
+   * Get the prefix specified by container if any.
+   */
+  @Nonnull
+  String getNamePrefix()
+  {
+    return getName().isEmpty() ? "" : getName() + ".";
+  }
+
   boolean isSingleton()
   {
     return _singleton;
@@ -98,7 +118,7 @@ final class ContainerDescriptor
   }
 
   @Nonnull
-  DeclaredType asDeclaredType()
+  private DeclaredType asDeclaredType()
   {
     return (DeclaredType) _element.asType();
   }
@@ -190,12 +210,6 @@ final class ContainerDescriptor
     }
   }
 
-  @Nonnull
-  Collection<ObservableDescriptor> getObservables()
-  {
-    return _roObservables;
-  }
-
   private void addAction( @Nonnull final Action annotation, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
@@ -203,7 +217,7 @@ final class ContainerDescriptor
 
     final String name = deriveActionName( method, annotation );
     checkNameUnique( name, method, Action.class );
-    final ActionDescriptor action = new ActionDescriptor( name, annotation.mutation(), method );
+    final ActionDescriptor action = new ActionDescriptor( this, name, annotation.mutation(), method );
     _actions.put( action.getName(), action );
   }
 
@@ -226,12 +240,6 @@ final class ContainerDescriptor
     }
   }
 
-  @Nonnull
-  Collection<ActionDescriptor> getActions()
-  {
-    return _roActions;
-  }
-
   private void addAutorun( @Nonnull final Autorun annotation, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
@@ -242,7 +250,7 @@ final class ContainerDescriptor
 
     final String name = deriveAutorunName( method, annotation );
     checkNameUnique( name, method, Autorun.class );
-    final AutorunDescriptor autorun = new AutorunDescriptor( name, annotation.mutation(), method );
+    final AutorunDescriptor autorun = new AutorunDescriptor( this, name, annotation.mutation(), method );
     _autoruns.put( autorun.getName(), autorun );
   }
 
@@ -266,15 +274,9 @@ final class ContainerDescriptor
   }
 
   @Nonnull
-  Collection<AutorunDescriptor> getAutoruns()
-  {
-    return _roAutoruns;
-  }
-
-  @Nonnull
   private ComputedDescriptor findOrCreateComputed( @Nonnull final String name )
   {
-    return _computeds.computeIfAbsent( name, ComputedDescriptor::new );
+    return _computeds.computeIfAbsent( name, n -> new ComputedDescriptor( this, n ) );
   }
 
   private void addComputed( @Nonnull final Computed annotation, @Nonnull final ExecutableElement method )
@@ -357,18 +359,6 @@ final class ContainerDescriptor
     }
   }
 
-  @Nonnull
-  Collection<ComputedDescriptor> getComputeds()
-  {
-    return _roComputeds;
-  }
-
-  @Nullable
-  ExecutableElement getContainerId()
-  {
-    return _containerId;
-  }
-
   private void setContainerId( @Nonnull final ExecutableElement containerId )
     throws ArezProcessorException
   {
@@ -416,12 +406,6 @@ final class ContainerDescriptor
     }
   }
 
-  @Nullable
-  ExecutableElement getPreDispose()
-  {
-    return _preDispose;
-  }
-
   private void setPreDispose( @Nonnull final ExecutableElement preDispose )
     throws ArezProcessorException
   {
@@ -441,12 +425,6 @@ final class ContainerDescriptor
     {
       _preDispose = preDispose;
     }
-  }
-
-  @Nullable
-  ExecutableElement getPostDispose()
-  {
-    return _postDispose;
   }
 
   private void setPostDispose( @Nonnull final ExecutableElement postDispose )
@@ -476,10 +454,10 @@ final class ContainerDescriptor
   {
     validateComputeds();
 
-    if ( getObservables().isEmpty() &&
-         getActions().isEmpty() &&
-         getComputeds().isEmpty() &&
-         getAutoruns().isEmpty() )
+    if ( _roObservables.isEmpty() &&
+         _roActions.isEmpty() &&
+         _roComputeds.isEmpty() &&
+         _roAutoruns.isEmpty() )
     {
       throw new ArezProcessorException( "@Container target has no methods annotated with @Action, " +
                                         "@Computed, @Observable or @Autorun", _element );
@@ -489,7 +467,7 @@ final class ContainerDescriptor
   private void validateComputeds()
     throws ArezProcessorException
   {
-    for ( final ComputedDescriptor computed : getComputeds() )
+    for ( final ComputedDescriptor computed : _roComputeds )
     {
       computed.validate();
     }
@@ -597,7 +575,7 @@ final class ContainerDescriptor
                                            @Nonnull final Map<String, ExecutableElement> setters )
     throws ArezProcessorException
   {
-    for ( final ObservableDescriptor observable : getObservables() )
+    for ( final ObservableDescriptor observable : _roObservables )
     {
       if ( !observable.hasSetter() )
       {
@@ -767,5 +745,267 @@ final class ContainerDescriptor
       }
     }
     return method.getSimpleName().toString();
+  }
+
+  /**
+   * Build the enhanced class for specified container.
+   */
+  @Nonnull
+  TypeSpec buildType()
+    throws ArezProcessorException
+  {
+    final TypeElement element = getElement();
+
+    final AnnotationSpec generatedAnnotation =
+      AnnotationSpec.builder( Generated.class ).addMember( "value", "$S", ArezProcessor.class.getName() ).build();
+
+    final StringBuilder name = new StringBuilder( "Arez_" + element.getSimpleName() );
+
+    TypeElement t = element;
+    while ( NestingKind.TOP_LEVEL != t.getNestingKind() )
+    {
+      t = (TypeElement) t.getEnclosingElement();
+      name.insert( 0, t.getSimpleName() + "$" );
+    }
+
+    final TypeSpec.Builder builder = TypeSpec.classBuilder( name.toString() ).
+      superclass( TypeName.get( element.asType() ) ).
+      addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) ).
+      addModifiers( Modifier.FINAL ).
+      addAnnotation( generatedAnnotation );
+    ProcessorUtil.copyAccessModifiers( element, builder );
+
+    if ( isDisposable() )
+    {
+      builder.addSuperinterface( GeneratorUtil.DISPOSABLE_CLASSNAME );
+    }
+
+    buildFields( builder );
+
+    buildConstructors( builder );
+
+    if ( !isSingleton() )
+    {
+      builder.addMethod( buildIdGetter() );
+    }
+
+    if ( isDisposable() )
+    {
+      builder.addMethod( buildIsDisposed() );
+      builder.addMethod( buildDispose() );
+    }
+
+    _roObservables.forEach( observable -> observable.buildMethods( builder ) );
+    _roAutoruns.forEach( autorun -> autorun.buildMethods( builder ) );
+    _roActions.forEach( action -> action.buildMethods( builder ) );
+    _roComputeds.forEach( computed -> computed.buildMethods( builder ) );
+
+    return builder.build();
+  }
+
+  /**
+   * Generate the getter for id.
+   */
+  @Nonnull
+  private MethodSpec buildIdGetter()
+    throws ArezProcessorException
+  {
+    assert !isSingleton();
+
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( GeneratorUtil.ID_FIELD_NAME ).
+        addModifiers( Modifier.PRIVATE );
+
+    builder.returns( TypeName.get( String.class ) );
+    final ExecutableElement containerId = _containerId;
+
+    if ( null == containerId )
+    {
+      builder.addStatement( "return $S + $N + $S", getNamePrefix(), GeneratorUtil.ID_FIELD_NAME, "." );
+    }
+    else
+    {
+      builder.addStatement( "return $S + $N() + $S", getNamePrefix(), containerId.getSimpleName(), "." );
+    }
+    return builder.build();
+  }
+
+  /**
+   * Generate the dispose method.
+   */
+  @Nonnull
+  private MethodSpec buildDispose()
+    throws ArezProcessorException
+  {
+    assert isDisposable();
+
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "dispose" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class );
+
+    final CodeBlock.Builder codeBlock = CodeBlock.builder();
+    codeBlock.beginControlFlow( "if ( !isDisposed() )" );
+    codeBlock.addStatement( "$N = true", GeneratorUtil.DISPOSED_FIELD_NAME );
+    final ExecutableElement preDispose = _preDispose;
+    if ( null != preDispose )
+    {
+      codeBlock.addStatement( "super.$N()", preDispose.getSimpleName() );
+    }
+    _roAutoruns.forEach( autorun -> autorun.buildDisposer( codeBlock ) );
+    _roComputeds.forEach( computed -> computed.buildDisposer( codeBlock ) );
+    _roObservables.forEach( observable -> observable.buildDisposer( codeBlock ) );
+    final ExecutableElement postDispose = _postDispose;
+    if ( null != postDispose )
+    {
+      codeBlock.addStatement( "super.$N()", postDispose.getSimpleName() );
+    }
+    codeBlock.endControlFlow();
+
+    builder.addCode( codeBlock.build() );
+
+    return builder.build();
+  }
+
+  /**
+   * Generate the isDisposed method.
+   */
+  @Nonnull
+  private MethodSpec buildIsDisposed()
+    throws ArezProcessorException
+  {
+    assert isDisposable();
+
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "isDisposed" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class ).
+        returns( TypeName.BOOLEAN );
+
+    builder.addStatement( "return $N", GeneratorUtil.DISPOSED_FIELD_NAME );
+
+    return builder.build();
+  }
+
+  /**
+   * Build the fields required to make class Observable. This involves;
+   * <ul>
+   * <li>the context field if there is any @Action methods.</li>
+   * <li>the observable object for every @Observable.</li>
+   * <li>the ComputedValue object for every @Computed method.</li>
+   * </ul>
+   */
+  private void buildFields( @Nonnull final TypeSpec.Builder builder )
+  {
+    // If we don't have a method for object id but we need one then synthesize it
+    if ( !isSingleton() && null == _containerId )
+    {
+      final FieldSpec.Builder nextIdField =
+        FieldSpec.builder( TypeName.LONG,
+                           GeneratorUtil.NEXT_ID_FIELD_NAME,
+                           Modifier.VOLATILE,
+                           Modifier.STATIC,
+                           Modifier.PRIVATE );
+      builder.addField( nextIdField.build() );
+
+      final FieldSpec.Builder idField =
+        FieldSpec.builder( TypeName.LONG, GeneratorUtil.ID_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE );
+      builder.addField( idField.build() );
+    }
+
+    if ( isDisposable() )
+    {
+      final FieldSpec.Builder disposableField =
+        FieldSpec.builder( TypeName.BOOLEAN, GeneratorUtil.DISPOSED_FIELD_NAME, Modifier.PRIVATE );
+      builder.addField( disposableField.build() );
+    }
+
+    // Create the field that contains the context
+    {
+      final FieldSpec.Builder field =
+        FieldSpec.builder( GeneratorUtil.AREZ_CONTEXT_CLASSNAME,
+                           GeneratorUtil.CONTEXT_FIELD_NAME,
+                           Modifier.FINAL,
+                           Modifier.PRIVATE ).
+          addAnnotation( Nonnull.class );
+      builder.addField( field.build() );
+    }
+
+    _roObservables.forEach( observable -> observable.buildFields( builder ) );
+    _roComputeds.forEach( computed -> computed.buildFields( builder ) );
+    _roAutoruns.forEach( autorun -> autorun.buildFields( builder ) );
+  }
+
+  /**
+   * Build all constructors as they appear on the Container class.
+   * Arez Observable fields are populated as required and parameters are passed up to superclass.
+   */
+  private void buildConstructors( @Nonnull final TypeSpec.Builder builder )
+  {
+    for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( getElement() ) )
+    {
+      builder.addMethod( buildConstructor( constructor ) );
+    }
+  }
+
+  /**
+   * Build a constructor based on the supplied constructor
+   */
+  @Nonnull
+  private MethodSpec buildConstructor( @Nonnull final ExecutableElement constructor )
+  {
+    final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
+    ProcessorUtil.copyAccessModifiers( constructor, builder );
+    ProcessorUtil.copyExceptions( constructor, builder );
+    ProcessorUtil.copyTypeParameters( constructor, builder );
+
+    final StringBuilder superCall = new StringBuilder();
+    superCall.append( "super(" );
+    final ArrayList<String> parameterNames = new ArrayList<>();
+
+    boolean firstParam = true;
+    for ( final VariableElement element : constructor.getParameters() )
+    {
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
+      ProcessorUtil.copyDocumentedAnnotations( element, param );
+      builder.addParameter( param.build() );
+      parameterNames.add( element.getSimpleName().toString() );
+      if ( !firstParam )
+      {
+        superCall.append( "," );
+      }
+      firstParam = false;
+      superCall.append( "$N" );
+    }
+
+    superCall.append( ")" );
+    builder.addStatement( superCall.toString(), parameterNames.toArray() );
+
+    builder.addStatement( "this.$N = $T.context()", GeneratorUtil.CONTEXT_FIELD_NAME, GeneratorUtil.AREZ_CLASSNAME );
+
+    final ExecutableElement containerId = _containerId;
+    // Synthesize Id if required
+    if ( !isSingleton() && null == containerId )
+    {
+      builder.addStatement( "this.$N = $N++", GeneratorUtil.ID_FIELD_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
+    }
+
+    _roObservables.forEach( observable -> observable.buildInitializer( builder ) );
+    _roComputeds.forEach( computed -> computed.buildInitializer( builder ) );
+    _roAutoruns.forEach( autorun -> autorun.buildInitializer( builder ) );
+
+    if ( !_roAutoruns.isEmpty() )
+    {
+      builder.addStatement( "$N.triggerScheduler()", GeneratorUtil.CONTEXT_FIELD_NAME );
+    }
+
+    final ExecutableElement postConstruct = getPostConstruct();
+    if ( null != postConstruct )
+    {
+      builder.addStatement( "super.$N()", postConstruct.getSimpleName().toString() );
+    }
+
+    return builder.build();
   }
 }

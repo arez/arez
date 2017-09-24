@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import javax.lang.model.element.Element;
 
 class ArezProcessorException
-  extends Exception
+  extends RuntimeException
 {
   @Nonnull
   private final Element _element;
