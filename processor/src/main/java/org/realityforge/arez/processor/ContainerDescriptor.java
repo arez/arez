@@ -297,4 +297,28 @@ final class ContainerDescriptor
       _postDispose = postDispose;
     }
   }
+
+  void validate()
+    throws ArezProcessorException
+  {
+    validateComputeds();
+
+    if ( getObservables().isEmpty() &&
+         getActions().isEmpty() &&
+         getComputeds().isEmpty() &&
+         getAutoruns().isEmpty() )
+    {
+      throw new ArezProcessorException( "@Container target has no methods annotated with @Action, " +
+                                        "@Computed, @Observable or @Autorun", _element );
+    }
+  }
+
+  void validateComputeds()
+    throws ArezProcessorException
+  {
+    for ( final ComputedDescriptor computed : getComputeds() )
+    {
+      computed.validate();
+    }
+  }
 }

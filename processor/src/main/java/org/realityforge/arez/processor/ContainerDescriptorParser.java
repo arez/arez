@@ -77,27 +77,9 @@ final class ContainerDescriptorParser
 
     processMethods( typeElement, descriptor );
 
-    validateComputedHookMethods( descriptor );
-
-    if ( descriptor.getObservables().isEmpty() &&
-         descriptor.getActions().isEmpty() &&
-         descriptor.getComputeds().isEmpty() &&
-         descriptor.getAutoruns().isEmpty() )
-    {
-      throw new ArezProcessorException( "@Container target has no methods annotated with @Action, " +
-                                        "@Computed, @Observable or @Autorun", typeElement );
-    }
+    descriptor.validate();
 
     return descriptor;
-  }
-
-  private static void validateComputedHookMethods( @Nonnull final ContainerDescriptor descriptor )
-    throws ArezProcessorException
-  {
-    for ( final ComputedDescriptor computed : descriptor.getComputeds() )
-    {
-      computed.validate();
-    }
   }
 
   private static void processMethods( @Nonnull final TypeElement typeElement,
