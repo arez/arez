@@ -37,6 +37,22 @@ final class MethodChecks
     mustNotBePrivate( type, method );
   }
 
+  /**
+   * Verifies that the method follows conventions of a lifecycle hook.
+   * The intent is to verify that it can be instance called by sub-class in same
+   * package at a lifecycle stage. It should not raise errors, return values or accept
+   * parameters.
+   */
+  static void mustBeLifecycleHook( @Nonnull final Class<? extends Annotation> type,
+                                   @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    mustBeSubclassCallable( type, method );
+    mustNotHaveAnyParameters( type, method );
+    mustNotReturnAnyValue( type, method );
+    mustNotThrowAnyExceptions( type, method );
+  }
+
   static void mustNotBeStatic( @Nonnull final Class<? extends Annotation> type,
                                @Nonnull final ExecutableElement method )
     throws ArezProcessorException

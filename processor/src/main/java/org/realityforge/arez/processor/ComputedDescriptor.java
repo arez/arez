@@ -92,16 +92,12 @@ final class ComputedDescriptor
   void setOnActivate( @Nonnull final ExecutableElement onActivate )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeSubclassCallable( OnActivate.class, onActivate );
-    MethodChecks.mustNotHaveAnyParameters( OnActivate.class, onActivate );
-    MethodChecks.mustNotReturnAnyValue( OnActivate.class, onActivate );
-    MethodChecks.mustNotThrowAnyExceptions( OnActivate.class, onActivate );
+    MethodChecks.mustBeLifecycleHook( OnActivate.class, onActivate );
 
     if ( null != _onActivate )
     {
       throw new ArezProcessorException( "@OnActivate target duplicates existing method named " +
-                                        _onActivate.getSimpleName(),
-                                        onActivate );
+                                        _onActivate.getSimpleName(), onActivate );
     }
     else
     {
@@ -112,10 +108,7 @@ final class ComputedDescriptor
   void setOnDeactivate( @Nonnull final ExecutableElement onDeactivate )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeSubclassCallable( OnDeactivate.class, onDeactivate );
-    MethodChecks.mustNotHaveAnyParameters( OnDeactivate.class, onDeactivate );
-    MethodChecks.mustNotReturnAnyValue( OnDeactivate.class, onDeactivate );
-    MethodChecks.mustNotThrowAnyExceptions( OnDeactivate.class, onDeactivate );
+    MethodChecks.mustBeLifecycleHook( OnDeactivate.class, onDeactivate );
     if ( null != _onDeactivate )
     {
       throw new ArezProcessorException( "@OnDeactivate target duplicates existing method named " +
@@ -131,10 +124,7 @@ final class ComputedDescriptor
   void setOnStale( @Nonnull final ExecutableElement onStale )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeSubclassCallable( OnStale.class, onStale );
-    MethodChecks.mustNotHaveAnyParameters( OnStale.class, onStale );
-    MethodChecks.mustNotReturnAnyValue( OnStale.class, onStale );
-    MethodChecks.mustNotThrowAnyExceptions( OnStale.class, onStale );
+    MethodChecks.mustBeLifecycleHook( OnStale.class, onStale );
     if ( null != _onStale )
     {
       throw new ArezProcessorException( "@OnStale target duplicates existing method named " +
@@ -150,10 +140,7 @@ final class ComputedDescriptor
   void setOnDispose( @Nonnull final ExecutableElement onDispose )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeSubclassCallable( OnDispose.class, onDispose );
-    MethodChecks.mustNotHaveAnyParameters( OnDispose.class, onDispose );
-    MethodChecks.mustNotReturnAnyValue( OnDispose.class, onDispose );
-    MethodChecks.mustNotThrowAnyExceptions( OnDispose.class, onDispose );
+    MethodChecks.mustBeLifecycleHook( OnDispose.class, onDispose );
 
     if ( null != _onDispose )
     {

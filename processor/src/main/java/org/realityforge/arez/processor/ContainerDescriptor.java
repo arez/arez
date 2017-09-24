@@ -213,10 +213,7 @@ final class ContainerDescriptor
   void setPostConstruct( @Nonnull final ExecutableElement postConstruct )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeSubclassCallable( PostConstruct.class, postConstruct );
-    MethodChecks.mustNotHaveAnyParameters( PostConstruct.class, postConstruct );
-    MethodChecks.mustNotReturnAnyValue( PostConstruct.class, postConstruct );
-    MethodChecks.mustNotThrowAnyExceptions( PostConstruct.class, postConstruct );
+    MethodChecks.mustBeLifecycleHook( PostConstruct.class, postConstruct );
 
     if ( null != _postConstruct )
     {
@@ -243,10 +240,7 @@ final class ContainerDescriptor
       throw new ArezProcessorException( "@PreDispose must not exist if @Container set disposable to false",
                                         preDispose );
     }
-    MethodChecks.mustBeSubclassCallable( PreDispose.class, preDispose );
-    MethodChecks.mustNotHaveAnyParameters( PreDispose.class, preDispose );
-    MethodChecks.mustNotReturnAnyValue( PreDispose.class, preDispose );
-    MethodChecks.mustNotThrowAnyExceptions( PreDispose.class, preDispose );
+    MethodChecks.mustBeLifecycleHook( PreDispose.class, preDispose );
 
     if ( null != _preDispose )
     {
@@ -274,10 +268,7 @@ final class ContainerDescriptor
                                         postDispose );
     }
 
-    MethodChecks.mustBeSubclassCallable( PostDispose.class, postDispose );
-    MethodChecks.mustNotHaveAnyParameters( PostDispose.class, postDispose );
-    MethodChecks.mustNotReturnAnyValue( PostDispose.class, postDispose );
-    MethodChecks.mustNotThrowAnyExceptions( PostDispose.class, postDispose );
+    MethodChecks.mustBeLifecycleHook( PostDispose.class, postDispose );
 
     if ( null != _postDispose )
     {
@@ -305,7 +296,7 @@ final class ContainerDescriptor
     }
   }
 
-  void validateComputeds()
+  private void validateComputeds()
     throws ArezProcessorException
   {
     for ( final ComputedDescriptor computed : getComputeds() )
