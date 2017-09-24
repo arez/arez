@@ -130,8 +130,7 @@ final class ComputedDescriptor
     if ( null != _onDispose )
     {
       throw new ArezProcessorException( "@OnDispose target duplicates existing method named " +
-                                        _onDispose.getSimpleName(),
-                                        onDispose );
+                                        _onDispose.getSimpleName(), onDispose );
     }
     else
     {
