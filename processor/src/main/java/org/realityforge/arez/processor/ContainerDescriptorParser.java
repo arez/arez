@@ -60,7 +60,7 @@ final class ContainerDescriptorParser
     }
     final Container container = typeElement.getAnnotation( Container.class );
     final String name =
-      container.name().equals( SENTINEL_NAME ) ? typeElement.getSimpleName().toString() : container.name();
+      isSentinelName( container.name() ) ? typeElement.getSimpleName().toString() : container.name();
 
     final ContainerDescriptor descriptor =
       new ContainerDescriptor( name, container.singleton(), container.disposable(), packageElement, typeElement );
@@ -651,7 +651,7 @@ final class ContainerDescriptorParser
     throws ArezProcessorException
   {
     final String name;
-    if ( annotation.name().equals( SENTINEL_NAME ) )
+    if ( isSentinelName( annotation.name() ) )
     {
       final String methodName = method.getSimpleName().toString();
       if ( methodName.startsWith( "get" ) &&
@@ -720,7 +720,7 @@ final class ContainerDescriptorParser
     throws ArezProcessorException
   {
     final String name;
-    if ( annotation.name().equals( SENTINEL_NAME ) )
+    if ( isSentinelName( annotation.name() ) )
     {
       name = method.getSimpleName().toString();
     }
@@ -785,7 +785,7 @@ final class ContainerDescriptorParser
     throws ArezProcessorException
   {
     final String name;
-    if ( annotation.name().equals( SENTINEL_NAME ) )
+    if ( isSentinelName( annotation.name() ) )
     {
       name = method.getSimpleName().toString();
     }
@@ -868,7 +868,7 @@ final class ContainerDescriptorParser
       }
     }
     // Override name if supplied by user
-    if ( !annotation.name().equals( SENTINEL_NAME ) )
+    if ( !isSentinelName( annotation.name() ) )
     {
       name = annotation.name();
       if ( !name.isEmpty() )
@@ -952,6 +952,11 @@ final class ContainerDescriptorParser
     return new ArezProcessorException( "Method annotated with @" + source.getSimpleName() + " specified name " +
                                        name + " that duplicates @" + target.getSimpleName() + " defined by " +
                                        "method " + targetElement.getSimpleName(), sourceMethod );
+  }
+
+  private static boolean isSentinelName( @Nonnull final String name )
+  {
+    return SENTINEL_NAME.equals( name );
   }
 
   private static boolean isJavaIdentifier( @Nonnull final String value )
