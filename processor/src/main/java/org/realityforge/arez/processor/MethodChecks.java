@@ -12,6 +12,31 @@ final class MethodChecks
   {
   }
 
+  /**
+   * Verifies that the method is not final, static, abstract or private.
+   * The intent is to verify that it can be overridden in sub-class in same package.
+   */
+  static void mustBeOverridable( @Nonnull final Class<? extends Annotation> type,
+                                 @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    mustNotBeFinal( type, method );
+    mustBeSubclassCallable( type, method );
+  }
+
+  /**
+   * Verifies that the method is not static, abstract or private.
+   * The intent is to verify that it can be instance called by sub-class in same package.
+   */
+  static void mustBeSubclassCallable( @Nonnull final Class<? extends Annotation> type,
+                                      @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    mustNotBeStatic( type, method );
+    mustNotBeAbstract( type, method );
+    mustNotBePrivate( type, method );
+  }
+
   static void mustNotBeStatic( @Nonnull final Class<? extends Annotation> type,
                                @Nonnull final ExecutableElement method )
     throws ArezProcessorException

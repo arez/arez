@@ -388,18 +388,7 @@ final class ContainerDescriptorParser
                                      @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.PRIVATE ) )
-    {
-      throw new ArezProcessorException( "@Action target must not be private", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.FINAL ) )
-    {
-      throw new ArezProcessorException( "@Action target must not be final", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.STATIC ) )
-    {
-      throw new ArezProcessorException( "@Action target must not be static", method );
-    }
+    MethodChecks.mustBeOverridable( Action.class, method );
 
     final String name = deriveActionName( method, annotation );
     checkNameUnique( descriptor, name, method, Action.class );
@@ -441,30 +430,10 @@ final class ContainerDescriptorParser
                                       @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.PRIVATE ) )
-    {
-      throw new ArezProcessorException( "@Autorun target must not be private", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.FINAL ) )
-    {
-      throw new ArezProcessorException( "@Autorun target must not be final", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.STATIC ) )
-    {
-      throw new ArezProcessorException( "@Autorun target must not be static", method );
-    }
-    else if ( !method.getParameters().isEmpty() )
-    {
-      throw new ArezProcessorException( "@Autorun target must not have any parameters", method );
-    }
-    else if ( !method.getThrownTypes().isEmpty() )
-    {
-      throw new ArezProcessorException( "@Autorun target must not throw any exceptions", method );
-    }
-    else if ( TypeKind.VOID != method.getReturnType().getKind() )
-    {
-      throw new ArezProcessorException( "@Autorun target must not return a value", method );
-    }
+    MethodChecks.mustBeOverridable( Autorun.class, method );
+    MethodChecks.mustNotHaveAnyParameters( Autorun.class, method );
+    MethodChecks.mustNotThrowAnyExceptions( Autorun.class, method );
+    MethodChecks.mustNotReturnAnyValue( Autorun.class, method );
 
     final String name = deriveAutorunName( method, annotation );
     checkNameUnique( descriptor, name, method, Autorun.class );
@@ -506,18 +475,7 @@ final class ContainerDescriptorParser
                                          @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.PRIVATE ) )
-    {
-      throw new ArezProcessorException( "@Observable target must not be private", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.FINAL ) )
-    {
-      throw new ArezProcessorException( "@Observable target must not be final", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.STATIC ) )
-    {
-      throw new ArezProcessorException( "@Observable target must not be static", method );
-    }
+    MethodChecks.mustBeOverridable( Observable.class, method );
 
     final TypeMirror returnType = method.getReturnType();
     final String methodName = method.getSimpleName().toString();

@@ -187,9 +187,7 @@ final class ContainerDescriptor
       throw new ArezProcessorException( "@ContainerId must not exist if @Container is a singleton", containerId );
     }
 
-    MethodChecks.mustNotBeStatic( ContainerId.class, containerId );
-    MethodChecks.mustNotBeAbstract( ContainerId.class, containerId );
-    MethodChecks.mustNotBePrivate( ContainerId.class, containerId );
+    MethodChecks.mustBeSubclassCallable( ContainerId.class, containerId );
     MethodChecks.mustBeFinal( ContainerId.class, containerId );
     MethodChecks.mustNotHaveAnyParameters( ContainerId.class, containerId );
     MethodChecks.mustReturnAValue( ContainerId.class, containerId );
@@ -215,9 +213,7 @@ final class ContainerDescriptor
   void setPostConstruct( @Nonnull final ExecutableElement postConstruct )
     throws ArezProcessorException
   {
-    MethodChecks.mustNotBeStatic( PostConstruct.class, postConstruct );
-    MethodChecks.mustNotBeAbstract( PostConstruct.class, postConstruct );
-    MethodChecks.mustNotBePrivate( PostConstruct.class, postConstruct );
+    MethodChecks.mustBeSubclassCallable( PostConstruct.class, postConstruct );
     MethodChecks.mustNotHaveAnyParameters( PostConstruct.class, postConstruct );
     MethodChecks.mustNotReturnAnyValue( PostConstruct.class, postConstruct );
     MethodChecks.mustNotThrowAnyExceptions( PostConstruct.class, postConstruct );
@@ -247,9 +243,7 @@ final class ContainerDescriptor
       throw new ArezProcessorException( "@PreDispose must not exist if @Container set disposable to false",
                                         preDispose );
     }
-    MethodChecks.mustNotBeStatic( PreDispose.class, preDispose );
-    MethodChecks.mustNotBeAbstract( PreDispose.class, preDispose );
-    MethodChecks.mustNotBePrivate( PreDispose.class, preDispose );
+    MethodChecks.mustBeSubclassCallable( PreDispose.class, preDispose );
     MethodChecks.mustNotHaveAnyParameters( PreDispose.class, preDispose );
     MethodChecks.mustNotReturnAnyValue( PreDispose.class, preDispose );
     MethodChecks.mustNotThrowAnyExceptions( PreDispose.class, preDispose );
@@ -280,9 +274,7 @@ final class ContainerDescriptor
                                         postDispose );
     }
 
-    MethodChecks.mustNotBeStatic( PostDispose.class, postDispose );
-    MethodChecks.mustNotBeAbstract( PostDispose.class, postDispose );
-    MethodChecks.mustNotBePrivate( PostDispose.class, postDispose );
+    MethodChecks.mustBeSubclassCallable( PostDispose.class, postDispose );
     MethodChecks.mustNotHaveAnyParameters( PostDispose.class, postDispose );
     MethodChecks.mustNotReturnAnyValue( PostDispose.class, postDispose );
     MethodChecks.mustNotThrowAnyExceptions( PostDispose.class, postDispose );

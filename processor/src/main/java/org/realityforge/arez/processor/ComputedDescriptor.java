@@ -72,10 +72,7 @@ final class ComputedDescriptor
   void setComputed( @Nonnull final ExecutableElement computed )
     throws ArezProcessorException
   {
-    MethodChecks.mustNotBeStatic( Computed.class, computed );
-    MethodChecks.mustNotBeAbstract( Computed.class, computed );
-    MethodChecks.mustNotBePrivate( Computed.class, computed );
-    MethodChecks.mustNotBeFinal( Computed.class, computed );
+    MethodChecks.mustBeOverridable( Computed.class, computed );
     MethodChecks.mustNotHaveAnyParameters( Computed.class, computed );
     MethodChecks.mustReturnAValue( Computed.class, computed );
     MethodChecks.mustNotThrowAnyExceptions( Computed.class, computed );
@@ -95,9 +92,7 @@ final class ComputedDescriptor
   void setOnActivate( @Nonnull final ExecutableElement onActivate )
     throws ArezProcessorException
   {
-    MethodChecks.mustNotBeStatic( OnActivate.class, onActivate );
-    MethodChecks.mustNotBeAbstract( OnActivate.class, onActivate );
-    MethodChecks.mustNotBePrivate( OnActivate.class, onActivate );
+    MethodChecks.mustBeSubclassCallable( OnActivate.class, onActivate );
     MethodChecks.mustNotHaveAnyParameters( OnActivate.class, onActivate );
     MethodChecks.mustNotReturnAnyValue( OnActivate.class, onActivate );
     MethodChecks.mustNotThrowAnyExceptions( OnActivate.class, onActivate );
@@ -117,9 +112,7 @@ final class ComputedDescriptor
   void setOnDeactivate( @Nonnull final ExecutableElement onDeactivate )
     throws ArezProcessorException
   {
-    MethodChecks.mustNotBeStatic( OnDeactivate.class, onDeactivate );
-    MethodChecks.mustNotBeAbstract( OnDeactivate.class, onDeactivate );
-    MethodChecks.mustNotBePrivate( OnDeactivate.class, onDeactivate );
+    MethodChecks.mustBeSubclassCallable( OnDeactivate.class, onDeactivate );
     MethodChecks.mustNotHaveAnyParameters( OnDeactivate.class, onDeactivate );
     MethodChecks.mustNotReturnAnyValue( OnDeactivate.class, onDeactivate );
     MethodChecks.mustNotThrowAnyExceptions( OnDeactivate.class, onDeactivate );
@@ -138,9 +131,7 @@ final class ComputedDescriptor
   void setOnStale( @Nonnull final ExecutableElement onStale )
     throws ArezProcessorException
   {
-    MethodChecks.mustNotBeStatic( OnStale.class, onStale );
-    MethodChecks.mustNotBeAbstract( OnStale.class, onStale );
-    MethodChecks.mustNotBePrivate( OnStale.class, onStale );
+    MethodChecks.mustBeSubclassCallable( OnStale.class, onStale );
     MethodChecks.mustNotHaveAnyParameters( OnStale.class, onStale );
     MethodChecks.mustNotReturnAnyValue( OnStale.class, onStale );
     MethodChecks.mustNotThrowAnyExceptions( OnStale.class, onStale );
@@ -159,9 +150,7 @@ final class ComputedDescriptor
   void setOnDispose( @Nonnull final ExecutableElement onDispose )
     throws ArezProcessorException
   {
-    MethodChecks.mustNotBeStatic( OnDispose.class, onDispose );
-    MethodChecks.mustNotBeAbstract( OnDispose.class, onDispose );
-    MethodChecks.mustNotBePrivate( OnDispose.class, onDispose );
+    MethodChecks.mustBeSubclassCallable( OnDispose.class, onDispose );
     MethodChecks.mustNotHaveAnyParameters( OnDispose.class, onDispose );
     MethodChecks.mustNotReturnAnyValue( OnDispose.class, onDispose );
     MethodChecks.mustNotThrowAnyExceptions( OnDispose.class, onDispose );
