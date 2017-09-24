@@ -3,7 +3,10 @@ package org.realityforge.arez.processor;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -31,6 +34,10 @@ import org.realityforge.arez.annotations.PreDispose;
 final class ContainerDescriptorParser
 {
   private static final String SENTINEL_NAME = "<default>";
+  private static final Pattern ON_ACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Activate$" );
+  private static final Pattern ON_DEACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Deactivate$" );
+  private static final Pattern ON_STALE_PATTERN = Pattern.compile( "^on([A-Z].*)Stale$" );
+  private static final Pattern ON_DISPOSE_PATTERN = Pattern.compile( "^on([A-Z].*)Dispose$" );
 
   private ContainerDescriptorParser()
   {
@@ -441,7 +448,7 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "@OnActivate target must not throw any exceptions", method );
     }
-    final String name = deriveHookName( method, "Activate", annotation.name() );
+    final String name = deriveHookName( method, ON_ACTIVATE_PATTERN, "Activate", annotation.name() );
     descriptor.findOrCreateComputed( name ).setOnActivate( method );
   }
 
@@ -470,7 +477,7 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "@OnDeactivate target must not throw any exceptions", method );
     }
-    final String name = deriveHookName( method, "Deactivate", annotation.name() );
+    final String name = deriveHookName( method, ON_DEACTIVATE_PATTERN, "Deactivate", annotation.name() );
     descriptor.findOrCreateComputed( name ).setOnDeactivate( method );
   }
 
@@ -499,7 +506,7 @@ final class ContainerDescriptorParser
     {
       throw new ArezProcessorException( "@OnStale target must not throw any exceptions", method );
     }
-    final String name = deriveHookName( method, "Stale", annotation.name() );
+    final String name = deriveHookName( method, ON_STALE_PATTERN, "Stale", annotation.name() );
     descriptor.findOrCreateComputed( name ).setOnStale( method );
   }
 
@@ -529,43 +536,31 @@ final class ContainerDescriptorParser
       throw new ArezProcessorException( "@OnDispose target must not throw any exceptions", method );
     }
 
-    final String name = deriveHookName( method, "Dispose", annotation.name() );
-
+    final String name = deriveHookName( method, ON_DISPOSE_PATTERN, "Dispose", annotation.name() );
     descriptor.findOrCreateComputed( name ).setOnDispose( method );
   }
 
   @Nonnull
   private static String deriveHookName( @Nonnull final ExecutableElement method,
+                                        @Nonnull final Pattern pattern,
                                         @Nonnull final String type,
                                         @Nonnull final String name )
     throws ArezProcessorException
   {
-    if ( name.equals( SENTINEL_NAME ) )
+    final String value = deriveName( method, pattern, name );
+    if ( null == value )
     {
-      final String methodName = method.getSimpleName().toString();
-      final int suffixLength = type.length();
-      final int length = methodName.length();
-      if ( methodName.startsWith( "on" ) &&
-           methodName.endsWith( type ) &&
-           length > ( 2 + suffixLength ) &&
-           Character.isUpperCase( methodName.charAt( 2 ) ) )
-      {
-        return Character.toLowerCase( methodName.charAt( 2 ) ) + methodName.substring( 3, length - suffixLength );
-      }
-      else
-      {
-        throw new ArezProcessorException( "Unable to derive name for @On" + type + " as does not match " +
-                                          "on[Name]" + type + " pattern. Please specify name.", method );
-      }
+      throw new ArezProcessorException( "Unable to derive name for @On" + type + " as does not match " +
+                                        "on[Name]" + type + " pattern. Please specify name.", method );
+    }
+    else if ( value.isEmpty() || !isJavaIdentifier( value ) )
+    {
+      throw new ArezProcessorException( "Method annotated with @On" + type + " specified invalid name " + value,
+                                        method );
     }
     else
     {
-      if ( name.isEmpty() || !isJavaIdentifier( name ) )
-      {
-        throw new ArezProcessorException( "Method annotated with @On" + type + " specified invalid name " + name,
-                                          method );
-      }
-      return name;
+      return value;
     }
   }
 
@@ -952,6 +947,32 @@ final class ContainerDescriptorParser
     return new ArezProcessorException( "Method annotated with @" + source.getSimpleName() + " specified name " +
                                        name + " that duplicates @" + target.getSimpleName() + " defined by " +
                                        "method " + targetElement.getSimpleName(), sourceMethod );
+  }
+
+  @Nullable
+  private static String deriveName( @Nonnull final ExecutableElement method,
+                                    @Nonnull final Pattern pattern,
+                                    @Nonnull final String name )
+    throws ArezProcessorException
+  {
+    if ( isSentinelName( name ) )
+    {
+      final String methodName = method.getSimpleName().toString();
+      final Matcher matcher = pattern.matcher( methodName );
+      if ( matcher.find() )
+      {
+        final String candidate = matcher.group( 1 );
+        return Character.toLowerCase( candidate.charAt( 0 ) ) + candidate.substring( 1 );
+      }
+      else
+      {
+        return null;
+      }
+    }
+    else
+    {
+      return name;
+    }
   }
 
   private static boolean isSentinelName( @Nonnull final String name )
