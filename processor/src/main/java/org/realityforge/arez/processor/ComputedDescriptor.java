@@ -70,28 +70,78 @@ final class ComputedDescriptor
   }
 
   void setComputed( @Nonnull final ExecutableElement computed )
+    throws ArezProcessorException
   {
-    _computed = Objects.requireNonNull( computed );
+    if ( null != _computed )
+    {
+      throw new ArezProcessorException( "Method annotated with @Computed specified name " + getName() +
+                                        " that duplicates computed defined by method " +
+                                        _computed.getSimpleName(), computed );
+    }
+    else
+    {
+      _computed = Objects.requireNonNull( computed );
+    }
   }
 
   void setOnActivate( @Nonnull final ExecutableElement onActivate )
+    throws ArezProcessorException
   {
-    _onActivate = Objects.requireNonNull( onActivate );
+    if ( null != _onActivate )
+    {
+      throw new ArezProcessorException( "@OnActivate target duplicates existing method named " +
+                                        _onActivate.getSimpleName(),
+                                        onActivate );
+    }
+    else
+    {
+      _onActivate = Objects.requireNonNull( onActivate );
+    }
   }
 
   void setOnDeactivate( @Nonnull final ExecutableElement onDeactivate )
+    throws ArezProcessorException
   {
-    _onDeactivate = Objects.requireNonNull( onDeactivate );
+    if ( null != _onDeactivate )
+    {
+      throw new ArezProcessorException( "@OnDeactivate target duplicates existing method named " +
+                                        _onDeactivate.getSimpleName(),
+                                        onDeactivate );
+    }
+    else
+    {
+      _onDeactivate = Objects.requireNonNull( onDeactivate );
+    }
   }
 
   void setOnStale( @Nonnull final ExecutableElement onStale )
+    throws ArezProcessorException
   {
-    _onStale = Objects.requireNonNull( onStale );
+    if ( null != _onStale )
+    {
+      throw new ArezProcessorException( "@OnStale target duplicates existing method named " +
+                                        _onStale.getSimpleName(),
+                                        onStale );
+    }
+    else
+    {
+      _onStale = Objects.requireNonNull( onStale );
+    }
   }
 
   void setOnDispose( @Nonnull final ExecutableElement onDispose )
+    throws ArezProcessorException
   {
-    _onDispose = Objects.requireNonNull( onDispose );
+    if ( null != _onDispose )
+    {
+      throw new ArezProcessorException( "@OnDispose target duplicates existing method named " +
+                                        _onDispose.getSimpleName(),
+                                        onDispose );
+    }
+    else
+    {
+      _onDispose = Objects.requireNonNull( onDispose );
+    }
   }
 
   @Nonnull

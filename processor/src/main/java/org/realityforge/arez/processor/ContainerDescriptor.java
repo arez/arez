@@ -145,15 +145,22 @@ final class ContainerDescriptor
     return _roAutoruns;
   }
 
-  void addComputed( @Nonnull final ComputedDescriptor computed )
-  {
-    _computeds.put( computed.getName(), computed );
-  }
-
   @Nullable
   ComputedDescriptor getComputed( @Nonnull final String name )
   {
     return _computeds.get( name );
+  }
+
+  @Nonnull
+  ComputedDescriptor findOrCreateComputed( @Nonnull final String name )
+  {
+    ComputedDescriptor descriptor = _computeds.get( name );
+    if( null == descriptor )
+    {
+      descriptor = new ComputedDescriptor( name );
+      _computeds.put( name, descriptor );
+    }
+    return descriptor;
   }
 
   @Nonnull
