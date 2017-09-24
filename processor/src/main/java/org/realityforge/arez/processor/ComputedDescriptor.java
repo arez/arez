@@ -143,29 +143,4 @@ final class ComputedDescriptor
       _onDispose = Objects.requireNonNull( onDispose );
     }
   }
-
-  @Nonnull
-  ExecutableElement getDefiner()
-  {
-    if ( null != _computed )
-    {
-      return _computed;
-    }
-    else if ( null != _onActivate )
-    {
-      return _onActivate;
-    }
-    else if ( null != _onDeactivate )
-    {
-      return _onDeactivate;
-    }
-    else if ( null != _onDispose )
-    {
-      return _onDispose;
-    }
-    else
-    {
-      return Objects.requireNonNull( _onStale );
-    }
-  }
 }
