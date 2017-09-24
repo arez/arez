@@ -1,6 +1,7 @@
 package org.realityforge.arez.processor;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
@@ -15,6 +16,11 @@ import org.realityforge.arez.annotations.OnStale;
  */
 final class ComputedDescriptor
 {
+  static final Pattern ON_ACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Activate$" );
+  static final Pattern ON_DEACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Deactivate$" );
+  static final Pattern ON_STALE_PATTERN = Pattern.compile( "^on([A-Z].*)Stale$" );
+  static final Pattern ON_DISPOSE_PATTERN = Pattern.compile( "^on([A-Z].*)Dispose$" );
+
   @Nonnull
   private final String _name;
   @Nullable

@@ -26,6 +26,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeKind;
@@ -81,7 +82,9 @@ public final class ArezProcessor
   protected void process( @Nonnull final Element element )
     throws IOException, ArezProcessorException
   {
-    final ContainerDescriptor descriptor = ContainerDescriptorParser.parse( element, processingEnv.getElementUtils() );
+    final PackageElement packageElement = processingEnv.getElementUtils().getPackageOf( element );
+    final TypeElement typeElement = (TypeElement) element;
+    final ContainerDescriptor descriptor = ContainerDescriptorParser.parse( packageElement, typeElement );
     emitTypeSpec( descriptor.getPackageElement().getQualifiedName().toString(), builder( descriptor ) );
   }
 

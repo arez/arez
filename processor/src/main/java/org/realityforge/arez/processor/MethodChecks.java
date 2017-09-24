@@ -53,8 +53,8 @@ final class MethodChecks
     mustNotThrowAnyExceptions( type, method );
   }
 
-  static void mustNotBeStatic( @Nonnull final Class<? extends Annotation> type,
-                               @Nonnull final ExecutableElement method )
+  private static void mustNotBeStatic( @Nonnull final Class<? extends Annotation> type,
+                                       @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.STATIC ) )
@@ -63,8 +63,8 @@ final class MethodChecks
     }
   }
 
-  static void mustNotBeAbstract( @Nonnull final Class<? extends Annotation> type,
-                                 @Nonnull final ExecutableElement method )
+  private static void mustNotBeAbstract( @Nonnull final Class<? extends Annotation> type,
+                                         @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.ABSTRACT ) )
@@ -73,8 +73,8 @@ final class MethodChecks
     }
   }
 
-  static void mustNotBePrivate( @Nonnull final Class<? extends Annotation> type,
-                                @Nonnull final ExecutableElement method )
+  private static void mustNotBePrivate( @Nonnull final Class<? extends Annotation> type,
+                                        @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.PRIVATE ) )
@@ -83,7 +83,8 @@ final class MethodChecks
     }
   }
 
-  static void mustNotBeFinal( @Nonnull final Class<? extends Annotation> type, @Nonnull final ExecutableElement method )
+  private static void mustNotBeFinal( @Nonnull final Class<? extends Annotation> type,
+                                      @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.FINAL ) )
