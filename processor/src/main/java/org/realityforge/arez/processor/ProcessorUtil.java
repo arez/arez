@@ -11,8 +11,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
@@ -28,6 +31,8 @@ import javax.lang.model.type.TypeVariable;
 
 final class ProcessorUtil
 {
+  private static final String SENTINEL_NAME = "<default>";
+
   private ProcessorUtil()
   {
   }
@@ -141,6 +146,58 @@ final class ProcessorUtil
     for ( final TypeParameterElement typeParameter : action.getTypeParameters() )
     {
       builder.addTypeVariable( TypeVariableName.get( typeParameter ) );
+    }
+  }
+
+  @Nullable
+  static String deriveName( @Nonnull final ExecutableElement method,
+                            @Nonnull final Pattern pattern,
+                            @Nonnull final String name )
+    throws ArezProcessorException
+  {
+    if ( isSentinelName( name ) )
+    {
+      final String methodName = method.getSimpleName().toString();
+      final Matcher matcher = pattern.matcher( methodName );
+      if ( matcher.find() )
+      {
+        final String candidate = matcher.group( 1 );
+        return Character.toLowerCase( candidate.charAt( 0 ) ) + candidate.substring( 1 );
+      }
+      else
+      {
+        return null;
+      }
+    }
+    else
+    {
+      return name;
+    }
+  }
+
+  static boolean isSentinelName( @Nonnull final String name )
+  {
+    return SENTINEL_NAME.equals( name );
+  }
+
+  static boolean isJavaIdentifier( @Nonnull final String value )
+  {
+    if ( !Character.isJavaIdentifierStart( value.charAt( 0 ) ) )
+    {
+      return false;
+    }
+    else
+    {
+      final int length = value.length();
+      for ( int i = 1; i < length; i++ )
+      {
+        if ( !Character.isJavaIdentifierPart( value.charAt( i ) ) )
+        {
+          return false;
+        }
+      }
+
+      return true;
     }
   }
 }

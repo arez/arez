@@ -3,10 +3,8 @@ package org.realityforge.arez.processor;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -33,7 +31,6 @@ import org.realityforge.arez.annotations.PreDispose;
 
 final class ContainerDescriptorParser
 {
-  private static final String SENTINEL_NAME = "<default>";
   private static final Pattern ON_ACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Activate$" );
   private static final Pattern ON_DEACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Deactivate$" );
   private static final Pattern ON_STALE_PATTERN = Pattern.compile( "^on([A-Z].*)Stale$" );
@@ -70,7 +67,7 @@ final class ContainerDescriptorParser
     }
     final Container container = typeElement.getAnnotation( Container.class );
     final String name =
-      isSentinelName( container.name() ) ? typeElement.getSimpleName().toString() : container.name();
+      ProcessorUtil.isSentinelName( container.name() ) ? typeElement.getSimpleName().toString() : container.name();
 
     final ContainerDescriptor descriptor =
       new ContainerDescriptor( name, container.singleton(), container.disposable(), packageElement, typeElement );
@@ -339,13 +336,13 @@ final class ContainerDescriptorParser
                                         @Nonnull final String name )
     throws ArezProcessorException
   {
-    final String value = deriveName( method, pattern, name );
+    final String value = ProcessorUtil.deriveName( method, pattern, name );
     if ( null == value )
     {
       throw new ArezProcessorException( "Unable to derive name for @On" + type + " as does not match " +
                                         "on[Name]" + type + " pattern. Please specify name.", method );
     }
-    else if ( value.isEmpty() || !isJavaIdentifier( value ) )
+    else if ( value.isEmpty() || !ProcessorUtil.isJavaIdentifier( value ) )
     {
       throw new ArezProcessorException( "Method annotated with @On" + type + " specified invalid name " + value,
                                         method );
@@ -371,14 +368,14 @@ final class ContainerDescriptorParser
                                             @Nonnull final Computed annotation )
     throws ArezProcessorException
   {
-    if ( isSentinelName( annotation.name() ) )
+    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
     {
       return getPropertyAccessorName( method, annotation.name() );
     }
     else
     {
       final String name = annotation.name();
-      if ( name.isEmpty() || !isJavaIdentifier( name ) )
+      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Computed specified invalid name " + name, method );
       }
@@ -424,14 +421,14 @@ final class ContainerDescriptorParser
     throws ArezProcessorException
   {
     final String name;
-    if ( isSentinelName( annotation.name() ) )
+    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
     {
       name = method.getSimpleName().toString();
     }
     else
     {
       name = annotation.name();
-      if ( name.isEmpty() || !isJavaIdentifier( name ) )
+      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Action specified invalid name " + name, method );
       }
@@ -489,14 +486,14 @@ final class ContainerDescriptorParser
     throws ArezProcessorException
   {
     final String name;
-    if ( isSentinelName( annotation.name() ) )
+    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
     {
       name = method.getSimpleName().toString();
     }
     else
     {
       name = annotation.name();
-      if ( name.isEmpty() || !isJavaIdentifier( name ) )
+      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Autorun specified invalid name " + name, method );
       }
@@ -535,7 +532,7 @@ final class ContainerDescriptorParser
         throw new ArezProcessorException( "Method annotated with @Observable should be a setter or getter", method );
       }
 
-      name = deriveName( method, SETTER_PATTERN, annotation.name() );
+      name = ProcessorUtil.deriveName( method, SETTER_PATTERN, annotation.name() );
       if ( null == name )
       {
         name = methodName;
@@ -552,12 +549,12 @@ final class ContainerDescriptorParser
       name = getPropertyAccessorName( method, annotation.name() );
     }
     // Override name if supplied by user
-    if ( !isSentinelName( annotation.name() ) )
+    if ( !ProcessorUtil.isSentinelName( annotation.name() ) )
     {
       name = annotation.name();
       if ( !name.isEmpty() )
       {
-        if ( !isJavaIdentifier( name ) )
+        if ( !ProcessorUtil.isJavaIdentifier( name ) )
         {
           throw new ArezProcessorException( "Method annotated with @Observable specified invalid name " + name,
                                             method );
@@ -643,71 +640,19 @@ final class ContainerDescriptorParser
                                                  @Nonnull final String specifiedName )
     throws ArezProcessorException
   {
-    String name = deriveName( method, GETTER_PATTERN, specifiedName );
+    String name = ProcessorUtil.deriveName( method, GETTER_PATTERN, specifiedName );
     if ( null != name )
     {
       return name;
     }
     if ( method.getReturnType().getKind() == TypeKind.BOOLEAN )
     {
-      name = deriveName( method, ISSER_PATTERN, specifiedName );
+      name = ProcessorUtil.deriveName( method, ISSER_PATTERN, specifiedName );
       if ( null != name )
       {
         return name;
       }
     }
     return method.getSimpleName().toString();
-  }
-
-  @Nullable
-  private static String deriveName( @Nonnull final ExecutableElement method,
-                                    @Nonnull final Pattern pattern,
-                                    @Nonnull final String name )
-    throws ArezProcessorException
-  {
-    if ( isSentinelName( name ) )
-    {
-      final String methodName = method.getSimpleName().toString();
-      final Matcher matcher = pattern.matcher( methodName );
-      if ( matcher.find() )
-      {
-        final String candidate = matcher.group( 1 );
-        return Character.toLowerCase( candidate.charAt( 0 ) ) + candidate.substring( 1 );
-      }
-      else
-      {
-        return null;
-      }
-    }
-    else
-    {
-      return name;
-    }
-  }
-
-  private static boolean isSentinelName( @Nonnull final String name )
-  {
-    return SENTINEL_NAME.equals( name );
-  }
-
-  private static boolean isJavaIdentifier( @Nonnull final String value )
-  {
-    if ( !Character.isJavaIdentifierStart( value.charAt( 0 ) ) )
-    {
-      return false;
-    }
-    else
-    {
-      final int length = value.length();
-      for ( int i = 1; i < length; i++ )
-      {
-        if ( !Character.isJavaIdentifierPart( value.charAt( i ) ) )
-        {
-          return false;
-        }
-      }
-
-      return true;
-    }
   }
 }
