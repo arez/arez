@@ -86,30 +86,7 @@ final class ContainerDescriptorParser
   {
     for ( final ComputedDescriptor computed : descriptor.getComputeds() )
     {
-      if ( !computed.hasComputed() )
-      {
-        if ( null != computed.getOnActivate() )
-        {
-          throw new ArezProcessorException( "@OnActivate exists but there is no corresponding @Computed",
-                                            computed.getOnActivate() );
-        }
-        else if ( null != computed.getOnDeactivate() )
-        {
-          throw new ArezProcessorException( "@OnDeactivate exists but there is no corresponding @Computed",
-                                            computed.getOnDeactivate() );
-        }
-        else if ( null != computed.getOnDispose() )
-        {
-          throw new ArezProcessorException( "@OnDispose exists but there is no corresponding @Computed",
-                                            computed.getOnDispose() );
-        }
-        else
-        {
-          final ExecutableElement onStale = computed.getOnStale();
-          assert null != onStale;
-          throw new ArezProcessorException( "@OnStale exists but there is no corresponding @Computed", onStale );
-        }
-      }
+      computed.validate();
     }
   }
 

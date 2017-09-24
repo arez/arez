@@ -143,4 +143,33 @@ final class ComputedDescriptor
       _onDispose = Objects.requireNonNull( onDispose );
     }
   }
+
+  void validate()
+    throws ArezProcessorException
+  {
+    if ( !hasComputed() )
+    {
+      if ( null != getOnActivate() )
+      {
+        throw new ArezProcessorException( "@OnActivate exists but there is no corresponding @Computed",
+                                          getOnActivate() );
+      }
+      else if ( null != getOnDeactivate() )
+      {
+        throw new ArezProcessorException( "@OnDeactivate exists but there is no corresponding @Computed",
+                                          getOnDeactivate() );
+      }
+      else if ( null != getOnDispose() )
+      {
+        throw new ArezProcessorException( "@OnDispose exists but there is no corresponding @Computed",
+                                          getOnDispose() );
+      }
+      else
+      {
+        final ExecutableElement onStale = getOnStale();
+        assert null != onStale;
+        throw new ArezProcessorException( "@OnStale exists but there is no corresponding @Computed", onStale );
+      }
+    }
+  }
 }
