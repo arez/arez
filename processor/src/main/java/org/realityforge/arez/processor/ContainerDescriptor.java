@@ -7,10 +7,14 @@ import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.PostConstruct;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
+import org.realityforge.arez.annotations.ContainerId;
+import org.realityforge.arez.annotations.PostDispose;
+import org.realityforge.arez.annotations.PreDispose;
 
 /**
  * The class that represents the parsed state of Container annotated class.
@@ -155,7 +159,7 @@ final class ContainerDescriptor
   ComputedDescriptor findOrCreateComputed( @Nonnull final String name )
   {
     ComputedDescriptor descriptor = _computeds.get( name );
-    if( null == descriptor )
+    if ( null == descriptor )
     {
       descriptor = new ComputedDescriptor( name );
       _computeds.put( name, descriptor );
@@ -176,8 +180,30 @@ final class ContainerDescriptor
   }
 
   void setContainerId( @Nonnull final ExecutableElement containerId )
+    throws ArezProcessorException
   {
-    _containerId = containerId;
+    if ( isSingleton() )
+    {
+      throw new ArezProcessorException( "@ContainerId must not exist if @Container is a singleton", containerId );
+    }
+
+    MethodChecks.mustNotBeStatic( ContainerId.class, containerId );
+    MethodChecks.mustNotBeAbstract( ContainerId.class, containerId );
+    MethodChecks.mustNotBePrivate( ContainerId.class, containerId );
+    MethodChecks.mustBeFinal( ContainerId.class, containerId );
+    MethodChecks.mustNotHaveAnyParameters( ContainerId.class, containerId );
+    MethodChecks.mustReturnAValue( ContainerId.class, containerId );
+    MethodChecks.mustNotThrowAnyExceptions( ContainerId.class, containerId );
+
+    if ( null != _containerId )
+    {
+      throw new ArezProcessorException( "@ContainerId target duplicates existing method named " +
+                                        _containerId.getSimpleName(), containerId );
+    }
+    else
+    {
+      _containerId = containerId;
+    }
   }
 
   @Nullable
@@ -186,9 +212,25 @@ final class ContainerDescriptor
     return _postConstruct;
   }
 
-  void setPostConstruct( @Nullable final ExecutableElement postConstruct )
+  void setPostConstruct( @Nonnull final ExecutableElement postConstruct )
+    throws ArezProcessorException
   {
-    _postConstruct = postConstruct;
+    MethodChecks.mustNotBeStatic( PostConstruct.class, postConstruct );
+    MethodChecks.mustNotBeAbstract( PostConstruct.class, postConstruct );
+    MethodChecks.mustNotBePrivate( PostConstruct.class, postConstruct );
+    MethodChecks.mustNotHaveAnyParameters( PostConstruct.class, postConstruct );
+    MethodChecks.mustNotReturnAnyValue( PostConstruct.class, postConstruct );
+    MethodChecks.mustNotThrowAnyExceptions( PostConstruct.class, postConstruct );
+
+    if ( null != _postConstruct )
+    {
+      throw new ArezProcessorException( "@PostConstruct target duplicates existing method named " +
+                                        _postConstruct.getSimpleName(), postConstruct );
+    }
+    else
+    {
+      _postConstruct = postConstruct;
+    }
   }
 
   @Nullable
@@ -197,9 +239,30 @@ final class ContainerDescriptor
     return _preDispose;
   }
 
-  void setPreDispose( @Nullable final ExecutableElement preDispose )
+  void setPreDispose( @Nonnull final ExecutableElement preDispose )
+    throws ArezProcessorException
   {
-    _preDispose = preDispose;
+    if ( !isDisposable() )
+    {
+      throw new ArezProcessorException( "@PreDispose must not exist if @Container set disposable to false",
+                                        preDispose );
+    }
+    MethodChecks.mustNotBeStatic( PreDispose.class, preDispose );
+    MethodChecks.mustNotBeAbstract( PreDispose.class, preDispose );
+    MethodChecks.mustNotBePrivate( PreDispose.class, preDispose );
+    MethodChecks.mustNotHaveAnyParameters( PreDispose.class, preDispose );
+    MethodChecks.mustNotReturnAnyValue( PreDispose.class, preDispose );
+    MethodChecks.mustNotThrowAnyExceptions( PreDispose.class, preDispose );
+
+    if ( null != _preDispose )
+    {
+      throw new ArezProcessorException( "@PreDispose target duplicates existing method named " +
+                                        _preDispose.getSimpleName(), preDispose );
+    }
+    else
+    {
+      _preDispose = preDispose;
+    }
   }
 
   @Nullable
@@ -208,8 +271,30 @@ final class ContainerDescriptor
     return _postDispose;
   }
 
-  void setPostDispose( @Nullable final ExecutableElement postDispose )
+  void setPostDispose( @Nonnull final ExecutableElement postDispose )
+    throws ArezProcessorException
   {
-    _postDispose = postDispose;
+    if ( !isDisposable() )
+    {
+      throw new ArezProcessorException( "@PostDispose must not exist if @Container set disposable to false",
+                                        postDispose );
+    }
+
+    MethodChecks.mustNotBeStatic( PostDispose.class, postDispose );
+    MethodChecks.mustNotBeAbstract( PostDispose.class, postDispose );
+    MethodChecks.mustNotBePrivate( PostDispose.class, postDispose );
+    MethodChecks.mustNotHaveAnyParameters( PostDispose.class, postDispose );
+    MethodChecks.mustNotReturnAnyValue( PostDispose.class, postDispose );
+    MethodChecks.mustNotThrowAnyExceptions( PostDispose.class, postDispose );
+
+    if ( null != _postDispose )
+    {
+      throw new ArezProcessorException( "@PostDispose target duplicates existing method named " +
+                                        _postDispose.getSimpleName(), postDispose );
+    }
+    else
+    {
+      _postDispose = postDispose;
+    }
   }
 }

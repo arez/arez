@@ -230,22 +230,22 @@ final class ContainerDescriptorParser
     }
     else if ( null != containerId )
     {
-      processContainerId( descriptor, method );
+      descriptor.setContainerId( method );
       return true;
     }
     else if ( null != postConstruct )
     {
-      processPostConstruct( descriptor, method );
+      descriptor.setPostConstruct( method );
       return true;
     }
     else if ( null != preDispose )
     {
-      processPreDispose( descriptor, method );
+      descriptor.setPreDispose( method );
       return true;
     }
     else if ( null != postDispose )
     {
-      processPostDispose( descriptor, method );
+      descriptor.setPostDispose( method );
       return true;
     }
     else if ( null != onActivate )
@@ -311,143 +311,11 @@ final class ContainerDescriptorParser
     }
   }
 
-  private static void processContainerId( @Nonnull final ContainerDescriptor descriptor,
-                                          @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
-  {
-    if ( descriptor.isSingleton() )
-    {
-      throw new ArezProcessorException( "@ContainerId must not exist if @Container is a singleton", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.STATIC ) )
-    {
-      throw new ArezProcessorException( "@ContainerId target must not be static", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
-    {
-      throw new ArezProcessorException( "@ContainerId target must not be private", method );
-    }
-    else if ( !method.getModifiers().contains( Modifier.FINAL ) )
-    {
-      throw new ArezProcessorException( "@ContainerId target must be final", method );
-    }
-    else if ( TypeKind.VOID == method.getReturnType().getKind() )
-    {
-      throw new ArezProcessorException( "@ContainerId target must return a value", method );
-    }
-    else if ( 0 != method.getParameters().size() )
-    {
-      throw new ArezProcessorException( "@ContainerId target must not have any parameters", method );
-    }
-    final ExecutableElement existing = descriptor.getContainerId();
-    if ( null != existing )
-    {
-      throw new ArezProcessorException( "@ContainerId target duplicates existing method named " +
-                                        existing.getSimpleName(), method );
-    }
-    else
-    {
-      descriptor.setContainerId( method );
-    }
-  }
-
-  private static void processPostConstruct( @Nonnull final ContainerDescriptor descriptor,
-                                            @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
-  {
-    if ( method.getModifiers().contains( Modifier.STATIC ) )
-    {
-      throw new ArezProcessorException( "@PostConstruct target must not be static", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
-    {
-      throw new ArezProcessorException( "@PostConstruct target must not be private", method );
-    }
-    else if ( TypeKind.VOID != method.getReturnType().getKind() )
-    {
-      throw new ArezProcessorException( "@PostConstruct target must not return a value", method );
-    }
-    else if ( 0 != method.getParameters().size() )
-    {
-      throw new ArezProcessorException( "@PostConstruct target must not have any parameters", method );
-    }
-    final ExecutableElement existing = descriptor.getPostConstruct();
-    if ( null != existing )
-    {
-      throw new ArezProcessorException( "@PostConstruct target duplicates existing method named " +
-                                        existing.getSimpleName(), method );
-    }
-    else
-    {
-      descriptor.setPostConstruct( method );
-    }
-  }
-
-  private static void processPreDispose( @Nonnull final ContainerDescriptor descriptor,
-                                         @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
-  {
-    if ( !descriptor.isDisposable() )
-    {
-      throw new ArezProcessorException( "@PreDispose must not exist if @Container set disposable to false", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.STATIC ) )
-    {
-      throw new ArezProcessorException( "@PreDispose target must not be static", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
-    {
-      throw new ArezProcessorException( "@PreDispose target must not be private", method );
-    }
-    else if ( !method.getParameters().isEmpty() )
-    {
-      throw new ArezProcessorException( "@PreDispose target must not have any parameters", method );
-    }
-    else if ( TypeKind.VOID != method.getReturnType().getKind() )
-    {
-      throw new ArezProcessorException( "@PreDispose target must not return a value", method );
-    }
-    else if ( !method.getThrownTypes().isEmpty() )
-    {
-      throw new ArezProcessorException( "@PreDispose target must not throw any exceptions", method );
-    }
-    final ExecutableElement existing = descriptor.getPreDispose();
-    if ( null != existing )
-    {
-      throw new ArezProcessorException( "@PreDispose target duplicates existing method named " +
-                                        existing.getSimpleName(), method );
-    }
-    else
-    {
-      descriptor.setPreDispose( method );
-    }
-  }
-
   private static void processOnActivate( @Nonnull final ContainerDescriptor descriptor,
                                          @Nonnull final OnActivate annotation,
                                          @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.STATIC ) )
-    {
-      throw new ArezProcessorException( "@OnActivate target must not be static", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
-    {
-      throw new ArezProcessorException( "@OnActivate target must not be private", method );
-    }
-    else if ( !method.getParameters().isEmpty() )
-    {
-      throw new ArezProcessorException( "@OnActivate target must not have any parameters", method );
-    }
-    else if ( TypeKind.VOID != method.getReturnType().getKind() )
-    {
-      throw new ArezProcessorException( "@OnActivate target must not return a value", method );
-    }
-    else if ( !method.getThrownTypes().isEmpty() )
-    {
-      throw new ArezProcessorException( "@OnActivate target must not throw any exceptions", method );
-    }
     final String name = deriveHookName( method, ON_ACTIVATE_PATTERN, "Activate", annotation.name() );
     descriptor.findOrCreateComputed( name ).setOnActivate( method );
   }
@@ -457,26 +325,6 @@ final class ContainerDescriptorParser
                                            @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.STATIC ) )
-    {
-      throw new ArezProcessorException( "@OnDeactivate target must not be static", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
-    {
-      throw new ArezProcessorException( "@OnDeactivate target must not be private", method );
-    }
-    else if ( !method.getParameters().isEmpty() )
-    {
-      throw new ArezProcessorException( "@OnDeactivate target must not have any parameters", method );
-    }
-    else if ( TypeKind.VOID != method.getReturnType().getKind() )
-    {
-      throw new ArezProcessorException( "@OnDeactivate target must not return a value", method );
-    }
-    else if ( !method.getThrownTypes().isEmpty() )
-    {
-      throw new ArezProcessorException( "@OnDeactivate target must not throw any exceptions", method );
-    }
     final String name = deriveHookName( method, ON_DEACTIVATE_PATTERN, "Deactivate", annotation.name() );
     descriptor.findOrCreateComputed( name ).setOnDeactivate( method );
   }
@@ -486,26 +334,6 @@ final class ContainerDescriptorParser
                                       @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.STATIC ) )
-    {
-      throw new ArezProcessorException( "@OnStale target must not be static", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
-    {
-      throw new ArezProcessorException( "@OnStale target must not be private", method );
-    }
-    else if ( !method.getParameters().isEmpty() )
-    {
-      throw new ArezProcessorException( "@OnStale target must not have any parameters", method );
-    }
-    else if ( TypeKind.VOID != method.getReturnType().getKind() )
-    {
-      throw new ArezProcessorException( "@OnStale target must not return a value", method );
-    }
-    else if ( !method.getThrownTypes().isEmpty() )
-    {
-      throw new ArezProcessorException( "@OnStale target must not throw any exceptions", method );
-    }
     final String name = deriveHookName( method, ON_STALE_PATTERN, "Stale", annotation.name() );
     descriptor.findOrCreateComputed( name ).setOnStale( method );
   }
@@ -515,27 +343,6 @@ final class ContainerDescriptorParser
                                         @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.STATIC ) )
-    {
-      throw new ArezProcessorException( "@OnDispose target must not be static", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
-    {
-      throw new ArezProcessorException( "@OnDispose target must not be private", method );
-    }
-    else if ( !method.getParameters().isEmpty() )
-    {
-      throw new ArezProcessorException( "@OnDispose target must not have any parameters", method );
-    }
-    else if ( TypeKind.VOID != method.getReturnType().getKind() )
-    {
-      throw new ArezProcessorException( "@OnDispose target must not return a value", method );
-    }
-    else if ( !method.getThrownTypes().isEmpty() )
-    {
-      throw new ArezProcessorException( "@OnDispose target must not throw any exceptions", method );
-    }
-
     final String name = deriveHookName( method, ON_DISPOSE_PATTERN, "Dispose", annotation.name() );
     descriptor.findOrCreateComputed( name ).setOnDispose( method );
   }
@@ -564,78 +371,12 @@ final class ContainerDescriptorParser
     }
   }
 
-  private static void processPostDispose( @Nonnull final ContainerDescriptor descriptor,
-                                          @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
-  {
-    if ( !descriptor.isDisposable() )
-    {
-      throw new ArezProcessorException( "@PostDispose must not exist if @Container set disposable to false", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.STATIC ) )
-    {
-      throw new ArezProcessorException( "@PostDispose target must not be static", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.PRIVATE ) )
-    {
-      throw new ArezProcessorException( "@PostDispose target must not be private", method );
-    }
-    else if ( !method.getParameters().isEmpty() )
-    {
-      throw new ArezProcessorException( "@PostDispose target must not have any parameters", method );
-    }
-    else if ( TypeKind.VOID != method.getReturnType().getKind() )
-    {
-      throw new ArezProcessorException( "@PostDispose target must not return a value", method );
-    }
-    else if ( !method.getThrownTypes().isEmpty() )
-    {
-      throw new ArezProcessorException( "@PostDispose target must not throw any exceptions", method );
-    }
-    final ExecutableElement existing = descriptor.getPostDispose();
-    if ( null != existing )
-    {
-      throw new ArezProcessorException( "@PostDispose target duplicates existing method named " +
-                                        existing.getSimpleName(), method );
-    }
-    else
-    {
-      descriptor.setPostDispose( method );
-    }
-  }
-
   private static void processComputed( @Nonnull final ContainerDescriptor descriptor,
                                        @Nonnull final Computed annotation,
                                        @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.PRIVATE ) )
-    {
-      throw new ArezProcessorException( "@Computed target must not be private", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.FINAL ) )
-    {
-      throw new ArezProcessorException( "@Computed target must not be final", method );
-    }
-    else if ( method.getModifiers().contains( Modifier.STATIC ) )
-    {
-      throw new ArezProcessorException( "@Computed target must not be static", method );
-    }
-    else if ( TypeKind.VOID == method.getReturnType().getKind() )
-    {
-      throw new ArezProcessorException( "@Computed target must not have a void return type", method );
-    }
-    else if ( !method.getParameters().isEmpty() )
-    {
-      throw new ArezProcessorException( "@Computed target must not have parameters", method );
-    }
-    else if ( !method.getThrownTypes().isEmpty() )
-    {
-      throw new ArezProcessorException( "@Computed target must not throw exceptions", method );
-    }
-
     final String name = deriveComputedName( method, annotation );
-
     checkNameUnique( descriptor, name, method, Computed.class );
     descriptor.findOrCreateComputed( name ).setComputed( method );
   }

@@ -4,6 +4,11 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
+import org.realityforge.arez.annotations.Computed;
+import org.realityforge.arez.annotations.OnActivate;
+import org.realityforge.arez.annotations.OnDeactivate;
+import org.realityforge.arez.annotations.OnDispose;
+import org.realityforge.arez.annotations.OnStale;
 
 /**
  * The class that represents the parsed state of @Computed methods on a @Container annotated class.
@@ -67,6 +72,14 @@ final class ComputedDescriptor
   void setComputed( @Nonnull final ExecutableElement computed )
     throws ArezProcessorException
   {
+    MethodChecks.mustNotBeStatic( Computed.class, computed );
+    MethodChecks.mustNotBeAbstract( Computed.class, computed );
+    MethodChecks.mustNotBePrivate( Computed.class, computed );
+    MethodChecks.mustNotBeFinal( Computed.class, computed );
+    MethodChecks.mustNotHaveAnyParameters( Computed.class, computed );
+    MethodChecks.mustReturnAValue( Computed.class, computed );
+    MethodChecks.mustNotThrowAnyExceptions( Computed.class, computed );
+
     if ( null != _computed )
     {
       throw new ArezProcessorException( "Method annotated with @Computed specified name " + getName() +
@@ -82,6 +95,13 @@ final class ComputedDescriptor
   void setOnActivate( @Nonnull final ExecutableElement onActivate )
     throws ArezProcessorException
   {
+    MethodChecks.mustNotBeStatic( OnActivate.class, onActivate );
+    MethodChecks.mustNotBeAbstract( OnActivate.class, onActivate );
+    MethodChecks.mustNotBePrivate( OnActivate.class, onActivate );
+    MethodChecks.mustNotHaveAnyParameters( OnActivate.class, onActivate );
+    MethodChecks.mustNotReturnAnyValue( OnActivate.class, onActivate );
+    MethodChecks.mustNotThrowAnyExceptions( OnActivate.class, onActivate );
+
     if ( null != _onActivate )
     {
       throw new ArezProcessorException( "@OnActivate target duplicates existing method named " +
@@ -97,6 +117,12 @@ final class ComputedDescriptor
   void setOnDeactivate( @Nonnull final ExecutableElement onDeactivate )
     throws ArezProcessorException
   {
+    MethodChecks.mustNotBeStatic( OnDeactivate.class, onDeactivate );
+    MethodChecks.mustNotBeAbstract( OnDeactivate.class, onDeactivate );
+    MethodChecks.mustNotBePrivate( OnDeactivate.class, onDeactivate );
+    MethodChecks.mustNotHaveAnyParameters( OnDeactivate.class, onDeactivate );
+    MethodChecks.mustNotReturnAnyValue( OnDeactivate.class, onDeactivate );
+    MethodChecks.mustNotThrowAnyExceptions( OnDeactivate.class, onDeactivate );
     if ( null != _onDeactivate )
     {
       throw new ArezProcessorException( "@OnDeactivate target duplicates existing method named " +
@@ -112,6 +138,12 @@ final class ComputedDescriptor
   void setOnStale( @Nonnull final ExecutableElement onStale )
     throws ArezProcessorException
   {
+    MethodChecks.mustNotBeStatic( OnStale.class, onStale );
+    MethodChecks.mustNotBeAbstract( OnStale.class, onStale );
+    MethodChecks.mustNotBePrivate( OnStale.class, onStale );
+    MethodChecks.mustNotHaveAnyParameters( OnStale.class, onStale );
+    MethodChecks.mustNotReturnAnyValue( OnStale.class, onStale );
+    MethodChecks.mustNotThrowAnyExceptions( OnStale.class, onStale );
     if ( null != _onStale )
     {
       throw new ArezProcessorException( "@OnStale target duplicates existing method named " +
@@ -127,6 +159,13 @@ final class ComputedDescriptor
   void setOnDispose( @Nonnull final ExecutableElement onDispose )
     throws ArezProcessorException
   {
+    MethodChecks.mustNotBeStatic( OnDispose.class, onDispose );
+    MethodChecks.mustNotBeAbstract( OnDispose.class, onDispose );
+    MethodChecks.mustNotBePrivate( OnDispose.class, onDispose );
+    MethodChecks.mustNotHaveAnyParameters( OnDispose.class, onDispose );
+    MethodChecks.mustNotReturnAnyValue( OnDispose.class, onDispose );
+    MethodChecks.mustNotThrowAnyExceptions( OnDispose.class, onDispose );
+
     if ( null != _onDispose )
     {
       throw new ArezProcessorException( "@OnDispose target duplicates existing method named " +
