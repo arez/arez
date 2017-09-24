@@ -7,11 +7,13 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
@@ -34,16 +36,20 @@ final class ActionDescriptor
   private final boolean _mutation;
   @Nonnull
   private final ExecutableElement _action;
+  @Nonnull
+  private final ExecutableType _actionType;
 
   ActionDescriptor( @Nonnull final ContainerDescriptor containerDescriptor,
                     @Nonnull final String name,
                     final boolean mutation,
-                    @Nonnull final ExecutableElement action )
+                    @Nonnull final ExecutableElement action,
+                    @Nonnull final ExecutableType actionType )
   {
     _containerDescriptor = Objects.requireNonNull( containerDescriptor );
     _name = Objects.requireNonNull( name );
     _mutation = mutation;
     _action = Objects.requireNonNull( action );
+    _actionType = Objects.requireNonNull( actionType );
   }
 
   @Nonnull
@@ -71,18 +77,17 @@ final class ActionDescriptor
   private MethodSpec buildAction()
     throws ArezProcessorException
   {
-    final ExecutableElement action = getAction();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( action.getSimpleName().toString() );
-    ProcessorUtil.copyAccessModifiers( action, builder );
-    ProcessorUtil.copyExceptions( action, builder );
-    ProcessorUtil.copyTypeParameters( action, builder );
-    ProcessorUtil.copyDocumentedAnnotations( action, builder );
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _action.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( _action, builder );
+    ProcessorUtil.copyExceptions( _actionType, builder );
+    ProcessorUtil.copyTypeParameters( _actionType, builder );
+    ProcessorUtil.copyDocumentedAnnotations( _action, builder );
     builder.addAnnotation( Override.class );
-    final TypeMirror returnType = action.getReturnType();
+    final TypeMirror returnType = _actionType.getReturnType();
     builder.returns( TypeName.get( returnType ) );
 
     final boolean isProcedure = returnType.getKind() == TypeKind.VOID;
-    final boolean isSafe = action.getThrownTypes().isEmpty();
+    final boolean isSafe = _action.getThrownTypes().isEmpty();
 
     final StringBuilder statement = new StringBuilder();
     final ArrayList<Object> parameterNames = new ArrayList<>();
@@ -132,14 +137,18 @@ final class ActionDescriptor
     statement.append( ", " );
     statement.append( _mutation );
     statement.append( ", () -> super." );
-    statement.append( action.getSimpleName() );
+    statement.append( _action.getSimpleName() );
     statement.append( "(" );
 
     boolean firstParam = true;
-    for ( final VariableElement element : action.getParameters() )
+    final List<? extends VariableElement> parameters = _action.getParameters();
+    final int paramCount = parameters.size();
+    for ( int i = 0; i < paramCount; i++ )
     {
+      final VariableElement element = parameters.get( i );
+      final TypeName parameterType = TypeName.get( _actionType.getParameterTypes().get( i ) );
       final ParameterSpec.Builder param =
-        ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
+        ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
       ProcessorUtil.copyDocumentedAnnotations( element, param );
       builder.addParameter( param.build() );
       parameterNames.add( element.getSimpleName().toString() );
@@ -174,17 +183,17 @@ final class ActionDescriptor
       codeBlock.addStatement( "return $N", GeneratorUtil.RESULT_VARIABLE_NAME );
     }
 
-    for ( final TypeMirror exception : action.getThrownTypes() )
+    for ( final TypeMirror exception : _action.getThrownTypes() )
     {
       codeBlock.nextControlFlow( "catch( final $T e )", exception );
       codeBlock.addStatement( "throw e" );
     }
 
-    if ( action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.Throwable" ) ) )
+    if ( _action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.Throwable" ) ) )
     {
-      if ( action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.Exception" ) ) )
+      if ( _action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.Exception" ) ) )
       {
-        if ( action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) ) )
+        if ( _action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) ) )
         {
           codeBlock.nextControlFlow( "catch( final $T e )", RuntimeException.class );
           codeBlock.addStatement( "$N = e", GeneratorUtil.THROWABLE_VARIABLE_NAME );

@@ -92,6 +92,19 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void processSuccessfulWhereTypeResolvedInInheritanceHierarchy()
+  {
+    final JavaFileObject source1 = JavaFileObjects.forResource( "input/com/example/type_params/AbstractModel.java" );
+    final JavaFileObject source2 = JavaFileObjects.forResource( "input/com/example/type_params/MiddleModel.java" );
+    final JavaFileObject source3 = JavaFileObjects.forResource( "input/com/example/type_params/ConcreteModel.java" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Arrays.asList( source1, source2, source3 ) ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      and().generatesSources( JavaFileObjects.forResource( "expected/com/example/type_params/Arez_ConcreteModel.java" ) );
+  }
+
+  @Test
   public void processSuccessfulWhereTraceInheritanceChain()
   {
     final JavaFileObject source1 = JavaFileObjects.forResource( "input/com/example/inheritance/BaseModel.java" );

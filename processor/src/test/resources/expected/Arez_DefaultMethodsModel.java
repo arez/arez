@@ -10,6 +10,7 @@ import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
+@SuppressWarnings("unchecked")
 public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implements Disposable {
   private boolean $$arez$$_disposed;
 

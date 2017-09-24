@@ -10,6 +10,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
 
 /**
@@ -24,16 +25,20 @@ final class AutorunDescriptor
   private final boolean _mutation;
   @Nonnull
   private final ExecutableElement _autorun;
+  @Nonnull
+  private final ExecutableType _autorunType;
 
   AutorunDescriptor( @Nonnull final ContainerDescriptor containerDescriptor,
                      @Nonnull final String name,
                      final boolean mutation,
-                     @Nonnull final ExecutableElement autorun )
+                     @Nonnull final ExecutableElement autorun,
+                     @Nonnull final ExecutableType autorunType)
   {
     _containerDescriptor = Objects.requireNonNull( containerDescriptor );
     _name = Objects.requireNonNull( name );
     _mutation = mutation;
     _autorun = Objects.requireNonNull( autorun );
+    _autorunType = Objects.requireNonNull( autorunType );
   }
 
   @Nonnull
@@ -110,14 +115,13 @@ final class AutorunDescriptor
   private MethodSpec buildAutorun()
     throws ArezProcessorException
   {
-    final ExecutableElement autorun = getAutorun();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( autorun.getSimpleName().toString() );
-    ProcessorUtil.copyAccessModifiers( autorun, builder );
-    ProcessorUtil.copyExceptions( autorun, builder );
-    ProcessorUtil.copyTypeParameters( autorun, builder );
-    ProcessorUtil.copyDocumentedAnnotations( autorun, builder );
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _autorun.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( _autorun, builder );
+    ProcessorUtil.copyExceptions( _autorunType, builder );
+    ProcessorUtil.copyTypeParameters( _autorunType, builder );
+    ProcessorUtil.copyDocumentedAnnotations( _autorun, builder );
     builder.addAnnotation( Override.class );
-    final TypeMirror returnType = autorun.getReturnType();
+    final TypeMirror returnType = _autorun.getReturnType();
     builder.returns( TypeName.get( returnType ) );
 
     final StringBuilder statement = new StringBuilder();
@@ -143,7 +147,7 @@ final class AutorunDescriptor
     statement.append( " : null, " );
     statement.append( _mutation );
     statement.append( ", () -> super." );
-    statement.append( autorun.getSimpleName() );
+    statement.append( _autorun.getSimpleName() );
     statement.append( "() )" );
 
     builder.addStatement( statement.toString(), parameterNames.toArray() );

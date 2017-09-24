@@ -27,8 +27,10 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Types;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.Autorun;
 import org.realityforge.arez.annotations.Computed;
@@ -62,6 +64,8 @@ final class ContainerDescriptor
   private ExecutableElement _postConstruct;
   @Nullable
   private ExecutableElement _containerId;
+  @Nullable
+  private ExecutableType _containerIdType;
   @Nullable
   private ExecutableElement _preDispose;
   @Nullable
@@ -141,7 +145,9 @@ final class ContainerDescriptor
     return _observables.computeIfAbsent( name, n -> new ObservableDescriptor( this, n ) );
   }
 
-  private void addObservable( @Nonnull final Observable annotation, @Nonnull final ExecutableElement method )
+  private void addObservable( @Nonnull final Observable annotation,
+                              @Nonnull final ExecutableElement method,
+                              @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
     MethodChecks.mustBeOverridable( Observable.class, method );
@@ -197,7 +203,7 @@ final class ContainerDescriptor
         throw new ArezProcessorException( "Method annotated with @Observable defines duplicate setter for " +
                                           "observable named " + name, method );
       }
-      observable.setSetter( method );
+      observable.setSetter( method, methodType );
     }
     else
     {
@@ -206,18 +212,20 @@ final class ContainerDescriptor
         throw new ArezProcessorException( "Method annotated with @Observable defines duplicate getter for " +
                                           "observable named " + name, method );
       }
-      observable.setGetter( method );
+      observable.setGetter( method, methodType );
     }
   }
 
-  private void addAction( @Nonnull final Action annotation, @Nonnull final ExecutableElement method )
+  private void addAction( @Nonnull final Action annotation,
+                          @Nonnull final ExecutableElement method,
+                          @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
     MethodChecks.mustBeOverridable( Action.class, method );
 
     final String name = deriveActionName( method, annotation );
     checkNameUnique( name, method, Action.class );
-    final ActionDescriptor action = new ActionDescriptor( this, name, annotation.mutation(), method );
+    final ActionDescriptor action = new ActionDescriptor( this, name, annotation.mutation(), method, methodType );
     _actions.put( action.getName(), action );
   }
 
@@ -240,7 +248,9 @@ final class ContainerDescriptor
     }
   }
 
-  private void addAutorun( @Nonnull final Autorun annotation, @Nonnull final ExecutableElement method )
+  private void addAutorun( @Nonnull final Autorun annotation,
+                           @Nonnull final ExecutableElement method,
+                           @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
     MethodChecks.mustBeOverridable( Autorun.class, method );
@@ -250,7 +260,7 @@ final class ContainerDescriptor
 
     final String name = deriveAutorunName( method, annotation );
     checkNameUnique( name, method, Autorun.class );
-    final AutorunDescriptor autorun = new AutorunDescriptor( this, name, annotation.mutation(), method );
+    final AutorunDescriptor autorun = new AutorunDescriptor( this, name, annotation.mutation(), method, methodType );
     _autoruns.put( autorun.getName(), autorun );
   }
 
@@ -279,12 +289,14 @@ final class ContainerDescriptor
     return _computeds.computeIfAbsent( name, n -> new ComputedDescriptor( this, n ) );
   }
 
-  private void addComputed( @Nonnull final Computed annotation, @Nonnull final ExecutableElement method )
+  private void addComputed( @Nonnull final Computed annotation,
+                            @Nonnull final ExecutableElement method,
+                            @Nonnull final ExecutableType computedType )
     throws ArezProcessorException
   {
     final String name = deriveComputedName( method, annotation );
     checkNameUnique( name, method, Computed.class );
-    findOrCreateComputed( name ).setComputed( method );
+    findOrCreateComputed( name ).setComputed( method, computedType );
   }
 
   @Nonnull
@@ -359,7 +371,8 @@ final class ContainerDescriptor
     }
   }
 
-  private void setContainerId( @Nonnull final ExecutableElement containerId )
+  private void setContainerId( @Nonnull final ExecutableElement containerId,
+                               @Nonnull final ExecutableType containerIdType )
     throws ArezProcessorException
   {
     if ( isSingleton() )
@@ -380,7 +393,8 @@ final class ContainerDescriptor
     }
     else
     {
-      _containerId = containerId;
+      _containerId = Objects.requireNonNull( containerId );
+      _containerIdType = Objects.requireNonNull( containerIdType );
     }
   }
 
@@ -516,14 +530,17 @@ final class ContainerDescriptor
                                        "method " + targetElement.getSimpleName(), sourceMethod );
   }
 
-  void analyzeCandidateMethods( @Nonnull final List<ExecutableElement> methods )
+  void analyzeCandidateMethods( @Nonnull final List<ExecutableElement> methods,
+                                @Nonnull final Types typeUtils )
     throws ArezProcessorException
   {
-    final Map<String, ExecutableElement> getters = new HashMap<>();
-    final Map<String, ExecutableElement> setters = new HashMap<>();
+    final Map<String, CandidateObservableMethod> getters = new HashMap<>();
+    final Map<String, CandidateObservableMethod> setters = new HashMap<>();
     for ( final ExecutableElement method : methods )
     {
-      if ( !analyzeMethod( method ) )
+      final ExecutableType methodType =
+        (ExecutableType) typeUtils.asMemberOf( (DeclaredType) _element.asType(), method );
+      if ( !analyzeMethod( method, methodType ) )
       {
         /*
          * If we get here the method was not annotated so we can try to detect if it is a
@@ -547,7 +564,7 @@ final class ContainerDescriptor
              ( methodName.length() > 3 && Character.isUpperCase( methodName.charAt( 3 ) ) ) )
         {
           final String observableName = Character.toLowerCase( methodName.charAt( 3 ) ) + methodName.substring( 4 );
-          setters.put( observableName, method );
+          setters.put( observableName, new CandidateObservableMethod( method, methodType ) );
         }
         else if ( !voidReturn &&
                   0 == parameterCount &&
@@ -555,7 +572,7 @@ final class ContainerDescriptor
                   ( methodName.length() > 3 && Character.isUpperCase( methodName.charAt( 3 ) ) ) )
         {
           final String observableName = Character.toLowerCase( methodName.charAt( 3 ) ) + methodName.substring( 4 );
-          getters.put( observableName, method );
+          getters.put( observableName, new CandidateObservableMethod( method, methodType ) );
         }
         else if ( !voidReturn &&
                   0 == parameterCount &&
@@ -563,7 +580,7 @@ final class ContainerDescriptor
                   ( methodName.length() > 2 && Character.isUpperCase( methodName.charAt( 2 ) ) ) )
         {
           final String observableName = Character.toLowerCase( methodName.charAt( 2 ) ) + methodName.substring( 3 );
-          getters.put( observableName, method );
+          getters.put( observableName, new CandidateObservableMethod( method, methodType ) );
         }
       }
     }
@@ -571,18 +588,18 @@ final class ContainerDescriptor
     linkUnAnnotatedObservables( getters, setters );
   }
 
-  private void linkUnAnnotatedObservables( @Nonnull final Map<String, ExecutableElement> getters,
-                                           @Nonnull final Map<String, ExecutableElement> setters )
+  private void linkUnAnnotatedObservables( @Nonnull final Map<String, CandidateObservableMethod> getters,
+                                           @Nonnull final Map<String, CandidateObservableMethod> setters )
     throws ArezProcessorException
   {
     for ( final ObservableDescriptor observable : _roObservables )
     {
       if ( !observable.hasSetter() )
       {
-        final ExecutableElement element = setters.get( observable.getName() );
-        if ( null != element )
+        final CandidateObservableMethod candidate = setters.get( observable.getName() );
+        if ( null != candidate )
         {
-          observable.setSetter( element );
+          observable.setSetter( candidate.getMethod(), candidate.getMethodType() );
         }
         else
         {
@@ -592,10 +609,10 @@ final class ContainerDescriptor
       }
       else if ( !observable.hasGetter() )
       {
-        final ExecutableElement element = getters.get( observable.getName() );
-        if ( null != element )
+        final CandidateObservableMethod candidate = getters.get( observable.getName() );
+        if ( null != candidate )
         {
-          observable.setGetter( element );
+          observable.setGetter( candidate.getMethod(), candidate.getMethodType() );
         }
         else
         {
@@ -606,7 +623,8 @@ final class ContainerDescriptor
     }
   }
 
-  private boolean analyzeMethod( @Nonnull final ExecutableElement method )
+  private boolean analyzeMethod( @Nonnull final ExecutableElement method,
+                                 @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
     verifyNoDuplicateAnnotations( method );
@@ -626,27 +644,27 @@ final class ContainerDescriptor
 
     if ( null != observable )
     {
-      addObservable( observable, method );
+      addObservable( observable, method, methodType );
       return true;
     }
     else if ( null != action )
     {
-      addAction( action, method );
+      addAction( action, method, methodType );
       return true;
     }
     else if ( null != autorun )
     {
-      addAutorun( autorun, method );
+      addAutorun( autorun, method, methodType );
       return true;
     }
     else if ( null != computed )
     {
-      addComputed( computed, method );
+      addComputed( computed, method, methodType );
       return true;
     }
     else if ( null != containerId )
     {
-      setContainerId( method );
+      setContainerId( method, methodType );
       return true;
     }
     else if ( null != postConstruct )
@@ -751,13 +769,10 @@ final class ContainerDescriptor
    * Build the enhanced class for specified container.
    */
   @Nonnull
-  TypeSpec buildType()
+  TypeSpec buildType( @Nonnull final Types typeUtils )
     throws ArezProcessorException
   {
     final TypeElement element = getElement();
-
-    final AnnotationSpec generatedAnnotation =
-      AnnotationSpec.builder( Generated.class ).addMember( "value", "$S", ArezProcessor.class.getName() ).build();
 
     final StringBuilder name = new StringBuilder( "Arez_" + element.getSimpleName() );
 
@@ -771,8 +786,17 @@ final class ContainerDescriptor
     final TypeSpec.Builder builder = TypeSpec.classBuilder( name.toString() ).
       superclass( TypeName.get( element.asType() ) ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) ).
-      addModifiers( Modifier.FINAL ).
-      addAnnotation( generatedAnnotation );
+      addModifiers( Modifier.FINAL );
+
+    builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
+      addMember( "value", "$S", ArezProcessor.class.getName() ).
+      build() );
+    if ( !_roComputeds.isEmpty() )
+    {
+      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
+        addMember( "value", "$S", "unchecked" ).
+        build() );
+    }
     ProcessorUtil.copyAccessModifiers( element, builder );
 
     if ( isDisposable() )
@@ -782,7 +806,7 @@ final class ContainerDescriptor
 
     buildFields( builder );
 
-    buildConstructors( builder );
+    buildConstructors( builder, typeUtils );
 
     if ( !isSingleton() )
     {
@@ -817,15 +841,14 @@ final class ContainerDescriptor
         addModifiers( Modifier.PRIVATE );
 
     builder.returns( TypeName.get( String.class ) );
-    final ExecutableElement containerId = _containerId;
-
-    if ( null == containerId )
+    if ( null == _containerId )
     {
       builder.addStatement( "return $S + $N + $S", getNamePrefix(), GeneratorUtil.ID_FIELD_NAME, "." );
     }
     else
     {
-      builder.addStatement( "return $S + $N() + $S", getNamePrefix(), containerId.getSimpleName(), "." );
+      assert null != _containerIdType;
+      builder.addStatement( "return $S + $N() + $S", getNamePrefix(), _containerId.getSimpleName(), "." );
     }
     return builder.build();
   }
@@ -940,11 +963,14 @@ final class ContainerDescriptor
    * Build all constructors as they appear on the Container class.
    * Arez Observable fields are populated as required and parameters are passed up to superclass.
    */
-  private void buildConstructors( @Nonnull final TypeSpec.Builder builder )
+  private void buildConstructors( @Nonnull final TypeSpec.Builder builder,
+                                  @Nonnull final Types typeUtils )
   {
     for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( getElement() ) )
     {
-      builder.addMethod( buildConstructor( constructor ) );
+      final ExecutableType methodType =
+        (ExecutableType) typeUtils.asMemberOf( (DeclaredType) _element.asType(), constructor );
+      builder.addMethod( buildConstructor( constructor, methodType ) );
     }
   }
 
@@ -952,12 +978,13 @@ final class ContainerDescriptor
    * Build a constructor based on the supplied constructor
    */
   @Nonnull
-  private MethodSpec buildConstructor( @Nonnull final ExecutableElement constructor )
+  private MethodSpec buildConstructor( @Nonnull final ExecutableElement constructor,
+                                       @Nonnull final ExecutableType constructorType )
   {
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
     ProcessorUtil.copyAccessModifiers( constructor, builder );
-    ProcessorUtil.copyExceptions( constructor, builder );
-    ProcessorUtil.copyTypeParameters( constructor, builder );
+    ProcessorUtil.copyExceptions( constructorType, builder );
+    ProcessorUtil.copyTypeParameters( constructorType, builder );
 
     final StringBuilder superCall = new StringBuilder();
     superCall.append( "super(" );
@@ -984,9 +1011,8 @@ final class ContainerDescriptor
 
     builder.addStatement( "this.$N = $T.context()", GeneratorUtil.CONTEXT_FIELD_NAME, GeneratorUtil.AREZ_CLASSNAME );
 
-    final ExecutableElement containerId = _containerId;
     // Synthesize Id if required
-    if ( !isSingleton() && null == containerId )
+    if ( !isSingleton() && null == _containerId )
     {
       builder.addStatement( "this.$N = $N++", GeneratorUtil.ID_FIELD_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
     }

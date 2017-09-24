@@ -12,6 +12,7 @@ import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.ExecutableType;
 
 /**
  * The class that represents the parsed state of Observable properties on a @Container annotated class.
@@ -25,7 +26,11 @@ final class ObservableDescriptor
   @Nullable
   private ExecutableElement _getter;
   @Nullable
+  private ExecutableType _getterType;
+  @Nullable
   private ExecutableElement _setter;
+  @Nullable
+  private ExecutableType _setterType;
 
   ObservableDescriptor( @Nonnull final ContainerDescriptor containerDescriptor, @Nonnull final String name )
   {
@@ -48,19 +53,14 @@ final class ObservableDescriptor
   ExecutableElement getGetter()
     throws ArezProcessorException
   {
-    if ( null == _getter )
-    {
-      throw new ArezProcessorException( String.format( "ObservableDescriptor.getGetter() invoked for observable " +
-                                                       "named '%s' on container named '%s' before getter has " +
-                                                       "been set", getName(), _containerDescriptor.getName() ),
-                                        Objects.requireNonNull( _setter ) );
-    }
+    assert null != _getter;
     return _getter;
   }
 
-  void setGetter( @Nonnull final ExecutableElement getter )
+  void setGetter( @Nonnull final ExecutableElement getter, @Nonnull final ExecutableType methodType )
   {
     _getter = Objects.requireNonNull( getter );
+    _getterType = Objects.requireNonNull( methodType );
   }
 
   boolean hasSetter()
@@ -72,19 +72,14 @@ final class ObservableDescriptor
   ExecutableElement getSetter()
     throws ArezProcessorException
   {
-    if ( null == _setter )
-    {
-      throw new ArezProcessorException( String.format( "ObservableDescriptor.getSetter() invoked for observable " +
-                                                       "named '%s' on container named '%s' before setter has " +
-                                                       "been set", getName(), _containerDescriptor.getName() ),
-                                        Objects.requireNonNull( _setter ) );
-    }
+    assert null != _setter;
     return _setter;
   }
 
-  void setSetter( @Nonnull final ExecutableElement setter )
+  void setSetter( @Nonnull final ExecutableElement setter, @Nonnull final ExecutableType methodType )
   {
     _setter = Objects.requireNonNull( setter );
+    _setterType = Objects.requireNonNull( methodType );
   }
 
   @Nonnull
@@ -151,17 +146,18 @@ final class ObservableDescriptor
   private MethodSpec buildObservableSetter()
     throws ArezProcessorException
   {
-    final ExecutableElement getter = getGetter();
-    final ExecutableElement setter = getSetter();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( setter.getSimpleName().toString() );
-    ProcessorUtil.copyAccessModifiers( setter, builder );
-    ProcessorUtil.copyExceptions( setter, builder );
-    ProcessorUtil.copyTypeParameters( setter, builder );
-    ProcessorUtil.copyDocumentedAnnotations( setter, builder );
+    assert null != _setter;
+    assert null != _setterType;
+    assert null != _getter;
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _setter.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( _setter, builder );
+    ProcessorUtil.copyExceptions( _setterType, builder );
+    ProcessorUtil.copyTypeParameters( _setterType, builder );
+    ProcessorUtil.copyDocumentedAnnotations( _setter, builder );
 
     builder.addAnnotation( Override.class );
 
-    final VariableElement element = setter.getParameters().get( 0 );
+    final VariableElement element = _setter.getParameters().get( 0 );
     final String paramName = element.getSimpleName().toString();
     final TypeName type = TypeName.get( element.asType() );
     final ParameterSpec.Builder param =
@@ -170,8 +166,8 @@ final class ObservableDescriptor
     builder.addParameter( param.build() );
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
-    final String accessor = "super." + getter.getSimpleName() + "()";
-    final String mutator = "super." + setter.getSimpleName() + "($N)";
+    final String accessor = "super." + _getter.getSimpleName() + "()";
+    final String mutator = "super." + _setter.getSimpleName() + "($N)";
     if ( type.isPrimitive() )
     {
       codeBlock.beginControlFlow( "if ( $N != " + accessor + " )", paramName );
@@ -195,17 +191,18 @@ final class ObservableDescriptor
   private MethodSpec buildObservableGetter()
     throws ArezProcessorException
   {
-    final ExecutableElement getter = getGetter();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( getter.getSimpleName().toString() );
-    ProcessorUtil.copyAccessModifiers( getter, builder );
-    ProcessorUtil.copyExceptions( getter, builder );
-    ProcessorUtil.copyTypeParameters( getter, builder );
-    ProcessorUtil.copyDocumentedAnnotations( getter, builder );
+    assert null != _getter;
+    assert null != _getterType;
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _getter.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( _getter, builder );
+    ProcessorUtil.copyExceptions( _getterType, builder );
+    ProcessorUtil.copyTypeParameters( _getterType, builder );
+    ProcessorUtil.copyDocumentedAnnotations( _getter, builder );
 
     builder.addAnnotation( Override.class );
-    builder.returns( TypeName.get( getter.getReturnType() ) );
+    builder.returns( TypeName.get( _getter.getReturnType() ) );
     builder.addStatement( "this.$N.reportObserved()", GeneratorUtil.FIELD_PREFIX + getName() );
-    builder.addStatement( "return super." + getter.getSimpleName() + "()" );
+    builder.addStatement( "return super." + _getter.getSimpleName() + "()" );
     return builder.build();
   }
 }

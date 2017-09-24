@@ -67,7 +67,8 @@ public final class ArezProcessor
     final PackageElement packageElement = processingEnv.getElementUtils().getPackageOf( element );
     final TypeElement typeElement = (TypeElement) element;
     final ContainerDescriptor descriptor = parse( packageElement, typeElement );
-    emitTypeSpec( descriptor.getPackageElement().getQualifiedName().toString(), descriptor.buildType() );
+    emitTypeSpec( descriptor.getPackageElement().getQualifiedName().toString(),
+                  descriptor.buildType(processingEnv.getTypeUtils()) );
   }
 
   @Nonnull
@@ -98,7 +99,7 @@ public final class ArezProcessor
     final ContainerDescriptor descriptor =
       new ContainerDescriptor( name, container.singleton(), container.disposable(), packageElement, typeElement );
 
-    descriptor.analyzeCandidateMethods( ProcessorUtil.getMethods( typeElement ) );
+    descriptor.analyzeCandidateMethods( ProcessorUtil.getMethods( typeElement ), processingEnv.getTypeUtils() );
     descriptor.validate();
     return descriptor;
   }

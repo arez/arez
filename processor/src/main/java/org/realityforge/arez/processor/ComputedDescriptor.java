@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
-import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.ExecutableType;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.OnActivate;
 import org.realityforge.arez.annotations.OnDeactivate;
@@ -37,6 +37,8 @@ final class ComputedDescriptor
   private final String _name;
   @Nullable
   private ExecutableElement _computed;
+  @Nullable
+  private ExecutableType _computedType;
   @Nullable
   private ExecutableElement _onActivate;
   @Nullable
@@ -64,31 +66,7 @@ final class ComputedDescriptor
     return Objects.requireNonNull( _computed );
   }
 
-  @Nullable
-  ExecutableElement getOnActivate()
-  {
-    return _onActivate;
-  }
-
-  @Nullable
-  ExecutableElement getOnDeactivate()
-  {
-    return _onDeactivate;
-  }
-
-  @Nullable
-  ExecutableElement getOnStale()
-  {
-    return _onStale;
-  }
-
-  @Nullable
-  ExecutableElement getOnDispose()
-  {
-    return _onDispose;
-  }
-
-  void setComputed( @Nonnull final ExecutableElement computed )
+  void setComputed( @Nonnull final ExecutableElement computed, @Nonnull final ExecutableType computedType )
     throws ArezProcessorException
   {
     MethodChecks.mustBeOverridable( Computed.class, computed );
@@ -105,6 +83,7 @@ final class ComputedDescriptor
     else
     {
       _computed = Objects.requireNonNull( computed );
+      _computedType = Objects.requireNonNull( computedType );
     }
   }
 
@@ -177,24 +156,24 @@ final class ComputedDescriptor
   {
     if ( null == _computed )
     {
-      if ( null != getOnActivate() )
+      if ( null != _onActivate )
       {
         throw new ArezProcessorException( "@OnActivate exists but there is no corresponding @Computed",
-                                          getOnActivate() );
+                                          _onActivate );
       }
-      else if ( null != getOnDeactivate() )
+      else if ( null != _onDeactivate )
       {
         throw new ArezProcessorException( "@OnDeactivate exists but there is no corresponding @Computed",
-                                          getOnDeactivate() );
+                                          _onDeactivate );
       }
-      else if ( null != getOnDispose() )
+      else if ( null != _onDispose )
       {
         throw new ArezProcessorException( "@OnDispose exists but there is no corresponding @Computed",
-                                          getOnDispose() );
+                                          _onDispose );
       }
       else
       {
-        final ExecutableElement onStale = getOnStale();
+        final ExecutableElement onStale = _onStale;
         assert null != onStale;
         throw new ArezProcessorException( "@OnStale exists but there is no corresponding @Computed", onStale );
       }
@@ -203,9 +182,10 @@ final class ComputedDescriptor
 
   void buildFields( @Nonnull final TypeSpec.Builder builder )
   {
+    assert null != _computed;
+    assert null != _computedType;
     final TypeName parameterType =
-      getComputed().getTypeParameters().isEmpty() ?
-      TypeName.get( getComputed().getReturnType() ).box() :
+      _computed.getTypeParameters().isEmpty() ? TypeName.get( _computedType.getReturnType() ).box() :
       WildcardTypeName.subtypeOf( TypeName.OBJECT );
     final ParameterizedTypeName typeName =
       ParameterizedTypeName.get( GeneratorUtil.COMPUTED_VALUE_CLASSNAME, parameterType );
@@ -220,6 +200,7 @@ final class ComputedDescriptor
 
   void buildInitializer( @Nonnull MethodSpec.Builder builder )
   {
+    assert null != _computed;
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
     sb.append( "this.$N = this.$N.createComputedValue( this.$N.areNamesEnabled() ? " );
@@ -238,13 +219,13 @@ final class ComputedDescriptor
       parameters.add( getName() );
     }
     sb.append( " : null, super::$N, $T::equals, " );
-    parameters.add( getComputed().getSimpleName().toString() );
+    parameters.add( _computed.getSimpleName().toString() );
     parameters.add( Objects.class );
 
-    if ( null != getOnActivate() )
+    if ( null != _onActivate )
     {
       sb.append( "this::$N" );
-      parameters.add( getOnActivate().getSimpleName().toString() );
+      parameters.add( _onActivate.getSimpleName().toString() );
     }
     else
     {
@@ -252,10 +233,10 @@ final class ComputedDescriptor
     }
     sb.append( ", " );
 
-    if ( null != getOnDeactivate() )
+    if ( null != _onDeactivate )
     {
       sb.append( "this::$N" );
-      parameters.add( getOnDeactivate().getSimpleName().toString() );
+      parameters.add( _onDeactivate.getSimpleName().toString() );
     }
     else
     {
@@ -263,10 +244,10 @@ final class ComputedDescriptor
     }
     sb.append( ", " );
 
-    if ( null != getOnStale() )
+    if ( null != _onStale )
     {
       sb.append( "this::$N" );
-      parameters.add( getOnStale().getSimpleName().toString() );
+      parameters.add( _onStale.getSimpleName().toString() );
     }
     else
     {
@@ -274,10 +255,10 @@ final class ComputedDescriptor
     }
     sb.append( ", " );
 
-    if ( null != getOnDispose() )
+    if ( null != _onDispose )
     {
       sb.append( "this::$N" );
-      parameters.add( getOnDispose().getSimpleName().toString() );
+      parameters.add( _onDispose.getSimpleName().toString() );
     }
     else
     {
@@ -306,24 +287,25 @@ final class ComputedDescriptor
   private MethodSpec buildComputed()
     throws ArezProcessorException
   {
-    final ExecutableElement computed = getComputed();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( computed.getSimpleName().toString() );
-    ProcessorUtil.copyAccessModifiers( computed, builder );
-    ProcessorUtil.copyExceptions( computed, builder );
-    ProcessorUtil.copyTypeParameters( computed, builder );
-    ProcessorUtil.copyDocumentedAnnotations( computed, builder );
+    assert null != _computed;
+    assert null != _computedType;
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _computed.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( _computed, builder );
+    ProcessorUtil.copyExceptions( _computedType, builder );
+    ProcessorUtil.copyTypeParameters( _computedType, builder );
+    ProcessorUtil.copyDocumentedAnnotations( _computed, builder );
     builder.addAnnotation( Override.class );
-    final TypeMirror returnType = computed.getReturnType();
-    builder.returns( TypeName.get( returnType ) );
+    final TypeName returnType = TypeName.get( _computedType.getReturnType() );
+    builder.returns( returnType );
 
-    if ( computed.getTypeParameters().isEmpty() )
+    if ( _computed.getTypeParameters().isEmpty() )
     {
       builder.addStatement( "return this.$N.get()", GeneratorUtil.FIELD_PREFIX + getName() );
     }
     else
     {
       builder.addStatement( "return ($T) this.$N.get()",
-                            TypeName.get( computed.getReturnType() ).box(),
+                            returnType.box(),
                             GeneratorUtil.FIELD_PREFIX + getName() );
     }
 

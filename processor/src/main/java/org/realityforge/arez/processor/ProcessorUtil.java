@@ -23,8 +23,8 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVariable;
@@ -133,7 +133,7 @@ final class ProcessorUtil
     }
   }
 
-  static void copyExceptions( @Nonnull final ExecutableElement method, @Nonnull final MethodSpec.Builder builder )
+  static void copyExceptions( @Nonnull final ExecutableType method, @Nonnull final MethodSpec.Builder builder )
   {
     for ( final TypeMirror thrownType : method.getThrownTypes() )
     {
@@ -141,9 +141,9 @@ final class ProcessorUtil
     }
   }
 
-  static void copyTypeParameters( @Nonnull final ExecutableElement action, @Nonnull final MethodSpec.Builder builder )
+  static void copyTypeParameters( @Nonnull final ExecutableType action, @Nonnull final MethodSpec.Builder builder )
   {
-    for ( final TypeParameterElement typeParameter : action.getTypeParameters() )
+    for ( final TypeVariable typeParameter : action.getTypeVariables() )
     {
       builder.addTypeVariable( TypeVariableName.get( typeParameter ) );
     }

@@ -6,6 +6,7 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
+@SuppressWarnings("unchecked")
 public final class Arez_NotDisposableModel extends NotDisposableModel {
   private static volatile long $$arez$$_nextId;
 
