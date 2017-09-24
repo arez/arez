@@ -17,6 +17,13 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
+* Need to be able to annotate @Tracking and @Reaction methods (i.e. render() + onRenderDepsChanged())
+
+* Add ability to define a template method that gets name prefix used for defining Arez elements. i.e. 
+  Some way to define new name for $$arez$$_id()
+  
+* Action methods need to have type parameters copied
+
 * Enhance the code processor so that downstream products (i.e. ArezReact) can reuse the same code used
   for generating observable state, actions etc.
 
