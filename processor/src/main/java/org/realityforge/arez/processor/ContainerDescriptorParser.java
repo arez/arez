@@ -98,6 +98,11 @@ final class ContainerDescriptorParser
           throw new ArezProcessorException( "@OnDeactivate exists but there is no corresponding @Computed",
                                             computed.getOnDeactivate() );
         }
+        else if ( null != computed.getOnDispose() )
+        {
+          throw new ArezProcessorException( "@OnDispose exists but there is no corresponding @Computed",
+                                            computed.getOnDispose() );
+        }
         else
         {
           final ExecutableElement onStale = computed.getOnStale();
