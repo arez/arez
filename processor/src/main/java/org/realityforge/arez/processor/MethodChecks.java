@@ -12,8 +12,8 @@ final class MethodChecks
   {
   }
 
-  public static void mustNotBeStatic( @Nonnull final Class<? extends Annotation> type,
-                                      @Nonnull final ExecutableElement method )
+  static void mustNotBeStatic( @Nonnull final Class<? extends Annotation> type,
+                               @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.STATIC ) )
@@ -22,8 +22,8 @@ final class MethodChecks
     }
   }
 
-  public static void mustNotBeAbstract( @Nonnull final Class<? extends Annotation> type,
-                                        @Nonnull final ExecutableElement method )
+  static void mustNotBeAbstract( @Nonnull final Class<? extends Annotation> type,
+                                 @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.ABSTRACT ) )
@@ -32,8 +32,8 @@ final class MethodChecks
     }
   }
 
-  public static void mustNotBePrivate( @Nonnull final Class<? extends Annotation> type,
-                                       @Nonnull final ExecutableElement method )
+  static void mustNotBePrivate( @Nonnull final Class<? extends Annotation> type,
+                                @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.PRIVATE ) )
@@ -42,8 +42,7 @@ final class MethodChecks
     }
   }
 
-  public static void mustNotBeFinal( @Nonnull final Class<? extends Annotation> type,
-                                     @Nonnull final ExecutableElement method )
+  static void mustNotBeFinal( @Nonnull final Class<? extends Annotation> type, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.FINAL ) )
@@ -52,8 +51,7 @@ final class MethodChecks
     }
   }
 
-  public static void mustBeFinal( @Nonnull final Class<? extends Annotation> type,
-                                     @Nonnull final ExecutableElement method )
+  static void mustBeFinal( @Nonnull final Class<? extends Annotation> type, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( !method.getModifiers().contains( Modifier.FINAL ) )
@@ -62,8 +60,8 @@ final class MethodChecks
     }
   }
 
-  public static void mustNotHaveAnyParameters( @Nonnull final Class<? extends Annotation> type,
-                                               @Nonnull final ExecutableElement method )
+  static void mustNotHaveAnyParameters( @Nonnull final Class<? extends Annotation> type,
+                                        @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( !method.getParameters().isEmpty() )
@@ -72,8 +70,8 @@ final class MethodChecks
     }
   }
 
-  public static void mustNotReturnAnyValue( @Nonnull final Class<? extends Annotation> type,
-                                            @Nonnull final ExecutableElement method )
+  static void mustNotReturnAnyValue( @Nonnull final Class<? extends Annotation> type,
+                                     @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( TypeKind.VOID != method.getReturnType().getKind() )
@@ -82,8 +80,8 @@ final class MethodChecks
     }
   }
 
-  public static void mustReturnAValue( @Nonnull final Class<? extends Annotation> type,
-                                       @Nonnull final ExecutableElement method )
+  static void mustReturnAValue( @Nonnull final Class<? extends Annotation> type,
+                                @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( TypeKind.VOID == method.getReturnType().getKind() )
@@ -92,8 +90,8 @@ final class MethodChecks
     }
   }
 
-  public static void mustNotThrowAnyExceptions( @Nonnull final Class<? extends Annotation> type,
-                                                @Nonnull final ExecutableElement method )
+  static void mustNotThrowAnyExceptions( @Nonnull final Class<? extends Annotation> type,
+                                         @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( !method.getThrownTypes().isEmpty() )
