@@ -38,6 +38,9 @@ final class ContainerDescriptorParser
   private static final Pattern ON_DEACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Deactivate$" );
   private static final Pattern ON_STALE_PATTERN = Pattern.compile( "^on([A-Z].*)Stale$" );
   private static final Pattern ON_DISPOSE_PATTERN = Pattern.compile( "^on([A-Z].*)Dispose$" );
+  private static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
+  private static final Pattern ISSER_PATTERN = Pattern.compile( "^is([A-Z].*)$" );
+  private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
 
   private ContainerDescriptorParser()
   {
@@ -386,36 +389,19 @@ final class ContainerDescriptorParser
                                             @Nonnull final Computed annotation )
     throws ArezProcessorException
   {
-    final String name;
     if ( isSentinelName( annotation.name() ) )
     {
-      final String methodName = method.getSimpleName().toString();
-      if ( methodName.startsWith( "get" ) &&
-           methodName.length() > 4 &&
-           Character.isUpperCase( methodName.charAt( 3 ) ) )
-      {
-        name = Character.toLowerCase( methodName.charAt( 3 ) ) + methodName.substring( 4 );
-      }
-      else if ( methodName.startsWith( "is" ) &&
-                methodName.length() > 3 &&
-                Character.isUpperCase( methodName.charAt( 2 ) ) )
-      {
-        name = Character.toLowerCase( methodName.charAt( 2 ) ) + methodName.substring( 3 );
-      }
-      else
-      {
-        name = methodName;
-      }
+      return getPropertyAccessorName( method, annotation.name() );
     }
     else
     {
-      name = annotation.name();
+      final String name = annotation.name();
       if ( name.isEmpty() || !isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Computed specified invalid name " + name, method );
       }
+      return name;
     }
-    return name;
   }
 
   private static void processAction( @Nonnull final ContainerDescriptor descriptor,
@@ -567,13 +553,8 @@ final class ContainerDescriptorParser
         throw new ArezProcessorException( "Method annotated with @Observable should be a setter or getter", method );
       }
 
-      if ( methodName.startsWith( "set" ) &&
-           methodName.length() > 3 &&
-           Character.isUpperCase( methodName.charAt( 3 ) ) )
-      {
-        name = Character.toLowerCase( methodName.charAt( 3 ) ) + methodName.substring( 4 );
-      }
-      else
+      name = deriveName( method, SETTER_PATTERN, annotation.name() );
+      if ( null == name )
       {
         name = methodName;
       }
@@ -586,22 +567,7 @@ final class ContainerDescriptorParser
       {
         throw new ArezProcessorException( "Method annotated with @Observable should be a setter or getter", method );
       }
-      if ( methodName.startsWith( "get" ) &&
-           methodName.length() > 3 &&
-           Character.isUpperCase( methodName.charAt( 3 ) ) )
-      {
-        name = Character.toLowerCase( methodName.charAt( 3 ) ) + methodName.substring( 4 );
-      }
-      else if ( methodName.startsWith( "is" ) &&
-                methodName.length() > 3 &&
-                Character.isUpperCase( methodName.charAt( 2 ) ) )
-      {
-        name = Character.toLowerCase( methodName.charAt( 2 ) ) + methodName.substring( 3 );
-      }
-      else
-      {
-        name = methodName;
-      }
+      name = getPropertyAccessorName( method, annotation.name() );
     }
     // Override name if supplied by user
     if ( !isSentinelName( annotation.name() ) )
@@ -688,6 +654,27 @@ final class ContainerDescriptorParser
     return new ArezProcessorException( "Method annotated with @" + source.getSimpleName() + " specified name " +
                                        name + " that duplicates @" + target.getSimpleName() + " defined by " +
                                        "method " + targetElement.getSimpleName(), sourceMethod );
+  }
+
+  @Nonnull
+  private static String getPropertyAccessorName( @Nonnull final ExecutableElement method,
+                                                 @Nonnull final String specifiedName )
+    throws ArezProcessorException
+  {
+    String name = deriveName( method, GETTER_PATTERN, specifiedName );
+    if ( null != name )
+    {
+      return name;
+    }
+    if ( method.getReturnType().getKind() == TypeKind.BOOLEAN )
+    {
+      name = deriveName( method, ISSER_PATTERN, specifiedName );
+      if ( null != name )
+      {
+        return name;
+      }
+    }
+    return method.getSimpleName().toString();
   }
 
   @Nullable
