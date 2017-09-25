@@ -38,97 +38,95 @@ final class SpyUtil
 
   static
   {
-    emitter( ObserverCreatedEvent.class,
-             IndentType.NONE,
-             e -> "Observer Created " + e.getObserver().getName() );
-    emitter( ObserverCreatedEvent.class,
-             IndentType.NONE,
-             e -> "Observer Created " + e.getObserver().getName() );
-    emitter( ObserverDisposedEvent.class,
-             IndentType.NONE,
-             e -> "Observer Disposed " + e.getObserver().getName() );
-    emitter( ObserverErrorEvent.class,
-             IndentType.NONE,
-             e -> "Observer Error " + e.getObserver().getName() + " " + e.getError() + " " + e.getThrowable() );
-    emitter( ObservableCreatedEvent.class,
-             IndentType.NONE,
-             e -> "Observable Created " + e.getObservable().getName() );
-    emitter( ObservableDisposedEvent.class,
-             IndentType.NONE,
-             e -> "Observable Disposed " + e.getObservable().getName() );
-    emitter( ObservableChangedEvent.class,
-             IndentType.NONE,
-             e -> "Observable Changed " + e.getObservable().getName() );
-    emitter( ComputedValueActivatedEvent.class,
-             IndentType.NONE,
-             e -> "Computed Value Activate " + e.getComputedValue().getName() );
-    emitter( ComputedValueDeactivatedEvent.class,
-             IndentType.NONE,
-             e -> "Computed Value Deactivate " + e.getComputedValue().getName() );
-    emitter( ComputedValueCreatedEvent.class,
-             IndentType.NONE,
-             e -> "Computed Value Created " + e.getComputedValue().getName() );
-    emitter( ComputedValueDisposedEvent.class,
-             IndentType.NONE,
-             e -> "Computed Value Disposed " + e.getComputedValue().getName() );
-    emitter( ReactionStartedEvent.class,
-             IndentType.IN,
-             e -> "Reaction Started " + e.getObserver().getName() );
-    emitter( ReactionScheduledEvent.class,
-             IndentType.NONE,
-             e -> "Reaction Scheduled " + e.getObserver().getName() );
-    emitter( ReactionCompletedEvent.class,
-             IndentType.OUT,
-             e -> "Reaction Completed " + e.getObserver().getName() + " [" + e.getDuration() + "]" );
-    emitter( TransactionStartedEvent.class,
-             IndentType.IN,
-             e -> "Transaction Started " +
-                  e.getName() +
-                  " Mutation=" +
-                  e.isMutation() +
-                  " Tracker=" +
-                  ( e.getTracker() == null ? null : e.getTracker().getName() ) );
-    emitter( TransactionCompletedEvent.class,
-             IndentType.OUT,
-             e -> "Transaction Completed " +
-                  e.getName() +
-                  " Mutation=" +
-                  e.isMutation() +
-                  " Tracker=" +
-                  ( e.getTracker() == null ? null : e.getTracker().getName() ) + " [" + e.getDuration() + "]" );
-    emitter( ComputeStartedEvent.class,
-             IndentType.IN,
-             e -> "Compute Started " + e.getComputedValue().getName() );
-    emitter( ComputeCompletedEvent.class,
-             IndentType.OUT,
-             e -> "Compute Completed " + e.getComputedValue().getName() + " [" + e.getDuration() +
-                  "]" );
-
-    emitter( ActionStartedEvent.class,
-             IndentType.IN,
-             e -> "Action Started " +
-                  e.getName() +
-                  "(" +
-                  Arrays.toString( e.getParameters() ) +
-                  ")" );
-    emitter( ActionCompletedEvent.class,
-             IndentType.OUT,
-             e -> "Action Completed " +
-                  e.getName() +
-                  "(" +
-                  Arrays.toString( e.getParameters() ) +
-                  ")" + ( e.isExpectsResult() && null == e.getThrowable() ? " = " + e.getResult() : "" ) +
-                  ( null != e.getThrowable() ? "threw " + e.getThrowable() : "" ) +
-                  " Duration [" +
-                  e.getDuration() +
-                  "]" );
+    on( ObserverCreatedEvent.class,
+        IndentType.NONE,
+        e -> "Observer Created " + e.getObserver().getName() );
+    on( ObserverCreatedEvent.class,
+        IndentType.NONE,
+        e -> "Observer Created " + e.getObserver().getName() );
+    on( ObserverDisposedEvent.class,
+        IndentType.NONE,
+        e -> "Observer Disposed " + e.getObserver().getName() );
+    on( ObserverErrorEvent.class,
+        IndentType.NONE,
+        e -> "Observer Error " + e.getObserver().getName() + " " + e.getError() + " " + e.getThrowable() );
+    on( ObservableCreatedEvent.class,
+        IndentType.NONE,
+        e -> "Observable Created " + e.getObservable().getName() );
+    on( ObservableDisposedEvent.class,
+        IndentType.NONE,
+        e -> "Observable Disposed " + e.getObservable().getName() );
+    on( ObservableChangedEvent.class,
+        IndentType.NONE,
+        e -> "Observable Changed " + e.getObservable().getName() );
+    on( ComputedValueActivatedEvent.class,
+        IndentType.NONE,
+        e -> "Computed Value Activate " + e.getComputedValue().getName() );
+    on( ComputedValueDeactivatedEvent.class,
+        IndentType.NONE,
+        e -> "Computed Value Deactivate " + e.getComputedValue().getName() );
+    on( ComputedValueCreatedEvent.class,
+        IndentType.NONE,
+        e -> "Computed Value Created " + e.getComputedValue().getName() );
+    on( ComputedValueDisposedEvent.class,
+        IndentType.NONE,
+        e -> "Computed Value Disposed " + e.getComputedValue().getName() );
+    on( ReactionStartedEvent.class,
+        IndentType.IN,
+        e -> "Reaction Started " + e.getObserver().getName() );
+    on( ReactionScheduledEvent.class,
+        IndentType.NONE,
+        e -> "Reaction Scheduled " + e.getObserver().getName() );
+    on( ReactionCompletedEvent.class,
+        IndentType.OUT,
+        e -> "Reaction Completed " + e.getObserver().getName() + " [" + e.getDuration() + "]" );
+    on( TransactionStartedEvent.class,
+        IndentType.IN,
+        e -> "Transaction Started " +
+             e.getName() +
+             " Mutation=" +
+             e.isMutation() +
+             " Tracker=" +
+             ( e.getTracker() == null ? null : e.getTracker().getName() ) );
+    on( TransactionCompletedEvent.class,
+        IndentType.OUT,
+        e -> "Transaction Completed " +
+             e.getName() +
+             " Mutation=" +
+             e.isMutation() +
+             " Tracker=" +
+             ( e.getTracker() == null ? null : e.getTracker().getName() ) + " [" + e.getDuration() + "]" );
+    on( ComputeStartedEvent.class,
+        IndentType.IN,
+        e -> "Compute Started " + e.getComputedValue().getName() );
+    on( ComputeCompletedEvent.class,
+        IndentType.OUT,
+        e -> "Compute Completed " + e.getComputedValue().getName() + " [" + e.getDuration() + "]" );
+    on( ActionStartedEvent.class,
+        IndentType.IN,
+        e -> "Action Started " +
+             e.getName() +
+             "(" +
+             Arrays.toString( e.getParameters() ) +
+             ")" );
+    on( ActionCompletedEvent.class,
+        IndentType.OUT,
+        e -> "Action Completed " +
+             e.getName() +
+             "(" +
+             Arrays.toString( e.getParameters() ) +
+             ")" + ( e.isExpectsResult() && null == e.getThrowable() ? " = " + e.getResult() : "" ) +
+             ( null != e.getThrowable() ? "threw " + e.getThrowable() : "" ) +
+             " Duration [" +
+             e.getDuration() +
+             "]" );
   }
 
-  static <T> void emitter( @Nonnull final Class<T> type,
-                           @Nonnull final IndentType indentType,
-                           @Nonnull final Function<T, String> processor )
+  private static <T> void on( @Nonnull final Class<T> type,
+                              @Nonnull final IndentType indentType,
+                              @Nonnull final Function<T, String> processor )
   {
-    _emitterMap.put( type, new EventEmitter<>( type, indentType, processor ) );
+    _emitterMap.put( type, new EventEmitter<>( indentType, processor ) );
   }
 
   @SuppressWarnings( "unchecked" )
@@ -164,23 +162,13 @@ final class SpyUtil
 
   private static class EventEmitter<T>
   {
-    private final Class<T> _type;
     private final IndentType _indentType;
     private final Function<T, String> _processor;
 
-    EventEmitter( @Nonnull final Class<T> type,
-                  @Nonnull final IndentType indentType,
-                  @Nonnull final Function<T, String> processor )
+    EventEmitter( @Nonnull final IndentType indentType, @Nonnull final Function<T, String> processor )
     {
-      _type = Objects.requireNonNull( type );
       _indentType = Objects.requireNonNull( indentType );
       _processor = Objects.requireNonNull( processor );
-    }
-
-    @Nonnull
-    Class<T> getType()
-    {
-      return _type;
     }
 
     @Nonnull
