@@ -33,7 +33,6 @@ final class MethodChecks
     throws ArezProcessorException
   {
     mustNotBeStatic( type, method );
-    mustNotBeAbstract( type, method );
     mustNotBePrivate( type, method );
   }
 
@@ -60,16 +59,6 @@ final class MethodChecks
     if ( method.getModifiers().contains( Modifier.STATIC ) )
     {
       throw new ArezProcessorException( "@" + type.getSimpleName() + " target must not be static", method );
-    }
-  }
-
-  private static void mustNotBeAbstract( @Nonnull final Class<? extends Annotation> type,
-                                         @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
-  {
-    if ( method.getModifiers().contains( Modifier.ABSTRACT ) )
-    {
-      throw new ArezProcessorException( "@" + type.getSimpleName() + " target must not be abstract", method );
     }
   }
 
