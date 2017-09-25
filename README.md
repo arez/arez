@@ -19,6 +19,8 @@ that will be expanded over time as the library is fleshed out.
 TODO:
 * Need to be able to annotate @Tracking and @Reaction methods (i.e. render() + onRenderDepsChanged())
 
+* Add annotations that support generation of Repositories (with extensions via default methods + interfaces)
+
 * Add Async helper to extras. Can be canceled/disposed. Has an Observable state field that indicates
   current status. Triggers an "Action" on async completion. Useful for handling async http calls etc.
 
