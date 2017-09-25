@@ -19,9 +19,6 @@ that will be expanded over time as the library is fleshed out.
 TODO:
 * Need to be able to annotate @Tracking and @Reaction methods (i.e. render() + onRenderDepsChanged())
 
-* Add ability to define a template method that gets name prefix used for defining Arez elements. i.e. 
-  Some way to define new name for $$arez$$_id()
-  
 * Add Async helper to extras. Can be canceled/disposed. Has an Observable state field that indicates
   current status. Triggers an "Action" on async completion. Useful for handling async http calls etc.
 

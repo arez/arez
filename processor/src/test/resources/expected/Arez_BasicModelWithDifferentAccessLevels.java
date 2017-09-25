@@ -29,28 +29,28 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
-    this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "value" : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".time" : null );
+    this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".value" : null );
   }
 
   protected Arez_BasicModelWithDifferentAccessLevels(final String value) {
     super(value);
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
-    this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "value" : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".time" : null );
+    this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".value" : null );
   }
 
   public Arez_BasicModelWithDifferentAccessLevels(final String value, final long time) {
     super(value,time);
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
-    this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "value" : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".time" : null );
+    this.$$arez$$_value = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".value" : null );
   }
 
   private String $$arez$$_id() {
-    return "BasicModelWithDifferentAccessLevels." + $$arez$$_id + ".";
+    return "BasicModelWithDifferentAccessLevels." + $$arez$$_id;
   }
 
   @Override
@@ -104,13 +104,13 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
     try {
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + "doAction3", new Object[]{} ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + ".doAction3", new Object[]{} ) );
       }
-      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction3" : null, true, () -> super.doAction3() );
+      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".doAction3" : null, true, () -> super.doAction3() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction3", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doAction3", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
     } catch( final RuntimeException e ) {
       $$arez$$_throwable = e;
@@ -128,7 +128,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction3", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doAction3", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
         }
       }
     }
@@ -143,13 +143,13 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
     try {
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + "doAction2", new Object[]{} ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + ".doAction2", new Object[]{} ) );
       }
-      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction2" : null, true, () -> super.doAction2() );
+      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".doAction2" : null, true, () -> super.doAction2() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction2", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doAction2", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
     } catch( final RuntimeException e ) {
       $$arez$$_throwable = e;
@@ -167,7 +167,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction2", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doAction2", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
         }
       }
     }
@@ -182,13 +182,13 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
     try {
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + "doAction", new Object[]{} ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + ".doAction", new Object[]{} ) );
       }
-      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doAction" : null, true, () -> super.doAction() );
+      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".doAction" : null, true, () -> super.doAction() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doAction", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
     } catch( final RuntimeException e ) {
       $$arez$$_throwable = e;
@@ -206,7 +206,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doAction", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doAction", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
         }
       }
     }

@@ -26,7 +26,7 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
   }
 
   private String $$arez$$_id() {
-    return "ReadOnlyActionModel." + $$arez$$_id + ".";
+    return "ReadOnlyActionModel." + $$arez$$_id;
   }
 
   @Override
@@ -50,13 +50,13 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
     try {
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + "queryStuff", new Object[]{time} ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + ".queryStuff", new Object[]{time} ) );
       }
-      final int $$arez$$_result = this.$$arez$$_context.safeFunction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "queryStuff" : null, false, () -> super.queryStuff(time) );
+      final int $$arez$$_result = this.$$arez$$_context.safeFunction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".queryStuff" : null, false, () -> super.queryStuff(time) );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "queryStuff", new Object[]{time}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".queryStuff", new Object[]{time}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
       }
       return $$arez$$_result;
     } catch( final RuntimeException e ) {
@@ -76,7 +76,7 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
         final Integer $$arez$$_result = null;
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "queryStuff", new Object[]{time}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".queryStuff", new Object[]{time}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
         }
       }
     }

@@ -18,11 +18,11 @@ public final class Arez_ContainerIdOnModel extends ContainerIdOnModel implements
   public Arez_ContainerIdOnModel() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".time" : null );
   }
 
   private String $$arez$$_id() {
-    return "ContainerIdOnModel." + getId() + ".";
+    return "ContainerIdOnModel." + getId();
   }
 
   @Override

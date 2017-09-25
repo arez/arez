@@ -27,11 +27,11 @@ public final class Arez_ComputedWithHooksModel extends ComputedWithHooksModel im
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null, super::getTime, Objects::equals, this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, this::onTimeDispose );
+    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".time" : null, super::getTime, Objects::equals, this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, this::onTimeDispose );
   }
 
   private String $$arez$$_id() {
-    return "ComputedWithHooksModel." + $$arez$$_id + ".";
+    return "ComputedWithHooksModel." + $$arez$$_id;
   }
 
   @Override

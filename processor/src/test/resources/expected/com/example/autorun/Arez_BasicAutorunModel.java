@@ -25,12 +25,12 @@ public final class Arez_BasicAutorunModel extends BasicAutorunModel implements D
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_doStuff = this.$$arez$$_context.autorun( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null, true, () -> super.doStuff(), false );
-    $$arez$$_context.triggerScheduler();
+    this.$$arez$$_doStuff = this.$$arez$$_context.autorun( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".doStuff" : null, true, () -> super.doStuff(), false );
+    this.$$arez$$_context.triggerScheduler();
   }
 
   private String $$arez$$_id() {
-    return "BasicAutorunModel." + $$arez$$_id + ".";
+    return "BasicAutorunModel." + $$arez$$_id;
   }
 
   @Override
@@ -48,6 +48,6 @@ public final class Arez_BasicAutorunModel extends BasicAutorunModel implements D
 
   @Override
   public void doStuff() {
-    this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null, true, () -> super.doStuff() );
+    this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".doStuff" : null, true, () -> super.doStuff() );
   }
 }

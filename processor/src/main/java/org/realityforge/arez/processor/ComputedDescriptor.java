@@ -215,8 +215,8 @@ final class ComputedDescriptor
     else
     {
       sb.append( "$N() + $S" );
-      parameters.add( GeneratorUtil.ID_FIELD_NAME );
-      parameters.add( getName() );
+      parameters.add( _containerDescriptor.getContainerNameMethodName() );
+      parameters.add( "." + getName() );
     }
     sb.append( " : null, super::$N, $T::equals, " );
     parameters.add( _computed.getSimpleName().toString() );

@@ -35,14 +35,14 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_myField = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myField" : null );
-    this.$$arez$$_myComputed = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myComputed" : null, super::compute, Objects::equals, null, null, null, null );
-    this.$$arez$$_zzzzzz = this.$$arez$$_context.autorun( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "zzzzzz" : null, true, () -> super.zapZap(), false );
-    $$arez$$_context.triggerScheduler();
+    this.$$arez$$_myField = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".myField" : null );
+    this.$$arez$$_myComputed = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".myComputed" : null, super::compute, Objects::equals, null, null, null, null );
+    this.$$arez$$_zzzzzz = this.$$arez$$_context.autorun( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".zzzzzz" : null, true, () -> super.zapZap(), false );
+    this.$$arez$$_context.triggerScheduler();
   }
 
   private String $$arez$$_id() {
-    return "MyContainer." + $$arez$$_id + ".";
+    return "MyContainer." + $$arez$$_id;
   }
 
   @Override
@@ -76,7 +76,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
 
   @Override
   public void zapZap() {
-    this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "zzzzzz" : null, true, () -> super.zapZap() );
+    this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".zzzzzz" : null, true, () -> super.zapZap() );
   }
 
   @Override
@@ -88,13 +88,13 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     try {
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + "myAction", new Object[]{} ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + ".myAction", new Object[]{} ) );
       }
-      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "myAction" : null, true, () -> super.doAction() );
+      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".myAction" : null, true, () -> super.doAction() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "myAction", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".myAction", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
     } catch( final RuntimeException e ) {
       $$arez$$_throwable = e;
@@ -112,7 +112,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "myAction", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".myAction", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
         }
       }
     }

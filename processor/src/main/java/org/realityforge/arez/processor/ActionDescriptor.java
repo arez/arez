@@ -130,8 +130,8 @@ final class ActionDescriptor
     {
       statement.append( "this.$N.areNamesEnabled() ? $N() + $S : null" );
       parameterNames.add( GeneratorUtil.CONTEXT_FIELD_NAME );
-      parameterNames.add( GeneratorUtil.ID_FIELD_NAME );
-      parameterNames.add( getName() );
+      parameterNames.add( _containerDescriptor.getContainerNameMethodName() );
+      parameterNames.add( "." + getName() );
     }
 
     statement.append( ", " );
@@ -245,8 +245,8 @@ final class ActionDescriptor
     if ( !_containerDescriptor.isSingleton() )
     {
       sb.append( "$N() + $S" );
-      reportParameters.add( GeneratorUtil.ID_FIELD_NAME );
-      reportParameters.add( getName() );
+      reportParameters.add( _containerDescriptor.getContainerNameMethodName() );
+      reportParameters.add( "." + getName() );
     }
     else
     {
@@ -290,8 +290,8 @@ final class ActionDescriptor
     if ( !_containerDescriptor.isSingleton() )
     {
       sb.append( "$N() + $S" );
-      reportParameters.add( GeneratorUtil.ID_FIELD_NAME );
-      reportParameters.add( getName() );
+      reportParameters.add( _containerDescriptor.getContainerNameMethodName() );
+      reportParameters.add( "." + getName() );
     }
     else
     {

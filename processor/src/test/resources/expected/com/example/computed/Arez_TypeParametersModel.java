@@ -27,11 +27,11 @@ public final class Arez_TypeParametersModel extends TypeParametersModel implemen
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null, super::getTime, Objects::equals, null, null, null, null );
+    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".time" : null, super::getTime, Objects::equals, null, null, null, null );
   }
 
   private String $$arez$$_id() {
-    return "TypeParametersModel." + $$arez$$_id + ".";
+    return "TypeParametersModel." + $$arez$$_id;
   }
 
   @Override

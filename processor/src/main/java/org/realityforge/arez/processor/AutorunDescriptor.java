@@ -86,8 +86,8 @@ final class AutorunDescriptor
     else
     {
       sb.append( "$N() + $S" );
-      parameters.add( GeneratorUtil.ID_FIELD_NAME );
-      parameters.add( getName() );
+      parameters.add( _containerDescriptor.getContainerNameMethodName() );
+      parameters.add( "." + getName() );
     }
     sb.append( " : null, " );
     sb.append( _mutation );
@@ -141,8 +141,8 @@ final class AutorunDescriptor
     else
     {
       statement.append( "$N() + $S" );
-      parameterNames.add( GeneratorUtil.ID_FIELD_NAME );
-      parameterNames.add( getName() );
+      parameterNames.add( _containerDescriptor.getContainerNameMethodName() );
+      parameterNames.add( "." + getName() );
     }
     statement.append( " : null, " );
     statement.append( _mutation );

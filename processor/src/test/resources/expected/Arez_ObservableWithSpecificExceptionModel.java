@@ -24,11 +24,11 @@ public final class Arez_ObservableWithSpecificExceptionModel extends ObservableW
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".time" : null );
   }
 
   private String $$arez$$_id() {
-    return "ObservableWithSpecificExceptionModel." + $$arez$$_id + ".";
+    return "ObservableWithSpecificExceptionModel." + $$arez$$_id;
   }
 
   @Override

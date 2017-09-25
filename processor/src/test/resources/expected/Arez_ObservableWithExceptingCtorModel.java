@@ -23,11 +23,11 @@ public final class Arez_ObservableWithExceptingCtorModel extends ObservableWithE
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".time" : null );
   }
 
   private String $$arez$$_id() {
-    return "ObservableWithExceptingCtorModel." + $$arez$$_id + ".";
+    return "ObservableWithExceptingCtorModel." + $$arez$$_id;
   }
 
   @Override

@@ -35,6 +35,9 @@ public class ArezProcessorTest
         new Object[]{ "com.example.computed.ComputedWithHooksModel" },
         new Object[]{ "com.example.computed.BasicComputedModel" },
         new Object[]{ "com.example.computed.TypeParametersModel" },
+        new Object[]{ "com.example.container_name.ComponentNameModel" },
+        new Object[]{ "com.example.container_name.ContainerNameModel" },
+        new Object[]{ "com.example.container_name.ContainerNamePrefixOnSingletonModel" },
         new Object[]{ "com.example.post_construct.PostConstructModel" },
         new Object[]{ "DisposingModel" },
         new Object[]{ "ObservableTypeParametersModel" },
@@ -101,7 +104,8 @@ public class ArezProcessorTest
       that( Arrays.asList( source1, source2, source3 ) ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
-      and().generatesSources( JavaFileObjects.forResource( "expected/com/example/type_params/Arez_ConcreteModel.java" ) );
+      and().
+      generatesSources( JavaFileObjects.forResource( "expected/com/example/type_params/Arez_ConcreteModel.java" ) );
   }
 
   @Test
@@ -187,7 +191,8 @@ public class ArezProcessorTest
         new Object[]{ "AutorunParametersModel", "@Autorun target must not have any parameters" },
         new Object[]{ "AutorunReturnsValueModel", "@Autorun target must not return a value" },
         new Object[]{ "AutorunThrowsExceptionModel", "@Autorun target must not throw any exceptions" },
-        new Object[]{ "AutorunDuplicateModel", "@Autorun specified name doStuff that duplicates @Autorun defined by method foo" },
+        new Object[]{ "AutorunDuplicateModel",
+                      "@Autorun specified name doStuff that duplicates @Autorun defined by method foo" },
         new Object[]{ "AutorunBadNameModel", "Method annotated with @Autorun specified invalid name -ace" },
         new Object[]{ "StaticActionModel", "@Action target must not be static" },
         new Object[]{ "PrivateActionModel", "@Action target must not be private" },
@@ -226,7 +231,8 @@ public class ArezProcessorTest
         new Object[]{ "ContainerIdNotFinalModel", "@ContainerId target must be final" },
         new Object[]{ "ContainerIdNotStaticModel", "@ContainerId target must not be static" },
         new Object[]{ "ContainerIdNotPrivateModel", "@ContainerId target must not be private" },
-        new Object[]{ "PostConstructDuplicateModel", "@PostConstruct target duplicates existing method named postConstruct1" },
+        new Object[]{ "PostConstructDuplicateModel",
+                      "@PostConstruct target duplicates existing method named postConstruct1" },
         new Object[]{ "PostConstructMustNotHaveParametersModel", "@PostConstruct target must not have any parameters" },
         new Object[]{ "PostConstructMustNotReturnValueModel", "@PostConstruct target must not return a value" },
         new Object[]{ "PostConstructNotStaticModel", "@PostConstruct target must not be static" },
@@ -289,7 +295,29 @@ public class ArezProcessorTest
         new Object[]{ "EnumModel", "@Container target must be a class" },
         new Object[]{ "InterfaceModel", "@Container target must be a class" },
         new Object[]{ "AbstractModel", "@Container target must not be abstract" },
-        new Object[]{ "FinalModel", "@Container target must not be final" }
+        new Object[]{ "FinalModel", "@Container target must not be final" },
+        new Object[]{ "ContainerNamePrefixDuplicateModel",
+                      "@ContainerNamePrefix target duplicates existing method named getTypeName" },
+        new Object[]{ "ContainerNamePrefixFinalModel", "@ContainerNamePrefix target must not be final" },
+        new Object[]{ "ContainerNamePrefixMustNotHaveParametersModel",
+                      "@ContainerNamePrefix target must not have any parameters" },
+        new Object[]{ "ContainerNamePrefixMustReturnValueModel", "@ContainerNamePrefix target must return a value" },
+        new Object[]{ "ContainerNamePrefixPrivateModel", "@ContainerNamePrefix target must not be private" },
+        new Object[]{ "ContainerNamePrefixReturnNonStringModel", "@ContainerNamePrefix target must return a String" },
+        new Object[]{ "ContainerNamePrefixStaticModel", "@ContainerNamePrefix target must not be static" },
+        new Object[]{ "ContainerNamePrefixThrowsExceptionModel",
+                      "@ContainerNamePrefix target must not throw any exceptions" },
+        new Object[]{ "ContainerNameOnSingletonModel", "@ContainerName must not exist if @Container is a singleton" },
+        new Object[]{ "ContainerNameDuplicateModel",
+                      "@ContainerName target duplicates existing method named getTypeName" },
+        new Object[]{ "ContainerNameFinalModel", "@ContainerName target must not be final" },
+        new Object[]{ "ContainerNameMustNotHaveParametersModel",
+                      "@ContainerName target must not have any parameters" },
+        new Object[]{ "ContainerNameMustReturnValueModel", "@ContainerName target must return a value" },
+        new Object[]{ "ContainerNamePrivateModel", "@ContainerName target must not be private" },
+        new Object[]{ "ContainerNameStaticModel", "@ContainerName target must not be static" },
+        new Object[]{ "ContainerNameThrowsExceptionModel",
+                      "@ContainerName target must not throw any exceptions" }
       };
   }
 

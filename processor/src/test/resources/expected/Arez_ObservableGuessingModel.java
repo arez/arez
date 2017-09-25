@@ -30,13 +30,13 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_string = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "string" : null );
-    this.$$arez$$_foo = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "foo" : null );
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "time" : null );
+    this.$$arez$$_string = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".string" : null );
+    this.$$arez$$_foo = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".foo" : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".time" : null );
   }
 
   private String $$arez$$_id() {
-    return "ObservableGuessingModel." + $$arez$$_id + ".";
+    return "ObservableGuessingModel." + $$arez$$_id;
   }
 
   @Override

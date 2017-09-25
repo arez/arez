@@ -122,8 +122,8 @@ final class ObservableDescriptor
                             GeneratorUtil.FIELD_PREFIX + getName(),
                             GeneratorUtil.CONTEXT_FIELD_NAME,
                             GeneratorUtil.CONTEXT_FIELD_NAME,
-                            GeneratorUtil.ID_FIELD_NAME,
-                            getName() );
+                            _containerDescriptor.getContainerNameMethodName(),
+                            "." + getName() );
     }
   }
 

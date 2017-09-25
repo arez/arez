@@ -35,6 +35,8 @@ import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.Autorun;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.ContainerId;
+import org.realityforge.arez.annotations.ContainerName;
+import org.realityforge.arez.annotations.ContainerNamePrefix;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.OnActivate;
 import org.realityforge.arez.annotations.OnDeactivate;
@@ -65,7 +67,9 @@ final class ContainerDescriptor
   @Nullable
   private ExecutableElement _containerId;
   @Nullable
-  private ExecutableType _containerIdType;
+  private ExecutableElement _containerNamePrefix;
+  @Nullable
+  private ExecutableElement _containerName;
   @Nullable
   private ExecutableElement _preDispose;
   @Nullable
@@ -371,8 +375,7 @@ final class ContainerDescriptor
     }
   }
 
-  private void setContainerId( @Nonnull final ExecutableElement containerId,
-                               @Nonnull final ExecutableType containerIdType )
+  private void setContainerId( @Nonnull final ExecutableElement containerId )
     throws ArezProcessorException
   {
     if ( isSingleton() )
@@ -394,7 +397,56 @@ final class ContainerDescriptor
     else
     {
       _containerId = Objects.requireNonNull( containerId );
-      _containerIdType = Objects.requireNonNull( containerIdType );
+    }
+  }
+
+  private void setContainerNamePrefix( @Nonnull final ExecutableElement containerNamePrefix )
+    throws ArezProcessorException
+  {
+    MethodChecks.mustBeOverridable( ContainerNamePrefix.class, containerNamePrefix );
+    MethodChecks.mustNotHaveAnyParameters( ContainerNamePrefix.class, containerNamePrefix );
+    MethodChecks.mustReturnAValue( ContainerNamePrefix.class, containerNamePrefix );
+    MethodChecks.mustNotThrowAnyExceptions( ContainerNamePrefix.class, containerNamePrefix );
+
+    final TypeMirror returnType = containerNamePrefix.getReturnType();
+    if ( !( TypeKind.DECLARED == returnType.getKind() &&
+            returnType.toString().equals( String.class.getName() ) ) )
+    {
+      throw new ArezProcessorException( "@ContainerNamePrefix target must return a String", containerNamePrefix );
+    }
+
+    if ( null != _containerNamePrefix )
+    {
+      throw new ArezProcessorException( "@ContainerNamePrefix target duplicates existing method named " +
+                                        _containerNamePrefix.getSimpleName(), containerNamePrefix );
+    }
+    else
+    {
+      _containerNamePrefix = Objects.requireNonNull( containerNamePrefix );
+    }
+  }
+
+  private void setContainerName( @Nonnull final ExecutableElement containerName )
+    throws ArezProcessorException
+  {
+    if ( isSingleton() )
+    {
+      throw new ArezProcessorException( "@ContainerName must not exist if @Container is a singleton", containerName );
+    }
+
+    MethodChecks.mustBeOverridable( ContainerName.class, containerName );
+    MethodChecks.mustNotHaveAnyParameters( ContainerName.class, containerName );
+    MethodChecks.mustReturnAValue( ContainerName.class, containerName );
+    MethodChecks.mustNotThrowAnyExceptions( ContainerName.class, containerName );
+
+    if ( null != _containerName )
+    {
+      throw new ArezProcessorException( "@ContainerName target duplicates existing method named " +
+                                        _containerName.getSimpleName(), containerName );
+    }
+    else
+    {
+      _containerName = Objects.requireNonNull( containerName );
     }
   }
 
@@ -634,6 +686,8 @@ final class ContainerDescriptor
     final Observable observable = method.getAnnotation( Observable.class );
     final Computed computed = method.getAnnotation( Computed.class );
     final ContainerId containerId = method.getAnnotation( ContainerId.class );
+    final ContainerNamePrefix containerNamePrefix = method.getAnnotation( ContainerNamePrefix.class );
+    final ContainerName containerName = method.getAnnotation( ContainerName.class );
     final PostConstruct postConstruct = method.getAnnotation( PostConstruct.class );
     final PreDispose preDispose = method.getAnnotation( PreDispose.class );
     final PostDispose postDispose = method.getAnnotation( PostDispose.class );
@@ -664,7 +718,17 @@ final class ContainerDescriptor
     }
     else if ( null != containerId )
     {
-      setContainerId( method, methodType );
+      setContainerId( method );
+      return true;
+    }
+    else if ( null != containerName )
+    {
+      setContainerName( method );
+      return true;
+    }
+    else if ( null != containerNamePrefix )
+    {
+      setContainerNamePrefix( method );
       return true;
     }
     else if ( null != postConstruct )
@@ -718,6 +782,8 @@ final class ContainerDescriptor
                    Observable.class,
                    Computed.class,
                    ContainerId.class,
+                   ContainerName.class,
+                   ContainerNamePrefix.class,
                    PostConstruct.class,
                    PreDispose.class,
                    PostDispose.class,
@@ -810,7 +876,12 @@ final class ContainerDescriptor
 
     if ( !isSingleton() )
     {
-      builder.addMethod( buildIdGetter() );
+      builder.addMethod( buildContainerNameMethod() );
+    }
+    final MethodSpec method = buildContainerNamePrefixMethod();
+    if ( null != method )
+    {
+      builder.addMethod( method );
     }
 
     if ( isDisposable() )
@@ -827,29 +898,65 @@ final class ContainerDescriptor
     return builder.build();
   }
 
+  @Nonnull
+  String getContainerNameMethodName()
+  {
+    return null == _containerName ? GeneratorUtil.ID_FIELD_NAME : _containerName.getSimpleName().toString();
+  }
+
   /**
-   * Generate the getter for id.
+   * Generate the getter for container name.
    */
   @Nonnull
-  private MethodSpec buildIdGetter()
+  private MethodSpec buildContainerNameMethod()
     throws ArezProcessorException
   {
     assert !isSingleton();
 
-    final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( GeneratorUtil.ID_FIELD_NAME ).
-        addModifiers( Modifier.PRIVATE );
+    final MethodSpec.Builder builder;
+    if ( null == _containerName )
+    {
+      builder = MethodSpec.methodBuilder( GeneratorUtil.ID_FIELD_NAME ).addModifiers( Modifier.PRIVATE );
+    }
+    else
+    {
+      builder = MethodSpec.methodBuilder( _containerName.getSimpleName().toString() );
+      ProcessorUtil.copyAccessModifiers( _containerName, builder );
+      builder.addModifiers( Modifier.FINAL );
+    }
 
     builder.returns( TypeName.get( String.class ) );
     if ( null == _containerId )
     {
-      builder.addStatement( "return $S + $N + $S", getNamePrefix(), GeneratorUtil.ID_FIELD_NAME, "." );
+      builder.addStatement( "return $S + $N", getNamePrefix(), GeneratorUtil.ID_FIELD_NAME );
     }
     else
     {
-      assert null != _containerIdType;
-      builder.addStatement( "return $S + $N() + $S", getNamePrefix(), _containerId.getSimpleName(), "." );
+      builder.addStatement( "return $S + $N()", getNamePrefix(), _containerId.getSimpleName() );
     }
+    return builder.build();
+  }
+
+  /**
+   * Generate the container prefix string.
+   */
+  @Nullable
+  private MethodSpec buildContainerNamePrefixMethod()
+    throws ArezProcessorException
+  {
+    if ( null == _containerNamePrefix )
+    {
+      return null;
+    }
+
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( _containerNamePrefix.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( _containerNamePrefix, builder );
+    builder.addModifiers( Modifier.FINAL );
+    builder.addAnnotation( Nonnull.class );
+
+    builder.returns( TypeName.get( String.class ) );
+    builder.addStatement( "return $S", getName() );
     return builder.build();
   }
 
@@ -1023,7 +1130,7 @@ final class ContainerDescriptor
 
     if ( !_roAutoruns.isEmpty() )
     {
-      builder.addStatement( "$N.triggerScheduler()", GeneratorUtil.CONTEXT_FIELD_NAME );
+      builder.addStatement( "this.$N.triggerScheduler()", GeneratorUtil.CONTEXT_FIELD_NAME );
     }
 
     final ExecutableElement postConstruct = getPostConstruct();

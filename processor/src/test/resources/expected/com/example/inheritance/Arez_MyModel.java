@@ -26,7 +26,7 @@ final class Arez_MyModel extends MyModel implements Disposable {
   }
 
   private String $$arez$$_id() {
-    return "MyModel." + $$arez$$_id + ".";
+    return "MyModel." + $$arez$$_id;
   }
 
   @Override
@@ -50,13 +50,13 @@ final class Arez_MyModel extends MyModel implements Disposable {
     try {
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + "doOtherStuff", new Object[]{} ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + ".doOtherStuff", new Object[]{} ) );
       }
-      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doOtherStuff" : null, true, () -> super.doOtherStuff() );
+      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".doOtherStuff" : null, true, () -> super.doOtherStuff() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doOtherStuff", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doOtherStuff", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
     } catch( final RuntimeException e ) {
       $$arez$$_throwable = e;
@@ -74,7 +74,7 @@ final class Arez_MyModel extends MyModel implements Disposable {
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doOtherStuff", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doOtherStuff", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
         }
       }
     }
@@ -89,13 +89,13 @@ final class Arez_MyModel extends MyModel implements Disposable {
     try {
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + "doStuff", new Object[]{} ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + ".doStuff", new Object[]{} ) );
       }
-      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + "doStuff" : null, true, () -> super.doStuff() );
+      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".doStuff" : null, true, () -> super.doStuff() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doStuff", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doStuff", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
     } catch( final RuntimeException e ) {
       $$arez$$_throwable = e;
@@ -113,7 +113,7 @@ final class Arez_MyModel extends MyModel implements Disposable {
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + "doStuff", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doStuff", new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
         }
       }
     }
