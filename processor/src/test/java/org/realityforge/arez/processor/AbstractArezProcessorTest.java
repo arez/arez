@@ -4,14 +4,19 @@ import com.google.common.collect.ImmutableList;
 import com.google.testing.compile.Compiler;
 import com.google.testing.compile.JavaFileObjects;
 import com.google.testing.compile.JavaSourceSubjectFactory;
+import com.google.testing.compile.JavaSourcesSubjectFactory;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.tools.JavaFileObject;
 import static com.google.common.truth.Truth.assert_;
 import static org.testng.Assert.*;
 
+@SuppressWarnings( "Duplicates" )
 abstract class AbstractArezProcessorTest
 {
   void assertSuccessfulCompile( @Nonnull final String classname )
@@ -42,10 +47,17 @@ abstract class AbstractArezProcessorTest
     throws Exception
   {
     final JavaFileObject source = JavaFileObjects.forResource( inputResource );
+    assertSuccessfulCompile( Collections.singletonList( source ), Collections.singletonList( expectedOutputResource ) );
+  }
+
+  void assertSuccessfulCompile( @Nonnull final List<JavaFileObject> inputs,
+                                @Nonnull final List<String> outputs )
+    throws Exception
+  {
     if ( outputFiles() )
     {
       final ImmutableList<JavaFileObject> fileObjects =
-        Compiler.javac().withProcessors( new ArezProcessor() ).compile( source ).generatedSourceFiles();
+        Compiler.javac().withProcessors( new ArezProcessor() ).compile( inputs ).generatedSourceFiles();
       for ( final JavaFileObject fileObject : fileObjects )
       {
         final Path target = fixtureDir().resolve( "expected/" + fileObject.getName().replace( "/SOURCE_OUTPUT/", "" ) );
@@ -62,11 +74,17 @@ abstract class AbstractArezProcessorTest
         Files.copy( fileObject.openInputStream(), target );
       }
     }
-    assert_().about( JavaSourceSubjectFactory.javaSource() ).
-      that( source ).
+    final JavaFileObject firstExpected = JavaFileObjects.forResource( outputs.get( 0 ) );
+    final JavaFileObject[] restExpected =
+      outputs.stream().skip( 1 ).map( JavaFileObjects::forResource ).
+        collect( Collectors.toList() ).
+        toArray( new JavaFileObject[ 0 ] );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( inputs ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
-      and().generatesSources( JavaFileObjects.forResource( expectedOutputResource ) );
+      and().
+      generatesSources( firstExpected, restExpected );
   }
 
   void assertFailedCompile( @Nonnull final String classname, @Nonnull final String errorMessageFragment )

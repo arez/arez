@@ -1,13 +1,12 @@
 package org.realityforge.arez.processor;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.google.testing.compile.JavaSourcesSubjectFactory;
 import java.util.Arrays;
+import java.util.Collections;
 import javax.annotation.Nonnull;
 import javax.tools.JavaFileObject;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static com.google.common.truth.Truth.assert_;
 
 public class ArezProcessorTest
   extends AbstractArezProcessorTest
@@ -84,43 +83,38 @@ public class ArezProcessorTest
 
   @Test
   public void processSuccessfulWhereAnnotationsSourcedFromInterface()
+    throws Exception
   {
     final JavaFileObject source1 = JavaFileObjects.forResource( "input/DefaultMethodsModel.java" );
     final JavaFileObject source2 = JavaFileObjects.forResource( "input/MyAnnotatedInterface.java" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Arrays.asList( source1, source2 ) ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      and().generatesSources( JavaFileObjects.forResource( "expected/Arez_DefaultMethodsModel.java" ) );
+    final String output1 = "expected/Arez_DefaultMethodsModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ),
+                             Collections.singletonList( output1 ) );
   }
 
   @Test
   public void processSuccessfulWhereTypeResolvedInInheritanceHierarchy()
+    throws Exception
   {
     final JavaFileObject source1 = JavaFileObjects.forResource( "input/com/example/type_params/AbstractModel.java" );
     final JavaFileObject source2 = JavaFileObjects.forResource( "input/com/example/type_params/MiddleModel.java" );
     final JavaFileObject source3 = JavaFileObjects.forResource( "input/com/example/type_params/ConcreteModel.java" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Arrays.asList( source1, source2, source3 ) ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      and().
-      generatesSources( JavaFileObjects.forResource( "expected/com/example/type_params/Arez_ConcreteModel.java" ) );
+    final String output1 = "expected/com/example/type_params/Arez_ConcreteModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output1 ) );
   }
 
   @Test
   public void processSuccessfulWhereTraceInheritanceChain()
+    throws Exception
   {
     final JavaFileObject source1 = JavaFileObjects.forResource( "input/com/example/inheritance/BaseModel.java" );
     final JavaFileObject source2 = JavaFileObjects.forResource( "input/com/example/inheritance/ParentModel.java" );
     final JavaFileObject source3 = JavaFileObjects.forResource( "input/com/example/inheritance/MyModel.java" );
     final JavaFileObject source4 = JavaFileObjects.forResource( "input/com/example/inheritance/MyInterface1.java" );
     final JavaFileObject source5 = JavaFileObjects.forResource( "input/com/example/inheritance/MyInterface2.java" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Arrays.asList( source1, source2, source3, source4, source5 ) ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      and().generatesSources( JavaFileObjects.forResource( "expected/com/example/inheritance/Arez_MyModel.java" ) );
+    final String output1 = "expected/com/example/inheritance/Arez_MyModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2, source3, source4, source5 ),
+                             Collections.singletonList( output1 ) );
   }
 
   @DataProvider( name = "failedCompiles" )
