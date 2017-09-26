@@ -27,6 +27,7 @@ TODO:
   - autorun stays the same!
   - react() => tracker()
   - @Container* => @ArezComponent
+  - Consider making active methods into verbs @Tracked => @Track
 
 * Add Async helper to extras. Can be canceled/disposed. Has an Observable state field that indicates
   current status. Triggers an "Action" on async completion. Useful for handling async http calls etc.
@@ -35,6 +36,11 @@ TODO:
   instances.
 
 * Add container (a.k.a. scope) to actions, ComputedValue and Observables???
+
+* Start releasing binary snapshot
+
+* Rename project to Rez or similar. The desire is to get a unique url and not conflict with other companies etc.
+  Although finding both a unique as well as descriptive name may be impossible.
 
 * Enhance WhyRun and write tests for it. In browser environment use console group functions and
   colorization to make it more attractive as a debugging experience.
