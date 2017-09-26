@@ -10,12 +10,17 @@ public final class ActionStartedEvent
 {
   @Nonnull
   private final String _name;
+  /**
+   * Is the action a "tracking" action.
+   */
+  private final boolean _tracked;
   @Nonnull
   private final Object[] _parameters;
 
-  public ActionStartedEvent( @Nonnull final String name, @Nonnull final Object[] parameters )
+  public ActionStartedEvent( @Nonnull final String name, final boolean tracked, @Nonnull final Object[] parameters )
   {
     _name = Objects.requireNonNull( name );
+    _tracked = tracked;
     _parameters = Objects.requireNonNull( parameters );
   }
 
@@ -23,6 +28,11 @@ public final class ActionStartedEvent
   public String getName()
   {
     return _name;
+  }
+
+  public boolean isTracked()
+  {
+    return _tracked;
   }
 
   @Nonnull

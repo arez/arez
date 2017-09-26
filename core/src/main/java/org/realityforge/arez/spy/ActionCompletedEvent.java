@@ -12,6 +12,10 @@ public final class ActionCompletedEvent
 {
   @Nonnull
   private final String _name;
+  /**
+   * Is the action a "tracking" action.
+   */
+  private final boolean _tracked;
   @Nonnull
   private final Object[] _parameters;
   private final boolean _expectsResult;
@@ -23,6 +27,7 @@ public final class ActionCompletedEvent
   private final long _duration;
 
   public ActionCompletedEvent( @Nonnull final String name,
+                               final boolean tracked,
                                @Nonnull final Object[] parameters,
                                final boolean expectsResult,
                                @Nullable final Object result,
@@ -32,6 +37,7 @@ public final class ActionCompletedEvent
     assert duration >= 0;
     assert null == throwable || null == result;
     _name = Objects.requireNonNull( name );
+    _tracked = tracked;
     _parameters = Objects.requireNonNull( parameters );
     _expectsResult = expectsResult;
     _result = result;
@@ -43,6 +49,11 @@ public final class ActionCompletedEvent
   public String getName()
   {
     return _name;
+  }
+
+  public boolean isTracked()
+  {
+    return _tracked;
   }
 
   @Nonnull

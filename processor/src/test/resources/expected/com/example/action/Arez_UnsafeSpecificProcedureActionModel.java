@@ -51,13 +51,13 @@ public final class Arez_UnsafeSpecificProcedureActionModel extends UnsafeSpecifi
     try {
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + ".doStuff", new Object[]{time} ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + ".doStuff", false, new Object[]{time} ) );
       }
       this.$$arez$$_context.procedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".doStuff" : null, true, () -> super.doStuff(time) );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doStuff", new Object[]{time}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doStuff", false, new Object[]{time}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
     } catch( final ParseException e ) {
       throw e;
@@ -77,7 +77,7 @@ public final class Arez_UnsafeSpecificProcedureActionModel extends UnsafeSpecifi
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doStuff", new Object[]{time}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".doStuff", false, new Object[]{time}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
         }
       }
     }

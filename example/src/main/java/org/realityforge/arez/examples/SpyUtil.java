@@ -105,14 +105,14 @@ final class SpyUtil
 
     emitter( ActionStartedEvent.class,
              IndentType.IN,
-             e -> "Action Started " +
+             e -> ( e.isTracked() ? "Tracked " : "" ) + "Action Started " +
                   e.getName() +
                   "(" +
                   Arrays.toString( e.getParameters() ) +
                   ")" );
     emitter( ActionCompletedEvent.class,
              IndentType.OUT,
-             e -> "Action Completed " +
+             e -> ( e.isTracked() ? "Tracked " : "" ) + "Action Completed " +
                   e.getName() +
                   "(" +
                   Arrays.toString( e.getParameters() ) +

@@ -27,8 +27,7 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "DefaultMethodsModel.time" : null );
-    this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? "DefaultMethodsModel.someValue" : null, super::someValue, Objects::equals, null, null, null,
-                                                                         null );
+    this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? "DefaultMethodsModel.someValue" : null, super::someValue, Objects::equals, null, null, null, null );
   }
 
   @Override
@@ -68,13 +67,13 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
     try {
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "DefaultMethodsModel.doStuff", new Object[]{time} ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "DefaultMethodsModel.doStuff", false, new Object[]{time} ) );
       }
       this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? "DefaultMethodsModel.doStuff" : null, true, () -> super.doStuff(time) );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "DefaultMethodsModel.doStuff", new Object[]{time}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "DefaultMethodsModel.doStuff", false, new Object[]{time}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
     } catch( final RuntimeException e ) {
       $$arez$$_throwable = e;
@@ -92,7 +91,7 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "DefaultMethodsModel.doStuff", new Object[]{time}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "DefaultMethodsModel.doStuff", false, new Object[]{time}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
         }
       }
     }

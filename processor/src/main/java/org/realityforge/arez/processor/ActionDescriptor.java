@@ -1,6 +1,5 @@
 package org.realityforge.arez.processor;
 
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -23,11 +22,6 @@ import javax.lang.model.type.TypeMirror;
 @SuppressWarnings( "Duplicates" )
 final class ActionDescriptor
 {
-  private static final ClassName ACTION_STARTED_CLASSNAME =
-    ClassName.get( "org.realityforge.arez.spy", "ActionStartedEvent" );
-  private static final ClassName ACTION_COMPLETED_CLASSNAME =
-    ClassName.get( "org.realityforge.arez.spy", "ActionCompletedEvent" );
-  private static final String DURATION_VARIABLE_NAME = GeneratorUtil.FIELD_PREFIX + "duration";
 
   @Nonnull
   private final ContainerDescriptor _containerDescriptor;
@@ -174,10 +168,10 @@ final class ActionDescriptor
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "try" );
 
-    actionStartedSpyEvent( codeBlock );
+    GeneratorUtil.actionStartedSpyEvent( _containerDescriptor, _name, false, _action, codeBlock );
     codeBlock.addStatement( statement.toString(), parameterNames.toArray() );
     codeBlock.addStatement( "$N = true", GeneratorUtil.COMPLETED_VARIABLE_NAME );
-    actionCompletedSpyEvent( codeBlock, isProcedure );
+    GeneratorUtil.actionCompletedSpyEvent( _containerDescriptor, _name, false, _action, isProcedure, codeBlock );
     if ( !isProcedure )
     {
       codeBlock.addStatement( "return $N", GeneratorUtil.RESULT_VARIABLE_NAME );
@@ -220,112 +214,12 @@ final class ActionDescriptor
                               TypeName.get( returnType ).box(),
                               GeneratorUtil.RESULT_VARIABLE_NAME );
     }
-    actionCompletedSpyEvent( codeBlock, isProcedure );
+    GeneratorUtil.actionCompletedSpyEvent( _containerDescriptor, _name, false, _action, isProcedure, codeBlock );
     codeBlock.endControlFlow();
 
     codeBlock.endControlFlow();
     builder.addCode( codeBlock.build() );
 
     return builder.build();
-  }
-
-  private void actionStartedSpyEvent( @Nonnull final CodeBlock.Builder codeBlock )
-  {
-    final CodeBlock.Builder spyCodeBlock = CodeBlock.builder();
-    spyCodeBlock.beginControlFlow( "if ( this.$N.areSpiesEnabled() && this.$N.getSpy().willPropagateSpyEvents() )",
-                                   GeneratorUtil.CONTEXT_FIELD_NAME,
-                                   GeneratorUtil.CONTEXT_FIELD_NAME );
-    spyCodeBlock.addStatement( "$N = $T.currentTimeMillis()", GeneratorUtil.STARTED_AT_VARIABLE_NAME, System.class );
-
-    final StringBuilder sb = new StringBuilder();
-    final ArrayList<Object> reportParameters = new ArrayList<>();
-    sb.append( "this.$N.getSpy().reportSpyEvent( new $T( " );
-    reportParameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
-    reportParameters.add( ACTION_STARTED_CLASSNAME );
-    if ( !_containerDescriptor.isSingleton() )
-    {
-      sb.append( "$N() + $S" );
-      reportParameters.add( _containerDescriptor.getContainerNameMethodName() );
-      reportParameters.add( "." + getName() );
-    }
-    else
-    {
-      sb.append( "$S" );
-      reportParameters.add( _containerDescriptor.getNamePrefix() + getName() );
-    }
-    sb.append( ", new Object[]{" );
-    boolean firstParam = true;
-    for ( final VariableElement element : getAction().getParameters() )
-    {
-      if ( !firstParam )
-      {
-        sb.append( "," );
-      }
-      firstParam = false;
-      sb.append( element.getSimpleName().toString() );
-    }
-    sb.append( "} ) )" );
-
-    spyCodeBlock.addStatement( sb.toString(), reportParameters.toArray() );
-    spyCodeBlock.endControlFlow();
-    codeBlock.add( spyCodeBlock.build() );
-  }
-
-  private void actionCompletedSpyEvent( @Nonnull final CodeBlock.Builder codeBlock, final boolean isProcedure )
-  {
-    final CodeBlock.Builder spyCodeBlock = CodeBlock.builder();
-    spyCodeBlock.beginControlFlow( "if ( this.$N.areSpiesEnabled() && this.$N.getSpy().willPropagateSpyEvents() )",
-                                   GeneratorUtil.CONTEXT_FIELD_NAME,
-                                   GeneratorUtil.CONTEXT_FIELD_NAME );
-    spyCodeBlock.addStatement( "final long $N = $T.currentTimeMillis() - $N",
-                               DURATION_VARIABLE_NAME,
-                               System.class,
-                               GeneratorUtil.STARTED_AT_VARIABLE_NAME );
-
-    final StringBuilder sb = new StringBuilder();
-    final ArrayList<Object> reportParameters = new ArrayList<>();
-    sb.append( "this.$N.getSpy().reportSpyEvent( new $T( " );
-    reportParameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
-    reportParameters.add( ACTION_COMPLETED_CLASSNAME );
-    if ( !_containerDescriptor.isSingleton() )
-    {
-      sb.append( "$N() + $S" );
-      reportParameters.add( _containerDescriptor.getContainerNameMethodName() );
-      reportParameters.add( "." + getName() );
-    }
-    else
-    {
-      sb.append( "$S" );
-      reportParameters.add( _containerDescriptor.getNamePrefix() + getName() );
-    }
-    sb.append( ", new Object[]{" );
-    boolean firstParam = true;
-    for ( final VariableElement element : getAction().getParameters() )
-    {
-      if ( !firstParam )
-      {
-        sb.append( "," );
-      }
-      firstParam = false;
-      sb.append( element.getSimpleName().toString() );
-    }
-    sb.append( "}, " );
-    if ( isProcedure )
-    {
-      sb.append( "false, null" );
-    }
-    else
-    {
-      sb.append( "true, $N" );
-      reportParameters.add( GeneratorUtil.RESULT_VARIABLE_NAME );
-    }
-
-    sb.append( ", $N, $N ) )" );
-    reportParameters.add( GeneratorUtil.THROWABLE_VARIABLE_NAME );
-    reportParameters.add( DURATION_VARIABLE_NAME );
-
-    spyCodeBlock.addStatement( sb.toString(), reportParameters.toArray() );
-    spyCodeBlock.endControlFlow();
-    codeBlock.add( spyCodeBlock.build() );
   }
 }

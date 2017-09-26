@@ -46,13 +46,13 @@ public final class Arez_ContainerNamePrefixOnSingletonModel extends ContainerNam
     try {
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "ContainerNamePrefixOnSingletonModel.doStuff", new Object[]{time,someOtherParameter} ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "ContainerNamePrefixOnSingletonModel.doStuff", false, new Object[]{time,someOtherParameter} ) );
       }
       this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? "ContainerNamePrefixOnSingletonModel.doStuff" : null, true, () -> super.doStuff(time,someOtherParameter) );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "ContainerNamePrefixOnSingletonModel.doStuff", new Object[]{time,someOtherParameter}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "ContainerNamePrefixOnSingletonModel.doStuff", false, new Object[]{time,someOtherParameter}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
     } catch( final RuntimeException e ) {
       $$arez$$_throwable = e;
@@ -70,7 +70,7 @@ public final class Arez_ContainerNamePrefixOnSingletonModel extends ContainerNam
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "ContainerNamePrefixOnSingletonModel.doStuff", new Object[]{time,someOtherParameter}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "ContainerNamePrefixOnSingletonModel.doStuff", false, new Object[]{time,someOtherParameter}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
         }
       }
     }

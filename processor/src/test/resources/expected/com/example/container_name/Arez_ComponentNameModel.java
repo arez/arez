@@ -50,13 +50,13 @@ public final class Arez_ComponentNameModel extends ComponentNameModel implements
     try {
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( getComponentName() + ".doStuff", new Object[]{time,someOtherParameter} ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( getComponentName() + ".doStuff", false, new Object[]{time,someOtherParameter} ) );
       }
       this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? getComponentName() + ".doStuff" : null, true, () -> super.doStuff(time,someOtherParameter) );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( getComponentName() + ".doStuff", new Object[]{time,someOtherParameter}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( getComponentName() + ".doStuff", false, new Object[]{time,someOtherParameter}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
     } catch( final RuntimeException e ) {
       $$arez$$_throwable = e;
@@ -74,7 +74,7 @@ public final class Arez_ComponentNameModel extends ComponentNameModel implements
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
           final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( getComponentName() + ".doStuff", new Object[]{time,someOtherParameter}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( getComponentName() + ".doStuff", false, new Object[]{time,someOtherParameter}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
         }
       }
     }
