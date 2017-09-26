@@ -21,6 +21,15 @@ TODO:
 
 * Add annotations that support generation of Repositories (with extensions via default methods + interfaces)
 
+* Consider renaming concepts/methods in Arez
+  - procedure(Tracker)+function(Tracker) => track()
+  - procedure+function => run()
+  - safeProcedure(Tracker)+safeFunction(Tracker) => safeTrack()
+  - safeProcedure+safeFunction => safeRun()
+  - autorun stays the same!
+  - react() => tracker()
+  - @Container* => @ArezComponent
+
 * Add Async helper to extras. Can be canceled/disposed. Has an Observable state field that indicates
   current status. Triggers an "Action" on async completion. Useful for handling async http calls etc.
 
