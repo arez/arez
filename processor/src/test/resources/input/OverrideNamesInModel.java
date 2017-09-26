@@ -1,8 +1,11 @@
+import java.text.ParseException;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.Autorun;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
+import org.realityforge.arez.annotations.OnDepsUpdated;
+import org.realityforge.arez.annotations.Tracked;
 
 @Container( name = "MyContainer" )
 public class OverrideNamesInModel
@@ -32,5 +35,16 @@ public class OverrideNamesInModel
   int compute()
   {
     return 0;
+  }
+
+  @Tracked( name = "XX" )
+  public void render()
+    throws ParseException
+  {
+  }
+
+  @OnDepsUpdated( name = "XX" )
+  public void onRenderDepsUpdated()
+  {
   }
 }

@@ -9,6 +9,7 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,10 +41,12 @@ import org.realityforge.arez.annotations.ContainerNamePrefix;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.OnActivate;
 import org.realityforge.arez.annotations.OnDeactivate;
+import org.realityforge.arez.annotations.OnDepsUpdated;
 import org.realityforge.arez.annotations.OnDispose;
 import org.realityforge.arez.annotations.OnStale;
 import org.realityforge.arez.annotations.PostDispose;
 import org.realityforge.arez.annotations.PreDispose;
+import org.realityforge.arez.annotations.Tracked;
 
 /**
  * The class that represents the parsed state of Container annotated class.
@@ -53,6 +56,8 @@ final class ContainerDescriptor
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
   private static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
   private static final Pattern ISSER_PATTERN = Pattern.compile( "^is([A-Z].*)$" );
+  private static final List<String> OBJECT_METHODS =
+    Arrays.asList( "hashCode", "equals", "clone", "toString", "finalize" );
 
   @Nonnull
   private final String _name;
@@ -86,6 +91,9 @@ final class ContainerDescriptor
   private final Map<String, AutorunDescriptor> _autoruns = new HashMap<>();
   private final Collection<AutorunDescriptor> _roAutoruns =
     Collections.unmodifiableCollection( _autoruns.values() );
+  private final Map<String, TrackedDescriptor> _trackeds = new HashMap<>();
+  private final Collection<TrackedDescriptor> _roTrackeds =
+    Collections.unmodifiableCollection( _trackeds.values() );
 
   ContainerDescriptor( @Nonnull final String name,
                        final boolean singleton,
@@ -147,6 +155,12 @@ final class ContainerDescriptor
   private ObservableDescriptor findOrCreateObservable( @Nonnull final String name )
   {
     return _observables.computeIfAbsent( name, n -> new ObservableDescriptor( this, n ) );
+  }
+
+  @Nonnull
+  private TrackedDescriptor findOrCreateTracked( @Nonnull final String name )
+  {
+    return _trackeds.computeIfAbsent( name, n -> new TrackedDescriptor( this, n ) );
   }
 
   private void addObservable( @Nonnull final Observable annotation,
@@ -282,6 +296,44 @@ final class ContainerDescriptor
       if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Autorun specified invalid name " + name, method );
+      }
+      return name;
+    }
+  }
+
+  private void addOnDepsUpdated( @Nonnull final OnDepsUpdated annotation, @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    final String name =
+      deriveHookName( method, TrackedDescriptor.ON_DEPS_UPDATED_PATTERN, "DepsUpdated", annotation.name() );
+    findOrCreateTracked( name ).setOnDepsUpdatedMethod( method );
+  }
+
+  private void addTracked( @Nonnull final Tracked annotation,
+                           @Nonnull final ExecutableElement method,
+                           @Nonnull final ExecutableType methodType )
+    throws ArezProcessorException
+  {
+    final String name = deriveTrackedName( method, annotation );
+    checkNameUnique( name, method, Tracked.class );
+    final TrackedDescriptor tracked = findOrCreateTracked( name );
+    tracked.setTrackedMethod( annotation.mutation(), method, methodType );
+  }
+
+  @Nonnull
+  private String deriveTrackedName( @Nonnull final ExecutableElement method, @Nonnull final Tracked annotation )
+    throws ArezProcessorException
+  {
+    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
+    {
+      return method.getSimpleName().toString();
+    }
+    else
+    {
+      final String name = annotation.name();
+      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "Method annotated with @Tracked specified invalid name " + name, method );
       }
       return name;
     }
@@ -523,10 +575,11 @@ final class ContainerDescriptor
     if ( _roObservables.isEmpty() &&
          _roActions.isEmpty() &&
          _roComputeds.isEmpty() &&
+         _roTrackeds.isEmpty() &&
          _roAutoruns.isEmpty() )
     {
       throw new ArezProcessorException( "@Container target has no methods annotated with @Action, " +
-                                        "@Computed, @Observable or @Autorun", _element );
+                                        "@Computed, @Observable, @Tracked or @Autorun", _element );
     }
   }
 
@@ -559,6 +612,15 @@ final class ContainerDescriptor
     {
       throw toException( name, sourceType, sourceMethod, Autorun.class, autorun.getAutorun() );
     }
+    // Tracked have pairs so let the caller determine whether a duplicate occurs in that scenario
+    if ( Tracked.class != sourceType )
+    {
+      final TrackedDescriptor tracked = _trackeds.get( name );
+      if ( null != tracked )
+      {
+        throw toException( name, sourceType, sourceMethod, Tracked.class, tracked.getTrackedMethod() );
+      }
+    }
     // Observables have pairs so let the caller determine whether a duplicate occurs in that scenario
     if ( Observable.class != sourceType )
     {
@@ -586,8 +648,10 @@ final class ContainerDescriptor
                                 @Nonnull final Types typeUtils )
     throws ArezProcessorException
   {
-    final Map<String, CandidateObservableMethod> getters = new HashMap<>();
-    final Map<String, CandidateObservableMethod> setters = new HashMap<>();
+    final Map<String, CandidateMethod> getters = new HashMap<>();
+    final Map<String, CandidateMethod> setters = new HashMap<>();
+    final Map<String, CandidateMethod> trackeds = new HashMap<>();
+    final Map<String, CandidateMethod> onDepsChangeds = new HashMap<>();
     for ( final ExecutableElement method : methods )
     {
       final ExecutableType methodType =
@@ -607,48 +671,58 @@ final class ContainerDescriptor
           continue;
         }
 
+        final CandidateMethod candidateMethod = new CandidateMethod( method, methodType );
         final boolean voidReturn = method.getReturnType().getKind() == TypeKind.VOID;
         final int parameterCount = method.getParameters().size();
+        String name;
+
+        name = ProcessorUtil.deriveName( method, SETTER_PATTERN, ProcessorUtil.SENTINEL_NAME );
+        if ( voidReturn && 1 == parameterCount && null != name )
+        {
+          setters.put( name, candidateMethod );
+          continue;
+        }
+        name = ProcessorUtil.deriveName( method, ISSER_PATTERN, ProcessorUtil.SENTINEL_NAME );
+        if ( !voidReturn && 0 == parameterCount && null != name )
+        {
+          getters.put( name, candidateMethod );
+          continue;
+        }
+        name = ProcessorUtil.deriveName( method, GETTER_PATTERN, ProcessorUtil.SENTINEL_NAME );
+        if ( !voidReturn && 0 == parameterCount && null != name )
+        {
+          getters.put( name, candidateMethod );
+          continue;
+        }
+        name =
+          ProcessorUtil.deriveName( method, TrackedDescriptor.ON_DEPS_UPDATED_PATTERN, ProcessorUtil.SENTINEL_NAME );
+        if ( voidReturn && 0 == parameterCount && null != name )
+        {
+          onDepsChangeds.put( name, candidateMethod );
+          continue;
+        }
+
         final String methodName = method.getSimpleName().toString();
-        if ( voidReturn &&
-             1 == parameterCount &&
-             methodName.startsWith( "set" ) &&
-             ( methodName.length() > 3 && Character.isUpperCase( methodName.charAt( 3 ) ) ) )
+        if ( !OBJECT_METHODS.contains( methodName) )
         {
-          final String observableName = Character.toLowerCase( methodName.charAt( 3 ) ) + methodName.substring( 4 );
-          setters.put( observableName, new CandidateObservableMethod( method, methodType ) );
-        }
-        else if ( !voidReturn &&
-                  0 == parameterCount &&
-                  methodName.startsWith( "get" ) &&
-                  ( methodName.length() > 3 && Character.isUpperCase( methodName.charAt( 3 ) ) ) )
-        {
-          final String observableName = Character.toLowerCase( methodName.charAt( 3 ) ) + methodName.substring( 4 );
-          getters.put( observableName, new CandidateObservableMethod( method, methodType ) );
-        }
-        else if ( !voidReturn &&
-                  0 == parameterCount &&
-                  methodName.startsWith( "is" ) &&
-                  ( methodName.length() > 2 && Character.isUpperCase( methodName.charAt( 2 ) ) ) )
-        {
-          final String observableName = Character.toLowerCase( methodName.charAt( 2 ) ) + methodName.substring( 3 );
-          getters.put( observableName, new CandidateObservableMethod( method, methodType ) );
+          trackeds.put( methodName, candidateMethod );
         }
       }
     }
 
     linkUnAnnotatedObservables( getters, setters );
+    linkUnAnnotatedTracked( trackeds, onDepsChangeds );
   }
 
-  private void linkUnAnnotatedObservables( @Nonnull final Map<String, CandidateObservableMethod> getters,
-                                           @Nonnull final Map<String, CandidateObservableMethod> setters )
+  private void linkUnAnnotatedObservables( @Nonnull final Map<String, CandidateMethod> getters,
+                                           @Nonnull final Map<String, CandidateMethod> setters )
     throws ArezProcessorException
   {
     for ( final ObservableDescriptor observable : _roObservables )
     {
       if ( !observable.hasSetter() )
       {
-        final CandidateObservableMethod candidate = setters.get( observable.getName() );
+        final CandidateMethod candidate = setters.get( observable.getName() );
         if ( null != candidate )
         {
           observable.setSetter( candidate.getMethod(), candidate.getMethodType() );
@@ -661,7 +735,7 @@ final class ContainerDescriptor
       }
       else if ( !observable.hasGetter() )
       {
-        final CandidateObservableMethod candidate = getters.get( observable.getName() );
+        final CandidateMethod candidate = getters.get( observable.getName() );
         if ( null != candidate )
         {
           observable.setGetter( candidate.getMethod(), candidate.getMethodType() );
@@ -670,6 +744,41 @@ final class ContainerDescriptor
         {
           throw new ArezProcessorException( "@Observable target defined setter but no getter was defined and no " +
                                             "getter could be automatically determined", observable.getSetter() );
+        }
+      }
+    }
+  }
+
+  private void linkUnAnnotatedTracked( @Nonnull final Map<String, CandidateMethod> trackeds,
+                                       @Nonnull final Map<String, CandidateMethod> onDepsChangeds )
+    throws ArezProcessorException
+  {
+    for ( final TrackedDescriptor tracked : _roTrackeds )
+    {
+      if ( !tracked.hasTrackedMethod() )
+      {
+        final CandidateMethod candidate = trackeds.get( tracked.getName() );
+        if ( null != candidate )
+        {
+          tracked.setTrackedMethod( false, candidate.getMethod(), candidate.getMethodType() );
+        }
+        else
+        {
+          throw new ArezProcessorException( "@OnDepsUpdated target has no corresponding @Tracked that could " +
+                                            "be automatically determined", tracked.getOnDepsUpdatedMethod() );
+        }
+      }
+      else if ( !tracked.hasOnDepsUpdatedMethod() )
+      {
+        final CandidateMethod candidate = onDepsChangeds.get( tracked.getName() );
+        if ( null != candidate )
+        {
+          tracked.setOnDepsUpdatedMethod( candidate.getMethod() );
+        }
+        else
+        {
+          throw new ArezProcessorException( "@Tracked target has no corresponding @OnDepsUpdated that could " +
+                                            "be automatically determined", tracked.getTrackedMethod() );
         }
       }
     }
@@ -695,6 +804,8 @@ final class ContainerDescriptor
     final OnDeactivate onDeactivate = method.getAnnotation( OnDeactivate.class );
     final OnStale onStale = method.getAnnotation( OnStale.class );
     final OnDispose onDispose = method.getAnnotation( OnDispose.class );
+    final Tracked tracked = method.getAnnotation( Tracked.class );
+    final OnDepsUpdated onDepsUpdated = method.getAnnotation( OnDepsUpdated.class );
 
     if ( null != observable )
     {
@@ -709,6 +820,16 @@ final class ContainerDescriptor
     else if ( null != autorun )
     {
       addAutorun( autorun, method, methodType );
+      return true;
+    }
+    else if ( null != tracked )
+    {
+      addTracked( tracked, method, methodType );
+      return true;
+    }
+    else if ( null != onDepsUpdated )
+    {
+      addOnDepsUpdated( onDepsUpdated, method );
       return true;
     }
     else if ( null != computed )
@@ -779,6 +900,8 @@ final class ContainerDescriptor
     final Class<? extends Annotation>[] annotationTypes =
       new Class[]{ Action.class,
                    Autorun.class,
+                   Tracked.class,
+                   OnDepsUpdated.class,
                    Observable.class,
                    Computed.class,
                    ContainerId.class,
@@ -890,10 +1013,11 @@ final class ContainerDescriptor
       builder.addMethod( buildDispose() );
     }
 
-    _roObservables.forEach( observable -> observable.buildMethods( builder ) );
-    _roAutoruns.forEach( autorun -> autorun.buildMethods( builder ) );
-    _roActions.forEach( action -> action.buildMethods( builder ) );
-    _roComputeds.forEach( computed -> computed.buildMethods( builder ) );
+    _roObservables.forEach( e -> e.buildMethods( builder ) );
+    _roAutoruns.forEach( e -> e.buildMethods( builder ) );
+    _roActions.forEach( e -> e.buildMethods( builder ) );
+    _roComputeds.forEach( e -> e.buildMethods( builder ) );
+    _roTrackeds.forEach( e -> e.buildMethods( builder ) );
 
     return builder.build();
   }
@@ -983,6 +1107,7 @@ final class ContainerDescriptor
       codeBlock.addStatement( "super.$N()", preDispose.getSimpleName() );
     }
     _roAutoruns.forEach( autorun -> autorun.buildDisposer( codeBlock ) );
+    _roTrackeds.forEach( tracked -> tracked.buildDisposer( codeBlock ) );
     _roComputeds.forEach( computed -> computed.buildDisposer( codeBlock ) );
     _roObservables.forEach( observable -> observable.buildDisposer( codeBlock ) );
     final ExecutableElement postDispose = _postDispose;
@@ -1064,6 +1189,7 @@ final class ContainerDescriptor
     _roObservables.forEach( observable -> observable.buildFields( builder ) );
     _roComputeds.forEach( computed -> computed.buildFields( builder ) );
     _roAutoruns.forEach( autorun -> autorun.buildFields( builder ) );
+    _roTrackeds.forEach( tracked -> tracked.buildFields( builder ) );
   }
 
   /**
@@ -1127,6 +1253,7 @@ final class ContainerDescriptor
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );
     _roComputeds.forEach( computed -> computed.buildInitializer( builder ) );
     _roAutoruns.forEach( autorun -> autorun.buildInitializer( builder ) );
+    _roTrackeds.forEach( tracked -> tracked.buildInitializer( builder ) );
 
     if ( !_roAutoruns.isEmpty() )
     {

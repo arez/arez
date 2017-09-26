@@ -17,8 +17,6 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
-* Need to be able to annotate @Tracking and @Reaction methods (i.e. render() + onRenderDepsChanged())
-
 * Add annotations that support generation of Repositories (with extensions via default methods + interfaces)
 
 * Consider renaming concepts/methods in Arez

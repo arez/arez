@@ -2,6 +2,8 @@ import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
+import org.realityforge.arez.annotations.OnDepsUpdated;
+import org.realityforge.arez.annotations.Tracked;
 
 @Container( singleton = true )
 public class SingletonModel
@@ -26,5 +28,15 @@ public class SingletonModel
   public int someValue()
   {
     return 0;
+  }
+
+  @Tracked
+  public void render()
+  {
+  }
+
+  @OnDepsUpdated
+  public void onRenderDepsUpdated()
+  {
   }
 }

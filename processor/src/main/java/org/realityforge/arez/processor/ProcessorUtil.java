@@ -31,7 +31,7 @@ import javax.lang.model.type.TypeVariable;
 
 final class ProcessorUtil
 {
-  private static final String SENTINEL_NAME = "<default>";
+  static final String SENTINEL_NAME = "<default>";
 
   private ProcessorUtil()
   {

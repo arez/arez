@@ -6,6 +6,7 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
+import org.realityforge.arez.Observer;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
 
@@ -23,11 +24,15 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   @Nonnull
   private final ComputedValue<Integer> $$arez$$_someValue;
 
+  @Nonnull
+  private final Observer $$arez$$_render;
+
   public Arez_SingletonModel() {
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.time" : null );
     this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.someValue" : null, super::someValue, Objects::equals, null, null, null, null );
+    this.$$arez$$_render = this.$$arez$$_context.reaction( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.render" : null, true, super::onRenderDepsUpdated );
   }
 
   @Override
@@ -39,6 +44,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
+      $$arez$$_render.dispose();
       $$arez$$_someValue.dispose();
       $$arez$$_time.dispose();
     }
@@ -100,5 +106,44 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   @Override
   public int someValue() {
     return this.$$arez$$_someValue.get();
+  }
+
+  @Override
+  public void render() {
+    assert !$$arez$$_disposed;
+    Throwable $$arez$$_throwable = null;
+    boolean $$arez$$_completed = false;
+    long $$arez$$_startedAt = 0L;
+    try {
+      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+        $$arez$$_startedAt = System.currentTimeMillis();
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "SingletonModel.render", true, new Object[]{} ) );
+      }
+      this.$$arez$$_context.safeProcedure( this.$$arez$$_render, () -> super.render() );
+      $$arez$$_completed = true;
+      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+        final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "SingletonModel.render", true, new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+      }
+    } catch( final RuntimeException e ) {
+      $$arez$$_throwable = e;
+      throw e;
+    } catch( final Exception e ) {
+      $$arez$$_throwable = e;
+      throw new IllegalStateException( e );
+    } catch( final Error e ) {
+      $$arez$$_throwable = e;
+      throw e;
+    } catch( final Throwable e ) {
+      $$arez$$_throwable = e;
+      throw new IllegalStateException( e );
+    } finally {
+      if ( !$$arez$$_completed ) {
+        if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+          final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "SingletonModel.render", true, new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+        }
+      }
+    }
   }
 }

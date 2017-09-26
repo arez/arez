@@ -1,3 +1,4 @@
+import java.text.ParseException;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -31,6 +32,9 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   @Nonnull
   private final Observer $$arez$$_zzzzzz;
 
+  @Nonnull
+  private final Observer $$arez$$_XX;
+
   public Arez_OverrideNamesInModel() {
     super();
     this.$$arez$$_context = Arez.context();
@@ -38,6 +42,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     this.$$arez$$_myField = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".myField" : null );
     this.$$arez$$_myComputed = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".myComputed" : null, super::compute, Objects::equals, null, null, null, null );
     this.$$arez$$_zzzzzz = this.$$arez$$_context.autorun( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".zzzzzz" : null, true, () -> super.zapZap(), false );
+    this.$$arez$$_XX = this.$$arez$$_context.reaction( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".XX" : null, true, super::onRenderDepsUpdated );
     this.$$arez$$_context.triggerScheduler();
   }
 
@@ -55,6 +60,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
       $$arez$$_zzzzzz.dispose();
+      $$arez$$_XX.dispose();
       $$arez$$_myComputed.dispose();
       $$arez$$_myField.dispose();
     }
@@ -121,5 +127,46 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   @Override
   int compute() {
     return this.$$arez$$_myComputed.get();
+  }
+
+  @Override
+  public void render() throws ParseException {
+    assert !$$arez$$_disposed;
+    Throwable $$arez$$_throwable = null;
+    boolean $$arez$$_completed = false;
+    long $$arez$$_startedAt = 0L;
+    try {
+      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+        $$arez$$_startedAt = System.currentTimeMillis();
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_id() + ".XX", true, new Object[]{} ) );
+      }
+      this.$$arez$$_context.procedure( this.$$arez$$_XX, () -> super.render() );
+      $$arez$$_completed = true;
+      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+        final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
+        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".XX", true, new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+      }
+    } catch( final ParseException e ) {
+      throw e;
+    } catch( final RuntimeException e ) {
+      $$arez$$_throwable = e;
+      throw e;
+    } catch( final Exception e ) {
+      $$arez$$_throwable = e;
+      throw new IllegalStateException( e );
+    } catch( final Error e ) {
+      $$arez$$_throwable = e;
+      throw e;
+    } catch( final Throwable e ) {
+      $$arez$$_throwable = e;
+      throw new IllegalStateException( e );
+    } finally {
+      if ( !$$arez$$_completed ) {
+        if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
+          final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
+          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_id() + ".XX", true, new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
+        }
+      }
+    }
   }
 }
