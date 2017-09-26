@@ -22,10 +22,10 @@ TODO:
 * Add annotations that support generation of Repositories (with extensions via default methods + interfaces)
 
 * Consider renaming concepts/methods in Arez
-  - procedure(Tracker)+function(Tracker) => track()
-  - procedure+function => run()
-  - safeProcedure(Tracker)+safeFunction(Tracker) => safeTrack()
-  - safeProcedure+safeFunction => safeRun()
+  - procedure(Tracker)+function(Tracker) => track() or trackingAction() or (query + mutation + trackingQuery + trackingMutation)
+  - procedure+function => run() or action()
+  - safeProcedure(Tracker)+safeFunction(Tracker) => safeTrack() or safeTrackingAction()
+  - safeProcedure+safeFunction => safeRun() or safeAction()
   - autorun stays the same!
   - react() => tracker()
   - @Container* => @ArezComponent
