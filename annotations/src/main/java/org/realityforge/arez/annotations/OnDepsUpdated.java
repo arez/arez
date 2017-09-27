@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
  *
  * <p>The method that is annotated with OnDepsUpdated must comply with the additional constraints:</p>
  * <ul>
- * <li>Must not be annotated with {@link ContainerId}, {@link Action}, {@link Observable}, {@link Computed}, {@link javax.annotation.PostConstruct}, {@link PreDispose}, {@link PostDispose}, {@link OnActivate}, {@link OnDeactivate} or {@link OnStale}</li>
+ * <li>Must not be annotated with {@link ComponentId}, {@link Action}, {@link Observable}, {@link Computed}, {@link javax.annotation.PostConstruct}, {@link PreDispose}, {@link PostDispose}, {@link OnActivate}, {@link OnDeactivate} or {@link OnStale}</li>
  * <li>Must not be private</li>
  * <li>Must not be static</li>
  * <li>Must not be abstract</li>
@@ -27,11 +27,11 @@ import javax.annotation.Nonnull;
 public @interface OnDepsUpdated
 {
   /**
-   * Return the name of the paired Tracked relative to the container.
+   * Return the name of the paired Tracked relative to the component.
    * The value must conform to the requirements of a java identifier.
    * The name need not be specified .
    *
-   * @return the name of the paired Tracked relative to the container.
+   * @return the name of the paired Tracked relative to the component.
    */
   @Nonnull
   String name() default "<default>";

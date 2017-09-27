@@ -5,8 +5,8 @@ import elemental2.dom.EventListener;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Unsupported;
 import org.realityforge.arez.annotations.Action;
+import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.OnActivate;
 import org.realityforge.arez.annotations.OnDeactivate;
@@ -41,7 +41,7 @@ import org.realityforge.arez.annotations.OnDeactivate;
  * }</pre>
  */
 @Unsupported( "This is still considered experimental and will likely evolve over time" )
-@Container( singleton = true )
+@ArezComponent( singleton = true )
 public class NetworkStatus
 {
   private final EventListener _listener;

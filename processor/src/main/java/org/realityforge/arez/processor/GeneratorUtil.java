@@ -34,7 +34,7 @@ final class GeneratorUtil
   {
   }
 
-  static void actionStartedSpyEvent( @Nonnull final ContainerDescriptor containerDescriptor,
+  static void actionStartedSpyEvent( @Nonnull final ComponentDescriptor componentDescriptor,
                                      @Nonnull final String name,
                                      final boolean tracked,
                                      @Nonnull final ExecutableElement method,
@@ -51,16 +51,16 @@ final class GeneratorUtil
     sb.append( "this.$N.getSpy().reportSpyEvent( new $T( " );
     reportParameters.add( CONTEXT_FIELD_NAME );
     reportParameters.add( ACTION_STARTED_CLASSNAME );
-    if ( !containerDescriptor.isSingleton() )
+    if ( !componentDescriptor.isSingleton() )
     {
       sb.append( "$N() + $S" );
-      reportParameters.add( containerDescriptor.getContainerNameMethodName() );
+      reportParameters.add( componentDescriptor.getComponentNameMethodName() );
       reportParameters.add( "." + name );
     }
     else
     {
       sb.append( "$S" );
-      reportParameters.add( containerDescriptor.getNamePrefix() + name );
+      reportParameters.add( componentDescriptor.getNamePrefix() + name );
     }
     sb.append( ", " );
     sb.append( tracked );
@@ -82,7 +82,7 @@ final class GeneratorUtil
     codeBlock.add( spyCodeBlock.build() );
   }
 
-  static void actionCompletedSpyEvent( @Nonnull final ContainerDescriptor containerDescriptor,
+  static void actionCompletedSpyEvent( @Nonnull final ComponentDescriptor componentDescriptor,
                                        @Nonnull final String name,
                                        final boolean tracked,
                                        @Nonnull final ExecutableElement method,
@@ -103,16 +103,16 @@ final class GeneratorUtil
     sb.append( "this.$N.getSpy().reportSpyEvent( new $T( " );
     reportParameters.add( CONTEXT_FIELD_NAME );
     reportParameters.add( ACTION_COMPLETED_CLASSNAME );
-    if ( !containerDescriptor.isSingleton() )
+    if ( !componentDescriptor.isSingleton() )
     {
       sb.append( "$N() + $S" );
-      reportParameters.add( containerDescriptor.getContainerNameMethodName() );
+      reportParameters.add( componentDescriptor.getComponentNameMethodName() );
       reportParameters.add( "." + name );
     }
     else
     {
       sb.append( "$S" );
-      reportParameters.add( containerDescriptor.getNamePrefix() + name );
+      reportParameters.add( componentDescriptor.getNamePrefix() + name );
     }
     sb.append( ", " );
     sb.append( tracked );

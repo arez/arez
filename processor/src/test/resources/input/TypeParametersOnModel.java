@@ -1,7 +1,7 @@
 import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.Container;
+import org.realityforge.arez.annotations.ArezComponent;
 
-@Container
+@ArezComponent
 public class TypeParametersOnModel<T extends Integer>
 {
   @Action

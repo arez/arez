@@ -18,7 +18,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
-import org.realityforge.arez.annotations.Container;
+import org.realityforge.arez.annotations.ArezComponent;
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 /**
@@ -37,7 +37,7 @@ public final class ArezProcessor
   @Override
   public boolean process( final Set<? extends TypeElement> annotations, final RoundEnvironment env )
   {
-    final Set<? extends Element> elements = env.getElementsAnnotatedWith( Container.class );
+    final Set<? extends Element> elements = env.getElementsAnnotatedWith( ArezComponent.class );
     processElements( elements );
     return false;
   }
@@ -66,38 +66,38 @@ public final class ArezProcessor
   {
     final PackageElement packageElement = processingEnv.getElementUtils().getPackageOf( element );
     final TypeElement typeElement = (TypeElement) element;
-    final ContainerDescriptor descriptor = parse( packageElement, typeElement );
+    final ComponentDescriptor descriptor = parse( packageElement, typeElement );
     emitTypeSpec( descriptor.getPackageElement().getQualifiedName().toString(),
                   descriptor.buildType(processingEnv.getTypeUtils()) );
   }
 
   @Nonnull
-  private ContainerDescriptor parse( final PackageElement packageElement, final TypeElement typeElement )
+  private ComponentDescriptor parse( final PackageElement packageElement, final TypeElement typeElement )
     throws ArezProcessorException
   {
     if ( ElementKind.CLASS != typeElement.getKind() )
     {
-      throw new ArezProcessorException( "@Container target must be a class", typeElement );
+      throw new ArezProcessorException( "@ArezComponent target must be a class", typeElement );
     }
     else if ( typeElement.getModifiers().contains( Modifier.ABSTRACT ) )
     {
-      throw new ArezProcessorException( "@Container target must not be abstract", typeElement );
+      throw new ArezProcessorException( "@ArezComponent target must not be abstract", typeElement );
     }
     else if ( typeElement.getModifiers().contains( Modifier.FINAL ) )
     {
-      throw new ArezProcessorException( "@Container target must not be final", typeElement );
+      throw new ArezProcessorException( "@ArezComponent target must not be final", typeElement );
     }
     else if ( NestingKind.TOP_LEVEL != typeElement.getNestingKind() &&
               !typeElement.getModifiers().contains( Modifier.STATIC ) )
     {
-      throw new ArezProcessorException( "@Container target must not be a non-static nested class", typeElement );
+      throw new ArezProcessorException( "@ArezComponent target must not be a non-static nested class", typeElement );
     }
-    final Container container = typeElement.getAnnotation( Container.class );
+    final ArezComponent arezComponent = typeElement.getAnnotation( ArezComponent.class );
     final String name =
-      ProcessorUtil.isSentinelName( container.name() ) ? typeElement.getSimpleName().toString() : container.name();
+      ProcessorUtil.isSentinelName( arezComponent.name() ) ? typeElement.getSimpleName().toString() : arezComponent.name();
 
-    final ContainerDescriptor descriptor =
-      new ContainerDescriptor( name, container.singleton(), container.disposable(), packageElement, typeElement );
+    final ComponentDescriptor descriptor =
+      new ComponentDescriptor( name, arezComponent.singleton(), arezComponent.disposable(), packageElement, typeElement );
 
     descriptor.analyzeCandidateMethods( ProcessorUtil.getMethods( typeElement ), processingEnv.getTypeUtils() );
     descriptor.validate();

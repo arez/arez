@@ -2,9 +2,9 @@ package com.example.action;
 
 import java.text.ParseException;
 import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.Container;
+import org.realityforge.arez.annotations.ArezComponent;
 
-@Container
+@ArezComponent
 public class UnsafeSpecificProcedureActionModel
 {
   @Action

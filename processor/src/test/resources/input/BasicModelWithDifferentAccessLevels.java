@@ -1,8 +1,8 @@
 import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.Container;
+import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Observable;
 
-@Container
+@ArezComponent
 public class BasicModelWithDifferentAccessLevels
 {
   private String _value;

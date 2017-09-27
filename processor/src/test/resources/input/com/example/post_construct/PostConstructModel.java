@@ -1,10 +1,10 @@
 package com.example.post_construct;
 
 import javax.annotation.PostConstruct;
+import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.Container;
 
-@Container
+@ArezComponent
 public class PostConstructModel
 {
   @PostConstruct

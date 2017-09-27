@@ -1,11 +1,11 @@
 package com.example.tracked;
 
 import java.text.ParseException;
-import org.realityforge.arez.annotations.Container;
+import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.OnDepsUpdated;
 import org.realityforge.arez.annotations.Tracked;
 
-@Container
+@ArezComponent
 public class BasicTrackedWithExceptionsModel
 {
   @Tracked

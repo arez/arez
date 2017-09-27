@@ -48,7 +48,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   }
 
   private String $$arez$$_id() {
-    return "ConcreteModel." + getContainerId();
+    return "ConcreteModel." + getComponentId();
   }
 
   @Override

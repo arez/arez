@@ -1,10 +1,10 @@
 import javax.annotation.Nonnull;
 import org.realityforge.arez.annotations.Action;
+import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
 
-@Container
+@ArezComponent
 public class AnnotationsOnModel
 {
   @Observable

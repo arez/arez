@@ -1,6 +1,6 @@
-import org.realityforge.arez.annotations.Container;
+import org.realityforge.arez.annotations.ArezComponent;
 
-@Container( singleton = true )
+@ArezComponent( singleton = true )
 public class DefaultMethodsModel
   implements MyAnnotatedInterface
 {

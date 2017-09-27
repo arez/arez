@@ -10,8 +10,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 import org.realityforge.arez.Unsupported;
 import org.realityforge.arez.annotations.Action;
+import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.OnActivate;
 import org.realityforge.arez.annotations.OnDeactivate;
@@ -56,7 +56,7 @@ import org.realityforge.arez.annotations.PreDispose;
  * }</pre>
  */
 @Unsupported( "This is still considered experimental and will likely evolve over time" )
-@Container( singleton = true )
+@ArezComponent( singleton = true )
 public class IdleStatus
 {
   private static final long DEFAULT_TIMEOUT = 2000L;

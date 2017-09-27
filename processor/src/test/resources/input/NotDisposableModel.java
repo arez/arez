@@ -1,7 +1,7 @@
+import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.Container;
 
-@Container( disposable = false )
+@ArezComponent( disposable = false )
 public class NotDisposableModel
 {
   @Computed

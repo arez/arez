@@ -2,9 +2,9 @@ package com.example.type_params;
 
 import java.io.IOException;
 import java.io.Writer;
-import org.realityforge.arez.annotations.Container;
+import org.realityforge.arez.annotations.ArezComponent;
 
-@Container
+@ArezComponent
 public class ConcreteModel<W extends Writer>
   extends MiddleModel<W>
 {

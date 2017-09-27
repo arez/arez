@@ -2,10 +2,10 @@ package org.realityforge.arez.examples;
 
 import javax.annotation.Nonnull;
 import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.Container;
+import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Observable;
 
-@Container( name = "Time", singleton = true )
+@ArezComponent( name = "Time", singleton = true )
 public class TimeModel
   implements TimeModelExtension
 {

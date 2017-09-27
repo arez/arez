@@ -1,12 +1,12 @@
 package org.realityforge.arez.examples;
 
 import javax.annotation.Nonnull;
+import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.Container;
 import org.realityforge.arez.annotations.Observable;
 
 @SuppressWarnings( "WeakerAccess" )
-@Container
+@ArezComponent
 public class PersonModel
 {
   @Nonnull

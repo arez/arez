@@ -15,12 +15,12 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.ExecutableType;
 
 /**
- * The class that represents the parsed state of Observable properties on a @Container annotated class.
+ * The class that represents the parsed state of Observable properties on a @ArezComponent annotated class.
  */
 final class ObservableDescriptor
 {
   @Nonnull
-  private final ContainerDescriptor _containerDescriptor;
+  private final ComponentDescriptor _componentDescriptor;
   @Nonnull
   private final String _name;
   @Nullable
@@ -32,9 +32,9 @@ final class ObservableDescriptor
   @Nullable
   private ExecutableType _setterType;
 
-  ObservableDescriptor( @Nonnull final ContainerDescriptor containerDescriptor, @Nonnull final String name )
+  ObservableDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
-    _containerDescriptor = Objects.requireNonNull( containerDescriptor );
+    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
   }
 
@@ -108,13 +108,13 @@ final class ObservableDescriptor
 
   void buildInitializer( @Nonnull final MethodSpec.Builder builder )
   {
-    if ( _containerDescriptor.isSingleton() )
+    if ( _componentDescriptor.isSingleton() )
     {
       builder.addStatement( "this.$N = this.$N.createObservable( this.$N.areNamesEnabled() ? $S : null )",
                             GeneratorUtil.FIELD_PREFIX + getName(),
                             GeneratorUtil.CONTEXT_FIELD_NAME,
                             GeneratorUtil.CONTEXT_FIELD_NAME,
-                            _containerDescriptor.getNamePrefix() + getName() );
+                            _componentDescriptor.getNamePrefix() + getName() );
     }
     else
     {
@@ -122,7 +122,7 @@ final class ObservableDescriptor
                             GeneratorUtil.FIELD_PREFIX + getName(),
                             GeneratorUtil.CONTEXT_FIELD_NAME,
                             GeneratorUtil.CONTEXT_FIELD_NAME,
-                            _containerDescriptor.getContainerNameMethodName(),
+                            _componentDescriptor.getComponentNameMethodName(),
                             "." + getName() );
     }
   }

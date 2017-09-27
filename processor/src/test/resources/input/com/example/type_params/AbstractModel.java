@@ -2,8 +2,8 @@ package com.example.type_params;
 
 import java.io.Writer;
 import org.realityforge.arez.annotations.Action;
+import org.realityforge.arez.annotations.ComponentId;
 import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.ContainerId;
 
 public abstract class AbstractModel<T extends Throwable, W extends Writer>
 {
@@ -53,8 +53,8 @@ public abstract class AbstractModel<T extends Throwable, W extends Writer>
     return null;
   }
 
-  @ContainerId
-  public final T getContainerId()
+  @ComponentId
+  public final T getComponentId()
   {
     return null;
   }

@@ -14,12 +14,12 @@ import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
 
 /**
- * The class that represents the parsed state of @Autorun methods on a @Container annotated class.
+ * The class that represents the parsed state of @Autorun methods on a @ArezComponent annotated class.
  */
 final class AutorunDescriptor
 {
   @Nonnull
-  private final ContainerDescriptor _containerDescriptor;
+  private final ComponentDescriptor _componentDescriptor;
   @Nonnull
   private final String _name;
   private final boolean _mutation;
@@ -28,13 +28,13 @@ final class AutorunDescriptor
   @Nonnull
   private final ExecutableType _autorunType;
 
-  AutorunDescriptor( @Nonnull final ContainerDescriptor containerDescriptor,
+  AutorunDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
                      @Nonnull final String name,
                      final boolean mutation,
                      @Nonnull final ExecutableElement autorun,
                      @Nonnull final ExecutableType autorunType)
   {
-    _containerDescriptor = Objects.requireNonNull( containerDescriptor );
+    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     _mutation = mutation;
     _autorun = Objects.requireNonNull( autorun );
@@ -78,15 +78,15 @@ final class AutorunDescriptor
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
-    if ( _containerDescriptor.isSingleton() )
+    if ( _componentDescriptor.isSingleton() )
     {
       sb.append( "$S" );
-      parameters.add( _containerDescriptor.getNamePrefix() + getName() );
+      parameters.add( _componentDescriptor.getNamePrefix() + getName() );
     }
     else
     {
       sb.append( "$N() + $S" );
-      parameters.add( _containerDescriptor.getContainerNameMethodName() );
+      parameters.add( _componentDescriptor.getComponentNameMethodName() );
       parameters.add( "." + getName() );
     }
     sb.append( " : null, " );
@@ -133,15 +133,15 @@ final class AutorunDescriptor
     statement.append( "safeProcedure(this.$N.areNamesEnabled() ? " );
     parameterNames.add( GeneratorUtil.CONTEXT_FIELD_NAME );
 
-    if ( _containerDescriptor.isSingleton() )
+    if ( _componentDescriptor.isSingleton() )
     {
       statement.append( "$S" );
-      parameterNames.add( _containerDescriptor.getNamePrefix() + getName() );
+      parameterNames.add( _componentDescriptor.getNamePrefix() + getName() );
     }
     else
     {
       statement.append( "$N() + $S" );
-      parameterNames.add( _containerDescriptor.getContainerNameMethodName() );
+      parameterNames.add( _componentDescriptor.getComponentNameMethodName() );
       parameterNames.add( "." + getName() );
     }
     statement.append( " : null, " );

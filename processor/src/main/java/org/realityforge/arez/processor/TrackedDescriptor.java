@@ -22,7 +22,7 @@ import org.realityforge.arez.annotations.OnDepsUpdated;
 import org.realityforge.arez.annotations.Tracked;
 
 /**
- * The class that represents the parsed state of @Tracked methods on a @Container annotated class.
+ * The class that represents the parsed state of @Tracked methods on a @ArezComponent annotated class.
  */
 @SuppressWarnings( "Duplicates" )
 final class TrackedDescriptor
@@ -30,7 +30,7 @@ final class TrackedDescriptor
   static final Pattern ON_DEPS_UPDATED_PATTERN = Pattern.compile( "^on([A-Z].*)DepsUpdated" );
 
   @Nonnull
-  private final ContainerDescriptor _containerDescriptor;
+  private final ComponentDescriptor _componentDescriptor;
   @Nonnull
   private final String _name;
   private boolean _mutation;
@@ -41,9 +41,9 @@ final class TrackedDescriptor
   @Nullable
   private ExecutableElement _onDepsUpdatedMethod;
 
-  TrackedDescriptor( @Nonnull final ContainerDescriptor containerDescriptor, @Nonnull final String name )
+  TrackedDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
-    _containerDescriptor = Objects.requireNonNull( containerDescriptor );
+    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
   }
 
@@ -137,15 +137,15 @@ final class TrackedDescriptor
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
-    if ( _containerDescriptor.isSingleton() )
+    if ( _componentDescriptor.isSingleton() )
     {
       sb.append( "$S" );
-      parameters.add( _containerDescriptor.getNamePrefix() + getName() );
+      parameters.add( _componentDescriptor.getNamePrefix() + getName() );
     }
     else
     {
       sb.append( "$N() + $S" );
-      parameters.add( _containerDescriptor.getContainerNameMethodName() );
+      parameters.add( _componentDescriptor.getComponentNameMethodName() );
       parameters.add( "." + getName() );
     }
     sb.append( " : null, " );
@@ -248,7 +248,7 @@ final class TrackedDescriptor
 
     statement.append( ") )" );
 
-    if ( _containerDescriptor.isDisposable() )
+    if ( _componentDescriptor.isDisposable() )
     {
       builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
     }
@@ -260,11 +260,11 @@ final class TrackedDescriptor
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "try" );
 
-    GeneratorUtil.actionStartedSpyEvent( _containerDescriptor, _name, true, _trackedMethod, codeBlock );
+    GeneratorUtil.actionStartedSpyEvent( _componentDescriptor, _name, true, _trackedMethod, codeBlock );
 
     codeBlock.addStatement( statement.toString(), parameterNames.toArray() );
     codeBlock.addStatement( "$N = true", GeneratorUtil.COMPLETED_VARIABLE_NAME );
-    GeneratorUtil.actionCompletedSpyEvent( _containerDescriptor, _name, true, _trackedMethod, isProcedure, codeBlock );
+    GeneratorUtil.actionCompletedSpyEvent( _componentDescriptor, _name, true, _trackedMethod, isProcedure, codeBlock );
     if ( !isProcedure )
     {
       codeBlock.addStatement( "return $N", GeneratorUtil.RESULT_VARIABLE_NAME );
@@ -309,7 +309,7 @@ final class TrackedDescriptor
                               TypeName.get( returnType ).box(),
                               GeneratorUtil.RESULT_VARIABLE_NAME );
     }
-    GeneratorUtil.actionCompletedSpyEvent( _containerDescriptor, _name, true, _trackedMethod, isProcedure, codeBlock );
+    GeneratorUtil.actionCompletedSpyEvent( _componentDescriptor, _name, true, _trackedMethod, isProcedure, codeBlock );
     codeBlock.endControlFlow();
 
     codeBlock.endControlFlow();

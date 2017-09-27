@@ -1,8 +1,8 @@
 package com.example.inheritance;
 
-import org.realityforge.arez.annotations.Container;
+import org.realityforge.arez.annotations.ArezComponent;
 
-@Container
+@ArezComponent
 class MyModel
   extends ParentModel
 {

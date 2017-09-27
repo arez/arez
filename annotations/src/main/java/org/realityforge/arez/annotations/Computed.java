@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
  *
  * <p>The method that is annotated with @Computed must comply with the additional constraints:</p>
  * <ul>
- * <li>Must not be annotated with {@link Autorun}, {@link ContainerId}, {@link Observable}, {@link Action}, {@link javax.annotation.PostConstruct}, {@link PreDispose}, {@link PostDispose}, {@link OnActivate}, {@link OnDeactivate} or {@link OnStale}</li>
+ * <li>Must not be annotated with {@link Autorun}, {@link ComponentId}, {@link Observable}, {@link Action}, {@link javax.annotation.PostConstruct}, {@link PreDispose}, {@link PostDispose}, {@link OnActivate}, {@link OnDeactivate} or {@link OnStale}</li>
  * <li>Must have 0 parameters</li>
  * <li>Must return a value</li>
  * <li>Must not be private</li>
@@ -30,13 +30,13 @@ import javax.annotation.Nonnull;
 public @interface Computed
 {
   /**
-   * Return the name of the ComputedValue relative to the container.
+   * Return the name of the ComputedValue relative to the component.
    * The value must conform to the requirements of a java identifier.
    * The name must also be unique across {@link Observable}s,
    * {@link Computed}s and {@link Action}s within the scope of the
-   * {@link Container} annotated element.
+   * {@link ArezComponent} annotated element.
    *
-   * @return the name of the ComputedValue relative to the container.
+   * @return the name of the ComputedValue relative to the component.
    */
   @Nonnull
   String name() default "<default>";

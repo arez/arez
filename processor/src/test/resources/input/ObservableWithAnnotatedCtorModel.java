@@ -1,10 +1,10 @@
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.annotations.Container;
+import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Observable;
 
 @SuppressWarnings( "WeakerAccess" )
-@Container
+@ArezComponent
 public class ObservableWithAnnotatedCtorModel
 {
   public ObservableWithAnnotatedCtorModel( @Nonnegative final long time,

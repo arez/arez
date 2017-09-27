@@ -17,14 +17,13 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
 /**
- * The class that represents the parsed state of @Action methods on a @Container annotated class.
+ * The class that represents the parsed state of @Action methods on a @ArezComponent annotated class.
  */
 @SuppressWarnings( "Duplicates" )
 final class ActionDescriptor
 {
-
   @Nonnull
-  private final ContainerDescriptor _containerDescriptor;
+  private final ComponentDescriptor _componentDescriptor;
   @Nonnull
   private final String _name;
   private final boolean _mutation;
@@ -33,13 +32,13 @@ final class ActionDescriptor
   @Nonnull
   private final ExecutableType _actionType;
 
-  ActionDescriptor( @Nonnull final ContainerDescriptor containerDescriptor,
+  ActionDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
                     @Nonnull final String name,
                     final boolean mutation,
                     @Nonnull final ExecutableElement action,
                     @Nonnull final ExecutableType actionType )
   {
-    _containerDescriptor = Objects.requireNonNull( containerDescriptor );
+    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     _mutation = mutation;
     _action = Objects.requireNonNull( action );
@@ -114,17 +113,17 @@ final class ActionDescriptor
 
     statement.append( "(" );
 
-    if ( _containerDescriptor.isSingleton() )
+    if ( _componentDescriptor.isSingleton() )
     {
       statement.append( "this.$N.areNamesEnabled() ? $S : null" );
       parameterNames.add( GeneratorUtil.CONTEXT_FIELD_NAME );
-      parameterNames.add( _containerDescriptor.getNamePrefix() + getName() );
+      parameterNames.add( _componentDescriptor.getNamePrefix() + getName() );
     }
     else
     {
       statement.append( "this.$N.areNamesEnabled() ? $N() + $S : null" );
       parameterNames.add( GeneratorUtil.CONTEXT_FIELD_NAME );
-      parameterNames.add( _containerDescriptor.getContainerNameMethodName() );
+      parameterNames.add( _componentDescriptor.getComponentNameMethodName() );
       parameterNames.add( "." + getName() );
     }
 
@@ -156,7 +155,7 @@ final class ActionDescriptor
 
     statement.append( ") )" );
 
-    if ( _containerDescriptor.isDisposable() )
+    if ( _componentDescriptor.isDisposable() )
     {
       builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
     }
@@ -168,10 +167,10 @@ final class ActionDescriptor
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "try" );
 
-    GeneratorUtil.actionStartedSpyEvent( _containerDescriptor, _name, false, _action, codeBlock );
+    GeneratorUtil.actionStartedSpyEvent( _componentDescriptor, _name, false, _action, codeBlock );
     codeBlock.addStatement( statement.toString(), parameterNames.toArray() );
     codeBlock.addStatement( "$N = true", GeneratorUtil.COMPLETED_VARIABLE_NAME );
-    GeneratorUtil.actionCompletedSpyEvent( _containerDescriptor, _name, false, _action, isProcedure, codeBlock );
+    GeneratorUtil.actionCompletedSpyEvent( _componentDescriptor, _name, false, _action, isProcedure, codeBlock );
     if ( !isProcedure )
     {
       codeBlock.addStatement( "return $N", GeneratorUtil.RESULT_VARIABLE_NAME );
@@ -214,7 +213,7 @@ final class ActionDescriptor
                               TypeName.get( returnType ).box(),
                               GeneratorUtil.RESULT_VARIABLE_NAME );
     }
-    GeneratorUtil.actionCompletedSpyEvent( _containerDescriptor, _name, false, _action, isProcedure, codeBlock );
+    GeneratorUtil.actionCompletedSpyEvent( _componentDescriptor, _name, false, _action, isProcedure, codeBlock );
     codeBlock.endControlFlow();
 
     codeBlock.endControlFlow();

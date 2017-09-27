@@ -22,7 +22,7 @@ import org.realityforge.arez.annotations.OnDispose;
 import org.realityforge.arez.annotations.OnStale;
 
 /**
- * The class that represents the parsed state of @Computed methods on a @Container annotated class.
+ * The class that represents the parsed state of @Computed methods on a @ArezComponent annotated class.
  */
 final class ComputedDescriptor
 {
@@ -32,7 +32,7 @@ final class ComputedDescriptor
   static final Pattern ON_DISPOSE_PATTERN = Pattern.compile( "^on([A-Z].*)Dispose$" );
 
   @Nonnull
-  private final ContainerDescriptor _containerDescriptor;
+  private final ComponentDescriptor _componentDescriptor;
   @Nonnull
   private final String _name;
   @Nullable
@@ -48,9 +48,9 @@ final class ComputedDescriptor
   @Nullable
   private ExecutableElement _onDispose;
 
-  ComputedDescriptor( @Nonnull final ContainerDescriptor containerDescriptor, @Nonnull final String name )
+  ComputedDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
-    _containerDescriptor = Objects.requireNonNull( containerDescriptor );
+    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
   }
 
@@ -207,15 +207,15 @@ final class ComputedDescriptor
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
-    if ( _containerDescriptor.isSingleton() )
+    if ( _componentDescriptor.isSingleton() )
     {
       sb.append( "$S" );
-      parameters.add( _containerDescriptor.getNamePrefix() + getName() );
+      parameters.add( _componentDescriptor.getNamePrefix() + getName() );
     }
     else
     {
       sb.append( "$N() + $S" );
-      parameters.add( _containerDescriptor.getContainerNameMethodName() );
+      parameters.add( _componentDescriptor.getComponentNameMethodName() );
       parameters.add( "." + getName() );
     }
     sb.append( " : null, super::$N, $T::equals, " );

@@ -9,7 +9,7 @@ import jsinterop.base.JsPropertyMap;
 import jsinterop.base.JsPropertyMapOfAny;
 import org.realityforge.arez.Unsupported;
 import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.Container;
+import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.PreDispose;
 
@@ -27,7 +27,7 @@ import org.realityforge.arez.annotations.PreDispose;
  * the view. Observing the browser location will allow the application to decide whether the
  * route should be updated.</p>
  */
-@Container( singleton = true )
+@ArezComponent( singleton = true )
 @Unsupported( "This is still considered experimental and will likely evolve over time" )
 public class BrowserLocation
 {

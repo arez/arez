@@ -26,16 +26,12 @@ TODO:
   - safeProcedure+safeFunction => safeRun() or safeAction()
   - autorun stays the same!
   - react() => tracker()
-  - @Container* => @ArezComponent
   - Consider making active methods into verbs @Tracked => @Track
 
 * Add Async helper to extras. Can be canceled/disposed. Has an Observable state field that indicates
   current status. Triggers an "Action" on async completion. Useful for handling async http calls etc.
 
-* Add Spy event such as ContainerDefinitionStarted/ContainerDefinitionCompleted when defining container
-  instances.
-
-* Add container (a.k.a. scope) to actions, ComputedValue and Observables???
+* Explicitly add component (a.k.a. scope) to Actions, ComputedValue, Observables etc.
 
 * Start releasing binary snapshot
 
@@ -65,7 +61,7 @@ TODO:
 
 * Figure out a way how to handle "repositories" as in replicant and friends. A repository allows you to
   get all instances of entities of type. This could be handled as a series of `@Observable` maps that
-  map a `@Container` annotated class + `@ContainerId` field to an instance. We could also have `@Memoized`
+  map a `@Component` annotated class + `@ComponentId` field to an instance. We could also have `@Memoized`
   queries on the repositories. To make this efficient we may need to start to support the "change parameter"
   as described above to make it efficient. (However current applications just rescan the repository each
   time they want to execute a query in many cases - which we may be able to get away with)

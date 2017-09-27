@@ -1,7 +1,7 @@
-import org.realityforge.arez.annotations.Container;
+import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Observable;
 
-@Container
+@ArezComponent
 public class ObservableTypeParametersModel
 {
   @Observable
