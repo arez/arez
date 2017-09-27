@@ -27,12 +27,16 @@ public final class Arez_PostConstructModel extends PostConstructModel implements
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".someValue" : null, super::someValue, Objects::equals, null, null, null, null );
+    this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".someValue" : null, super::someValue, Objects::equals, null, null, null, null );
     super.postConstruct();
   }
 
-  private String $$arez$$_id() {
-    return "PostConstructModel." + $$arez$$_id;
+  final long $$arez$$_id() {
+    return $$arez$$_id;
+  }
+
+  String $$arez$$_name() {
+    return "PostConstructModel." + $$arez$$_id();
   }
 
   @Override

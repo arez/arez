@@ -27,11 +27,15 @@ public final class Arez_BasicComputedModel extends BasicComputedModel implements
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".time" : null, super::getTime, Objects::equals, null, null, null, null );
+    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".time" : null, super::getTime, Objects::equals, null, null, null, null );
   }
 
-  private String $$arez$$_id() {
-    return "BasicComputedModel." + $$arez$$_id;
+  final long $$arez$$_id() {
+    return $$arez$$_id;
+  }
+
+  String $$arez$$_name() {
+    return "BasicComputedModel." + $$arez$$_id();
   }
 
   @Override

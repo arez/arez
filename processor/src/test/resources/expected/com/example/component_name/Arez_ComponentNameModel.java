@@ -25,8 +25,12 @@ public final class Arez_ComponentNameModel extends ComponentNameModel implements
     this.$$arez$$_id = $$arez$$_nextId++;
   }
 
+  final long $$arez$$_id() {
+    return $$arez$$_id;
+  }
+
   public final String getComponentName() {
-    return "ComponentNameModel." + $$arez$$_id;
+    return "ComponentNameModel." + $$arez$$_id();
   }
 
   @Override

@@ -24,11 +24,15 @@ public final class Arez_ObservableWithAnnotatedCtorModel extends ObservableWithA
     super(time,other,foo);
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_id() + ".time" : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".time" : null );
   }
 
-  private String $$arez$$_id() {
-    return "ObservableWithAnnotatedCtorModel." + $$arez$$_id;
+  final long $$arez$$_id() {
+    return $$arez$$_id;
+  }
+
+  String $$arez$$_name() {
+    return "ObservableWithAnnotatedCtorModel." + $$arez$$_id();
   }
 
   @Override

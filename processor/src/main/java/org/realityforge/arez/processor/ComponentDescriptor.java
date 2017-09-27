@@ -1000,6 +1000,10 @@ final class ComponentDescriptor
 
     if ( !isSingleton() )
     {
+      if ( null == _componentId )
+      {
+        builder.addMethod( buildComponentIdMethod() );
+      }
       builder.addMethod( buildComponentNameMethod() );
     }
     final MethodSpec method = buildComponentTypeNameMethod();
@@ -1026,7 +1030,19 @@ final class ComponentDescriptor
   @Nonnull
   String getComponentNameMethodName()
   {
-    return null == _componentName ? GeneratorUtil.ID_FIELD_NAME : _componentName.getSimpleName().toString();
+    return null == _componentName ? GeneratorUtil.NAME_METHOD_NAME : _componentName.getSimpleName().toString();
+  }
+
+  @Nonnull
+  private MethodSpec buildComponentIdMethod()
+    throws ArezProcessorException
+  {
+    assert null == _componentId;
+
+    return MethodSpec.methodBuilder( GeneratorUtil.ID_FIELD_NAME ).
+      addModifiers( Modifier.FINAL ).
+      returns( TypeName.LONG ).
+      addStatement( "return $N", GeneratorUtil.ID_FIELD_NAME ).build();
   }
 
   /**
@@ -1041,7 +1057,7 @@ final class ComponentDescriptor
     final MethodSpec.Builder builder;
     if ( null == _componentName )
     {
-      builder = MethodSpec.methodBuilder( GeneratorUtil.ID_FIELD_NAME ).addModifiers( Modifier.PRIVATE );
+      builder = MethodSpec.methodBuilder( GeneratorUtil.NAME_METHOD_NAME );
     }
     else
     {
@@ -1051,14 +1067,9 @@ final class ComponentDescriptor
     }
 
     builder.returns( TypeName.get( String.class ) );
-    if ( null == _componentId )
-    {
-      builder.addStatement( "return $S + $N", getNamePrefix(), GeneratorUtil.ID_FIELD_NAME );
-    }
-    else
-    {
-      builder.addStatement( "return $S + $N()", getNamePrefix(), _componentId.getSimpleName() );
-    }
+    builder.addStatement( "return $S + $N()",
+                          getNamePrefix(),
+                          null == _componentId ? GeneratorUtil.ID_FIELD_NAME : _componentId.getSimpleName() );
     return builder.build();
   }
 
