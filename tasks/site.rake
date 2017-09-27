@@ -46,7 +46,12 @@ task 'site:deploy' => ['site:build'] do
   in_dir(SITE_DIR) do
     sh 'git init'
     sh 'git add .'
-    sh 'git commit -m "Publish website"'
+    message =
+      travis_build_number.nil? ?
+        'Publish website' :
+        "Publish website - Travis build: #{travis_build_number}"
+
+    sh "git commit -m \"#{message}\""
     sh "git remote add origin #{origin_url}"
     sh 'git push -f origin master:gh-pages'
   end
