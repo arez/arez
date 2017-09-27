@@ -35,8 +35,6 @@ TODO:
 
 * Explicitly add component (a.k.a. scope) to Actions, ComputedValue, Observables etc.
 
-* Start releasing binary snapshot
-
 * Rename project to Rez or similar. The desire is to get a unique url and not conflict with other companies etc.
   Although finding both a unique as well as descriptive name may be impossible.
 
