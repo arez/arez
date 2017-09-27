@@ -67,8 +67,7 @@ public final class ArezProcessor
     final PackageElement packageElement = processingEnv.getElementUtils().getPackageOf( element );
     final TypeElement typeElement = (TypeElement) element;
     final ComponentDescriptor descriptor = parse( packageElement, typeElement );
-    emitTypeSpec( descriptor.getPackageElement().getQualifiedName().toString(),
-                  descriptor.buildType(processingEnv.getTypeUtils()) );
+    emitTypeSpec( descriptor.getPackageName(), descriptor.buildType( processingEnv.getTypeUtils() ) );
   }
 
   @Nonnull
