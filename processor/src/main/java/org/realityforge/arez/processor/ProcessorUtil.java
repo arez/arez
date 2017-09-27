@@ -8,6 +8,7 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 import java.lang.annotation.Documented;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
@@ -198,6 +200,29 @@ final class ProcessorUtil
       }
 
       return true;
+    }
+  }
+
+  @SuppressWarnings( { "unchecked", "SameParameterValue" } )
+  @Nonnull
+  static List<TypeMirror> getTypeMirrorsAnnotationParameter( @Nonnull final Element typeElement,
+                                                             @Nonnull final String parameterName,
+                                                             @Nonnull final Class<?> annotationType )
+  {
+    final AnnotationMirror annotationMirror = typeElement.getAnnotationMirrors().stream().
+      filter( a -> a.getAnnotationType().toString().equals( annotationType.getName() ) ).findFirst().orElse( null );
+    assert null != annotationMirror;
+    final ExecutableElement annotationKey = annotationMirror.getElementValues().keySet().stream().
+      filter( k -> parameterName.equals( k.getSimpleName().toString() ) ).findFirst().orElse( null );
+    final AnnotationValue extensionsAnnotation = annotationMirror.getElementValues().get( annotationKey );
+    if ( null != extensionsAnnotation )
+    {
+      return ( (List<AnnotationValue>) extensionsAnnotation.getValue() ).stream().
+        map( v -> (TypeMirror) v.getValue() ).collect( Collectors.toList() );
+    }
+    else
+    {
+      return Collections.emptyList();
     }
   }
 }
