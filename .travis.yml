@@ -6,7 +6,9 @@ rvm:
   - 2.3.1
 before_install:
   # This is based on the instructions at https://gist.github.com/domenic/ec8b0fc8ab45f39403dd
-  - openssl aes-256-cbc -K $encrypted_90b1dba0abf8_key -iv $encrypted_90b1dba0abf8_iv -in etc/deploy_id_rsa.enc -out ~\/.ssh/deploy_id_rsa -d
+  - openssl aes-256-cbc -K $encrypted_90b1dba0abf8_key -iv $encrypted_90b1dba0abf8_iv -in etc/deploy_id_rsa.enc -out ../deploy_id_rsa -d
+  - chmod 600 ../deploy_id_rsa
+  - eval `ssh-agent -s` && ssh-add ../deploy_id_rsa
 install:
   - rvm use 2.3.1
   - gem install bundler
