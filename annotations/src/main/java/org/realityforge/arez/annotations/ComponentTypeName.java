@@ -28,6 +28,7 @@ import java.lang.annotation.Target;
  */
 @Documented
 @Target( ElementType.METHOD )
+@Unsupported( "The utility of this annotation is in question and may be removed in a future version of the library" )
 public @interface ComponentTypeName
 {
 }
