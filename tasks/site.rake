@@ -13,8 +13,8 @@ desc 'Build the website'
 task 'site:build' do
   rm_rf SITE_DIR
   mkdir_p File.dirname(SITE_DIR)
-  task('site:javadocs').invoke
   sh "jekyll build --source #{WORKSPACE_DIR}/docs --destination #{SITE_DIR}"
+  task('site:javadocs').invoke
 end
 
 desc 'Serve the website for developing documentation'
