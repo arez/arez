@@ -17,8 +17,6 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
-* Add annotations that support generation of Repositories (with extensions via default methods + interfaces)
-
 * Consider renaming concepts/methods in Arez
   - procedure(Tracker)+function(Tracker) => track() or trackingAction() or (query + mutation + trackingQuery + trackingMutation)
   - procedure+function => run() or action()
@@ -58,13 +56,6 @@ TODO:
   consist of all changes that have occurred in the order they occurred. If a Change object was not part
   of the change then an UnspecifiedChange() will be passed through. There may be some value to allowing
   it to be processed inline when it changes rather than as a reaction.
-
-* Figure out a way how to handle "repositories" as in replicant and friends. A repository allows you to
-  get all instances of entities of type. This could be handled as a series of `@Observable` maps that
-  map a `@Component` annotated class + `@ComponentId` field to an instance. We could also have `@Memoized`
-  queries on the repositories. To make this efficient we may need to start to support the "change parameter"
-  as described above to make it efficient. (However current applications just rescan the repository each
-  time they want to execute a query in many cases - which we may be able to get away with)
 
 * Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
   https://github.com/zalmoxisus/mobx-remotedev

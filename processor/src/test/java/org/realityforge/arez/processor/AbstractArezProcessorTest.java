@@ -8,6 +8,7 @@ import com.google.testing.compile.JavaSourcesSubjectFactory;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,35 +20,81 @@ import static org.testng.Assert.*;
 @SuppressWarnings( "Duplicates" )
 abstract class AbstractArezProcessorTest
 {
-  void assertSuccessfulCompile( @Nonnull final String classname )
+  void assertSuccessfulCompile( @Nonnull final String classname, final boolean repositoryEnabled )
     throws Exception
   {
     final String[] elements = classname.contains( "." ) ? classname.split( "\\." ) : new String[]{ classname };
     final StringBuilder input = new StringBuilder();
-    final StringBuilder expected = new StringBuilder();
+    final StringBuilder arezComponent = new StringBuilder();
+    final StringBuilder repository = repositoryEnabled ? new StringBuilder() : null;
+    final StringBuilder arezRepository = repositoryEnabled ? new StringBuilder() : null;
+    final StringBuilder repositoryExtension = repositoryEnabled ? new StringBuilder() : null;
     input.append( "input" );
-    expected.append( "expected" );
+    arezComponent.append( "expected" );
+    if ( repositoryEnabled )
+    {
+      repository.append( "expected" );
+      arezRepository.append( "expected" );
+      repositoryExtension.append( "expected" );
+    }
     for ( int i = 0; i < elements.length; i++ )
     {
       input.append( '/' );
       input.append( elements[ i ] );
-      expected.append( '/' );
-      if ( i == elements.length - 1 )
+      arezComponent.append( '/' );
+      if ( repositoryEnabled )
       {
-        expected.append( "Arez_" );
+        repository.append( '/' );
+        arezRepository.append( '/' );
+        repositoryExtension.append( '/' );
       }
-      expected.append( elements[ i ] );
+      final boolean isLastElement = i == elements.length - 1;
+      if ( isLastElement )
+      {
+        arezComponent.append( "Arez_" );
+        if ( repositoryEnabled )
+        {
+          arezRepository.append( "Arez_" );
+        }
+      }
+      arezComponent.append( elements[ i ] );
+      if ( repositoryEnabled )
+      {
+        repository.append( elements[ i ] );
+        arezRepository.append( elements[ i ] );
+        repositoryExtension.append( elements[ i ] );
+        if ( isLastElement )
+        {
+          repository.append( "Repository" );
+          arezRepository.append( "Repository" );
+          repositoryExtension.append( "Repository" );
+        }
+      }
     }
     input.append( ".java" );
-    expected.append( ".java" );
-    assertSuccessfulCompile( input.toString(), expected.toString() );
+    arezComponent.append( ".java" );
+    if ( repositoryEnabled )
+    {
+      repository.append( ".java" );
+      arezRepository.append( ".java" );
+      repositoryExtension.append( ".java" );
+      assertSuccessfulCompile( input.toString(),
+                               arezComponent.toString(),
+                               repository.toString(),
+                               arezRepository.toString(),
+                               repositoryExtension.toString() );
+    }
+    else
+    {
+      assertSuccessfulCompile( input.toString(), arezComponent.toString() );
+    }
   }
 
-  void assertSuccessfulCompile( @Nonnull final String inputResource, @Nonnull final String expectedOutputResource )
+  void assertSuccessfulCompile( @Nonnull final String inputResource, @Nonnull final String... expectedOutputResources )
     throws Exception
   {
     final JavaFileObject source = JavaFileObjects.forResource( inputResource );
-    assertSuccessfulCompile( Collections.singletonList( source ), Collections.singletonList( expectedOutputResource ) );
+    assertSuccessfulCompile( Collections.singletonList( source ), Arrays.asList( expectedOutputResources ) );
   }
 
   void assertSuccessfulCompile( @Nonnull final List<JavaFileObject> inputs,

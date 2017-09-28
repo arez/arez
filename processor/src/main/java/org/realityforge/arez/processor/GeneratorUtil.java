@@ -9,6 +9,7 @@ import javax.lang.model.element.VariableElement;
 
 final class GeneratorUtil
 {
+  static final ClassName GUARDS_CLASSNAME = ClassName.get( "org.realityforge.braincheck", "Guards" );
   static final ClassName AREZ_CLASSNAME = ClassName.get( "org.realityforge.arez", "Arez" );
   static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "org.realityforge.arez", "ArezContext" );
   static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "org.realityforge.arez", "Observable" );
@@ -27,6 +28,7 @@ final class GeneratorUtil
   static final String STARTED_AT_VARIABLE_NAME = FIELD_PREFIX + "startedAt";
   static final String DISPOSED_FIELD_NAME = FIELD_PREFIX + "disposed";
   static final String ID_FIELD_NAME = FIELD_PREFIX + "id";
+  static final String NAME_METHOD_NAME = FIELD_PREFIX + "name";
   static final String NEXT_ID_FIELD_NAME = FIELD_PREFIX + "nextId";
   static final String CONTEXT_FIELD_NAME = FIELD_PREFIX + "context";
 

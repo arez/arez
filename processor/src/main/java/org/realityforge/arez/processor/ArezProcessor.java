@@ -4,6 +4,7 @@ import com.google.auto.service.AutoService;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.AbstractProcessor;
@@ -18,7 +19,9 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 import org.realityforge.arez.annotations.ArezComponent;
+import org.realityforge.arez.annotations.Repository;
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 /**
@@ -68,8 +71,14 @@ public final class ArezProcessor
     final TypeElement typeElement = (TypeElement) element;
     final ComponentDescriptor descriptor = parse( packageElement, typeElement );
     emitTypeSpec( descriptor.getPackageName(), descriptor.buildType( processingEnv.getTypeUtils() ) );
+    if ( descriptor.hasRepository() )
+    {
+      emitTypeSpec( descriptor.getPackageName(), descriptor.buildRepository( processingEnv.getTypeUtils() ) );
+      emitTypeSpec( descriptor.getPackageName(), descriptor.buildRepositoryExtension() );
+    }
   }
 
+  @SuppressWarnings( "unchecked" )
   @Nonnull
   private ComponentDescriptor parse( final PackageElement packageElement, final TypeElement typeElement )
     throws ArezProcessorException
@@ -93,13 +102,28 @@ public final class ArezProcessor
     }
     final ArezComponent arezComponent = typeElement.getAnnotation( ArezComponent.class );
     final String name =
-      ProcessorUtil.isSentinelName( arezComponent.name() ) ? typeElement.getSimpleName().toString() : arezComponent.name();
+      ProcessorUtil.isSentinelName( arezComponent.name() ) ?
+      typeElement.getSimpleName().toString() :
+      arezComponent.name();
 
     final ComponentDescriptor descriptor =
-      new ComponentDescriptor( name, arezComponent.singleton(), arezComponent.disposable(), packageElement, typeElement );
+      new ComponentDescriptor( name,
+                               arezComponent.singleton(),
+                               arezComponent.disposable(),
+                               packageElement,
+                               typeElement );
 
     descriptor.analyzeCandidateMethods( ProcessorUtil.getMethods( typeElement ), processingEnv.getTypeUtils() );
     descriptor.validate();
+
+    final Repository repository = typeElement.getAnnotation( Repository.class );
+    if ( null != repository )
+    {
+      final List<TypeMirror> extensions =
+        ProcessorUtil.getTypeMirrorsAnnotationParameter( typeElement, "extensions", Repository.class );
+      descriptor.configureRepository( repository.name(), extensions );
+    }
+
     return descriptor;
   }
 

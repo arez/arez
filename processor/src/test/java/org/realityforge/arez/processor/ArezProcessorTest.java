@@ -16,59 +16,74 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
-        new Object[]{ "com.example.SubpackageModel" },
-        new Object[]{ "com.example.action.ActionTypeParametersModel" },
-        new Object[]{ "com.example.action.NewTypeParametersModel" },
-        new Object[]{ "com.example.action.FunctionActionThrowsRuntimeExceptionModel" },
-        new Object[]{ "com.example.action.FunctionActionThrowsThrowableModel" },
-        new Object[]{ "com.example.action.UnsafeSpecificFunctionActionModel" },
-        new Object[]{ "com.example.action.UnsafeSpecificProcedureActionModel" },
-        new Object[]{ "com.example.action.UnsafeFunctionActionModel" },
-        new Object[]{ "com.example.action.UnsafeProcedureActionModel" },
-        new Object[]{ "com.example.action.ReadOnlyActionModel" },
-        new Object[]{ "com.example.action.BasicFunctionActionModel" },
-        new Object[]{ "com.example.action.BasicActionModel" },
-        new Object[]{ "com.example.autorun.BasicAutorunModel" },
-        new Object[]{ "com.example.autorun.ReadWriteAutorunModel" },
-        new Object[]{ "com.example.computed.ComputedWithNameVariationsModel" },
-        new Object[]{ "com.example.computed.ComputedWithHooksModel" },
-        new Object[]{ "com.example.computed.BasicComputedModel" },
-        new Object[]{ "com.example.computed.TypeParametersModel" },
-        new Object[]{ "com.example.component_name.ComponentNameModel" },
-        new Object[]{ "com.example.component_name.ComponentTypeNameModel" },
-        new Object[]{ "com.example.component_name.ComponentTypeNameAloneOnSingletonModel" },
-        new Object[]{ "com.example.post_construct.PostConstructModel" },
-        new Object[]{ "com.example.tracked.BasicTrackedModel" },
-        new Object[]{ "com.example.tracked.BasicTrackedWithExceptionsModel" },
-        new Object[]{ "com.example.tracked.DeriveOnDepsUpdatedModel" },
-        new Object[]{ "com.example.tracked.DeriveTrackedModel" },
-        new Object[]{ "com.example.tracked.TrackedAllTypesModel" },
-        new Object[]{ "DisposingModel" },
-        new Object[]{ "ObservableTypeParametersModel" },
-        new Object[]{ "TypeParametersOnModel" },
-        new Object[]{ "NotDisposableModel" },
-        new Object[]{ "ObservableGuessingModel" },
-        new Object[]{ "AnnotationsOnModel" },
-        new Object[]{ "ObservableWithAnnotatedCtorModel" },
-        new Object[]{ "ObservableModelWithUnconventionalNames" },
-        new Object[]{ "DifferentObservableTypesModel" },
-        new Object[]{ "ObservableWithExceptingCtorModel" },
-        new Object[]{ "OverrideNamesInModel" },
-        new Object[]{ "SingletonModel" },
-        new Object[]{ "com.example.component_id.ComponentIdOnModel" },
-        new Object[]{ "BasicModelWithDifferentAccessLevels" },
-        new Object[]{ "ObservableWithCtorModel" },
-        new Object[]{ "ObservableWithSpecificExceptionModel" },
-        new Object[]{ "ObservableWithExceptionModel" },
-        new Object[]{ "BasicObservableModel" }
+        new Object[]{ "com.example.SubpackageModel", false },
+        new Object[]{ "com.example.action.ActionTypeParametersModel", false },
+        new Object[]{ "com.example.action.NewTypeParametersModel", false },
+        new Object[]{ "com.example.action.FunctionActionThrowsRuntimeExceptionModel", false },
+        new Object[]{ "com.example.action.FunctionActionThrowsThrowableModel", false },
+        new Object[]{ "com.example.action.UnsafeSpecificFunctionActionModel", false },
+        new Object[]{ "com.example.action.UnsafeSpecificProcedureActionModel", false },
+        new Object[]{ "com.example.action.UnsafeFunctionActionModel", false },
+        new Object[]{ "com.example.action.UnsafeProcedureActionModel", false },
+        new Object[]{ "com.example.action.ReadOnlyActionModel", false },
+        new Object[]{ "com.example.action.BasicFunctionActionModel", false },
+        new Object[]{ "com.example.action.BasicActionModel", false },
+        new Object[]{ "com.example.autorun.BasicAutorunModel", false },
+        new Object[]{ "com.example.autorun.ReadWriteAutorunModel", false },
+        new Object[]{ "com.example.computed.ComputedWithNameVariationsModel", false },
+        new Object[]{ "com.example.computed.ComputedWithHooksModel", false },
+        new Object[]{ "com.example.computed.BasicComputedModel", false },
+        new Object[]{ "com.example.computed.TypeParametersModel", false },
+        new Object[]{ "com.example.component_name.ComponentNameModel", false },
+        new Object[]{ "com.example.component_name.ComponentTypeNameModel", false },
+        new Object[]{ "com.example.component_name.ComponentTypeNameAloneOnSingletonModel", false },
+        new Object[]{ "com.example.post_construct.PostConstructModel", false },
+        new Object[]{ "com.example.repository.CompleteRepositoryExample", true },
+        new Object[]{ "com.example.repository.RepositoryWithExplicitId", true },
+        new Object[]{ "com.example.repository.RepositoryWithImplicitId", true },
+        new Object[]{ "com.example.repository.RepositoryWithMultipleCtors", true },
+        new Object[]{ "com.example.tracked.BasicTrackedModel", false },
+        new Object[]{ "com.example.tracked.BasicTrackedWithExceptionsModel", false },
+        new Object[]{ "com.example.tracked.DeriveOnDepsUpdatedModel", false },
+        new Object[]{ "com.example.tracked.DeriveTrackedModel", false },
+        new Object[]{ "com.example.tracked.TrackedAllTypesModel", false },
+        new Object[]{ "DisposingModel", false },
+        new Object[]{ "ObservableTypeParametersModel", false },
+        new Object[]{ "TypeParametersOnModel", false },
+        new Object[]{ "NotDisposableModel", false },
+        new Object[]{ "ObservableGuessingModel", false },
+        new Object[]{ "AnnotationsOnModel", false },
+        new Object[]{ "ObservableWithAnnotatedCtorModel", false },
+        new Object[]{ "ObservableModelWithUnconventionalNames", false },
+        new Object[]{ "DifferentObservableTypesModel", false },
+        new Object[]{ "ObservableWithExceptingCtorModel", false },
+        new Object[]{ "OverrideNamesInModel", false },
+        new Object[]{ "SingletonModel", false },
+        new Object[]{ "com.example.component_id.ComponentIdOnModel", false },
+        new Object[]{ "BasicModelWithDifferentAccessLevels", false },
+        new Object[]{ "ObservableWithCtorModel", false },
+        new Object[]{ "ObservableWithSpecificExceptionModel", false },
+        new Object[]{ "ObservableWithExceptionModel", false },
+        new Object[]{ "BasicObservableModel", false }
       };
   }
 
   @Test( dataProvider = "successfulCompiles" )
-  public void processSuccessfulCompile( @Nonnull final String classname )
+  public void processSuccessfulCompile( @Nonnull final String classname, final boolean repositoryEnabled )
     throws Exception
   {
-    assertSuccessfulCompile( classname );
+    assertSuccessfulCompile( classname, repositoryEnabled );
+  }
+
+  @Test
+  public void processSuccessfulNestedCompileWithRepositories()
+    throws Exception
+  {
+    assertSuccessfulCompile( "input/com/example/repository/NestedModel.java",
+                             "expected/com/example/repository/NestedModel$Arez_BasicActionModel.java",
+                             "expected/com/example/repository/NestedModel$Arez_BasicActionModel.java",
+                             "expected/com/example/repository/NestedModel$Arez_BasicActionModel.java",
+                             "expected/com/example/repository/NestedModel$Arez_BasicActionModel.java" );
   }
 
   @Test
@@ -402,6 +417,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observable.StaticObservableSetterModel", "@Observable target must not be static" },
         new Object[]{ "com.example.observable.FinalObservableGetterModel", "@Observable target must not be final" },
         new Object[]{ "com.example.observable.FinalObservableSetterModel", "@Observable target must not be final" },
+        new Object[]{ "com.example.repository.RepositoryWithSingleton", "The class annotated with @Repository is a singleton and thus can not define a repository" },
+        new Object[]{ "com.example.repository.RepositoryBadName", "Class annotated with @Repository specified an invalid name -abc" },
         };
   }
 
