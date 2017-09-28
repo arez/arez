@@ -138,7 +138,8 @@ define 'arez' do
     test.with :compile_testing,
               Java.tools_jar,
               :truth,
-              project('core')
+              project('core').package(:jar),
+              project('core').compile.dependencies
 
     package(:jar)
     package(:sources)
