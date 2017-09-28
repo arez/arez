@@ -25,6 +25,9 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   private final ComputedValue<Integer> $$arez$$_someValue;
 
   @Nonnull
+  private final Observer $$arez$$_myAutorun;
+
+  @Nonnull
   private final Observer $$arez$$_render;
 
   public Arez_SingletonModel() {
@@ -32,7 +35,9 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.time" : null );
     this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.someValue" : null, super::someValue, Objects::equals, null, null, null, null );
+    this.$$arez$$_myAutorun = this.$$arez$$_context.autorun( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.myAutorun" : null, true, () -> super.myAutorun(), false );
     this.$$arez$$_render = this.$$arez$$_context.reaction( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.render" : null, true, super::onRenderDepsUpdated );
+    this.$$arez$$_context.triggerScheduler();
   }
 
   @Override
@@ -44,6 +49,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
+      $$arez$$_myAutorun.dispose();
       $$arez$$_render.dispose();
       $$arez$$_someValue.dispose();
       $$arez$$_time.dispose();
@@ -62,6 +68,11 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
     }
+  }
+
+  @Override
+  public void myAutorun() {
+    this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.myAutorun" : null, true, () -> super.myAutorun() );
   }
 
   @Override

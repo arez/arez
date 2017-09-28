@@ -1,5 +1,6 @@
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
+import org.realityforge.arez.annotations.Autorun;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.OnDepsUpdated;
@@ -37,6 +38,11 @@ public class SingletonModel
 
   @OnDepsUpdated
   public void onRenderDepsUpdated()
+  {
+  }
+
+  @Autorun
+  public void myAutorun()
   {
   }
 }
