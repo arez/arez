@@ -33,9 +33,6 @@ TODO:
 
 * Explicitly add component (a.k.a. scope) to Actions, ComputedValue, Observables etc.
 
-* Rename project to Rez or similar. The desire is to get a unique url and not conflict with other companies etc.
-  Although finding both a unique as well as descriptive name may be impossible.
-
 * Enhance WhyRun and write tests for it. In browser environment use console group functions and
   colorization to make it more attractive as a debugging experience.
 
