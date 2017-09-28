@@ -17,6 +17,8 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
+* Start to document app using Jekyll site. Useful resources include https://learn.cloudcannon.com/
+
 * Consider renaming concepts/methods in Arez
   - procedure(Tracker)+function(Tracker) => track() or trackingAction() or (query + mutation + trackingQuery + trackingMutation)
   - procedure+function => run() or action()
