@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
+@SuppressWarnings( "Duplicates" )
 final class GeneratorUtil
 {
   static final ClassName GUARDS_CLASSNAME = ClassName.get( "org.realityforge.braincheck", "Guards" );
