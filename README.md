@@ -26,8 +26,6 @@ TODO:
   - react() => tracker()
   - Consider making active methods into verbs @Tracked => @Track
 
-* Figure out  way not to deploy poms with gwt classifier artifacts
-
 * Should be able to ensure all the collections returned by repositories are immutable ... at least in debug builds
 
 * Add Async helper to extras. Can be canceled/disposed. Has an Observable state field that indicates
