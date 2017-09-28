@@ -6,6 +6,7 @@ import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Processor;
@@ -19,7 +20,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Repository;
 import static javax.tools.Diagnostic.Kind.ERROR;
@@ -119,8 +119,10 @@ public final class ArezProcessor
     final Repository repository = typeElement.getAnnotation( Repository.class );
     if ( null != repository )
     {
-      final List<TypeMirror> extensions =
-        ProcessorUtil.getTypeMirrorsAnnotationParameter( typeElement, "extensions", Repository.class );
+      final List<TypeElement> extensions =
+        ProcessorUtil.getTypeMirrorsAnnotationParameter( typeElement, "extensions", Repository.class ).stream().
+          map( typeMirror -> (TypeElement) processingEnv.getTypeUtils().asElement( typeMirror ) ).
+          collect( Collectors.toList() );
       descriptor.configureRepository( repository.name(), extensions );
     }
 

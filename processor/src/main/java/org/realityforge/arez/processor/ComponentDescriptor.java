@@ -26,6 +26,8 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
@@ -72,7 +74,7 @@ final class ComponentDescriptor
   @Nullable
   private String _repositoryName;
   @Nullable
-  private List<TypeMirror> _repositoryExtensions;
+  private List<TypeElement> _repositoryExtensions;
   @Nonnull
   private final String _name;
   private final boolean _singleton;
@@ -1294,7 +1296,7 @@ final class ComponentDescriptor
   }
 
   @SuppressWarnings( "ConstantConditions" )
-  void configureRepository( @Nonnull final String name, @Nonnull final List<TypeMirror> extensions )
+  void configureRepository( @Nonnull final String name, @Nonnull final List<TypeElement> extensions )
   {
     assert null != name;
     assert null != extensions;
@@ -1315,6 +1317,30 @@ final class ComponentDescriptor
                                           _element );
       }
       _repositoryName = name;
+    }
+    for ( final TypeElement extension : extensions )
+    {
+      if ( ElementKind.INTERFACE != extension.getKind() )
+      {
+        throw new ArezProcessorException( "Class annotated with @Repository defined an extension that is " +
+                                          "not an interface. Extension: " + extension.getQualifiedName(),
+                                          getElement() );
+      }
+
+      for ( final Element enclosedElement : extension.getEnclosedElements() )
+      {
+        if ( ElementKind.METHOD == enclosedElement.getKind() )
+        {
+          final ExecutableElement method = (ExecutableElement) enclosedElement;
+          if ( !method.isDefault() &&
+               !( method.getSimpleName().toString().equals( "self" ) && 0 == method.getParameters().size() ) )
+          {
+            throw new ArezProcessorException( "Class annotated with @Repository defined an extension that has " +
+                                              "a non default method. Extension: " + extension.getQualifiedName() +
+                                              " Method: " + method, getElement() );
+          }
+        }
+      }
     }
     _repositoryExtensions = extensions;
   }
@@ -1363,7 +1389,7 @@ final class ComponentDescriptor
       build() );
 
     builder.addSuperinterface( ClassName.get( getPackageName(), getRepositoryExtensionName() ) );
-    _repositoryExtensions.forEach( e -> builder.addSuperinterface( TypeName.get( e ) ) );
+    _repositoryExtensions.forEach( e -> builder.addSuperinterface( TypeName.get( e.asType() ) ) );
 
     ProcessorUtil.copyAccessModifiers( element, builder );
 

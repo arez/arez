@@ -419,6 +419,14 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observable.FinalObservableSetterModel", "@Observable target must not be final" },
         new Object[]{ "com.example.repository.RepositoryWithSingleton",
                       "The class annotated with @Repository is a singleton and thus can not define a repository" },
+        new Object[]{ "com.example.repository.RepositoryExtensionIsClass",
+                      "Class annotated with @Repository defined an extension that is not an interface. Extension: com.example.repository.RepositoryExtensionIsClass.Foo" },
+        new Object[]{ "com.example.repository.RepositoryExtensionNotInterface",
+                      "Class annotated with @Repository defined an extension that is not an interface. Extension: com.example.repository.RepositoryExtensionNotInterface.Foo" },
+        new Object[]{ "com.example.repository.RepositoryExtensionHasBadSelf",
+                      "Class annotated with @Repository defined an extension that has a non default method. Extension: com.example.repository.RepositoryExtensionHasBadSelf.Foo Method: self(int)" },
+        new Object[]{ "com.example.repository.RepositoryExtensionHasAbstractMethod",
+                      "Class annotated with @Repository defined an extension that has a non default method. Extension: com.example.repository.RepositoryExtensionHasAbstractMethod.Foo Method: other(int)" },
         new Object[]{ "com.example.repository.RepositoryBadName",
                       "Class annotated with @Repository specified an invalid name -abc" }
       };
