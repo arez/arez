@@ -417,9 +417,11 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observable.StaticObservableSetterModel", "@Observable target must not be static" },
         new Object[]{ "com.example.observable.FinalObservableGetterModel", "@Observable target must not be final" },
         new Object[]{ "com.example.observable.FinalObservableSetterModel", "@Observable target must not be final" },
-        new Object[]{ "com.example.repository.RepositoryWithSingleton", "The class annotated with @Repository is a singleton and thus can not define a repository" },
-        new Object[]{ "com.example.repository.RepositoryBadName", "Class annotated with @Repository specified an invalid name -abc" },
-        };
+        new Object[]{ "com.example.repository.RepositoryWithSingleton",
+                      "The class annotated with @Repository is a singleton and thus can not define a repository" },
+        new Object[]{ "com.example.repository.RepositoryBadName",
+                      "Class annotated with @Repository specified an invalid name -abc" }
+      };
   }
 
   @Test( dataProvider = "failedCompiles" )
