@@ -24,6 +24,7 @@ import org.realityforge.arez.annotations.OnStale;
 /**
  * The class that represents the parsed state of @Computed methods on a @ArezComponent annotated class.
  */
+@SuppressWarnings( "Duplicates" )
 final class ComputedDescriptor
 {
   static final Pattern ON_ACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Activate$" );
