@@ -28,10 +28,10 @@ TODO:
   - react() => tracker()
   - Consider making active methods into verbs @Tracked => @Track
 
-* Should be able to ensure all the collections returned by repositories are immutable ... at least in debug builds
+* Convert findAll result from Collection to List. May need to be done via js magic to avoid performance degradation.
+  Introduce another method that can be used internally to class (but still public so can be used by queries)
 
-* Add Async helper to extras. Can be canceled/disposed. Has an Observable state field that indicates
-  current status. Triggers an "Action" on async completion. Useful for handling async http calls etc.
+* Should be able to ensure all the collections returned by repositories are immutable ... at least in debug builds
 
 * Explicitly add component (a.k.a. scope) to Actions, ComputedValue, Observables etc.
 
