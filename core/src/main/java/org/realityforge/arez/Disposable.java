@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import javax.annotation.Nonnull;
+import org.realityforge.braincheck.Guards;
 
 /**
  * Interface that allows caller to release any resources associated with element.
@@ -49,5 +50,13 @@ public interface Disposable
   static boolean isDisposed( @Nonnull final Object object )
   {
     return object instanceof Disposable && ( (Disposable) object ).isDisposed();
+  }
+
+  @Nonnull
+  static Disposable asDisposable( @Nonnull final Object object )
+  {
+    Guards.apiInvariant( () -> object instanceof Disposable,
+                         () -> "Object passed to asDisposable does not implement Disposable. Object: " + object );
+    return (Disposable) object;
   }
 }

@@ -45,4 +45,18 @@ public class DisposableTest
     assertEquals( object.isDisposed(), true );
     assertEquals( Disposable.isDisposed( object ), true );
   }
+
+  @Test
+  public void asDisposable()
+    throws Exception
+  {
+    final TestDisposable object = new TestDisposable();
+    assertEquals( Disposable.asDisposable( object ), object );
+
+    final Object element = new Object();
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> Disposable.asDisposable( element ) );
+    assertEquals( exception.getMessage(),
+                  "Object passed to asDisposable does not implement Disposable. Object: " + element );
+  }
 }
