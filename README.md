@@ -33,6 +33,17 @@ TODO:
 
 * Should be able to ensure all the collections returned by repositories are immutable ... at least in debug builds
 
+* Add a TimedDisposer that will dispose after a time. It should also be Disposable. In the browser it will use
+  setTimeout and clearTimeout()
+
+* Enhance Watcher so that it times out after specified time and self disposes. Probably implement via 
+  TimedDisposer that is disposed as part of effect.. 
+
+* Add an adapter that is like a "when" produces a promise that resolves when a condition occurs, is rejected when
+  another condition occurs or when the adapter is disposed. Andd a timed variant that uses TimedDisposer undercovers.
+
+* Consider an abstraction like https://github.com/danielearwicker/computed-async-mobx/
+
 * Explicitly add component (a.k.a. scope) to Actions, ComputedValue, Observables etc.
 
 * Enhance WhyRun and write tests for it. In browser environment use console group functions and
@@ -57,7 +68,9 @@ TODO:
   it to be processed inline when it changes rather than as a reaction.
 
 * Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
-  https://github.com/zalmoxisus/mobx-remotedev
+  - https://github.com/zalmoxisus/mobx-remotedev
+  - https://github.com/motion/mobx-formatters
+  - https://github.com/andykog/mobx-devtools
 
 ## Architecture v2 Notes
 
