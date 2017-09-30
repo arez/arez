@@ -46,6 +46,11 @@ TODO:
 * Enhance WhyRun and write tests for it. In browser environment use console group functions and
   colorization to make it more attractive as a debugging experience.
 
+* Use SpyUtil in "integration" tests to records a trace. Add mechanisms to verify traces match
+  "enough". Essentially serialize to json?
+
+* Add integration tests that use WhyRun?
+
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
 * Start using apiInvariant to check incorrect usage of the framework. Currently we use same invariant
