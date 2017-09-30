@@ -2,8 +2,6 @@
 title: Change Log
 ---
 
-<p class="editor-link"><a href="cloudcannon:collections/_posts" class="btn"><strong>&#9998;</strong> Update Change Log</a></p>
-
 <div class="changelog">
 	{% for change in site.posts %}
 		<div class="changelog-item">
@@ -11,8 +9,6 @@ title: Change Log
 			<p><span class="date">{{ change.date | date: "%B %d, %Y" }}</span> <span class="badge {{ change.type }}">{{ change.type }}</span></p>
 
 			{{ change.content }}
-
-			<p class="editor-link"><a href="cloudcannon:collections/{{ change.path }}" class="btn"><strong>&#9998;</strong> Update Entry</a></p>
 		</div>
 	{% endfor %}
 </div>
