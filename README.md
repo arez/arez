@@ -33,8 +33,8 @@ TODO:
 
 * Should be able to ensure all the collections returned by repositories are immutable ... at least in debug builds
 
-* Enhance Watcher so that it times out after specified time and self disposes. Probably implement via 
-  TimedDisposer that is disposed as part of effect.. 
+* Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
+  TimedDisposer that is disposed as part of effect..
 
 * Add an adapter that is like a "when" produces a promise that resolves when a condition occurs, is rejected when
   another condition occurs or when the adapter is disposed. And a timed variant that uses TimedDisposer undercovers.
@@ -113,11 +113,11 @@ are passivatable observers that call methods that are wrapped in a non-writeable
   of similar concepts. However there are some places (i.e. `Transaction.completeTracking()`) where the Mobx
   heritage is clear. Credit goes to Michel Weststrate and the Mobx team for their amazing conceptual model
   and some inspirational talks.
-  
+
 * Other frameworks that influenced the development of Arez include;
   - [Meteor Tracker](https://docs.meteor.com/api/tracker.html)
   - [VueJS watchers and Computed properties](https://vuejs.org/v2/guide/computed.html)
-  -  KnockoutJS [Observables](http://knockoutjs.com/documentation/observables.html) and [Computed Observables](http://knockoutjs.com/documentation/computedObservables.html) 
+  -  KnockoutJS [Observables](http://knockoutjs.com/documentation/observables.html) and [Computed Observables](http://knockoutjs.com/documentation/computedObservables.html)
 
 * The website is derived from the [Edition Template](https://github.com/CloudCannon/edition-jekyll-template)
   by [Cloud Cannon](https://cloudcannon.com/) that is licensed under the [MIT License](https://github.com/CloudCannon/edition-jekyll-template/blob/master/LICENSE).
