@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class DisposableTest
+  extends AbstractArezTest
 {
   static class TestDisposable
     implements Disposable
