@@ -46,11 +46,10 @@ public abstract class AbstractSpyEventProcessor
    * @param event the event that occurred.
    */
   @Override
-  @SuppressWarnings( "ConstantConditions" )
+  @SuppressWarnings( { "ConstantConditions", "unchecked" } )
   public final void onSpyEvent( @Nonnull final Object event )
   {
     assert null != event;
-    //noinspection unchecked
     final BiConsumer<SpyUtil.NestingDelta, Object> processor =
       (BiConsumer<SpyUtil.NestingDelta, Object>) _processors.get( event.getClass() );
     if ( null != processor )
