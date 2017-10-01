@@ -135,13 +135,6 @@ final class ExamplesSpyUtil
     }
   }
 
-  enum IndentType
-  {
-    IN,
-    OUT,
-    NONE
-  }
-
   private static class EventEmitter<T>
   {
     private final Function<T, String> _processor;
