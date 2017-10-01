@@ -14,7 +14,7 @@
   utility that casts the specified object to a `Disposable`.
 * Added automation to site deploy that verifies there are no broken links before uploading website.
 * Added a [Motivation](http://realityforge.org/arez/overview/motivation/) section to the website.
-* **\[core\]** Began experimenting with the ability to serialize spy events (i.e. Those in the 
+* **\[core\]** Began experimenting with the ability to serialize spy events (i.e. Those in the
   `org.realityforge.arez.spy` package) to `java.util.Map` instances. The goal is to extract and backport
   functionality from several downstream projects including the `example` and `gwt-example` sample projects
   aimed at serializing events. See the [`SerializableEvent`](http://realityforge.org/arez/api/org/realityforge/arez/spy/SerializableEvent.html)
