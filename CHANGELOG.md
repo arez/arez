@@ -24,6 +24,8 @@
   or does not modify the level of "nesting" in an event stream.
 * **\[extras\]** Extract the [`AbstractSpyEventProcessor`](http://realityforge.org/arez/api/org/realityforge/arez/extras/spy/AbstractSpyEventProcessor.html)
   base class from downstream projects. This class is intended to make it easy to write tools that process spy events.
+* **\[browser-extras\]** Import the [`ConsoleSpyEventProcessor`](http://realityforge.org/arez/api/org/realityforge/arez/browser/extras/spy/ConsoleSpyEventProcessor.html)
+  class. It is a `SpyEventHandler` that prints spy events to the browser console in a developer friendly manner.
 
 
 ### Fixed

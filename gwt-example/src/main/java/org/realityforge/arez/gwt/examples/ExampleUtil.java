@@ -2,6 +2,7 @@ package org.realityforge.arez.gwt.examples;
 
 import elemental2.dom.DomGlobal;
 import org.realityforge.arez.Arez;
+import org.realityforge.arez.browser.extras.spy.ConsoleSpyEventProcessor;
 import org.realityforge.arez.extras.WhyRun;
 
 final class ExampleUtil
@@ -10,10 +11,9 @@ final class ExampleUtil
   {
   }
 
-  @SuppressWarnings( "Convert2MethodRef" )
   static void spyEvents()
   {
-    Arez.context().getSpy().addSpyEventHandler( e -> GwtExamplesSpyUtil.emitEvent( e ) );
+    Arez.context().getSpy().addSpyEventHandler( new ConsoleSpyEventProcessor() );
   }
 
   static void whyRun()
