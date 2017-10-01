@@ -45,8 +45,7 @@ TODO:
 
 * Explicitly add component (a.k.a. scope) to Actions, ComputedValue, Observables etc.
 
-* Enhance WhyRun and write tests for it. In browser environment use console group functions and
-  colorization to make it more attractive as a debugging experience.
+* Enhance WhyRun and write tests for it.
 
 * Use SpyUtil in "integration" tests to records a trace. Add mechanisms to verify traces match
   "enough". Essentially serialize to json?
