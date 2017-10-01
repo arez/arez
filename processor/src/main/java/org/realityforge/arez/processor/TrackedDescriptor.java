@@ -133,7 +133,7 @@ final class TrackedDescriptor
     assert null != _onDepsUpdatedMethod;
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = this.$N.reaction( this.$N.areNamesEnabled() ? " );
+    sb.append( "this.$N = this.$N.tracker( this.$N.areNamesEnabled() ? " );
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );

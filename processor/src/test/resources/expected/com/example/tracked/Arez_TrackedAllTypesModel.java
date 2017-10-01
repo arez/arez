@@ -37,10 +37,10 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_render2 = this.$$arez$$_context.reaction( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".render2" : null, true, super::onRender2DepsUpdated );
-    this.$$arez$$_render3 = this.$$arez$$_context.reaction( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".render3" : null, true, super::onRender3DepsUpdated );
-    this.$$arez$$_render4 = this.$$arez$$_context.reaction( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".render4" : null, true, super::onRender4DepsUpdated );
-    this.$$arez$$_render1 = this.$$arez$$_context.reaction( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".render1" : null, true, super::onRender1DepsUpdated );
+    this.$$arez$$_render2 = this.$$arez$$_context.tracker( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".render2" : null, true, super::onRender2DepsUpdated );
+    this.$$arez$$_render3 = this.$$arez$$_context.tracker( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".render3" : null, true, super::onRender3DepsUpdated );
+    this.$$arez$$_render4 = this.$$arez$$_context.tracker( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".render4" : null, true, super::onRender4DepsUpdated );
+    this.$$arez$$_render1 = this.$$arez$$_context.tracker( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".render1" : null, true, super::onRender1DepsUpdated );
   }
 
   final long $$arez$$_id() {

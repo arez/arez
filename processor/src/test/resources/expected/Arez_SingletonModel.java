@@ -36,7 +36,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
     this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.time" : null );
     this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.someValue" : null, super::someValue, Objects::equals, null, null, null, null );
     this.$$arez$$_myAutorun = this.$$arez$$_context.autorun( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.myAutorun" : null, true, () -> super.myAutorun(), false );
-    this.$$arez$$_render = this.$$arez$$_context.reaction( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.render" : null, true, super::onRenderDepsUpdated );
+    this.$$arez$$_render = this.$$arez$$_context.tracker( this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.render" : null, true, super::onRenderDepsUpdated );
     this.$$arez$$_context.triggerScheduler();
   }
 
