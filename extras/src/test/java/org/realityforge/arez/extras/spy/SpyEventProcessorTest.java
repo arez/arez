@@ -126,7 +126,7 @@ public class SpyEventProcessorTest
   {
     final TestSpyEventProcessor processor = new TestSpyEventProcessor();
     final ObserverCreatedEvent event =
-      new ObserverCreatedEvent( Arez.context().reaction( Thread::yield ) );
+      new ObserverCreatedEvent( Arez.context().tracker( Thread::yield ) );
 
     final AtomicInteger handleCallCount = new AtomicInteger();
     final BiConsumer<SpyUtil.NestingDelta, ObserverCreatedEvent> handler =

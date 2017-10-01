@@ -25,7 +25,6 @@ TODO:
   - safeProcedure(Tracker)+safeFunction(Tracker) => safeTrack() or safeTrackingAction()
   - safeProcedure+safeFunction => safeRun() or safeAction()
   - autorun stays the same!
-  - react() => tracker()
   - Consider making active methods into verbs @Tracked => @Track
 
 * Reactions should start after the actions spy event has been sent. Does this mean sending action messages in core?

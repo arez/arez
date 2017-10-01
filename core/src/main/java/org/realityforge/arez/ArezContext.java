@@ -235,38 +235,38 @@ public final class ArezContext
   }
 
   /**
-   * Create a "reaction" observer with a read-only tracker transaction.
-   * The "reaction" observer triggers the action any time any of the tracked dependencies are updated.
-   * To track dependencies, this returned observer must be passed as tracker to {@link #function(Observer, Function)}.
+   * Create a "tracker" observer that tracks code using a read-only transaction.
+   * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #function(Observer, Function)}.
    *
    * @param action the action invoked as the reaction.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer reaction( @Nonnull final Procedure action )
+  public Observer tracker( @Nonnull final Procedure action )
   {
-    return reaction( false, action );
+    return tracker( false, action );
   }
 
   /**
-   * Create a "reaction" observer.
-   * The "reaction" observer triggers the action any time any of the tracked dependencies are updated.
-   * To track dependencies, this returned observer must be passed as tracker to {@link #function(Observer, Function)}.
+   * Create a "tracker" observer.
+   * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #function(Observer, Function)}.
    *
    * @param mutation true if the observer may modify state during tracking, false otherwise.
    * @param action   the action invoked as the reaction.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer reaction( final boolean mutation, @Nonnull final Procedure action )
+  public Observer tracker( final boolean mutation, @Nonnull final Procedure action )
   {
-    return reaction( null, mutation, action );
+    return tracker( null, mutation, action );
   }
 
   /**
-   * Create a "reaction" observer.
-   * The "reaction" observer triggers the action any time any of the tracked dependencies are updated.
-   * To track dependencies, this returned observer must be passed as tracker to {@link #function(Observer, Function)}.
+   * Create a "tracker" observer.
+   * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #function(Observer, Function)}.
    *
    * @param name     the name of the observer.
    * @param mutation true if the observer may modify state during tracking, false otherwise.
@@ -274,9 +274,9 @@ public final class ArezContext
    * @return the new Observer.
    */
   @Nonnull
-  public Observer reaction( @Nullable final String name,
-                            final boolean mutation,
-                            @Nonnull final Procedure action )
+  public Observer tracker( @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure action )
   {
     return createObserver( name, mutation, o -> action.call(), true );
   }
@@ -483,7 +483,7 @@ public final class ArezContext
 
   /**
    * Execute the supplied function in a transaction with specified Observer as tracker.
-   * The Observer must be created by the {@link #reaction(String, boolean, Procedure)} methods.
+   * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
    * The action may throw an exception.
    *
    * @param <T>     the type of return value.
@@ -497,7 +497,7 @@ public final class ArezContext
   {
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
-                        "tracker is not a reaction." );
+                        "observer is not a tracker." );
     return function( toName( tracker ), tracker.getMode(), action, tracker );
   }
 
@@ -564,7 +564,7 @@ public final class ArezContext
 
   /**
    * Execute the supplied function in a transaction with specified Observer as tracker.
-   * The Observer must be created by the {@link #reaction(String, boolean, Procedure)} methods.
+   * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
    * The action is expected to not throw an exception.
    *
    * @param <T>     the type of return value.
@@ -576,7 +576,7 @@ public final class ArezContext
   {
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
-                        "tracker is not a reaction." );
+                        "observer is not a tracker." );
     return safeFunction( toName( tracker ), tracker.getMode(), action, tracker );
   }
 
@@ -640,7 +640,7 @@ public final class ArezContext
 
   /**
    * Execute the supplied procedure in a transaction with specified Observer as tracker.
-   * The Observer must be created by the {@link #reaction(String, boolean, Procedure)} methods.
+   * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
    * The procedure may throw an exception.
    *
    * @param tracker   the tracking Observer.
@@ -652,7 +652,7 @@ public final class ArezContext
   {
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
-                        "tracker is not a reaction." );
+                        "observer is not a tracker." );
     procedure( toName( tracker ), tracker.getMode(), procedure, tracker );
   }
 
@@ -719,7 +719,7 @@ public final class ArezContext
 
   /**
    * Execute the supplied action in a transaction with specified Observer as tracker.
-   * The Observer must be created by the {@link #reaction(String, boolean, Procedure)} methods.
+   * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
    * The action is expected to not throw an exception.
    *
    * @param tracker the tracking Observer.
@@ -729,7 +729,7 @@ public final class ArezContext
   {
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
-                        "tracker is not a reaction." );
+                        "observer is not a tracker." );
     safeProcedure( toName( tracker ), tracker.getMode(), action, tracker );
   }
 
