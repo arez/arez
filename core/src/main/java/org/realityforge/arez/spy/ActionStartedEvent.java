@@ -1,5 +1,6 @@
 package org.realityforge.arez.spy;
 
+import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 
@@ -7,7 +8,10 @@ import javax.annotation.Nonnull;
  * Notification when Action starts.
  */
 public final class ActionStartedEvent
+  implements SerializableEvent
 {
+  public static final String TYPE_NAME = EventUtil.getName( ActionStartedEvent.class );
+
   @Nonnull
   private final String _name;
   /**
@@ -39,5 +43,17 @@ public final class ActionStartedEvent
   public Object[] getParameters()
   {
     return _parameters;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void toMap( @Nonnull final Map<String, Object> map )
+  {
+    map.put( "type", TYPE_NAME );
+    map.put( "action", getName() );
+    map.put( "tracked", isTracked() );
+    map.put( "parameters", getParameters() );
   }
 }

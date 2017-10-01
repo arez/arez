@@ -1,5 +1,6 @@
 package org.realityforge.arez.spy;
 
+import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -10,7 +11,10 @@ import org.realityforge.arez.ObserverError;
  * Notification when Observer produces an error.
  */
 public final class ObserverErrorEvent
+  implements SerializableEvent
 {
+  public static final String TYPE_NAME = EventUtil.getName( ObserverErrorEvent.class );
+
   @Nonnull
   private final Observer _observer;
   @Nonnull
@@ -43,5 +47,20 @@ public final class ObserverErrorEvent
   public Throwable getThrowable()
   {
     return _throwable;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void toMap( @Nonnull final Map<String, Object> map )
+  {
+    map.put( "type", TYPE_NAME );
+    map.put( "observer", getObserver().getName() );
+    map.put( "errorType", getError().name() );
+    final Throwable throwable = getThrowable();
+    final String message =
+      null == throwable ? null : null == throwable.getMessage() ? throwable.toString() : throwable.getMessage();
+    map.put( "message", message );
   }
 }

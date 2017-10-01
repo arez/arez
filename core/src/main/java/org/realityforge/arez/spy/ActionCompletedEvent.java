@@ -1,5 +1,6 @@
 package org.realityforge.arez.spy;
 
+import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -9,7 +10,10 @@ import javax.annotation.Nullable;
  * Notification when Action completes.
  */
 public final class ActionCompletedEvent
+  implements SerializableEvent
 {
+  public static final String TYPE_NAME = EventUtil.getName( ActionCompletedEvent.class );
+
   @Nonnull
   private final String _name;
   /**
@@ -83,5 +87,25 @@ public final class ActionCompletedEvent
   public long getDuration()
   {
     return _duration;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void toMap( @Nonnull final Map<String, Object> map )
+  {
+    map.put( "type", TYPE_NAME );
+    map.put( "action", getName() );
+    map.put( "tracked", isTracked() );
+    map.put( "duration", getDuration() );
+    final Throwable throwable = getThrowable();
+    map.put( "normalCompletion", null == throwable );
+    final String message =
+      null == throwable ? null : null == throwable.getMessage() ? throwable.toString() : throwable.getMessage();
+    map.put( "errorMessage", message );
+    map.put( "parameters", getParameters() );
+    map.put( "expectsResult", isExpectsResult() );
+    map.put( "result", getResult() );
   }
 }

@@ -1,5 +1,6 @@
 package org.realityforge.arez.spy;
 
+import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -9,7 +10,10 @@ import org.realityforge.arez.Observer;
  * Notification when Observer completes reaction.
  */
 public final class ReactionCompletedEvent
+  implements SerializableEvent
 {
+  public static final String TYPE_NAME = EventUtil.getName( ReactionCompletedEvent.class );
+
   @Nonnull
   private final Observer _observer;
   @Nonnegative
@@ -32,5 +36,16 @@ public final class ReactionCompletedEvent
   public long getDuration()
   {
     return _duration;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void toMap( @Nonnull final Map<String, Object> map )
+  {
+    map.put( "type", TYPE_NAME );
+    map.put( "observer", getObserver().getName() );
+    map.put( "duration", getDuration() );
   }
 }
