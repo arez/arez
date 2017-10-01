@@ -14,7 +14,7 @@ final class ExampleUtil
 
   static void spyEvents()
   {
-    Arez.context().getSpy().addSpyEventHandler( SpyUtil::emitEvent );
+    Arez.context().getSpy().addSpyEventHandler( e -> GwtExamplesSpyUtil.emitEvent( e ) );
   }
 
   static void whyRun()

@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import javax.annotation.Nonnull;
+import jsinterop.base.JsPropertyMap;
+import jsinterop.base.JsPropertyMapOfAny;
+import org.realityforge.arez.extras.spy.SpyUtil;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
 import org.realityforge.arez.spy.ComputeCompletedEvent;
@@ -24,64 +27,50 @@ import org.realityforge.arez.spy.ObserverErrorEvent;
 import org.realityforge.arez.spy.ReactionCompletedEvent;
 import org.realityforge.arez.spy.ReactionScheduledEvent;
 import org.realityforge.arez.spy.ReactionStartedEvent;
+import org.realityforge.arez.spy.SerializableEvent;
 import org.realityforge.arez.spy.TransactionCompletedEvent;
 import org.realityforge.arez.spy.TransactionStartedEvent;
 
-final class SpyUtil
+final class GwtExamplesSpyUtil
 {
   private static final Map<Class, EventEmitter> _emitterMap = new HashMap<>();
   private static int _indentLevel;
 
-  private SpyUtil()
+  private GwtExamplesSpyUtil()
   {
   }
 
   static
   {
     on( ObserverCreatedEvent.class,
-        IndentType.NONE,
         e -> "Observer Created " + e.getObserver().getName() );
     on( ObserverCreatedEvent.class,
-        IndentType.NONE,
         e -> "Observer Created " + e.getObserver().getName() );
     on( ObserverDisposedEvent.class,
-        IndentType.NONE,
         e -> "Observer Disposed " + e.getObserver().getName() );
     on( ObserverErrorEvent.class,
-        IndentType.NONE,
         e -> "Observer Error " + e.getObserver().getName() + " " + e.getError() + " " + e.getThrowable() );
     on( ObservableCreatedEvent.class,
-        IndentType.NONE,
         e -> "Observable Created " + e.getObservable().getName() );
     on( ObservableDisposedEvent.class,
-        IndentType.NONE,
         e -> "Observable Disposed " + e.getObservable().getName() );
     on( ObservableChangedEvent.class,
-        IndentType.NONE,
         e -> "Observable Changed " + e.getObservable().getName() );
     on( ComputedValueActivatedEvent.class,
-        IndentType.NONE,
         e -> "Computed Value Activate " + e.getComputedValue().getName() );
     on( ComputedValueDeactivatedEvent.class,
-        IndentType.NONE,
         e -> "Computed Value Deactivate " + e.getComputedValue().getName() );
     on( ComputedValueCreatedEvent.class,
-        IndentType.NONE,
         e -> "Computed Value Created " + e.getComputedValue().getName() );
     on( ComputedValueDisposedEvent.class,
-        IndentType.NONE,
         e -> "Computed Value Disposed " + e.getComputedValue().getName() );
     on( ReactionStartedEvent.class,
-        IndentType.IN,
         e -> "Reaction Started " + e.getObserver().getName() );
     on( ReactionScheduledEvent.class,
-        IndentType.NONE,
         e -> "Reaction Scheduled " + e.getObserver().getName() );
     on( ReactionCompletedEvent.class,
-        IndentType.OUT,
         e -> "Reaction Completed " + e.getObserver().getName() + " [" + e.getDuration() + "]" );
     on( TransactionStartedEvent.class,
-        IndentType.IN,
         e -> "Transaction Started " +
              e.getName() +
              " Mutation=" +
@@ -89,7 +78,6 @@ final class SpyUtil
              " Tracker=" +
              ( e.getTracker() == null ? null : e.getTracker().getName() ) );
     on( TransactionCompletedEvent.class,
-        IndentType.OUT,
         e -> "Transaction Completed " +
              e.getName() +
              " Mutation=" +
@@ -97,20 +85,16 @@ final class SpyUtil
              " Tracker=" +
              ( e.getTracker() == null ? null : e.getTracker().getName() ) + " [" + e.getDuration() + "]" );
     on( ComputeStartedEvent.class,
-        IndentType.IN,
         e -> "Compute Started " + e.getComputedValue().getName() );
     on( ComputeCompletedEvent.class,
-        IndentType.OUT,
         e -> "Compute Completed " + e.getComputedValue().getName() + " [" + e.getDuration() + "]" );
     on( ActionStartedEvent.class,
-        IndentType.IN,
         e -> ( e.isTracked() ? "Tracked " : "" ) + "Action Started " +
              e.getName() +
              "(" +
              Arrays.toString( e.getParameters() ) +
              ")" );
     on( ActionCompletedEvent.class,
-        IndentType.OUT,
         e -> ( e.isTracked() ? "Tracked " : "" ) + "Action Completed " +
              e.getName() +
              "(" +
@@ -122,11 +106,10 @@ final class SpyUtil
              "]" );
   }
 
-  private static <T> void on( @Nonnull final Class<T> type,
-                              @Nonnull final IndentType indentType,
-                              @Nonnull final Function<T, String> processor )
+  private static <T extends SerializableEvent> void on( @Nonnull final Class<T> type,
+                                                        @Nonnull final Function<T, String> processor )
   {
-    _emitterMap.put( type, new EventEmitter<>( indentType, processor ) );
+    _emitterMap.put( type, new EventEmitter<>( processor ) );
   }
 
   @SuppressWarnings( "unchecked" )
@@ -135,7 +118,8 @@ final class SpyUtil
     final EventEmitter emitter = _emitterMap.get( event.getClass() );
     if ( null != emitter )
     {
-      _indentLevel += emitter.getIndentType() == IndentType.OUT ? -1 : 0;
+      final SpyUtil.NestingDelta delta = SpyUtil.getNestingDelta( event.getClass() );
+      _indentLevel += SpyUtil.NestingDelta.DECREASE == delta ? -1 : 0;
 
       final StringBuilder sb = new StringBuilder();
       for ( int i = 0; i < _indentLevel; i++ )
@@ -145,7 +129,44 @@ final class SpyUtil
       sb.append( emitter.getProcessor().apply( event ) );
 
       DomGlobal.console.log( sb.toString() );
-      _indentLevel += emitter.getIndentType() == IndentType.IN ? 1 : 0;
+      final Map<String, Object> bag = new HashMap<>();
+      final SerializableEvent sEvent = (SerializableEvent) event;
+      sEvent.toMap( bag );
+      final JsPropertyMapOfAny json = JsPropertyMap.of();
+      for ( final Map.Entry<String, Object> entry : bag.entrySet() )
+      {
+        final Object value = entry.getValue();
+        if ( value instanceof Byte )
+        {
+          json.set( entry.getKey(), ( (Byte) value ).intValue() );
+        }
+        else if ( value instanceof Short )
+        {
+          json.set( entry.getKey(), ( (Short) value ).intValue() );
+        }
+        else if ( value instanceof Integer )
+        {
+          json.set( entry.getKey(), ( (Integer) value ).intValue() );
+        }
+        else if ( value instanceof Long )
+        {
+          json.set( entry.getKey(), ( (Long) value ).longValue() );
+        }
+        else if ( value instanceof Float )
+        {
+          json.set( entry.getKey(), ( (Float) value ).floatValue() );
+        }
+        else if ( value instanceof Double )
+        {
+          json.set( entry.getKey(), ( (Double) value ).floatValue() );
+        }
+        else
+        {
+          json.set( entry.getKey(), value );
+        }
+      }
+      DomGlobal.console.log( json );
+      _indentLevel += SpyUtil.NestingDelta.INCREASE == delta ? 1 : 0;
     }
     else
     {
@@ -153,28 +174,13 @@ final class SpyUtil
     }
   }
 
-  enum IndentType
+  private static class EventEmitter<T extends SerializableEvent>
   {
-    IN,
-    OUT,
-    NONE
-  }
-
-  private static class EventEmitter<T>
-  {
-    private final IndentType _indentType;
     private final Function<T, String> _processor;
 
-    EventEmitter( @Nonnull final IndentType indentType, @Nonnull final Function<T, String> processor )
+    EventEmitter( @Nonnull final Function<T, String> processor )
     {
-      _indentType = Objects.requireNonNull( indentType );
       _processor = Objects.requireNonNull( processor );
-    }
-
-    @Nonnull
-    IndentType getIndentType()
-    {
-      return _indentType;
     }
 
     @Nonnull

@@ -15,7 +15,7 @@ public final class TimeModelExample
     final ArezContext context = Arez.context();
     ExampleUtil.logAllErrors( context );
 
-    context.getSpy().addSpyEventHandler( SpyUtil::emitEvent );
+    context.getSpy().addSpyEventHandler( ExamplesSpyUtil::emitEvent );
 
     final TimeModel timeModel = TimeModel.create( 0 );
 

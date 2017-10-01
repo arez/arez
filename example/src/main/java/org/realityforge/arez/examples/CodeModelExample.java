@@ -13,7 +13,7 @@ public final class CodeModelExample
     final ArezContext context = Arez.context();
 
     ExampleUtil.logAllErrors( context );
-    context.getSpy().addSpyEventHandler( SpyUtil::emitEvent );
+    context.getSpy().addSpyEventHandler( ExamplesSpyUtil::emitEvent );
 
     final CodeModel codeModel = CodeModel.create( "com.example", "MyType" );
 
