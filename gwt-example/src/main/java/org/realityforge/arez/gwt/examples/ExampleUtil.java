@@ -12,6 +12,7 @@ final class ExampleUtil
   {
   }
 
+  @SuppressWarnings( "Convert2MethodRef" )
   static void spyEvents()
   {
     Arez.context().getSpy().addSpyEventHandler( e -> GwtExamplesSpyUtil.emitEvent( e ) );
