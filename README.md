@@ -122,11 +122,11 @@ are passivatable observers that call methods that are wrapped in a non-writeable
 # Credit
 
 * The toolkit began life as an attempt to port [Mobx](https://mobx.js.org/) to java. Not all of the Mobx
-  primitives make sense in a java world. There were also places where it was felt that we could improve on
-  the Mobx model, at least in our environment. The idea of a "port" was discarded and it became a reimplementation
-  of similar concepts. However there are some places (i.e. `Transaction.completeTracking()`) where the Mobx
-  heritage is clear. Credit goes to Michel Weststrate and the Mobx team for their amazing conceptual model
-  and some inspirational talks.
+  primitives made sense in a java world. There were also places where it was felt that we could improve on
+  the Mobx model, at least for our environment. The idea of a "port" was soon discarded and Arez became a
+  reimplementation of similar concepts. However there are some places (i.e. `Transaction.completeTracking()`)
+  where the Mobx heritage is clear. Credit goes to Michel Weststrate and the Mobx team for their clean conceptual
+  model and some inspirational talks.
 
 * Other frameworks that influenced the development of Arez include;
   - [Meteor Tracker](https://docs.meteor.com/api/tracker.html)
