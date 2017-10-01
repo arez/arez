@@ -16,6 +16,11 @@ final class ExampleUtil
     Arez.context().getSpy().addSpyEventHandler( new ConsoleSpyEventProcessor() );
   }
 
+  static void jsonLogSpyEvents()
+  {
+    Arez.context().getSpy().addSpyEventHandler( new JsonLogSpyEventProcessor() );
+  }
+
   static void whyRun()
   {
     DomGlobal.console.log( new WhyRun( Arez.context() ).whyRun() );
