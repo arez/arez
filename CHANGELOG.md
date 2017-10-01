@@ -1,5 +1,7 @@
 # Change Log
 
+## Unreleased
+
 ## [v0.03](https://github.com/realityforge/arez/tree/v0.03) (2017-10-02)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.02...v0.03)
 
