@@ -28,6 +28,8 @@ TODO:
   - react() => tracker()
   - Consider making active methods into verbs @Tracked => @Track
 
+* Reactions should start after the actions spy event has been sent. Does this mean sending action messages in core?
+
 * Convert findAll result from Collection to List. May need to be done via js magic to avoid performance degradation.
   Introduce another method that can be used internally to class (but still public so can be used by queries)
 
