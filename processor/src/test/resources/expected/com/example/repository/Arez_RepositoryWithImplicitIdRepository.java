@@ -52,18 +52,18 @@ public final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWit
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "RepositoryWithImplicitIdRepository.create_packageName_name", false, new Object[]{packageName,name}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
       }
       return $$arez$$_result;
-    } catch( final RuntimeException e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Exception e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
-    } catch( final Error e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Throwable e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
+    } catch( final RuntimeException $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
     } finally {
       if ( !$$arez$$_completed ) {
         final RepositoryWithImplicitId $$arez$$_result = null;

@@ -12,6 +12,12 @@
 * **\[processor\]** Enhance the `ArezProcessor` to catch unexpected failures and report the crash to the user,
   directing the user to report the failure as a github issue.
 
+### Fixed
+* **\[processor\]** Annotation processor previously generated catch blocks with the caught exception stored in a
+  variable named `e`. This broke code where the action passed e as a parameter. This has been fixed by renaming the
+  caught exception to use the standard name mangling used through the rest of the generated code. (i.e. prefixing
+  the variable name with `$$arez$$_`)
+
 ## [v0.03](https://github.com/realityforge/arez/tree/v0.03) (2017-10-02)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.02...v0.03)
 

@@ -63,14 +63,14 @@ public final class Arez_UnsafeFunctionActionModel extends UnsafeFunctionActionMo
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".doStuff", false, new Object[]{time}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
       }
       return $$arez$$_result;
-    } catch( final Exception e ) {
-      throw e;
-    } catch( final Error e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Throwable e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
+    } catch( final Exception $$arez$$_e ) {
+      throw $$arez$$_e;
+    } catch( final Error $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
     } finally {
       if ( !$$arez$$_completed ) {
         final Integer $$arez$$_result = null;

@@ -178,8 +178,8 @@ final class ActionDescriptor
 
     for ( final TypeMirror exception : _action.getThrownTypes() )
     {
-      codeBlock.nextControlFlow( "catch( final $T e )", exception );
-      codeBlock.addStatement( "throw e" );
+      codeBlock.nextControlFlow( "catch( final $T $N )", exception, GeneratorUtil.CAUGHT_THROWABLE_NAME );
+      codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
     }
 
     if ( _action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.Throwable" ) ) )
@@ -188,20 +188,26 @@ final class ActionDescriptor
       {
         if ( _action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) ) )
         {
-          codeBlock.nextControlFlow( "catch( final $T e )", RuntimeException.class );
-          codeBlock.addStatement( "$N = e", GeneratorUtil.THROWABLE_VARIABLE_NAME );
-          codeBlock.addStatement( "throw e" );
+          codeBlock.nextControlFlow( "catch( final $T $N )",
+                                     RuntimeException.class,
+                                     GeneratorUtil.CAUGHT_THROWABLE_NAME );
+          codeBlock.addStatement( "$N = $N",
+                                  GeneratorUtil.THROWABLE_VARIABLE_NAME,
+                                  GeneratorUtil.CAUGHT_THROWABLE_NAME );
+          codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
         }
-        codeBlock.nextControlFlow( "catch( final $T e )", Exception.class );
-        codeBlock.addStatement( "$N = e", GeneratorUtil.THROWABLE_VARIABLE_NAME );
-        codeBlock.addStatement( "throw new $T( e )", IllegalStateException.class );
+        codeBlock.nextControlFlow( "catch( final $T $N )", Exception.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
+        codeBlock.addStatement( "$N = $N", GeneratorUtil.THROWABLE_VARIABLE_NAME, GeneratorUtil.CAUGHT_THROWABLE_NAME );
+        codeBlock.addStatement( "throw new $T( $N )",
+                                IllegalStateException.class,
+                                GeneratorUtil.CAUGHT_THROWABLE_NAME );
       }
-      codeBlock.nextControlFlow( "catch( final $T e )", Error.class );
-      codeBlock.addStatement( "$N = e", GeneratorUtil.THROWABLE_VARIABLE_NAME );
-      codeBlock.addStatement( "throw e" );
-      codeBlock.nextControlFlow( "catch( final $T e )", Throwable.class );
-      codeBlock.addStatement( "$N = e", GeneratorUtil.THROWABLE_VARIABLE_NAME );
-      codeBlock.addStatement( "throw new $T( e )", IllegalStateException.class );
+      codeBlock.nextControlFlow( "catch( final $T $N )", Error.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
+      codeBlock.addStatement( "$N = $N", GeneratorUtil.THROWABLE_VARIABLE_NAME, GeneratorUtil.CAUGHT_THROWABLE_NAME );
+      codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
+      codeBlock.nextControlFlow( "catch( final $T $N )", Throwable.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
+      codeBlock.addStatement( "$N = $N", GeneratorUtil.THROWABLE_VARIABLE_NAME, GeneratorUtil.CAUGHT_THROWABLE_NAME );
+      codeBlock.addStatement( "throw new $T( $N )", IllegalStateException.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
     }
     codeBlock.nextControlFlow( "finally" );
 

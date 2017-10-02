@@ -23,6 +23,7 @@ final class GeneratorUtil
     ClassName.get( "org.realityforge.arez.spy", "ActionCompletedEvent" );
   static final String FIELD_PREFIX = "$$arez$$_";
   private static final String DURATION_VARIABLE_NAME = FIELD_PREFIX + "duration";
+  static final String CAUGHT_THROWABLE_NAME = FIELD_PREFIX + "e";
   static final String THROWABLE_VARIABLE_NAME = FIELD_PREFIX + "throwable";
   static final String COMPLETED_VARIABLE_NAME = FIELD_PREFIX + "completed";
   static final String RESULT_VARIABLE_NAME = FIELD_PREFIX + "result";

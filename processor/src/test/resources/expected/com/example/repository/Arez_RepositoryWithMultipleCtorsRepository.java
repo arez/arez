@@ -52,18 +52,18 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "RepositoryWithMultipleCtorsRepository.create_packageName_name", false, new Object[]{packageName,name}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
       }
       return $$arez$$_result;
-    } catch( final RuntimeException e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Exception e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
-    } catch( final Error e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Throwable e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
+    } catch( final RuntimeException $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
     } finally {
       if ( !$$arez$$_completed ) {
         final RepositoryWithMultipleCtors $$arez$$_result = null;
@@ -94,18 +94,18 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "RepositoryWithMultipleCtorsRepository.create_", false, new Object[]{}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
       }
       return $$arez$$_result;
-    } catch( final RuntimeException e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Exception e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
-    } catch( final Error e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Throwable e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
+    } catch( final RuntimeException $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
     } finally {
       if ( !$$arez$$_completed ) {
         final RepositoryWithMultipleCtors $$arez$$_result = null;
@@ -136,18 +136,18 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "RepositoryWithMultipleCtorsRepository.create_name", false, new Object[]{name}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
       }
       return $$arez$$_result;
-    } catch( final RuntimeException e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Exception e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
-    } catch( final Error e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Throwable e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
+    } catch( final RuntimeException $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
     } finally {
       if ( !$$arez$$_completed ) {
         final RepositoryWithMultipleCtors $$arez$$_result = null;

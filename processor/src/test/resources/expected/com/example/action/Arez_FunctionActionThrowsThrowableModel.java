@@ -63,8 +63,8 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".doStuff", false, new Object[]{time}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
       }
       return $$arez$$_result;
-    } catch( final Throwable e ) {
-      throw e;
+    } catch( final Throwable $$arez$$_e ) {
+      throw $$arez$$_e;
     } finally {
       if ( !$$arez$$_completed ) {
         final Integer $$arez$$_result = null;

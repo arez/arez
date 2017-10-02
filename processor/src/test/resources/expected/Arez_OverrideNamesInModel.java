@@ -106,18 +106,18 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".myAction", false, new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
-    } catch( final RuntimeException e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Exception e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
-    } catch( final Error e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Throwable e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
+    } catch( final RuntimeException $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
     } finally {
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
@@ -150,20 +150,20 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".XX", true, new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
-    } catch( final ParseException e ) {
-      throw e;
-    } catch( final RuntimeException e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Exception e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
-    } catch( final Error e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Throwable e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
+    } catch( final ParseException $$arez$$_e ) {
+      throw $$arez$$_e;
+    } catch( final RuntimeException $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
     } finally {
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
