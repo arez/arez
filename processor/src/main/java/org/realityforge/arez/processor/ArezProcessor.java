@@ -4,6 +4,8 @@ import com.google.auto.service.AutoService;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -60,6 +62,21 @@ public final class ArezProcessor
       catch ( final ArezProcessorException e )
       {
         processingEnv.getMessager().printMessage( ERROR, e.getMessage(), e.getElement() );
+      }
+      catch ( final Throwable e )
+      {
+        final StringWriter sw = new StringWriter();
+        e.printStackTrace( new PrintWriter( sw ) );
+        sw.flush();
+
+        final String message =
+          "Unexpected error will running the " + getClass().getName() + " processor. This has " +
+          "resulted in a failure to process the code and has left the compiler in an invalid " +
+          "state. Please report the failure to the developers so that it can be fixed.\n" +
+          " Report the error at: https://github.com/realityforge/arez/issues\n" +
+          "\n\n" +
+          sw.toString();
+        processingEnv.getMessager().printMessage( ERROR, message, element );
       }
     }
   }

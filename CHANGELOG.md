@@ -9,6 +9,8 @@
   the `ConsoleSpyEventProcessor` class.
 * **\[extras\]** Enhance the `ConsoleSpyEventProcessor` class so that javascript native objects passed as parameters
   to actions are formatted using `JSON.stringify` so that they produce more human friendly messages.
+* **\[processor\]** Enhance the `ArezProcessor` to catch unexpected failures and report the crash to the user,
+  directing the user to report the failure as a github issue.
 
 ## [v0.03](https://github.com/realityforge/arez/tree/v0.03) (2017-10-02)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.02...v0.03)
