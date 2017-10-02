@@ -86,7 +86,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
 
   @Override
   public void zapZap() {
-    this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".zzzzzz" : null, true, () -> super.zapZap() );
+    this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".zzzzzz" : null, true, () -> super.zapZap() );
   }
 
   @Override
@@ -100,7 +100,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".myAction", false, new Object[]{} ) );
       }
-      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".myAction" : null, true, () -> super.doAction() );
+      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".myAction" : null, true, () -> super.doAction() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;

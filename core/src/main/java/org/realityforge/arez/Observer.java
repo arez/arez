@@ -96,10 +96,10 @@ public final class Observer
           ArezConfig.enableNames() ? computedValue.getName() : null,
           computedValue,
           TransactionMode.READ_WRITE_OWNED,
-          o -> o.getContext().procedure( ArezConfig.enableNames() ? o.getName() : null,
-                                         o.getMode(),
-                                         computedValue::compute,
-                                         o ),
+          o -> o.getContext().action( ArezConfig.enableNames() ? o.getName() : null,
+                                      o.getMode(),
+                                      computedValue::compute,
+                                      o ),
           false );
   }
 
@@ -193,10 +193,10 @@ public final class Observer
     if ( !_disposed )
     {
       runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
-      getContext().safeProcedure( ArezConfig.enableNames() ? getName() : null,
-                                  TransactionMode.READ_WRITE,
-                                  () -> getContext().getTransaction().markTrackerAsDisposed(),
-                                  this );
+      getContext().safeAction( ArezConfig.enableNames() ? getName() : null,
+                               TransactionMode.READ_WRITE,
+                               () -> getContext().getTransaction().markTrackerAsDisposed(),
+                               this );
       if ( willPropagateSpyEvents() && !isDerivation() )
       {
         reportSpyEvent( new ObserverDisposedEvent( this ) );

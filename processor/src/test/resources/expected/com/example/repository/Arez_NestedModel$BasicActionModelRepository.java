@@ -45,7 +45,7 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "NestedModel$BasicActionModelRepository.create_", false, new Object[]{} ) );
       }
-      final NestedModel.BasicActionModel $$arez$$_result = this.$$arez$$_context.safeFunction(this.$$arez$$_context.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.create_" : null, true, () -> super.create() );
+      final NestedModel.BasicActionModel $$arez$$_result = this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.create_" : null, true, () -> super.create() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;

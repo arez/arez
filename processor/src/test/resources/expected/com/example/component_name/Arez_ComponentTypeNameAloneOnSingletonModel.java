@@ -48,7 +48,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "ComponentTypeNameAloneOnSingletonModel.doStuff", false, new Object[]{time,someOtherParameter} ) );
       }
-      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? "ComponentTypeNameAloneOnSingletonModel.doStuff" : null, true, () -> super.doStuff(time,someOtherParameter) );
+      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "ComponentTypeNameAloneOnSingletonModel.doStuff" : null, true, () -> super.doStuff(time,someOtherParameter) );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;

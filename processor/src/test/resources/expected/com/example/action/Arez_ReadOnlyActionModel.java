@@ -56,7 +56,7 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".queryStuff", false, new Object[]{time} ) );
       }
-      final int $$arez$$_result = this.$$arez$$_context.safeFunction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".queryStuff" : null, false, () -> super.queryStuff(time) );
+      final int $$arez$$_result = this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".queryStuff" : null, false, () -> super.queryStuff(time) );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;

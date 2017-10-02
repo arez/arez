@@ -19,10 +19,6 @@ that will be expanded over time as the library is fleshed out.
 TODO:
 * Start to document app using Jekyll site. Useful resources include https://learn.cloudcannon.com/
 
-* Consider renaming concepts/methods in Arez
-  - procedure+function => action()
-  - safeProcedure+safeFunction => safeAction()
-
 * Reactions should start after the actions spy event has been sent. Does this mean sending action messages in core?
 
 * Convert findAll result from Collection to List. May need to be done via js magic to avoid performance degradation.

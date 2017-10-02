@@ -167,7 +167,7 @@ public class ExternalApiTest
     assertEquals( reactionCount.get(), 1 );
     assertEquals( ArezTestUtil.isActive( observer ), true );
 
-    context.safeProcedure( ValueUtil.randomString(), true, observable::reportChanged );
+    context.safeAction( ValueUtil.randomString(), true, observable::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( ArezTestUtil.isActive( observer ), true );
@@ -264,7 +264,7 @@ public class ExternalApiTest
   }
 
   @Test
-  public void function()
+  public void action_function()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -276,7 +276,7 @@ public class ExternalApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.function( ValueUtil.randomString(), false, () -> {
+      context.action( ValueUtil.randomString(), false, () -> {
         assertInTransaction( observable );
         return expectedValue;
       } );
@@ -287,7 +287,7 @@ public class ExternalApiTest
   }
 
   @Test
-  public void safeFunction()
+  public void action_safeFunction()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -299,7 +299,7 @@ public class ExternalApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.safeFunction( ValueUtil.randomString(), false, () -> {
+      context.safeAction( ValueUtil.randomString(), false, () -> {
         assertInTransaction( observable );
         return expectedValue;
       } );
@@ -338,7 +338,7 @@ public class ExternalApiTest
   }
 
   @Test
-  public void nestedFunctions()
+  public void action_nestedFunctions()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -350,17 +350,17 @@ public class ExternalApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.function( ValueUtil.randomString(), false, () -> {
+      context.action( ValueUtil.randomString(), false, () -> {
         assertInTransaction( observable );
 
         //First nested exception
         final String v1 =
-          context.function( ValueUtil.randomString(), false, () -> {
+          context.action( ValueUtil.randomString(), false, () -> {
             assertInTransaction( observable );
 
             //Second nested exception
             final String v2 =
-              context.function( ValueUtil.randomString(), false, () -> {
+              context.action( ValueUtil.randomString(), false, () -> {
                 assertInTransaction( observable );
                 return expectedValue;
               } );

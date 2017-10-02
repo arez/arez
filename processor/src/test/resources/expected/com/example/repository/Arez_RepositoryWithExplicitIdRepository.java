@@ -45,7 +45,7 @@ public final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWit
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "RepositoryWithExplicitIdRepository.create_packageName_name", false, new Object[]{packageName,name} ) );
       }
-      final RepositoryWithExplicitId $$arez$$_result = this.$$arez$$_context.safeFunction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.create_packageName_name" : null, true, () -> super.create(packageName,name) );
+      final RepositoryWithExplicitId $$arez$$_result = this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.create_packageName_name" : null, true, () -> super.create(packageName,name) );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;

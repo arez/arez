@@ -97,10 +97,10 @@ public final class Observable
       }
       else
       {
-        getContext().safeProcedure( ArezConfig.enableNames() ? getName() : null,
-                                    TransactionMode.READ_WRITE,
-                                    this::performDispose,
-                                    null );
+        getContext().safeAction( ArezConfig.enableNames() ? getName() : null,
+                                 TransactionMode.READ_WRITE,
+                                 this::performDispose,
+                                 null );
       }
     }
   }

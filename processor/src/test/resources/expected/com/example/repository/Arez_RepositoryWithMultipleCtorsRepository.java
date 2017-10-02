@@ -45,7 +45,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "RepositoryWithMultipleCtorsRepository.create_packageName_name", false, new Object[]{packageName,name} ) );
       }
-      final RepositoryWithMultipleCtors $$arez$$_result = this.$$arez$$_context.safeFunction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_packageName_name" : null, true, () -> super.create(packageName,name) );
+      final RepositoryWithMultipleCtors $$arez$$_result = this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_packageName_name" : null, true, () -> super.create(packageName,name) );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
@@ -87,7 +87,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "RepositoryWithMultipleCtorsRepository.create_", false, new Object[]{} ) );
       }
-      final RepositoryWithMultipleCtors $$arez$$_result = this.$$arez$$_context.safeFunction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_" : null, true, () -> super.create() );
+      final RepositoryWithMultipleCtors $$arez$$_result = this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_" : null, true, () -> super.create() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
@@ -129,7 +129,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "RepositoryWithMultipleCtorsRepository.create_name", false, new Object[]{name} ) );
       }
-      final RepositoryWithMultipleCtors $$arez$$_result = this.$$arez$$_context.safeFunction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_name" : null, true, () -> super.create(name) );
+      final RepositoryWithMultipleCtors $$arez$$_result = this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_name" : null, true, () -> super.create(name) );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;

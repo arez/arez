@@ -96,19 +96,19 @@ final class ActionDescriptor
 
     if ( isProcedure && isSafe )
     {
-      statement.append( "safeProcedure" );
+      statement.append( "safeAction" );
     }
     else if ( isProcedure )
     {
-      statement.append( "procedure" );
+      statement.append( "action" );
     }
     else if ( isSafe )
     {
-      statement.append( "safeFunction" );
+      statement.append( "safeAction" );
     }
     else
     {
-      statement.append( "function" );
+      statement.append( "action" );
     }
 
     statement.append( "(" );

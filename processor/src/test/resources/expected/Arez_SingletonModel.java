@@ -72,7 +72,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
 
   @Override
   public void myAutorun() {
-    this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.myAutorun" : null, true, () -> super.myAutorun() );
+    this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.myAutorun" : null, true, () -> super.myAutorun() );
   }
 
   @Override
@@ -86,7 +86,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "SingletonModel.doStuff", false, new Object[]{time} ) );
       }
-      this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.doStuff" : null, true, () -> super.doStuff(time) );
+      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.doStuff" : null, true, () -> super.doStuff(time) );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
