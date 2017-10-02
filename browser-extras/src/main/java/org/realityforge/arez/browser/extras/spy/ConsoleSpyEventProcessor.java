@@ -1,7 +1,7 @@
 package org.realityforge.arez.browser.extras.spy;
 
+import elemental2.core.Global;
 import elemental2.dom.DomGlobal;
-import java.util.Arrays;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Unsupported;
 import org.realityforge.arez.extras.spy.AbstractSpyEventProcessor;
@@ -300,7 +300,7 @@ public class ConsoleSpyEventProcessor
   {
     final String message =
       ( e.isTracked() ? "Tracked " : "" ) + "Action Started " + e.getName() +
-      "(" + Arrays.toString( e.getParameters() ) + ")";
+      parametersToString( e.getParameters() );
     log( d, "%c" + message, ACTION_COLOR );
   }
 
@@ -312,17 +312,64 @@ public class ConsoleSpyEventProcessor
    */
   protected void onActionCompleted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ActionCompletedEvent e )
   {
-    final String message = ( e.isTracked() ? "Tracked " : "" ) + "Action Completed " +
+    final String message = ( e.isTracked() ? "Tracked " : "" ) +
+                           "Action Completed " +
                            e.getName() +
-                           "(" +
-                           Arrays.toString( e.getParameters() ) +
-                           ")" + ( e.isExpectsResult() && null == e.getThrowable() ? " = " + e.getResult() : "" ) +
+                           parametersToString( e.getParameters() ) +
+                           ( e.isExpectsResult() && null == e.getThrowable() ? " = " + e.getResult() : "" ) +
                            ( null != e.getThrowable() ? "threw " + e.getThrowable() : "" ) +
                            " Duration [" +
                            e.getDuration() +
                            "]";
     log( d, "%c" + message, ACTION_COLOR );
   }
+
+  /**
+   * Convert array of parameters into something consumable by a human.
+   * Java objects use toString() while native javascript objects use <code>JSON.stringify()</code>.
+   *
+   * @param parameters the parameters to convert
+   * @return a string representation of the parameters
+   */
+  @Nonnull
+  protected String parametersToString( @Nonnull final Object[] parameters )
+  {
+    final StringBuilder sb = new StringBuilder();
+    sb.append( "(" );
+    boolean requireComma = false;
+    for ( final Object parameter : parameters )
+    {
+      if ( requireComma )
+      {
+        sb.append( ", " );
+      }
+      else
+      {
+        requireComma = true;
+      }
+      if ( null == parameter )
+      {
+        sb.append( "null" );
+      }
+      else if ( isJavaClass( parameter ) )
+      {
+        sb.append( parameter );
+      }
+      else
+      {
+        sb.append( Global.JSON.stringify( parameter ) );
+      }
+    }
+    sb.append( ")" );
+    return sb.toString();
+  }
+
+  /**
+   * Return true if the specified object has an associated java class constant.
+   */
+  private native boolean isJavaClass( @Nonnull final Object object ) /*-{
+    return undefined !== object.__proto__ && undefined !== object.__proto__.@java.lang.Object::___clazz;
+  }-*/;
 
   /**
    * Log specified message with parameters
