@@ -63,7 +63,7 @@ public final class Arez_BasicTrackedWithExceptionsModel extends BasicTrackedWith
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".render", true, new Object[]{} ) );
       }
-      this.$$arez$$_context.procedure( this.$$arez$$_render, () -> super.render() );
+      this.$$arez$$_context.track( this.$$arez$$_render, () -> super.render() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;

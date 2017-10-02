@@ -315,7 +315,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void function_withTracker()
+  public void track_function()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -334,7 +334,7 @@ public class ArezContextTest
     final int nextNodeId = context.currentNextTransactionId();
 
     final String v0 =
-      context.function( tracker, () -> {
+      context.track( tracker, () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), tracker.getName() );
@@ -374,7 +374,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void function_passingNonReactionAsTracker()
+  public void track_function_passingNonTracker()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -384,7 +384,7 @@ public class ArezContextTest
     final Observer observer = newObserver( context );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.function( observer, callCount::incrementAndGet ) );
+      expectThrows( IllegalStateException.class, () -> context.track( observer, callCount::incrementAndGet ) );
     assertEquals( exception.getMessage(),
                   "Attempted to track Observer named '" + observer.getName() + "' but observer is not a tracker." );
 
@@ -468,7 +468,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void safeFunction_withTracker()
+  public void track_safeFunction()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -487,7 +487,7 @@ public class ArezContextTest
     final int nextNodeId = context.currentNextTransactionId();
 
     final String v0 =
-      context.safeFunction( tracker, () -> {
+      context.safeTrack( tracker, () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), tracker.getName() );
@@ -527,7 +527,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void safeFunction_passingNonReactionAsTracker()
+  public void track_safeFunction_passingNonTracker()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -537,7 +537,7 @@ public class ArezContextTest
     final Observer observer = newObserver( context );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.safeFunction( observer, callCount::incrementAndGet ) );
+      expectThrows( IllegalStateException.class, () -> context.safeTrack( observer, callCount::incrementAndGet ) );
     assertEquals( exception.getMessage(),
                   "Attempted to track Observer named '" + observer.getName() + "' but observer is not a tracker." );
 
@@ -563,7 +563,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void safeProcedure_withTracker()
+  public void track_safeProcedure()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -579,7 +579,7 @@ public class ArezContextTest
 
     final int nextNodeId = context.currentNextTransactionId();
 
-    context.safeProcedure( tracker, () -> {
+    context.safeTrack( tracker, () -> {
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
       assertEquals( transaction.getName(), tracker.getName() );
@@ -615,7 +615,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void safeProcedure_passingNonReactionAsTracker()
+  public void track_safeProcedure_passingNonTracker()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -625,7 +625,7 @@ public class ArezContextTest
     final Observer observer = newObserver( context );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.safeProcedure( observer, callCount::incrementAndGet ) );
+      expectThrows( IllegalStateException.class, () -> context.safeTrack( observer, callCount::incrementAndGet ) );
     assertEquals( exception.getMessage(),
                   "Attempted to track Observer named '" + observer.getName() + "' but observer is not a tracker." );
 
@@ -651,7 +651,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void procedure_passingNonReactionAsTracker()
+  public void track_procedure_passingNonTracker()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -661,7 +661,7 @@ public class ArezContextTest
     final Observer observer = newObserver( context );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.procedure( observer, callCount::incrementAndGet ) );
+      expectThrows( IllegalStateException.class, () -> context.track( observer, callCount::incrementAndGet ) );
     assertEquals( exception.getMessage(),
                   "Attempted to track Observer named '" + observer.getName() + "' but observer is not a tracker." );
 
@@ -669,7 +669,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void procedure_withTracker()
+  public void track_procedure()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -685,7 +685,7 @@ public class ArezContextTest
 
     final int nextNodeId = context.currentNextTransactionId();
 
-    context.procedure( tracker, () -> {
+    context.track( tracker, () -> {
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
       assertEquals( transaction.getName(), tracker.getName() );

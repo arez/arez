@@ -204,19 +204,19 @@ final class TrackedDescriptor
 
     if ( isProcedure && isSafe )
     {
-      statement.append( "safeProcedure" );
+      statement.append( "safeTrack" );
     }
     else if ( isProcedure )
     {
-      statement.append( "procedure" );
+      statement.append( "track" );
     }
     else if ( isSafe )
     {
-      statement.append( "safeFunction" );
+      statement.append( "safeTrack" );
     }
     else
     {
-      statement.append( "function" );
+      statement.append( "track" );
     }
 
     statement.append( "( this.$N, " );

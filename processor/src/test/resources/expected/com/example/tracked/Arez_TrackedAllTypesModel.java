@@ -78,7 +78,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".render2", true, new Object[]{} ) );
       }
-      this.$$arez$$_context.procedure( this.$$arez$$_render2, () -> super.render2() );
+      this.$$arez$$_context.track( this.$$arez$$_render2, () -> super.render2() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
@@ -119,7 +119,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".render3", true, new Object[]{} ) );
       }
-      final int $$arez$$_result = this.$$arez$$_context.safeFunction( this.$$arez$$_render3, () -> super.render3() );
+      final int $$arez$$_result = this.$$arez$$_context.safeTrack( this.$$arez$$_render3, () -> super.render3() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
@@ -160,7 +160,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".render4", true, new Object[]{} ) );
       }
-      final int $$arez$$_result = this.$$arez$$_context.function( this.$$arez$$_render4, () -> super.render4() );
+      final int $$arez$$_result = this.$$arez$$_context.track( this.$$arez$$_render4, () -> super.render4() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
@@ -203,7 +203,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".render1", true, new Object[]{} ) );
       }
-      this.$$arez$$_context.safeProcedure( this.$$arez$$_render1, () -> super.render1() );
+      this.$$arez$$_context.safeTrack( this.$$arez$$_render1, () -> super.render1() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;

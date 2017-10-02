@@ -130,7 +130,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "SingletonModel.render", true, new Object[]{} ) );
       }
-      this.$$arez$$_context.safeProcedure( this.$$arez$$_render, () -> super.render() );
+      this.$$arez$$_context.safeTrack( this.$$arez$$_render, () -> super.render() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;

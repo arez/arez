@@ -16,6 +16,12 @@
 * Usage of the invariant checking method call `Guards.invariant(...)` has been replaced by `Guards.apiInvariant(...)`
   in scenarios where the invariant failure is the result of the user of the Arez library supplying invalid data or
   invoking methods before checking whether the elements are in the correct state.
+* **\[core\]** Rename the transaction methods in `ArezContext` that accepted the `Observer` as the tracker to `track`
+  or `safeTrack` (depending on whether they throw an exception or not). The methods renamed are specifically:
+  - `ArezContext.function(Observer, Function)` renamed to `ArezContext.track(Observer, Function)`
+  - `ArezContext.safeFunction(Observer, SafeFunction)` renamed to `ArezContext.safeTrack(Observer, SafeFunction)`
+  - `ArezContext.procedure(Observer, Procedure)` renamed to `ArezContext.track(Observer, Procedure)`
+  - `ArezContext.safeProcedure(Observer, SafeProcedure)` renamed to `ArezContext.safeTrack(Observer, SafeProcedure)`
 
 ### Fixed
 * **\[processor\]** Annotation processor previously generated catch blocks with the caught exception stored in a

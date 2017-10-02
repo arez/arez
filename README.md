@@ -20,8 +20,6 @@ TODO:
 * Start to document app using Jekyll site. Useful resources include https://learn.cloudcannon.com/
 
 * Consider renaming concepts/methods in Arez
-  - procedure(Tracker)+function(Tracker) => track() or trackingAction()
-  - safeProcedure(Tracker)+safeFunction(Tracker) => safeTrack() or safeTrackingAction()
   - procedure+function => action()
   - safeProcedure+safeFunction => safeAction()
   - Consider making active methods into verbs @Tracked => @Track

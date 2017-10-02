@@ -144,7 +144,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".XX", true, new Object[]{} ) );
       }
-      this.$$arez$$_context.procedure( this.$$arez$$_XX, () -> super.render() );
+      this.$$arez$$_context.track( this.$$arez$$_XX, () -> super.render() );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;

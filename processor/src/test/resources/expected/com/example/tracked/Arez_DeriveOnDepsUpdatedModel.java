@@ -62,7 +62,7 @@ public final class Arez_DeriveOnDepsUpdatedModel extends DeriveOnDepsUpdatedMode
         $$arez$$_startedAt = System.currentTimeMillis();
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".render", true, new Object[]{time,someOtherParameter} ) );
       }
-      this.$$arez$$_context.safeProcedure( this.$$arez$$_render, () -> super.render(time,someOtherParameter) );
+      this.$$arez$$_context.safeTrack( this.$$arez$$_render, () -> super.render(time,someOtherParameter) );
       $$arez$$_completed = true;
       if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
