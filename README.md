@@ -52,10 +52,6 @@ TODO:
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
-* Start using apiInvariant to check incorrect usage of the framework. Currently we use same invariant
-  checking code as verifying the behaviour of the framework. Example checks we should convert:
-    - ComputedValues should not cause cycles during recalculation
-
 * Add `@Memoized` annotation to methods that makes the method call act as a ComputedValue based on parameters.
   This could be a low priority as can "fake" it by defining a @Computed method tha invokes the method and returns
   values.
