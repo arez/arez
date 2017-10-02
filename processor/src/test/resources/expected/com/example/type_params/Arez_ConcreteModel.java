@@ -82,18 +82,18 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".handleWriter", false, new Object[]{writer}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
-    } catch( final RuntimeException e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Exception e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
-    } catch( final Error e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Throwable e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
+    } catch( final RuntimeException $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
     } finally {
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
@@ -121,18 +121,18 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
         final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".handleError", false, new Object[]{error}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
       }
-    } catch( final RuntimeException e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Exception e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
-    } catch( final Error e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Throwable e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
+    } catch( final RuntimeException $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
     } finally {
       if ( !$$arez$$_completed ) {
         if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
@@ -161,18 +161,18 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".genWriter", false, new Object[]{}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
       }
       return $$arez$$_result;
-    } catch( final RuntimeException e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Exception e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
-    } catch( final Error e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Throwable e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
+    } catch( final RuntimeException $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
     } finally {
       if ( !$$arez$$_completed ) {
         final W $$arez$$_result = null;
@@ -202,18 +202,18 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
         this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".genError", false, new Object[]{}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
       }
       return $$arez$$_result;
-    } catch( final RuntimeException e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Exception e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
-    } catch( final Error e ) {
-      $$arez$$_throwable = e;
-      throw e;
-    } catch( final Throwable e ) {
-      $$arez$$_throwable = e;
-      throw new IllegalStateException( e );
+    } catch( final RuntimeException $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      $$arez$$_throwable = $$arez$$_e;
+      throw new IllegalStateException( $$arez$$_e );
     } finally {
       if ( !$$arez$$_completed ) {
         final IOException $$arez$$_result = null;
