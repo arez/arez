@@ -351,13 +351,18 @@ public class ConsoleSpyEventProcessor
       {
         sb.append( "null" );
       }
-      else if ( isJavaClass( parameter ) )
-      {
-        sb.append( parameter );
-      }
       else
       {
-        sb.append( Global.JSON.stringify( parameter ) );
+        sb.append( Global.JSON.stringify( parameter, ( key, value ) -> {
+          if ( isJavaClass( value ) )
+          {
+            return String.valueOf( value );
+          }
+          else
+          {
+            return value;
+          }
+        } ) );
       }
     }
     sb.append( ")" );
