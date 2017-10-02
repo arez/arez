@@ -11,10 +11,10 @@ import javax.annotation.Nonnull;
  * as a dependency of the tracker. If any of these dependencies are changed then class will
  * be notified by way of a "OnDepsUpdated" method. The method can be explicitly marked with the
  * {@link OnDepsUpdated} annotation or the framework will attempt to use the method named according
- * to naming conventions. i.e. If the Tracked method is named "render" then the OnDepsUpdated method
- * will expect to be named "onRenderDepsUpdate".
+ * to naming conventions. i.e. If the @Track annotated method is named "render" then the @OnDepsUpdated
+ * annotated method will have default to being named "onRenderDepsUpdate".
  *
- * <p>The method that is annotated with @Tracked must comply with the additional constraints:</p>
+ * <p>The method that is annotated with @Track must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with {@link ComponentId}, {@link Action}, {@link Observable}, {@link Computed}, {@link javax.annotation.PostConstruct}, {@link PreDispose}, {@link PostDispose}, {@link OnActivate}, {@link OnDeactivate} or {@link OnStale}</li>
  * <li>Must not be private</li>
@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
  */
 @Documented
 @Target( ElementType.METHOD )
-public @interface Tracked
+public @interface Track
 {
   /**
    * Return the name of the Tracked relative to the component.

@@ -4,7 +4,7 @@ import org.realityforge.arez.annotations.Autorun;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.OnDepsUpdated;
-import org.realityforge.arez.annotations.Tracked;
+import org.realityforge.arez.annotations.Track;
 
 @ArezComponent( singleton = true )
 public class SingletonModel
@@ -31,7 +31,7 @@ public class SingletonModel
     return 0;
   }
 
-  @Tracked
+  @Track
   public void render()
   {
   }

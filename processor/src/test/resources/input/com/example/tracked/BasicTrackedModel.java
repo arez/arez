@@ -2,12 +2,12 @@ package com.example.tracked;
 
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.OnDepsUpdated;
-import org.realityforge.arez.annotations.Tracked;
+import org.realityforge.arez.annotations.Track;
 
 @ArezComponent
 public class BasicTrackedModel
 {
-  @Tracked
+  @Track
   public void render( final long time, float someOtherParameter )
   {
   }

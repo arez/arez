@@ -19,10 +19,10 @@ import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import org.realityforge.arez.annotations.OnDepsUpdated;
-import org.realityforge.arez.annotations.Tracked;
+import org.realityforge.arez.annotations.Track;
 
 /**
- * The class that represents the parsed state of @Tracked methods on a @ArezComponent annotated class.
+ * The class that represents the parsed state of @Track methods on a @ArezComponent annotated class.
  */
 @SuppressWarnings( "Duplicates" )
 final class TrackedDescriptor
@@ -76,10 +76,10 @@ final class TrackedDescriptor
                          @Nonnull final ExecutableElement method,
                          @Nonnull final ExecutableType trackedMethodType )
   {
-    MethodChecks.mustBeOverridable( Tracked.class, method );
+    MethodChecks.mustBeOverridable( Track.class, method );
     if ( null != _trackedMethod )
     {
-      throw new ArezProcessorException( "@Tracked target duplicates existing method named " +
+      throw new ArezProcessorException( "@Track target duplicates existing method named " +
                                         _trackedMethod.getSimpleName(), method );
 
     }

@@ -54,7 +54,7 @@ import org.realityforge.arez.annotations.OnDispose;
 import org.realityforge.arez.annotations.OnStale;
 import org.realityforge.arez.annotations.PostDispose;
 import org.realityforge.arez.annotations.PreDispose;
-import org.realityforge.arez.annotations.Tracked;
+import org.realityforge.arez.annotations.Track;
 
 /**
  * The class that represents the parsed state of ArezComponent annotated class.
@@ -319,19 +319,19 @@ final class ComponentDescriptor
     findOrCreateTracked( name ).setOnDepsUpdatedMethod( method );
   }
 
-  private void addTracked( @Nonnull final Tracked annotation,
+  private void addTracked( @Nonnull final Track annotation,
                            @Nonnull final ExecutableElement method,
                            @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
     final String name = deriveTrackedName( method, annotation );
-    checkNameUnique( name, method, Tracked.class );
+    checkNameUnique( name, method, Track.class );
     final TrackedDescriptor tracked = findOrCreateTracked( name );
     tracked.setTrackedMethod( annotation.mutation(), method, methodType );
   }
 
   @Nonnull
-  private String deriveTrackedName( @Nonnull final ExecutableElement method, @Nonnull final Tracked annotation )
+  private String deriveTrackedName( @Nonnull final ExecutableElement method, @Nonnull final Track annotation )
     throws ArezProcessorException
   {
     if ( ProcessorUtil.isSentinelName( annotation.name() ) )
@@ -343,7 +343,7 @@ final class ComponentDescriptor
       final String name = annotation.name();
       if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
       {
-        throw new ArezProcessorException( "Method annotated with @Tracked specified invalid name " + name, method );
+        throw new ArezProcessorException( "Method annotated with @Track specified invalid name " + name, method );
       }
       return name;
     }
@@ -590,7 +590,7 @@ final class ComponentDescriptor
          _roAutoruns.isEmpty() )
     {
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
-                                        "@Computed, @Observable, @Tracked or @Autorun", _element );
+                                        "@Computed, @Observable, @Track or @Autorun", _element );
     }
   }
 
@@ -623,13 +623,13 @@ final class ComponentDescriptor
     {
       throw toException( name, sourceType, sourceMethod, Autorun.class, autorun.getAutorun() );
     }
-    // Tracked have pairs so let the caller determine whether a duplicate occurs in that scenario
-    if ( Tracked.class != sourceType )
+    // Track have pairs so let the caller determine whether a duplicate occurs in that scenario
+    if ( Track.class != sourceType )
     {
       final TrackedDescriptor tracked = _trackeds.get( name );
       if ( null != tracked )
       {
-        throw toException( name, sourceType, sourceMethod, Tracked.class, tracked.getTrackedMethod() );
+        throw toException( name, sourceType, sourceMethod, Track.class, tracked.getTrackedMethod() );
       }
     }
     // Observables have pairs so let the caller determine whether a duplicate occurs in that scenario
@@ -775,7 +775,7 @@ final class ComponentDescriptor
         }
         else
         {
-          throw new ArezProcessorException( "@OnDepsUpdated target has no corresponding @Tracked that could " +
+          throw new ArezProcessorException( "@OnDepsUpdated target has no corresponding @Track that could " +
                                             "be automatically determined", tracked.getOnDepsUpdatedMethod() );
         }
       }
@@ -788,7 +788,7 @@ final class ComponentDescriptor
         }
         else
         {
-          throw new ArezProcessorException( "@Tracked target has no corresponding @OnDepsUpdated that could " +
+          throw new ArezProcessorException( "@Track target has no corresponding @OnDepsUpdated that could " +
                                             "be automatically determined", tracked.getTrackedMethod() );
         }
       }
@@ -815,7 +815,7 @@ final class ComponentDescriptor
     final OnDeactivate onDeactivate = method.getAnnotation( OnDeactivate.class );
     final OnStale onStale = method.getAnnotation( OnStale.class );
     final OnDispose onDispose = method.getAnnotation( OnDispose.class );
-    final Tracked tracked = method.getAnnotation( Tracked.class );
+    final Track track = method.getAnnotation( Track.class );
     final OnDepsUpdated onDepsUpdated = method.getAnnotation( OnDepsUpdated.class );
 
     if ( null != observable )
@@ -833,9 +833,9 @@ final class ComponentDescriptor
       addAutorun( autorun, method, methodType );
       return true;
     }
-    else if ( null != tracked )
+    else if ( null != track )
     {
-      addTracked( tracked, method, methodType );
+      addTracked( track, method, methodType );
       return true;
     }
     else if ( null != onDepsUpdated )
@@ -911,7 +911,7 @@ final class ComponentDescriptor
     final Class<? extends Annotation>[] annotationTypes =
       new Class[]{ Action.class,
                    Autorun.class,
-                   Tracked.class,
+                   Track.class,
                    OnDepsUpdated.class,
                    Observable.class,
                    Computed.class,

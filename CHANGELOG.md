@@ -22,6 +22,7 @@
   - `ArezContext.safeFunction(Observer, SafeFunction)` renamed to `ArezContext.safeTrack(Observer, SafeFunction)`
   - `ArezContext.procedure(Observer, Procedure)` renamed to `ArezContext.track(Observer, Procedure)`
   - `ArezContext.safeProcedure(Observer, SafeProcedure)` renamed to `ArezContext.safeTrack(Observer, SafeProcedure)`
+* **\[annotations\]** Rename the `@Tracked` annotation to `@Track`.
 
 ### Fixed
 * **\[processor\]** Annotation processor previously generated catch blocks with the caught exception stored in a

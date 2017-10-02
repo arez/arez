@@ -1,12 +1,12 @@
 package com.example.tracked;
 
 import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Tracked;
+import org.realityforge.arez.annotations.Track;
 
 @ArezComponent
 public class DeriveOnDepsUpdatedModel
 {
-  @Tracked
+  @Track
   public void render( final long time, float someOtherParameter )
   {
   }

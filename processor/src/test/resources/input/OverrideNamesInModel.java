@@ -5,7 +5,7 @@ import org.realityforge.arez.annotations.Autorun;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.OnDepsUpdated;
-import org.realityforge.arez.annotations.Tracked;
+import org.realityforge.arez.annotations.Track;
 
 @ArezComponent( name = "MyContainer" )
 public class OverrideNamesInModel
@@ -37,7 +37,7 @@ public class OverrideNamesInModel
     return 0;
   }
 
-  @Tracked( name = "XX" )
+  @Track( name = "XX" )
   public void render()
     throws ParseException
   {

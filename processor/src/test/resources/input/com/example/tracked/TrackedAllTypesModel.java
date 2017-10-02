@@ -3,29 +3,29 @@ package com.example.tracked;
 import java.text.ParseException;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.OnDepsUpdated;
-import org.realityforge.arez.annotations.Tracked;
+import org.realityforge.arez.annotations.Track;
 
 @ArezComponent
 public class TrackedAllTypesModel
 {
-  @Tracked
+  @Track
   public void render1()
   {
   }
 
-  @Tracked
+  @Track
   public void render2()
     throws ParseException
   {
   }
 
-  @Tracked
+  @Track
   protected int render3()
   {
     return 0;
   }
 
-  @Tracked
+  @Track
   int render4()
     throws ParseException
   {

@@ -22,7 +22,6 @@ TODO:
 * Consider renaming concepts/methods in Arez
   - procedure+function => action()
   - safeProcedure+safeFunction => safeAction()
-  - Consider making active methods into verbs @Tracked => @Track
 
 * Reactions should start after the actions spy event has been sent. Does this mean sending action messages in core?
 
