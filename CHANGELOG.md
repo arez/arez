@@ -1,6 +1,7 @@
 # Change Log
 
-## Unreleased
+## [v0.03](https://github.com/realityforge/arez/tree/v0.04) (2017-10-03)
+[Full Changelog](https://github.com/realityforge/arez/compare/v0.03...v0.04)
 
 ### Added
 * **\[extras\]** Introduce the [`CssRules`](http://realityforge.org/arez/api/org/realityforge/arez/browser/extras/spy/CssRules.html)
