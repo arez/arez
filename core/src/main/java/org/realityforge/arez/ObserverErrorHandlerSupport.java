@@ -26,8 +26,8 @@ final class ObserverErrorHandlerSupport
    */
   void addObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
-    invariant( () -> !_observerErrorHandlers.contains( handler ),
-               () -> "Attempting to add handler " + handler + " that is already in the list of error handlers." );
+    apiInvariant( () -> !_observerErrorHandlers.contains( handler ),
+                  () -> "Attempting to add handler " + handler + " that is already in the list of error handlers." );
     _observerErrorHandlers.add( Objects.requireNonNull( handler ) );
   }
 
@@ -39,8 +39,8 @@ final class ObserverErrorHandlerSupport
    */
   void removeObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
-    invariant( () -> _observerErrorHandlers.contains( handler ),
-               () -> "Attempting to remove handler " + handler + " that is not in the list of error handlers." );
+    apiInvariant( () -> _observerErrorHandlers.contains( handler ),
+                  () -> "Attempting to remove handler " + handler + " that is not in the list of error handlers." );
     _observerErrorHandlers.remove( Objects.requireNonNull( handler ) );
   }
 

@@ -67,10 +67,10 @@ public final class ComputedValue<T>
    */
   public T get()
   {
-    invariant( () -> !_computing,
-               () -> "Detected a cycle deriving ComputedValue named '" + getName() + "'." );
-    invariant( _observer::isLive,
-               () -> "ComputedValue named '" + getName() + "' accessed after it has been disposed." );
+    apiInvariant( () -> !_computing,
+                  () -> "Detected a cycle deriving ComputedValue named '" + getName() + "'." );
+    apiInvariant( _observer::isLive,
+                  () -> "ComputedValue named '" + getName() + "' accessed after it has been disposed." );
     getObservable().reportObserved();
     if ( _observer.shouldCompute() )
     {

@@ -84,8 +84,8 @@ final class TransactionInfoImpl
   public Observer getTracker()
   {
     final Observer tracker = getTransaction().getTracker();
-    invariant( () -> null != tracker,
-               () -> "Invoked getTracker on TransactionInfo named '" + getName() + "' but no tracker exists." );
+    apiInvariant( () -> null != tracker,
+                  () -> "Invoked getTracker on TransactionInfo named '" + getName() + "' but no tracker exists." );
     assert null != tracker;
     return tracker;
   }

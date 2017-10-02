@@ -845,7 +845,7 @@ public final class ArezContext
   @Nonnull
   public Spy getSpy()
   {
-    invariant( this::areSpiesEnabled, () -> "Attempting to get Spy but spies are not enabled." );
+    apiInvariant( this::areSpiesEnabled, () -> "Attempting to get Spy but spies are not enabled." );
     assert null != _spy;
     return _spy;
   }

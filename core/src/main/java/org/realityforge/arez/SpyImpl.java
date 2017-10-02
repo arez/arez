@@ -37,8 +37,8 @@ final class SpyImpl
   @Override
   public void addSpyEventHandler( @Nonnull final SpyEventHandler handler )
   {
-    invariant( () -> !_spyEventHandlers.contains( handler ),
-               () -> "Attempting to add handler " + handler + " that is already in the list of spy handlers." );
+    apiInvariant( () -> !_spyEventHandlers.contains( handler ),
+                  () -> "Attempting to add handler " + handler + " that is already in the list of spy handlers." );
     _spyEventHandlers.add( Objects.requireNonNull( handler ) );
   }
 
@@ -48,8 +48,8 @@ final class SpyImpl
   @Override
   public void removeSpyEventHandler( @Nonnull final SpyEventHandler handler )
   {
-    invariant( () -> _spyEventHandlers.contains( handler ),
-               () -> "Attempting to remove handler " + handler + " that is not in the list of spy handlers." );
+    apiInvariant( () -> _spyEventHandlers.contains( handler ),
+                  () -> "Attempting to remove handler " + handler + " that is not in the list of spy handlers." );
     _spyEventHandlers.remove( Objects.requireNonNull( handler ) );
   }
 
@@ -108,7 +108,7 @@ final class SpyImpl
   @Override
   public TransactionInfo getTransaction()
   {
-    invariant( this::isTransactionActive, () -> "Spy.getTransaction() invoked but no transaction active." );
+    apiInvariant( this::isTransactionActive, () -> "Spy.getTransaction() invoked but no transaction active." );
     return new TransactionInfoImpl( getContext().getTransaction() );
   }
 

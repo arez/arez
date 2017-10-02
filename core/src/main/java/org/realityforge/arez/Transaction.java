@@ -449,10 +449,10 @@ final class Transaction
       }
       else if ( TransactionMode.READ_WRITE_OWNED == _mode )
       {
-        invariant( () -> observable.hasOwner() && observable.getOwner() == _tracker,
-                   () -> "Transaction named '" + getName() + "' attempted to change observable named '" +
-                         observable.getName() + "' and transaction is READ_WRITE_OWNED but the observable " +
-                         "has not been created by the transaction." );
+        apiInvariant( () -> observable.hasOwner() && observable.getOwner() == _tracker,
+                      () -> "Transaction named '" + getName() + "' attempted to change observable named '" +
+                            observable.getName() + "' and transaction is READ_WRITE_OWNED but the observable " +
+                            "has not been created by the transaction." );
       }
     }
   }

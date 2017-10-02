@@ -12,6 +12,11 @@
 * **\[processor\]** Enhance the `ArezProcessor` to catch unexpected failures and report the crash to the user,
   directing the user to report the failure as a github issue.
 
+### Changed
+* Usage of the invariant checking method call `Guards.invariant(...)` has been replaced by `Guards.apiInvariant(...)`
+  in scenarios where the invariant failure is the result of the user of the Arez library supplying invalid data or
+  invoking methods before checking whether the elements are in the correct state.
+
 ### Fixed
 * **\[processor\]** Annotation processor previously generated catch blocks with the caught exception stored in a
   variable named `e`. This broke code where the action passed e as a parameter. This has been fixed by renaming the

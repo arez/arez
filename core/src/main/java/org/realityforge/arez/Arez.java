@@ -64,9 +64,9 @@ public final class Arez
    */
   public static void bindProvider( @Nonnull final ContextProvider provider )
   {
-    invariant( () -> null == c_provider,
-               () -> "Attempting to bind ContextProvider " + provider + " but there is already a " +
-                     "provider bound as " + c_provider + "." );
+    apiInvariant( () -> null == c_provider,
+                  () -> "Attempting to bind ContextProvider " + provider + " but there is already a " +
+                        "provider bound as " + c_provider + "." );
     c_provider = provider;
   }
 
