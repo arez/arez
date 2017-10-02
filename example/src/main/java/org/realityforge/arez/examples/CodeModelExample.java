@@ -26,6 +26,6 @@ public final class CodeModelExample
     context.action( "Change Local Name", true, () -> codeModel.setName( "MyType2" ) );
 
     observer.dispose();
-    context.action( "Dispose Model", true, ( (Disposable) codeModel )::dispose );
+    context.action( "Dispose Model", true, () -> Disposable.dispose( codeModel ) );
   }
 }
