@@ -22,6 +22,12 @@
   - `ArezContext.safeFunction(Observer, SafeFunction)` renamed to `ArezContext.safeTrack(Observer, SafeFunction)`
   - `ArezContext.procedure(Observer, Procedure)` renamed to `ArezContext.track(Observer, Procedure)`
   - `ArezContext.safeProcedure(Observer, SafeProcedure)` renamed to `ArezContext.safeTrack(Observer, SafeProcedure)`
+* **\[core\]** Rename the "action" style transaction methods in `ArezContext` to `action` or `safeAction` (depending
+  on whether they throw an exception or not). The methods renamed are specifically:
+  - `ArezContext.function(...)` renamed to `ArezContext.action(Observer, Function)`
+  - `ArezContext.safeFunction(...)` renamed to `ArezContext.safeAction(Observer, SafeFunction)`
+  - `ArezContext.procedure(...)` renamed to `ArezContext.action(Observer, Procedure)`
+  - `ArezContext.safeProcedure(...)` renamed to `ArezContext.safeAction(Observer, SafeProcedure)`
 * **\[annotations\]** Rename the `@Tracked` annotation to `@Track`.
 
 ### Fixed

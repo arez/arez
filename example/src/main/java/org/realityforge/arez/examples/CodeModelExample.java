@@ -21,11 +21,11 @@ public final class CodeModelExample
       context.autorun( "Printer",
                        () -> System.out.println( "Qualified Name: " + codeModel.getQualifiedName() ) );
 
-    context.procedure( "Specific Qualified Name", true, () -> codeModel.setQualifiedName( "com.biz.Fred" ) );
-    context.procedure( "Reset Qualified Name to default", true, () -> codeModel.setQualifiedName( null ) );
-    context.procedure( "Change Local Name", true, () -> codeModel.setName( "MyType2" ) );
+    context.action( "Specific Qualified Name", true, () -> codeModel.setQualifiedName( "com.biz.Fred" ) );
+    context.action( "Reset Qualified Name to default", true, () -> codeModel.setQualifiedName( null ) );
+    context.action( "Change Local Name", true, () -> codeModel.setName( "MyType2" ) );
 
     observer.dispose();
-    context.procedure( "Dispose Model", true, ( (Disposable) codeModel )::dispose );
+    context.action( "Dispose Model", true, ( (Disposable) codeModel )::dispose );
   }
 }

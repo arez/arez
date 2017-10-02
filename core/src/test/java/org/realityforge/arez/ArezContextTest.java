@@ -238,7 +238,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void function()
+  public void action_function()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -257,7 +257,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
 
     final String v0 =
-      context.function( name, false, () -> {
+      context.action( name, false, () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), name );
@@ -288,7 +288,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void function_minimalParameters()
+  public void action_function_minimalParameters()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -300,7 +300,7 @@ public class ArezContextTest
     final int nextNodeId = context.currentNextTransactionId();
 
     final String v0 =
-      context.function( () -> {
+      context.action( () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), "Transaction@" + nextNodeId );
@@ -366,7 +366,7 @@ public class ArezContextTest
     // Reaction not called as the function sets up initial tracking
     assertEquals( callCount.get(), 0 );
 
-    context.procedure( observable::reportChanged );
+    context.action( observable::reportChanged );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( observable.getObservers().size(), 1 );
@@ -392,7 +392,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void safeFunction()
+  public void action_safeFunction()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -411,7 +411,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
 
     final String v0 =
-      context.safeFunction( name, false, () -> {
+      context.safeAction( name, false, () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), name );
@@ -442,7 +442,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void safeFunction_minimalParameters()
+  public void action_safeFunction_minimalParameters()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -454,7 +454,7 @@ public class ArezContextTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.safeFunction( () -> {
+      context.safeAction( () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), "Transaction@" + nextNodeId );
@@ -519,7 +519,7 @@ public class ArezContextTest
     // Reaction not called as the function sets up initial tracking
     assertEquals( callCount.get(), 0 );
 
-    context.procedure( observable::reportChanged );
+    context.action( observable::reportChanged );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( observable.getObservers().size(), 1 );
@@ -545,7 +545,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void safeProcedure_minimalParameters()
+  public void safeAction_safeProcedure_minimalParameters()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -553,7 +553,7 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
 
     final int nextNodeId = context.currentNextTransactionId();
-    context.safeProcedure( () -> {
+    context.safeAction( () -> {
       assertTrue( context.isTransactionActive() );
       assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
       assertEquals( context.getTransaction().getName(), "Transaction@" + nextNodeId );
@@ -607,7 +607,7 @@ public class ArezContextTest
     // Reaction not called as the function sets up initial tracking
     assertEquals( callCount.get(), 0 );
 
-    context.procedure( observable::reportChanged );
+    context.action( observable::reportChanged );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( observable.getObservers().size(), 1 );
@@ -633,7 +633,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void procedure_minimalParameters()
+  public void action_procedure_minimalParameters()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -641,7 +641,7 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
 
     final int nextNodeId = context.currentNextTransactionId();
-    context.procedure( () -> {
+    context.action( () -> {
       assertTrue( context.isTransactionActive() );
       assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
       assertEquals( context.getTransaction().getName(), "Transaction@" + nextNodeId );
@@ -713,7 +713,7 @@ public class ArezContextTest
     // Reaction not called as the function sets up initial tracking
     assertEquals( callCount.get(), 0 );
 
-    context.procedure( observable::reportChanged );
+    context.action( observable::reportChanged );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( observable.getObservers().size(), 1 );
@@ -735,7 +735,7 @@ public class ArezContextTest
 
     final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
-    context.safeProcedure( name, false, () -> {
+    context.safeAction( name, false, () -> {
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
       assertEquals( transaction.getName(), name );
@@ -775,7 +775,7 @@ public class ArezContextTest
 
     final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
-    context.procedure( name, false, () -> {
+    context.action( name, false, () -> {
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
       assertEquals( transaction.getName(), name );
@@ -812,7 +812,7 @@ public class ArezContextTest
     final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
     final String name2 = ValueUtil.randomString();
-    context.procedure( name, false, () -> {
+    context.action( name, false, () -> {
       assertTrue( context.isTransactionActive() );
       final Transaction transaction1 = context.getTransaction();
       assertEquals( transaction1.getName(), name );
@@ -822,7 +822,7 @@ public class ArezContextTest
       assertEquals( transaction1.isRootTransaction(), true );
       assertEquals( transaction1.getRootTransaction(), transaction1 );
 
-      context.procedure( name2, false, () -> {
+      context.action( name2, false, () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction2 = context.getTransaction();
         assertEquals( transaction2.getName(), name2 );

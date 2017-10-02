@@ -58,7 +58,7 @@ final class Watcher
     final Procedure procedure = () -> {
       if ( Boolean.TRUE == _conditionValue.get() )
       {
-        context.procedure( name, mutation, effect );
+        context.action( name, mutation, effect );
         dispose();
       }
     };

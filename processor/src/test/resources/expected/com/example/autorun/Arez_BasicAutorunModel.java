@@ -52,6 +52,6 @@ public final class Arez_BasicAutorunModel extends BasicAutorunModel implements D
 
   @Override
   public void doStuff() {
-    this.$$arez$$_context.safeProcedure(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff() );
+    this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff() );
   }
 }

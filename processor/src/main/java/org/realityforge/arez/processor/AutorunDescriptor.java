@@ -130,7 +130,7 @@ final class AutorunDescriptor
     statement.append( "this.$N." );
     parameterNames.add( GeneratorUtil.CONTEXT_FIELD_NAME );
 
-    statement.append( "safeProcedure(this.$N.areNamesEnabled() ? " );
+    statement.append( "safeAction(this.$N.areNamesEnabled() ? " );
     parameterNames.add( GeneratorUtil.CONTEXT_FIELD_NAME );
 
     if ( _componentDescriptor.isSingleton() )

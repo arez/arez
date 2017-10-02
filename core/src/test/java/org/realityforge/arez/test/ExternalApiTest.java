@@ -64,7 +64,7 @@ public class ExternalApiTest
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue = context.createComputedValue( name, () -> "", Objects::equals );
 
-    context.procedure( ValueUtil.randomString(), true, () -> {
+    context.action( ValueUtil.randomString(), true, () -> {
       assertEquals( computedValue.getName(), name );
       assertEquals( computedValue.get(), "" );
 
@@ -167,7 +167,7 @@ public class ExternalApiTest
     assertEquals( reactionCount.get(), 1 );
     assertEquals( ArezTestUtil.isActive( observer ), true );
 
-    context.safeProcedure( ValueUtil.randomString(), true, observable::reportChanged );
+    context.safeAction( ValueUtil.randomString(), true, observable::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( ArezTestUtil.isActive( observer ), true );
@@ -196,7 +196,7 @@ public class ExternalApiTest
     assertEquals( ArezTestUtil.isActive( observer ), true );
 
     // Run an "action"
-    context.procedure( ValueUtil.randomString(), true, observable::reportChanged );
+    context.action( ValueUtil.randomString(), true, observable::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( ArezTestUtil.isActive( observer ), true );
@@ -230,15 +230,15 @@ public class ExternalApiTest
     assertEquals( ArezTestUtil.isActive( observer ), true );
 
     // Run an "action"
-    context.procedure( ValueUtil.randomString(), true, observable1::reportChanged );
+    context.action( ValueUtil.randomString(), true, observable1::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( ArezTestUtil.isActive( observer ), true );
 
     // Update observer1+observer2 in transaction
-    context.procedure( ValueUtil.randomString(),
-                       true,
-                       () -> {
+    context.action( ValueUtil.randomString(),
+                    true,
+                    () -> {
                          observable1.reportChanged();
                          observable2.reportChanged();
                        } );
@@ -246,9 +246,9 @@ public class ExternalApiTest
     assertEquals( reactionCount.get(), 3 );
     assertEquals( ArezTestUtil.isActive( observer ), true );
 
-    context.procedure( ValueUtil.randomString(),
-                       true,
-                       () -> {
+    context.action( ValueUtil.randomString(),
+                    true,
+                    () -> {
                          observable3.reportChanged();
                          observable4.reportChanged();
                        } );
@@ -257,14 +257,14 @@ public class ExternalApiTest
     assertEquals( ArezTestUtil.isActive( observer ), true );
 
     // observable4 should not cause a reaction as not observed
-    context.procedure( ValueUtil.randomString(), true, observable4::reportChanged );
+    context.action( ValueUtil.randomString(), true, observable4::reportChanged );
 
     assertEquals( reactionCount.get(), 4 );
     assertEquals( ArezTestUtil.isActive( observer ), true );
   }
 
   @Test
-  public void function()
+  public void action_function()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -276,7 +276,7 @@ public class ExternalApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.function( ValueUtil.randomString(), false, () -> {
+      context.action( ValueUtil.randomString(), false, () -> {
         assertInTransaction( observable );
         return expectedValue;
       } );
@@ -287,7 +287,7 @@ public class ExternalApiTest
   }
 
   @Test
-  public void safeFunction()
+  public void action_safeFunction()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -299,7 +299,7 @@ public class ExternalApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.safeFunction( ValueUtil.randomString(), false, () -> {
+      context.safeAction( ValueUtil.randomString(), false, () -> {
         assertInTransaction( observable );
         return expectedValue;
       } );
@@ -318,15 +318,15 @@ public class ExternalApiTest
 
     assertNotInTransaction( observable );
 
-    context.procedure( ValueUtil.randomString(), false, () -> {
+    context.action( ValueUtil.randomString(), false, () -> {
       assertInTransaction( observable );
 
       //First nested exception
-      context.procedure( ValueUtil.randomString(), false, () -> {
+      context.action( ValueUtil.randomString(), false, () -> {
         assertInTransaction( observable );
 
         //Second nested exception
-        context.procedure( ValueUtil.randomString(), false, () -> assertInTransaction( observable ) );
+        context.action( ValueUtil.randomString(), false, () -> assertInTransaction( observable ) );
 
         assertInTransaction( observable );
       } );
@@ -338,7 +338,7 @@ public class ExternalApiTest
   }
 
   @Test
-  public void nestedFunctions()
+  public void action_nestedFunctions()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -350,17 +350,17 @@ public class ExternalApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.function( ValueUtil.randomString(), false, () -> {
+      context.action( ValueUtil.randomString(), false, () -> {
         assertInTransaction( observable );
 
         //First nested exception
         final String v1 =
-          context.function( ValueUtil.randomString(), false, () -> {
+          context.action( ValueUtil.randomString(), false, () -> {
             assertInTransaction( observable );
 
             //Second nested exception
             final String v2 =
-              context.function( ValueUtil.randomString(), false, () -> {
+              context.action( ValueUtil.randomString(), false, () -> {
                 assertInTransaction( observable );
                 return expectedValue;
               } );

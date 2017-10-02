@@ -45,7 +45,7 @@ public class WatcherTest
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
 
-    context.procedure( ValueUtil.randomString(), true, observable::reportChanged );
+    context.action( ValueUtil.randomString(), true, observable::reportChanged );
 
     assertEquals( conditionRun.get(), 2 );
     assertEquals( effectRun.get(), 0 );
@@ -53,13 +53,13 @@ public class WatcherTest
     result.set( true );
 
     // Reschedule and run effect
-    context.procedure( ValueUtil.randomString(), true, observable::reportChanged );
+    context.action( ValueUtil.randomString(), true, observable::reportChanged );
 
     assertEquals( conditionRun.get(), 3 );
     assertEquals( effectRun.get(), 1 );
 
     // Watcher should not be active anymore so this should do nothing
-    context.procedure( ValueUtil.randomString(), true, observable::reportChanged );
+    context.action( ValueUtil.randomString(), true, observable::reportChanged );
 
     assertEquals( conditionRun.get(), 3 );
     assertEquals( effectRun.get(), 1 );
@@ -98,7 +98,7 @@ public class WatcherTest
 
     assertEquals( watcher.isDisposed(), true );
 
-    context.procedure( ValueUtil.randomString(), true, observable::reportChanged );
+    context.action( ValueUtil.randomString(), true, observable::reportChanged );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
@@ -141,7 +141,7 @@ public class WatcherTest
     result.set( true );
 
     // Attempt to run condition. Should produce another error and condition evaluation
-    context.procedure( ValueUtil.randomString(), true, observable::reportChanged );
+    context.action( ValueUtil.randomString(), true, observable::reportChanged );
 
     assertEquals( conditionRun.get(), 2 );
     assertEquals( effectRun.get(), 0 );

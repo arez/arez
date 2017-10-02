@@ -18,7 +18,7 @@ public final class PersonModelExample
     context.autorun( "Printer",
                      () -> System.out.println( "Full Name: " + person.getFullName() ) );
 
-    context.procedure( "Name update", true, () -> person.setFirstName( "Fred" ) );
-    context.procedure( "Name update2", true, () -> person.setLastName( "Donaldo" ) );
+    context.action( "Name update", true, () -> person.setFirstName( "Fred" ) );
+    context.action( "Name update2", true, () -> person.setLastName( "Donaldo" ) );
   }
 }

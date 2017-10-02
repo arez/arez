@@ -222,7 +222,7 @@ public final class ArezContext
                            final boolean runImmediately )
   {
     final Observer observer =
-      createObserver( name, mutation, o -> procedure( name, o.getMode(), action, o ), false );
+      createObserver( name, mutation, o -> action( name, o.getMode(), action, o ), false );
     if ( runImmediately )
     {
       observer.invokeReaction();
@@ -432,7 +432,7 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied function in a read-write transaction.
+   * Execute the supplied action in a read-write transaction.
    * The name is synthesized if {@link #areNamesEnabled()} returns true.
    * The action may throw an exception.
    *
@@ -441,14 +441,14 @@ public final class ArezContext
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
-  public <T> T function( @Nonnull final Function<T> action )
+  public <T> T action( @Nonnull final Function<T> action )
     throws Throwable
   {
-    return function( true, action );
+    return action( true, action );
   }
 
   /**
-   * Execute the supplied function in a transaction.
+   * Execute the supplied action in a transaction.
    * The name is synthesized if {@link #areNamesEnabled()} returns true.
    * The action may throw an exception.
    *
@@ -458,14 +458,14 @@ public final class ArezContext
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
-  public <T> T function( final boolean mutation, @Nonnull final Function<T> action )
+  public <T> T action( final boolean mutation, @Nonnull final Function<T> action )
     throws Throwable
   {
-    return function( null, mutation, action );
+    return action( null, mutation, action );
   }
 
   /**
-   * Execute the supplied function in a transaction.
+   * Execute the supplied action in a transaction.
    * The action may throw an exception.
    *
    * @param <T>      the type of return value.
@@ -475,10 +475,10 @@ public final class ArezContext
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
-  public <T> T function( @Nullable final String name, final boolean mutation, @Nonnull final Function<T> action )
+  public <T> T action( @Nullable final String name, final boolean mutation, @Nonnull final Function<T> action )
     throws Throwable
   {
-    return function( name, mutationToTransactionMode( mutation ), action, null );
+    return action( name, mutationToTransactionMode( mutation ), action, null );
   }
 
   /**
@@ -498,13 +498,13 @@ public final class ArezContext
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    return function( toName( tracker ), tracker.getMode(), action, tracker );
+    return action( toName( tracker ), tracker.getMode(), action, tracker );
   }
 
-  private <T> T function( @Nullable final String name,
-                          @Nonnull final TransactionMode mode,
-                          @Nonnull final Function<T> action,
-                          @Nullable final Observer tracker )
+  private <T> T action( @Nullable final String name,
+                        @Nonnull final TransactionMode mode,
+                        @Nonnull final Function<T> action,
+                        @Nullable final Observer tracker )
     throws Throwable
   {
     final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
@@ -519,16 +519,16 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied function in a read-write transaction.
+   * Execute the supplied action in a read-write transaction.
    * The action is expected to not throw an exception.
    *
    * @param <T>    the type of return value.
    * @param action the action to execute.
    * @return the value returned from the action.
    */
-  public <T> T safeFunction( @Nonnull final SafeFunction<T> action )
+  public <T> T safeAction( @Nonnull final SafeFunction<T> action )
   {
-    return safeFunction( true, action );
+    return safeAction( true, action );
   }
 
   /**
@@ -540,13 +540,13 @@ public final class ArezContext
    * @param action   the action to execute.
    * @return the value returned from the action.
    */
-  public <T> T safeFunction( final boolean mutation, @Nonnull final SafeFunction<T> action )
+  public <T> T safeAction( final boolean mutation, @Nonnull final SafeFunction<T> action )
   {
-    return safeFunction( null, mutation, action );
+    return safeAction( null, mutation, action );
   }
 
   /**
-   * Execute the supplied function in a transaction.
+   * Execute the supplied action.
    * The action is expected to not throw an exception.
    *
    * @param <T>      the type of return value.
@@ -555,11 +555,11 @@ public final class ArezContext
    * @param action   the action to execute.
    * @return the value returned from the action.
    */
-  public <T> T safeFunction( @Nullable final String name,
-                             final boolean mutation,
-                             @Nonnull final SafeFunction<T> action )
+  public <T> T safeAction( @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final SafeFunction<T> action )
   {
-    return safeFunction( name, mutationToTransactionMode( mutation ), action, null );
+    return safeAction( name, mutationToTransactionMode( mutation ), action, null );
   }
 
   /**
@@ -577,13 +577,13 @@ public final class ArezContext
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    return safeFunction( toName( tracker ), tracker.getMode(), action, tracker );
+    return safeAction( toName( tracker ), tracker.getMode(), action, tracker );
   }
 
-  private <T> T safeFunction( @Nullable final String name,
-                              @Nonnull final TransactionMode mode,
-                              @Nonnull final SafeFunction<T> action,
-                              @Nullable final Observer tracker )
+  private <T> T safeAction( @Nullable final String name,
+                            @Nonnull final TransactionMode mode,
+                            @Nonnull final SafeFunction<T> action,
+                            @Nullable final Observer tracker )
   {
     final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
     try
@@ -597,34 +597,34 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied function in a read-write transaction.
+   * Execute the supplied action in a read-write transaction.
    * The procedure may throw an exception.
    *
    * @param procedure the procedure to execute.
    * @throws Throwable if the procedure throws an an exception.
    */
-  public void procedure( @Nonnull final Procedure procedure )
+  public void action( @Nonnull final Procedure procedure )
     throws Throwable
   {
-    procedure( true, procedure );
+    action( true, procedure );
   }
 
   /**
-   * Execute the supplied procedure in a transaction.
+   * Execute the supplied action in a transaction.
    * The procedure may throw an exception.
    *
    * @param mutation  true if the action may modify state, false otherwise.
    * @param procedure the procedure to execute.
    * @throws Throwable if the procedure throws an an exception.
    */
-  public void procedure( final boolean mutation, @Nonnull final Procedure procedure )
+  public void action( final boolean mutation, @Nonnull final Procedure procedure )
     throws Throwable
   {
-    procedure( null, mutation, procedure );
+    action( null, mutation, procedure );
   }
 
   /**
-   * Execute the supplied procedure in a transaction.
+   * Execute the supplied action in a transaction.
    * The procedure may throw an exception.
    *
    * @param name      the name of the transaction.
@@ -632,10 +632,10 @@ public final class ArezContext
    * @param procedure the procedure to execute.
    * @throws Throwable if the procedure throws an an exception.
    */
-  public void procedure( @Nullable final String name, final boolean mutation, @Nonnull final Procedure procedure )
+  public void action( @Nullable final String name, final boolean mutation, @Nonnull final Procedure procedure )
     throws Throwable
   {
-    procedure( name, mutationToTransactionMode( mutation ), procedure, null );
+    action( name, mutationToTransactionMode( mutation ), procedure, null );
   }
 
   /**
@@ -653,7 +653,7 @@ public final class ArezContext
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    procedure( toName( tracker ), tracker.getMode(), procedure, tracker );
+    action( toName( tracker ), tracker.getMode(), procedure, tracker );
   }
 
   @Nullable
@@ -662,10 +662,10 @@ public final class ArezContext
     return areNamesEnabled() ? tracker.getName() : null;
   }
 
-  void procedure( @Nullable final String name,
-                  @Nonnull final TransactionMode mode,
-                  @Nonnull final Procedure procedure,
-                  @Nullable final Observer tracker )
+  void action( @Nullable final String name,
+               @Nonnull final TransactionMode mode,
+               @Nonnull final Procedure procedure,
+               @Nullable final Observer tracker )
     throws Throwable
   {
     final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
@@ -680,41 +680,41 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied procedure in a read-write transaction.
+   * Execute the supplied action in a read-write transaction.
    * The action is expected to not throw an exception.
    *
    * @param action the action to execute.
    */
-  public void safeProcedure( @Nonnull final SafeProcedure action )
+  public void safeAction( @Nonnull final SafeProcedure action )
   {
-    safeProcedure( true, action );
+    safeAction( true, action );
   }
 
   /**
-   * Execute the supplied procedure in a transaction.
+   * Execute the supplied action in a transaction.
    * The action is expected to not throw an exception.
    *
    * @param mutation true if the action may modify state, false otherwise.
    * @param action   the action to execute.
    */
-  public void safeProcedure( final boolean mutation, @Nonnull final SafeProcedure action )
+  public void safeAction( final boolean mutation, @Nonnull final SafeProcedure action )
   {
-    safeProcedure( null, mutation, action );
+    safeAction( null, mutation, action );
   }
 
   /**
-   * Execute the supplied procedure in a transaction.
+   * Execute the supplied procactionedure in a transaction.
    * The action is expected to not throw an exception.
    *
    * @param name     the name of the transaction.
    * @param mutation true if the action may modify state, false otherwise.
    * @param action   the action to execute.
    */
-  public void safeProcedure( @Nullable final String name,
-                             final boolean mutation,
-                             @Nonnull final SafeProcedure action )
+  public void safeAction( @Nullable final String name,
+                          final boolean mutation,
+                          @Nonnull final SafeProcedure action )
   {
-    safeProcedure( name, mutationToTransactionMode( mutation ), action, null );
+    safeAction( name, mutationToTransactionMode( mutation ), action, null );
   }
 
   /**
@@ -730,13 +730,13 @@ public final class ArezContext
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    safeProcedure( toName( tracker ), tracker.getMode(), action, tracker );
+    safeAction( toName( tracker ), tracker.getMode(), action, tracker );
   }
 
-  void safeProcedure( @Nullable final String name,
-                      @Nonnull final TransactionMode mode,
-                      @Nonnull final SafeProcedure action,
-                      @Nullable final Observer tracker )
+  void safeAction( @Nullable final String name,
+                   @Nonnull final TransactionMode mode,
+                   @Nonnull final SafeProcedure action,
+                   @Nullable final Observer tracker )
   {
     final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
     try
