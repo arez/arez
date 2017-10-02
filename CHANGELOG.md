@@ -1,6 +1,6 @@
 # Change Log
 
-## [v0.03](https://github.com/realityforge/arez/tree/v0.04) (2017-10-03)
+## [v0.04](https://github.com/realityforge/arez/tree/v0.04) (2017-10-03)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.03...v0.04)
 
 ### Added
