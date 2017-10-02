@@ -35,11 +35,17 @@ import org.realityforge.arez.spy.TransactionStartedEvent;
 public class ConsoleSpyEventProcessor
   extends AbstractSpyEventProcessor
 {
+  @CssRules
   private static final String OBSERVABLE_COLOR = "color: #CF8A3B; font-weight: normal;";
+  @CssRules
   private static final String OBSERVER_COLOR = "color: #0FA13B; font-weight: normal;";
+  @CssRules
   private static final String REACTION_COLOR = "color: #10a210; font-weight: normal;";
+  @CssRules
   private static final String ACTION_COLOR = "color: #006AEB; font-weight: normal;";
+  @CssRules
   private static final String TRANSACTION_COLOR = "color: #A18008; font-weight: normal;";
+  @CssRules
   private static final String ERROR_COLOR = "color: #A10001; font-weight: normal;";
 
   /**
@@ -327,7 +333,7 @@ public class ConsoleSpyEventProcessor
    */
   protected void log( @Nonnull final SpyUtil.NestingDelta delta,
                       @Nonnull final String message,
-                      @Nonnull final String styling )
+                      @CssRules @Nonnull final String styling )
   {
     if ( SpyUtil.NestingDelta.INCREASE == delta )
     {

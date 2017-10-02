@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Added
+* **\[extras\]** Introduce the [`CssRules`](http://realityforge.org/arez/api/org/realityforge/arez/browser/extras/spy/CssRules.html)
+  annotation to force IntelliJ IDEA to treat annotate content as css rules for code formatting, completion
+  and validation purposes. Use this new annotation to annotate relevant constants and parameters in
+  the `ConsoleSpyEventProcessor` class.
+
 ## [v0.03](https://github.com/realityforge/arez/tree/v0.03) (2017-10-02)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.02...v0.03)
 
