@@ -34,6 +34,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.computed.ComputedWithHooksModel", false },
         new Object[]{ "com.example.computed.BasicComputedModel", false },
         new Object[]{ "com.example.computed.TypeParametersModel", false },
+        new Object[]{ "com.example.overloaded_names.OverloadedActions", false },
         new Object[]{ "com.example.component_name.ComponentNameModel", false },
         new Object[]{ "com.example.component_name.ComponentTypeNameModel", false },
         new Object[]{ "com.example.component_name.ComponentTypeNameAloneOnSingletonModel", false },

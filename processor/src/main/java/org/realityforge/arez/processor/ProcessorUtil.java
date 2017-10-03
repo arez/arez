@@ -81,7 +81,7 @@ final class ProcessorUtil
       {
         final ExecutableType methodType =
           (ExecutableType) typeUtils.asMemberOf( (DeclaredType) scope.asType(), member );
-        methods.put( methodType.toString(), (ExecutableElement) member );
+        methods.put( member.getSimpleName() + methodType.toString(), (ExecutableElement) member );
       }
     }
   }
