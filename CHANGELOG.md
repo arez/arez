@@ -7,9 +7,9 @@
   subclasses of `ConsoleSpyEventProcessor` to control the mechanisms for formatting action parameters.
 
 ### Changed
-* Update `BrowserLocation` so that it defaults to calling `preventDefault()` on event that triggered hash
-  change. This behaviour can be disabled by invoking `BrowserLocation.setPreventDefault(false)` to support
-  old behaviour.
+* **\[browser-extras\]** Update `BrowserLocation` so that it defaults to calling `preventDefault()` on event
+  that triggered hash change. This behaviour can be disabled by invoking `BrowserLocation.setPreventDefault(false)`
+  to support old behaviour.
 * **\[processor\]** Rename the base repository extension class from `MyComponentRepositoryExtension` to
   `MyComponentBaseRepositoryExtension` as existing downstream projects tend to name their project specific
   extensions using the pattern `MyComponentRepositoryExtension`. (The existing domgen based generators use the
