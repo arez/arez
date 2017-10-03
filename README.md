@@ -19,6 +19,8 @@ that will be expanded over time as the library is fleshed out.
 TODO:
 * Start to document app using Jekyll site. Useful resources include https://learn.cloudcannon.com/
 
+* Add ability with @Action && @Track to stop printing params (or passing?)
+
 * Reactions should start after the actions spy event has been sent. Does this mean sending action messages in core?
 
 * Convert findAll result from Collection to List. May need to be done via js magic to avoid performance degradation.
@@ -69,7 +71,7 @@ TODO:
 
   - ✨ **Added** for new features.
   - **Changed** for changes in existing functionality.
-  - ð¥ **Changed** for breaking changes in existing functionality.
+  - 💥 **Changed** for breaking changes in existing functionality.
   - **Deprecated** for soon-to-be removed features.
   - **Removed** for now removed features.
   - **Fixed** for any bug fixes.
