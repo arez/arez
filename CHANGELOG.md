@@ -7,10 +7,10 @@
   subclasses of `ConsoleSpyEventProcessor` to control the mechanisms for formatting action parameters.
 
 ### Changed
-* **\[browser-extras\]** Update `BrowserLocation` so that it defaults to calling `preventDefault()` on event
+* 💥 **\[browser-extras\]** Update `BrowserLocation` so that it defaults to calling `preventDefault()` on event
   that triggered hash change. This behaviour can be disabled by invoking `BrowserLocation.setPreventDefault(false)`
   to support old behaviour.
-* **\[processor\]** Rename the base repository extension class from `MyComponentRepositoryExtension` to
+* 💥 **\[processor\]** Rename the base repository extension class from `MyComponentRepositoryExtension` to
   `MyComponentBaseRepositoryExtension` as existing downstream projects tend to name their project specific
   extensions using the pattern `MyComponentRepositoryExtension`. (The existing domgen based generators use the
   naming pattern  `MyComponentBaseRepositoryExtension` which is where the new naming pattern was derived from.)
@@ -41,19 +41,19 @@
 * Usage of the invariant checking method call `Guards.invariant(...)` has been replaced by `Guards.apiInvariant(...)`
   in scenarios where the invariant failure is the result of the user of the Arez library supplying invalid data or
   invoking methods before checking whether the elements are in the correct state.
-* **\[core\]** Rename the transaction methods in `ArezContext` that accepted the `Observer` as the tracker to `track`
+* 💥 **\[core\]** Rename the transaction methods in `ArezContext` that accepted the `Observer` as the tracker to `track`
   or `safeTrack` (depending on whether they throw an exception or not). The methods renamed are specifically:
   - `ArezContext.function(Observer, Function)` renamed to `ArezContext.track(Observer, Function)`
   - `ArezContext.safeFunction(Observer, SafeFunction)` renamed to `ArezContext.safeTrack(Observer, SafeFunction)`
   - `ArezContext.procedure(Observer, Procedure)` renamed to `ArezContext.track(Observer, Procedure)`
   - `ArezContext.safeProcedure(Observer, SafeProcedure)` renamed to `ArezContext.safeTrack(Observer, SafeProcedure)`
-* **\[core\]** Rename the "action" style transaction methods in `ArezContext` to `action` or `safeAction` (depending
+* 💥 **\[core\]** Rename the "action" style transaction methods in `ArezContext` to `action` or `safeAction` (depending
   on whether they throw an exception or not). The methods renamed are specifically:
   - `ArezContext.function(...)` renamed to `ArezContext.action(Observer, Function)`
   - `ArezContext.safeFunction(...)` renamed to `ArezContext.safeAction(Observer, SafeFunction)`
   - `ArezContext.procedure(...)` renamed to `ArezContext.action(Observer, Procedure)`
   - `ArezContext.safeProcedure(...)` renamed to `ArezContext.safeAction(Observer, SafeProcedure)`
-* **\[annotations\]** Rename the `@Tracked` annotation to `@Track`.
+* 💥 **\[annotations\]** Rename the `@Tracked` annotation to `@Track`.
 
 ### Fixed
 * **\[processor\]** Annotation processor previously generated catch blocks with the caught exception stored in a
