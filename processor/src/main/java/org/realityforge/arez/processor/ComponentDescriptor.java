@@ -1439,7 +1439,7 @@ final class ComponentDescriptor
   @Nonnull
   private String getRepositoryExtensionName()
   {
-    return getNestedClassPrefix() + getElement().getSimpleName() + "RepositoryExtension";
+    return getNestedClassPrefix() + getElement().getSimpleName() + "BaseRepositoryExtension";
   }
 
   @Nonnull

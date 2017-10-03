@@ -22,7 +22,7 @@ import org.realityforge.braincheck.Guards;
 @ArezComponent(
     singleton = true
 )
-public class RepositoryWithImplicitIdRepository implements RepositoryWithImplicitIdRepositoryExtension {
+public class RepositoryWithImplicitIdRepository implements RepositoryWithImplicitIdBaseRepositoryExtension {
   private final Observable $$arez$$_observable = Arez.context().createObservable( Arez.context().areNamesEnabled() ? "RepositoryWithImplicitIdRepository.entities" : null );
   ;
 

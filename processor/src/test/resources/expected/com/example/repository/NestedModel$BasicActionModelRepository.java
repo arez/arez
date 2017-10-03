@@ -22,7 +22,7 @@ import org.realityforge.braincheck.Guards;
 @ArezComponent(
     singleton = true
 )
-public class NestedModel$BasicActionModelRepository implements NestedModel$BasicActionModelRepositoryExtension {
+public class NestedModel$BasicActionModelRepository implements NestedModel$BasicActionModelBaseRepositoryExtension {
   private final Observable $$arez$$_observable = Arez.context().createObservable( Arez.context().areNamesEnabled() ? "BasicActionModelRepository.entities" : null );
   ;
 

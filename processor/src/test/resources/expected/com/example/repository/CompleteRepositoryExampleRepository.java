@@ -22,7 +22,7 @@ import org.realityforge.braincheck.Guards;
 @ArezComponent(
     singleton = true
 )
-public class CompleteRepositoryExampleRepository implements CompleteRepositoryExampleRepositoryExtension, CompleteRepositoryExample.FooEx {
+public class CompleteRepositoryExampleRepository implements CompleteRepositoryExampleBaseRepositoryExtension, CompleteRepositoryExample.FooEx {
   private final Observable $$arez$$_observable = Arez.context().createObservable( Arez.context().areNamesEnabled() ? "CompleteRepositoryExampleRepository.entities" : null );
   ;
 

@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public interface RepositoryWithMultipleCtorsRepositoryExtension {
+public interface RepositoryWithMultipleCtorsBaseRepositoryExtension {
   @Nonnull
   RepositoryWithMultipleCtorsRepository self();
 }
