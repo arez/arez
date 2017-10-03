@@ -1,6 +1,7 @@
 package org.realityforge.arez.browser.extras;
 
 import elemental2.dom.DomGlobal;
+import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -31,7 +32,7 @@ import org.realityforge.arez.annotations.PreDispose;
 @Unsupported( "This is still considered experimental and will likely evolve over time" )
 public class BrowserLocation
 {
-  private final EventListener _listener = e -> updateBrowserLocation();
+  private final EventListener _listener = this::onHashChangeEvent;
 
   /**
    * The location according to the application.
@@ -48,6 +49,10 @@ public class BrowserLocation
    */
   @Nonnull
   private String _targetLocation = "";
+  /**
+   * Should we prevent the default action associated with hash change?
+   */
+  private boolean _preventDefault = true;
 
   /**
    * Create the model object.
@@ -74,6 +79,26 @@ public class BrowserLocation
   final void onDispose()
   {
     DomGlobal.window.removeEventListener( "hashchange", _listener, false );
+  }
+
+  /**
+   * Return true if component will prevent default actions when hash.
+   *
+   * @return true if component will prevent default actions when hash.
+   */
+  public boolean shouldPreventDefault()
+  {
+    return _preventDefault;
+  }
+
+  /**
+   * Set a flag to determine whether events default action will be prevented.
+   *
+   * @param preventDefault true to prevent default action.
+   */
+  public void setPreventDefault( final boolean preventDefault )
+  {
+    _preventDefault = preventDefault;
   }
 
   /**
@@ -147,6 +172,15 @@ public class BrowserLocation
     {
       setLocation( location );
     }
+  }
+
+  private void onHashChangeEvent( @Nonnull final Event e )
+  {
+    if ( _preventDefault )
+    {
+      e.preventDefault();
+    }
+    updateBrowserLocation();
   }
 
   @Nonnull
