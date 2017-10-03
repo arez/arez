@@ -304,21 +304,13 @@ final class Transaction
       for ( final Observer observer : observers )
       {
         final ObserverState state = observer.getState();
-        if ( ObserverState.UP_TO_DATE == state )
+        invariant( () -> ObserverState.INACTIVE != state,
+                   () -> "Transaction named '" + getName() + "' has attempted to explicitly " +
+                         "change observable named '" + observable.getName() + "' and observable " +
+                         "is in unexpected state " + state.name() + "." );
+        if ( ObserverState.STALE != state )
         {
           observer.setState( ObserverState.STALE );
-        }
-        else
-        {
-          invariant( () -> ObserverState.POSSIBLY_STALE != state,
-                     () -> "Transaction named '" + getName() + "' has attempted to explicitly " +
-                           "change observable named '" + observable.getName() + "' but observable " +
-                           "is in state POSSIBLY_STALE indicating it is derived and thus can not " +
-                           "be explicitly changed." );
-          invariant( () -> ObserverState.STALE == state,
-                     () -> "Transaction named '" + getName() + "' has attempted to explicitly " +
-                           "change observable named '" + observable.getName() + "' and observable " +
-                           "is in unexpected state " + state.name() + "." );
         }
       }
     }

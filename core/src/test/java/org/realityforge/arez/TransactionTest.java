@@ -1435,13 +1435,10 @@ public class TransactionTest
 
     context.setTransaction( transaction );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> transaction.reportChanged( observable ) );
+    transaction.reportChanged( observable );
 
-    assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' has attempted to explicitly " +
-                  "change observable named '" + observable.getName() + "' but observable is in state POSSIBLY_STALE " +
-                  "indicating it is derived and thus can not be explicitly changed." );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.STALE );
+    assertEquals( observer.getState(), ObserverState.STALE );
   }
 
   @Test

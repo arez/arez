@@ -11,6 +11,10 @@
   change. This behaviour can be disabled by invoking `BrowserLocation.setPreventDefault(false)` to support
   old behaviour.
 
+### Fixed
+* **\[core\]** Fixed invariant checking in `Transaction` so that `Observable.reportChanged()` can be invoked
+  on a dependency of a `ComputedValue` where the `ComputedValue` has already been marked as `POSSIBLY_STALE`.
+
 ## [v0.04](https://github.com/realityforge/arez/tree/v0.04) (2017-10-03)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.03...v0.04)
 
