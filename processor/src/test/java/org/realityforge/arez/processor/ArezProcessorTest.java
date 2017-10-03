@@ -124,6 +124,20 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void processSuccessfulWhereGenericsRefinedAndActionsOverriddenHierarchy()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      JavaFileObjects.forResource( "input/com/example/override_generics/GenericsBaseModel.java" );
+    final JavaFileObject source2 =
+      JavaFileObjects.forResource( "input/com/example/override_generics/GenericsMiddleModel.java" );
+    final JavaFileObject source3 =
+      JavaFileObjects.forResource( "input/com/example/override_generics/GenericsModel.java" );
+    final String output1 = "expected/com/example/override_generics/Arez_GenericsModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output1 ) );
+  }
+
+  @Test
   public void processSuccessfulWhereTraceInheritanceChain()
     throws Exception
   {

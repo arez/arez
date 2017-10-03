@@ -130,7 +130,8 @@ public final class ArezProcessor
                                packageElement,
                                typeElement );
 
-    descriptor.analyzeCandidateMethods( ProcessorUtil.getMethods( typeElement ), processingEnv.getTypeUtils() );
+    descriptor.analyzeCandidateMethods( ProcessorUtil.getMethods( typeElement, processingEnv.getTypeUtils() ),
+                                        processingEnv.getTypeUtils() );
     descriptor.validate();
 
     final Repository repository = typeElement.getAnnotation( Repository.class );

@@ -14,6 +14,11 @@
 ### Fixed
 * **\[core\]** Fixed invariant checking in `Transaction` so that `Observable.reportChanged()` can be invoked
   on a dependency of a `ComputedValue` where the `ComputedValue` has already been marked as `POSSIBLY_STALE`.
+* **\[processor\]** Fixed the generation of annotated methods that override an annotated method in a parent
+  class where the subclass is specialized type of parent class. i.e. If the superclass has a method
+  `@Action void foo( T value )` where the `T` type parameter is `<T extends Number>` and the subclass has
+  the method `@Action void foo( Integer value )` where the type parameter was resolved to `Integer`, the
+  processor would previously generate incorrect code.
 
 ## [v0.04](https://github.com/realityforge/arez/tree/v0.04) (2017-10-03)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.03...v0.04)
