@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+* **\[extras\]** Extract the `StringifyReplacer` from the `ConsoleSpyEventProcessor` class to allow
+  subclasses of `ConsoleSpyEventProcessor` to control the mechanisms for formatting action parameters.
+
 ### Changed
 * Update `BrowserLocation` so that it defaults to calling `preventDefault()` on event that triggered hash
   change. This behaviour can be disabled by invoking `BrowserLocation.setPreventDefault(false)` to support

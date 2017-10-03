@@ -334,47 +334,44 @@ public class ConsoleSpyEventProcessor
   @Nonnull
   protected String parametersToString( @Nonnull final Object[] parameters )
   {
-    final StringBuilder sb = new StringBuilder();
-    sb.append( "(" );
-    boolean requireComma = false;
-    for ( final Object parameter : parameters )
+    if ( 0 == parameters.length )
     {
-      if ( requireComma )
-      {
-        sb.append( ", " );
-      }
-      else
-      {
-        requireComma = true;
-      }
-      if ( null == parameter )
-      {
-        sb.append( "null" );
-      }
-      else
-      {
-        sb.append( Global.JSON.stringify( parameter, ( key, value ) -> {
-          if ( isJavaClass( value ) )
-          {
-            return String.valueOf( value );
-          }
-          else
-          {
-            return value;
-          }
-        } ) );
-      }
+      return "()";
     }
-    sb.append( ")" );
-    return sb.toString();
+    else
+    {
+      final StringifyReplacer filter = getStringifyReplacer();
+      final StringBuilder sb = new StringBuilder();
+      sb.append( "(" );
+      boolean requireComma = false;
+      for ( final Object parameter : parameters )
+      {
+        if ( requireComma )
+        {
+          sb.append( ", " );
+        }
+        else
+        {
+          requireComma = true;
+        }
+        sb.append( Global.JSON.stringify( parameter, filter::handleValue ) );
+      }
+      sb.append( ")" );
+      return sb.toString();
+    }
   }
 
   /**
-   * Return true if the specified object has an associated java class constant.
+   * Create replacer callback.
+   * This method has been extracted to allow sub classes to override.
+   *
+   * @return the stringify replacer callback function.
    */
-  private native boolean isJavaClass( @Nonnull final Object object ) /*-{
-    return undefined !== object.__proto__ && undefined !== object.__proto__.@java.lang.Object::___clazz;
-  }-*/;
+  @Nonnull
+  protected StringifyReplacer getStringifyReplacer()
+  {
+    return new StringifyReplacer();
+  }
 
   /**
    * Log specified message with parameters
