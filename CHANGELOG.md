@@ -1,6 +1,7 @@
 # Change Log
 
-## Unreleased
+## [v0.06](https://github.com/realityforge/arez/tree/v0.06) (2017-10-04)
+[Full Changelog](https://github.com/realityforge/arez/compare/v0.05...v0.06)
 
 ### Added
 * **\[processor\]** Add an parameter `allowEmpty` to `@ArezComponent` that allows the developer to define
