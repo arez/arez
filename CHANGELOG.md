@@ -32,6 +32,11 @@
   the method `@Action void foo( Integer value )` where the type parameter was resolved to `Integer`, the
   processor would previously generate incorrect code.
 * Stop uploading the `examples` and `gwt-examples` artifacts to the distribution repositories.
+* **\[core\]** Schedule the "reaction" spy messages after the top-level transaction has completed and sent it's
+  corresponding spy message. This means that the `ReactionStartedEvent` and/or `ComputeStartedEvent` will occur
+  after the `ActionCompletedEvent` or `ReactionCompletedEvent` that resulted in the reaction/compute being
+  scheduled. Thus reactions to an action will be peers of the action in the `ConsoleSpyEventProcessor`, making
+  it much easier to how changes flow through the system.
 
 ## [v0.04](https://github.com/realityforge/arez/tree/v0.04) (2017-10-03)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.03...v0.04)

@@ -396,7 +396,6 @@ public final class ArezContext
       getSpy().reportSpyEvent( new TransactionCompletedEvent( name, mutation, tracker, duration ) );
     }
     _transaction = _transaction.getPrevious();
-    triggerScheduler();
   }
 
   /**
@@ -567,6 +566,7 @@ public final class ArezContext
           getSpy().reportSpyEvent( new ActionCompletedEvent( name, tracked, parameters, true, null, t, duration ) );
         }
       }
+      triggerScheduler();
     }
   }
 
@@ -694,6 +694,7 @@ public final class ArezContext
           getSpy().reportSpyEvent( new ActionCompletedEvent( name, tracked, parameters, true, null, t, duration ) );
         }
       }
+      triggerScheduler();
     }
   }
 
@@ -825,6 +826,7 @@ public final class ArezContext
           getSpy().reportSpyEvent( new ActionCompletedEvent( name, tracked, parameters, false, null, t, duration ) );
         }
       }
+      triggerScheduler();
     }
   }
 
@@ -942,6 +944,7 @@ public final class ArezContext
           getSpy().reportSpyEvent( new ActionCompletedEvent( name, tracked, parameters, false, null, t, duration ) );
         }
       }
+      triggerScheduler();
     }
   }
 
