@@ -17,6 +17,8 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
+* Link back from website to github page
+
 * Start to document app using Jekyll site. Useful resources include https://learn.cloudcannon.com/
 
 * Convert findAll result from Collection to List. May need to be done via js magic to avoid performance degradation.
@@ -54,6 +56,8 @@ TODO:
   consist of all changes that have occurred in the order they occurred. If a Change object was not part
   of the change then an UnspecifiedChange() will be passed through. There may be some value to allowing
   it to be processed inline when it changes rather than as a reaction.
+
+* Move Unsupported annotation to a separate project. Expand it to @Beta, @Alpha etc.
 
 * Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
   - https://github.com/zalmoxisus/mobx-remotedev
