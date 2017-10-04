@@ -27,7 +27,7 @@ final class ActionDescriptor
   @Nonnull
   private final String _name;
   private final boolean _mutation;
-  private final boolean _passParameters;
+  private final boolean _reportParameters;
   @Nonnull
   private final ExecutableElement _action;
   @Nonnull
@@ -36,14 +36,14 @@ final class ActionDescriptor
   ActionDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
                     @Nonnull final String name,
                     final boolean mutation,
-                    final boolean passParameters,
+                    final boolean reportParameters,
                     @Nonnull final ExecutableElement action,
                     @Nonnull final ExecutableType actionType )
   {
     _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     _mutation = mutation;
-    _passParameters = passParameters;
+    _reportParameters = reportParameters;
     _action = Objects.requireNonNull( action );
     _actionType = Objects.requireNonNull( actionType );
   }
@@ -156,7 +156,7 @@ final class ActionDescriptor
     }
 
     statement.append( ")" );
-    if ( _passParameters )
+    if ( _reportParameters )
     {
       for ( final VariableElement parameter : parameters )
       {

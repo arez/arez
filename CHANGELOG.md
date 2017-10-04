@@ -5,8 +5,8 @@
 ### Added
 * **\[extras\]** Extract the `StringifyReplacer` from the `ConsoleSpyEventProcessor` class to allow
   subclasses of `ConsoleSpyEventProcessor` to control the mechanisms for formatting action parameters.
-* **\[annotations\]** Enhanced `@Action` and `@Track` to support a `parameters` parameter that can control
-  whether the parameters in the generated code are passed to core Arez and thus onto the spy subsystem.
+* **\[annotations\]** Enhanced `@Action` and `@Track` to the ability to disable reporting of the parameters
+  to the core runtime infrastructure from the generated components.
 
 ### Changed
 * 💥 **\[browser-extras\]** Update `BrowserLocation` so that it defaults to calling `preventDefault()` on event

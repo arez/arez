@@ -34,7 +34,7 @@ final class TrackedDescriptor
   @Nonnull
   private final String _name;
   private boolean _mutation;
-  private boolean _passParameters;
+  private boolean _reportParameters;
   @Nullable
   private ExecutableElement _trackedMethod;
   @Nullable
@@ -74,7 +74,7 @@ final class TrackedDescriptor
   }
 
   void setTrackedMethod( final boolean mutation,
-                         final boolean passParameters,
+                         final boolean reportParameters,
                          @Nonnull final ExecutableElement method,
                          @Nonnull final ExecutableType trackedMethodType )
   {
@@ -88,7 +88,7 @@ final class TrackedDescriptor
     else
     {
       _mutation = mutation;
-      _passParameters = passParameters;
+      _reportParameters = reportParameters;
       _trackedMethod = Objects.requireNonNull( method );
       _trackedMethodType = Objects.requireNonNull( trackedMethodType );
     }
@@ -249,7 +249,7 @@ final class TrackedDescriptor
     }
 
     statement.append( ")" );
-    if ( _passParameters )
+    if ( _reportParameters )
     {
       for ( final VariableElement parameter : parameters )
       {

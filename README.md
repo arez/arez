@@ -19,8 +19,6 @@ that will be expanded over time as the library is fleshed out.
 TODO:
 * Start to document app using Jekyll site. Useful resources include https://learn.cloudcannon.com/
 
-* Add ability with @Action && @Track to stop printing params (or passing?)
-
 * Reactions should start after the actions spy event has been sent. Does this mean sending action messages in core?
 
 * Pretty print results from actions in console logger

@@ -254,7 +254,7 @@ final class ComponentDescriptor
     final String name = deriveActionName( method, annotation );
     checkNameUnique( name, method, Action.class );
     final ActionDescriptor action =
-      new ActionDescriptor( this, name, annotation.mutation(), annotation.parameters(), method, methodType );
+      new ActionDescriptor( this, name, annotation.mutation(), annotation.reportParameters(), method, methodType );
     _actions.put( action.getName(), action );
   }
 
@@ -328,7 +328,7 @@ final class ComponentDescriptor
     final String name = deriveTrackedName( method, annotation );
     checkNameUnique( name, method, Track.class );
     final TrackedDescriptor tracked = findOrCreateTracked( name );
-    tracked.setTrackedMethod( annotation.mutation(), annotation.parameters(), method, methodType );
+    tracked.setTrackedMethod( annotation.mutation(), annotation.reportParameters(), method, methodType );
   }
 
   @Nonnull

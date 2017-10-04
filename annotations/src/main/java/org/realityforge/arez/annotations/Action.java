@@ -41,11 +41,10 @@ public @interface Action
   boolean mutation() default true;
 
   /**
-   * Return true if the generated action wrapper should pass the parameters to the core Arez runtime.
-   * Sometimes it is useful to disable this to avoid passing large, circular or just uninteresting
-   * parameters to the spy infrastructure.
+   * Return true if the parameters should be reported to the core Arez runtime.
+   * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
    *
-   * @return true if the generated action should pass action parameters to core runtime.
+   * @return true to report the parameters, false otherwise.
    */
-  boolean parameters() default true;
+  boolean reportParameters() default true;
 }
