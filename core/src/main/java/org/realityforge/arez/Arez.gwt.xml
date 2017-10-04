@@ -21,4 +21,7 @@
 
   <define-property name="arez.purge_reactions_when_runaway_detected" values="true,false"/>
   <set-property name="arez.purge_reactions_when_runaway_detected" value="true"/>
+
+  <define-property name="arez.repositories_return_immutables" values="true,false"/>
+  <set-property name="arez.repositories_return_immutables" value="false"/>
 </module>

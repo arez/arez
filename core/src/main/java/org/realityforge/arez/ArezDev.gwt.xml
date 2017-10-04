@@ -6,4 +6,5 @@
 
   <set-property name="arez.enable_names" value="true"/>
   <set-property name="arez.enforce_transaction_type" value="true"/>
+  <set-property name="arez.repositories_return_immutables" value="true"/>
 </module>

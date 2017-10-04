@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+### Added
+* **\[processor\]** Introduce several protected access, helper methods that can be used by extensions when writing
+  custom queries. Add minimal javadocs to the generated code to help guide extension developers.
+
+### Changed
+* 💥 **\[processor\]** Change the return type of generated `findAll` method from a `java.util.Collection` to a
+  `java.util.List`. This makes this class consistent with other query methods in the repository. Custom repository
+  extensions should no longer use `findAll` to get the entities to query but should instead use the newly added
+  method `entities()`
+* 💥 **\[processor\]** Introduce a compile time setting `arez.repositories_return_immutables` that can be used to
+  make all query methods that return a `List` in generated repositories return an unmodifiable list. This is enable
+  by default if you include the `org.realityforge.arez.ArezDev` gwt module.
+
 ### Fixed
 * **\[processor\]** Fixed the grammar of invariant failure message in generated repositories when the
   user attempts to destroy an entitiy that it not in the repository.

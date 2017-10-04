@@ -22,6 +22,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -62,6 +63,7 @@ import org.realityforge.arez.annotations.Track;
 @SuppressWarnings( "Duplicates" )
 final class ComponentDescriptor
 {
+  private static final String IMMUTABLE_GUARD_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "IMMUTABLE_RESULTS";
   private static final String OBSERVABLE_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "observable";
   private static final String ENTITIES_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "entities";
   private static final String ENTITYLIST_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "entityList";
@@ -1424,6 +1426,9 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildFindByIdMethod() );
     }
+    builder.addMethod( buildEntitiesMethod() );
+    builder.addMethod( buildResultWrapperMethod() );
+    builder.addMethod( buildListConverterMethod() );
     builder.addMethod( buildFindAllMethod() );
     builder.addMethod( buildFindAllSortedMethod() );
     builder.addMethod( buildFindAllByQueryMethod() );
@@ -1460,14 +1465,62 @@ final class ComponentDescriptor
   }
 
   @Nonnull
+  private MethodSpec buildEntitiesMethod()
+  {
+    return MethodSpec.methodBuilder( "entities" ).
+      addModifiers( Modifier.PROTECTED, Modifier.FINAL ).
+      addJavadoc( "Return the raw collection of entities in the repository.\n" +
+                  "This collection should not be exposed to the user but may be used be repository extensions when\n" +
+                  "they define custom queries. NOTE: use of this method marks the list as observed.\n" ).
+      addAnnotation( Nonnull.class ).
+      returns( ParameterizedTypeName.get( ClassName.get( Collection.class ), TypeName.get( getElement().asType() ) ) ).
+      addStatement( "$N.reportObserved()", OBSERVABLE_FIELD_NAME ).
+      addStatement( "return $N", ENTITYLIST_FIELD_NAME ).
+      build();
+  }
+
+  @Nonnull
+  private MethodSpec buildResultWrapperMethod()
+  {
+    final ParameterizedTypeName listType =
+      ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) );
+    return MethodSpec.methodBuilder( "wrap" ).
+      addModifiers( Modifier.PROTECTED, Modifier.FINAL ).
+      addJavadoc( "If config option enabled, wrap the specified list in an immutable list and return it.\n" +
+                  "This method should be called by repository extensions when returning list results when not using {@link toList(List)}.\n" ).
+      addAnnotation( Nonnull.class ).
+      addParameter( ParameterSpec.builder( listType, "list", Modifier.FINAL ).
+        addAnnotation( Nonnull.class ).build() ).
+      returns( listType ).
+      addStatement( "return $N ? $T.unmodifiableList( list ) : list", IMMUTABLE_GUARD_FIELD_NAME, Collections.class ).
+      build();
+  }
+
+  @Nonnull
+  private MethodSpec buildListConverterMethod()
+  {
+    final ParameterizedTypeName streamType =
+      ParameterizedTypeName.get( ClassName.get( Stream.class ), TypeName.get( getElement().asType() ) );
+    return MethodSpec.methodBuilder( "toList" ).
+      addModifiers( Modifier.PROTECTED, Modifier.FINAL ).
+      addAnnotation( Nonnull.class ).
+      addJavadoc( "Convert specified stream to a list, wrapping as an immutable list if required.\n" +
+                  "This method should be called by repository extensions when returning list results.\n" ).
+      addParameter( ParameterSpec.builder( streamType, "stream", Modifier.FINAL ).
+        addAnnotation( Nonnull.class ).build() ).
+      returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
+      addStatement( "return wrap( stream.collect( $T.toList() ) )", Collectors.class ).
+      build();
+  }
+
+  @Nonnull
   private MethodSpec buildFindAllMethod()
   {
     return MethodSpec.methodBuilder( "findAll" ).
       addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
       addAnnotation( Nonnull.class ).
-      returns( ParameterizedTypeName.get( ClassName.get( Collection.class ), TypeName.get( getElement().asType() ) ) ).
-      addStatement( "$N.reportObserved()", OBSERVABLE_FIELD_NAME ).
-      addStatement( "return $N", ENTITYLIST_FIELD_NAME ).
+      returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
+      addStatement( "return toList( entities().stream() )", Collectors.class ).
       build();
   }
 
@@ -1482,7 +1535,7 @@ final class ComponentDescriptor
       addParameter( ParameterSpec.builder( sorterType, "sorter", Modifier.FINAL ).
         addAnnotation( Nonnull.class ).build() ).
       returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
-      addStatement( "return findAll().stream().sorted( sorter ).collect( $T.toList() )", Collectors.class ).
+      addStatement( "return toList( entities().stream().sorted( sorter ) )", Collectors.class ).
       build();
   }
 
@@ -1497,7 +1550,7 @@ final class ComponentDescriptor
       addParameter( ParameterSpec.builder( queryType, "query", Modifier.FINAL ).
         addAnnotation( Nonnull.class ).build() ).
       returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
-      addStatement( "return findAll().stream().filter( query ).collect( $T.toList() )", Collectors.class ).
+      addStatement( "return toList( entities().stream().filter( query ) )", Collectors.class ).
       build();
   }
 
@@ -1516,7 +1569,7 @@ final class ComponentDescriptor
       addParameter( ParameterSpec.builder( sorterType, "sorter", Modifier.FINAL ).
         addAnnotation( Nonnull.class ).build() ).
       returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
-      addStatement( "return findAll().stream().filter( query ).sorted( sorter ).collect( $T.toList() )",
+      addStatement( "return toList( entities().stream().filter( query ).sorted( sorter ) )",
                     Collectors.class ).
       build();
   }
@@ -1532,7 +1585,7 @@ final class ComponentDescriptor
       addParameter( ParameterSpec.builder( queryType, "query", Modifier.FINAL ).
         addAnnotation( Nonnull.class ).build() ).
       returns( TypeName.get( getElement().asType() ) ).
-      addStatement( "return findAll().stream().filter( query ).findFirst().orElse( null )", Collectors.class ).
+      addStatement( "return entities().stream().filter( query ).findFirst().orElse( null )", Collectors.class ).
       build();
   }
 
@@ -1702,6 +1755,21 @@ final class ComponentDescriptor
 
   private void buildRepositoryFields( @Nonnull final TypeSpec.Builder builder )
   {
+    // Create the constant controlling whether results are immutable returned
+    {
+      final CodeBlock.Builder initializer = CodeBlock.builder().
+        addStatement(
+          "\"true\".equals( System.getProperty( \"arez.repositories_return_immutables\", String.valueOf( System.getProperty( \"arez.environment\", \"production\" ).equals( \"development\" ) ) ) )" );
+      final FieldSpec.Builder field =
+        FieldSpec.builder( TypeName.BOOLEAN,
+                           IMMUTABLE_GUARD_FIELD_NAME,
+                           Modifier.FINAL,
+                           Modifier.STATIC,
+                           Modifier.PRIVATE ).
+          initializer( initializer.build() );
+      builder.addField( field.build() );
+    }
+
     // Create the observable field
     {
       final CodeBlock.Builder initializer = CodeBlock.builder().

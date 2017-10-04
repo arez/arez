@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -23,6 +24,9 @@ import org.realityforge.braincheck.Guards;
     singleton = true
 )
 public class CompleteRepositoryExampleRepository implements CompleteRepositoryExampleBaseRepositoryExtension, CompleteRepositoryExample.FooEx {
+  private static final boolean $$arez$$_IMMUTABLE_RESULTS = "true".equals( System.getProperty( "arez.repositories_return_immutables", String.valueOf( System.getProperty( "arez.environment", "production" ).equals( "development" ) ) ) );
+  ;
+
   private final Observable $$arez$$_observable = Arez.context().createObservable( Arez.context().areNamesEnabled() ? "CompleteRepositoryExampleRepository.entities" : null );
   ;
 
@@ -77,30 +81,58 @@ public class CompleteRepositoryExampleRepository implements CompleteRepositoryEx
     return $$arez$$_entities.get( id );
   }
 
+  /**
+   * Return the raw collection of entities in the repository.
+   * This collection should not be exposed to the user but may be used be repository extensions when
+   * they define custom queries. NOTE: use of this method marks the list as observed.
+   */
   @Nonnull
-  public final Collection<CompleteRepositoryExample> findAll() {
+  protected final Collection<CompleteRepositoryExample> entities() {
     $$arez$$_observable.reportObserved();
     return $$arez$$_entityList;
   }
 
+  /**
+   * If config option enabled, wrap the specified list in an immutable list and return it.
+   * This method should be called by repository extensions when returning list results when not using {@link toList(List)}.
+   */
+  @Nonnull
+  protected final List<CompleteRepositoryExample> wrap(@Nonnull final List<CompleteRepositoryExample> list) {
+    return $$arez$$_IMMUTABLE_RESULTS ? Collections.unmodifiableList( list ) : list;
+  }
+
+  /**
+   * Convert specified stream to a list, wrapping as an immutable list if required.
+   * This method should be called by repository extensions when returning list results.
+   */
+  @Nonnull
+  protected final List<CompleteRepositoryExample> toList(@Nonnull final Stream<CompleteRepositoryExample> stream) {
+    return wrap( stream.collect( Collectors.toList() ) );
+  }
+
+  @Nonnull
+  public final List<CompleteRepositoryExample> findAll() {
+    return toList( entities().stream() );
+  }
+
   @Nonnull
   public final List<CompleteRepositoryExample> findAll(@Nonnull final Comparator<CompleteRepositoryExample> sorter) {
-    return findAll().stream().sorted( sorter ).collect( Collectors.toList() );
+    return toList( entities().stream().sorted( sorter ) );
   }
 
   @Nonnull
   public final List<CompleteRepositoryExample> findAllByQuery(@Nonnull final Predicate<CompleteRepositoryExample> query) {
-    return findAll().stream().filter( query ).collect( Collectors.toList() );
+    return toList( entities().stream().filter( query ) );
   }
 
   @Nonnull
   public final List<CompleteRepositoryExample> findAllByQuery(@Nonnull final Predicate<CompleteRepositoryExample> query, @Nonnull final Comparator<CompleteRepositoryExample> sorter) {
-    return findAll().stream().filter( query ).sorted( sorter ).collect( Collectors.toList() );
+    return toList( entities().stream().filter( query ).sorted( sorter ) );
   }
 
   @Nullable
   public final CompleteRepositoryExample findByQuery(@Nonnull final Predicate<CompleteRepositoryExample> query) {
-    return findAll().stream().filter( query ).findFirst().orElse( null );
+    return entities().stream().filter( query ).findFirst().orElse( null );
   }
 
   @Override
