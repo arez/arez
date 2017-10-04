@@ -69,4 +69,13 @@ public @interface ArezComponent
    * @return true if the generated component should implement the Disposable interface, false otherwise.
    */
   boolean disposable() default true;
+
+  /**
+   * Return true if the component does not need to explicitly declare elements.
+   * Otherwise if no elements (i.e. {@link Observable}s, {@link Action}s, {@link Autorun}s etc) are defined
+   * on a component it will generate an error.
+   *
+   * @return true if the component does not need to explicitly declare elements, false otherwise.
+   */
+  boolean allowEmpty() default false;
 }

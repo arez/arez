@@ -62,6 +62,7 @@ public class ArezProcessorTest
         new Object[]{ "ObservableWithExceptingCtorModel", false },
         new Object[]{ "OverrideNamesInModel", false },
         new Object[]{ "SingletonModel", false },
+        new Object[]{ "EmptyModel", false },
         new Object[]{ "com.example.component_id.ComponentIdOnModel", false },
         new Object[]{ "BasicModelWithDifferentAccessLevels", false },
         new Object[]{ "ObservableWithCtorModel", false },

@@ -79,6 +79,7 @@ final class ComponentDescriptor
   private final String _name;
   private final boolean _singleton;
   private final boolean _disposable;
+  private final boolean _allowEmpty;
   @Nonnull
   private final PackageElement _packageElement;
   @Nonnull
@@ -114,12 +115,14 @@ final class ComponentDescriptor
   ComponentDescriptor( @Nonnull final String name,
                        final boolean singleton,
                        final boolean disposable,
+                       final boolean allowEmpty,
                        @Nonnull final PackageElement packageElement,
                        @Nonnull final TypeElement element )
   {
     _name = Objects.requireNonNull( name );
     _singleton = singleton;
     _disposable = disposable;
+    _allowEmpty = allowEmpty;
     _packageElement = Objects.requireNonNull( packageElement );
     _element = Objects.requireNonNull( element );
   }
@@ -584,7 +587,8 @@ final class ComponentDescriptor
   {
     validateComputeds();
 
-    if ( _roObservables.isEmpty() &&
+    if ( !_allowEmpty &&
+         _roObservables.isEmpty() &&
          _roActions.isEmpty() &&
          _roComputeds.isEmpty() &&
          _roTrackeds.isEmpty() &&

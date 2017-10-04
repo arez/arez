@@ -127,6 +127,7 @@ public final class ArezProcessor
       new ComponentDescriptor( name,
                                arezComponent.singleton(),
                                arezComponent.disposable(),
+                               arezComponent.allowEmpty(),
                                packageElement,
                                typeElement );
 

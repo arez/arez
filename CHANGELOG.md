@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Added
+* **\[processor\]** Add an parameter `allowEmpty` to `@ArezComponent` that allows the developer to define
+  Arez components without explicitly annotating other elements such as `Observable` annotated methods. This
+  is useful if you want to manually manage the creation of Arez elements.
+
 ## [v0.05](https://github.com/realityforge/arez/tree/v0.05) (2017-10-04)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.04...v0.05)
 
