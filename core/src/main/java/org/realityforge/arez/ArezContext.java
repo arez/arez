@@ -4,6 +4,8 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
+import org.realityforge.arez.spy.ActionCompletedEvent;
+import org.realityforge.arez.spy.ActionStartedEvent;
 import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
@@ -223,7 +225,7 @@ public final class ArezContext
                            final boolean runImmediately )
   {
     final Observer observer =
-      createObserver( name, mutation, o -> action( name, o.getMode(), action, o ), false );
+      createObserver( name, mutation, o -> action( name, o.getMode(), action, true, o ), false );
     if ( runImmediately )
     {
       observer.invokeReaction();
@@ -238,7 +240,7 @@ public final class ArezContext
   /**
    * Create a "tracker" observer that tracks code using a read-only transaction.
    * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function)}.
+   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
    *
    * @param action the action invoked as the reaction.
    * @return the new Observer.
@@ -252,7 +254,7 @@ public final class ArezContext
   /**
    * Create a "tracker" observer.
    * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function)}.
+   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
    *
    * @param mutation true if the observer may modify state during tracking, false otherwise.
    * @param action   the action invoked as the reaction.
@@ -267,7 +269,7 @@ public final class ArezContext
   /**
    * Create a "tracker" observer.
    * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function)}.
+   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
    *
    * @param name     the name of the observer.
    * @param mutation true if the observer may modify state during tracking, false otherwise.
@@ -437,15 +439,16 @@ public final class ArezContext
    * The name is synthesized if {@link #areNamesEnabled()} returns true.
    * The action may throw an exception.
    *
-   * @param <T>    the type of return value.
-   * @param action the action to execute.
+   * @param <T>        the type of return value.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
-  public <T> T action( @Nonnull final Function<T> action )
+  public <T> T action( @Nonnull final Function<T> action, @Nonnull final Object... parameters )
     throws Throwable
   {
-    return action( true, action );
+    return action( true, action, parameters );
   }
 
   /**
@@ -453,33 +456,38 @@ public final class ArezContext
    * The name is synthesized if {@link #areNamesEnabled()} returns true.
    * The action may throw an exception.
    *
-   * @param <T>      the type of return value.
-   * @param mutation true if the action may modify state, false otherwise.
-   * @param action   the action to execute.
+   * @param <T>        the type of return value.
+   * @param mutation   true if the action may modify state, false otherwise.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
-  public <T> T action( final boolean mutation, @Nonnull final Function<T> action )
+  public <T> T action( final boolean mutation, @Nonnull final Function<T> action, @Nonnull final Object... parameters )
     throws Throwable
   {
-    return action( null, mutation, action );
+    return action( null, mutation, action, parameters );
   }
 
   /**
    * Execute the supplied action in a transaction.
    * The action may throw an exception.
    *
-   * @param <T>      the type of return value.
-   * @param name     the name of the transaction.
-   * @param mutation true if the action may modify state, false otherwise.
-   * @param action   the action to execute.
+   * @param <T>        the type of return value.
+   * @param name       the name of the transaction.
+   * @param mutation   true if the action may modify state, false otherwise.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
-  public <T> T action( @Nullable final String name, final boolean mutation, @Nonnull final Function<T> action )
+  public <T> T action( @Nullable final String name,
+                       final boolean mutation,
+                       @Nonnull final Function<T> action,
+                       @Nonnull final Object... parameters )
     throws Throwable
   {
-    return action( name, mutationToTransactionMode( mutation ), action, null );
+    return action( toName( "Transaction", name ), mutationToTransactionMode( mutation ), action, null, parameters );
   }
 
   /**
@@ -487,35 +495,78 @@ public final class ArezContext
    * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
    * The action may throw an exception.
    *
-   * @param <T>     the type of return value.
-   * @param tracker the tracking Observer.
-   * @param action  the action to execute.
+   * @param <T>        the type of return value.
+   * @param tracker    the tracking Observer.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
-  public <T> T track( @Nonnull final Observer tracker, @Nonnull final Function<T> action )
+  public <T> T track( @Nonnull final Observer tracker,
+                      @Nonnull final Function<T> action,
+                      @Nonnull final Object... parameters )
     throws Throwable
   {
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    return action( toName( tracker ), tracker.getMode(), action, tracker );
+    return action( toName( tracker ), tracker.getMode(), action, tracker, parameters );
   }
 
   private <T> T action( @Nullable final String name,
                         @Nonnull final TransactionMode mode,
                         @Nonnull final Function<T> action,
-                        @Nullable final Observer tracker )
+                        @Nullable final Observer tracker,
+                        @Nonnull final Object... parameters )
     throws Throwable
   {
-    final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
+    final boolean tracked = null != tracker;
+    Throwable t = null;
+    boolean completed = false;
+    long startedAt = 0L;
+    T result;
     try
     {
-      return action.call();
+      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      {
+        startedAt = System.currentTimeMillis();
+        assert null != name;
+        getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
+      }
+      final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
+      try
+      {
+        result = action.call();
+      }
+      finally
+      {
+        commitTransaction( transaction );
+      }
+      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      {
+        completed = true;
+        final long duration = System.currentTimeMillis() - startedAt;
+        assert null != name;
+        getSpy().reportSpyEvent( new ActionCompletedEvent( name, tracked, parameters, true, result, null, duration ) );
+      }
+      return result;
+    }
+    catch ( final Throwable e )
+    {
+      t = e;
+      throw e;
     }
     finally
     {
-      commitTransaction( transaction );
+      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      {
+        if ( !completed )
+        {
+          final long duration = System.currentTimeMillis() - startedAt;
+          assert null != name;
+          getSpy().reportSpyEvent( new ActionCompletedEvent( name, tracked, parameters, true, null, t, duration ) );
+        }
+      }
     }
   }
 
@@ -523,44 +574,50 @@ public final class ArezContext
    * Execute the supplied action in a read-write transaction.
    * The action is expected to not throw an exception.
    *
-   * @param <T>    the type of return value.
-   * @param action the action to execute.
+   * @param <T>        the type of return value.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    * @return the value returned from the action.
    */
-  public <T> T safeAction( @Nonnull final SafeFunction<T> action )
+  public <T> T safeAction( @Nonnull final SafeFunction<T> action, @Nonnull final Object... parameters )
   {
-    return safeAction( true, action );
+    return safeAction( true, action, parameters );
   }
 
   /**
    * Execute the supplied function in a transaction.
    * The action is expected to not throw an exception.
    *
-   * @param <T>      the type of return value.
-   * @param mutation true if the action may modify state, false otherwise.
-   * @param action   the action to execute.
+   * @param <T>        the type of return value.
+   * @param mutation   true if the action may modify state, false otherwise.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    * @return the value returned from the action.
    */
-  public <T> T safeAction( final boolean mutation, @Nonnull final SafeFunction<T> action )
+  public <T> T safeAction( final boolean mutation,
+                           @Nonnull final SafeFunction<T> action,
+                           @Nonnull final Object... parameters )
   {
-    return safeAction( null, mutation, action );
+    return safeAction( null, mutation, action, parameters );
   }
 
   /**
    * Execute the supplied action.
    * The action is expected to not throw an exception.
    *
-   * @param <T>      the type of return value.
-   * @param name     the name of the transaction.
-   * @param mutation true if the action may modify state, false otherwise.
-   * @param action   the action to execute.
+   * @param <T>        the type of return value.
+   * @param name       the name of the transaction.
+   * @param mutation   true if the action may modify state, false otherwise.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    * @return the value returned from the action.
    */
   public <T> T safeAction( @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final SafeFunction<T> action )
+                           @Nonnull final SafeFunction<T> action,
+                           @Nonnull final Object... parameters )
   {
-    return safeAction( name, mutationToTransactionMode( mutation ), action, null );
+    return safeAction( name, mutationToTransactionMode( mutation ), action, null, parameters );
   }
 
   /**
@@ -568,32 +625,75 @@ public final class ArezContext
    * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
    * The action is expected to not throw an exception.
    *
-   * @param <T>     the type of return value.
-   * @param tracker the tracking Observer.
-   * @param action  the action to execute.
+   * @param <T>        the type of return value.
+   * @param tracker    the tracking Observer.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    * @return the value returned from the action.
    */
-  public <T> T safeTrack( @Nonnull final Observer tracker, @Nonnull final SafeFunction<T> action )
+  public <T> T safeTrack( @Nonnull final Observer tracker,
+                          @Nonnull final SafeFunction<T> action,
+                          @Nonnull final Object... parameters )
   {
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    return safeAction( toName( tracker ), tracker.getMode(), action, tracker );
+    return safeAction( toName( tracker ), tracker.getMode(), action, tracker, parameters );
   }
 
   private <T> T safeAction( @Nullable final String name,
                             @Nonnull final TransactionMode mode,
                             @Nonnull final SafeFunction<T> action,
-                            @Nullable final Observer tracker )
+                            @Nullable final Observer tracker,
+                            @Nonnull final Object... parameters )
   {
-    final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
+    final boolean tracked = null != tracker;
+    Throwable t = null;
+    boolean completed = false;
+    long startedAt = 0L;
+    T result;
     try
     {
-      return action.call();
+      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      {
+        startedAt = System.currentTimeMillis();
+        assert null != name;
+        getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
+      }
+      final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
+      try
+      {
+        result = action.call();
+      }
+      finally
+      {
+        commitTransaction( transaction );
+      }
+      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      {
+        completed = true;
+        final long duration = System.currentTimeMillis() - startedAt;
+        assert null != name;
+        getSpy().reportSpyEvent( new ActionCompletedEvent( name, tracked, parameters, true, result, null, duration ) );
+      }
+      return result;
+    }
+    catch ( final Throwable e )
+    {
+      t = e;
+      throw e;
     }
     finally
     {
-      commitTransaction( transaction );
+      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      {
+        if ( !completed )
+        {
+          final long duration = System.currentTimeMillis() - startedAt;
+          assert null != name;
+          getSpy().reportSpyEvent( new ActionCompletedEvent( name, tracked, parameters, true, null, t, duration ) );
+        }
+      }
     }
   }
 
@@ -601,60 +701,69 @@ public final class ArezContext
    * Execute the supplied action in a read-write transaction.
    * The procedure may throw an exception.
    *
-   * @param procedure the procedure to execute.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    * @throws Throwable if the procedure throws an an exception.
    */
-  public void action( @Nonnull final Procedure procedure )
+  public void action( @Nonnull final Procedure action, @Nonnull final Object... parameters )
     throws Throwable
   {
-    action( true, procedure );
+    action( true, action, parameters );
   }
 
   /**
    * Execute the supplied action in a transaction.
-   * The procedure may throw an exception.
+   * The action may throw an exception.
    *
-   * @param mutation  true if the action may modify state, false otherwise.
-   * @param procedure the procedure to execute.
+   * @param mutation   true if the action may modify state, false otherwise.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    * @throws Throwable if the procedure throws an an exception.
    */
-  public void action( final boolean mutation, @Nonnull final Procedure procedure )
+  public void action( final boolean mutation, @Nonnull final Procedure action, @Nonnull final Object... parameters )
     throws Throwable
   {
-    action( null, mutation, procedure );
+    action( null, mutation, action, parameters );
   }
 
   /**
    * Execute the supplied action in a transaction.
-   * The procedure may throw an exception.
+   * The action may throw an exception.
    *
-   * @param name      the name of the transaction.
-   * @param mutation  true if the action may modify state, false otherwise.
-   * @param procedure the procedure to execute.
+   * @param name       the name of the transaction.
+   * @param mutation   true if the action may modify state, false otherwise.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    * @throws Throwable if the procedure throws an an exception.
    */
-  public void action( @Nullable final String name, final boolean mutation, @Nonnull final Procedure procedure )
+  public void action( @Nullable final String name,
+                      final boolean mutation,
+                      @Nonnull final Procedure action,
+                      @Nonnull final Object... parameters )
     throws Throwable
   {
-    action( name, mutationToTransactionMode( mutation ), procedure, null );
+    action( toName( "Transaction", name ), mutationToTransactionMode( mutation ), action, true, null, parameters );
   }
 
   /**
    * Execute the supplied action with the specified Observer as the tracker.
    * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
-   * The procedure may throw an exception.
+   * The action may throw an exception.
    *
-   * @param tracker   the tracking Observer.
-   * @param procedure the procedure to execute.
+   * @param tracker    the tracking Observer.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    * @throws Throwable if the procedure throws an an exception.
    */
-  public void track( @Nonnull final Observer tracker, @Nonnull final Procedure procedure )
+  public void track( @Nonnull final Observer tracker,
+                     @Nonnull final Procedure action,
+                     @Nonnull final Object... parameters )
     throws Throwable
   {
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    action( toName( tracker ), tracker.getMode(), procedure, tracker );
+    action( toName( tracker ), tracker.getMode(), action, true, tracker, parameters );
   }
 
   @Nullable
@@ -665,18 +774,57 @@ public final class ArezContext
 
   void action( @Nullable final String name,
                @Nonnull final TransactionMode mode,
-               @Nonnull final Procedure procedure,
-               @Nullable final Observer tracker )
+               @Nonnull final Procedure action,
+               final boolean reportAction,
+               @Nullable final Observer tracker,
+               @Nonnull final Object... parameters )
     throws Throwable
   {
-    final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
+    final boolean tracked = null != tracker;
+    Throwable t = null;
+    boolean completed = false;
+    long startedAt = 0L;
     try
     {
-      procedure.call();
+      if ( reportAction && areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      {
+        startedAt = System.currentTimeMillis();
+        assert null != name;
+        getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
+      }
+      final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
+      try
+      {
+        action.call();
+      }
+      finally
+      {
+        commitTransaction( transaction );
+      }
+      if ( reportAction && areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      {
+        completed = true;
+        final long duration = System.currentTimeMillis() - startedAt;
+        assert null != name;
+        getSpy().reportSpyEvent( new ActionCompletedEvent( name, tracked, parameters, false, null, null, duration ) );
+      }
+    }
+    catch ( final Throwable e )
+    {
+      t = e;
+      throw e;
     }
     finally
     {
-      commitTransaction( transaction );
+      if ( reportAction && areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      {
+        if ( !completed )
+        {
+          final long duration = System.currentTimeMillis() - startedAt;
+          assert null != name;
+          getSpy().reportSpyEvent( new ActionCompletedEvent( name, tracked, parameters, false, null, t, duration ) );
+        }
+      }
     }
   }
 
@@ -684,38 +832,44 @@ public final class ArezContext
    * Execute the supplied action in a read-write transaction.
    * The action is expected to not throw an exception.
    *
-   * @param action the action to execute.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    */
-  public void safeAction( @Nonnull final SafeProcedure action )
+  public void safeAction( @Nonnull final SafeProcedure action, @Nonnull final Object... parameters )
   {
-    safeAction( true, action );
+    safeAction( true, action, parameters );
   }
 
   /**
    * Execute the supplied action in a transaction.
    * The action is expected to not throw an exception.
    *
-   * @param mutation true if the action may modify state, false otherwise.
-   * @param action   the action to execute.
+   * @param mutation   true if the action may modify state, false otherwise.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    */
-  public void safeAction( final boolean mutation, @Nonnull final SafeProcedure action )
+  public void safeAction( final boolean mutation,
+                          @Nonnull final SafeProcedure action,
+                          @Nonnull final Object... parameters )
   {
-    safeAction( null, mutation, action );
+    safeAction( null, mutation, action, parameters );
   }
 
   /**
    * Execute the supplied procactionedure in a transaction.
    * The action is expected to not throw an exception.
    *
-   * @param name     the name of the transaction.
-   * @param mutation true if the action may modify state, false otherwise.
-   * @param action   the action to execute.
+   * @param name       the name of the transaction.
+   * @param mutation   true if the action may modify state, false otherwise.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    */
   public void safeAction( @Nullable final String name,
                           final boolean mutation,
-                          @Nonnull final SafeProcedure action )
+                          @Nonnull final SafeProcedure action,
+                          @Nonnull final Object... parameters )
   {
-    safeAction( name, mutationToTransactionMode( mutation ), action, null );
+    safeAction( name, mutationToTransactionMode( mutation ), action, null, parameters );
   }
 
   /**
@@ -723,30 +877,71 @@ public final class ArezContext
    * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
    * The action is expected to not throw an exception.
    *
-   * @param tracker the tracking Observer.
-   * @param action  the action to execute.
+   * @param tracker    the tracking Observer.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
    */
-  public void safeTrack( @Nonnull final Observer tracker, @Nonnull final SafeProcedure action )
+  public void safeTrack( @Nonnull final Observer tracker,
+                         @Nonnull final SafeProcedure action,
+                         @Nonnull final Object... parameters )
   {
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    safeAction( toName( tracker ), tracker.getMode(), action, tracker );
+    safeAction( toName( tracker ), tracker.getMode(), action, tracker, parameters );
   }
 
   void safeAction( @Nullable final String name,
                    @Nonnull final TransactionMode mode,
                    @Nonnull final SafeProcedure action,
-                   @Nullable final Observer tracker )
+                   @Nullable final Observer tracker,
+                   @Nonnull final Object... parameters )
   {
-    final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
+    final boolean tracked = null != tracker;
+    Throwable t = null;
+    boolean completed = false;
+    long startedAt = 0L;
     try
     {
-      action.call();
+      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      {
+        startedAt = System.currentTimeMillis();
+        assert null != name;
+        getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
+      }
+      final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
+      try
+      {
+        action.call();
+      }
+      finally
+      {
+        commitTransaction( transaction );
+      }
+      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      {
+        completed = true;
+        final long duration = System.currentTimeMillis() - startedAt;
+        assert null != name;
+        getSpy().reportSpyEvent( new ActionCompletedEvent( name, tracked, parameters, false, null, null, duration ) );
+      }
+    }
+    catch ( final Throwable e )
+    {
+      t = e;
+      throw e;
     }
     finally
     {
-      commitTransaction( transaction );
+      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      {
+        if ( !completed )
+        {
+          final long duration = System.currentTimeMillis() - startedAt;
+          assert null != name;
+          getSpy().reportSpyEvent( new ActionCompletedEvent( name, tracked, parameters, false, null, t, duration ) );
+        }
+      }
     }
   }
 

@@ -1,8 +1,12 @@
 package org.realityforge.arez;
 
+import java.io.IOException;
+import java.security.AccessControlException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.realityforge.arez.spy.ActionCompletedEvent;
+import org.realityforge.arez.spy.ActionStartedEvent;
 import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
@@ -256,8 +260,16 @@ public class ArezContextTest
     final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
 
+    final String param1 = "";
+    final Object param2 = null;
+    final int param3 = 3;
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final boolean mutation = false;
     final String v0 =
-      context.action( name, false, () -> {
+      context.action( name, mutation, () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), name );
@@ -276,7 +288,7 @@ public class ArezContextTest
         assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
 
         return expectedValue;
-      } );
+      }, param1, param2, param3 );
 
     assertFalse( context.isTransactionActive() );
 
@@ -285,6 +297,113 @@ public class ArezContextTest
     //Observable still not updated
     assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
     assertEquals( observable.getObservers().size(), 0 );
+
+    handler.assertEventCount( 4 );
+
+    {
+      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
+    {
+      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.getThrowable(), null );
+      assertEquals( e.returnsResult(), true );
+      assertEquals( e.getResult(), v0 );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
+  }
+
+  @Test
+  public void action_function_throwsException()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
+    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+
+    final String name = ValueUtil.randomString();
+
+    final IOException ioException = new IOException();
+
+    final String param1 = "";
+    final Object param2 = null;
+    final int param3 = 3;
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final boolean mutation = false;
+    assertThrows( IOException.class, () ->
+      context.action( name, mutation, () -> {
+        throw ioException;
+      }, param1, param2, param3 ) );
+
+    assertFalse( context.isTransactionActive() );
+
+    handler.assertEventCount( 4 );
+
+    {
+      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
+    {
+      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.getThrowable(), ioException );
+      assertEquals( e.returnsResult(), true );
+      assertEquals( e.getResult(), null );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
   }
 
   @Test
@@ -299,6 +418,9 @@ public class ArezContextTest
 
     final int nextNodeId = context.currentNextTransactionId();
 
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
     final String v0 =
       context.action( () -> {
         assertTrue( context.isTransactionActive() );
@@ -312,6 +434,34 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
 
     assertEquals( v0, expectedValue );
+
+    handler.assertEventCount( 4 );
+
+    {
+      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 0 );
+    }
+    {
+      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+      assertEquals( e.isMutation(), true );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+      assertEquals( e.isMutation(), true );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+      assertEquals( e.getThrowable(), null );
+      assertEquals( e.returnsResult(), true );
+      assertEquals( e.getResult(), v0 );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 0 );
+    }
   }
 
   @Test
@@ -326,12 +476,19 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer tracker = context.tracker( callCount::incrementAndGet );
+    final Observer tracker = context.tracker( true, callCount::incrementAndGet );
 
     final Observable observable = newObservable( context );
     assertEquals( observable.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
+
+    final String param1 = "";
+    final Object param2 = null;
+    final int param3 = 3;
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
 
     final String v0 =
       context.track( tracker, () -> {
@@ -353,9 +510,10 @@ public class ArezContextTest
         assertEquals( observable.getLastTrackerTransactionId(), nextNodeId );
 
         return expectedValue;
-      } );
+      }, param1, param2, param3 );
 
     assertFalse( context.isTransactionActive() );
+    context.getSpy().removeSpyEventHandler( handler );
 
     assertEquals( v0, expectedValue );
 
@@ -371,6 +529,40 @@ public class ArezContextTest
     assertEquals( callCount.get(), 1 );
     assertEquals( observable.getObservers().size(), 1 );
     assertEquals( tracker.getDependencies().size(), 1 );
+
+    handler.assertEventCount( 4 );
+
+    {
+      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+      assertEquals( e.isTracked(), true );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
+    {
+      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+      assertEquals( e.isMutation(), true );
+      assertEquals( e.getTracker(), tracker );
+    }
+    {
+      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+      assertEquals( e.isMutation(), true );
+      assertEquals( e.getTracker(), tracker );
+    }
+    {
+      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+      assertEquals( e.getThrowable(), null );
+      assertEquals( e.returnsResult(), true );
+      assertEquals( e.getResult(), v0 );
+      assertEquals( e.isTracked(), true );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
   }
 
   @Test
@@ -410,8 +602,16 @@ public class ArezContextTest
     final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
 
+    final String param1 = "";
+    final Object param2 = null;
+    final int param3 = 3;
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final boolean mutation = false;
     final String v0 =
-      context.safeAction( name, false, () -> {
+      context.safeAction( name, mutation, () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), name );
@@ -430,7 +630,7 @@ public class ArezContextTest
         assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
 
         return expectedValue;
-      } );
+      }, param1, param2, param3 );
 
     assertFalse( context.isTransactionActive() );
 
@@ -439,6 +639,114 @@ public class ArezContextTest
     //Observable still not updated
     assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
     assertEquals( observable.getObservers().size(), 0 );
+
+    handler.assertEventCount( 4 );
+
+    {
+      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
+    {
+      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.getThrowable(), null );
+      assertEquals( e.returnsResult(), true );
+      assertEquals( e.getResult(), v0 );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
+  }
+
+  @Test
+  public void action_safeFunction_throws_Exception()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
+    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+
+    final AccessControlException secException = new AccessControlException( "" );
+
+    final String name = ValueUtil.randomString();
+
+    final String param1 = "";
+    final Object param2 = null;
+    final int param3 = 3;
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final boolean mutation = false;
+
+    assertThrows( AccessControlException.class, () ->
+      context.safeAction( name, mutation, () -> {
+        throw secException;
+      }, param1, param2, param3 ) );
+
+    assertFalse( context.isTransactionActive() );
+
+    handler.assertEventCount( 4 );
+
+    {
+      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
+    {
+      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.getThrowable(), secException );
+      assertEquals( e.returnsResult(), true );
+      assertEquals( e.getResult(), null );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
   }
 
   @Test
@@ -563,6 +871,77 @@ public class ArezContextTest
   }
 
   @Test
+  public void action_safeProcedure_throws_Exception()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
+    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+
+    final AccessControlException secException = new AccessControlException( "" );
+
+    final String name = ValueUtil.randomString();
+
+    final String param1 = "";
+    final Object param2 = null;
+    final int param3 = 3;
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final boolean mutation = false;
+
+    final SafeProcedure procedure = () -> {
+      throw secException;
+    };
+    assertThrows( AccessControlException.class,
+                  () -> context.safeAction( name, mutation, procedure, param1, param2, param3 ) );
+
+    assertFalse( context.isTransactionActive() );
+
+    handler.assertEventCount( 4 );
+
+    {
+      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
+    {
+      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.getThrowable(), secException );
+      assertEquals( e.returnsResult(), false );
+      assertEquals( e.getResult(), null );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
+  }
+
+  @Test
   public void track_safeProcedure()
     throws Throwable
   {
@@ -624,8 +1003,9 @@ public class ArezContextTest
 
     final Observer observer = newObserver( context );
 
+    final SafeProcedure procedure = callCount::incrementAndGet;
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.safeTrack( observer, callCount::incrementAndGet ) );
+      expectThrows( IllegalStateException.class, () -> context.safeTrack( observer, procedure ) );
     assertEquals( exception.getMessage(),
                   "Attempted to track Observer named '" + observer.getName() + "' but observer is not a tracker." );
 
@@ -660,8 +1040,9 @@ public class ArezContextTest
 
     final Observer observer = newObserver( context );
 
+    final Procedure procedure = callCount::incrementAndGet;
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.track( observer, callCount::incrementAndGet ) );
+      expectThrows( IllegalStateException.class, () -> context.track( observer, procedure ) );
     assertEquals( exception.getMessage(),
                   "Attempted to track Observer named '" + observer.getName() + "' but observer is not a tracker." );
 
@@ -735,7 +1116,16 @@ public class ArezContextTest
 
     final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
-    context.safeAction( name, false, () -> {
+    final String param1 = "";
+    final Object param2 = null;
+    final int param3 = 3;
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final boolean mutation = false;
+
+    context.safeAction( name, mutation, () -> {
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
       assertEquals( transaction.getName(), name );
@@ -751,17 +1141,55 @@ public class ArezContextTest
       //Not tracking so no state updated
       assertEquals( observable.getObservers().size(), 0 );
       assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
-    } );
+    }, param1, param2, param3 );
 
     assertFalse( context.isTransactionActive() );
 
     //Observable still not updated
     assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
     assertEquals( observable.getObservers().size(), 0 );
+
+    handler.assertEventCount( 4 );
+
+    {
+      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
+    {
+      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.getThrowable(), null );
+      assertEquals( e.returnsResult(), false );
+      assertEquals( e.getResult(), null );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
   }
 
   @Test
-  public void nonTrackingProcedureObservingSingleObservable()
+  public void action_procedure()
     throws Throwable
   {
     final ArezContext context = new ArezContext();
@@ -775,7 +1203,16 @@ public class ArezContextTest
 
     final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
-    context.action( name, false, () -> {
+
+    final String param1 = "";
+    final Object param2 = null;
+    final int param3 = 3;
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final boolean mutation = false;
+    context.action( name, mutation, () -> {
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
       assertEquals( transaction.getName(), name );
@@ -791,13 +1228,118 @@ public class ArezContextTest
       //Not tracking so no state updated
       assertEquals( observable.getObservers().size(), 0 );
       assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
-    } );
+    }, param1, param2, param3 );
 
     assertFalse( context.isTransactionActive() );
 
     //Observable still not updated
     assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
     assertEquals( observable.getObservers().size(), 0 );
+
+    handler.assertEventCount( 4 );
+
+    {
+      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
+    {
+      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.getThrowable(), null );
+      assertEquals( e.returnsResult(), false );
+      assertEquals( e.getResult(), null );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
+  }
+
+  @Test
+  public void action_procedure_throwsException()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
+    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+
+    final String name = ValueUtil.randomString();
+    final IOException ioException = new IOException();
+
+    final String param1 = "";
+    final Object param2 = null;
+    final int param3 = 3;
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final boolean mutation = false;
+    final Procedure procedure = () -> {
+      throw ioException;
+    };
+    assertThrows( IOException.class, () -> context.action( name, mutation, procedure, param1, param2, param3 ) );
+
+    assertFalse( context.isTransactionActive() );
+
+    handler.assertEventCount( 4 );
+
+    {
+      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
+    {
+      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.isMutation(), mutation );
+      assertEquals( e.getTracker(), null );
+    }
+    {
+      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+      assertEquals( e.getName(), name );
+      assertEquals( e.getThrowable(), ioException );
+      assertEquals( e.returnsResult(), false );
+      assertEquals( e.getResult(), null );
+      assertEquals( e.isTracked(), false );
+      final Object[] parameters = e.getParameters();
+      assertEquals( parameters.length, 3 );
+      assertEquals( parameters[ 0 ], param1 );
+      assertEquals( parameters[ 1 ], param2 );
+      assertEquals( parameters[ 2 ], param3 );
+    }
   }
 
   @Test
@@ -1103,13 +1645,15 @@ public class ArezContextTest
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
     assertEquals( callCount.get(), 1 );
 
-    handler.assertEventCount( 5 );
+    handler.assertEventCount( 7 );
 
     assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver(), observer );
     assertEquals( handler.assertEvent( ReactionStartedEvent.class, 1 ).getObserver(), observer );
-    assertEquals( handler.assertEvent( TransactionStartedEvent.class, 2 ).getTracker(), observer );
-    assertEquals( handler.assertEvent( TransactionCompletedEvent.class, 3 ).getTracker(), observer );
-    assertEquals( handler.assertEvent( ReactionCompletedEvent.class, 4 ).getObserver(), observer );
+    assertEquals( handler.assertEvent( ActionStartedEvent.class, 2 ).getName(), observer.getName() );
+    assertEquals( handler.assertEvent( TransactionStartedEvent.class, 3 ).getTracker(), observer );
+    assertEquals( handler.assertEvent( TransactionCompletedEvent.class, 4 ).getTracker(), observer );
+    assertEquals( handler.assertEvent( ActionCompletedEvent.class, 5 ).getName(), observer.getName() );
+    assertEquals( handler.assertEvent( ReactionCompletedEvent.class, 6 ).getObserver(), observer );
   }
 
   @Test

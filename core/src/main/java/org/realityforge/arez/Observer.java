@@ -99,6 +99,7 @@ public final class Observer
           o -> o.getContext().action( ArezConfig.enableNames() ? o.getName() : null,
                                       o.getMode(),
                                       computedValue::compute,
+                                      false,
                                       o ),
           false );
   }

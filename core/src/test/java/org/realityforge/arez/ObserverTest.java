@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.realityforge.arez.spy.ActionCompletedEvent;
+import org.realityforge.arez.spy.ActionStartedEvent;
 import org.realityforge.arez.spy.ComputeCompletedEvent;
 import org.realityforge.arez.spy.ComputeStartedEvent;
 import org.realityforge.arez.spy.ObservableChangedEvent;
@@ -785,10 +787,12 @@ public class ObserverTest
 
     assertEquals( observer.isDisposed(), true );
 
-    handler.assertEventCount( 3 );
-    handler.assertEvent( TransactionStartedEvent.class, 0 );
-    handler.assertEvent( TransactionCompletedEvent.class, 1 );
-    final ObserverDisposedEvent event = handler.assertEvent( ObserverDisposedEvent.class, 2 );
+    handler.assertEventCount( 5 );
+    handler.assertEvent( ActionStartedEvent.class, 0 );
+    handler.assertEvent( TransactionStartedEvent.class, 1 );
+    handler.assertEvent( TransactionCompletedEvent.class, 2 );
+    handler.assertEvent( ActionCompletedEvent.class, 3 );
+    final ObserverDisposedEvent event = handler.assertEvent( ObserverDisposedEvent.class, 4 );
     assertEquals( event.getObserver(), observer );
   }
 
@@ -812,9 +816,11 @@ public class ObserverTest
 
     assertEquals( observer.isDisposed(), true );
 
-    handler.assertEventCount( 2 );
-    handler.assertEvent( TransactionStartedEvent.class, 0 );
-    handler.assertEvent( TransactionCompletedEvent.class, 1 );
+    handler.assertEventCount( 4 );
+    handler.assertEvent( ActionStartedEvent.class, 0 );
+    handler.assertEvent( TransactionStartedEvent.class, 1 );
+    handler.assertEvent( TransactionCompletedEvent.class, 2 );
+    handler.assertEvent( ActionCompletedEvent.class, 3 );
   }
 
   @Test

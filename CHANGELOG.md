@@ -16,6 +16,9 @@
   naming pattern  `MyComponentBaseRepositoryExtension` which is where the new naming pattern was derived from.)
 * 💥 **\[core\]** Rename the method `ActionCompletedEvent.isExpectsResult()` to `ActionCompletedEvent.returnsResult()`
   and update the corresponding serialization in `ActionCompletedEvent.toMap()`
+* 💥 **\[core\]** Restructure action code so the core action and tracker methods are responsible for generating the
+  `ActionStartedEvent` and `ActionCompletedEvent` events. To achieve this goal the action and tracker methods
+  have all been modified to add an extra varargs argument that is the list of parameters passed to the action.
 
 ### Fixed
 * **\[core\]** Fixed invariant checking in `Transaction` so that `Observable.reportChanged()` can be invoked
