@@ -205,7 +205,7 @@ final class Transaction
     int count = 0;
     if ( null != _pendingDeactivations )
     {
-      // WARNING: Deactivationss can be enqueued during the deactivation process
+      // WARNING: Deactivations can be enqueued during the deactivation process
       // so we always need to call _pendingDeactivations.size() through each iteration
       // of the loop to ensure that new pending deactivations are deactivated.
       //noinspection ForLoopReplaceableByForEach
