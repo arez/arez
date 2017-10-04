@@ -24,8 +24,6 @@ TODO:
 * Convert findAll result from Collection to List. May need to be done via js magic to avoid performance degradation.
   Introduce another method that can be used internally to class (but still public so can be used by queries)
 
-* Figure out buildr magic to stop (gwt-)examples being uploaded to repository
-
 * Should be able to ensure all the collections returned by repositories are immutable ... at least in debug builds
 
 * Enhance Watcher so that it times out after specified time and self disposes. Probably implement via

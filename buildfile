@@ -168,10 +168,6 @@ define 'arez' do
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
 
-    package(:jar)
-    package(:sources)
-    package(:javadoc)
-
     test.using :testng
     test.compile.with TEST_DEPS
 
@@ -187,10 +183,6 @@ define 'arez' do
 
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
-
-    package(:jar)
-    package(:sources)
-    package(:javadoc)
 
     test.using :testng
     test.compile.with TEST_DEPS

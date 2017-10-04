@@ -31,6 +31,7 @@
   `@Action void foo( T value )` where the `T` type parameter is `<T extends Number>` and the subclass has
   the method `@Action void foo( Integer value )` where the type parameter was resolved to `Integer`, the
   processor would previously generate incorrect code.
+* Stop uploading the `examples` and `gwt-examples` artifacts to the distribution repositories.
 
 ## [v0.04](https://github.com/realityforge/arez/tree/v0.04) (2017-10-03)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.03...v0.04)
