@@ -5,8 +5,6 @@ import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
-import org.realityforge.arez.spy.ActionCompletedEvent;
-import org.realityforge.arez.spy.ActionStartedEvent;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_UnsafeFunctionActionModel extends UnsafeFunctionActionModel implements Disposable {
@@ -48,37 +46,14 @@ public final class Arez_UnsafeFunctionActionModel extends UnsafeFunctionActionMo
   @Override
   public int doStuff(final long time) throws Exception {
     assert !$$arez$$_disposed;
-    Throwable $$arez$$_throwable = null;
-    boolean $$arez$$_completed = false;
-    long $$arez$$_startedAt = 0L;
     try {
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".doStuff", false, new Object[]{time} ) );
-      }
-      final int $$arez$$_result = this.$$arez$$_context.action(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time) );
-      $$arez$$_completed = true;
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".doStuff", false, new Object[]{time}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
-      }
-      return $$arez$$_result;
+      return this.$$arez$$_context.action(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
     } catch( final Exception $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Error $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw new IllegalStateException( $$arez$$_e );
-    } finally {
-      if ( !$$arez$$_completed ) {
-        final Integer $$arez$$_result = null;
-        if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-          final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".doStuff", false, new Object[]{time}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
-        }
-      }
     }
   }
 }

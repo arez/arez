@@ -7,8 +7,6 @@ import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
-import org.realityforge.arez.spy.ActionCompletedEvent;
-import org.realityforge.arez.spy.ActionStartedEvent;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
@@ -78,39 +76,16 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   @Override
   public void doStuff(final long time) {
     assert !$$arez$$_disposed;
-    Throwable $$arez$$_throwable = null;
-    boolean $$arez$$_completed = false;
-    long $$arez$$_startedAt = 0L;
     try {
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "SingletonModel.doStuff", false, new Object[]{time} ) );
-      }
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.doStuff" : null, true, () -> super.doStuff(time) );
-      $$arez$$_completed = true;
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "SingletonModel.doStuff", false, new Object[]{time}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
-      }
+      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.doStuff" : null, true, () -> super.doStuff(time), time );
     } catch( final RuntimeException $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw new IllegalStateException( $$arez$$_e );
     } catch( final Error $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw new IllegalStateException( $$arez$$_e );
-    } finally {
-      if ( !$$arez$$_completed ) {
-        if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-          final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "SingletonModel.doStuff", false, new Object[]{time}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
-        }
-      }
     }
   }
 
@@ -122,39 +97,16 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   @Override
   public void render() {
     assert !$$arez$$_disposed;
-    Throwable $$arez$$_throwable = null;
-    boolean $$arez$$_completed = false;
-    long $$arez$$_startedAt = 0L;
     try {
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( "SingletonModel.render", true, new Object[]{} ) );
-      }
       this.$$arez$$_context.safeTrack( this.$$arez$$_render, () -> super.render() );
-      $$arez$$_completed = true;
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "SingletonModel.render", true, new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
-      }
     } catch( final RuntimeException $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw new IllegalStateException( $$arez$$_e );
     } catch( final Error $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw new IllegalStateException( $$arez$$_e );
-    } finally {
-      if ( !$$arez$$_completed ) {
-        if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-          final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( "SingletonModel.render", true, new Object[]{}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
-        }
-      }
     }
   }
 }

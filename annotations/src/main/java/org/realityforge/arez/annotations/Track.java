@@ -45,4 +45,13 @@ public @interface Track
    * @return true if the tracker should run in a READ_WRITE transaction, false if it should run in a READ_ONLY transaction.
    */
   boolean mutation() default true;
+
+  /**
+   * Return true if the generated wrapper method should pass the parameters to the core Arez runtime.
+   * Sometimes it is useful to disable this to avoid passing large, circular or just uninteresting
+   * parameters to the spy infrastructure.
+   *
+   * @return true if the generated method should pass action parameters to core runtime.
+   */
+  boolean parameters() default true;
 }

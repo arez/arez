@@ -9,8 +9,6 @@ import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
-import org.realityforge.arez.spy.ActionCompletedEvent;
-import org.realityforge.arez.spy.ActionStartedEvent;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
@@ -68,160 +66,64 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   @Override
   public void handleWriter(final W writer) {
     assert !$$arez$$_disposed;
-    Throwable $$arez$$_throwable = null;
-    boolean $$arez$$_completed = false;
-    long $$arez$$_startedAt = 0L;
     try {
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".handleWriter", false, new Object[]{writer} ) );
-      }
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".handleWriter" : null, true, () -> super.handleWriter(writer) );
-      $$arez$$_completed = true;
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".handleWriter", false, new Object[]{writer}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
-      }
+      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".handleWriter" : null, true, () -> super.handleWriter(writer), writer );
     } catch( final RuntimeException $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw new IllegalStateException( $$arez$$_e );
     } catch( final Error $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw new IllegalStateException( $$arez$$_e );
-    } finally {
-      if ( !$$arez$$_completed ) {
-        if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-          final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".handleWriter", false, new Object[]{writer}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
-        }
-      }
     }
   }
 
   @Override
   public void handleError(final IOException error) {
     assert !$$arez$$_disposed;
-    Throwable $$arez$$_throwable = null;
-    boolean $$arez$$_completed = false;
-    long $$arez$$_startedAt = 0L;
     try {
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".handleError", false, new Object[]{error} ) );
-      }
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".handleError" : null, true, () -> super.handleError(error) );
-      $$arez$$_completed = true;
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".handleError", false, new Object[]{error}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
-      }
+      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".handleError" : null, true, () -> super.handleError(error), error );
     } catch( final RuntimeException $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw new IllegalStateException( $$arez$$_e );
     } catch( final Error $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw new IllegalStateException( $$arez$$_e );
-    } finally {
-      if ( !$$arez$$_completed ) {
-        if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-          final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".handleError", false, new Object[]{error}, false, null, $$arez$$_throwable, $$arez$$_duration ) );
-        }
-      }
     }
   }
 
   @Override
   public W genWriter() {
     assert !$$arez$$_disposed;
-    Throwable $$arez$$_throwable = null;
-    boolean $$arez$$_completed = false;
-    long $$arez$$_startedAt = 0L;
     try {
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".genWriter", false, new Object[]{} ) );
-      }
-      final W $$arez$$_result = this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".genWriter" : null, true, () -> super.genWriter() );
-      $$arez$$_completed = true;
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".genWriter", false, new Object[]{}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
-      }
-      return $$arez$$_result;
+      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".genWriter" : null, true, () -> super.genWriter() );
     } catch( final RuntimeException $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw new IllegalStateException( $$arez$$_e );
     } catch( final Error $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw new IllegalStateException( $$arez$$_e );
-    } finally {
-      if ( !$$arez$$_completed ) {
-        final W $$arez$$_result = null;
-        if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-          final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".genWriter", false, new Object[]{}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
-        }
-      }
     }
   }
 
   @Override
   public IOException genError() {
     assert !$$arez$$_disposed;
-    Throwable $$arez$$_throwable = null;
-    boolean $$arez$$_completed = false;
-    long $$arez$$_startedAt = 0L;
     try {
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        $$arez$$_startedAt = System.currentTimeMillis();
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionStartedEvent( $$arez$$_name() + ".genError", false, new Object[]{} ) );
-      }
-      final IOException $$arez$$_result = this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".genError" : null, true, () -> super.genError() );
-      $$arez$$_completed = true;
-      if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-        final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-        this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".genError", false, new Object[]{}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
-      }
-      return $$arez$$_result;
+      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".genError" : null, true, () -> super.genError() );
     } catch( final RuntimeException $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw new IllegalStateException( $$arez$$_e );
     } catch( final Error $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
-      $$arez$$_throwable = $$arez$$_e;
       throw new IllegalStateException( $$arez$$_e );
-    } finally {
-      if ( !$$arez$$_completed ) {
-        final IOException $$arez$$_result = null;
-        if ( this.$$arez$$_context.areSpiesEnabled() && this.$$arez$$_context.getSpy().willPropagateSpyEvents() ) {
-          final long $$arez$$_duration = System.currentTimeMillis() - $$arez$$_startedAt;
-          this.$$arez$$_context.getSpy().reportSpyEvent( new ActionCompletedEvent( $$arez$$_name() + ".genError", false, new Object[]{}, true, $$arez$$_result, $$arez$$_throwable, $$arez$$_duration ) );
-        }
-      }
     }
   }
 

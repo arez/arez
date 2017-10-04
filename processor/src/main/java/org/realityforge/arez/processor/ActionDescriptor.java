@@ -27,6 +27,7 @@ final class ActionDescriptor
   @Nonnull
   private final String _name;
   private final boolean _mutation;
+  private final boolean _passParameters;
   @Nonnull
   private final ExecutableElement _action;
   @Nonnull
@@ -35,12 +36,14 @@ final class ActionDescriptor
   ActionDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
                     @Nonnull final String name,
                     final boolean mutation,
+                    final boolean passParameters,
                     @Nonnull final ExecutableElement action,
                     @Nonnull final ExecutableType actionType )
   {
     _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     _mutation = mutation;
+    _passParameters = passParameters;
     _action = Objects.requireNonNull( action );
     _actionType = Objects.requireNonNull( actionType );
   }
@@ -80,16 +83,15 @@ final class ActionDescriptor
     builder.returns( TypeName.get( returnType ) );
 
     final boolean isProcedure = returnType.getKind() == TypeKind.VOID;
-    final boolean isSafe = _action.getThrownTypes().isEmpty();
+    final List<? extends TypeMirror> thrownTypes = _action.getThrownTypes();
+    final boolean isSafe = thrownTypes.isEmpty();
 
     final StringBuilder statement = new StringBuilder();
     final ArrayList<Object> parameterNames = new ArrayList<>();
 
     if ( !isProcedure )
     {
-      statement.append( "final $T $N = " );
-      parameterNames.add( TypeName.get( returnType ) );
-      parameterNames.add( GeneratorUtil.RESULT_VARIABLE_NAME );
+      statement.append( "return " );
     }
     statement.append( "this.$N." );
     parameterNames.add( GeneratorUtil.CONTEXT_FIELD_NAME );
@@ -153,75 +155,54 @@ final class ActionDescriptor
       statement.append( "$N" );
     }
 
-    statement.append( ") )" );
+    statement.append( ")" );
+    if ( _passParameters )
+    {
+      for ( final VariableElement parameter : parameters )
+      {
+        parameterNames.add( parameter.getSimpleName().toString() );
+        statement.append( ", $N" );
+      }
+    }
+    statement.append( " )" );
 
     if ( _componentDescriptor.isDisposable() )
     {
       builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
     }
 
-    builder.addStatement( "$T $N = null", Throwable.class, GeneratorUtil.THROWABLE_VARIABLE_NAME );
-    builder.addStatement( "$T $N = false", boolean.class, GeneratorUtil.COMPLETED_VARIABLE_NAME );
-    builder.addStatement( "$T $N = 0L", long.class, GeneratorUtil.STARTED_AT_VARIABLE_NAME );
-
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "try" );
 
-    GeneratorUtil.actionStartedSpyEvent( _componentDescriptor, _name, false, _action, codeBlock );
     codeBlock.addStatement( statement.toString(), parameterNames.toArray() );
-    codeBlock.addStatement( "$N = true", GeneratorUtil.COMPLETED_VARIABLE_NAME );
-    GeneratorUtil.actionCompletedSpyEvent( _componentDescriptor, _name, false, _action, isProcedure, codeBlock );
-    if ( !isProcedure )
-    {
-      codeBlock.addStatement( "return $N", GeneratorUtil.RESULT_VARIABLE_NAME );
-    }
 
-    for ( final TypeMirror exception : _action.getThrownTypes() )
+    for ( final TypeMirror exception : thrownTypes )
     {
       codeBlock.nextControlFlow( "catch( final $T $N )", exception, GeneratorUtil.CAUGHT_THROWABLE_NAME );
       codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
     }
 
-    if ( _action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.Throwable" ) ) )
+    if ( thrownTypes.stream().noneMatch( t -> t.toString().equals( "java.lang.Throwable" ) ) )
     {
-      if ( _action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.Exception" ) ) )
+      if ( thrownTypes.stream().noneMatch( t -> t.toString().equals( "java.lang.Exception" ) ) )
       {
-        if ( _action.getThrownTypes().stream().noneMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) ) )
+        if ( thrownTypes.stream().noneMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) ) )
         {
           codeBlock.nextControlFlow( "catch( final $T $N )",
                                      RuntimeException.class,
                                      GeneratorUtil.CAUGHT_THROWABLE_NAME );
-          codeBlock.addStatement( "$N = $N",
-                                  GeneratorUtil.THROWABLE_VARIABLE_NAME,
-                                  GeneratorUtil.CAUGHT_THROWABLE_NAME );
           codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
         }
         codeBlock.nextControlFlow( "catch( final $T $N )", Exception.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
-        codeBlock.addStatement( "$N = $N", GeneratorUtil.THROWABLE_VARIABLE_NAME, GeneratorUtil.CAUGHT_THROWABLE_NAME );
         codeBlock.addStatement( "throw new $T( $N )",
                                 IllegalStateException.class,
                                 GeneratorUtil.CAUGHT_THROWABLE_NAME );
       }
       codeBlock.nextControlFlow( "catch( final $T $N )", Error.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
-      codeBlock.addStatement( "$N = $N", GeneratorUtil.THROWABLE_VARIABLE_NAME, GeneratorUtil.CAUGHT_THROWABLE_NAME );
       codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
       codeBlock.nextControlFlow( "catch( final $T $N )", Throwable.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
-      codeBlock.addStatement( "$N = $N", GeneratorUtil.THROWABLE_VARIABLE_NAME, GeneratorUtil.CAUGHT_THROWABLE_NAME );
       codeBlock.addStatement( "throw new $T( $N )", IllegalStateException.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
     }
-    codeBlock.nextControlFlow( "finally" );
-
-    // Send completed spy event if necessary
-    codeBlock.beginControlFlow( "if ( !$N )", GeneratorUtil.COMPLETED_VARIABLE_NAME );
-    if ( !isProcedure )
-    {
-      codeBlock.addStatement( "final $T $N = null",
-                              TypeName.get( returnType ).box(),
-                              GeneratorUtil.RESULT_VARIABLE_NAME );
-    }
-    GeneratorUtil.actionCompletedSpyEvent( _componentDescriptor, _name, false, _action, isProcedure, codeBlock );
-    codeBlock.endControlFlow();
-
     codeBlock.endControlFlow();
     builder.addCode( codeBlock.build() );
 

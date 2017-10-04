@@ -5,6 +5,8 @@
 ### Added
 * **\[extras\]** Extract the `StringifyReplacer` from the `ConsoleSpyEventProcessor` class to allow
   subclasses of `ConsoleSpyEventProcessor` to control the mechanisms for formatting action parameters.
+* **\[annotations\]** Enhanced `@Action` and `@Track` to support a `parameters` parameter that can control
+  whether the parameters in the generated code are passed to core Arez and thus onto the spy subsystem.
 
 ### Changed
 * 💥 **\[browser-extras\]** Update `BrowserLocation` so that it defaults to calling `preventDefault()` on event
@@ -19,6 +21,7 @@
 * 💥 **\[core\]** Restructure action code so the core action and tracker methods are responsible for generating the
   `ActionStartedEvent` and `ActionCompletedEvent` events. To achieve this goal the action and tracker methods
   have all been modified to add an extra varargs argument that is the list of parameters passed to the action.
+  Remove all the corresponding infrastructure from the annotation processor.
 
 ### Fixed
 * **\[core\]** Fixed invariant checking in `Transaction` so that `Observable.reportChanged()` can be invoked
