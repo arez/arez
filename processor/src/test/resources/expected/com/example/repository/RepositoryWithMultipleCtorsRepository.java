@@ -90,7 +90,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
       Disposable.dispose( entity );
       $$arez$$_observable.reportChanged();
     } else {
-      Guards.fail( () -> "Called destroy() passing aentity that was not in the repository. Entity: " + entity );
+      Guards.fail( () -> "Called destroy() passing an entity that was not in the repository. Entity: " + entity );
     }
   }
 

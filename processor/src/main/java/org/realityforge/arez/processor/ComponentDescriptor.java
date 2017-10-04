@@ -1599,7 +1599,7 @@ final class ComponentDescriptor
     }
     builder.addStatement( "$N.reportChanged()", OBSERVABLE_FIELD_NAME );
     builder.nextControlFlow( "else" );
-    builder.addStatement( "$T.fail( () -> \"Called destroy() passing aentity that was not in the repository. " +
+    builder.addStatement( "$T.fail( () -> \"Called destroy() passing an entity that was not in the repository. " +
                           "Entity: \" + entity )", GeneratorUtil.GUARDS_CLASSNAME );
     builder.endControlFlow();
     method.addCode( builder.build() );
