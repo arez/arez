@@ -22,7 +22,10 @@ public final class ActionCompletedEvent
   private final boolean _tracked;
   @Nonnull
   private final Object[] _parameters;
-  private final boolean _expectsResult;
+  /**
+   * True if the action returns a result during normal completion.
+   */
+  private final boolean _returnsResult;
   @Nullable
   private final Object _result;
   @Nullable
@@ -33,7 +36,7 @@ public final class ActionCompletedEvent
   public ActionCompletedEvent( @Nonnull final String name,
                                final boolean tracked,
                                @Nonnull final Object[] parameters,
-                               final boolean expectsResult,
+                               final boolean returnsResult,
                                @Nullable final Object result,
                                @Nullable final Throwable throwable,
                                @Nonnegative final long duration )
@@ -43,7 +46,7 @@ public final class ActionCompletedEvent
     _name = Objects.requireNonNull( name );
     _tracked = tracked;
     _parameters = Objects.requireNonNull( parameters );
-    _expectsResult = expectsResult;
+    _returnsResult = returnsResult;
     _result = result;
     _throwable = throwable;
     _duration = duration;
@@ -66,9 +69,9 @@ public final class ActionCompletedEvent
     return _parameters;
   }
 
-  public boolean isExpectsResult()
+  public boolean returnsResult()
   {
-    return _expectsResult;
+    return _returnsResult;
   }
 
   @Nullable
@@ -105,7 +108,7 @@ public final class ActionCompletedEvent
       null == throwable ? null : null == throwable.getMessage() ? throwable.toString() : throwable.getMessage();
     map.put( "errorMessage", message );
     map.put( "parameters", getParameters() );
-    map.put( "expectsResult", isExpectsResult() );
+    map.put( "returnsResult", returnsResult() );
     map.put( "result", getResult() );
   }
 }

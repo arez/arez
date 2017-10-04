@@ -14,6 +14,8 @@
   `MyComponentBaseRepositoryExtension` as existing downstream projects tend to name their project specific
   extensions using the pattern `MyComponentRepositoryExtension`. (The existing domgen based generators use the
   naming pattern  `MyComponentBaseRepositoryExtension` which is where the new naming pattern was derived from.)
+* 💥 **\[core\]** Rename the method `ActionCompletedEvent.isExpectsResult()` to `ActionCompletedEvent.returnsResult()`
+  and update the corresponding serialization in `ActionCompletedEvent.toMap()`
 
 ### Fixed
 * **\[core\]** Fixed invariant checking in `Transaction` so that `Observable.reportChanged()` can be invoked

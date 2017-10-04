@@ -97,7 +97,7 @@ final class ExamplesSpyUtil
                   e.getName() +
                   "(" +
                   Arrays.toString( e.getParameters() ) +
-                  ")" + ( e.isExpectsResult() && null == e.getThrowable() ? " = " + e.getResult() : "" ) +
+                  ")" + ( e.returnsResult() && null == e.getThrowable() ? " = " + e.getResult() : "" ) +
                   ( null != e.getThrowable() ? "threw " + e.getThrowable() : "" ) +
                   " Duration [" +
                   e.getDuration() +

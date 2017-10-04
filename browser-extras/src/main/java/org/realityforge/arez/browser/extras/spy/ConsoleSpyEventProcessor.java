@@ -316,7 +316,7 @@ public class ConsoleSpyEventProcessor
                            "Action Completed " +
                            e.getName() +
                            parametersToString( e.getParameters() ) +
-                           ( e.isExpectsResult() && null == e.getThrowable() ? " = " + e.getResult() : "" ) +
+                           ( e.returnsResult() && null == e.getThrowable() ? " = " + e.getResult() : "" ) +
                            ( null != e.getThrowable() ? "threw " + e.getThrowable() : "" ) +
                            " Duration [" +
                            e.getDuration() +
