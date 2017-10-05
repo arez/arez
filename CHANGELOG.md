@@ -18,6 +18,8 @@
 ### Fixed
 * **\[processor\]** Fixed the grammar of invariant failure message in generated repositories when the
   user attempts to destroy an entitiy that it not in the repository.
+* **\[core\]** Fixed a bug where the name of actions were not synthesized for actions created via
+  `ArezConfig.safeAction(..)` when a null was passed by `ArezConfig.areNamesEnabled()` returned true.
 
 ## [v0.06](https://github.com/realityforge/arez/tree/v0.06) (2017-10-04)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.05...v0.06)

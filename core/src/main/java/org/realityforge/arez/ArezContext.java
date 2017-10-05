@@ -617,7 +617,7 @@ public final class ArezContext
                            @Nonnull final SafeFunction<T> action,
                            @Nonnull final Object... parameters )
   {
-    return safeAction( name, mutationToTransactionMode( mutation ), action, null, parameters );
+    return safeAction( toName( "Transaction", name ), mutationToTransactionMode( mutation ), action, null, parameters );
   }
 
   /**
@@ -871,7 +871,7 @@ public final class ArezContext
                           @Nonnull final SafeProcedure action,
                           @Nonnull final Object... parameters )
   {
-    safeAction( name, mutationToTransactionMode( mutation ), action, null, parameters );
+    safeAction( toName( "Transaction", name ), mutationToTransactionMode( mutation ), action, null, parameters );
   }
 
   /**
