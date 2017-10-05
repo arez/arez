@@ -474,6 +474,25 @@ public final class ArezContext
    *
    * @param <T>        the type of return value.
    * @param name       the name of the transaction.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
+   * @return the value returned from the action.
+   * @throws Exception if the action throws an an exception.
+   */
+  public <T> T action( @Nullable final String name,
+                       @Nonnull final Function<T> action,
+                       @Nonnull final Object... parameters )
+    throws Throwable
+  {
+    return action( name, true, action, parameters );
+  }
+
+  /**
+   * Execute the supplied action in a transaction.
+   * The action may throw an exception.
+   *
+   * @param <T>        the type of return value.
+   * @param name       the name of the transaction.
    * @param mutation   true if the action may modify state, false otherwise.
    * @param action     the action to execute.
    * @param parameters the action parameters if any.
@@ -602,6 +621,23 @@ public final class ArezContext
   }
 
   /**
+   * Execute the supplied action in a read-write transaction.
+   * The action is expected to not throw an exception.
+   *
+   * @param <T>        the type of return value.
+   * @param name       the name of the transaction.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
+   * @return the value returned from the action.
+   */
+  public <T> T safeAction( @Nullable final String name,
+                           @Nonnull final SafeFunction<T> action,
+                           @Nonnull final Object... parameters )
+  {
+    return safeAction( name, true, action, parameters );
+  }
+
+  /**
    * Execute the supplied action.
    * The action is expected to not throw an exception.
    *
@@ -725,6 +761,23 @@ public final class ArezContext
     throws Throwable
   {
     action( null, mutation, action, parameters );
+  }
+
+  /**
+   * Execute the supplied action in a read-write transaction.
+   * The action may throw an exception.
+   *
+   * @param name       the name of the transaction.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
+   * @throws Throwable if the procedure throws an an exception.
+   */
+  public void action( @Nullable final String name,
+                      @Nonnull final Procedure action,
+                      @Nonnull final Object... parameters )
+    throws Throwable
+  {
+    action( name, true, action, true, parameters );
   }
 
   /**
@@ -855,6 +908,21 @@ public final class ArezContext
                           @Nonnull final Object... parameters )
   {
     safeAction( null, mutation, action, parameters );
+  }
+
+  /**
+   * Execute the supplied action in a read-write transaction.
+   * The action is expected to not throw an exception.
+   *
+   * @param name       the name of the transaction.
+   * @param action     the action to execute.
+   * @param parameters the action parameters if any.
+   */
+  public void safeAction( @Nullable final String name,
+                          @Nonnull final SafeProcedure action,
+                          @Nonnull final Object... parameters )
+  {
+    safeAction( name, true, action, parameters );
   }
 
   /**

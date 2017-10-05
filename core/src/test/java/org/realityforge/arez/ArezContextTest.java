@@ -407,6 +407,20 @@ public class ArezContextTest
   }
 
   @Test
+  public void action_function_NameButNoMutationVariant()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    context.action( name, () -> {
+      assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
+      assertEquals( context.getTransaction().getName(), name );
+      return ValueUtil.randomString();
+    } );
+  }
+
+  @Test
   public void action_function_minimalParameters()
     throws Throwable
   {
@@ -776,6 +790,20 @@ public class ArezContextTest
   }
 
   @Test
+  public void action_safeFunction_NameButNoMutationVariant()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    context.safeAction( name, () -> {
+      assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
+      assertEquals( context.getTransaction().getName(), name );
+      return ValueUtil.randomString();
+    } );
+  }
+
+  @Test
   public void track_safeFunction()
     throws Throwable
   {
@@ -868,6 +896,19 @@ public class ArezContextTest
     } );
 
     assertFalse( context.isTransactionActive() );
+  }
+
+  @Test
+  public void safeAction_safeProcedure_NameButNoMutationVariant()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    context.safeAction( name, () -> {
+      assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
+      assertEquals( context.getTransaction().getName(), name );
+    } );
   }
 
   @Test
@@ -1010,6 +1051,19 @@ public class ArezContextTest
                   "Attempted to track Observer named '" + observer.getName() + "' but observer is not a tracker." );
 
     assertEquals( callCount.get(), 0 );
+  }
+
+  @Test
+  public void action_procedure_NameButNoMutationVariant()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    context.action( name, () -> {
+      assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
+      assertEquals( context.getTransaction().getName(), name );
+    } );
   }
 
   @Test

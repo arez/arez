@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Added
+* **\[core\]** Added several helper methods to `ArezContext` to create actions without specifying mutation parameter.
 * **\[processor\]** Introduce several protected access, helper methods that can be used by extensions when writing
   custom queries. Add minimal javadocs to the generated code to help guide extension developers.
 
