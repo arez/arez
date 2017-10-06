@@ -232,7 +232,7 @@ define 'arez' do
   GWT_EXAMPLES.each do |gwt_module|
     short_name = gwt_module.gsub(/.*\./, '')
     ipr.add_gwt_configuration(project('gwt-example'),
-                              :name => short_name,
+                              :name => "GWT Example: #{short_name}",
                               :gwt_module => gwt_module,
                               :start_javascript_debugger => false,
                               :vm_parameters => "-Xmx3G -Djava.io.tmpdir=#{_("tmp/gwt/#{short_name}")}",
