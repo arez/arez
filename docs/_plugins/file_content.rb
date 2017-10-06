@@ -78,6 +78,19 @@ module Jekyll
 
     attr_accessor :start_line
     attr_accessor :end_line
+
+    attr_writer :include_start_line
+
+    def include_start_line?
+      @include_start_line.nil? || @include_start_line == 'true'
+    end
+
+    attr_writer :include_end_line
+
+    def include_end_line?
+      @include_end_line.nil? || @include_end_line == 'true'
+    end
+
     attr_writer :strip
 
     def strip?
@@ -130,6 +143,7 @@ module Jekyll
           raise "The end_line parameter #{self.end_line} when importing file #{self.derive_filename} is not a number or a regex"
         end
       end
+      last_line -= 1 unless include_end_line?
       last_line
     end
 
@@ -156,6 +170,7 @@ module Jekyll
           raise "The start_line parameter #{self.start_line} when importing file #{self.derive_filename} is not a number or a regex"
         end
       end
+      first_line += 1 unless include_start_line?
       first_line
     end
 
