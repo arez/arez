@@ -19,6 +19,7 @@ GWT_DEPS =
   ]
 
 GWT_EXAMPLES=%w(IdleStatusExample BrowserLocationExample NetworkStatusExample ObservablePromiseExample TimedDisposerExample IntervalTickerExample).collect{|c| "org.realityforge.arez.gwt.examples.#{c}"}
+DOC_EXAMPLES=%w().collect{|c| "org.realityforge.arez.doc.examples.#{c}"}
 
 # JDK options passed to test environment. Essentially turns assertions on.
 AREZ_TEST_OPTIONS =
@@ -194,6 +195,28 @@ define 'arez' do
     iml.add_gwt_facet(gwt_modules, :settings => { :compilerMaxHeapSize => '1024' }, :gwt_dev_artifact => :gwt_dev)
   end
 
+  define 'doc-examples' do
+    pom.provided_dependencies.concat PROVIDED_DEPS
+
+    compile.with project('browser-extras').package(:jar, :classifier => :gwt),
+                 project('browser-extras').compile.dependencies
+
+    test.options[:properties] = AREZ_TEST_OPTIONS
+    test.options[:java_args] = ['-ea']
+
+    test.using :testng
+    test.compile.with TEST_DEPS
+
+    gwt_modules = {}
+    DOC_EXAMPLES.each do |gwt_module|
+      gwt_modules[gwt_module] = false
+    end
+    iml.add_gwt_facet(gwt_modules, :settings => { :compilerMaxHeapSize => '1024' }, :gwt_dev_artifact => :gwt_dev)
+
+    # The generators are configured to generate to here.
+    iml.main_source_directories << _('generated/processors/main/java')
+  end
+
   doc.from(projects(%w(arez:annotations arez:core arez:processor arez:extras arez:browser-extras))).using(:javadoc, :windowtitle => 'Arez')
 
   iml.excluded_directories << project._('tmp/gwt')
@@ -210,6 +233,15 @@ define 'arez' do
     short_name = gwt_module.gsub(/.*\./, '')
     ipr.add_gwt_configuration(project('gwt-example'),
                               :name => short_name,
+                              :gwt_module => gwt_module,
+                              :start_javascript_debugger => false,
+                              :vm_parameters => "-Xmx3G -Djava.io.tmpdir=#{_("tmp/gwt/#{short_name}")}",
+                              :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export', short_name)}/")
+  end
+  DOC_EXAMPLES.each do |gwt_module|
+    short_name = gwt_module.gsub(/.*\./, '')
+    ipr.add_gwt_configuration(project('doc-examples'),
+                              :name => "Doc Example: #{short_name}",
                               :gwt_module => gwt_module,
                               :start_javascript_debugger => false,
                               :vm_parameters => "-Xmx3G -Djava.io.tmpdir=#{_("tmp/gwt/#{short_name}")}",
