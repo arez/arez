@@ -6,7 +6,7 @@ show_full_navigation: false
 
 permalink: pretty
 
-keep_files: [api, examples]
+keep_files: ["api", "examples"]
 
 strict_front_matter: true
 
