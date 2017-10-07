@@ -17,6 +17,16 @@ This sections contains the notes for the next version of Arez and just consists 
 that will be expanded over time as the library is fleshed out.
 
 TODO:
+
+* FAQ:
+  - must read/write properties using observable methods otherwise they are not tracked. Very important
+    if you want to be notified or want to notify downstream observers
+    
+* Note in documentation that poor error messages are a bug. Please report them
+
+* Change error message "Attempting to get current transaction but no transaction is active." to indicate why
+  this typically happens.
+
 * Link back from website to github page
 
 * Start to document app using Jekyll site. Useful resources include https://learn.cloudcannon.com/
