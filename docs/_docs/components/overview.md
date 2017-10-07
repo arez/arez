@@ -56,9 +56,9 @@ enclosed within a transaction. The location of the `@Action` annotated is up to 
 to put the action on the existing component while others would put it in a new `TrainTicketService` component.
 Arez is agnostic to this decision and supports either model.
 
-However for the sake of brevity, this document will add actions to the existing component. If we imagine
-that the domain needs an action "rideTrain" that simply decreases the number of rides remaining by one we
-could define it using a method such as:
+For the sake of brevity, this document will add actions to the existing component. If we imagine that the
+application needs an action "rideTrain" that simply decreases the number of rides remaining on a ticket by one
+we could define it using a method such as:
 
 {% highlight java %}
 {% file_content org/realityforge/arez/doc/examples/step3/TrainTicket.java "start_line=/@Action/" "end_line=/\}/" %}
