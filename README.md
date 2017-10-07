@@ -50,6 +50,7 @@ TODO:
 
 * Add component integration tests
   - Verify that @Autorun scheduled after postConstruct
+  - Verify @Observables are not accessible outside transaction
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
