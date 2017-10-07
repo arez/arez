@@ -64,7 +64,7 @@ we could define it using a method such as:
 {% file_content org/realityforge/arez/doc/examples/step3/TrainTicket.java "start_line=/@Action/" "end_line=/\}/" %}
 {% endhighlight %}
 
-You will notice that this method implementation uses both the setter and getter when modifying the "remainingRides"
+You will notice that this method implementation uses both the setter and getter when modifying the `remainingRides`
 observable property. If the code did not use the setter then downstream observers would not be notified of the
 change. If the code did not use the getter then no problem would arise within the context of this method.
 however it can be a problem in other contexts (i.e. an `@Autorun` methods) so for the sake of consistency and
