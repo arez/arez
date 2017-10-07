@@ -1283,15 +1283,15 @@ final class ComponentDescriptor
     _roAutoruns.forEach( autorun -> autorun.buildInitializer( builder ) );
     _roTrackeds.forEach( tracked -> tracked.buildInitializer( builder ) );
 
-    if ( !_roAutoruns.isEmpty() )
-    {
-      builder.addStatement( "this.$N.triggerScheduler()", GeneratorUtil.CONTEXT_FIELD_NAME );
-    }
-
     final ExecutableElement postConstruct = getPostConstruct();
     if ( null != postConstruct )
     {
       builder.addStatement( "super.$N()", postConstruct.getSimpleName().toString() );
+    }
+
+    if ( !_roAutoruns.isEmpty() )
+    {
+      builder.addStatement( "this.$N.triggerScheduler()", GeneratorUtil.CONTEXT_FIELD_NAME );
     }
 
     return builder.build();

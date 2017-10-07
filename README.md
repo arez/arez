@@ -48,6 +48,9 @@ TODO:
 
 * Add integration tests that use WhyRun?
 
+* Add component integration tests
+  - Verify that @Autorun scheduled after postConstruct
+
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
 * Add `@Memoized` annotation to methods that makes the method call act as a ComputedValue based on parameters.

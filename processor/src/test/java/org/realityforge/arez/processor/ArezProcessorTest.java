@@ -31,6 +31,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.action.BasicActionModel", false },
         new Object[]{ "com.example.autorun.BasicAutorunModel", false },
         new Object[]{ "com.example.autorun.ReadWriteAutorunModel", false },
+        new Object[]{ "com.example.autorun.ScheduleAfterConstructedModel", false },
         new Object[]{ "com.example.computed.ComputedWithNameVariationsModel", false },
         new Object[]{ "com.example.computed.ComputedWithHooksModel", false },
         new Object[]{ "com.example.computed.BasicComputedModel", false },
