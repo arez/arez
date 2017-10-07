@@ -54,7 +54,7 @@ the method `Arez_TrainTicket.setRemainingRides(int)` you will get the exception:
 The simplest way to create a transaction is to define an `@Action` annotated method. The method will be
 enclosed within a transaction. The location of the `@Action` annotated is up to you, some people would decide
 to put the action on the existing component while others would put it in a new `TrainTicketService` component.
-Arez is agnostic to this decision and will support either model.
+Arez is agnostic to this decision and supports either model.
 
 However for the sake of brevity, this document will add actions to the existing component. If we imagine
 that the domain needs an action "rideTrain" that simply decreases the number of rides remaining by one we
