@@ -69,3 +69,45 @@ observable property. If the code did not use the setter then downstream observer
 change. If the code did not use the getter then no problem would arise within the context of this method.
 however it can be a problem in other contexts (i.e. an `@Autorun` methods) so for the sake of consistency and
 simplicity we recommend that you always use the getter and setter when interacting with observable properties.
+
+## Autorun
+
+So far we have an entity with an observable property that we can read and write using an action. The application
+is not yet reactive. However let's imagine the application needs to notify the user when the value of the observable
+property `remainingRides` reaches `0`. We can do this using a method annotated with `@Autorun` such as
+
+{% highlight java %}
+{% file_content org/realityforge/arez/doc/examples/step4/TrainTicket.java "start_line=/@Autorun/" "end_line=/^  \}/" %}
+{% endhighlight %}
+
+Any time that this method is executed, Arez will track which observable properties are accessed within the method.
+If the values of any of these observable properties changes, Arez will schedule this method to be re-run in the
+reactions phase. The very last step of constructing an arez component executes all the `@Autorun` annotated
+methods, ensuring that Arez knows which observable properties the `@Autorun` method is dependent on.
+
+This means that that any time the `remainingRides` observable property is modified, Arez will execute this method.
+If `remainingRides` is zero then the user will be notified that the ticket has expired.
+
+## Calculated
+
+If you were to put a `System.out.println(...)` call at the top of the `notifyUserWhenTicketExpires()` method you
+would notice that it is called every time that the `remainingRides` observable property is updated. So if
+`remainingRides` started at `10` and `rideTrain()` was invoked `10` times to count `remainingRides` down to `0`
+the `notifyUserWhenTicketExpires()` method would be invoked `10` times.
+
+For such a lightweight method this may not have a significant performance impact. If the method performed more
+expensive operations such as updating parts of the UI then you may want to optimize the `@Autorun` annotated method
+so that it is only invoked when there is actual work to do. The easiest way to do this is to use a `@Computed`
+property as illustrated below.
+
+{% highlight java %}
+{% file_content org/realityforge/arez/doc/examples/step5/TrainTicket.java "start_line=/@Computed/" "end_line=/^\}/" include_end_line=false %}
+{% endhighlight %}
+
+Extracting the test `0 == getRemainingRides()` as a `ticketExpired` computed property will mean that the `@Autorun`
+method no longer has a direct dependency on the `remainingRides` observable property and instead has a dependency
+on the `ticketExpired` computed property property so `notifyUserWhenTicketExpires()` will only be invoked when the
+`ticketExpired` computed property changes value. In the above scenario this would mean that the
+`notifyUserWhenTicketExpires()` method would only be invoked `2` times. The `ticketExpired` computed property
+would be recalculated `10` times but it is assumed the that this is significantly less expensive than the `@Autorun`
+method.
