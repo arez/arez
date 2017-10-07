@@ -18,8 +18,8 @@ GWT_DEPS =
     :jsinterop_annotations_sources
   ]
 
-GWT_EXAMPLES=%w(IdleStatusExample BrowserLocationExample NetworkStatusExample ObservablePromiseExample TimedDisposerExample IntervalTickerExample).collect{|c| "org.realityforge.arez.gwt.examples.#{c}"}
-DOC_EXAMPLES=%w().collect{|c| "org.realityforge.arez.doc.examples.#{c}"}
+GWT_EXAMPLES=%w(IdleStatusExample BrowserLocationExample NetworkStatusExample ObservablePromiseExample TimedDisposerExample IntervalTickerExample).collect {|c| "org.realityforge.arez.gwt.examples.#{c}"}
+DOC_EXAMPLES=%w().collect {|c| "org.realityforge.arez.doc.examples.#{c}"}
 
 # JDK options passed to test environment. Essentially turns assertions on.
 AREZ_TEST_OPTIONS =
