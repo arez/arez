@@ -1,5 +1,6 @@
 <module>
   <inherits name="org.realityforge.arez.Arez"/>
+  <inherits name="org.realityforge.arez.extras.spy.SpyExtras"/>
 
-  <source path=""/>
+  <source path="" excludes="spy/**/*"/>
 </module>
