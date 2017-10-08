@@ -1,13 +1,24 @@
 package org.realityforge.arez;
 
-import org.jetbrains.annotations.TestOnly;
-
 /**
  * Location of all compile time configuration settings for framework.
  */
 final class ArezConfig
 {
-  private static final Provider c_provider = createProvider();
+  private static final boolean PRODUCTION_ENVIRONMENT =
+    System.getProperty( "arez.environment", "production" ).equals( "production" );
+  private static boolean ENABLE_NAMES =
+    "true".equals( System.getProperty( "arez.enable_names", PRODUCTION_ENVIRONMENT ? "false" : "true" ) );
+  private static boolean PURGE_REACTIONS =
+    "true".equals( System.getProperty( "arez.purge_reactions_when_runaway_detected", "true" ) );
+  private static boolean ENFORCE_TRANSACTION_TYPE =
+    "true".equals( System.getProperty( "arez.enforce_transaction_type", PRODUCTION_ENVIRONMENT ? "false" : "true" ) );
+  /*
+   * Spy's use debug names so we can not enable spies without names.
+   */
+  private static boolean ENABLE_SPY =
+    ENABLE_NAMES &&
+    "true".equals( System.getProperty( "arez.enable_spy", PRODUCTION_ENVIRONMENT ? "false" : "true" ) );
 
   private ArezConfig()
   {
@@ -15,195 +26,21 @@ final class ArezConfig
 
   static boolean enableNames()
   {
-    return c_provider.enableNames();
+    return ENABLE_NAMES;
   }
 
   static boolean enforceTransactionType()
   {
-    return c_provider.enforceTransactionType();
+    return ENFORCE_TRANSACTION_TYPE;
   }
 
   static boolean purgeReactionsWhenRunawayDetected()
   {
-    return c_provider.purgeReactionsWhenRunawayDetected();
+    return PURGE_REACTIONS;
   }
 
   static boolean enableSpy()
   {
-    return c_provider.enableSpy();
-  }
-
-  @TestOnly
-  static Provider getProvider()
-  {
-    return c_provider;
-  }
-
-  private static Provider createProvider()
-  {
-    final String environment = System.getProperty( "arez.environment", "production" );
-    if ( !"production".equals( environment ) && !"development".equals( environment ) )
-    {
-      final String message = "System property 'arez.environment' is set to invalid property " + environment;
-      throw new IllegalStateException( message );
-    }
-    final boolean development = environment.equals( "development" );
-    final boolean enableNames =
-      "true".equals( System.getProperty( "arez.enable_names", development ? "true" : "false" ) );
-    final boolean purgeReactions =
-      "true".equals( System.getProperty( "arez.purge_reactions_when_runaway_detected", "true" ) );
-    final boolean enforceTransactionType =
-      "true".equals( System.getProperty( "arez.enforce_transaction_type", development ? "true" : "false" ) );
-    /*
-     * Spy's use debug names so we can not enable spies without names.
-     */
-    final boolean enableSpy =
-      enableNames &&
-      "true".equals( System.getProperty( "arez.enable_spy", development ? "true" : "false" ) );
-
-    return System.getProperty( "arez.dynamic_provider", "false" ).equals( "true" ) ?
-           new DynamicProvider( enableNames,
-                                purgeReactions,
-                                enforceTransactionType,
-                                enableSpy ) :
-           new StaticProvider( enableNames,
-                               purgeReactions,
-                               enforceTransactionType,
-                               enableSpy );
-  }
-
-  /**
-   * Abstraction used to provide configuration settings for Arez system.
-   * This abstraction is used to allow converting configuration to compile time
-   * constants during GWT and/or closure compiler phases and thus allow elimination of
-   * code during production variants of the runtime.
-   */
-  private interface Provider
-  {
-    boolean enableNames();
-
-    boolean purgeReactionsWhenRunawayDetected();
-
-    boolean enforceTransactionType();
-
-    boolean enableSpy();
-  }
-
-  /**
-   * A provider implementation that allows changing of values at runtime.
-   * Only really used during testing.
-   */
-  @TestOnly
-  static final class DynamicProvider
-    implements Provider
-  {
-    private boolean _enableNames;
-    private boolean _purgeReactionsWhenRunawayDetected;
-    private boolean _enforceTransactionType;
-    private boolean _enableSpy;
-
-    DynamicProvider( final boolean enableNames,
-                     final boolean purgeReactionsWhenRunawayDetected,
-                     final boolean enforceTransactionType,
-                     final boolean enableSpy )
-    {
-      _enableNames = enableNames;
-      _purgeReactionsWhenRunawayDetected = purgeReactionsWhenRunawayDetected;
-      _enforceTransactionType = enforceTransactionType;
-      _enableSpy = enableSpy;
-    }
-
-    void setEnableNames( final boolean enableNames )
-    {
-      _enableNames = enableNames;
-    }
-
-    void setPurgeReactionsWhenRunawayDetected( final boolean purgeReactionsWhenRunawayDetected )
-    {
-      _purgeReactionsWhenRunawayDetected = purgeReactionsWhenRunawayDetected;
-    }
-
-    void setEnforceTransactionType( final boolean enforceTransactionType )
-    {
-      _enforceTransactionType = enforceTransactionType;
-    }
-
-    void setEnableSpy( final boolean enableSpy )
-    {
-      _enableSpy = enableSpy;
-    }
-
-    @Override
-    public boolean enableNames()
-    {
-      return _enableNames;
-    }
-
-    @Override
-    public boolean purgeReactionsWhenRunawayDetected()
-    {
-      return _purgeReactionsWhenRunawayDetected;
-    }
-
-    @Override
-    public boolean enforceTransactionType()
-    {
-      return _enforceTransactionType;
-    }
-
-    @Override
-    public boolean enableSpy()
-    {
-      return enableNames() && _enableSpy;
-    }
-  }
-
-  /**
-   * The normal provider implementation for statically defining properties.
-   * Properties do not change at runtime and can be used by GWT and closure compiler
-   * to set values at compile time and eliminate dead/unused code.
-   */
-  private static final class StaticProvider
-    implements Provider
-  {
-    private final boolean _enableNames;
-    private final boolean _purgeReactionsWhenRunawayDetected;
-    private final boolean _enforceTransactionType;
-    private final boolean _enableSpy;
-
-    StaticProvider( final boolean enableNames,
-                    final boolean purgeReactionsWhenRunawayDetected,
-                    final boolean enforceTransactionType,
-                    final boolean enableSpy )
-    {
-      _enableNames = enableNames;
-      _purgeReactionsWhenRunawayDetected = purgeReactionsWhenRunawayDetected;
-      _enforceTransactionType = enforceTransactionType;
-      _enableSpy = enableSpy;
-    }
-
-    @Override
-    public boolean enableNames()
-    {
-      return _enableNames;
-    }
-
-    @Override
-    public boolean purgeReactionsWhenRunawayDetected()
-    {
-      return _purgeReactionsWhenRunawayDetected;
-    }
-
-    @Override
-    public boolean enforceTransactionType()
-    {
-      return _enforceTransactionType;
-    }
-
-    @Override
-    public boolean enableSpy()
-    {
-      return _enableSpy;
-    }
+    return ENABLE_SPY;
   }
 }

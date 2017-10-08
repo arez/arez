@@ -16,11 +16,10 @@ public abstract class AbstractArezExtrasTest
     BrainCheckTestUtil.setCheckInvariants( true );
     BrainCheckTestUtil.setCheckApiInvariants( true );
 
-    final ArezConfig.DynamicProvider provider = getConfigProvider();
-    provider.setEnableNames( true );
-    provider.setPurgeReactionsWhenRunawayDetected( false );
-    provider.setEnforceTransactionType( true );
-    provider.setEnableSpy( true );
+    ArezConfigTestUtil.setEnableNames( true );
+    ArezConfigTestUtil.setPurgeReactionsWhenRunawayDetected( false );
+    ArezConfigTestUtil.setEnforceTransactionType( true );
+    ArezConfigTestUtil.setEnableSpy( true );
     getProxyLogger().setLogger( null );
     Arez.setProvider( null );
   }
@@ -33,11 +32,10 @@ public abstract class AbstractArezExtrasTest
     BrainCheckTestUtil.setCheckInvariants( false );
     BrainCheckTestUtil.setCheckApiInvariants( false );
 
-    final ArezConfig.DynamicProvider provider = getConfigProvider();
-    provider.setEnableNames( false );
-    provider.setPurgeReactionsWhenRunawayDetected( true );
-    provider.setEnforceTransactionType( false );
-    provider.setEnableSpy( false );
+    ArezConfigTestUtil.setEnableNames( false );
+    ArezConfigTestUtil.setPurgeReactionsWhenRunawayDetected( true );
+    ArezConfigTestUtil.setEnforceTransactionType( false );
+    ArezConfigTestUtil.setEnableSpy( false );
     getProxyLogger().setLogger( null );
   }
 
@@ -47,15 +45,9 @@ public abstract class AbstractArezExtrasTest
     return (ArezLogger.ProxyLogger) ArezLogger.getLogger();
   }
 
-  @Nonnull
-  private ArezConfig.DynamicProvider getConfigProvider()
-  {
-    return (ArezConfig.DynamicProvider) ArezConfig.getProvider();
-  }
-
   @SuppressWarnings( "SameParameterValue" )
   protected void setEnableNames( final boolean enableNames )
   {
-    getConfigProvider().setEnableNames( enableNames );
+    ArezConfigTestUtil.setEnableNames( enableNames );
   }
 }

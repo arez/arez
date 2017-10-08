@@ -19,11 +19,10 @@ public abstract class AbstractArezTest
     BrainCheckTestUtil.setVerboseErrorMessages( true );
     BrainCheckTestUtil.setCheckInvariants( true );
     BrainCheckTestUtil.setCheckApiInvariants( true );
-    final ArezConfig.DynamicProvider provider = getConfigProvider();
-    provider.setEnableNames( true );
-    provider.setPurgeReactionsWhenRunawayDetected( false );
-    provider.setEnforceTransactionType( true );
-    provider.setEnableSpy( true );
+    ArezConfigTestUtil.setEnableNames( true );
+    ArezConfigTestUtil.setPurgeReactionsWhenRunawayDetected( false );
+    ArezConfigTestUtil.setEnforceTransactionType( true );
+    ArezConfigTestUtil.setEnableSpy( true );
     getProxyLogger().setLogger( new TestLogger() );
     Arez.setProvider( null );
   }
@@ -35,11 +34,10 @@ public abstract class AbstractArezTest
     BrainCheckTestUtil.setVerboseErrorMessages( false );
     BrainCheckTestUtil.setCheckInvariants( false );
     BrainCheckTestUtil.setCheckApiInvariants( false );
-    final ArezConfig.DynamicProvider provider = getConfigProvider();
-    provider.setEnableNames( false );
-    provider.setPurgeReactionsWhenRunawayDetected( true );
-    provider.setEnforceTransactionType( false );
-    provider.setEnableSpy( false );
+    ArezConfigTestUtil.setEnableNames( false );
+    ArezConfigTestUtil.setPurgeReactionsWhenRunawayDetected( true );
+    ArezConfigTestUtil.setEnforceTransactionType( false );
+    ArezConfigTestUtil.setEnableSpy( false );
     getProxyLogger().setLogger( null );
   }
 
@@ -53,12 +51,6 @@ public abstract class AbstractArezTest
   private ArezLogger.ProxyLogger getProxyLogger()
   {
     return (ArezLogger.ProxyLogger) ArezLogger.getLogger();
-  }
-
-  @Nonnull
-  final ArezConfig.DynamicProvider getConfigProvider()
-  {
-    return (ArezConfig.DynamicProvider) ArezConfig.getProvider();
   }
 
   @Nonnull
