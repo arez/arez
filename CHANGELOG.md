@@ -1,6 +1,17 @@
 # Change Log
 
-## Unreleased
+## [v0.08](https://github.com/realityforge/arez/tree/v0.08) (2017-10-08)
+[Full Changelog](https://github.com/realityforge/arez/compare/v0.07...v0.08)
+
+### Added
+* **\[doc\]** Started to improve the infrastructure for building documentation. Started to document the basic
+  approach for defining Arez components using annotations.
+
+### Changed
+* 💥 **\[extras\]** Extracted the `spy` sub-package from gwt module `org.realityforge.arez.extras.Extras` and moved
+  it to `org.realityforge.arez.extras.spy.SpyExtras`.
+* 💥 **\[extras\]** Extracted the `spy` sub-package from gwt module `org.realityforge.arez.browser.extras.BrowserExtras`
+  and moved it to `org.realityforge.arez.browser.extras.spy.SpyExtras`.
 
 ## [v0.07](https://github.com/realityforge/arez/tree/v0.07) (2017-10-05)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.06...v0.07)
