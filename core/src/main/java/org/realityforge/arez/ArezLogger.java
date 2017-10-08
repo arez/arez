@@ -89,12 +89,12 @@ final class ArezLogger
   {
     private Logger _logger;
 
-    public Logger getLogger()
+    Logger getLogger()
     {
       return _logger;
     }
 
-    public void setLogger( final Logger logger )
+    void setLogger( final Logger logger )
     {
       _logger = logger;
     }
