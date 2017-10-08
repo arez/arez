@@ -50,7 +50,7 @@ define 'arez' do
     compile.with PROVIDED_DEPS,
                  COMPILE_DEPS
 
-    gwt_enhance(project, ['org.realityforge.arez.annotations.Annotations'])
+    gwt_enhance(project)
 
     package(:jar)
     package(:sources)
@@ -67,7 +67,7 @@ define 'arez' do
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
 
-    gwt_enhance(project, %w(org.realityforge.arez.Arez org.realityforge.arez.ArezDev))
+    gwt_enhance(project)
 
     package(:jar)
     package(:sources)
@@ -86,7 +86,7 @@ define 'arez' do
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
 
-    gwt_enhance(project, %w(org.realityforge.arez.extras.Extras org.realityforge.arez.extras.spy.SpyExtras))
+    gwt_enhance(project)
 
     package(:jar)
     package(:sources)
@@ -119,7 +119,7 @@ define 'arez' do
     test.using :testng
     test.compile.with TEST_DEPS
 
-    gwt_enhance(project, %w(org.realityforge.arez.browser.extras.BrowserExtras org.realityforge.arez.browser.extras.spy.SpyExtras))
+    gwt_enhance(project)
 
     # The generators are configured to generate to here.
     iml.main_source_directories << _('generated/processors/main/java')

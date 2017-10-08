@@ -2,16 +2,24 @@ require 'buildr/gwt'
 
 #
 # Enhance the Buildr project to compile gwt sources.
-# For each of the supplied gwt modules, this task will create
+# For each discovered gwt modules, this task will create
 # a synthetic gwt module that includes a single entrypoint to
 # compile against. It will also create a gwt classifier jar
 # that includes all the sources.
 #
-def gwt_enhance(project, gwt_modules)
+def gwt_enhance(project)
   extra_deps = project.iml.main_generated_resource_directories.flatten.compact.collect do |a|
     a.is_a?(String) ? file(a) : a
   end + project.iml.main_generated_source_directories.flatten.compact.collect do |a|
     a.is_a?(String) ? file(a) : a
+  end
+
+  gwt_modules = []
+  source_paths = project.compile.sources + project.iml.main_generated_resource_directories.flatten.compact + project.iml.main_generated_source_directories.flatten.compact
+  source_paths.each do |base_dir|
+    Dir["#{base_dir}/**/*.gwt.xml"].each do |filename|
+      gwt_modules << filename.gsub("#{base_dir}/", '').gsub('.gwt.xml', '').gsub('/', '.')
+    end
   end
 
   base_synthetic_module_dir = project._(:generated, :synthetic_gwt_module, :main, :resources)
