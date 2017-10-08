@@ -85,6 +85,7 @@ public final class Arez
     return c_provider;
   }
 
+  @SuppressWarnings( "SameParameterValue" )
   @TestOnly
   static void setProvider( @Nullable final ContextProvider provider )
   {
