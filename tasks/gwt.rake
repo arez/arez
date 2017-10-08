@@ -41,8 +41,9 @@ CONTENT
   dependencies =
     project.compile.dependencies + [project.compile.target] + extra_deps + [dir] + [Buildr.artifact(:gwt_user)]
   unless ENV['GWT'] == 'no'
-    project.gwt(gwt_modules.collect {|gwt_module| "#{gwt_module}Test"},
-                { :java_args => %w(-Xms512M -Xmx1024M), :dependencies => dependencies })
+    gwt_modules.each do |m|
+      project.gwt([m], { :java_args => %w(-Xms512M -Xmx1024M), :dependencies => dependencies, :output_key => m })
+    end
   end
 
   project.package(:jar, :classifier => :gwt).tap do |j|
