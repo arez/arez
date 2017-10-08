@@ -7,6 +7,7 @@
   change that we were unable to identify resulted in the the invariant checking code being permanently disabled
   but still included but unreferenced in the output javascript.
 * **\[core\]** Reworked the way that `ArezConfig` worked so that the settings are resolved at compile time as desired.
+* **\[core\]** Reworked the way that `ArezLogger` worked so that the logger is resolved at compile time as desired.
 
 ## [v0.08](https://github.com/realityforge/arez/tree/v0.08) (2017-10-08)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.07...v0.08)

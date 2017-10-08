@@ -10,7 +10,10 @@ import org.jetbrains.annotations.TestOnly;
  */
 final class ArezLogger
 {
-  private static final Logger c_logger = createLogger();
+  private static final boolean JUL_LOGGER = System.getProperty( "arez.logger", "jul" ).equals( "jul" );
+  private static final boolean PROXY_LOGGER = System.getProperty( "arez.logger", "jul" ).equals( "proxy" );
+  private static final Logger c_logger =
+    JUL_LOGGER ? new JavaUtilLogger() : PROXY_LOGGER ? new ProxyLogger() : new NoopLogger();
 
   private ArezLogger()
   {
@@ -29,19 +32,6 @@ final class ArezLogger
   static Logger getLogger()
   {
     return c_logger;
-  }
-
-  /**
-   * Create the logger based on compile time properties.
-   */
-  @Nonnull
-  private static Logger createLogger()
-  {
-    //This will probably be expanded in the future to support an Elemental Logger implementation
-    final String loggerType = System.getProperty( "arez.logger", "jul" );
-    return loggerType.equals( "jul" ) ? new JavaUtilLogger() :
-           loggerType.equals( "proxy" ) ? new ProxyLogger() :
-           new NoopLogger();
   }
 
   /**
