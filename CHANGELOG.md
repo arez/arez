@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Fixed
+* Upgraded braincheck library to 1.1.0 to ensure that GWT will remove invariant checks in production mode. A
+  change that we were unable to identify resulted in the the invariant checking code being permanently disabled
+  but still included but unreferenced in the output javascript.
+
 ## [v0.08](https://github.com/realityforge/arez/tree/v0.08) (2017-10-08)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.07...v0.08)
 
