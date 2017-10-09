@@ -31,6 +31,8 @@ TODO:
 
 * Link back from website to github page
 
+* Add ability to automate release via travis + tag
+
 * Start to document app using Jekyll site. Useful resources include https://learn.cloudcannon.com/
 
 * Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
