@@ -21,6 +21,16 @@ complete as there is too much un-said.
   - https://github.com/sonatype/nexus-ant-tasks
   - https://github.com/sonatype/nexus-ant-tasks/blob/master/nexus-staging-ant-tasks-testsuite/src/test/resources/simple-project/raw-build.xml
 
+* Automate release "process" which may mean
+  - Building project to ensure no build errors.
+  - Patching `CHANGELOG.md`.
+  - Copying blurbage from `CHANGELOG.md` to news section of website.
+  - Updating website with latest release info
+  - Rebuilding website to verify that nothing is broken.
+  - Tagging repository
+  - Patching `CHANGELOG.md` for next development iteration.
+  - Leave it to the travis process to actually do the upload to maven central?
+
 * Start to document app using Jekyll site. Useful resources include https://learn.cloudcannon.com/
 
 * Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
