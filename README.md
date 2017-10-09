@@ -32,6 +32,8 @@ TODO:
 * Link back from website to github page
 
 * Add ability to automate release via travis + tag
+  - https://github.com/sonatype/nexus-ant-tasks
+  - https://github.com/sonatype/nexus-ant-tasks/blob/master/nexus-staging-ant-tasks-testsuite/src/test/resources/simple-project/raw-build.xml
 
 * Start to document app using Jekyll site. Useful resources include https://learn.cloudcannon.com/
 
