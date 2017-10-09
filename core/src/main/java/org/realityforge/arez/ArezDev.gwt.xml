@@ -2,6 +2,8 @@
   <inherits name="org.realityforge.arez.Arez"/>
   <inherits name="org.realityforge.braincheck.BrainCheckDev"/>
 
+  <source path="ignored"/>
+
   <set-property name="arez.environment" value="development"/>
 
   <set-property name="arez.enable_names" value="true"/>

@@ -2,8 +2,8 @@
   <inherits name="com.google.gwt.core.Core"/>
   <inherits name="org.realityforge.braincheck.BrainCheck"/>
 
-  <source path=""/>
-  <source path="spy"/>
+  <source path="" includes="*.java"/>
+  <source path="spy" includes="*.java"/>
 
   <!--
     These properties are all defined in org.realityforge.arez.ArezConfig

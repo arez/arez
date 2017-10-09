@@ -2,5 +2,5 @@
   <inherits name="org.realityforge.arez.Arez"/>
   <inherits name="elemental2.dom.Dom"/>
 
-  <source path="" excludes="spy/**/*"/>
+  <source path="" includes="*.java"/>
 </module>
