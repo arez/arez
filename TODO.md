@@ -50,14 +50,6 @@ complete as there is too much un-said.
   This could be a low priority as can "fake" it by defining a @Computed method tha invokes the method and returns
   values.
 
-* Support optional change parameter to report*Changed that describes the change (i.e.
-  AtomicChange(FromValue, ToValue), MapAdd(Key, Value), Disposed() etc). Also Propagate this change
-  as a spy event. Observers opt-in to receiving these change events. If an Observer opts in then the
-  accumulated changes can be pulled from the current transaction via the context. The change list will
-  consist of all changes that have occurred in the order they occurred. If a Change object was not part
-  of the change then an UnspecifiedChange() will be passed through. There may be some value to allowing
-  it to be processed inline when it changes rather than as a reaction.
-
 * Move Unsupported annotation to a separate "anodoc" project. Expand it to @Beta, @Alpha etc.
   Also add `@TestOnly` and `@VisibleForTest`
 
