@@ -15,7 +15,7 @@
         "type": "ObservableChanged"
     },
     {
-        "duration": 17,
+        "duration": 6,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -58,26 +58,26 @@
         "type": "ObservableChanged"
     },
     {
-        "duration": 8,
+        "duration": 1,
         "mutation": false,
         "tracker": "When@1",
         "type": "TransactionCompleted",
         "transaction": "When@1"
     },
     {
-        "duration": 11,
+        "duration": 3,
         "computedValue": "When@1",
         "type": "ComputeCompleted"
     },
     {
-        "duration": 18,
+        "duration": 3,
         "mutation": true,
         "tracker": "When@1",
         "type": "TransactionCompleted",
         "transaction": "When@1"
     },
     {
-        "duration": 20,
+        "duration": 7,
         "observer": "When@1",
         "type": "ReactionCompleted"
     },
@@ -107,7 +107,7 @@
         "transaction": "TimePrinter"
     },
     {
-        "duration": 2,
+        "duration": 3,
         "observer": "TimePrinter",
         "type": "ReactionCompleted"
     },
@@ -130,80 +130,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 5,
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Time.updateTime"
-    },
-    {
-        "computedValue": "When@1",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "When@1",
-        "type": "TransactionStarted",
-        "transaction": "When@1"
-    },
-    {
-        "duration": 1,
-        "mutation": false,
-        "tracker": "When@1",
-        "type": "TransactionCompleted",
-        "transaction": "When@1"
-    },
-    {
-        "duration": 1,
-        "computedValue": "When@1",
-        "type": "ComputeCompleted"
-    },
-    {
-        "observer": "TimePrinter",
-        "type": "ReactionStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "TimePrinter",
-        "type": "TransactionStarted",
-        "transaction": "TimePrinter"
-    },
-    {
-        "type": "usermark",
-        "timeReset": "true"
-    },
-    {
-        "duration": 0,
-        "mutation": false,
-        "tracker": "TimePrinter",
-        "type": "TransactionCompleted",
-        "transaction": "TimePrinter"
-    },
-    {
-        "duration": 2,
-        "observer": "TimePrinter",
-        "type": "ReactionCompleted"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Time.updateTime"
-    },
-    {
-        "observable": "Time.time",
-        "type": "ObservableChanged"
-    },
-    {
-        "observer": "When@1",
-        "type": "ReactionScheduled"
-    },
-    {
-        "observer": "TimePrinter",
-        "type": "ReactionScheduled"
-    },
-    {
-        "duration": 1,
+        "duration": 6,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -227,7 +154,7 @@
         "transaction": "When@1"
     },
     {
-        "duration": 1,
+        "duration": 2,
         "computedValue": "When@1",
         "type": "ComputeCompleted"
     },
@@ -246,14 +173,87 @@
         "timeReset": "true"
     },
     {
-        "duration": 0,
+        "duration": 1,
         "mutation": false,
         "tracker": "TimePrinter",
         "type": "TransactionCompleted",
         "transaction": "TimePrinter"
     },
     {
+        "duration": 3,
+        "observer": "TimePrinter",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "observable": "Time.time",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "When@1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 2,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "computedValue": "When@1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "When@1",
+        "type": "TransactionStarted",
+        "transaction": "When@1"
+    },
+    {
+        "duration": 0,
+        "mutation": false,
+        "tracker": "When@1",
+        "type": "TransactionCompleted",
+        "transaction": "When@1"
+    },
+    {
+        "duration": 2,
+        "computedValue": "When@1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionStarted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "type": "usermark",
+        "timeReset": "true"
+    },
+    {
         "duration": 1,
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionCompleted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "duration": 3,
         "observer": "TimePrinter",
         "type": "ReactionCompleted"
     },
@@ -276,7 +276,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 1,
+        "duration": 2,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -301,14 +301,14 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 1,
+        "duration": 2,
         "mutation": false,
         "tracker": "When@1",
         "type": "TransactionCompleted",
         "transaction": "When@1"
     },
     {
-        "duration": 1,
+        "duration": 2,
         "computedValue": "When@1",
         "type": "ComputeCompleted"
     },
@@ -327,7 +327,7 @@
         "timeReset": "true"
     },
     {
-        "duration": 2,
+        "duration": 1,
         "mutation": false,
         "tracker": "TimePrinter",
         "type": "TransactionCompleted",
@@ -372,7 +372,7 @@
         "transaction": "When@1"
     },
     {
-        "duration": 3,
+        "duration": 0,
         "mutation": true,
         "tracker": "When@1",
         "type": "TransactionCompleted",
@@ -400,14 +400,14 @@
         "type": "ComputedValueDisposed"
     },
     {
-        "duration": 9,
+        "duration": 7,
         "mutation": true,
         "tracker": "When@1",
         "type": "TransactionCompleted",
         "transaction": "When@1"
     },
     {
-        "duration": 9,
+        "duration": 8,
         "observer": "When@1",
         "type": "ReactionCompleted"
     },
@@ -447,14 +447,14 @@
         "timeReset": "true"
     },
     {
-        "duration": 0,
+        "duration": 1,
         "mutation": false,
         "tracker": "TimePrinter",
         "type": "TransactionCompleted",
         "transaction": "TimePrinter"
     },
     {
-        "duration": 1,
+        "duration": 7,
         "observer": "TimePrinter",
         "type": "ReactionCompleted"
     },
@@ -501,7 +501,7 @@
         "transaction": "TimePrinter"
     },
     {
-        "duration": 1,
+        "duration": 2,
         "observer": "TimePrinter",
         "type": "ReactionCompleted"
     }

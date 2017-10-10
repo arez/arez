@@ -61,7 +61,7 @@ public abstract class AbstractIntegrationTest
       {
         assertTrue( dir.mkdirs() );
       }
-      Files.write( file, contents.getBytes() );
+      Files.write( file, (contents + "\n").getBytes() );
     }
   }
 

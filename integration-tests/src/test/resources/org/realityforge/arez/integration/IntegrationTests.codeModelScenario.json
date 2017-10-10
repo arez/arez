@@ -45,14 +45,14 @@
         "type": "ObservableChanged"
     },
     {
-        "duration": 35,
+        "duration": 15,
         "mutation": false,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "duration": 48,
+        "duration": 19,
         "computedValue": "CodeModel.0.qualifiedName",
         "type": "ComputeCompleted"
     },
@@ -61,14 +61,14 @@
         "qualifiedName": "com.example.MyType"
     },
     {
-        "duration": 72,
+        "duration": 28,
         "mutation": false,
         "tracker": "Printer",
         "type": "TransactionCompleted",
         "transaction": "Printer"
     },
     {
-        "duration": 85,
+        "duration": 33,
         "observer": "Printer",
         "type": "ReactionCompleted"
     },
@@ -87,7 +87,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 17,
+        "duration": 4,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -112,14 +112,14 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 4,
+        "duration": 2,
         "mutation": false,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "duration": 7,
+        "duration": 2,
         "computedValue": "CodeModel.0.qualifiedName",
         "type": "ComputeCompleted"
     },
@@ -138,14 +138,14 @@
         "qualifiedName": "com.biz.Fred"
     },
     {
-        "duration": 1,
+        "duration": 0,
         "mutation": false,
         "tracker": "Printer",
         "type": "TransactionCompleted",
         "transaction": "Printer"
     },
     {
-        "duration": 3,
+        "duration": 1,
         "observer": "Printer",
         "type": "ReactionCompleted"
     },
@@ -189,14 +189,14 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 3,
+        "duration": 1,
         "mutation": false,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "duration": 5,
+        "duration": 1,
         "computedValue": "CodeModel.0.qualifiedName",
         "type": "ComputeCompleted"
     },
@@ -215,14 +215,14 @@
         "qualifiedName": "com.example.MyType"
     },
     {
-        "duration": 2,
+        "duration": 1,
         "mutation": false,
         "tracker": "Printer",
         "type": "TransactionCompleted",
         "transaction": "Printer"
     },
     {
-        "duration": 7,
+        "duration": 1,
         "observer": "Printer",
         "type": "ReactionCompleted"
     },
@@ -241,7 +241,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 3,
+        "duration": 0,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -266,14 +266,14 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 2,
+        "duration": 0,
         "mutation": false,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "duration": 5,
+        "duration": 1,
         "computedValue": "CodeModel.0.qualifiedName",
         "type": "ComputeCompleted"
     },
@@ -292,7 +292,7 @@
         "qualifiedName": "com.example.MyType2"
     },
     {
-        "duration": 1,
+        "duration": 0,
         "mutation": false,
         "tracker": "Printer",
         "type": "TransactionCompleted",
@@ -314,7 +314,7 @@
         "type": "ComputedValueDeactivated"
     },
     {
-        "duration": 15,
+        "duration": 3,
         "mutation": true,
         "tracker": "Printer",
         "type": "TransactionCompleted",
@@ -337,7 +337,7 @@
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "duration": 2,
+        "duration": 0,
         "mutation": true,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
@@ -372,7 +372,7 @@
         "type": "ObservableDisposed"
     },
     {
-        "duration": 17,
+        "duration": 3,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
