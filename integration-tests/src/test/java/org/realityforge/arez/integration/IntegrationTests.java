@@ -8,7 +8,7 @@ public class IntegrationTests
   extends AbstractIntegrationTest
 {
   /**
-   * Tests integration between autorun and actions and sequencing of oeprations.
+   * Tests integration between autorun and actions and sequencing of operations.
    */
   @Test
   public void personScenario()
