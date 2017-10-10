@@ -4,6 +4,51 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
+## Process
+
+* Automate release "process" which may mean
+  - Building project to ensure no build errors.
+  - Patching `CHANGELOG.md`.
+  - Copying blurbage from `CHANGELOG.md` to news section of website.
+  - Updating website with latest release info
+  - Rebuilding website to verify that nothing is broken.
+  - Tagging repository
+  - Patching `CHANGELOG.md` for next development iteration.
+  - Leave it to the travis process to actually do the upload to maven central?
+
+## Enhancements
+
+* Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
+  TimedDisposer that is disposed as part of effect..
+
+* Add an adapter that is like a "when" produces a promise that resolves when a condition occurs, is rejected when
+  another condition occurs or when the adapter is disposed. And a timed variant that uses TimedDisposer undercovers.
+
+* Consider an abstraction like https://github.com/danielearwicker/computed-async-mobx/
+
+* Add component integration tests
+  - Verify that @Autorun scheduled after postConstruct
+  - Verify @Observables are not accessible outside transaction
+  - Verify @Computed are not accessible outside transaction
+
+* Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
+
+* Move Unsupported annotation to a separate "anodoc" project. Expand it to @Beta, @Alpha etc.
+  Also add `@TestOnly` and `@VisibleForTest`
+
+* Enhance WhyRun and write tests for it.
+
+* Explicitly add component (a.k.a. scope) to Actions, ComputedValue, Observables etc. Useful in a future DevTools?
+
+* Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
+  - https://github.com/zalmoxisus/mobx-remotedev
+  - https://github.com/motion/mobx-formatters
+  - https://github.com/andykog/mobx-devtools
+
+## Documentation
+
+* Start to document app using Jekyll site. Useful resources include https://learn.cloudcannon.com/
+
 * FAQ:
   - must read/write properties using observable methods otherwise they are not tracked. Very important
     if you want to be notified or want to notify downstream observers
@@ -16,45 +61,6 @@ complete as there is too much un-said.
   explanations on the website.
 
 * Link back from website to github page
-
-* Automate release "process" which may mean
-  - Building project to ensure no build errors.
-  - Patching `CHANGELOG.md`.
-  - Copying blurbage from `CHANGELOG.md` to news section of website.
-  - Updating website with latest release info
-  - Rebuilding website to verify that nothing is broken.
-  - Tagging repository
-  - Patching `CHANGELOG.md` for next development iteration.
-  - Leave it to the travis process to actually do the upload to maven central?
-
-* Start to document app using Jekyll site. Useful resources include https://learn.cloudcannon.com/
-
-* Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
-  TimedDisposer that is disposed as part of effect..
-
-* Add an adapter that is like a "when" produces a promise that resolves when a condition occurs, is rejected when
-  another condition occurs or when the adapter is disposed. And a timed variant that uses TimedDisposer undercovers.
-
-* Consider an abstraction like https://github.com/danielearwicker/computed-async-mobx/
-
-* Explicitly add component (a.k.a. scope) to Actions, ComputedValue, Observables etc.
-
-* Enhance WhyRun and write tests for it.
-
-* Add component integration tests
-  - Verify that @Autorun scheduled after postConstruct
-  - Verify @Observables are not accessible outside transaction
-  - Verify @Computed are not accessible outside transaction
-
-* Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
-
-* Move Unsupported annotation to a separate "anodoc" project. Expand it to @Beta, @Alpha etc.
-  Also add `@TestOnly` and `@VisibleForTest`
-
-* Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
-  - https://github.com/zalmoxisus/mobx-remotedev
-  - https://github.com/motion/mobx-formatters
-  - https://github.com/andykog/mobx-devtools
 
 * Document expected format of Changelog. Essentially sourced from http://keepachangelog.com/en/1.0.0/ should
   have categories such as:
