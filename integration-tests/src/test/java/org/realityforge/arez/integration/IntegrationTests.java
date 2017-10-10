@@ -20,6 +20,7 @@ public class IntegrationTests
 
     final SpyEventRecorder recorder = new SpyEventRecorder();
     context.getSpy().addSpyEventHandler( recorder );
+
     final PersonModel person = PersonModel.create( "Bill", "Smith" );
 
     context.autorun( "FirstNamePrinter",
