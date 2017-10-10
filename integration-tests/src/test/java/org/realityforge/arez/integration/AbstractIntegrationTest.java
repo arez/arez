@@ -10,11 +10,12 @@ import javax.annotation.Nonnull;
 import javax.json.Json;
 import javax.json.JsonObject;
 import org.json.JSONException;
-import org.realityforge.arez.Arez;
-import org.realityforge.arez.ArezContext;
+import org.skyscreamer.jsonassert.Customization;
 import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.comparator.CustomComparator;
+import org.skyscreamer.jsonassert.comparator.JSONComparator;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public abstract class AbstractIntegrationTest
@@ -27,13 +28,14 @@ public abstract class AbstractIntegrationTest
     _currentMethod = method.getName();
   }
 
-
   protected final void assertEqualsFixture( @Nonnull final String json )
     throws IOException, JSONException
   {
     final Path file = fixtureDir().resolve( getFixtureFilename() );
     saveIfOutputEnabled( file, json );
-    JSONAssert.assertEquals( loadFile( file ), json, true );
+    final JSONComparator comparator =
+      new CustomComparator( JSONCompareMode.STRICT, new Customization( "**.duration", ( o1, o2 ) -> true ) );
+    JSONAssert.assertEquals( loadFile( file ), json, comparator );
   }
 
   @Nonnull
