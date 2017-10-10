@@ -18,8 +18,6 @@ complete as there is too much un-said.
 * Link back from website to github page
 
 * Add ability to automate release via travis + tag
-  - https://github.com/sonatype/nexus-ant-tasks
-  - https://github.com/sonatype/nexus-ant-tasks/blob/master/nexus-staging-ant-tasks-testsuite/src/test/resources/simple-project/raw-build.xml
 
 * Automate release "process" which may mean
   - Building project to ensure no build errors.
