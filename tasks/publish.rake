@@ -13,8 +13,8 @@ end
 
 desc 'Publish release to maven central iff current HEAD is a tag'
 task 'publish_if_tagged' do
-  `git describe --exact-match --tags 2>&1`
-  if 0 == $?.exitstatus
+  version = `git describe --exact-match --tags 2>&1`
+  if 0 == $?.exitstatus && version =~ /^v[0-9]/
     task('publish_to_maven_central').invoke
   end
 end
