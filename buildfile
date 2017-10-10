@@ -203,11 +203,11 @@ define 'arez' do
     compile.with project('browser-extras').package(:jar, :classifier => :gwt),
                  project('browser-extras').compile.dependencies
 
-    test.options[:properties] = AREZ_TEST_OPTIONS
+    test.options[:properties] = AREZ_TEST_OPTIONS.merge('arez.integration_fixture_dir' => _('src/test/resources'))
     test.options[:java_args] = ['-ea']
 
     test.using :testng
-    test.compile.with TEST_DEPS.merge('arez.integration_fixture_dir' => _('src/test/resources'))
+    test.compile.with TEST_DEPS
 
     gwt_modules = {}
     DOC_EXAMPLES.each do |gwt_module|
