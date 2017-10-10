@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Changed
+* **\[examples\]** The examples in the `examples` project have been converted into integration tests. Each test
+  runs through the existing code examples and collects a trace of the events using spy event listeners and compares
+  it to fixtures that represent the expected trace.
+
 ## [v0.10](https://github.com/realityforge/arez/tree/v0.10) (2017-10-09)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.09...v0.10)
 
