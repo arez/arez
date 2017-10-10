@@ -207,7 +207,7 @@ define 'arez' do
     test.options[:java_args] = ['-ea']
 
     test.using :testng
-    test.compile.with TEST_DEPS
+    test.compile.with TEST_DEPS.merge('arez.integration_fixture_dir' => _('src/test/resources'))
 
     gwt_modules = {}
     DOC_EXAMPLES.each do |gwt_module|
