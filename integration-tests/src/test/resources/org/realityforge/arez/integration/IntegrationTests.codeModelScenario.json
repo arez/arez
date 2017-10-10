@@ -1,0 +1,381 @@
+
+[
+    {
+        "observable": "CodeModel.0.name",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "CodeModel.0.packageName",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "CodeModel.0.rawQualifiedName",
+        "type": "ObservableCreated"
+    },
+    {
+        "computedValue": "CodeModel.0.qualifiedName",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "observer": "Printer",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "Printer",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Printer",
+        "type": "TransactionStarted",
+        "transaction": "Printer"
+    },
+    {
+        "computedValue": "CodeModel.0.qualifiedName",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "CodeModel.0.qualifiedName",
+        "type": "TransactionStarted",
+        "transaction": "CodeModel.0.qualifiedName"
+    },
+    {
+        "observable": "CodeModel.0.qualifiedName",
+        "type": "ObservableChanged"
+    },
+    {
+        "duration": 35,
+        "mutation": false,
+        "tracker": "CodeModel.0.qualifiedName",
+        "type": "TransactionCompleted",
+        "transaction": "CodeModel.0.qualifiedName"
+    },
+    {
+        "duration": 48,
+        "computedValue": "CodeModel.0.qualifiedName",
+        "type": "ComputeCompleted"
+    },
+    {
+        "type": "usermark",
+        "qualifiedName": "com.example.MyType"
+    },
+    {
+        "duration": 72,
+        "mutation": false,
+        "tracker": "Printer",
+        "type": "TransactionCompleted",
+        "transaction": "Printer"
+    },
+    {
+        "duration": 85,
+        "observer": "Printer",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Specific Qualified Name"
+    },
+    {
+        "observable": "CodeModel.0.rawQualifiedName",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "CodeModel.0.qualifiedName",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 17,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Specific Qualified Name"
+    },
+    {
+        "computedValue": "CodeModel.0.qualifiedName",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "CodeModel.0.qualifiedName",
+        "type": "TransactionStarted",
+        "transaction": "CodeModel.0.qualifiedName"
+    },
+    {
+        "observable": "CodeModel.0.qualifiedName",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "Printer",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 4,
+        "mutation": false,
+        "tracker": "CodeModel.0.qualifiedName",
+        "type": "TransactionCompleted",
+        "transaction": "CodeModel.0.qualifiedName"
+    },
+    {
+        "duration": 7,
+        "computedValue": "CodeModel.0.qualifiedName",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "Printer",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Printer",
+        "type": "TransactionStarted",
+        "transaction": "Printer"
+    },
+    {
+        "type": "usermark",
+        "qualifiedName": "com.biz.Fred"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "Printer",
+        "type": "TransactionCompleted",
+        "transaction": "Printer"
+    },
+    {
+        "duration": 3,
+        "observer": "Printer",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Reset Qualified Name to default"
+    },
+    {
+        "observable": "CodeModel.0.rawQualifiedName",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "CodeModel.0.qualifiedName",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 1,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Reset Qualified Name to default"
+    },
+    {
+        "computedValue": "CodeModel.0.qualifiedName",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "CodeModel.0.qualifiedName",
+        "type": "TransactionStarted",
+        "transaction": "CodeModel.0.qualifiedName"
+    },
+    {
+        "observable": "CodeModel.0.qualifiedName",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "Printer",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 3,
+        "mutation": false,
+        "tracker": "CodeModel.0.qualifiedName",
+        "type": "TransactionCompleted",
+        "transaction": "CodeModel.0.qualifiedName"
+    },
+    {
+        "duration": 5,
+        "computedValue": "CodeModel.0.qualifiedName",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "Printer",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Printer",
+        "type": "TransactionStarted",
+        "transaction": "Printer"
+    },
+    {
+        "type": "usermark",
+        "qualifiedName": "com.example.MyType"
+    },
+    {
+        "duration": 2,
+        "mutation": false,
+        "tracker": "Printer",
+        "type": "TransactionCompleted",
+        "transaction": "Printer"
+    },
+    {
+        "duration": 7,
+        "observer": "Printer",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Change Local Name"
+    },
+    {
+        "observable": "CodeModel.0.name",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "CodeModel.0.qualifiedName",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 3,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Change Local Name"
+    },
+    {
+        "computedValue": "CodeModel.0.qualifiedName",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "CodeModel.0.qualifiedName",
+        "type": "TransactionStarted",
+        "transaction": "CodeModel.0.qualifiedName"
+    },
+    {
+        "observable": "CodeModel.0.qualifiedName",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "Printer",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 2,
+        "mutation": false,
+        "tracker": "CodeModel.0.qualifiedName",
+        "type": "TransactionCompleted",
+        "transaction": "CodeModel.0.qualifiedName"
+    },
+    {
+        "duration": 5,
+        "computedValue": "CodeModel.0.qualifiedName",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "Printer",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Printer",
+        "type": "TransactionStarted",
+        "transaction": "Printer"
+    },
+    {
+        "type": "usermark",
+        "qualifiedName": "com.example.MyType2"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "Printer",
+        "type": "TransactionCompleted",
+        "transaction": "Printer"
+    },
+    {
+        "duration": 1,
+        "observer": "Printer",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": "Printer",
+        "type": "TransactionStarted",
+        "transaction": "Printer"
+    },
+    {
+        "computedValue": "CodeModel.0.qualifiedName",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "duration": 15,
+        "mutation": true,
+        "tracker": "Printer",
+        "type": "TransactionCompleted",
+        "transaction": "Printer"
+    },
+    {
+        "observer": "Printer",
+        "type": "ObserverDisposed"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Dispose Model"
+    },
+    {
+        "mutation": true,
+        "tracker": "CodeModel.0.qualifiedName",
+        "type": "TransactionStarted",
+        "transaction": "CodeModel.0.qualifiedName"
+    },
+    {
+        "duration": 2,
+        "mutation": true,
+        "tracker": "CodeModel.0.qualifiedName",
+        "type": "TransactionCompleted",
+        "transaction": "CodeModel.0.qualifiedName"
+    },
+    {
+        "computedValue": "CodeModel.0.qualifiedName",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "observable": "CodeModel.0.name",
+        "type": "ObservableChanged"
+    },
+    {
+        "observable": "CodeModel.0.name",
+        "type": "ObservableDisposed"
+    },
+    {
+        "observable": "CodeModel.0.packageName",
+        "type": "ObservableChanged"
+    },
+    {
+        "observable": "CodeModel.0.packageName",
+        "type": "ObservableDisposed"
+    },
+    {
+        "observable": "CodeModel.0.rawQualifiedName",
+        "type": "ObservableChanged"
+    },
+    {
+        "observable": "CodeModel.0.rawQualifiedName",
+        "type": "ObservableDisposed"
+    },
+    {
+        "duration": 17,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Dispose Model"
+    }
+]
