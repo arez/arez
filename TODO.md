@@ -17,8 +17,6 @@ complete as there is too much un-said.
 
 * Link back from website to github page
 
-* Add ability to automate release via travis + tag
-
 * Automate release "process" which may mean
   - Building project to ensure no build errors.
   - Patching `CHANGELOG.md`.
