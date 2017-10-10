@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
  * If the value of {@link #singleton()} is true then the "<tt>[ArezComponent.id].</tt>" element
  * of the name will be elided.</p>
  *
- * <p>The type that is annotated with @ArezComponent must comply with the additional constraints:</p>
+ * <p>The type that is annotated with <tt>@ArezComponent</tt> annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must be a class, not an interface or enum</li>
  * <li>Must be concrete, not abstract</li>
