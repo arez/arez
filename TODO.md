@@ -51,10 +51,6 @@ complete as there is too much un-said.
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
-* Add `@Memoized` annotation to methods that makes the method call act as a ComputedValue based on parameters.
-  This could be a low priority as can "fake" it by defining a @Computed method tha invokes the method and returns
-  values.
-
 * Move Unsupported annotation to a separate "anodoc" project. Expand it to @Beta, @Alpha etc.
   Also add `@TestOnly` and `@VisibleForTest`
 

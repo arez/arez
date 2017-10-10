@@ -34,3 +34,14 @@ had to be queued on the `Observer` in the order they were generated and explicit
 during the reaction phase. This added some complexity to the Arez implementation. The author of Arez has also
 previously implemented two other state management frameworks using this technique and considers the complexity
 for downstream consumers to be the greatest problem with this strategy.
+
+#### Why is there not a @Memoize annotation for caching method calls?
+
+[Memoization](https://en.wikipedia.org/wiki/Memoization) of expensive method calls seems like a good fit for
+the Arez library and yet there is no `@Memoize` annotation that can be applied to `@ArezComponent` annotated
+classes. There is no real reason why this feature is lacking other than a lack of time to implement it. An
+initial spike implementation created a [ComputedValue]({% api_url ComputedValue %}) instance for each
+combination of unique parameters in method and seemed to work effectively. There was some complexity in the
+implementation as testing for parameter equality needed to be configurable for each parameter and deactivation
+typically triggered a dispose after a delay. Until this feature is implemented, it is reasonable easy to
+implemented this with a `@Computed` annotation.
