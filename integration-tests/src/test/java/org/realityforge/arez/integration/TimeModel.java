@@ -1,4 +1,4 @@
-package org.realityforge.arez.examples;
+package org.realityforge.arez.integration;
 
 import javax.annotation.Nonnull;
 import org.realityforge.arez.annotations.Action;
@@ -12,7 +12,7 @@ public class TimeModel
   private long _time;
 
   @Nonnull
-  public static TimeModel create( final long time )
+  static TimeModel create( final long time )
   {
     return new Arez_TimeModel( time );
   }

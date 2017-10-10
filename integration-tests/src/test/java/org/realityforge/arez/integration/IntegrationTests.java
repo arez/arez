@@ -4,6 +4,7 @@ import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observer;
+import org.realityforge.arez.extras.ArezExtras;
 import org.testng.annotations.Test;
 
 public class IntegrationTests
@@ -59,6 +60,43 @@ public class IntegrationTests
     observer.dispose();
     context.action( "Dispose Model", true, () -> Disposable.dispose( codeModel ) );
 
+    assertEqualsFixture( recorder.eventsAsString() );
+  }
+
+  /**
+   * a basic scenario that uses an extension interface with default methods.
+   */
+  @Test
+  public void timeScenario()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final SpyEventRecorder recorder = new SpyEventRecorder();
+    context.getSpy().addSpyEventHandler( recorder );
+
+    final TimeModel timeModel = TimeModel.create( 0 );
+
+    timeModel.updateTime();
+
+    ArezExtras.when( () -> 0 == timeModel.getTime(),
+                     () -> record( recorder, "timeReset", "true" ) );
+    context.autorun( "TimePrinter", () -> {
+      // Observe time so we get callback
+      final long ignored = timeModel.getTime();
+      // Can not record actual time here as it will change run to run and
+      // our test infra is not up to skipping fields atm
+      record( recorder, "timeReset", "true" );
+    } );
+
+    timeModel.updateTime();
+    Thread.sleep( 2 );
+    timeModel.updateTime();
+    Thread.sleep( 2 );
+    timeModel.resetTime();
+    timeModel.updateTime();
+    Thread.sleep( 2 );
+    timeModel.updateTime();
     assertEqualsFixture( recorder.eventsAsString() );
   }
 }

@@ -1,4 +1,4 @@
-package org.realityforge.arez.examples;
+package org.realityforge.arez.integration;
 
 import org.realityforge.arez.annotations.Action;
 

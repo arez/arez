@@ -1,0 +1,508 @@
+
+[
+    {
+        "observable": "Time.time",
+        "type": "ObservableCreated"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "observable": "Time.time",
+        "type": "ObservableChanged"
+    },
+    {
+        "duration": 17,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "computedValue": "When@1",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "observer": "When@1",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "When@1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "When@1",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": true,
+        "tracker": "When@1",
+        "type": "TransactionStarted",
+        "transaction": "When@1"
+    },
+    {
+        "computedValue": "When@1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "When@1",
+        "type": "TransactionStarted",
+        "transaction": "When@1"
+    },
+    {
+        "observable": "When@1",
+        "type": "ObservableChanged"
+    },
+    {
+        "duration": 8,
+        "mutation": false,
+        "tracker": "When@1",
+        "type": "TransactionCompleted",
+        "transaction": "When@1"
+    },
+    {
+        "duration": 11,
+        "computedValue": "When@1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "duration": 18,
+        "mutation": true,
+        "tracker": "When@1",
+        "type": "TransactionCompleted",
+        "transaction": "When@1"
+    },
+    {
+        "duration": 20,
+        "observer": "When@1",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionStarted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "type": "usermark",
+        "timeReset": "true"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionCompleted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "duration": 2,
+        "observer": "TimePrinter",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "observable": "Time.time",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "When@1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 5,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "computedValue": "When@1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "When@1",
+        "type": "TransactionStarted",
+        "transaction": "When@1"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "When@1",
+        "type": "TransactionCompleted",
+        "transaction": "When@1"
+    },
+    {
+        "duration": 1,
+        "computedValue": "When@1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionStarted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "type": "usermark",
+        "timeReset": "true"
+    },
+    {
+        "duration": 0,
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionCompleted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "duration": 2,
+        "observer": "TimePrinter",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "observable": "Time.time",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "When@1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 1,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "computedValue": "When@1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "When@1",
+        "type": "TransactionStarted",
+        "transaction": "When@1"
+    },
+    {
+        "duration": 0,
+        "mutation": false,
+        "tracker": "When@1",
+        "type": "TransactionCompleted",
+        "transaction": "When@1"
+    },
+    {
+        "duration": 1,
+        "computedValue": "When@1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionStarted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "type": "usermark",
+        "timeReset": "true"
+    },
+    {
+        "duration": 0,
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionCompleted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "duration": 1,
+        "observer": "TimePrinter",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Time.resetTime"
+    },
+    {
+        "observable": "Time.time",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "When@1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 1,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Time.resetTime"
+    },
+    {
+        "computedValue": "When@1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "When@1",
+        "type": "TransactionStarted",
+        "transaction": "When@1"
+    },
+    {
+        "observable": "When@1",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "When@1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "When@1",
+        "type": "TransactionCompleted",
+        "transaction": "When@1"
+    },
+    {
+        "duration": 1,
+        "computedValue": "When@1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionStarted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "type": "usermark",
+        "timeReset": "true"
+    },
+    {
+        "duration": 2,
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionCompleted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "duration": 3,
+        "observer": "TimePrinter",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "When@1",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": true,
+        "tracker": "When@1",
+        "type": "TransactionStarted",
+        "transaction": "When@1"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "When@1"
+    },
+    {
+        "type": "usermark",
+        "timeReset": "true"
+    },
+    {
+        "duration": 0,
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "When@1"
+    },
+    {
+        "mutation": true,
+        "tracker": "When@1",
+        "type": "TransactionStarted",
+        "transaction": "When@1"
+    },
+    {
+        "duration": 3,
+        "mutation": true,
+        "tracker": "When@1",
+        "type": "TransactionCompleted",
+        "transaction": "When@1"
+    },
+    {
+        "observer": "When@1",
+        "type": "ObserverDisposed"
+    },
+    {
+        "mutation": true,
+        "tracker": "When@1",
+        "type": "TransactionStarted",
+        "transaction": "When@1"
+    },
+    {
+        "duration": 0,
+        "mutation": true,
+        "tracker": "When@1",
+        "type": "TransactionCompleted",
+        "transaction": "When@1"
+    },
+    {
+        "computedValue": "When@1",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "duration": 9,
+        "mutation": true,
+        "tracker": "When@1",
+        "type": "TransactionCompleted",
+        "transaction": "When@1"
+    },
+    {
+        "duration": 9,
+        "observer": "When@1",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "observable": "Time.time",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 1,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionStarted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "type": "usermark",
+        "timeReset": "true"
+    },
+    {
+        "duration": 0,
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionCompleted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "duration": 1,
+        "observer": "TimePrinter",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "observable": "Time.time",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 1,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionStarted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "type": "usermark",
+        "timeReset": "true"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionCompleted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "duration": 1,
+        "observer": "TimePrinter",
+        "type": "ReactionCompleted"
+    }
+]
