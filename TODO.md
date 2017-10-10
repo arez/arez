@@ -59,7 +59,7 @@ complete as there is too much un-said.
   - https://github.com/motion/mobx-formatters
   - https://github.com/andykog/mobx-devtools
 
-* Document expected format of Changelog. Essentiall sourced from http://keepachangelog.com/en/1.0.0/ should
+* Document expected format of Changelog. Essentially sourced from http://keepachangelog.com/en/1.0.0/ should
   have categories such as:
 
   - ✨ **Added** for new features.
