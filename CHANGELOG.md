@@ -7,6 +7,12 @@
   runs through the existing code examples and collects a trace of the events using spy event listeners and compares
   it to fixtures that represent the expected trace.
 
+### Fixed
+* Automate the publishing of releases to Maven Central. Avoids any delay in the artifact being published to Maven
+  Central that previously occurred as the process required several manual steps to complete the publishing action.
+  The automation runs from TravisCI and publishes to Maven Central any time a tag is created that starts with `v`
+  and followed by a number.
+
 ## [v0.10](https://github.com/realityforge/arez/tree/v0.10) (2017-10-09)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.09...v0.10)
 
