@@ -8,7 +8,8 @@ import javax.annotation.Nonnull;
 /**
  * Annotation that marks classes to be processed by Arez annotation processor.
  * Classes with this annotation can contain {@link Observable} properties,
- * {@link Computed} properties and {@link Action} methods.
+ * {@link Computed} properties, {@link Autorun} methods, {@link Track} methods
+ * and {@link Action} methods.
  *
  * <p>The annotation controls the way that contained actions and observables are
  * named (if names are enabled in the system.</p>
@@ -33,7 +34,7 @@ import javax.annotation.Nonnull;
  * <li>Must be concrete, not abstract</li>
  * <li>Must not be final</li>
  * <li>Must not be a non-static nested class</li>
- * <li>Must have at least one method annotated with {@link Action}, {@link Computed} or {@link Observable}</li>
+ * <li>Must have at least one method annotated with {@link Action}, {@link Autorun}, {@link Track}, {@link Computed} or {@link Observable}</li>
  * </ul>
  *
  * <p>The annotation processor that handles this annotation will analyze all super classes and super
