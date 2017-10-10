@@ -36,3 +36,8 @@ artifacts:
   elemental2_promise: com.google.elemental2:elemental2-promise:jar:1.0.0-beta-1
 
   braincheck: org.realityforge.braincheck:braincheck:jar:gwt:1.1.0
+
+  javax_json: org.glassfish:javax.json:jar:1.1
+
+  jsonassert: org.skyscreamer:jsonassert:jar:1.5.0
+  android_json: com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1

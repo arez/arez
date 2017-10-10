@@ -154,6 +154,30 @@ define 'arez' do
     iml.test_source_directories << _('src/test/resources/bad_input')
   end
 
+  define 'integration-tests' do
+    pom.provided_dependencies.concat PROVIDED_DEPS
+
+    test.options[:properties] = AREZ_TEST_OPTIONS
+    test.options[:java_args] = ['-ea']
+
+    test.using :testng
+    test.compile.with TEST_DEPS,
+                      :javax_json,
+                      :jsonassert,
+                      :android_json,
+                      project('annotations').package(:jar),
+                      project('annotations').compile.dependencies,
+                      project('core').package(:jar),
+                      project('core').compile.dependencies,
+                      project('extras').package(:jar),
+                      project('extras').compile.dependencies,
+                      project('processor').package(:jar),
+                      project('processor').compile.dependencies
+
+    # The generators are configured to generate to here.
+    iml.test_source_directories << _('generated/processors/test/java')
+  end
+
   define 'example' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
@@ -221,7 +245,7 @@ define 'arez' do
 
   iml.excluded_directories << project._('tmp/gwt')
 
-  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.dynamic_provider=true -Dbraincheck.environment=development -Darez.dynamic_provider=true -Darez.logger=proxy -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources')
+  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.dynamic_provider=true -Dbraincheck.environment=development -Darez.dynamic_provider=true -Darez.logger=proxy -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources')
   ipr.add_component_from_artifact(:idea_codestyle)
   ipr.extra_modules << '../mobx/mobx.iml'
   ipr.extra_modules << '../mobx-docs/mobx-docs.iml'

@@ -45,11 +45,6 @@ complete as there is too much un-said.
 
 * Enhance WhyRun and write tests for it.
 
-* Use SpyUtil in "integration" tests to records a trace. Add mechanisms to verify traces match
-  "enough". Essentially serialize to json?
-
-* Add integration tests that use WhyRun?
-
 * Add component integration tests
   - Verify that @Autorun scheduled after postConstruct
   - Verify @Observables are not accessible outside transaction

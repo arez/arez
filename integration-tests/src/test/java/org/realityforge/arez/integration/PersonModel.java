@@ -1,4 +1,4 @@
-package org.realityforge.arez.examples;
+package org.realityforge.arez.integration;
 
 import javax.annotation.Nonnull;
 import org.realityforge.arez.annotations.ArezComponent;
