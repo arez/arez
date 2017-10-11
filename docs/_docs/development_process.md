@@ -30,4 +30,4 @@ current git version is a tag, the artifacts produced by the build will be publis
 
 To enable this we needed to provide encrypted credentials to TravisCI. The easiest way to do this is
 to run the command `travis encrypt MAVEN_CENTRAL_PASSWORD=MyPassword` and add the output under `env.global`
-key in travis configuration. This encrypts the password but makes it available when building on TravisCI. 
+key in travis configuration. This encrypts the password but makes it available when building on TravisCI.
