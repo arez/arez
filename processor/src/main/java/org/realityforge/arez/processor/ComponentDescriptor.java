@@ -1487,7 +1487,8 @@ final class ComponentDescriptor
     return MethodSpec.methodBuilder( "wrap" ).
       addModifiers( Modifier.PROTECTED, Modifier.FINAL ).
       addJavadoc( "If config option enabled, wrap the specified list in an immutable list and return it.\n" +
-                  "This method should be called by repository extensions when returning list results when not using {@link toList(List)}.\n" ).
+                  "This method should be called by repository extensions when returning list results " +
+                  "when not using {@link toList(List)}.\n" ).
       addAnnotation( Nonnull.class ).
       addParameter( ParameterSpec.builder( listType, "list", Modifier.FINAL ).
         addAnnotation( Nonnull.class ).build() ).
