@@ -61,14 +61,3 @@ complete as there is too much un-said.
   explanations on the website.
 
 * Link back from website to github page
-
-* Document expected format of Changelog. Essentially sourced from http://keepachangelog.com/en/1.0.0/ should
-  have categories such as:
-
-  - ✨ **Added** for new features.
-  - **Changed** for changes in existing functionality.
-  - 💥 **Changed** for breaking changes in existing functionality.
-  - **Deprecated** for soon-to-be removed features.
-  - **Removed** for now removed features.
-  - **Fixed** for any bug fixes.
-  - **Security** in case of vulnerabilities.
