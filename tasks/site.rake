@@ -1,4 +1,5 @@
-WORKSPACE_DIR = File.expand_path(File.dirname(__FILE__) + '/..')
+require File.expand_path(File.dirname(__FILE__) + '/util')
+
 SITE_DIR = "#{WORKSPACE_DIR}/reports/site/arez"
 
 desc 'Copy the javadocs to docs dir'
@@ -46,16 +47,6 @@ desc 'Serve the website for developing documentation'
 task 'site:serve' do
   mkdir_p File.dirname(SITE_DIR)
   sh "jekyll serve --source #{WORKSPACE_DIR}/docs --destination #{SITE_DIR}"
-end
-
-def in_dir(dir)
-  current = Dir.pwd
-  begin
-    Dir.chdir(dir)
-    yield
-  ensure
-    Dir.chdir(current)
-  end
 end
 
 desc 'Build the website'
