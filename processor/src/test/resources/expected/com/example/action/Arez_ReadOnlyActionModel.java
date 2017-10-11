@@ -58,4 +58,9 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

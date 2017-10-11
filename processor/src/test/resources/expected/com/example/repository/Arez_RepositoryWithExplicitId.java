@@ -57,4 +57,9 @@ public final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitI
       this.$$arez$$_name.reportChanged();
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Integer.hashCode( getId() );
+  }
 }

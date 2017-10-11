@@ -58,4 +58,9 @@ public final class Arez_BasicActionModel extends BasicActionModel implements Dis
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

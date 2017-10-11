@@ -130,4 +130,9 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

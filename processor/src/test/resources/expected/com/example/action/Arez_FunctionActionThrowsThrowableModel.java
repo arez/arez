@@ -52,4 +52,9 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
       throw $$arez$$_e;
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

@@ -58,4 +58,9 @@ public final class Arez_GenericsModel extends GenericsModel implements Disposabl
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

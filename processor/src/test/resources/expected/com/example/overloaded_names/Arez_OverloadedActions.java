@@ -90,4 +90,9 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

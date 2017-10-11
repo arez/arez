@@ -1043,7 +1043,69 @@ final class ComponentDescriptor
     _roComputeds.forEach( e -> e.buildMethods( builder ) );
     _roTrackeds.forEach( e -> e.buildMethods( builder ) );
 
+    if ( !isSingleton() )
+    {
+      builder.addMethod( buildHashcodeMethod() );
+    }
+
     return builder.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildHashcodeMethod()
+    throws ArezProcessorException
+  {
+    final String idMethod =
+      null == _componentId ? GeneratorUtil.ID_FIELD_NAME : _componentId.getSimpleName().toString();
+
+    final MethodSpec.Builder method =
+      MethodSpec.methodBuilder( "hashCode" ).
+        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addAnnotation( Override.class ).
+        returns( TypeName.INT );
+    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : TypeKind.LONG;
+    if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
+    {
+      method.addStatement( "return null != $N() ? $N().hashCode() : $T.identityHashCode( this )",
+                           idMethod,
+                           idMethod,
+                           System.class );
+    }
+    else if ( kind == TypeKind.BYTE )
+    {
+      method.addStatement( "return $T.hashCode( $N() )", Byte.class, idMethod );
+    }
+    else if ( kind == TypeKind.CHAR )
+    {
+      method.addStatement( "return $T.hashCode( $N() )", Character.class, idMethod );
+    }
+    else if ( kind == TypeKind.SHORT )
+    {
+      method.addStatement( "return $T.hashCode( $N() )", Short.class, idMethod );
+    }
+    else if ( kind == TypeKind.INT )
+    {
+      method.addStatement( "return $T.hashCode( $N() )", Integer.class, idMethod );
+    }
+    else if ( kind == TypeKind.LONG )
+    {
+      method.addStatement( "return $T.hashCode( $N() )", Long.class, idMethod );
+    }
+    else if ( kind == TypeKind.FLOAT )
+    {
+      method.addStatement( "return $T.hashCode( $N() )", Float.class, idMethod );
+    }
+    else if ( kind == TypeKind.DOUBLE )
+    {
+      method.addStatement( "return $T.hashCode( $N() )", Double.class, idMethod );
+    }
+    else
+    {
+      // So very unlikely but will cover it for completeness
+      assert kind == TypeKind.BOOLEAN;
+      method.addStatement( "return $T.hashCode( $N() )", Boolean.class, idMethod );
+    }
+    return method.build();
   }
 
   @Nonnull

@@ -105,4 +105,9 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
       this.$$arez$$_time.reportChanged();
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

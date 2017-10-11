@@ -55,4 +55,9 @@ public final class Arez_ComponentIdOnModel extends ComponentIdOnModel implements
       this.$$arez$$_time.reportChanged();
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Integer.hashCode( getId() );
+  }
 }

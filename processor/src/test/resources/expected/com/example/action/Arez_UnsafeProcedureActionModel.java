@@ -56,4 +56,9 @@ public final class Arez_UnsafeProcedureActionModel extends UnsafeProcedureAction
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

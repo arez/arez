@@ -74,4 +74,9 @@ final class Arez_MyModel extends MyModel implements Disposable {
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

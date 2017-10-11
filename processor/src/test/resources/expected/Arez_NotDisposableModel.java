@@ -37,4 +37,9 @@ public final class Arez_NotDisposableModel extends NotDisposableModel {
   public long getTime() {
     return this.$$arez$$_time.get();
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

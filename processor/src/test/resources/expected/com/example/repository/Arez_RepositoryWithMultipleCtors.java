@@ -80,4 +80,9 @@ public final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultip
       this.$$arez$$_name.reportChanged();
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

@@ -138,4 +138,9 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     assert !$$arez$$_disposed;
     return this.$$arez$$_compWriter.get();
   }
+
+  @Override
+  public final int hashCode() {
+    return null != getComponentId() ? getComponentId().hashCode() : System.identityHashCode( this );
+  }
 }

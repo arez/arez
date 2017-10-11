@@ -56,4 +56,9 @@ public final class Arez_TypeParametersModel extends TypeParametersModel implemen
     assert !$$arez$$_disposed;
     return (T) this.$$arez$$_time.get();
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

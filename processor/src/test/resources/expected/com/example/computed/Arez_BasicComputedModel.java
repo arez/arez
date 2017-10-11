@@ -56,4 +56,9 @@ public final class Arez_BasicComputedModel extends BasicComputedModel implements
     assert !$$arez$$_disposed;
     return this.$$arez$$_time.get();
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

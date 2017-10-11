@@ -116,4 +116,9 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
     assert !$$arez$$_disposed;
     return this.$$arez$$_qualifiedName.get();
   }
+
+  @Override
+  public final int hashCode() {
+    return Integer.hashCode( getId() );
+  }
 }

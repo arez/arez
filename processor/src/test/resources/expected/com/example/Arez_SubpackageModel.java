@@ -94,4 +94,9 @@ public final class Arez_SubpackageModel extends SubpackageModel implements Dispo
     assert !$$arez$$_disposed;
     return this.$$arez$$_someValue.get();
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

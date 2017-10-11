@@ -89,4 +89,9 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
     assert !$$arez$$_disposed;
     return this.$$arez$$_time.get();
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

@@ -62,4 +62,9 @@ public final class Arez_ObservableWithExceptionModel extends ObservableWithExcep
       this.$$arez$$_time.reportChanged();
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

@@ -136,4 +136,9 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

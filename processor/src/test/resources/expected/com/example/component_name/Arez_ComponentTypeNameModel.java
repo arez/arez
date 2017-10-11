@@ -63,4 +63,9 @@ public final class Arez_ComponentTypeNameModel extends ComponentTypeNameModel im
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

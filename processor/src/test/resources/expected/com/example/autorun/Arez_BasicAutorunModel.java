@@ -55,4 +55,9 @@ public final class Arez_BasicAutorunModel extends BasicAutorunModel implements D
     assert !$$arez$$_disposed;
     this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff() );
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

@@ -40,4 +40,9 @@ public final class Arez_EmptyModel extends EmptyModel implements Disposable {
       $$arez$$_disposed = true;
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

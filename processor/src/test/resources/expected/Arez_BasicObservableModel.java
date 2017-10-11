@@ -62,4 +62,9 @@ public final class Arez_BasicObservableModel extends BasicObservableModel implem
       this.$$arez$$_time.reportChanged();
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

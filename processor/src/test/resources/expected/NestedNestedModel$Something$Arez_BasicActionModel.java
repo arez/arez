@@ -56,4 +56,9 @@ public final class NestedNestedModel$Something$Arez_BasicActionModel extends Nes
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

@@ -63,4 +63,9 @@ public final class Arez_ObservableWithAnnotatedCtorModel extends ObservableWithA
       this.$$arez$$_time.reportChanged();
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }

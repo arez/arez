@@ -65,4 +65,9 @@ public final class Arez_DeriveTrackedModel extends DeriveTrackedModel implements
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final int hashCode() {
+    return Long.hashCode( $$arez$$_id() );
+  }
 }
