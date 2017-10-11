@@ -4,10 +4,6 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
-## Process
-
-* Release "process" should copy blurbage from `CHANGELOG.md` to news section of website.
-
 ## Enhancements
 
 * Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
