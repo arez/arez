@@ -5,7 +5,7 @@ order: 1
 toc: true
 ---
 
-### Design
+### Library Design
 
 #### Why do the change events/notifications not include a description of the change?
 
