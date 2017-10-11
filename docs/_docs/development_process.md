@@ -29,6 +29,5 @@ process so that the last step of the TravisCI build is to run the task `publish_
 current git version is a tag, the artifacts produced by the build will be published to Maven Central.
 
 To enable this we needed to provide encrypted credentials to TravisCI. The easiest way to do this is
-to run the following commands and add the output under `env` key in travis configuration.
-
-    travis encrypt MAVEN_CENTRAL_PASSWORD=MyPassword
+to run the command `travis encrypt MAVEN_CENTRAL_PASSWORD=MyPassword` and add the output under `env.global`
+key in travis configuration. This encrypts the password but makes it available when building on TravisCI. 
