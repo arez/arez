@@ -28,6 +28,7 @@ public abstract class AbstractSpyEventProcessor
   /**
    * Method invoked by subclasses to register
    *
+   * @param <T>       the event type.
    * @param type      the type of the event to register.
    * @param processor the processor to handle event with.
    */
