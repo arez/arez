@@ -49,12 +49,14 @@ public final class Arez_ObservableModelWithUnconventionalNames extends Observabl
 
   @Override
   public long time() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_time.reportObserved();
     return super.time();
   }
 
   @Override
   public void time(final long time) {
+    assert !$$arez$$_disposed;
     if ( time != super.time() ) {
       super.time(time);
       this.$$arez$$_time.reportChanged();

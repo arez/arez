@@ -56,12 +56,14 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
 
   @Override
   public long getTime() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) {
+    assert !$$arez$$_disposed;
     if ( time != super.getTime() ) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
@@ -70,6 +72,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
 
   @Override
   public void myAutorun() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "SingletonModel.myAutorun" : null, true, () -> super.myAutorun() );
   }
 
@@ -91,11 +94,13 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
 
   @Override
   public int someValue() {
+    assert !$$arez$$_disposed;
     return this.$$arez$$_someValue.get();
   }
 
   @Override
   public void render() {
+    assert !$$arez$$_disposed;
     assert !$$arez$$_disposed;
     try {
       this.$$arez$$_context.safeTrack( this.$$arez$$_render, () -> super.render() );

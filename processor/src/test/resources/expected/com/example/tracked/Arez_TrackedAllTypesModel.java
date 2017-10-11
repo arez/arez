@@ -68,6 +68,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
   @Override
   public void render2() throws ParseException {
     assert !$$arez$$_disposed;
+    assert !$$arez$$_disposed;
     try {
       this.$$arez$$_context.track( this.$$arez$$_render2, () -> super.render2() );
     } catch( final ParseException $$arez$$_e ) {
@@ -86,6 +87,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
   @Override
   protected int render3() {
     assert !$$arez$$_disposed;
+    assert !$$arez$$_disposed;
     try {
       return this.$$arez$$_context.safeTrack( this.$$arez$$_render3, () -> super.render3() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -101,6 +103,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
 
   @Override
   int render4() throws ParseException {
+    assert !$$arez$$_disposed;
     assert !$$arez$$_disposed;
     try {
       return this.$$arez$$_context.track( this.$$arez$$_render4, () -> super.render4() );
@@ -119,6 +122,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
 
   @Override
   public void render1() {
+    assert !$$arez$$_disposed;
     assert !$$arez$$_disposed;
     try {
       this.$$arez$$_context.safeTrack( this.$$arez$$_render1, () -> super.render1() );

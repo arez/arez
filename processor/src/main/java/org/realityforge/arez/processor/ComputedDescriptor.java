@@ -298,6 +298,10 @@ final class ComputedDescriptor
     builder.addAnnotation( Override.class );
     final TypeName returnType = TypeName.get( _computedType.getReturnType() );
     builder.returns( returnType );
+    if ( _componentDescriptor.isDisposable() )
+    {
+      builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
+    }
 
     if ( _computed.getTypeParameters().isEmpty() )
     {

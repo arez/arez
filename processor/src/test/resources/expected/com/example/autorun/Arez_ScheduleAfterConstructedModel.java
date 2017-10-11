@@ -53,6 +53,7 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
 
   @Override
   public void doStuff() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff() );
   }
 }

@@ -52,6 +52,7 @@ public final class Arez_NoReportParametersModel extends NoReportParametersModel 
   @Override
   public void render(final long time, final float someOtherParameter) {
     assert !$$arez$$_disposed;
+    assert !$$arez$$_disposed;
     try {
       this.$$arez$$_context.safeTrack( this.$$arez$$_render, () -> super.render(time,someOtherParameter) );
     } catch( final RuntimeException $$arez$$_e ) {

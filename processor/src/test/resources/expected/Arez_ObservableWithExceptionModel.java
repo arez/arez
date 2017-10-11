@@ -49,12 +49,14 @@ public final class Arez_ObservableWithExceptionModel extends ObservableWithExcep
 
   @Override
   public long getTime() throws Exception {
+    assert !$$arez$$_disposed;
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) throws Exception {
+    assert !$$arez$$_disposed;
     if ( time != super.getTime() ) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();

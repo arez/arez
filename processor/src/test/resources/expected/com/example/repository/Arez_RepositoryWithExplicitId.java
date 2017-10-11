@@ -44,12 +44,14 @@ public final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitI
   @Nonnull
   @Override
   public String getName() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_name.reportObserved();
     return super.getName();
   }
 
   @Override
   public void setName(@Nonnull final String name) {
+    assert !$$arez$$_disposed;
     if ( !Objects.equals(name, super.getName()) ) {
       super.setName(name);
       this.$$arez$$_name.reportChanged();

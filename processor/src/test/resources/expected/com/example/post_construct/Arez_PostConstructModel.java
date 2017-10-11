@@ -54,6 +54,7 @@ public final class Arez_PostConstructModel extends PostConstructModel implements
 
   @Override
   public int someValue() {
+    assert !$$arez$$_disposed;
     return this.$$arez$$_someValue.get();
   }
 }

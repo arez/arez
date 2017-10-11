@@ -197,6 +197,10 @@ final class TrackedDescriptor
     final StringBuilder statement = new StringBuilder();
     final ArrayList<Object> parameterNames = new ArrayList<>();
 
+    if ( _componentDescriptor.isDisposable() )
+    {
+      builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
+    }
     if ( !isProcedure )
     {
       statement.append( "return " );

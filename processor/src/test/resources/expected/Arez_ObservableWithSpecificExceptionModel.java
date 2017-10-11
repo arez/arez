@@ -50,12 +50,14 @@ public final class Arez_ObservableWithSpecificExceptionModel extends ObservableW
 
   @Override
   public long getTime() throws ParseException {
+    assert !$$arez$$_disposed;
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) throws ParseException {
+    assert !$$arez$$_disposed;
     if ( time != super.getTime() ) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();

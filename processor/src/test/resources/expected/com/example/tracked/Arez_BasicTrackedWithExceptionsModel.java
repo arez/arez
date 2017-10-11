@@ -53,6 +53,7 @@ public final class Arez_BasicTrackedWithExceptionsModel extends BasicTrackedWith
   @Override
   public void render() throws ParseException {
     assert !$$arez$$_disposed;
+    assert !$$arez$$_disposed;
     try {
       this.$$arez$$_context.track( this.$$arez$$_render, () -> super.render() );
     } catch( final ParseException $$arez$$_e ) {

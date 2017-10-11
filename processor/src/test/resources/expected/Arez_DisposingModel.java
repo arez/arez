@@ -53,6 +53,7 @@ public final class Arez_DisposingModel extends DisposingModel implements Disposa
 
   @Override
   public int someValue() {
+    assert !$$arez$$_disposed;
     return this.$$arez$$_someValue.get();
   }
 }

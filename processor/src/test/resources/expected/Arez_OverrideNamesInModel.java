@@ -70,12 +70,14 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
 
   @Override
   public long getTime() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_myField.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) {
+    assert !$$arez$$_disposed;
     if ( time != super.getTime() ) {
       super.setTime(time);
       this.$$arez$$_myField.reportChanged();
@@ -84,6 +86,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
 
   @Override
   public void zapZap() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".zzzzzz" : null, true, () -> super.zapZap() );
   }
 
@@ -105,11 +108,13 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
 
   @Override
   int compute() {
+    assert !$$arez$$_disposed;
     return this.$$arez$$_myComputed.get();
   }
 
   @Override
   public void render() throws ParseException {
+    assert !$$arez$$_disposed;
     assert !$$arez$$_disposed;
     try {
       this.$$arez$$_context.track( this.$$arez$$_XX, () -> super.render() );

@@ -42,12 +42,14 @@ public final class Arez_ComponentIdOnModel extends ComponentIdOnModel implements
 
   @Override
   public long getTime() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) {
+    assert !$$arez$$_disposed;
     if ( time != super.getTime() ) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();

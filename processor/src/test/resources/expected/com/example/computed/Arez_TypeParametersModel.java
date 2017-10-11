@@ -53,6 +53,7 @@ public final class Arez_TypeParametersModel extends TypeParametersModel implemen
 
   @Override
   public <T extends Integer> T getTime() {
+    assert !$$arez$$_disposed;
     return (T) this.$$arez$$_time.get();
   }
 }

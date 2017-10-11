@@ -53,6 +53,7 @@ public final class Arez_BasicComputedModel extends BasicComputedModel implements
 
   @Override
   public long getTime() {
+    assert !$$arez$$_disposed;
     return this.$$arez$$_time.get();
   }
 }

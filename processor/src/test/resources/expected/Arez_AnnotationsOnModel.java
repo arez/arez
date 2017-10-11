@@ -58,12 +58,14 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   @Nonnull
   @Override
   public String getTime() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(@Nonnull final String time) {
+    assert !$$arez$$_disposed;
     if ( !Objects.equals(time, super.getTime()) ) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
@@ -89,6 +91,7 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   @Nonnull
   @Override
   public Integer someValue() {
+    assert !$$arez$$_disposed;
     return this.$$arez$$_someValue.get();
   }
 }

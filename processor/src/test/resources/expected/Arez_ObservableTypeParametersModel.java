@@ -50,12 +50,14 @@ public final class Arez_ObservableTypeParametersModel extends ObservableTypePara
 
   @Override
   public <T extends Integer> T getTime() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public <T extends Integer> void setTime(final T time) {
+    assert !$$arez$$_disposed;
     if ( !Objects.equals(time, super.getTime()) ) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();

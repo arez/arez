@@ -129,11 +129,13 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   @Override
   public IOException compError() {
+    assert !$$arez$$_disposed;
     return this.$$arez$$_compError.get();
   }
 
   @Override
   public W compWriter() {
+    assert !$$arez$$_disposed;
     return this.$$arez$$_compWriter.get();
   }
 }

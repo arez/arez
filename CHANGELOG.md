@@ -3,6 +3,10 @@
 ## Unreleased
 
 ### Changed
+* **\[processor\]** Add explicit `assert !isDisposed()` statements into generated override methods for `@Observable`,
+  `@Autorun`, `@Computed`, `@Tracked` etc. If these methods had been called after the component had been disposed,
+  assertion failures would have been but several layers deeper into the system. Lifting the asserts to the user
+  accessed entrypoints helps users identify the location of the problem earlier.
 * **\[examples\]** The examples in the `examples` project have been converted into integration tests. Each test
   runs through the existing code examples and collects a trace of the events using spy event listeners and compares
   it to fixtures that represent the expected trace.

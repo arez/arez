@@ -52,6 +52,7 @@ public final class Arez_ReadWriteAutorunModel extends ReadWriteAutorunModel impl
 
   @Override
   public void doStuff() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff() );
   }
 }

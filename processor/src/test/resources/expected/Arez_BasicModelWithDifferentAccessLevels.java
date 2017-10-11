@@ -71,12 +71,14 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   protected long getTime() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) {
+    assert !$$arez$$_disposed;
     if ( time != super.getTime() ) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
@@ -85,12 +87,14 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   String getValue() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_value.reportObserved();
     return super.getValue();
   }
 
   @Override
   public void setValue(final String value) {
+    assert !$$arez$$_disposed;
     if ( !Objects.equals(value, super.getValue()) ) {
       super.setValue(value);
       this.$$arez$$_value.reportChanged();

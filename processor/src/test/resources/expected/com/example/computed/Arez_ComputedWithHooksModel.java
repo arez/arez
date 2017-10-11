@@ -53,6 +53,7 @@ public final class Arez_ComputedWithHooksModel extends ComputedWithHooksModel im
 
   @Override
   public long getTime() {
+    assert !$$arez$$_disposed;
     return this.$$arez$$_time.get();
   }
 }

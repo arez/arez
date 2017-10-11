@@ -164,6 +164,10 @@ final class ObservableDescriptor
       ParameterSpec.builder( type, paramName, Modifier.FINAL );
     ProcessorUtil.copyDocumentedAnnotations( element, param );
     builder.addParameter( param.build() );
+    if ( _componentDescriptor.isDisposable() )
+    {
+      builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
+    }
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     final String accessor = "super." + _getter.getSimpleName() + "()";
@@ -201,6 +205,11 @@ final class ObservableDescriptor
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _getter.getReturnType() ) );
+    if ( _componentDescriptor.isDisposable() )
+    {
+      builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
+    }
+
     builder.addStatement( "this.$N.reportObserved()", GeneratorUtil.FIELD_PREFIX + getName() );
     builder.addStatement( "return super." + _getter.getSimpleName() + "()" );
     return builder.build();

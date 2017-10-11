@@ -44,12 +44,14 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
 
   @Override
   public long getTime() {
+    assert !$$arez$$_disposed;
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) {
+    assert !$$arez$$_disposed;
     if ( time != super.getTime() ) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
@@ -74,6 +76,7 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
 
   @Override
   public int someValue() {
+    assert !$$arez$$_disposed;
     return this.$$arez$$_someValue.get();
   }
 }
