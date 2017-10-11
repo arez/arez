@@ -6,15 +6,7 @@ complete as there is too much un-said.
 
 ## Process
 
-* Automate release "process" which may mean
-  - Building project to ensure no build errors.
-  - Patching `CHANGELOG.md`.
-  - Copying blurbage from `CHANGELOG.md` to news section of website.
-  - Updating website with latest release info
-  - Rebuilding website to verify that nothing is broken.
-  - Tagging repository
-  - Patching `CHANGELOG.md` for next development iteration.
-  - Leave it to the travis process to actually do the upload to maven central?
+* Release "process" should copy blurbage from `CHANGELOG.md` to news section of website.
 
 ## Enhancements
 
