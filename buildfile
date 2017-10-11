@@ -157,7 +157,7 @@ define 'arez' do
   define 'integration-tests' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
-    test.options[:properties] = AREZ_TEST_OPTIONS
+    test.options[:properties] = AREZ_TEST_OPTIONS.merge('arez.integration_fixture_dir' => _('src/test/resources'))
     test.options[:java_args] = ['-ea']
 
     test.using :testng
@@ -203,7 +203,7 @@ define 'arez' do
     compile.with project('browser-extras').package(:jar, :classifier => :gwt),
                  project('browser-extras').compile.dependencies
 
-    test.options[:properties] = AREZ_TEST_OPTIONS.merge('arez.integration_fixture_dir' => _('src/test/resources'))
+    test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
 
     test.using :testng
