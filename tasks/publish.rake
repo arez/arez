@@ -21,14 +21,14 @@ end
 
 class MavenCentralPublishTool
   def self.buildr_release(project, profile_name, username, password)
-    release_to_url = repositories.release_to[:url]
-    release_to_username = repositories.release_to[:username]
-    release_to_password = repositories.release_to[:password]
+    release_to_url = Buildr.repositories.release_to[:url]
+    release_to_username = Buildr.repositories.release_to[:username]
+    release_to_password = Buildr.repositories.release_to[:password]
 
     begin
-      repositories.release_to[:url] = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
-      repositories.release_to[:username] = username
-      repositories.release_to[:password] = password
+      Buildr.repositories.release_to[:url] = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+      Buildr.repositories.release_to[:username] = username
+      Buildr.repositories.release_to[:password] = password
 
       project.task(':upload').invoke
 
@@ -38,9 +38,9 @@ class MavenCentralPublishTool
       r.user_agent = "Buildr-#{Buildr::VERSION}"
       r.release_sole_auto_staging(profile_name)
     ensure
-      repositories.release_to[:url] = release_to_url
-      repositories.release_to[:username] = release_to_username
-      repositories.release_to[:password] = release_to_password
+      Buildr.repositories.release_to[:url] = release_to_url
+      Buildr.repositories.release_to[:username] = release_to_username
+      Buildr.repositories.release_to[:password] = release_to_password
     end
   end
 
