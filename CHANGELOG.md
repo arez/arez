@@ -1,6 +1,7 @@
 # Change Log
 
-## Unreleased
+## [v0.11](https://github.com/realityforge/arez/tree/v0.11) (2017-10-11)
+[Full Changelog](https://github.com/realityforge/arez/compare/v0.10...v0.11)
 
 ### Added
 * **\[processor\]** Generated component subclasses that are not singletons will now have `equals()` and
