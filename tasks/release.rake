@@ -38,7 +38,7 @@ task 'perform_release' do
 
     stage('GitClean', 'Ensure there is nothing to commit and the working tree is clean') do
       status_output = `git status -s 2>&1`.strip
-      raise 'Uncommitted changes in git repository. Please commit them prior to release.' if status_output.size
+      raise 'Uncommitted changes in git repository. Please commit them prior to release.' if 0 != status_output.size
     end
 
     stage('Build', 'Build the project to ensure that the tests pass') do
