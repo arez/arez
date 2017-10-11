@@ -61,4 +61,16 @@ public final class Arez_BasicComputedModel extends BasicComputedModel implements
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_BasicComputedModel) ) {
+      return false;
+    } else {
+      final Arez_BasicComputedModel that = (Arez_BasicComputedModel) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

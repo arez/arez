@@ -62,4 +62,16 @@ public final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitI
   public final int hashCode() {
     return Integer.hashCode( getId() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_RepositoryWithExplicitId) ) {
+      return false;
+    } else {
+      final Arez_RepositoryWithExplicitId that = (Arez_RepositoryWithExplicitId) o;;
+      return getId() == that.getId();
+    }
+  }
 }

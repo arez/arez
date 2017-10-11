@@ -38,4 +38,16 @@ public final class Arez_ObjectComponentId extends ObjectComponentId implements D
   public final int hashCode() {
     return null != getId() ? getId().hashCode() : System.identityHashCode( this );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_ObjectComponentId) ) {
+      return false;
+    } else {
+      final Arez_ObjectComponentId that = (Arez_ObjectComponentId) o;;
+      return null != getId() && getId().equals( that.getId() );
+    }
+  }
 }

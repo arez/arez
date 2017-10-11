@@ -135,4 +135,16 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_OverrideNamesInModel) ) {
+      return false;
+    } else {
+      final Arez_OverrideNamesInModel that = (Arez_OverrideNamesInModel) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

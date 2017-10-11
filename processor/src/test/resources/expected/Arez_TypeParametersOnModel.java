@@ -61,4 +61,16 @@ public final class Arez_TypeParametersOnModel<T extends Integer> extends TypePar
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_TypeParametersOnModel) ) {
+      return false;
+    } else {
+      final Arez_TypeParametersOnModel that = (Arez_TypeParametersOnModel) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

@@ -3,8 +3,8 @@
 ## Unreleased
 
 ### Added
-* **\[processor\]** Generated component subclasses that are not singletons will now have `hashCode()` methods
-  generated based on the component id.
+* **\[processor\]** Generated component subclasses that are not singletons will now have `equals()` and
+  `hashCode()` methods generated based on the component id.
 
 ### Changed
 * **\[processor\]** Add explicit `assert !isDisposed()` statements into generated override methods for `@Observable`,

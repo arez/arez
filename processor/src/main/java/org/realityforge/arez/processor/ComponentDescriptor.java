@@ -1046,9 +1046,47 @@ final class ComponentDescriptor
     if ( !isSingleton() )
     {
       builder.addMethod( buildHashcodeMethod() );
+      builder.addMethod( buildEqualsMethod() );
     }
 
     return builder.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildEqualsMethod()
+    throws ArezProcessorException
+  {
+    final String idMethod =
+      null == _componentId ? GeneratorUtil.ID_FIELD_NAME : _componentId.getSimpleName().toString();
+
+    final MethodSpec.Builder method =
+      MethodSpec.methodBuilder( "equals" ).
+        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addAnnotation( Override.class ).
+        addParameter( Object.class, "o", Modifier.FINAL ).
+        returns( TypeName.BOOLEAN );
+
+    final ClassName generatedClass = ClassName.get( getPackageName(), getArezClassName() );
+
+    final CodeBlock.Builder codeBlock = CodeBlock.builder();
+    codeBlock.beginControlFlow( "if ( this == o )" );
+    codeBlock.addStatement( "return true" );
+    codeBlock.nextControlFlow( "else if ( null == o || !(o instanceof $T) )", generatedClass );
+    codeBlock.addStatement( "return false" );
+    codeBlock.nextControlFlow( "else" );
+    codeBlock.addStatement( "final $T that = ($T) o;", generatedClass, generatedClass );
+    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : TypeKind.LONG;
+    if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
+    {
+      codeBlock.addStatement( "return null != $N() && $N().equals( that.$N() )", idMethod, idMethod, idMethod );
+    }
+    else
+    {
+      codeBlock.addStatement( "return $N() == that.$N()", idMethod, idMethod );
+    }
+    codeBlock.endControlFlow();
+    method.addCode( codeBlock.build() );
+    return method.build();
   }
 
   @Nonnull

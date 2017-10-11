@@ -38,4 +38,16 @@ public final class Arez_CharComponentId extends CharComponentId implements Dispo
   public final int hashCode() {
     return Character.hashCode( getId() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_CharComponentId) ) {
+      return false;
+    } else {
+      final Arez_CharComponentId that = (Arez_CharComponentId) o;;
+      return getId() == that.getId();
+    }
+  }
 }

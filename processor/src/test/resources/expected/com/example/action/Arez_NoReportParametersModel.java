@@ -63,4 +63,16 @@ public final class Arez_NoReportParametersModel extends NoReportParametersModel 
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_NoReportParametersModel) ) {
+      return false;
+    } else {
+      final Arez_NoReportParametersModel that = (Arez_NoReportParametersModel) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

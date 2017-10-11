@@ -42,4 +42,16 @@ public final class Arez_NotDisposableModel extends NotDisposableModel {
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_NotDisposableModel) ) {
+      return false;
+    } else {
+      final Arez_NotDisposableModel that = (Arez_NotDisposableModel) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

@@ -61,4 +61,16 @@ public final class Arez_UnsafeProcedureActionModel extends UnsafeProcedureAction
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_UnsafeProcedureActionModel) ) {
+      return false;
+    } else {
+      final Arez_UnsafeProcedureActionModel that = (Arez_UnsafeProcedureActionModel) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

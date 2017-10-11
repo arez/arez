@@ -60,4 +60,16 @@ public final class Arez_ComponentIdOnModel extends ComponentIdOnModel implements
   public final int hashCode() {
     return Integer.hashCode( getId() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_ComponentIdOnModel) ) {
+      return false;
+    } else {
+      final Arez_ComponentIdOnModel that = (Arez_ComponentIdOnModel) o;;
+      return getId() == that.getId();
+    }
+  }
 }

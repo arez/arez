@@ -153,4 +153,16 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_BasicModelWithDifferentAccessLevels) ) {
+      return false;
+    } else {
+      final Arez_BasicModelWithDifferentAccessLevels that = (Arez_BasicModelWithDifferentAccessLevels) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

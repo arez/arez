@@ -66,4 +66,16 @@ public final class Arez_UnsafeSpecificFunctionActionModel extends UnsafeSpecific
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_UnsafeSpecificFunctionActionModel) ) {
+      return false;
+    } else {
+      final Arez_UnsafeSpecificFunctionActionModel that = (Arez_UnsafeSpecificFunctionActionModel) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

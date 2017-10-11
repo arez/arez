@@ -70,4 +70,16 @@ public final class Arez_DeriveTrackedModel extends DeriveTrackedModel implements
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_DeriveTrackedModel) ) {
+      return false;
+    } else {
+      final Arez_DeriveTrackedModel that = (Arez_DeriveTrackedModel) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

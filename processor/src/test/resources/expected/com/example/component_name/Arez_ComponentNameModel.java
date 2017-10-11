@@ -63,4 +63,16 @@ public final class Arez_ComponentNameModel extends ComponentNameModel implements
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_ComponentNameModel) ) {
+      return false;
+    } else {
+      final Arez_ComponentNameModel that = (Arez_ComponentNameModel) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

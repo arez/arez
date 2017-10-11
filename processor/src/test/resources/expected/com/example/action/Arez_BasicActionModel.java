@@ -63,4 +63,16 @@ public final class Arez_BasicActionModel extends BasicActionModel implements Dis
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_BasicActionModel) ) {
+      return false;
+    } else {
+      final Arez_BasicActionModel that = (Arez_BasicActionModel) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

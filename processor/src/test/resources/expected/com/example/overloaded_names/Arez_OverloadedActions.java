@@ -95,4 +95,16 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_OverloadedActions) ) {
+      return false;
+    } else {
+      final Arez_OverloadedActions that = (Arez_OverloadedActions) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

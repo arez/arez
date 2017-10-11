@@ -38,4 +38,16 @@ public final class Arez_FloatComponentId extends FloatComponentId implements Dis
   public final int hashCode() {
     return Float.hashCode( getId() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_FloatComponentId) ) {
+      return false;
+    } else {
+      final Arez_FloatComponentId that = (Arez_FloatComponentId) o;;
+      return getId() == that.getId();
+    }
+  }
 }

@@ -38,4 +38,16 @@ public final class Arez_ByteComponentId extends ByteComponentId implements Dispo
   public final int hashCode() {
     return Byte.hashCode( getId() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_ByteComponentId) ) {
+      return false;
+    } else {
+      final Arez_ByteComponentId that = (Arez_ByteComponentId) o;;
+      return getId() == that.getId();
+    }
+  }
 }

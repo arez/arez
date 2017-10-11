@@ -62,4 +62,16 @@ public final class Arez_PostConstructModel extends PostConstructModel implements
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_PostConstructModel) ) {
+      return false;
+    } else {
+      final Arez_PostConstructModel that = (Arez_PostConstructModel) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

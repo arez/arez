@@ -99,4 +99,16 @@ public final class Arez_SubpackageModel extends SubpackageModel implements Dispo
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_SubpackageModel) ) {
+      return false;
+    } else {
+      final Arez_SubpackageModel that = (Arez_SubpackageModel) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

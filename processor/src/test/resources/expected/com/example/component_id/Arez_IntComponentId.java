@@ -38,4 +38,16 @@ public final class Arez_IntComponentId extends IntComponentId implements Disposa
   public final int hashCode() {
     return Integer.hashCode( getId() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_IntComponentId) ) {
+      return false;
+    } else {
+      final Arez_IntComponentId that = (Arez_IntComponentId) o;;
+      return getId() == that.getId();
+    }
+  }
 }

@@ -68,4 +68,16 @@ public final class Arez_ObservableWithSpecificExceptionModel extends ObservableW
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_ObservableWithSpecificExceptionModel) ) {
+      return false;
+    } else {
+      final Arez_ObservableWithSpecificExceptionModel that = (Arez_ObservableWithSpecificExceptionModel) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
+    }
+  }
 }

@@ -38,4 +38,16 @@ public final class Arez_BooleanComponentId extends BooleanComponentId implements
   public final int hashCode() {
     return Boolean.hashCode( getId() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_BooleanComponentId) ) {
+      return false;
+    } else {
+      final Arez_BooleanComponentId that = (Arez_BooleanComponentId) o;;
+      return getId() == that.getId();
+    }
+  }
 }

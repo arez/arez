@@ -38,4 +38,16 @@ public final class Arez_LongComponentId extends LongComponentId implements Dispo
   public final int hashCode() {
     return Long.hashCode( getId() );
   }
+
+  @Override
+  public final boolean equals(final Object o) {
+    if ( this == o ) {
+      return true;
+    } else if ( null == o || !(o instanceof Arez_LongComponentId) ) {
+      return false;
+    } else {
+      final Arez_LongComponentId that = (Arez_LongComponentId) o;;
+      return getId() == that.getId();
+    }
+  }
 }
