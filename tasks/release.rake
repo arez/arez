@@ -22,12 +22,11 @@ task 'perform_release' do
   in_dir(WORKSPACE_DIR) do
     stage('ExtractVersion', 'Extract the last version from CHANGELOG.md and derive next version unless specified', :always_run => true) do
       changelog = IO.read('CHANGELOG.md')
-      last_version = changelog[/^## \[v(\d+\.\d+)\]/,1]
-      ENV['PREVIOUS_PRODUCT_VERSION'] = last_version
+      ENV['PREVIOUS_PRODUCT_VERSION'] ||= changelog[/^### \[v(\d+\.\d+)\]/,1]
 
       next_version = ENV['PRODUCT_VERSION']
       unless next_version
-        version_parts = last_version.split('.')
+        version_parts = ENV['PREVIOUS_PRODUCT_VERSION'].split('.')
         next_version = "#{version_parts[0]}.#{sprintf('%02d', version_parts[1].to_i + 1)}"
         ENV['PRODUCT_VERSION'] = next_version
       end
@@ -47,8 +46,8 @@ task 'perform_release' do
 
     stage('PatchChangelog', 'Patch the changelog to update from previous release') do
       changelog = IO.read('CHANGELOG.md')
-      changelog = changelog.gsub("## Unreleased\n",<<HEADER)
-## [v#{ENV['PRODUCT_VERSION']}](https://github.com/realityforge/arez/tree/v#{ENV['PRODUCT_VERSION']}) (#{ENV['RELEASE_DATE']})
+      changelog = changelog.gsub("### Unreleased\n",<<HEADER)
+### [v#{ENV['PRODUCT_VERSION']}](https://github.com/realityforge/arez/tree/v#{ENV['PRODUCT_VERSION']}) (#{ENV['RELEASE_DATE']})
 [Full Changelog](https://github.com/realityforge/arez/compare/v#{ENV['PREVIOUS_PRODUCT_VERSION']}...v#{ENV['PRODUCT_VERSION']})
 HEADER
       IO.write('CHANGELOG.md', changelog)
@@ -58,7 +57,33 @@ HEADER
       sh 'git commit -m "Update CHANGELOG.md in preparation for release"'
     end
 
-    # TODO: Update _posts with new release
+    stage('PatchWebsite', 'Update the website with a post announcing release') do
+      changelog = IO.read('CHANGELOG.md')
+
+      # Find the double new line after the product version banner
+      start_index = changelog.index("\n\n", changelog.index("## [v#{ENV['PRODUCT_VERSION']}]")) + 2
+
+      end_index = changelog.index("### [v#{ENV['PREVIOUS_PRODUCT_VERSION']}]", start_index)
+
+      filename = "docs/_posts/#{ENV['RELEASE_DATE']}-version-#{ENV['PRODUCT_VERSION']}-release.md"
+      IO.write(filename, <<CONTENT)
+---
+title: Arez #{ENV['PRODUCT_VERSION']} released
+type: minor
+---
+
+Arez #{ENV['PRODUCT_VERSION']} released.
+
+[Full Changelog](https://github.com/realityforge/arez/compare/v#{ENV['PREVIOUS_PRODUCT_VERSION']}...v#{ENV['PRODUCT_VERSION']})
+
+Changes in this release:
+
+#{changelog[start_index, end_index - start_index]}
+CONTENT
+      sh 'git reset 2>&1 1> /dev/null'
+      sh "git add #{filename}"
+      sh "git commit -m \"Update site to add new about the #{ENV['PRODUCT_VERSION']} release\""
+    end
 
     stage('BuildWebsite', 'Build the website to ensure site still builds') do
       task('site:build').invoke
