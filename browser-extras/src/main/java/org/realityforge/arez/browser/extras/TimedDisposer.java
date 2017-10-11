@@ -23,6 +23,7 @@ public final class TimedDisposer
    *
    * @param target  the element to dispose on timeout.
    * @param timeout the time to wait before disposing component.
+   * @return the new timed disposer.
    */
   @Nonnull
   public static TimedDisposer create( @Nonnull final Disposable target,
