@@ -27,7 +27,6 @@ complete as there is too much un-said.
 * Consider an abstraction like https://github.com/danielearwicker/computed-async-mobx/
 
 * Add component integration tests
-  - Verify that @Autorun scheduled after postConstruct
   - Verify @Observables are not accessible outside transaction
   - Verify @Computed are not accessible outside transaction
 
