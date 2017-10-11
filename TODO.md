@@ -47,8 +47,6 @@ complete as there is too much un-said.
 
 ## Documentation
 
-* Start to document app using Jekyll site. Useful resources include https://learn.cloudcannon.com/
-
 * FAQ:
   - must read/write properties using observable methods otherwise they are not tracked. Very important
     if you want to be notified or want to notify downstream observers
