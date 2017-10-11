@@ -76,8 +76,6 @@ title: Arez #{ENV['PRODUCT_VERSION']} released
 type: minor
 ---
 
-Arez #{ENV['PRODUCT_VERSION']} released.
-
 [Full Changelog](https://github.com/realityforge/arez/compare/v#{ENV['PREVIOUS_PRODUCT_VERSION']}...v#{ENV['PRODUCT_VERSION']})
 
 Changes in this release:
