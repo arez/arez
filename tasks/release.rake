@@ -35,6 +35,10 @@ task 'perform_release' do
       ENV['RELEASE_DATE'] ||=  Time.now.strftime('%Y-%m-%d')
     end
 
+    stage('ZapWhite', 'Ensure that zapwhite produces no changes') do
+      sh 'bundle exec zapwhite'
+    end
+
     stage('GitClean', 'Ensure there is nothing to commit and the working tree is clean') do
       status_output = `git status -s 2>&1`.strip
       raise 'Uncommitted changes in git repository. Please commit them prior to release.' if 0 != status_output.size
@@ -80,6 +84,7 @@ Changes in this release:
 
 #{changelog[start_index, end_index - start_index]}
 CONTENT
+      `bundle exec zapwhite`
       sh 'git reset 2>&1 1> /dev/null'
       sh "git add #{filename}"
       sh "git commit -m \"Update site to add new about the #{ENV['PRODUCT_VERSION']} release\""
@@ -103,6 +108,7 @@ CONTENT
 HEADER
       IO.write('CHANGELOG.md', changelog)
 
+      `bundle exec zapwhite`
       sh 'git add CHANGELOG.md'
       sh 'git commit -m "Update CHANGELOG.md in preparation for next development iteration"'
     end
