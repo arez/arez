@@ -5,6 +5,64 @@ order: 1
 toc: true
 ---
 
+### Application Development
+
+#### Why are @Autorun methods not being re-run when observable properties?
+
+Arez only re-runs `@Autorun` methods if it is told that an observable property that is a dependency of the
+`@Autorun` method is changed. Assuming you are using classes annotated with `@ArezComponent` then this means
+that the code must:
+
+* mutate the property using the setter method to mark the property as changed. The generated code ultimately calls
+  the [Observable.reportChanged()]({% api_url Observable reportChanged() %}) method to mark the property as changed.
+* access the property using the getter method.. The generated code ultimately calls the
+  [Observable.reportObserved()]({% api_url Observable reportObserved() %}) method to mark the property as observed.
+  This will add it as a dependency to the containing `@Autorun` method.
+
+Typically this problem arises when you mutate field directly within the same class. Consider this problematic code
+snippet:
+
+```java
+  @Observable
+  public int getRemainingRides()
+  {
+    return _remainingRides;
+  }
+
+  public void setRemainingRides( int remainingRides )
+  {
+    _remainingRides = remainingRides;
+  }
+
+  @Action
+  public void rideTrain()
+  {
+    _remainingRides = _remainingRides - 1;
+  }
+```
+
+Compare it to this code that correctly notifies observers that the `remainingRides` property has updated. The only
+difference is how the state is mutated within `rideTrain()` method.
+
+```java
+  @Observable
+  public int getRemainingRides()
+  {
+    return _remainingRides;
+  }
+
+  public void setRemainingRides( int remainingRides )
+  {
+    _remainingRides = remainingRides;
+  }
+
+  @Action
+  public void rideTrain()
+  {
+    setRemainingRides( getRemainingRides() - 1 );
+  }
+```
+
 ### Library Design
 
 #### Why do the change events/notifications not include a description of the change?

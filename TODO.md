@@ -30,10 +30,6 @@ complete as there is too much un-said.
 
 ## Documentation
 
-* FAQ:
-  - must read/write properties using observable methods otherwise they are not tracked. Very important
-    if you want to be notified or want to notify downstream observers
-
 * Note in documentation that poor error messages are a bug. Please report them
 
 * Change error message "Attempting to get current transaction but no transaction is active." to indicate why
