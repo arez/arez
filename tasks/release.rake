@@ -81,6 +81,11 @@ HEADER
       sh 'git add CHANGELOG.md'
       sh 'git commit -m "Update CHANGELOG.md in preparation for next development iteration"'
     end
+
+    stage('PushChanges', 'Push changes to git repository') do
+      sh 'git push'
+      sh 'git push --tags'
+    end
   end
 
   if ENV['STAGE']
