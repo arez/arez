@@ -2,7 +2,7 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/single_intermediate_layout'
 
-PROVIDED_DEPS = [:javax_jsr305, :jetbrains_annotations, :anodoc]
+PROVIDED_DEPS = [:javax_jsr305, :anodoc]
 COMPILE_DEPS = []
 OPTIONAL_DEPS = []
 TEST_DEPS = [:guiceyloops]
@@ -97,7 +97,7 @@ define 'arez' do
   end
 
   define 'browser-extras' do
-    pom.provided_dependencies.concat PROVIDED_DEPS
+    pom.provided_dependencies.concat PROVIDED_DEPS + [:jetbrains_annotations]
 
     compile.with project('annotations').package(:jar, :classifier => :gwt),
                  project('annotations').compile.dependencies,
@@ -107,6 +107,7 @@ define 'arez' do
                  project('extras').compile.dependencies,
                  project('processor').package(:jar),
                  project('processor').compile.dependencies,
+                 :jetbrains_annotations,
                  GWT_DEPS
 
     test.options[:properties] = AREZ_TEST_OPTIONS
