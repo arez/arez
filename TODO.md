@@ -18,9 +18,6 @@ complete as there is too much un-said.
 
 * Move MavenCentralPublishTool to separate gem once finished.
 
-* Move Unsupported annotation to a separate "anodoc" project. Expand it to @Beta, @Alpha etc.
-  Also add `@TestOnly` and `@VisibleForTest`
-
 * Enhance WhyRun and write tests for it.
 
 * Explicitly add component (a.k.a. scope) to Actions, ComputedValue, Observables etc. Useful in a future DevTools?

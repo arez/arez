@@ -4,4 +4,4 @@
 @Unsupported( "These utilities are based on unsupported core.spy package and are expected to evolve as needs dictate" )
 package org.realityforge.arez.extras.spy;
 
-import org.realityforge.arez.Unsupported;
+import org.realityforge.anodoc.Unsupported;

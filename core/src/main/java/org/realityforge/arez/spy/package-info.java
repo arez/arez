@@ -7,4 +7,4 @@
 @Unsupported( "This services is primary here to support DevTools and will evolve as requirements dictate" )
 package org.realityforge.arez.spy;
 
-import org.realityforge.arez.Unsupported;
+import org.realityforge.anodoc.Unsupported;

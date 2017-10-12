@@ -2,7 +2,7 @@ package org.realityforge.arez;
 
 import java.lang.reflect.Field;
 import javax.annotation.Nonnull;
-import org.jetbrains.annotations.TestOnly;
+import org.realityforge.anodoc.TestOnly;
 
 /**
  * Utility class for interacting with Arez config settings in tests.

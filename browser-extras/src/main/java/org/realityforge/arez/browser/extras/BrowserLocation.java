@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 import jsinterop.base.JsPropertyMap;
 import jsinterop.base.JsPropertyMapOfAny;
-import org.realityforge.arez.Unsupported;
+import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Observable;

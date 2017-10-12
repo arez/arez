@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+##### Changed
+* Added `org.realityforge.anodoc:anodoc:jar:1.0.0` as a dependency of the project to replace usage of
+  `org.realityforge.arez.Unsupported` and `org.realityforge.arez.annotations.Unsupported` with
+  `org.realityforge.anodoc.Unsupported` and `org.jetbrains.annotations.TestOnly` with
+  `org.realityforge.anodoc.TestOnly` as easies to enhance and share between other projects.
+
 ### [v0.11](https://github.com/realityforge/arez/tree/v0.11) (2017-10-11)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.10...v0.11)
 

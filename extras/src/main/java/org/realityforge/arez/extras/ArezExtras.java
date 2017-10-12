@@ -2,12 +2,12 @@ package org.realityforge.arez.extras;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.jetbrains.annotations.TestOnly;
+import org.realityforge.anodoc.TestOnly;
+import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.Node;
 import org.realityforge.arez.Procedure;
 import org.realityforge.arez.SafeFunction;
-import org.realityforge.arez.Unsupported;
 
 /**
  * Simplified interface for interacting with extras package.

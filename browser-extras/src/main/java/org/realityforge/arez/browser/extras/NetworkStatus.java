@@ -3,7 +3,7 @@ package org.realityforge.arez.browser.extras;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.Unsupported;
+import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Computed;

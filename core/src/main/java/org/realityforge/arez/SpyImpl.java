@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.jetbrains.annotations.TestOnly;
+import org.realityforge.anodoc.TestOnly;
 import org.realityforge.arez.spy.TransactionInfo;
 import static org.realityforge.braincheck.Guards.*;
 

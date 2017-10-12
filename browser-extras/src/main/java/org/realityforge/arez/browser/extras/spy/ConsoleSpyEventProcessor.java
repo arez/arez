@@ -3,7 +3,7 @@ package org.realityforge.arez.browser.extras.spy;
 import elemental2.core.Global;
 import elemental2.dom.DomGlobal;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.Unsupported;
+import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.extras.spy.AbstractSpyEventProcessor;
 import org.realityforge.arez.extras.spy.SpyUtil;
 import org.realityforge.arez.spy.ActionCompletedEvent;

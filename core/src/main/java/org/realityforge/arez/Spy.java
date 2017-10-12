@@ -2,6 +2,7 @@ package org.realityforge.arez;
 
 import java.util.List;
 import javax.annotation.Nonnull;
+import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.spy.TransactionInfo;
 
 /**

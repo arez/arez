@@ -3,6 +3,7 @@ package org.realityforge.arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
+import org.realityforge.anodoc.Unsupported;
 
 /**
  * Annotate the method that will be overridden to return the value of ArezComponent.name().

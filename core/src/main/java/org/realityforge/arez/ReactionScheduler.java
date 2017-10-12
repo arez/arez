@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import org.jetbrains.annotations.TestOnly;
+import org.realityforge.anodoc.TestOnly;
 import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 

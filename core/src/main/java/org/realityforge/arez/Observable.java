@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.jetbrains.annotations.TestOnly;
+import org.realityforge.anodoc.TestOnly;
 import org.realityforge.arez.spy.ComputedValueActivatedEvent;
 import org.realityforge.arez.spy.ComputedValueDeactivatedEvent;
 import org.realityforge.arez.spy.ObservableChangedEvent;

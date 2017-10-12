@@ -5,7 +5,7 @@ import elemental2.promise.Promise;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import jsinterop.base.Js;
-import org.realityforge.arez.Unsupported;
+import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Observable;

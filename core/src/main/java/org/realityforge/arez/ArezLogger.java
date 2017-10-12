@@ -3,7 +3,7 @@ package org.realityforge.arez;
 import java.util.logging.Level;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.jetbrains.annotations.TestOnly;
+import org.realityforge.anodoc.TestOnly;
 
 /**
  * Log abstraction for framework.

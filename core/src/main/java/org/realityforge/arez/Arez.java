@@ -2,7 +2,8 @@ package org.realityforge.arez;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.jetbrains.annotations.TestOnly;
+import org.realityforge.anodoc.TestOnly;
+import org.realityforge.anodoc.Unsupported;
 import static org.realityforge.braincheck.Guards.*;
 
 /**

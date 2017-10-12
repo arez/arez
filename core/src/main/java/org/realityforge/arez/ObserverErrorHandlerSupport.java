@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.jetbrains.annotations.TestOnly;
+import org.realityforge.anodoc.TestOnly;
 import static org.realityforge.braincheck.Guards.*;
 
 /**

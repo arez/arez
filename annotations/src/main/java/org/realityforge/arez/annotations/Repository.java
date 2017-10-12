@@ -4,6 +4,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
+import org.realityforge.anodoc.Unsupported;
 
 /**
  * Annotation that indicates that a repository must be generated for component.
