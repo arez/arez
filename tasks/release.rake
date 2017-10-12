@@ -82,8 +82,10 @@ Changes in this release:
 
 #{changelog[start_index, end_index - start_index]}
 CONTENT
-      `bundle exec zapwhite`
       sh 'git reset 2>&1 1> /dev/null'
+      sh "git add #{filename}"
+      # Zapwhite only runs agains files added to git so we have to do this dance
+      `bundle exec zapwhite`
       sh "git add #{filename}"
       sh "git commit -m \"Update site to add new about the #{ENV['PRODUCT_VERSION']} release\""
     end
