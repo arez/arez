@@ -148,6 +148,7 @@ define 'arez' do
     package(:javadoc)
 
     test.using :testng
+    test.options[:properties] = {'arez.fixture_dir' => _('src/test/resources')}
     test.compile.with TEST_DEPS
 
     iml.test_source_directories << _('src/test/resources/input')
