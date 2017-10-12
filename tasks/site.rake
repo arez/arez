@@ -37,7 +37,7 @@ task 'site:link_check' do
   begin
     sh "yarn blc --ordered --recursive  --filter-level 3 http://#{address}:#{port}/arez"
     # It does not follow frames in javadocs so run a separate pass over page that checks all javadocs
-    sh "yarn blc --ordered --recursive  --filter-level 3 http://#{address}:#{port}/arez/api/index-all.html"
+    sh "yarn blc --ordered --recursive --filter-level 3 http://#{address}:#{port}/arez/api/index-all.html"
   ensure
     webserver.shutdown
   end
