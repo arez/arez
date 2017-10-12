@@ -14,6 +14,7 @@
   `org.realityforge.anodoc.TestOnly` as easies to enhance and share between other projects.
 * Moved dependency on `org.jetbrains:annotations:jar:15.0` to `browser-extras` project as that is the
   only place it continues to be used.
+* Upgraded `braincheck` dependency to remove transitive dependency on `org.jetbrains:annotations:jar`.
 
 ### [v0.11](https://github.com/realityforge/arez/tree/v0.11) (2017-10-11)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.10...v0.11)
