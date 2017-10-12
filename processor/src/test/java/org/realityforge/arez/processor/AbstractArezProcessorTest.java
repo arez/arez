@@ -93,7 +93,7 @@ abstract class AbstractArezProcessorTest
   void assertSuccessfulCompile( @Nonnull final String inputResource, @Nonnull final String... expectedOutputResources )
     throws Exception
   {
-    final JavaFileObject source = JavaFileObjects.forResource( inputResource );
+    final JavaFileObject source = fixture( inputResource );
     assertSuccessfulCompile( Collections.singletonList( source ), Arrays.asList( expectedOutputResources ) );
   }
 
@@ -121,7 +121,7 @@ abstract class AbstractArezProcessorTest
         Files.copy( fileObject.openInputStream(), target );
       }
     }
-    final JavaFileObject firstExpected = JavaFileObjects.forResource( outputs.get( 0 ) );
+    final JavaFileObject firstExpected = fixture( outputs.get( 0 ) );
     final JavaFileObject[] restExpected =
       outputs.stream().skip( 1 ).map( JavaFileObjects::forResource ).
         collect( Collectors.toList() ).
@@ -153,7 +153,7 @@ abstract class AbstractArezProcessorTest
                                             @Nonnull final String errorMessageFragment )
     throws Exception
   {
-    final JavaFileObject source = JavaFileObjects.forResource( inputResource );
+    final JavaFileObject source = fixture( inputResource );
     assert_().about( JavaSourceSubjectFactory.javaSource() ).
       that( source ).
       processedWith( new ArezProcessor() ).
@@ -161,12 +161,18 @@ abstract class AbstractArezProcessorTest
       withErrorContaining( errorMessageFragment );
   }
 
+  @Nonnull
+  private JavaFileObject fixture( @Nonnull final String path )
+    throws Exception
+  {
+    return JavaFileObjects.forResource( fixtureDir().resolve( path ).toUri().toURL() );
+  }
+
+  @Nonnull
   private Path fixtureDir()
   {
     final String fixtureDir = System.getProperty( "arez.fixture_dir" );
-    assertNotNull( fixtureDir,
-                   "Expected System.getProperty( \"arez.fixture_dir\" ) to return fixture directory if arez.output_fixture_data=true" );
-
+    assertNotNull( fixtureDir, "Expected System.getProperty( \"arez.fixture_dir\" ) to return fixture directory" );
     return new File( fixtureDir ).toPath();
   }
 
