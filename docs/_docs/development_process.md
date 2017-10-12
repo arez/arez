@@ -44,8 +44,9 @@ decoded add the following.
   - eval `ssh-agent -s` && ssh-add ../deploy
 ```
 
-Finally you add the public part of the deploy key to the repository. This is done from the settings page on GitHub.
-Make sure you give the key write access.
+Finally you add the public part of the deploy key to the repository at
+[https://github.com/realityforge/arez/settings/keys](https://github.com/realityforge/arez/settings/keys) and
+make sure you give the key write access.
 
 ### Publishing to Maven Central
 
