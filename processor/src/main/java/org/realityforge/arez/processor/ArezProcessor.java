@@ -18,6 +18,7 @@ import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
@@ -123,6 +124,7 @@ public final class ArezProcessor
       typeElement.getSimpleName().toString() :
       arezComponent.name();
 
+    final List<ExecutableElement> methods = ProcessorUtil.getMethods( typeElement, processingEnv.getTypeUtils() );
     final ComponentDescriptor descriptor =
       new ComponentDescriptor( name,
                                arezComponent.singleton(),
@@ -131,8 +133,7 @@ public final class ArezProcessor
                                packageElement,
                                typeElement );
 
-    descriptor.analyzeCandidateMethods( ProcessorUtil.getMethods( typeElement, processingEnv.getTypeUtils() ),
-                                        processingEnv.getTypeUtils() );
+    descriptor.analyzeCandidateMethods( methods, processingEnv.getTypeUtils() );
     descriptor.validate();
 
     final Repository repository = typeElement.getAnnotation( Repository.class );
