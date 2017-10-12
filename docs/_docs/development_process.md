@@ -34,14 +34,10 @@ Firstly you create the key via the following command. Make sure you use an empty
     $ ssh-keygen -t rsa -b 4096 -C "peter@realityforge.org" -f ../deploy
 
 This is a private key and should NOT be checked into source code repository. Instead an encrypted version
-of the file is checked in via:
+of the file is checked. See the "Encrypting Files for TravisCI" section below for how to do this.
 
-    $ mkdir -p etc
-    $ travis encrypt-file ../deploy etc/deploy
-    $ git add etc/deploy.enc
-
-Then update the travis configuration file as specified by `travis encrypt-file` command and append the following
-lines after the new line.
+Then update the travis configuration file in the `before_install` section and after the encrypted file has been
+decoded add the following.
 
 ```yaml
   - chmod 600 ../deploy
@@ -59,5 +55,41 @@ process so that the last step of the TravisCI build is to run the task `publish_
 current git version is a tag, the artifacts produced by the build will be published to Maven Central.
 
 To enable this we needed to provide encrypted credentials to TravisCI. The easiest way to do this is
-to run the command `travis encrypt MAVEN_CENTRAL_PASSWORD=MyPassword` and add the output under `env.global`
-key in travis configuration. This encrypts the password but makes it available when building on TravisCI.
+to run the commands below and add the output under `env.global` key in the travis configuration.
+This encrypts the password but makes it available when building on TravisCI.
+
+    travis encrypt MAVEN_CENTRAL_PASSWORD=MyPassword
+    travis encrypt GPG_USER=MyGpgUsername
+    travis encrypt GPG_PASS=MyGpgPassword
+
+You also need to provide a gpg key that can be used to sign the releases. To do this export a GPG that
+can be used to sign releases to a file such as `../release.asc`. This should contain the private key and
+should NOT be checked into source code repository. Instead an encrypted version of the file is checked.
+See the "Encrypting Files for TravisCI" section below for how to do this.
+
+Then update the travis configuration file in the `before_install` section and after the encrypted file has been
+decoded add the following.
+
+```yaml
+  - chmod 600 ../release.asc
+  - gpg --import ../release.asc
+```
+
+### Encrypting Files for TravisCI
+
+TravisCI can only decrypt a single file in a build. As soon as you start requiring multiple secret files you need
+to package them into an archive and encrypt the archive. As we need multiple keys to publish to Maven Central
+and publish to GitHub we have been forced to use this strategy.
+
+    $ (cd .. && tar cvf secrets.tar release.asc deploy)
+    $ travis encrypt-file ../secrets.tar etc/secrets
+    $ git add etc/secrets
+
+Then update the travis configuration file as specified by `travis encrypt-file` command and unpack the archive.
+The start of the `before_install` section should look something like:
+
+```yaml
+before_install:
+  - openssl aes-256-cbc -K $encrypted_000000000000_key -iv $encrypted_000000000000_iv -in etc/secrets -out ../secrets.tar -d
+  - (cd ../ && tar xvf secrets.tar)
+```
