@@ -82,6 +82,7 @@ final class ComponentDescriptor
   private final boolean _singleton;
   private final boolean _disposable;
   private final boolean _allowEmpty;
+  private final boolean _generateToString;
   @Nonnull
   private final PackageElement _packageElement;
   @Nonnull
@@ -118,6 +119,7 @@ final class ComponentDescriptor
                        final boolean singleton,
                        final boolean disposable,
                        final boolean allowEmpty,
+                       final boolean generateToString,
                        @Nonnull final PackageElement packageElement,
                        @Nonnull final TypeElement element )
   {
@@ -125,6 +127,7 @@ final class ComponentDescriptor
     _singleton = singleton;
     _disposable = disposable;
     _allowEmpty = allowEmpty;
+    _generateToString = generateToString;
     _packageElement = Objects.requireNonNull( packageElement );
     _element = Objects.requireNonNull( element );
   }
@@ -1049,7 +1052,41 @@ final class ComponentDescriptor
       builder.addMethod( buildEqualsMethod() );
     }
 
+    if ( _generateToString )
+    {
+      builder.addMethod( buildToStringMethod() );
+    }
+
     return builder.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildToStringMethod()
+    throws ArezProcessorException
+  {
+    assert _generateToString;
+
+    final MethodSpec.Builder method =
+      MethodSpec.methodBuilder( "toString" ).
+        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addAnnotation( Override.class ).
+        returns( TypeName.get( String.class ) );
+
+    final CodeBlock.Builder codeBlock = CodeBlock.builder();
+    codeBlock.beginControlFlow( "if ( $N.areNamesEnabled() )", GeneratorUtil.CONTEXT_FIELD_NAME );
+    if ( _singleton )
+    {
+      codeBlock.addStatement( "return $S", "ArezComponent[" + _name + "]" );
+    }
+    else
+    {
+      codeBlock.addStatement( "return $S + $N() + $S", "ArezComponent[", getComponentNameMethodName(), "]" );
+    }
+    codeBlock.nextControlFlow( "else" );
+    codeBlock.addStatement( "return super.toString()" );
+    codeBlock.endControlFlow();
+    method.addCode( codeBlock.build() );
+    return method.build();
   }
 
   @Nonnull

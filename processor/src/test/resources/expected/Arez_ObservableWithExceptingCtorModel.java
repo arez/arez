@@ -79,4 +79,13 @@ public final class Arez_ObservableWithExceptingCtorModel extends ObservableWithE
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[" + $$arez$$_name() + "]";
+    } else {
+      return super.toString();
+    }
+  }
 }

@@ -155,4 +155,13 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
       return null != getComponentId() && getComponentId().equals( that.getComponentId() );
     }
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[" + $$arez$$_name() + "]";
+    } else {
+      return super.toString();
+    }
+  }
 }

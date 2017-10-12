@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+##### Added
+* **\[processor\]** The processor now generates a `toString()` if the `@ArezComponent` annotated class has
+  not overridden to `Object.toString()` method. It is assumed that if the developer has overridden the
+  `Object.toString()` method that they wish to keep that implementation.
+
 ##### Changed
 * Added `org.realityforge.anodoc:anodoc:jar:1.0.0` as a dependency of the project to replace usage of
   `org.realityforge.arez.Unsupported` and `org.realityforge.arez.annotations.Unsupported` with

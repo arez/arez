@@ -218,4 +218,13 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
       this.$$arez$$_v5.reportChanged();
     }
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[DifferentObservableTypesModel]";
+    } else {
+      return super.toString();
+    }
+  }
 }

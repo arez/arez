@@ -47,4 +47,13 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[CompleteRepositoryExampleRepository]";
+    } else {
+      return super.toString();
+    }
+  }
 }

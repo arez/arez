@@ -75,4 +75,13 @@ public final class Arez_BasicActionModel extends BasicActionModel implements Dis
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[" + $$arez$$_name() + "]";
+    } else {
+      return super.toString();
+    }
+  }
 }

@@ -79,4 +79,13 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
     assert !$$arez$$_disposed;
     return this.$$arez$$_someValue.get();
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[DefaultMethodsModel]";
+    } else {
+      return super.toString();
+    }
+  }
 }

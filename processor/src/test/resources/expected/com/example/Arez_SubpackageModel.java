@@ -111,4 +111,13 @@ public final class Arez_SubpackageModel extends SubpackageModel implements Dispo
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[" + $$arez$$_name() + "]";
+    } else {
+      return super.toString();
+    }
+  }
 }

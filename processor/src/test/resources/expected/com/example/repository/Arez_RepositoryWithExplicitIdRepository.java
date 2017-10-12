@@ -47,4 +47,13 @@ public final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWit
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[RepositoryWithExplicitIdRepository]";
+    } else {
+      return super.toString();
+    }
+  }
 }

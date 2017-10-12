@@ -81,4 +81,13 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[RepositoryWithMultipleCtorsRepository]";
+    } else {
+      return super.toString();
+    }
+  }
 }

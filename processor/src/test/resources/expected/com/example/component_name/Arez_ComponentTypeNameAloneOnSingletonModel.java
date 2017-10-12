@@ -50,4 +50,13 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[ComponentTypeNameAloneOnSingletonModel]";
+    } else {
+      return super.toString();
+    }
+  }
 }

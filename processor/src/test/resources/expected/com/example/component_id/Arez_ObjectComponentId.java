@@ -50,4 +50,13 @@ public final class Arez_ObjectComponentId extends ObjectComponentId implements D
       return null != getId() && getId().equals( that.getId() );
     }
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[" + $$arez$$_name() + "]";
+    } else {
+      return super.toString();
+    }
+  }
 }

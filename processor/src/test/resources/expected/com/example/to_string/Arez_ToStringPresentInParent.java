@@ -1,4 +1,4 @@
-package com.example.component_id;
+package com.example.to_string;
 
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -7,19 +7,28 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_CharComponentId extends CharComponentId implements Disposable {
+public final class Arez_ToStringPresentInParent extends ToStringPresentInParent implements Disposable {
+  private static volatile long $$arez$$_nextId;
+
+  private final long $$arez$$_id;
+
   private boolean $$arez$$_disposed;
 
   @Nonnull
   private final ArezContext $$arez$$_context;
 
-  public Arez_CharComponentId() {
+  public Arez_ToStringPresentInParent() {
     super();
     this.$$arez$$_context = Arez.context();
+    this.$$arez$$_id = $$arez$$_nextId++;
+  }
+
+  final long $$arez$$_id() {
+    return $$arez$$_id;
   }
 
   String $$arez$$_name() {
-    return "CharComponentId." + getId();
+    return "ToStringPresentInParent." + $$arez$$_id();
   }
 
   @Override
@@ -36,27 +45,18 @@ public final class Arez_CharComponentId extends CharComponentId implements Dispo
 
   @Override
   public final int hashCode() {
-    return Character.hashCode( getId() );
+    return Long.hashCode( $$arez$$_id() );
   }
 
   @Override
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof Arez_CharComponentId) ) {
+    } else if ( null == o || !(o instanceof Arez_ToStringPresentInParent) ) {
       return false;
     } else {
-      final Arez_CharComponentId that = (Arez_CharComponentId) o;;
-      return getId() == that.getId();
-    }
-  }
-
-  @Override
-  public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
-      return "ArezComponent[" + $$arez$$_name() + "]";
-    } else {
-      return super.toString();
+      final Arez_ToStringPresentInParent that = (Arez_ToStringPresentInParent) o;;
+      return $$arez$$_id() == that.$$arez$$_id();
     }
   }
 }

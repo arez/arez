@@ -50,4 +50,13 @@ public final class Arez_FloatComponentId extends FloatComponentId implements Dis
       return getId() == that.getId();
     }
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[" + $$arez$$_name() + "]";
+    } else {
+      return super.toString();
+    }
+  }
 }

@@ -114,4 +114,13 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
       throw new IllegalStateException( $$arez$$_e );
     }
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[SingletonModel]";
+    } else {
+      return super.toString();
+    }
+  }
 }

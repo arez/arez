@@ -75,4 +75,13 @@ public final class Arez_ComponentNameModel extends ComponentNameModel implements
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }
+
+  @Override
+  public final String toString() {
+    if ( $$arez$$_context.areNamesEnabled() ) {
+      return "ArezComponent[" + getComponentName() + "]";
+    } else {
+      return super.toString();
+    }
+  }
 }

@@ -45,6 +45,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.repository.RepositoryWithExplicitId", true },
         new Object[]{ "com.example.repository.RepositoryWithImplicitId", true },
         new Object[]{ "com.example.repository.RepositoryWithMultipleCtors", true },
+        new Object[]{ "com.example.to_string.NoToStringPresent", false },
+        new Object[]{ "com.example.to_string.ToStringPresent", false },
         new Object[]{ "com.example.tracked.BasicTrackedModel", false },
         new Object[]{ "com.example.tracked.BasicTrackedWithExceptionsModel", false },
         new Object[]{ "com.example.tracked.DeriveOnDepsUpdatedModel", false },
@@ -98,6 +100,17 @@ public class ArezProcessorTest
                              "expected/com/example/repository/NestedModel$Arez_BasicActionModel.java",
                              "expected/com/example/repository/NestedModel$Arez_BasicActionModel.java",
                              "expected/com/example/repository/NestedModel$Arez_BasicActionModel.java" );
+  }
+
+  @Test
+  public void processSuccessfulToStringInPresent()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      JavaFileObjects.forResource( "input/com/example/to_string/ToStringPresentInParent.java" );
+    final JavaFileObject source2 = JavaFileObjects.forResource( "input/com/example/to_string/ParentType.java" );
+    final String output = "expected/com/example/to_string/Arez_ToStringPresentInParent.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
   }
 
   @Test
