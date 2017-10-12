@@ -221,6 +221,7 @@ define 'arez' do
 
   doc.from(projects(%w(arez:annotations arez:core arez:processor arez:extras arez:browser-extras))).using(:javadoc, :windowtitle => 'Arez')
 
+  iml.excluded_directories << project._('node_modules')
   iml.excluded_directories << project._('tmp/gwt')
 
   ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.dynamic_provider=true -Dbraincheck.environment=development -Darez.dynamic_provider=true -Darez.logger=proxy -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources')
