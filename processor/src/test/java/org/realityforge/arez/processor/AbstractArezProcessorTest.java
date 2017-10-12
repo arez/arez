@@ -6,6 +6,7 @@ import com.google.testing.compile.JavaFileObjects;
 import com.google.testing.compile.JavaSourceSubjectFactory;
 import com.google.testing.compile.JavaSourcesSubjectFactory;
 import java.io.File;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -123,7 +124,7 @@ abstract class AbstractArezProcessorTest
     }
     final JavaFileObject firstExpected = fixture( outputs.get( 0 ) );
     final JavaFileObject[] restExpected =
-      outputs.stream().skip( 1 ).map( JavaFileObjects::forResource ).
+      outputs.stream().skip( 1 ).map( this::fixture ).
         collect( Collectors.toList() ).
         toArray( new JavaFileObject[ 0 ] );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
@@ -163,9 +164,15 @@ abstract class AbstractArezProcessorTest
 
   @Nonnull
   private JavaFileObject fixture( @Nonnull final String path )
-    throws Exception
   {
-    return JavaFileObjects.forResource( fixtureDir().resolve( path ).toUri().toURL() );
+    try
+    {
+      return JavaFileObjects.forResource( fixtureDir().resolve( path ).toUri().toURL() );
+    }
+    catch ( final MalformedURLException e )
+    {
+      throw new IllegalStateException( e );
+    }
   }
 
   @Nonnull
