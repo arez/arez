@@ -1,4 +1,4 @@
-package org.realityforge.arez.extras;
+package org.realityforge.arez.extras.spy;
 
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -7,52 +7,44 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
-import org.realityforge.arez.Spy;
 import org.realityforge.arez.spy.TransactionInfo;
 
 @Unsupported( "This class relies on unsupported Spy API and will co-evolve with Spy capabilities." )
 public final class WhyRun
 {
-  @Nonnull
-  private final ArezContext _context;
-
-  public WhyRun( @Nonnull final ArezContext context )
-  {
-    _context = context;
-  }
-
   /**
    * Return a human readable explanation why the current transaction is running.
    * This method will cause an invariant failure if called outside a transaction.
    *
+   * @param context the context to evaluate.
    * @return a human readable explanation why the current transaction is running.
    */
   @Unsupported( "Expect the output format to change and evolve over time as Spy capabilities improve." )
   @Nonnull
-  public String whyRun()
+  public String whyRun( @Nonnull final ArezContext context )
   {
-    if ( !getSpy().isTransactionActive() )
+    assert context.areSpiesEnabled();
+    if ( !context.getSpy().isTransactionActive() )
     {
       return "WhyRun invoked when no active transaction.";
     }
     else
     {
-      final TransactionInfo transaction = getSpy().getTransaction();
-      return whyRun( transaction );
+      final TransactionInfo transaction = context.getSpy().getTransaction();
+      return whyRun( context, transaction );
     }
   }
 
   @Nonnull
-  String whyRun( @Nonnull final TransactionInfo transaction )
+  private String whyRun( @Nonnull final ArezContext context, @Nonnull final TransactionInfo transaction )
   {
     if ( !transaction.isTracking() )
     {
-      return "WhyRun Tracking transaction '" + transaction.getName() + "'.";
+      return "WhyRun transaction '" + transaction.getName() + "' not tracking, must be an action.";
     }
     else
     {
-      //final TransactionInfo transaction = getSpy().getTransaction();
-      return whyRun( transaction.getTracker() );
+      return whyRun( context, transaction.getTracker() );
     }
   }
 
@@ -64,15 +56,15 @@ public final class WhyRun
    */
   @Unsupported( "Expect the output format to change and evolve over time as Spy capabilities improve." )
   @Nonnull
-  public String whyRun( @Nonnull final Observer observer )
+  public String whyRun( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
-    if ( getSpy().isComputedValue( observer ) )
+    if ( context.getSpy().isComputedValue( observer ) )
     {
-      return whyRun( getSpy().asComputedValue( observer ) );
+      return whyRun( context, context.getSpy().asComputedValue( observer ) );
     }
     else
     {
-      return whyRunObserver( observer );
+      return whyRunObserver( context, observer );
     }
   }
 
@@ -83,12 +75,12 @@ public final class WhyRun
    * @return the status description.
    */
   @Nonnull
-  final String describeStatus( @Nonnull final Observer observer )
+  final String describeStatus( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
-    final boolean running = getSpy().isRunning( observer );
+    final boolean running = context.getSpy().isRunning( observer );
     if ( running )
     {
-      final TransactionInfo transaction = getSpy().getTransaction();
+      final TransactionInfo transaction = context.getSpy().getTransaction();
       if ( transaction.isTracking() && transaction.getTracker() == observer )
       {
         return "Running (Current Transaction)";
@@ -102,7 +94,7 @@ public final class WhyRun
     {
       return "Disposed";
     }
-    else if ( getSpy().isScheduled( observer ) )
+    else if ( context.getSpy().isScheduled( observer ) )
     {
       return "Scheduled";
     }
@@ -113,26 +105,26 @@ public final class WhyRun
   }
 
   @Nonnull
-  private String whyRunObserver( @Nonnull final Observer observer )
+  private String whyRunObserver( @Nonnull final ArezContext context, @Nonnull final Observer observer )
   {
     final StringBuilder sb = new StringBuilder();
     sb.append( "WhyRun? Observer '" );
     sb.append( observer.getName() );
     sb.append( "':\n" );
     sb.append( "  Status: " );
-    sb.append( describeStatus( observer ) );
+    sb.append( describeStatus( context, observer ) );
     sb.append( "\n" );
     sb.append( "  Mode: " );
-    sb.append( getSpy().isReadOnly( observer ) ? "read only" : "read-write" );
+    sb.append( context.getSpy().isReadOnly( observer ) ? "read only" : "read-write" );
     sb.append( "\n" );
     sb.append( "  * The Observer will run if any of the following observables change:\n" );
-    for ( final Observable observable : getSpy().getDependencies( observer ) )
+    for ( final Observable observable : context.getSpy().getDependencies( observer ) )
     {
       sb.append( "    - " );
-      describeObservable( sb, observable );
+      describeObservable( sb, context, observable );
       sb.append( "\n" );
     }
-    if ( getSpy().isRunning( observer ) )
+    if ( context.getSpy().isRunning( observer ) )
     {
       sb.append( "    -  (... or any other observable that is accessed in the remainder of the observers transaction)\n" );
     }
@@ -140,12 +132,13 @@ public final class WhyRun
   }
 
   private void describeObservable( @Nonnull final StringBuilder sb,
+                                   @Nonnull final ArezContext context,
                                    @Nonnull final Observable observable )
   {
-    if ( getSpy().isComputedValue( observable ) )
+    if ( context.getSpy().isComputedValue( observable ) )
     {
       sb.append( "ComputedValue '" );
-      sb.append( getSpy().asComputedValue( observable ).getName() );
+      sb.append( context.getSpy().asComputedValue( observable ).getName() );
       sb.append( "'" );
     }
     else
@@ -157,16 +150,16 @@ public final class WhyRun
   }
 
   @Nonnull
-  private String whyRun( @Nonnull final ComputedValue<?> computedValue )
+  private String whyRun( @Nonnull final ArezContext context, @Nonnull final ComputedValue<?> computedValue )
   {
     final StringBuilder sb = new StringBuilder();
     sb.append( "WhyRun? ComputedValue '" );
     sb.append( computedValue.getName() );
     sb.append( "':\n" );
     sb.append( "  * Status: " );
-    if ( getSpy().isActive( computedValue ) )
+    if ( context.getSpy().isActive( computedValue ) )
     {
-      final List<Observer> observers = getSpy().getObservers( computedValue );
+      final List<Observer> observers = context.getSpy().getObservers( computedValue );
       sb.append( "Active (The value is used by" );
       sb.append( observers.size() );
       sb.append( " observers)\n" );
@@ -174,10 +167,10 @@ public final class WhyRun
       for ( final Observer observer : observers )
       {
         sb.append( "    - " );
-        if ( getSpy().isComputedValue( observer ) )
+        if ( context.getSpy().isComputedValue( observer ) )
         {
           sb.append( "ComputedValue '" );
-          sb.append( getSpy().asComputedValue( observer ).getName() );
+          sb.append( context.getSpy().asComputedValue( observer ).getName() );
           sb.append( "'" );
         }
         else
@@ -190,13 +183,13 @@ public final class WhyRun
       }
 
       sb.append( "  * The ComputedValue will recalculate if any of the following observables change\n" );
-      for ( final Observable observable : getSpy().getDependencies( computedValue ) )
+      for ( final Observable observable : context.getSpy().getDependencies( computedValue ) )
       {
         sb.append( "    - " );
-        describeObservable( sb, observable );
+        describeObservable( sb, context, observable );
         sb.append( "\n" );
       }
-      if ( getSpy().isTransactionActive() && getSpy().isComputing( computedValue ) )
+      if ( context.getSpy().isTransactionActive() && context.getSpy().isComputing( computedValue ) )
       {
         sb.append( "    -  (... or any other observable is accessed the remainder of the transaction computing value)\n" );
       }
@@ -210,11 +203,5 @@ public final class WhyRun
       sb.append( "Inactive (The value is not used by any observers)\n" );
     }
     return sb.toString();
-  }
-
-  @Nonnull
-  private Spy getSpy()
-  {
-    return _context.getSpy();
   }
 }
