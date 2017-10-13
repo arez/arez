@@ -88,7 +88,7 @@ methods, ensuring that Arez knows which observable properties the `@Autorun` met
 This means that that any time the `remainingRides` observable property is modified, Arez will execute this method.
 If `remainingRides` is zero then the user will be notified that the ticket has expired.
 
-## Calculated
+## Computed
 
 If you were to put a `System.out.println(...)` call at the top of the `notifyUserWhenTicketExpires()` method you
 would notice that it is called every time that the `remainingRides` observable property is updated. So if
