@@ -5,6 +5,9 @@
 ### [v0.13](https://github.com/realityforge/arez/tree/v0.13) (2017-10-13)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.11...v0.13)
 
+It should be noted that due to a failure in our automation tools, v0.12 was skipped
+as a version.
+
 ##### Added
 * **\[processor\]** The processor now generates a `toString()` if the `@ArezComponent` annotated class has
   not overridden to `Object.toString()` method. It is assumed that if the developer has overridden the
