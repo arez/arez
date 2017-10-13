@@ -25,6 +25,13 @@ complete as there is too much un-said.
   - https://github.com/motion/mobx-formatters
   - https://github.com/andykog/mobx-devtools
 
+## Process
+
+* Generate coverage reports. Probably via jacoco + codecov
+  - https://docs.codecov.io/docs
+  - https://github.com/codecov/example-java
+  - https://github.com/codecov/example-gradle
+
 ## Documentation
 
 * Note in documentation that poor error messages are a bug. Please report them
