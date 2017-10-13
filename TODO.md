@@ -32,6 +32,7 @@ complete as there is too much un-said.
 
 * Generate coverage reports. Probably via jacoco + codecov
   - https://docs.codecov.io/docs
+  - http://www.eclemma.org/jacoco/index.html
   - https://github.com/codecov/example-java
   - https://github.com/codecov/example-gradle
 
