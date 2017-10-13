@@ -25,6 +25,9 @@ complete as there is too much un-said.
   - https://github.com/motion/mobx-formatters
   - https://github.com/andykog/mobx-devtools
 
+* Setup testing with browser. Headless Chrome via selenium? GWT test case?
+  - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
+
 ## Process
 
 * Generate coverage reports. Probably via jacoco + codecov
