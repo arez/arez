@@ -3,7 +3,7 @@
   <inherits name="org.realityforge.arez.ArezDev"/>
   <inherits name="org.realityforge.arez.browser.extras.BrowserExtras"/>
 
-  <source path=""/>
+  <source path="" includes="IntervalTickerExample.java"/>
 
   <entry-point class='org.realityforge.arez.gwt.examples.IntervalTickerExample'/>
 </module>
