@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import jsinterop.base.JsPropertyMap;
 import jsinterop.base.JsPropertyMapOfAny;
+import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.extras.spy.AbstractSpyEventProcessor;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
@@ -28,6 +29,7 @@ import org.realityforge.arez.spy.SerializableEvent;
 import org.realityforge.arez.spy.TransactionCompletedEvent;
 import org.realityforge.arez.spy.TransactionStartedEvent;
 
+@Unsupported
 final class JsonLogSpyEventProcessor
   extends AbstractSpyEventProcessor
 {
