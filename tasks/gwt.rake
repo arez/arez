@@ -1,5 +1,3 @@
-require 'buildr/gwt'
-
 #
 # Enhance the Buildr project to compile gwt sources.
 # For each of the discovered gwt modules, this task will create
@@ -56,12 +54,13 @@ CONTENT
     end
   end
 
+  project.assets.paths.each do |path|
+    j.include("#{path}/*")
+  end
+
   project.package(:jar).tap do |j|
     extra_deps.each do |dep|
       j.include("#{dep}/*")
-    end
-    project.assets.paths.each do |path|
-      j.include("#{path}/*")
     end
     j.include("#{project._(:source, :main, :java)}/*")
   end if package_jars
