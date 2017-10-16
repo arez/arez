@@ -9,6 +9,7 @@ require 'buildr/gwt'
 #
 def gwt_enhance(project, options = {})
   modules_complete = !!options[:modules_complete]
+  package_jars = !!options[:package_jars]
 
   extra_deps = project.iml.main_generated_resource_directories.flatten.compact.collect do |a|
     a.is_a?(String) ? file(a) : a
@@ -55,7 +56,7 @@ CONTENT
     end
   end
 
-  project.package(:jar, :classifier => :gwt).tap do |j|
+  project.package(:jar).tap do |j|
     extra_deps.each do |dep|
       j.include("#{dep}/*")
     end
@@ -63,7 +64,7 @@ CONTENT
       j.include("#{path}/*")
     end
     j.include("#{project._(:source, :main, :java)}/*")
-  end
+  end if package_jars
 
   config = {}
   gwt_modules.each do |gwt_module|
