@@ -38,6 +38,8 @@ complete as there is too much un-said.
 
 ## Documentation
 
+* Patch docs/index.md from README.md ... or vice-versa?
+
 * Note in documentation that poor error messages are a bug. Please report them
 
 * Change error message "Attempting to get current transaction but no transaction is active." to indicate why
