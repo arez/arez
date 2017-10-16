@@ -221,7 +221,18 @@ define 'arez' do
     iml.main_source_directories << _('generated/processors/main/java')
   end
 
-  doc.from(projects(%w(arez:annotations arez:core arez:processor arez:extras arez:browser-extras))).using(:javadoc, :windowtitle => 'Arez')
+  doc.from(projects(%w(annotations core processor extras browser-extras))).
+    using(:javadoc,
+          :windowtitle => 'Arez API Documentation',
+          :linksource => true,
+          :link => %w(https://docs.oracle.com/javase/8/docs/api http://www.gwtproject.org/javadoc/latest/),
+          :group => {
+            'Core Packages' => 'org.realityforge.arez:org.realityforge.arez.spy*',
+            'Annotation Packages' => 'org.realityforge.arez.annotations*:org.realityforge.arez.processor*',
+            'Extras Packages' => 'org.realityforge.arez.extras*',
+            'Browser Extras Packages' => 'org.realityforge.arez.browser*'
+          }
+    )
 
   iml.excluded_directories << project._('node_modules')
   iml.excluded_directories << project._('tmp/gwt')

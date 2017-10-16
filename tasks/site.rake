@@ -35,7 +35,7 @@ task 'site:link_check' do
 
   trap('INT') {webserver.shutdown}
   begin
-    sh "yarn blc --ordered --recursive --filter-level 3 http://#{address}:#{port}/arez --exclude https://github.com/realityforge/arez/compare/ --exclude https://github.com/realityforge/arez/settings"
+    sh "yarn blc --ordered --recursive --filter-level 3 http://#{address}:#{port}/arez --exclude https://github.com/realityforge/arez/compare/ --exclude https://github.com/realityforge/arez/settings --exclude https://docs.oracle.com/javase/8/docs/api"
     # It does not follow frames in javadocs so run a separate pass over page that checks all javadocs
     sh "yarn blc --ordered --recursive --filter-level 3 http://#{address}:#{port}/arez/api/index-all.html"
   ensure
