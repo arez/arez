@@ -11,6 +11,8 @@ the view needs to be re-rendered. Arez also optimizes for developer efficiency b
 for the developer to monitor or even think about when state changes and instead react to those changes
 on demand.
 
+For more information about Arez, please see the [Website](http://realityforge.org/arez/).
+
 ## Architecture v2 Notes
 
 An Arez application consists of `observable` values that can change over time. `Observers` watch the
