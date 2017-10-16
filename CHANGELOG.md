@@ -6,6 +6,9 @@
 * **\[browser-extras\]** Introduce the [`BrowserSpyUtil`](http://realityforge.org/arez/api/org/realityforge/arez/browser/extras/spy/BrowserSpyUtil.html)
   util class that helps enabling and disabling a singleton console logging spy.
 
+##### Changed
+* **\[extras\]** Moved `WhyRun` from the package `org.realityforge.arez.extras` to `org.realityforge.arez.extras.spy`.
+
 ### [v0.13](https://github.com/realityforge/arez/tree/v0.13) (2017-10-13)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.11...v0.13)
 
