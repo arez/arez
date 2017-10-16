@@ -49,6 +49,10 @@ are passivatable observers that call methods that are wrapped in a non-writeable
 
 # Credit
 
+* [Stock Software](http://www.stocksoftware.com.au/) for providing significant support in building and maintaining
+  Arez. The company was willing take a risk and base their next suite of applications on an idea and the
+  bet paid off. 
+
 * The toolkit began life as an attempt to port [Mobx](https://mobx.js.org/) to java. Not all of the Mobx
   primitives made sense in a java world. There were also places where it was felt that we could improve on
   the Mobx model, at least for our environment. The idea of a "port" was soon discarded and Arez became a
