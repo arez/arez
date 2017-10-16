@@ -19,42 +19,6 @@ changes on demand.
 
 For more information about Arez, please see the [Website](http://realityforge.org/arez/).
 
-## Architecture v2 Notes
-
-An Arez application consists of `observable` values that can change over time. `Observers` watch the
-`observable` values and receive notifications when the `observable` values change. The observers implicitly
-subscribe to change notifications by accessing the observable within a `tracking` transaction. (The observer
-associated with a tracking transaction is called the `Tracker`.) `Observable` values can only be read within
-the scope of a transaction. `Observable` values can only be modified within the scope of a `writeable`
-transaction. Transactions can be nested.
-
-Arez has the concept of a `ComputedValue` which is an `observable` value that is derived from other
-`observable` values. A `ComputedValue` is both an observable and an observer. However the calculation
-of the value can be passivated and not derived if there is no observers of the value. It is the mechanism
-via which Arez implements the memoization optimization technique.
-
-`Observers` can receive change notifications in a few ways;
-
-* `ComputedValue` sends a message indicating that it is `POSSIBLY_STALE` (i.e. May have changed).
-* `Observables` can send a message indicating that it is `STALE` (i.e. Has definitely changed).
-* `Observables` can send a message indicating how it was changed. (i.e. Value has changed from `1` to `2`, or array index 3 was deleted).
-
-`Observers` are typically notified at the completion of the top level transaction but may be notified
-immediately on change. `ComputedValue` values are notified immediately but will not recalculate unless
-accessed again or if the top-level transaction completes and they are not passivated.
-
-Most of the `Observers` in the Arez system are active and will be scheduled to receive notifications when
-the top level transaction is completed.
-
-* _actions_: the methods responsible for changing the observable state.
-* _reactions_: the methods executed if any observable state accessed within the method changes.
-* _computations_: the methods that produce an observable value that will be executed if any observable
-  state accessed within the method changes and any observer is observing resultant observable value.
-
-*Actions* are methods that are wrapped in a non-tracking, writeable transaction. *Reactions* are observers
-that call methods that are wrapped in a tracking transaction that may or may not be writeable. *Computations*
-are passivatable observers that call methods that are wrapped in a non-writeable, tracking transaction.
-
 # Credit
 
 * [Stock Software](http://www.stocksoftware.com.au/) for providing significant support in building and maintaining
