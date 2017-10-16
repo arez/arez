@@ -13,7 +13,7 @@ should occur automatically and only when it is needed. This means that applicati
 network communication, data storage etc. should be driven by changes in application state.
 
 The goal of Arez is to avoid costly reactions to state changes such as re-rendering views unless the underlying
-data actually changes and the view needs to be re-rendered. Arez also optimizes for developer efficiency by
+data actually changes and the view needs to be re-rendered. Arez also optimizes for developer joy and efficiency by
 eliminating the need for the developer to monitor or even think about when state changes and instead react to those
 changes on demand.
 
