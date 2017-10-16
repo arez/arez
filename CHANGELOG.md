@@ -1,6 +1,6 @@
 # Change Log
 
-## Unreleased
+### Unreleased
 
 ##### Added
 * **\[browser-extras\]** Introduce the [`BrowserSpyUtil`](http://realityforge.org/arez/api/org/realityforge/arez/browser/extras/spy/BrowserSpyUtil.html)
