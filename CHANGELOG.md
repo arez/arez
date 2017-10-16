@@ -4,7 +4,7 @@
 
 ##### Added
 * **\[browser-extras\]** Introduce the [`BrowserSpyUtil`](http://realityforge.org/arez/api/org/realityforge/arez/browser/extras/spy/BrowserSpyUtil.html)
-  util class that helps enabling and disabling a singletong console logging spy.
+  util class that helps enabling and disabling a singleton console logging spy.
 
 ### [v0.13](https://github.com/realityforge/arez/tree/v0.13) (2017-10-13)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.11...v0.13)
