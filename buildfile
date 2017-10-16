@@ -225,6 +225,7 @@ define 'arez' do
 
   iml.excluded_directories << project._('node_modules')
   iml.excluded_directories << project._('tmp/gwt')
+  iml.excluded_directories << project._('tmp')
 
   ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.dynamic_provider=true -Dbraincheck.environment=development -Darez.dynamic_provider=true -Darez.logger=proxy -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources')
   ipr.add_component_from_artifact(:idea_codestyle)
