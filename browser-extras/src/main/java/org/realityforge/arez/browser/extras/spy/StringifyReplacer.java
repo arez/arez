@@ -6,7 +6,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import jsinterop.base.Js;
 import jsinterop.base.JsArrayLike;
+import jsinterop.base.JsArrayLikeOfAny;
 import jsinterop.base.JsPropertyMap;
+import jsinterop.base.JsPropertyMapOfAny;
 
 /**
  * Utility class that helps convert javascript values to strings for JSON.stringify method.
@@ -14,7 +16,7 @@ import jsinterop.base.JsPropertyMap;
  */
 public class StringifyReplacer
 {
-  private final JsArrayLike<Object> _array = Js.asArrayLike( Array.of() );
+  private final JsArrayLikeOfAny _array = JsArrayLike.of( Array.of() );
 
   /**
    * Return the transformed value for key-value pair.
@@ -36,7 +38,7 @@ public class StringifyReplacer
     }
     else if ( Js.typeof( value ).equals( "function" ) )
     {
-      return Js.asPropertyMap( value ).get( "name" );
+      return JsPropertyMap.of( value ).get( "name" );
     }
     else if ( !Js.typeof( value ).equals( "object" ) )
     {
@@ -54,10 +56,10 @@ public class StringifyReplacer
       _array.setAt( _array.getLength(), value );
 
       final String[] propertyNames = getPropertyNames( value );
-      final JsPropertyMap<Object> map = JsPropertyMap.of();
+      final JsPropertyMapOfAny map = JsPropertyMap.of();
       for ( final String propertyName : propertyNames )
       {
-        map.set( propertyName, Js.asPropertyMap( value ).getAny( propertyName ) );
+        map.set( propertyName, JsPropertyMap.of( value ).getAny( propertyName ) );
       }
       return map;
     }
