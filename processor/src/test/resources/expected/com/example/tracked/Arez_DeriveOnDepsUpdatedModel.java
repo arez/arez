@@ -6,6 +6,7 @@ import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observer;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_DeriveOnDepsUpdatedModel extends DeriveOnDepsUpdatedModel implements Disposable {
@@ -51,8 +52,8 @@ public final class Arez_DeriveOnDepsUpdatedModel extends DeriveOnDepsUpdatedMode
 
   @Override
   public void render(final long time, final float someOtherParameter) {
-    assert !$$arez$$_disposed;
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeTrack( this.$$arez$$_render, () -> super.render(time,someOtherParameter), time, someOtherParameter );
     } catch( final RuntimeException $$arez$$_e ) {

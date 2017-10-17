@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_RepositoryWithMultipleCtorsRepository extends RepositoryWithMultipleCtorsRepository implements Disposable {
@@ -34,7 +35,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
   @Nonnull
   @Override
   public RepositoryWithMultipleCtors create(@Nonnull final String packageName, @Nonnull final String name) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
       return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -51,7 +52,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
   @Nonnull
   @Override
   public RepositoryWithMultipleCtors create() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
       return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_" : null, true, () -> super.create() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -68,7 +69,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
   @Nonnull
   @Override
   public RepositoryWithMultipleCtors create(@Nonnull final String name) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
       return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_name" : null, true, () -> super.create(name), name );
     } catch( final RuntimeException $$arez$$_e ) {

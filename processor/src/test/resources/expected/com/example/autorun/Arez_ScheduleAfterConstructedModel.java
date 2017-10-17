@@ -6,6 +6,7 @@ import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observer;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConstructedModel implements Disposable {
@@ -53,7 +54,7 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
 
   @Override
   public void doStuff() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff() );
   }
 

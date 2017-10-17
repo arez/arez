@@ -5,6 +5,7 @@ import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_ObservableGuessingModel extends ObservableGuessingModel implements Disposable {
@@ -60,14 +61,14 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
 
   @Override
   public String getString() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_string.reportObserved();
     return super.getString();
   }
 
   @Override
   public void setString(final String v) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( !Objects.equals(v, super.getString()) ) {
       super.setString(v);
       this.$$arez$$_string.reportChanged();
@@ -76,14 +77,14 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
 
   @Override
   public boolean isFoo() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_foo.reportObserved();
     return super.isFoo();
   }
 
   @Override
   public void setFoo(final boolean x) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( x != super.isFoo() ) {
       super.setFoo(x);
       this.$$arez$$_foo.reportChanged();
@@ -92,14 +93,14 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
 
   @Override
   public long getTime() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( time != super.getTime() ) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();

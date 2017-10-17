@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class NestedModel$Arez_BasicActionModel extends NestedModel.BasicActionModel implements Disposable {
@@ -45,7 +46,7 @@ public final class NestedModel$Arez_BasicActionModel extends NestedModel.BasicAc
 
   @Override
   public void doStuff(final long time) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
     } catch( final RuntimeException $$arez$$_e ) {

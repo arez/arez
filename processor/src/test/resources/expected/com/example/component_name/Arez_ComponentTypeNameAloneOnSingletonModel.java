@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_ComponentTypeNameAloneOnSingletonModel extends ComponentTypeNameAloneOnSingletonModel implements Disposable {
@@ -37,7 +38,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
 
   @Override
   public void doStuff(final long time, final float someOtherParameter) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'ComponentTypeNameAloneOnSingletonModel'" );
     try {
       this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "ComponentTypeNameAloneOnSingletonModel.doStuff" : null, true, () -> super.doStuff(time,someOtherParameter), time, someOtherParameter );
     } catch( final RuntimeException $$arez$$_e ) {

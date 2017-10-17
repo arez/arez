@@ -183,10 +183,7 @@ final class ObservableDescriptor
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
-    if ( _componentDescriptor.isDisposable() )
-    {
-      builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
-    }
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
 
     builder.addStatement( "return $N", GeneratorUtil.FIELD_PREFIX + getName() );
 
@@ -218,10 +215,7 @@ final class ObservableDescriptor
       ParameterSpec.builder( type, paramName, Modifier.FINAL );
     ProcessorUtil.copyDocumentedAnnotations( element, param );
     builder.addParameter( param.build() );
-    if ( _componentDescriptor.isDisposable() )
-    {
-      builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
-    }
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     final String accessor = "super." + _getter.getSimpleName() + "()";
@@ -259,10 +253,7 @@ final class ObservableDescriptor
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _getter.getReturnType() ) );
-    if ( _componentDescriptor.isDisposable() )
-    {
-      builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
-    }
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
 
     builder.addStatement( "this.$N.reportObserved()", GeneratorUtil.FIELD_PREFIX + getName() );
     builder.addStatement( "return super." + _getter.getSimpleName() + "()" );

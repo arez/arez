@@ -7,6 +7,7 @@ import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
@@ -54,7 +55,7 @@ public final class Arez_PostConstructModel extends PostConstructModel implements
 
   @Override
   public int someValue() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     return this.$$arez$$_someValue.get();
   }
 

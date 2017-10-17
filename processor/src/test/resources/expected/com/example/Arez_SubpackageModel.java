@@ -8,6 +8,7 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
@@ -59,14 +60,14 @@ public final class Arez_SubpackageModel extends SubpackageModel implements Dispo
 
   @Override
   public long getTime() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( time != super.getTime() ) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
@@ -75,7 +76,7 @@ public final class Arez_SubpackageModel extends SubpackageModel implements Dispo
 
   @Override
   public void doStuff(final long time) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -91,7 +92,7 @@ public final class Arez_SubpackageModel extends SubpackageModel implements Dispo
 
   @Override
   public int someValue() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     return this.$$arez$$_someValue.get();
   }
 

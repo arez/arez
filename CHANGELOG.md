@@ -7,6 +7,10 @@
   the underling `Observable` instance. This is useful for framework authors who need access to low level
   primitives but still want to make use of the arez component model.
 
+##### Changed
+* **\[processor\]** Accessing a component after it has been disposed results in an Braincheck invariant
+  failure rather than an assert failure. This means a more meaningful message can be presented to the developer.
+
 ### [v0.14](https://github.com/realityforge/arez/tree/v0.14) (2017-10-16)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.13...v0.14)
 

@@ -8,6 +8,7 @@ import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
@@ -70,14 +71,14 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
 
   @Override
   public long getTime() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_myField.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( time != super.getTime() ) {
       super.setTime(time);
       this.$$arez$$_myField.reportChanged();
@@ -86,13 +87,13 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
 
   @Override
   public void zapZap() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".zzzzzz" : null, true, () -> super.zapZap() );
   }
 
   @Override
   public void doAction() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".myAction" : null, true, () -> super.doAction() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -108,14 +109,14 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
 
   @Override
   int compute() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     return this.$$arez$$_myComputed.get();
   }
 
   @Override
   public void render() throws ParseException {
-    assert !$$arez$$_disposed;
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.track( this.$$arez$$_XX, () -> super.render() );
     } catch( final ParseException $$arez$$_e ) {

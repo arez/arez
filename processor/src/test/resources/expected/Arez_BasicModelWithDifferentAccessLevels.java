@@ -5,6 +5,7 @@ import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWithDifferentAccessLevels implements Disposable {
@@ -71,14 +72,14 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   protected long getTime() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( time != super.getTime() ) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
@@ -87,14 +88,14 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   String getValue() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_value.reportObserved();
     return super.getValue();
   }
 
   @Override
   public void setValue(final String value) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( !Objects.equals(value, super.getValue()) ) {
       super.setValue(value);
       this.$$arez$$_value.reportChanged();
@@ -103,7 +104,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   void doAction3() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doAction3" : null, true, () -> super.doAction3() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -119,7 +120,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   protected void doAction2() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doAction2" : null, true, () -> super.doAction2() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -135,7 +136,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   public void doAction() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doAction" : null, true, () -> super.doAction() );
     } catch( final RuntimeException $$arez$$_e ) {

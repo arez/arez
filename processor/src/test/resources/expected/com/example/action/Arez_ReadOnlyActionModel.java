@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implements Disposable {
@@ -45,7 +46,7 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
 
   @Override
   public int queryStuff(final long time) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".queryStuff" : null, false, () -> super.queryStuff(time), time );
     } catch( final RuntimeException $$arez$$_e ) {

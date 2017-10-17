@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_OverloadedActions extends OverloadedActions implements Disposable {
@@ -45,7 +46,7 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
 
   @Override
   public void myAction() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".myAction" : null, true, () -> super.myAction() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -61,7 +62,7 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
 
   @Override
   public void myAction(final int i) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".myAction2" : null, true, () -> super.myAction(i), i );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -77,7 +78,7 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
 
   @Override
   public void myAction(final float i) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".myAction3" : null, true, () -> super.myAction(i), i );
     } catch( final RuntimeException $$arez$$_e ) {

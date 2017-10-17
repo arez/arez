@@ -166,10 +166,7 @@ final class ActionDescriptor
     }
     statement.append( " )" );
 
-    if ( _componentDescriptor.isDisposable() )
-    {
-      builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
-    }
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "try" );

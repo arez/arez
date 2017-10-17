@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_NestedModel$BasicActionModelRepository extends NestedModel$BasicActionModelRepository implements Disposable {
@@ -34,7 +35,7 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
   @Nonnull
   @Override
   public NestedModel.BasicActionModel create() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'NestedModel$BasicActionModelRepository'" );
     try {
       return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.create_" : null, true, () -> super.create() );
     } catch( final RuntimeException $$arez$$_e ) {

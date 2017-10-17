@@ -127,10 +127,7 @@ final class AutorunDescriptor
     final StringBuilder statement = new StringBuilder();
     final ArrayList<Object> parameterNames = new ArrayList<>();
 
-    if ( _componentDescriptor.isDisposable() )
-    {
-      builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
-    }
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
 
     statement.append( "this.$N." );
     parameterNames.add( GeneratorUtil.CONTEXT_FIELD_NAME );

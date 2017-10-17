@@ -197,10 +197,7 @@ final class TrackedDescriptor
     final StringBuilder statement = new StringBuilder();
     final ArrayList<Object> parameterNames = new ArrayList<>();
 
-    if ( _componentDescriptor.isDisposable() )
-    {
-      builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
-    }
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
     if ( !isProcedure )
     {
       statement.append( "return " );
@@ -263,10 +260,7 @@ final class TrackedDescriptor
     }
     statement.append( " )" );
 
-    if ( _componentDescriptor.isDisposable() )
-    {
-      builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
-    }
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "try" );

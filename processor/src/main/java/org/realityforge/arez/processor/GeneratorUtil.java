@@ -1,6 +1,8 @@
 package org.realityforge.arez.processor;
 
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.MethodSpec;
+import javax.annotation.Nonnull;
 
 @SuppressWarnings( "Duplicates" )
 final class GeneratorUtil
@@ -22,5 +24,28 @@ final class GeneratorUtil
 
   private GeneratorUtil()
   {
+  }
+
+  static void generateNotDisposedInvariant( @Nonnull final ComponentDescriptor descriptor,
+                                            @Nonnull final MethodSpec.Builder builder )
+  {
+    if ( descriptor.isDisposable() )
+    {
+      if ( descriptor.isSingleton() )
+      {
+        builder.addStatement( "$T.invariant( () -> !$N, () -> \"Method invoked on invalid component '$N'\" )",
+                              GUARDS_CLASSNAME,
+                              GeneratorUtil.DISPOSED_FIELD_NAME,
+                              descriptor.getName() );
+      }
+      else
+      {
+        builder.addStatement( "$T.invariant( () -> !$N, () -> \"Method invoked on invalid " +
+                              "component '\" + $N() + \"'\" )",
+                              GUARDS_CLASSNAME,
+                              GeneratorUtil.DISPOSED_FIELD_NAME,
+                              descriptor.getComponentNameMethodName() );
+      }
+    }
   }
 }

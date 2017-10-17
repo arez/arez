@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_ComponentTypeNameModel extends ComponentTypeNameModel implements Disposable {
@@ -50,7 +51,7 @@ public final class Arez_ComponentTypeNameModel extends ComponentTypeNameModel im
 
   @Override
   public void doStuff(final long time, final float someOtherParameter) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + getComponentName() + "'" );
     try {
       this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? getComponentName() + ".doStuff" : null, true, () -> super.doStuff(time,someOtherParameter), time, someOtherParameter );
     } catch( final RuntimeException $$arez$$_e ) {

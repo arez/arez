@@ -7,6 +7,7 @@ import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultipleCtors implements Disposable {
@@ -67,14 +68,14 @@ public final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultip
   @Nonnull
   @Override
   public String getName() {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_name.reportObserved();
     return super.getName();
   }
 
   @Override
   public void setName(@Nonnull final String name) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( !Objects.equals(name, super.getName()) ) {
       super.setName(name);
       this.$$arez$$_name.reportChanged();

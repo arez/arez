@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepositoryExampleRepository implements Disposable {
@@ -34,7 +35,7 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
   @Nonnull
   @Override
   public CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {
-    assert !$$arez$$_disposed;
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'CompleteRepositoryExampleRepository'" );
     try {
       return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "CompleteRepositoryExampleRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
     } catch( final RuntimeException $$arez$$_e ) {
