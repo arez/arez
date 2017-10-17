@@ -45,19 +45,6 @@ define 'arez' do
   pom.add_github_project('realityforge/arez')
   pom.add_developer('realityforge', 'Peter Donald')
 
-  define 'annotations' do
-    pom.provided_dependencies.concat PROVIDED_DEPS
-
-    compile.with PROVIDED_DEPS,
-                 COMPILE_DEPS
-
-    gwt_enhance(project)
-
-    package(:jar)
-    package(:sources)
-    package(:javadoc)
-  end
-
   define 'core' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
@@ -76,6 +63,23 @@ define 'arez' do
 
     test.using :testng
     test.compile.with TEST_DEPS
+  end
+
+  define 'annotations' do
+    pom.provided_dependencies.concat PROVIDED_DEPS
+
+    compile.with PROVIDED_DEPS,
+                 COMPILE_DEPS
+
+    gwt_enhance(project)
+
+    package(:jar)
+    package(:sources)
+    package(:javadoc)
+
+    # This dependency is added to make it easy to cross reference
+    # core classes in javadocs but code should not make use of it.
+    iml.main_dependencies << project('core').package(:jar)
   end
 
   define 'extras' do
