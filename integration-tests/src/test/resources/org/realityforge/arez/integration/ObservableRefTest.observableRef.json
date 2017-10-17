@@ -1,0 +1,140 @@
+
+[
+    {
+        "observer": "TransportType",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "TransportType",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TransportType",
+        "type": "TransactionStarted",
+        "transaction": "TransportType"
+    },
+    {
+        "type": "usermark",
+        "TransportType": "1"
+    },
+    {
+        "duration": 17,
+        "mutation": false,
+        "tracker": "TransportType",
+        "type": "TransactionCompleted",
+        "transaction": "TransportType"
+    },
+    {
+        "duration": 29,
+        "observer": "TransportType",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "ResolvedType",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "ResolvedType",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "ResolvedType",
+        "type": "TransactionStarted",
+        "transaction": "ResolvedType"
+    },
+    {
+        "type": "usermark",
+        "ResolvedType": "1"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "ResolvedType",
+        "type": "TransactionCompleted",
+        "transaction": "ResolvedType"
+    },
+    {
+        "duration": 3,
+        "observer": "ResolvedType",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "ID Update"
+    },
+    {
+        "observable": "TestComponent.0.otherID",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "TransportType",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "ResolvedType",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 3,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "ID Update"
+    },
+    {
+        "observer": "TransportType",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TransportType",
+        "type": "TransactionStarted",
+        "transaction": "TransportType"
+    },
+    {
+        "type": "usermark",
+        "TransportType": "22"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "TransportType",
+        "type": "TransactionCompleted",
+        "transaction": "TransportType"
+    },
+    {
+        "duration": 1,
+        "observer": "TransportType",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "ResolvedType",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "ResolvedType",
+        "type": "TransactionStarted",
+        "transaction": "ResolvedType"
+    },
+    {
+        "type": "usermark",
+        "ResolvedType": "22"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "ResolvedType",
+        "type": "TransactionCompleted",
+        "transaction": "ResolvedType"
+    },
+    {
+        "duration": 2,
+        "observer": "ResolvedType",
+        "type": "ReactionCompleted"
+    }
+]

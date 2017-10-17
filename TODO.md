@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Add integration test for `@ObservableRef`
-
 * Improve the assertions around validity so it is something like
 
 ```
