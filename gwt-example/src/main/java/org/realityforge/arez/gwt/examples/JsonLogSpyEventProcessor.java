@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Nonnull;
 import jsinterop.base.JsPropertyMap;
-import jsinterop.base.JsPropertyMapOfAny;
 import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.extras.spy.AbstractSpyEventProcessor;
 import org.realityforge.arez.spy.ActionCompletedEvent;
@@ -65,7 +64,7 @@ final class JsonLogSpyEventProcessor
   {
     final HashMap<String, Object> map = new HashMap<>();
     event.toMap( map );
-    final JsPropertyMapOfAny data = JsPropertyMap.of();
+    final JsPropertyMap<Object> data = JsPropertyMap.of();
     for ( final Map.Entry<String, Object> entry : map.entrySet() )
     {
       final String key = entry.getKey();

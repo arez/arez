@@ -6,8 +6,9 @@ import elemental2.dom.EventListener;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
+import jsinterop.base.Any;
+import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
-import jsinterop.base.JsPropertyMapOfAny;
 import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
@@ -186,13 +187,13 @@ public class BrowserLocation
   @Nonnull
   private String getHash()
   {
-    final String hash = JsPropertyMap.of( DomGlobal.window.location ).getAny( "hash" ).asString();
+    final String hash = Js.asPropertyMap( DomGlobal.window.location ).getAny( "hash" ).asString();
     return null == hash ? "" : hash.substring( 1 );
   }
 
   private void setHash( @Nonnull final String hash )
   {
-    final JsPropertyMapOfAny map = JsPropertyMap.of( DomGlobal.window.location );
+    final JsPropertyMap<Object> map = Js.asPropertyMap( DomGlobal.window.location );
     if ( 0 == hash.length() )
     {
       /*
