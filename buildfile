@@ -274,3 +274,9 @@ define 'arez' do
     end
   end
 end
+
+Buildr.projects.each do |project|
+  unless project.name == 'arez'
+    project.doc.options.merge!('Xdoclint:all,-reference' => true)
+  end
+end
