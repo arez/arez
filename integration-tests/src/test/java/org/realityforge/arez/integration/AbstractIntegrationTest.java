@@ -67,9 +67,10 @@ public abstract class AbstractIntegrationTest
 
   protected final void record( @Nonnull final SpyEventRecorder recorder,
                                @Nonnull final String key,
-                               @Nonnull final String value )
+                               @Nonnull final Object value )
   {
-    final JsonObject mark = Json.createObjectBuilder().add( "type", "usermark" ).add( key, value ).build();
+    final JsonObject mark =
+      Json.createObjectBuilder().add( "type", "usermark" ).add( key, String.valueOf( value ) ).build();
     recorder.getEvents().add( mark );
   }
 
