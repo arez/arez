@@ -20,6 +20,8 @@ complete as there is too much un-said.
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
+* Braincheck invariant failures result in breakpoint?
+
 * Enhance WhyRun and write tests for it.
 
 * Explicitly add component (a.k.a. scope) to Actions, ComputedValue, Observables etc. Useful in a future DevTools?
