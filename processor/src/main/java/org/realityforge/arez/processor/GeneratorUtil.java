@@ -14,7 +14,6 @@ final class GeneratorUtil
   static final ClassName DISPOSABLE_CLASSNAME = ClassName.get( "org.realityforge.arez", "Disposable" );
   static final String FIELD_PREFIX = "$$arez$$_";
   static final String CAUGHT_THROWABLE_NAME = FIELD_PREFIX + "e";
-  static final String RESULT_VARIABLE_NAME = FIELD_PREFIX + "result";
   static final String DISPOSED_FIELD_NAME = FIELD_PREFIX + "disposed";
   static final String ID_FIELD_NAME = FIELD_PREFIX + "id";
   static final String NAME_METHOD_NAME = FIELD_PREFIX + "name";
