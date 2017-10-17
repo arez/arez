@@ -13,7 +13,7 @@ complete as there is too much un-said.
                                                   () -> "Method invoked on invalid imitation of type ResourceType" );
 ```
 
-* Add support for `@Observable(expectSetter = false)` that works in conjunction with `@ObservableRef`. 
+* Add support for `@Observable(expectSetter = false)` that works in conjunction with `@ObservableRef`.
 
 * Add support for `@ObserverRef` (Linked to `@Track` or `@Autorun`) and `@ComputedValueRef`
 
