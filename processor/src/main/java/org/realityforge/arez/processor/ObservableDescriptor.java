@@ -31,6 +31,10 @@ final class ObservableDescriptor
   private ExecutableElement _setter;
   @Nullable
   private ExecutableType _setterType;
+  @Nullable
+  private ExecutableElement _refMethod;
+  @Nullable
+  private ExecutableType _refMethodType;
 
   ObservableDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
@@ -42,6 +46,25 @@ final class ObservableDescriptor
   String getName()
   {
     return _name;
+  }
+
+  boolean hasRefMethod()
+  {
+    return null != _refMethod;
+  }
+
+  @Nonnull
+  ExecutableElement getRefMethod()
+    throws ArezProcessorException
+  {
+    assert null != _refMethod;
+    return _refMethod;
+  }
+
+  void setRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
+  {
+    _refMethod = Objects.requireNonNull( method );
+    _refMethodType = Objects.requireNonNull( methodType );
   }
 
   boolean hasGetter()
@@ -137,6 +160,37 @@ final class ObservableDescriptor
   {
     builder.addMethod( buildObservableGetter() );
     builder.addMethod( buildObservableSetter() );
+    if ( hasRefMethod() )
+    {
+      builder.addMethod( buildObservableRefMethod() );
+    }
+  }
+
+  /**
+   * Generate the accessor for ref method.
+   */
+  @Nonnull
+  private MethodSpec buildObservableRefMethod()
+    throws ArezProcessorException
+  {
+    assert null != _refMethod;
+    assert null != _refMethodType;
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _refMethod.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( _refMethod, builder );
+    ProcessorUtil.copyTypeParameters( _refMethodType, builder );
+    ProcessorUtil.copyDocumentedAnnotations( _refMethod, builder );
+
+    builder.addAnnotation( Override.class );
+    builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
+
+    if ( _componentDescriptor.isDisposable() )
+    {
+      builder.addStatement( "assert !$N", GeneratorUtil.DISPOSED_FIELD_NAME );
+    }
+
+    builder.addStatement( "return $N", GeneratorUtil.FIELD_PREFIX + getName() );
+
+    return builder.build();
   }
 
   /**

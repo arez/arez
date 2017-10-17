@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+##### Added
+* **\[annotations\]** Add the `@ObservableRef` annotation to allow the reactive component to get access to
+  the underling `Observable` instance. This is useful for framework authors who need access to low level
+  primitives but still want to make use of the arez component model.
+
 ### [v0.14](https://github.com/realityforge/arez/tree/v0.14) (2017-10-16)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.13...v0.14)
 

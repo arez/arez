@@ -48,6 +48,7 @@ import org.realityforge.arez.annotations.ComponentName;
 import org.realityforge.arez.annotations.ComponentTypeName;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Observable;
+import org.realityforge.arez.annotations.ObservableRef;
 import org.realityforge.arez.annotations.OnActivate;
 import org.realityforge.arez.annotations.OnDeactivate;
 import org.realityforge.arez.annotations.OnDepsUpdated;
@@ -67,6 +68,7 @@ final class ComponentDescriptor
   private static final String OBSERVABLE_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "observable";
   private static final String ENTITIES_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "entities";
   private static final String ENTITYLIST_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "entityList";
+  private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observable$" );
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
   private static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
   private static final Pattern ISSER_PATTERN = Pattern.compile( "^is([A-Z].*)$" );
@@ -250,6 +252,53 @@ final class ComponentDescriptor
       }
       observable.setGetter( method, methodType );
     }
+  }
+
+  private void addObservableRef( @Nonnull final ObservableRef annotation,
+                                 @Nonnull final ExecutableElement method,
+                                 @Nonnull final ExecutableType methodType )
+    throws ArezProcessorException
+  {
+    MethodChecks.mustBeOverridable( ObservableRef.class, method );
+    MethodChecks.mustNotHaveAnyParameters( ObservableRef.class, method );
+    MethodChecks.mustNotThrowAnyExceptions( ObservableRef.class, method );
+
+    final TypeMirror returnType = method.getReturnType();
+    if ( TypeKind.DECLARED != returnType.getKind() ||
+         !returnType.toString().equals( "org.realityforge.arez.Observable" ) )
+    {
+      throw new ArezProcessorException( "Method annotated with @ObservableRef must return an instance of " +
+                                        "org.realityforge.arez.Observable", method );
+    }
+
+    final String name;
+    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
+    {
+      name = ProcessorUtil.deriveName( method, OBSERVABLE_REF_PATTERN, annotation.name() );
+      if ( null == name )
+      {
+        throw new ArezProcessorException( "Method annotated with @ObservableRef should specify name or be " +
+                                          "named according to the convention get[Name]Observable", method );
+      }
+    }
+    else
+    {
+      name = annotation.name();
+      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "Method annotated with @ObservableRef specified invalid name " + name,
+                                          method );
+      }
+    }
+
+    final ObservableDescriptor observable = findOrCreateObservable( name );
+
+    if ( observable.hasRefMethod() )
+    {
+      throw new ArezProcessorException( "Method annotated with @ObservableRef defines duplicate ref accessor for " +
+                                        "observable named " + name, method );
+    }
+    observable.setRefMethod( method, methodType );
   }
 
   private void addAction( @Nonnull final Action annotation,
@@ -748,10 +797,15 @@ final class ComponentDescriptor
         {
           observable.setSetter( candidate.getMethod(), candidate.getMethodType() );
         }
-        else
+        else if ( observable.hasGetter() )
         {
           throw new ArezProcessorException( "@Observable target defined getter but no setter was defined and no " +
                                             "setter could be automatically determined", observable.getGetter() );
+        }
+        else
+        {
+          throw new ArezProcessorException( "@ObservableRef target unable to associated with an Observable property",
+                                            observable.getRefMethod() );
         }
       }
       else if ( !observable.hasGetter() )
@@ -814,6 +868,7 @@ final class ComponentDescriptor
     final Action action = method.getAnnotation( Action.class );
     final Autorun autorun = method.getAnnotation( Autorun.class );
     final Observable observable = method.getAnnotation( Observable.class );
+    final ObservableRef observableRef = method.getAnnotation( ObservableRef.class );
     final Computed computed = method.getAnnotation( Computed.class );
     final ComponentId componentId = method.getAnnotation( ComponentId.class );
     final ComponentTypeName componentTypeName = method.getAnnotation( ComponentTypeName.class );
@@ -831,6 +886,11 @@ final class ComponentDescriptor
     if ( null != observable )
     {
       addObservable( observable, method, methodType );
+      return true;
+    }
+    else if ( null != observableRef )
+    {
+      addObservableRef( observableRef, method, methodType );
       return true;
     }
     else if ( null != action )
@@ -924,6 +984,7 @@ final class ComponentDescriptor
                    Track.class,
                    OnDepsUpdated.class,
                    Observable.class,
+                   ObservableRef.class,
                    Computed.class,
                    ComponentId.class,
                    ComponentName.class,
