@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Add support for `@Observable(expectSetter = false)` that works in conjunction with `@ObservableRef`. 
+
 * Add support for `@ObserverRef` (Linked to `@Track` or `@Autorun`) and `@ComputedValueRef`
 
 * Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
