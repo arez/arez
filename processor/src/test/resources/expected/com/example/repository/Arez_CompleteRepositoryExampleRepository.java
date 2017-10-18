@@ -32,6 +32,22 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
     }
   }
 
+  @Override
+  public void destroy(@Nonnull final CompleteRepositoryExample entity) {
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'CompleteRepositoryExampleRepository'" );
+    try {
+      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "CompleteRepositoryExampleRepository.destroy" : null, true, () -> super.destroy(entity), entity );
+    } catch( final RuntimeException $$arez$$_e ) {
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      throw new IllegalStateException( $$arez$$_e );
+    }
+  }
+
   @Nonnull
   @Override
   public CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {

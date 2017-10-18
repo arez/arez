@@ -63,9 +63,11 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
   }
 
   public boolean contains(@Nonnull final NestedModel.BasicActionModel entity) {
+    $$arez$$_observable.reportObserved();
     return entity instanceof NestedModel$Arez_BasicActionModel && $$arez$$_entities.containsKey( ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_id() );
   }
 
+  @Action
   public void destroy(@Nonnull final NestedModel.BasicActionModel entity) {
     assert null != entity;
     if ( entity instanceof NestedModel$Arez_BasicActionModel && null != $$arez$$_entities.remove( ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_id() ) ) {

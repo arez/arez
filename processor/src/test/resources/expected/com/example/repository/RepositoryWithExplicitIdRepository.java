@@ -63,9 +63,11 @@ public class RepositoryWithExplicitIdRepository implements RepositoryWithExplici
   }
 
   public boolean contains(@Nonnull final RepositoryWithExplicitId entity) {
+    $$arez$$_observable.reportObserved();
     return $$arez$$_entities.containsKey( entity.getId() );
   }
 
+  @Action
   public void destroy(@Nonnull final RepositoryWithExplicitId entity) {
     assert null != entity;
     if ( null != $$arez$$_entities.remove( entity.getId() ) ) {
@@ -78,6 +80,7 @@ public class RepositoryWithExplicitIdRepository implements RepositoryWithExplici
 
   @Nullable
   public RepositoryWithExplicitId findById(final int id) {
+    $$arez$$_observable.reportObserved();
     return $$arez$$_entities.get( id );
   }
 

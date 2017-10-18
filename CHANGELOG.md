@@ -5,6 +5,7 @@
 ##### Fixed
 * **\[processor\]** Repositories that define a `create` method with no parameters no longer suffix the name with
   a "_" character.
+* **\[processor\]** Repositories will call `reportObserved()` in the generated `findBy[Id]` and `contains` methods.
 
 ##### Added
 * **\[annotations\]** Add the `@ObservableRef` annotation to allow the reactive component to get access to
@@ -16,6 +17,8 @@
   parameter is set to false then a `@ObservableRef` must be defined for observable property.
 
 ##### Changed
+* 💥 **\[processor\]** The `destroy` method in repositories have been annotated with `@Action` to avoid the need for
+  defining an action separately.
 * **\[processor\]** Accessing a component after it has been disposed results in an Braincheck invariant
   failure rather than an assert failure. This means a more meaningful message can be presented to the developer.
 

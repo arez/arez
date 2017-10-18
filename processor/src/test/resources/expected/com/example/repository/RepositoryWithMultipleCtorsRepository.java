@@ -85,9 +85,11 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   }
 
   public boolean contains(@Nonnull final RepositoryWithMultipleCtors entity) {
+    $$arez$$_observable.reportObserved();
     return entity instanceof Arez_RepositoryWithMultipleCtors && $$arez$$_entities.containsKey( ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_id() );
   }
 
+  @Action
   public void destroy(@Nonnull final RepositoryWithMultipleCtors entity) {
     assert null != entity;
     if ( entity instanceof Arez_RepositoryWithMultipleCtors && null != $$arez$$_entities.remove( ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_id() ) ) {

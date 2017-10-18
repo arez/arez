@@ -32,6 +32,22 @@ public final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWit
     }
   }
 
+  @Override
+  public void destroy(@Nonnull final RepositoryWithExplicitId entity) {
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithExplicitIdRepository'" );
+    try {
+      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.destroy" : null, true, () -> super.destroy(entity), entity );
+    } catch( final RuntimeException $$arez$$_e ) {
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      throw new IllegalStateException( $$arez$$_e );
+    }
+  }
+
   @Nonnull
   @Override
   public RepositoryWithExplicitId create(@Nonnull final String packageName, @Nonnull final String name) {

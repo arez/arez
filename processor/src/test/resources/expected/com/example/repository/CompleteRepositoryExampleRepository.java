@@ -63,9 +63,11 @@ public class CompleteRepositoryExampleRepository implements CompleteRepositoryEx
   }
 
   public boolean contains(@Nonnull final CompleteRepositoryExample entity) {
+    $$arez$$_observable.reportObserved();
     return $$arez$$_entities.containsKey( entity.getId() );
   }
 
+  @Action
   public void destroy(@Nonnull final CompleteRepositoryExample entity) {
     assert null != entity;
     if ( null != $$arez$$_entities.remove( entity.getId() ) ) {
@@ -78,6 +80,7 @@ public class CompleteRepositoryExampleRepository implements CompleteRepositoryEx
 
   @Nullable
   public CompleteRepositoryExample findById(final int id) {
+    $$arez$$_observable.reportObserved();
     return $$arez$$_entities.get( id );
   }
 

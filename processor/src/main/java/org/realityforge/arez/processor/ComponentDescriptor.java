@@ -1848,6 +1848,7 @@ final class ComponentDescriptor
         addParameter( ParameterSpec.builder( TypeName.get( element.asType() ), "entity", Modifier.FINAL ).
           addAnnotation( Nonnull.class ).build() ).
         returns( TypeName.BOOLEAN );
+    method.addStatement( "$N.reportObserved()", OBSERVABLE_FIELD_NAME );
     if ( null != _componentId )
     {
       method.addStatement( "return $N.containsKey( entity.$N() )", ENTITIES_FIELD_NAME, getIdMethodName() );
@@ -1869,6 +1870,7 @@ final class ComponentDescriptor
     final MethodSpec.Builder method =
       MethodSpec.methodBuilder( "destroy" ).
         addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Action.class ).
         addParameter( ParameterSpec.builder( TypeName.get( getElement().asType() ), "entity", Modifier.FINAL ).
           addAnnotation( Nonnull.class ).build() );
     method.addStatement( "assert null != entity" );
@@ -1922,6 +1924,7 @@ final class ComponentDescriptor
       addParameter( ParameterSpec.builder( getIdType(), "id", Modifier.FINAL ).build() ).
       addAnnotation( Nullable.class ).
       returns( TypeName.get( getElement().asType() ) ).
+      addStatement( "$N.reportObserved()", OBSERVABLE_FIELD_NAME ).
       addStatement( "return $N.get( id )", ENTITIES_FIELD_NAME ).build();
   }
 

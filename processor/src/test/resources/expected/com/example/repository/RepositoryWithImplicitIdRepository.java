@@ -63,9 +63,11 @@ public class RepositoryWithImplicitIdRepository implements RepositoryWithImplici
   }
 
   public boolean contains(@Nonnull final RepositoryWithImplicitId entity) {
+    $$arez$$_observable.reportObserved();
     return entity instanceof Arez_RepositoryWithImplicitId && $$arez$$_entities.containsKey( ((Arez_RepositoryWithImplicitId) entity).$$arez$$_id() );
   }
 
+  @Action
   public void destroy(@Nonnull final RepositoryWithImplicitId entity) {
     assert null != entity;
     if ( entity instanceof Arez_RepositoryWithImplicitId && null != $$arez$$_entities.remove( ((Arez_RepositoryWithImplicitId) entity).$$arez$$_id() ) ) {

@@ -49,6 +49,22 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
     }
   }
 
+  @Override
+  public void destroy(@Nonnull final RepositoryWithMultipleCtors entity) {
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
+    try {
+      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.destroy" : null, true, () -> super.destroy(entity), entity );
+    } catch( final RuntimeException $$arez$$_e ) {
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      throw new IllegalStateException( $$arez$$_e );
+    }
+  }
+
   @Nonnull
   @Override
   public RepositoryWithMultipleCtors create(@Nonnull final String packageName, @Nonnull final String name) {
