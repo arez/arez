@@ -52,7 +52,7 @@ public class BasicRepositoryIntegrationTest
     final ArezContext context = Arez.context();
 
     final BasicRepositoryIntegrationTest$TestComponentRepository repository =
-      new Arez_BasicRepositoryIntegrationTest$TestComponentRepository();
+      BasicRepositoryIntegrationTest$TestComponentRepository.newRepository();
     final TestComponent component1 = repository.create( 1, "S1" );
     final TestComponent component2 = repository.create( 2, "S2" );
 
@@ -111,7 +111,7 @@ public class BasicRepositoryIntegrationTest
     final ArezContext context = Arez.context();
 
     final BasicRepositoryIntegrationTest$TestComponentRepository repository =
-      new Arez_BasicRepositoryIntegrationTest$TestComponentRepository();
+      BasicRepositoryIntegrationTest$TestComponentRepository.newRepository();
 
     // component1 has value that will sort after component2 to test sorting below
     final TestComponent component1 = repository.create( 1, "B" );
