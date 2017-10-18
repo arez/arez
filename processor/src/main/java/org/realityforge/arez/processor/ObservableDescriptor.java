@@ -23,6 +23,7 @@ final class ObservableDescriptor
   private final ComponentDescriptor _componentDescriptor;
   @Nonnull
   private final String _name;
+  private boolean _expectSetter;
   @Nullable
   private ExecutableElement _getter;
   @Nullable
@@ -36,16 +37,28 @@ final class ObservableDescriptor
   @Nullable
   private ExecutableType _refMethodType;
 
-  ObservableDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
+  ObservableDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
+                        @Nonnull final String name )
   {
     _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
+    setExpectSetter( true );
   }
 
   @Nonnull
   String getName()
   {
     return _name;
+  }
+
+  void setExpectSetter( final boolean expectSetter )
+  {
+    _expectSetter = expectSetter;
+  }
+
+  boolean expectSetter()
+  {
+    return _expectSetter;
   }
 
   boolean hasRefMethod()
@@ -101,6 +114,7 @@ final class ObservableDescriptor
 
   void setSetter( @Nonnull final ExecutableElement setter, @Nonnull final ExecutableType methodType )
   {
+    assert _expectSetter;
     _setter = Objects.requireNonNull( setter );
     _setterType = Objects.requireNonNull( methodType );
   }
@@ -159,7 +173,10 @@ final class ObservableDescriptor
     throws ArezProcessorException
   {
     builder.addMethod( buildObservableGetter() );
-    builder.addMethod( buildObservableSetter() );
+    if ( expectSetter() )
+    {
+      builder.addMethod( buildObservableSetter() );
+    }
     if ( hasRefMethod() )
     {
       builder.addMethod( buildObservableRefMethod() );

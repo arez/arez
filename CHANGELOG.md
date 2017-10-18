@@ -6,6 +6,10 @@
 * **\[annotations\]** Add the `@ObservableRef` annotation to allow the reactive component to get access to
   the underling `Observable` instance. This is useful for framework authors who need access to low level
   primitives but still want to make use of the arez component model.
+* **\[annotations\]** Add the `expectSetter` parameter to the `@Observable` annotation to support defining reactive
+  components with observable properties but no explicit setter. This is useful in combination with the `@ObservableRef`
+  annotation to more precisely control how change is detected and when it is propagated. If the `expectSetter`
+  parameter is set to false then a `@ObservableRef` must be defined for observable property.
 
 ##### Changed
 * **\[processor\]** Accessing a component after it has been disposed results in an Braincheck invariant

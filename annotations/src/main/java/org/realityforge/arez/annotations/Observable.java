@@ -47,4 +47,12 @@ public @interface Observable
    */
   @Nonnull
   String name() default "<default>";
+
+  /**
+   * Set this to false if there is no setter method and the component is
+   * expected to use {@link ObservableRef} to indicate when value has changed.
+   *
+   * @return true if there is expected to be a setter, false if there should be no setter.
+   */
+  boolean expectSetter() default true;
 }

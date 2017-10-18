@@ -1,0 +1,153 @@
+
+[
+    {
+        "observer": "TransportType",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "TransportType",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TransportType",
+        "type": "TransactionStarted",
+        "transaction": "TransportType"
+    },
+    {
+        "type": "usermark",
+        "TransportType": "1"
+    },
+    {
+        "duration": 45,
+        "mutation": false,
+        "tracker": "TransportType",
+        "type": "TransactionCompleted",
+        "transaction": "TransportType"
+    },
+    {
+        "duration": 63,
+        "observer": "TransportType",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "ResolvedType",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "ResolvedType",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "ResolvedType",
+        "type": "TransactionStarted",
+        "transaction": "ResolvedType"
+    },
+    {
+        "type": "usermark",
+        "ResolvedType": "1"
+    },
+    {
+        "duration": 3,
+        "mutation": false,
+        "tracker": "ResolvedType",
+        "type": "TransactionCompleted",
+        "transaction": "ResolvedType"
+    },
+    {
+        "duration": 4,
+        "observer": "ResolvedType",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "ID Update"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.setOtherID"
+    },
+    {
+        "observable": "TestComponent.0.otherID",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "TransportType",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "ResolvedType",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 11,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.setOtherID"
+    },
+    {
+        "duration": 12,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "ID Update"
+    },
+    {
+        "observer": "TransportType",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TransportType",
+        "type": "TransactionStarted",
+        "transaction": "TransportType"
+    },
+    {
+        "type": "usermark",
+        "TransportType": "22"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "TransportType",
+        "type": "TransactionCompleted",
+        "transaction": "TransportType"
+    },
+    {
+        "duration": 2,
+        "observer": "TransportType",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "ResolvedType",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "ResolvedType",
+        "type": "TransactionStarted",
+        "transaction": "ResolvedType"
+    },
+    {
+        "type": "usermark",
+        "ResolvedType": "22"
+    },
+    {
+        "duration": 2,
+        "mutation": false,
+        "tracker": "ResolvedType",
+        "type": "TransactionCompleted",
+        "transaction": "ResolvedType"
+    },
+    {
+        "duration": 3,
+        "observer": "ResolvedType",
+        "type": "ReactionCompleted"
+    }
+]

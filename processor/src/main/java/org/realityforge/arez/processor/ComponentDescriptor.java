@@ -233,13 +233,38 @@ final class ComponentDescriptor
       }
     }
     checkNameUnique( name, method, Observable.class );
+
+    if ( setter && !annotation.expectSetter() )
+    {
+      throw new ArezProcessorException( "Method annotated with @Observable is a setter but defines " +
+                                        "expectSetter = false for observable named " + name, method );
+    }
+
     final ObservableDescriptor observable = findOrCreateObservable( name );
+    if ( !annotation.expectSetter() )
+    {
+      observable.setExpectSetter( false );
+    }
+    if ( !observable.expectSetter() )
+    {
+      if ( observable.hasSetter() )
+      {
+        throw new ArezProcessorException( "Method annotated with @Observable defines expectSetter = false but a " +
+                                          "setter exists named " + observable.getSetter().getSimpleName() +
+                                          "for observable named " + name, method );
+      }
+    }
     if ( setter )
     {
       if ( observable.hasSetter() )
       {
         throw new ArezProcessorException( "Method annotated with @Observable defines duplicate setter for " +
                                           "observable named " + name, method );
+      }
+      if ( !observable.expectSetter() )
+      {
+        throw new ArezProcessorException( "Method annotated with @Observable defines expectSetter = false but a " +
+                                          "setter exists for observable named " + name, method );
       }
       observable.setSetter( method, methodType );
     }
@@ -639,6 +664,7 @@ final class ComponentDescriptor
   void validate()
     throws ArezProcessorException
   {
+    validateObservables();
     validateComputeds();
 
     if ( !_allowEmpty &&
@@ -650,6 +676,20 @@ final class ComponentDescriptor
     {
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
                                         "@Computed, @Observable, @Track or @Autorun", _element );
+    }
+  }
+
+  private void validateObservables()
+    throws ArezProcessorException
+  {
+    for ( final ObservableDescriptor observable : _roObservables )
+    {
+      if ( !observable.expectSetter() && !observable.hasRefMethod() )
+      {
+        throw new ArezProcessorException( "@Observable target defines expectSetter = false but there is no ref " +
+                                          "method for observable and thus never possible to report it as changed " +
+                                          "and thus should not be observable.", observable.getGetter() );
+      }
     }
   }
 
@@ -790,7 +830,12 @@ final class ComponentDescriptor
   {
     for ( final ObservableDescriptor observable : _roObservables )
     {
-      if ( !observable.hasSetter() )
+      if ( !observable.hasSetter() && !observable.hasGetter() )
+      {
+        throw new ArezProcessorException( "@ObservableRef target unable to associated with an Observable property",
+                                          observable.getRefMethod() );
+      }
+      else if ( !observable.hasSetter() && observable.expectSetter() )
       {
         final CandidateMethod candidate = setters.get( observable.getName() );
         if ( null != candidate )
@@ -801,11 +846,6 @@ final class ComponentDescriptor
         {
           throw new ArezProcessorException( "@Observable target defined getter but no setter was defined and no " +
                                             "setter could be automatically determined", observable.getGetter() );
-        }
-        else
-        {
-          throw new ArezProcessorException( "@ObservableRef target unable to associated with an Observable property",
-                                            observable.getRefMethod() );
         }
       }
       else if ( !observable.hasGetter() )
