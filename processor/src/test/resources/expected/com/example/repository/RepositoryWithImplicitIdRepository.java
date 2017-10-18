@@ -11,11 +11,11 @@ import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.arez.Arez;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
+import org.realityforge.arez.annotations.ObservableRef;
 import org.realityforge.arez.annotations.PreDispose;
 import org.realityforge.braincheck.Guards;
 
@@ -25,9 +25,6 @@ import org.realityforge.braincheck.Guards;
 )
 public class RepositoryWithImplicitIdRepository implements RepositoryWithImplicitIdBaseRepositoryExtension {
   private static final boolean $$arez$$_IMMUTABLE_RESULTS = "true".equals( System.getProperty( "arez.repositories_return_immutables", String.valueOf( System.getProperty( "arez.environment", "production" ).equals( "development" ) ) ) );
-  ;
-
-  private final Observable $$arez$$_observable = Arez.context().createObservable( Arez.context().areNamesEnabled() ? "RepositoryWithImplicitIdRepository.entities" : null );
   ;
 
   private final HashMap<Long, RepositoryWithImplicitId> $$arez$$_entities = new HashMap<>();
@@ -51,7 +48,7 @@ public class RepositoryWithImplicitIdRepository implements RepositoryWithImplici
   public RepositoryWithImplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_RepositoryWithImplicitId entity = new Arez_RepositoryWithImplicitId(packageName,name);
     $$arez$$_entities.put( entity.$$arez$$_id(), entity );
-    $$arez$$_observable.reportChanged();
+    getEntitiesObservable().reportChanged();
     return entity;
   }
 
@@ -59,11 +56,11 @@ public class RepositoryWithImplicitIdRepository implements RepositoryWithImplici
   final void preDispose() {
     $$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
     $$arez$$_entities.clear();
-    $$arez$$_observable.reportChanged();
+    getEntitiesObservable().reportChanged();
   }
 
   public boolean contains(@Nonnull final RepositoryWithImplicitId entity) {
-    $$arez$$_observable.reportObserved();
+    getEntitiesObservable().reportObserved();
     return entity instanceof Arez_RepositoryWithImplicitId && $$arez$$_entities.containsKey( ((Arez_RepositoryWithImplicitId) entity).$$arez$$_id() );
   }
 
@@ -72,10 +69,15 @@ public class RepositoryWithImplicitIdRepository implements RepositoryWithImplici
     assert null != entity;
     if ( entity instanceof Arez_RepositoryWithImplicitId && null != $$arez$$_entities.remove( ((Arez_RepositoryWithImplicitId) entity).$$arez$$_id() ) ) {
       Disposable.dispose( entity );
-      $$arez$$_observable.reportChanged();
+      getEntitiesObservable().reportChanged();
     } else {
       Guards.fail( () -> "Called destroy() passing an entity that was not in the repository. Entity: " + entity );
     }
+  }
+
+  @ObservableRef
+  Observable getEntitiesObservable() {
+    throw new IllegalStateException();
   }
 
   /**
@@ -83,9 +85,11 @@ public class RepositoryWithImplicitIdRepository implements RepositoryWithImplici
    * This collection should not be exposed to the user but may be used be repository extensions when
    * they define custom queries. NOTE: use of this method marks the list as observed.
    */
+  @org.realityforge.arez.annotations.Observable(
+      expectSetter = false
+  )
   @Nonnull
-  protected final Collection<RepositoryWithImplicitId> entities() {
-    $$arez$$_observable.reportObserved();
+  protected Collection<RepositoryWithImplicitId> entities() {
     return $$arez$$_entityList;
   }
 

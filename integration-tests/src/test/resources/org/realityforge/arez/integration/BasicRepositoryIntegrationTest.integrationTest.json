@@ -19,14 +19,14 @@
         "ComponentCount": "2"
     },
     {
-        "duration": 25,
+        "duration": 31,
         "mutation": false,
         "tracker": "ComponentCount",
         "type": "TransactionCompleted",
         "transaction": "ComponentCount"
     },
     {
-        "duration": 44,
+        "duration": 41,
         "observer": "ComponentCount",
         "type": "ReactionCompleted"
     },
@@ -41,7 +41,7 @@
         "type": "ObservableCreated"
     },
     {
-        "observable": "TestComponentRepository.entities",
+        "observable": "BasicRepositoryIntegrationTest$TestComponentRepository.entities",
         "type": "ObservableChanged"
     },
     {
@@ -49,7 +49,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 12,
+        "duration": 17,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -92,7 +92,7 @@
         "type": "ObservableChanged"
     },
     {
-        "duration": 3,
+        "duration": 2,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -113,7 +113,7 @@
         "type": "ObservableDisposed"
     },
     {
-        "observable": "TestComponentRepository.entities",
+        "observable": "BasicRepositoryIntegrationTest$TestComponentRepository.entities",
         "type": "ObservableChanged"
     },
     {
@@ -168,7 +168,7 @@
         "type": "ObservableDisposed"
     },
     {
-        "observable": "TestComponentRepository.entities",
+        "observable": "BasicRepositoryIntegrationTest$TestComponentRepository.entities",
         "type": "ObservableChanged"
     },
     {
@@ -176,7 +176,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 9,
+        "duration": 7,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -197,14 +197,14 @@
         "ComponentCount": "1"
     },
     {
-        "duration": 0,
+        "duration": 1,
         "mutation": false,
         "tracker": "ComponentCount",
         "type": "TransactionCompleted",
         "transaction": "ComponentCount"
     },
     {
-        "duration": 2,
+        "duration": 4,
         "observer": "ComponentCount",
         "type": "ReactionCompleted"
     }

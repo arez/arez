@@ -1,10 +1,12 @@
 package com.example.repository;
 
+import java.util.Collection;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Disposable;
+import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
@@ -14,9 +16,13 @@ public final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWit
   @Nonnull
   private final ArezContext $$arez$$_context;
 
+  @Nonnull
+  private final Observable $$arez$$_entities;
+
   Arez_RepositoryWithImplicitIdRepository() {
     super();
     this.$$arez$$_context = Arez.context();
+    this.$$arez$$_entities = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithImplicitIdRepository.entities" : null );
   }
 
   @Override
@@ -29,7 +35,22 @@ public final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWit
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
       super.preDispose();
+      $$arez$$_entities.dispose();
     }
+  }
+
+  @Nonnull
+  @Override
+  protected Collection<RepositoryWithImplicitId> entities() {
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithImplicitIdRepository'" );
+    this.$$arez$$_entities.reportObserved();
+    return super.entities();
+  }
+
+  @Override
+  Observable getEntitiesObservable() {
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithImplicitIdRepository'" );
+    return $$arez$$_entities;
   }
 
   @Override

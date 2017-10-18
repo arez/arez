@@ -65,9 +65,9 @@ import org.realityforge.arez.annotations.Track;
 final class ComponentDescriptor
 {
   private static final String IMMUTABLE_GUARD_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "IMMUTABLE_RESULTS";
-  private static final String OBSERVABLE_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "observable";
   private static final String ENTITIES_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "entities";
   private static final String ENTITYLIST_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "entityList";
+  private static final String GET_OBSERVABLE_METHOD = "getEntitiesObservable";
   private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observable$" );
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
   private static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
@@ -1664,6 +1664,7 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildFindByIdMethod() );
     }
+    builder.addMethod( buildObservableAccessorMethod() );
     builder.addMethod( buildEntitiesMethod() );
     builder.addMethod( buildResultWrapperMethod() );
     builder.addMethod( buildListConverterMethod() );
@@ -1706,13 +1707,13 @@ final class ComponentDescriptor
   private MethodSpec buildEntitiesMethod()
   {
     return MethodSpec.methodBuilder( "entities" ).
-      addModifiers( Modifier.PROTECTED, Modifier.FINAL ).
+      addModifiers( Modifier.PROTECTED ).
+      addAnnotation( AnnotationSpec.builder( Observable.class ).addMember( "expectSetter", "false" ).build() ).
       addJavadoc( "Return the raw collection of entities in the repository.\n" +
                   "This collection should not be exposed to the user but may be used be repository extensions when\n" +
                   "they define custom queries. NOTE: use of this method marks the list as observed.\n" ).
       addAnnotation( Nonnull.class ).
       returns( ParameterizedTypeName.get( ClassName.get( Collection.class ), TypeName.get( getElement().asType() ) ) ).
-      addStatement( "$N.reportObserved()", OBSERVABLE_FIELD_NAME ).
       addStatement( "return $N", ENTITYLIST_FIELD_NAME ).
       build();
   }
@@ -1840,6 +1841,17 @@ final class ComponentDescriptor
   }
 
   @Nonnull
+  private MethodSpec buildObservableAccessorMethod()
+  {
+    final MethodSpec.Builder method =
+      MethodSpec.methodBuilder( GET_OBSERVABLE_METHOD ).
+        addAnnotation( ObservableRef.class ).
+        returns( GeneratorUtil.OBSERVABLE_CLASSNAME );
+    method.addStatement( "throw new $T()", IllegalStateException.class );
+    return method.build();
+  }
+
+  @Nonnull
   private MethodSpec buildContainsMethod( final TypeElement element, final ClassName arezType )
   {
     final MethodSpec.Builder method =
@@ -1848,7 +1860,7 @@ final class ComponentDescriptor
         addParameter( ParameterSpec.builder( TypeName.get( element.asType() ), "entity", Modifier.FINAL ).
           addAnnotation( Nonnull.class ).build() ).
         returns( TypeName.BOOLEAN );
-    method.addStatement( "$N.reportObserved()", OBSERVABLE_FIELD_NAME );
+    method.addStatement( "$N().reportObserved()", GET_OBSERVABLE_METHOD );
     if ( null != _componentId )
     {
       method.addStatement( "return $N.containsKey( entity.$N() )", ENTITIES_FIELD_NAME, getIdMethodName() );
@@ -1891,7 +1903,7 @@ final class ComponentDescriptor
     {
       builder.addStatement( "$T.dispose( entity )", GeneratorUtil.DISPOSABLE_CLASSNAME );
     }
-    builder.addStatement( "$N.reportChanged()", OBSERVABLE_FIELD_NAME );
+    builder.addStatement( "$N().reportChanged()", GET_OBSERVABLE_METHOD );
     builder.nextControlFlow( "else" );
     builder.addStatement( "$T.fail( () -> \"Called destroy() passing an entity that was not in the repository. " +
                           "Entity: \" + entity )", GeneratorUtil.GUARDS_CLASSNAME );
@@ -1910,7 +1922,7 @@ final class ComponentDescriptor
       addAnnotation( PreDispose.class ).
       addStatement( "$N.forEach( e -> $T.dispose( e ) )", ENTITYLIST_FIELD_NAME, GeneratorUtil.DISPOSABLE_CLASSNAME ).
       addStatement( "$N.clear()", ENTITIES_FIELD_NAME ).
-      addStatement( "$N.reportChanged()", OBSERVABLE_FIELD_NAME ).
+      addStatement( "$N().reportChanged()", GET_OBSERVABLE_METHOD ).
       build();
   }
 
@@ -1924,7 +1936,7 @@ final class ComponentDescriptor
       addParameter( ParameterSpec.builder( getIdType(), "id", Modifier.FINAL ).build() ).
       addAnnotation( Nullable.class ).
       returns( TypeName.get( getElement().asType() ) ).
-      addStatement( "$N.reportObserved()", OBSERVABLE_FIELD_NAME ).
+      addStatement( "$N().reportObserved()", GET_OBSERVABLE_METHOD ).
       addStatement( "return $N.get( id )", ENTITIES_FIELD_NAME ).build();
   }
 
@@ -1985,7 +1997,7 @@ final class ComponentDescriptor
     builder.addStatement( newCall.toString(), parameters.toArray() );
 
     builder.addStatement( "$N.put( entity.$N(), entity )", ENTITIES_FIELD_NAME, getIdMethodName() );
-    builder.addStatement( "$N.reportChanged()", OBSERVABLE_FIELD_NAME );
+    builder.addStatement( "$N().reportChanged()", GET_OBSERVABLE_METHOD );
     builder.addStatement( "return entity", ENTITIES_FIELD_NAME );
     return builder.build();
   }
@@ -2010,20 +2022,6 @@ final class ComponentDescriptor
                            Modifier.STATIC,
                            Modifier.PRIVATE ).
           initializer( initializer.build() );
-      builder.addField( field.build() );
-    }
-
-    // Create the observable field
-    {
-      final CodeBlock.Builder initializer = CodeBlock.builder().
-        addStatement( "$T.context().createObservable( $T.context().areNamesEnabled() ? $S : null )",
-                      GeneratorUtil.AREZ_CLASSNAME,
-                      GeneratorUtil.AREZ_CLASSNAME,
-                      _repositoryName + ".entities" );
-      final FieldSpec.Builder field =
-        FieldSpec.builder( GeneratorUtil.OBSERVABLE_CLASSNAME, OBSERVABLE_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE )
-          .
-            initializer( initializer.build() );
       builder.addField( field.build() );
     }
 

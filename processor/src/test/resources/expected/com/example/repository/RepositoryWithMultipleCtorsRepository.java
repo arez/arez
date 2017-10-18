@@ -11,11 +11,11 @@ import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.arez.Arez;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
+import org.realityforge.arez.annotations.ObservableRef;
 import org.realityforge.arez.annotations.PreDispose;
 import org.realityforge.braincheck.Guards;
 
@@ -25,9 +25,6 @@ import org.realityforge.braincheck.Guards;
 )
 public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMultipleCtorsBaseRepositoryExtension {
   private static final boolean $$arez$$_IMMUTABLE_RESULTS = "true".equals( System.getProperty( "arez.repositories_return_immutables", String.valueOf( System.getProperty( "arez.environment", "production" ).equals( "development" ) ) ) );
-  ;
-
-  private final Observable $$arez$$_observable = Arez.context().createObservable( Arez.context().areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.entities" : null );
   ;
 
   private final HashMap<Long, RepositoryWithMultipleCtors> $$arez$$_entities = new HashMap<>();
@@ -51,7 +48,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   public RepositoryWithMultipleCtors create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(packageName,name);
     $$arez$$_entities.put( entity.$$arez$$_id(), entity );
-    $$arez$$_observable.reportChanged();
+    getEntitiesObservable().reportChanged();
     return entity;
   }
 
@@ -62,7 +59,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   public RepositoryWithMultipleCtors create(@Nonnull final String name) {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(name);
     $$arez$$_entities.put( entity.$$arez$$_id(), entity );
-    $$arez$$_observable.reportChanged();
+    getEntitiesObservable().reportChanged();
     return entity;
   }
 
@@ -73,7 +70,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   public RepositoryWithMultipleCtors create() {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors();
     $$arez$$_entities.put( entity.$$arez$$_id(), entity );
-    $$arez$$_observable.reportChanged();
+    getEntitiesObservable().reportChanged();
     return entity;
   }
 
@@ -81,11 +78,11 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   final void preDispose() {
     $$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
     $$arez$$_entities.clear();
-    $$arez$$_observable.reportChanged();
+    getEntitiesObservable().reportChanged();
   }
 
   public boolean contains(@Nonnull final RepositoryWithMultipleCtors entity) {
-    $$arez$$_observable.reportObserved();
+    getEntitiesObservable().reportObserved();
     return entity instanceof Arez_RepositoryWithMultipleCtors && $$arez$$_entities.containsKey( ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_id() );
   }
 
@@ -94,10 +91,15 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
     assert null != entity;
     if ( entity instanceof Arez_RepositoryWithMultipleCtors && null != $$arez$$_entities.remove( ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_id() ) ) {
       Disposable.dispose( entity );
-      $$arez$$_observable.reportChanged();
+      getEntitiesObservable().reportChanged();
     } else {
       Guards.fail( () -> "Called destroy() passing an entity that was not in the repository. Entity: " + entity );
     }
+  }
+
+  @ObservableRef
+  Observable getEntitiesObservable() {
+    throw new IllegalStateException();
   }
 
   /**
@@ -105,9 +107,11 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
    * This collection should not be exposed to the user but may be used be repository extensions when
    * they define custom queries. NOTE: use of this method marks the list as observed.
    */
+  @org.realityforge.arez.annotations.Observable(
+      expectSetter = false
+  )
   @Nonnull
-  protected final Collection<RepositoryWithMultipleCtors> entities() {
-    $$arez$$_observable.reportObserved();
+  protected Collection<RepositoryWithMultipleCtors> entities() {
     return $$arez$$_entityList;
   }
 

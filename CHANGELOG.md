@@ -6,6 +6,8 @@
 * **\[processor\]** Repositories that define a `create` method with no parameters no longer suffix the name with
   a "_" character.
 * **\[processor\]** Repositories will call `reportObserved()` in the generated `findBy[Id]` and `contains` methods.
+* **\[processor\]** The "entities" observable that is defined as part of the generated repository will now be disposed
+  correctly when the repository is disposed.
 
 ##### Added
 * **\[annotations\]** Add the `@ObservableRef` annotation to allow the reactive component to get access to
@@ -21,6 +23,8 @@
   defining an action separately.
 * **\[processor\]** Accessing a component after it has been disposed results in an Braincheck invariant
   failure rather than an assert failure. This means a more meaningful message can be presented to the developer.
+* **\[processor\]** Generated repositories have been reworked to make use of `@ObservableRef` and
+  `@Observable(expectSetter = false)` features to simplify code and make it consistent with downstream code.
 
 ### [v0.14](https://github.com/realityforge/arez/tree/v0.14) (2017-10-16)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.13...v0.14)

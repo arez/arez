@@ -11,11 +11,11 @@ import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.arez.Arez;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
+import org.realityforge.arez.annotations.ObservableRef;
 import org.realityforge.arez.annotations.PreDispose;
 import org.realityforge.braincheck.Guards;
 
@@ -25,9 +25,6 @@ import org.realityforge.braincheck.Guards;
 )
 public class NestedModel$BasicActionModelRepository implements NestedModel$BasicActionModelBaseRepositoryExtension {
   private static final boolean $$arez$$_IMMUTABLE_RESULTS = "true".equals( System.getProperty( "arez.repositories_return_immutables", String.valueOf( System.getProperty( "arez.environment", "production" ).equals( "development" ) ) ) );
-  ;
-
-  private final Observable $$arez$$_observable = Arez.context().createObservable( Arez.context().areNamesEnabled() ? "BasicActionModelRepository.entities" : null );
   ;
 
   private final HashMap<Long, NestedModel.BasicActionModel> $$arez$$_entities = new HashMap<>();
@@ -51,7 +48,7 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
   public NestedModel.BasicActionModel create() {
     final NestedModel$Arez_BasicActionModel entity = new NestedModel$Arez_BasicActionModel();
     $$arez$$_entities.put( entity.$$arez$$_id(), entity );
-    $$arez$$_observable.reportChanged();
+    getEntitiesObservable().reportChanged();
     return entity;
   }
 
@@ -59,11 +56,11 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
   final void preDispose() {
     $$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
     $$arez$$_entities.clear();
-    $$arez$$_observable.reportChanged();
+    getEntitiesObservable().reportChanged();
   }
 
   public boolean contains(@Nonnull final NestedModel.BasicActionModel entity) {
-    $$arez$$_observable.reportObserved();
+    getEntitiesObservable().reportObserved();
     return entity instanceof NestedModel$Arez_BasicActionModel && $$arez$$_entities.containsKey( ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_id() );
   }
 
@@ -72,10 +69,15 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
     assert null != entity;
     if ( entity instanceof NestedModel$Arez_BasicActionModel && null != $$arez$$_entities.remove( ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_id() ) ) {
       Disposable.dispose( entity );
-      $$arez$$_observable.reportChanged();
+      getEntitiesObservable().reportChanged();
     } else {
       Guards.fail( () -> "Called destroy() passing an entity that was not in the repository. Entity: " + entity );
     }
+  }
+
+  @ObservableRef
+  Observable getEntitiesObservable() {
+    throw new IllegalStateException();
   }
 
   /**
@@ -83,9 +85,11 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
    * This collection should not be exposed to the user but may be used be repository extensions when
    * they define custom queries. NOTE: use of this method marks the list as observed.
    */
+  @org.realityforge.arez.annotations.Observable(
+      expectSetter = false
+  )
   @Nonnull
-  protected final Collection<NestedModel.BasicActionModel> entities() {
-    $$arez$$_observable.reportObserved();
+  protected Collection<NestedModel.BasicActionModel> entities() {
     return $$arez$$_entityList;
   }
 
