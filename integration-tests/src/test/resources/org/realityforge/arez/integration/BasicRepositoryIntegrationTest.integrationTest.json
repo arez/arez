@@ -1,0 +1,211 @@
+
+[
+    {
+        "observer": "ComponentCount",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "ComponentCount",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "ComponentCount",
+        "type": "TransactionStarted",
+        "transaction": "ComponentCount"
+    },
+    {
+        "type": "usermark",
+        "ComponentCount": "2"
+    },
+    {
+        "duration": 25,
+        "mutation": false,
+        "tracker": "ComponentCount",
+        "type": "TransactionCompleted",
+        "transaction": "ComponentCount"
+    },
+    {
+        "duration": 44,
+        "observer": "ComponentCount",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.create_id_value"
+    },
+    {
+        "observable": "TestComponent.3.value",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "TestComponentRepository.entities",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "ComponentCount",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 12,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.create_id_value"
+    },
+    {
+        "observer": "ComponentCount",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "ComponentCount",
+        "type": "TransactionStarted",
+        "transaction": "ComponentCount"
+    },
+    {
+        "type": "usermark",
+        "ComponentCount": "3"
+    },
+    {
+        "duration": 0,
+        "mutation": false,
+        "tracker": "ComponentCount",
+        "type": "TransactionCompleted",
+        "transaction": "ComponentCount"
+    },
+    {
+        "duration": 2,
+        "observer": "ComponentCount",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Value Update"
+    },
+    {
+        "observable": "TestComponent.3.value",
+        "type": "ObservableChanged"
+    },
+    {
+        "duration": 3,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Value Update"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.destroy"
+    },
+    {
+        "observable": "TestComponent.1.value",
+        "type": "ObservableChanged"
+    },
+    {
+        "observable": "TestComponent.1.value",
+        "type": "ObservableDisposed"
+    },
+    {
+        "observable": "TestComponentRepository.entities",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "ComponentCount",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 2,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.destroy"
+    },
+    {
+        "observer": "ComponentCount",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "ComponentCount",
+        "type": "TransactionStarted",
+        "transaction": "ComponentCount"
+    },
+    {
+        "type": "usermark",
+        "ComponentCount": "2"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "ComponentCount",
+        "type": "TransactionCompleted",
+        "transaction": "ComponentCount"
+    },
+    {
+        "duration": 3,
+        "observer": "ComponentCount",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.destroy"
+    },
+    {
+        "observable": "TestComponent.2.value",
+        "type": "ObservableChanged"
+    },
+    {
+        "observable": "TestComponent.2.value",
+        "type": "ObservableDisposed"
+    },
+    {
+        "observable": "TestComponentRepository.entities",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "ComponentCount",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 9,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.destroy"
+    },
+    {
+        "observer": "ComponentCount",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "ComponentCount",
+        "type": "TransactionStarted",
+        "transaction": "ComponentCount"
+    },
+    {
+        "type": "usermark",
+        "ComponentCount": "1"
+    },
+    {
+        "duration": 0,
+        "mutation": false,
+        "tracker": "ComponentCount",
+        "type": "TransactionCompleted",
+        "transaction": "ComponentCount"
+    },
+    {
+        "duration": 2,
+        "observer": "ComponentCount",
+        "type": "ReactionCompleted"
+    }
+]
