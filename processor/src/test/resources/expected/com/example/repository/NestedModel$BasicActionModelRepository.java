@@ -45,7 +45,7 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
   }
 
   @Action(
-      name = "create_"
+      name = "create"
   )
   @Nonnull
   public NestedModel.BasicActionModel create() {

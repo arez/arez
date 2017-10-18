@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Fixed
+* **\[processor\]** Repositories that define a `create` method with no parameters no longer suffix the name with
+  a "_" character.
+
 ##### Added
 * **\[annotations\]** Add the `@ObservableRef` annotation to allow the reactive component to get access to
   the underling `Observable` instance. This is useful for framework authors who need access to low level

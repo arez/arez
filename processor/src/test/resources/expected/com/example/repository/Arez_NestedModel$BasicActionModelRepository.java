@@ -37,7 +37,7 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
   public NestedModel.BasicActionModel create() {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'NestedModel$BasicActionModelRepository'" );
     try {
-      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.create_" : null, true, () -> super.create() );
+      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.create" : null, true, () -> super.create() );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {

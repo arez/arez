@@ -1940,8 +1940,9 @@ final class ComponentDescriptor
                                             @Nonnull final ExecutableType methodType,
                                             @Nonnull final ClassName arezType )
   {
-    final String actionName = "create_" + constructor.getParameters().stream().
+    final String suffix = constructor.getParameters().stream().
       map( p -> p.getSimpleName().toString() ).collect( Collectors.joining( "_" ) );
+    final String actionName = "create" + ( suffix.isEmpty() ? "" : "_" + suffix );
     final AnnotationSpec annotationSpec =
       AnnotationSpec.builder( Action.class ).addMember( "name", "$S", actionName ).build();
     final MethodSpec.Builder builder =

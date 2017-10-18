@@ -67,7 +67,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   }
 
   @Action(
-      name = "create_"
+      name = "create"
   )
   @Nonnull
   public RepositoryWithMultipleCtors create() {
