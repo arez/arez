@@ -45,15 +45,8 @@ public abstract class AbstractArezIntegrationTest
     return (ArezLogger.ProxyLogger) ArezLogger.getLogger();
   }
 
-  @SuppressWarnings( "SameParameterValue" )
-  protected void setEnableNames( final boolean enableNames )
+  protected void setEnforceTransactionTypeToFalse()
   {
-    ArezConfigTestUtil.setEnableNames( enableNames );
-  }
-
-  @SuppressWarnings( "SameParameterValue" )
-  protected void setEnforceTransactionType( final boolean enforceTransactionType )
-  {
-    ArezConfigTestUtil.setEnforceTransactionType( enforceTransactionType );
+    ArezConfigTestUtil.setEnforceTransactionType( false );
   }
 }
