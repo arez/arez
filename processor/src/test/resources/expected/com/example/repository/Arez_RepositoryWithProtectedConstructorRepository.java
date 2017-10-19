@@ -10,7 +10,7 @@ import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplicitIdRepository implements Disposable {
+public final class Arez_RepositoryWithProtectedConstructorRepository extends RepositoryWithProtectedConstructorRepository implements Disposable {
   private boolean $$arez$$_disposed;
 
   @Nonnull
@@ -19,10 +19,10 @@ public final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWit
   @Nonnull
   private final Observable $$arez$$_entities;
 
-  Arez_RepositoryWithImplicitIdRepository() {
+  Arez_RepositoryWithProtectedConstructorRepository() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_entities = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithImplicitIdRepository.entities" : null );
+    this.$$arez$$_entities = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.entities" : null );
   }
 
   @Override
@@ -41,23 +41,23 @@ public final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWit
 
   @Nonnull
   @Override
-  protected Collection<RepositoryWithImplicitId> entities() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithImplicitIdRepository'" );
+  protected Collection<RepositoryWithProtectedConstructor> entities() {
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();
   }
 
   @Override
   Observable getEntitiesObservable() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithImplicitIdRepository'" );
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
     return $$arez$$_entities;
   }
 
   @Override
-  public void destroy(@Nonnull final RepositoryWithImplicitId entity) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithImplicitIdRepository'" );
+  public void destroy(@Nonnull final RepositoryWithProtectedConstructor entity) {
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
     try {
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithImplicitIdRepository.destroy" : null, true, () -> super.destroy(entity), entity );
+      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.destroy" : null, true, () -> super.destroy(entity), entity );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -71,10 +71,10 @@ public final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWit
 
   @Nonnull
   @Override
-  RepositoryWithImplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithImplicitIdRepository'" );
+  protected RepositoryWithProtectedConstructor create(@Nonnull final String name) {
+    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
     try {
-      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithImplicitIdRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
+      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.create_name" : null, true, () -> super.create(name), name );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -89,7 +89,7 @@ public final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWit
   @Override
   public final String toString() {
     if ( $$arez$$_context.areNamesEnabled() ) {
-      return "ArezComponent[RepositoryWithImplicitIdRepository]";
+      return "ArezComponent[RepositoryWithProtectedConstructorRepository]";
     } else {
       return super.toString();
     }

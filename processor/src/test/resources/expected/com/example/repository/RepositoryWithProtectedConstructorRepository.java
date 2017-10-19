@@ -23,52 +23,30 @@ import org.realityforge.braincheck.Guards;
 @ArezComponent(
     singleton = true
 )
-public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMultipleCtorsBaseRepositoryExtension {
+public class RepositoryWithProtectedConstructorRepository implements RepositoryWithProtectedConstructorBaseRepositoryExtension {
   private static final boolean $$arez$$_IMMUTABLE_RESULTS = "true".equals( System.getProperty( "arez.repositories_return_immutables", String.valueOf( System.getProperty( "arez.environment", "production" ).equals( "development" ) ) ) );
   ;
 
-  private final HashMap<Long, RepositoryWithMultipleCtors> $$arez$$_entities = new HashMap<>();
+  private final HashMap<Long, RepositoryWithProtectedConstructor> $$arez$$_entities = new HashMap<>();
   ;
 
-  private final Collection<RepositoryWithMultipleCtors> $$arez$$_entityList = Collections.unmodifiableCollection( $$arez$$_entities.values() );
+  private final Collection<RepositoryWithProtectedConstructor> $$arez$$_entityList = Collections.unmodifiableCollection( $$arez$$_entities.values() );
   ;
 
-  RepositoryWithMultipleCtorsRepository() {
+  RepositoryWithProtectedConstructorRepository() {
   }
 
   @Nonnull
-  public static RepositoryWithMultipleCtorsRepository newRepository() {
-    return new Arez_RepositoryWithMultipleCtorsRepository();
-  }
-
-  @Action(
-      name = "create_packageName_name"
-  )
-  @Nonnull
-  RepositoryWithMultipleCtors create(@Nonnull final String packageName, @Nonnull final String name) {
-    final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(packageName,name);
-    $$arez$$_entities.put( entity.$$arez$$_id(), entity );
-    getEntitiesObservable().reportChanged();
-    return entity;
+  public static RepositoryWithProtectedConstructorRepository newRepository() {
+    return new Arez_RepositoryWithProtectedConstructorRepository();
   }
 
   @Action(
       name = "create_name"
   )
   @Nonnull
-  RepositoryWithMultipleCtors create(@Nonnull final String name) {
-    final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(name);
-    $$arez$$_entities.put( entity.$$arez$$_id(), entity );
-    getEntitiesObservable().reportChanged();
-    return entity;
-  }
-
-  @Action(
-      name = "create"
-  )
-  @Nonnull
-  RepositoryWithMultipleCtors create() {
-    final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors();
+  protected RepositoryWithProtectedConstructor create(@Nonnull final String name) {
+    final Arez_RepositoryWithProtectedConstructor entity = new Arez_RepositoryWithProtectedConstructor(name);
     $$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
@@ -81,15 +59,15 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
     getEntitiesObservable().reportChanged();
   }
 
-  public boolean contains(@Nonnull final RepositoryWithMultipleCtors entity) {
+  public boolean contains(@Nonnull final RepositoryWithProtectedConstructor entity) {
     getEntitiesObservable().reportObserved();
-    return entity instanceof Arez_RepositoryWithMultipleCtors && $$arez$$_entities.containsKey( ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_id() );
+    return entity instanceof Arez_RepositoryWithProtectedConstructor && $$arez$$_entities.containsKey( ((Arez_RepositoryWithProtectedConstructor) entity).$$arez$$_id() );
   }
 
   @Action
-  public void destroy(@Nonnull final RepositoryWithMultipleCtors entity) {
+  public void destroy(@Nonnull final RepositoryWithProtectedConstructor entity) {
     assert null != entity;
-    if ( entity instanceof Arez_RepositoryWithMultipleCtors && null != $$arez$$_entities.remove( ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_id() ) ) {
+    if ( entity instanceof Arez_RepositoryWithProtectedConstructor && null != $$arez$$_entities.remove( ((Arez_RepositoryWithProtectedConstructor) entity).$$arez$$_id() ) ) {
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();
     } else {
@@ -111,7 +89,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
       expectSetter = false
   )
   @Nonnull
-  protected Collection<RepositoryWithMultipleCtors> entities() {
+  protected Collection<RepositoryWithProtectedConstructor> entities() {
     return $$arez$$_entityList;
   }
 
@@ -120,7 +98,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
    * This method should be called by repository extensions when returning list results when not using {@link toList(List)}.
    */
   @Nonnull
-  protected final List<RepositoryWithMultipleCtors> wrap(@Nonnull final List<RepositoryWithMultipleCtors> list) {
+  protected final List<RepositoryWithProtectedConstructor> wrap(@Nonnull final List<RepositoryWithProtectedConstructor> list) {
     return $$arez$$_IMMUTABLE_RESULTS ? Collections.unmodifiableList( list ) : list;
   }
 
@@ -129,38 +107,38 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
    * This method should be called by repository extensions when returning list results.
    */
   @Nonnull
-  protected final List<RepositoryWithMultipleCtors> toList(@Nonnull final Stream<RepositoryWithMultipleCtors> stream) {
+  protected final List<RepositoryWithProtectedConstructor> toList(@Nonnull final Stream<RepositoryWithProtectedConstructor> stream) {
     return wrap( stream.collect( Collectors.toList() ) );
   }
 
   @Nonnull
-  public final List<RepositoryWithMultipleCtors> findAll() {
+  public final List<RepositoryWithProtectedConstructor> findAll() {
     return toList( entities().stream() );
   }
 
   @Nonnull
-  public final List<RepositoryWithMultipleCtors> findAll(@Nonnull final Comparator<RepositoryWithMultipleCtors> sorter) {
+  public final List<RepositoryWithProtectedConstructor> findAll(@Nonnull final Comparator<RepositoryWithProtectedConstructor> sorter) {
     return toList( entities().stream().sorted( sorter ) );
   }
 
   @Nonnull
-  public final List<RepositoryWithMultipleCtors> findAllByQuery(@Nonnull final Predicate<RepositoryWithMultipleCtors> query) {
+  public final List<RepositoryWithProtectedConstructor> findAllByQuery(@Nonnull final Predicate<RepositoryWithProtectedConstructor> query) {
     return toList( entities().stream().filter( query ) );
   }
 
   @Nonnull
-  public final List<RepositoryWithMultipleCtors> findAllByQuery(@Nonnull final Predicate<RepositoryWithMultipleCtors> query, @Nonnull final Comparator<RepositoryWithMultipleCtors> sorter) {
+  public final List<RepositoryWithProtectedConstructor> findAllByQuery(@Nonnull final Predicate<RepositoryWithProtectedConstructor> query, @Nonnull final Comparator<RepositoryWithProtectedConstructor> sorter) {
     return toList( entities().stream().filter( query ).sorted( sorter ) );
   }
 
   @Nullable
-  public final RepositoryWithMultipleCtors findByQuery(@Nonnull final Predicate<RepositoryWithMultipleCtors> query) {
+  public final RepositoryWithProtectedConstructor findByQuery(@Nonnull final Predicate<RepositoryWithProtectedConstructor> query) {
     return entities().stream().filter( query ).findFirst().orElse( null );
   }
 
   @Override
   @Nonnull
-  public final RepositoryWithMultipleCtorsRepository self() {
+  public final RepositoryWithProtectedConstructorRepository self() {
     return this;
   }
 }

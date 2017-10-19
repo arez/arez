@@ -45,7 +45,7 @@ public class CompleteRepositoryExampleRepository implements CompleteRepositoryEx
       name = "create_packageName_name"
   )
   @Nonnull
-  public CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {
+  CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_CompleteRepositoryExample entity = new Arez_CompleteRepositoryExample(packageName,name);
     $$arez$$_entities.put( entity.getId(), entity );
     getEntitiesObservable().reportChanged();

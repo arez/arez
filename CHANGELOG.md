@@ -8,6 +8,9 @@
   to ensure that this continues to work into the future.
 * **\[core\]** Stop recording `TransactionMode` if `ArezConfig.enforceTransactionType()` returns false. This
   results in the code being optimized out in production builds.
+* **\[processor\]** Fix annotation processor so that repositories of components with protected constructors
+  will not cause a compile error. The fix was to ensure that the access modifiers of the `create` method
+  matched the access modifiers of the target constructor.
 
 ### [v0.15](https://github.com/realityforge/arez/tree/v0.15) (2017-10-18)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.14...v0.15)

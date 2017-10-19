@@ -45,7 +45,7 @@ public class RepositoryWithImplicitIdRepository implements RepositoryWithImplici
       name = "create_packageName_name"
   )
   @Nonnull
-  public RepositoryWithImplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
+  RepositoryWithImplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_RepositoryWithImplicitId entity = new Arez_RepositoryWithImplicitId(packageName,name);
     $$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();

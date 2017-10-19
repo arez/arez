@@ -71,7 +71,7 @@ public final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWit
 
   @Nonnull
   @Override
-  public RepositoryWithExplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
+  RepositoryWithExplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithExplicitIdRepository'" );
     try {
       return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );

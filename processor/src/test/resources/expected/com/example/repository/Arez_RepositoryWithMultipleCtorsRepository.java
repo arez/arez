@@ -55,7 +55,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
 
   @Nonnull
   @Override
-  public RepositoryWithMultipleCtors create() {
+  RepositoryWithMultipleCtors create() {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
       return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create" : null, true, () -> super.create() );
@@ -88,7 +88,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
 
   @Nonnull
   @Override
-  public RepositoryWithMultipleCtors create(@Nonnull final String packageName, @Nonnull final String name) {
+  RepositoryWithMultipleCtors create(@Nonnull final String packageName, @Nonnull final String name) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
       return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
@@ -105,7 +105,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
 
   @Nonnull
   @Override
-  public RepositoryWithMultipleCtors create(@Nonnull final String name) {
+  RepositoryWithMultipleCtors create(@Nonnull final String name) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
       return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_name" : null, true, () -> super.create(name), name );

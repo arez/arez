@@ -58,6 +58,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.repository.RepositoryWithExplicitId", true },
         new Object[]{ "com.example.repository.RepositoryWithImplicitId", true },
         new Object[]{ "com.example.repository.RepositoryWithMultipleCtors", true },
+        new Object[]{ "com.example.repository.RepositoryWithProtectedConstructor", true },
         new Object[]{ "com.example.to_string.NoToStringPresent", false },
         new Object[]{ "com.example.to_string.ToStringPresent", false },
         new Object[]{ "com.example.tracked.BasicTrackedModel", false },

@@ -1962,7 +1962,6 @@ final class ComponentDescriptor
       AnnotationSpec.builder( Action.class ).addMember( "name", "$S", actionName ).build();
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "create" ).
-        addModifiers( Modifier.PUBLIC ).
         addAnnotation( annotationSpec ).
         addAnnotation( Nonnull.class ).
         returns( TypeName.get( asDeclaredType() ) );

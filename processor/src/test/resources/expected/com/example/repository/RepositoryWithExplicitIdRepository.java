@@ -45,7 +45,7 @@ public class RepositoryWithExplicitIdRepository implements RepositoryWithExplici
       name = "create_packageName_name"
   )
   @Nonnull
-  public RepositoryWithExplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
+  RepositoryWithExplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_RepositoryWithExplicitId entity = new Arez_RepositoryWithExplicitId(packageName,name);
     $$arez$$_entities.put( entity.getId(), entity );
     getEntitiesObservable().reportChanged();

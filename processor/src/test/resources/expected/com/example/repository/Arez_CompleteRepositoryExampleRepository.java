@@ -71,7 +71,7 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
 
   @Nonnull
   @Override
-  public CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {
+  CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'CompleteRepositoryExampleRepository'" );
     try {
       return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "CompleteRepositoryExampleRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
