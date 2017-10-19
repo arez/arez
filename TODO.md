@@ -33,7 +33,7 @@ complete as there is too much un-said.
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
   - Perhaps by the latest kid in town - https://www.cypress.io/
 
-* Consider integration into a reactive streaming API ala rxjava-gwt. Has already been done in mobx. 
+* Consider integration into a reactive streaming API ala rxjava-gwt. Has already been done in mobx.
   - https://github.com/intendia-oss/rxjava-gwt
   - https://github.com/mobxjs/mobx-utils/blob/master/src/from-resource.ts
 
