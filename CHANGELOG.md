@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+##### Changed
+* Move to GWT 2.8.2.
+
 ### [v0.16](https://github.com/realityforge/arez/tree/v0.16) (2017-10-19)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.15...v0.16)
 
