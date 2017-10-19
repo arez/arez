@@ -18,6 +18,7 @@ import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.ObservableRef;
 import org.realityforge.arez.annotations.PreDispose;
 import org.realityforge.arez.component.NoResultException;
+import org.realityforge.arez.component.NoSuchEntityException;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
@@ -80,6 +81,15 @@ public class RepositoryWithExplicitIdRepository implements RepositoryWithExplici
   public RepositoryWithExplicitId findById(final int id) {
     getEntitiesObservable().reportObserved();
     return $$arez$$_entities.get( id );
+  }
+
+  @Nonnull
+  public final RepositoryWithExplicitId getById(final int id) {
+    final RepositoryWithExplicitId entity = findById( id );
+    if ( null == entity ) {
+      throw new NoSuchEntityException( RepositoryWithExplicitId.class, id );
+    }
+    return entity;
   }
 
   @ObservableRef

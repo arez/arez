@@ -58,6 +58,7 @@ import org.realityforge.arez.annotations.PostDispose;
 import org.realityforge.arez.annotations.PreDispose;
 import org.realityforge.arez.annotations.Track;
 import org.realityforge.arez.component.NoResultException;
+import org.realityforge.arez.component.NoSuchEntityException;
 
 /**
  * The class that represents the parsed state of ArezComponent annotated class.
@@ -1664,6 +1665,7 @@ final class ComponentDescriptor
     if ( null != _componentId )
     {
       builder.addMethod( buildFindByIdMethod() );
+      builder.addMethod( buildGetByIdMethod() );
     }
     builder.addMethod( buildObservableAccessorMethod() );
     builder.addMethod( buildEntitiesMethod() );
@@ -1852,6 +1854,7 @@ final class ComponentDescriptor
       addStatement( "return entity" ).
       build();
   }
+
   @Nonnull
   private MethodSpec buildSelfMethod()
   {
@@ -1961,6 +1964,25 @@ final class ComponentDescriptor
       returns( TypeName.get( getElement().asType() ) ).
       addStatement( "$N().reportObserved()", GET_OBSERVABLE_METHOD ).
       addStatement( "return $N.get( id )", ENTITIES_FIELD_NAME ).build();
+  }
+
+  @Nonnull
+  private MethodSpec buildGetByIdMethod()
+  {
+    final TypeName entityType = TypeName.get( getElement().asType() );
+    return MethodSpec.methodBuilder( "getBy" + getIdName() ).
+      addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+      addAnnotation( Nonnull.class ).
+      addParameter( ParameterSpec.builder( getIdType(), "id", Modifier.FINAL ).build() ).
+      returns( entityType ).
+      addStatement( "final $T entity = $N( id )", entityType, "findBy" + getIdName() ).
+      addCode( CodeBlock.builder().
+        beginControlFlow( "if ( null == entity )" ).
+        addStatement( "throw new $T( $T.class, id )", NoSuchEntityException.class, entityType ).
+        endControlFlow().
+        build() ).
+      addStatement( "return entity" ).
+      build();
   }
 
   @Nonnull

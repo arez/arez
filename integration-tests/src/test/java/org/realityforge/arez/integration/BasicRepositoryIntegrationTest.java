@@ -9,6 +9,7 @@ import org.realityforge.arez.annotations.ComponentId;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.Repository;
 import org.realityforge.arez.component.NoResultException;
+import org.realityforge.arez.component.NoSuchEntityException;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -94,6 +95,8 @@ public class BasicRepositoryIntegrationTest
 
     context.action( false, () -> assertEquals( repository.findById( 4 ), component4 ) );
     context.action( false, () -> assertEquals( repository.findById( 3 ), component3 ) );
+    context.action( false, () -> assertEquals( repository.getById( 4 ), component4 ) );
+    context.action( false, () -> assertEquals( repository.getById( 3 ), component3 ) );
     context.action( false, () -> assertEquals( repository.findById( 2 ), null ) );
     context.action( false, () -> assertEquals( repository.findByQuery( c -> c.getId() == 3 ), component3 ) );
     context.action( false, () -> assertEquals( repository.getByQuery( c -> c.getId() == 3 ), component3 ) );
@@ -109,6 +112,11 @@ public class BasicRepositoryIntegrationTest
     assertThrows( NoResultException.class,
                   () -> context.action( () -> repository.getByQuery( c -> false ) ) );
 
+    //getById should throw an exception if not found
+    final NoSuchEntityException exception =
+      expectThrows( NoSuchEntityException.class, () -> context.action( () -> repository.getById( 2 ) ) );
+    assertEquals( exception.getType(), TestComponent.class );
+    assertEquals( exception.getId(), 2 );
   }
 
   @Test

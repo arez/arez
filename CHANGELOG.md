@@ -8,6 +8,8 @@
   projects that they have needed to support their requirements.
 * **\[processor\]** Add a method `getByQuery()` to generated repository that throws the exception `NoResultException`
   if unable to find any components that match query.
+* **\[processor\]** Add a method `getBy[ComponentId]()` to the generated repository that throws the exception
+  `NoSuchEntityException` if unable to component with specified id.
 
 ##### Fixed
 * **\[core\]** Eliminate assertion failures when `ArezConfig.enforceTransactionType()` is set to false but
