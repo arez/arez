@@ -272,7 +272,6 @@ define 'arez' do
   ipr.add_component_from_artifact(:idea_codestyle)
   ipr.extra_modules << '../mobx-docs/mobx-docs.iml'
   ipr.extra_modules << '../mobx-react-devtools/mobx-react-devtools.iml'
-  ipr.extra_modules << '../mobx-utils/mobx-utils.iml'
 
   GWT_EXAMPLES.each do |gwt_module|
     short_name = gwt_module.gsub(/.*\./, '')
