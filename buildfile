@@ -82,6 +82,24 @@ define 'arez' do
     iml.main_dependencies << project('core').package(:jar)
   end
 
+  define 'component' do
+    pom.provided_dependencies.concat PROVIDED_DEPS
+
+    compile.with PROVIDED_DEPS
+
+    test.options[:properties] = AREZ_TEST_OPTIONS
+    test.options[:java_args] = ['-ea']
+
+    gwt_enhance(project)
+
+    package(:jar)
+    package(:sources)
+    package(:javadoc)
+
+    test.using :testng
+    test.compile.with TEST_DEPS
+  end
+
   define 'extras' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
@@ -108,6 +126,8 @@ define 'arez' do
                  project('annotations').compile.dependencies,
                  project('core').package(:jar, :classifier => :gwt),
                  project('core').compile.dependencies,
+                 project('component').package(:jar, :classifier => :gwt),
+                 project('component').compile.dependencies,
                  project('extras').package(:jar, :classifier => :gwt),
                  project('extras').compile.dependencies,
                  project('processor').package(:jar),
@@ -140,7 +160,9 @@ define 'arez' do
                  :autocommon,
                  :javapoet,
                  :guava,
-                 project('annotations')
+                 project('annotations'),
+                 project('component')
+
 
     test.with :compile_testing,
               Java.tools_jar,
@@ -176,6 +198,8 @@ define 'arez' do
                       project('annotations').compile.dependencies,
                       project('core').package(:jar),
                       project('core').compile.dependencies,
+                      project('component').package(:jar, :classifier => :gwt),
+                      project('component').compile.dependencies,
                       project('extras').package(:jar),
                       project('extras').compile.dependencies,
                       project('processor').package(:jar),
@@ -234,6 +258,7 @@ define 'arez' do
           :group => {
             'Core Packages' => 'org.realityforge.arez:org.realityforge.arez.spy*',
             'Annotation Packages' => 'org.realityforge.arez.annotations*:org.realityforge.arez.processor*',
+            'Component Packages' => 'org.realityforge.arez.component*',
             'Extras Packages' => 'org.realityforge.arez.extras*',
             'Browser Extras Packages' => 'org.realityforge.arez.browser*'
           }
