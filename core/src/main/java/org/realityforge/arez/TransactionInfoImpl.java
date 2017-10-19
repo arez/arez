@@ -38,7 +38,7 @@ final class TransactionInfoImpl
   @Override
   public boolean isReadOnly()
   {
-    return TransactionMode.READ_WRITE != getTransaction().getMode();
+    return ArezConfig.enforceTransactionType() && TransactionMode.READ_WRITE != getTransaction().getMode();
   }
 
   /**

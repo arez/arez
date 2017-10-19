@@ -225,7 +225,10 @@ public final class ArezContext
                            final boolean runImmediately )
   {
     final Observer observer =
-      createObserver( name, mutation, o -> action( name, o.getMode(), action, true, o ), false );
+      createObserver( name,
+                      mutation,
+                      o -> action( name, ArezConfig.enforceTransactionType() ? o.getMode() : null, action, true, o ),
+                      false );
     if ( runImmediately )
     {
       observer.invokeReaction();
@@ -299,7 +302,8 @@ public final class ArezContext
                            final boolean canTrackExplicitly )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
-    final Observer observer = new Observer( this, toName( "Observer", name ), mode, reaction, canTrackExplicitly );
+    final Observer observer =
+      new Observer( this, toName( "Observer", name ), null, mode, reaction, canTrackExplicitly );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObserverCreatedEvent( observer ) );
@@ -348,10 +352,10 @@ public final class ArezContext
    * @return the new transaction.
    */
   Transaction beginTransaction( @Nullable final String name,
-                                @Nonnull final TransactionMode mode,
+                                @Nullable final TransactionMode mode,
                                 @Nullable final Observer tracker )
   {
-    if ( TransactionMode.READ_WRITE == mode && null != _transaction )
+    if ( ArezConfig.enforceTransactionType() && TransactionMode.READ_WRITE == mode && null != _transaction )
     {
       invariant( () -> TransactionMode.READ_WRITE == _transaction.getMode(),
                  () -> "Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
@@ -363,7 +367,8 @@ public final class ArezContext
     if ( willPropagateSpyEvents() )
     {
       assert null != name;
-      final boolean mutation = TransactionMode.READ_WRITE == _transaction.getMode();
+      final boolean mutation =
+        !ArezConfig.enforceTransactionType() || TransactionMode.READ_WRITE == _transaction.getMode();
       getSpy().reportSpyEvent( new TransactionStartedEvent( name, mutation, tracker ) );
     }
     return _transaction;
@@ -390,7 +395,8 @@ public final class ArezContext
     if ( willPropagateSpyEvents() )
     {
       final String name = _transaction.getName();
-      final boolean mutation = TransactionMode.READ_WRITE == _transaction.getMode();
+      final boolean mutation =
+        !ArezConfig.enforceTransactionType() || TransactionMode.READ_WRITE == _transaction.getMode();
       final Observer tracker = _transaction.getTracker();
       final long duration = System.currentTimeMillis() - _transaction.getStartedAt();
       getSpy().reportSpyEvent( new TransactionCompletedEvent( name, mutation, tracker, duration ) );
@@ -528,11 +534,15 @@ public final class ArezContext
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    return action( toName( tracker ), tracker.getMode(), action, tracker, parameters );
+    return action( toName( tracker ),
+                   ArezConfig.enforceTransactionType() ? tracker.getMode() : null,
+                   action,
+                   tracker,
+                   parameters );
   }
 
   private <T> T action( @Nullable final String name,
-                        @Nonnull final TransactionMode mode,
+                        @Nullable final TransactionMode mode,
                         @Nonnull final Function<T> action,
                         @Nullable final Observer tracker,
                         @Nonnull final Object... parameters )
@@ -674,11 +684,15 @@ public final class ArezContext
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    return safeAction( toName( tracker ), tracker.getMode(), action, tracker, parameters );
+    return safeAction( toName( tracker ),
+                       ArezConfig.enforceTransactionType() ? tracker.getMode() : null,
+                       action,
+                       tracker,
+                       parameters );
   }
 
   private <T> T safeAction( @Nullable final String name,
-                            @Nonnull final TransactionMode mode,
+                            @Nullable final TransactionMode mode,
                             @Nonnull final SafeFunction<T> action,
                             @Nullable final Observer tracker,
                             @Nonnull final Object... parameters )
@@ -817,7 +831,12 @@ public final class ArezContext
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    action( toName( tracker ), tracker.getMode(), action, true, tracker, parameters );
+    action( toName( tracker ),
+            ArezConfig.enforceTransactionType() ? tracker.getMode() : null,
+            action,
+            true,
+            tracker,
+            parameters );
   }
 
   @Nullable
@@ -827,7 +846,7 @@ public final class ArezContext
   }
 
   void action( @Nullable final String name,
-               @Nonnull final TransactionMode mode,
+               @Nullable final TransactionMode mode,
                @Nonnull final Procedure action,
                final boolean reportAction,
                @Nullable final Observer tracker,
@@ -958,11 +977,15 @@ public final class ArezContext
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    safeAction( toName( tracker ), tracker.getMode(), action, tracker, parameters );
+    safeAction( toName( tracker ),
+                ArezConfig.enforceTransactionType() ? tracker.getMode() : null,
+                action,
+                tracker,
+                parameters );
   }
 
   void safeAction( @Nullable final String name,
-                   @Nonnull final TransactionMode mode,
+                   @Nullable final TransactionMode mode,
                    @Nonnull final SafeProcedure action,
                    @Nullable final Observer tracker,
                    @Nonnull final Object... parameters )
@@ -1123,10 +1146,12 @@ public final class ArezContext
    * @param mutation true if the transaction may modify state, false otherwise.
    * @return the READ_WRITE transaction mode if mutation is true else READ_ONLY.
    */
-  @Nonnull
+  @Nullable
   private TransactionMode mutationToTransactionMode( final boolean mutation )
   {
-    return mutation ? TransactionMode.READ_WRITE : TransactionMode.READ_ONLY;
+    return ArezConfig.enforceTransactionType() ?
+           ( mutation ? TransactionMode.READ_WRITE : TransactionMode.READ_ONLY ) :
+           null;
   }
 
   @TestOnly

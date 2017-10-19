@@ -76,7 +76,10 @@ public final class Observable
     _owner = owner;
     if ( null != _owner )
     {
-      invariant( _owner::isDerivation,
+      // This invariant can not be checked if ArezConfig.enforceTransactionType() is false as
+      // the variable has yet to be assigned and no transaction mode set. Thus just skip the
+      // check in this scenario.
+      invariant( () -> !ArezConfig.enforceTransactionType() || _owner.isDerivation(),
                  () -> "Observable named '" + getName() + "' has owner specified " +
                        "but owner is not a derivation." );
       assert !ArezConfig.enableNames() || _owner.getName().equals( name );

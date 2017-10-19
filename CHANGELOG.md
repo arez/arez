@@ -2,6 +2,13 @@
 
 ### Unreleased
 
+##### Fixed
+* **\[core\]** Eliminate assertion failures when `ArezConfig.enforceTransactionType()` is set to false but
+  invariant checking is still enabled. Add a basic integration test with `enforceTransactionType` to to false
+  to ensure that this continues to work into the future.
+* **\[core\]** Stop recording `TransactionMode` if `ArezConfig.enforceTransactionType()` returns false. This
+  results in the code being optimized out in production builds.
+
 ### [v0.15](https://github.com/realityforge/arez/tree/v0.15) (2017-10-18)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.14...v0.15)
 

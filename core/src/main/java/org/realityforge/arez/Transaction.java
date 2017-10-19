@@ -28,8 +28,9 @@ final class Transaction
   private final int _id;
   /**
    * Determines which write operations are permitted within the scope of the transaction if any.
+   * It is only set if {@link ArezConfig#enforceTransactionType()} returns true.
    */
-  @Nonnull
+  @Nullable
   private final TransactionMode _mode;
   /**
    * A list of observables that have reached zero observers within the scope of the root transaction.
@@ -71,7 +72,7 @@ final class Transaction
   Transaction( @Nonnull final ArezContext context,
                @Nullable final Transaction previous,
                @Nullable final String name,
-               @Nonnull final TransactionMode mode,
+               @Nullable final TransactionMode mode,
                @Nullable final Observer tracker )
   {
     invariant( () -> ArezConfig.enableNames() || null == name,
@@ -80,7 +81,7 @@ final class Transaction
     _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
     _id = context.nextTransactionId();
     _previous = previous;
-    _mode = Objects.requireNonNull( mode );
+    _mode = ArezConfig.enforceTransactionType() ? Objects.requireNonNull( mode ) : null;
     _tracker = tracker;
     _startedAt = ArezConfig.enableSpy() ? System.currentTimeMillis() : 0;
 
@@ -133,7 +134,7 @@ final class Transaction
     invariant( () -> null != _tracker,
                () -> "Attempted to invoke markTrackerAsDisposed on transaction named '" + getName() +
                      "' when there is no tracker associated with the transaction." );
-    invariant( () -> TransactionMode.READ_WRITE == getMode(),
+    invariant( () -> !ArezConfig.enforceTransactionType() || TransactionMode.READ_WRITE == getMode(),
                () -> "Attempted to invoke markTrackerAsDisposed on transaction named '" + getName() +
                      "' when the transaction mode is " + getMode().name() + " and not READ_WRITE." );
     assert null != _tracker;
@@ -149,6 +150,7 @@ final class Transaction
   @Nonnull
   TransactionMode getMode()
   {
+    assert null != _mode;
     return _mode;
   }
 

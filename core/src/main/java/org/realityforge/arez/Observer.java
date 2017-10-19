@@ -69,7 +69,7 @@ public final class Observer
   /**
    * The transaction mode in which the observer executes.
    */
-  @Nonnull
+  @Nullable
   private final TransactionMode _mode;
   /**
    * The code responsible for responding to changes if any.
@@ -95,9 +95,9 @@ public final class Observer
     this( computedValue.getContext(),
           ArezConfig.enableNames() ? computedValue.getName() : null,
           computedValue,
-          TransactionMode.READ_WRITE_OWNED,
+          ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE_OWNED : null,
           o -> o.getContext().action( ArezConfig.enableNames() ? o.getName() : null,
-                                      o.getMode(),
+                                      ArezConfig.enforceTransactionType() ? o.getMode() : null,
                                       computedValue::compute,
                                       false,
                                       o ),
@@ -109,46 +109,44 @@ public final class Observer
             @Nonnull final TransactionMode mode,
             @Nonnull final Reaction reaction )
   {
-    this( context, name, mode, reaction, false );
-  }
-
-  Observer( @Nonnull final ArezContext context,
-            @Nullable final String name,
-            @Nonnull final TransactionMode mode,
-            @Nonnull final Reaction reaction,
-            final boolean canTrackExplicitly )
-  {
-    this( context, name, null, mode, reaction, canTrackExplicitly );
+    this( context, name, null, mode, reaction, false );
   }
 
   Observer( @Nonnull final ArezContext context,
             @Nullable final String name,
             @Nullable final ComputedValue<?> computedValue,
-            @Nonnull final TransactionMode mode,
+            @Nullable final TransactionMode mode,
             @Nonnull final Reaction reaction,
             final boolean canTrackExplicitly )
   {
     super( context, name );
-    if ( TransactionMode.READ_WRITE_OWNED == mode )
+    if ( ArezConfig.enforceTransactionType() )
     {
-      invariant( () -> null != computedValue,
-                 () -> "Attempted to construct an observer named '" + getName() + "' with READ_WRITE_OWNED " +
-                       "transaction mode but no ComputedValue." );
-      assert null != computedValue;
-      assert !ArezConfig.enableNames() || computedValue.getName().equals( name );
-      invariant( () -> !canTrackExplicitly,
-                 () -> "Attempted to construct an ComputedValue '" + getName() + "' that could track explicitly." );
+      if ( TransactionMode.READ_WRITE_OWNED == mode )
+      {
+        invariant( () -> null != computedValue,
+                   () -> "Attempted to construct an observer named '" + getName() + "' with READ_WRITE_OWNED " +
+                         "transaction mode but no ComputedValue." );
+        assert null != computedValue;
+        invariant( () -> !canTrackExplicitly,
+                   () -> "Attempted to construct an ComputedValue '" + getName() + "' that could track explicitly." );
+      }
+      else if ( null != computedValue )
+      {
+        fail( () -> "Attempted to construct an observer named '" + getName() + "' with " + mode +
+                    " transaction mode and a ComputedValue." );
+      }
     }
-    else if ( null != computedValue )
+    else
     {
-      fail( () -> "Attempted to construct an observer named '" + getName() + "' with " + mode.name() +
-                  " transaction mode and a ComputedValue." );
+      assert null == mode;
     }
+    assert null == computedValue || !ArezConfig.enableNames() || computedValue.getName().equals( name );
     _computedValue = computedValue;
-    _mode = Objects.requireNonNull( mode );
+    _mode = ArezConfig.enforceTransactionType() ? Objects.requireNonNull( mode ) : null;
     _reaction = Objects.requireNonNull( reaction );
     _canTrackExplicitly = canTrackExplicitly;
-    if ( TransactionMode.READ_WRITE_OWNED == mode )
+    if ( null != _computedValue )
     {
       _derivedValue = new Observable( context, name, this );
     }
@@ -179,9 +177,10 @@ public final class Observer
   {
     /*
      * We do not use "null != _derivedValue" as it is called from constructor of observable
-     * prior to assigning it to _derivedValue.
+     * prior to assigning it to _derivedValue. However it is only called if ArezConfig.enforceTransactionType()
+     * so we can use "null != _derivedValue" when not enabled.
      */
-    return TransactionMode.READ_WRITE_OWNED == getMode();
+    return ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE_OWNED == getMode() : null != _derivedValue;
   }
 
   /**
@@ -245,9 +244,10 @@ public final class Observer
    *
    * @return the transaction mode in which the observer executes.
    */
-  @Nonnull
+  @Nullable
   TransactionMode getMode()
   {
+    assert ArezConfig.enforceTransactionType();
     return _mode;
   }
 

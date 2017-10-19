@@ -249,7 +249,7 @@ final class SpyImpl
   @Override
   public boolean isReadOnly( @Nonnull final Observer observer )
   {
-    return TransactionMode.READ_WRITE != observer.getMode();
+    return ArezConfig.enforceTransactionType() && TransactionMode.READ_WRITE != observer.getMode();
   }
 
   /**
