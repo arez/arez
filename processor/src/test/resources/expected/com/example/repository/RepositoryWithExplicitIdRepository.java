@@ -17,6 +17,7 @@ import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.ObservableRef;
 import org.realityforge.arez.annotations.PreDispose;
+import org.realityforge.arez.component.NoResultException;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
@@ -140,6 +141,15 @@ public class RepositoryWithExplicitIdRepository implements RepositoryWithExplici
   @Nullable
   public final RepositoryWithExplicitId findByQuery(@Nonnull final Predicate<RepositoryWithExplicitId> query) {
     return entities().stream().filter( query ).findFirst().orElse( null );
+  }
+
+  @Nonnull
+  public final RepositoryWithExplicitId getByQuery(@Nonnull final Predicate<RepositoryWithExplicitId> query) {
+    final RepositoryWithExplicitId entity = findByQuery( query );
+    if ( null == entity ) {
+      throw new NoResultException();
+    }
+    return entity;
   }
 
   @Override

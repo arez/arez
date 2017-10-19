@@ -17,6 +17,7 @@ import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.ObservableRef;
 import org.realityforge.arez.annotations.PreDispose;
+import org.realityforge.arez.component.NoResultException;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
@@ -156,6 +157,15 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   @Nullable
   public final RepositoryWithMultipleCtors findByQuery(@Nonnull final Predicate<RepositoryWithMultipleCtors> query) {
     return entities().stream().filter( query ).findFirst().orElse( null );
+  }
+
+  @Nonnull
+  public final RepositoryWithMultipleCtors getByQuery(@Nonnull final Predicate<RepositoryWithMultipleCtors> query) {
+    final RepositoryWithMultipleCtors entity = findByQuery( query );
+    if ( null == entity ) {
+      throw new NoResultException();
+    }
+    return entity;
   }
 
   @Override

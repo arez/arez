@@ -8,6 +8,7 @@ import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.ComponentId;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.Repository;
+import org.realityforge.arez.component.NoResultException;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -95,6 +96,7 @@ public class BasicRepositoryIntegrationTest
     context.action( false, () -> assertEquals( repository.findById( 3 ), component3 ) );
     context.action( false, () -> assertEquals( repository.findById( 2 ), null ) );
     context.action( false, () -> assertEquals( repository.findByQuery( c -> c.getId() == 3 ), component3 ) );
+    context.action( false, () -> assertEquals( repository.getByQuery( c -> c.getId() == 3 ), component3 ) );
     context.action( false, () -> assertEquals( repository.findAllByQuery( c -> c.getId() == 3 ).size(), 1 ) );
     context.action( false, () -> assertEquals( repository.findAllByQuery( c -> c.getId() >= 3 ).size(), 2 ) );
     context.action( false, () -> assertEquals( repository.findAll().size(), 2 ) );
@@ -102,6 +104,11 @@ public class BasicRepositoryIntegrationTest
     context.action( false, () -> assertEquals( repository.contains( component2 ), false ) );
     context.action( false, () -> assertEquals( repository.contains( component3 ), true ) );
     context.action( false, () -> assertEquals( repository.contains( component4 ), true ) );
+
+    // getByQuery should throw an exception if there is no entity that matches query
+    assertThrows( NoResultException.class,
+                  () -> context.action( () -> repository.getByQuery( c -> false ) ) );
+
   }
 
   @Test

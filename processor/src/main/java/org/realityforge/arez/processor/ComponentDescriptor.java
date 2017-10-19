@@ -57,6 +57,7 @@ import org.realityforge.arez.annotations.OnStale;
 import org.realityforge.arez.annotations.PostDispose;
 import org.realityforge.arez.annotations.PreDispose;
 import org.realityforge.arez.annotations.Track;
+import org.realityforge.arez.component.NoResultException;
 
 /**
  * The class that represents the parsed state of ArezComponent annotated class.
@@ -1673,6 +1674,7 @@ final class ComponentDescriptor
     builder.addMethod( buildFindAllByQueryMethod() );
     builder.addMethod( buildFindAllByQuerySortedMethod() );
     builder.addMethod( buildFindByQueryMethod() );
+    builder.addMethod( buildGetByQueryMethod() );
 
     builder.addMethod( buildSelfMethod() );
 
@@ -1829,6 +1831,27 @@ final class ComponentDescriptor
       build();
   }
 
+  @Nonnull
+  private MethodSpec buildGetByQueryMethod()
+  {
+    final TypeName entityType = TypeName.get( getElement().asType() );
+    final ParameterizedTypeName queryType =
+      ParameterizedTypeName.get( ClassName.get( Predicate.class ), entityType );
+    return MethodSpec.methodBuilder( "getByQuery" ).
+      addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+      addAnnotation( Nonnull.class ).
+      addParameter( ParameterSpec.builder( queryType, "query", Modifier.FINAL ).
+        addAnnotation( Nonnull.class ).build() ).
+      returns( entityType ).
+      addStatement( "final $T entity = findByQuery( query )", entityType ).
+      addCode( CodeBlock.builder().
+        beginControlFlow( "if ( null == entity )" ).
+        addStatement( "throw new $T()", NoResultException.class ).
+        endControlFlow().
+        build() ).
+      addStatement( "return entity" ).
+      build();
+  }
   @Nonnull
   private MethodSpec buildSelfMethod()
   {

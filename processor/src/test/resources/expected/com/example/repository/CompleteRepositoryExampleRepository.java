@@ -17,6 +17,7 @@ import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.ObservableRef;
 import org.realityforge.arez.annotations.PreDispose;
+import org.realityforge.arez.component.NoResultException;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
@@ -140,6 +141,15 @@ public class CompleteRepositoryExampleRepository implements CompleteRepositoryEx
   @Nullable
   public final CompleteRepositoryExample findByQuery(@Nonnull final Predicate<CompleteRepositoryExample> query) {
     return entities().stream().filter( query ).findFirst().orElse( null );
+  }
+
+  @Nonnull
+  public final CompleteRepositoryExample getByQuery(@Nonnull final Predicate<CompleteRepositoryExample> query) {
+    final CompleteRepositoryExample entity = findByQuery( query );
+    if ( null == entity ) {
+      throw new NoResultException();
+    }
+    return entity;
   }
 
   @Override
