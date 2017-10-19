@@ -50,4 +50,10 @@ public abstract class AbstractArezIntegrationTest
   {
     ArezConfigTestUtil.setEnableNames( enableNames );
   }
+
+  @SuppressWarnings( "SameParameterValue" )
+  protected void setEnforceTransactionType( final boolean enforceTransactionType )
+  {
+    ArezConfigTestUtil.setEnforceTransactionType( enforceTransactionType );
+  }
 }
