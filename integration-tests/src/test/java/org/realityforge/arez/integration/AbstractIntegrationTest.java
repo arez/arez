@@ -10,6 +10,7 @@ import javax.annotation.Nonnull;
 import javax.json.Json;
 import javax.json.JsonObject;
 import org.json.JSONException;
+import org.realityforge.arez.AbstractArezIntegrationTest;
 import org.skyscreamer.jsonassert.Customization;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
@@ -19,6 +20,7 @@ import org.testng.annotations.BeforeMethod;
 import static org.testng.Assert.*;
 
 public abstract class AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   private String _currentMethod;
 

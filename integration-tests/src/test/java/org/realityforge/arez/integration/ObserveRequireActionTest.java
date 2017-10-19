@@ -11,7 +11,8 @@ public class ObserveRequireActionTest
   @Test
   public void accessingObservableOutsideTransactionShouldThrowException()
   {
-    final CodeModel component = CodeModel.create( ValueUtil.randomString(), ValueUtil.randomString() );
+    final DisposeIntegrationTest.CodeModel
+      component = DisposeIntegrationTest.CodeModel.create( ValueUtil.randomString(), ValueUtil.randomString() );
     assertThrows( component::getName );
 
     Arez.context().safeAction( component::getName );
@@ -20,7 +21,8 @@ public class ObserveRequireActionTest
   @Test
   public void mutatingObservableOutsideTransactionShouldThrowException()
   {
-    final CodeModel component = CodeModel.create( ValueUtil.randomString(), ValueUtil.randomString() );
+    final DisposeIntegrationTest.CodeModel
+      component = DisposeIntegrationTest.CodeModel.create( ValueUtil.randomString(), ValueUtil.randomString() );
     assertThrows( () -> component.setName( "X" ) );
 
     Arez.context().safeAction( () -> component.setName( "X" ) );
@@ -29,7 +31,8 @@ public class ObserveRequireActionTest
   @Test
   public void accessingComputedOutsideTransactionShouldThrowException()
   {
-    final CodeModel component = CodeModel.create( ValueUtil.randomString(), ValueUtil.randomString() );
+    final DisposeIntegrationTest.CodeModel
+      component = DisposeIntegrationTest.CodeModel.create( ValueUtil.randomString(), ValueUtil.randomString() );
     assertThrows( component::getQualifiedName );
 
     Arez.context().safeAction( component::getQualifiedName );
