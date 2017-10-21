@@ -11,9 +11,10 @@ Anything that can be derived from application state, should be derived from appl
 should occur automatically and only when it is needed. This means that application aspects such as the user-interface,
 network communication, data storage etc. should be driven by changes in application state.
 
-To ensure a computation only occurs once as a result of a state change, it can be stored as a computed value. A
-computed value will only be recalculated if it is used by another derivation and that it depends upon changes. If
-the computed value changes that change is propagated to it's dependencies.
+To ensure a computation only occurs once as a result of a state change, it can be stored as a "computed value". A
+computed value will only be recalculated if state it is dependent upon is updated **and** another derivation depends
+upon the computed value. If the recalculation produces a different value (i.e. the computed value changes) then this
+change is propagated to all dependent derivations.
 
 The Arez architecture is based on a strict unidirectional data flow. The application state is modified by an action
 and this flows through the application in a manner not unlike a spread sheet. Derivations run if any of their
