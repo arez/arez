@@ -38,6 +38,8 @@ public class ConsoleSpyEventProcessor
   @CssRules
   private static final String OBSERVABLE_COLOR = "color: #CF8A3B; font-weight: normal;";
   @CssRules
+  private static final String COMPUTED_COLOR = "color: #FFBA49; font-weight: normal;";
+  @CssRules
   private static final String OBSERVER_COLOR = "color: #0FA13B; font-weight: normal;";
   @CssRules
   private static final String REACTION_COLOR = "color: #10a210; font-weight: normal;";
@@ -156,7 +158,7 @@ public class ConsoleSpyEventProcessor
   protected void onComputedValueCreated( @Nonnull final SpyUtil.NestingDelta d,
                                          @Nonnull final ComputedValueCreatedEvent e )
   {
-    log( d, "%cComputed Value Created " + e.getComputedValue().getName(), REACTION_COLOR );
+    log( d, "%cComputed Value Created " + e.getComputedValue().getName(), COMPUTED_COLOR );
   }
 
   /**
@@ -168,7 +170,7 @@ public class ConsoleSpyEventProcessor
   protected void onComputedValueActivated( @Nonnull final SpyUtil.NestingDelta d,
                                            @Nonnull final ComputedValueActivatedEvent e )
   {
-    log( d, "%cComputed Value Activate " + e.getComputedValue().getName(), REACTION_COLOR );
+    log( d, "%cComputed Value Activate " + e.getComputedValue().getName(), COMPUTED_COLOR );
   }
 
   /**
@@ -179,7 +181,7 @@ public class ConsoleSpyEventProcessor
    */
   protected void onComputeStarted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputeStartedEvent e )
   {
-    log( d, "%cCompute Started " + e.getComputedValue().getName(), REACTION_COLOR );
+    log( d, "%cCompute Started " + e.getComputedValue().getName(), COMPUTED_COLOR );
   }
 
   /**
@@ -190,7 +192,7 @@ public class ConsoleSpyEventProcessor
    */
   protected void onComputeCompleted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputeCompletedEvent e )
   {
-    log( d, "%cCompute Completed " + e.getComputedValue().getName() + " [" + e.getDuration() + "]", REACTION_COLOR );
+    log( d, "%cCompute Completed " + e.getComputedValue().getName() + " [" + e.getDuration() + "]", COMPUTED_COLOR );
   }
 
   /**
@@ -202,7 +204,7 @@ public class ConsoleSpyEventProcessor
   protected void onComputedValueDeactivated( @Nonnull final SpyUtil.NestingDelta d,
                                              @Nonnull final ComputedValueDeactivatedEvent e )
   {
-    log( d, "%cComputed Value Deactivate " + e.getComputedValue().getName(), REACTION_COLOR );
+    log( d, "%cComputed Value Deactivate " + e.getComputedValue().getName(), COMPUTED_COLOR );
   }
 
   /**
@@ -214,7 +216,7 @@ public class ConsoleSpyEventProcessor
   protected void onComputedValueDisposed( @Nonnull final SpyUtil.NestingDelta d,
                                           @Nonnull final ComputedValueDisposedEvent e )
   {
-    log( d, "%cComputed Value Disposed " + e.getComputedValue().getName(), REACTION_COLOR );
+    log( d, "%cComputed Value Disposed " + e.getComputedValue().getName(), COMPUTED_COLOR );
   }
 
   /**
