@@ -23,8 +23,8 @@ change is propagated to all dependent derivations.
 On top of this architecture, Arez defines a component model driven by annotations. Annotate a class with
 [`@ArezComponent`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/ArezComponent.html) to
 define a component, mark properties as observable with the [`@Observable`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Observable.html)
-annotation, mark computed property derivations with the [`@Computed`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Computed.html)
-annotation and other derivations with either [`@Autorun`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Autorun.html)
+annotation, mark computed properties with the [`@Computed`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Computed.html)
+annotation and observers with either [`@Autorun`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Autorun.html)
 or [`@Track`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Track.html). These classes
 are processed at compilation time to produce a ready to use reactive component.
 
