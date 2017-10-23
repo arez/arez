@@ -8,6 +8,9 @@
   restricted to use within Arez.
 
 ##### Changed
+* **\[core\]** Expose the method `ArezContext.generateNodeName(...)` to make it easier for downstream libraries
+  to generate names for reactive components. Update `ArezExtras` class to make use of this method and remove
+  local name generation methods.
 * **\[processor\]** Enhanced the processor so that disposable entities that are created by a repository will
   be removed from the repository if they are disposed directly by invoking `Disposable.dispose( entity )` or
   similar.

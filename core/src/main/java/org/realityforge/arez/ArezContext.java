@@ -125,7 +125,7 @@ public final class ArezContext
                                                    @Nullable final Procedure onDispose )
   {
     final ComputedValue<T> computedValue =
-      new ComputedValue<>( this, toName( "ComputedValue", name ), function, equalityComparator );
+      new ComputedValue<>( this, generateNodeName( "ComputedValue", name ), function, equalityComparator );
     final Observer observer = computedValue.getObserver();
     observer.setOnActivate( onActivate );
     observer.setOnDeactivate( onDeactivate );
@@ -148,7 +148,7 @@ public final class ArezContext
    * @return the name.
    */
   @Nullable
-  String toName( @Nonnull final String prefix, @Nullable final String name )
+  public String generateNodeName( @Nonnull final String prefix, @Nullable final String name )
   {
     return ArezConfig.enableNames() ?
            null != name ? name : prefix + "@" + _nextNodeId++ :
@@ -303,7 +303,7 @@ public final class ArezContext
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =
-      new Observer( this, toName( "Observer", name ), null, mode, reaction, canTrackExplicitly );
+      new Observer( this, generateNodeName( "Observer", name ), null, mode, reaction, canTrackExplicitly );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObserverCreatedEvent( observer ) );
@@ -511,7 +511,11 @@ public final class ArezContext
                        @Nonnull final Object... parameters )
     throws Throwable
   {
-    return action( toName( "Transaction", name ), mutationToTransactionMode( mutation ), action, null, parameters );
+    return action( generateNodeName( "Transaction", name ),
+                   mutationToTransactionMode( mutation ),
+                   action,
+                   null,
+                   parameters );
   }
 
   /**
@@ -534,7 +538,7 @@ public final class ArezContext
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    return action( toName( tracker ),
+    return action( generateNodeName( tracker ),
                    ArezConfig.enforceTransactionType() ? tracker.getMode() : null,
                    action,
                    tracker,
@@ -561,7 +565,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
+      final Transaction transaction = beginTransaction( generateNodeName( "Transaction", name ), mode, tracker );
       try
       {
         result = action.call();
@@ -663,7 +667,11 @@ public final class ArezContext
                            @Nonnull final SafeFunction<T> action,
                            @Nonnull final Object... parameters )
   {
-    return safeAction( toName( "Transaction", name ), mutationToTransactionMode( mutation ), action, null, parameters );
+    return safeAction( generateNodeName( "Transaction", name ),
+                       mutationToTransactionMode( mutation ),
+                       action,
+                       null,
+                       parameters );
   }
 
   /**
@@ -684,7 +692,7 @@ public final class ArezContext
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    return safeAction( toName( tracker ),
+    return safeAction( generateNodeName( tracker ),
                        ArezConfig.enforceTransactionType() ? tracker.getMode() : null,
                        action,
                        tracker,
@@ -710,7 +718,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
+      final Transaction transaction = beginTransaction( generateNodeName( "Transaction", name ), mode, tracker );
       try
       {
         result = action.call();
@@ -810,7 +818,12 @@ public final class ArezContext
                       @Nonnull final Object... parameters )
     throws Throwable
   {
-    action( toName( "Transaction", name ), mutationToTransactionMode( mutation ), action, true, null, parameters );
+    action( generateNodeName( "Transaction", name ),
+            mutationToTransactionMode( mutation ),
+            action,
+            true,
+            null,
+            parameters );
   }
 
   /**
@@ -831,7 +844,7 @@ public final class ArezContext
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    action( toName( tracker ),
+    action( generateNodeName( tracker ),
             ArezConfig.enforceTransactionType() ? tracker.getMode() : null,
             action,
             true,
@@ -840,7 +853,7 @@ public final class ArezContext
   }
 
   @Nullable
-  private String toName( @Nonnull final Observer tracker )
+  private String generateNodeName( @Nonnull final Observer tracker )
   {
     return areNamesEnabled() ? tracker.getName() : null;
   }
@@ -865,7 +878,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
+      final Transaction transaction = beginTransaction( generateNodeName( "Transaction", name ), mode, tracker );
       try
       {
         action.call();
@@ -958,7 +971,11 @@ public final class ArezContext
                           @Nonnull final SafeProcedure action,
                           @Nonnull final Object... parameters )
   {
-    safeAction( toName( "Transaction", name ), mutationToTransactionMode( mutation ), action, null, parameters );
+    safeAction( generateNodeName( "Transaction", name ),
+                mutationToTransactionMode( mutation ),
+                action,
+                null,
+                parameters );
   }
 
   /**
@@ -977,7 +994,7 @@ public final class ArezContext
     apiInvariant( tracker::canTrackExplicitly,
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
-    safeAction( toName( tracker ),
+    safeAction( generateNodeName( tracker ),
                 ArezConfig.enforceTransactionType() ? tracker.getMode() : null,
                 action,
                 tracker,
@@ -1002,7 +1019,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      final Transaction transaction = beginTransaction( toName( "Transaction", name ), mode, tracker );
+      final Transaction transaction = beginTransaction( generateNodeName( "Transaction", name ), mode, tracker );
       try
       {
         action.call();

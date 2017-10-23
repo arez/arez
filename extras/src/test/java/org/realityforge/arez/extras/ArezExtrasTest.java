@@ -3,7 +3,6 @@ package org.realityforge.arez.extras;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.Arez;
-import org.realityforge.arez.ArezTestUtil;
 import org.realityforge.arez.Node;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Procedure;
@@ -29,8 +28,6 @@ public class ArezExtrasTest
     };
     final Procedure procedure = effectRun::incrementAndGet;
 
-    ArezExtras.setNextNodeId( 1 );
-
     final Node node = ArezExtras.when( name, true, condition, procedure );
 
     assertTrue( node instanceof Watcher );
@@ -39,8 +36,6 @@ public class ArezExtrasTest
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
     assertEquals( Arez.context().getSpy().isReadOnly( watcher.getObserver() ), false );
-
-    assertEquals( ArezExtras.getNextNodeId(), 1 );
   }
 
   @Test
@@ -61,36 +56,13 @@ public class ArezExtrasTest
     };
     final Procedure procedure = effectRun::incrementAndGet;
 
-    ArezExtras.setNextNodeId( 22 );
     final Node node = ArezExtras.when( condition, procedure );
 
     assertTrue( node instanceof Watcher );
     final Watcher watcher = (Watcher) node;
-    assertEquals( watcher.getName(), "When@22" );
+    assertEquals( watcher.getName(), "When@1", "The name has @1 as no other Arez entities created" );
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
     assertEquals( Arez.context().getSpy().isReadOnly( watcher.getObserver() ), false );
-
-    assertEquals( ArezExtras.getNextNodeId(), 23 );
-  }
-
-  @Test
-  public void toName()
-  {
-    // Use passed in name
-    assertEquals( ArezExtras.toName( "When", "MyName" ), "MyName" );
-
-    //synthesize name
-    ArezExtras.setNextNodeId( 1 );
-    assertEquals( ArezExtras.toName( "When", null ), "When@1" );
-    assertEquals( ArezExtras.getNextNodeId(), 2 );
-
-    ArezTestUtil.setEnableNames( false );
-
-    //Ignore name
-    assertEquals( ArezExtras.toName( "When", "MyName" ), null );
-
-    //Null name also fine
-    assertEquals( ArezExtras.toName( "When", null ), null );
   }
 }

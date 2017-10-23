@@ -2,7 +2,6 @@ package org.realityforge.arez.extras;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
 import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.Node;
@@ -15,12 +14,6 @@ import org.realityforge.arez.SafeFunction;
 @Unsupported( "Expect this class to evolve over time" )
 public final class ArezExtras
 {
-  /**
-   * Id of next node to be created.
-   * This is only used if {@link org.realityforge.arez.ArezContext#areNamesEnabled()} returns true but no name has been supplied.
-   */
-  private static int c_nextNodeId = 1;
-
   private ArezExtras()
   {
   }
@@ -72,35 +65,6 @@ public final class ArezExtras
                            @Nonnull final SafeFunction<Boolean> condition,
                            @Nonnull final Procedure effect )
   {
-    return new Watcher( Arez.context(), toName( "When", name ), mutation, condition, effect );
-  }
-
-  /**
-   * Build name for node.
-   * If {@link org.realityforge.arez.ArezContext#areNamesEnabled()} returns false then this method will return null, otherwise the specified
-   * name will be returned or a name synthesized from the prefix and a running number if no name is specified.
-   *
-   * @param prefix the prefix used if this method needs to generate name.
-   * @param name   the name specified by the user.
-   * @return the name.
-   */
-  @Nullable
-  static String toName( @Nonnull final String prefix, @Nullable final String name )
-  {
-    return Arez.context().areNamesEnabled() ?
-           null != name ? name : prefix + "@" + c_nextNodeId++ :
-           null;
-  }
-
-  @TestOnly
-  static void setNextNodeId( final int nextNodeId )
-  {
-    c_nextNodeId = nextNodeId;
-  }
-
-  @TestOnly
-  static int getNextNodeId()
-  {
-    return c_nextNodeId;
+    return new Watcher( Arez.context(), Arez.context().generateNodeName( "When", name ), mutation, condition, effect );
   }
 }
