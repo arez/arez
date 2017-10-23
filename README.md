@@ -10,6 +10,10 @@ inter-connected graph-like domain models. Arez trades a higher memory usage for 
 Arez's goal is to do this while optimizing for developer happiness by eliminating the need for the developer
 to monitor or even think about when state changes and instead react to those changes on demand.
 
+Arez is under heavy development and sometimes the documentation does not keep up to date. However the goal of
+the toolkit is to be easy to use and this includes clear and concise documentation. If something is unclear
+please [report it as a bug](https://github.com/realityforge/arez/issues) because it *is* a bug.
+
 For more information about Arez, please see the [Website](http://realityforge.org/arez/).
 
 # Credit

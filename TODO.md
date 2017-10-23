@@ -47,8 +47,6 @@ complete as there is too much un-said.
 
 ## Documentation
 
-* Note in documentation that poor error messages are a bug. Please report them
-
 * Change error message "Attempting to get current transaction but no transaction is active." to indicate why
   this typically happens. What we should probably do is wrap all exceptions in _e(1234, "My Message") which
   would allow us to point people at website for further explanation. Then we could expand the exception
