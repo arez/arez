@@ -25,8 +25,10 @@ public abstract class AbstractIntegrationTest
 
   @BeforeMethod
   public void handleTestMethodName( Method method )
+    throws Exception
   {
     _currentMethod = method.getName();
+    beforeTest();
   }
 
   protected final void assertEqualsFixture( @Nonnull final String json )
