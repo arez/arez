@@ -19,12 +19,12 @@ public abstract class AbstractArezTest
     BrainCheckTestUtil.setVerboseErrorMessages( true );
     BrainCheckTestUtil.setCheckInvariants( true );
     BrainCheckTestUtil.setCheckApiInvariants( true );
-    ArezConfigTestUtil.setEnableNames( true );
-    ArezConfigTestUtil.setPurgeReactionsWhenRunawayDetected( false );
-    ArezConfigTestUtil.setEnforceTransactionType( true );
-    ArezConfigTestUtil.setEnableSpy( true );
+    ArezTestUtil.setEnableNames( true );
+    ArezTestUtil.setPurgeReactionsWhenRunawayDetected( false );
+    ArezTestUtil.setEnforceTransactionType( true );
+    ArezTestUtil.setEnableSpy( true );
     getProxyLogger().setLogger( new TestLogger() );
-    Arez.setProvider( null );
+    ArezTestUtil.setProvider( null );
   }
 
   @AfterMethod
@@ -34,10 +34,10 @@ public abstract class AbstractArezTest
     BrainCheckTestUtil.setVerboseErrorMessages( false );
     BrainCheckTestUtil.setCheckInvariants( false );
     BrainCheckTestUtil.setCheckApiInvariants( false );
-    ArezConfigTestUtil.setEnableNames( false );
-    ArezConfigTestUtil.setPurgeReactionsWhenRunawayDetected( true );
-    ArezConfigTestUtil.setEnforceTransactionType( false );
-    ArezConfigTestUtil.setEnableSpy( false );
+    ArezTestUtil.setEnableNames( false );
+    ArezTestUtil.setPurgeReactionsWhenRunawayDetected( true );
+    ArezTestUtil.setEnforceTransactionType( false );
+    ArezTestUtil.setEnableSpy( false );
     getProxyLogger().setLogger( null );
   }
 

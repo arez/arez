@@ -1,6 +1,6 @@
 package org.realityforge.arez.extras.spy;
 
-import org.realityforge.arez.AbstractArezExtrasTest;
+import org.realityforge.arez.extras.AbstractArezExtrasTest;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
 import org.realityforge.arez.spy.TransactionCompletedEvent;
 import org.realityforge.arez.spy.TransactionStartedEvent;

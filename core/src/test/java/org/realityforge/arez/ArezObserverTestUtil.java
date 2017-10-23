@@ -2,9 +2,9 @@ package org.realityforge.arez;
 
 import javax.annotation.Nonnull;
 
-public final class ArezTestUtil
+public final class ArezObserverTestUtil
 {
-  private ArezTestUtil()
+  private ArezObserverTestUtil()
   {
   }
 

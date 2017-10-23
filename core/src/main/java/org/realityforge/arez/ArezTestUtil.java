@@ -2,6 +2,7 @@ package org.realityforge.arez;
 
 import java.lang.reflect.Field;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
 
 /**
@@ -9,10 +10,22 @@ import org.realityforge.anodoc.TestOnly;
  */
 @TestOnly
 @GwtIncompatible
-final class ArezConfigTestUtil
+public final class ArezTestUtil
 {
-  private ArezConfigTestUtil()
+  private ArezTestUtil()
   {
+  }
+
+  /**
+   * Set the context provider for arez.
+   * This forcibly overwrites provider and should not be done outside tests.
+   *
+   * @param provider the provider.
+   */
+  public static void setProvider( @Nullable final Arez.ContextProvider provider )
+  {
+    assert !ArezConfig.isProductionmode();
+    Arez.setProvider( provider );
   }
 
   /**
@@ -20,7 +33,7 @@ final class ArezConfigTestUtil
    *
    * @param value the setting.
    */
-  static void setEnableNames( final boolean value )
+  public static void setEnableNames( final boolean value )
   {
     setConstant( "ENABLE_NAMES", value );
   }
@@ -30,7 +43,7 @@ final class ArezConfigTestUtil
    *
    * @param value the setting.
    */
-  static void setPurgeReactionsWhenRunawayDetected( final boolean value )
+  public static void setPurgeReactionsWhenRunawayDetected( final boolean value )
   {
     setConstant( "PURGE_REACTIONS", value );
   }
@@ -40,7 +53,7 @@ final class ArezConfigTestUtil
    *
    * @param value the setting.
    */
-  static void setEnforceTransactionType( final boolean value )
+  public static void setEnforceTransactionType( final boolean value )
   {
     setConstant( "ENFORCE_TRANSACTION_TYPE", value );
   }
@@ -50,7 +63,7 @@ final class ArezConfigTestUtil
    *
    * @param value the setting.
    */
-  static void setEnableSpy( final boolean value )
+  public static void setEnableSpy( final boolean value )
   {
     setConstant( "ENABLE_SPY", value );
   }
@@ -61,6 +74,7 @@ final class ArezConfigTestUtil
   @SuppressWarnings( "NonJREEmulationClassesInClientCode" )
   private static void setConstant( @Nonnull final String fieldName, final boolean value )
   {
+    assert !ArezConfig.isProductionmode();
     try
     {
       final Field field = ArezConfig.class.getDeclaredField( fieldName );

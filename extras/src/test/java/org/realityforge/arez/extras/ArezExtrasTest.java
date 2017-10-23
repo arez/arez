@@ -2,8 +2,8 @@ package org.realityforge.arez.extras;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.realityforge.arez.AbstractArezExtrasTest;
 import org.realityforge.arez.Arez;
+import org.realityforge.arez.ArezTestUtil;
 import org.realityforge.arez.Node;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Procedure;
@@ -85,7 +85,7 @@ public class ArezExtrasTest
     assertEquals( ArezExtras.toName( "When", null ), "When@1" );
     assertEquals( ArezExtras.getNextNodeId(), 2 );
 
-    setEnableNames( false );
+    ArezTestUtil.setEnableNames( false );
 
     //Ignore name
     assertEquals( ArezExtras.toName( "When", "MyName" ), null );

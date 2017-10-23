@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.ArezTestUtil;
 import org.realityforge.arez.Spy;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Computed;
@@ -21,7 +22,7 @@ public class NonTransactionEnforcingIntegrationTest
   public void personScenario()
     throws Throwable
   {
-    setEnforceTransactionTypeToFalse();
+    ArezTestUtil.setEnforceTransactionType( false );
     final ArezContext context = Arez.context();
 
     final SpyEventRecorder recorder = new SpyEventRecorder();

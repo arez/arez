@@ -24,6 +24,11 @@ final class ArezConfig
   {
   }
 
+  static boolean isProductionmode()
+  {
+    return PRODUCTION_ENVIRONMENT;
+  }
+
   static boolean enableNames()
   {
     return ENABLE_NAMES;

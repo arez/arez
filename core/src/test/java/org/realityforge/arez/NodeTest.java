@@ -47,7 +47,7 @@ public class NodeTest
   public void noNameSuppliedWhenNamesDisabled()
     throws Exception
   {
-    ArezConfigTestUtil.setEnableNames( false );
+    ArezTestUtil.setEnableNames( false );
 
     final ArezContext context = new ArezContext();
 
@@ -63,7 +63,7 @@ public class NodeTest
   public void nameSuppliedWhenNamesDisabled()
     throws Exception
   {
-    ArezConfigTestUtil.setEnableNames( false );
+    ArezTestUtil.setEnableNames( false );
 
     final ArezContext context = new ArezContext();
 

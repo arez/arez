@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+##### Added
+* Added the class `org.realityforge.arez.ArezTestUtil` that exposes methods that simplify testing `Arez` in
+  downstream consumers. It exposes mechanisms already used within the Arez library, that were previously
+  restricted to use within Arez.
+
 ### [v0.17](https://github.com/realityforge/arez/tree/v0.17) (2017-10-23)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.16...v0.17)
 

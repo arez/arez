@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.AbstractArezTest;
 import org.realityforge.arez.ArezContext;
-import org.realityforge.arez.ArezTestUtil;
+import org.realityforge.arez.ArezObserverTestUtil;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
@@ -86,12 +86,12 @@ public class ExternalApiTest
     final Observer observer = context.autorun( name, false, callCount::incrementAndGet, true );
 
     assertEquals( observer.getName(), name );
-    assertEquals( ArezTestUtil.isActive( observer ), true );
+    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
     assertEquals( callCount.get(), 1 );
 
     observer.dispose();
 
-    assertEquals( ArezTestUtil.isActive( observer ), false );
+    assertEquals( ArezObserverTestUtil.isActive( observer ), false );
   }
 
   @Test
@@ -165,12 +165,12 @@ public class ExternalApiTest
                        true );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( ArezTestUtil.isActive( observer ), true );
+    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
 
     context.safeAction( ValueUtil.randomString(), true, observable::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( ArezTestUtil.isActive( observer ), true );
+    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
   }
 
   @Test
@@ -193,13 +193,13 @@ public class ExternalApiTest
                        true );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( ArezTestUtil.isActive( observer ), true );
+    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
 
     // Run an "action"
     context.action( ValueUtil.randomString(), true, observable::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( ArezTestUtil.isActive( observer ), true );
+    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
   }
 
   @Test
@@ -227,40 +227,40 @@ public class ExternalApiTest
                        true );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( ArezTestUtil.isActive( observer ), true );
+    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
 
     // Run an "action"
     context.action( ValueUtil.randomString(), true, observable1::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( ArezTestUtil.isActive( observer ), true );
+    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
 
     // Update observer1+observer2 in transaction
     context.action( ValueUtil.randomString(),
                     true,
                     () -> {
-                         observable1.reportChanged();
-                         observable2.reportChanged();
-                       } );
+                      observable1.reportChanged();
+                      observable2.reportChanged();
+                    } );
 
     assertEquals( reactionCount.get(), 3 );
-    assertEquals( ArezTestUtil.isActive( observer ), true );
+    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
 
     context.action( ValueUtil.randomString(),
                     true,
                     () -> {
-                         observable3.reportChanged();
-                         observable4.reportChanged();
-                       } );
+                      observable3.reportChanged();
+                      observable4.reportChanged();
+                    } );
 
     assertEquals( reactionCount.get(), 4 );
-    assertEquals( ArezTestUtil.isActive( observer ), true );
+    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
 
     // observable4 should not cause a reaction as not observed
     context.action( ValueUtil.randomString(), true, observable4::reportChanged );
 
     assertEquals( reactionCount.get(), 4 );
-    assertEquals( ArezTestUtil.isActive( observer ), true );
+    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
   }
 
   @Test

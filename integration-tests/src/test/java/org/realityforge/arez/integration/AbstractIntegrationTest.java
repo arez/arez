@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
 import javax.json.Json;
 import javax.json.JsonObject;
 import org.json.JSONException;
-import org.realityforge.arez.AbstractArezIntegrationTest;
 import org.skyscreamer.jsonassert.Customization;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;

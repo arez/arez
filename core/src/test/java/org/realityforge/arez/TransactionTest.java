@@ -34,7 +34,7 @@ public class TransactionTest
   @Test
   public void getName_whenNamesDisabled()
   {
-    ArezConfigTestUtil.setEnableNames( false );
+    ArezTestUtil.setEnableNames( false );
 
     final Transaction transaction = new Transaction( new ArezContext(), null, null, TransactionMode.READ_ONLY, null );
     final IllegalStateException exception = expectThrows( IllegalStateException.class, transaction::getName );
@@ -45,7 +45,7 @@ public class TransactionTest
   @Test
   public void construct_withNameWhenNamesDisabled()
   {
-    ArezConfigTestUtil.setEnableNames( false );
+    ArezTestUtil.setEnableNames( false );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class,
                                                           () -> new Transaction( new ArezContext(),
@@ -60,13 +60,13 @@ public class TransactionTest
   @Test
   public void construction_whenSpyDisabled()
   {
-    ArezConfigTestUtil.setEnableSpy( false );
+    ArezTestUtil.setEnableSpy( false );
 
     final Transaction transaction =
       new Transaction( new ArezContext(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
     // Re-enable spy so can read field
-    ArezConfigTestUtil.setEnableSpy( true );
+    ArezTestUtil.setEnableSpy( true );
 
     assertEquals( transaction.getStartedAt(), 0 );
   }
@@ -1203,7 +1203,7 @@ public class TransactionTest
   @Test
   public void verifyWriteAllowed_withReadOnlyTransaction_enforceTransactionType_set_to_false()
   {
-    ArezConfigTestUtil.setEnforceTransactionType( false );
+    ArezTestUtil.setEnforceTransactionType( false );
 
     final ArezContext context = new ArezContext();
 
@@ -2173,7 +2173,7 @@ public class TransactionTest
   @Test
   public void getStartedAt_whenSpyDisabled()
   {
-    ArezConfigTestUtil.setEnableSpy( false );
+    ArezTestUtil.setEnableSpy( false );
 
     final Transaction transaction =
       new Transaction( new ArezContext(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );

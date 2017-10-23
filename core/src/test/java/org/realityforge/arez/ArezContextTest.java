@@ -51,7 +51,7 @@ public class ArezContextTest
     assertEquals( context.toName( "ComputedValue", null ), "ComputedValue@1" );
     assertEquals( context.getNextNodeId(), 2 );
 
-    ArezConfigTestUtil.setEnableNames( false );
+    ArezTestUtil.setEnableNames( false );
 
     //Ignore name
     assertEquals( context.toName( "ComputedValue", "MyName" ), null );
@@ -1522,7 +1522,7 @@ public class ArezContextTest
   public void getSpy_whenSpiesDisabled()
     throws Exception
   {
-    ArezConfigTestUtil.setEnableSpy( false );
+    ArezTestUtil.setEnableSpy( false );
 
     final ArezContext context = new ArezContext();
 
@@ -1847,7 +1847,7 @@ public class ArezContextTest
   public void createObservable_name_Null()
     throws Exception
   {
-    ArezConfigTestUtil.setEnableNames( false );
+    ArezTestUtil.setEnableNames( false );
 
     final ArezContext context = new ArezContext();
 
