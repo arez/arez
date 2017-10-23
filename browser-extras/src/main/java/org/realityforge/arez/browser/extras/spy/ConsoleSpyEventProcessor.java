@@ -35,14 +35,21 @@ import org.realityforge.arez.spy.TransactionStartedEvent;
 public class ConsoleSpyEventProcessor
   extends AbstractSpyEventProcessor
 {
+  /*
+   * The SVG icons for REACTION_SCHEDULED_COLOR and COMPUTED_COLOR were adjusted variants from the mobx dev tools at https://github.com/andykog/mobx-devtools/blob/master/src/frontend/TabChanges/icons.jsx
+   * They were then converted to base64 via http://base64online.org/encode/
+   * and converted to excessive css you see below
+   */
   @CssRules
   private static final String OBSERVABLE_COLOR = "color: #CF8A3B; font-weight: normal;";
   @CssRules
-  private static final String COMPUTED_COLOR = "color: #FFBA49; font-weight: normal;";
+  private static final String COMPUTED_COLOR = "color: #FFBA49; font-weight: normal; background-repeat: no-repeat; background-size: contain; padding-left: 20px; background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDE1IDE1Ij4KICA8ZyBmaWxsPSIjN0I1NkEzIj4KICAgIDxjaXJjbGUgY3g9IjMuNzUiIGN5PSIxMS44MyIgcj0iMiIvPgogICAgPGNpcmNsZSBjeD0iMy43NSIgY3k9IjMuMTciIHI9IjIiLz4KICAgIDxjaXJjbGUgY3g9IjExLjI1IiBjeT0iNy41IiByPSIyIi8+CiAgPC9nPgogIDxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzdCNTZBMyIgc3Ryb2tlTWl0ZXJsaW1pdD0iMTAiPgogICAgPHBhdGggZD0iTTYuMjUgNy41bC0yLjUgNC4zMyIvPgogICAgPHBhdGggZD0iTTYuMjUgNy41bC0yLjUtNC4zMyIvPgogICAgPHBhdGggZD0iTTYuMjUgNy41aDUiLz4KICA8L2c+Cjwvc3ZnPgo=);";
   @CssRules
   private static final String OBSERVER_COLOR = "color: #0FA13B; font-weight: normal;";
   @CssRules
   private static final String REACTION_COLOR = "color: #10a210; font-weight: normal;";
+  @CssRules
+  private static final String REACTION_SCHEDULED_COLOR = "color: #10a210; font-weight: normal; background-repeat: no-repeat; background-size: contain; padding-left: 20px; background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDE1IDE1Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9IiMxMGEyMTAiIHN0cm9rZU1pdGVybGltaXQ9IjEwIj48cGF0aCBkPSJNMTIuNjk3IDEwLjVhNiA2IDAgMSAxIC4xMTUtNS43OTIiLz48cGF0aCBkPSJNNy41IDcuNVYzTTcuNSA3LjVMMTAgMTAiLz48L2c+PGcgZmlsbD0iIzAwMDAwMCI+PHBhdGggZD0iTTEwLjYxOCA0Ljc0M0wxMy41IDcuNWwuOTQ3LTMuODc0eiIvPjxjaXJjbGUgY3g9IjcuNSIgY3k9IjcuNSIgcj0iLjc1Ii8+PC9nPjwvc3ZnPgo=);";
   @CssRules
   private static final String ACTION_COLOR = "color: #006AEB; font-weight: normal;";
   @CssRules
@@ -227,7 +234,7 @@ public class ConsoleSpyEventProcessor
    */
   protected void onReactionScheduled( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ReactionScheduledEvent e )
   {
-    log( d, "%cReaction Scheduled " + e.getObserver().getName(), REACTION_COLOR );
+    log( d, "%cReaction Scheduled " + e.getObserver().getName(), REACTION_SCHEDULED_COLOR );
   }
 
   /**

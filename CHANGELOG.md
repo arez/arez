@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Added
+* Add some cute icons to start of "computed" messages and "scheduled" messages in `ConsoleSpyEventProcessor`.
+  These were source from the [mobx-devtools](https://github.com/andykog/mobx-devtools) project.
+
 ### [v0.18](https://github.com/realityforge/arez/tree/v0.18) (2017-10-23)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.17...v0.18)
 
