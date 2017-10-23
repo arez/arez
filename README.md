@@ -12,7 +12,8 @@ to monitor or even think about when state changes and instead react to those cha
 
 Arez is under heavy development and sometimes the documentation does not keep up to date. However the goal of
 the toolkit is to be easy to use and this includes clear and concise documentation. If something is unclear
-please [report it as a bug](https://github.com/realityforge/arez/issues) because it *is* a bug.
+please [report it as a bug](https://github.com/realityforge/arez/issues) because it *is* a bug. If a new user
+has a bad time then then we need to fix the problem.
 
 For more information about Arez, please see the [Website](http://realityforge.org/arez/). For the source code
 and project support please visit the [GitHub project](https://github.com/realityforge/arez).
