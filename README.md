@@ -14,7 +14,8 @@ Arez is under heavy development and sometimes the documentation does not keep up
 the toolkit is to be easy to use and this includes clear and concise documentation. If something is unclear
 please [report it as a bug](https://github.com/realityforge/arez/issues) because it *is* a bug.
 
-For more information about Arez, please see the [Website](http://realityforge.org/arez/).
+For more information about Arez, please see the [Website](http://realityforge.org/arez/). For the source code
+and project support please visit the [GitHub project](https://github.com/realityforge/arez).
 
 # Credit
 
