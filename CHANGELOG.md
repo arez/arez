@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.18](https://github.com/realityforge/arez/tree/v0.18) (2017-10-23)
+[Full Changelog](https://github.com/realityforge/arez/compare/v0.17...v0.18)
 
 ##### Added
 * Added the class `org.realityforge.arez.ArezTestUtil` that exposes methods that simplify testing `Arez` in
