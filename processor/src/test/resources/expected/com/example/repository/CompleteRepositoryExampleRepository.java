@@ -49,6 +49,7 @@ public class CompleteRepositoryExampleRepository implements CompleteRepositoryEx
   @Nonnull
   CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_CompleteRepositoryExample entity = new Arez_CompleteRepositoryExample(packageName,name);
+    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     $$arez$$_entities.put( entity.getId(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
@@ -70,6 +71,7 @@ public class CompleteRepositoryExampleRepository implements CompleteRepositoryEx
   public void destroy(@Nonnull final CompleteRepositoryExample entity) {
     assert null != entity;
     if ( null != $$arez$$_entities.remove( entity.getId() ) ) {
+      ((Arez_CompleteRepositoryExample) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();
     } else {

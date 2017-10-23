@@ -7,6 +7,11 @@
   downstream consumers. It exposes mechanisms already used within the Arez library, that were previously
   restricted to use within Arez.
 
+##### Changed
+* **\[processor\]** Enhanced the processor so that disposable entities that are created by a repository will
+  be removed from the repository if they are disposed directly by invoking `Disposable.dispose( entity )` or
+  similar.
+
 ### [v0.17](https://github.com/realityforge/arez/tree/v0.17) (2017-10-23)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.16...v0.17)
 

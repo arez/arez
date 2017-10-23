@@ -17,6 +17,8 @@ public final class Arez_RepositoryWithProtectedConstructor extends RepositoryWit
 
   private boolean $$arez$$_disposed;
 
+  private OnDispose $$arez$$_onDispose;
+
   @Nonnull
   private final ArezContext $$arez$$_context;
 
@@ -47,8 +49,16 @@ public final class Arez_RepositoryWithProtectedConstructor extends RepositoryWit
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
+      if ( null != $$arez$$_onDispose ) {
+        $$arez$$_onDispose.onDispose( this );
+        $$arez$$_onDispose = null;
+      }
       $$arez$$_name.dispose();
     }
+  }
+
+  void $$arez$$_setOnDispose(OnDispose onDispose) {
+    $$arez$$_onDispose = onDispose;
   }
 
   @Nonnull
@@ -92,5 +102,10 @@ public final class Arez_RepositoryWithProtectedConstructor extends RepositoryWit
     } else {
       return super.toString();
     }
+  }
+
+  @FunctionalInterface
+  interface OnDispose {
+    void onDispose(Arez_RepositoryWithProtectedConstructor entity);
   }
 }

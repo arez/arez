@@ -49,6 +49,7 @@ public class RepositoryWithExplicitIdRepository implements RepositoryWithExplici
   @Nonnull
   RepositoryWithExplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_RepositoryWithExplicitId entity = new Arez_RepositoryWithExplicitId(packageName,name);
+    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     $$arez$$_entities.put( entity.getId(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
@@ -70,6 +71,7 @@ public class RepositoryWithExplicitIdRepository implements RepositoryWithExplici
   public void destroy(@Nonnull final RepositoryWithExplicitId entity) {
     assert null != entity;
     if ( null != $$arez$$_entities.remove( entity.getId() ) ) {
+      ((Arez_RepositoryWithExplicitId) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();
     } else {

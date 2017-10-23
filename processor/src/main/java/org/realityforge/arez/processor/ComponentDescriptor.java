@@ -1117,6 +1117,19 @@ final class ComponentDescriptor
     if ( isDisposable() )
     {
       builder.addSuperinterface( GeneratorUtil.DISPOSABLE_CLASSNAME );
+      if ( hasRepository() )
+      {
+        final TypeSpec onDispose =
+          TypeSpec.interfaceBuilder( "OnDispose" ).
+            addModifiers( Modifier.STATIC ).
+            addAnnotation( FunctionalInterface.class ).
+            addMethod( MethodSpec.methodBuilder( "onDispose" ).
+              addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
+              addParameter( ParameterSpec.builder( ClassName.bestGuess( getArezClassName() ), "entity" ).build() ).
+              build() ).
+            build();
+        builder.addType( onDispose );
+      }
     }
 
     buildFields( builder );
@@ -1141,6 +1154,10 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildIsDisposed() );
       builder.addMethod( buildDispose() );
+      if ( hasRepository() )
+      {
+        builder.addMethod( buildSetOnDispose() );
+      }
     }
 
     _roObservables.forEach( e -> e.buildMethods( builder ) );
@@ -1352,6 +1369,16 @@ final class ComponentDescriptor
     return builder.build();
   }
 
+  @Nonnull
+  private MethodSpec buildSetOnDispose()
+    throws ArezProcessorException
+  {
+    assert isDisposable();
+    return MethodSpec.methodBuilder( GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME ).
+      addParameter( ParameterSpec.builder( ClassName.bestGuess( "OnDispose" ), "onDispose" ).build() ).
+      addStatement( "$N = onDispose", GeneratorUtil.ON_DISPOSE_FIELD_NAME ).build();
+  }
+
   /**
    * Generate the dispose method.
    */
@@ -1369,6 +1396,16 @@ final class ComponentDescriptor
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "if ( !isDisposed() )" );
     codeBlock.addStatement( "$N = true", GeneratorUtil.DISPOSED_FIELD_NAME );
+    if ( hasRepository() )
+    {
+      final CodeBlock.Builder onDisposeCodeBlock = CodeBlock.builder();
+      onDisposeCodeBlock.beginControlFlow( "if ( null != $N )", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
+      onDisposeCodeBlock.addStatement( "$N.onDispose( this )", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
+      onDisposeCodeBlock.addStatement( "$N = null", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
+      onDisposeCodeBlock.endControlFlow();
+      codeBlock.add( onDisposeCodeBlock.build() );
+    }
+
     final ExecutableElement preDispose = _preDispose;
     if ( null != preDispose )
     {
@@ -1441,6 +1478,14 @@ final class ComponentDescriptor
       final FieldSpec.Builder disposableField =
         FieldSpec.builder( TypeName.BOOLEAN, GeneratorUtil.DISPOSED_FIELD_NAME, Modifier.PRIVATE );
       builder.addField( disposableField.build() );
+      if ( hasRepository() )
+      {
+        final FieldSpec.Builder onDisposeField =
+          FieldSpec.builder( ClassName.bestGuess( "OnDispose" ),
+                             GeneratorUtil.ON_DISPOSE_FIELD_NAME,
+                             Modifier.PRIVATE );
+        builder.addField( onDisposeField.build() );
+      }
     }
 
     // Create the field that contains the context
@@ -1927,6 +1972,7 @@ final class ComponentDescriptor
     }
     if ( isDisposable() )
     {
+      builder.addStatement( "(($N) entity).$N( null )", getArezClassName(), GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME );
       builder.addStatement( "$T.dispose( entity )", GeneratorUtil.DISPOSABLE_CLASSNAME );
     }
     builder.addStatement( "$N().reportChanged()", GET_OBSERVABLE_METHOD );
@@ -2039,6 +2085,11 @@ final class ComponentDescriptor
 
     newCall.append( ")" );
     builder.addStatement( newCall.toString(), parameters.toArray() );
+
+    if ( isDisposable() )
+    {
+      builder.addStatement( "entity.$N( e -> destroy( e ) )", GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME );
+    }
 
     builder.addStatement( "$N.put( entity.$N(), entity )", ENTITIES_FIELD_NAME, getIdMethodName() );
     builder.addStatement( "$N().reportChanged()", GET_OBSERVABLE_METHOD );

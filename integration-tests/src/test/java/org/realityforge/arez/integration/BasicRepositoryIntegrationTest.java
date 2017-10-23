@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Disposable;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.ComponentId;
 import org.realityforge.arez.annotations.Observable;
@@ -149,5 +150,46 @@ public class BasicRepositoryIntegrationTest
     context.action( false, () -> assertEquals( repository.findAllByQuery( c -> false ).size(), 0 ) );
     context.action( false, () -> assertEquals( repository.findAll().size(), 2 ) );
     context.action( false, () -> assertEquals( repository.contains( component1 ), true ) );
+  }
+
+  @Test
+  public void disposeWillRemoveFromRepository()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final BasicRepositoryIntegrationTest$TestComponentRepository repository =
+      BasicRepositoryIntegrationTest$TestComponentRepository.newRepository();
+
+    // component1 has value that will sort after component2 to test sorting below
+    final TestComponent component1 = repository.create( 1, "B" );
+    final TestComponent component2 = repository.create( 2, "A" );
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    context.autorun( () -> {
+      repository.findAll();
+      callCount.incrementAndGet();
+    } );
+
+    assertEquals( callCount.get(), 1 );
+
+    context.action( false, () -> assertEquals( repository.findAll().size(), 2 ) );
+
+    assertEquals( callCount.get(), 1 );
+
+    context.action( true, () -> Disposable.dispose( component1 ) );
+
+    // Dispose recreated the list - huzzah
+    assertEquals( callCount.get(), 2 );
+
+    context.action( false, () -> assertEquals( repository.findAll().size(), 1 ) );
+
+    assertEquals( callCount.get(), 2 );
+
+    context.action( true, () -> repository.destroy( component2 ) );
+
+    // Destroy recreated the list - huzzah
+    assertEquals( callCount.get(), 3 );
   }
 }

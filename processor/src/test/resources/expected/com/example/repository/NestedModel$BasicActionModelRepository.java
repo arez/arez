@@ -48,6 +48,7 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
   @Nonnull
   public NestedModel.BasicActionModel create() {
     final NestedModel$Arez_BasicActionModel entity = new NestedModel$Arez_BasicActionModel();
+    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     $$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
@@ -69,6 +70,7 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
   public void destroy(@Nonnull final NestedModel.BasicActionModel entity) {
     assert null != entity;
     if ( entity instanceof NestedModel$Arez_BasicActionModel && null != $$arez$$_entities.remove( ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_id() ) ) {
+      ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();
     } else {

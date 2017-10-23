@@ -48,6 +48,7 @@ public class RepositoryWithProtectedConstructorRepository implements RepositoryW
   @Nonnull
   protected RepositoryWithProtectedConstructor create(@Nonnull final String name) {
     final Arez_RepositoryWithProtectedConstructor entity = new Arez_RepositoryWithProtectedConstructor(name);
+    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     $$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
@@ -69,6 +70,7 @@ public class RepositoryWithProtectedConstructorRepository implements RepositoryW
   public void destroy(@Nonnull final RepositoryWithProtectedConstructor entity) {
     assert null != entity;
     if ( entity instanceof Arez_RepositoryWithProtectedConstructor && null != $$arez$$_entities.remove( ((Arez_RepositoryWithProtectedConstructor) entity).$$arez$$_id() ) ) {
+      ((Arez_RepositoryWithProtectedConstructor) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();
     } else {

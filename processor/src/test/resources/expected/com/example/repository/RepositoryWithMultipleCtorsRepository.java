@@ -48,6 +48,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   @Nonnull
   RepositoryWithMultipleCtors create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(packageName,name);
+    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     $$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
@@ -59,6 +60,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   @Nonnull
   RepositoryWithMultipleCtors create(@Nonnull final String name) {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(name);
+    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     $$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
@@ -70,6 +72,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   @Nonnull
   RepositoryWithMultipleCtors create() {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors();
+    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     $$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
@@ -91,6 +94,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   public void destroy(@Nonnull final RepositoryWithMultipleCtors entity) {
     assert null != entity;
     if ( entity instanceof Arez_RepositoryWithMultipleCtors && null != $$arez$$_entities.remove( ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_id() ) ) {
+      ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();
     } else {

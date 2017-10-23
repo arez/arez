@@ -48,6 +48,7 @@ public class RepositoryWithImplicitIdRepository implements RepositoryWithImplici
   @Nonnull
   RepositoryWithImplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_RepositoryWithImplicitId entity = new Arez_RepositoryWithImplicitId(packageName,name);
+    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     $$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
@@ -69,6 +70,7 @@ public class RepositoryWithImplicitIdRepository implements RepositoryWithImplici
   public void destroy(@Nonnull final RepositoryWithImplicitId entity) {
     assert null != entity;
     if ( entity instanceof Arez_RepositoryWithImplicitId && null != $$arez$$_entities.remove( ((Arez_RepositoryWithImplicitId) entity).$$arez$$_id() ) ) {
+      ((Arez_RepositoryWithImplicitId) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();
     } else {

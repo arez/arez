@@ -16,6 +16,8 @@ import org.realityforge.braincheck.Guards;
 public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample implements Disposable {
   private boolean $$arez$$_disposed;
 
+  private OnDispose $$arez$$_onDispose;
+
   @Nonnull
   private final ArezContext $$arez$$_context;
 
@@ -53,11 +55,19 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
+      if ( null != $$arez$$_onDispose ) {
+        $$arez$$_onDispose.onDispose( this );
+        $$arez$$_onDispose = null;
+      }
       $$arez$$_qualifiedName.dispose();
       $$arez$$_name.dispose();
       $$arez$$_packageName.dispose();
       $$arez$$_rawQualifiedName.dispose();
     }
+  }
+
+  void $$arez$$_setOnDispose(OnDispose onDispose) {
+    $$arez$$_onDispose = onDispose;
   }
 
   @Nonnull
@@ -142,5 +152,10 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
     } else {
       return super.toString();
     }
+  }
+
+  @FunctionalInterface
+  interface OnDispose {
+    void onDispose(Arez_CompleteRepositoryExample entity);
   }
 }
