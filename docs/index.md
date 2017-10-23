@@ -10,7 +10,7 @@ Arez's goal is to do this while optimizing for developer happiness by eliminatin
 to monitor or even think about when state changes and instead react to those changes on demand.
 
 Anything that can be derived from application state, should be derived from application state. The derivation
-should occur automatically and only when it is needed. This means that application elements such as the user-interface,
+should occur automatically and only when it is needed. The application elements such as the user-interface,
 network communication, data storage etc. are driven by changes in application state.
 
 ### The Architecture
@@ -43,8 +43,8 @@ their dependencies change. Data flows in a directed graph from actions to observ
 
 On top of this architecture, Arez defines a component model driven by annotations. Annotate a class with
 [`@ArezComponent`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/ArezComponent.html) to
-define a component, mark properties as observable with the [`@Observable`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Observable.html)
+define a component, mark observable properties with the [`@Observable`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Observable.html)
 annotation, mark computed properties with the [`@Computed`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Computed.html)
-annotation and observers with either [`@Autorun`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Autorun.html)
-or [`@Track`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Track.html). These classes
-are processed at compilation time to produce a ready to use reactive component.
+annotation and mark observers with either the [`@Autorun`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Autorun.html)
+annotation or the [`@Track`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Track.html)
+annotation. The annotated classes are processed at compilation time to produce a ready to use reactive component.
