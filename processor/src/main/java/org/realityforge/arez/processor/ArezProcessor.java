@@ -129,9 +129,9 @@ public final class ArezProcessor
     final boolean generateToString = methods.stream()
       .noneMatch( m -> m.getSimpleName().toString().equals( "toString" ) &&
                        m.getParameters().size() == 0 &&
-                       !(m.getEnclosingElement().getSimpleName().toString().equals( "Object" ) &&
-                       "java.lang".equals( processingEnv.getElementUtils().
-                         getPackageOf( m.getEnclosingElement() ).getQualifiedName().toString() ) ));
+                       !( m.getEnclosingElement().getSimpleName().toString().equals( "Object" ) &&
+                          "java.lang".equals( processingEnv.getElementUtils().
+                            getPackageOf( m.getEnclosingElement() ).getQualifiedName().toString() ) ) );
 
     final ComponentDescriptor descriptor =
       new ComponentDescriptor( name,
