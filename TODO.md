@@ -18,6 +18,10 @@ complete as there is too much un-said.
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
+* Implement `ArezTestUtil.reset(boolean productionMode)` and use in tests (Also in rose).
+
+* Implement `BrainCheckTestUtil.reset(boolean productionMode)` and use in tests (Also in rose).
+
 * Braincheck invariant failures result in breakpoint?
 
 * Enhance WhyRun and write tests for it.
