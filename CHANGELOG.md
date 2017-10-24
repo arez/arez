@@ -13,6 +13,10 @@
   can use a package access setter or getter that matches paired methods type and then expose another method that
   is not annotated with `@Observable` to transform to the desired type.
 
+##### Changed
+* 💥 **\[core\]** Explicitly marked `Arez.bindProvider()` as unsupported as it is unclear that it provides
+  sufficient value to justify it's expense.
+
 ### [v0.18](https://github.com/realityforge/arez/tree/v0.18) (2017-10-23)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.17...v0.18)
 

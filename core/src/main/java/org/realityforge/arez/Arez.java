@@ -63,6 +63,7 @@ public final class Arez
    *
    * @param provider the ContextProvider to bind.
    */
+  @Unsupported( "The value that this provides over zones is unclear and it may be removed in the future" )
   public static void bindProvider( @Nonnull final ContextProvider provider )
   {
     apiInvariant( () -> null == c_provider,
