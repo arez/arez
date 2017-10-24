@@ -16,6 +16,7 @@
 ##### Changed
 * 💥 **\[core\]** Explicitly marked `Arez.bindProvider()` as unsupported as it is unclear that it provides
   sufficient value to justify it's expense.
+* **\[core\]** Remove `@Unsupported` annotation from `org.realityforge.arez.Arez` as it is now stable.
 
 ### [v0.18](https://github.com/realityforge/arez/tree/v0.18) (2017-10-23)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.17...v0.18)
