@@ -24,6 +24,9 @@ complete as there is too much un-said.
 
 * Explicitly add component (a.k.a. scope) to Actions, ComputedValue, Observables etc. Useful in a future DevTools?
 
+* Figure out how to make Arez expose debug output like that which was in replicant
+  - ToString on all entities or some other more sophisticated variant?
+
 * Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
   - https://github.com/zalmoxisus/mobx-remotedev
   - https://github.com/motion/mobx-formatters
