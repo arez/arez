@@ -469,6 +469,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.pre_dispose.PreDisposeAndPostDisposeMethodModel",
                       "Method can not be annotated with both @PreDispose and @PostDispose" },
 
+        new Object[]{ "com.example.observable.BadTypesModel", "@Observable property defines a setter and getter with different types. Getter type: long Setter type: int." },
         new Object[]{ "com.example.observable.NoSetterOrRefModel",
                       "@Observable target defines expectSetter = false but there is no ref method for observable and thus never possible to report it as changed and thus should not be observable." },
         new Object[]{ "com.example.observable.SetterButExpectSetterFalseModel",

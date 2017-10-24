@@ -23,6 +23,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Repository;
 import static javax.tools.Diagnostic.Kind.ERROR;
@@ -143,6 +144,21 @@ public final class ArezProcessor
 
     descriptor.analyzeCandidateMethods( methods, processingEnv.getTypeUtils() );
     descriptor.validate();
+
+    for ( final ObservableDescriptor observable : descriptor.getObservables() )
+    {
+      if ( observable.expectSetter() )
+      {
+        final TypeMirror returnType = observable.getGetterType().getReturnType();
+        final TypeMirror parameterType = observable.getSetterType().getParameterTypes().get( 0 );
+        if ( !processingEnv.getTypeUtils().isSameType( parameterType, returnType ) )
+        {
+          throw new ArezProcessorException( "@Observable property defines a setter and getter with different types." +
+                                            " Getter type: " + returnType + " Setter type: " + parameterType + ".",
+                                            observable.getGetter() );
+        }
+      }
+    }
 
     final Repository repository = typeElement.getAnnotation( Repository.class );
     if ( null != repository )

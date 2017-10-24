@@ -6,6 +6,13 @@
 * Add some cute icons to start of "computed" messages and "scheduled" messages in `ConsoleSpyEventProcessor`.
   These were source from the [mobx-devtools](https://github.com/andykog/mobx-devtools) project.
 
+##### Fixed
+* **\[processor\]** Ensure that the types of the setter and getter for an `@Observable` property are the
+  same. Otherwise the overridden setter method method will call `Objects.equal(...)` on values of incompatible
+  types which would always be "not equal". If a developer desires different types on the setter and getter they
+  can use a package access setter or getter that matches paired methods type and then expose another method that
+  is not annotated with `@Observable` to transform to the desired type.
+
 ### [v0.18](https://github.com/realityforge/arez/tree/v0.18) (2017-10-23)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.17...v0.18)
 

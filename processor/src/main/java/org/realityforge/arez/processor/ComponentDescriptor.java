@@ -663,6 +663,12 @@ final class ComponentDescriptor
     }
   }
 
+  @Nonnull
+  Collection<ObservableDescriptor> getObservables()
+  {
+    return _roObservables;
+  }
+
   void validate()
     throws ArezProcessorException
   {

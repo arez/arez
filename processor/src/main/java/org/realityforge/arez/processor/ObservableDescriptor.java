@@ -93,6 +93,13 @@ final class ObservableDescriptor
     return _getter;
   }
 
+  @Nonnull
+  ExecutableType getGetterType()
+  {
+    assert null != _getterType;
+    return _getterType;
+  }
+
   void setGetter( @Nonnull final ExecutableElement getter, @Nonnull final ExecutableType methodType )
   {
     _getter = Objects.requireNonNull( getter );
@@ -110,6 +117,13 @@ final class ObservableDescriptor
   {
     assert null != _setter;
     return _setter;
+  }
+
+  @Nonnull
+  ExecutableType getSetterType()
+  {
+    assert null != _setterType;
+    return _setterType;
   }
 
   void setSetter( @Nonnull final ExecutableElement setter, @Nonnull final ExecutableType methodType )
