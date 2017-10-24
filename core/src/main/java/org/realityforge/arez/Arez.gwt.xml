@@ -24,4 +24,7 @@
 
   <define-property name="arez.repositories_return_immutables" values="true,false"/>
   <set-property name="arez.repositories_return_immutables" value="false"/>
+
+  <define-property name="arez.enable_zones" values="true,false"/>
+  <set-property name="arez.enable_zones" value="false"/>
 </module>

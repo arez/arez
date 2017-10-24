@@ -23,6 +23,7 @@ public abstract class AbstractArezTest
     ArezTestUtil.setPurgeReactionsWhenRunawayDetected( false );
     ArezTestUtil.setEnforceTransactionType( true );
     ArezTestUtil.setEnableSpy( true );
+    ArezTestUtil.setEnableZones( false );
     getProxyLogger().setLogger( new TestLogger() );
     ArezTestUtil.setProvider( null );
   }
@@ -38,6 +39,7 @@ public abstract class AbstractArezTest
     ArezTestUtil.setPurgeReactionsWhenRunawayDetected( true );
     ArezTestUtil.setEnforceTransactionType( false );
     ArezTestUtil.setEnableSpy( false );
+    ArezTestUtil.setEnableZones( false );
     getProxyLogger().setLogger( null );
   }
 

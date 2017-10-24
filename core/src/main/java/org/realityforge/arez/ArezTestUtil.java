@@ -69,6 +69,16 @@ public final class ArezTestUtil
   }
 
   /**
+   * Configure the enableZones setting.
+   *
+   * @param value the setting.
+   */
+  public static void setEnableZones( final boolean value )
+  {
+    setConstant( "ENABLE_ZONES", value );
+  }
+
+  /**
    * Set the specified field name on ArezConfig.
    */
   @SuppressWarnings( "NonJREEmulationClassesInClientCode" )

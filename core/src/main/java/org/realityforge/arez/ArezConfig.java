@@ -19,6 +19,7 @@ final class ArezConfig
   private static boolean ENABLE_SPY =
     ENABLE_NAMES &&
     "true".equals( System.getProperty( "arez.enable_spy", PRODUCTION_ENVIRONMENT ? "false" : "true" ) );
+  private static boolean ENABLE_ZONES = "true".equals( System.getProperty( "arez.enable_zones", "false" ) );
 
   private ArezConfig()
   {
@@ -47,5 +48,10 @@ final class ArezConfig
   static boolean enableSpy()
   {
     return ENABLE_SPY;
+  }
+
+  static boolean enableZones()
+  {
+    return ENABLE_ZONES;
   }
 }

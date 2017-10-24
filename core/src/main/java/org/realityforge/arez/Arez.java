@@ -45,6 +45,16 @@ public final class Arez
   }
 
   /**
+   * Return true if zones are enabled, false otherwise.
+   *
+   * @return true if zones are enabled, false otherwise.
+   */
+  public static boolean areZonesEnabled()
+  {
+    return ArezConfig.enableZones();
+  }
+
+  /**
    * Return the ArezContext from the provider.
    *
    * @return the ArezContext.

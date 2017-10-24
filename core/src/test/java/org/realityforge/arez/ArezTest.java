@@ -7,6 +7,16 @@ public class ArezTest
   extends AbstractArezTest
 {
   @Test
+  public void areZonesEnabled()
+  {
+    assertFalse( Arez.areZonesEnabled() );
+
+    ArezTestUtil.setEnableZones( true );
+
+    assertTrue( Arez.areZonesEnabled() );
+  }
+
+  @Test
   public void context_defaults()
   {
     final ArezContext context1 = Arez.context();
