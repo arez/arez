@@ -47,7 +47,7 @@ complete as there is too much un-said.
   - https://github.com/mobxjs/mobx-utils/blob/master/src/from-resource.ts
 
 * Should `ArezContext` be disposable? If so it would need to track all resources created by it and explicitly
-  call dispose on owned resources.
+  call dispose on owned resources. Probably can keep a cache using WeakReferences
 
 ## Process
 
