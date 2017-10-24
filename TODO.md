@@ -40,6 +40,9 @@ complete as there is too much un-said.
   - https://github.com/intendia-oss/rxjava-gwt
   - https://github.com/mobxjs/mobx-utils/blob/master/src/from-resource.ts
 
+* Should `ArezContext` be disposable? If so it would need to track all resources created by it and explicitly
+  call dispose on owned resources.
+
 ## Process
 
 * Generate coverage reports. Probably via jacoco + codecov
