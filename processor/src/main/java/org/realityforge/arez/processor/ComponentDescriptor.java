@@ -686,12 +686,7 @@ final class ComponentDescriptor
   {
     for ( final ObservableDescriptor observable : _roObservables )
     {
-      if ( !observable.expectSetter() && !observable.hasRefMethod() )
-      {
-        throw new ArezProcessorException( "@Observable target defines expectSetter = false but there is no ref " +
-                                          "method for observable and thus never possible to report it as changed " +
-                                          "and thus should not be observable.", observable.getGetter() );
-      }
+      observable.validate();
     }
   }
 

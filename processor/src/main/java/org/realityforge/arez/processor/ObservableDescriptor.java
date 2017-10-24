@@ -276,4 +276,14 @@ final class ObservableDescriptor
     builder.addStatement( "return super." + _getter.getSimpleName() + "()" );
     return builder.build();
   }
+
+  void validate()
+  {
+    if ( !expectSetter() && !hasRefMethod() )
+    {
+      throw new ArezProcessorException( "@Observable target defines expectSetter = false but there is no ref " +
+                                        "method for observable and thus never possible to report it as changed " +
+                                        "and thus should not be observable.", getGetter() );
+    }
+  }
 }
