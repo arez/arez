@@ -405,6 +405,31 @@ public final class ArezContext
   }
 
   /**
+   * Return true if there is a transaction in progress.
+   *
+   * @return true if there is a transaction in progress.
+   */
+  boolean isTransactionActive()
+  {
+    return null != _transaction;
+  }
+
+  /**
+   * Return the current transaction.
+   * This method should not be invoked unless a transaction active and will throw an
+   * exception if invariant checks are enabled.
+   *
+   * @return the current transaction.
+   */
+  @Nonnull
+  Transaction getTransaction()
+  {
+    invariant( this::isTransactionActive, () -> "Attempting to get current transaction but no transaction is active." );
+    assert null != _transaction;
+    return _transaction;
+  }
+
+  /**
    * Method invoked to trigger the scheduler to run any pending reactions. The scheduler will only be
    * triggered if there is no transaction active. This method is typically used after one or more Observers
    * have been created outside a transaction with the runImmediately flag set to false and the caller wants
@@ -1054,31 +1079,6 @@ public final class ArezContext
       }
       triggerScheduler();
     }
-  }
-
-  /**
-   * Return true if there is a transaction in progress.
-   *
-   * @return true if there is a transaction in progress.
-   */
-  boolean isTransactionActive()
-  {
-    return null != _transaction;
-  }
-
-  /**
-   * Return the current transaction.
-   * This method should not be invoked unless a transaction active and will throw an
-   * exception if invariant checks are enabled.
-   *
-   * @return the current transaction.
-   */
-  @Nonnull
-  Transaction getTransaction()
-  {
-    invariant( this::isTransactionActive, () -> "Attempting to get current transaction but no transaction is active." );
-    assert null != _transaction;
-    return _transaction;
   }
 
   /**
