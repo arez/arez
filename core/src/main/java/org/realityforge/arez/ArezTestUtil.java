@@ -17,15 +17,13 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set the context provider for arez.
+   * Clear the context provider for arez.
    * This forcibly overwrites provider and should not be done outside tests.
-   *
-   * @param provider the provider.
    */
-  public static void setProvider( @Nullable final Arez.ContextProvider provider )
+  public static void clearProvider()
   {
     assert !ArezConfig.isProductionmode();
-    Arez.setProvider( provider );
+    Arez.clearProvider();
   }
 
   /**

@@ -25,7 +25,7 @@ public abstract class AbstractArezTest
     ArezTestUtil.setEnableSpy( true );
     ArezTestUtil.setEnableZones( false );
     getProxyLogger().setLogger( new TestLogger() );
-    ArezTestUtil.setProvider( null );
+    ArezTestUtil.clearProvider();
   }
 
   @AfterMethod

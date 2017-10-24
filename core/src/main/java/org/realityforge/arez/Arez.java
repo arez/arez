@@ -1,9 +1,7 @@
 package org.realityforge.arez;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
-import org.realityforge.anodoc.Unsupported;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -72,7 +70,6 @@ public final class Arez
    *
    * @param provider the ContextProvider to bind.
    */
-  @Unsupported( "The value that this provides over zones is unclear and it may be removed in the future" )
   public static void bindProvider( @Nonnull final ContextProvider provider )
   {
     apiInvariant( () -> null == c_provider,
@@ -96,11 +93,14 @@ public final class Arez
     return c_provider;
   }
 
-  @SuppressWarnings( "SameParameterValue" )
+  /**
+   * Clear the provider field.
+   * This is dangerous as it may leave dangling references and should onkly be done in tests.
+   */
   @TestOnly
-  static void setProvider( @Nullable final ContextProvider provider )
+  static void clearProvider()
   {
-    c_provider = provider;
+    c_provider = null;
   }
 
   /**

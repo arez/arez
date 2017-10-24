@@ -21,7 +21,7 @@ public abstract class AbstractArezExtrasTest
     ArezTestUtil.setEnforceTransactionType( true );
     ArezTestUtil.setEnableSpy( true );
     ArezTestUtil.setEnableZones( false );
-    ArezTestUtil.setProvider( null );
+    ArezTestUtil.clearProvider();
   }
 
   @AfterMethod

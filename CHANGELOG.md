@@ -14,6 +14,8 @@
   is not annotated with `@Observable` to transform to the desired type.
 
 ##### Changed
+* 💥 **\[core\]** Replace `ArezTestUtil.setProvider(null)` with `ArezTestUtil.clearProvider()` and remove
+  `ArezTestUtil.setProvider(...)` method to capture how it is used.
 * 💥 **\[core\]** Explicitly marked `Arez.bindProvider()` as unsupported as it is unclear that it provides
   sufficient value to justify it's expense.
 * **\[core\]** Remove `@Unsupported` annotation from `org.realityforge.arez.Arez` as it is now stable.
