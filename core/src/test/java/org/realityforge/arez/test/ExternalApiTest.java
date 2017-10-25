@@ -7,6 +7,7 @@ import org.realityforge.arez.AbstractArezTest;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ArezObserverTestUtil;
+import org.realityforge.arez.ArezTestUtil;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
@@ -28,7 +29,7 @@ public class ExternalApiTest
   @Test
   public void triggerScheduler()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final AtomicInteger callCount = new AtomicInteger();
 
     context.autorun( ValueUtil.randomString(), false, callCount::incrementAndGet, false );
@@ -44,23 +45,24 @@ public class ExternalApiTest
   public void areNamesEnabled()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
-
     assertTrue( Arez.areNamesEnabled() );
+    ArezTestUtil.setEnableNames( false );
+    assertFalse( Arez.areNamesEnabled() );
   }
 
   @Test
   public void areSpiesEnabled()
   {
-    final ArezContext context = new ArezContext();
     assertTrue( Arez.areSpiesEnabled() );
+    ArezTestUtil.setEnableSpy( false );
+    assertFalse( Arez.areSpiesEnabled() );
   }
 
   @Test
   public void createComputedValue()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue = context.createComputedValue( name, () -> "", Objects::equals );
@@ -79,7 +81,7 @@ public class ExternalApiTest
   public void createReactionObserver()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final AtomicInteger callCount = new AtomicInteger();
 
@@ -99,7 +101,7 @@ public class ExternalApiTest
   public void observerErrorHandler()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final AtomicInteger callCount = new AtomicInteger();
 
@@ -126,7 +128,7 @@ public class ExternalApiTest
   public void spyEventHandler()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final AtomicInteger callCount = new AtomicInteger();
 
@@ -150,7 +152,7 @@ public class ExternalApiTest
   public void safeProcedure_interactionWithSingleObservable()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observable observable = context.createObservable( ValueUtil.randomString() );
 
@@ -178,7 +180,7 @@ public class ExternalApiTest
   public void interactionWithSingleObservable()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observable observable = context.createObservable( ValueUtil.randomString() );
 
@@ -207,7 +209,7 @@ public class ExternalApiTest
   public void interactionWithMultipleObservable()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observable observable1 = context.createObservable( ValueUtil.randomString() );
     final Observable observable2 = context.createObservable( ValueUtil.randomString() );
@@ -268,7 +270,7 @@ public class ExternalApiTest
   public void action_function()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observable observable = context.createObservable( ValueUtil.randomString() );
 
@@ -291,7 +293,7 @@ public class ExternalApiTest
   public void action_safeFunction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observable observable = context.createObservable( ValueUtil.randomString() );
 
@@ -314,7 +316,7 @@ public class ExternalApiTest
   public void proceduresCanBeNested()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observable observable = context.createObservable( ValueUtil.randomString() );
 
     assertNotInTransaction( observable );
@@ -342,7 +344,7 @@ public class ExternalApiTest
   public void action_nestedFunctions()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observable observable = context.createObservable( ValueUtil.randomString() );
 

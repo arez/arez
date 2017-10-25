@@ -2,6 +2,7 @@ package org.realityforge.arez.extras;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.ObserverErrorHandler;
@@ -18,7 +19,7 @@ public class WatcherTest
   public void basicOperation()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observable observable = context.createObservable( ValueUtil.randomString() );
 
@@ -68,7 +69,7 @@ public class WatcherTest
   public void dispose_releasesResources()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observable observable = context.createObservable( ValueUtil.randomString() );
 
@@ -107,7 +108,7 @@ public class WatcherTest
   public void conditionReadOnlyTransaction()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final AtomicInteger errorCount = new AtomicInteger();
 
@@ -151,7 +152,7 @@ public class WatcherTest
   public void verifyEffectWhenReadOnlyTransaction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final AtomicInteger errorCount = new AtomicInteger();
 
@@ -178,7 +179,7 @@ public class WatcherTest
   public void verifyEffectWhenReadWriteTransaction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final AtomicInteger errorCount = new AtomicInteger();
 
