@@ -48,7 +48,7 @@ public final class ArezTestUtil
    */
   public static void clearProvider()
   {
-    assert !ArezConfig.isProductionmode();
+    assert !ArezConfig.isProductionMode();
     Arez.clearProvider();
   }
 
@@ -108,7 +108,7 @@ public final class ArezTestUtil
   @SuppressWarnings( "NonJREEmulationClassesInClientCode" )
   private static void setConstant( @Nonnull final String fieldName, final boolean value )
   {
-    assert !ArezConfig.isProductionmode();
+    assert !ArezConfig.isProductionMode();
     try
     {
       final Field field = ArezConfig.class.getDeclaredField( fieldName );

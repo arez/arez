@@ -25,7 +25,7 @@ final class ArezConfig
   {
   }
 
-  static boolean isProductionmode()
+  static boolean isProductionMode()
   {
     return PRODUCTION_ENVIRONMENT;
   }
