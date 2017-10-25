@@ -18,9 +18,9 @@ When zones are enabled, the [`Arez.context()`]({% api_url Arez context() %}) met
 of the current zone. When components defined by the `@ArezComponent` are created, they will invoke `Arez.context()`
 and the component will be bound to the current zone.
 
-If a method annotated with `@Action`, `@Track` or `@Autorun` is invoked they will switch to the zone in which they
-were created if is different from the current zone. The previous zone and any transaction in the zone will be
-suspended and pushed on a stack until the method completes.
+If a method annotated with `@Action`, `@Track` or `@Autorun` is invoked, the method will switch to the zone in
+which they were created if is different from the current zone. The previous zone and any transaction in the zone
+will be suspended and and resumed when the method completes.
 
 The current zone can be manipulated by directly interacting with the `Arez`. A typical example may of use is:
 
