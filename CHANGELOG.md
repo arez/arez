@@ -14,6 +14,7 @@
   is not annotated with `@Observable` to transform to the desired type.
 
 ##### Changed
+* Upgrade to BrainCheck 1.3.0 so assertion failures open the debugger.
 * 💥 **\[core\]** Replace `ArezTestUtil.setProvider(null)` with `ArezTestUtil.clearProvider()` and remove
   `ArezTestUtil.setProvider(...)` method to capture how it is used.
 * 💥 **\[core\]** Explicitly marked `Arez.bindProvider()` as unsupported as it is unclear that it provides

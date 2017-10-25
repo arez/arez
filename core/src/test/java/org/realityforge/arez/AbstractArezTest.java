@@ -16,9 +16,7 @@ public abstract class AbstractArezTest
   protected void beforeTest()
     throws Exception
   {
-    BrainCheckTestUtil.setVerboseErrorMessages( true );
-    BrainCheckTestUtil.setCheckInvariants( true );
-    BrainCheckTestUtil.setCheckApiInvariants( true );
+    BrainCheckTestUtil.resetConfig( false );
     ArezTestUtil.setEnableNames( true );
     ArezTestUtil.setPurgeReactionsWhenRunawayDetected( false );
     ArezTestUtil.setEnforceTransactionType( true );
@@ -32,9 +30,7 @@ public abstract class AbstractArezTest
   protected void afterTest()
     throws Exception
   {
-    BrainCheckTestUtil.setVerboseErrorMessages( false );
-    BrainCheckTestUtil.setCheckInvariants( false );
-    BrainCheckTestUtil.setCheckApiInvariants( false );
+    BrainCheckTestUtil.resetConfig( true );
     ArezTestUtil.setEnableNames( false );
     ArezTestUtil.setPurgeReactionsWhenRunawayDetected( true );
     ArezTestUtil.setEnforceTransactionType( false );

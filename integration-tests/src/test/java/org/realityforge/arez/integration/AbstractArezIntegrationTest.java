@@ -12,9 +12,7 @@ public abstract class AbstractArezIntegrationTest
   protected void beforeTest()
     throws Exception
   {
-    BrainCheckTestUtil.setVerboseErrorMessages( true );
-    BrainCheckTestUtil.setCheckInvariants( true );
-    BrainCheckTestUtil.setCheckApiInvariants( true );
+    BrainCheckTestUtil.resetConfig( false );
 
     ArezTestUtil.setEnableNames( true );
     ArezTestUtil.setPurgeReactionsWhenRunawayDetected( false );
@@ -28,9 +26,7 @@ public abstract class AbstractArezIntegrationTest
   protected void afterTest()
     throws Exception
   {
-    BrainCheckTestUtil.setVerboseErrorMessages( false );
-    BrainCheckTestUtil.setCheckInvariants( false );
-    BrainCheckTestUtil.setCheckApiInvariants( false );
+    BrainCheckTestUtil.resetConfig( true );
 
     ArezTestUtil.setEnableNames( false );
     ArezTestUtil.setPurgeReactionsWhenRunawayDetected( true );
