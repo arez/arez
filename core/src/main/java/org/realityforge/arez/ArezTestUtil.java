@@ -117,7 +117,7 @@ public final class ArezTestUtil
       field.setAccessible( true );
       field.set( null, value );
     }
-    catch ( NoSuchFieldException | IllegalAccessException e )
+    catch ( final NoSuchFieldException | IllegalAccessException e )
     {
       throw new IllegalStateException( "Unable to change constant " + fieldName, e );
     }
