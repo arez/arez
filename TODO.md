@@ -16,6 +16,11 @@ complete as there is too much un-said.
 * Add an adapter that is like a "when" produces a promise that resolves when a condition occurs, is rejected when
   another condition occurs or when the adapter is disposed. And a timed variant that uses TimedDisposer undercovers.
 
+* Implement https://mobx.js.org/refguide/autorun-async.html - will need a timer abstraction that works in both
+  browser context and non-browser context. But after we do this then we can also implemented delayed whens in 
+  extras (rather than browser-extras which would be required now). Could also moved TimedDisposer back to
+  extras as well.
+
 * Consider an abstraction like https://github.com/danielearwicker/computed-async-mobx/
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
