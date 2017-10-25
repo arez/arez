@@ -17,7 +17,7 @@ complete as there is too much un-said.
   another condition occurs or when the adapter is disposed. And a timed variant that uses TimedDisposer undercovers.
 
 * Implement https://mobx.js.org/refguide/autorun-async.html - will need a timer abstraction that works in both
-  browser context and non-browser context. But after we do this then we can also implemented delayed whens in 
+  browser context and non-browser context. But after we do this then we can also implemented delayed whens in
   extras (rather than browser-extras which would be required now). Could also moved TimedDisposer back to
   extras as well.
 
