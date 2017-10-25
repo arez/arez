@@ -132,6 +132,13 @@ final class Transaction
                        "nested in transaction named '" + c_transaction.getName() + "' with mode " +
                        c_transaction.getMode().name() + " which is not equal to READ_WRITE." );
     }
+    if ( null != c_transaction && !Arez.areZonesEnabled() )
+    {
+      invariant( () -> c_transaction.getContext() == context,
+                 () -> "Zones are not enabled but the transaction named '" + name + "' is " +
+                       "nested in a transaction named '" + c_transaction.getName() + "' from a " +
+                       "different context." );
+    }
     c_transaction = new Transaction( context, c_transaction, name, mode, tracker );
     context.disableScheduler();
     c_transaction.begin();
@@ -173,7 +180,8 @@ final class Transaction
       c_transaction.getContext().getSpy().
         reportSpyEvent( new TransactionCompletedEvent( name, mutation, tracker, duration ) );
     }
-    final Transaction previousInSameContext = c_transaction.getPreviousInSameContext();
+    final Transaction previousInSameContext =
+      Arez.areZonesEnabled() ? c_transaction.getPreviousInSameContext() : c_transaction.getPrevious();
     if ( null == previousInSameContext )
     {
       c_transaction.getContext().enableScheduler();
@@ -193,7 +201,7 @@ final class Transaction
     _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
     _id = context.nextTransactionId();
     _previous = previous;
-    _previousInSameContext = findPreviousTransactionInSameContext();
+    _previousInSameContext = Arez.areZonesEnabled() ? findPreviousTransactionInSameContext() : null;
     _mode = ArezConfig.enforceTransactionType() ? Objects.requireNonNull( mode ) : null;
     _tracker = tracker;
     _startedAt = ArezConfig.enableSpy() ? System.currentTimeMillis() : 0;
@@ -324,6 +332,9 @@ final class Transaction
   @Nullable
   Transaction getPreviousInSameContext()
   {
+    invariant( Arez::areZonesEnabled,
+               () -> "Attempted to invoke getPreviousInSameContext() on transaction named '" + getName() +
+                     "' when zones are not enabled." );
     return _previousInSameContext;
   }
 
@@ -750,7 +761,7 @@ final class Transaction
 
   boolean isRootTransaction()
   {
-    return null == _previousInSameContext;
+    return Arez.areZonesEnabled() ? null == _previousInSameContext : null == _previous;
   }
 
   @Nonnull
@@ -760,10 +771,15 @@ final class Transaction
     {
       return this;
     }
-    else
+    else if ( Arez.areZonesEnabled() )
     {
       assert null != _previousInSameContext;
       return _previousInSameContext.getRootTransaction();
+    }
+    else
+    {
+      assert null != _previous;
+      return _previous.getRootTransaction();
     }
   }
 

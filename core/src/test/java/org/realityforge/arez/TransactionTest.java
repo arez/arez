@@ -2293,6 +2293,33 @@ public class TransactionTest
   }
 
   @Test
+  public void beginTransaction_triple_nested_alternating_contexts_but_zones_disabled()
+    throws Exception
+  {
+    ArezTestUtil.setEnableZones( false );
+
+    final ArezContext context1 = new ArezContext();
+    final ArezContext context2 = new ArezContext();
+
+    assertFalse( context1.isTransactionActive() );
+    assertFalse( context2.isTransactionActive() );
+
+    final String name1 = ValueUtil.randomString();
+    final String name2 = ValueUtil.randomString();
+    Transaction.begin( context1, name1, TransactionMode.READ_ONLY, null );
+    assertTrue( context1.isTransactionActive() );
+    assertTrue( context2.isTransactionActive() );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Transaction.begin( context2, name2, TransactionMode.READ_ONLY, null ) );
+
+    assertEquals( exception.getMessage(),
+                  "Zones are not enabled but the transaction named '" + name2 + "' is nested in a " +
+                  "transaction named '" + name1 + "' from a different context." );
+  }
+
+  @Test
   public void beginTransaction_generates_spyEvent()
     throws Exception
   {

@@ -347,7 +347,8 @@ public final class ArezContext
    */
   boolean isTransactionActive()
   {
-    return Transaction.isTransactionActive() && Transaction.current().getContext() == this;
+    return Transaction.isTransactionActive() &&
+           ( !Arez.areZonesEnabled() || Transaction.current().getContext() == this );
   }
 
   /**
@@ -361,7 +362,7 @@ public final class ArezContext
   Transaction getTransaction()
   {
     final Transaction current = Transaction.current();
-    invariant( () -> current.getContext() == this,
+    invariant( () -> !Arez.areZonesEnabled() || current.getContext() == this,
                () -> "Attempting to get current transaction but current transaction is for different context." );
     return current;
   }

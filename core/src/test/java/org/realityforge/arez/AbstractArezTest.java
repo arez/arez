@@ -21,7 +21,7 @@ public abstract class AbstractArezTest
     ArezTestUtil.setPurgeReactionsWhenRunawayDetected( false );
     ArezTestUtil.setEnforceTransactionType( true );
     ArezTestUtil.setEnableSpy( true );
-    ArezTestUtil.setEnableZones( false );
+    ArezTestUtil.setEnableZones( true );
     getProxyLogger().setLogger( new TestLogger() );
     ArezTestUtil.clearProvider();
   }

@@ -9,6 +9,8 @@ public class ArezTest
   @Test
   public void areZonesEnabled()
   {
+    ArezTestUtil.setEnableZones( false );
+
     assertFalse( Arez.areZonesEnabled() );
 
     ArezTestUtil.setEnableZones( true );
@@ -29,6 +31,8 @@ public class ArezTest
   @Test
   public void context_customProvider()
   {
+    ArezTestUtil.setEnableZones( false );
+
     final ArezContext context = new ArezContext();
     Arez.bindProvider( () -> context );
 
@@ -39,6 +43,8 @@ public class ArezTest
   @Test
   public void context_failedToRebind()
   {
+    ArezTestUtil.setEnableZones( false );
+
     final ArezContext context = new ArezContext();
     final Arez.ContextProvider provider1 = () -> context;
     final Arez.ContextProvider provider2 = () -> context;
