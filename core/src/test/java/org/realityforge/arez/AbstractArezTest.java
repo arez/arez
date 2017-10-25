@@ -17,13 +17,9 @@ public abstract class AbstractArezTest
     throws Exception
   {
     BrainCheckTestUtil.resetConfig( false );
-    ArezTestUtil.setEnableNames( true );
-    ArezTestUtil.setPurgeReactionsWhenRunawayDetected( false );
-    ArezTestUtil.setEnforceTransactionType( true );
-    ArezTestUtil.setEnableSpy( true );
+    ArezTestUtil.resetConfig( false );
     ArezTestUtil.setEnableZones( true );
     getProxyLogger().setLogger( new TestLogger() );
-    ArezTestUtil.clearProvider();
   }
 
   @AfterMethod
@@ -31,13 +27,7 @@ public abstract class AbstractArezTest
     throws Exception
   {
     BrainCheckTestUtil.resetConfig( true );
-    ArezTestUtil.setEnableNames( false );
-    ArezTestUtil.setPurgeReactionsWhenRunawayDetected( true );
-    ArezTestUtil.setEnforceTransactionType( false );
-    ArezTestUtil.setEnableSpy( false );
-    ArezTestUtil.setEnableZones( false );
-    getProxyLogger().setLogger( null );
-    Transaction.setTransaction( null );
+    ArezTestUtil.resetConfig( true );
   }
 
   @Nonnull

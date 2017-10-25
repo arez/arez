@@ -2,7 +2,6 @@ package org.realityforge.arez;
 
 import java.lang.reflect.Field;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
 
 /**
@@ -14,6 +13,33 @@ public final class ArezTestUtil
 {
   private ArezTestUtil()
   {
+  }
+
+  /**
+   * Reset the state of Arez config to either production or development state.
+   *
+   * @param productionMode true to set it to production mode configuration, false to set it to development mode config.
+   */
+  public static void resetConfig( final boolean productionMode )
+  {
+    if ( productionMode )
+    {
+      setEnableNames( false );
+      setEnforceTransactionType( false );
+      setEnableSpy( false );
+    }
+    else
+    {
+      setEnableNames( true );
+      setEnforceTransactionType( true );
+      setEnableSpy( true );
+    }
+    setPurgeReactionsWhenRunawayDetected( true );
+    setEnableZones( false );
+
+    ( (ArezLogger.ProxyLogger) ArezLogger.getLogger() ).setLogger( null );
+    Transaction.setTransaction( null );
+    clearProvider();
   }
 
   /**
