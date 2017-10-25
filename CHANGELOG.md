@@ -5,6 +5,9 @@
 ##### Added
 * Add some cute icons to start of "computed" messages and "scheduled" messages in `ConsoleSpyEventProcessor`.
   These were source from the [mobx-devtools](https://github.com/andykog/mobx-devtools) project.
+* Add support for interleaving transactions from different instances of `ArezContext`. Beginning a transaction
+  in one context will suspend the active transaction even if it is from a different context. The goal is to
+  enable isolation between multiple contexts running within the same application.
 
 ##### Fixed
 * **\[processor\]** Ensure that the types of the setter and getter for an `@Observable` property are the

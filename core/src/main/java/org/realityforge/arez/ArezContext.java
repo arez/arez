@@ -1155,4 +1155,10 @@ public final class ArezContext
   {
     return _nextNodeId;
   }
+
+  @TestOnly
+  boolean isSchedulerEnabled()
+  {
+    return _schedulerEnabled;
+  }
 }

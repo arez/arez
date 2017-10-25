@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
+import org.realityforge.anodoc.VisibleForTesting;
 import org.realityforge.arez.spy.TransactionCompletedEvent;
 import org.realityforge.arez.spy.TransactionStartedEvent;
 import org.realityforge.braincheck.BrainCheckConfig;
@@ -54,6 +55,13 @@ final class Transaction
    */
   @Nullable
   private final Transaction _previous;
+  /**
+   * Reference to a previous transaction in the same context.
+   * To determine this transaction, the code walks back the chain of _previous transactions looking for
+   * one with the same context.
+   */
+  @Nullable
+  private final Transaction _previousInSameContext;
   /**
    * Time at which transaction started. Is only set if {@link ArezConfig#enableSpy()} return true.
    */
@@ -165,12 +173,12 @@ final class Transaction
       c_transaction.getContext().getSpy().
         reportSpyEvent( new TransactionCompletedEvent( name, mutation, tracker, duration ) );
     }
-    final Transaction previous = c_transaction.getPrevious();
-    if ( null == previous )
+    final Transaction previousInSameContext = c_transaction.getPreviousInSameContext();
+    if ( null == previousInSameContext )
     {
       c_transaction.getContext().enableScheduler();
     }
-    c_transaction = previous;
+    c_transaction = c_transaction.getPrevious();
   }
 
   Transaction( @Nonnull final ArezContext context,
@@ -185,6 +193,7 @@ final class Transaction
     _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
     _id = context.nextTransactionId();
     _previous = previous;
+    _previousInSameContext = findPreviousTransactionInSameContext();
     _mode = ArezConfig.enforceTransactionType() ? Objects.requireNonNull( mode ) : null;
     _tracker = tracker;
     _startedAt = ArezConfig.enableSpy() ? System.currentTimeMillis() : 0;
@@ -192,6 +201,24 @@ final class Transaction
     invariant( () -> TransactionMode.READ_WRITE_OWNED != mode || null != tracker,
                () -> "Attempted to create transaction named '" + getName() +
                      "' with mode READ_WRITE_OWNED but no tracker specified." );
+  }
+
+  /**
+   * Walk the tree looking for transaction in the same context.
+   */
+  @Nullable
+  private Transaction findPreviousTransactionInSameContext()
+  {
+    Transaction t = _previous;
+    while ( null != t )
+    {
+      if ( t.getContext() == _context )
+      {
+        return t;
+      }
+      t = t.getPrevious();
+    }
+    return null;
   }
 
   /**
@@ -291,6 +318,13 @@ final class Transaction
   Transaction getPrevious()
   {
     return _previous;
+  }
+
+  @VisibleForTesting
+  @Nullable
+  Transaction getPreviousInSameContext()
+  {
+    return _previousInSameContext;
   }
 
   void commit()
@@ -716,7 +750,7 @@ final class Transaction
 
   boolean isRootTransaction()
   {
-    return null == _previous;
+    return null == _previousInSameContext;
   }
 
   @Nonnull
@@ -728,8 +762,8 @@ final class Transaction
     }
     else
     {
-      assert null != _previous;
-      return _previous.getRootTransaction();
+      assert null != _previousInSameContext;
+      return _previousInSameContext.getRootTransaction();
     }
   }
 

@@ -379,6 +379,82 @@ public class ExternalApiTest
     assertEquals( v0, expectedValue );
   }
 
+  @Test
+  public void supportsMultipleContexts()
+    throws Throwable
+  {
+    final ArezContext context1 = new ArezContext();
+    final ArezContext context2 = new ArezContext();
+    final Observable observable1 = context1.createObservable( ValueUtil.randomString() );
+    final Observable observable2 = context2.createObservable( ValueUtil.randomString() );
+
+    final AtomicInteger autorunCallCount1 = new AtomicInteger();
+    final AtomicInteger autorunCallCount2 = new AtomicInteger();
+
+    context1.autorun( () -> {
+      observable1.reportObserved();
+      autorunCallCount1.incrementAndGet();
+    } );
+
+    context2.autorun( () -> {
+      observable2.reportObserved();
+      autorunCallCount2.incrementAndGet();
+    } );
+
+    assertEquals( autorunCallCount1.get(), 1 );
+    assertEquals( autorunCallCount2.get(), 1 );
+
+    assertNotInTransaction( observable1 );
+    assertNotInTransaction( observable2 );
+
+    context1.action( () -> {
+      assertInTransaction( observable1 );
+
+      //First nested exception
+      context1.action( () -> {
+        assertInTransaction( observable1 );
+        observable1.reportChanged();
+
+        //Second nested exception
+        context1.action( () -> assertInTransaction( observable1 ) );
+
+        context2.action( () -> {
+          assertNotInTransaction( observable1 );
+          assertInTransaction( observable2 );
+          observable2.reportChanged();
+
+          context2.action( () -> {
+            assertNotInTransaction( observable1 );
+            assertInTransaction( observable2 );
+            observable2.reportChanged();
+          } );
+
+          assertEquals( autorunCallCount1.get(), 1 );
+          context1.action( () -> assertInTransaction( observable1 ) );
+          // Still no autorun reaction as it has transaction up the stack
+          assertEquals( autorunCallCount1.get(), 1 );
+
+          assertEquals( autorunCallCount2.get(), 1 );
+        } );
+
+        // Second context runs now as it got to it's top level trnsaction
+        assertEquals( autorunCallCount2.get(), 2 );
+
+        assertInTransaction( observable1 );
+        assertNotInTransaction( observable2 );
+      } );
+
+      assertInTransaction( observable1 );
+      assertNotInTransaction( observable2 );
+    } );
+
+    assertEquals( autorunCallCount1.get(), 2 );
+    assertEquals( autorunCallCount2.get(), 2 );
+
+    assertNotInTransaction( observable1 );
+    assertNotInTransaction( observable2 );
+  }
+
   /**
    * Test we are in a transaction by trying to observe an observable.
    */

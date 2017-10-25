@@ -2186,7 +2186,6 @@ public class TransactionTest
     assertEquals( exception.getMessage(), "Transaction.getStartedAt() invoked when ArezConfig.enableSpy() is false" );
   }
 
-
   @Test
   public void beginTransaction()
     throws Exception
@@ -2208,7 +2207,89 @@ public class TransactionTest
     assertEquals( transaction.getMode(), mode );
     assertEquals( transaction.getTracker(), tracker );
     assertEquals( transaction.getPrevious(), null );
+    assertEquals( transaction.getPreviousInSameContext(), null );
     assertEquals( transaction.getMode(), TransactionMode.READ_ONLY );
+  }
+
+  @Test
+  public void beginTransaction_nested()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final Transaction transaction1 = Transaction.begin( context,
+                                                        ValueUtil.randomString(),
+                                                        TransactionMode.READ_ONLY, null );
+    assertTrue( context.isTransactionActive() );
+
+    final Transaction transaction2 = Transaction.begin( context, ValueUtil.randomString(),
+                                                        TransactionMode.READ_ONLY, null );
+
+    assertTrue( context.isTransactionActive() );
+
+    assertEquals( context.getTransaction(), transaction2 );
+    assertEquals( transaction2.getPrevious(), transaction1 );
+    assertEquals( transaction2.getPreviousInSameContext(), transaction1 );
+  }
+
+  @Test
+  public void beginTransaction_nested_inDifferentContext()
+    throws Exception
+  {
+    final ArezContext context1 = new ArezContext();
+    final ArezContext context2 = new ArezContext();
+
+    assertFalse( context1.isTransactionActive() );
+    assertFalse( context2.isTransactionActive() );
+
+    final Transaction transaction1 =
+      Transaction.begin( context1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    assertTrue( context1.isTransactionActive() );
+    assertFalse( context2.isTransactionActive() );
+
+    final Transaction transaction2 =
+      Transaction.begin( context2, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    assertFalse( context1.isTransactionActive() );
+    assertTrue( context2.isTransactionActive() );
+
+    assertEquals( context2.getTransaction(), transaction2 );
+    assertEquals( transaction2.getPrevious(), transaction1 );
+    assertEquals( transaction2.getPreviousInSameContext(), null );
+  }
+
+  @Test
+  public void beginTransaction_triple_nested_alternating_contexts()
+    throws Exception
+  {
+    final ArezContext context1 = new ArezContext();
+    final ArezContext context2 = new ArezContext();
+
+    assertFalse( context1.isTransactionActive() );
+    assertFalse( context2.isTransactionActive() );
+
+    final Transaction transaction1 =
+      Transaction.begin( context1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    assertTrue( context1.isTransactionActive() );
+    assertFalse( context2.isTransactionActive() );
+
+    final Transaction transaction2 =
+      Transaction.begin( context2, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    assertFalse( context1.isTransactionActive() );
+    assertTrue( context2.isTransactionActive() );
+
+    final Transaction transaction3 =
+      Transaction.begin( context1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    assertTrue( context1.isTransactionActive() );
+    assertFalse( context2.isTransactionActive() );
+
+    assertEquals( context1.getTransaction(), transaction3 );
+    assertEquals( transaction3.getPrevious(), transaction2 );
+    assertEquals( transaction3.getPreviousInSameContext(), transaction1 );
   }
 
   @Test
@@ -2285,6 +2366,110 @@ public class TransactionTest
     Transaction.commit( transaction );
 
     assertEquals( context.isTransactionActive(), false );
+    assertEquals( context.isSchedulerEnabled(), true );
+  }
+
+  @Test
+  public void commitTransaction_onlyRootEnablesScheduler()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction1 =
+      Transaction.begin( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction2 =
+      Transaction.begin( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    assertEquals( context.isTransactionActive(), true );
+    assertEquals( context.isSchedulerEnabled(), false );
+
+    Transaction.commit( transaction2 );
+
+    assertEquals( context.isTransactionActive(), true );
+    assertEquals( context.isSchedulerEnabled(), false );
+
+    Transaction.commit( transaction1 );
+
+    assertEquals( context.isTransactionActive(), false );
+    assertEquals( context.isSchedulerEnabled(), true );
+  }
+
+  @Test
+  public void commitTransaction_enablesScheduler_forInterleavedContexts()
+    throws Exception
+  {
+    final ArezContext context1 = new ArezContext();
+    final ArezContext context2 = new ArezContext();
+
+    final Transaction transaction1 =
+      Transaction.begin( context1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction2 =
+      Transaction.begin( context2, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    assertEquals( context1.isTransactionActive(), false );
+    assertEquals( context1.isSchedulerEnabled(), false );
+    assertEquals( context2.isTransactionActive(), true );
+    assertEquals( context2.isSchedulerEnabled(), false );
+
+    Transaction.commit( transaction2 );
+
+    assertEquals( context1.isTransactionActive(), true );
+    assertEquals( context1.isSchedulerEnabled(), false );
+    assertEquals( context2.isTransactionActive(), false );
+    assertEquals( context2.isSchedulerEnabled(), true );
+
+    Transaction.commit( transaction1 );
+
+    assertEquals( context1.isTransactionActive(), false );
+    assertEquals( context1.isSchedulerEnabled(), true );
+  }
+
+  @Test
+  public void commitTransaction_enablesScheduler_forStripedContexts()
+    throws Exception
+  {
+    final ArezContext context1 = new ArezContext();
+    final ArezContext context2 = new ArezContext();
+
+    final Transaction transaction1 =
+      Transaction.begin( context1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction2 =
+      Transaction.begin( context2, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction3 =
+      Transaction.begin( context1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction4 =
+      Transaction.begin( context2, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    assertEquals( context1.isTransactionActive(), false );
+    assertEquals( context1.isSchedulerEnabled(), false );
+    assertEquals( context2.isTransactionActive(), true );
+    assertEquals( context2.isSchedulerEnabled(), false );
+
+    Transaction.commit( transaction4 );
+
+    assertEquals( context1.isTransactionActive(), true );
+    assertEquals( context1.isSchedulerEnabled(), false );
+    assertEquals( context2.isTransactionActive(), false );
+    assertEquals( context2.isSchedulerEnabled(), false );
+
+    Transaction.commit( transaction3 );
+
+    assertEquals( context1.isTransactionActive(), false );
+    assertEquals( context1.isSchedulerEnabled(), false );
+    assertEquals( context2.isTransactionActive(), true );
+    assertEquals( context2.isSchedulerEnabled(), false );
+
+    Transaction.commit( transaction2 );
+
+    assertEquals( context1.isTransactionActive(), true );
+    assertEquals( context1.isSchedulerEnabled(), false );
+    assertEquals( context2.isTransactionActive(), false );
+    assertEquals( context2.isSchedulerEnabled(), true );
+
+    Transaction.commit( transaction1 );
+
+    assertEquals( context1.isTransactionActive(), false );
+    assertEquals( context1.isSchedulerEnabled(), true );
   }
 
   @SuppressWarnings( "ConstantConditions" )
