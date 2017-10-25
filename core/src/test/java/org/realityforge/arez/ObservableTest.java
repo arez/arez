@@ -84,7 +84,7 @@ public class ObservableTest
     assertEquals( observable.isDisposed(), false );
 
     // Reset transaction before calling dispose
-    context.setTransaction( null );
+    Transaction.setTransaction( null );
 
     final int currentNextTransactionId = context.currentNextTransactionId();
 
@@ -116,7 +116,7 @@ public class ObservableTest
     observable.getObservers().add( observer );
     observer.getDependencies().add( observable );
 
-    context.setTransaction( null );
+    Transaction.setTransaction( null );
 
     assertEquals( observable.isDisposed(), false );
 
@@ -149,7 +149,7 @@ public class ObservableTest
     observable.getObservers().add( observer );
     observer.getDependencies().add( observable );
 
-    context.setTransaction( null );
+    Transaction.setTransaction( null );
 
     assertEquals( observable.isDisposed(), false );
 
@@ -521,7 +521,7 @@ public class ObservableTest
     assertEquals( observable.hasObserver( observer ), true );
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
-    context.setTransaction( null );
+    Transaction.setTransaction( null );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> observable.removeObserver( observer ) );
@@ -797,7 +797,7 @@ public class ObservableTest
 
     assertEquals( observable.isPendingDeactivation(), false );
 
-    context.setTransaction( null );
+    Transaction.setTransaction( null );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observable::queueForDeactivation );
@@ -931,7 +931,7 @@ public class ObservableTest
 
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
 
-    context.setTransaction( null );
+    Transaction.setTransaction( null );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observable::deactivate );
@@ -1035,7 +1035,7 @@ public class ObservableTest
 
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
 
-    context.setTransaction( null );
+    Transaction.setTransaction( null );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observable::activate );

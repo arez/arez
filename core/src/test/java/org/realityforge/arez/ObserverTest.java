@@ -725,7 +725,7 @@ public class ObserverTest
     setCurrentTransaction( observer );
     observer.setState( ObserverState.UP_TO_DATE );
 
-    context.setTransaction( null );
+    Transaction.setTransaction( null );
 
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.isLive(), true );
@@ -756,7 +756,7 @@ public class ObserverTest
     final AtomicInteger callCount = new AtomicInteger();
     observer.setOnDispose( callCount::incrementAndGet );
 
-    context.setTransaction( null );
+    Transaction.setTransaction( null );
 
     assertEquals( observer.isDisposed(), false );
     assertEquals( callCount.get(), 0 );
@@ -776,7 +776,7 @@ public class ObserverTest
     setCurrentTransaction( observer );
     observer.setState( ObserverState.UP_TO_DATE );
 
-    context.setTransaction( null );
+    Transaction.setTransaction( null );
 
     assertEquals( observer.isDisposed(), false );
 
@@ -805,7 +805,7 @@ public class ObserverTest
     setCurrentTransaction( observer );
     observer.setState( ObserverState.UP_TO_DATE );
 
-    context.setTransaction( null );
+    Transaction.setTransaction( null );
 
     assertEquals( observer.isDisposed(), false );
 
@@ -1050,7 +1050,7 @@ public class ObserverTest
 
     setCurrentTransaction( context );
     observer.setState( ObserverState.UP_TO_DATE );
-    context.setTransaction( null );
+    Transaction.setTransaction( null );
 
     //Invoke reaction
     observer.invokeReaction();

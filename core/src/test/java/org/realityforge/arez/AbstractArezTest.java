@@ -37,6 +37,7 @@ public abstract class AbstractArezTest
     ArezTestUtil.setEnableSpy( false );
     ArezTestUtil.setEnableZones( false );
     getProxyLogger().setLogger( null );
+    Transaction.setTransaction( null );
   }
 
   @Nonnull
@@ -137,10 +138,10 @@ public abstract class AbstractArezTest
   final void setCurrentTransaction( @Nonnull final Observer observer )
   {
     final ArezContext context = observer.getContext();
-    context.setTransaction( new Transaction( context,
-                                             null,
-                                             ValueUtil.randomString(),
-                                             observer.getMode(),
-                                             observer ) );
+    Transaction.setTransaction( new Transaction( context,
+                                                 null,
+                                                 ValueUtil.randomString(),
+                                                 observer.getMode(),
+                                                 observer ) );
   }
 }

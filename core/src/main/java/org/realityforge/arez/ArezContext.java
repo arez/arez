@@ -11,8 +11,6 @@ import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
 import org.realityforge.arez.spy.ReactionScheduledEvent;
-import org.realityforge.arez.spy.TransactionCompletedEvent;
-import org.realityforge.arez.spy.TransactionStartedEvent;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -23,12 +21,6 @@ import static org.realityforge.braincheck.Guards.*;
 @SuppressWarnings( "Duplicates" )
 public final class ArezContext
 {
-  /**
-   * All changes in a context must occur within the scope of a transaction.
-   * This references the current transaction.
-   */
-  @Nullable
-  private Transaction _transaction;
   /**
    * Id of next node to be created.
    * This is only used if {@link #areNamesEnabled()} returns true but no name has been supplied.
@@ -56,6 +48,11 @@ public final class ArezContext
    */
   @Nullable
   private final SpyImpl _spy = ArezConfig.enableSpy() ? new SpyImpl( this ) : null;
+  /**
+   * Flag indicating whether the scheduler should run next time it is triggered.
+   * This should be active only when there is no uncommitted transaction for context..
+   */
+  private boolean _schedulerEnabled = true;
 
   /**
    * Create a ComputedValue with specified parameters.
@@ -344,74 +341,13 @@ public final class ArezContext
   }
 
   /**
-   * Create a new transaction.
-   *
-   * @param name    the name of the transaction. Should be non-null if {@link #areNamesEnabled()} is true, false otherwise.
-   * @param mode    the transaction mode.
-   * @param tracker the observer that is tracking transaction if any.
-   * @return the new transaction.
-   */
-  Transaction beginTransaction( @Nullable final String name,
-                                @Nullable final TransactionMode mode,
-                                @Nullable final Observer tracker )
-  {
-    if ( ArezConfig.enforceTransactionType() && TransactionMode.READ_WRITE == mode && null != _transaction )
-    {
-      invariant( () -> TransactionMode.READ_WRITE == _transaction.getMode(),
-                 () -> "Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
-                       "nested in transaction named '" + _transaction.getName() + "' with mode " +
-                       _transaction.getMode().name() + " which is not equal to READ_WRITE." );
-    }
-    _transaction = new Transaction( this, _transaction, name, mode, tracker );
-    _transaction.begin();
-    if ( willPropagateSpyEvents() )
-    {
-      assert null != name;
-      final boolean mutation =
-        !ArezConfig.enforceTransactionType() || TransactionMode.READ_WRITE == _transaction.getMode();
-      getSpy().reportSpyEvent( new TransactionStartedEvent( name, mutation, tracker ) );
-    }
-    return _transaction;
-  }
-
-  /**
-   * Commit the supplied transaction.
-   *
-   * This method verifies that the transaction active is the supplied transaction before committing
-   * the transaction and restoring the prior transaction if any.
-   *
-   * @param transaction the transaction.
-   */
-  void commitTransaction( @Nonnull final Transaction transaction )
-  {
-    invariant( () -> null != _transaction,
-               () -> "Attempting to commit transaction named '" + transaction.getName() +
-                     "' but no transaction is active." );
-    assert null != _transaction;
-    invariant( () -> _transaction == transaction,
-               () -> "Attempting to commit transaction named '" + transaction.getName() + "' but this does " +
-                     "not match existing transaction named '" + _transaction.getName() + "'." );
-    _transaction.commit();
-    if ( willPropagateSpyEvents() )
-    {
-      final String name = _transaction.getName();
-      final boolean mutation =
-        !ArezConfig.enforceTransactionType() || TransactionMode.READ_WRITE == _transaction.getMode();
-      final Observer tracker = _transaction.getTracker();
-      final long duration = System.currentTimeMillis() - _transaction.getStartedAt();
-      getSpy().reportSpyEvent( new TransactionCompletedEvent( name, mutation, tracker, duration ) );
-    }
-    _transaction = _transaction.getPrevious();
-  }
-
-  /**
    * Return true if there is a transaction in progress.
    *
    * @return true if there is a transaction in progress.
    */
   boolean isTransactionActive()
   {
-    return null != _transaction;
+    return Transaction.isTransactionActive() && Transaction.current().getContext() == this;
   }
 
   /**
@@ -424,9 +360,26 @@ public final class ArezContext
   @Nonnull
   Transaction getTransaction()
   {
-    invariant( this::isTransactionActive, () -> "Attempting to get current transaction but no transaction is active." );
-    assert null != _transaction;
-    return _transaction;
+    final Transaction current = Transaction.current();
+    invariant( () -> current.getContext() == this,
+               () -> "Attempting to get current transaction but current transaction is for different context." );
+    return current;
+  }
+
+  /**
+   * Enable scheduler so that it will run pending observers next time it is triggered.
+   */
+  void enableScheduler()
+  {
+    _schedulerEnabled = true;
+  }
+
+  /**
+   * Disable scheduler so that it will not run pending observers next time it is triggered.
+   */
+  void disableScheduler()
+  {
+    _schedulerEnabled = false;
   }
 
   /**
@@ -438,7 +391,7 @@ public final class ArezContext
    */
   public void triggerScheduler()
   {
-    if ( null == _transaction )
+    if ( _schedulerEnabled )
     {
       _scheduler.runPendingObservers();
     }
@@ -590,14 +543,14 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      final Transaction transaction = beginTransaction( generateNodeName( "Transaction", name ), mode, tracker );
+      final Transaction transaction = Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
       try
       {
         result = action.call();
       }
       finally
       {
-        commitTransaction( transaction );
+        Transaction.commit( transaction );
       }
       if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
@@ -743,14 +696,14 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      final Transaction transaction = beginTransaction( generateNodeName( "Transaction", name ), mode, tracker );
+      final Transaction transaction = Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
       try
       {
         result = action.call();
       }
       finally
       {
-        commitTransaction( transaction );
+        Transaction.commit( transaction );
       }
       if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
@@ -903,14 +856,14 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      final Transaction transaction = beginTransaction( generateNodeName( "Transaction", name ), mode, tracker );
+      final Transaction transaction = Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
       try
       {
         action.call();
       }
       finally
       {
-        commitTransaction( transaction );
+        Transaction.commit( transaction );
       }
       if ( reportAction && areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
@@ -1044,14 +997,14 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      final Transaction transaction = beginTransaction( generateNodeName( "Transaction", name ), mode, tracker );
+      final Transaction transaction = Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
       try
       {
         action.call();
       }
       finally
       {
-        commitTransaction( transaction );
+        Transaction.commit( transaction );
       }
       if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
@@ -1138,7 +1091,7 @@ public final class ArezContext
    *
    * @return true if spy events will be propagated, false otherwise.
    */
-  private boolean willPropagateSpyEvents()
+  boolean willPropagateSpyEvents()
   {
     return areSpiesEnabled() && getSpy().willPropagateSpyEvents();
   }
@@ -1189,12 +1142,6 @@ public final class ArezContext
   ReactionScheduler getScheduler()
   {
     return _scheduler;
-  }
-
-  @TestOnly
-  void setTransaction( @Nullable final Transaction transaction )
-  {
-    _transaction = transaction;
   }
 
   @TestOnly

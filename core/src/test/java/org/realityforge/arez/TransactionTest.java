@@ -1,6 +1,8 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
+import org.realityforge.arez.spy.TransactionCompletedEvent;
+import org.realityforge.arez.spy.TransactionStartedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -110,7 +112,7 @@ public class TransactionTest
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     assertEquals( tracker.getState(), ObserverState.INACTIVE );
 
@@ -128,7 +130,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -197,7 +199,7 @@ public class TransactionTest
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     assertEquals( tracker.getState(), ObserverState.INACTIVE );
 
@@ -213,7 +215,7 @@ public class TransactionTest
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     ensureDerivationHasObserver( tracker );
 
@@ -238,7 +240,7 @@ public class TransactionTest
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     transaction.beginTracking();
 
@@ -267,7 +269,7 @@ public class TransactionTest
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     transaction.beginTracking();
 
@@ -295,7 +297,7 @@ public class TransactionTest
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     transaction.beginTracking();
 
@@ -317,7 +319,7 @@ public class TransactionTest
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     transaction.beginTracking();
 
@@ -349,7 +351,7 @@ public class TransactionTest
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     transaction.beginTracking();
 
@@ -395,7 +397,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -440,7 +442,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.INACTIVE );
 
@@ -461,7 +463,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     ensureDerivationHasObserver( tracker );
 
@@ -505,7 +507,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -535,7 +537,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -564,7 +566,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -602,7 +604,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -634,7 +636,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -672,7 +674,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -711,7 +713,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -755,7 +757,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -788,7 +790,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -828,7 +830,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -871,7 +873,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -897,7 +899,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     final Transaction transaction2 =
       new Transaction( context, transaction1, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction2 );
+    Transaction.setTransaction( transaction2 );
     tracker.setState( ObserverState.UP_TO_DATE );
 
     final Observable observable = newDerivation( context ).getDerivedValue();
@@ -927,7 +929,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -952,7 +954,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -974,7 +976,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
@@ -1021,7 +1023,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observer otherObserver = newDerivation( context );
     otherObserver.setState( ObserverState.UP_TO_DATE );
@@ -1056,7 +1058,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observer otherObserver = newDerivation( context );
     otherObserver.setState( ObserverState.UP_TO_DATE );
@@ -1090,7 +1092,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
     //Setup transaction as queueForDeactivation retrieves trnsaction from context
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observable observable1 = newObservable( context );
 
@@ -1148,7 +1150,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observable baseObservable =
       newObservable( context );
@@ -1282,7 +1284,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observable observable = newObservable( context );
 
@@ -1300,7 +1302,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observable observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
@@ -1313,7 +1315,7 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
     transaction.reportChanged( observable );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.STALE );
@@ -1327,7 +1329,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observable observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
@@ -1340,7 +1342,7 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     observable.setWorkState( Observable.DISPOSED );
 
@@ -1359,7 +1361,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observable observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
@@ -1372,7 +1374,7 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> transaction.reportChanged( observable ) );
@@ -1389,7 +1391,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observable observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
@@ -1402,7 +1404,7 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> transaction.reportChanged( observable ) );
@@ -1420,7 +1422,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observable observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
@@ -1433,7 +1435,7 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
     assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     transaction.reportChanged( observable );
 
@@ -1448,7 +1450,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observable observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
@@ -1473,7 +1475,7 @@ public class TransactionTest
     assertEquals( observer2.getState(), ObserverState.STALE );
     assertEquals( observer3.getState(), ObserverState.STALE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
     transaction.reportChanged( observable );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.STALE );
@@ -1489,7 +1491,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observer calculator = newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
@@ -1505,7 +1507,7 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
     transaction.reportPossiblyChanged( observable );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
@@ -1519,7 +1521,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observer calculator = newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
@@ -1535,7 +1537,7 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     observable.setWorkState( Observable.DISPOSED );
 
@@ -1554,7 +1556,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observer calculator = newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
@@ -1577,7 +1579,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, calculator );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     calculator.setState( ObserverState.UP_TO_DATE );
 
@@ -1590,7 +1592,7 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( calculator.getState(), ObserverState.UP_TO_DATE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
     transaction.reportPossiblyChanged( observable );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
@@ -1606,7 +1608,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -1622,7 +1624,7 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( calculator.getState(), ObserverState.UP_TO_DATE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> transaction.reportPossiblyChanged( observable ) );
 
@@ -1639,7 +1641,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observer calculator = newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
@@ -1655,7 +1657,7 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> transaction.reportPossiblyChanged( observable ) );
@@ -1672,7 +1674,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observable observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
@@ -1685,7 +1687,7 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> transaction.reportPossiblyChanged( observable ) );
@@ -1703,7 +1705,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observer calculator = newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
@@ -1731,7 +1733,7 @@ public class TransactionTest
     assertEquals( observer2.getState(), ObserverState.POSSIBLY_STALE );
     assertEquals( observer3.getState(), ObserverState.STALE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
     transaction.reportPossiblyChanged( observable );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
@@ -1796,7 +1798,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observer calculator = newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
@@ -1817,7 +1819,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observer calculator = newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
@@ -1830,7 +1832,7 @@ public class TransactionTest
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
     transaction.reportChangeConfirmed( observable );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.STALE );
@@ -1844,7 +1846,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observer calculator = newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
@@ -1857,7 +1859,7 @@ public class TransactionTest
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
     transaction.reportChangeConfirmed( observable );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.STALE );
@@ -1873,7 +1875,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, calculator );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     calculator.setState( ObserverState.POSSIBLY_STALE );
 
@@ -1883,7 +1885,7 @@ public class TransactionTest
     calculator.getDependencies().add( observable );
     observable.getObservers().add( calculator );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
     transaction.reportChangeConfirmed( observable );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.STALE );
@@ -1899,7 +1901,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
@@ -1912,7 +1914,7 @@ public class TransactionTest
     calculator.getDependencies().add( observable );
     observable.getObservers().add( calculator );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> transaction.reportChangeConfirmed( observable ) );
 
@@ -1929,7 +1931,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observer calculator = newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
@@ -1945,7 +1947,7 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> transaction.reportChangeConfirmed( observable ) );
@@ -1962,7 +1964,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observable observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
@@ -1991,7 +1993,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observer calculator = newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
@@ -2019,7 +2021,7 @@ public class TransactionTest
     assertEquals( observer2.getState(), ObserverState.POSSIBLY_STALE );
     assertEquals( observer3.getState(), ObserverState.STALE );
 
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
     transaction.reportChangeConfirmed( observable );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.STALE );
@@ -2036,7 +2038,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final Observable observable = newObservable( context );
 
@@ -2066,7 +2068,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, observer );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     observable.addObserver( observer );
     observer.getDependencies().add( observable );
@@ -2099,7 +2101,7 @@ public class TransactionTest
                        ValueUtil.randomString(),
                        TransactionMode.READ_WRITE,
                        newReadOnlyObserver( context ) );
-    context.setTransaction( transaction4 );
+    Transaction.setTransaction( transaction4 );
 
     observable.addObserver( observer );
     observer.getDependencies().add( observable );
@@ -2115,7 +2117,7 @@ public class TransactionTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, transaction::markTrackerAsDisposed );
@@ -2134,7 +2136,7 @@ public class TransactionTest
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     assertEquals( transaction.shouldDisposeTracker(), false );
     assertEquals( tracker.isDisposed(), false );
@@ -2154,7 +2156,7 @@ public class TransactionTest
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    context.setTransaction( transaction );
+    Transaction.setTransaction( transaction );
 
     assertEquals( transaction.shouldDisposeTracker(), false );
     assertEquals( tracker.isDisposed(), false );
@@ -2182,5 +2184,172 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, transaction::getStartedAt );
 
     assertEquals( exception.getMessage(), "Transaction.getStartedAt() invoked when ArezConfig.enableSpy() is false" );
+  }
+
+
+  @Test
+  public void beginTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final String name = ValueUtil.randomString();
+    final TransactionMode mode = TransactionMode.READ_ONLY;
+    final Observer tracker = null;
+    final Transaction transaction = Transaction.begin( context, name, mode, tracker );
+
+    assertTrue( context.isTransactionActive() );
+
+    assertEquals( context.getTransaction(), transaction );
+    assertEquals( transaction.getContext(), context );
+    assertEquals( transaction.getName(), name );
+    assertEquals( transaction.getMode(), mode );
+    assertEquals( transaction.getTracker(), tracker );
+    assertEquals( transaction.getPrevious(), null );
+    assertEquals( transaction.getMode(), TransactionMode.READ_ONLY );
+  }
+
+  @Test
+  public void beginTransaction_generates_spyEvent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final String name = ValueUtil.randomString();
+    final Observer tracker = null;
+    Transaction.begin( context, name, TransactionMode.READ_ONLY, tracker );
+
+    handler.assertEventCount( 1 );
+    final TransactionStartedEvent event = handler.assertEvent( TransactionStartedEvent.class, 0 );
+    assertEquals( event.getName(), name );
+    assertEquals( event.isMutation(), false );
+    assertEquals( event.getTracker(), tracker );
+  }
+
+  @Test
+  public void beginTransaction_attemptToNest_READ_WRITE_in_READ_ONLY()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    setCurrentTransaction( newReadOnlyObserver( context ) );
+    final Transaction transaction = context.getTransaction();
+
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Transaction.begin( context, name, TransactionMode.READ_WRITE, null ) );
+    assertEquals( exception.getMessage(),
+                  "Attempting to create READ_WRITE transaction named '" + name +
+                  "' but it is nested in transaction named '" + transaction.getName() + "' with " +
+                  "mode READ_ONLY which is not equal to READ_WRITE." );
+  }
+
+  @Test
+  public void beginTransaction_attemptToNest_READ_WRITE_in_READ_WRITE_OWNED()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    setCurrentTransaction( newDerivation( context ) );
+    final Transaction transaction = context.getTransaction();
+
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Transaction.begin( context, name, TransactionMode.READ_WRITE, null ) );
+    assertEquals( exception.getMessage(),
+                  "Attempting to create READ_WRITE transaction named '" + name +
+                  "' but it is nested in transaction named '" + transaction.getName() + "' with " +
+                  "mode READ_WRITE_OWNED which is not equal to READ_WRITE." );
+  }
+
+  @Test
+  public void commitTransaction_matchingRootTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    transaction.begin();
+    Transaction.setTransaction( transaction );
+
+    Transaction.commit( transaction );
+
+    assertEquals( context.isTransactionActive(), false );
+  }
+
+  @SuppressWarnings( "ConstantConditions" )
+  @Test
+  public void commitTransaction_generates_spyEvent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final String name = ValueUtil.randomString();
+    final Observer tracker = null;
+    final Transaction transaction =
+      new Transaction( context, null, name, TransactionMode.READ_ONLY, tracker );
+    transaction.begin();
+    Transaction.setTransaction( transaction );
+
+    Transaction.commit( transaction );
+
+    handler.assertEventCount( 1 );
+    final TransactionCompletedEvent event = handler.assertEvent( TransactionCompletedEvent.class, 0 );
+    assertEquals( event.getName(), name );
+    assertEquals( event.isMutation(), false );
+    assertEquals( event.getTracker(), tracker );
+    assertTrue( event.getDuration() >= 0 );
+  }
+
+  @Test
+  public void commitTransaction_nonMatchingRootTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    transaction.begin();
+    Transaction.setTransaction( transaction );
+
+    final Transaction transaction2 =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    transaction2.begin();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> Transaction.commit( transaction2 ) );
+    assertEquals( exception.getMessage(),
+                  "Attempting to commit transaction named '" + transaction2.getName() +
+                  "' but this does not match existing transaction named '" + transaction.getName() + "'." );
+  }
+
+  @Test
+  public void commitTransaction_noTransactionActive()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    transaction.begin();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> Transaction.commit( transaction ) );
+    assertEquals( exception.getMessage(),
+                  "Attempting to commit transaction named '" + transaction.getName() +
+                  "' but no transaction is active." );
   }
 }

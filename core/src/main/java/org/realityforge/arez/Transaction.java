@@ -5,11 +5,19 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
+import org.realityforge.arez.spy.TransactionCompletedEvent;
+import org.realityforge.arez.spy.TransactionStartedEvent;
 import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 
 final class Transaction
 {
+  /**
+   * All changes in a context must occur within the scope of a transaction.
+   * This references the current active transaction.
+   */
+  @Nullable
+  private static Transaction c_transaction;
   /**
    * Reference to the system to which this transaction belongs.
    */
@@ -68,6 +76,102 @@ final class Transaction
    * Flag set to true when the current tracker should be disposed at the end.
    */
   private boolean _disposeTracker;
+
+  /**
+   * Return true if there is a transaction in progress.
+   *
+   * @return true if there is a transaction in progress.
+   */
+  static boolean isTransactionActive()
+  {
+    return null != c_transaction;
+  }
+
+  /**
+   * Return the current transaction.
+   * This method should not be invoked unless a transaction active and will throw an
+   * exception if invariant checks are enabled.
+   *
+   * @return the current transaction.
+   */
+  @Nonnull
+  static Transaction current()
+  {
+    invariant( Transaction::isTransactionActive,
+               () -> "Attempting to get current transaction but no transaction is active." );
+    assert null != c_transaction;
+    return c_transaction;
+  }
+
+  /**
+   * Create a new transaction.
+   *
+   * @param context the associated context.
+   * @param name    the name of the transaction. Should be non-null if {@link ArezContext#areNamesEnabled()} is true, false otherwise.
+   * @param mode    the transaction mode.
+   * @param tracker the observer that is tracking transaction if any.
+   * @return the new transaction.
+   */
+  static Transaction begin( @Nonnull final ArezContext context,
+                            @Nullable final String name,
+                            @Nullable final TransactionMode mode,
+                            @Nullable final Observer tracker )
+  {
+    if ( ArezConfig.enforceTransactionType() && TransactionMode.READ_WRITE == mode && null != c_transaction )
+    {
+      invariant( () -> TransactionMode.READ_WRITE == c_transaction.getMode(),
+                 () -> "Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
+                       "nested in transaction named '" + c_transaction.getName() + "' with mode " +
+                       c_transaction.getMode().name() + " which is not equal to READ_WRITE." );
+    }
+    c_transaction = new Transaction( context, c_transaction, name, mode, tracker );
+    context.disableScheduler();
+    c_transaction.begin();
+    if ( context.willPropagateSpyEvents() )
+    {
+      assert null != name;
+      final boolean mutation =
+        !ArezConfig.enforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
+      context.getSpy().reportSpyEvent( new TransactionStartedEvent( name, mutation, tracker ) );
+    }
+    return c_transaction;
+  }
+
+  /**
+   * Commit the supplied transaction.
+   *
+   * This method verifies that the transaction active is the supplied transaction before committing
+   * the transaction and restoring the prior transaction if any.
+   *
+   * @param transaction the transaction.
+   */
+  static void commit( @Nonnull final Transaction transaction )
+  {
+    invariant( () -> null != c_transaction,
+               () -> "Attempting to commit transaction named '" + transaction.getName() +
+                     "' but no transaction is active." );
+    assert null != c_transaction;
+    invariant( () -> c_transaction == transaction,
+               () -> "Attempting to commit transaction named '" + transaction.getName() + "' but this does " +
+                     "not match existing transaction named '" + c_transaction.getName() + "'." );
+    c_transaction.commit();
+    if ( c_transaction.getContext().willPropagateSpyEvents() )
+    {
+      final String name = c_transaction.getName();
+      final boolean mutation =
+        !ArezConfig.enforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
+      final Observer tracker = c_transaction.getTracker();
+      final long duration = System.currentTimeMillis() - c_transaction.getStartedAt();
+      c_transaction.getContext().getSpy().
+        reportSpyEvent( new TransactionCompletedEvent( name, mutation, tracker, duration ) );
+    }
+    final Transaction previous = c_transaction.getPrevious();
+    if ( null == previous )
+    {
+      c_transaction.getContext().enableScheduler();
+    }
+    c_transaction = previous;
+  }
 
   Transaction( @Nonnull final ArezContext context,
                @Nullable final Transaction previous,
@@ -659,5 +763,11 @@ final class Transaction
   boolean shouldDisposeTracker()
   {
     return _disposeTracker;
+  }
+
+  @TestOnly
+  static void setTransaction( @Nullable final Transaction transaction )
+  {
+    c_transaction = transaction;
   }
 }
