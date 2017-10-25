@@ -29,21 +29,21 @@ public final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultip
     super(packageName,name);
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_name = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".name" : null );
+    this.$$arez$$_name = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null );
   }
 
   Arez_RepositoryWithMultipleCtors(@Nonnull final String name) {
     super(name);
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_name = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".name" : null );
+    this.$$arez$$_name = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null );
   }
 
   Arez_RepositoryWithMultipleCtors() {
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_name = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".name" : null );
+    this.$$arez$$_name = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null );
   }
 
   final long $$arez$$_id() {
@@ -111,7 +111,7 @@ public final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultip
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + $$arez$$_name() + "]";
     } else {
       return super.toString();

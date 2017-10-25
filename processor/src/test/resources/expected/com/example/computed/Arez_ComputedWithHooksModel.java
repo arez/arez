@@ -28,7 +28,7 @@ public final class Arez_ComputedWithHooksModel extends ComputedWithHooksModel im
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".time" : null, super::getTime, Objects::equals, this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, this::onTimeDispose );
+    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, super::getTime, Objects::equals, this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, this::onTimeDispose );
   }
 
   final long $$arez$$_id() {
@@ -77,7 +77,7 @@ public final class Arez_ComputedWithHooksModel extends ComputedWithHooksModel im
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + $$arez$$_name() + "]";
     } else {
       return super.toString();

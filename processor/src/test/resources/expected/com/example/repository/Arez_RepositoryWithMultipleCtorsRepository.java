@@ -22,7 +22,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
   Arez_RepositoryWithMultipleCtorsRepository() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_entities = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.entities" : null );
+    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.entities" : null );
   }
 
   @Override
@@ -58,7 +58,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
   RepositoryWithMultipleCtors create() {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
-      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create" : null, true, () -> super.create() );
+      return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create" : null, true, () -> super.create() );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -74,7 +74,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
   public void destroy(@Nonnull final RepositoryWithMultipleCtors entity) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.destroy" : null, true, () -> super.destroy(entity), entity );
+      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.destroy" : null, true, () -> super.destroy(entity), entity );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -91,7 +91,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
   RepositoryWithMultipleCtors create(@Nonnull final String packageName, @Nonnull final String name) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
-      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
+      return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -108,7 +108,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
   RepositoryWithMultipleCtors create(@Nonnull final String name) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
-      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_name" : null, true, () -> super.create(name), name );
+      return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_name" : null, true, () -> super.create(name), name );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -122,7 +122,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[RepositoryWithMultipleCtorsRepository]";
     } else {
       return super.toString();

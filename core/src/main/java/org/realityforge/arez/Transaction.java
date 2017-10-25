@@ -115,7 +115,7 @@ final class Transaction
    * Create a new transaction.
    *
    * @param context the associated context.
-   * @param name    the name of the transaction. Should be non-null if {@link ArezContext#areNamesEnabled()} is true, false otherwise.
+   * @param name    the name of the transaction. Should be non-null if {@link Arez#areNamesEnabled()} is true, false otherwise.
    * @param mode    the transaction mode.
    * @param tracker the observer that is tracking transaction if any.
    * @return the new transaction.

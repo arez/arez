@@ -49,7 +49,7 @@ public final class Arez_UnsafeSpecificFunctionActionModel extends UnsafeSpecific
   public int doStuff(final long time) throws ParseException {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      return this.$$arez$$_context.action(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
+      return this.$$arez$$_context.action(Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
     } catch( final ParseException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final RuntimeException $$arez$$_e ) {
@@ -82,7 +82,7 @@ public final class Arez_UnsafeSpecificFunctionActionModel extends UnsafeSpecific
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + $$arez$$_name() + "]";
     } else {
       return super.toString();

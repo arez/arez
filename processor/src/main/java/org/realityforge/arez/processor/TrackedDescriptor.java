@@ -136,10 +136,10 @@ final class TrackedDescriptor
     assert null != _onDepsUpdatedMethod;
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = this.$N.tracker( this.$N.areNamesEnabled() ? " );
+    sb.append( "this.$N = this.$N.tracker( $T.areNamesEnabled() ? " );
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
-    parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
+    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     if ( _componentDescriptor.isSingleton() )
     {
       sb.append( "$S" );

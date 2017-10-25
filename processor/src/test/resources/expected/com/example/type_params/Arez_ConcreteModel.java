@@ -28,22 +28,22 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   public Arez_ConcreteModel(final W writer) {
     super(writer);
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
-    this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
+    this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
+    this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
   }
 
   public Arez_ConcreteModel(final IOException error) {
     super(error);
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
-    this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
+    this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
+    this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
   }
 
   public Arez_ConcreteModel(final IOException error, final W writer, final int i) {
     super(error,writer,i);
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
-    this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
+    this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
+    this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
   }
 
   String $$arez$$_name() {
@@ -68,7 +68,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   public void handleWriter(final W writer) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".handleWriter" : null, true, () -> super.handleWriter(writer), writer );
+      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".handleWriter" : null, true, () -> super.handleWriter(writer), writer );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -84,7 +84,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   public void handleError(final IOException error) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".handleError" : null, true, () -> super.handleError(error), error );
+      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".handleError" : null, true, () -> super.handleError(error), error );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -100,7 +100,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   public W genWriter() {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".genWriter" : null, true, () -> super.genWriter() );
+      return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".genWriter" : null, true, () -> super.genWriter() );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -116,7 +116,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   public IOException genError() {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".genError" : null, true, () -> super.genError() );
+      return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".genError" : null, true, () -> super.genError() );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -159,7 +159,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + $$arez$$_name() + "]";
     } else {
       return super.toString();

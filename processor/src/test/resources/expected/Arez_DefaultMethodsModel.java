@@ -25,8 +25,8 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
   public Arez_DefaultMethodsModel() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "DefaultMethodsModel.time" : null );
-    this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? "DefaultMethodsModel.someValue" : null, super::someValue, Objects::equals, null, null, null, null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DefaultMethodsModel.time" : null );
+    this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? "DefaultMethodsModel.someValue" : null, super::someValue, Objects::equals, null, null, null, null );
   }
 
   @Override
@@ -63,7 +63,7 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
   public void doStuff(final long time) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'DefaultMethodsModel'" );
     try {
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "DefaultMethodsModel.doStuff" : null, true, () -> super.doStuff(time), time );
+      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "DefaultMethodsModel.doStuff" : null, true, () -> super.doStuff(time), time );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -83,7 +83,7 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[DefaultMethodsModel]";
     } else {
       return super.toString();

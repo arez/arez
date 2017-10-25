@@ -74,10 +74,10 @@ final class AutorunDescriptor
   {
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = this.$N.autorun( this.$N.areNamesEnabled() ? " );
+    sb.append( "this.$N = this.$N.autorun( $T.areNamesEnabled() ? " );
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
-    parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
+    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     if ( _componentDescriptor.isSingleton() )
     {
       sb.append( "$S" );
@@ -132,8 +132,8 @@ final class AutorunDescriptor
     statement.append( "this.$N." );
     parameterNames.add( GeneratorUtil.CONTEXT_FIELD_NAME );
 
-    statement.append( "safeAction(this.$N.areNamesEnabled() ? " );
-    parameterNames.add( GeneratorUtil.CONTEXT_FIELD_NAME );
+    statement.append( "safeAction( $T.areNamesEnabled() ? " );
+    parameterNames.add( GeneratorUtil.AREZ_CLASSNAME );
 
     if ( _componentDescriptor.isSingleton() )
     {

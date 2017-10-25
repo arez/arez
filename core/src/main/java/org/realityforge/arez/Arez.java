@@ -52,6 +52,26 @@ public final class Arez
   }
 
   /**
+   * Return true if user should pass names into API methods, false if should pass null.
+   *
+   * @return true if user should pass names into API methods, false if should pass null.
+   */
+  public static boolean areNamesEnabled()
+  {
+    return ArezConfig.enableNames();
+  }
+
+  /**
+   * Return true if spies are enabled.
+   *
+   * @return true if spies are enabled, false otherwise.
+   */
+  public static boolean areSpiesEnabled()
+  {
+    return ArezConfig.enableSpy();
+  }
+
+  /**
    * Return the ArezContext from the provider.
    *
    * @return the ArezContext.

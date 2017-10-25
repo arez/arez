@@ -21,7 +21,7 @@ public final class Arez_ComponentIdOnModel extends ComponentIdOnModel implements
   public Arez_ComponentIdOnModel() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".time" : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null );
   }
 
   String $$arez$$_name() {
@@ -76,7 +76,7 @@ public final class Arez_ComponentIdOnModel extends ComponentIdOnModel implements
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + $$arez$$_name() + "]";
     } else {
       return super.toString();

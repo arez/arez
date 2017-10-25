@@ -36,10 +36,10 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
   Arez_CompleteRepositoryExample(@Nonnull final String packageName, @Nonnull final String name) {
     super(packageName,name);
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_name = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".name" : null );
-    this.$$arez$$_packageName = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".packageName" : null );
-    this.$$arez$$_rawQualifiedName = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".rawQualifiedName" : null );
-    this.$$arez$$_qualifiedName = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".qualifiedName" : null, super::getQualifiedName, Objects::equals, null, null, null, null );
+    this.$$arez$$_name = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null );
+    this.$$arez$$_packageName = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".packageName" : null );
+    this.$$arez$$_rawQualifiedName = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".rawQualifiedName" : null );
+    this.$$arez$$_qualifiedName = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".qualifiedName" : null, super::getQualifiedName, Objects::equals, null, null, null, null );
   }
 
   String $$arez$$_name() {
@@ -147,7 +147,7 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + $$arez$$_name() + "]";
     } else {
       return super.toString();

@@ -1194,7 +1194,7 @@ final class ComponentDescriptor
         returns( TypeName.get( String.class ) );
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
-    codeBlock.beginControlFlow( "if ( $N.areNamesEnabled() )", GeneratorUtil.CONTEXT_FIELD_NAME );
+    codeBlock.beginControlFlow( "if ( $T.areNamesEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
     if ( _singleton )
     {
       codeBlock.addStatement( "return $S", "ArezComponent[" + _name + "]" );

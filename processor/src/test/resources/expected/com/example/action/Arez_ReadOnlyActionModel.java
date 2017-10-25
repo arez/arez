@@ -48,7 +48,7 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
   public int queryStuff(final long time) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".queryStuff" : null, false, () -> super.queryStuff(time), time );
+      return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".queryStuff" : null, false, () -> super.queryStuff(time), time );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -79,7 +79,7 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + $$arez$$_name() + "]";
     } else {
       return super.toString();

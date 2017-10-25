@@ -17,6 +17,8 @@
   is not annotated with `@Observable` to transform to the desired type.
 
 ##### Changed
+* 💥 **\[core\]** Move `ArezContext.areNamesEnabled()` to `Arez.areNamesEnabled()`.
+* 💥 **\[core\]** Move `ArezContext.areSpiesEnabled()` to `Arez.areSpiesEnabled()`.
 * Upgrade to BrainCheck 1.3.0 so assertion failures open the debugger.
 * 💥 **\[core\]** Replace `ArezTestUtil.setProvider(null)` with `ArezTestUtil.clearProvider()` and remove
   `ArezTestUtil.setProvider(...)` method to capture how it is used.

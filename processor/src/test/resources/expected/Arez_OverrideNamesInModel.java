@@ -38,10 +38,10 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_myField = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".myField" : null );
-    this.$$arez$$_myComputed = this.$$arez$$_context.createComputedValue( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".myComputed" : null, super::compute, Objects::equals, null, null, null, null );
-    this.$$arez$$_zzzzzz = this.$$arez$$_context.autorun( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".zzzzzz" : null, true, () -> super.zapZap(), false );
-    this.$$arez$$_XX = this.$$arez$$_context.tracker( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".XX" : null, true, super::onRenderDepsUpdated );
+    this.$$arez$$_myField = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".myField" : null );
+    this.$$arez$$_myComputed = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".myComputed" : null, super::compute, Objects::equals, null, null, null, null );
+    this.$$arez$$_zzzzzz = this.$$arez$$_context.autorun( Arez.areNamesEnabled() ? $$arez$$_name() + ".zzzzzz" : null, true, () -> super.zapZap(), false );
+    this.$$arez$$_XX = this.$$arez$$_context.tracker( Arez.areNamesEnabled() ? $$arez$$_name() + ".XX" : null, true, super::onRenderDepsUpdated );
     this.$$arez$$_context.triggerScheduler();
   }
 
@@ -88,14 +88,14 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   @Override
   public void zapZap() {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".zzzzzz" : null, true, () -> super.zapZap() );
+    this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".zzzzzz" : null, true, () -> super.zapZap() );
   }
 
   @Override
   public void doAction() {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".myAction" : null, true, () -> super.doAction() );
+      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".myAction" : null, true, () -> super.doAction() );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -151,7 +151,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + $$arez$$_name() + "]";
     } else {
       return super.toString();

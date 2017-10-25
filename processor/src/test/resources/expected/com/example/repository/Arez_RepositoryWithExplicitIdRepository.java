@@ -22,7 +22,7 @@ public final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWit
   Arez_RepositoryWithExplicitIdRepository() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_entities = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.entities" : null );
+    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.entities" : null );
   }
 
   @Override
@@ -57,7 +57,7 @@ public final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWit
   public void destroy(@Nonnull final RepositoryWithExplicitId entity) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithExplicitIdRepository'" );
     try {
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.destroy" : null, true, () -> super.destroy(entity), entity );
+      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.destroy" : null, true, () -> super.destroy(entity), entity );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -74,7 +74,7 @@ public final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWit
   RepositoryWithExplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithExplicitIdRepository'" );
     try {
-      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
+      return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -88,7 +88,7 @@ public final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWit
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[RepositoryWithExplicitIdRepository]";
     } else {
       return super.toString();

@@ -22,7 +22,7 @@ public final class Arez_RepositoryWithProtectedConstructorRepository extends Rep
   Arez_RepositoryWithProtectedConstructorRepository() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_entities = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.entities" : null );
+    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.entities" : null );
   }
 
   @Override
@@ -57,7 +57,7 @@ public final class Arez_RepositoryWithProtectedConstructorRepository extends Rep
   public void destroy(@Nonnull final RepositoryWithProtectedConstructor entity) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
     try {
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.destroy" : null, true, () -> super.destroy(entity), entity );
+      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.destroy" : null, true, () -> super.destroy(entity), entity );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -74,7 +74,7 @@ public final class Arez_RepositoryWithProtectedConstructorRepository extends Rep
   protected RepositoryWithProtectedConstructor create(@Nonnull final String name) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
     try {
-      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.create_name" : null, true, () -> super.create(name), name );
+      return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.create_name" : null, true, () -> super.create(name), name );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -88,7 +88,7 @@ public final class Arez_RepositoryWithProtectedConstructorRepository extends Rep
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[RepositoryWithProtectedConstructorRepository]";
     } else {
       return super.toString();

@@ -24,7 +24,7 @@ public final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitI
   Arez_RepositoryWithExplicitId(@Nonnull final String packageName, @Nonnull final String name) {
     super(packageName,name);
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_name = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".name" : null );
+    this.$$arez$$_name = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null );
   }
 
   String $$arez$$_name() {
@@ -88,7 +88,7 @@ public final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitI
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + $$arez$$_name() + "]";
     } else {
       return super.toString();

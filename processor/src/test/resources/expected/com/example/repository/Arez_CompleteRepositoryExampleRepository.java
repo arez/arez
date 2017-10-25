@@ -22,7 +22,7 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
   Arez_CompleteRepositoryExampleRepository() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_entities = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "CompleteRepositoryExampleRepository.entities" : null );
+    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "CompleteRepositoryExampleRepository.entities" : null );
   }
 
   @Override
@@ -57,7 +57,7 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
   public void destroy(@Nonnull final CompleteRepositoryExample entity) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'CompleteRepositoryExampleRepository'" );
     try {
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "CompleteRepositoryExampleRepository.destroy" : null, true, () -> super.destroy(entity), entity );
+      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "CompleteRepositoryExampleRepository.destroy" : null, true, () -> super.destroy(entity), entity );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -74,7 +74,7 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
   CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'CompleteRepositoryExampleRepository'" );
     try {
-      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "CompleteRepositoryExampleRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
+      return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "CompleteRepositoryExampleRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -88,7 +88,7 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[CompleteRepositoryExampleRepository]";
     } else {
       return super.toString();

@@ -22,7 +22,7 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
   Arez_NestedModel$BasicActionModelRepository() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_entities = this.$$arez$$_context.createObservable( this.$$arez$$_context.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.entities" : null );
+    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.entities" : null );
   }
 
   @Override
@@ -58,7 +58,7 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
   public NestedModel.BasicActionModel create() {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'NestedModel$BasicActionModelRepository'" );
     try {
-      return this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.create" : null, true, () -> super.create() );
+      return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.create" : null, true, () -> super.create() );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -74,7 +74,7 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
   public void destroy(@Nonnull final NestedModel.BasicActionModel entity) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'NestedModel$BasicActionModelRepository'" );
     try {
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.destroy" : null, true, () -> super.destroy(entity), entity );
+      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.destroy" : null, true, () -> super.destroy(entity), entity );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -88,7 +88,7 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[NestedModel$BasicActionModelRepository]";
     } else {
       return super.toString();

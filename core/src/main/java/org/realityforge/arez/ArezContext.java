@@ -23,7 +23,7 @@ public final class ArezContext
 {
   /**
    * Id of next node to be created.
-   * This is only used if {@link #areNamesEnabled()} returns true but no name has been supplied.
+   * This is only used if {@link Arez#areNamesEnabled()} returns true but no name has been supplied.
    */
   private int _nextNodeId = 1;
   /**
@@ -71,7 +71,7 @@ public final class ArezContext
    * Create a ComputedValue with specified parameters.
    *
    * @param <T>      the type of the computed value.
-   * @param name     the name of the ComputedValue. Should be non-null if {@link #areNamesEnabled()} returns true, null otherwise.
+   * @param name     the name of the ComputedValue. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param function the function that computes the value.
    * @return the ComputedValue instance.
    */
@@ -86,7 +86,7 @@ public final class ArezContext
    * Create a ComputedValue with specified parameters.
    *
    * @param <T>                the type of the computed value.
-   * @param name               the name of the ComputedValue. Should be non-null if {@link #areNamesEnabled()} returns true, null otherwise.
+   * @param name               the name of the ComputedValue. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param function           the function that computes the value.
    * @param equalityComparator the comparator that determines whether the newly computed value differs from existing value.
    * @return the ComputedValue instance.
@@ -137,7 +137,7 @@ public final class ArezContext
 
   /**
    * Build name for node.
-   * If {@link #areNamesEnabled()} returns false then this method will return null, otherwise the specified
+   * If {@link Arez#areNamesEnabled()} returns false then this method will return null, otherwise the specified
    * name will be returned or a name synthesized from the prefix and a running number if no name is specified.
    *
    * @param prefix the prefix used if this method needs to generate name.
@@ -311,7 +311,7 @@ public final class ArezContext
   /**
    * Create a non-computed Observer with specified name.
    *
-   * @param name the name of the observer. Should be non null if {@link #areNamesEnabled()} returns true, null otherwise.
+   * @param name the name of the observer. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @return the new Observer.
    */
   @Nonnull
@@ -399,28 +399,8 @@ public final class ArezContext
   }
 
   /**
-   * Return true if user should pass names into API methods, false if should pass null.
-   *
-   * @return true if user should pass names into API methods, false if should pass null.
-   */
-  public boolean areNamesEnabled()
-  {
-    return ArezConfig.enableNames();
-  }
-
-  /**
-   * Return true if spies are enabled.
-   *
-   * @return true if spies are enabled, false otherwise.
-   */
-  public boolean areSpiesEnabled()
-  {
-    return ArezConfig.enableSpy();
-  }
-
-  /**
    * Execute the supplied action in a read-write transaction.
-   * The name is synthesized if {@link #areNamesEnabled()} returns true.
+   * The name is synthesized if {@link Arez#areNamesEnabled()} returns true.
    * The action may throw an exception.
    *
    * @param <T>        the type of return value.
@@ -437,7 +417,7 @@ public final class ArezContext
 
   /**
    * Execute the supplied action in a transaction.
-   * The name is synthesized if {@link #areNamesEnabled()} returns true.
+   * The name is synthesized if {@link Arez#areNamesEnabled()} returns true.
    * The action may throw an exception.
    *
    * @param <T>        the type of return value.
@@ -538,7 +518,7 @@ public final class ArezContext
     T result;
     try
     {
-      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
         startedAt = System.currentTimeMillis();
         assert null != name;
@@ -553,7 +533,7 @@ public final class ArezContext
       {
         Transaction.commit( transaction );
       }
-      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
         completed = true;
         final long duration = System.currentTimeMillis() - startedAt;
@@ -569,7 +549,7 @@ public final class ArezContext
     }
     finally
     {
-      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
         if ( !completed )
         {
@@ -691,7 +671,7 @@ public final class ArezContext
     T result;
     try
     {
-      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
         startedAt = System.currentTimeMillis();
         assert null != name;
@@ -706,7 +686,7 @@ public final class ArezContext
       {
         Transaction.commit( transaction );
       }
-      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
         completed = true;
         final long duration = System.currentTimeMillis() - startedAt;
@@ -722,7 +702,7 @@ public final class ArezContext
     }
     finally
     {
-      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
         if ( !completed )
         {
@@ -834,7 +814,7 @@ public final class ArezContext
   @Nullable
   private String generateNodeName( @Nonnull final Observer tracker )
   {
-    return areNamesEnabled() ? tracker.getName() : null;
+    return Arez.areNamesEnabled() ? tracker.getName() : null;
   }
 
   void action( @Nullable final String name,
@@ -851,7 +831,7 @@ public final class ArezContext
     long startedAt = 0L;
     try
     {
-      if ( reportAction && areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( reportAction && Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
         startedAt = System.currentTimeMillis();
         assert null != name;
@@ -866,7 +846,7 @@ public final class ArezContext
       {
         Transaction.commit( transaction );
       }
-      if ( reportAction && areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( reportAction && Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
         completed = true;
         final long duration = System.currentTimeMillis() - startedAt;
@@ -881,7 +861,7 @@ public final class ArezContext
     }
     finally
     {
-      if ( reportAction && areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( reportAction && Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
         if ( !completed )
         {
@@ -992,7 +972,7 @@ public final class ArezContext
     long startedAt = 0L;
     try
     {
-      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
         startedAt = System.currentTimeMillis();
         assert null != name;
@@ -1007,7 +987,7 @@ public final class ArezContext
       {
         Transaction.commit( transaction );
       }
-      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
         completed = true;
         final long duration = System.currentTimeMillis() - startedAt;
@@ -1022,7 +1002,7 @@ public final class ArezContext
     }
     finally
     {
-      if ( areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
       {
         if ( !completed )
         {
@@ -1094,19 +1074,19 @@ public final class ArezContext
    */
   boolean willPropagateSpyEvents()
   {
-    return areSpiesEnabled() && getSpy().willPropagateSpyEvents();
+    return Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents();
   }
 
   /**
    * Return the spy associated with context.
-   * This method should not be invoked unless {@link #areSpiesEnabled()} returns true.
+   * This method should not be invoked unless {@link Arez#areSpiesEnabled()} returns true.
    *
    * @return the spy associated with context.
    */
   @Nonnull
   public Spy getSpy()
   {
-    apiInvariant( this::areSpiesEnabled, () -> "Attempting to get Spy but spies are not enabled." );
+    apiInvariant( Arez::areSpiesEnabled, () -> "Attempting to get Spy but spies are not enabled." );
     assert null != _spy;
     return _spy;
   }

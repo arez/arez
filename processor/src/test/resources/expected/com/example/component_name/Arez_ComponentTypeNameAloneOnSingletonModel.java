@@ -40,7 +40,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
   public void doStuff(final long time, final float someOtherParameter) {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'ComponentTypeNameAloneOnSingletonModel'" );
     try {
-      this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? "ComponentTypeNameAloneOnSingletonModel.doStuff" : null, true, () -> super.doStuff(time,someOtherParameter), time, someOtherParameter );
+      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "ComponentTypeNameAloneOnSingletonModel.doStuff" : null, true, () -> super.doStuff(time,someOtherParameter), time, someOtherParameter );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -54,7 +54,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[ComponentTypeNameAloneOnSingletonModel]";
     } else {
       return super.toString();

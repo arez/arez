@@ -3,6 +3,7 @@ package org.realityforge.arez.extras.spy;
 import java.util.List;
 import javax.annotation.Nonnull;
 import org.realityforge.anodoc.Unsupported;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Observable;
@@ -23,7 +24,7 @@ public final class WhyRun
   @Nonnull
   public String whyRun( @Nonnull final ArezContext context )
   {
-    assert context.areSpiesEnabled();
+    assert Arez.areSpiesEnabled();
     if ( !context.getSpy().isTransactionActive() )
     {
       return "WhyRun invoked when no active transaction.";

@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.AbstractArezTest;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ArezObserverTestUtil;
 import org.realityforge.arez.ComputedValue;
@@ -45,14 +46,14 @@ public class ExternalApiTest
   {
     final ArezContext context = new ArezContext();
 
-    assertTrue( context.areNamesEnabled() );
+    assertTrue( Arez.areNamesEnabled() );
   }
 
   @Test
   public void areSpiesEnabled()
   {
     final ArezContext context = new ArezContext();
-    assertTrue( context.areSpiesEnabled() );
+    assertTrue( Arez.areSpiesEnabled() );
   }
 
   @Test

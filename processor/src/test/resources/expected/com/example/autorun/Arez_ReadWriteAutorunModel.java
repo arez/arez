@@ -26,7 +26,7 @@ public final class Arez_ReadWriteAutorunModel extends ReadWriteAutorunModel impl
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_doStuff = this.$$arez$$_context.autorun( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(), false );
+    this.$$arez$$_doStuff = this.$$arez$$_context.autorun( Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(), false );
     this.$$arez$$_context.triggerScheduler();
   }
 
@@ -54,7 +54,7 @@ public final class Arez_ReadWriteAutorunModel extends ReadWriteAutorunModel impl
   @Override
   public void doStuff() {
     Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    this.$$arez$$_context.safeAction(this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff() );
+    this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff() );
   }
 
   @Override
@@ -76,7 +76,7 @@ public final class Arez_ReadWriteAutorunModel extends ReadWriteAutorunModel impl
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + $$arez$$_name() + "]";
     } else {
       return super.toString();

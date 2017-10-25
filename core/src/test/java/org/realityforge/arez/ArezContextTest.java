@@ -25,20 +25,6 @@ public class ArezContextTest
   extends AbstractArezTest
 {
   @Test
-  public void areNamesEnabled()
-  {
-    final ArezContext context = new ArezContext();
-    assertTrue( context.areNamesEnabled() );
-  }
-
-  @Test
-  public void areSpiesEnabled()
-  {
-    final ArezContext context = new ArezContext();
-    assertTrue( context.areSpiesEnabled() );
-  }
-
-  @Test
   public void toName()
   {
     final ArezContext context = new ArezContext();

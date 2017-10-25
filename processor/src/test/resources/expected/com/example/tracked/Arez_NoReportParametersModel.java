@@ -26,7 +26,7 @@ public final class Arez_NoReportParametersModel extends NoReportParametersModel 
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_render = this.$$arez$$_context.tracker( this.$$arez$$_context.areNamesEnabled() ? $$arez$$_name() + ".render" : null, true, super::onRenderDepsUpdated );
+    this.$$arez$$_render = this.$$arez$$_context.tracker( Arez.areNamesEnabled() ? $$arez$$_name() + ".render" : null, true, super::onRenderDepsUpdated );
   }
 
   final long $$arez$$_id() {
@@ -86,7 +86,7 @@ public final class Arez_NoReportParametersModel extends NoReportParametersModel 
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + $$arez$$_name() + "]";
     } else {
       return super.toString();

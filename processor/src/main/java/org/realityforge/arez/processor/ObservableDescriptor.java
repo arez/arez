@@ -161,18 +161,18 @@ final class ObservableDescriptor
   {
     if ( _componentDescriptor.isSingleton() )
     {
-      builder.addStatement( "this.$N = this.$N.createObservable( this.$N.areNamesEnabled() ? $S : null )",
+      builder.addStatement( "this.$N = this.$N.createObservable( $T.areNamesEnabled() ? $S : null )",
                             GeneratorUtil.FIELD_PREFIX + getName(),
                             GeneratorUtil.CONTEXT_FIELD_NAME,
-                            GeneratorUtil.CONTEXT_FIELD_NAME,
+                            GeneratorUtil.AREZ_CLASSNAME,
                             _componentDescriptor.getNamePrefix() + getName() );
     }
     else
     {
-      builder.addStatement( "this.$N = this.$N.createObservable( this.$N.areNamesEnabled() ? $N() + $S : null )",
+      builder.addStatement( "this.$N = this.$N.createObservable( $T.areNamesEnabled() ? $N() + $S : null )",
                             GeneratorUtil.FIELD_PREFIX + getName(),
                             GeneratorUtil.CONTEXT_FIELD_NAME,
-                            GeneratorUtil.CONTEXT_FIELD_NAME,
+                            GeneratorUtil.AREZ_CLASSNAME,
                             _componentDescriptor.getComponentNameMethodName(),
                             "." + getName() );
     }

@@ -62,7 +62,7 @@ public final class Arez_NoToStringPresent extends NoToStringPresent implements D
 
   @Override
   public final String toString() {
-    if ( $$arez$$_context.areNamesEnabled() ) {
+    if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + $$arez$$_name() + "]";
     } else {
       return super.toString();
