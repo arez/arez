@@ -22,6 +22,8 @@ public final class ArezTestUtil
    */
   public static void resetConfig( final boolean productionMode )
   {
+    assert !ArezConfig.isProductionMode();
+
     if ( productionMode )
     {
       setEnableNames( false );
