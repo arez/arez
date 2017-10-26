@@ -24,22 +24,6 @@ will be suspended and and resumed when the method completes.
 
 The current zone can be manipulated by directly interacting with the `Arez`. A typical example may of use is:
 
-<!-- TODO: Replace this with code from doc-examples when it is implemented -->
-
-```java
-
-// Create zone
-final Zone zone = Arez.createZone()
-// Activate the newly created zone and suspend the current zone if any
-zone.activate()
-...
-// Get the current zone
-final Zone currentZone = Arez.zone()
-
-// Create new component and ensure it is bound to current zone
-final MyComponent myComponent = new Arez_MyComponent();
-
-// Deactivate the zone and restore the previous if any
-zone.deactivate()
-
-```
+{% highlight java %}
+{% file_content org/realityforge/arez/doc/examples/multi_zone/Example.java "start_line=/^  {/" "end_line=/^  }/" include_start_line=false include_end_line=false strip_block=true %}
+{% endhighlight %}

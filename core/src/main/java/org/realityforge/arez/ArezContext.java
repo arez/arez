@@ -55,6 +55,13 @@ public final class ArezContext
   private boolean _schedulerEnabled = true;
 
   /**
+   * Arez context should not be created directly but only accessed via Arez.
+   */
+  ArezContext()
+  {
+  }
+
+  /**
    * Create a ComputedValue with specified parameters.
    *
    * @param <T>      the type of the computed value.

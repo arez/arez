@@ -7,55 +7,184 @@ public class ArezTest
   extends AbstractArezTest
 {
   @Test
-  public void areZonesEnabled()
+  public void context_when_zones_disabled()
   {
     ArezTestUtil.setEnableZones( false );
 
-    assertFalse( Arez.areZonesEnabled() );
-
-    ArezTestUtil.setEnableZones( true );
-
-    assertTrue( Arez.areZonesEnabled() );
-  }
-
-  @Test
-  public void context_defaults()
-  {
     final ArezContext context1 = Arez.context();
     assertNotNull( context1 );
     final ArezContext context2 = Arez.context();
     assertTrue( context1 == context2 );
-    assertTrue( Arez.getContextProvider() instanceof Arez.StaticContextProvider );
   }
 
   @Test
-  public void context_customProvider()
+  public void zone_basicOperation()
   {
-    ArezTestUtil.setEnableZones( false );
+    ArezTestUtil.setEnableZones( true );
 
-    final ArezContext context = new ArezContext();
-    Arez.bindProvider( () -> context );
+    assertEquals( Arez.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 0 );
 
-    assertTrue( context == Arez.context() );
-    assertFalse( Arez.getContextProvider() instanceof Arez.StaticContextProvider );
+    final Zone zone1 = Arez.createZone();
+
+    assertEquals( Arez.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 0 );
+    assertEquals( zone1.isActive(), false );
+
+    zone1.activate();
+
+    assertEquals( zone1.getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 1 );
+    assertEquals( zone1.isActive(), true );
+
+    zone1.deactivate();
+
+    assertEquals( Arez.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 0 );
   }
 
   @Test
-  public void context_failedToRebind()
+  public void zone_multipleZones()
+  {
+    ArezTestUtil.setEnableZones( true );
+
+    assertEquals( Arez.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 0 );
+
+    final Zone zone1 = Arez.createZone();
+    final Zone zone2 = Arez.createZone();
+    final Zone zone3 = Arez.createZone();
+
+    assertEquals( Arez.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 0 );
+    assertEquals( zone1.isActive(), false );
+    assertEquals( zone2.isActive(), false );
+    assertEquals( zone3.isActive(), false );
+
+    zone1.activate();
+
+    assertEquals( zone1.getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 1 );
+    assertEquals( zone1.isActive(), true );
+    assertEquals( zone2.isActive(), false );
+    assertEquals( zone3.isActive(), false );
+
+    zone2.activate();
+
+    assertEquals( zone2.getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 2 );
+    assertEquals( Arez.getZoneStack().get( 0 ), Arez.getDefaultZone() );
+    assertEquals( Arez.getZoneStack().get( 1 ), zone1 );
+    assertEquals( zone1.isActive(), false );
+    assertEquals( zone2.isActive(), true );
+    assertEquals( zone3.isActive(), false );
+
+    zone1.activate();
+
+    assertEquals( zone1.getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 3 );
+    assertEquals( Arez.getZoneStack().get( 0 ), Arez.getDefaultZone() );
+    assertEquals( Arez.getZoneStack().get( 1 ), zone1 );
+    assertEquals( Arez.getZoneStack().get( 2 ), zone2 );
+    assertEquals( zone1.isActive(), true );
+    assertEquals( zone2.isActive(), false );
+    assertEquals( zone3.isActive(), false );
+
+    zone3.activate();
+
+    assertEquals( zone3.getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 4 );
+    assertEquals( Arez.getZoneStack().get( 0 ), Arez.getDefaultZone() );
+    assertEquals( Arez.getZoneStack().get( 1 ), zone1 );
+    assertEquals( Arez.getZoneStack().get( 2 ), zone2 );
+    assertEquals( Arez.getZoneStack().get( 3 ), zone1 );
+    assertEquals( zone1.isActive(), false );
+    assertEquals( zone2.isActive(), false );
+    assertEquals( zone3.isActive(), true );
+
+    zone3.deactivate();
+
+    assertEquals( zone1.getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 3 );
+    assertEquals( Arez.getZoneStack().get( 0 ), Arez.getDefaultZone() );
+    assertEquals( Arez.getZoneStack().get( 1 ), zone1 );
+    assertEquals( Arez.getZoneStack().get( 2 ), zone2 );
+    assertEquals( zone1.isActive(), true );
+    assertEquals( zone2.isActive(), false );
+    assertEquals( zone3.isActive(), false );
+
+    zone1.deactivate();
+
+    assertEquals( zone2.getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 2 );
+    assertEquals( Arez.getZoneStack().get( 0 ), Arez.getDefaultZone() );
+    assertEquals( Arez.getZoneStack().get( 1 ), zone1 );
+    assertEquals( zone1.isActive(), false );
+    assertEquals( zone2.isActive(), true );
+    assertEquals( zone3.isActive(), false );
+
+    zone2.deactivate();
+
+    assertEquals( zone1.getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 1 );
+    assertEquals( Arez.getZoneStack().get( 0 ), Arez.getDefaultZone() );
+    assertEquals( zone1.isActive(), true );
+    assertEquals( zone2.isActive(), false );
+    assertEquals( zone3.isActive(), false );
+
+    zone1.deactivate();
+
+    assertEquals( Arez.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( Arez.getZoneStack().size(), 0 );
+    assertEquals( zone1.isActive(), false );
+    assertEquals( zone2.isActive(), false );
+    assertEquals( zone3.isActive(), false );
+  }
+
+  @Test
+  public void createZone_when_zonesDisabled()
   {
     ArezTestUtil.setEnableZones( false );
 
-    final ArezContext context = new ArezContext();
-    final Arez.ContextProvider provider1 = () -> context;
-    final Arez.ContextProvider provider2 = () -> context;
-    Arez.bindProvider( provider1 );
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, Arez::createZone );
+    assertEquals( exception.getMessage(), "Invoked Arez.createZone() but zones are not enabled." );
+  }
+
+  @Test
+  public void activateZone_whenZonesNotEnabled()
+  {
+    ArezTestUtil.setEnableZones( false );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> Arez.bindProvider( provider2 ) );
+      expectThrows( IllegalStateException.class, () -> Arez.activateZone( new Zone() ) );
+    assertEquals( exception.getMessage(), "Invoked Arez.activateZone() but zones are not enabled." );
+  }
 
-    assertEquals( exception.getMessage(),
-                  "Attempting to bind ContextProvider " + provider2 + " but there is already a " +
-                  "provider bound as " + provider1 + "." );
+  @Test
+  public void deactivateZone_whenZonesNotEnabled()
+  {
+    ArezTestUtil.setEnableZones( false );
 
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> Arez.deactivateZone( new Zone() ) );
+    assertEquals( exception.getMessage(), "Invoked Arez.deactivateZone() but zones are not enabled." );
+  }
+
+  @Test
+  public void currentZone_whenZonesNotEnabled()
+  {
+    ArezTestUtil.setEnableZones( false );
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, Arez::currentZone );
+    assertEquals( exception.getMessage(), "Invoked Arez.currentZone() but zones are not enabled." );
+  }
+
+  @Test
+  public void deactivateZone_whenNotActive()
+  {
+    ArezTestUtil.setEnableZones( true );
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> Arez.deactivateZone( new Zone() ) );
+    assertEquals( exception.getMessage(), "Attempted to deactivate zone that is not active." );
   }
 }

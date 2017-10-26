@@ -41,17 +41,7 @@ public final class ArezTestUtil
 
     ( (ArezLogger.ProxyLogger) ArezLogger.getLogger() ).setLogger( null );
     Transaction.setTransaction( null );
-    clearProvider();
-  }
-
-  /**
-   * Clear the context provider for arez.
-   * This forcibly overwrites provider and should not be done outside tests.
-   */
-  public static void clearProvider()
-  {
-    assert !ArezConfig.isProductionMode();
-    Arez.clearProvider();
+    Arez.reset();
   }
 
   /**

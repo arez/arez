@@ -14,6 +14,7 @@ import org.realityforge.arez.Observer;
 import org.realityforge.arez.ObserverErrorHandler;
 import org.realityforge.arez.Procedure;
 import org.realityforge.arez.SpyEventHandler;
+import org.realityforge.arez.Zone;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -56,6 +57,15 @@ public class ExternalApiTest
     assertTrue( Arez.areSpiesEnabled() );
     ArezTestUtil.setEnableSpy( false );
     assertFalse( Arez.areSpiesEnabled() );
+  }
+
+  @Test
+  public void areZonesEnabled()
+  {
+    ArezTestUtil.setEnableZones( false );
+    assertFalse( Arez.areZonesEnabled() );
+    ArezTestUtil.setEnableZones( true );
+    assertTrue( Arez.areZonesEnabled() );
   }
 
   @Test
@@ -386,8 +396,11 @@ public class ExternalApiTest
   public void supportsMultipleContexts()
     throws Throwable
   {
-    final ArezContext context1 = new ArezContext();
-    final ArezContext context2 = new ArezContext();
+    final Zone zone1 = Arez.createZone();
+    final Zone zone2 = Arez.createZone();
+
+    final ArezContext context1 = zone1.getContext();
+    final ArezContext context2 = zone2.getContext();
     final Observable observable1 = context1.createObservable( ValueUtil.randomString() );
     final Observable observable2 = context2.createObservable( ValueUtil.randomString() );
 

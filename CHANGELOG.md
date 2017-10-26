@@ -3,6 +3,7 @@
 ### Unreleased
 
 ##### Added
+* Introduce the concept of a [`Zone`](http://realityforge.org/arez/zones) which is an isolated Arez context.
 * Add some cute icons to start of "computed" messages and "scheduled" messages in `ConsoleSpyEventProcessor`.
   These were source from the [mobx-devtools](https://github.com/andykog/mobx-devtools) project.
 * Add support for interleaving transactions from different instances of `ArezContext`. Beginning a transaction
@@ -18,13 +19,14 @@
   is not annotated with `@Observable` to transform to the desired type.
 
 ##### Changed
+* 💥 **\[core\]** Made the `ArezContext` constructors package access so that developers are forced to access
+  contexts through the `org.realityforge.arez.Arez` class.
 * 💥 **\[core\]** Move `ArezContext.areNamesEnabled()` to `Arez.areNamesEnabled()`.
 * 💥 **\[core\]** Move `ArezContext.areSpiesEnabled()` to `Arez.areSpiesEnabled()`.
 * Upgrade to BrainCheck 1.3.0 so assertion failures open the debugger.
-* 💥 **\[core\]** Replace `ArezTestUtil.setProvider(null)` with `ArezTestUtil.clearProvider()` and remove
-  `ArezTestUtil.setProvider(...)` method to capture how it is used.
-* 💥 **\[core\]** Explicitly marked `Arez.bindProvider()` as unsupported as it is unclear that it provides
-  sufficient value to justify it's expense.
+* 💥 **\[core\]** Remove `Arez.bindProvider()` and all associated support infrastructure. Explicitly binding
+  providers did not give enough flexibility to implement the desired features (i.e. `Zones` and thread-local
+  `ArezContext` instances) so remove it until a suitable alternative can be found.
 * **\[core\]** Remove `@Unsupported` annotation from `org.realityforge.arez.Arez` as it is now stable.
 
 ### [v0.18](https://github.com/realityforge/arez/tree/v0.18) (2017-10-23)

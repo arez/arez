@@ -1,0 +1,460 @@
+
+[
+    {
+        "observable": "PersonModel.0.lastName",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "PersonModel.0.firstName",
+        "type": "ObservableCreated"
+    },
+    {
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "observable": "PersonModel.1.lastName",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "PersonModel.1.firstName",
+        "type": "ObservableCreated"
+    },
+    {
+        "computedValue": "PersonModel.1.fullName",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "observer": "FirstNamePrinter1",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "FirstNamePrinter1",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "FirstNamePrinter1",
+        "type": "TransactionStarted",
+        "transaction": "FirstNamePrinter1"
+    },
+    {
+        "type": "usermark",
+        "firstName1": "Bill"
+    },
+    {
+        "duration": 61,
+        "mutation": false,
+        "tracker": "FirstNamePrinter1",
+        "type": "TransactionCompleted",
+        "transaction": "FirstNamePrinter1"
+    },
+    {
+        "duration": 69,
+        "observer": "FirstNamePrinter1",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "FirstNamePrinter2",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "FirstNamePrinter2",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "FirstNamePrinter2",
+        "type": "TransactionStarted",
+        "transaction": "FirstNamePrinter2"
+    },
+    {
+        "type": "usermark",
+        "firstName2": "Bill"
+    },
+    {
+        "duration": 2,
+        "mutation": false,
+        "tracker": "FirstNamePrinter2",
+        "type": "TransactionCompleted",
+        "transaction": "FirstNamePrinter2"
+    },
+    {
+        "duration": 6,
+        "observer": "FirstNamePrinter2",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "FullNamePrinter1",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "FullNamePrinter1",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "FullNamePrinter1",
+        "type": "TransactionStarted",
+        "transaction": "FullNamePrinter1"
+    },
+    {
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "PersonModel.0.fullName",
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.fullName"
+    },
+    {
+        "observable": "PersonModel.0.fullName",
+        "type": "ObservableChanged"
+    },
+    {
+        "duration": 4,
+        "mutation": false,
+        "tracker": "PersonModel.0.fullName",
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.fullName"
+    },
+    {
+        "duration": 8,
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputeCompleted"
+    },
+    {
+        "type": "usermark",
+        "fullname1": "Bill Smith"
+    },
+    {
+        "duration": 14,
+        "mutation": false,
+        "tracker": "FullNamePrinter1",
+        "type": "TransactionCompleted",
+        "transaction": "FullNamePrinter1"
+    },
+    {
+        "duration": 18,
+        "observer": "FullNamePrinter1",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "FullNamePrinter2",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "FullNamePrinter2",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "FullNamePrinter2",
+        "type": "TransactionStarted",
+        "transaction": "FullNamePrinter2"
+    },
+    {
+        "computedValue": "PersonModel.1.fullName",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "PersonModel.1.fullName",
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.1.fullName"
+    },
+    {
+        "observable": "PersonModel.1.fullName",
+        "type": "ObservableChanged"
+    },
+    {
+        "duration": 0,
+        "mutation": false,
+        "tracker": "PersonModel.1.fullName",
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.1.fullName"
+    },
+    {
+        "duration": 2,
+        "computedValue": "PersonModel.1.fullName",
+        "type": "ComputeCompleted"
+    },
+    {
+        "type": "usermark",
+        "fullname2": "Bill Smith"
+    },
+    {
+        "duration": 2,
+        "mutation": false,
+        "tracker": "FullNamePrinter2",
+        "type": "TransactionCompleted",
+        "transaction": "FullNamePrinter2"
+    },
+    {
+        "duration": 3,
+        "observer": "FullNamePrinter2",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "First Name Update1"
+    },
+    {
+        "observable": "PersonModel.0.firstName",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "FirstNamePrinter1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "PersonModel.0.fullName",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 9,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "First Name Update1"
+    },
+    {
+        "observer": "FirstNamePrinter1",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "FirstNamePrinter1",
+        "type": "TransactionStarted",
+        "transaction": "FirstNamePrinter1"
+    },
+    {
+        "type": "usermark",
+        "firstName1": "Fred"
+    },
+    {
+        "duration": 0,
+        "mutation": false,
+        "tracker": "FirstNamePrinter1",
+        "type": "TransactionCompleted",
+        "transaction": "FirstNamePrinter1"
+    },
+    {
+        "duration": 2,
+        "observer": "FirstNamePrinter1",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "PersonModel.0.fullName",
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.fullName"
+    },
+    {
+        "observable": "PersonModel.0.fullName",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "FullNamePrinter1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "PersonModel.0.fullName",
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.fullName"
+    },
+    {
+        "duration": 2,
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "FullNamePrinter1",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "FullNamePrinter1",
+        "type": "TransactionStarted",
+        "transaction": "FullNamePrinter1"
+    },
+    {
+        "type": "usermark",
+        "fullname1": "Fred Smith"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "FullNamePrinter1",
+        "type": "TransactionCompleted",
+        "transaction": "FullNamePrinter1"
+    },
+    {
+        "duration": 1,
+        "observer": "FullNamePrinter1",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Last Name Update1"
+    },
+    {
+        "observable": "PersonModel.0.lastName",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "PersonModel.0.fullName",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 2,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Last Name Update1"
+    },
+    {
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "PersonModel.0.fullName",
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.fullName"
+    },
+    {
+        "observable": "PersonModel.0.fullName",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "FullNamePrinter1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "PersonModel.0.fullName",
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.fullName"
+    },
+    {
+        "duration": 1,
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "FullNamePrinter1",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "FullNamePrinter1",
+        "type": "TransactionStarted",
+        "transaction": "FullNamePrinter1"
+    },
+    {
+        "type": "usermark",
+        "fullname1": "Fred Donaldo"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "FullNamePrinter1",
+        "type": "TransactionCompleted",
+        "transaction": "FullNamePrinter1"
+    },
+    {
+        "duration": 1,
+        "observer": "FullNamePrinter1",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Last Name Update2"
+    },
+    {
+        "observable": "PersonModel.1.lastName",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "PersonModel.1.fullName",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 1,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Last Name Update2"
+    },
+    {
+        "computedValue": "PersonModel.1.fullName",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "PersonModel.1.fullName",
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.1.fullName"
+    },
+    {
+        "observable": "PersonModel.1.fullName",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "FullNamePrinter2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "PersonModel.1.fullName",
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.1.fullName"
+    },
+    {
+        "duration": 1,
+        "computedValue": "PersonModel.1.fullName",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "FullNamePrinter2",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "FullNamePrinter2",
+        "type": "TransactionStarted",
+        "transaction": "FullNamePrinter2"
+    },
+    {
+        "type": "usermark",
+        "fullname2": "Bill Donaldo"
+    },
+    {
+        "duration": 0,
+        "mutation": false,
+        "tracker": "FullNamePrinter2",
+        "type": "TransactionCompleted",
+        "transaction": "FullNamePrinter2"
+    },
+    {
+        "duration": 1,
+        "observer": "FullNamePrinter2",
+        "type": "ReactionCompleted"
+    }
+]
