@@ -7,7 +7,7 @@ toc: true
 
 ### Application Development
 
-#### Why are @Autorun methods not being re-run when observable properties?
+#### Why are @Autorun methods not being re-run when observable properties change?
 
 Arez only re-runs `@Autorun` methods if it is told that an observable property that is a dependency of the
 `@Autorun` method is changed. Assuming you are using classes annotated with `@ArezComponent` then this means
