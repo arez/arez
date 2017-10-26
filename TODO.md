@@ -48,11 +48,18 @@ complete as there is too much un-said.
 
 ## Process
 
+* Generate next version milestones as part of release process. Close old milestones on release.
+
 * Generate coverage reports. Probably via jacoco + codecov
   - https://docs.codecov.io/docs
   - http://www.eclemma.org/jacoco/index.html
   - https://github.com/codecov/example-java
   - https://github.com/codecov/example-gradle
+
+* Generate links when the application crashes so that we can autofill issue details. Essentially involves
+  crafting urls with parameters. Something like:
+
+  https://github.com/realityforge/arez/issues/new?labels=bug&title=Problem%20X&milestone=v0.18&assignee=realityforge&body=This%20is%20a%20prefilled%20issue
 
 ## Documentation
 
