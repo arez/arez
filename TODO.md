@@ -63,6 +63,8 @@ complete as there is too much un-said.
 
 ## Documentation
 
+* Make sure # fragments are not always stolen by search javascript and can be used when linking to pages
+
 * Enhance README with practical instructions ala https://github.com/elastic/logstash
 
 * Change error message "Attempting to get current transaction but no transaction is active." to indicate why
