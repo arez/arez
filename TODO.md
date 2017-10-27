@@ -6,6 +6,9 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Make sure `dispose()` in generated components is wrapped in single transaction for entire dispose
+  operaiton to avoid reactions accessing partially disposed state.
+
 * Add support for `@ContextRef` (to return `ArezContext`), `@ObserverRef` (Linked to `@Track`
   or `@Autorun`) and `@ComputedValueRef`
 
