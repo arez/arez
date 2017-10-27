@@ -65,8 +65,10 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
-      $$arez$$_time.dispose();
-      $$arez$$_value.dispose();
+      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        $$arez$$_time.dispose();
+        $$arez$$_value.dispose();
+      } } );
     }
   }
 

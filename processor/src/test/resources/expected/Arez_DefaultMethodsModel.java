@@ -38,8 +38,10 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
-      $$arez$$_someValue.dispose();
-      $$arez$$_time.dispose();
+      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? "DefaultMethodsModel.dispose" : null, () -> { {
+        $$arez$$_someValue.dispose();
+        $$arez$$_time.dispose();
+      } } );
     }
   }
 

@@ -53,9 +53,11 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
-      $$arez$$_string.dispose();
-      $$arez$$_foo.dispose();
-      $$arez$$_time.dispose();
+      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        $$arez$$_string.dispose();
+        $$arez$$_foo.dispose();
+        $$arez$$_time.dispose();
+      } } );
     }
   }
 

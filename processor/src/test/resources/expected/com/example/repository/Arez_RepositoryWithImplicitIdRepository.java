@@ -34,8 +34,10 @@ public final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWit
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
-      super.preDispose();
-      $$arez$$_entities.dispose();
+      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? "RepositoryWithImplicitIdRepository.dispose" : null, () -> { {
+        super.preDispose();
+        $$arez$$_entities.dispose();
+      } } );
     }
   }
 

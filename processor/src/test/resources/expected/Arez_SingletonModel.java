@@ -48,10 +48,12 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
-      $$arez$$_myAutorun.dispose();
-      $$arez$$_render.dispose();
-      $$arez$$_someValue.dispose();
-      $$arez$$_time.dispose();
+      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? "SingletonModel.dispose" : null, () -> { {
+        $$arez$$_myAutorun.dispose();
+        $$arez$$_render.dispose();
+        $$arez$$_someValue.dispose();
+        $$arez$$_time.dispose();
+      } } );
     }
   }
 

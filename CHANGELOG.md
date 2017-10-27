@@ -12,6 +12,9 @@
 * **\[core\]** Introduced `ArezTestUtil.resetConfig(boolean productionMode)` to simplify test setup.
 
 ##### Fixed
+* **\[processor\]** Fixed bug where disposable of an arez component did not wrap all the dispose actions in
+  a single transaction which could result in the `dispose()` causing an observer on the component to react
+  when it is partially disposed which often causes failures.
 * **\[processor\]** Ensure that the types of the setter and getter for an `@Observable` property are the
   same. Otherwise the overridden setter method method will call `Objects.equal(...)` on values of incompatible
   types which would always be "not equal". If a developer desires different types on the setter and getter they

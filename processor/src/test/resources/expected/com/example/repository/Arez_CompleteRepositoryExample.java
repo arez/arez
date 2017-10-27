@@ -55,14 +55,16 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
-      if ( null != $$arez$$_onDispose ) {
-        $$arez$$_onDispose.onDispose( this );
-        $$arez$$_onDispose = null;
-      }
-      $$arez$$_qualifiedName.dispose();
-      $$arez$$_name.dispose();
-      $$arez$$_packageName.dispose();
-      $$arez$$_rawQualifiedName.dispose();
+      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        if ( null != $$arez$$_onDispose ) {
+          $$arez$$_onDispose.onDispose( this );
+          $$arez$$_onDispose = null;
+        }
+        $$arez$$_qualifiedName.dispose();
+        $$arez$$_name.dispose();
+        $$arez$$_packageName.dispose();
+        $$arez$$_rawQualifiedName.dispose();
+      } } );
     }
   }
 

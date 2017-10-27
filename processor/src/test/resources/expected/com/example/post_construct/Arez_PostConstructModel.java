@@ -49,7 +49,9 @@ public final class Arez_PostConstructModel extends PostConstructModel implements
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
-      $$arez$$_someValue.dispose();
+      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        $$arez$$_someValue.dispose();
+      } } );
     }
   }
 

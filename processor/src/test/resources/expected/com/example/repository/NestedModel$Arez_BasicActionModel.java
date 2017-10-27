@@ -43,10 +43,12 @@ public final class NestedModel$Arez_BasicActionModel extends NestedModel.BasicAc
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
-      if ( null != $$arez$$_onDispose ) {
-        $$arez$$_onDispose.onDispose( this );
-        $$arez$$_onDispose = null;
-      }
+      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        if ( null != $$arez$$_onDispose ) {
+          $$arez$$_onDispose.onDispose( this );
+          $$arez$$_onDispose = null;
+        }
+      } } );
     }
   }
 

@@ -59,10 +59,12 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
-      $$arez$$_render2.dispose();
-      $$arez$$_render3.dispose();
-      $$arez$$_render4.dispose();
-      $$arez$$_render1.dispose();
+      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        $$arez$$_render2.dispose();
+        $$arez$$_render3.dispose();
+        $$arez$$_render4.dispose();
+        $$arez$$_render1.dispose();
+      } } );
     }
   }
 

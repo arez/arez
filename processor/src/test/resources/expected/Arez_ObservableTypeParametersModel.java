@@ -45,7 +45,9 @@ public final class Arez_ObservableTypeParametersModel<T extends Integer> extends
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
-      $$arez$$_time.dispose();
+      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        $$arez$$_time.dispose();
+      } } );
     }
   }
 

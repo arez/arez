@@ -47,7 +47,9 @@ public final class Arez_ReadWriteAutorunModel extends ReadWriteAutorunModel impl
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
-      $$arez$$_doStuff.dispose();
+      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        $$arez$$_doStuff.dispose();
+      } } );
     }
   }
 

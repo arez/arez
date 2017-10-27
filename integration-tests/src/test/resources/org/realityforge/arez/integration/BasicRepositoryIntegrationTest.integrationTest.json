@@ -19,14 +19,14 @@
         "ComponentCount": "2"
     },
     {
-        "duration": 31,
+        "duration": 14,
         "mutation": false,
         "tracker": "ComponentCount",
         "type": "TransactionCompleted",
         "transaction": "ComponentCount"
     },
     {
-        "duration": 41,
+        "duration": 18,
         "observer": "ComponentCount",
         "type": "ReactionCompleted"
     },
@@ -49,7 +49,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 17,
+        "duration": 4,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -92,7 +92,7 @@
         "type": "ObservableChanged"
     },
     {
-        "duration": 2,
+        "duration": 1,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -105,12 +105,25 @@
         "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.destroy"
     },
     {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.1.dispose"
+    },
+    {
         "observable": "TestComponent.1.value",
         "type": "ObservableChanged"
     },
     {
         "observable": "TestComponent.1.value",
         "type": "ObservableDisposed"
+    },
+    {
+        "duration": 1,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.1.dispose"
     },
     {
         "observable": "BasicRepositoryIntegrationTest$TestComponentRepository.entities",
@@ -121,7 +134,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 2,
+        "duration": 4,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -142,14 +155,14 @@
         "ComponentCount": "2"
     },
     {
-        "duration": 1,
+        "duration": 0,
         "mutation": false,
         "tracker": "ComponentCount",
         "type": "TransactionCompleted",
         "transaction": "ComponentCount"
     },
     {
-        "duration": 3,
+        "duration": 1,
         "observer": "ComponentCount",
         "type": "ReactionCompleted"
     },
@@ -160,12 +173,25 @@
         "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.destroy"
     },
     {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.2.dispose"
+    },
+    {
         "observable": "TestComponent.2.value",
         "type": "ObservableChanged"
     },
     {
         "observable": "TestComponent.2.value",
         "type": "ObservableDisposed"
+    },
+    {
+        "duration": 1,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.2.dispose"
     },
     {
         "observable": "BasicRepositoryIntegrationTest$TestComponentRepository.entities",
@@ -176,7 +202,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 7,
+        "duration": 2,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -204,7 +230,7 @@
         "transaction": "ComponentCount"
     },
     {
-        "duration": 4,
+        "duration": 1,
         "observer": "ComponentCount",
         "type": "ReactionCompleted"
     }

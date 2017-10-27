@@ -51,8 +51,10 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
-      $$arez$$_someValue.dispose();
-      $$arez$$_time.dispose();
+      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        $$arez$$_someValue.dispose();
+        $$arez$$_time.dispose();
+      } } );
     }
   }
 

@@ -46,9 +46,11 @@ public final class Arez_DisposingModel extends DisposingModel implements Disposa
   public void dispose() {
     if ( !isDisposed() ) {
       $$arez$$_disposed = true;
-      super.preDispose();
-      $$arez$$_someValue.dispose();
-      super.postDispose();
+      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        super.preDispose();
+        $$arez$$_someValue.dispose();
+        super.postDispose();
+      } } );
     }
   }
 

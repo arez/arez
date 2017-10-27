@@ -45,14 +45,14 @@
         "type": "ObservableChanged"
     },
     {
-        "duration": 15,
+        "duration": 6,
         "mutation": false,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "duration": 19,
+        "duration": 9,
         "computedValue": "CodeModel.0.qualifiedName",
         "type": "ComputeCompleted"
     },
@@ -61,14 +61,14 @@
         "qualifiedName": "com.example.MyType"
     },
     {
-        "duration": 28,
+        "duration": 25,
         "mutation": false,
         "tracker": "Printer",
         "type": "TransactionCompleted",
         "transaction": "Printer"
     },
     {
-        "duration": 33,
+        "duration": 27,
         "observer": "Printer",
         "type": "ReactionCompleted"
     },
@@ -87,7 +87,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 4,
+        "duration": 2,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -145,7 +145,7 @@
         "transaction": "Printer"
     },
     {
-        "duration": 1,
+        "duration": 2,
         "observer": "Printer",
         "type": "ReactionCompleted"
     },
@@ -215,7 +215,7 @@
         "qualifiedName": "com.example.MyType"
     },
     {
-        "duration": 1,
+        "duration": 0,
         "mutation": false,
         "tracker": "Printer",
         "type": "TransactionCompleted",
@@ -241,7 +241,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 0,
+        "duration": 1,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -266,7 +266,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 0,
+        "duration": 1,
         "mutation": false,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
@@ -314,7 +314,7 @@
         "type": "ComputedValueDeactivated"
     },
     {
-        "duration": 3,
+        "duration": 4,
         "mutation": true,
         "tracker": "Printer",
         "type": "TransactionCompleted",
@@ -329,6 +329,12 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Dispose Model"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "CodeModel.0.dispose"
     },
     {
         "mutation": true,
@@ -373,6 +379,13 @@
     },
     {
         "duration": 3,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "CodeModel.0.dispose"
+    },
+    {
+        "duration": 4,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
