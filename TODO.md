@@ -6,7 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Add support for `@ObserverRef` (Linked to `@Track` or `@Autorun`) and `@ComputedValueRef`
+* Add support for `@ContextRef` (to return `ArezContext`), `@ObserverRef` (Linked to `@Track`
+  or `@Autorun`) and `@ComputedValueRef`
 
 * Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
   TimedDisposer that is disposed as part of effect..
