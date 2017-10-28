@@ -1356,10 +1356,12 @@ final class ComponentDescriptor
   {
     assert null != _contextRef;
 
-    return MethodSpec.methodBuilder( _contextRef.getSimpleName().toString() ).
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( _contextRef.getSimpleName().toString() ).
       addModifiers( Modifier.FINAL ).
       returns( GeneratorUtil.AREZ_CONTEXT_CLASSNAME ).
-      addStatement( "return $N", GeneratorUtil.CONTEXT_FIELD_NAME ).build();
+      addStatement( "return $N", GeneratorUtil.CONTEXT_FIELD_NAME );
+    ProcessorUtil.copyAccessModifiers( _contextRef, method );
+    return method.build();
   }
 
   @Nonnull

@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Fixed
+* Fixed bug where the annotation processor was not copying the access modifiers from method annotated with the
+  `@ContextRef` annotation to the overriding method in generated subclass.
+
 ### [v0.20](https://github.com/realityforge/arez/tree/v0.20) (2017-10-28)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.19...v0.20)
 
