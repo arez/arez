@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+##### Added
+* **\[annotations\]** Add the `@ObserverRef` annotation to allow the reactive component to get access to
+  the underling `Observer` instance for either a `@Track` or `@Autorun` annotated method. This is useful for
+  framework authors who need access to low level primitives but still want to make use of the arez component
+  model.
+
 ##### Fixed
 * Fixed bug where the annotation processor was not copying the documented annotations from the method annotated
   with the `@ContextRef` annotation to the overriding method in generated subclass.

@@ -50,6 +50,7 @@ import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.ContextRef;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.ObservableRef;
+import org.realityforge.arez.annotations.ObserverRef;
 import org.realityforge.arez.annotations.OnActivate;
 import org.realityforge.arez.annotations.OnDeactivate;
 import org.realityforge.arez.annotations.OnDepsChanged;
@@ -72,6 +73,7 @@ final class ComponentDescriptor
   private static final String ENTITYLIST_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "entityList";
   private static final String GET_OBSERVABLE_METHOD = "getEntitiesObservable";
   private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observable$" );
+  private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observer$" );
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
   private static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
   private static final Pattern ISSER_PATTERN = Pattern.compile( "^is([A-Z].*)$" );
@@ -106,6 +108,7 @@ final class ComponentDescriptor
   private ExecutableElement _preDispose;
   @Nullable
   private ExecutableElement _postDispose;
+  private final Map<String, CandidateMethod> _observerRefs = new HashMap<>();
   private final Map<String, ObservableDescriptor> _observables = new HashMap<>();
   private final Collection<ObservableDescriptor> _roObservables =
     Collections.unmodifiableCollection( _observables.values() );
@@ -435,6 +438,50 @@ final class ComponentDescriptor
       }
       return name;
     }
+  }
+
+  private void addObserverRef( @Nonnull final ObserverRef annotation,
+                               @Nonnull final ExecutableElement method,
+                               @Nonnull final ExecutableType methodType )
+    throws ArezProcessorException
+  {
+    MethodChecks.mustBeOverridable( ObserverRef.class, method );
+    MethodChecks.mustNotHaveAnyParameters( ObserverRef.class, method );
+    MethodChecks.mustNotThrowAnyExceptions( ObserverRef.class, method );
+
+    final TypeMirror returnType = method.getReturnType();
+    if ( TypeKind.DECLARED != returnType.getKind() ||
+         !returnType.toString().equals( "org.realityforge.arez.Observer" ) )
+    {
+      throw new ArezProcessorException( "Method annotated with @ObserverRef must return an instance of " +
+                                        "org.realityforge.arez.Observer", method );
+    }
+
+    final String name;
+    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
+    {
+      name = ProcessorUtil.deriveName( method, OBSERVER_REF_PATTERN, annotation.name() );
+      if ( null == name )
+      {
+        throw new ArezProcessorException( "Method annotated with @ObserverRef should specify name or be " +
+                                          "named according to the convention get[Name]Observer", method );
+      }
+    }
+    else
+    {
+      name = annotation.name();
+      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "Method annotated with @ObserverRef specified invalid name " + name,
+                                          method );
+      }
+    }
+    if ( _observerRefs.containsKey( name ) )
+    {
+      throw new ArezProcessorException( "Method annotated with @ObserverRef defines duplicate ref accessor for " +
+                                        "observer named " + name, method );
+    }
+    _observerRefs.put( name, new CandidateMethod( method, methodType ) );
   }
 
   @Nonnull
@@ -855,6 +902,34 @@ final class ComponentDescriptor
 
     linkUnAnnotatedObservables( getters, setters );
     linkUnAnnotatedTracked( trackeds, onDepsChangeds );
+    linkObserverRefs();
+  }
+
+  private void linkObserverRefs()
+  {
+    for ( final Map.Entry<String, CandidateMethod> entry : _observerRefs.entrySet() )
+    {
+      final String key = entry.getKey();
+      final CandidateMethod method = entry.getValue();
+      final AutorunDescriptor autorunDescriptor = _autoruns.get( key );
+      if ( null != autorunDescriptor )
+      {
+        autorunDescriptor.setRefMethod( method.getMethod(), method.getMethodType() );
+      }
+      else
+      {
+        final TrackedDescriptor trackedDescriptor = _trackeds.get( key );
+        if ( null != trackedDescriptor )
+        {
+          trackedDescriptor.setRefMethod( method.getMethod(), method.getMethodType() );
+        }
+        else
+        {
+          throw new ArezProcessorException( "@Observer target defined observer named '" + key + "' but no " +
+                                            "@Autorun or @Track method with that name exists", method.getMethod() );
+        }
+      }
+    }
   }
 
   private void linkUnAnnotatedObservables( @Nonnull final Map<String, CandidateMethod> getters,
@@ -956,6 +1031,7 @@ final class ComponentDescriptor
     final OnDispose onDispose = method.getAnnotation( OnDispose.class );
     final Track track = method.getAnnotation( Track.class );
     final OnDepsChanged onDepsChanged = method.getAnnotation( OnDepsChanged.class );
+    final ObserverRef observerRef = method.getAnnotation( ObserverRef.class );
 
     if ( null != observable )
     {
@@ -985,6 +1061,11 @@ final class ComponentDescriptor
     else if ( null != onDepsChanged )
     {
       addOnDepsChanged( onDepsChanged, method );
+      return true;
+    }
+    else if ( null != observerRef )
+    {
+      addObserverRef( observerRef, method, methodType );
       return true;
     }
     else if ( null != contextRef )
@@ -1062,6 +1143,7 @@ final class ComponentDescriptor
                    Autorun.class,
                    Track.class,
                    OnDepsChanged.class,
+                   ObserverRef.class,
                    Observable.class,
                    ObservableRef.class,
                    Computed.class,
