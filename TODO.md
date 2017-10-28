@@ -9,7 +9,7 @@ complete as there is too much un-said.
 * Add support for `@ObserverRef` (Linked to `@Track` or `@Autorun`) and `@ComputedValueRef`
 
 * Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
-  TimedDisposer that is disposed as part of effect..
+  TimedDisposer that is disposed as part of effect.
 
 * Add an adapter that is like a "when" produces a promise that resolves when a condition occurs, is rejected when
   another condition occurs or when the adapter is disposed. And a timed variant that uses TimedDisposer undercovers.
