@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.20](https://github.com/realityforge/arez/tree/v0.20) (2017-10-28)
+[Full Changelog](https://github.com/realityforge/arez/compare/v0.19...v0.20)
 
 ##### Added
 * Added support for `@ContextRef` annotation that marks a method as returning the `ArezContext` that the
