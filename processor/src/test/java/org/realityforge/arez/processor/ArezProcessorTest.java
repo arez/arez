@@ -69,6 +69,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.tracked.DeriveOnDepsUpdatedModel", false },
         new Object[]{ "com.example.tracked.DeriveTrackedModel", false },
         new Object[]{ "com.example.tracked.NoReportParametersModel", false },
+        new Object[]{ "com.example.tracked.ProtectedAccessTrackedModel", false },
         new Object[]{ "com.example.tracked.TrackedAllTypesModel", false },
         new Object[]{ "DisposingModel", false },
         new Object[]{ "ObservableTypeParametersModel", false },
@@ -96,6 +97,18 @@ public class ArezProcessorTest
     throws Exception
   {
     assertSuccessfulCompile( classname, repositoryEnabled );
+  }
+
+  @Test
+  public void processSuccessfulInheritedProtectedAccessInDifferentPackage()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      JavaFileObjects.forResource( "input/com/example/tracked/InheritProtectedAccessTrackedModel.java" );
+    final JavaFileObject source2 =
+      JavaFileObjects.forResource( "input/com/example/tracked/other/BaseModelProtectedAccess.java" );
+    final String output = "expected/com/example/tracked/Arez_InheritProtectedAccessTrackedModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
   }
 
   @Test

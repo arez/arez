@@ -153,7 +153,7 @@ final class TrackedDescriptor
     }
     sb.append( " : null, " );
     sb.append( _mutation );
-    sb.append( ", super::$N )" );
+    sb.append( ", () -> super.$N() )" );
     parameters.add( _onDepsUpdatedMethod.getSimpleName().toString() );
 
     builder.addStatement( sb.toString(), parameters.toArray() );

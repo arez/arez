@@ -5,6 +5,8 @@
 ##### Fixed
 * Fixed bug where the annotation processor was not copying the documented annotations from the method annotated
   with the `@ContextRef` annotation to the overriding method in generated subclass.
+* Fixed bug where the source code generated for `@Tracked` methods would fail if the `@OnDepsUpdated` method
+  is protected access and in a different package.
 
 ### [v0.21](https://github.com/realityforge/arez/tree/v0.21) (2017-10-28)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.20...v0.21)
