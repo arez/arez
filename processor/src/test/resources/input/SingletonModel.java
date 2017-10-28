@@ -3,7 +3,7 @@ import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Autorun;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Observable;
-import org.realityforge.arez.annotations.OnDepsUpdated;
+import org.realityforge.arez.annotations.OnDepsChanged;
 import org.realityforge.arez.annotations.Track;
 
 @ArezComponent( singleton = true )
@@ -36,8 +36,8 @@ public class SingletonModel
   {
   }
 
-  @OnDepsUpdated
-  public void onRenderDepsUpdated()
+  @OnDepsChanged
+  public void onRenderDepsChanged()
   {
   }
 

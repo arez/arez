@@ -1,7 +1,7 @@
 package com.example.tracked;
 
 import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.OnDepsUpdated;
+import org.realityforge.arez.annotations.OnDepsChanged;
 import org.realityforge.arez.annotations.Track;
 
 @ArezComponent
@@ -17,8 +17,8 @@ public class TrackedDuplicatedModel
   {
   }
 
-  @OnDepsUpdated
-  public void onRenderDepsUpdated()
+  @OnDepsChanged
+  public void onRenderDepsChanged()
   {
   }
 }

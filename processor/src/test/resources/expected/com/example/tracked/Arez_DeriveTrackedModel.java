@@ -26,7 +26,7 @@ public final class Arez_DeriveTrackedModel extends DeriveTrackedModel implements
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_render = this.$$arez$$_context.tracker( Arez.areNamesEnabled() ? $$arez$$_name() + ".render" : null, false, super::onRenderDepsUpdated );
+    this.$$arez$$_render = this.$$arez$$_context.tracker( Arez.areNamesEnabled() ? $$arez$$_name() + ".render" : null, false, () -> super.onRenderDepsChanged() );
   }
 
   final long $$arez$$_id() {

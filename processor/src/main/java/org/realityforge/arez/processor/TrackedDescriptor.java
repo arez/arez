@@ -18,7 +18,7 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import org.realityforge.arez.annotations.OnDepsUpdated;
+import org.realityforge.arez.annotations.OnDepsChanged;
 import org.realityforge.arez.annotations.Track;
 
 /**
@@ -27,7 +27,7 @@ import org.realityforge.arez.annotations.Track;
 @SuppressWarnings( "Duplicates" )
 final class TrackedDescriptor
 {
-  static final Pattern ON_DEPS_UPDATED_PATTERN = Pattern.compile( "^on([A-Z].*)DepsUpdated" );
+  static final Pattern ON_DEPS_CHANGED_PATTERN = Pattern.compile( "^on([A-Z].*)DepsChanged" );
 
   @Nonnull
   private final ComponentDescriptor _componentDescriptor;
@@ -40,7 +40,7 @@ final class TrackedDescriptor
   @Nullable
   private ExecutableType _trackedMethodType;
   @Nullable
-  private ExecutableElement _onDepsUpdatedMethod;
+  private ExecutableElement _onDepsChangedMethod;
 
   TrackedDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
@@ -62,10 +62,10 @@ final class TrackedDescriptor
   }
 
   @Nonnull
-  ExecutableElement getOnDepsUpdatedMethod()
+  ExecutableElement getOnDepsChangedMethod()
   {
-    assert null != _onDepsUpdatedMethod;
-    return _onDepsUpdatedMethod;
+    assert null != _onDepsChangedMethod;
+    return _onDepsChangedMethod;
   }
 
   boolean hasTrackedMethod()
@@ -94,24 +94,24 @@ final class TrackedDescriptor
     }
   }
 
-  void setOnDepsUpdatedMethod( @Nonnull final ExecutableElement method )
+  void setOnDepsChangedMethod( @Nonnull final ExecutableElement method )
   {
-    MethodChecks.mustBeLifecycleHook( OnDepsUpdated.class, method );
-    if ( null != _onDepsUpdatedMethod )
+    MethodChecks.mustBeLifecycleHook( OnDepsChanged.class, method );
+    if ( null != _onDepsChangedMethod )
     {
-      throw new ArezProcessorException( "@OnDepsUpdated target duplicates existing method named " +
-                                        _onDepsUpdatedMethod.getSimpleName(), method );
+      throw new ArezProcessorException( "@OnDepsChanged target duplicates existing method named " +
+                                        _onDepsChangedMethod.getSimpleName(), method );
 
     }
     else
     {
-      _onDepsUpdatedMethod = Objects.requireNonNull( method );
+      _onDepsChangedMethod = Objects.requireNonNull( method );
     }
   }
 
-  boolean hasOnDepsUpdatedMethod()
+  boolean hasOnDepsChangedMethod()
   {
-    return null != _onDepsUpdatedMethod;
+    return null != _onDepsChangedMethod;
   }
 
   /**
@@ -133,7 +133,7 @@ final class TrackedDescriptor
    */
   void buildInitializer( @Nonnull final MethodSpec.Builder builder )
   {
-    assert null != _onDepsUpdatedMethod;
+    assert null != _onDepsChangedMethod;
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
     sb.append( "this.$N = this.$N.tracker( $T.areNamesEnabled() ? " );
@@ -154,7 +154,7 @@ final class TrackedDescriptor
     sb.append( " : null, " );
     sb.append( _mutation );
     sb.append( ", () -> super.$N() )" );
-    parameters.add( _onDepsUpdatedMethod.getSimpleName().toString() );
+    parameters.add( _onDepsChangedMethod.getSimpleName().toString() );
 
     builder.addStatement( sb.toString(), parameters.toArray() );
   }

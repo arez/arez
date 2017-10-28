@@ -1,19 +1,24 @@
-package com.example.tracked;
+package com.example.on_deps_updated;
 
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.OnDepsChanged;
 import org.realityforge.arez.annotations.Track;
 
 @ArezComponent
-public class NoReportParametersModel
+public class OnDepsChangedDuplicatedModel
 {
-  @Track( reportParameters = false )
-  public void render( final long time, float someOtherParameter )
+  @Track
+  public void render()
   {
   }
 
   @OnDepsChanged
   public void onRenderDepsChanged()
+  {
+  }
+
+  @OnDepsChanged( name = "render" )
+  public void onRenderDepsChanged2()
   {
   }
 }

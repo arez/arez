@@ -9,9 +9,9 @@ import javax.annotation.Nonnull;
  * Methods marked with this annotation are run in tracking transactions.
  * Any Observables or ComputedValues accessed within the scope of the method will be added
  * as a dependency of the tracker. If any of these dependencies are changed then class will
- * be notified by way of a "OnDepsUpdated" method. The method can be explicitly marked with the
- * {@link OnDepsUpdated} annotation or the framework will attempt to use the method named according
- * to naming conventions. i.e. If the @Track annotated method is named "render" then the @OnDepsUpdated
+ * be notified by way of a "OnDepsChanged" method. The method can be explicitly marked with the
+ * {@link OnDepsChanged} annotation or the framework will attempt to use the method named according
+ * to naming conventions. i.e. If the @Track annotated method is named "render" then the @OnDepsChanged
  * annotated method will have default to being named "onRenderDepsUpdate".
  *
  * <p>The method that is annotated with @Track must comply with the additional constraints:</p>

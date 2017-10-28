@@ -52,7 +52,7 @@ import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.ObservableRef;
 import org.realityforge.arez.annotations.OnActivate;
 import org.realityforge.arez.annotations.OnDeactivate;
-import org.realityforge.arez.annotations.OnDepsUpdated;
+import org.realityforge.arez.annotations.OnDepsChanged;
 import org.realityforge.arez.annotations.OnDispose;
 import org.realityforge.arez.annotations.OnStale;
 import org.realityforge.arez.annotations.PostDispose;
@@ -399,12 +399,12 @@ final class ComponentDescriptor
     }
   }
 
-  private void addOnDepsUpdated( @Nonnull final OnDepsUpdated annotation, @Nonnull final ExecutableElement method )
+  private void addOnDepsChanged( @Nonnull final OnDepsChanged annotation, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     final String name =
-      deriveHookName( method, TrackedDescriptor.ON_DEPS_UPDATED_PATTERN, "DepsUpdated", annotation.name() );
-    findOrCreateTracked( name ).setOnDepsUpdatedMethod( method );
+      deriveHookName( method, TrackedDescriptor.ON_DEPS_CHANGED_PATTERN, "DepsChanged", annotation.name() );
+    findOrCreateTracked( name ).setOnDepsChangedMethod( method );
   }
 
   private void addTracked( @Nonnull final Track annotation,
@@ -838,7 +838,7 @@ final class ComponentDescriptor
           continue;
         }
         name =
-          ProcessorUtil.deriveName( method, TrackedDescriptor.ON_DEPS_UPDATED_PATTERN, ProcessorUtil.SENTINEL_NAME );
+          ProcessorUtil.deriveName( method, TrackedDescriptor.ON_DEPS_CHANGED_PATTERN, ProcessorUtil.SENTINEL_NAME );
         if ( voidReturn && 0 == parameterCount && null != name )
         {
           onDepsChangeds.put( name, candidateMethod );
@@ -912,20 +912,20 @@ final class ComponentDescriptor
         }
         else
         {
-          throw new ArezProcessorException( "@OnDepsUpdated target has no corresponding @Track that could " +
-                                            "be automatically determined", tracked.getOnDepsUpdatedMethod() );
+          throw new ArezProcessorException( "@OnDepsChanged target has no corresponding @Track that could " +
+                                            "be automatically determined", tracked.getOnDepsChangedMethod() );
         }
       }
-      else if ( !tracked.hasOnDepsUpdatedMethod() )
+      else if ( !tracked.hasOnDepsChangedMethod() )
       {
         final CandidateMethod candidate = onDepsChangeds.get( tracked.getName() );
         if ( null != candidate )
         {
-          tracked.setOnDepsUpdatedMethod( candidate.getMethod() );
+          tracked.setOnDepsChangedMethod( candidate.getMethod() );
         }
         else
         {
-          throw new ArezProcessorException( "@Track target has no corresponding @OnDepsUpdated that could " +
+          throw new ArezProcessorException( "@Track target has no corresponding @OnDepsChanged that could " +
                                             "be automatically determined", tracked.getTrackedMethod() );
         }
       }
@@ -955,7 +955,7 @@ final class ComponentDescriptor
     final OnStale onStale = method.getAnnotation( OnStale.class );
     final OnDispose onDispose = method.getAnnotation( OnDispose.class );
     final Track track = method.getAnnotation( Track.class );
-    final OnDepsUpdated onDepsUpdated = method.getAnnotation( OnDepsUpdated.class );
+    final OnDepsChanged onDepsChanged = method.getAnnotation( OnDepsChanged.class );
 
     if ( null != observable )
     {
@@ -982,9 +982,9 @@ final class ComponentDescriptor
       addTracked( track, method, methodType );
       return true;
     }
-    else if ( null != onDepsUpdated )
+    else if ( null != onDepsChanged )
     {
-      addOnDepsUpdated( onDepsUpdated, method );
+      addOnDepsChanged( onDepsChanged, method );
       return true;
     }
     else if ( null != contextRef )
@@ -1061,7 +1061,7 @@ final class ComponentDescriptor
       new Class[]{ Action.class,
                    Autorun.class,
                    Track.class,
-                   OnDepsUpdated.class,
+                   OnDepsChanged.class,
                    Observable.class,
                    ObservableRef.class,
                    Computed.class,

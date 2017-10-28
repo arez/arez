@@ -1,7 +1,7 @@
 package com.example.tracked;
 
 import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.OnDepsUpdated;
+import org.realityforge.arez.annotations.OnDepsChanged;
 import org.realityforge.arez.annotations.Track;
 
 @ArezComponent
@@ -12,8 +12,8 @@ public class ProtectedAccessTrackedModel
   {
   }
 
-  @OnDepsUpdated
-  protected final void onRenderDepsUpdated()
+  @OnDepsChanged
+  protected final void onRenderDepsChanged()
   {
   }
 }

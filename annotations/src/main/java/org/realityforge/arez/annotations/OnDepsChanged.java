@@ -6,9 +6,9 @@ import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
 
 /**
- * Identifies method that will be invoked when the dependencies of the paired @Track annotated method are updated.
+ * Identifies method that will be invoked when the dependencies of the paired @Track annotated method are changed.
  *
- * <p>The method that is annotated with OnDepsUpdated must comply with the additional constraints:</p>
+ * <p>The method that is annotated with OnDepsChanged must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with {@link ComponentId}, {@link Action}, {@link Observable}, {@link Computed}, {@link javax.annotation.PostConstruct}, {@link PreDispose}, {@link PostDispose}, {@link OnActivate}, {@link OnDeactivate} or {@link OnStale}</li>
  * <li>Must not be private</li>
@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
  */
 @Documented
 @Target( ElementType.METHOD )
-public @interface OnDepsUpdated
+public @interface OnDepsChanged
 {
   /**
    * Return the name of the paired Tracked relative to the component.

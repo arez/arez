@@ -1,7 +1,7 @@
 package com.example.tracked;
 
 import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.OnDepsUpdated;
+import org.realityforge.arez.annotations.OnDepsChanged;
 
 @ArezComponent
 public class DeriveTrackedModel
@@ -10,8 +10,8 @@ public class DeriveTrackedModel
   {
   }
 
-  @OnDepsUpdated
-  public void onRenderDepsUpdated()
+  @OnDepsChanged
+  public void onRenderDepsChanged()
   {
   }
 }

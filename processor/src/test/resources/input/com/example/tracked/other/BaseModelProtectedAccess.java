@@ -1,6 +1,6 @@
 package com.example.tracked.other;
 
-import org.realityforge.arez.annotations.OnDepsUpdated;
+import org.realityforge.arez.annotations.OnDepsChanged;
 import org.realityforge.arez.annotations.Track;
 
 public class BaseModelProtectedAccess
@@ -10,8 +10,8 @@ public class BaseModelProtectedAccess
   {
   }
 
-  @OnDepsUpdated
-  protected final void onRenderDepsUpdated()
+  @OnDepsChanged
+  protected final void onRenderDepsChanged()
   {
   }
 }

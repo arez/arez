@@ -9,7 +9,7 @@ import org.realityforge.arez.Observer;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_DeriveOnDepsUpdatedModel extends DeriveOnDepsUpdatedModel implements Disposable {
+public final class Arez_DeriveOnDepsChangedModel extends DeriveOnDepsChangedModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -22,11 +22,11 @@ public final class Arez_DeriveOnDepsUpdatedModel extends DeriveOnDepsUpdatedMode
   @Nonnull
   private final Observer $$arez$$_render;
 
-  public Arez_DeriveOnDepsUpdatedModel() {
+  public Arez_DeriveOnDepsChangedModel() {
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_render = this.$$arez$$_context.tracker( Arez.areNamesEnabled() ? $$arez$$_name() + ".render" : null, true, super::onRenderDepsUpdated );
+    this.$$arez$$_render = this.$$arez$$_context.tracker( Arez.areNamesEnabled() ? $$arez$$_name() + ".render" : null, true, () -> super.onRenderDepsChanged() );
   }
 
   final long $$arez$$_id() {
@@ -34,7 +34,7 @@ public final class Arez_DeriveOnDepsUpdatedModel extends DeriveOnDepsUpdatedMode
   }
 
   String $$arez$$_name() {
-    return "DeriveOnDepsUpdatedModel." + $$arez$$_id();
+    return "DeriveOnDepsChangedModel." + $$arez$$_id();
   }
 
   @Override
@@ -78,10 +78,10 @@ public final class Arez_DeriveOnDepsUpdatedModel extends DeriveOnDepsUpdatedMode
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof Arez_DeriveOnDepsUpdatedModel) ) {
+    } else if ( null == o || !(o instanceof Arez_DeriveOnDepsChangedModel) ) {
       return false;
     } else {
-      final Arez_DeriveOnDepsUpdatedModel that = (Arez_DeriveOnDepsUpdatedModel) o;;
+      final Arez_DeriveOnDepsChangedModel that = (Arez_DeriveOnDepsChangedModel) o;;
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }

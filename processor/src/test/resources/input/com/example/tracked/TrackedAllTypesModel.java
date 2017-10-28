@@ -2,7 +2,7 @@ package com.example.tracked;
 
 import java.text.ParseException;
 import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.OnDepsUpdated;
+import org.realityforge.arez.annotations.OnDepsChanged;
 import org.realityforge.arez.annotations.Track;
 
 @ArezComponent
@@ -32,23 +32,23 @@ public class TrackedAllTypesModel
     return 0;
   }
 
-  @OnDepsUpdated
-  public void onRender1DepsUpdated()
+  @OnDepsChanged
+  public void onRender1DepsChanged()
   {
   }
 
-  @OnDepsUpdated
-  void onRender2DepsUpdated()
+  @OnDepsChanged
+  void onRender2DepsChanged()
   {
   }
 
-  @OnDepsUpdated
-  protected void onRender3DepsUpdated()
+  @OnDepsChanged
+  protected void onRender3DepsChanged()
   {
   }
 
-  @OnDepsUpdated
-  public void onRender4DepsUpdated()
+  @OnDepsChanged
+  public void onRender4DepsChanged()
   {
   }
 }

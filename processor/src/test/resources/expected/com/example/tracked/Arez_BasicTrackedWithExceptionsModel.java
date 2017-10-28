@@ -27,7 +27,7 @@ public final class Arez_BasicTrackedWithExceptionsModel extends BasicTrackedWith
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_render = this.$$arez$$_context.tracker( Arez.areNamesEnabled() ? $$arez$$_name() + ".render" : null, true, super::onRenderDepsUpdated );
+    this.$$arez$$_render = this.$$arez$$_context.tracker( Arez.areNamesEnabled() ? $$arez$$_name() + ".render" : null, true, () -> super.onRenderDepsChanged() );
   }
 
   final long $$arez$$_id() {

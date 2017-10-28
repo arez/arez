@@ -4,14 +4,10 @@ import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Track;
 
 @ArezComponent
-public class DeriveOnDepsUpdatedModel
+public class TrackedMissingOnDepsChanged
 {
   @Track
-  public void render( final long time, float someOtherParameter )
-  {
-  }
-
-  public void onRenderDepsUpdated()
+  void render()
   {
   }
 }
