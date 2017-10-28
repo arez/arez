@@ -1360,6 +1360,7 @@ final class ComponentDescriptor
       addModifiers( Modifier.FINAL ).
       returns( GeneratorUtil.AREZ_CONTEXT_CLASSNAME ).
       addStatement( "return $N", GeneratorUtil.CONTEXT_FIELD_NAME );
+    ProcessorUtil.copyDocumentedAnnotations( _contextRef, method );
     ProcessorUtil.copyAccessModifiers( _contextRef, method );
     return method.build();
   }

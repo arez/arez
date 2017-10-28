@@ -49,6 +49,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.computed.ComputedWithHooksModel", false },
         new Object[]{ "com.example.computed.BasicComputedModel", false },
         new Object[]{ "com.example.computed.TypeParametersModel", false },
+        new Object[]{ "com.example.context_ref.AnnotatedComponent", false },
         new Object[]{ "com.example.context_ref.SimpleComponent", false },
         new Object[]{ "com.example.context_ref.ProtectedAccessComponent", false },
         new Object[]{ "com.example.observable.ObservableWithNoSetter", false },
