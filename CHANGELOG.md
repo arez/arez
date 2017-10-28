@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Added
+* Added support for `@ContextRef` annotation that marks a method as returning the `ArezContext` that the
+  generated subclass is using..
+
 ### [v0.19](https://github.com/realityforge/arez/tree/v0.19) (2017-10-27)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.18...v0.19)
 

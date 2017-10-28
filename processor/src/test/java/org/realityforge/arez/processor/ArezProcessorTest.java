@@ -49,6 +49,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.computed.ComputedWithHooksModel", false },
         new Object[]{ "com.example.computed.BasicComputedModel", false },
         new Object[]{ "com.example.computed.TypeParametersModel", false },
+        new Object[]{ "com.example.context_ref.SimpleComponent", false },
         new Object[]{ "com.example.observable.ObservableWithNoSetter", false },
         new Object[]{ "com.example.observable_ref.DefaultRefNameModel", false },
         new Object[]{ "com.example.observable_ref.NonStandardNameModel", false },
@@ -276,6 +277,15 @@ public class ArezProcessorTest
         new Object[]{ "com.example.computed.PrivateComputedModel", "@Computed target must not be private" },
         new Object[]{ "com.example.computed.StaticComputedModel", "@Computed target must not be static" },
         new Object[]{ "com.example.computed.VoidComputedModel", "@Computed target must return a value" },
+
+        new Object[]{ "com.example.context_ref.FinalModel", "@ContextRef target must not be final" },
+        new Object[]{ "com.example.context_ref.StaticModel", "@ContextRef target must not be static" },
+        new Object[]{ "com.example.context_ref.PrivateModel", "@ContextRef target must not be private" },
+        new Object[]{ "com.example.context_ref.VoidModel", "@ContextRef target must return a value" },
+        new Object[]{ "com.example.context_ref.BadTypeModel", "Method annotated with @ContextRef must return an instance of org.realityforge.arez.ArezContext" },
+        new Object[]{ "com.example.context_ref.ThrowsExceptionModel", "@ContextRef target must not throw any exceptions" },
+        new Object[]{ "com.example.context_ref.DuplicateModel", "@ContextRef target duplicates existing method named getContext" },
+        new Object[]{ "com.example.context_ref.ParametersModel", "@ContextRef target must not have any parameters" },
 
         new Object[]{ "com.example.observable_ref.BadNameModel",
                       "Method annotated with @ObservableRef specified invalid name -ace" },

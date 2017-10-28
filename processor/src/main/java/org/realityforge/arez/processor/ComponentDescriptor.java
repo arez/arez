@@ -47,6 +47,7 @@ import org.realityforge.arez.annotations.ComponentId;
 import org.realityforge.arez.annotations.ComponentName;
 import org.realityforge.arez.annotations.ComponentTypeName;
 import org.realityforge.arez.annotations.Computed;
+import org.realityforge.arez.annotations.ContextRef;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.ObservableRef;
 import org.realityforge.arez.annotations.OnActivate;
@@ -95,6 +96,8 @@ final class ComponentDescriptor
   private ExecutableElement _postConstruct;
   @Nullable
   private ExecutableElement _componentId;
+  @Nullable
+  private ExecutableElement _contextRef;
   @Nullable
   private ExecutableElement _componentTypeName;
   @Nullable
@@ -522,6 +525,33 @@ final class ComponentDescriptor
     }
   }
 
+  private void setContextRef( @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    MethodChecks.mustBeOverridable( ContextRef.class, method );
+    MethodChecks.mustNotHaveAnyParameters( ContextRef.class, method );
+    MethodChecks.mustReturnAValue( ContextRef.class, method );
+    MethodChecks.mustNotThrowAnyExceptions( ContextRef.class, method );
+
+    final TypeMirror returnType = method.getReturnType();
+    if ( TypeKind.DECLARED != returnType.getKind() ||
+         !returnType.toString().equals( "org.realityforge.arez.ArezContext" ) )
+    {
+      throw new ArezProcessorException( "Method annotated with @ContextRef must return an instance of " +
+                                        "org.realityforge.arez.ArezContext", method );
+    }
+
+    if ( null != _contextRef )
+    {
+      throw new ArezProcessorException( "@ContextRef target duplicates existing method named " +
+                                        _contextRef.getSimpleName(), method );
+    }
+    else
+    {
+      _contextRef = Objects.requireNonNull( method );
+    }
+  }
+
   private void setComponentId( @Nonnull final ExecutableElement componentId )
     throws ArezProcessorException
   {
@@ -913,6 +943,7 @@ final class ComponentDescriptor
     final Observable observable = method.getAnnotation( Observable.class );
     final ObservableRef observableRef = method.getAnnotation( ObservableRef.class );
     final Computed computed = method.getAnnotation( Computed.class );
+    final ContextRef contextRef = method.getAnnotation( ContextRef.class );
     final ComponentId componentId = method.getAnnotation( ComponentId.class );
     final ComponentTypeName componentTypeName = method.getAnnotation( ComponentTypeName.class );
     final ComponentName componentName = method.getAnnotation( ComponentName.class );
@@ -954,6 +985,11 @@ final class ComponentDescriptor
     else if ( null != onDepsUpdated )
     {
       addOnDepsUpdated( onDepsUpdated, method );
+      return true;
+    }
+    else if ( null != contextRef )
+    {
+      setContextRef( method );
       return true;
     }
     else if ( null != computed )
@@ -1137,6 +1173,10 @@ final class ComponentDescriptor
 
     buildConstructors( builder, typeUtils );
 
+    if ( null != _contextRef )
+    {
+      builder.addMethod( buildContextRefMethod() );
+    }
     if ( !isSingleton() )
     {
       if ( null == _componentId )
@@ -1308,6 +1348,18 @@ final class ComponentDescriptor
   String getComponentNameMethodName()
   {
     return null == _componentName ? GeneratorUtil.NAME_METHOD_NAME : _componentName.getSimpleName().toString();
+  }
+
+  @Nonnull
+  private MethodSpec buildContextRefMethod()
+    throws ArezProcessorException
+  {
+    assert null != _contextRef;
+
+    return MethodSpec.methodBuilder( _contextRef.getSimpleName().toString() ).
+      addModifiers( Modifier.FINAL ).
+      returns( GeneratorUtil.AREZ_CONTEXT_CLASSNAME ).
+      addStatement( "return $N", GeneratorUtil.CONTEXT_FIELD_NAME ).build();
   }
 
   @Nonnull
