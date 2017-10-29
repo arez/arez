@@ -148,6 +148,8 @@ define 'arez' do
 
     # The generators are configured to generate to here.
     iml.main_source_directories << _('generated/processors/main/java')
+
+    project.jacoco.enabled = false
   end
 
   define 'processor' do
@@ -225,6 +227,7 @@ define 'arez' do
       gwt_modules[gwt_module] = false
     end
     iml.add_gwt_facet(gwt_modules, :settings => { :compilerMaxHeapSize => '1024' }, :gwt_dev_artifact => :gwt_dev)
+    project.jacoco.enabled = false
   end
 
   define 'doc-examples' do
@@ -247,6 +250,7 @@ define 'arez' do
 
     # The generators are configured to generate to here.
     iml.main_source_directories << _('generated/processors/main/java')
+    project.jacoco.enabled = false
   end
 
   doc.from(projects(%w(annotations core processor extras browser-extras))).
