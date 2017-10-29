@@ -2,6 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/realityforge/arez.png?branch=master)](http://travis-ci.org/realityforge/arez)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez/arez-core.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez%22)
+[![codecov](https://codecov.io/gh/realityforge/arez/branch/master/graph/badge.svg)](https://codecov.io/gh/realityforge/arez)
 
 Arez is a simple, efficient and scalable state management library for client-side applications powered by a
 transparent functional reactive programming core. Arez tracks usage of observable data and reruns observers
