@@ -90,6 +90,8 @@ public final class Arez
   /**
    * Create a new zone.
    * This zone is not yet activated.
+   *
+   * @return the new zone.
    */
   @Nonnull
   public static Zone createZone()
