@@ -52,6 +52,14 @@ public class ExternalApiTest
   }
 
   @Test
+  public void areValueIntrospectorsEnabled()
+  {
+    assertTrue( Arez.areValueIntrospectorsEnabled() );
+    ArezTestUtil.setValueIntrospection( false );
+    assertFalse( Arez.areValueIntrospectorsEnabled() );
+  }
+
+  @Test
   public void areSpiesEnabled()
   {
     assertTrue( Arez.areSpiesEnabled() );

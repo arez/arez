@@ -68,6 +68,16 @@ public final class Arez
   }
 
   /**
+   * Return true if introspectors for Observable values are enabled.
+   *
+   * @return true if value introspectors are enabled, false otherwise.
+   */
+  public static boolean areValueIntrospectorsEnabled()
+  {
+    return ArezConfig.areValueIntrospectorsEnabled();
+  }
+
+  /**
    * Return the ArezContext from the provider.
    *
    * @return the ArezContext.

@@ -16,6 +16,9 @@
   <define-property name="arez.enable_names" values="true,false"/>
   <set-property name="arez.enable_names" value="false"/>
 
+  <define-property name="arez.enable_value_introspection" values="true,false"/>
+  <set-property name="arez.enable_value_introspection" value="false"/>
+
   <define-property name="arez.enforce_transaction_type" values="true,false"/>
   <set-property name="arez.enforce_transaction_type" value="false"/>
 

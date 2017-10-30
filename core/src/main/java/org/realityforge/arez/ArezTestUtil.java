@@ -27,12 +27,14 @@ public final class ArezTestUtil
     if ( productionMode )
     {
       setEnableNames( false );
+      setValueIntrospection( false );
       setEnforceTransactionType( false );
       setEnableSpy( false );
     }
     else
     {
       setEnableNames( true );
+      setValueIntrospection( true );
       setEnforceTransactionType( true );
       setEnableSpy( true );
     }
@@ -52,6 +54,16 @@ public final class ArezTestUtil
   public static void setEnableNames( final boolean value )
   {
     setConstant( "ENABLE_NAMES", value );
+  }
+
+  /**
+   * Configure the "enable_value_introspection" setting.
+   *
+   * @param value the setting.
+   */
+  public static void setValueIntrospection( final boolean value )
+  {
+    setConstant( "ENABLE_VALUE_INTROSPECTION", value );
   }
 
   /**

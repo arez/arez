@@ -9,6 +9,8 @@ final class ArezConfig
     System.getProperty( "arez.environment", "production" ).equals( "production" );
   private static boolean ENABLE_NAMES =
     "true".equals( System.getProperty( "arez.enable_names", PRODUCTION_ENVIRONMENT ? "false" : "true" ) );
+  private static boolean ENABLE_VALUE_INTROSPECTION =
+    "true".equals( System.getProperty( "arez.enable_value_introspection", PRODUCTION_ENVIRONMENT ? "false" : "true" ) );
   private static boolean PURGE_REACTIONS =
     "true".equals( System.getProperty( "arez.purge_reactions_when_runaway_detected", "true" ) );
   private static boolean ENFORCE_TRANSACTION_TYPE =
@@ -33,6 +35,11 @@ final class ArezConfig
   static boolean enableNames()
   {
     return ENABLE_NAMES;
+  }
+
+  static boolean areValueIntrospectorsEnabled()
+  {
+    return ENABLE_VALUE_INTROSPECTION;
   }
 
   static boolean enforceTransactionType()
