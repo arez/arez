@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Name all ArezTestUtil and ArezCOnfig settings consistently with names inside Arez
+
 * Add support for `@ComputedValueRef`
 
 * Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
