@@ -35,6 +35,8 @@ complete as there is too much un-said.
   - https://github.com/motion/mobx-formatters
   - https://github.com/andykog/mobx-devtools
 
+* hooks to get and set values for observables and computeds
+
 * Initial repository debug tool could just output tables ala
 
 ```javascript
