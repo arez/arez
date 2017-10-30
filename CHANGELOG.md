@@ -6,6 +6,9 @@
 * **\[core\]** Invariant failures could refer to `ArezConfig.enableNames()` which is a package access internal
   API. Update messages to use public API `Arez.areNamesEnabled()`. Also update internal code to use public API
   where appropriate.
+* **\[core\]** Invariant failures could refer to `ArezConfig.enableSpy()` which is a package access internal
+  API. Update messages to use public API `Arez.areSpiesEnabled()`. Also update internal code to use public API
+  where appropriate.
 * **\[core\]** Avoid referencing `TransactionMode` if `ArezConfig.enforceTransactionType()` returns false. The
   dispose actions had been implemented without taking this into account.
 

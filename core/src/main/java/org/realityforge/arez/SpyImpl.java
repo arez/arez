@@ -83,7 +83,7 @@ final class SpyImpl
   @Override
   public boolean willPropagateSpyEvents()
   {
-    return ArezConfig.enableSpy() && !getSpyEventHandlers().isEmpty();
+    return Arez.areSpiesEnabled() && !getSpyEventHandlers().isEmpty();
   }
 
   @Nonnull

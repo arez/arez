@@ -63,7 +63,7 @@ final class Transaction
   @Nullable
   private final Transaction _previousInSameContext;
   /**
-   * Time at which transaction started. Is only set if {@link ArezConfig#enableSpy()} return true.
+   * Time at which transaction started. Is only set if {@link Arez#areSpiesEnabled()} return true.
    */
   private final long _startedAt;
   /**
@@ -206,7 +206,7 @@ final class Transaction
     _previousInSameContext = Arez.areZonesEnabled() ? findPreviousTransactionInSameContext() : null;
     _mode = ArezConfig.enforceTransactionType() ? Objects.requireNonNull( mode ) : null;
     _tracker = tracker;
-    _startedAt = ArezConfig.enableSpy() ? System.currentTimeMillis() : 0;
+    _startedAt = Arez.areSpiesEnabled() ? System.currentTimeMillis() : 0;
 
     invariant( () -> TransactionMode.READ_WRITE_OWNED != mode || null != tracker,
                () -> "Attempted to create transaction named '" + getName() +
@@ -255,8 +255,8 @@ final class Transaction
 
   long getStartedAt()
   {
-    invariant( ArezConfig::enableSpy,
-               () -> "Transaction.getStartedAt() invoked when ArezConfig.enableSpy() is false" );
+    invariant( Arez::areSpiesEnabled,
+               () -> "Transaction.getStartedAt() invoked when Arez.areSpiesEnabled() is false" );
     return _startedAt;
   }
 

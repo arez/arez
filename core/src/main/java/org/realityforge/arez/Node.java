@@ -83,12 +83,12 @@ public abstract class Node
    */
   protected final boolean willPropagateSpyEvents()
   {
-    return ArezConfig.enableSpy() && getSpy().willPropagateSpyEvents();
+    return Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents();
   }
 
   /**
    * Return the spy associated with context.
-   * This method should not be invoked unless {@link ArezConfig#enableSpy()} returns true.
+   * This method should not be invoked unless {@link Arez#areSpiesEnabled()} returns true.
    *
    * @return the spy associated with context.
    */

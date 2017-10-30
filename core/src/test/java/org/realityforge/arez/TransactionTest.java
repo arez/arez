@@ -2183,7 +2183,7 @@ public class TransactionTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, transaction::getStartedAt );
 
-    assertEquals( exception.getMessage(), "Transaction.getStartedAt() invoked when ArezConfig.enableSpy() is false" );
+    assertEquals( exception.getMessage(), "Transaction.getStartedAt() invoked when Arez.areSpiesEnabled() is false" );
   }
 
   @Test
