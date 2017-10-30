@@ -19,7 +19,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final String name = ValueUtil.randomString();
-    final Observable observable = new Observable( context, name );
+    final Observable observable = new Observable( context, name, null );
     assertEquals( observable.getName(), name );
     assertEquals( observable.getContext(), context );
     assertEquals( observable.toString(), name );

@@ -122,7 +122,7 @@ public abstract class AbstractArezTest
   @Nonnull
   final Observable newObservable( final ArezContext context )
   {
-    return new Observable( context, ValueUtil.randomString() );
+    return new Observable( context, ValueUtil.randomString(), null );
   }
 
   final void setCurrentTransaction( @Nonnull final ArezContext context )

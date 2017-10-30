@@ -65,11 +65,6 @@ public final class Observable
   @Nullable
   private final Observer _owner;
 
-  Observable( @Nonnull final ArezContext context, @Nullable final String name )
-  {
-    this( context, name, null );
-  }
-
   Observable( @Nonnull final ArezContext context, @Nullable final String name, @Nullable final Observer owner )
   {
     super( context, name );

@@ -324,7 +324,7 @@ public final class ArezContext
   @Nonnull
   public Observable createObservable( @Nullable final String name )
   {
-    final Observable observable = new Observable( this, ArezConfig.enableNames() ? name : null );
+    final Observable observable = new Observable( this, ArezConfig.enableNames() ? name : null, null );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObservableCreatedEvent( observable ) );
