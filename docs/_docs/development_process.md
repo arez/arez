@@ -58,9 +58,9 @@ To enable this we needed to provide encrypted credentials to TravisCI. The easie
 to run the commands below and add the output under `env.global` key in the travis configuration.
 This encrypts the password but makes it available when building on TravisCI.
 
-    travis encrypt MAVEN_CENTRAL_PASSWORD=MyPassword
-    travis encrypt GPG_USER=MyGpgUsername
-    travis encrypt GPG_PASS=MyGpgPassword
+    travis encrypt MAVEN_CENTRAL_PASSWORD=MyPassword --add
+    travis encrypt GPG_USER=MyGpgUsername --add
+    travis encrypt GPG_PASS=MyGpgPassword --add
 
 You also need to provide a gpg key that can be used to sign the releases. To do this export a GPG that
 can be used to sign releases to a file such as `../release.asc`. This should contain the private key and
