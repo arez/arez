@@ -57,6 +57,8 @@ console.table(languages);
 * Should `ArezContext` be disposable? If so it would need to track all resources created by it and explicitly
   call dispose on owned resources. Probably can keep a cache using WeakReferences
 
+* Add test that verifies `TransactionMode` is not in compiled output of production mode.
+
 ## Process
 
 * Generate next version milestones as part of release process. Close old milestones on release.
