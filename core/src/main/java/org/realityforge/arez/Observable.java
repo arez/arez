@@ -96,7 +96,7 @@ public final class Observable
       else
       {
         getContext().safeAction( Arez.areNamesEnabled() ? getName() : null,
-                                 TransactionMode.READ_WRITE,
+                                 ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE : null,
                                  this::performDispose,
                                  null );
       }

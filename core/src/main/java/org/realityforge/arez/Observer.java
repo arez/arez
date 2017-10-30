@@ -194,7 +194,7 @@ public final class Observer
     {
       runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
       getContext().safeAction( Arez.areNamesEnabled() ? getName() : null,
-                               TransactionMode.READ_WRITE,
+                               ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE : null,
                                () -> getContext().getTransaction().markTrackerAsDisposed(),
                                this );
       if ( willPropagateSpyEvents() && !isDerivation() )
