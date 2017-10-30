@@ -11,6 +11,9 @@
   where appropriate.
 * **\[core\]** Avoid referencing `TransactionMode` if `ArezConfig.enforceTransactionType()` returns false. The
   dispose actions had been implemented without taking this into account.
+* **\[core\]** `ArezTestUtil` could still modify settings when in production mode if assertions were disabled.
+  Explicitly disable this by throwing an exception after assertion so settings will never be modified in
+  production mode.
 
 ### [v0.22](https://github.com/realityforge/arez/tree/v0.22) (2017-10-29)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.21...v0.22)
