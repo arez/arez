@@ -35,6 +35,13 @@ complete as there is too much un-said.
   - https://github.com/motion/mobx-formatters
   - https://github.com/andykog/mobx-devtools
 
+* Initial repository debug tool could just output tables ala
+
+```javascript
+var languages = { csharp: { name: "C#", paradigm: "object-oriented" }, fsharp: { name: "F#", paradigm: "functional" } };
+console.table(languages);
+```
+
 * Setup testing with browser. Headless Chrome via selenium? GWT test case?
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
   - Perhaps by the latest kid in town - https://www.cypress.io/
