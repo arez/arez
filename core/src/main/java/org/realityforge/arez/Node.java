@@ -23,7 +23,7 @@ public abstract class Node
   @Nonnull
   private final ArezContext _context;
   /**
-   * A human consumable name for node. It should be non-null if {@link ArezConfig#enableNames()} returns
+   * A human consumable name for node. It should be non-null if {@link Arez#areNamesEnabled()} returns
    * true and <tt>null</tt> otherwise.
    */
   @Nullable
@@ -31,15 +31,15 @@ public abstract class Node
 
   protected Node( @Nonnull final ArezContext context, @Nullable final String name )
   {
-    apiInvariant( () -> ArezConfig.enableNames() || null == name,
-                  () -> "Node passed a name '" + name + "' but ArezConfig.enableNames() is false" );
+    apiInvariant( () -> Arez.areNamesEnabled() || null == name,
+                  () -> "Node passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
     _context = Objects.requireNonNull( context );
-    _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
+    _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
   }
 
   /**
    * Return the name of the node.
-   * This method should NOT be invoked unless {@link ArezConfig#enableNames()} returns true and will throw an
+   * This method should NOT be invoked unless {@link Arez#areNamesEnabled()} returns true and will throw an
    * exception if invariant checking is enabled.
    *
    * @return the name of the node.
@@ -47,7 +47,7 @@ public abstract class Node
   @Nonnull
   public final String getName()
   {
-    apiInvariant( ArezConfig::enableNames, () -> "Node.getName() invoked when ArezConfig.enableNames() is false" );
+    apiInvariant( Arez::areNamesEnabled, () -> "Node.getName() invoked when Arez.areNamesEnabled() is false" );
     assert null != _name;
     return _name;
   }
@@ -65,7 +65,7 @@ public abstract class Node
   @Override
   public final String toString()
   {
-    if ( ArezConfig.enableNames() )
+    if ( Arez.areNamesEnabled() )
     {
       return getName();
     }

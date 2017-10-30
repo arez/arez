@@ -41,7 +41,7 @@ public class TransactionTest
     final Transaction transaction = new Transaction( new ArezContext(), null, null, TransactionMode.READ_ONLY, null );
     final IllegalStateException exception = expectThrows( IllegalStateException.class, transaction::getName );
 
-    assertEquals( exception.getMessage(), "Transaction.getName() invoked when ArezConfig.enableNames() is false" );
+    assertEquals( exception.getMessage(), "Transaction.getName() invoked when Arez.areNamesEnabled() is false" );
   }
 
   @Test
@@ -56,7 +56,7 @@ public class TransactionTest
                                                                                  TransactionMode.READ_ONLY,
                                                                                  null ) );
 
-    assertEquals( exception.getMessage(), "Transaction passed a name 'X' but ArezConfig.enableNames() is false" );
+    assertEquals( exception.getMessage(), "Transaction passed a name 'X' but Arez.areNamesEnabled() is false" );
   }
 
   @Test

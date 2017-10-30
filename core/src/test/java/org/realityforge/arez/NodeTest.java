@@ -56,7 +56,7 @@ public class NodeTest
     assertTrue( node.toString().startsWith( node.getClass().getName() + "@" ), "node.toString() == " + node );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, node::getName );
-    assertEquals( exception.getMessage(), "Node.getName() invoked when ArezConfig.enableNames() is false" );
+    assertEquals( exception.getMessage(), "Node.getName() invoked when Arez.areNamesEnabled() is false" );
   }
 
   @Test
@@ -71,6 +71,6 @@ public class NodeTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> new TestNode( context, name ) );
 
-    assertEquals( exception.getMessage(), "Node passed a name '" + name + "' but ArezConfig.enableNames() is false" );
+    assertEquals( exception.getMessage(), "Node passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
   }
 }

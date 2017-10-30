@@ -77,7 +77,7 @@ public final class Observable
       invariant( () -> !ArezConfig.enforceTransactionType() || _owner.isDerivation(),
                  () -> "Observable named '" + getName() + "' has owner specified " +
                        "but owner is not a derivation." );
-      assert !ArezConfig.enableNames() || _owner.getName().equals( name );
+      assert !Arez.areNamesEnabled() || _owner.getName().equals( name );
     }
   }
 
@@ -95,7 +95,7 @@ public final class Observable
       }
       else
       {
-        getContext().safeAction( ArezConfig.enableNames() ? getName() : null,
+        getContext().safeAction( Arez.areNamesEnabled() ? getName() : null,
                                  TransactionMode.READ_WRITE,
                                  this::performDispose,
                                  null );

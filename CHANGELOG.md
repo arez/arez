@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+##### Fixed
+* **\[core\]** Invariant failures could refer to `ArezConfig.enableNames()` which is a package access internal
+  API. Update messages to use public API `Arez.areNamesEnabled()`. Also update internal code to use public API
+  where appropriate.
+
 ### [v0.22](https://github.com/realityforge/arez/tree/v0.22) (2017-10-29)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.21...v0.22)
 

@@ -93,10 +93,10 @@ public final class Observer
   Observer( @Nonnull final ComputedValue<?> computedValue )
   {
     this( computedValue.getContext(),
-          ArezConfig.enableNames() ? computedValue.getName() : null,
+          Arez.areNamesEnabled() ? computedValue.getName() : null,
           computedValue,
           ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE_OWNED : null,
-          o -> o.getContext().action( ArezConfig.enableNames() ? o.getName() : null,
+          o -> o.getContext().action( Arez.areNamesEnabled() ? o.getName() : null,
                                       ArezConfig.enforceTransactionType() ? o.getMode() : null,
                                       computedValue::compute,
                                       false,
@@ -141,7 +141,7 @@ public final class Observer
     {
       assert null == mode;
     }
-    assert null == computedValue || !ArezConfig.enableNames() || computedValue.getName().equals( name );
+    assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
     _computedValue = computedValue;
     _mode = ArezConfig.enforceTransactionType() ? Objects.requireNonNull( mode ) : null;
     _reaction = Objects.requireNonNull( reaction );
@@ -193,7 +193,7 @@ public final class Observer
     if ( !_disposed )
     {
       runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
-      getContext().safeAction( ArezConfig.enableNames() ? getName() : null,
+      getContext().safeAction( Arez.areNamesEnabled() ? getName() : null,
                                TransactionMode.READ_WRITE,
                                () -> getContext().getTransaction().markTrackerAsDisposed(),
                                this );

@@ -25,7 +25,7 @@ final class Transaction
   @Nonnull
   private final ArezContext _context;
   /**
-   * A human consumable name for transaction. It should be non-null if {@link ArezConfig#enableNames()} returns
+   * A human consumable name for transaction. It should be non-null if {@link Arez#areNamesEnabled()} returns
    * true and <tt>null</tt> otherwise.
    */
   @Nullable
@@ -195,10 +195,12 @@ final class Transaction
                @Nullable final TransactionMode mode,
                @Nullable final Observer tracker )
   {
-    invariant( () -> ArezConfig.enableNames() || null == name,
-               () -> "Transaction passed a name '" + name + "' but ArezConfig.enableNames() is false" );
+    invariant( () -> {
+                 return Arez.areNamesEnabled() || null == name;
+               },
+               () -> "Transaction passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
     _context = Objects.requireNonNull( context );
-    _name = ArezConfig.enableNames() ? Objects.requireNonNull( name ) : null;
+    _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
     _id = context.nextTransactionId();
     _previous = previous;
     _previousInSameContext = Arez.areZonesEnabled() ? findPreviousTransactionInSameContext() : null;
@@ -231,7 +233,7 @@ final class Transaction
 
   /**
    * Return the name of the transaction.
-   * This method should NOT be invoked unless {@link ArezConfig#enableNames()} returns true and will throw an
+   * This method should NOT be invoked unless {@link Arez#areNamesEnabled()} returns true and will throw an
    * exception if invariant checking is enabled.
    *
    * @return the name of the transaction.
@@ -239,8 +241,8 @@ final class Transaction
   @Nonnull
   String getName()
   {
-    invariant( ArezConfig::enableNames,
-               () -> "Transaction.getName() invoked when ArezConfig.enableNames() is false" );
+    invariant( Arez::areNamesEnabled,
+               () -> "Transaction.getName() invoked when Arez.areNamesEnabled() is false" );
     assert null != _name;
     return _name;
   }
@@ -265,7 +267,7 @@ final class Transaction
   @Override
   public String toString()
   {
-    return ArezConfig.enableNames() ? getName() : super.toString();
+    return Arez.areNamesEnabled() ? getName() : super.toString();
   }
 
   void markTrackerAsDisposed()
@@ -569,7 +571,7 @@ final class Transaction
           found = true;
           break;
         }
-        names.add( ArezConfig.enableNames() ? t.getName() : String.valueOf( t.getId() ) );
+        names.add( Arez.areNamesEnabled() ? t.getName() : String.valueOf( t.getId() ) );
         t = t.getPrevious();
       }
       final boolean check = found;

@@ -154,7 +154,7 @@ public final class ArezContext
   @Nullable
   public String generateNodeName( @Nonnull final String prefix, @Nullable final String name )
   {
-    return ArezConfig.enableNames() ?
+    return Arez.areNamesEnabled() ?
            null != name ? name : prefix + "@" + _nextNodeId++ :
            null;
   }
@@ -324,7 +324,7 @@ public final class ArezContext
   @Nonnull
   public Observable createObservable( @Nullable final String name )
   {
-    final Observable observable = new Observable( this, ArezConfig.enableNames() ? name : null, null );
+    final Observable observable = new Observable( this, Arez.areNamesEnabled() ? name : null, null );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObservableCreatedEvent( observable ) );
