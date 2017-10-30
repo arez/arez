@@ -44,7 +44,7 @@ public final class Arez
    */
   public static boolean areZonesEnabled()
   {
-    return ArezConfig.enableZones();
+    return ArezConfig.areZonesEnabled();
   }
 
   /**
@@ -54,7 +54,7 @@ public final class Arez
    */
   public static boolean areNamesEnabled()
   {
-    return ArezConfig.enableNames();
+    return ArezConfig.areNamesEnabled();
   }
 
   /**
@@ -64,7 +64,7 @@ public final class Arez
    */
   public static boolean areSpiesEnabled()
   {
-    return ArezConfig.enableSpy();
+    return ArezConfig.areSpiesEnabled();
   }
 
   /**
