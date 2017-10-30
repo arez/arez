@@ -82,6 +82,7 @@ to package them into an archive and encrypt the archive. As we need multiple key
 and publish to GitHub we have been forced to use this strategy.
 
     $ (cd .. && tar cvf secrets.tar release.asc deploy)
+    $ mkdir etc
     $ travis encrypt-file ../secrets.tar etc/secrets
     $ git add etc/secrets
 
