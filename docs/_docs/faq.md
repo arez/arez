@@ -113,4 +113,4 @@ their own `toString()` method. If any superclass other than the base `Object` cl
 method, then Arez assumes that the user will want to keep that method. If the method has not been overridden
 then Arez will override `toString()` to return a value such as `"ArezComponent[myComponentName]"`. It should be
 noted that if names are not enabled by the Arez compile time configuration (i.e. `Arez.areNamesEnabled()` returns
-false) then the base `Objetc.toString()` method will be invoked. 
+false) then the base `Objetc.toString()` method will be invoked.
