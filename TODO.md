@@ -34,6 +34,7 @@ complete as there is too much un-said.
 
 * Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
   - https://github.com/zalmoxisus/mobx-remotedev
+  - http://www.mattzeunert.com/2016/02/19/custom-chrome-devtools-object-formatters.html
   - https://github.com/motion/mobx-formatters
   - https://github.com/andykog/mobx-devtools
 
