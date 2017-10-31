@@ -24,7 +24,7 @@ public final class Arez_NoToStringPresent extends NoToStringPresent implements D
   }
 
   final long $$arez$$_id() {
-    return $$arez$$_id;
+    return this.$$arez$$_id;
   }
 
   String $$arez$$_name() {
@@ -33,13 +33,13 @@ public final class Arez_NoToStringPresent extends NoToStringPresent implements D
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
     }
   }
 

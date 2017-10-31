@@ -32,7 +32,7 @@ public class RepositoryWithExplicitIdRepository implements RepositoryWithExplici
   private final HashMap<Integer, RepositoryWithExplicitId> $$arez$$_entities = new HashMap<>();
   ;
 
-  private final Collection<RepositoryWithExplicitId> $$arez$$_entityList = Collections.unmodifiableCollection( $$arez$$_entities.values() );
+  private final Collection<RepositoryWithExplicitId> $$arez$$_entityList = Collections.unmodifiableCollection( this.$$arez$$_entities.values() );
   ;
 
   RepositoryWithExplicitIdRepository() {
@@ -50,27 +50,27 @@ public class RepositoryWithExplicitIdRepository implements RepositoryWithExplici
   RepositoryWithExplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_RepositoryWithExplicitId entity = new Arez_RepositoryWithExplicitId(packageName,name);
     entity.$$arez$$_setOnDispose( e -> destroy( e ) );
-    $$arez$$_entities.put( entity.getId(), entity );
+    this.$$arez$$_entities.put( entity.getId(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
   }
 
   @PreDispose
   final void preDispose() {
-    $$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
-    $$arez$$_entities.clear();
+    this.$$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
+    this.$$arez$$_entities.clear();
     getEntitiesObservable().reportChanged();
   }
 
   public boolean contains(@Nonnull final RepositoryWithExplicitId entity) {
     getEntitiesObservable().reportObserved();
-    return $$arez$$_entities.containsKey( entity.getId() );
+    return this.$$arez$$_entities.containsKey( entity.getId() );
   }
 
   @Action
   public void destroy(@Nonnull final RepositoryWithExplicitId entity) {
     assert null != entity;
-    if ( null != $$arez$$_entities.remove( entity.getId() ) ) {
+    if ( null != this.$$arez$$_entities.remove( entity.getId() ) ) {
       ((Arez_RepositoryWithExplicitId) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();
@@ -82,7 +82,7 @@ public class RepositoryWithExplicitIdRepository implements RepositoryWithExplici
   @Nullable
   public RepositoryWithExplicitId findById(final int id) {
     getEntitiesObservable().reportObserved();
-    return $$arez$$_entities.get( id );
+    return this.$$arez$$_entities.get( id );
   }
 
   @Nonnull

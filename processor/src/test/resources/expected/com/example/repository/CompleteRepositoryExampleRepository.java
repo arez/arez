@@ -32,7 +32,7 @@ public class CompleteRepositoryExampleRepository implements CompleteRepositoryEx
   private final HashMap<Integer, CompleteRepositoryExample> $$arez$$_entities = new HashMap<>();
   ;
 
-  private final Collection<CompleteRepositoryExample> $$arez$$_entityList = Collections.unmodifiableCollection( $$arez$$_entities.values() );
+  private final Collection<CompleteRepositoryExample> $$arez$$_entityList = Collections.unmodifiableCollection( this.$$arez$$_entities.values() );
   ;
 
   CompleteRepositoryExampleRepository() {
@@ -50,27 +50,27 @@ public class CompleteRepositoryExampleRepository implements CompleteRepositoryEx
   CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_CompleteRepositoryExample entity = new Arez_CompleteRepositoryExample(packageName,name);
     entity.$$arez$$_setOnDispose( e -> destroy( e ) );
-    $$arez$$_entities.put( entity.getId(), entity );
+    this.$$arez$$_entities.put( entity.getId(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
   }
 
   @PreDispose
   final void preDispose() {
-    $$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
-    $$arez$$_entities.clear();
+    this.$$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
+    this.$$arez$$_entities.clear();
     getEntitiesObservable().reportChanged();
   }
 
   public boolean contains(@Nonnull final CompleteRepositoryExample entity) {
     getEntitiesObservable().reportObserved();
-    return $$arez$$_entities.containsKey( entity.getId() );
+    return this.$$arez$$_entities.containsKey( entity.getId() );
   }
 
   @Action
   public void destroy(@Nonnull final CompleteRepositoryExample entity) {
     assert null != entity;
-    if ( null != $$arez$$_entities.remove( entity.getId() ) ) {
+    if ( null != this.$$arez$$_entities.remove( entity.getId() ) ) {
       ((Arez_CompleteRepositoryExample) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();
@@ -82,7 +82,7 @@ public class CompleteRepositoryExampleRepository implements CompleteRepositoryEx
   @Nullable
   public CompleteRepositoryExample findById(final int id) {
     getEntitiesObservable().reportObserved();
-    return $$arez$$_entities.get( id );
+    return this.$$arez$$_entities.get( id );
   }
 
   @Nonnull

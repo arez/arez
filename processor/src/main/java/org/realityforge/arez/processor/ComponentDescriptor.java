@@ -1441,7 +1441,7 @@ final class ComponentDescriptor
     final MethodSpec.Builder method = MethodSpec.methodBuilder( _contextRef.getSimpleName().toString() ).
       addModifiers( Modifier.FINAL ).
       returns( GeneratorUtil.AREZ_CONTEXT_CLASSNAME ).
-      addStatement( "return $N", GeneratorUtil.CONTEXT_FIELD_NAME );
+      addStatement( "return this.$N", GeneratorUtil.CONTEXT_FIELD_NAME );
     ProcessorUtil.copyDocumentedAnnotations( _contextRef, method );
     ProcessorUtil.copyAccessModifiers( _contextRef, method );
     return method.build();
@@ -1456,7 +1456,7 @@ final class ComponentDescriptor
     return MethodSpec.methodBuilder( GeneratorUtil.ID_FIELD_NAME ).
       addModifiers( Modifier.FINAL ).
       returns( TypeName.LONG ).
-      addStatement( "return $N", GeneratorUtil.ID_FIELD_NAME ).build();
+      addStatement( "return this.$N", GeneratorUtil.ID_FIELD_NAME ).build();
   }
 
   /**
@@ -1514,7 +1514,7 @@ final class ComponentDescriptor
     assert isDisposable();
     return MethodSpec.methodBuilder( GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME ).
       addParameter( ParameterSpec.builder( ClassName.bestGuess( "OnDispose" ), "onDispose" ).build() ).
-      addStatement( "$N = onDispose", GeneratorUtil.ON_DISPOSE_FIELD_NAME ).build();
+      addStatement( "this.$N = onDispose", GeneratorUtil.ON_DISPOSE_FIELD_NAME ).build();
   }
 
   /**
@@ -1533,7 +1533,7 @@ final class ComponentDescriptor
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "if ( !isDisposed() )" );
-    codeBlock.addStatement( "$N = true", GeneratorUtil.DISPOSED_FIELD_NAME );
+    codeBlock.addStatement( "this.$N = true", GeneratorUtil.DISPOSED_FIELD_NAME );
     if ( null != _preDispose ||
          null != _postDispose ||
          hasRepository() ||
@@ -1560,9 +1560,9 @@ final class ComponentDescriptor
       if ( hasRepository() )
       {
         final CodeBlock.Builder onDisposeCodeBlock = CodeBlock.builder();
-        onDisposeCodeBlock.beginControlFlow( "if ( null != $N )", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
-        onDisposeCodeBlock.addStatement( "$N.onDispose( this )", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
-        onDisposeCodeBlock.addStatement( "$N = null", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
+        onDisposeCodeBlock.beginControlFlow( "if ( null != this.$N )", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
+        onDisposeCodeBlock.addStatement( "this.$N.onDispose( this )", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
+        onDisposeCodeBlock.addStatement( "this.$N = null", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
         onDisposeCodeBlock.endControlFlow();
         actionBlock.add( onDisposeCodeBlock.build() );
       }
@@ -1604,7 +1604,7 @@ final class ComponentDescriptor
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
 
-    builder.addStatement( "return $N", GeneratorUtil.DISPOSED_FIELD_NAME );
+    builder.addStatement( "return this.$N", GeneratorUtil.DISPOSED_FIELD_NAME );
 
     return builder.build();
   }
@@ -2096,11 +2096,11 @@ final class ComponentDescriptor
     method.addStatement( "$N().reportObserved()", GET_OBSERVABLE_METHOD );
     if ( null != _componentId )
     {
-      method.addStatement( "return $N.containsKey( entity.$N() )", ENTITIES_FIELD_NAME, getIdMethodName() );
+      method.addStatement( "return this.$N.containsKey( entity.$N() )", ENTITIES_FIELD_NAME, getIdMethodName() );
     }
     else
     {
-      method.addStatement( "return entity instanceof $T && $N.containsKey( (($T) entity).$N() )",
+      method.addStatement( "return entity instanceof $T && this.$N.containsKey( (($T) entity).$N() )",
                            arezType,
                            ENTITIES_FIELD_NAME,
                            arezType,
@@ -2122,11 +2122,11 @@ final class ComponentDescriptor
     final CodeBlock.Builder builder = CodeBlock.builder();
     if ( null != _componentId )
     {
-      builder.beginControlFlow( "if ( null != $N.remove( entity.$N() ) )", ENTITIES_FIELD_NAME, getIdMethodName() );
+      builder.beginControlFlow( "if ( null != this.$N.remove( entity.$N() ) )", ENTITIES_FIELD_NAME, getIdMethodName() );
     }
     else
     {
-      builder.beginControlFlow( "if ( entity instanceof $T && null != $N.remove( (($T) entity).$N() ) )",
+      builder.beginControlFlow( "if ( entity instanceof $T && null != this.$N.remove( (($T) entity).$N() ) )",
                                 arezType,
                                 ENTITIES_FIELD_NAME,
                                 arezType,
@@ -2154,8 +2154,8 @@ final class ComponentDescriptor
     return MethodSpec.methodBuilder( "preDispose" ).
       addModifiers( Modifier.FINAL ).
       addAnnotation( PreDispose.class ).
-      addStatement( "$N.forEach( e -> $T.dispose( e ) )", ENTITYLIST_FIELD_NAME, GeneratorUtil.DISPOSABLE_CLASSNAME ).
-      addStatement( "$N.clear()", ENTITIES_FIELD_NAME ).
+      addStatement( "this.$N.forEach( e -> $T.dispose( e ) )", ENTITYLIST_FIELD_NAME, GeneratorUtil.DISPOSABLE_CLASSNAME ).
+      addStatement( "this.$N.clear()", ENTITIES_FIELD_NAME ).
       addStatement( "$N().reportChanged()", GET_OBSERVABLE_METHOD ).
       build();
   }
@@ -2171,7 +2171,7 @@ final class ComponentDescriptor
       addAnnotation( Nullable.class ).
       returns( TypeName.get( getElement().asType() ) ).
       addStatement( "$N().reportObserved()", GET_OBSERVABLE_METHOD ).
-      addStatement( "return $N.get( id )", ENTITIES_FIELD_NAME ).build();
+      addStatement( "return this.$N.get( id )", ENTITIES_FIELD_NAME ).build();
   }
 
   @Nonnull
@@ -2253,7 +2253,7 @@ final class ComponentDescriptor
       builder.addStatement( "entity.$N( e -> destroy( e ) )", GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME );
     }
 
-    builder.addStatement( "$N.put( entity.$N(), entity )", ENTITIES_FIELD_NAME, getIdMethodName() );
+    builder.addStatement( "this.$N.put( entity.$N(), entity )", ENTITIES_FIELD_NAME, getIdMethodName() );
     builder.addStatement( "$N().reportChanged()", GET_OBSERVABLE_METHOD );
     builder.addStatement( "return entity", ENTITIES_FIELD_NAME );
     return builder.build();
@@ -2298,7 +2298,7 @@ final class ComponentDescriptor
     // Create the entityList field
     {
       final CodeBlock.Builder initializer =
-        CodeBlock.builder().addStatement( "$T.unmodifiableCollection( $N.values() )",
+        CodeBlock.builder().addStatement( "$T.unmodifiableCollection( this.$N.values() )",
                                           Collections.class,
                                           ENTITIES_FIELD_NAME );
       final ParameterizedTypeName fieldType =

@@ -27,16 +27,16 @@ public final class Arez_RepositoryWithProtectedConstructorRepository extends Rep
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
       this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.dispose" : null, () -> { {
         super.preDispose();
-        $$arez$$_entities.dispose();
+        this.$$arez$$_entities.dispose();
       } } );
     }
   }
@@ -44,20 +44,20 @@ public final class Arez_RepositoryWithProtectedConstructorRepository extends Rep
   @Nonnull
   @Override
   protected Collection<RepositoryWithProtectedConstructor> entities() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();
   }
 
   @Override
   Observable getEntitiesObservable() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
     return $$arez$$_entities;
   }
 
   @Override
   public void destroy(@Nonnull final RepositoryWithProtectedConstructor entity) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
     try {
       this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.destroy" : null, true, () -> super.destroy(entity), entity );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -74,7 +74,7 @@ public final class Arez_RepositoryWithProtectedConstructorRepository extends Rep
   @Nonnull
   @Override
   protected RepositoryWithProtectedConstructor create(@Nonnull final String name) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithProtectedConstructorRepository'" );
     try {
       return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.create_name" : null, true, () -> super.create(name), name );
     } catch( final RuntimeException $$arez$$_e ) {

@@ -31,7 +31,7 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
   private final HashMap<Long, NestedModel.BasicActionModel> $$arez$$_entities = new HashMap<>();
   ;
 
-  private final Collection<NestedModel.BasicActionModel> $$arez$$_entityList = Collections.unmodifiableCollection( $$arez$$_entities.values() );
+  private final Collection<NestedModel.BasicActionModel> $$arez$$_entityList = Collections.unmodifiableCollection( this.$$arez$$_entities.values() );
   ;
 
   NestedModel$BasicActionModelRepository() {
@@ -49,27 +49,27 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
   public NestedModel.BasicActionModel create() {
     final NestedModel$Arez_BasicActionModel entity = new NestedModel$Arez_BasicActionModel();
     entity.$$arez$$_setOnDispose( e -> destroy( e ) );
-    $$arez$$_entities.put( entity.$$arez$$_id(), entity );
+    this.$$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
   }
 
   @PreDispose
   final void preDispose() {
-    $$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
-    $$arez$$_entities.clear();
+    this.$$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
+    this.$$arez$$_entities.clear();
     getEntitiesObservable().reportChanged();
   }
 
   public boolean contains(@Nonnull final NestedModel.BasicActionModel entity) {
     getEntitiesObservable().reportObserved();
-    return entity instanceof NestedModel$Arez_BasicActionModel && $$arez$$_entities.containsKey( ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_id() );
+    return entity instanceof NestedModel$Arez_BasicActionModel && this.$$arez$$_entities.containsKey( ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_id() );
   }
 
   @Action
   public void destroy(@Nonnull final NestedModel.BasicActionModel entity) {
     assert null != entity;
-    if ( entity instanceof NestedModel$Arez_BasicActionModel && null != $$arez$$_entities.remove( ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_id() ) ) {
+    if ( entity instanceof NestedModel$Arez_BasicActionModel && null != this.$$arez$$_entities.remove( ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_id() ) ) {
       ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();

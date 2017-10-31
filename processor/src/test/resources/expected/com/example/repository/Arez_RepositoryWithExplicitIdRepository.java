@@ -27,16 +27,16 @@ public final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWit
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
       this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.dispose" : null, () -> { {
         super.preDispose();
-        $$arez$$_entities.dispose();
+        this.$$arez$$_entities.dispose();
       } } );
     }
   }
@@ -44,20 +44,20 @@ public final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWit
   @Nonnull
   @Override
   protected Collection<RepositoryWithExplicitId> entities() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithExplicitIdRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithExplicitIdRepository'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();
   }
 
   @Override
   Observable getEntitiesObservable() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithExplicitIdRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithExplicitIdRepository'" );
     return $$arez$$_entities;
   }
 
   @Override
   public void destroy(@Nonnull final RepositoryWithExplicitId entity) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithExplicitIdRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithExplicitIdRepository'" );
     try {
       this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.destroy" : null, true, () -> super.destroy(entity), entity );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -74,7 +74,7 @@ public final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWit
   @Nonnull
   @Override
   RepositoryWithExplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithExplicitIdRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithExplicitIdRepository'" );
     try {
       return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
     } catch( final RuntimeException $$arez$$_e ) {

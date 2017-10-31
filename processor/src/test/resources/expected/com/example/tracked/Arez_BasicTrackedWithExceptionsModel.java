@@ -31,7 +31,7 @@ public final class Arez_BasicTrackedWithExceptionsModel extends BasicTrackedWith
   }
 
   final long $$arez$$_id() {
-    return $$arez$$_id;
+    return this.$$arez$$_id;
   }
 
   String $$arez$$_name() {
@@ -40,23 +40,23 @@ public final class Arez_BasicTrackedWithExceptionsModel extends BasicTrackedWith
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
       this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-        $$arez$$_render.dispose();
+        this.$$arez$$_render.dispose();
       } } );
     }
   }
 
   @Override
   public void render() throws ParseException {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.track( this.$$arez$$_render, () -> super.render() );
     } catch( final ParseException $$arez$$_e ) {

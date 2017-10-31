@@ -25,7 +25,7 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
   }
 
   final long $$arez$$_id() {
-    return $$arez$$_id;
+    return this.$$arez$$_id;
   }
 
   String $$arez$$_name() {
@@ -34,19 +34,19 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
     }
   }
 
   @Override
   public void myAction() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".myAction" : null, true, () -> super.myAction() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -62,7 +62,7 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
 
   @Override
   public void myAction(final int i) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".myAction2" : null, true, () -> super.myAction(i), i );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -78,7 +78,7 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
 
   @Override
   public void myAction(final float i) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".myAction3" : null, true, () -> super.myAction(i), i );
     } catch( final RuntimeException $$arez$$_e ) {

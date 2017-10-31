@@ -48,41 +48,41 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
       this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-        if ( null != $$arez$$_onDispose ) {
-          $$arez$$_onDispose.onDispose( this );
-          $$arez$$_onDispose = null;
+        if ( null != this.$$arez$$_onDispose ) {
+          this.$$arez$$_onDispose.onDispose( this );
+          this.$$arez$$_onDispose = null;
         }
-        $$arez$$_qualifiedName.dispose();
-        $$arez$$_name.dispose();
-        $$arez$$_packageName.dispose();
-        $$arez$$_rawQualifiedName.dispose();
+        this.$$arez$$_qualifiedName.dispose();
+        this.$$arez$$_name.dispose();
+        this.$$arez$$_packageName.dispose();
+        this.$$arez$$_rawQualifiedName.dispose();
       } } );
     }
   }
 
   void $$arez$$_setOnDispose(OnDispose onDispose) {
-    $$arez$$_onDispose = onDispose;
+    this.$$arez$$_onDispose = onDispose;
   }
 
   @Nonnull
   @Override
   public String getName() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_name.reportObserved();
     return super.getName();
   }
 
   @Override
   public void setName(@Nonnull final String name) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( !Objects.equals(name, super.getName()) ) {
       super.setName(name);
       this.$$arez$$_name.reportChanged();
@@ -92,14 +92,14 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
   @Nonnull
   @Override
   public String getPackageName() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_packageName.reportObserved();
     return super.getPackageName();
   }
 
   @Override
   public void setPackageName(@Nonnull final String packageName) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( !Objects.equals(packageName, super.getPackageName()) ) {
       super.setPackageName(packageName);
       this.$$arez$$_packageName.reportChanged();
@@ -109,14 +109,14 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
   @Nullable
   @Override
   public String getRawQualifiedName() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_rawQualifiedName.reportObserved();
     return super.getRawQualifiedName();
   }
 
   @Override
   public void setQualifiedName(@Nullable final String qualifiedName) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( !Objects.equals(qualifiedName, super.getRawQualifiedName()) ) {
       super.setQualifiedName(qualifiedName);
       this.$$arez$$_rawQualifiedName.reportChanged();
@@ -126,7 +126,7 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
   @Nonnull
   @Override
   public String getQualifiedName() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     return this.$$arez$$_qualifiedName.get();
   }
 

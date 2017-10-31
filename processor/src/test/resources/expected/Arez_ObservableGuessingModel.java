@@ -37,7 +37,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   }
 
   final long $$arez$$_id() {
-    return $$arez$$_id;
+    return this.$$arez$$_id;
   }
 
   String $$arez$$_name() {
@@ -46,31 +46,31 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
       this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-        $$arez$$_string.dispose();
-        $$arez$$_foo.dispose();
-        $$arez$$_time.dispose();
+        this.$$arez$$_string.dispose();
+        this.$$arez$$_foo.dispose();
+        this.$$arez$$_time.dispose();
       } } );
     }
   }
 
   @Override
   public String getString() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_string.reportObserved();
     return super.getString();
   }
 
   @Override
   public void setString(final String v) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( !Objects.equals(v, super.getString()) ) {
       super.setString(v);
       this.$$arez$$_string.reportChanged();
@@ -79,14 +79,14 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
 
   @Override
   public boolean isFoo() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_foo.reportObserved();
     return super.isFoo();
   }
 
   @Override
   public void setFoo(final boolean x) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( x != super.isFoo() ) {
       super.setFoo(x);
       this.$$arez$$_foo.reportChanged();
@@ -95,14 +95,14 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
 
   @Override
   public long getTime() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( time != super.getTime() ) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();

@@ -35,14 +35,14 @@ final class GeneratorUtil
     {
       if ( descriptor.isSingleton() )
       {
-        builder.addStatement( "$T.invariant( () -> !$N, () -> \"Method invoked on invalid component '$N'\" )",
+        builder.addStatement( "$T.invariant( () -> !this.$N, () -> \"Method invoked on invalid component '$N'\" )",
                               GUARDS_CLASSNAME,
                               GeneratorUtil.DISPOSED_FIELD_NAME,
                               descriptor.getName() );
       }
       else
       {
-        builder.addStatement( "$T.invariant( () -> !$N, () -> \"Method invoked on invalid " +
+        builder.addStatement( "$T.invariant( () -> !this.$N, () -> \"Method invoked on invalid " +
                               "component '\" + $N() + \"'\" )",
                               GUARDS_CLASSNAME,
                               GeneratorUtil.DISPOSED_FIELD_NAME,

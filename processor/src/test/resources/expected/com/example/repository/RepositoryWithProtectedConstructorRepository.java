@@ -31,7 +31,7 @@ public class RepositoryWithProtectedConstructorRepository implements RepositoryW
   private final HashMap<Long, RepositoryWithProtectedConstructor> $$arez$$_entities = new HashMap<>();
   ;
 
-  private final Collection<RepositoryWithProtectedConstructor> $$arez$$_entityList = Collections.unmodifiableCollection( $$arez$$_entities.values() );
+  private final Collection<RepositoryWithProtectedConstructor> $$arez$$_entityList = Collections.unmodifiableCollection( this.$$arez$$_entities.values() );
   ;
 
   RepositoryWithProtectedConstructorRepository() {
@@ -49,27 +49,27 @@ public class RepositoryWithProtectedConstructorRepository implements RepositoryW
   protected RepositoryWithProtectedConstructor create(@Nonnull final String name) {
     final Arez_RepositoryWithProtectedConstructor entity = new Arez_RepositoryWithProtectedConstructor(name);
     entity.$$arez$$_setOnDispose( e -> destroy( e ) );
-    $$arez$$_entities.put( entity.$$arez$$_id(), entity );
+    this.$$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
   }
 
   @PreDispose
   final void preDispose() {
-    $$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
-    $$arez$$_entities.clear();
+    this.$$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
+    this.$$arez$$_entities.clear();
     getEntitiesObservable().reportChanged();
   }
 
   public boolean contains(@Nonnull final RepositoryWithProtectedConstructor entity) {
     getEntitiesObservable().reportObserved();
-    return entity instanceof Arez_RepositoryWithProtectedConstructor && $$arez$$_entities.containsKey( ((Arez_RepositoryWithProtectedConstructor) entity).$$arez$$_id() );
+    return entity instanceof Arez_RepositoryWithProtectedConstructor && this.$$arez$$_entities.containsKey( ((Arez_RepositoryWithProtectedConstructor) entity).$$arez$$_id() );
   }
 
   @Action
   public void destroy(@Nonnull final RepositoryWithProtectedConstructor entity) {
     assert null != entity;
-    if ( entity instanceof Arez_RepositoryWithProtectedConstructor && null != $$arez$$_entities.remove( ((Arez_RepositoryWithProtectedConstructor) entity).$$arez$$_id() ) ) {
+    if ( entity instanceof Arez_RepositoryWithProtectedConstructor && null != this.$$arez$$_entities.remove( ((Arez_RepositoryWithProtectedConstructor) entity).$$arez$$_id() ) ) {
       ((Arez_RepositoryWithProtectedConstructor) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();

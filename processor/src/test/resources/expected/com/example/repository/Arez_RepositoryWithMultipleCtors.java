@@ -47,7 +47,7 @@ public final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultip
   }
 
   final long $$arez$$_id() {
-    return $$arez$$_id;
+    return this.$$arez$$_id;
   }
 
   String $$arez$$_name() {
@@ -56,38 +56,38 @@ public final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultip
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
       this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-        if ( null != $$arez$$_onDispose ) {
-          $$arez$$_onDispose.onDispose( this );
-          $$arez$$_onDispose = null;
+        if ( null != this.$$arez$$_onDispose ) {
+          this.$$arez$$_onDispose.onDispose( this );
+          this.$$arez$$_onDispose = null;
         }
-        $$arez$$_name.dispose();
+        this.$$arez$$_name.dispose();
       } } );
     }
   }
 
   void $$arez$$_setOnDispose(OnDispose onDispose) {
-    $$arez$$_onDispose = onDispose;
+    this.$$arez$$_onDispose = onDispose;
   }
 
   @Nonnull
   @Override
   public String getName() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_name.reportObserved();
     return super.getName();
   }
 
   @Override
   public void setName(@Nonnull final String name) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( !Objects.equals(name, super.getName()) ) {
       super.setName(name);
       this.$$arez$$_name.reportChanged();

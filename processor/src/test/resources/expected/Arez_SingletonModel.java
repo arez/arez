@@ -41,32 +41,32 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
       this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? "SingletonModel.dispose" : null, () -> { {
-        $$arez$$_myAutorun.dispose();
-        $$arez$$_render.dispose();
-        $$arez$$_someValue.dispose();
-        $$arez$$_time.dispose();
+        this.$$arez$$_myAutorun.dispose();
+        this.$$arez$$_render.dispose();
+        this.$$arez$$_someValue.dispose();
+        this.$$arez$$_time.dispose();
       } } );
     }
   }
 
   @Override
   public long getTime() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
     if ( time != super.getTime() ) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
@@ -75,13 +75,13 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
 
   @Override
   public void myAutorun() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
     this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? "SingletonModel.myAutorun" : null, true, () -> super.myAutorun() );
   }
 
   @Override
   public void doStuff(final long time) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
     try {
       this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "SingletonModel.doStuff" : null, true, () -> super.doStuff(time), time );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -97,14 +97,14 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
 
   @Override
   public int someValue() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
     return this.$$arez$$_someValue.get();
   }
 
   @Override
   public void render() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'SingletonModel'" );
     try {
       this.$$arez$$_context.safeTrack( this.$$arez$$_render, () -> super.render() );
     } catch( final RuntimeException $$arez$$_e ) {

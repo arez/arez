@@ -31,7 +31,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   private final HashMap<Long, RepositoryWithMultipleCtors> $$arez$$_entities = new HashMap<>();
   ;
 
-  private final Collection<RepositoryWithMultipleCtors> $$arez$$_entityList = Collections.unmodifiableCollection( $$arez$$_entities.values() );
+  private final Collection<RepositoryWithMultipleCtors> $$arez$$_entityList = Collections.unmodifiableCollection( this.$$arez$$_entities.values() );
   ;
 
   RepositoryWithMultipleCtorsRepository() {
@@ -49,7 +49,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   RepositoryWithMultipleCtors create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(packageName,name);
     entity.$$arez$$_setOnDispose( e -> destroy( e ) );
-    $$arez$$_entities.put( entity.$$arez$$_id(), entity );
+    this.$$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
   }
@@ -61,7 +61,7 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   RepositoryWithMultipleCtors create(@Nonnull final String name) {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(name);
     entity.$$arez$$_setOnDispose( e -> destroy( e ) );
-    $$arez$$_entities.put( entity.$$arez$$_id(), entity );
+    this.$$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
   }
@@ -73,27 +73,27 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   RepositoryWithMultipleCtors create() {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors();
     entity.$$arez$$_setOnDispose( e -> destroy( e ) );
-    $$arez$$_entities.put( entity.$$arez$$_id(), entity );
+    this.$$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
   }
 
   @PreDispose
   final void preDispose() {
-    $$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
-    $$arez$$_entities.clear();
+    this.$$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
+    this.$$arez$$_entities.clear();
     getEntitiesObservable().reportChanged();
   }
 
   public boolean contains(@Nonnull final RepositoryWithMultipleCtors entity) {
     getEntitiesObservable().reportObserved();
-    return entity instanceof Arez_RepositoryWithMultipleCtors && $$arez$$_entities.containsKey( ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_id() );
+    return entity instanceof Arez_RepositoryWithMultipleCtors && this.$$arez$$_entities.containsKey( ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_id() );
   }
 
   @Action
   public void destroy(@Nonnull final RepositoryWithMultipleCtors entity) {
     assert null != entity;
-    if ( entity instanceof Arez_RepositoryWithMultipleCtors && null != $$arez$$_entities.remove( ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_id() ) ) {
+    if ( entity instanceof Arez_RepositoryWithMultipleCtors && null != this.$$arez$$_entities.remove( ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_id() ) ) {
       ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();

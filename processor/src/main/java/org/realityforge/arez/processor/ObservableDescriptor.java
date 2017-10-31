@@ -180,7 +180,7 @@ final class ObservableDescriptor
 
   void buildDisposer( @Nonnull final CodeBlock.Builder codeBlock )
   {
-    codeBlock.addStatement( "$N.dispose()", GeneratorUtil.FIELD_PREFIX + getName() );
+    codeBlock.addStatement( "this.$N.dispose()", GeneratorUtil.FIELD_PREFIX + getName() );
   }
 
   void buildMethods( @Nonnull final TypeSpec.Builder builder )

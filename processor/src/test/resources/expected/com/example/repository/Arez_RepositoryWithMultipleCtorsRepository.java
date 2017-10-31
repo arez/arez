@@ -27,16 +27,16 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
       this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.dispose" : null, () -> { {
         super.preDispose();
-        $$arez$$_entities.dispose();
+        this.$$arez$$_entities.dispose();
       } } );
     }
   }
@@ -44,21 +44,21 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
   @Nonnull
   @Override
   protected Collection<RepositoryWithMultipleCtors> entities() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();
   }
 
   @Override
   Observable getEntitiesObservable() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     return $$arez$$_entities;
   }
 
   @Nonnull
   @Override
   RepositoryWithMultipleCtors create() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
       return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create" : null, true, () -> super.create() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -74,7 +74,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
 
   @Override
   public void destroy(@Nonnull final RepositoryWithMultipleCtors entity) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
       this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.destroy" : null, true, () -> super.destroy(entity), entity );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -91,7 +91,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
   @Nonnull
   @Override
   RepositoryWithMultipleCtors create(@Nonnull final String packageName, @Nonnull final String name) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
       return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -108,7 +108,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
   @Nonnull
   @Override
   RepositoryWithMultipleCtors create(@Nonnull final String name) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'RepositoryWithMultipleCtorsRepository'" );
     try {
       return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.create_name" : null, true, () -> super.create(name), name );
     } catch( final RuntimeException $$arez$$_e ) {

@@ -24,13 +24,13 @@ public final class Arez_FloatComponentId extends FloatComponentId implements Dis
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
     }
   }
 

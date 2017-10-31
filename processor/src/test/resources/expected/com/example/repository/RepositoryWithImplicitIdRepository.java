@@ -31,7 +31,7 @@ public class RepositoryWithImplicitIdRepository implements RepositoryWithImplici
   private final HashMap<Long, RepositoryWithImplicitId> $$arez$$_entities = new HashMap<>();
   ;
 
-  private final Collection<RepositoryWithImplicitId> $$arez$$_entityList = Collections.unmodifiableCollection( $$arez$$_entities.values() );
+  private final Collection<RepositoryWithImplicitId> $$arez$$_entityList = Collections.unmodifiableCollection( this.$$arez$$_entities.values() );
   ;
 
   RepositoryWithImplicitIdRepository() {
@@ -49,27 +49,27 @@ public class RepositoryWithImplicitIdRepository implements RepositoryWithImplici
   RepositoryWithImplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_RepositoryWithImplicitId entity = new Arez_RepositoryWithImplicitId(packageName,name);
     entity.$$arez$$_setOnDispose( e -> destroy( e ) );
-    $$arez$$_entities.put( entity.$$arez$$_id(), entity );
+    this.$$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
     return entity;
   }
 
   @PreDispose
   final void preDispose() {
-    $$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
-    $$arez$$_entities.clear();
+    this.$$arez$$_entityList.forEach( e -> Disposable.dispose( e ) );
+    this.$$arez$$_entities.clear();
     getEntitiesObservable().reportChanged();
   }
 
   public boolean contains(@Nonnull final RepositoryWithImplicitId entity) {
     getEntitiesObservable().reportObserved();
-    return entity instanceof Arez_RepositoryWithImplicitId && $$arez$$_entities.containsKey( ((Arez_RepositoryWithImplicitId) entity).$$arez$$_id() );
+    return entity instanceof Arez_RepositoryWithImplicitId && this.$$arez$$_entities.containsKey( ((Arez_RepositoryWithImplicitId) entity).$$arez$$_id() );
   }
 
   @Action
   public void destroy(@Nonnull final RepositoryWithImplicitId entity) {
     assert null != entity;
-    if ( entity instanceof Arez_RepositoryWithImplicitId && null != $$arez$$_entities.remove( ((Arez_RepositoryWithImplicitId) entity).$$arez$$_id() ) ) {
+    if ( entity instanceof Arez_RepositoryWithImplicitId && null != this.$$arez$$_entities.remove( ((Arez_RepositoryWithImplicitId) entity).$$arez$$_id() ) ) {
       ((Arez_RepositoryWithImplicitId) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();

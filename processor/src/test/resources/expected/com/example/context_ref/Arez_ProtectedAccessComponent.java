@@ -24,11 +24,11 @@ final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent imple
   }
 
   protected final ArezContext getContext() {
-    return $$arez$$_context;
+    return this.$$arez$$_context;
   }
 
   final long $$arez$$_id() {
-    return $$arez$$_id;
+    return this.$$arez$$_id;
   }
 
   String $$arez$$_name() {
@@ -37,13 +37,13 @@ final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent imple
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
     }
   }
 

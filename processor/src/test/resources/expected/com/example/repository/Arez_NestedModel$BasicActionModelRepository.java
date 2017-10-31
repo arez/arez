@@ -27,16 +27,16 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
       this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.dispose" : null, () -> { {
         super.preDispose();
-        $$arez$$_entities.dispose();
+        this.$$arez$$_entities.dispose();
       } } );
     }
   }
@@ -44,21 +44,21 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
   @Nonnull
   @Override
   protected Collection<NestedModel.BasicActionModel> entities() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'NestedModel$BasicActionModelRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'NestedModel$BasicActionModelRepository'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();
   }
 
   @Override
   Observable getEntitiesObservable() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'NestedModel$BasicActionModelRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'NestedModel$BasicActionModelRepository'" );
     return $$arez$$_entities;
   }
 
   @Nonnull
   @Override
   public NestedModel.BasicActionModel create() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'NestedModel$BasicActionModelRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'NestedModel$BasicActionModelRepository'" );
     try {
       return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.create" : null, true, () -> super.create() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -74,7 +74,7 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
 
   @Override
   public void destroy(@Nonnull final NestedModel.BasicActionModel entity) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'NestedModel$BasicActionModelRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'NestedModel$BasicActionModelRepository'" );
     try {
       this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.destroy" : null, true, () -> super.destroy(entity), entity );
     } catch( final RuntimeException $$arez$$_e ) {

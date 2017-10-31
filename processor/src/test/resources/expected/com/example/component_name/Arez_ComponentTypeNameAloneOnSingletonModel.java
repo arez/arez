@@ -26,19 +26,19 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
     }
   }
 
   @Override
   public void doStuff(final long time, final float someOtherParameter) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'ComponentTypeNameAloneOnSingletonModel'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'ComponentTypeNameAloneOnSingletonModel'" );
     try {
       this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "ComponentTypeNameAloneOnSingletonModel.doStuff" : null, true, () -> super.doStuff(time,someOtherParameter), time, someOtherParameter );
     } catch( final RuntimeException $$arez$$_e ) {

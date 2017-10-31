@@ -27,16 +27,16 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
 
   @Override
   public boolean isDisposed() {
-    return $$arez$$_disposed;
+    return this.$$arez$$_disposed;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      $$arez$$_disposed = true;
+      this.$$arez$$_disposed = true;
       this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? "CompleteRepositoryExampleRepository.dispose" : null, () -> { {
         super.preDispose();
-        $$arez$$_entities.dispose();
+        this.$$arez$$_entities.dispose();
       } } );
     }
   }
@@ -44,20 +44,20 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
   @Nonnull
   @Override
   protected Collection<CompleteRepositoryExample> entities() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'CompleteRepositoryExampleRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'CompleteRepositoryExampleRepository'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();
   }
 
   @Override
   Observable getEntitiesObservable() {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'CompleteRepositoryExampleRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'CompleteRepositoryExampleRepository'" );
     return $$arez$$_entities;
   }
 
   @Override
   public void destroy(@Nonnull final CompleteRepositoryExample entity) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'CompleteRepositoryExampleRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'CompleteRepositoryExampleRepository'" );
     try {
       this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "CompleteRepositoryExampleRepository.destroy" : null, true, () -> super.destroy(entity), entity );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -74,7 +74,7 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
   @Nonnull
   @Override
   CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {
-    Guards.invariant( () -> !$$arez$$_disposed, () -> "Method invoked on invalid component 'CompleteRepositoryExampleRepository'" );
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component 'CompleteRepositoryExampleRepository'" );
     try {
       return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? "CompleteRepositoryExampleRepository.create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
     } catch( final RuntimeException $$arez$$_e ) {

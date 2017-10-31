@@ -26,7 +26,7 @@ public final class Arez_NotDisposableModel extends NotDisposableModel {
   }
 
   final long $$arez$$_id() {
-    return $$arez$$_id;
+    return this.$$arez$$_id;
   }
 
   String $$arez$$_name() {
