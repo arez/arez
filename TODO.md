@@ -62,6 +62,10 @@ console.table(languages);
   call dispose on owned resources. Probably can keep a cache using WeakReferences
 
 * Add test that verifies `TransactionMode` is not in compiled output of production mode.
+  Actually I would really like a test tool that we could scan source code and ensure that various elements
+  are not included under certain conditions. i.e. Annotations could be added to methods A, B and C
+  that should never be present in compiled output if `areNamesEnabled` is false. Package Y should no be present
+  in compiled output unless `areSpiesEnabled` is true etc.
 
 ## Process
 
