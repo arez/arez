@@ -25,7 +25,7 @@
   to support this use-case. This capability should be compiled out if `Arez.arePropertyIntrospectorsEnabled()`
   returns false and this is controlled by the gwt configuration property `"arez.enable_property_introspection"`.
 * **\[processor\]** Consistently prefix field access with `this.` in generated component classes.
-* **\[core\]** Replaced all usages of `ArezTestUtil.set*(boolean)` with a pair of methods that enable or
+* 💥 **\[core\]** Replaced all usages of `ArezTestUtil.set*(boolean)` with a pair of methods that enable or
   disable a setting. Ensured all of the names of configuration used in `ArezTestUtil` align with names used
   by `Arez` to refer to same setting.
 
