@@ -68,14 +68,14 @@ public final class Observable<T>
   private final Observer _owner;
   /**
    * The accessor method to retrieve the value.
-   * This should only be set if {@link Arez#areValueIntrospectorsEnabled()} is true but may also be elided if the
+   * This should only be set if {@link Arez#arePropertyIntrospectorsEnabled()} is true but may also be elided if the
    * value should not be accessed even by DevTools.
    */
   @Nullable
   private final PropertyAccessor<T> _accessor;
   /**
    * The mutator method to change the value.
-   * This should only be set if {@link Arez#areValueIntrospectorsEnabled()} is true but may also be elided if the
+   * This should only be set if {@link Arez#arePropertyIntrospectorsEnabled()} is true but may also be elided if the
    * value should not be mutated even by DevTools.
    */
   @Nullable
@@ -91,10 +91,10 @@ public final class Observable<T>
     _owner = owner;
     _accessor = accessor;
     _mutator = mutator;
-    apiInvariant( () -> Arez.areValueIntrospectorsEnabled() || null == accessor,
-                  () -> "Observable named '" + getName() + "' has accessor specified but Arez.areValueIntrospectorsEnabled() is false." );
-    apiInvariant( () -> Arez.areValueIntrospectorsEnabled() || null == mutator,
-                  () -> "Observable named '" + getName() + "' has mutator specified but Arez.areValueIntrospectorsEnabled() is false." );
+    apiInvariant( () -> Arez.arePropertyIntrospectorsEnabled() || null == accessor,
+                  () -> "Observable named '" + getName() + "' has accessor specified but Arez.arePropertyIntrospectorsEnabled() is false." );
+    apiInvariant( () -> Arez.arePropertyIntrospectorsEnabled() || null == mutator,
+                  () -> "Observable named '" + getName() + "' has mutator specified but Arez.arePropertyIntrospectorsEnabled() is false." );
     if ( null != _owner )
     {
       // This invariant can not be checked if ArezConfig.enforceTransactionType() is false as
@@ -157,18 +157,18 @@ public final class Observable<T>
   @Nullable
   PropertyAccessor<T> getAccessor()
   {
-    invariant( Arez::areValueIntrospectorsEnabled,
+    invariant( Arez::arePropertyIntrospectorsEnabled,
                () -> "Attempt to invoke getAccessor() on observable named '" + getName() +
-                     "' when Arez.areValueIntrospectorsEnabled() returns false." );
+                     "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
     return _accessor;
   }
 
   @Nullable
   PropertyMutator<T> getMutator()
   {
-    invariant( Arez::areValueIntrospectorsEnabled,
+    invariant( Arez::arePropertyIntrospectorsEnabled,
                () -> "Attempt to invoke getMutator() on observable named '" + getName() +
-                     "' when Arez.areValueIntrospectorsEnabled() returns false." );
+                     "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
     return _mutator;
   }
 

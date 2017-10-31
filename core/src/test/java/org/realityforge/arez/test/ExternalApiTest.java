@@ -52,11 +52,11 @@ public class ExternalApiTest
   }
 
   @Test
-  public void areValueIntrospectorsEnabled()
+  public void arePropertyIntrospectorsEnabled()
   {
-    assertTrue( Arez.areValueIntrospectorsEnabled() );
+    assertTrue( Arez.arePropertyIntrospectorsEnabled() );
     ArezTestUtil.setValueIntrospection( false );
-    assertFalse( Arez.areValueIntrospectorsEnabled() );
+    assertFalse( Arez.arePropertyIntrospectorsEnabled() );
   }
 
   @Test

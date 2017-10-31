@@ -333,8 +333,8 @@ public final class ArezContext
    * Create an Observable.
    *
    * @param name     the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
-   * @param accessor the accessor for observable. Should be null if {@link Arez#areValueIntrospectorsEnabled()} returns false, may be non-null otherwise.
-   * @param mutator  the mutator for observable. Should be null if {@link Arez#areValueIntrospectorsEnabled()} returns false, may be non-null otherwise.
+   * @param accessor the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
+   * @param mutator  the mutator for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @return the new Observable.
    */
   @Nonnull

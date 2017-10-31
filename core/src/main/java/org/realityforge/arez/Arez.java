@@ -68,13 +68,13 @@ public final class Arez
   }
 
   /**
-   * Return true if introspectors for Observable values are enabled.
+   * Return true if property introspectors for Observables are enabled.
    *
-   * @return true if value introspectors are enabled, false otherwise.
+   * @return true if property introspectors for Observables are enabled., false otherwise.
    */
-  public static boolean areValueIntrospectorsEnabled()
+  public static boolean arePropertyIntrospectorsEnabled()
   {
-    return ArezConfig.areValueIntrospectorsEnabled();
+    return ArezConfig.arePropertyIntrospectorsEnabled();
   }
 
   /**

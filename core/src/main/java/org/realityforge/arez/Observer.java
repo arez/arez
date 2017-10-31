@@ -149,7 +149,7 @@ public final class Observer
     if ( null != _computedValue )
     {
       _derivedValue =
-        new Observable<>( context, name, this, Arez.areValueIntrospectorsEnabled() ? _computedValue::get : null, null );
+        new Observable<>( context, name, this, Arez.arePropertyIntrospectorsEnabled() ? _computedValue::get : null, null );
     }
     else
     {

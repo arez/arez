@@ -37,7 +37,7 @@ final class ArezConfig
     return ENABLE_NAMES;
   }
 
-  static boolean areValueIntrospectorsEnabled()
+  static boolean arePropertyIntrospectorsEnabled()
   {
     return ENABLE_VALUE_INTROSPECTION;
   }

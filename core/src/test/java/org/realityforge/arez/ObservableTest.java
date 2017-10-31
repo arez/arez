@@ -89,7 +89,7 @@ public class ObservableTest
 
     assertEquals( exception.getMessage(),
                   "Observable named '" + name +
-                  "' has accessor specified but Arez.areValueIntrospectorsEnabled() is false." );
+                  "' has accessor specified but Arez.arePropertyIntrospectorsEnabled() is false." );
   }
 
   @Test
@@ -106,7 +106,7 @@ public class ObservableTest
 
     assertEquals( exception.getMessage(),
                   "Observable named '" + name +
-                  "' has mutator specified but Arez.areValueIntrospectorsEnabled() is false." );
+                  "' has mutator specified but Arez.arePropertyIntrospectorsEnabled() is false." );
   }
 
   @Test
@@ -120,7 +120,7 @@ public class ObservableTest
       expectThrows( IllegalStateException.class, observable::getAccessor );
     assertEquals( exception.getMessage(),
                   "Attempt to invoke getAccessor() on observable named '" + observable.getName() +
-                  "' when Arez.areValueIntrospectorsEnabled() returns false." );
+                  "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
   @Test
@@ -134,7 +134,7 @@ public class ObservableTest
       expectThrows( IllegalStateException.class, observable::getMutator );
     assertEquals( exception.getMessage(),
                   "Attempt to invoke getMutator() on observable named '" + observable.getName() +
-                  "' when Arez.areValueIntrospectorsEnabled() returns false." );
+                  "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
   @Test
