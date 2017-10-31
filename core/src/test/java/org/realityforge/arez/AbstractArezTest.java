@@ -18,7 +18,7 @@ public abstract class AbstractArezTest
   {
     BrainCheckTestUtil.resetConfig( false );
     ArezTestUtil.resetConfig( false );
-    ArezTestUtil.setEnableZones( true );
+    ArezTestUtil.enableZones();
     getProxyLogger().setLogger( new TestLogger() );
   }
 

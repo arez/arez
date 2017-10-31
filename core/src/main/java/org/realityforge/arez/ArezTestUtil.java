@@ -7,6 +7,7 @@ import org.realityforge.anodoc.TestOnly;
 /**
  * Utility class for interacting with Arez config settings in tests.
  */
+@SuppressWarnings( "WeakerAccess" )
 @TestOnly
 @GwtIncompatible
 public final class ArezTestUtil
@@ -34,20 +35,20 @@ public final class ArezTestUtil
 
     if ( productionMode )
     {
-      setEnableNames( false );
-      setValueIntrospection( false );
-      setEnforceTransactionType( false );
-      setEnableSpy( false );
+      disableNames();
+      disablePropertyIntrospectors();
+      noEnforceTransactionType();
+      disableSpies();
     }
     else
     {
-      setEnableNames( true );
-      setValueIntrospection( true );
-      setEnforceTransactionType( true );
-      setEnableSpy( true );
+      enableNames();
+      enablePropertyIntrospectors();
+      enforceTransactionType();
+      enableSpies();
     }
-    setPurgeReactionsWhenRunawayDetected( true );
-    setEnableZones( false );
+    purgeReactionsWhenRunawayDetected();
+    disableZones();
 
     ( (ArezLogger.ProxyLogger) ArezLogger.getLogger() ).setLogger( null );
     Transaction.setTransaction( null );
@@ -55,61 +56,157 @@ public final class ArezTestUtil
   }
 
   /**
-   * Configure the enableNames setting.
+   * Set `arez.enable_names` setting to true.
+   */
+  public static void enableNames()
+  {
+    setEnableNames( true );
+  }
+
+  /**
+   * Set `arez.enable_names` setting to false.
+   */
+  public static void disableNames()
+  {
+    setEnableNames( false );
+  }
+
+  /**
+   * Configure the `arez.enable_names` setting.
    *
    * @param value the setting.
    */
-  public static void setEnableNames( final boolean value )
+  private static void setEnableNames( final boolean value )
   {
     setConstant( "ENABLE_NAMES", value );
   }
 
   /**
-   * Configure the "enable_value_introspection" setting.
-   *
-   * @param value the setting.
+   * Set `arez.enable_property_introspection` setting to true.
    */
-  public static void setValueIntrospection( final boolean value )
+  public static void enablePropertyIntrospectors()
   {
-    setConstant( "ENABLE_VALUE_INTROSPECTION", value );
+    setPropertyIntrospection( true );
   }
 
   /**
-   * Configure the "purgeReactionsWhenRunawayDetected" setting.
+   * Set `arez.enable_property_introspection` setting to false.
+   */
+  public static void disablePropertyIntrospectors()
+  {
+    setPropertyIntrospection( false );
+  }
+
+  /**
+   * Configure the `arez.enable_property_introspection` setting.
    *
    * @param value the setting.
    */
-  public static void setPurgeReactionsWhenRunawayDetected( final boolean value )
+  private static void setPropertyIntrospection( final boolean value )
+  {
+    setConstant( "ENABLE_PROPERTY_INTROSPECTION", value );
+  }
+
+  /**
+   * Set `arez.purge_reactions_when_runaway_detected` setting to true.
+   */
+  public static void purgeReactionsWhenRunawayDetected()
+  {
+    setPurgeReactionsWhenRunawayDetected( true );
+  }
+
+  /**
+   * Set `arez.purge_reactions_when_runaway_detected` setting to false.
+   */
+  public static void noPurgeReactionsWhenRunawayDetected()
+  {
+    setPurgeReactionsWhenRunawayDetected( false );
+  }
+
+  /**
+   * Configure the `arez.purge_reactions_when_runaway_detected` setting.
+   *
+   * @param value the setting.
+   */
+  private static void setPurgeReactionsWhenRunawayDetected( final boolean value )
   {
     setConstant( "PURGE_REACTIONS", value );
   }
 
   /**
-   * Configure the "enforceTransactionType" setting.
+   * Set `arez.enforce_transaction_type` setting to true.
+   */
+  public static void enforceTransactionType()
+  {
+    setEnforceTransactionType( true );
+  }
+
+  /**
+   * Set `arez.enforce_transaction_type` setting to false.
+   */
+  public static void noEnforceTransactionType()
+  {
+    setEnforceTransactionType( false );
+  }
+
+  /**
+   * Configure the `arez.enforce_transaction_type` setting.
    *
    * @param value the setting.
    */
-  public static void setEnforceTransactionType( final boolean value )
+  private static void setEnforceTransactionType( final boolean value )
   {
     setConstant( "ENFORCE_TRANSACTION_TYPE", value );
   }
 
   /**
-   * Configure the "enableSpy" setting.
-   *
-   * @param value the setting.
+   * Set `arez.enable_spies` setting to true.
    */
-  public static void setEnableSpy( final boolean value )
+  public static void enableSpies()
   {
-    setConstant( "ENABLE_SPY", value );
+    setEnableSpies( true );
   }
 
   /**
-   * Configure the enableZones setting.
+   * Set `arez.enable_spies` setting to false.
+   */
+  public static void disableSpies()
+  {
+    setEnableSpies( false );
+  }
+
+  /**
+   * Configure the "arez.enable_spies" setting.
    *
    * @param value the setting.
    */
-  public static void setEnableZones( final boolean value )
+  private static void setEnableSpies( final boolean value )
+  {
+    setConstant( "ENABLE_SPIES", value );
+  }
+
+  /**
+   * Set `arez.enable_zones` setting to true.
+   */
+  public static void enableZones()
+  {
+    setEnableZones( true );
+  }
+
+  /**
+   * Set `arez.enable_zones` setting to false.
+   */
+  public static void disableZones()
+  {
+    setEnableZones( false );
+  }
+
+  /**
+   * Configure the `arez.enable_zones` setting.
+   *
+   * @param value the setting.
+   */
+  private static void setEnableZones( final boolean value )
   {
     setConstant( "ENABLE_ZONES", value );
   }

@@ -7,7 +7,8 @@
   <set-property name="arez.environment" value="development"/>
 
   <set-property name="arez.enable_names" value="true"/>
-  <set-property name="arez.enable_value_introspection" value="true"/>
+  <set-property name="arez.enable_property_introspection" value="true"/>
   <set-property name="arez.enforce_transaction_type" value="true"/>
   <set-property name="arez.repositories_return_immutables" value="true"/>
+  <set-property name="arez.enable_spies" value="true"/>
 </module>

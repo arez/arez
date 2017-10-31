@@ -14,6 +14,8 @@
 * **\[core\]** `ArezTestUtil` could still modify settings when in production mode if assertions were disabled.
   Explicitly disable this by throwing an exception after assertion so settings will never be modified in
   production mode.
+* **\[core\]** Ensured that `arez.enable_spies` is a compile time constant by adding it to the `.gwt.xml`
+  modules. This was previously omitted which could lead to inconsistent behaviour.
 
 ##### Changed
 * 💥 **\[core\]** Enhance `Observable` to accept accessors and mutators during construction. These accessors
@@ -21,8 +23,11 @@
   development time tooling and should be optimized away during production builds. To enable this `Observable`
   needs to be defined with a type parameter and the `ArezContext.createObservable(...)` needed to be updated
   to support this use-case. This capability should be compiled out if `Arez.arePropertyIntrospectorsEnabled()`
-  returns false and this is controlled by the gwt configuration property `"arez.enable_value_introspection"`.
+  returns false and this is controlled by the gwt configuration property `"arez.enable_property_introspection"`.
 * **\[processor\]** Consistently prefix field access with `this.` in generated component classes.
+* **\[core\]** Replaced all usages of `ArezTestUtil.set*(boolean)` with a pair of methods that enable or
+  disable a setting. Ensured all of the names of configuration used in `ArezTestUtil` align with names used
+  by `Arez` to refer to same setting.
 
 ### [v0.22](https://github.com/realityforge/arez/tree/v0.22) (2017-10-29)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.21...v0.22)

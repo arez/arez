@@ -9,7 +9,7 @@ import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Observable;
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertThrows;
+import static org.testng.Assert.*;
 
 public class MultiZoneIntegrationTest
   extends AbstractIntegrationTest
@@ -18,7 +18,7 @@ public class MultiZoneIntegrationTest
   public void multiZoneScenario()
     throws Throwable
   {
-    ArezTestUtil.setEnableZones( true );
+    ArezTestUtil.enableZones();
 
     final Zone zone1 = Arez.createZone();
     final Zone zone2 = Arez.createZone();
@@ -40,14 +40,14 @@ public class MultiZoneIntegrationTest
     zone1.deactivate();
 
     context1.autorun( "FirstNamePrinter1",
-                     () -> record( recorder, "firstName1", person.getFirstName() ) );
+                      () -> record( recorder, "firstName1", person.getFirstName() ) );
     context2.autorun( "FirstNamePrinter2",
-                     () -> record( recorder, "firstName2", person2.getFirstName() ) );
+                      () -> record( recorder, "firstName2", person2.getFirstName() ) );
 
     context1.autorun( "FullNamePrinter1",
-                     () -> record( recorder, "fullname1", person.getFullName() ) );
+                      () -> record( recorder, "fullname1", person.getFullName() ) );
     context2.autorun( "FullNamePrinter2",
-                     () -> record( recorder, "fullname2", person2.getFullName() ) );
+                      () -> record( recorder, "fullname2", person2.getFullName() ) );
 
     context1.action( "First Name Update1", true, () -> person.setFirstName( "Fred" ) );
     context1.action( "Last Name Update1", true, () -> person.setLastName( "Donaldo" ) );
@@ -61,7 +61,7 @@ public class MultiZoneIntegrationTest
   public void multiZoneScenario_transactionAlignment()
     throws Throwable
   {
-    ArezTestUtil.setEnableZones( true );
+    ArezTestUtil.enableZones();
 
     final Zone zone1 = Arez.createZone();
     final Zone zone2 = Arez.createZone();
@@ -78,12 +78,11 @@ public class MultiZoneIntegrationTest
     zone2.deactivate();
     zone1.deactivate();
 
-    context1.action(  () -> assertInTransaction( person1 ) );
-    context1.action(  () -> assertNotInTransaction( person2 ) );
-    context2.action(  () -> assertNotInTransaction( person1 ) );
-    context2.action(  () -> assertInTransaction( person2 ) );
+    context1.action( () -> assertInTransaction( person1 ) );
+    context1.action( () -> assertNotInTransaction( person2 ) );
+    context2.action( () -> assertNotInTransaction( person1 ) );
+    context2.action( () -> assertInTransaction( person2 ) );
   }
-
 
   /**
    * Test we are in a transaction by trying to observe an observable.
@@ -101,6 +100,7 @@ public class MultiZoneIntegrationTest
   {
     assertThrows( person::getFirstName );
   }
+
   @SuppressWarnings( "WeakerAccess" )
   @ArezComponent
   public static class PersonModel

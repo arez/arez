@@ -9,7 +9,7 @@ public class ArezTest
   @Test
   public void context_when_zones_disabled()
   {
-    ArezTestUtil.setEnableZones( false );
+    ArezTestUtil.disableZones();
 
     final ArezContext context1 = Arez.context();
     assertNotNull( context1 );
@@ -20,7 +20,7 @@ public class ArezTest
   @Test
   public void zone_basicOperation()
   {
-    ArezTestUtil.setEnableZones( true );
+    ArezTestUtil.enableZones();
 
     assertEquals( Arez.getDefaultZone().getContext(), Arez.context() );
     assertEquals( Arez.getZoneStack().size(), 0 );
@@ -46,7 +46,7 @@ public class ArezTest
   @Test
   public void zone_multipleZones()
   {
-    ArezTestUtil.setEnableZones( true );
+    ArezTestUtil.enableZones();
 
     assertEquals( Arez.getDefaultZone().getContext(), Arez.context() );
     assertEquals( Arez.getZoneStack().size(), 0 );
@@ -144,7 +144,7 @@ public class ArezTest
   @Test
   public void createZone_when_zonesDisabled()
   {
-    ArezTestUtil.setEnableZones( false );
+    ArezTestUtil.disableZones();
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, Arez::createZone );
     assertEquals( exception.getMessage(), "Invoked Arez.createZone() but zones are not enabled." );
@@ -153,7 +153,7 @@ public class ArezTest
   @Test
   public void activateZone_whenZonesNotEnabled()
   {
-    ArezTestUtil.setEnableZones( false );
+    ArezTestUtil.disableZones();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Arez.activateZone( new Zone() ) );
@@ -163,7 +163,7 @@ public class ArezTest
   @Test
   public void deactivateZone_whenZonesNotEnabled()
   {
-    ArezTestUtil.setEnableZones( false );
+    ArezTestUtil.disableZones();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Arez.deactivateZone( new Zone() ) );
@@ -173,7 +173,7 @@ public class ArezTest
   @Test
   public void currentZone_whenZonesNotEnabled()
   {
-    ArezTestUtil.setEnableZones( false );
+    ArezTestUtil.disableZones();
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, Arez::currentZone );
     assertEquals( exception.getMessage(), "Invoked Arez.currentZone() but zones are not enabled." );
@@ -182,7 +182,7 @@ public class ArezTest
   @Test
   public void deactivateZone_whenNotActive()
   {
-    ArezTestUtil.setEnableZones( true );
+    ArezTestUtil.enableZones();
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Arez.deactivateZone( new Zone() ) );
     assertEquals( exception.getMessage(), "Attempted to deactivate zone that is not active." );

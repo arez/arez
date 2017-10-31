@@ -80,7 +80,7 @@ public class ObservableTest
   public void initialState_accessor_introspectorsDisabled()
     throws Exception
   {
-    ArezTestUtil.setValueIntrospection( false );
+    ArezTestUtil.disablePropertyIntrospectors();
     final String name = ValueUtil.randomString();
     final PropertyAccessor<String> accessor = () -> "";
     final IllegalStateException exception =
@@ -96,7 +96,7 @@ public class ObservableTest
   public void initialState_mutator_introspectorsDisabled()
     throws Exception
   {
-    ArezTestUtil.setValueIntrospection( false );
+    ArezTestUtil.disablePropertyIntrospectors();
     final String name = ValueUtil.randomString();
     final PropertyMutator<String> mutator = value -> {
     };
@@ -113,7 +113,7 @@ public class ObservableTest
   public void getAccessor_introspectorsDisabled()
     throws Exception
   {
-    ArezTestUtil.setValueIntrospection( false );
+    ArezTestUtil.disablePropertyIntrospectors();
     final Observable<?> observable = newObservable( new ArezContext() );
 
     final IllegalStateException exception =
@@ -127,7 +127,7 @@ public class ObservableTest
   public void getMutator_introspectorsDisabled()
     throws Exception
   {
-    ArezTestUtil.setValueIntrospection( false );
+    ArezTestUtil.disablePropertyIntrospectors();
     final Observable<?> observable = newObservable( new ArezContext() );
 
     final IllegalStateException exception =

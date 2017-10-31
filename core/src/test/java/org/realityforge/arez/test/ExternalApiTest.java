@@ -47,7 +47,7 @@ public class ExternalApiTest
     throws Exception
   {
     assertTrue( Arez.areNamesEnabled() );
-    ArezTestUtil.setEnableNames( false );
+    ArezTestUtil.disableNames();
     assertFalse( Arez.areNamesEnabled() );
   }
 
@@ -55,7 +55,7 @@ public class ExternalApiTest
   public void arePropertyIntrospectorsEnabled()
   {
     assertTrue( Arez.arePropertyIntrospectorsEnabled() );
-    ArezTestUtil.setValueIntrospection( false );
+    ArezTestUtil.disablePropertyIntrospectors();
     assertFalse( Arez.arePropertyIntrospectorsEnabled() );
   }
 
@@ -63,16 +63,16 @@ public class ExternalApiTest
   public void areSpiesEnabled()
   {
     assertTrue( Arez.areSpiesEnabled() );
-    ArezTestUtil.setEnableSpy( false );
+    ArezTestUtil.disableSpies();
     assertFalse( Arez.areSpiesEnabled() );
   }
 
   @Test
   public void areZonesEnabled()
   {
-    ArezTestUtil.setEnableZones( false );
+    ArezTestUtil.disableZones();
     assertFalse( Arez.areZonesEnabled() );
-    ArezTestUtil.setEnableZones( true );
+    ArezTestUtil.enableZones();
     assertTrue( Arez.areZonesEnabled() );
   }
 

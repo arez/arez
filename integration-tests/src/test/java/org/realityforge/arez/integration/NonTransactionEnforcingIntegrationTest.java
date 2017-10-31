@@ -22,7 +22,7 @@ public class NonTransactionEnforcingIntegrationTest
   public void personScenario()
     throws Throwable
   {
-    ArezTestUtil.setEnforceTransactionType( false );
+    ArezTestUtil.noEnforceTransactionType();
     final ArezContext context = Arez.context();
 
     final SpyEventRecorder recorder = new SpyEventRecorder();

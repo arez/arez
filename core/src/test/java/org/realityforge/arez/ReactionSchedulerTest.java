@@ -63,7 +63,7 @@ public class ReactionSchedulerTest
   public void onRunawayReactionsDetected()
     throws Exception
   {
-    ArezTestUtil.setPurgeReactionsWhenRunawayDetected( true );
+    ArezTestUtil.purgeReactionsWhenRunawayDetected();
 
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = new ReactionScheduler( context );
@@ -87,7 +87,7 @@ public class ReactionSchedulerTest
   public void onRunawayReactionsDetected_noPurgeCOnfigured()
     throws Exception
   {
-    ArezTestUtil.setPurgeReactionsWhenRunawayDetected( false );
+    ArezTestUtil.noPurgeReactionsWhenRunawayDetected();
 
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = new ReactionScheduler( context );
@@ -341,7 +341,7 @@ public class ReactionSchedulerTest
   public void runObserver_RunawayReactionsDetected()
     throws Exception
   {
-    ArezTestUtil.setPurgeReactionsWhenRunawayDetected( true );
+    ArezTestUtil.purgeReactionsWhenRunawayDetected();
 
     final ArezContext context = new ArezContext();
     final ReactionScheduler scheduler = context.getScheduler();
@@ -398,7 +398,7 @@ public class ReactionSchedulerTest
   public void runObserver_RunawayReactionsDetected_invariantChecksDisabled()
     throws Exception
   {
-    ArezTestUtil.setPurgeReactionsWhenRunawayDetected( true );
+    ArezTestUtil.purgeReactionsWhenRunawayDetected();
     BrainCheckTestUtil.setCheckInvariants( false );
 
     final ArezContext context = new ArezContext();

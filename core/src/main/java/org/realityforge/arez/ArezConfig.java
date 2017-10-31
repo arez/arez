@@ -9,18 +9,14 @@ final class ArezConfig
     System.getProperty( "arez.environment", "production" ).equals( "production" );
   private static boolean ENABLE_NAMES =
     "true".equals( System.getProperty( "arez.enable_names", PRODUCTION_MODE ? "false" : "true" ) );
-  private static boolean ENABLE_VALUE_INTROSPECTION =
-    "true".equals( System.getProperty( "arez.enable_value_introspection", PRODUCTION_MODE ? "false" : "true" ) );
+  private static boolean ENABLE_PROPERTY_INTROSPECTION =
+    "true".equals( System.getProperty( "arez.enable_property_introspection", PRODUCTION_MODE ? "false" : "true" ) );
   private static boolean PURGE_REACTIONS =
     "true".equals( System.getProperty( "arez.purge_reactions_when_runaway_detected", "true" ) );
   private static boolean ENFORCE_TRANSACTION_TYPE =
     "true".equals( System.getProperty( "arez.enforce_transaction_type", PRODUCTION_MODE ? "false" : "true" ) );
-  /*
-   * Spy's use debug names so we can not enable spies without names.
-   */
-  private static boolean ENABLE_SPY =
-    ENABLE_NAMES &&
-    "true".equals( System.getProperty( "arez.enable_spy", PRODUCTION_MODE ? "false" : "true" ) );
+  private static boolean ENABLE_SPIES =
+    "true".equals( System.getProperty( "arez.enable_spies", PRODUCTION_MODE ? "false" : "true" ) );
   private static boolean ENABLE_ZONES = "true".equals( System.getProperty( "arez.enable_zones", "false" ) );
 
   private ArezConfig()
@@ -39,7 +35,7 @@ final class ArezConfig
 
   static boolean arePropertyIntrospectorsEnabled()
   {
-    return ENABLE_VALUE_INTROSPECTION;
+    return ENABLE_PROPERTY_INTROSPECTION;
   }
 
   static boolean enforceTransactionType()
@@ -54,7 +50,7 @@ final class ArezConfig
 
   static boolean areSpiesEnabled()
   {
-    return ENABLE_SPY;
+    return ENABLE_SPIES;
   }
 
   static boolean areZonesEnabled()

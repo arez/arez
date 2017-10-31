@@ -64,7 +64,10 @@ public final class Arez
    */
   public static boolean areSpiesEnabled()
   {
-    return ArezConfig.areSpiesEnabled();
+    /*
+     * Spy's use debug names so we can not enable spies without names.
+     */
+    return areNamesEnabled() && ArezConfig.areSpiesEnabled();
   }
 
   /**
