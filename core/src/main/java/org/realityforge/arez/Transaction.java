@@ -195,9 +195,7 @@ final class Transaction
                @Nullable final TransactionMode mode,
                @Nullable final Observer tracker )
   {
-    invariant( () -> {
-                 return Arez.areNamesEnabled() || null == name;
-               },
+    invariant( () -> Arez.areNamesEnabled() || null == name,
                () -> "Transaction passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
     _context = Objects.requireNonNull( context );
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
