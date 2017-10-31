@@ -11,6 +11,7 @@ complete as there is too much un-said.
 
 * Add support for `@ComputedValueRef`
 
+* Add `Arez.areRepositoryResultsUnmodifiable()` and ensure generated classes use this.
 
 * Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
   TimedDisposer that is disposed as part of effect.
