@@ -6,6 +6,9 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Figure out a way to suspend a transaction and then resume it at a later time? Needed for replicant that has
+  to break up decoding network packet so as to ensure the state is valid but don't exceed budget for each tick.
+
 * Add support for `@ComputedValueRef`
 
 * Rename `Arez.areValueIntrospectorsEnabled()` to `Arez.arePropertyIntrospectorsEnabled()`
