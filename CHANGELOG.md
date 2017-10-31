@@ -20,7 +20,8 @@
   and mutators allow introspection of the `Observable` at runtime. These are primarily aimed at supporting
   development time tooling and should be optimized away during production builds. To enable this `Observable`
   needs to be defined with a type parameter and the `ArezContext.createObservable(...)` needed to be updated
-  to support this use-case.
+  to support this use-case. This capability should be compiled out if `Arez.areValueIntrospectorsEnabled()`
+  returns false and this is controlled by the gwt configuration property `"arez.enable_value_introspection"`.
 
 ### [v0.22](https://github.com/realityforge/arez/tree/v0.22) (2017-10-29)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.21...v0.22)
