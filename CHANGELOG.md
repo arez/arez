@@ -15,6 +15,13 @@
   Explicitly disable this by throwing an exception after assertion so settings will never be modified in
   production mode.
 
+##### Changed
+* 💥 **\[core\]** Enhance `Observable` to accept accessors and mutators during construction. These accessors
+  and mutators allow introspection of the `Observable` at runtime. These are primarily aimed at supporting
+  development time tooling and should be optimized away during production builds. To enable this `Observable`
+  needs to be defined with a type parameter and the `ArezContext.createObservable(...)` needed to be updated
+  to support this use-case.
+
 ### [v0.22](https://github.com/realityforge/arez/tree/v0.22) (2017-10-29)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.21...v0.22)
 

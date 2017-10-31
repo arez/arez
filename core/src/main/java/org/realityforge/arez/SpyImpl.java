@@ -150,7 +150,7 @@ final class SpyImpl
     if ( computedValue.isComputing() )
     {
       final Transaction transaction = getTransactionComputing( computedValue );
-      final ArrayList<Observable> observables = transaction.getObservables();
+      final ArrayList<Observable<?>> observables = transaction.getObservables();
       if ( null == observables )
       {
         return Collections.emptyList();
@@ -219,7 +219,7 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
-  public boolean isComputedValue( @Nonnull final Observable observable )
+  public boolean isComputedValue( @Nonnull final Observable<?> observable )
   {
     return observable.hasOwner();
   }
@@ -228,7 +228,7 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
-  public ComputedValue<?> asComputedValue( @Nonnull final Observable observable )
+  public ComputedValue<?> asComputedValue( @Nonnull final Observable<?> observable )
   {
     return observable.getOwner().getComputedValue();
   }
@@ -238,7 +238,7 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public List<Observer> getObservers( @Nonnull final Observable observable )
+  public List<Observer> getObservers( @Nonnull final Observable<?> observable )
   {
     return Collections.unmodifiableList( new ArrayList<>( observable.getObservers() ) );
   }
@@ -275,12 +275,12 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public List<Observable> getDependencies( @Nonnull final Observer observer )
+  public List<Observable<?>> getDependencies( @Nonnull final Observer observer )
   {
     final Transaction transaction = isTransactionActive() ? getTrackerTransaction( observer ) : null;
     if ( null != transaction )
     {
-      final ArrayList<Observable> observables = transaction.getObservables();
+      final ArrayList<Observable<?>> observables = transaction.getObservables();
       if ( null == observables )
       {
         return Collections.emptyList();
@@ -288,7 +288,7 @@ final class SpyImpl
       else
       {
         // Copy the list removing any duplicates that may exist.
-        final List<Observable> list = observables.stream().distinct().collect( Collectors.toList() );
+        final List<Observable<?>> list = observables.stream().distinct().collect( Collectors.toList() );
         return Collections.unmodifiableList( list );
       }
     }

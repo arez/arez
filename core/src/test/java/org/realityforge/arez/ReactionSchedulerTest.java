@@ -242,7 +242,7 @@ public class ReactionSchedulerTest
     final int round2Size = 4;
     final int round3Size = 1;
     final Observer[] observers = new Observer[ round1Size ];
-    final Observable[] observables = new Observable[ observers.length ];
+    final Observable<?>[] observables = new Observable[ observers.length ];
     final TestReaction[] reactions = new TestReaction[ observers.length ];
     for ( int i = 0; i < observers.length; i++ )
     {
@@ -360,7 +360,7 @@ public class ReactionSchedulerTest
       }
     };
     final Observer toSchedule = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
-    final Observable observable = newObservable( context );
+    final Observable<?> observable = newObservable( context );
 
     toSchedule.setState( ObserverState.UP_TO_DATE );
     observable.addObserver( toSchedule );
@@ -419,7 +419,7 @@ public class ReactionSchedulerTest
       }
     };
     final Observer toSchedule = new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
-    final Observable observable = newObservable( context );
+    final Observable<?> observable = newObservable( context );
 
     toSchedule.setState( ObserverState.UP_TO_DATE );
     observable.addObserver( toSchedule );

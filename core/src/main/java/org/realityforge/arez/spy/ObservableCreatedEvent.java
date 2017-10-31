@@ -14,15 +14,15 @@ public final class ObservableCreatedEvent
   public static final String TYPE_NAME = EventUtil.getName( ObservableCreatedEvent.class );
 
   @Nonnull
-  private final Observable _observable;
+  private final Observable<?> _observable;
 
-  public ObservableCreatedEvent( @Nonnull final Observable observable )
+  public ObservableCreatedEvent( @Nonnull final Observable<?> observable )
   {
     _observable = Objects.requireNonNull( observable );
   }
 
   @Nonnull
-  public Observable getObservable()
+  public Observable<?> getObservable()
   {
     return _observable;
   }

@@ -10,12 +10,14 @@ import org.realityforge.arez.spy.ComputedValueActivatedEvent;
 import org.realityforge.arez.spy.ComputedValueDeactivatedEvent;
 import org.realityforge.arez.spy.ObservableChangedEvent;
 import org.realityforge.arez.spy.ObservableDisposedEvent;
+import org.realityforge.arez.spy.PropertyAccessor;
+import org.realityforge.arez.spy.PropertyMutator;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
  * The observable represents state that can be observed within the system.
  */
-public final class Observable
+public final class Observable<T>
   extends Node
 {
   /**
@@ -64,11 +66,35 @@ public final class Observable
    */
   @Nullable
   private final Observer _owner;
+  /**
+   * The accessor method to retrieve the value.
+   * This should only be set if {@link Arez#areValueIntrospectorsEnabled()} is true but may also be elided if the
+   * value should not be accessed even by DevTools.
+   */
+  @Nullable
+  private final PropertyAccessor<T> _accessor;
+  /**
+   * The mutator method to change the value.
+   * This should only be set if {@link Arez#areValueIntrospectorsEnabled()} is true but may also be elided if the
+   * value should not be mutated even by DevTools.
+   */
+  @Nullable
+  private final PropertyMutator<T> _mutator;
 
-  Observable( @Nonnull final ArezContext context, @Nullable final String name, @Nullable final Observer owner )
+  Observable( @Nonnull final ArezContext context,
+              @Nullable final String name,
+              @Nullable final Observer owner,
+              @Nullable final PropertyAccessor<T> accessor,
+              @Nullable final PropertyMutator<T> mutator )
   {
     super( context, name );
     _owner = owner;
+    _accessor = accessor;
+    _mutator = mutator;
+    apiInvariant( () -> Arez.areValueIntrospectorsEnabled() || null == accessor,
+                  () -> "Observable named '" + getName() + "' has accessor specified but Arez.areValueIntrospectorsEnabled() is false." );
+    apiInvariant( () -> Arez.areValueIntrospectorsEnabled() || null == mutator,
+                  () -> "Observable named '" + getName() + "' has mutator specified but Arez.areValueIntrospectorsEnabled() is false." );
     if ( null != _owner )
     {
       // This invariant can not be checked if ArezConfig.enforceTransactionType() is false as
@@ -126,6 +152,24 @@ public final class Observable
   public boolean isDisposed()
   {
     return DISPOSED == _workState;
+  }
+
+  @Nullable
+  PropertyAccessor<T> getAccessor()
+  {
+    invariant( Arez::areValueIntrospectorsEnabled,
+               () -> "Attempt to invoke getAccessor() on observable named '" + getName() +
+                     "' when Arez.areValueIntrospectorsEnabled() returns false." );
+    return _accessor;
+  }
+
+  @Nullable
+  PropertyMutator<T> getMutator()
+  {
+    invariant( Arez::areValueIntrospectorsEnabled,
+               () -> "Attempt to invoke getMutator() on observable named '" + getName() +
+                     "' when Arez.areValueIntrospectorsEnabled() returns false." );
+    return _mutator;
   }
 
   void resetPendingDeactivation()

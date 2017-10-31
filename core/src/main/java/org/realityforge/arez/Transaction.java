@@ -79,7 +79,7 @@ final class Transaction
    * This should be null unless the _tracker is non null.
    */
   @Nullable
-  private ArrayList<Observable> _observables;
+  private ArrayList<Observable<?>> _observables;
   /**
    * Flag set to true when the current tracker should be disposed at the end.
    */
@@ -440,7 +440,7 @@ final class Transaction
    * This is called when the observable has definitely changed and should
    * not be called for derived values that may have changed.
    */
-  void reportChanged( @Nonnull final Observable observable )
+  void reportChanged( @Nonnull final Observable<?> observable )
   {
     invariant( () -> !observable.isDisposed(),
                () -> "Invoked reportChanged on transaction named '" + getName() + "' for observable " +
@@ -474,7 +474,7 @@ final class Transaction
    * recalculate the value during normal reaction cycle or when accessed within
    * transaction scope and will update the state of the observable at that time.
    */
-  void reportPossiblyChanged( @Nonnull final Observable observable )
+  void reportPossiblyChanged( @Nonnull final Observable<?> observable )
   {
     invariant( () -> !observable.isDisposed(),
                () -> "Invoked reportPossiblyChanged on transaction named '" + getName() + "' for " +
@@ -508,7 +508,7 @@ final class Transaction
    * changed. This is determined after the value is recalculated and converts
    * a UPTODATE or POSSIBLY_STALE state to STALE.
    */
-  void reportChangeConfirmed( @Nonnull final Observable observable )
+  void reportChangeConfirmed( @Nonnull final Observable<?> observable )
   {
     invariant( () -> !observable.isDisposed(),
                () -> "Invoked reportChangeConfirmed on transaction named '" +
@@ -657,7 +657,7 @@ final class Transaction
 
     // Look through the old dependencies and any that are no longer tracked
     // should no longer be observed.
-    final ArrayList<Observable> dependencies = _tracker.getDependencies();
+    final ArrayList<Observable<?>> dependencies = _tracker.getDependencies();
     for ( int i = dependencies.size() - 1; i >= 0; i-- )
     {
       final Observable observable = dependencies.get( i );
@@ -754,7 +754,7 @@ final class Transaction
   }
 
   @Nullable
-  ArrayList<Observable> getObservables()
+  ArrayList<Observable<?>> getObservables()
   {
     return _observables;
   }
@@ -787,7 +787,7 @@ final class Transaction
    * Return the observables, initializing the array if necessary.
    */
   @Nonnull
-  ArrayList<Observable> safeGetObservables()
+  ArrayList<Observable<?>> safeGetObservables()
   {
     if ( null == _observables )
     {

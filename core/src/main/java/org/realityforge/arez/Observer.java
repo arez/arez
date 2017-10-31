@@ -60,7 +60,7 @@ public final class Observer
    * This list should contain no duplicates.
    */
   @Nonnull
-  private ArrayList<Observable> _dependencies = new ArrayList<>();
+  private ArrayList<Observable<?>> _dependencies = new ArrayList<>();
   /**
    * Flag indicating whether this observer has been scheduled.
    * Should always be false unless _reaction is non-null.
@@ -80,7 +80,7 @@ public final class Observer
    * The memoized observable value created by observer if any.
    */
   @Nullable
-  private final Observable _derivedValue;
+  private final Observable<?> _derivedValue;
   /**
    * Flag set to true if Observer can be passed as tracker into one of the transaciton emthods.
    */
@@ -148,7 +148,8 @@ public final class Observer
     _canTrackExplicitly = canTrackExplicitly;
     if ( null != _computedValue )
     {
-      _derivedValue = new Observable( context, name, this );
+      _derivedValue =
+        new Observable<>( context, name, this, Arez.areValueIntrospectorsEnabled() ? _computedValue::get : null, null );
     }
     else
     {
@@ -157,7 +158,7 @@ public final class Observer
   }
 
   @Nonnull
-  Observable getDerivedValue()
+  Observable<?> getDerivedValue()
   {
     invariant( this::isLive,
                () -> "Attempted to invoke getDerivedValue on disposed observer named '" + getName() + "'." );
@@ -602,7 +603,7 @@ public final class Observer
    * @return the dependencies.
    */
   @Nonnull
-  ArrayList<Observable> getDependencies()
+  ArrayList<Observable<?>> getDependencies()
   {
     return _dependencies;
   }
@@ -613,7 +614,7 @@ public final class Observer
    *
    * @param dependencies the new set of dependencies.
    */
-  void replaceDependencies( @Nonnull final ArrayList<Observable> dependencies )
+  void replaceDependencies( @Nonnull final ArrayList<Observable<?>> dependencies )
   {
     invariantDependenciesUnique( "Pre replaceDependencies" );
     _dependencies = Objects.requireNonNull( dependencies );

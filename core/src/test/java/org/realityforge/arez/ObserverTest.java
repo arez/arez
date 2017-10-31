@@ -156,7 +156,7 @@ public class ObserverTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable observable = newObservable( context );
+    final Observable<?> observable = newObservable( context );
     observer.getDependencies().add( observable );
 
     final IllegalStateException exception =
@@ -181,7 +181,7 @@ public class ObserverTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable observable = newObservable( context );
+    final Observable<?> observable = newObservable( context );
     observer.getDependencies().add( observable );
     observable.addObserver( observer );
 
@@ -206,7 +206,7 @@ public class ObserverTest
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
 
-    final Observable observable = newObservable( context );
+    final Observable<?> observable = newObservable( context );
 
     observer.getDependencies().add( observable );
 
@@ -232,7 +232,7 @@ public class ObserverTest
 
     observer.invariantState();
 
-    final Observable observable = newObservable( context );
+    final Observable<?> observable = newObservable( context );
     observer.getDependencies().add( observable );
 
     final IllegalStateException exception =
@@ -313,13 +313,13 @@ public class ObserverTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final ArrayList<Observable> originalDependencies = observer.getDependencies();
+    final ArrayList<Observable<?>> originalDependencies = observer.getDependencies();
 
     assertEquals( originalDependencies.isEmpty(), true );
 
-    final Observable observable = newObservable( context );
+    final Observable<?> observable = newObservable( context );
 
-    final ArrayList<Observable> newDependencies = new ArrayList<>();
+    final ArrayList<Observable<?>> newDependencies = new ArrayList<>();
     newDependencies.add( observable );
     observable.addObserver( observer );
 
@@ -340,13 +340,13 @@ public class ObserverTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final ArrayList<Observable> originalDependencies = observer.getDependencies();
+    final ArrayList<Observable<?>> originalDependencies = observer.getDependencies();
 
     assertEquals( originalDependencies.isEmpty(), true );
 
-    final Observable observable = newObservable( context );
+    final Observable<?> observable = newObservable( context );
 
-    final ArrayList<Observable> newDependencies = new ArrayList<>();
+    final ArrayList<Observable<?>> newDependencies = new ArrayList<>();
     newDependencies.add( observable );
     newDependencies.add( observable );
     observable.addObserver( observer );
@@ -364,13 +364,13 @@ public class ObserverTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final ArrayList<Observable> originalDependencies = observer.getDependencies();
+    final ArrayList<Observable<?>> originalDependencies = observer.getDependencies();
 
     assertEquals( originalDependencies.isEmpty(), true );
 
-    final Observable observable = newObservable( context );
+    final Observable<?> observable = newObservable( context );
 
-    final ArrayList<Observable> newDependencies = new ArrayList<>();
+    final ArrayList<Observable<?>> newDependencies = new ArrayList<>();
     newDependencies.add( observable );
 
     assertThrows( () -> observer.replaceDependencies( newDependencies ) );
@@ -386,8 +386,8 @@ public class ObserverTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final Observable observable1 = newObservable( context );
-    final Observable observable2 = newObservable( context );
+    final Observable<?> observable1 = newObservable( context );
+    final Observable<?> observable2 = newObservable( context );
 
     observer.getDependencies().add( observable1 );
     observer.getDependencies().add( observable2 );
@@ -527,8 +527,8 @@ public class ObserverTest
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 2 );
 
-    final Observable observable1 = newObservable( context );
-    final Observable observable2 = newObservable( context );
+    final Observable<?> observable1 = newObservable( context );
+    final Observable<?> observable2 = newObservable( context );
 
     observer.getDependencies().add( observable1 );
     observer.getDependencies().add( observable2 );
@@ -557,7 +557,7 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newDerivation( context );
-    final Observable derivedValue = observer.getDerivedValue();
+    final Observable<?> derivedValue = observer.getDerivedValue();
     setCurrentTransaction( observer );
 
     final Observer watcher = ensureDerivationHasObserver( observer );
@@ -900,9 +900,9 @@ public class ObserverTest
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
 
-    final Observable observable1 = newObservable( context );
-    final Observable observable2 = newObservable( context );
-    final Observable observable3 = newObservable( context );
+    final Observable<?> observable1 = newObservable( context );
+    final Observable<?> observable2 = newObservable( context );
+    final Observable<?> observable3 = newObservable( context );
 
     observer.getDependencies().add( observable1 );
     observer.getDependencies().add( observable2 );
@@ -1227,7 +1227,7 @@ public class ObserverTest
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 
-    final Observable observable = newObservable( context );
+    final Observable<?> observable = newObservable( context );
     observer.getDependencies().add( observable );
     observable.addObserver( observer );
 

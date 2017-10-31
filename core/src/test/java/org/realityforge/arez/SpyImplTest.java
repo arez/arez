@@ -305,7 +305,7 @@ public class SpyImplTest
 
     assertEquals( spy.getDependencies( computedValue ).size(), 0 );
 
-    final Observable observable = newObservable( context );
+    final Observable<?> observable = newObservable( context );
     observable.getObservers().add( computedValue.getObserver() );
     computedValue.getObserver().getDependencies().add( observable );
 
@@ -327,9 +327,9 @@ public class SpyImplTest
     final Observer observer = newDerivation( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
-    final Observable observable = newObservable( context );
-    final Observable observable2 = newObservable( context );
-    final Observable observable3 = newObservable( context );
+    final Observable<?> observable = newObservable( context );
+    final Observable<?> observable2 = newObservable( context );
+    final Observable<?> observable3 = newObservable( context );
 
     observable.getObservers().add( computedValue.getObserver() );
     computedValue.getObserver().getDependencies().add( observable );
@@ -373,7 +373,7 @@ public class SpyImplTest
     final SpyImpl spy = new SpyImpl( context );
 
     final Observer observer = newDerivation( context );
-    final Observable observable = observer.getDerivedValue();
+    final Observable<?> observable = observer.getDerivedValue();
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
     assertEquals( spy.asComputedValue( observable ), computedValue );
@@ -387,7 +387,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    final Observable observable = newObservable( context );
+    final Observable<?> observable = newObservable( context );
 
     assertEquals( spy.getObservers( observable ).size(), 0 );
 
@@ -504,11 +504,11 @@ public class SpyImplTest
 
     assertEquals( spy.getDependencies( observer ).size(), 0 );
 
-    final Observable observable = newObservable( context );
+    final Observable<?> observable = newObservable( context );
     observable.getObservers().add( observer );
     observer.getDependencies().add( observable );
 
-    final List<Observable> dependencies = spy.getDependencies( observer );
+    final List<Observable<?>> dependencies = spy.getDependencies( observer );
     assertEquals( dependencies.size(), 1 );
     assertEquals( dependencies.contains( observable ), true );
 
@@ -525,9 +525,9 @@ public class SpyImplTest
 
     final Observer observer = newReadOnlyObserver( context );
 
-    final Observable observable = newObservable( context );
-    final Observable observable2 = newObservable( context );
-    final Observable observable3 = newObservable( context );
+    final Observable<?> observable = newObservable( context );
+    final Observable<?> observable2 = newObservable( context );
+    final Observable<?> observable3 = newObservable( context );
 
     observable.getObservers().add( observer );
     observer.getDependencies().add( observable );
@@ -540,7 +540,7 @@ public class SpyImplTest
     context.getTransaction().safeGetObservables().add( observable3 );
     context.getTransaction().safeGetObservables().add( observable2 );
 
-    final List<Observable> dependencies = spy.getDependencies( observer );
+    final List<Observable<?>> dependencies = spy.getDependencies( observer );
     assertEquals( dependencies.size(), 2 );
     assertEquals( dependencies.contains( observable2 ), true );
     assertEquals( dependencies.contains( observable3 ), true );

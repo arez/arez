@@ -132,10 +132,11 @@ public final class ComputedValue<T>
    *
    * @return the observable for the derived value.
    */
+  @SuppressWarnings( "unchecked" )
   @Nonnull
-  Observable getObservable()
+  Observable<T> getObservable()
   {
-    return getObserver().getDerivedValue();
+    return (Observable<T>) getObserver().getDerivedValue();
   }
 
   /**

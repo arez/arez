@@ -106,7 +106,7 @@ public interface Spy
    * @param observable the Observable.
    * @return true if the Observable is a ComputedValue.
    */
-  boolean isComputedValue( @Nonnull final Observable observable );
+  boolean isComputedValue( @Nonnull final Observable<?> observable );
 
   /**
    * Convert the Observable to a ComputedValue.
@@ -115,7 +115,7 @@ public interface Spy
    * @param observable the Observable.
    * @return the ComputedValue instance.
    */
-  ComputedValue<?> asComputedValue( @Nonnull final Observable observable );
+  ComputedValue<?> asComputedValue( @Nonnull final Observable<?> observable );
 
   /**
    * Return the list of observers for the Observable.
@@ -125,7 +125,7 @@ public interface Spy
    * @return the list of observers for Observable.
    */
   @Nonnull
-  List<Observer> getObservers( @Nonnull final Observable observable );
+  List<Observer> getObservers( @Nonnull final Observable<?> observable );
 
   /**
    * Return true if the Observer is currently running.
@@ -179,5 +179,5 @@ public interface Spy
    * @return the list of dependencies for the Observer.
    */
   @Nonnull
-  List<Observable> getDependencies( @Nonnull final Observer observer );
+  List<Observable<?>> getDependencies( @Nonnull final Observer observer );
 }

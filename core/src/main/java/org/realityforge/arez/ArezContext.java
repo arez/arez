@@ -10,6 +10,8 @@ import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
 import org.realityforge.arez.spy.ObserverErrorEvent;
+import org.realityforge.arez.spy.PropertyAccessor;
+import org.realityforge.arez.spy.PropertyMutator;
 import org.realityforge.arez.spy.ReactionScheduledEvent;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -316,15 +318,32 @@ public final class ArezContext
   }
 
   /**
-   * Create a non-computed Observer with specified name.
+   * Create an Observable with the specified name.
    *
-   * @param name the name of the observer. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
-   * @return the new Observer.
+   * @param name the name of the Observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @return the new Observable.
    */
   @Nonnull
   public Observable createObservable( @Nullable final String name )
   {
-    final Observable observable = new Observable( this, Arez.areNamesEnabled() ? name : null, null );
+    return createObservable( name, null, null );
+  }
+
+  /**
+   * Create an Observable.
+   *
+   * @param name     the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param accessor the accessor for observable. Should be null if {@link Arez#areValueIntrospectorsEnabled()} returns false, may be non-null otherwise.
+   * @param mutator  the mutator for observable. Should be null if {@link Arez#areValueIntrospectorsEnabled()} returns false, may be non-null otherwise.
+   * @return the new Observable.
+   */
+  @Nonnull
+  public <T> Observable<T> createObservable( @Nullable final String name,
+                                             @Nullable final PropertyAccessor<T> accessor,
+                                             @Nullable final PropertyMutator<T> mutator )
+  {
+    final Observable<T> observable =
+      new Observable<>( this, Arez.areNamesEnabled() ? name : null, null, accessor, mutator );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObservableCreatedEvent( observable ) );
