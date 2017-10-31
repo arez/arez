@@ -103,3 +103,14 @@ combination of unique parameters in method and seemed to work effectively. There
 implementation as testing for parameter equality needed to be configurable for each parameter and deactivation
 typically triggered a dispose after a delay. Until this feature is implemented, it is reasonable easy to
 implemented this with a `@Computed` annotation.
+
+### Component Model
+
+#### Why does the annotation processor only sometimes generate a toString() method?
+
+The Arez annotation processor will generate a `toString()` method on a component if the user has not provided
+their own `toString()` method. If any superclass other than the base `Object` class has overridden the `toString()`
+method, then Arez assumes that the user will want to keep that method. If the method has not been overridden
+then Arez will override `toString()` to return a value such as `"ArezComponent[myComponentName]"`. It should be
+noted that if names are not enabled by the Arez compile time configuration (i.e. `Arez.areNamesEnabled()` returns
+false) then the base `Objetc.toString()` method will be invoked. 
