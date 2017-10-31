@@ -66,6 +66,9 @@ console.table(languages);
 
   https://github.com/realityforge/arez/issues/new?labels=bug&title=Problem%20X&milestone=v0.18&assignee=realityforge&body=This%20is%20a%20prefilled%20issue
 
+* Setup tool that does comparisons between different versions of the API via a tool such as:
+  - https://github.com/siom79/japicmp
+
 ## Documentation
 
 * Make sure # fragments are not always stolen by search javascript and can be used when linking to pages
