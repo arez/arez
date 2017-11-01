@@ -35,7 +35,7 @@ rides remaining. This could be represented by the component:
 
 Compiling this class will generate a new class named `Arez_TrainTicket`. Rather than directly exposing the
 `Arez_TrainTicket` class to downstream consumers it is more common to define a factory method on the
-`TrainTicket` class and change the constructor on the `TrainTicket` to be package access. 
+`TrainTicket` class and change the constructor on the `TrainTicket` to be package access.
 
 This pattern eliminates the need for downstream users to know about the `Arez_TrainTicket` and treats the
 generated class as an implementation detail that should be hidden from the user. This pattern also makes it
