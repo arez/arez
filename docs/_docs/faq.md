@@ -113,6 +113,10 @@ makes it possible to explicitly decommission the reactive component and release 
 associated with the component. A previous iteration of the framework made it optional for components to
 support `Disposable` but this just lead to resource leaks.
 
+It should also be noted that all resources within a component are disposed within the scope of a single
+transaction, to avoid scenario where a partially disposed component reacts to changes occuring during
+dispose.
+
 #### Why does the annotation processor override equals() and hashCode() methods for non-singletons?
 
 The annotation processor overrides the `equals()` and `hashCode()` methods as these methods
