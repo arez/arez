@@ -53,19 +53,6 @@ final class AutorunDescriptor
     return _name;
   }
 
-  boolean hasRefMethod()
-  {
-    return null != _refMethod;
-  }
-
-  @Nonnull
-  ExecutableElement getRefMethod()
-    throws ArezProcessorException
-  {
-    assert null != _refMethod;
-    return _refMethod;
-  }
-
   void setRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
   {
     _refMethod = Objects.requireNonNull( method );
