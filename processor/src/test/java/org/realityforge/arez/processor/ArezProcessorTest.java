@@ -341,6 +341,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observer_ref.ParametersModel",
                       "@ObserverRef target must not have any parameters" },
         new Object[]{ "com.example.observer_ref.PrivateModel", "@ObserverRef target must not be private" },
+        new Object[]{ "com.example.observer_ref.RefOnNeitherModel",
+                      "@ObserverRef target defined observer named 'render' but no @Autorun or @Track method with that name exists" },
         new Object[]{ "com.example.observer_ref.StaticModel", "@ObserverRef target must not be static" },
         new Object[]{ "com.example.observer_ref.VoidReturnModel",
                       "Method annotated with @ObserverRef must return an instance of org.realityforge.arez.Observer" },
