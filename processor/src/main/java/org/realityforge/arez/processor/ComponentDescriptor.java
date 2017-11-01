@@ -2123,7 +2123,9 @@ final class ComponentDescriptor
     final CodeBlock.Builder builder = CodeBlock.builder();
     if ( null != _componentId )
     {
-      builder.beginControlFlow( "if ( null != this.$N.remove( entity.$N() ) )", ENTITIES_FIELD_NAME, getIdMethodName() );
+      builder.beginControlFlow( "if ( null != this.$N.remove( entity.$N() ) )",
+                                ENTITIES_FIELD_NAME,
+                                getIdMethodName() );
     }
     else
     {
@@ -2155,7 +2157,9 @@ final class ComponentDescriptor
     return MethodSpec.methodBuilder( "preDispose" ).
       addModifiers( Modifier.FINAL ).
       addAnnotation( PreDispose.class ).
-      addStatement( "this.$N.forEach( e -> $T.dispose( e ) )", ENTITYLIST_FIELD_NAME, GeneratorUtil.DISPOSABLE_CLASSNAME ).
+      addStatement( "this.$N.forEach( e -> $T.dispose( e ) )",
+                    ENTITYLIST_FIELD_NAME,
+                    GeneratorUtil.DISPOSABLE_CLASSNAME ).
       addStatement( "this.$N.clear()", ENTITIES_FIELD_NAME ).
       addStatement( "$N().reportChanged()", GET_OBSERVABLE_METHOD ).
       build();
