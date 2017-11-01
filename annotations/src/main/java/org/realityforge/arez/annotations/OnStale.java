@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
  *
  * <p>The method must also conform to the following constraints:</p>
  * <ul>
- * <li>Must not be annotated with {@link Autorun}, {@link ComponentId}, {@link Observable}, {@link Computed}, {@link Action}, {@link javax.annotation.PostConstruct}, {@link PreDispose}, {@link PostDispose}, {@link OnActivate} or {@link OnDeactivate}</li>
+ * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must have 0 parameters</li>
  * <li>Must not return a value</li>
  * <li>Must not be private</li>

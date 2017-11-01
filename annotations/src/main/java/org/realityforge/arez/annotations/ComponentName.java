@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
  *
  * <p>The method that is annotated with @ComponentName must comply with the additional constraints:</p>
  * <ul>
- * <li>Must not be annotated with {@link Autorun}, {@link Observable}, {@link Computed}, {@link Action}, {@link javax.annotation.PostConstruct}, {@link PreDispose}, {@link PostDispose}, {@link OnActivate}, {@link OnDeactivate} or {@link OnStale}</li>
+ * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must have 0 parameters</li>
  * <li>Must return a String</li>
  * <li>Must not be private</li>
