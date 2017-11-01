@@ -22,7 +22,7 @@ If a method annotated with `@Action`, `@Track` or `@Autorun` is invoked, the met
 which they were created if is different from the current zone. The previous zone and any transaction in the zone
 will be suspended and and resumed when the method completes.
 
-The current zone can be manipulated by directly interacting with the `Arez`. A typical example may of use is:
+The current zone can be manipulated by directly interacting with the `Arez` class. A typical example of use is:
 
 {% highlight java %}
 {% file_content org/realityforge/arez/doc/examples/multi_zone/Example.java "start_line=/^  {/" "end_line=/^  }/" include_start_line=false include_end_line=false strip_block=true %}
