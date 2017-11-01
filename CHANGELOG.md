@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+##### Added
+* **\[core\]** Add the `ArezContext.pauseScheduler()` method that allows the developer to manually pause
+  reactions and `ArezContext.isSchedulerPaused()` to determine if the scheduler is paused. This gives the
+  toolkit user the ability to manually batch actions so application can react to the changes once.
+
 ##### Fixed
 * **\[core\]** Invariant failures could refer to `ArezConfig.enableNames()` which is a package access internal
   API. Update messages to use public API `Arez.areNamesEnabled()`. Also update internal code to use public API

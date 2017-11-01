@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import java.util.Objects;
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
@@ -55,6 +56,11 @@ public final class ArezContext
    * This should be active only when there is no uncommitted transaction for context.
    */
   private boolean _schedulerEnabled = true;
+  /**
+   * The number of un-released locks on the scheduler.
+   */
+  @Nonnegative
+  private int _schedulerLockCount;
 
   /**
    * Arez context should not be created directly but only accessed via Arez.
@@ -411,12 +417,64 @@ public final class ArezContext
 
   /**
    * Return true if the scheduler enabled flag is true.
+   * It is still possible that the scheduler has un-released locks so this
+   * does not necessarily imply that the schedule will run.
    *
    * @return true if the scheduler enabled flag is true.
    */
   boolean isSchedulerEnabled()
   {
     return _schedulerEnabled;
+  }
+
+  /**
+   * Release a scheduler lock to enable scheduler to run again.
+   * Trigger reactions if lock reaches 0 and no current transaction.
+   */
+  void releaseSchedulerLock()
+  {
+    _schedulerLockCount--;
+    invariant( () -> _schedulerLockCount >= 0,
+               () -> "releaseSchedulerLock() reduced schedulerLockCount below 0." );
+    triggerScheduler();
+  }
+
+  /**
+   * Return true if the scheduler is paused.
+   * True means that {@link #pauseScheduler()} has been called one or more times and the lock not disposed.
+   *
+   * @return true if the scheduler is paused, false otherwise.
+   */
+  public boolean isSchedulerPaused()
+  {
+    return _schedulerLockCount != 0;
+  }
+
+  /**
+   * Pause scheduler so that it will not run any reactions next time {@link #triggerScheduler()} is invoked.
+   * The scheduler will not resume scheduling reactions until the lock returned from this method is disposed.
+   *
+   * <p>The intention of this method is to allow the user to manually batch multiple actions, before
+   * disposing the lock and allowing reactions to flow through the system. A typical use-case is when
+   * a large network packet is received and processed over multiple ticks but you only want the
+   * application to react once.</p>
+   *
+   * <p>If this is invoked from within a reaction then the current behaviour will continue to process any
+   * pending reactions until there is none left. However this behaviour should not be relied upon as it may
+   * result in an abort in the future.</p>
+   *
+   * <p>It should be noted that this is the one way where inconsistent state can creep into an Arez application.
+   * If an external action can trigger while the scheduler is paused. i.e. In the browser when an
+   * event-handler calls back from UI when the reactions have not run. Thus the event handler could be
+   * based on stale data. If this can occur the developer should </p>
+   *
+   * @return a lock on scheduler.
+   */
+  @Nonnull
+  public Disposable pauseScheduler()
+  {
+    _schedulerLockCount++;
+    return new SchedulerLock( this );
   }
 
   /**
@@ -428,7 +486,7 @@ public final class ArezContext
    */
   public void triggerScheduler()
   {
-    if ( isSchedulerEnabled() )
+    if ( isSchedulerEnabled() && !isSchedulerPaused() )
     {
       _scheduler.runPendingObservers();
     }
@@ -1171,5 +1229,17 @@ public final class ArezContext
   int getNextNodeId()
   {
     return _nextNodeId;
+  }
+
+  @TestOnly
+  int getSchedulerLockCount()
+  {
+    return _schedulerLockCount;
+  }
+
+  @TestOnly
+  void setSchedulerLockCount( final int schedulerLockCount )
+  {
+    _schedulerLockCount = schedulerLockCount;
   }
 }

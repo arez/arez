@@ -9,6 +9,7 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ArezObserverTestUtil;
 import org.realityforge.arez.ArezTestUtil;
 import org.realityforge.arez.ComputedValue;
+import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
 import org.realityforge.arez.ObserverErrorHandler;
@@ -485,6 +486,40 @@ public class ExternalApiTest
 
     assertNotInTransaction( observable1 );
     assertNotInTransaction( observable2 );
+  }
+
+  @Test
+  public void pauseScheduler()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Disposable lock1 = context.pauseScheduler();
+    assertEquals( context.isSchedulerPaused(), true );
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    // This would normally be scheduled and run now but scheduler should be paused
+    context.autorun( ValueUtil.randomString(), false, callCount::incrementAndGet, false );
+    context.triggerScheduler();
+
+    assertEquals( callCount.get(), 0 );
+
+    final Disposable lock2 = context.pauseScheduler();
+
+    lock2.dispose();
+
+    assertEquals( context.isSchedulerPaused(), true );
+
+    // Already disposed so this is a noop
+    lock2.dispose();
+
+    assertEquals( callCount.get(), 0 );
+
+    lock1.dispose();
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( context.isSchedulerPaused(), false );
   }
 
   /**

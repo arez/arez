@@ -1696,4 +1696,57 @@ public class ArezContextTest
 
     assertNotNull( observable );
   }
+
+  @Test
+  public void pauseScheduler()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    assertEquals( context.isSchedulerPaused(), false );
+
+    assertEquals( context.getSchedulerLockCount(), 0 );
+    final Disposable lock1 = context.pauseScheduler();
+    assertEquals( context.getSchedulerLockCount(), 1 );
+    assertEquals( context.isSchedulerPaused(), true );
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    // This would normally be scheduled and run now but scheduler should be paused
+    context.autorun( ValueUtil.randomString(), false, callCount::incrementAndGet, false );
+    context.triggerScheduler();
+
+    assertEquals( callCount.get(), 0 );
+
+    final Disposable lock2 = context.pauseScheduler();
+    assertEquals( context.getSchedulerLockCount(), 2 );
+    assertEquals( context.isSchedulerPaused(), true );
+
+    lock2.dispose();
+
+    assertEquals( context.getSchedulerLockCount(), 1 );
+
+    // Already disposed so this is a noop
+    lock2.dispose();
+
+    assertEquals( context.getSchedulerLockCount(), 1 );
+    assertEquals( context.isSchedulerPaused(), true );
+
+    assertEquals( callCount.get(), 0 );
+
+    lock1.dispose();
+
+    assertEquals( context.getSchedulerLockCount(), 0 );
+    assertEquals( callCount.get(), 1 );
+    assertEquals( context.isSchedulerPaused(), false );
+  }
+
+  @Test
+  public void releaseSchedulerLock_whenNoLock()
+  {
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> Arez.context().releaseSchedulerLock() );
+
+    assertEquals( exception.getMessage(), "releaseSchedulerLock() reduced schedulerLockCount below 0." );
+  }
 }
