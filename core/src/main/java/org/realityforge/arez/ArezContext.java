@@ -52,7 +52,7 @@ public final class ArezContext
   private final SpyImpl _spy = Arez.areSpiesEnabled() ? new SpyImpl( this ) : null;
   /**
    * Flag indicating whether the scheduler should run next time it is triggered.
-   * This should be active only when there is no uncommitted transaction for context..
+   * This should be active only when there is no uncommitted transaction for context.
    */
   private boolean _schedulerEnabled = true;
 
