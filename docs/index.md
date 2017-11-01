@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: Overview
 ---
 
 Arez is a simple, efficient and scalable state management library for client-side applications powered by a
