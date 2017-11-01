@@ -924,7 +924,7 @@ final class ComponentDescriptor
         }
         else
         {
-          throw new ArezProcessorException( "@Observer target defined observer named '" + key + "' but no " +
+          throw new ArezProcessorException( "@ObserverRef target defined observer named '" + key + "' but no " +
                                             "@Autorun or @Track method with that name exists", method.getMethod() );
         }
       }
