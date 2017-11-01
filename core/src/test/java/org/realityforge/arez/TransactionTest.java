@@ -2563,4 +2563,20 @@ public class TransactionTest
                   "Attempting to commit transaction named '" + transaction.getName() +
                   "' but no transaction is active." );
   }
+
+  @Test
+  public void getPreviousInSameContext_zonesNotEnabled()
+  {
+    ArezTestUtil.disableZones();
+
+    final Transaction transaction =
+      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, transaction::getPreviousInSameContext );
+    assertEquals( exception.getMessage(),
+                  "Attempted to invoke getPreviousInSameContext() on transaction named '" +
+                  transaction.getName() + "' when zones are not enabled." );
+
+  }
 }
