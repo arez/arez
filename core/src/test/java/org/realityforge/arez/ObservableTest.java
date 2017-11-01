@@ -1322,7 +1322,7 @@ public class ObservableTest
 
   @Test
   public void introspectors()
-    throws Exception
+    throws Throwable
   {
     final AtomicReference<String> value = new AtomicReference<>();
     final String initialValue = ValueUtil.randomString();

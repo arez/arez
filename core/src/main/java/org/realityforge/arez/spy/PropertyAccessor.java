@@ -12,6 +12,8 @@ public interface PropertyAccessor<T>
    * Return the value of an Observable.
    *
    * @return the value of an Observable.
+   * @throws Throwable if unable to retrieve value.
    */
-  T get();
+  T get()
+    throws Throwable;
 }
