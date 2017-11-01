@@ -71,6 +71,16 @@ public final class Arez
   }
 
   /**
+   * Return false if collections returned by generated repositories are wrapped in unmodifiable prior to returning.
+   *
+   * @return false if collections returned by generated repositories are wrapped in unmodifiable prior to returning, true otherwise.
+   */
+  public static boolean areRepositoryResultsModifiable()
+  {
+    return ArezConfig.areRepositoryResultsModifiable();
+  }
+
+  /**
    * Return true if property introspectors for Observables are enabled.
    *
    * @return true if property introspectors for Observables are enabled., false otherwise.

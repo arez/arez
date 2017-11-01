@@ -68,7 +68,6 @@ import org.realityforge.arez.component.NoSuchEntityException;
 @SuppressWarnings( "Duplicates" )
 final class ComponentDescriptor
 {
-  private static final String IMMUTABLE_GUARD_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "IMMUTABLE_RESULTS";
   private static final String ENTITIES_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "entities";
   private static final String ENTITYLIST_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "entityList";
   private static final String GET_OBSERVABLE_METHOD = "getEntitiesObservable";
@@ -1943,7 +1942,9 @@ final class ComponentDescriptor
       addParameter( ParameterSpec.builder( listType, "list", Modifier.FINAL ).
         addAnnotation( Nonnull.class ).build() ).
       returns( listType ).
-      addStatement( "return $N ? $T.unmodifiableList( list ) : list", IMMUTABLE_GUARD_FIELD_NAME, Collections.class ).
+      addStatement( "return $T.areRepositoryResultsModifiable() ? $T.unmodifiableList( list ) : list",
+                    GeneratorUtil.AREZ_CLASSNAME,
+                    Collections.class ).
       build();
   }
 
@@ -2267,21 +2268,6 @@ final class ComponentDescriptor
 
   private void buildRepositoryFields( @Nonnull final TypeSpec.Builder builder )
   {
-    // Create the constant controlling whether results are immutable returned
-    {
-      final CodeBlock.Builder initializer = CodeBlock.builder().
-        addStatement(
-          "\"true\".equals( System.getProperty( \"arez.repositories_return_immutables\", String.valueOf( System.getProperty( \"arez.environment\", \"production\" ).equals( \"development\" ) ) ) )" );
-      final FieldSpec.Builder field =
-        FieldSpec.builder( TypeName.BOOLEAN,
-                           IMMUTABLE_GUARD_FIELD_NAME,
-                           Modifier.FINAL,
-                           Modifier.STATIC,
-                           Modifier.PRIVATE ).
-          initializer( initializer.build() );
-      builder.addField( field.build() );
-    }
-
     // Create the entities field
     {
       final CodeBlock.Builder initializer = CodeBlock.builder().addStatement( "new $T<>()", HashMap.class );

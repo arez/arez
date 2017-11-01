@@ -39,6 +39,7 @@ public final class ArezTestUtil
       disablePropertyIntrospectors();
       noEnforceTransactionType();
       disableSpies();
+      makeRepositoryResultsModifiable();
     }
     else
     {
@@ -46,6 +47,7 @@ public final class ArezTestUtil
       enablePropertyIntrospectors();
       enforceTransactionType();
       enableSpies();
+      makeRepositoryResultsUnmodifiable();
     }
     purgeReactionsWhenRunawayDetected();
     disableZones();
@@ -209,6 +211,32 @@ public final class ArezTestUtil
   private static void setEnableZones( final boolean value )
   {
     setConstant( "ENABLE_ZONES", value );
+  }
+
+  /**
+   * Set `arez.repositories_results_modifiable` setting to true.
+   */
+  public static void makeRepositoryResultsModifiable()
+  {
+    setRepositoriesResultsModifiable( true );
+  }
+
+  /**
+   * Set `arez.repositories_results_modifiable` setting to false.
+   */
+  public static void makeRepositoryResultsUnmodifiable()
+  {
+    setRepositoriesResultsModifiable( false );
+  }
+
+  /**
+   * Configure the `arez.repositories_results_modifiable` setting.
+   *
+   * @param value the setting.
+   */
+  private static void setRepositoriesResultsModifiable( final boolean value )
+  {
+    setConstant( "REPOSITORIES_RESULTS_MODIFIABLE", value );
   }
 
   /**

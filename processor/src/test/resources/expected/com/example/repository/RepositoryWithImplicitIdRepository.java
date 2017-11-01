@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.annotations.Action;
@@ -25,9 +26,6 @@ import org.realityforge.braincheck.Guards;
     singleton = true
 )
 public class RepositoryWithImplicitIdRepository implements RepositoryWithImplicitIdBaseRepositoryExtension {
-  private static final boolean $$arez$$_IMMUTABLE_RESULTS = "true".equals( System.getProperty( "arez.repositories_return_immutables", String.valueOf( System.getProperty( "arez.environment", "production" ).equals( "development" ) ) ) );
-  ;
-
   private final HashMap<Long, RepositoryWithImplicitId> $$arez$$_entities = new HashMap<>();
   ;
 
@@ -102,7 +100,7 @@ public class RepositoryWithImplicitIdRepository implements RepositoryWithImplici
    */
   @Nonnull
   protected final List<RepositoryWithImplicitId> wrap(@Nonnull final List<RepositoryWithImplicitId> list) {
-    return $$arez$$_IMMUTABLE_RESULTS ? Collections.unmodifiableList( list ) : list;
+    return Arez.areRepositoryResultsModifiable() ? Collections.unmodifiableList( list ) : list;
   }
 
   /**

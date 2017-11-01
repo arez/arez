@@ -25,8 +25,8 @@
   <define-property name="arez.purge_reactions_when_runaway_detected" values="true,false"/>
   <set-property name="arez.purge_reactions_when_runaway_detected" value="true"/>
 
-  <define-property name="arez.repositories_return_immutables" values="true,false"/>
-  <set-property name="arez.repositories_return_immutables" value="false"/>
+  <define-property name="arez.repositories_results_modifiable" values="true,false"/>
+  <set-property name="arez.repositories_results_modifiable" value="true"/>
 
   <define-property name="arez.enable_zones" values="true,false"/>
   <set-property name="arez.enable_zones" value="false"/>

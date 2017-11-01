@@ -28,6 +28,10 @@
 * 💥 **\[core\]** Replaced all usages of `ArezTestUtil.set*(boolean)` with a pair of methods that enable or
   disable a setting. Ensured all of the names of configuration used in `ArezTestUtil` align with names used
   by `Arez` to refer to same setting.
+* 💥 **\[core\]** Rename and invert compile time setting from `arez.repositories_return_immutables` to
+  `arez.repositories_results_modifiable` and expose it via `Arez.areRepositoryResultsModifiable()` and allow
+  configuration during development via `ArezTestUtil`. The annotation processor was updated to use
+  `Arez.areRepositoryResultsModifiable()` when generating repositories.
 
 ### [v0.22](https://github.com/realityforge/arez/tree/v0.22) (2017-10-29)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.21...v0.22)

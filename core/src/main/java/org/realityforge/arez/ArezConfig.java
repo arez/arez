@@ -18,6 +18,8 @@ final class ArezConfig
   private static boolean ENABLE_SPIES =
     "true".equals( System.getProperty( "arez.enable_spies", PRODUCTION_MODE ? "false" : "true" ) );
   private static boolean ENABLE_ZONES = "true".equals( System.getProperty( "arez.enable_zones", "false" ) );
+  private static boolean REPOSITORIES_RESULTS_MODIFIABLE =
+    "true".equals( System.getProperty( "arez.repositories_results_modifiable", PRODUCTION_MODE ? "true" : "false" ) );
 
   private ArezConfig()
   {
@@ -56,5 +58,10 @@ final class ArezConfig
   static boolean areZonesEnabled()
   {
     return ENABLE_ZONES;
+  }
+
+  static boolean areRepositoryResultsModifiable()
+  {
+    return REPOSITORIES_RESULTS_MODIFIABLE;
   }
 }

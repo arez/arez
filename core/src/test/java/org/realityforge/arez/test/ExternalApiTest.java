@@ -60,6 +60,14 @@ public class ExternalApiTest
   }
 
   @Test
+  public void areRepositoryResultsUnmodifiable()
+  {
+    assertFalse( Arez.areRepositoryResultsModifiable() );
+    ArezTestUtil.makeRepositoryResultsModifiable();
+    assertTrue( Arez.areRepositoryResultsModifiable() );
+  }
+
+  @Test
   public void areSpiesEnabled()
   {
     assertTrue( Arez.areSpiesEnabled() );
