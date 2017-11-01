@@ -106,6 +106,15 @@ implemented this with a `@Computed` annotation.
 
 ### Component Model
 
+#### Why does the annotation processor override equals() and hashCode() methods for non-singletons?
+
+The annotation processor overrides the `equals()` and `hashCode()` methods as these methods
+are used internally by Arez when storing instances of these classes. These methods are implemented with
+the assumption that the component id is unique. If the component id is supplied by the toolkit user via
+the `@ComponentId` annotation, the user must be careful to ensure that the component id is unique. This
+constraint is less relevant for singletons as it is assued that there is at most one singleton at any one
+time.
+
 #### Why does the annotation processor only sometimes generate a toString() method?
 
 The Arez annotation processor will generate a `toString()` method on a component if the user has not provided
