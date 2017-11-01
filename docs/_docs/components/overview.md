@@ -35,9 +35,11 @@ rides remaining. This could be represented by the component:
 
 Compiling this class will generate a new class named `Arez_TrainTicket`. Rather than directly exposing the
 `Arez_TrainTicket` class to downstream consumers it is more common to define a factory method on the
-`TrainTicket` class and change the constructor on the `TrainTicket` to be package access. The main advantage
-is that the user is not exposed to implementation details and it is easier to document the factory method in
-javadocs. For example:
+`TrainTicket` class and change the constructor on the `TrainTicket` to be package access. 
+
+This pattern eliminates the need for downstream users to know about the `Arez_TrainTicket` and treats the
+generated class as an implementation detail that should be hidden from the user. This pattern also makes it
+easier to document the component in javadocs. For example:
 
 {% highlight java %}
 {% file_content org/realityforge/arez/doc/examples/step2/TrainTicket.java "start_line=/@ArezComponent/" "end_line=/@Observable/" include_end_line=false %}
@@ -57,7 +59,7 @@ to put the action on the existing component while others would put it in a new `
 Arez is agnostic to this decision and supports either model.
 
 For the sake of brevity, this document will add actions to the existing component. If we imagine that the
-application needs an action "rideTrain" that simply decreases the number of rides remaining on a ticket by one
+application needs a "rideTrain" action that simply decreases the number of rides remaining on a ticket by one
 we could define it using a method such as:
 
 {% highlight java %}
