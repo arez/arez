@@ -70,22 +70,15 @@ final class ComputedDescriptor
   void setComputed( @Nonnull final ExecutableElement computed, @Nonnull final ExecutableType computedType )
     throws ArezProcessorException
   {
+    //The caller already verified that no duplicate computed have been defined
+    assert null == _computed;
     MethodChecks.mustBeOverridable( Computed.class, computed );
     MethodChecks.mustNotHaveAnyParameters( Computed.class, computed );
     MethodChecks.mustReturnAValue( Computed.class, computed );
     MethodChecks.mustNotThrowAnyExceptions( Computed.class, computed );
 
-    if ( null != _computed )
-    {
-      throw new ArezProcessorException( "Method annotated with @Computed specified name " + getName() +
-                                        " that duplicates computed defined by method " +
-                                        _computed.getSimpleName(), computed );
-    }
-    else
-    {
-      _computed = Objects.requireNonNull( computed );
-      _computedType = Objects.requireNonNull( computedType );
-    }
+    _computed = Objects.requireNonNull( computed );
+    _computedType = Objects.requireNonNull( computedType );
   }
 
   void setOnActivate( @Nonnull final ExecutableElement onActivate )
