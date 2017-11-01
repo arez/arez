@@ -13,7 +13,7 @@ public class TransactionTest
   @Test
   public void construction()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final String name1 = ValueUtil.randomString();
     final int nextNodeId = context.currentNextTransactionId();
 
@@ -38,7 +38,7 @@ public class TransactionTest
   {
     ArezTestUtil.disableNames();
 
-    final Transaction transaction = new Transaction( new ArezContext(), null, null, TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( Arez.context(), null, null, TransactionMode.READ_ONLY, null );
     final IllegalStateException exception = expectThrows( IllegalStateException.class, transaction::getName );
 
     assertEquals( exception.getMessage(), "Transaction.getName() invoked when Arez.areNamesEnabled() is false" );
@@ -50,7 +50,7 @@ public class TransactionTest
     ArezTestUtil.disableNames();
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class,
-                                                          () -> new Transaction( new ArezContext(),
+                                                          () -> new Transaction( Arez.context(),
                                                                                  null,
                                                                                  "X",
                                                                                  TransactionMode.READ_ONLY,
@@ -65,7 +65,7 @@ public class TransactionTest
     ArezTestUtil.disableSpies();
 
     final Transaction transaction =
-      new Transaction( new ArezContext(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
     // Re-enable spy so can read field
     ArezTestUtil.enableSpies();
@@ -76,7 +76,7 @@ public class TransactionTest
   @Test
   public void construction_with_READ_WRITE_OWNED_but_no_tracker()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
     final IllegalStateException exception =
@@ -91,7 +91,7 @@ public class TransactionTest
   @Test
   public void rootTransaction()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction1 =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -108,7 +108,7 @@ public class TransactionTest
   @Test
   public void begin()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
@@ -125,7 +125,7 @@ public class TransactionTest
   @Test
   public void commit()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -174,7 +174,7 @@ public class TransactionTest
   @Test
   public void trackingCycleWithNoTracker()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
@@ -195,7 +195,7 @@ public class TransactionTest
   @Test
   public void beginTracking_firstTracking()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
@@ -211,7 +211,7 @@ public class TransactionTest
   @Test
   public void beginTracking()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
@@ -236,7 +236,7 @@ public class TransactionTest
   @Test
   public void observe()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
@@ -265,7 +265,7 @@ public class TransactionTest
   @Test
   public void observe_onDisposedObservable()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
@@ -293,7 +293,7 @@ public class TransactionTest
   @Test
   public void observe_noObserveIfOwnedByTracker()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
@@ -315,7 +315,7 @@ public class TransactionTest
   @Test
   public void multipleObserves()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
@@ -347,7 +347,7 @@ public class TransactionTest
   @Test
   public void multipleObservesNestedTransactionInBetween()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
@@ -392,7 +392,7 @@ public class TransactionTest
   @Test
   public void completeTracking_noObservables()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -417,7 +417,7 @@ public class TransactionTest
   @Test
   public void completeTracking_noTrackerButObservablesPresent_shouldFail()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -436,7 +436,7 @@ public class TransactionTest
   @Test
   public void completeTracking_withBadTrackerState()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer tracker = newDerivation( context );
 
@@ -457,7 +457,7 @@ public class TransactionTest
   @Test
   public void completeTracking_withDisposedTracker()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer tracker = newDerivation( context );
 
@@ -502,7 +502,7 @@ public class TransactionTest
   @Test
   public void completeTracking_noNewObservablesButExistingObservables()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -532,7 +532,7 @@ public class TransactionTest
   @Test
   public void completeTracking_singleObservable()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -561,7 +561,7 @@ public class TransactionTest
   @Test
   public void completeTracking_multipleObservable()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -599,7 +599,7 @@ public class TransactionTest
   @Test
   public void completeTracking_singleObservableMultipleEntries()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -631,7 +631,7 @@ public class TransactionTest
   @Test
   public void completeTracking_multipleObservableMultipleEntries()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -669,7 +669,7 @@ public class TransactionTest
   @Test
   public void completeTracking_matchingExistingDependencies()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -708,7 +708,7 @@ public class TransactionTest
   @Test
   public void completeTracking_dependenciesChanged()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -752,7 +752,7 @@ public class TransactionTest
   @Test
   public void completeTracking_calculatedObservableUpToDate()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -785,7 +785,7 @@ public class TransactionTest
   @Test
   public void completeTracking_calculatedObservableStale()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -825,7 +825,7 @@ public class TransactionTest
   @Test
   public void completeTracking_calculatedObservableStale_mustUpdateNewDependencies()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -868,7 +868,7 @@ public class TransactionTest
   @Test
   public void queueForDeactivation_singleObserver()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -892,7 +892,7 @@ public class TransactionTest
   @Test
   public void queueForDeactivation_nestedTransaction()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction1 =
@@ -924,7 +924,7 @@ public class TransactionTest
   @Test
   public void queueForDeactivation_observerAlreadyDeactivated()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -949,7 +949,7 @@ public class TransactionTest
   @Test
   public void queueForDeactivation_observerCanNotDeactivate()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer tracker = newDerivation( context );
 
     final Transaction transaction =
@@ -972,7 +972,7 @@ public class TransactionTest
   @Test
   public void processPendingDeactivations_observableHasNoListeners()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -1003,7 +1003,7 @@ public class TransactionTest
   @Test
   public void processPendingDeactivations_noDeactivationsPending()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -1019,7 +1019,7 @@ public class TransactionTest
   @Test
   public void processPendingDeactivations_observableHasListener()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -1054,7 +1054,7 @@ public class TransactionTest
   @Test
   public void processPendingDeactivations_observableHasListenerAndIsDisposed()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -1086,7 +1086,7 @@ public class TransactionTest
   @Test
   public void processPendingDeactivations_causesMorePendingDeactivations()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -1146,7 +1146,7 @@ public class TransactionTest
   @Test
   public void processPendingDeactivations_producesNoMorePendingDeactivations()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -1186,7 +1186,7 @@ public class TransactionTest
   @Test
   public void processPendingDeactivations_calledOnNonRootTransaction()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction1 =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -1206,7 +1206,7 @@ public class TransactionTest
   {
     ArezTestUtil.noEnforceTransactionType();
 
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -1220,7 +1220,7 @@ public class TransactionTest
   @Test
   public void verifyWriteAllowed_withReadOnlyTransaction()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -1238,7 +1238,7 @@ public class TransactionTest
   @Test
   public void verifyWriteAllowed_withReadWriteTransaction()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1252,7 +1252,7 @@ public class TransactionTest
   @Test
   public void verifyWriteAllowed_withReadWriteOwnedTransaction()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
@@ -1279,7 +1279,7 @@ public class TransactionTest
   @Test
   public void reportChanged_noObservers()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1297,7 +1297,7 @@ public class TransactionTest
   @Test
   public void reportChanged_singleUpToDateObserver()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1324,7 +1324,7 @@ public class TransactionTest
   @Test
   public void reportChanged_withDisposedObservable()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1356,7 +1356,7 @@ public class TransactionTest
   @Test
   public void reportChanged_readOnlyTransaction()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -1386,7 +1386,7 @@ public class TransactionTest
   @Test
   public void reportChanged_singleObserver_notTrackingState()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1417,7 +1417,7 @@ public class TransactionTest
   @Test
   public void reportChanged_singleObserver_possiblyStaleState()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1445,7 +1445,7 @@ public class TransactionTest
   @Test
   public void reportChanged_multipleObservers()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1486,7 +1486,7 @@ public class TransactionTest
   @Test
   public void reportPossiblyChanged_singleUpToDateObserver()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1516,7 +1516,7 @@ public class TransactionTest
   @Test
   public void reportPossiblyChanged_onDisposedObservable()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1551,7 +1551,7 @@ public class TransactionTest
   @Test
   public void reportPossiblyChanged_noObserver()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1572,7 +1572,7 @@ public class TransactionTest
   @Test
   public void reportPossiblyChanged_ownedObserver_transaction_READ_WRITE_OWNED()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer calculator = newDerivation( context );
 
@@ -1601,7 +1601,7 @@ public class TransactionTest
   @Test
   public void reportPossiblyChanged_nonOwnedObserver_transaction_READ_WRITE_OWNED()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer tracker = newDerivation( context );
 
@@ -1636,7 +1636,7 @@ public class TransactionTest
   @Test
   public void reportPossiblyChanged_readOnlyTransaction()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -1669,7 +1669,7 @@ public class TransactionTest
   @Test
   public void reportPossiblyChanged_where_observable_is_not_derived()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1700,7 +1700,7 @@ public class TransactionTest
   @Test
   public void reportPossiblyChanged_multipleObservers()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1744,7 +1744,7 @@ public class TransactionTest
   @Test
   public void reportChangeConfirmed_singleUpToDateObserver()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer calculator = newDerivation( context );
     setCurrentTransaction( calculator );
@@ -1767,7 +1767,7 @@ public class TransactionTest
   @Test
   public void reportChangeConfirmed_disposedObservable()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer calculator = newDerivation( context );
     setCurrentTransaction( calculator );
@@ -1793,7 +1793,7 @@ public class TransactionTest
   @Test
   public void reportChangeConfirmed_noObservers()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1814,7 +1814,7 @@ public class TransactionTest
   @Test
   public void reportChangeConfirmed_singlePossiblyStaleObserver()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1841,7 +1841,7 @@ public class TransactionTest
   @Test
   public void reportChangeConfirmed_singleStaleObserver()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1868,7 +1868,7 @@ public class TransactionTest
   @Test
   public void reportChangeConfirmed_ownedObserver_transaction_READ_WRITE_OWNED()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer calculator = newDerivation( context );
 
@@ -1894,7 +1894,7 @@ public class TransactionTest
   @Test
   public void reportChangeConfirmed_nonOwnedObserver_transaction_READ_WRITE_OWNED()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer tracker = newDerivation( context );
 
@@ -1926,7 +1926,7 @@ public class TransactionTest
   @Test
   public void reportChangeConfirmed_readOnlyTransaction()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -1959,7 +1959,7 @@ public class TransactionTest
   @Test
   public void reportChangeConfirmed_where_observable_is_not_derived()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -1988,7 +1988,7 @@ public class TransactionTest
   @Test
   public void reportChangeConfirmed_multipleObservers()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -2033,7 +2033,7 @@ public class TransactionTest
   public void invariantObserverIsTracker_notTracker()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -2060,7 +2060,7 @@ public class TransactionTest
   public void invariantObserverIsTracker_trackerOfSurroundingTransaction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observable<?> observable = newObservable( context );
     final Observer observer = newReadOnlyObserver( context );
@@ -2079,7 +2079,7 @@ public class TransactionTest
   public void invariantObserverIsTracker_trackerUpTransactionHierarchy()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observable<?> observable = newObservable( context );
     final Observer observer = newReadOnlyObserver( context );
@@ -2112,7 +2112,7 @@ public class TransactionTest
   public void markTrackerAsDisposed_whenNoTracker()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -2130,7 +2130,7 @@ public class TransactionTest
   public void markTrackerAsDisposed()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
@@ -2150,7 +2150,7 @@ public class TransactionTest
   public void markTrackerAsDisposed_butTransactionREAD_ONLY()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer tracker = newDerivation( context );
     final Transaction transaction =
@@ -2177,7 +2177,7 @@ public class TransactionTest
     ArezTestUtil.disableSpies();
 
     final Transaction transaction =
-      new Transaction( new ArezContext(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, transaction::getStartedAt );
@@ -2189,7 +2189,7 @@ public class TransactionTest
   public void beginTransaction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -2214,7 +2214,7 @@ public class TransactionTest
   public void beginTransaction_nested()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -2322,7 +2322,7 @@ public class TransactionTest
   public void beginTransaction_generates_spyEvent()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -2342,7 +2342,7 @@ public class TransactionTest
   public void beginTransaction_attemptToNest_READ_WRITE_in_READ_ONLY()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     setCurrentTransaction( newReadOnlyObserver( context ) );
     final Transaction transaction = context.getTransaction();
@@ -2362,7 +2362,7 @@ public class TransactionTest
   public void beginTransaction_attemptToNest_READ_WRITE_in_READ_WRITE_OWNED()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     setCurrentTransaction( newDerivation( context ) );
     final Transaction transaction = context.getTransaction();
@@ -2382,7 +2382,7 @@ public class TransactionTest
   public void commitTransaction_matchingRootTransaction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -2399,7 +2399,7 @@ public class TransactionTest
   public void commitTransaction_onlyRootEnablesScheduler()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction1 =
       Transaction.begin( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -2503,7 +2503,7 @@ public class TransactionTest
   public void commitTransaction_generates_spyEvent()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -2529,7 +2529,7 @@ public class TransactionTest
   public void commitTransaction_nonMatchingRootTransaction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
@@ -2551,7 +2551,7 @@ public class TransactionTest
   public void commitTransaction_noTransactionActive()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
