@@ -410,6 +410,16 @@ public final class ArezContext
   }
 
   /**
+   * Return true if the scheduler enabled flag is true.
+   *
+   * @return true if the scheduler enabled flag is true.
+   */
+  boolean isSchedulerEnabled()
+  {
+    return _schedulerEnabled;
+  }
+
+  /**
    * Method invoked to trigger the scheduler to run any pending reactions. The scheduler will only be
    * triggered if there is no transaction active. This method is typically used after one or more Observers
    * have been created outside a transaction with the runImmediately flag set to false and the caller wants
@@ -418,7 +428,7 @@ public final class ArezContext
    */
   public void triggerScheduler()
   {
-    if ( _schedulerEnabled )
+    if ( isSchedulerEnabled() )
     {
       _scheduler.runPendingObservers();
     }
@@ -1161,11 +1171,5 @@ public final class ArezContext
   int getNextNodeId()
   {
     return _nextNodeId;
-  }
-
-  @TestOnly
-  boolean isSchedulerEnabled()
-  {
-    return _schedulerEnabled;
   }
 }
