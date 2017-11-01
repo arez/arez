@@ -22,7 +22,7 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
   Arez_NestedModel$BasicActionModelRepository() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.entities" : null );
+    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "NestedModel$BasicActionModelRepository.entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
   }
 
   @Override

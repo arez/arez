@@ -36,9 +36,9 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
   Arez_CompleteRepositoryExample(@Nonnull final String packageName, @Nonnull final String name) {
     super(packageName,name);
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_name = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null );
-    this.$$arez$$_packageName = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".packageName" : null );
-    this.$$arez$$_rawQualifiedName = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".rawQualifiedName" : null );
+    this.$$arez$$_name = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setName( v ) : null );
+    this.$$arez$$_packageName = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".packageName" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getPackageName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setPackageName( v ) : null );
+    this.$$arez$$_rawQualifiedName = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".rawQualifiedName" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getRawQualifiedName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setQualifiedName( v ) : null );
     this.$$arez$$_qualifiedName = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".qualifiedName" : null, super::getQualifiedName, Objects::equals, null, null, null, null );
   }
 

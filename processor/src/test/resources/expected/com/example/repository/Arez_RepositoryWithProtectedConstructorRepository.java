@@ -22,7 +22,7 @@ public final class Arez_RepositoryWithProtectedConstructorRepository extends Rep
   Arez_RepositoryWithProtectedConstructorRepository() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.entities" : null );
+    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "RepositoryWithProtectedConstructorRepository.entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
   }
 
   @Override

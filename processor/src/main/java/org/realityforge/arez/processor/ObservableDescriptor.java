@@ -6,6 +6,7 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,6 +18,7 @@ import javax.lang.model.type.ExecutableType;
 /**
  * The class that represents the parsed state of Observable properties on a @ArezComponent annotated class.
  */
+@SuppressWarnings( "Duplicates" )
 final class ObservableDescriptor
 {
   @Nonnull
@@ -159,23 +161,43 @@ final class ObservableDescriptor
 
   void buildInitializer( @Nonnull final MethodSpec.Builder builder )
   {
+    final ArrayList<Object> parameters = new ArrayList<>();
+    final StringBuilder sb = new StringBuilder();
+    sb.append( "this.$N = this.$N.createObservable( $T.areNamesEnabled() ? " );
+    parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
+    parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
+    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+
+    //, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null
     if ( _componentDescriptor.isSingleton() )
     {
-      builder.addStatement( "this.$N = this.$N.createObservable( $T.areNamesEnabled() ? $S : null )",
-                            GeneratorUtil.FIELD_PREFIX + getName(),
-                            GeneratorUtil.CONTEXT_FIELD_NAME,
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            _componentDescriptor.getNamePrefix() + getName() );
+      sb.append( "$S" );
+      parameters.add( _componentDescriptor.getNamePrefix() + getName() );
     }
     else
     {
-      builder.addStatement( "this.$N = this.$N.createObservable( $T.areNamesEnabled() ? $N() + $S : null )",
-                            GeneratorUtil.FIELD_PREFIX + getName(),
-                            GeneratorUtil.CONTEXT_FIELD_NAME,
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            _componentDescriptor.getComponentNameMethodName(),
-                            "." + getName() );
+      sb.append( "$N() + $S" );
+      parameters.add( _componentDescriptor.getComponentNameMethodName() );
+      parameters.add( "." + getName() );
     }
+    sb.append( " : null, $T.arePropertyIntrospectorsEnabled() ? () -> super.$N() : null" );
+    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+    parameters.add( getGetter().getSimpleName().toString() );
+
+    if ( hasSetter() )
+    {
+      //setter
+      sb.append( ", $T.arePropertyIntrospectorsEnabled() ? v -> super.$N( v ) : null" );
+      parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+      parameters.add( getSetter().getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( ", null" );
+    }
+
+    sb.append( " )" );
+    builder.addStatement( sb.toString(), parameters.toArray() );
   }
 
   void buildDisposer( @Nonnull final CodeBlock.Builder codeBlock )

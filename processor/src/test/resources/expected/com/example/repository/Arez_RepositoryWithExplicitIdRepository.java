@@ -22,7 +22,7 @@ public final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWit
   Arez_RepositoryWithExplicitIdRepository() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.entities" : null );
+    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "RepositoryWithExplicitIdRepository.entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
   }
 
   @Override

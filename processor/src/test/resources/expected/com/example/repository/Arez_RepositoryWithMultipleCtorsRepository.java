@@ -22,7 +22,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
   Arez_RepositoryWithMultipleCtorsRepository() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.entities" : null );
+    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "RepositoryWithMultipleCtorsRepository.entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
   }
 
   @Override

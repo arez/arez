@@ -44,15 +44,15 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   public Arez_DifferentObservableTypesModel() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_v6 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v6" : null );
-    this.$$arez$$_v7 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v7" : null );
-    this.$$arez$$_v8 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v8" : null );
-    this.$$arez$$_v9 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v9" : null );
-    this.$$arez$$_v1 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v1" : null );
-    this.$$arez$$_v2 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v2" : null );
-    this.$$arez$$_v3 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v3" : null );
-    this.$$arez$$_v4 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v4" : null );
-    this.$$arez$$_v5 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v5" : null );
+    this.$$arez$$_v6 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v6" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV6() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV6( v ) : null );
+    this.$$arez$$_v7 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v7" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV7() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV7( v ) : null );
+    this.$$arez$$_v8 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v8" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV8() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV8( v ) : null );
+    this.$$arez$$_v9 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v9" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV9() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV9( v ) : null );
+    this.$$arez$$_v1 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v1" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.isV1() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV1( v ) : null );
+    this.$$arez$$_v2 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v2" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV2() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV2( v ) : null );
+    this.$$arez$$_v3 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV3() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV3( v ) : null );
+    this.$$arez$$_v4 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v4" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV4() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV4( v ) : null );
+    this.$$arez$$_v5 = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? "DifferentObservableTypesModel.v5" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV5() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV5( v ) : null );
   }
 
   @Override

@@ -21,7 +21,7 @@ public final class Arez_ComponentIdOnModel extends ComponentIdOnModel implements
   public Arez_ComponentIdOnModel() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
   }
 
   String $$arez$$_name() {

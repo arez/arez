@@ -24,6 +24,8 @@
   needs to be defined with a type parameter and the `ArezContext.createObservable(...)` needed to be updated
   to support this use-case. This capability should be compiled out if `Arez.arePropertyIntrospectorsEnabled()`
   returns false and this is controlled by the gwt configuration property `"arez.enable_property_introspection"`.
+  The annotation processor has also been updated to supply the accessor and mutator (if a setter has been
+  defined) to the `Observable` iff `Arez.arePropertyIntrospectorsEnabled()` returns true.
 * **\[processor\]** Consistently prefix field access with `this.` in generated component classes.
 * 💥 **\[core\]** Replaced all usages of `ArezTestUtil.set*(boolean)` with a pair of methods that enable or
   disable a setting. Ensured all of the names of configuration used in `ArezTestUtil` align with names used
