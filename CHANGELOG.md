@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.23](https://github.com/realityforge/arez/tree/v0.23) (2017-11-01)
+[Full Changelog](https://github.com/realityforge/arez/compare/v0.22...v0.23)
 
 ##### Added
 * **\[core\]** Add the `ArezContext.pauseScheduler()` method that allows the developer to manually pause
