@@ -6,8 +6,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation to identify method invoked after disposing element.
- * There should be zero methods annotated with @PreDispose if {@link ArezComponent#disposable()} is false,
- * otherwise at most 1 method should be annotated with this annotation.
+ * At most 1 method should be annotated with this annotation.
  *
  * <p>The method that is annotated with @PostDispose must comply with the additional constraints:</p>
  * <ul>

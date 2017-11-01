@@ -86,7 +86,6 @@ final class ComponentDescriptor
   @Nonnull
   private final String _name;
   private final boolean _singleton;
-  private final boolean _disposable;
   private final boolean _allowEmpty;
   private final boolean _generateToString;
   @Nonnull
@@ -126,7 +125,6 @@ final class ComponentDescriptor
 
   ComponentDescriptor( @Nonnull final String name,
                        final boolean singleton,
-                       final boolean disposable,
                        final boolean allowEmpty,
                        final boolean generateToString,
                        @Nonnull final PackageElement packageElement,
@@ -134,7 +132,6 @@ final class ComponentDescriptor
   {
     _name = Objects.requireNonNull( name );
     _singleton = singleton;
-    _disposable = disposable;
     _allowEmpty = allowEmpty;
     _generateToString = generateToString;
     _packageElement = Objects.requireNonNull( packageElement );
@@ -159,11 +156,6 @@ final class ComponentDescriptor
   boolean isSingleton()
   {
     return _singleton;
-  }
-
-  boolean isDisposable()
-  {
-    return _disposable;
   }
 
   @Nonnull
@@ -699,11 +691,6 @@ final class ComponentDescriptor
   private void setPreDispose( @Nonnull final ExecutableElement preDispose )
     throws ArezProcessorException
   {
-    if ( !isDisposable() )
-    {
-      throw new ArezProcessorException( "@PreDispose must not exist if @ArezComponent set disposable to false",
-                                        preDispose );
-    }
     MethodChecks.mustBeLifecycleHook( PreDispose.class, preDispose );
 
     if ( null != _preDispose )
@@ -720,12 +707,6 @@ final class ComponentDescriptor
   private void setPostDispose( @Nonnull final ExecutableElement postDispose )
     throws ArezProcessorException
   {
-    if ( !isDisposable() )
-    {
-      throw new ArezProcessorException( "@PostDispose must not exist if @ArezComponent set disposable to false",
-                                        postDispose );
-    }
-
     MethodChecks.mustBeLifecycleHook( PostDispose.class, postDispose );
 
     if ( null != _postDispose )
@@ -1232,22 +1213,19 @@ final class ComponentDescriptor
     }
     ProcessorUtil.copyAccessModifiers( getElement(), builder );
 
-    if ( isDisposable() )
+    builder.addSuperinterface( GeneratorUtil.DISPOSABLE_CLASSNAME );
+    if ( hasRepository() )
     {
-      builder.addSuperinterface( GeneratorUtil.DISPOSABLE_CLASSNAME );
-      if ( hasRepository() )
-      {
-        final TypeSpec onDispose =
-          TypeSpec.interfaceBuilder( "OnDispose" ).
-            addModifiers( Modifier.STATIC ).
-            addAnnotation( FunctionalInterface.class ).
-            addMethod( MethodSpec.methodBuilder( "onDispose" ).
-              addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
-              addParameter( ParameterSpec.builder( ClassName.bestGuess( getArezClassName() ), "entity" ).build() ).
-              build() ).
-            build();
-        builder.addType( onDispose );
-      }
+      final TypeSpec onDispose =
+        TypeSpec.interfaceBuilder( "OnDispose" ).
+          addModifiers( Modifier.STATIC ).
+          addAnnotation( FunctionalInterface.class ).
+          addMethod( MethodSpec.methodBuilder( "onDispose" ).
+            addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
+            addParameter( ParameterSpec.builder( ClassName.bestGuess( getArezClassName() ), "entity" ).build() ).
+            build() ).
+          build();
+      builder.addType( onDispose );
     }
 
     buildFields( builder );
@@ -1272,14 +1250,11 @@ final class ComponentDescriptor
       builder.addMethod( method );
     }
 
-    if ( isDisposable() )
+    builder.addMethod( buildIsDisposed() );
+    builder.addMethod( buildDispose() );
+    if ( hasRepository() )
     {
-      builder.addMethod( buildIsDisposed() );
-      builder.addMethod( buildDispose() );
-      if ( hasRepository() )
-      {
-        builder.addMethod( buildSetOnDispose() );
-      }
+      builder.addMethod( buildSetOnDispose() );
     }
 
     _roObservables.forEach( e -> e.buildMethods( builder ) );
@@ -1510,7 +1485,6 @@ final class ComponentDescriptor
   private MethodSpec buildSetOnDispose()
     throws ArezProcessorException
   {
-    assert isDisposable();
     return MethodSpec.methodBuilder( GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME ).
       addParameter( ParameterSpec.builder( ClassName.bestGuess( "OnDispose" ), "onDispose" ).build() ).
       addStatement( "this.$N = onDispose", GeneratorUtil.ON_DISPOSE_FIELD_NAME ).build();
@@ -1523,8 +1497,6 @@ final class ComponentDescriptor
   private MethodSpec buildDispose()
     throws ArezProcessorException
   {
-    assert isDisposable();
-
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "dispose" ).
         addModifiers( Modifier.PUBLIC ).
@@ -1595,8 +1567,6 @@ final class ComponentDescriptor
   private MethodSpec buildIsDisposed()
     throws ArezProcessorException
   {
-    assert isDisposable();
-
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "isDisposed" ).
         addModifiers( Modifier.PUBLIC ).
@@ -1634,19 +1604,16 @@ final class ComponentDescriptor
       builder.addField( idField.build() );
     }
 
-    if ( isDisposable() )
+    final FieldSpec.Builder disposableField =
+      FieldSpec.builder( TypeName.BOOLEAN, GeneratorUtil.DISPOSED_FIELD_NAME, Modifier.PRIVATE );
+    builder.addField( disposableField.build() );
+    if ( hasRepository() )
     {
-      final FieldSpec.Builder disposableField =
-        FieldSpec.builder( TypeName.BOOLEAN, GeneratorUtil.DISPOSED_FIELD_NAME, Modifier.PRIVATE );
-      builder.addField( disposableField.build() );
-      if ( hasRepository() )
-      {
-        final FieldSpec.Builder onDisposeField =
-          FieldSpec.builder( ClassName.bestGuess( "OnDispose" ),
-                             GeneratorUtil.ON_DISPOSE_FIELD_NAME,
-                             Modifier.PRIVATE );
-        builder.addField( onDisposeField.build() );
-      }
+      final FieldSpec.Builder onDisposeField =
+        FieldSpec.builder( ClassName.bestGuess( "OnDispose" ),
+                           GeneratorUtil.ON_DISPOSE_FIELD_NAME,
+                           Modifier.PRIVATE );
+      builder.addField( onDisposeField.build() );
     }
 
     // Create the field that contains the context
@@ -1861,10 +1828,7 @@ final class ComponentDescriptor
       builder.addMethod( buildRepositoryCreate( constructor, methodType, arezType ) );
     }
 
-    if ( isDisposable() )
-    {
-      builder.addMethod( buildPreDisposeMethod() );
-    }
+    builder.addMethod( buildPreDisposeMethod() );
 
     builder.addMethod( buildContainsMethod( element, arezType ) );
     builder.addMethod( buildDestroyMethod( arezType ) );
@@ -2135,11 +2099,8 @@ final class ComponentDescriptor
                                 arezType,
                                 getIdMethodName() );
     }
-    if ( isDisposable() )
-    {
-      builder.addStatement( "(($N) entity).$N( null )", getArezClassName(), GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME );
-      builder.addStatement( "$T.dispose( entity )", GeneratorUtil.DISPOSABLE_CLASSNAME );
-    }
+    builder.addStatement( "(($N) entity).$N( null )", getArezClassName(), GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME );
+    builder.addStatement( "$T.dispose( entity )", GeneratorUtil.DISPOSABLE_CLASSNAME );
     builder.addStatement( "$N().reportChanged()", GET_OBSERVABLE_METHOD );
     builder.nextControlFlow( "else" );
     builder.addStatement( "$T.fail( () -> \"Called destroy() passing an entity that was not in the repository. " +
@@ -2152,8 +2113,6 @@ final class ComponentDescriptor
   @Nonnull
   private MethodSpec buildPreDisposeMethod()
   {
-    assert isDisposable();
-
     return MethodSpec.methodBuilder( "preDispose" ).
       addModifiers( Modifier.FINAL ).
       addAnnotation( PreDispose.class ).
@@ -2253,10 +2212,7 @@ final class ComponentDescriptor
     newCall.append( ")" );
     builder.addStatement( newCall.toString(), parameters.toArray() );
 
-    if ( isDisposable() )
-    {
-      builder.addStatement( "entity.$N( e -> destroy( e ) )", GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME );
-    }
+    builder.addStatement( "entity.$N( e -> destroy( e ) )", GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME );
 
     builder.addStatement( "this.$N.put( entity.$N(), entity )", ENTITIES_FIELD_NAME, getIdMethodName() );
     builder.addStatement( "$N().reportChanged()", GET_OBSERVABLE_METHOD );

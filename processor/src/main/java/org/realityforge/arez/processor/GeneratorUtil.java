@@ -31,23 +31,20 @@ final class GeneratorUtil
   static void generateNotDisposedInvariant( @Nonnull final ComponentDescriptor descriptor,
                                             @Nonnull final MethodSpec.Builder builder )
   {
-    if ( descriptor.isDisposable() )
+    if ( descriptor.isSingleton() )
     {
-      if ( descriptor.isSingleton() )
-      {
-        builder.addStatement( "$T.invariant( () -> !this.$N, () -> \"Method invoked on invalid component '$N'\" )",
-                              GUARDS_CLASSNAME,
-                              GeneratorUtil.DISPOSED_FIELD_NAME,
-                              descriptor.getName() );
-      }
-      else
-      {
-        builder.addStatement( "$T.invariant( () -> !this.$N, () -> \"Method invoked on invalid " +
-                              "component '\" + $N() + \"'\" )",
-                              GUARDS_CLASSNAME,
-                              GeneratorUtil.DISPOSED_FIELD_NAME,
-                              descriptor.getComponentNameMethodName() );
-      }
+      builder.addStatement( "$T.invariant( () -> !this.$N, () -> \"Method invoked on invalid component '$N'\" )",
+                            GUARDS_CLASSNAME,
+                            GeneratorUtil.DISPOSED_FIELD_NAME,
+                            descriptor.getName() );
+    }
+    else
+    {
+      builder.addStatement( "$T.invariant( () -> !this.$N, () -> \"Method invoked on invalid " +
+                            "component '\" + $N() + \"'\" )",
+                            GUARDS_CLASSNAME,
+                            GeneratorUtil.DISPOSED_FIELD_NAME,
+                            descriptor.getComponentNameMethodName() );
     }
   }
 }

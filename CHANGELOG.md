@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Changed
+* 💥 **\[annotations\]** Remove `disposable` parameter from the `@ArezComponent` annotation as all generated
+  components should implement `Disposable`. Not doing so can lead to memory leaks. 
+
 ### [v0.23](https://github.com/realityforge/arez/tree/v0.23) (2017-11-01)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.22...v0.23)
 
