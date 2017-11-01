@@ -435,6 +435,8 @@ public class ArezProcessorTest
                       "Method annotated with @Action specified name x that duplicates @Computed defined by method m1" },
         new Object[]{ "com.example.name_duplicates.ActionAndObservableSameNameModel",
                       "Method annotated with @Observable specified name x that duplicates @Action defined by method m1" },
+        new Object[]{ "com.example.name_duplicates.ActionAndObservableSameNameNoGetterYetModel",
+                      "Method annotated with @Action specified name x that duplicates @Observable defined by method setTime" },
         new Object[]{ "com.example.name_duplicates.ComputedAndObservableSameNameModel",
                       "Method annotated with @Observable specified name x that duplicates @Computed defined by method m1" },
         new Object[]{ "com.example.tracked.TrackedDuplicatedModel",
