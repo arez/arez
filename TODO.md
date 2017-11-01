@@ -39,7 +39,10 @@ complete as there is too much un-said.
   - https://github.com/motion/mobx-formatters
   - https://github.com/andykog/mobx-devtools
 
-* hooks to get and set values for observables and computeds
+* Add a component registry to Spy that allows for each "component" to be registered when it is created and
+  de-registered when it is disposed. Each "component" is a bucket of Observables and ComputedValues and Observers
+
+* Enhance Spy to allow the access/mutation of of Observable if setting allows it.
 
 * Initial repository debug tool could just output tables ala
 
