@@ -24,10 +24,7 @@ DOC_EXAMPLES=%w().collect {|c| "org.realityforge.arez.doc.examples.#{c}"}
 # JDK options passed to test environment. Essentially turns assertions on.
 AREZ_TEST_OPTIONS =
   {
-    'braincheck.dynamic_provider' => 'true',
     'braincheck.environment' => 'development',
-    'arez.dynamic_provider' => 'true',
-    'arez.logger' => 'proxy',
     'arez.environment' => 'development'
   }
 
@@ -271,7 +268,7 @@ define 'arez' do
   iml.excluded_directories << project._('tmp/gwt')
   iml.excluded_directories << project._('tmp')
 
-  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.dynamic_provider=true -Dbraincheck.environment=development -Darez.dynamic_provider=true -Darez.logger=proxy -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources')
+  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources')
   ipr.add_component_from_artifact(:idea_codestyle)
   ipr.extra_modules << '../mobx-docs/mobx-docs.iml'
   ipr.extra_modules << '../mobx-react-devtools/mobx-react-devtools.iml'
