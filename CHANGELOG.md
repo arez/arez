@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Changed
+* 💥 **\[annotations\]** Actually remove `disposable` parameter from the `@ArezComponent` as v0.24 just removed
+  all the associated functionality ande made the parameter ignored.
+
 ### [v0.24](https://github.com/realityforge/arez/tree/v0.24) (2017-11-02)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.23...v0.24)
 
