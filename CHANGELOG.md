@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.24](https://github.com/realityforge/arez/tree/v0.24) (2017-11-02)
+[Full Changelog](https://github.com/realityforge/arez/compare/v0.23...v0.24)
 
 ##### Changed
 * 💥 **\[annotations\]** Remove `disposable` parameter from the `@ArezComponent` annotation as all generated
