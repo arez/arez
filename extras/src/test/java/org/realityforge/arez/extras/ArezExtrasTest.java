@@ -60,7 +60,7 @@ public class ArezExtrasTest
 
     assertTrue( node instanceof Watcher );
     final Watcher watcher = (Watcher) node;
-    assertEquals( watcher.getName(), "When@1", "The name has @1 as no other Arez entities created" );
+    assertEquals( watcher.getName(), "When@2", "The name has @2 as one other Arez entity created (Observable)" );
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
     assertEquals( Arez.context().getSpy().isReadOnly( watcher.getObserver() ), false );
