@@ -10,10 +10,12 @@ import org.realityforge.anodoc.TestOnly;
  */
 final class ArezLogger
 {
-  private static final boolean JUL_LOGGER = System.getProperty( "arez.logger", "jul" ).equals( "jul" );
-  private static final boolean PROXY_LOGGER = System.getProperty( "arez.logger", "jul" ).equals( "proxy" );
+  private static final String LOGGER_TYPE =
+    System.getProperty( "arez.logger", ArezConfig.isProductionMode() ? "jul" : "proxy" );
   private static final Logger c_logger =
-    JUL_LOGGER ? new JavaUtilLogger() : PROXY_LOGGER ? new ProxyLogger() : new NoopLogger();
+    LOGGER_TYPE.equals( "jul" ) ? new JavaUtilLogger() :
+    LOGGER_TYPE.equals( "proxy" ) ? new ProxyLogger() :
+    new NoopLogger();
 
   private ArezLogger()
   {

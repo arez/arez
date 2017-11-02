@@ -5,6 +5,11 @@
 ##### Changed
 * 💥 **\[annotations\]** Remove `disposable` parameter from the `@ArezComponent` annotation as all generated
   components should implement `Disposable`. Not doing so can lead to memory leaks. 
+* 💥 **\[core\]** Change the default value of the compile time property `arez.logger` to be derived from the
+  `arez.environment` setting. If `arez.environment` is `production` then `arez.logger` is set to `jul` and a
+  `java.util.Logger` based implementation is used. If `arez.environment` is `development` then a proxy based
+  version is used, that is useful during testing. Specify the proeprty in `Arez.gwt.xml` so that GWT compiles
+  will treat it as a compile time constant and default it to `jul.`
 
 ### [v0.23](https://github.com/realityforge/arez/tree/v0.23) (2017-11-01)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.22...v0.23)

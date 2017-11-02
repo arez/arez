@@ -33,4 +33,7 @@
 
   <define-property name="arez.enable_spies" values="true,false"/>
   <set-property name="arez.enable_spies" value="false"/>
+
+  <define-property name="arez.logger" values="jul,proxy,none"/>
+  <set-property name="arez.logger" value="jul"/>
 </module>
