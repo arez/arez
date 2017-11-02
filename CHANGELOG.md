@@ -4,7 +4,7 @@
 
 ##### Changed
 * 💥 **\[annotations\]** Remove `disposable` parameter from the `@ArezComponent` annotation as all generated
-  components should implement `Disposable`. Not doing so can lead to memory leaks. 
+  components should implement `Disposable`. Not doing so can lead to memory leaks.
 * 💥 **\[core\]** Change the default value of the compile time property `arez.logger` to be derived from the
   `arez.environment` setting. If `arez.environment` is `production` then `arez.logger` is set to `jul` and a
   `java.util.Logger` based implementation is used. If `arez.environment` is `development` then a proxy based
