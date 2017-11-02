@@ -1636,6 +1636,21 @@ public class ArezContextTest
   }
 
   @Test
+  public void createObservable_no_parameters()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    context.setNextNodeId( 22 );
+    final Observable<?> observable = context.createObservable();
+
+    assertNotNull( observable.getName() );
+    assertEquals( observable.getName(), "Observable@22" );
+    assertNull( observable.getAccessor() );
+    assertNull( observable.getMutator() );
+  }
+
+  @Test
   public void createObservable()
     throws Exception
   {

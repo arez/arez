@@ -42,7 +42,7 @@ public class ArezExtrasTest
   public void when_minimalParameters()
     throws Throwable
   {
-    final Observable observable = Arez.context().createObservable( ValueUtil.randomString() );
+    final Observable observable = Arez.context().createObservable();
 
     final AtomicBoolean result = new AtomicBoolean();
 

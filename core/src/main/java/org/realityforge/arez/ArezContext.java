@@ -324,6 +324,17 @@ public final class ArezContext
   }
 
   /**
+   * Create an Observable synthesizing name if required.
+   *
+   * @return the new Observable.
+   */
+  @Nonnull
+  public Observable createObservable()
+  {
+    return createObservable( null );
+  }
+
+  /**
    * Create an Observable with the specified name.
    *
    * @param name the name of the Observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
@@ -349,7 +360,7 @@ public final class ArezContext
                                              @Nullable final PropertyMutator<T> mutator )
   {
     final Observable<T> observable =
-      new Observable<>( this, Arez.areNamesEnabled() ? name : null, null, accessor, mutator );
+      new Observable<>( this, generateNodeName( "Observable", name ), null, accessor, mutator );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObservableCreatedEvent( observable ) );

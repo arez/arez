@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Added
+* **\[core\]** Add the `ArezContext.createObservable()` method that will synthesize the observable name if
+  names are enabled.
+
 ##### Changed
 * 💥 **\[annotations\]** Actually remove `disposable` parameter from the `@ArezComponent` as v0.24 just removed
   all the associated functionality ande made the parameter ignored.

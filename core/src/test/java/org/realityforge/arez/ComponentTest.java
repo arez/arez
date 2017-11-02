@@ -171,8 +171,8 @@ public class ComponentTest
 
     final Component component = new Component( context, ValueUtil.randomString(), null, name );
 
-    final Observable observable1 = context.createObservable( ValueUtil.randomString() );
-    final Observable observable2 = context.createObservable( ValueUtil.randomString() );
+    final Observable observable1 = context.createObservable();
+    final Observable observable2 = context.createObservable();
 
     assertEquals( component.getObservables().size(), 0 );
 
@@ -206,7 +206,7 @@ public class ComponentTest
 
     final Component component = new Component( context, ValueUtil.randomString(), null, name );
 
-    final Observable observable1 = context.createObservable( ValueUtil.randomString() );
+    final Observable observable1 = context.createObservable();
 
     component.addObservable( observable1 );
 
@@ -230,7 +230,7 @@ public class ComponentTest
 
     final Component component = new Component( context, ValueUtil.randomString(), null, name );
 
-    final Observable observable1 = context.createObservable( ValueUtil.randomString() );
+    final Observable observable1 = context.createObservable();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> component.removeObservable( observable1 ) );
@@ -325,8 +325,8 @@ public class ComponentTest
 
     final Component component = new Component( context, ValueUtil.randomString(), null, name );
 
-    final Observable observable1 = context.createObservable( ValueUtil.randomString() );
-    final Observable observable2 = context.createObservable( ValueUtil.randomString() );
+    final Observable observable1 = context.createObservable();
+    final Observable observable2 = context.createObservable();
     final ComputedValue computedValue1 = context.createComputedValue( () -> "" );
     final ComputedValue computedValue2 = context.createComputedValue( () -> "" );
     final Observer observer1 = context.autorun( () -> {

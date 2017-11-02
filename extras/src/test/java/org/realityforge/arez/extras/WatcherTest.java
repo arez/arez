@@ -21,7 +21,7 @@ public class WatcherTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.createObservable( ValueUtil.randomString() );
+    final Observable observable = context.createObservable();
 
     final AtomicBoolean result = new AtomicBoolean();
 
@@ -71,7 +71,7 @@ public class WatcherTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.createObservable( ValueUtil.randomString() );
+    final Observable observable = context.createObservable();
 
     final AtomicBoolean result = new AtomicBoolean();
 
@@ -115,7 +115,7 @@ public class WatcherTest
     final ObserverErrorHandler handler = ( observer, error, throwable ) -> errorCount.incrementAndGet();
     context.addObserverErrorHandler( handler );
 
-    final Observable observable = context.createObservable( ValueUtil.randomString() );
+    final Observable observable = context.createObservable();
 
     final AtomicBoolean result = new AtomicBoolean();
 
@@ -159,7 +159,7 @@ public class WatcherTest
     final ObserverErrorHandler handler = ( observer, error, throwable ) -> errorCount.incrementAndGet();
     context.addObserverErrorHandler( handler );
 
-    final Observable observable = context.createObservable( ValueUtil.randomString() );
+    final Observable observable = context.createObservable();
 
     final AtomicInteger effectRun = new AtomicInteger();
 
@@ -186,7 +186,7 @@ public class WatcherTest
     final ObserverErrorHandler handler = ( observer, error, throwable ) -> errorCount.incrementAndGet();
     context.addObserverErrorHandler( handler );
 
-    final Observable observable = context.createObservable( ValueUtil.randomString() );
+    final Observable observable = context.createObservable();
 
     final AtomicInteger effectRun = new AtomicInteger();
 
