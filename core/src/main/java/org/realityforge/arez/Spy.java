@@ -66,7 +66,7 @@ public interface Spy
    * @param computedValue the ComputedValue.
    * @return true if there is a transaction active.
    */
-  boolean isComputing( @Nonnull final ComputedValue<?> computedValue );
+  boolean isComputing( @Nonnull ComputedValue<?> computedValue );
 
   /**
    * Return true if the ComputedValue is active.
@@ -75,7 +75,7 @@ public interface Spy
    * @param computedValue the ComputedValue.
    * @return true if the ComputedValue is active.
    */
-  boolean isActive( @Nonnull final ComputedValue<?> computedValue );
+  boolean isActive( @Nonnull ComputedValue<?> computedValue );
 
   /**
    * Return the list of observers for ComputedValue.
@@ -85,7 +85,7 @@ public interface Spy
    * @return the list of observers for ComputedValue.
    */
   @Nonnull
-  List<Observer> getObservers( @Nonnull final ComputedValue<?> computedValue );
+  List<Observer> getObservers( @Nonnull ComputedValue<?> computedValue );
 
   /**
    * Return the list of dependencies of the ComputedValue.
@@ -98,7 +98,7 @@ public interface Spy
    * @return the list of dependencies for ComputedValue.
    */
   @Nonnull
-  List<Observable> getDependencies( @Nonnull final ComputedValue<?> computedValue );
+  List<Observable> getDependencies( @Nonnull ComputedValue<?> computedValue );
 
   /**
    * Return true if the Observable is a ComputedValue.
@@ -106,7 +106,7 @@ public interface Spy
    * @param observable the Observable.
    * @return true if the Observable is a ComputedValue.
    */
-  boolean isComputedValue( @Nonnull final Observable<?> observable );
+  boolean isComputedValue( @Nonnull Observable<?> observable );
 
   /**
    * Convert the Observable to a ComputedValue.
@@ -115,7 +115,7 @@ public interface Spy
    * @param observable the Observable.
    * @return the ComputedValue instance.
    */
-  ComputedValue<?> asComputedValue( @Nonnull final Observable<?> observable );
+  ComputedValue<?> asComputedValue( @Nonnull Observable<?> observable );
 
   /**
    * Return the list of observers for the Observable.
@@ -125,7 +125,7 @@ public interface Spy
    * @return the list of observers for Observable.
    */
   @Nonnull
-  List<Observer> getObservers( @Nonnull final Observable<?> observable );
+  List<Observer> getObservers( @Nonnull Observable<?> observable );
 
   /**
    * Return true if the Observer is currently running.
@@ -133,7 +133,7 @@ public interface Spy
    * @param observer the Observer.
    * @return true if the Observer is currently running.
    */
-  boolean isRunning( @Nonnull final Observer observer );
+  boolean isRunning( @Nonnull Observer observer );
 
   /**
    * Return true if the Observer is scheduled to run.
@@ -141,7 +141,7 @@ public interface Spy
    * @param observer the Observer.
    * @return true if the Observer is scheduled to run.
    */
-  boolean isScheduled( @Nonnull final Observer observer );
+  boolean isScheduled( @Nonnull Observer observer );
 
   /**
    * Return true if the Observer is a ComputedValue.
@@ -149,7 +149,7 @@ public interface Spy
    * @param observer the Observer.
    * @return true if the Observer is a ComputedValue.
    */
-  boolean isComputedValue( @Nonnull final Observer observer );
+  boolean isComputedValue( @Nonnull Observer observer );
 
   /**
    * Return true if the Observer will use a read-only transaction.
@@ -157,7 +157,7 @@ public interface Spy
    * @param observer the Observer.
    * @return true if the Observer will use a read-only transaction.
    */
-  boolean isReadOnly( @Nonnull final Observer observer );
+  boolean isReadOnly( @Nonnull Observer observer );
 
   /**
    * Convert the Observer to a ComputedValue.
@@ -166,7 +166,7 @@ public interface Spy
    * @param observer the Observer.
    * @return the ComputedValue instance.
    */
-  ComputedValue<?> asComputedValue( @Nonnull final Observer observer );
+  ComputedValue<?> asComputedValue( @Nonnull Observer observer );
 
   /**
    * Return the list of dependencies of the Observer.
@@ -179,5 +179,5 @@ public interface Spy
    * @return the list of dependencies for the Observer.
    */
   @Nonnull
-  List<Observable<?>> getDependencies( @Nonnull final Observer observer );
+  List<Observable<?>> getDependencies( @Nonnull Observer observer );
 }
