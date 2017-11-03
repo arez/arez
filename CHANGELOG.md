@@ -5,7 +5,7 @@
 ##### Added
 * **\[core\]** Add the `ArezContext.createObservable()` method that will synthesize the observable name if
   names are enabled.
-* Update the release process so that every release create a "Github Release".
+* Update the release process so that every release creates a "Github Release".
 
 ##### Changed
 * 💥 **\[annotations\]** Actually remove `disposable` parameter from the `@ArezComponent` as v0.24 just removed
