@@ -136,6 +136,14 @@ HEADER
       client = Octokit::Client.new(:netrc => true, :auto_paginate => true)
       client.login
       client.create_release('realityforge/arez', tag, :name => tag, :body => changes, :draft => false, :prerelease => true)
+
+      candidates = client.list_milestones('realityforge/arez').select {|m| m[:title].to_s == tag}
+      unless candidates.empty?
+        milestone = candidates[0]
+        unless milestone[:state] == 'closed'
+          client.update_milestone('realityforge/arez', milestone[:number], :state => 'closed')
+        end
+      end
     end
   end
 

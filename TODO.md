@@ -67,8 +67,6 @@ console.table(languages);
 
 ## Process
 
-* Generate next version milestones as part of release process. Close old milestones on release.
-
 * Generate links when the application crashes so that we can autofill issue details. Essentially involves
   crafting urls with parameters. Something like:
 
