@@ -99,8 +99,14 @@ define 'arez' do
   define 'extras' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
-    compile.with project('core').package(:jar, :classifier => :gwt),
-                 project('core').compile.dependencies
+    compile.with project('annotations').package(:jar, :classifier => :gwt),
+                 project('annotations').compile.dependencies,
+                 project('core').package(:jar, :classifier => :gwt),
+                 project('core').compile.dependencies,
+                 project('component').package(:jar, :classifier => :gwt),
+                 project('component').compile.dependencies,
+                 project('processor').package(:jar),
+                 project('processor').compile.dependencies
 
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
@@ -113,21 +119,16 @@ define 'arez' do
 
     test.using :testng
     test.compile.with TEST_DEPS
+
+    # The generators are configured to generate to here.
+    iml.main_source_directories << _('generated/processors/main/java')
   end
 
   define 'browser-extras' do
     pom.provided_dependencies.concat PROVIDED_DEPS + [:jetbrains_annotations]
 
-    compile.with project('annotations').package(:jar, :classifier => :gwt),
-                 project('annotations').compile.dependencies,
-                 project('core').package(:jar, :classifier => :gwt),
-                 project('core').compile.dependencies,
-                 project('component').package(:jar, :classifier => :gwt),
-                 project('component').compile.dependencies,
-                 project('extras').package(:jar, :classifier => :gwt),
+    compile.with project('extras').package(:jar, :classifier => :gwt),
                  project('extras').compile.dependencies,
-                 project('processor').package(:jar),
-                 project('processor').compile.dependencies,
                  :jetbrains_annotations,
                  GWT_DEPS
 

@@ -3,10 +3,12 @@ package org.realityforge.arez.extras;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.Arez;
+import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Node;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Procedure;
 import org.realityforge.arez.SafeFunction;
+import org.realityforge.arez.SafeProcedure;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -26,16 +28,15 @@ public class ArezExtrasTest
       conditionRun.incrementAndGet();
       return false;
     };
-    final Procedure procedure = effectRun::incrementAndGet;
+    final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Node node = ArezExtras.when( name, true, condition, procedure );
+    final Disposable node = ArezExtras.when( name, true, condition, procedure );
 
     assertTrue( node instanceof Watcher );
     final Watcher watcher = (Watcher) node;
     assertEquals( watcher.getName(), name );
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
-    assertEquals( Arez.context().getSpy().isReadOnly( watcher.getObserver() ), false );
   }
 
   @Test
@@ -54,15 +55,14 @@ public class ArezExtrasTest
       observable.reportObserved();
       return result.get();
     };
-    final Procedure procedure = effectRun::incrementAndGet;
+    final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Node node = ArezExtras.when( condition, procedure );
+    final Disposable node = ArezExtras.when( condition, procedure );
 
     assertTrue( node instanceof Watcher );
     final Watcher watcher = (Watcher) node;
     assertEquals( watcher.getName(), "When@2", "The name has @2 as one other Arez entity created (Observable)" );
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
-    assertEquals( Arez.context().getSpy().isReadOnly( watcher.getObserver() ), false );
   }
 }

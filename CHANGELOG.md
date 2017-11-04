@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Fixed
+* **\[extras\]** Ensure that the `dispose()` method on `org.realityforge.arez.extras.Watcher` is performed in a
+  single transaction. This makes sure that the `Watcher` does not react whilst partially disposed.
+
 ##### Added
 * **\[core\]** Add the `ArezContext.createObservable()` method that will synthesize the observable name if
   names are enabled.
@@ -14,6 +18,14 @@
 * 💥 **\[core\]** Changed the type of the first parameter of `ObserverErrorHandler.onObserverError` from `Node`
   to `Observer`. It was originally `Node` as `Observer` was a package private type but now that `Observer` is public
   it can be exposed as part of the public API.
+* **\[extras\]** Changed the `org.realityforge.arez.extras.Watcher` class from being a handcrafted reactive component
+  to being a class annotated with `@ArezComponent` and managed using the standard reactive infrastructure.
+* 💥 **\[extras\]** Stopped the `org.realityforge.arez.extras.Watcher` class from extending `Node` as it is really
+  a component rather than a node. This means that the `ArezExtras.when(...)` functions need to return a `Disposable`
+  rather than a `Node`.
+* 💥 **\[extras\]** Changed the effect of the `Watcher` class from type `Procedure` to `SafeProcedure` as it is not
+  expected to throw an exception as it would be swallowed by the framework. This forces the toolkit users to handle
+  any error scenarios explicitly.
 
 ### [v0.24](https://github.com/realityforge/arez/tree/v0.24) (2017-11-02)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.23...v0.24)

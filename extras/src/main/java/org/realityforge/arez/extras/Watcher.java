@@ -4,12 +4,15 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
-import org.realityforge.arez.ComputedValue;
-import org.realityforge.arez.Node;
-import org.realityforge.arez.Observer;
-import org.realityforge.arez.Procedure;
+import org.realityforge.arez.Disposable;
 import org.realityforge.arez.SafeFunction;
+import org.realityforge.arez.SafeProcedure;
+import org.realityforge.arez.annotations.ArezComponent;
+import org.realityforge.arez.annotations.Autorun;
+import org.realityforge.arez.annotations.Computed;
+import org.realityforge.arez.annotations.ContextRef;
 
 /**
  * This class is used to wait until a condition is true, then run effect and remove watch.
@@ -17,90 +20,100 @@ import org.realityforge.arez.SafeFunction;
  * <p>The condition function is run in a read-only, tracking transaction and will be re-evaluated
  * any time any of the observed elements are updated. The effect procedure is run in either a
  * read-only or read-write, non-tracking transaction.</p>
- *
- * <p>This is a good example of how the primitives provided by Arez can be glued together
- * to create higher level reactive elements.</p>
  */
-final class Watcher
-  extends Node
+@ArezComponent
+class Watcher
 {
   /**
-   * The Computed value representing condition.
+   * A human consumable name for effect. It should be non-null if {@link Arez#areNamesEnabled()} returns
+   * true and <tt>null</tt> otherwise.
+   */
+  @Nullable
+  private final String _name;
+  /**
+   * True if the effect should run in a read-write transaction.
+   */
+  private final boolean _mutation;
+  /**
+   * The condition to test.
    */
   @Nonnull
-  private final ComputedValue<Boolean> _conditionValue;
+  private final SafeFunction<Boolean> _condition;
   /**
-   * The observer that is observing condition, waiting until it is true.
+   * The effect/action to run when condition is true.
    */
-  private final Observer _observer;
-  /**
-   * Has dispose() been called.
-   */
-  private boolean _disposed;
+  private final SafeProcedure _effect;
 
   /**
    * Create the watcher.
    *
-   * @param context   the Arez system to watch.
-   * @param name      the debug name (if any) used when naming the underlying Arez resources.
+   * @param name      the name (if any) used when naming the underlying Arez resources.
    * @param mutation  true if the effect can mutate state, false otherwise.
    * @param condition The function that determines when the effect is run.
    * @param effect    The procedure that is executed when the condition is true.
    */
-  Watcher( @Nonnull final ArezContext context,
-           @Nullable final String name,
+  Watcher( @Nullable final String name,
            final boolean mutation,
            @Nonnull final SafeFunction<Boolean> condition,
-           @Nonnull final Procedure effect )
+           @Nonnull final SafeProcedure effect )
   {
-    super( context, name );
-    _conditionValue = context.createComputedValue( name, condition, Objects::equals );
-    final Procedure procedure = () -> {
-      if ( Boolean.TRUE == _conditionValue.get() )
-      {
-        context.action( name, mutation, effect );
-        dispose();
-      }
-    };
-    /*
-     * Mutation needs to be true as dispose is considered a WRITE operation.
-     */
-    _observer = context.autorun( name, true, procedure, false );
-    /*
-     * Need to define autorun/Observer and have it assigned to variable before
-     * it can be run. This is in-case the dispose() method is invoked as part of
-     * effect or the condition starts true and calls dispose.
-     * Dispose would get a NullPointerException as _observer would be null.
-     */
-    context.triggerScheduler();
+    _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
+    _mutation = mutation;
+    _condition = Objects.requireNonNull( condition );
+    _effect = Objects.requireNonNull( effect );
   }
 
   /**
-   * Cancel the watch if it has not been triggered and release all underlying resources.
+   * Get access to the context associated with the watcher.
    */
-  @Override
-  public void dispose()
+  @ContextRef
+  ArezContext context()
   {
-    if ( !_disposed )
+    throw new IllegalStateException();
+  }
+
+  /**
+   * Check the condition and when it returns true the run the effec and dispose the watcher.
+   */
+  @Autorun
+  void checkCondition()
+  {
+    if ( condition() )
     {
-      _observer.dispose();
-      _conditionValue.dispose();
-      _disposed = true;
+      context().safeAction( _name, _mutation, _effect );
+      Disposable.dispose( this );
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public boolean isDisposed()
+  @Computed
+  boolean condition()
   {
-    return _disposed;
+    return _condition.call();
   }
 
   @TestOnly
-  Observer getObserver()
+  @Nullable
+  String getName()
   {
-    return _observer;
+    return _name;
+  }
+
+  @TestOnly
+  boolean isMutation()
+  {
+    return _mutation;
+  }
+
+  @TestOnly
+  @Nonnull
+  SafeFunction<Boolean> getCondition()
+  {
+    return _condition;
+  }
+
+  @TestOnly
+  SafeProcedure getEffect()
+  {
+    return _effect;
   }
 }

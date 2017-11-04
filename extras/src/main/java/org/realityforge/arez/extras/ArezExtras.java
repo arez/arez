@@ -4,9 +4,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.Arez;
-import org.realityforge.arez.Node;
-import org.realityforge.arez.Procedure;
+import org.realityforge.arez.Disposable;
 import org.realityforge.arez.SafeFunction;
+import org.realityforge.arez.SafeProcedure;
 
 /**
  * Simplified interface for interacting with extras package.
@@ -20,30 +20,30 @@ public final class ArezExtras
 
   /**
    * Wait until a condition is true, then run effect. The effect is run in a read-only transaction.
-   * See {@link #when(String, boolean, SafeFunction, Procedure)} for further details.
+   * See {@link #when(String, boolean, SafeFunction, SafeProcedure)} for further details.
    *
    * @param condition The function that determines when the effect is run.
    * @param effect    The procedure that is executed when the condition is true.
    * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
    */
-  public static Node when( @Nonnull final SafeFunction<Boolean> condition,
-                           @Nonnull final Procedure effect )
+  public static Disposable when( @Nonnull final SafeFunction<Boolean> condition,
+                                 @Nonnull final SafeProcedure effect )
   {
     return when( false, condition, effect );
   }
 
   /**
    * Wait until a condition is true, then run effect.
-   * See {@link #when(String, boolean, SafeFunction, Procedure)} for further details.
+   * See {@link #when(String, boolean, SafeFunction, SafeProcedure)} for further details.
    *
    * @param mutation  true if the effect can mutate state, false otherwise.
    * @param condition The function that determines when the effect is run.
    * @param effect    The procedure that is executed when the condition is true.
    * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
    */
-  public static Node when( final boolean mutation,
-                           @Nonnull final SafeFunction<Boolean> condition,
-                           @Nonnull final Procedure effect )
+  public static Disposable when( final boolean mutation,
+                                 @Nonnull final SafeFunction<Boolean> condition,
+                                 @Nonnull final SafeProcedure effect )
   {
     return when( null, mutation, condition, effect );
   }
@@ -60,11 +60,11 @@ public final class ArezExtras
    * @param effect    The procedure that is executed when the condition is true.
    * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
    */
-  public static Node when( @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final SafeFunction<Boolean> condition,
-                           @Nonnull final Procedure effect )
+  public static Disposable when( @Nullable final String name,
+                                 final boolean mutation,
+                                 @Nonnull final SafeFunction<Boolean> condition,
+                                 @Nonnull final SafeProcedure effect )
   {
-    return new Watcher( Arez.context(), Arez.context().generateNodeName( "When", name ), mutation, condition, effect );
+    return new Arez_Watcher( Arez.context().generateNodeName( "When", name ), mutation, condition, effect );
   }
 }

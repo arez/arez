@@ -1,13 +1,17 @@
 package org.realityforge.arez.extras;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
+import org.realityforge.arez.Observer;
+import org.realityforge.arez.ObserverError;
 import org.realityforge.arez.ObserverErrorHandler;
-import org.realityforge.arez.Procedure;
 import org.realityforge.arez.SafeFunction;
+import org.realityforge.arez.SafeProcedure;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -35,12 +39,14 @@ public class WatcherTest
       observable.reportObserved();
       return result.get();
     };
-    final Procedure procedure = effectRun::incrementAndGet;
+    final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Watcher watcher = new Watcher( context, name, mutation, condition, procedure );
+    final Watcher watcher = new Arez_Watcher( name, mutation, condition, procedure );
 
     assertEquals( watcher.getName(), name );
-    assertEquals( watcher.toString(), name );
+    assertEquals( watcher.isMutation(), mutation );
+    assertEquals( watcher.getCondition(), condition );
+    assertEquals( watcher.getEffect(), procedure );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
@@ -85,18 +91,18 @@ public class WatcherTest
       observable.reportObserved();
       return result.get();
     };
-    final Procedure procedure = effectRun::incrementAndGet;
+    final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Watcher watcher = new Watcher( context, name, mutation, condition, procedure );
+    final Watcher watcher = new Arez_Watcher( name, mutation, condition, procedure );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
-    assertEquals( watcher.isDisposed(), false );
+    assertEquals( Disposable.isDisposed( watcher ), false );
 
     result.set( true );
-    watcher.dispose();
+    Disposable.dispose( watcher );
 
-    assertEquals( watcher.isDisposed(), true );
+    assertEquals( Disposable.isDisposed( watcher ), true );
 
     context.action( ValueUtil.randomString(), true, observable::reportChanged );
 
@@ -112,7 +118,13 @@ public class WatcherTest
 
     final AtomicInteger errorCount = new AtomicInteger();
 
-    final ObserverErrorHandler handler = ( observer, error, throwable ) -> errorCount.incrementAndGet();
+    final ArrayList<Observer> observersErrored = new ArrayList<>();
+
+    final ObserverErrorHandler handler = ( observer, error, throwable ) -> {
+      errorCount.incrementAndGet();
+      assertEquals( ObserverError.REACTION_ERROR, error );
+      observersErrored.add( observer );
+    };
     context.addObserverErrorHandler( handler );
 
     final Observable observable = context.createObservable();
@@ -130,13 +142,20 @@ public class WatcherTest
       observable.reportChanged();
       return result.get();
     };
-    final Procedure procedure = effectRun::incrementAndGet;
+    final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    new Watcher( context, name, mutation, condition, procedure );
+    final Arez_Watcher arez_watcher = new Arez_Watcher( name, mutation, condition, procedure );
+
+    assertThrows( arez_watcher::condition );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
-    assertEquals( errorCount.get(), 1 );
+    assertEquals( errorCount.get(), 2 );
+
+    //First error is the computed
+    assertEquals( context.getSpy().isComputedValue( observersErrored.get( 0 ) ), true );
+    //Second error was the autorun that called the computed
+    assertEquals( context.getSpy().isComputedValue( observersErrored.get( 1 ) ), false );
 
     result.set( true );
 
@@ -145,7 +164,10 @@ public class WatcherTest
 
     assertEquals( conditionRun.get(), 2 );
     assertEquals( effectRun.get(), 0 );
-    assertEquals( errorCount.get(), 2 );
+    assertEquals( errorCount.get(), 3 );
+
+    //Next error is the computed again
+    assertEquals( context.getSpy().isComputedValue( observersErrored.get( 0 ) ), true );
   }
 
   @Test
@@ -163,13 +185,13 @@ public class WatcherTest
 
     final AtomicInteger effectRun = new AtomicInteger();
 
-    final Procedure effect = () -> {
+    final SafeProcedure effect = () -> {
       effectRun.incrementAndGet();
       observable.reportObserved();
       observable.reportChanged();
     };
 
-    new Watcher( context, ValueUtil.randomString(), false, () -> true, effect );
+    new Arez_Watcher( ValueUtil.randomString(), false, () -> true, effect );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 1 );
@@ -190,13 +212,13 @@ public class WatcherTest
 
     final AtomicInteger effectRun = new AtomicInteger();
 
-    final Procedure effect = () -> {
+    final SafeProcedure effect = () -> {
       effectRun.incrementAndGet();
       observable.reportObserved();
       observable.reportChanged();
     };
 
-    new Watcher( context, ValueUtil.randomString(), true, () -> true, effect );
+    new Arez_Watcher( ValueUtil.randomString(), true, () -> true, effect );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 0 );
