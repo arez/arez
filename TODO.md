@@ -43,6 +43,10 @@ complete as there is too much un-said.
 
 * Enhance Spy to allow the access/mutation of of Observable if setting allows it.
 
+* ComponentCreated should be event as should be component disposed
+
+* Generated components should just call Component.dispose() if components enabled? otherwsie own code????
+
 * Initial repository debug tool could just output tables ala
 
 ```javascript
