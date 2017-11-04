@@ -144,9 +144,7 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Arez_Watcher arez_watcher = new Arez_Watcher( name, mutation, condition, procedure );
-
-    assertThrows( arez_watcher::condition );
+    new Arez_Watcher( name, mutation, condition, procedure );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
