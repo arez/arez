@@ -584,7 +584,13 @@ public final class Observer
           {
             final Observer owner = observable.getOwner();
             final ComputedValue computedValue = owner.getComputedValue();
-            computedValue.get();
+            try
+            {
+              computedValue.get();
+            }
+            catch ( final Throwable ignored )
+            {
+            }
             // Call to get() will update this state if ComputedValue changed
             if ( ObserverState.STALE == getState() )
             {

@@ -92,6 +92,40 @@ public class ComputedValueTest
     computedValue.compute();
 
     assertEquals( computedValue.getValue(), value2 );
+    assertEquals( computedValue.getError(), null );
+    assertEquals( observer.getState(), ObserverState.STALE );
+  }
+
+  @Test
+  public void compute_whereLastStateProducedAnError()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final String name = ValueUtil.randomString();
+    final AtomicReference<String> value = new AtomicReference<>();
+    final String value2 = ValueUtil.randomString();
+    final SafeFunction<String> function = value::get;
+    final EqualityComparator<String> comparator = Objects::equals;
+    final ComputedValue<String> computedValue = new ComputedValue<>( context, name, function, comparator );
+
+    setCurrentTransaction( computedValue.getObserver() );
+
+    final Observer observer = newReadOnlyObserver( context );
+    observer.setState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObserver().getDerivedValue().addObserver( observer );
+    observer.getDependencies().add( computedValue.getObservable() );
+
+    computedValue.getObservable().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+
+    computedValue.setValue( null );
+    computedValue.setError( new IllegalStateException() );
+
+    value.set( value2 );
+
+    computedValue.compute();
+
+    assertEquals( computedValue.getValue(), value2 );
+    assertEquals( computedValue.getError(), null );
     assertEquals( observer.getState(), ObserverState.STALE );
   }
 
@@ -124,6 +158,39 @@ public class ComputedValueTest
     assertEquals( computedValue.getValue(), value1 );
     // Verify state does not change
     assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
+  }
+
+  @Test
+  public void compute_producesException()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final String name = ValueUtil.randomString();
+    final String value1 = ValueUtil.randomString();
+    final String message = ValueUtil.randomString();
+    final SafeFunction<String> function = () -> {
+      throw new IllegalStateException( message );
+    };
+    final EqualityComparator<String> comparator = Objects::equals;
+    final ComputedValue<String> computedValue = new ComputedValue<>( context, name, function, comparator );
+
+    setCurrentTransaction( computedValue.getObserver() );
+
+    final Observer observer = newReadOnlyObserver( context );
+    observer.setState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObserver().getDerivedValue().addObserver( observer );
+    observer.getDependencies().add( computedValue.getObservable() );
+
+    computedValue.getObservable().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+
+    computedValue.setValue( value1 );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, computedValue::compute );
+    assertEquals( exception.getMessage(), message );
+
+    assertEquals( computedValue.getValue(), null );
+    assertEquals( computedValue.getError(), exception );
+    assertEquals( observer.getState(), ObserverState.STALE );
   }
 
   @Test
@@ -223,6 +290,84 @@ public class ComputedValueTest
     computedValue.setValue( "XXX" );
 
     assertEquals( computedValue.get(), "XXX" );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+  }
+
+  @Test
+  public void get_runtimeException()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
+    final Observer observer = computedValue.getObserver();
+
+    setCurrentTransaction( context );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+    final IllegalStateException error = new IllegalStateException();
+    computedValue.setError( error );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, computedValue::get );
+    assertEquals( exception, error );
+
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
+    // Get again produces the same exception again
+    final IllegalStateException exception2 = expectThrows( IllegalStateException.class, computedValue::get );
+    assertEquals( exception2, error );
+  }
+
+  @Test
+  public void get_error()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
+    final Observer observer = computedValue.getObserver();
+
+    setCurrentTransaction( context );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+    final Error error = new Error();
+    computedValue.setError( error );
+
+    final Error exception = expectThrows( Error.class, computedValue::get );
+    assertEquals( exception, error );
+
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
+    // Get again produces the same exception again
+    final Error exception2 = expectThrows( Error.class, computedValue::get );
+    assertEquals( exception2, error );
+  }
+
+  @Test
+  public void get_error_and_value()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
+    final Observer observer = computedValue.getObserver();
+
+    setCurrentTransaction( context );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+    final IllegalStateException error = new IllegalStateException();
+
+    computedValue.setValue( "" );
+    computedValue.setError( error );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, computedValue::get );
+    assertEquals( exception.getMessage(),
+                  "ComputedValue generated a value during computation for ComputedValue named '" +
+                  computedValue.getName() + "' but still has a non-null value." );
+
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
   }
 

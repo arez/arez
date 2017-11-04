@@ -37,6 +37,13 @@ public final class ComputedValue<T>
    */
   private T _value;
   /**
+   * The error that was thrown the last time that this ComputedValue was derived.
+   * If this value is non-null then {@link #_value} should be null. This exception
+   * is rethrown every time {@link #get()} is called until the computed value is
+   * recalculated.
+   */
+  private Throwable _error;
+  /**
    * A flag indicating whether computation is active. Used when checking
    * invariants to detect when the derivation of the ComputedValue ultimately
    * causes a recalculation of the ComputedValue.
@@ -75,6 +82,20 @@ public final class ComputedValue<T>
     if ( _observer.shouldCompute() )
     {
       _observer.invokeReaction();
+    }
+    if ( null != _error )
+    {
+      invariant( () -> null == _value,
+                 () -> "ComputedValue generated a value during computation for ComputedValue named '" + getName() +
+                       "' but still has a non-null value." );
+      if ( _error instanceof RuntimeException )
+      {
+        throw (RuntimeException) _error;
+      }
+      else
+      {
+        throw (Error) _error;
+      }
     }
     return _value;
   }
@@ -146,11 +167,24 @@ public final class ComputedValue<T>
   void compute()
   {
     final T oldValue = _value;
-    final T newValue = computeValue();
-    if ( !_equalityComparator.equals( oldValue, newValue ) )
+    try
     {
-      _value = newValue;
+      final T newValue = computeValue();
+      if ( !_equalityComparator.equals( oldValue, newValue ) )
+      {
+        _value = newValue;
+        _error = null;
+        getObservable().reportChangeConfirmed();
+      }
+    }
+    catch ( final Exception e )
+    {
+      /*
+       * This handles the scenario where the computed generates an exception. The observers should still be
+       * marked as STALE. When they react to this the computed will throw the exception that was caught.
+       */
       getObservable().reportChangeConfirmed();
+      throw e;
     }
   }
 
@@ -168,6 +202,12 @@ public final class ComputedValue<T>
     try
     {
       return _function.call();
+    }
+    catch ( final Throwable t )
+    {
+      _value = null;
+      _error = t;
+      throw t;
     }
     finally
     {
@@ -188,6 +228,18 @@ public final class ComputedValue<T>
   T getValue()
   {
     return _value;
+  }
+
+  @TestOnly
+  Throwable getError()
+  {
+    return _error;
+  }
+
+  @TestOnly
+  void setError( final Throwable error )
+  {
+    _error = error;
   }
 
   @TestOnly

@@ -3,6 +3,13 @@
 ### Unreleased
 
 ##### Fixed
+* **\[core\]** When exceptions are thrown when calculating the value for `ComputedValue`, the `ComputedValue`
+  was marked as in error and a null was returned to the caller. This could mislead the observer into thinking
+  that the state was valid and/or may lead to hard to track down errors such as `NullPointerException`s when
+  the components cast the result of `ComputedValue` to a primitive value. This has been fixed so that if a
+  computation results in an exception then this exception will be cached for the `ComputedValue` and thrown
+  for the caller to handle. Subsequent invocations of `ComputedValue.get()` will re-throw the same exception
+  if the `ComputedValue` is still in a state of `UP_TO_DATE`.
 * **\[extras\]** Ensure that the `dispose()` method on `org.realityforge.arez.extras.Watcher` is performed in a
   single transaction. This makes sure that the `Watcher` does not react whilst partially disposed.
 
