@@ -42,7 +42,7 @@ complete as there is too much un-said.
   enabled otherwise it continues with current code path.
 
 * Change `ComponentCreatedEvent` to `ComponentCreatStartedEvent` + `ComponentCreatCompletedEvent` so
-  that all the associated creates are nested in group in console.
+  that all the associated creates are nested in group in console. Same with dispose.
 
 * Add integration tests that cover components and spys access to `Observable` properties in components. 
 
