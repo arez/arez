@@ -15,70 +15,70 @@
         "type": "ObservableChanged"
     },
     {
-        "duration": 6,
+        "duration": 51,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Time.updateTime"
     },
     {
-        "computedValue": "When@1",
+        "computedValue": "Watcher.0.condition",
         "type": "ComputedValueCreated"
     },
     {
-        "observer": "When@1",
+        "observer": "Watcher.0.checkCondition",
         "type": "ObserverCreated"
     },
     {
-        "observer": "When@1",
+        "observer": "Watcher.0.checkCondition",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "When@1",
+        "observer": "Watcher.0.checkCondition",
         "type": "ReactionStarted"
     },
     {
         "mutation": true,
-        "tracker": "When@1",
+        "tracker": "Watcher.0.checkCondition",
         "type": "TransactionStarted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.checkCondition"
     },
     {
-        "computedValue": "When@1",
+        "computedValue": "Watcher.0.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "When@1",
+        "tracker": "Watcher.0.condition",
         "type": "TransactionStarted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.condition"
     },
     {
-        "observable": "When@1",
+        "observable": "Watcher.0.condition",
         "type": "ObservableChanged"
     },
     {
-        "duration": 1,
+        "duration": 30,
         "mutation": false,
-        "tracker": "When@1",
+        "tracker": "Watcher.0.condition",
         "type": "TransactionCompleted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.condition"
     },
     {
-        "duration": 3,
-        "computedValue": "When@1",
+        "duration": 45,
+        "computedValue": "Watcher.0.condition",
         "type": "ComputeCompleted"
     },
     {
-        "duration": 3,
+        "duration": 74,
         "mutation": true,
-        "tracker": "When@1",
+        "tracker": "Watcher.0.checkCondition",
         "type": "TransactionCompleted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.checkCondition"
     },
     {
-        "duration": 7,
-        "observer": "When@1",
+        "duration": 78,
+        "observer": "Watcher.0.checkCondition",
         "type": "ReactionCompleted"
     },
     {
@@ -122,7 +122,7 @@
         "type": "ObservableChanged"
     },
     {
-        "observer": "When@1",
+        "observer": "Watcher.0.condition",
         "type": "ReactionScheduled"
     },
     {
@@ -137,25 +137,25 @@
         "transaction": "Time.updateTime"
     },
     {
-        "computedValue": "When@1",
+        "computedValue": "Watcher.0.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "When@1",
+        "tracker": "Watcher.0.condition",
         "type": "TransactionStarted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.condition"
     },
     {
         "duration": 0,
         "mutation": false,
-        "tracker": "When@1",
+        "tracker": "Watcher.0.condition",
         "type": "TransactionCompleted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.condition"
     },
     {
         "duration": 2,
-        "computedValue": "When@1",
+        "computedValue": "Watcher.0.condition",
         "type": "ComputeCompleted"
     },
     {
@@ -173,14 +173,14 @@
         "timeReset": "true"
     },
     {
-        "duration": 1,
+        "duration": 0,
         "mutation": false,
         "tracker": "TimePrinter",
         "type": "TransactionCompleted",
         "transaction": "TimePrinter"
     },
     {
-        "duration": 3,
+        "duration": 2,
         "observer": "TimePrinter",
         "type": "ReactionCompleted"
     },
@@ -195,7 +195,7 @@
         "type": "ObservableChanged"
     },
     {
-        "observer": "When@1",
+        "observer": "Watcher.0.condition",
         "type": "ReactionScheduled"
     },
     {
@@ -210,25 +210,25 @@
         "transaction": "Time.updateTime"
     },
     {
-        "computedValue": "When@1",
+        "computedValue": "Watcher.0.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "When@1",
+        "tracker": "Watcher.0.condition",
         "type": "TransactionStarted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.condition"
     },
     {
         "duration": 0,
         "mutation": false,
-        "tracker": "When@1",
+        "tracker": "Watcher.0.condition",
         "type": "TransactionCompleted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.condition"
     },
     {
-        "duration": 2,
-        "computedValue": "When@1",
+        "duration": 1,
+        "computedValue": "Watcher.0.condition",
         "type": "ComputeCompleted"
     },
     {
@@ -253,7 +253,7 @@
         "transaction": "TimePrinter"
     },
     {
-        "duration": 3,
+        "duration": 1,
         "observer": "TimePrinter",
         "type": "ReactionCompleted"
     },
@@ -268,7 +268,7 @@
         "type": "ObservableChanged"
     },
     {
-        "observer": "When@1",
+        "observer": "Watcher.0.condition",
         "type": "ReactionScheduled"
     },
     {
@@ -276,40 +276,40 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 2,
+        "duration": 1,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Time.resetTime"
     },
     {
-        "computedValue": "When@1",
+        "computedValue": "Watcher.0.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "When@1",
+        "tracker": "Watcher.0.condition",
         "type": "TransactionStarted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.condition"
     },
     {
-        "observable": "When@1",
+        "observable": "Watcher.0.condition",
         "type": "ObservableChanged"
     },
     {
-        "observer": "When@1",
+        "observer": "Watcher.0.checkCondition",
         "type": "ReactionScheduled"
     },
     {
-        "duration": 2,
+        "duration": 1,
         "mutation": false,
-        "tracker": "When@1",
+        "tracker": "Watcher.0.condition",
         "type": "TransactionCompleted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.condition"
     },
     {
-        "duration": 2,
-        "computedValue": "When@1",
+        "duration": 1,
+        "computedValue": "Watcher.0.condition",
         "type": "ComputeCompleted"
     },
     {
@@ -334,19 +334,19 @@
         "transaction": "TimePrinter"
     },
     {
-        "duration": 3,
+        "duration": 1,
         "observer": "TimePrinter",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "When@1",
+        "observer": "Watcher.0.checkCondition",
         "type": "ReactionStarted"
     },
     {
         "mutation": true,
-        "tracker": "When@1",
+        "tracker": "Watcher.0.checkCondition",
         "type": "TransactionStarted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.checkCondition"
     },
     {
         "mutation": false,
@@ -359,7 +359,7 @@
         "timeReset": "true"
     },
     {
-        "duration": 0,
+        "duration": 1,
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -367,48 +367,61 @@
     },
     {
         "mutation": true,
-        "tracker": "When@1",
+        "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.dispose"
     },
     {
-        "duration": 0,
         "mutation": true,
-        "tracker": "When@1",
-        "type": "TransactionCompleted",
-        "transaction": "When@1"
+        "tracker": "Watcher.0.checkCondition",
+        "type": "TransactionStarted",
+        "transaction": "Watcher.0.checkCondition"
     },
     {
-        "observer": "When@1",
+        "duration": 5,
+        "mutation": true,
+        "tracker": "Watcher.0.checkCondition",
+        "type": "TransactionCompleted",
+        "transaction": "Watcher.0.checkCondition"
+    },
+    {
+        "observer": "Watcher.0.checkCondition",
         "type": "ObserverDisposed"
     },
     {
         "mutation": true,
-        "tracker": "When@1",
+        "tracker": "Watcher.0.condition",
         "type": "TransactionStarted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.condition"
     },
     {
-        "duration": 0,
+        "duration": 1,
         "mutation": true,
-        "tracker": "When@1",
+        "tracker": "Watcher.0.condition",
         "type": "TransactionCompleted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.condition"
     },
     {
-        "computedValue": "When@1",
+        "computedValue": "Watcher.0.condition",
         "type": "ComputedValueDisposed"
     },
     {
-        "duration": 7,
+        "duration": 9,
         "mutation": true,
-        "tracker": "When@1",
+        "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "When@1"
+        "transaction": "Watcher.0.dispose"
     },
     {
-        "duration": 8,
-        "observer": "When@1",
+        "duration": 12,
+        "mutation": true,
+        "tracker": "Watcher.0.checkCondition",
+        "type": "TransactionCompleted",
+        "transaction": "Watcher.0.checkCondition"
+    },
+    {
+        "duration": 13,
+        "observer": "Watcher.0.checkCondition",
         "type": "ReactionCompleted"
     },
     {
@@ -447,54 +460,7 @@
         "timeReset": "true"
     },
     {
-        "duration": 1,
-        "mutation": false,
-        "tracker": "TimePrinter",
-        "type": "TransactionCompleted",
-        "transaction": "TimePrinter"
-    },
-    {
-        "duration": 7,
-        "observer": "TimePrinter",
-        "type": "ReactionCompleted"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Time.updateTime"
-    },
-    {
-        "observable": "Time.time",
-        "type": "ObservableChanged"
-    },
-    {
-        "observer": "TimePrinter",
-        "type": "ReactionScheduled"
-    },
-    {
-        "duration": 1,
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Time.updateTime"
-    },
-    {
-        "observer": "TimePrinter",
-        "type": "ReactionStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "TimePrinter",
-        "type": "TransactionStarted",
-        "transaction": "TimePrinter"
-    },
-    {
-        "type": "usermark",
-        "timeReset": "true"
-    },
-    {
-        "duration": 1,
+        "duration": 0,
         "mutation": false,
         "tracker": "TimePrinter",
         "type": "TransactionCompleted",
@@ -502,6 +468,53 @@
     },
     {
         "duration": 2,
+        "observer": "TimePrinter",
+        "type": "ReactionCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "observable": "Time.time",
+        "type": "ObservableChanged"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionScheduled"
+    },
+    {
+        "duration": 1,
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Time.updateTime"
+    },
+    {
+        "observer": "TimePrinter",
+        "type": "ReactionStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionStarted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "type": "usermark",
+        "timeReset": "true"
+    },
+    {
+        "duration": 1,
+        "mutation": false,
+        "tracker": "TimePrinter",
+        "type": "TransactionCompleted",
+        "transaction": "TimePrinter"
+    },
+    {
+        "duration": 1,
         "observer": "TimePrinter",
         "type": "ReactionCompleted"
     }
