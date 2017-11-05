@@ -14,6 +14,8 @@
   and does not transition dependencies from `POSSIBLY_STALE` to `STALE`.
 * **\[extras\]** Ensure that the `dispose()` method on `org.realityforge.arez.extras.Watcher` is performed in a
   single transaction. This makes sure that the `Watcher` does not react whilst partially disposed.
+* **\[core\]** Ensure that `ComputedValue.dispose()` never attempts to dispose value multiple times by moving
+  the setting of the `_disposed` flag to the top of the method.
 
 ##### Added
 * **\[core\]** Add the `ArezContext.createObservable()` method that will synthesize the observable name if

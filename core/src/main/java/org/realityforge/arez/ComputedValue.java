@@ -108,6 +108,7 @@ public final class ComputedValue<T>
   {
     if ( !isDisposed() )
     {
+      _disposed = true;
       _observer.dispose();
       _value = null;
       _error = null;
@@ -115,7 +116,6 @@ public final class ComputedValue<T>
       {
         reportSpyEvent( new ComputedValueDisposedEvent( this ) );
       }
-      _disposed = true;
     }
   }
 
