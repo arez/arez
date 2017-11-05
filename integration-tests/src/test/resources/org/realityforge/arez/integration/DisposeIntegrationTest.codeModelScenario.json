@@ -45,14 +45,12 @@
         "type": "ObservableChanged"
     },
     {
-        "duration": 6,
         "mutation": false,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "duration": 9,
         "computedValue": "CodeModel.0.qualifiedName",
         "type": "ComputeCompleted"
     },
@@ -61,14 +59,12 @@
         "qualifiedName": "com.example.MyType"
     },
     {
-        "duration": 25,
         "mutation": false,
         "tracker": "Printer",
         "type": "TransactionCompleted",
         "transaction": "Printer"
     },
     {
-        "duration": 27,
         "observer": "Printer",
         "type": "ReactionCompleted"
     },
@@ -87,7 +83,6 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 2,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -112,14 +107,12 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 2,
         "mutation": false,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "duration": 2,
         "computedValue": "CodeModel.0.qualifiedName",
         "type": "ComputeCompleted"
     },
@@ -138,14 +131,12 @@
         "qualifiedName": "com.biz.Fred"
     },
     {
-        "duration": 0,
         "mutation": false,
         "tracker": "Printer",
         "type": "TransactionCompleted",
         "transaction": "Printer"
     },
     {
-        "duration": 2,
         "observer": "Printer",
         "type": "ReactionCompleted"
     },
@@ -164,7 +155,6 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 1,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -189,14 +179,12 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 1,
         "mutation": false,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "duration": 1,
         "computedValue": "CodeModel.0.qualifiedName",
         "type": "ComputeCompleted"
     },
@@ -215,14 +203,12 @@
         "qualifiedName": "com.example.MyType"
     },
     {
-        "duration": 0,
         "mutation": false,
         "tracker": "Printer",
         "type": "TransactionCompleted",
         "transaction": "Printer"
     },
     {
-        "duration": 1,
         "observer": "Printer",
         "type": "ReactionCompleted"
     },
@@ -241,7 +227,6 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 1,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -266,14 +251,12 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 1,
         "mutation": false,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "duration": 1,
         "computedValue": "CodeModel.0.qualifiedName",
         "type": "ComputeCompleted"
     },
@@ -292,14 +275,12 @@
         "qualifiedName": "com.example.MyType2"
     },
     {
-        "duration": 0,
         "mutation": false,
         "tracker": "Printer",
         "type": "TransactionCompleted",
         "transaction": "Printer"
     },
     {
-        "duration": 1,
         "observer": "Printer",
         "type": "ReactionCompleted"
     },
@@ -314,7 +295,6 @@
         "type": "ComputedValueDeactivated"
     },
     {
-        "duration": 4,
         "mutation": true,
         "tracker": "Printer",
         "type": "TransactionCompleted",
@@ -343,7 +323,6 @@
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "duration": 0,
         "mutation": true,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
@@ -378,14 +357,12 @@
         "type": "ObservableDisposed"
     },
     {
-        "duration": 3,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.dispose"
     },
     {
-        "duration": 4,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",

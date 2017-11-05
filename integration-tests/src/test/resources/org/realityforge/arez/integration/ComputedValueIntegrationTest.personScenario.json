@@ -31,14 +31,12 @@
         "firstName": "Bill"
     },
     {
-        "duration": 6,
         "mutation": false,
         "tracker": "FirstNamePrinter",
         "type": "TransactionCompleted",
         "transaction": "FirstNamePrinter"
     },
     {
-        "duration": 17,
         "observer": "FirstNamePrinter",
         "type": "ReactionCompleted"
     },
@@ -71,14 +69,12 @@
         "type": "ObservableChanged"
     },
     {
-        "duration": 1,
         "mutation": false,
         "tracker": "PersonModel.0.fullName",
         "type": "TransactionCompleted",
         "transaction": "PersonModel.0.fullName"
     },
     {
-        "duration": 2,
         "computedValue": "PersonModel.0.fullName",
         "type": "ComputeCompleted"
     },
@@ -87,14 +83,12 @@
         "fullname": "Bill Smith"
     },
     {
-        "duration": 3,
         "mutation": false,
         "tracker": "FullNamePrinter",
         "type": "TransactionCompleted",
         "transaction": "FullNamePrinter"
     },
     {
-        "duration": 6,
         "observer": "FullNamePrinter",
         "type": "ReactionCompleted"
     },
@@ -117,7 +111,6 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 3,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -138,14 +131,12 @@
         "firstName": "Fred"
     },
     {
-        "duration": 1,
         "mutation": false,
         "tracker": "FirstNamePrinter",
         "type": "TransactionCompleted",
         "transaction": "FirstNamePrinter"
     },
     {
-        "duration": 5,
         "observer": "FirstNamePrinter",
         "type": "ReactionCompleted"
     },
@@ -168,14 +159,12 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 2,
         "mutation": false,
         "tracker": "PersonModel.0.fullName",
         "type": "TransactionCompleted",
         "transaction": "PersonModel.0.fullName"
     },
     {
-        "duration": 2,
         "computedValue": "PersonModel.0.fullName",
         "type": "ComputeCompleted"
     },
@@ -194,14 +183,12 @@
         "fullname": "Fred Smith"
     },
     {
-        "duration": 1,
         "mutation": false,
         "tracker": "FullNamePrinter",
         "type": "TransactionCompleted",
         "transaction": "FullNamePrinter"
     },
     {
-        "duration": 3,
         "observer": "FullNamePrinter",
         "type": "ReactionCompleted"
     },
@@ -220,7 +207,6 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 2,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -245,14 +231,12 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 1,
         "mutation": false,
         "tracker": "PersonModel.0.fullName",
         "type": "TransactionCompleted",
         "transaction": "PersonModel.0.fullName"
     },
     {
-        "duration": 1,
         "computedValue": "PersonModel.0.fullName",
         "type": "ComputeCompleted"
     },
@@ -271,14 +255,12 @@
         "fullname": "Fred Donaldo"
     },
     {
-        "duration": 0,
         "mutation": false,
         "tracker": "FullNamePrinter",
         "type": "TransactionCompleted",
         "transaction": "FullNamePrinter"
     },
     {
-        "duration": 2,
         "observer": "FullNamePrinter",
         "type": "ReactionCompleted"
     }

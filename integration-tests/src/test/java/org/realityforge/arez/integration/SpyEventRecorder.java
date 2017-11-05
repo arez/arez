@@ -69,6 +69,7 @@ final class SpyEventRecorder
   {
     final HashMap<String, Object> map = new HashMap<>();
     event.toMap( map );
+    map.remove( "duration" );
     _events.add( Json.createObjectBuilder( map ) );
   }
 

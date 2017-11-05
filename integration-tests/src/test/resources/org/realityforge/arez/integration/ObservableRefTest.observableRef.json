@@ -19,14 +19,12 @@
         "TransportType": "1"
     },
     {
-        "duration": 17,
         "mutation": false,
         "tracker": "TransportType",
         "type": "TransactionCompleted",
         "transaction": "TransportType"
     },
     {
-        "duration": 29,
         "observer": "TransportType",
         "type": "ReactionCompleted"
     },
@@ -49,14 +47,12 @@
         "ResolvedType": "1"
     },
     {
-        "duration": 1,
         "mutation": false,
         "tracker": "ResolvedType",
         "type": "TransactionCompleted",
         "transaction": "ResolvedType"
     },
     {
-        "duration": 3,
         "observer": "ResolvedType",
         "type": "ReactionCompleted"
     },
@@ -79,7 +75,6 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 3,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -100,14 +95,12 @@
         "TransportType": "22"
     },
     {
-        "duration": 1,
         "mutation": false,
         "tracker": "TransportType",
         "type": "TransactionCompleted",
         "transaction": "TransportType"
     },
     {
-        "duration": 1,
         "observer": "TransportType",
         "type": "ReactionCompleted"
     },
@@ -126,14 +119,12 @@
         "ResolvedType": "22"
     },
     {
-        "duration": 1,
         "mutation": false,
         "tracker": "ResolvedType",
         "type": "TransactionCompleted",
         "transaction": "ResolvedType"
     },
     {
-        "duration": 2,
         "observer": "ResolvedType",
         "type": "ReactionCompleted"
     }

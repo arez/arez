@@ -19,14 +19,12 @@
         "TransportType": "1"
     },
     {
-        "duration": 45,
         "mutation": false,
         "tracker": "TransportType",
         "type": "TransactionCompleted",
         "transaction": "TransportType"
     },
     {
-        "duration": 63,
         "observer": "TransportType",
         "type": "ReactionCompleted"
     },
@@ -49,14 +47,12 @@
         "ResolvedType": "1"
     },
     {
-        "duration": 3,
         "mutation": false,
         "tracker": "ResolvedType",
         "type": "TransactionCompleted",
         "transaction": "ResolvedType"
     },
     {
-        "duration": 4,
         "observer": "ResolvedType",
         "type": "ReactionCompleted"
     },
@@ -85,14 +81,12 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 11,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "TestComponent.0.setOtherID"
     },
     {
-        "duration": 12,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -113,14 +107,12 @@
         "TransportType": "22"
     },
     {
-        "duration": 1,
         "mutation": false,
         "tracker": "TransportType",
         "type": "TransactionCompleted",
         "transaction": "TransportType"
     },
     {
-        "duration": 2,
         "observer": "TransportType",
         "type": "ReactionCompleted"
     },
@@ -139,14 +131,12 @@
         "ResolvedType": "22"
     },
     {
-        "duration": 2,
         "mutation": false,
         "tracker": "ResolvedType",
         "type": "TransactionCompleted",
         "transaction": "ResolvedType"
     },
     {
-        "duration": 3,
         "observer": "ResolvedType",
         "type": "ReactionCompleted"
     }

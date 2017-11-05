@@ -19,14 +19,12 @@
         "ComponentCount": "2"
     },
     {
-        "duration": 14,
         "mutation": false,
         "tracker": "ComponentCount",
         "type": "TransactionCompleted",
         "transaction": "ComponentCount"
     },
     {
-        "duration": 18,
         "observer": "ComponentCount",
         "type": "ReactionCompleted"
     },
@@ -49,7 +47,6 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 4,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -70,14 +67,12 @@
         "ComponentCount": "3"
     },
     {
-        "duration": 0,
         "mutation": false,
         "tracker": "ComponentCount",
         "type": "TransactionCompleted",
         "transaction": "ComponentCount"
     },
     {
-        "duration": 2,
         "observer": "ComponentCount",
         "type": "ReactionCompleted"
     },
@@ -92,7 +87,6 @@
         "type": "ObservableChanged"
     },
     {
-        "duration": 1,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -119,7 +113,6 @@
         "type": "ObservableDisposed"
     },
     {
-        "duration": 1,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -134,7 +127,6 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 4,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -155,14 +147,12 @@
         "ComponentCount": "2"
     },
     {
-        "duration": 0,
         "mutation": false,
         "tracker": "ComponentCount",
         "type": "TransactionCompleted",
         "transaction": "ComponentCount"
     },
     {
-        "duration": 1,
         "observer": "ComponentCount",
         "type": "ReactionCompleted"
     },
@@ -187,7 +177,6 @@
         "type": "ObservableDisposed"
     },
     {
-        "duration": 1,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -202,7 +191,6 @@
         "type": "ReactionScheduled"
     },
     {
-        "duration": 2,
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -223,14 +211,12 @@
         "ComponentCount": "1"
     },
     {
-        "duration": 1,
         "mutation": false,
         "tracker": "ComponentCount",
         "type": "TransactionCompleted",
         "transaction": "ComponentCount"
     },
     {
-        "duration": 1,
         "observer": "ComponentCount",
         "type": "ReactionCompleted"
     }
