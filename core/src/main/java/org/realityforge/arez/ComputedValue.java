@@ -180,11 +180,16 @@ public final class ComputedValue<T>
     }
     catch ( final Exception e )
     {
-      /*
-       * This handles the scenario where the computed generates an exception. The observers should still be
-       * marked as STALE. When they react to this the computed will throw the exception that was caught.
-       */
-      getObservable().reportChangeConfirmed();
+      if ( null == _error )
+      {
+        /*
+         * This handles the scenario where the computed generates an exception. The observers should still be
+         * marked as STALE. When they react to this the computed will throw the exception that was caught.
+         */
+        _value = null;
+        _error = e;
+        getObservable().reportChangeConfirmed();
+      }
       throw e;
     }
   }
@@ -203,12 +208,6 @@ public final class ComputedValue<T>
     try
     {
       return _function.call();
-    }
-    catch ( final Throwable t )
-    {
-      _value = null;
-      _error = t;
-      throw t;
     }
     finally
     {
