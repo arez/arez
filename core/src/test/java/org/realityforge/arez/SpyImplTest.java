@@ -1,9 +1,11 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.spy.ComponentInfo;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -559,6 +561,109 @@ public class SpyImplTest
     assertEquals( spy.isReadOnly( newReadOnlyObserver( context ) ), true );
     assertEquals( spy.isReadOnly( newDerivation( context ) ), true );
     assertEquals( spy.isReadOnly( newReadWriteObserver( context ) ), false );
+  }
+
+  @Test
+  public void component_finders()
+  {
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final String type = ValueUtil.randomString();
+    final String id1 = ValueUtil.randomString();
+    final String id2 = ValueUtil.randomString();
+
+    assertEquals( spy.findAllComponentTypes().size(), 0 );
+    assertEquals( spy.findAllComponentsByType( type ).size(), 0 );
+
+    final Component component = context.createComponent( type, id1, ValueUtil.randomString() );
+
+    assertEquals( spy.findAllComponentTypes().size(), 1 );
+    assertEquals( spy.findAllComponentTypes().contains( type ), true );
+
+    assertEquals( spy.findAllComponentsByType( ValueUtil.randomString() ).size(), 0 );
+
+    final Collection<ComponentInfo> componentsByType1 = spy.findAllComponentsByType( type );
+    assertEquals( componentsByType1.size(), 1 );
+    assertEquals( componentsByType1.stream().anyMatch( c -> c.getName().equals( component.getName() ) ), true );
+
+    final Component component2 = context.createComponent( type, id2, ValueUtil.randomString() );
+
+    assertEquals( spy.findAllComponentTypes().size(), 1 );
+    assertEquals( spy.findAllComponentTypes().contains( type ), true );
+    assertUnmodifiable( spy.findAllComponentTypes() );
+
+    assertEquals( spy.findAllComponentsByType( ValueUtil.randomString() ).size(), 0 );
+
+    final Collection<ComponentInfo> componentsByType2 = spy.findAllComponentsByType( type );
+    assertUnmodifiable( componentsByType2 );
+    assertEquals( componentsByType2.size(), 2 );
+    assertEquals( componentsByType2.stream().anyMatch( c -> c.getName().equals( component.getName() ) ), true );
+    assertEquals( componentsByType2.stream().anyMatch( c -> c.getName().equals( component2.getName() ) ), true );
+
+    final ComponentInfo info1 = spy.findComponent( type, id1 );
+    final ComponentInfo info2 = spy.findComponent( type, id2 );
+    assertNotNull( info1 );
+    assertNotNull( info2 );
+    assertEquals( info1.getName(), component.getName() );
+    assertEquals( info2.getName(), component2.getName() );
+    assertEquals( spy.findComponent( type, ValueUtil.randomString() ), null );
+    assertEquals( spy.findComponent( ValueUtil.randomString(), id2 ), null );
+  }
+
+  @Test
+  public void findComponent_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final String type = ValueUtil.randomString();
+    final String id = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> spy.findComponent( type, id ) );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
+
+  @Test
+  public void findAllComponentsByType_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final String type = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> spy.findAllComponentsByType( type ) );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.findAllComponentsByType() invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
+
+  @Test
+  public void findAllComponentTypes_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, spy::findAllComponentTypes );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
+
+  private <T> void assertUnmodifiable( @Nonnull final Collection<T> list )
+  {
+    assertThrows( UnsupportedOperationException.class, () -> list.remove( list.iterator().next() ) );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final List<T> list )

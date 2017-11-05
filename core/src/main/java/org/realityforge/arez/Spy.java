@@ -1,8 +1,11 @@
 package org.realityforge.arez;
 
+import java.util.Collection;
 import java.util.List;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.realityforge.anodoc.Unsupported;
+import org.realityforge.arez.spy.ComponentInfo;
 import org.realityforge.arez.spy.TransactionInfo;
 
 /**
@@ -180,4 +183,34 @@ public interface Spy
    */
   @Nonnull
   List<Observable<?>> getDependencies( @Nonnull Observer observer );
+
+  /**
+   * Find the component identified by the specified type and id.
+   *
+   * @param type the component type.
+   * @param id   the component id. Should be null if the component is a singleton.
+   * @return the component descriptor matching the specified type and id.
+   */
+  @Nullable
+  ComponentInfo findComponent( @Nonnull String type, @Nullable Object id );
+
+  /**
+   * Find all the components identified by the specified type.
+   * This collection returned is unmodifiable.
+   *
+   * @param type the component type.
+   * @return the collection of component descriptors of specified type.
+   */
+  @Nonnull
+  Collection<ComponentInfo> findAllComponentsByType( @Nonnull String type );
+
+  /**
+   * Find all the component types in the system.
+   * This is essentially all the types that have at least 1 instance.
+   * This collection returned is unmodifiable.
+   *
+   * @return the collection of component types.
+   */
+  @Nonnull
+  Collection<String> findAllComponentTypes();
 }

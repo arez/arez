@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
+import org.realityforge.arez.spy.ComponentInfo;
 import org.realityforge.arez.spy.TransactionInfo;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -296,6 +298,41 @@ final class SpyImpl
     {
       return Collections.unmodifiableList( new ArrayList<>( observer.getDependencies() ) );
     }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nullable
+  @Override
+  public ComponentInfo findComponent( @Nonnull final String type, @Nullable final Object id )
+  {
+    final Component component = _context.findComponent( type, id );
+    return null != component ? new ComponentInfoImpl( component ) : null;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public Collection<ComponentInfo> findAllComponentsByType( @Nonnull final String type )
+  {
+    final List<ComponentInfoImpl> infos =
+      _context.findAllComponentsByType( type ).stream().
+        map( ComponentInfoImpl::new ).
+        collect( Collectors.toList() );
+    return Collections.unmodifiableCollection( infos );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public Collection<String> findAllComponentTypes()
+  {
+    return Collections.unmodifiableCollection( _context.findAllComponentTypes() );
   }
 
   @TestOnly
