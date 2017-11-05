@@ -32,25 +32,24 @@ complete as there is too much un-said.
 
 * Enhance WhyRun and write tests for it.
 
-* Explicitly add component (a.k.a. scope) to Actions, ComputedValue, Observables etc. Useful in a future DevTools?
+* Add `Component` as parameter to creating `Observer`, `Observable` and `ComputedValue` in `ArezContext`.
 
-* Figure out how to make Arez expose debug output like that which was in replicant
-  - ToString on all entities or some other more sophisticated variant?
+* Generate `ComponentCreated` event when component created and `ComponentDisposed` when disposed. 
+
+* Enhance Spy to support the access/mutation of of `Observable` if property introspection valid..
+
+* Enhance the annotation processor to generate Components if native components are enabled.
+
+* Annotation processor should generate code that just calls Component.dispose() if native components
+  enabled otherwise it continues with current code path.
+
+* Add integration tests that cover components and spys access to `Observable` properties in components. 
 
 * Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
   - https://github.com/zalmoxisus/mobx-remotedev
   - http://www.mattzeunert.com/2016/02/19/custom-chrome-devtools-object-formatters.html
   - https://github.com/motion/mobx-formatters
   - https://github.com/andykog/mobx-devtools
-
-* Add a component registry to Spy that allows for each "component" to be registered when it is created and
-  de-registered when it is disposed. Each "component" is a bucket of Observables and ComputedValues and Observers
-
-* Enhance Spy to allow the access/mutation of of Observable if setting allows it.
-
-* ComponentCreated should be event as should be component disposed
-
-* Generated components should just call Component.dispose() if components enabled? otherwsie own code????
 
 * Initial repository debug tool could just output tables ala
 
