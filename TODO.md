@@ -34,7 +34,7 @@ complete as there is too much un-said.
 
 * Add `Component` as parameter to creating `Observer`, `Observable` and `ComputedValue` in `ArezContext`.
 
-* Enhance Spy to support the access/mutation of of `Observable` if property introspection valid..
+* Enhance Spy to support the access/mutation of of `Observable` if property introspection valid.
 
 * Enhance the annotation processor to generate Components if native components are enabled.
 
