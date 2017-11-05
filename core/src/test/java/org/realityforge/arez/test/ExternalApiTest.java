@@ -86,6 +86,14 @@ public class ExternalApiTest
   }
 
   @Test
+  public void areNativeComponentsEnabled()
+  {
+    assertTrue( Arez.areNativeComponentsEnabled() );
+    ArezTestUtil.disableNativeComponents();
+    assertFalse( Arez.areNativeComponentsEnabled() );
+  }
+
+  @Test
   public void createComputedValue()
     throws Throwable
   {

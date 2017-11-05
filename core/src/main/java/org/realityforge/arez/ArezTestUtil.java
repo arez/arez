@@ -40,6 +40,7 @@ public final class ArezTestUtil
       noEnforceTransactionType();
       disableSpies();
       makeRepositoryResultsModifiable();
+      disableNativeComponents();
     }
     else
     {
@@ -48,6 +49,7 @@ public final class ArezTestUtil
       enforceTransactionType();
       enableSpies();
       makeRepositoryResultsUnmodifiable();
+      enableNativeComponents();
     }
     purgeReactionsWhenRunawayDetected();
     disableZones();
@@ -237,6 +239,32 @@ public final class ArezTestUtil
   private static void setRepositoriesResultsModifiable( final boolean value )
   {
     setConstant( "REPOSITORIES_RESULTS_MODIFIABLE", value );
+  }
+
+  /**
+   * Set `arez.enable_native_components` setting to true.
+   */
+  public static void enableNativeComponents()
+  {
+    setEnableNativeComponents( true );
+  }
+
+  /**
+   * Set `arez.enable_native_components` setting to false.
+   */
+  public static void disableNativeComponents()
+  {
+    setEnableNativeComponents( false );
+  }
+
+  /**
+   * Configure the `arez.enable_native_components` setting.
+   *
+   * @param value the setting.
+   */
+  private static void setEnableNativeComponents( final boolean value )
+  {
+    setConstant( "ENABLE_NATIVE_COMPONENTS", value );
   }
 
   /**

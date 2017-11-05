@@ -91,6 +91,16 @@ public final class Arez
   }
 
   /**
+   * Return true if native components are enabled.
+   *
+   * @return true if native components are enabled, false otherwise.
+   */
+  public static boolean areNativeComponentsEnabled()
+  {
+    return ArezConfig.areNativeComponentsEnabled();
+  }
+
+  /**
    * Return the ArezContext from the provider.
    *
    * @return the ArezContext.

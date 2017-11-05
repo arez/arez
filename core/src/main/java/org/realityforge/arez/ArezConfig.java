@@ -20,6 +20,8 @@ final class ArezConfig
   private static boolean ENABLE_ZONES = "true".equals( System.getProperty( "arez.enable_zones", "false" ) );
   private static boolean REPOSITORIES_RESULTS_MODIFIABLE =
     "true".equals( System.getProperty( "arez.repositories_results_modifiable", PRODUCTION_MODE ? "true" : "false" ) );
+  private static boolean ENABLE_NATIVE_COMPONENTS =
+    "true".equals( System.getProperty( "arez.enable_native_components", PRODUCTION_MODE ? "false" : "true" ) );
 
   private ArezConfig()
   {
@@ -63,5 +65,10 @@ final class ArezConfig
   static boolean areRepositoryResultsModifiable()
   {
     return REPOSITORIES_RESULTS_MODIFIABLE;
+  }
+
+  static boolean areNativeComponentsEnabled()
+  {
+    return ENABLE_NATIVE_COMPONENTS;
   }
 }
