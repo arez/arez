@@ -90,20 +90,6 @@ public final class Observer
    */
   private boolean _disposed;
 
-  Observer( @Nonnull final ComputedValue<?> computedValue )
-  {
-    this( computedValue.getContext(),
-          Arez.areNamesEnabled() ? computedValue.getName() : null,
-          computedValue,
-          ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE_OWNED : null,
-          o -> o.getContext().action( Arez.areNamesEnabled() ? o.getName() : null,
-                                      ArezConfig.enforceTransactionType() ? o.getMode() : null,
-                                      computedValue::compute,
-                                      false,
-                                      o ),
-          false );
-  }
-
   Observer( @Nonnull final ArezContext context,
             @Nullable final String name,
             @Nonnull final TransactionMode mode,

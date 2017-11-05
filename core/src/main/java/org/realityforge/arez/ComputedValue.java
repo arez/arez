@@ -64,7 +64,16 @@ public final class ComputedValue<T>
     _equalityComparator = Objects.requireNonNull( equalityComparator );
     _value = null;
     _computing = false;
-    _observer = new Observer( this );
+    _observer = new Observer( context,
+                              Arez.areNamesEnabled() ? getName() : null,
+                              this,
+                              ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE_OWNED : null,
+                              o -> o.getContext().action( Arez.areNamesEnabled() ? o.getName() : null,
+                                                          ArezConfig.enforceTransactionType() ? o.getMode() : null,
+                                                          this::compute,
+                                                          false,
+                                                          o ),
+                              false );
   }
 
   /**
