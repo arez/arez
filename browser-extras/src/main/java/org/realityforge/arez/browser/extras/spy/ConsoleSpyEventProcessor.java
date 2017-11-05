@@ -8,6 +8,8 @@ import org.realityforge.arez.extras.spy.AbstractSpyEventProcessor;
 import org.realityforge.arez.extras.spy.SpyUtil;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
+import org.realityforge.arez.spy.ComponentCreatedEvent;
+import org.realityforge.arez.spy.ComponentDisposedEvent;
 import org.realityforge.arez.spy.ComputeCompletedEvent;
 import org.realityforge.arez.spy.ComputeStartedEvent;
 import org.realityforge.arez.spy.ComputedValueActivatedEvent;
@@ -41,6 +43,8 @@ public class ConsoleSpyEventProcessor
    * and converted to excessive css you see below
    */
   @CssRules
+  private static final String COMPONENT_COLOR = "color: #410B13; font-weight: normal;";
+  @CssRules
   private static final String OBSERVABLE_COLOR = "color: #CF8A3B; font-weight: normal;";
   @CssRules
   private static final String COMPUTED_COLOR = "color: #FFBA49; font-weight: normal; background-repeat: no-repeat; background-size: contain; padding-left: 20px; background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDE1IDE1Ij4KICA8ZyBmaWxsPSIjN0I1NkEzIj4KICAgIDxjaXJjbGUgY3g9IjMuNzUiIGN5PSIxMS44MyIgcj0iMiIvPgogICAgPGNpcmNsZSBjeD0iMy43NSIgY3k9IjMuMTciIHI9IjIiLz4KICAgIDxjaXJjbGUgY3g9IjExLjI1IiBjeT0iNy41IiByPSIyIi8+CiAgPC9nPgogIDxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzdCNTZBMyIgc3Ryb2tlTWl0ZXJsaW1pdD0iMTAiPgogICAgPHBhdGggZD0iTTYuMjUgNy41bC0yLjUgNC4zMyIvPgogICAgPHBhdGggZD0iTTYuMjUgNy41bC0yLjUtNC4zMyIvPgogICAgPHBhdGggZD0iTTYuMjUgNy41aDUiLz4KICA8L2c+Cjwvc3ZnPgo=);";
@@ -62,6 +66,9 @@ public class ConsoleSpyEventProcessor
    */
   public ConsoleSpyEventProcessor()
   {
+    on( ComponentCreatedEvent.class, this::onComponentCreated );
+    on( ComponentDisposedEvent.class, this::onComponentDisposed );
+
     on( ObserverCreatedEvent.class, this::onObserverCreated );
     on( ObserverDisposedEvent.class, this::onObserverDisposed );
     on( ObserverErrorEvent.class, this::onObserverError );
@@ -86,6 +93,28 @@ public class ConsoleSpyEventProcessor
 
     on( ActionStartedEvent.class, this::onActionStarted );
     on( ActionCompletedEvent.class, this::onActionCompleted );
+  }
+
+  /**
+   * Handle the ComponentCreatedEvent.
+   *
+   * @param d the change in nesting level.
+   * @param e the event.
+   */
+  protected void onComponentCreated( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComponentCreatedEvent e )
+  {
+    log( d, "%cComponent Created " + e.getComponent().getName(), COMPONENT_COLOR );
+  }
+
+  /**
+   * Handle the ComponentDisposedEvent.
+   *
+   * @param d the change in nesting level.
+   * @param e the event.
+   */
+  protected void onComponentDisposed( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComponentDisposedEvent e )
+  {
+    log( d, "%cComponent Disposed " + e.getComponent().getName(), COMPONENT_COLOR );
   }
 
   /**

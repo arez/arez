@@ -10,6 +10,8 @@ import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
+import org.realityforge.arez.spy.ComponentCreatedEvent;
+import org.realityforge.arez.spy.ComponentDisposedEvent;
 import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
@@ -127,6 +129,10 @@ public final class ArezContext
                         "component already exists for specified type+id." );
     final Component component = new Component( this, type, id, name );
     map.put( id, component );
+    if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+    {
+      getSpy().reportSpyEvent( new ComponentCreatedEvent( component ) );
+    }
     return component;
   }
 
@@ -149,6 +155,10 @@ public final class ArezContext
     {
       assert _components != null;
       _components.remove( type );
+    }
+    if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+    {
+      getSpy().reportSpyEvent( new ComponentDisposedEvent( component ) );
     }
   }
 

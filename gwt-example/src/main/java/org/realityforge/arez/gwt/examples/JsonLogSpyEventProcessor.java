@@ -10,6 +10,8 @@ import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.extras.spy.AbstractSpyEventProcessor;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
+import org.realityforge.arez.spy.ComponentCreatedEvent;
+import org.realityforge.arez.spy.ComponentDisposedEvent;
 import org.realityforge.arez.spy.ComputeCompletedEvent;
 import org.realityforge.arez.spy.ComputeStartedEvent;
 import org.realityforge.arez.spy.ComputedValueActivatedEvent;
@@ -35,6 +37,8 @@ final class JsonLogSpyEventProcessor
 {
   JsonLogSpyEventProcessor()
   {
+    register( ComponentCreatedEvent.class );
+    register( ComponentDisposedEvent.class );
     register( ObserverCreatedEvent.class );
     register( ObserverDisposedEvent.class );
     register( ObserverErrorEvent.class );

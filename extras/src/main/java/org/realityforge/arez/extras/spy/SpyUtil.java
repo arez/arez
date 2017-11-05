@@ -3,6 +3,8 @@ package org.realityforge.arez.extras.spy;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
+import org.realityforge.arez.spy.ComponentCreatedEvent;
+import org.realityforge.arez.spy.ComponentDisposedEvent;
 import org.realityforge.arez.spy.ComputeCompletedEvent;
 import org.realityforge.arez.spy.ComputeStartedEvent;
 import org.realityforge.arez.spy.ComputedValueActivatedEvent;
@@ -55,14 +57,16 @@ public final class SpyUtil
   @Nonnull
   public static NestingDelta getNestingDelta( @Nonnull final Class<?> type )
   {
-    if ( ReactionStartedEvent.class == type ||
+    if ( ComponentCreatedEvent.class == type ||
+         ReactionStartedEvent.class == type ||
          TransactionStartedEvent.class == type ||
          ComputeStartedEvent.class == type ||
          ActionStartedEvent.class == type )
     {
       return NestingDelta.INCREASE;
     }
-    else if ( ReactionCompletedEvent.class == type ||
+    else if ( ComponentDisposedEvent.class == type ||
+              ReactionCompletedEvent.class == type ||
               TransactionCompletedEvent.class == type ||
               ComputeCompletedEvent.class == type ||
               ActionCompletedEvent.class == type )

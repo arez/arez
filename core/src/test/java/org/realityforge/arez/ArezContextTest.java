@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
+import org.realityforge.arez.spy.ComponentCreatedEvent;
+import org.realityforge.arez.spy.ComponentDisposedEvent;
 import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
@@ -1786,6 +1788,23 @@ public class ArezContextTest
   }
 
   @Test
+  public void createComponent_spyEventHandlerPresent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final Component component =
+      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+
+    handler.assertEventCount( 1 );
+    final ComponentCreatedEvent event = handler.assertEvent( ComponentCreatedEvent.class, 0 );
+    assertEquals( event.getComponent(), component );
+  }
+
+  @Test
   public void createComponent_nativeComponentsDisabled()
   {
     ArezTestUtil.disableNativeComponents();
@@ -1898,6 +1917,24 @@ public class ArezContextTest
     context.componentDisposed( component2 );
 
     assertEquals( context.findAllComponentTypes().size(), 0 );
+  }
+
+  @Test
+  public void componentDisposed_spyEventGenerated()
+  {
+    final ArezContext context = Arez.context();
+
+    final Component component =
+      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    context.componentDisposed( component );
+
+    handler.assertEventCount( 1 );
+    final ComponentDisposedEvent event = handler.assertEvent( ComponentDisposedEvent.class, 0 );
+    assertEquals( event.getComponent(), component );
   }
 
   @Test
