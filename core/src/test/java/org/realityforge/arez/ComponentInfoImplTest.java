@@ -22,7 +22,7 @@ public class ComponentInfoImplTest
     final Observable observable = context.createObservable();
     final ComputedValue computedValue = context.createComputedValue( () -> "" );
 
-    final Component component = new Component( context, type, id, name );
+    final Component component = context.createComponent( type, id, name );
     component.addObserver( observer );
     component.addObservable( observable );
     component.addComputedValue( computedValue );
@@ -46,6 +46,12 @@ public class ComponentInfoImplTest
     assertEquals( info.getComputedValues().size(), 1 );
     assertEquals( info.getComputedValues().contains( computedValue ), true );
     assertUnmodifiable( info.getComputedValues() );
+
+    assertFalse( Disposable.isDisposed( info ) );
+    assertFalse( Disposable.isDisposed( component ) );
+    info.dispose();
+    assertTrue( Disposable.isDisposed( info ) );
+    assertTrue( Disposable.isDisposed( component ) );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> collection )
