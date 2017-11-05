@@ -83,7 +83,7 @@ public final class Arez
   /**
    * Return true if property introspectors for Observables are enabled.
    *
-   * @return true if property introspectors for Observables are enabled., false otherwise.
+   * @return true if property introspectors for Observables are enabled, false otherwise.
    */
   public static boolean arePropertyIntrospectorsEnabled()
   {
