@@ -323,7 +323,7 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), null, name );
+    final Component component = context.createComponent( ValueUtil.randomString(), null, name );
 
     final Observable observable1 = context.createObservable();
     final Observable observable2 = context.createObservable();
@@ -353,7 +353,11 @@ public class ComponentTest
     assertFalse( Disposable.isDisposed( computedValue1 ) );
     assertFalse( Disposable.isDisposed( computedValue2 ) );
 
+    assertTrue( context.isComponentPresent( component.getType(), component.getId() ) );
+
     component.dispose();
+
+    assertFalse( context.isComponentPresent( component.getType(), component.getId() ) );
 
     assertEquals( component.getObservables().size(), 0 );
     assertEquals( component.getComputedValues().size(), 0 );

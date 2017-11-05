@@ -1764,4 +1764,225 @@ public class ArezContextTest
 
     assertEquals( exception.getMessage(), "releaseSchedulerLock() reduced schedulerLockCount below 0." );
   }
+
+  @Test
+  public void createComponent()
+  {
+    final ArezContext context = Arez.context();
+
+    final String type = ValueUtil.randomString();
+    final String id = ValueUtil.randomString();
+    final String name = ValueUtil.randomString();
+
+    assertFalse( context.isComponentPresent( type, id ) );
+
+    final Component component = context.createComponent( type, id, name );
+
+    assertTrue( context.isComponentPresent( type, id ) );
+
+    assertEquals( component.getType(), type );
+    assertEquals( component.getId(), id );
+    assertEquals( component.getName(), name );
+  }
+
+  @Test
+  public void createComponent_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+
+    final String type = ValueUtil.randomString();
+    final String id = ValueUtil.randomString();
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.createComponent( type, id, name ) );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.createComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
+
+  @Test
+  public void createComponent_duplicateComponent()
+  {
+    final ArezContext context = Arez.context();
+
+    final String type = ValueUtil.randomString();
+    final String id = ValueUtil.randomString();
+
+    context.createComponent( type, id, ValueUtil.randomString() );
+
+    assertTrue( context.isComponentPresent( type, id ) );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.createComponent( type, id, ValueUtil.randomString() ) );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.createComponent() invoked for type '" + type + "' and id '" + id +
+                  "' but a component already exists for specified type+id." );
+  }
+
+  @Test
+  public void isComponentPresent_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+
+    final String type = ValueUtil.randomString();
+    final String id = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.isComponentPresent( type, id ) );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.isComponentPresent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
+
+  @Test
+  public void componentDisposed_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.componentDisposed( component ) );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.componentDisposed() invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
+
+  @Test
+  public void componentDisposed_componentMisalignment()
+  {
+    final ArezContext context = Arez.context();
+
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+
+    final Component component2 =
+      context.createComponent( component.getType(), component.getId(), ValueUtil.randomString() );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.componentDisposed( component ) );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.componentDisposed() invoked for '" + component + "' but was unable to " +
+                  "remove specified component from registry. Actual component removed: " + component2 );
+  }
+
+  @Test
+  public void componentDisposed_removesTypeIfLastOfType()
+  {
+    final ArezContext context = Arez.context();
+
+    final String type = ValueUtil.randomString();
+    final Component component =
+      context.createComponent( type, ValueUtil.randomString(), ValueUtil.randomString() );
+    final Component component2 =
+      context.createComponent( type, ValueUtil.randomString(), ValueUtil.randomString() );
+
+    assertEquals( context.findAllComponentTypes().size(), 1 );
+    assertEquals( context.findAllComponentTypes().contains( type ), true );
+
+    context.componentDisposed( component );
+
+    assertEquals( context.findAllComponentTypes().size(), 1 );
+    assertEquals( context.findAllComponentTypes().contains( type ), true );
+
+    context.componentDisposed( component2 );
+
+    assertEquals( context.findAllComponentTypes().size(), 0 );
+  }
+
+  @Test
+  public void component_finders()
+  {
+    final ArezContext context = Arez.context();
+
+    final String type = ValueUtil.randomString();
+    final String id1 = ValueUtil.randomString();
+    final String id2 = ValueUtil.randomString();
+
+    assertEquals( context.findAllComponentTypes().size(), 0 );
+    assertEquals( context.findAllComponentsByType( type ).size(), 0 );
+
+    final Component component = context.createComponent( type, id1, ValueUtil.randomString() );
+
+    assertEquals( context.findAllComponentTypes().size(), 1 );
+    assertEquals( context.findAllComponentTypes().contains( type ), true );
+
+    assertEquals( context.findAllComponentsByType( ValueUtil.randomString() ).size(), 0 );
+
+    assertEquals( context.findAllComponentsByType( type ).size(), 1 );
+    assertEquals( context.findAllComponentsByType( type ).contains( component ), true );
+
+    final Component component2 = context.createComponent( type, id2, ValueUtil.randomString() );
+
+    assertEquals( context.findAllComponentTypes().size(), 1 );
+    assertEquals( context.findAllComponentTypes().contains( type ), true );
+
+    assertEquals( context.findAllComponentsByType( ValueUtil.randomString() ).size(), 0 );
+
+    assertEquals( context.findAllComponentsByType( type ).size(), 2 );
+    assertEquals( context.findAllComponentsByType( type ).contains( component ), true );
+    assertEquals( context.findAllComponentsByType( type ).contains( component2 ), true );
+
+    assertEquals( context.findComponent( type, id1 ), component );
+    assertEquals( context.findComponent( type, id2 ), component2 );
+    assertEquals( context.findComponent( type, ValueUtil.randomString() ), null );
+    assertEquals( context.findComponent( ValueUtil.randomString(), id2 ), null );
+  }
+
+  @Test
+  public void findComponent_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+
+    final String type = ValueUtil.randomString();
+    final String id = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.findComponent( type, id ) );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
+
+  @Test
+  public void findAllComponentsByType_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+
+    final String type = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> context.findAllComponentsByType( type ) );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.findAllComponentsByType() invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
+
+  @Test
+  public void findAllComponentTypes_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, context::findAllComponentTypes );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
 }

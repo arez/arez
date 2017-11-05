@@ -1,5 +1,8 @@
 package org.realityforge.arez;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Objects;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -52,6 +55,12 @@ public final class ArezContext
   @Nullable
   private final SpyImpl _spy = Arez.areSpiesEnabled() ? new SpyImpl( this ) : null;
   /**
+   * Support infrastructure for components.
+   */
+  @Nullable
+  private final HashMap<String, HashMap<Object, Component>> _components =
+    Arez.areNativeComponentsEnabled() ? new HashMap<>() : null;
+  /**
    * Flag indicating whether the scheduler should run next time it is triggered.
    * This should be active only when there is no uncommitted transaction for context.
    */
@@ -67,6 +76,141 @@ public final class ArezContext
    */
   ArezContext()
   {
+  }
+
+  /**
+   * Return the map for components of specified type.
+   *
+   * @param type the component type.
+   * @return the map for components of specified type.
+   */
+  @Nonnull
+  private HashMap<Object, Component> getComponentByTypeMap( @Nonnull final String type )
+  {
+    assert null != _components;
+    return _components.computeIfAbsent( type, t -> new HashMap<>() );
+  }
+
+  /**
+   * Return true if the component identified by type and id has been defined in context.
+   *
+   * @param type the component type.
+   * @param id   the component id.
+   * @return true if component is defined in context.
+   */
+  public boolean isComponentPresent( @Nonnull final String type, @Nullable final Object id )
+  {
+    apiInvariant( Arez::areNativeComponentsEnabled,
+                  () -> "ArezContext.isComponentPresent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    return getComponentByTypeMap( type ).containsKey( id );
+  }
+
+  /**
+   * Create a component with the specified parameters and return it.
+   * This method should only be invoked if {@link Arez#areNativeComponentsEnabled()} returns true.
+   * This method should not be invoked if {@link #isComponentPresent(String, Object)} returns true for
+   * the
+   * Return true if the component identified by type and id has been defined in context.
+   *
+   * @param type the component type.
+   * @param id   the component id.
+   * @return true if component is defined in context.
+   */
+  @Nonnull
+  public Component createComponent( @Nonnull final String type, @Nullable final Object id, @Nullable final String name )
+  {
+    apiInvariant( Arez::areNativeComponentsEnabled,
+                  () -> "ArezContext.createComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    final HashMap<Object, Component> map = getComponentByTypeMap( type );
+    apiInvariant( () -> !map.containsKey( id ),
+                  () -> "ArezContext.createComponent() invoked for type '" + type + "' and id '" + id + "' but a " +
+                        "component already exists for specified type+id." );
+    final Component component = new Component( this, type, id, name );
+    map.put( id, component );
+    return component;
+  }
+
+  /**
+   * Invoked by the component during it's dispose to release resources associated with the component.
+   *
+   * @param component the component.
+   */
+  void componentDisposed( @Nonnull final Component component )
+  {
+    invariant( Arez::areNativeComponentsEnabled,
+               () -> "ArezContext.componentDisposed() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    final String type = component.getType();
+    final HashMap<Object, Component> map = getComponentByTypeMap( type );
+    final Component removed = map.remove( component.getId() );
+    invariant( () -> component == removed,
+               () -> "ArezContext.componentDisposed() invoked for '" + component + "' but was unable to remove " +
+                     "specified component from registry. Actual component removed: " + removed );
+    if ( map.isEmpty() )
+    {
+      assert _components != null;
+      _components.remove( type );
+    }
+  }
+
+  /**
+   * Return component with specified type and id if component exists.
+   *
+   * @param type the component type.
+   * @param id   the component id.
+   * @return the component or null.
+   */
+  @Nullable
+  Component findComponent( @Nonnull final String type, @Nullable final Object id )
+  {
+    invariant( Arez::areNativeComponentsEnabled,
+               () -> "ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    assert null != _components;
+    final HashMap<Object, Component> map = _components.get( type );
+    if ( null != map )
+    {
+      return map.get( id );
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  /**
+   * Return all the components with specified type.
+   *
+   * @param type the component type.
+   * @return the components for type.
+   */
+  @Nonnull
+  Collection<Component> findAllComponentsByType( @Nonnull final String type )
+  {
+    invariant( Arez::areNativeComponentsEnabled,
+               () -> "ArezContext.findAllComponentsByType() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    assert null != _components;
+    final HashMap<Object, Component> map = _components.get( type );
+    if ( null != map )
+    {
+      return map.values();
+    }
+    else
+    {
+      return Collections.emptyList();
+    }
+  }
+
+  /**
+   * Return all the component types as a collection.
+   *
+   * @return the component types.
+   */
+  @Nonnull
+  Collection<String> findAllComponentTypes()
+  {
+    invariant( Arez::areNativeComponentsEnabled,
+               () -> "ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    assert null != _components;
+    return _components.keySet();
   }
 
   /**

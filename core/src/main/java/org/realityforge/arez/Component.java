@@ -107,6 +107,7 @@ public final class Component
     {
       _disposed = true;
       _context.safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, () -> {
+        _context.componentDisposed( this );
         _observers.forEach( o -> Disposable.dispose( o ) );
         _observers.clear();
         _computedValues.forEach( v -> Disposable.dispose( v ) );
