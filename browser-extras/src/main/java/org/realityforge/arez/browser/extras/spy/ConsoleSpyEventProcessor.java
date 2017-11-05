@@ -96,7 +96,7 @@ public class ConsoleSpyEventProcessor
    */
   protected void onObserverCreated( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserverCreatedEvent e )
   {
-    log( d, "%cObserver Created " + e.getObserver().getName(), "color: #0FA13B" );
+    log( d, "%cObserver Created " + e.getObserver().getName(), OBSERVER_COLOR );
   }
 
   /**
