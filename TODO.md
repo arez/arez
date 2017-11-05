@@ -6,6 +6,9 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* `@ArezComponent(singleton=true)` should be replaced with `@ArezComponent(nameIncludesId=false)` and everywhere
+  an id can be passed should be made `@Nonnull`
+
 * Add support for `@ComputedValueRef`
 
 * Add `Zone.in(A)` methods where A is a `SafeFunction`, `Function`, `SafeProcedure` or a `Procedure`.
