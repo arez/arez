@@ -92,9 +92,11 @@ public final class Observable<T>
     _accessor = accessor;
     _mutator = mutator;
     apiInvariant( () -> Arez.arePropertyIntrospectorsEnabled() || null == accessor,
-                  () -> "Observable named '" + getName() + "' has accessor specified but Arez.arePropertyIntrospectorsEnabled() is false." );
+                  () -> "Observable named '" + getName() + "' has accessor specified but " +
+                        "Arez.arePropertyIntrospectorsEnabled() is false." );
     apiInvariant( () -> Arez.arePropertyIntrospectorsEnabled() || null == mutator,
-                  () -> "Observable named '" + getName() + "' has mutator specified but Arez.arePropertyIntrospectorsEnabled() is false." );
+                  () -> "Observable named '" + getName() + "' has mutator specified but " +
+                        "Arez.arePropertyIntrospectorsEnabled() is false." );
     if ( null != _owner )
     {
       // This invariant can not be checked if ArezConfig.enforceTransactionType() is false as
