@@ -1248,6 +1248,7 @@ public final class ArezContext
     return _schedulerLockCount;
   }
 
+  @SuppressWarnings( "SameParameterValue" )
   @TestOnly
   void setSchedulerLockCount( final int schedulerLockCount )
   {
