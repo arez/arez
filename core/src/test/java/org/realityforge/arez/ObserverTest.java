@@ -28,7 +28,7 @@ public class ObserverTest
     final ArezContext context = new ArezContext();
     final String name = ValueUtil.randomString();
     final Reaction reaction = new TestReaction();
-    final Observer observer = new Observer( context, name, TransactionMode.READ_ONLY, reaction );
+    final Observer observer = new Observer( context, name, null, TransactionMode.READ_ONLY, reaction, false );
 
     // Verify all "Node" behaviour
     assertEquals( observer.getContext(), context );
@@ -946,7 +946,7 @@ public class ObserverTest
       assertEquals( observer.getName(), name );
     };
 
-    final Observer observer = new Observer( context, name, mode, reaction );
+    final Observer observer = new Observer( context, name, null, mode, reaction, false );
 
     observer.invokeReaction();
 
@@ -964,7 +964,7 @@ public class ObserverTest
     context.getSpy().addSpyEventHandler( handler );
 
     final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, o -> Thread.sleep( 1 ) );
+      new Observer( context, ValueUtil.randomString(), null, TransactionMode.READ_ONLY, o -> Thread.sleep( 1 ), false );
 
     observer.invokeReaction();
 
@@ -1023,7 +1023,7 @@ public class ObserverTest
 
     final TestReaction reaction = new TestReaction();
     final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
+      new Observer( context, ValueUtil.randomString(), null, TransactionMode.READ_ONLY, reaction, false );
 
     observer.setDisposed( true );
 
@@ -1046,7 +1046,7 @@ public class ObserverTest
 
     final TestReaction reaction = new TestReaction();
     final Observer observer =
-      new Observer( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, reaction );
+      new Observer( context, ValueUtil.randomString(), null, TransactionMode.READ_ONLY, reaction, false );
 
     setCurrentTransaction( context );
     observer.setState( ObserverState.UP_TO_DATE );
@@ -1083,7 +1083,7 @@ public class ObserverTest
       throw exception;
     };
 
-    final Observer observer = new Observer( context, name, mode, reaction );
+    final Observer observer = new Observer( context, name, null, mode, reaction, false );
 
     observer.invokeReaction();
 

@@ -92,14 +92,6 @@ public final class Observer
 
   Observer( @Nonnull final ArezContext context,
             @Nullable final String name,
-            @Nonnull final TransactionMode mode,
-            @Nonnull final Reaction reaction )
-  {
-    this( context, name, null, mode, reaction, false );
-  }
-
-  Observer( @Nonnull final ArezContext context,
-            @Nullable final String name,
             @Nullable final ComputedValue<?> computedValue,
             @Nullable final TransactionMode mode,
             @Nonnull final Reaction reaction,
