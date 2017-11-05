@@ -9,7 +9,9 @@
   the components cast the result of `ComputedValue` to a primitive value. This has been fixed so that if a
   computation results in an exception then this exception will be cached for the `ComputedValue` and thrown
   for the caller to handle. Subsequent invocations of `ComputedValue.get()` will re-throw the same exception
-  if the `ComputedValue` is still in a state of `UP_TO_DATE`.
+  if the `ComputedValue` is still in a state of `UP_TO_DATE`. If the `ComputedValue` invokes compute again
+  and produces another exception then the toolkit assumes that the `ComputedValue` is in the same error state
+  and does not transition dependencies from `POSSIBLY_STALE` to `STALE`.
 * **\[extras\]** Ensure that the `dispose()` method on `org.realityforge.arez.extras.Watcher` is performed in a
   single transaction. This makes sure that the `Watcher` does not react whilst partially disposed.
 

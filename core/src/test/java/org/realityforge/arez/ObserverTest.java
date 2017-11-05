@@ -1162,17 +1162,16 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final SafeFunction<String> function = () -> {
-      throw new IllegalStateException();
-    };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals );
-
+      new ComputedValue<>( context, ValueUtil.randomString(), ValueUtil::randomString, Objects::equals );
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 
+    final SafeFunction<String> function = () -> {
+      throw new IllegalStateException();
+    };
     final ComputedValue<String> computedValue2 =
       new ComputedValue<>( context, ValueUtil.randomString(), function, Objects::equals );
 
@@ -1181,6 +1180,35 @@ public class ObserverTest
 
     // Set it to something random so it will change
     computedValue2.setValue( ValueUtil.randomString() );
+
+    assertEquals( observer.shouldCompute(), true );
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+  }
+
+  @Test
+  public void shouldCompute_POSSIBLY_STALE_ComputableReThrowsException()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, ValueUtil.randomString(), ValueUtil::randomString, Objects::equals );
+    final Observer observer = computedValue.getObserver();
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.POSSIBLY_STALE );
+
+    final SafeFunction<String> function = () -> {
+      throw new IllegalStateException();
+    };
+    final ComputedValue<String> computedValue2 =
+      new ComputedValue<>( context, ValueUtil.randomString(), function, Objects::equals );
+
+    observer.getDependencies().add( computedValue2.getObservable() );
+    computedValue2.getObservable().addObserver( observer );
+
+    // Set it as state error so should not trigger a change in container
+    computedValue2.setError( new IllegalStateException() );
 
     assertEquals( observer.shouldCompute(), false );
 
