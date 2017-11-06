@@ -305,7 +305,7 @@ final class SpyImpl
    */
   @Nullable
   @Override
-  public ComponentInfo findComponent( @Nonnull final String type, @Nullable final Object id )
+  public ComponentInfo findComponent( @Nonnull final String type, @Nonnull final Object id )
   {
     final Component component = _context.findComponent( type, id );
     return null != component ? new ComponentInfoImpl( component ) : null;

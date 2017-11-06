@@ -32,7 +32,7 @@ public final class Component
   /**
    * The if of the component. This should be null for singletons and non-null for non-singletons.
    */
-  @Nullable
+  @Nonnull
   private final Object _id;
   /**
    * A human consumable name for node. It should be non-null if {@link Arez#areNamesEnabled()} returns
@@ -59,7 +59,7 @@ public final class Component
 
   Component( @Nonnull final ArezContext context,
              @Nonnull final String type,
-             @Nullable final Object id,
+             @Nonnull final Object id,
              @Nullable final String name,
              @Nullable final SafeProcedure preDispose,
              @Nullable final SafeProcedure postDispose )
@@ -68,7 +68,7 @@ public final class Component
                   () -> "Component passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
     _context = context;
     _type = Objects.requireNonNull( type );
-    _id = id;
+    _id = Objects.requireNonNull( id );
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
     _preDispose = preDispose;
     _postDispose = postDispose;
@@ -92,7 +92,7 @@ public final class Component
    *
    * @return the unique id of the component.
    */
-  @Nullable
+  @Nonnull
   public Object getId()
   {
     return _id;

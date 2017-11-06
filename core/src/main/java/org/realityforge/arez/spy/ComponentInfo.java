@@ -2,7 +2,6 @@ package org.realityforge.arez.spy;
 
 import java.util.Collection;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
@@ -29,7 +28,7 @@ public interface ComponentInfo
    *
    * @return the unique id of the component.
    */
-  @Nullable
+  @Nonnull
   Object getId();
 
   /**

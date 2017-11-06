@@ -42,16 +42,6 @@ public class ComponentTest
   }
 
   @Test
-  public void basicOperationNullId()
-    throws Exception
-  {
-    final Object id = null;
-    final Component component =
-      new Component( Arez.context(), ValueUtil.randomString(), id, ValueUtil.randomString(), null, null );
-    assertEquals( component.getId(), id );
-  }
-
-  @Test
   public void noNameSuppliedWhenNamesDisabled()
     throws Exception
   {
@@ -97,7 +87,7 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = context.createComponent( ValueUtil.randomString(), null, name );
+    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
     final Observable observable1 = context.createObservable();
     final ComputedValue computedValue1 = context.createComputedValue( () -> "" );
@@ -126,7 +116,7 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = context.createComponent( ValueUtil.randomString(), null, name );
+    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
     assertEquals( component.isComplete(), false );
 
@@ -148,7 +138,7 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), null, name, null, null );
+    final Component component = new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
     final Observer observer1 = context.autorun( () -> {
     } );
@@ -185,7 +175,7 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), null, name, null, null );
+    final Component component = new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
     final Observer observer1 = context.autorun( () -> {
     } );
@@ -210,7 +200,7 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), null, name, null, null );
+    final Component component = new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
     component.complete();
 
     final Observer observer1 = context.autorun( () -> {
@@ -230,7 +220,7 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), null, name, null, null );
+    final Component component = new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
     final Observer observer1 = context.autorun( () -> {
     } );
@@ -249,7 +239,7 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), null, name, null, null );
+    final Component component = new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
     final Observable observable1 = context.createObservable();
     final Observable observable2 = context.createObservable();
@@ -284,7 +274,8 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), null, name, null, null );
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
     final Observable observable1 = context.createObservable();
 
@@ -308,7 +299,8 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), null, name, null, null );
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
     component.complete();
 
     final Observable observable1 = context.createObservable();
@@ -327,7 +319,8 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), null, name, null, null );
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
     final Observable observable1 = context.createObservable();
 
@@ -345,7 +338,8 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), null, name, null, null );
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
     final ComputedValue computedValue1 = context.createComputedValue( () -> "" );
     final ComputedValue computedValue2 = context.createComputedValue( () -> "" );
@@ -380,7 +374,8 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), null, name, null, null );
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
     final ComputedValue computedValue1 = context.createComputedValue( () -> "" );
 
@@ -404,7 +399,8 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), null, name, null, null );
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
     component.complete();
 
     final ComputedValue computedValue1 = context.createComputedValue( () -> "" );
@@ -423,7 +419,8 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), null, name, null, null );
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
     final ComputedValue computedValue1 = context.createComputedValue( () -> "" );
 
@@ -441,7 +438,7 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = context.createComponent( ValueUtil.randomString(), null, name );
+    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
     final Observable observable1 = context.createObservable();
     final Observable observable2 = context.createObservable();
@@ -506,7 +503,7 @@ public class ComponentTest
       assertTrue( Disposable.isDisposed( observable1 ) );
     };
     final Component component =
-      context.createComponent( ValueUtil.randomString(), null, name, preDispose, postDispose );
+      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), name, preDispose, postDispose );
 
     component.addObservable( observable1 );
     component.complete();

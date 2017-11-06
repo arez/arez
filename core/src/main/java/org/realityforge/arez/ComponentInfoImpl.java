@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.realityforge.arez.spy.ComponentInfo;
 
 /**
@@ -40,7 +39,7 @@ final class ComponentInfoImpl
   /**
    * {@inheritDoc}
    */
-  @Nullable
+  @Nonnull
   @Override
   public Object getId()
   {

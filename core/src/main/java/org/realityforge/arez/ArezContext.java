@@ -99,7 +99,7 @@ public final class ArezContext
    * @param id   the component id.
    * @return true if component is defined in context.
    */
-  public boolean isComponentPresent( @Nonnull final String type, @Nullable final Object id )
+  public boolean isComponentPresent( @Nonnull final String type, @Nonnull final Object id )
   {
     apiInvariant( Arez::areNativeComponentsEnabled,
                   () -> "ArezContext.isComponentPresent() invoked when Arez.areNativeComponentsEnabled() returns false." );
@@ -118,7 +118,7 @@ public final class ArezContext
    * @return true if component is defined in context.
    */
   @Nonnull
-  public Component createComponent( @Nonnull final String type, @Nullable final Object id )
+  public Component createComponent( @Nonnull final String type, @Nonnull final Object id )
   {
     return createComponent( type, id, Arez.areNamesEnabled() ? type + "@" + id : null );
   }
@@ -136,7 +136,7 @@ public final class ArezContext
    * @return true if component is defined in context.
    */
   @Nonnull
-  public Component createComponent( @Nonnull final String type, @Nullable final Object id, @Nullable final String name )
+  public Component createComponent( @Nonnull final String type, @Nonnull final Object id, @Nullable final String name )
   {
     return createComponent( type, id, name, null, null );
   }
@@ -155,7 +155,7 @@ public final class ArezContext
    */
   @Nonnull
   public Component createComponent( @Nonnull final String type,
-                                    @Nullable final Object id,
+                                    @Nonnull final Object id,
                                     @Nullable final String name,
                                     @Nullable final SafeProcedure preDispose,
                                     @Nullable final SafeProcedure postDispose )
@@ -205,7 +205,7 @@ public final class ArezContext
    * @return the component or null.
    */
   @Nullable
-  Component findComponent( @Nonnull final String type, @Nullable final Object id )
+  Component findComponent( @Nonnull final String type, @Nonnull final Object id )
   {
     invariant( Arez::areNativeComponentsEnabled,
                () -> "ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );

@@ -192,7 +192,7 @@ public interface Spy
    * @return the component descriptor matching the specified type and id.
    */
   @Nullable
-  ComponentInfo findComponent( @Nonnull String type, @Nullable Object id );
+  ComponentInfo findComponent( @Nonnull String type, @Nonnull Object id );
 
   /**
    * Find all the components identified by the specified type.
