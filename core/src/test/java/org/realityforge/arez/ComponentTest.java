@@ -496,12 +496,8 @@ public class ComponentTest
 
     final Observable observable1 = context.createObservable();
 
-    final SafeProcedure preDispose = () -> {
-      assertFalse( Disposable.isDisposed( observable1 ) );
-    };
-    final SafeProcedure postDispose = () -> {
-      assertTrue( Disposable.isDisposed( observable1 ) );
-    };
+    final SafeProcedure preDispose = () -> assertFalse( Disposable.isDisposed( observable1 ) );
+    final SafeProcedure postDispose = () -> assertTrue( Disposable.isDisposed( observable1 ) );
     final Component component =
       context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), name, preDispose, postDispose );
 
