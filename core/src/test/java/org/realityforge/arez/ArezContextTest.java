@@ -1851,6 +1851,34 @@ public class ArezContextTest
     assertEquals( component.getType(), type );
     assertEquals( component.getId(), id );
     assertEquals( component.getName(), name );
+    assertEquals( component.getPreDispose(), null );
+    assertEquals( component.getPostDispose(), null );
+  }
+
+  @Test
+  public void createComponent_includeDisposeHooks()
+  {
+    final ArezContext context = Arez.context();
+
+    final String type = ValueUtil.randomString();
+    final String id = ValueUtil.randomString();
+    final String name = ValueUtil.randomString();
+
+    assertFalse( context.isComponentPresent( type, id ) );
+
+    final SafeProcedure preDispose = () -> {
+    };
+    final SafeProcedure postDispose = () -> {
+    };
+    final Component component = context.createComponent( type, id, name, preDispose, postDispose );
+
+    assertTrue( context.isComponentPresent( type, id ) );
+
+    assertEquals( component.getType(), type );
+    assertEquals( component.getId(), id );
+    assertEquals( component.getName(), name );
+    assertEquals( component.getPreDispose(), preDispose );
+    assertEquals( component.getPostDispose(), postDispose );
   }
 
   @Test
@@ -1952,7 +1980,12 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final Component component =
-      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      new Component( context,
+                     ValueUtil.randomString(),
+                     ValueUtil.randomString(),
+                     ValueUtil.randomString(),
+                     null,
+                     null );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> context.deregisterComponent( component ) );
@@ -1967,7 +2000,12 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final Component component =
-      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      new Component( context,
+                     ValueUtil.randomString(),
+                     ValueUtil.randomString(),
+                     ValueUtil.randomString(),
+                     null,
+                     null );
 
     final Component component2 =
       context.createComponent( component.getType(), component.getId(), ValueUtil.randomString() );

@@ -90,7 +90,7 @@ public class ObservableTest
 
     final ArezContext context = new ArezContext();
     final Component component =
-      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString(), null, null );
 
     final String name = ValueUtil.randomString();
     final IllegalStateException exception =
@@ -106,7 +106,7 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final Component component =
-      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString(), null, null );
 
     final String name = ValueUtil.randomString();
     final Observable<String> observable = new Observable<>( context, component, name, null, null, null );

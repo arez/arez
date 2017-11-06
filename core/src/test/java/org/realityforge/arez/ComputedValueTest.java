@@ -49,7 +49,12 @@ public class ComputedValueTest
 
     final ArezContext context = new ArezContext();
     final Component component =
-      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      new Component( context,
+                     ValueUtil.randomString(),
+                     ValueUtil.randomString(),
+                     ValueUtil.randomString(),
+                     null,
+                     null );
 
     final String name = ValueUtil.randomString();
     final IllegalStateException exception =
@@ -66,7 +71,12 @@ public class ComputedValueTest
   {
     final ArezContext context = new ArezContext();
     final Component component =
-      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      new Component( context,
+                     ValueUtil.randomString(),
+                     ValueUtil.randomString(),
+                     ValueUtil.randomString(),
+                     null,
+                     null );
 
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue =

@@ -138,13 +138,35 @@ public final class ArezContext
   @Nonnull
   public Component createComponent( @Nonnull final String type, @Nullable final Object id, @Nullable final String name )
   {
+    return createComponent( type, id, name, null, null );
+  }
+
+  /**
+   * Create a component with the specified parameters and return it.
+   * This method should only be invoked if {@link Arez#areNativeComponentsEnabled()} returns true.
+   * This method should not be invoked if {@link #isComponentPresent(String, Object)} returns true for
+   * the parameters. The caller should invoke {@link Component#complete()} on the returned component as
+   * soon as the component definition has completed.
+   *
+   * @param type the component type.
+   * @param id   the component id.
+   * @param name the name of the component. Should be null if {@link Arez#areNamesEnabled()} returns false.
+   * @return true if component is defined in context.
+   */
+  @Nonnull
+  public Component createComponent( @Nonnull final String type,
+                                    @Nullable final Object id,
+                                    @Nullable final String name,
+                                    @Nullable final SafeProcedure preDispose,
+                                    @Nullable final SafeProcedure postDispose )
+  {
     apiInvariant( Arez::areNativeComponentsEnabled,
                   () -> "ArezContext.createComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
     final HashMap<Object, Component> map = getComponentByTypeMap( type );
     apiInvariant( () -> !map.containsKey( id ),
                   () -> "ArezContext.createComponent() invoked for type '" + type + "' and id '" + id + "' but a " +
                         "component already exists for specified type+id." );
-    final Component component = new Component( this, type, id, name );
+    final Component component = new Component( this, type, id, name, preDispose, postDispose );
     map.put( id, component );
     if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
     {

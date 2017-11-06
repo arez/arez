@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.realityforge.anodoc.TestOnly;
 import org.realityforge.arez.spy.ComponentCreateCompletedEvent;
 import org.realityforge.arez.spy.ComponentDisposeCompletedEvent;
 import org.realityforge.arez.spy.ComponentDisposeStartedEvent;
@@ -42,13 +43,26 @@ public final class Component
   private final ArrayList<Observable<?>> _observables = new ArrayList<>();
   private final ArrayList<Observer> _observers = new ArrayList<>();
   private final ArrayList<ComputedValue<?>> _computedValues = new ArrayList<>();
+  /**
+   * Hook action called just before the Component is disposed.
+   * Occurs inside the dispose transaction.
+   */
+  @Nullable
+  private final SafeProcedure _preDispose;
+  /**
+   * Hook action called just after the Component is disposed.
+   */
+  @Nullable
+  private final SafeProcedure _postDispose;
   private boolean _complete;
   private boolean _disposed;
 
   Component( @Nonnull final ArezContext context,
              @Nonnull final String type,
              @Nullable final Object id,
-             @Nullable final String name )
+             @Nullable final String name,
+             @Nullable final SafeProcedure preDispose,
+             @Nullable final SafeProcedure postDispose )
   {
     apiInvariant( () -> Arez.areNamesEnabled() || null == name,
                   () -> "Component passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
@@ -56,6 +70,8 @@ public final class Component
     _type = Objects.requireNonNull( type );
     _id = id;
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
+    _preDispose = preDispose;
+    _postDispose = postDispose;
   }
 
   /**
@@ -115,6 +131,10 @@ public final class Component
         _context.getSpy().reportSpyEvent( new ComponentDisposeStartedEvent( this ) );
       }
       _context.safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, () -> {
+        if ( null != _preDispose )
+        {
+          _preDispose.call();
+        }
         _context.deregisterComponent( this );
         _observers.forEach( o -> Disposable.dispose( o ) );
         _observers.clear();
@@ -122,6 +142,10 @@ public final class Component
         _computedValues.clear();
         _observables.forEach( o -> Disposable.dispose( o ) );
         _observables.clear();
+        if ( null != _postDispose )
+        {
+          _postDispose.call();
+        }
       } );
       if ( Arez.areSpiesEnabled() && _context.getSpy().willPropagateSpyEvents() )
       {
@@ -310,5 +334,19 @@ public final class Component
                         "computedValue named '" + computedValue.getName() + "' when computedValue does not exist " +
                         "for component." );
     _computedValues.remove( computedValue );
+  }
+
+  @TestOnly
+  @Nullable
+  SafeProcedure getPreDispose()
+  {
+    return _preDispose;
+  }
+
+  @TestOnly
+  @Nullable
+  SafeProcedure getPostDispose()
+  {
+    return _postDispose;
   }
 }
