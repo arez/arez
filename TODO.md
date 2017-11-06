@@ -44,7 +44,7 @@ complete as there is too much un-said.
 * Change `ComponentCreatedEvent` to `ComponentCreatStartedEvent` + `ComponentCreatCompletedEvent` so
   that all the associated creates are nested in group in console. Same with dispose.
 
-* Add integration tests that cover components and spys access to `Observable` properties in components. 
+* Add integration tests that cover components and spys access to `Observable` properties in components.
 
 * Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
   - https://github.com/zalmoxisus/mobx-remotedev
