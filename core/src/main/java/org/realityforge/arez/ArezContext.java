@@ -111,8 +111,7 @@ public final class ArezContext
    * Create a component with the specified parameters and return it.
    * This method should only be invoked if {@link Arez#areNativeComponentsEnabled()} returns true.
    * This method should not be invoked if {@link #isComponentPresent(String, Object)} returns true for
-   * the
-   * Return true if the component identified by type and id has been defined in context.
+   * the parameters.
    *
    * @param type the component type.
    * @param id   the component id.
