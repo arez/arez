@@ -22,6 +22,13 @@ public final class Observer
   extends Node
 {
   /**
+   * The component that this observer is contained within.
+   * This should only be set if {@link Arez#areNativeComponentsEnabled()} is true but may also be null if
+   * the observer is a "top-level" observer.
+   */
+  @Nullable
+  private final Component _component;
+  /**
    * The reference to the ComputedValue if this observer is a derivation.
    */
   @Nullable
@@ -91,6 +98,7 @@ public final class Observer
   private boolean _disposed;
 
   Observer( @Nonnull final ArezContext context,
+            @Nullable final Component component,
             @Nullable final String name,
             @Nullable final ComputedValue<?> computedValue,
             @Nullable final TransactionMode mode,
@@ -119,7 +127,11 @@ public final class Observer
     {
       assert null == mode;
     }
+    invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
+               () -> "Observer named '" + getName() + "' has component specified but " +
+                     "Arez.areNativeComponentsEnabled() is false." );
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
+    _component = component;
     _computedValue = computedValue;
     _mode = ArezConfig.enforceTransactionType() ? Objects.requireNonNull( mode ) : null;
     _reaction = Objects.requireNonNull( reaction );
@@ -128,6 +140,7 @@ public final class Observer
     {
       _derivedValue =
         new Observable<>( context,
+                          null,
                           name,
                           this,
                           Arez.arePropertyIntrospectorsEnabled() ? _computedValue::get : null,
@@ -136,6 +149,10 @@ public final class Observer
     else
     {
       _derivedValue = null;
+    }
+    if ( null != _component )
+    {
+      _component.addObserver( this );
     }
   }
 
@@ -183,6 +200,10 @@ public final class Observer
       if ( willPropagateSpyEvents() && !isDerivation() )
       {
         reportSpyEvent( new ObserverDisposedEvent( this ) );
+      }
+      if ( null != _component )
+      {
+        _component.removeObserver( this );
       }
       if ( null != _computedValue )
       {
@@ -723,6 +744,13 @@ public final class Observer
                      "is not a computed observer." );
     assert null != _computedValue;
     return _computedValue;
+  }
+
+  @TestOnly
+  @Nullable
+  Component getComponent()
+  {
+    return _component;
   }
 
   @TestOnly

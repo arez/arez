@@ -290,8 +290,41 @@ public final class ArezContext
                                                    @Nullable final Procedure onStale,
                                                    @Nullable final Procedure onDispose )
   {
+    return createComputedValue( null,
+                                name,
+                                function,
+                                equalityComparator,
+                                onActivate,
+                                onDeactivate,
+                                onStale,
+                                onDispose );
+  }
+
+  /**
+   * Create a ComputedValue with specified parameters.
+   *
+   * @param <T>                the type of the computed value.
+   * @param name               the name of the ComputedValue.
+   * @param function           the function that computes the value.
+   * @param equalityComparator the comparator that determines whether the newly computed value differs from existing value.
+   * @param onActivate         the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDeactivate       the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onStale            the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDispose          the procedure to invoke when the ComputedValue id disposed.
+   * @return the ComputedValue instance.
+   */
+  @Nonnull
+  public <T> ComputedValue<T> createComputedValue( @Nullable final Component component,
+                                                   @Nullable final String name,
+                                                   @Nonnull final SafeFunction<T> function,
+                                                   @Nonnull final EqualityComparator<T> equalityComparator,
+                                                   @Nullable final Procedure onActivate,
+                                                   @Nullable final Procedure onDeactivate,
+                                                   @Nullable final Procedure onStale,
+                                                   @Nullable final Procedure onDispose )
+  {
     final ComputedValue<T> computedValue =
-      new ComputedValue<>( this, generateNodeName( "ComputedValue", name ), function, equalityComparator );
+      new ComputedValue<>( this, component, generateNodeName( "ComputedValue", name ), function, equalityComparator );
     final Observer observer = computedValue.getObserver();
     observer.setOnActivate( onActivate );
     observer.setOnDeactivate( onDeactivate );
@@ -390,8 +423,29 @@ public final class ArezContext
                            @Nonnull final Procedure action,
                            final boolean runImmediately )
   {
+    return autorun( null, name, mutation, action, runImmediately );
+  }
+
+  /**
+   * Create an autorun observer.
+   *
+   * @param component      the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name           the name of the observer.
+   * @param mutation       true if the action may modify state, false otherwise.
+   * @param action         the action defining the observer.
+   * @param runImmediately true to invoke action immediately, false to schedule reaction for next reaction cycle.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer autorun( @Nullable final Component component,
+                           @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure action,
+                           final boolean runImmediately )
+  {
     final Observer observer =
-      createObserver( name,
+      createObserver( component,
+                      name,
                       mutation,
                       o -> action( name, ArezConfig.enforceTransactionType() ? o.getMode() : null, action, true, o ),
                       false );
@@ -450,26 +504,48 @@ public final class ArezContext
                            final boolean mutation,
                            @Nonnull final Procedure action )
   {
-    return createObserver( name, mutation, o -> action.call(), true );
+    return tracker( null, name, mutation, action );
+  }
+
+  /**
+   * Create a "tracker" observer.
+   * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
+   *
+   * @param component the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name      the name of the observer.
+   * @param mutation  true if the observer may modify state during tracking, false otherwise.
+   * @param action    the action invoked as the reaction.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer tracker( @Nullable final Component component,
+                           @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure action )
+  {
+    return createObserver( component, name, mutation, o -> action.call(), true );
   }
 
   /**
    * Create an observer with specified parameters.
    *
-   * @param name     the name of the observer.
-   * @param mutation true if the reaction may modify state, false otherwise.
-   * @param reaction the reaction defining observer.
+   * @param component the component containing observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name      the name of the observer.
+   * @param mutation  true if the reaction may modify state, false otherwise.
+   * @param reaction  the reaction defining observer.
    * @return the new Observer.
    */
   @Nonnull
-  Observer createObserver( @Nullable final String name,
+  Observer createObserver( @Nullable final Component component,
+                           @Nullable final String name,
                            final boolean mutation,
                            @Nonnull final Reaction reaction,
                            final boolean canTrackExplicitly )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =
-      new Observer( this, generateNodeName( "Observer", name ), null, mode, reaction, canTrackExplicitly );
+      new Observer( this, component, generateNodeName( "Observer", name ), null, mode, reaction, canTrackExplicitly );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObserverCreatedEvent( observer ) );
@@ -513,8 +589,26 @@ public final class ArezContext
                                              @Nullable final PropertyAccessor<T> accessor,
                                              @Nullable final PropertyMutator<T> mutator )
   {
+    return createObservable( null, name, accessor, mutator );
+  }
+
+  /**
+   * Create an Observable.
+   *
+   * @param component the component containing observable if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name      the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param accessor  the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
+   * @param mutator   the mutator for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
+   * @return the new Observable.
+   */
+  @Nonnull
+  public <T> Observable<T> createObservable( @Nullable final Component component,
+                                             @Nullable final String name,
+                                             @Nullable final PropertyAccessor<T> accessor,
+                                             @Nullable final PropertyMutator<T> mutator )
+  {
     final Observable<T> observable =
-      new Observable<>( this, generateNodeName( "Observable", name ), null, accessor, mutator );
+      new Observable<>( this, component, generateNodeName( "Observable", name ), null, accessor, mutator );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObservableCreatedEvent( observable ) );

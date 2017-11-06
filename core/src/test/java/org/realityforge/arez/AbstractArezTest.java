@@ -90,6 +90,7 @@ public abstract class AbstractArezTest
   final Observer newReadWriteObserver( @Nonnull final ArezContext context )
   {
     return new Observer( context,
+                         null,
                          ValueUtil.randomString(),
                          null,
                          TransactionMode.READ_WRITE,
@@ -100,7 +101,7 @@ public abstract class AbstractArezTest
   @Nonnull
   final Observer newDerivation( @Nonnull final ArezContext context )
   {
-    return new ComputedValue<>( context, ValueUtil.randomString(), () -> "", Objects::equals ).getObserver();
+    return new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals ).getObserver();
   }
 
   @Nonnull
@@ -113,6 +114,7 @@ public abstract class AbstractArezTest
   final Observer newReadOnlyObserver( @Nonnull final ArezContext context )
   {
     return new Observer( context,
+                         null,
                          ValueUtil.randomString(),
                          null,
                          TransactionMode.READ_ONLY,
@@ -123,7 +125,7 @@ public abstract class AbstractArezTest
   @Nonnull
   final Observable<?> newObservable( final ArezContext context )
   {
-    return new Observable<>( context, ValueUtil.randomString(), null, null, null );
+    return new Observable<>( context, null, ValueUtil.randomString(), null, null, null );
   }
 
   final void setCurrentTransaction( @Nonnull final ArezContext context )

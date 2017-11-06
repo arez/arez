@@ -30,14 +30,14 @@ public class ObservableTest
     final PropertyAccessor<String> accessor = () -> "";
     final PropertyMutator<String> mutator = value -> {
     };
-    final Observable<?> observable = new Observable<>( context, name, null, accessor, mutator );
+    final Observable<?> observable = new Observable<>( context, null, name, null, accessor, mutator );
     assertEquals( observable.getName(), name );
     assertEquals( observable.getContext(), context );
     assertEquals( observable.toString(), name );
     assertEquals( observable.isPendingDeactivation(), false );
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
-    assertEquals( observable.isDisposed(), false );
+    assertEquals( observable.getComponent(), null );
 
     //All the same stuff
     assertEquals( observable.getLastTrackerTransactionId(), 0 );
@@ -69,6 +69,7 @@ public class ObservableTest
 
     final Observable<?> observable = derivation.getDerivedValue();
     assertEquals( observable.getOwner(), derivation );
+    assertEquals( observable.getComponent(), null );
     assertEquals( observable.canDeactivate(), true );
 
     assertEquals( observable.hasOwner(), true );
@@ -82,6 +83,44 @@ public class ObservableTest
   }
 
   @Test
+  public void constructWithComponentWhenNativeComponentsDisabled()
+    throws Exception
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = new ArezContext();
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+
+    final String name = ValueUtil.randomString();
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> new Observable<>( context, component, name, null, null, null ) );
+    assertEquals( exception.getMessage(),
+                  "Observable named '" + name + "' has component specified but " +
+                  "Arez.areNativeComponentsEnabled() is false." );
+  }
+
+  @Test
+  public void basicLifecycle_withComponent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+
+    final String name = ValueUtil.randomString();
+    final Observable<String> observable = new Observable<>( context, component, name, null, null, null );
+    assertEquals( observable.getName(), name );
+    assertEquals( observable.getComponent(), component );
+
+    assertTrue( component.getObservables().contains( observable ) );
+
+    observable.dispose();
+
+    assertFalse( component.getObservables().contains( observable ) );
+  }
+
+  @Test
   public void initialState_accessor_introspectorsDisabled()
     throws Exception
   {
@@ -90,7 +129,7 @@ public class ObservableTest
     final PropertyAccessor<String> accessor = () -> "";
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new Observable<>( new ArezContext(), name, null, accessor, null ) );
+                    () -> new Observable<>( new ArezContext(), null, name, null, accessor, null ) );
 
     assertEquals( exception.getMessage(),
                   "Observable named '" + name +
@@ -107,7 +146,7 @@ public class ObservableTest
     };
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new Observable<>( new ArezContext(), name, null, null, mutator ) );
+                    () -> new Observable<>( new ArezContext(), null, name, null, null, mutator ) );
 
     assertEquals( exception.getMessage(),
                   "Observable named '" + name +
@@ -340,7 +379,7 @@ public class ObservableTest
 
     final String name = ValueUtil.randomString();
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> new Observable<>( context, name, owner, null, null ) );
+      expectThrows( IllegalStateException.class, () -> new Observable<>( context, null, name, owner, null, null ) );
 
     assertEquals( exception.getMessage(),
                   "Observable named '" + name + "' has owner specified but owner is not a derivation." );
@@ -791,7 +830,7 @@ public class ObservableTest
 
     final Observer observer = newDerivation( context );
 
-    final Observable<?> observable = new Observable<>( context, observer.getName(), observer, null, null );
+    final Observable<?> observable = new Observable<>( context, null, observer.getName(), observer, null, null );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observable::invariantOwner );
@@ -1355,7 +1394,7 @@ public class ObservableTest
     final String initialValue = ValueUtil.randomString();
     value.set( initialValue );
     final Observable<?> observable =
-      new Observable<>( new ArezContext(), ValueUtil.randomString(), null, value::get, value::set );
+      new Observable<>( new ArezContext(), null, ValueUtil.randomString(), null, value::get, value::set );
 
     assertNotNull( observable.getAccessor() );
     assertNotNull( observable.getMutator() );

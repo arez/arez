@@ -67,6 +67,13 @@ public final class Observable<T>
   @Nullable
   private final Observer _owner;
   /**
+   * The component that this observable is contained within.
+   * This should only be set if {@link Arez#areNativeComponentsEnabled()} is true but may also be null if
+   * the observable is a "top-level" observable.
+   */
+  @Nullable
+  private final Component _component;
+  /**
    * The accessor method to retrieve the value.
    * This should only be set if {@link Arez#arePropertyIntrospectorsEnabled()} is true but may also be elided if the
    * value should not be accessed even by DevTools.
@@ -82,15 +89,20 @@ public final class Observable<T>
   private final PropertyMutator<T> _mutator;
 
   Observable( @Nonnull final ArezContext context,
+              @Nullable final Component component,
               @Nullable final String name,
               @Nullable final Observer owner,
               @Nullable final PropertyAccessor<T> accessor,
               @Nullable final PropertyMutator<T> mutator )
   {
     super( context, name );
+    _component = component;
     _owner = owner;
     _accessor = accessor;
     _mutator = mutator;
+    invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
+               () -> "Observable named '" + getName() + "' has component specified but " +
+                     "Arez.areNativeComponentsEnabled() is false." );
     apiInvariant( () -> Arez.arePropertyIntrospectorsEnabled() || null == accessor,
                   () -> "Observable named '" + getName() + "' has accessor specified but " +
                         "Arez.arePropertyIntrospectorsEnabled() is false." );
@@ -106,6 +118,10 @@ public final class Observable<T>
                  () -> "Observable named '" + getName() + "' has owner specified " +
                        "but owner is not a derivation." );
       assert !Arez.areNamesEnabled() || _owner.getName().equals( name );
+    }
+    if ( null != _component )
+    {
+      _component.addObservable( this );
     }
   }
 
@@ -130,6 +146,10 @@ public final class Observable<T>
       if ( willPropagateSpyEvents() && !hasOwner() )
       {
         reportSpyEvent( new ObservableDisposedEvent( this ) );
+      }
+      if ( null != _component )
+      {
+        _component.removeObservable( this );
       }
       if ( hasOwner() )
       {
@@ -449,6 +469,13 @@ public final class Observable<T>
                () -> "Calculated leastStaleObserverState on observable named '" + getName() +
                      "' is '" + leastStaleObserverState.name() + "' which is unexpectedly less " +
                      "than cached value '" + _leastStaleObserverState.name() + "'." );
+  }
+
+  @TestOnly
+  @Nullable
+  Component getComponent()
+  {
+    return _component;
   }
 
   @TestOnly

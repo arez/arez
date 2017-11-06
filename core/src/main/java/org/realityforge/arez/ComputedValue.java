@@ -21,6 +21,13 @@ public final class ComputedValue<T>
   extends Node
 {
   /**
+   * The component that this ComputedValue is contained within.
+   * This should only be set if {@link Arez#areNativeComponentsEnabled()} is true but may also be null if
+   * the ComputedValue is a "top-level" ComputedValue.
+   */
+  @Nullable
+  private final Component _component;
+  /**
    * The underlying observer that watches the dependencies are triggers the recomputation when required.
    */
   private final Observer _observer;
@@ -55,16 +62,22 @@ public final class ComputedValue<T>
   private boolean _disposed;
 
   ComputedValue( @Nonnull final ArezContext context,
+                 @Nullable final Component component,
                  @Nullable final String name,
                  @Nonnull final SafeFunction<T> function,
                  @Nonnull final EqualityComparator<T> equalityComparator )
   {
     super( context, name );
+    invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
+               () -> "ComputedValue named '" + getName() + "' has component specified but " +
+                     "Arez.areNativeComponentsEnabled() is false." );
+    _component = component;
     _function = Objects.requireNonNull( function );
     _equalityComparator = Objects.requireNonNull( equalityComparator );
     _value = null;
     _computing = false;
     _observer = new Observer( context,
+                              null,
                               Arez.areNamesEnabled() ? getName() : null,
                               this,
                               ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE_OWNED : null,
@@ -74,6 +87,10 @@ public final class ComputedValue<T>
                                                           false,
                                                           o ),
                               false );
+    if ( null != _component )
+    {
+      _component.addComputedValue( this );
+    }
   }
 
   /**
@@ -123,6 +140,10 @@ public final class ComputedValue<T>
       if ( willPropagateSpyEvents() )
       {
         reportSpyEvent( new ComputedValueDisposedEvent( this ) );
+      }
+      if ( null != _component )
+      {
+        _component.removeComputedValue( this );
       }
       _observer.dispose();
     }
@@ -225,6 +246,13 @@ public final class ComputedValue<T>
         _computing = false;
       }
     }
+  }
+
+  @TestOnly
+  @Nullable
+  Component getComponent()
+  {
+    return _component;
   }
 
   @TestOnly

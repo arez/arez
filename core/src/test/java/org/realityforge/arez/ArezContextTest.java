@@ -1417,6 +1417,23 @@ public class ArezContextTest
   }
 
   @Test
+  public void createComputedValue_withComponent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Component component =
+      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+
+    final String name = ValueUtil.randomString();
+    final ComputedValue<String> computedValue =
+      context.createComputedValue( component, name, () -> "", Objects::equals, null, null, null, null );
+
+    assertEquals( computedValue.getName(), name );
+    assertEquals( computedValue.getComponent(), component );
+  }
+
+  @Test
   public void createComputedValue_pass_no_hooks()
     throws Exception
   {
@@ -1487,6 +1504,23 @@ public class ArezContextTest
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
     assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
+  public void autorun_withComponent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Component component =
+      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final String name = ValueUtil.randomString();
+    final Observer observer = context.autorun( component, name, true, callCount::incrementAndGet, false );
+
+    assertEquals( observer.getName(), name );
+    assertEquals( observer.getComponent(), component );
   }
 
   @Test
@@ -1584,6 +1618,22 @@ public class ArezContextTest
   }
 
   @Test
+  public void tracker_withComponent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final AtomicInteger callCount = new AtomicInteger();
+    final Component component =
+      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+    final Observer observer = context.tracker( component, name, false, callCount::incrementAndGet );
+
+    assertEquals( observer.getName(), name );
+    assertEquals( observer.getComponent(), component );
+  }
+
+  @Test
   public void tracker_minimalParameters()
     throws Exception
   {
@@ -1618,7 +1668,7 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final Observer observer =
-      context.createObserver( ValueUtil.randomString(), true, new TestReaction(), false );
+      context.createObserver( null, ValueUtil.randomString(), true, new TestReaction(), false );
 
     handler.assertEventCount( 1 );
 
@@ -1632,7 +1682,7 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     final Observer observer =
-      context.createObserver( ValueUtil.randomString(), false, new TestReaction(), true );
+      context.createObserver( null, ValueUtil.randomString(), false, new TestReaction(), true );
 
     assertEquals( observer.canTrackExplicitly(), true );
   }
@@ -1681,6 +1731,23 @@ public class ArezContextTest
     assertEquals( observable.getName(), name );
     assertEquals( observable.getAccessor(), accessor );
     assertEquals( observable.getMutator(), mutator );
+  }
+
+  @Test
+  public void createObservable_withComponent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+
+    final Component component =
+      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+
+    final Observable<String> observable = context.createObservable( component, name, null, null );
+
+    assertEquals( observable.getName(), name );
+    assertEquals( observable.getComponent(), component );
   }
 
   @Test
