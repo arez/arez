@@ -9,6 +9,10 @@ final class TestSpyEventHandler
   implements SpyEventHandler
 {
   private final ArrayList<Object> _events = new ArrayList<>();
+  /**
+   * When ussing assertNextEvent this tracks the index that we are up to.
+   */
+  private int _currentAssertIndex;
 
   @Override
   public void onSpyEvent( @Nonnull final Object event )
@@ -55,6 +59,18 @@ final class TestSpyEventHandler
   void assertEventCountAtLeast( final int count )
   {
     assertTrue( eventCount() >= count, "Expected more than " + count + ". Actual events: " + _events );
+  }
+
+  /**
+   * Assert "next" Event is of specific type.
+   * Increment the next counter.
+   */
+  @Nonnull
+  <T> T assertNextEvent( @Nonnull final Class<T> type )
+  {
+    final T event = assertEvent( type, _currentAssertIndex );
+    _currentAssertIndex++;
+    return event;
   }
 
   private int eventCount()
