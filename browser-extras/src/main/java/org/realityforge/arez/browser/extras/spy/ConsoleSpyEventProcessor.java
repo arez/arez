@@ -8,8 +8,10 @@ import org.realityforge.arez.extras.spy.AbstractSpyEventProcessor;
 import org.realityforge.arez.extras.spy.SpyUtil;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
-import org.realityforge.arez.spy.ComponentCreatedEvent;
-import org.realityforge.arez.spy.ComponentDisposedEvent;
+import org.realityforge.arez.spy.ComponentCreateCompletedEvent;
+import org.realityforge.arez.spy.ComponentCreateStartedEvent;
+import org.realityforge.arez.spy.ComponentDisposeCompletedEvent;
+import org.realityforge.arez.spy.ComponentDisposeStartedEvent;
 import org.realityforge.arez.spy.ComputeCompletedEvent;
 import org.realityforge.arez.spy.ComputeStartedEvent;
 import org.realityforge.arez.spy.ComputedValueActivatedEvent;
@@ -47,13 +49,15 @@ public class ConsoleSpyEventProcessor
   @CssRules
   private static final String OBSERVABLE_COLOR = "color: #CF8A3B; font-weight: normal;";
   @CssRules
-  private static final String COMPUTED_COLOR = "color: #FFBA49; font-weight: normal; background-repeat: no-repeat; background-size: contain; padding-left: 20px; background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDE1IDE1Ij4KICA8ZyBmaWxsPSIjN0I1NkEzIj4KICAgIDxjaXJjbGUgY3g9IjMuNzUiIGN5PSIxMS44MyIgcj0iMiIvPgogICAgPGNpcmNsZSBjeD0iMy43NSIgY3k9IjMuMTciIHI9IjIiLz4KICAgIDxjaXJjbGUgY3g9IjExLjI1IiBjeT0iNy41IiByPSIyIi8+CiAgPC9nPgogIDxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzdCNTZBMyIgc3Ryb2tlTWl0ZXJsaW1pdD0iMTAiPgogICAgPHBhdGggZD0iTTYuMjUgNy41bC0yLjUgNC4zMyIvPgogICAgPHBhdGggZD0iTTYuMjUgNy41bC0yLjUtNC4zMyIvPgogICAgPHBhdGggZD0iTTYuMjUgNy41aDUiLz4KICA8L2c+Cjwvc3ZnPgo=);";
+  private static final String COMPUTED_COLOR =
+    "color: #FFBA49; font-weight: normal; background-repeat: no-repeat; background-size: contain; padding-left: 20px; background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDE1IDE1Ij4KICA8ZyBmaWxsPSIjN0I1NkEzIj4KICAgIDxjaXJjbGUgY3g9IjMuNzUiIGN5PSIxMS44MyIgcj0iMiIvPgogICAgPGNpcmNsZSBjeD0iMy43NSIgY3k9IjMuMTciIHI9IjIiLz4KICAgIDxjaXJjbGUgY3g9IjExLjI1IiBjeT0iNy41IiByPSIyIi8+CiAgPC9nPgogIDxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzdCNTZBMyIgc3Ryb2tlTWl0ZXJsaW1pdD0iMTAiPgogICAgPHBhdGggZD0iTTYuMjUgNy41bC0yLjUgNC4zMyIvPgogICAgPHBhdGggZD0iTTYuMjUgNy41bC0yLjUtNC4zMyIvPgogICAgPHBhdGggZD0iTTYuMjUgNy41aDUiLz4KICA8L2c+Cjwvc3ZnPgo=);";
   @CssRules
   private static final String OBSERVER_COLOR = "color: #0FA13B; font-weight: normal;";
   @CssRules
   private static final String REACTION_COLOR = "color: #10a210; font-weight: normal;";
   @CssRules
-  private static final String REACTION_SCHEDULED_COLOR = "color: #10a210; font-weight: normal; background-repeat: no-repeat; background-size: contain; padding-left: 20px; background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDE1IDE1Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9IiMxMGEyMTAiIHN0cm9rZU1pdGVybGltaXQ9IjEwIj48cGF0aCBkPSJNMTIuNjk3IDEwLjVhNiA2IDAgMSAxIC4xMTUtNS43OTIiLz48cGF0aCBkPSJNNy41IDcuNVYzTTcuNSA3LjVMMTAgMTAiLz48L2c+PGcgZmlsbD0iIzAwMDAwMCI+PHBhdGggZD0iTTEwLjYxOCA0Ljc0M0wxMy41IDcuNWwuOTQ3LTMuODc0eiIvPjxjaXJjbGUgY3g9IjcuNSIgY3k9IjcuNSIgcj0iLjc1Ii8+PC9nPjwvc3ZnPgo=);";
+  private static final String REACTION_SCHEDULED_COLOR =
+    "color: #10a210; font-weight: normal; background-repeat: no-repeat; background-size: contain; padding-left: 20px; background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDE1IDE1Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9IiMxMGEyMTAiIHN0cm9rZU1pdGVybGltaXQ9IjEwIj48cGF0aCBkPSJNMTIuNjk3IDEwLjVhNiA2IDAgMSAxIC4xMTUtNS43OTIiLz48cGF0aCBkPSJNNy41IDcuNVYzTTcuNSA3LjVMMTAgMTAiLz48L2c+PGcgZmlsbD0iIzAwMDAwMCI+PHBhdGggZD0iTTEwLjYxOCA0Ljc0M0wxMy41IDcuNWwuOTQ3LTMuODc0eiIvPjxjaXJjbGUgY3g9IjcuNSIgY3k9IjcuNSIgcj0iLjc1Ii8+PC9nPjwvc3ZnPgo=);";
   @CssRules
   private static final String ACTION_COLOR = "color: #006AEB; font-weight: normal;";
   @CssRules
@@ -66,8 +70,10 @@ public class ConsoleSpyEventProcessor
    */
   public ConsoleSpyEventProcessor()
   {
-    on( ComponentCreatedEvent.class, this::onComponentCreated );
-    on( ComponentDisposedEvent.class, this::onComponentDisposed );
+    on( ComponentCreateStartedEvent.class, this::onComponentCreateStarted );
+    on( ComponentCreateCompletedEvent.class, this::onComponentCreateCompletedEvent );
+    on( ComponentDisposeStartedEvent.class, this::onComponentDisposeStarted );
+    on( ComponentDisposeCompletedEvent.class, this::onComponentDisposeCompleted );
 
     on( ObserverCreatedEvent.class, this::onObserverCreated );
     on( ObserverDisposedEvent.class, this::onObserverDisposed );
@@ -96,25 +102,51 @@ public class ConsoleSpyEventProcessor
   }
 
   /**
-   * Handle the ComponentCreatedEvent.
+   * Handle the ComponentCreateStartedEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComponentCreated( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComponentCreatedEvent e )
+  protected void onComponentCreateStarted( @Nonnull final SpyUtil.NestingDelta d,
+                                           @Nonnull final ComponentCreateStartedEvent e )
   {
-    log( d, "%cComponent Created " + e.getComponent().getName(), COMPONENT_COLOR );
+    log( d, "%cComponent Create Started " + e.getComponent().getName(), COMPONENT_COLOR );
   }
 
   /**
-   * Handle the ComponentDisposedEvent.
+   * Handle the ComponentCreateCompletedEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComponentDisposed( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComponentDisposedEvent e )
+  protected void onComponentCreateCompletedEvent( @Nonnull final SpyUtil.NestingDelta d,
+                                                  @Nonnull final ComponentCreateCompletedEvent e )
   {
-    log( d, "%cComponent Disposed " + e.getComponent().getName(), COMPONENT_COLOR );
+    log( d, "%cComponent Create Completed " + e.getComponent().getName(), COMPONENT_COLOR );
+  }
+
+  /**
+   * Handle the ComponentDisposeStartedEvent.
+   *
+   * @param d the change in nesting level.
+   * @param e the event.
+   */
+  protected void onComponentDisposeStarted( @Nonnull final SpyUtil.NestingDelta d,
+                                            @Nonnull final ComponentDisposeStartedEvent e )
+  {
+    log( d, "%cComponent Dispose Started " + e.getComponent().getName(), COMPONENT_COLOR );
+  }
+
+  /**
+   * Handle the ComponentDisposeCompletedEvent.
+   *
+   * @param d the change in nesting level.
+   * @param e the event.
+   */
+  protected void onComponentDisposeCompleted( @Nonnull final SpyUtil.NestingDelta d,
+                                              @Nonnull final ComponentDisposeCompletedEvent e )
+  {
+    log( d, "%cComponent Dispose Completed " + e.getComponent().getName(), COMPONENT_COLOR );
   }
 
   /**

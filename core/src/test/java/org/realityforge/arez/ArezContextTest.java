@@ -7,8 +7,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
-import org.realityforge.arez.spy.ComponentCreatedEvent;
-import org.realityforge.arez.spy.ComponentDisposedEvent;
+import org.realityforge.arez.spy.ComponentCreateStartedEvent;
 import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
@@ -1886,7 +1885,7 @@ public class ArezContextTest
       context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
     handler.assertEventCount( 1 );
-    final ComponentCreatedEvent event = handler.assertEvent( ComponentCreatedEvent.class, 0 );
+    final ComponentCreateStartedEvent event = handler.assertEvent( ComponentCreateStartedEvent.class, 0 );
     assertEquals( event.getComponent(), component );
   }
 
@@ -1946,7 +1945,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void componentDisposed_nativeComponentsDisabled()
+  public void deregisterComponent_nativeComponentsDisabled()
   {
     ArezTestUtil.disableNativeComponents();
 
@@ -1956,14 +1955,14 @@ public class ArezContextTest
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.componentDisposed( component ) );
+      expectThrows( IllegalStateException.class, () -> context.deregisterComponent( component ) );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.componentDisposed() invoked when Arez.areNativeComponentsEnabled() returns false." );
+                  "ArezContext.deregisterComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
-  public void componentDisposed_componentMisalignment()
+  public void deregisterComponent_componentMisalignment()
   {
     final ArezContext context = Arez.context();
 
@@ -1974,15 +1973,15 @@ public class ArezContextTest
       context.createComponent( component.getType(), component.getId(), ValueUtil.randomString() );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.componentDisposed( component ) );
+      expectThrows( IllegalStateException.class, () -> context.deregisterComponent( component ) );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.componentDisposed() invoked for '" + component + "' but was unable to " +
+                  "ArezContext.deregisterComponent() invoked for '" + component + "' but was unable to " +
                   "remove specified component from registry. Actual component removed: " + component2 );
   }
 
   @Test
-  public void componentDisposed_removesTypeIfLastOfType()
+  public void deregisterComponent_removesTypeIfLastOfType()
   {
     final ArezContext context = Arez.context();
 
@@ -1995,32 +1994,14 @@ public class ArezContextTest
     assertEquals( context.findAllComponentTypes().size(), 1 );
     assertEquals( context.findAllComponentTypes().contains( type ), true );
 
-    context.componentDisposed( component );
+    context.deregisterComponent( component );
 
     assertEquals( context.findAllComponentTypes().size(), 1 );
     assertEquals( context.findAllComponentTypes().contains( type ), true );
 
-    context.componentDisposed( component2 );
+    context.deregisterComponent( component2 );
 
     assertEquals( context.findAllComponentTypes().size(), 0 );
-  }
-
-  @Test
-  public void componentDisposed_spyEventGenerated()
-  {
-    final ArezContext context = Arez.context();
-
-    final Component component =
-      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
-
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
-
-    context.componentDisposed( component );
-
-    handler.assertEventCount( 1 );
-    final ComponentDisposedEvent event = handler.assertEvent( ComponentDisposedEvent.class, 0 );
-    assertEquals( event.getComponent(), component );
   }
 
   @Test

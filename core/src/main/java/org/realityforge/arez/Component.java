@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.realityforge.arez.spy.ComponentCreateCompletedEvent;
+import org.realityforge.arez.spy.ComponentDisposeCompletedEvent;
+import org.realityforge.arez.spy.ComponentDisposeStartedEvent;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -39,6 +42,7 @@ public final class Component
   private final ArrayList<Observable<?>> _observables = new ArrayList<>();
   private final ArrayList<Observer> _observers = new ArrayList<>();
   private final ArrayList<ComputedValue<?>> _computedValues = new ArrayList<>();
+  private boolean _complete;
   private boolean _disposed;
 
   Component( @Nonnull final ArezContext context,
@@ -106,8 +110,12 @@ public final class Component
     if ( !_disposed )
     {
       _disposed = true;
+      if ( Arez.areSpiesEnabled() && _context.getSpy().willPropagateSpyEvents() )
+      {
+        _context.getSpy().reportSpyEvent( new ComponentDisposeStartedEvent( this ) );
+      }
       _context.safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, () -> {
-        _context.componentDisposed( this );
+        _context.deregisterComponent( this );
         _observers.forEach( o -> Disposable.dispose( o ) );
         _observers.clear();
         _computedValues.forEach( v -> Disposable.dispose( v ) );
@@ -115,6 +123,10 @@ public final class Component
         _observables.forEach( o -> Disposable.dispose( o ) );
         _observables.clear();
       } );
+      if ( Arez.areSpiesEnabled() && _context.getSpy().willPropagateSpyEvents() )
+      {
+        _context.getSpy().reportSpyEvent( new ComponentDisposeCompletedEvent( this ) );
+      }
     }
   }
 
@@ -145,6 +157,33 @@ public final class Component
   }
 
   /**
+   * Return true if the creation of this component is complete.
+   *
+   * @return true if the creation of this component is complete, false otherwise.
+   */
+  public boolean isComplete()
+  {
+    return _complete;
+  }
+
+  /**
+   * The toolkit user should call this method when the component is complete.
+   * After this method has been invoked the user should not attempt to define any more {@link Observable}s,
+   * {@link Observer}s or {@link ComputedValue}s on the component.
+   */
+  public void complete()
+  {
+    if ( !_complete )
+    {
+      _complete = true;
+      if ( Arez.areSpiesEnabled() && getContext().getSpy().willPropagateSpyEvents() )
+      {
+        getContext().getSpy().reportSpyEvent( new ComponentCreateCompletedEvent( this ) );
+      }
+    }
+  }
+
+  /**
    * Return the observers associated with the component.
    *
    * @return the observers associated with the component.
@@ -163,6 +202,9 @@ public final class Component
    */
   void addObserver( @Nonnull final Observer observer )
   {
+    apiInvariant( () -> !_complete,
+                  () -> "Component.addObserver invoked on component '" + getName() + "' specifying observer " +
+                        "named '" + observer.getName() + "' when component.complete() has already been called." );
     apiInvariant( () -> !_observers.contains( observer ),
                   () -> "Component.addObserver invoked on component '" + getName() + "' specifying observer " +
                         "named '" + observer.getName() + "' when observer already exists for component." );
@@ -202,6 +244,9 @@ public final class Component
    */
   void addObservable( @Nonnull final Observable observable )
   {
+    apiInvariant( () -> !_complete,
+                  () -> "Component.addObservable invoked on component '" + getName() + "' specifying observable " +
+                        "named '" + observable.getName() + "' when component.complete() has already been called." );
     apiInvariant( () -> !_observables.contains( observable ),
                   () -> "Component.addObservable invoked on component '" + getName() + "' specifying observable " +
                         "named '" + observable.getName() + "' when observable already exists for component." );
@@ -241,6 +286,10 @@ public final class Component
    */
   void addComputedValue( @Nonnull final ComputedValue computedValue )
   {
+    apiInvariant( () -> !_complete,
+                  () -> "Component.addComputedValue invoked on component '" + getName() + "' specifying " +
+                        "computedValue named '" + computedValue.getName() + "' when component.complete() has " +
+                        "already been called." );
     apiInvariant( () -> !_computedValues.contains( computedValue ),
                   () -> "Component.addComputedValue invoked on component '" + getName() + "' specifying " +
                         "computedValue named '" + computedValue.getName() + "' when computedValue already exists " +

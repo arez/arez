@@ -39,9 +39,6 @@ complete as there is too much un-said.
 * Annotation processor should generate code that just calls Component.dispose() if native components
   enabled otherwise it continues with current code path.
 
-* Change `ComponentCreatedEvent` to `ComponentCreatStartedEvent` + `ComponentCreatCompletedEvent` so
-  that all the associated creates are nested in group in console. Same with dispose.
-
 * Add integration tests that cover components and spys access to `Observable` properties in components.
 
 * Add registry for top-level Observers, Observables and ComputedValues and make them accessible via spy

@@ -10,8 +10,10 @@ import javax.json.stream.JsonGenerator;
 import org.realityforge.arez.extras.spy.AbstractSpyEventProcessor;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
-import org.realityforge.arez.spy.ComponentCreatedEvent;
-import org.realityforge.arez.spy.ComponentDisposedEvent;
+import org.realityforge.arez.spy.ComponentCreateCompletedEvent;
+import org.realityforge.arez.spy.ComponentCreateStartedEvent;
+import org.realityforge.arez.spy.ComponentDisposeCompletedEvent;
+import org.realityforge.arez.spy.ComponentDisposeStartedEvent;
 import org.realityforge.arez.spy.ComputeCompletedEvent;
 import org.realityforge.arez.spy.ComputeStartedEvent;
 import org.realityforge.arez.spy.ComputedValueActivatedEvent;
@@ -41,8 +43,10 @@ final class SpyEventRecorder
 
   SpyEventRecorder()
   {
-    register( ComponentCreatedEvent.class );
-    register( ComponentDisposedEvent.class );
+    register( ComponentCreateStartedEvent.class );
+    register( ComponentCreateCompletedEvent.class );
+    register( ComponentDisposeStartedEvent.class );
+    register( ComponentDisposeCompletedEvent.class );
     register( ObserverCreatedEvent.class );
     register( ObserverDisposedEvent.class );
     register( ObserverErrorEvent.class );

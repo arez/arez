@@ -6,17 +6,17 @@ import javax.annotation.Nonnull;
 import org.realityforge.arez.Component;
 
 /**
- * Notification when a Component is disposed.
+ * Notification when a Component is starting to be created.
  */
-public final class ComponentDisposedEvent
+public final class ComponentCreateStartedEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( ComponentDisposedEvent.class );
+  public static final String TYPE_NAME = EventUtil.getName( ComponentCreateStartedEvent.class );
 
   @Nonnull
   private final Component _component;
 
-  public ComponentDisposedEvent( @Nonnull final Component component )
+  public ComponentCreateStartedEvent( @Nonnull final Component component )
   {
     _component = Objects.requireNonNull( component );
   }

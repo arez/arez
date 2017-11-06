@@ -1,5 +1,12 @@
 package org.realityforge.arez;
 
+import org.realityforge.arez.spy.ActionCompletedEvent;
+import org.realityforge.arez.spy.ActionStartedEvent;
+import org.realityforge.arez.spy.ComponentCreateCompletedEvent;
+import org.realityforge.arez.spy.ComponentDisposeCompletedEvent;
+import org.realityforge.arez.spy.ComponentDisposeStartedEvent;
+import org.realityforge.arez.spy.TransactionCompletedEvent;
+import org.realityforge.arez.spy.TransactionStartedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -82,6 +89,57 @@ public class ComponentTest
   }
 
   @Test
+  public void complete()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+    final String name = ValueUtil.randomString();
+
+    final Component component = context.createComponent( ValueUtil.randomString(), null, name );
+
+    final Observable observable1 = context.createObservable();
+    final ComputedValue computedValue1 = context.createComputedValue( () -> "" );
+    final Observer observer1 = context.autorun( () -> {
+    } );
+
+    component.addObservable( observable1 );
+    component.addComputedValue( computedValue1 );
+    component.addObserver( observer1 );
+
+    assertEquals( component.isComplete(), false );
+
+    component.complete();
+
+    assertEquals( component.isComplete(), true );
+
+    assertEquals( component.getObservables().size(), 1 );
+    assertEquals( component.getComputedValues().size(), 1 );
+    assertEquals( component.getObservers().size(), 1 );
+  }
+
+  @Test
+  public void complete_generates_spyEvent()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+    final String name = ValueUtil.randomString();
+
+    final Component component = context.createComponent( ValueUtil.randomString(), null, name );
+
+    assertEquals( component.isComplete(), false );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    component.complete();
+
+    handler.assertEventCount( 1 );
+
+    final ComponentCreateCompletedEvent event = handler.assertNextEvent( ComponentCreateCompletedEvent.class );
+    assertEquals( event.getComponent(), component );
+  }
+
+  @Test
   public void observers()
     throws Exception
   {
@@ -141,6 +199,26 @@ public class ComponentTest
                                           "' when observer already exists for component." );
 
     assertEquals( component.getObservers().size(), 1 );
+  }
+
+  @Test
+  public void addObserver_complete()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+    final String name = ValueUtil.randomString();
+
+    final Component component = new Component( context, ValueUtil.randomString(), null, name );
+    component.complete();
+
+    final Observer observer1 = context.autorun( () -> {
+    } );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> component.addObserver( observer1 ) );
+    assertEquals( exception.getMessage(), "Component.addObserver invoked on component '" + name +
+                                          "' specifying observer named '" + observer1.getName() +
+                                          "' when component.complete() has already been called." );
   }
 
   @Test
@@ -222,6 +300,25 @@ public class ComponentTest
   }
 
   @Test
+  public void addObservable_complete()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+    final String name = ValueUtil.randomString();
+
+    final Component component = new Component( context, ValueUtil.randomString(), null, name );
+    component.complete();
+
+    final Observable observable1 = context.createObservable();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> component.addObservable( observable1 ) );
+    assertEquals( exception.getMessage(), "Component.addObservable invoked on component '" + name +
+                                          "' specifying observable named '" + observable1.getName() +
+                                          "' when component.complete() has already been called." );
+  }
+
+  @Test
   public void removeObservable_noExist()
     throws Exception
   {
@@ -299,6 +396,25 @@ public class ComponentTest
   }
 
   @Test
+  public void addComputedValue_complete()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+    final String name = ValueUtil.randomString();
+
+    final Component component = new Component( context, ValueUtil.randomString(), null, name );
+    component.complete();
+
+    final ComputedValue computedValue1 = context.createComputedValue( () -> "" );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> component.addComputedValue( computedValue1 ) );
+    assertEquals( exception.getMessage(), "Component.addComputedValue invoked on component '" + name +
+                                          "' specifying computedValue named '" + computedValue1.getName() +
+                                          "' when component.complete() has already been called." );
+  }
+
+  @Test
   public void removeComputedValue_noExist()
     throws Exception
   {
@@ -370,5 +486,42 @@ public class ComponentTest
     assertTrue( Disposable.isDisposed( observer2 ) );
     assertTrue( Disposable.isDisposed( computedValue1 ) );
     assertTrue( Disposable.isDisposed( computedValue2 ) );
+  }
+
+  @Test
+  public void dispose_spyEventsGenerated()
+  {
+    final ArezContext context = Arez.context();
+
+    final Component component =
+      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    component.dispose();
+
+    handler.assertEventCount( 6 );
+    {
+      final ComponentDisposeStartedEvent event = handler.assertNextEvent( ComponentDisposeStartedEvent.class );
+      assertEquals( event.getComponent(), component );
+    }
+
+    final String actionName = component.getName() + ".dispose";
+    {
+      final ActionStartedEvent event = handler.assertNextEvent( ActionStartedEvent.class );
+      assertEquals( event.getName(), actionName );
+    }
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    {
+      final ActionCompletedEvent event = handler.assertNextEvent( ActionCompletedEvent.class );
+      assertEquals( event.getName(), actionName );
+    }
+
+    {
+      final ComponentDisposeCompletedEvent event = handler.assertNextEvent( ComponentDisposeCompletedEvent.class );
+      assertEquals( event.getComponent(), component );
+    }
   }
 }

@@ -10,8 +10,7 @@ import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
-import org.realityforge.arez.spy.ComponentCreatedEvent;
-import org.realityforge.arez.spy.ComponentDisposedEvent;
+import org.realityforge.arez.spy.ComponentCreateStartedEvent;
 import org.realityforge.arez.spy.ComputedValueCreatedEvent;
 import org.realityforge.arez.spy.ObservableCreatedEvent;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
@@ -111,7 +110,8 @@ public final class ArezContext
    * Create a component with the specified parameters and return it.
    * This method should only be invoked if {@link Arez#areNativeComponentsEnabled()} returns true.
    * This method should not be invoked if {@link #isComponentPresent(String, Object)} returns true for
-   * the parameters.
+   * the parameters. The caller should invoke {@link Component#complete()} on the returned component as
+   * soon as the component definition has completed.
    *
    * @param type the component type.
    * @param id   the component id.
@@ -127,7 +127,8 @@ public final class ArezContext
    * Create a component with the specified parameters and return it.
    * This method should only be invoked if {@link Arez#areNativeComponentsEnabled()} returns true.
    * This method should not be invoked if {@link #isComponentPresent(String, Object)} returns true for
-   * the parameters.
+   * the parameters. The caller should invoke {@link Component#complete()} on the returned component as
+   * soon as the component definition has completed.
    *
    * @param type the component type.
    * @param id   the component id.
@@ -147,7 +148,7 @@ public final class ArezContext
     map.put( id, component );
     if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ComponentCreatedEvent( component ) );
+      getSpy().reportSpyEvent( new ComponentCreateStartedEvent( component ) );
     }
     return component;
   }
@@ -157,24 +158,20 @@ public final class ArezContext
    *
    * @param component the component.
    */
-  void componentDisposed( @Nonnull final Component component )
+  void deregisterComponent( @Nonnull final Component component )
   {
     invariant( Arez::areNativeComponentsEnabled,
-               () -> "ArezContext.componentDisposed() invoked when Arez.areNativeComponentsEnabled() returns false." );
+               () -> "ArezContext.deregisterComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
     final String type = component.getType();
     final HashMap<Object, Component> map = getComponentByTypeMap( type );
     final Component removed = map.remove( component.getId() );
     invariant( () -> component == removed,
-               () -> "ArezContext.componentDisposed() invoked for '" + component + "' but was unable to remove " +
+               () -> "ArezContext.deregisterComponent() invoked for '" + component + "' but was unable to remove " +
                      "specified component from registry. Actual component removed: " + removed );
     if ( map.isEmpty() )
     {
       assert _components != null;
       _components.remove( type );
-    }
-    if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
-    {
-      getSpy().reportSpyEvent( new ComponentDisposedEvent( component ) );
     }
   }
 
