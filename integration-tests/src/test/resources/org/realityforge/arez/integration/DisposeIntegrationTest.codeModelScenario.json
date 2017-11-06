@@ -288,7 +288,7 @@
         "mutation": true,
         "tracker": "Printer",
         "type": "TransactionStarted",
-        "transaction": "Printer"
+        "transaction": "Printer.dispose"
     },
     {
         "computedValue": "CodeModel.0.qualifiedName",
@@ -298,7 +298,7 @@
         "mutation": true,
         "tracker": "Printer",
         "type": "TransactionCompleted",
-        "transaction": "Printer"
+        "transaction": "Printer.dispose"
     },
     {
         "observer": "Printer",
@@ -317,40 +317,92 @@
         "transaction": "CodeModel.0.dispose"
     },
     {
+        "computedValue": "CodeModel.0.qualifiedName",
+        "type": "ComputedValueDisposed"
+    },
+    {
         "mutation": true,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionStarted",
-        "transaction": "CodeModel.0.qualifiedName"
+        "transaction": "CodeModel.0.qualifiedName.dispose"
     },
     {
         "mutation": true,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
-        "transaction": "CodeModel.0.qualifiedName"
+        "transaction": "CodeModel.0.qualifiedName.dispose"
     },
     {
-        "computedValue": "CodeModel.0.qualifiedName",
-        "type": "ComputedValueDisposed"
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "CodeModel.0.qualifiedName.dispose"
+    },
+    {
+        "observable": "CodeModel.0.qualifiedName",
+        "type": "ObservableChanged"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "CodeModel.0.qualifiedName.dispose"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "CodeModel.0.name.dispose"
     },
     {
         "observable": "CodeModel.0.name",
         "type": "ObservableChanged"
     },
     {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "CodeModel.0.name.dispose"
+    },
+    {
         "observable": "CodeModel.0.name",
         "type": "ObservableDisposed"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "CodeModel.0.packageName.dispose"
     },
     {
         "observable": "CodeModel.0.packageName",
         "type": "ObservableChanged"
     },
     {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "CodeModel.0.packageName.dispose"
+    },
+    {
         "observable": "CodeModel.0.packageName",
         "type": "ObservableDisposed"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "CodeModel.0.rawQualifiedName.dispose"
     },
     {
         "observable": "CodeModel.0.rawQualifiedName",
         "type": "ObservableChanged"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "CodeModel.0.rawQualifiedName.dispose"
     },
     {
         "observable": "CodeModel.0.rawQualifiedName",

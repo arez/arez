@@ -8,6 +8,7 @@ import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
 import org.realityforge.arez.spy.ComputeCompletedEvent;
 import org.realityforge.arez.spy.ComputeStartedEvent;
+import org.realityforge.arez.spy.ComputedValueDisposedEvent;
 import org.realityforge.arez.spy.ObservableChangedEvent;
 import org.realityforge.arez.spy.ObserverDisposedEvent;
 import org.realityforge.arez.spy.ReactionCompletedEvent;
@@ -802,6 +803,8 @@ public class ObserverTest
   {
     final ArezContext context = new ArezContext();
     final Observer observer = newDerivation( context );
+    final Observable<?> derivedValue = observer.getDerivedValue();
+    final ComputedValue<?> computedValue = observer.getComputedValue();
     setCurrentTransaction( observer );
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -815,12 +818,26 @@ public class ObserverTest
     observer.dispose();
 
     assertEquals( observer.isDisposed(), true );
+    assertEquals( derivedValue.isDisposed(), true );
+    assertEquals( computedValue.isDisposed(), true );
 
-    handler.assertEventCount( 4 );
-    handler.assertEvent( ActionStartedEvent.class, 0 );
-    handler.assertEvent( TransactionStartedEvent.class, 1 );
-    handler.assertEvent( TransactionCompletedEvent.class, 2 );
-    handler.assertEvent( ActionCompletedEvent.class, 3 );
+    handler.assertEventCount( 10 );
+
+    // This is the part that disposes the Observer
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
+
+    // This is the part that disposes the associated ComputedValue
+    handler.assertNextEvent( ComputedValueDisposedEvent.class );
+
+    // This is the part that disposes the associated Observable
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( ObservableChangedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
   }
 
   @Test

@@ -105,8 +105,20 @@
         "transaction": "TestComponent.1.dispose"
     },
     {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.1.value.dispose"
+    },
+    {
         "observable": "TestComponent.1.value",
         "type": "ObservableChanged"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.1.value.dispose"
     },
     {
         "observable": "TestComponent.1.value",
@@ -169,8 +181,20 @@
         "transaction": "TestComponent.2.dispose"
     },
     {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.2.value.dispose"
+    },
+    {
         "observable": "TestComponent.2.value",
         "type": "ObservableChanged"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.2.value.dispose"
     },
     {
         "observable": "TestComponent.2.value",

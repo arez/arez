@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
 import org.realityforge.arez.spy.ComputedValueDisposedEvent;
+import org.realityforge.arez.spy.ObservableChangedEvent;
 import org.realityforge.arez.spy.TransactionCompletedEvent;
 import org.realityforge.arez.spy.TransactionStartedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -239,14 +240,24 @@ public class ComputedValueTest
     assertEquals( observer.isDisposed(), true );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
 
-    handler.assertEventCount( 5 );
+    handler.assertEventCount( 10 );
 
-    handler.assertEvent( ActionStartedEvent.class, 0 );
-    handler.assertEvent( TransactionStartedEvent.class, 1 );
-    handler.assertEvent( TransactionCompletedEvent.class, 2 );
-    handler.assertEvent( ActionCompletedEvent.class, 3 );
-    final ComputedValueDisposedEvent event = handler.assertEvent( ComputedValueDisposedEvent.class, 4 );
+    // This is the part that disposes the associated ComputedValue
+    final ComputedValueDisposedEvent event = handler.assertNextEvent( ComputedValueDisposedEvent.class );
     assertEquals( event.getComputedValue(), computedValue );
+
+    // This is the part that disposes the Observer
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
+
+    // This is the part that disposes the associated Observable
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( ObservableChangedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
   }
 
   @Test

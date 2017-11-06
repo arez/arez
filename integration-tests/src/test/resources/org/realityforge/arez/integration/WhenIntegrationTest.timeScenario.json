@@ -352,33 +352,49 @@
         "mutation": true,
         "tracker": "Watcher.0.checkCondition",
         "type": "TransactionStarted",
-        "transaction": "Watcher.0.checkCondition"
+        "transaction": "Watcher.0.checkCondition.dispose"
     },
     {
         "mutation": true,
         "tracker": "Watcher.0.checkCondition",
         "type": "TransactionCompleted",
-        "transaction": "Watcher.0.checkCondition"
+        "transaction": "Watcher.0.checkCondition.dispose"
     },
     {
         "observer": "Watcher.0.checkCondition",
         "type": "ObserverDisposed"
     },
     {
+        "computedValue": "Watcher.0.condition",
+        "type": "ComputedValueDisposed"
+    },
+    {
         "mutation": true,
         "tracker": "Watcher.0.condition",
         "type": "TransactionStarted",
-        "transaction": "Watcher.0.condition"
+        "transaction": "Watcher.0.condition.dispose"
     },
     {
         "mutation": true,
         "tracker": "Watcher.0.condition",
         "type": "TransactionCompleted",
-        "transaction": "Watcher.0.condition"
+        "transaction": "Watcher.0.condition.dispose"
     },
     {
-        "computedValue": "Watcher.0.condition",
-        "type": "ComputedValueDisposed"
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Watcher.0.condition.dispose"
+    },
+    {
+        "observable": "Watcher.0.condition",
+        "type": "ObservableChanged"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Watcher.0.condition.dispose"
     },
     {
         "mutation": true,

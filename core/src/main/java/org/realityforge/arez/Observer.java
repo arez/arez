@@ -184,6 +184,14 @@ public final class Observer
       {
         reportSpyEvent( new ObserverDisposedEvent( this ) );
       }
+      if ( null != _computedValue )
+      {
+        _computedValue.dispose();
+      }
+      if ( null != _derivedValue )
+      {
+        _derivedValue.dispose();
+      }
     }
   }
 

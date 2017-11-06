@@ -16,6 +16,17 @@
   single transaction. This makes sure that the `Watcher` does not react whilst partially disposed.
 * **\[core\]** Ensure that `ComputedValue.dispose()` never attempts to dispose value multiple times by moving
   the setting of the `_disposed` flag to the top of the method.
+* **\[core\]** If an `Observable` is disposed that is a derivation of a `ComputedValue` then avoid generating a
+  `ObservableDisposedEvent` spy event aso the `ComputedValueDisposedEvent` is sufficient to indicate that it
+  is being disposed.
+* **\[core\]** When disposing a `ComputedValue`, ensure the spy event indicating it has been disposes is disposed
+  prior to disposing the associated `Observer` and `Observable`.
+* **\[core\]** If an `Observable` is disposed that is a derivation of a `ComputedValue` then ensure that the
+  associated `Observer` and `ComputedValue` are also disposed.
+* **\[core\]** Move the code that propagates the spy event when a `Observable` is disposed outside of the
+  transaction so that event ordering is consistent across different scenarios.
+* **\[core\]** Always wrap the `Observable.dispose()` method in it's own transaction, regardless of whether there
+  is currently a transaction active.
 
 ##### Added
 * **\[core\]** Add the `ArezContext.createObservable()` method that will synthesize the observable name if

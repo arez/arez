@@ -2,13 +2,18 @@ package org.realityforge.arez;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
+import org.realityforge.arez.spy.ActionCompletedEvent;
+import org.realityforge.arez.spy.ActionStartedEvent;
 import org.realityforge.arez.spy.ComputedValueActivatedEvent;
 import org.realityforge.arez.spy.ComputedValueDeactivatedEvent;
+import org.realityforge.arez.spy.ComputedValueDisposedEvent;
 import org.realityforge.arez.spy.ObservableChangedEvent;
 import org.realityforge.arez.spy.ObservableDisposedEvent;
 import org.realityforge.arez.spy.PropertyAccessor;
 import org.realityforge.arez.spy.PropertyMutator;
 import org.realityforge.arez.spy.ReactionScheduledEvent;
+import org.realityforge.arez.spy.TransactionCompletedEvent;
+import org.realityforge.arez.spy.TransactionStartedEvent;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -206,7 +211,7 @@ public class ObservableTest
   }
 
   @Test
-  public void dispose_generates_no_spyEvent_forCOmputedValue()
+  public void dispose_spyEvents_for_ComputedValue()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -222,22 +227,39 @@ public class ObservableTest
     observable.getObservers().add( observer );
     observer.getDependencies().add( observable );
 
-    Transaction.setTransaction( null );
-
     assertEquals( observable.isDisposed(), false );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
+    setCurrentTransaction( newReadWriteObserver( context ) );
+
     observable.dispose();
 
     assertEquals( observable.isDisposed(), true );
 
-    handler.assertEventCountAtLeast( 0 );
+    handler.assertEventCount( 11 );
+
+    // This is the part that disposes the associated Observable
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( ObservableChangedEvent.class );
+    handler.assertNextEvent( ReactionScheduledEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
+
+    // This is the part that disposes the Observer
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
+
+    // This is the part that disposes the associated ComputedValue
+    handler.assertNextEvent( ComputedValueDisposedEvent.class );
   }
 
   @Test
-  public void dispose_readWriteTransaction()
+  public void dispose()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -261,7 +283,7 @@ public class ObservableTest
     observable.dispose();
 
     // No transaction created so new id
-    assertEquals( context.currentNextTransactionId(), currentNextTransactionId );
+    assertEquals( context.currentNextTransactionId(), currentNextTransactionId + 1 );
 
     assertEquals( observable.isDisposed(), true );
     assertEquals( observable.getWorkState(), Observable.DISPOSED );
@@ -291,11 +313,16 @@ public class ObservableTest
 
     final int currentNextTransactionId = context.currentNextTransactionId();
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observable::dispose );
+    final String name = ValueUtil.randomString();
 
-    assertEquals( exception.getMessage(),
-                  "Transaction named '" + context.getTransaction().getName() + "' attempted to change " +
-                  "observable named '" + observable.getName() + "' but transaction is READ_ONLY." );
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> {
+        Arez.context().safeAction( name, (SafeProcedure) observable::dispose );
+      } );
+
+    assertTrue( exception.getMessage().startsWith( "Attempting to create READ_WRITE transaction named '" +
+                                                   name + "' but it is nested in transaction named '" ) );
+    assertTrue( exception.getMessage().endsWith( "' with mode READ_ONLY which is not equal to READ_WRITE." ) );
 
     // No transaction created so new id
     assertEquals( context.currentNextTransactionId(), currentNextTransactionId );

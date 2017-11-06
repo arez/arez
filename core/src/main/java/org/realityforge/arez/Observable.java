@@ -117,16 +117,27 @@ public final class Observable<T>
   {
     if ( !isDisposed() )
     {
-      if ( getContext().isTransactionActive() )
+      getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
+                               ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE : null,
+                               this::performDispose,
+                               null );
+      // All dependencies should have been released by the time it comes to deactivate phase.
+      // The Observable has been marked as changed, forcing all observers to re-evaluate and
+      // ultimately this will result in their removal of this Observable as a dependency as
+      // it is an error to invoke reportObserved(). Once all dependencies are removed then
+      // this Observable will be deactivated if it is a ComputedValue. Thus no need to call
+      // queueForDeactivation() here.
+      if ( willPropagateSpyEvents() && !hasOwner() )
       {
-        performDispose();
+        reportSpyEvent( new ObservableDisposedEvent( this ) );
       }
-      else
+      if ( hasOwner() )
       {
-        getContext().safeAction( Arez.areNamesEnabled() ? getName() : null,
-                                 ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE : null,
-                                 this::performDispose,
-                                 null );
+        /*
+         * Dispose the owner first so that it is removed as a dependency and thus will not have a reaction
+         * scheduled.
+         */
+        getOwner().dispose();
       }
     }
   }
@@ -135,16 +146,6 @@ public final class Observable<T>
   {
     reportChanged();
     _workState = DISPOSED;
-    // All dependencies should have been released by the time it comes to deactivate phase.
-    // The Observable has been marked as changed, forcing all observers to re-evaluate and
-    // ultimately this will result in their removal of this Observable as a dependency as
-    // it is an error to invoke reportObserved(). Once all dependencies are removed then
-    // this Observable will be deactivated if it is a ComputedValue. Thus no need to call
-    // queueForDeactivation() here.
-    if ( willPropagateSpyEvents() )
-    {
-      reportSpyEvent( new ObservableDisposedEvent( this ) );
-    }
   }
 
   /**
