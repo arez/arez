@@ -168,18 +168,9 @@ final class ObservableDescriptor
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
 
-    //, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null
-    if ( _componentDescriptor.isSingleton() )
-    {
-      sb.append( "$S" );
-      parameters.add( _componentDescriptor.getNamePrefix() + getName() );
-    }
-    else
-    {
-      sb.append( "$N() + $S" );
-      parameters.add( _componentDescriptor.getComponentNameMethodName() );
-      parameters.add( "." + getName() );
-    }
+    sb.append( "$N() + $S" );
+    parameters.add( _componentDescriptor.getComponentNameMethodName() );
+    parameters.add( "." + getName() );
     sb.append( " : null, $T.arePropertyIntrospectorsEnabled() ? () -> super.$N() : null" );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     parameters.add( getGetter().getSimpleName().toString() );

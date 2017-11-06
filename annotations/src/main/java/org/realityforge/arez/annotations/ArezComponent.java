@@ -18,14 +18,14 @@ import javax.annotation.Nonnull;
  * of this object. If not specified it will default to the SimpleName of the class.
  * i.e. The class <tt>com.biz.models.MyModel</tt> will default to a name of
  * "MyModel".</li>
- * <li>The {@link #singleton()} method indicates whether there are expected to be
- * multiple instances of this type or just one. If the method returns true then the
- * debug name of contained observables will not include the "id" of the instance.</li>
+ * <li>The {@link #nameIncludesId()} method indicates whether the names in generated components
+ * should include the id. If you expect only one instance of this component, it can be simpler
+ * to elide the id.</li>
  * </ul>
  * <p>The name of any elements contained within the component follows the pattern
  * "<tt>[ArezComponent.name].[ArezComponent.id].[Element.name]</tt>". If the value of {@link #name()}
  * is the empty string then the "<tt>[ArezComponent.name].</tt>" element of name will be elided.
- * If the value of {@link #singleton()} is true then the "<tt>[ArezComponent.id].</tt>" element
+ * If the value of {@link #nameIncludesId()} is false then the "<tt>[ArezComponent.id].</tt>" element
  * of the name will be elided.</p>
  *
  * <p>The type that is annotated with <tt>@ArezComponent</tt> annotation must comply with the additional constraints:</p>
@@ -58,11 +58,11 @@ public @interface ArezComponent
   String name() default "<default>";
 
   /**
-   * Return true if the component can only have a single instance, false otherwise.
+   * Return true if the name derived for component should include the id, false otherwise.
    *
-   * @return true if the component can only have a single instance, false otherwise.
+   * @return true to include the id in the component name, false otherwise.
    */
-  boolean singleton() default false;
+  boolean nameIncludesId() default true;
 
   /**
    * Return true if the component does not need to explicitly declare elements.

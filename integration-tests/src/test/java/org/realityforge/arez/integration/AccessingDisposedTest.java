@@ -20,7 +20,7 @@ public class AccessingDisposedTest
     }
   }
 
-  @ArezComponent( singleton = true )
+  @ArezComponent( nameIncludesId = false )
   static class TestSingletonComponent
   {
     int invokeCount;

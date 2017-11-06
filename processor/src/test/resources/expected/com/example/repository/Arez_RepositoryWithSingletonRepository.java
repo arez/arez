@@ -1,16 +1,16 @@
-import java.util.Objects;
+package com.example.repository;
+
+import java.util.Collection;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
-import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-@SuppressWarnings("unchecked")
-public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implements Disposable {
+public final class Arez_RepositoryWithSingletonRepository extends RepositoryWithSingletonRepository implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -21,17 +21,13 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
   private final ArezContext $$arez$$_context;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable $$arez$$_entities;
 
-  @Nonnull
-  private final ComputedValue<Integer> $$arez$$_someValue;
-
-  public Arez_DefaultMethodsModel() {
+  Arez_RepositoryWithSingletonRepository() {
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
-    this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".someValue" : null, super::someValue, Objects::equals, null, null, null, null );
+    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
   }
 
   final long $$arez$$_id() {
@@ -39,7 +35,7 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
   }
 
   String $$arez$$_name() {
-    return "DefaultMethodsModel";
+    return "RepositoryWithSingletonRepository";
   }
 
   @Override
@@ -52,33 +48,48 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
     if ( !isDisposed() ) {
       this.$$arez$$_disposed = true;
       this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-        this.$$arez$$_someValue.dispose();
-        this.$$arez$$_time.dispose();
+        super.preDispose();
+        this.$$arez$$_entities.dispose();
       } } );
     }
   }
 
+  @Nonnull
   @Override
-  public long getTime() {
+  protected Collection<RepositoryWithSingleton> entities() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    this.$$arez$$_time.reportObserved();
-    return super.getTime();
+    this.$$arez$$_entities.reportObserved();
+    return super.entities();
   }
 
   @Override
-  public void setTime(final long time) {
+  Observable getEntitiesObservable() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    if ( time != super.getTime() ) {
-      super.setTime(time);
-      this.$$arez$$_time.reportChanged();
+    return $$arez$$_entities;
+  }
+
+  @Override
+  public void destroy(@Nonnull final RepositoryWithSingleton entity) {
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    try {
+      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".destroy" : null, true, () -> super.destroy(entity), entity );
+    } catch( final RuntimeException $$arez$$_e ) {
+      throw $$arez$$_e;
+    } catch( final Exception $$arez$$_e ) {
+      throw new IllegalStateException( $$arez$$_e );
+    } catch( final Error $$arez$$_e ) {
+      throw $$arez$$_e;
+    } catch( final Throwable $$arez$$_e ) {
+      throw new IllegalStateException( $$arez$$_e );
     }
   }
 
+  @Nonnull
   @Override
-  public void doStuff(final long time) {
+  RepositoryWithSingleton create(@Nonnull final String name) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
+      return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".create_name" : null, true, () -> super.create(name), name );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -91,12 +102,6 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
   }
 
   @Override
-  public int someValue() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    return this.$$arez$$_someValue.get();
-  }
-
-  @Override
   public final int hashCode() {
     return Long.hashCode( $$arez$$_id() );
   }
@@ -105,10 +110,10 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof Arez_DefaultMethodsModel) ) {
+    } else if ( null == o || !(o instanceof Arez_RepositoryWithSingletonRepository) ) {
       return false;
     } else {
-      final Arez_DefaultMethodsModel that = (Arez_DefaultMethodsModel) o;;
+      final Arez_RepositoryWithSingletonRepository that = (Arez_RepositoryWithSingletonRepository) o;;
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }

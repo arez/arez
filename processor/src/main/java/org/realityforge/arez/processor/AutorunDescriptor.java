@@ -38,7 +38,7 @@ final class AutorunDescriptor
                      @Nonnull final String name,
                      final boolean mutation,
                      @Nonnull final ExecutableElement autorun,
-                     @Nonnull final ExecutableType autorunType)
+                     @Nonnull final ExecutableType autorunType )
   {
     _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
@@ -90,17 +90,9 @@ final class AutorunDescriptor
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    if ( _componentDescriptor.isSingleton() )
-    {
-      sb.append( "$S" );
-      parameters.add( _componentDescriptor.getNamePrefix() + getName() );
-    }
-    else
-    {
-      sb.append( "$N() + $S" );
-      parameters.add( _componentDescriptor.getComponentNameMethodName() );
-      parameters.add( "." + getName() );
-    }
+    sb.append( "$N() + $S" );
+    parameters.add( _componentDescriptor.getComponentNameMethodName() );
+    parameters.add( "." + getName() );
     sb.append( " : null, " );
     sb.append( _mutation );
     sb.append( ", () -> super.$N(), false )" );
@@ -108,6 +100,7 @@ final class AutorunDescriptor
 
     builder.addStatement( sb.toString(), parameters.toArray() );
   }
+
   void buildDisposer( @Nonnull final CodeBlock.Builder codeBlock )
   {
     codeBlock.addStatement( "this.$N.dispose()", GeneratorUtil.FIELD_PREFIX + getName() );
@@ -175,17 +168,9 @@ final class AutorunDescriptor
     statement.append( "safeAction( $T.areNamesEnabled() ? " );
     parameterNames.add( GeneratorUtil.AREZ_CLASSNAME );
 
-    if ( _componentDescriptor.isSingleton() )
-    {
-      statement.append( "$S" );
-      parameterNames.add( _componentDescriptor.getNamePrefix() + getName() );
-    }
-    else
-    {
-      statement.append( "$N() + $S" );
-      parameterNames.add( _componentDescriptor.getComponentNameMethodName() );
-      parameterNames.add( "." + getName() );
-    }
+    statement.append( "$N() + $S" );
+    parameterNames.add( _componentDescriptor.getComponentNameMethodName() );
+    parameterNames.add( "." + getName() );
     statement.append( " : null, " );
     statement.append( _mutation );
     statement.append( ", () -> super." );

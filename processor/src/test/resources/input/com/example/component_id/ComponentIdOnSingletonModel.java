@@ -4,7 +4,7 @@ import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.ComponentId;
 import org.realityforge.arez.annotations.Observable;
 
-@ArezComponent( singleton = true )
+@ArezComponent( nameIncludesId = false )
 public class ComponentIdOnSingletonModel
 {
   @ComponentId

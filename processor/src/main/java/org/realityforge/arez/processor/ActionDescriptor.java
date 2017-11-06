@@ -115,19 +115,10 @@ final class ActionDescriptor
 
     statement.append( "(" );
 
-    if ( _componentDescriptor.isSingleton() )
-    {
-      statement.append( "$T.areNamesEnabled() ? $S : null" );
-      parameterNames.add( GeneratorUtil.AREZ_CLASSNAME );
-      parameterNames.add( _componentDescriptor.getNamePrefix() + getName() );
-    }
-    else
-    {
-      statement.append( "$T.areNamesEnabled() ? $N() + $S : null" );
-      parameterNames.add( GeneratorUtil.AREZ_CLASSNAME );
-      parameterNames.add( _componentDescriptor.getComponentNameMethodName() );
-      parameterNames.add( "." + getName() );
-    }
+    statement.append( "$T.areNamesEnabled() ? $N() + $S : null" );
+    parameterNames.add( GeneratorUtil.AREZ_CLASSNAME );
+    parameterNames.add( _componentDescriptor.getComponentNameMethodName() );
+    parameterNames.add( "." + getName() );
 
     statement.append( ", " );
     statement.append( _mutation );

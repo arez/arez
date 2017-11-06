@@ -50,6 +50,15 @@
   any error scenarios explicitly.
 * **\[core\]** Change the invariant for enforcing transaction type from an `invariant` to a `apiInvariant` so that
   can disable invariants but keep apiInvariants enabled and still invariant. This is useful for downstream consumers.
+* 💥 **\[annotations\]** Remove `singleton` parameter from the `@ArezComponent` annotation. The only valid use case
+  was to control whether the names generated in enhanced component classes included the id of the component in the
+  name. It significantly increased the complexity of code in generators as there was two separate code paths, one for
+  when `singleton=true` and one for where `singleton=false`. It was also used to stop toolkit users from using
+  certain annotations when `singleton=true` (i.e. You could not use `@ContainerId`, `@ContainerName`, `@Repository`).
+  These were arbitrary design decisions and the constraint has been removed. The enhanced component classes will now
+  always generate name helper methods and a synthetic component id if none has been specified. This has simplified
+  the annotation processor and the generated code. To restore the ability to elide the id from the component name,
+  the parameter `nameIncludesId=false` is now supported on the `@ArezComponent` annotation.
 
 ### [v0.24](https://github.com/realityforge/arez/tree/v0.24) (2017-11-02)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.23...v0.24)

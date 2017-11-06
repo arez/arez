@@ -85,7 +85,7 @@ final class ComponentDescriptor
   private List<TypeElement> _repositoryExtensions;
   @Nonnull
   private final String _name;
-  private final boolean _singleton;
+  private final boolean _nameIncludesId;
   private final boolean _allowEmpty;
   private final boolean _generateToString;
   @Nonnull
@@ -124,14 +124,14 @@ final class ComponentDescriptor
     Collections.unmodifiableCollection( _trackeds.values() );
 
   ComponentDescriptor( @Nonnull final String name,
-                       final boolean singleton,
+                       final boolean nameIncludesId,
                        final boolean allowEmpty,
                        final boolean generateToString,
                        @Nonnull final PackageElement packageElement,
                        @Nonnull final TypeElement element )
   {
     _name = Objects.requireNonNull( name );
-    _singleton = singleton;
+    _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
     _generateToString = generateToString;
     _packageElement = Objects.requireNonNull( packageElement );
@@ -148,14 +148,9 @@ final class ComponentDescriptor
    * Get the prefix specified by component if any.
    */
   @Nonnull
-  String getNamePrefix()
+  private String getNamePrefix()
   {
     return getName().isEmpty() ? "" : getName() + ".";
-  }
-
-  boolean isSingleton()
-  {
-    return _singleton;
   }
 
   @Nonnull
@@ -593,11 +588,6 @@ final class ComponentDescriptor
   private void setComponentId( @Nonnull final ExecutableElement componentId )
     throws ArezProcessorException
   {
-    if ( isSingleton() )
-    {
-      throw new ArezProcessorException( "@ComponentId must not exist if @ArezComponent is a singleton", componentId );
-    }
-
     MethodChecks.mustBeSubclassCallable( ComponentId.class, componentId );
     MethodChecks.mustBeFinal( ComponentId.class, componentId );
     MethodChecks.mustNotHaveAnyParameters( ComponentId.class, componentId );
@@ -644,12 +634,6 @@ final class ComponentDescriptor
   private void setComponentName( @Nonnull final ExecutableElement componentName )
     throws ArezProcessorException
   {
-    if ( isSingleton() )
-    {
-      throw new ArezProcessorException( "@ComponentName must not exist if @ArezComponent is a singleton",
-                                        componentName );
-    }
-
     MethodChecks.mustBeOverridable( ComponentName.class, componentName );
     MethodChecks.mustNotHaveAnyParameters( ComponentName.class, componentName );
     MethodChecks.mustReturnAValue( ComponentName.class, componentName );
@@ -1236,14 +1220,11 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildContextRefMethod() );
     }
-    if ( !isSingleton() )
+    if ( null == _componentId )
     {
-      if ( null == _componentId )
-      {
-        builder.addMethod( buildComponentIdMethod() );
-      }
-      builder.addMethod( buildComponentNameMethod() );
+      builder.addMethod( buildComponentIdMethod() );
     }
+    builder.addMethod( buildComponentNameMethod() );
     final MethodSpec method = buildComponentTypeNameMethod();
     if ( null != method )
     {
@@ -1263,11 +1244,8 @@ final class ComponentDescriptor
     _roComputeds.forEach( e -> e.buildMethods( builder ) );
     _roTrackeds.forEach( e -> e.buildMethods( builder ) );
 
-    if ( !isSingleton() )
-    {
-      builder.addMethod( buildHashcodeMethod() );
-      builder.addMethod( buildEqualsMethod() );
-    }
+    builder.addMethod( buildHashcodeMethod() );
+    builder.addMethod( buildEqualsMethod() );
 
     if ( _generateToString )
     {
@@ -1291,14 +1269,7 @@ final class ComponentDescriptor
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "if ( $T.areNamesEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
-    if ( _singleton )
-    {
-      codeBlock.addStatement( "return $S", "ArezComponent[" + _name + "]" );
-    }
-    else
-    {
-      codeBlock.addStatement( "return $S + $N() + $S", "ArezComponent[", getComponentNameMethodName(), "]" );
-    }
+    codeBlock.addStatement( "return $S + $N() + $S", "ArezComponent[", getComponentNameMethodName(), "]" );
     codeBlock.nextControlFlow( "else" );
     codeBlock.addStatement( "return super.toString()" );
     codeBlock.endControlFlow();
@@ -1440,8 +1411,6 @@ final class ComponentDescriptor
   private MethodSpec buildComponentNameMethod()
     throws ArezProcessorException
   {
-    assert !isSingleton();
-
     final MethodSpec.Builder builder;
     if ( null == _componentName )
     {
@@ -1455,9 +1424,16 @@ final class ComponentDescriptor
     }
 
     builder.returns( TypeName.get( String.class ) );
-    builder.addStatement( "return $S + $N()",
-                          getNamePrefix(),
-                          null == _componentId ? GeneratorUtil.ID_FIELD_NAME : _componentId.getSimpleName() );
+    if ( _nameIncludesId )
+    {
+      builder.addStatement( "return $S + $N()",
+                            getNamePrefix(),
+                            null == _componentId ? GeneratorUtil.ID_FIELD_NAME : _componentId.getSimpleName() );
+    }
+    else
+    {
+      builder.addStatement( "return $S", getName() );
+    }
     return builder.build();
   }
 
@@ -1514,20 +1490,10 @@ final class ComponentDescriptor
          !_roObservables.isEmpty() )
     {
       final CodeBlock.Builder actionBlock = CodeBlock.builder();
-      if ( isSingleton() )
-      {
-        actionBlock.beginControlFlow( "this.$N.safeAction( $T.areNamesEnabled() ? $S : null, () -> {",
-                                      GeneratorUtil.CONTEXT_FIELD_NAME,
-                                      GeneratorUtil.AREZ_CLASSNAME,
-                                      getNamePrefix() + "dispose" );
-      }
-      else
-      {
-        actionBlock.beginControlFlow( "this.$N.safeAction( $T.areNamesEnabled() ? $N() + \".dispose\" : null, () -> {",
-                                      GeneratorUtil.CONTEXT_FIELD_NAME,
-                                      GeneratorUtil.AREZ_CLASSNAME,
-                                      getComponentNameMethodName() );
-      }
+      actionBlock.beginControlFlow( "this.$N.safeAction( $T.areNamesEnabled() ? $N() + \".dispose\" : null, () -> {",
+                                    GeneratorUtil.CONTEXT_FIELD_NAME,
+                                    GeneratorUtil.AREZ_CLASSNAME,
+                                    getComponentNameMethodName() );
       if ( hasRepository() )
       {
         final CodeBlock.Builder onDisposeCodeBlock = CodeBlock.builder();
@@ -1589,7 +1555,7 @@ final class ComponentDescriptor
   private void buildFields( @Nonnull final TypeSpec.Builder builder )
   {
     // If we don't have a method for object id but we need one then synthesize it
-    if ( !isSingleton() && null == _componentId )
+    if ( null == _componentId )
     {
       final FieldSpec.Builder nextIdField =
         FieldSpec.builder( TypeName.LONG,
@@ -1686,7 +1652,7 @@ final class ComponentDescriptor
     builder.addStatement( "this.$N = $T.context()", GeneratorUtil.CONTEXT_FIELD_NAME, GeneratorUtil.AREZ_CLASSNAME );
 
     // Synthesize Id if required
-    if ( !isSingleton() && null == _componentId )
+    if ( null == _componentId )
     {
       builder.addStatement( "this.$N = $N++", GeneratorUtil.ID_FIELD_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
     }
@@ -1720,11 +1686,6 @@ final class ComponentDescriptor
   {
     assert null != name;
     assert null != extensions;
-    if ( isSingleton() )
-    {
-      throw new ArezProcessorException( "The class annotated with @Repository is a singleton and thus can " +
-                                        "not define a repository", _element );
-    }
     if ( ProcessorUtil.isSentinelName( name ) )
     {
       _repositoryName = _name + "Repository";
@@ -1805,7 +1766,7 @@ final class ComponentDescriptor
       addMember( "value", "$S", ArezProcessor.class.getName() ).
       build() );
     builder.addAnnotation( AnnotationSpec.builder( ArezComponent.class ).
-      addMember( "singleton", "true" ).
+      addMember( "nameIncludesId", "false" ).
       build() );
 
     builder.addSuperinterface( ClassName.get( getPackageName(), getRepositoryExtensionName() ) );

@@ -11,8 +11,7 @@ import java.lang.annotation.Target;
  * subclass. If not specified Arez will generate a private method (currently named <tt>$$arez$$_id()</tt>)
  * that serves the same purpose. The method returns a string name for the model if names are enabled.
  *
- * <p>This annotation should appear at most once on a component and should
- * not be present if the {@link ArezComponent#singleton()} is set to true. The
+ * <p>This annotation should appear at most once on a component. The
  * annotation should be on a method that accepts no parameters and returns
  * a String.</p>
  *

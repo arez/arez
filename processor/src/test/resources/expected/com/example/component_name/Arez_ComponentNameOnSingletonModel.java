@@ -8,7 +8,7 @@ import org.realityforge.arez.Disposable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_ComponentTypeNameAloneOnSingletonModel extends ComponentTypeNameAloneOnSingletonModel implements Disposable {
+public final class Arez_ComponentNameOnSingletonModel extends ComponentNameOnSingletonModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -18,7 +18,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
   @Nonnull
   private final ArezContext $$arez$$_context;
 
-  public Arez_ComponentTypeNameAloneOnSingletonModel() {
+  public Arez_ComponentNameOnSingletonModel() {
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
@@ -28,13 +28,8 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
     return this.$$arez$$_id;
   }
 
-  String $$arez$$_name() {
-    return "ComponentTypeNameAloneOnSingletonModel";
-  }
-
-  @Nonnull
-  public final String getTypeName() {
-    return "ComponentTypeNameAloneOnSingletonModel";
+  final String getTypeName() {
+    return "ComponentNameOnSingletonModel";
   }
 
   @Override
@@ -50,10 +45,10 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
   }
 
   @Override
-  public void doStuff(final long time, final float someOtherParameter) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+  void myAction() {
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getTypeName() + "'" );
     try {
-      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time,someOtherParameter), time, someOtherParameter );
+      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? getTypeName() + ".myAction" : null, true, () -> super.myAction() );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -74,10 +69,10 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof Arez_ComponentTypeNameAloneOnSingletonModel) ) {
+    } else if ( null == o || !(o instanceof Arez_ComponentNameOnSingletonModel) ) {
       return false;
     } else {
-      final Arez_ComponentTypeNameAloneOnSingletonModel that = (Arez_ComponentTypeNameAloneOnSingletonModel) o;;
+      final Arez_ComponentNameOnSingletonModel that = (Arez_ComponentNameOnSingletonModel) o;;
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }
@@ -85,7 +80,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
   @Override
   public final String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + $$arez$$_name() + "]";
+      return "ArezComponent[" + getTypeName() + "]";
     } else {
       return super.toString();
     }

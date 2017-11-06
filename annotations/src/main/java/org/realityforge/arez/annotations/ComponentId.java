@@ -7,8 +7,7 @@ import java.lang.annotation.Target;
 /**
  * Annotate the method that should return the Id for Arez component.
  *
- * <p>This annotation should appear at most once on a component and should
- * not be present if the {@link ArezComponent#singleton()} is set to true. The
+ * <p>This annotation should appear at most once on a component. The
  * annotation should be on a method that accepts no parameters and returns
  * a non-null value.</p>
  *

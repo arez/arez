@@ -41,7 +41,7 @@ import org.realityforge.arez.annotations.OnDeactivate;
  * }</pre>
  */
 @Unsupported( "This is still considered experimental and will likely evolve over time" )
-@ArezComponent( singleton = true )
+@ArezComponent( nameIncludesId = false )
 public class NetworkStatus
 {
   private final EventListener _listener;

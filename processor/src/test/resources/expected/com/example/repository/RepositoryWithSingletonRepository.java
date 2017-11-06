@@ -25,27 +25,27 @@ import org.realityforge.braincheck.Guards;
 @ArezComponent(
     nameIncludesId = false
 )
-public class NestedModel$BasicActionModelRepository implements NestedModel$BasicActionModelBaseRepositoryExtension {
-  private final HashMap<Long, NestedModel.BasicActionModel> $$arez$$_entities = new HashMap<>();
+public class RepositoryWithSingletonRepository implements RepositoryWithSingletonBaseRepositoryExtension {
+  private final HashMap<Long, RepositoryWithSingleton> $$arez$$_entities = new HashMap<>();
   ;
 
-  private final Collection<NestedModel.BasicActionModel> $$arez$$_entityList = Collections.unmodifiableCollection( this.$$arez$$_entities.values() );
+  private final Collection<RepositoryWithSingleton> $$arez$$_entityList = Collections.unmodifiableCollection( this.$$arez$$_entities.values() );
   ;
 
-  NestedModel$BasicActionModelRepository() {
+  RepositoryWithSingletonRepository() {
   }
 
   @Nonnull
-  public static NestedModel$BasicActionModelRepository newRepository() {
-    return new Arez_NestedModel$BasicActionModelRepository();
+  public static RepositoryWithSingletonRepository newRepository() {
+    return new Arez_RepositoryWithSingletonRepository();
   }
 
   @Action(
-      name = "create"
+      name = "create_name"
   )
   @Nonnull
-  public NestedModel.BasicActionModel create() {
-    final NestedModel$Arez_BasicActionModel entity = new NestedModel$Arez_BasicActionModel();
+  RepositoryWithSingleton create(@Nonnull final String name) {
+    final Arez_RepositoryWithSingleton entity = new Arez_RepositoryWithSingleton(name);
     entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     this.$$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
@@ -59,16 +59,16 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
     getEntitiesObservable().reportChanged();
   }
 
-  public boolean contains(@Nonnull final NestedModel.BasicActionModel entity) {
+  public boolean contains(@Nonnull final RepositoryWithSingleton entity) {
     getEntitiesObservable().reportObserved();
-    return entity instanceof NestedModel$Arez_BasicActionModel && this.$$arez$$_entities.containsKey( ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_id() );
+    return entity instanceof Arez_RepositoryWithSingleton && this.$$arez$$_entities.containsKey( ((Arez_RepositoryWithSingleton) entity).$$arez$$_id() );
   }
 
   @Action
-  public void destroy(@Nonnull final NestedModel.BasicActionModel entity) {
+  public void destroy(@Nonnull final RepositoryWithSingleton entity) {
     assert null != entity;
-    if ( entity instanceof NestedModel$Arez_BasicActionModel && null != this.$$arez$$_entities.remove( ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_id() ) ) {
-      ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_setOnDispose( null );
+    if ( entity instanceof Arez_RepositoryWithSingleton && null != this.$$arez$$_entities.remove( ((Arez_RepositoryWithSingleton) entity).$$arez$$_id() ) ) {
+      ((Arez_RepositoryWithSingleton) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();
     } else {
@@ -90,7 +90,7 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
       expectSetter = false
   )
   @Nonnull
-  protected Collection<NestedModel.BasicActionModel> entities() {
+  protected Collection<RepositoryWithSingleton> entities() {
     return $$arez$$_entityList;
   }
 
@@ -99,7 +99,7 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
    * This method should be called by repository extensions when returning list results when not using {@link toList(List)}.
    */
   @Nonnull
-  protected final List<NestedModel.BasicActionModel> wrap(@Nonnull final List<NestedModel.BasicActionModel> list) {
+  protected final List<RepositoryWithSingleton> wrap(@Nonnull final List<RepositoryWithSingleton> list) {
     return Arez.areRepositoryResultsModifiable() ? Collections.unmodifiableList( list ) : list;
   }
 
@@ -108,38 +108,38 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
    * This method should be called by repository extensions when returning list results.
    */
   @Nonnull
-  protected final List<NestedModel.BasicActionModel> toList(@Nonnull final Stream<NestedModel.BasicActionModel> stream) {
+  protected final List<RepositoryWithSingleton> toList(@Nonnull final Stream<RepositoryWithSingleton> stream) {
     return wrap( stream.collect( Collectors.toList() ) );
   }
 
   @Nonnull
-  public final List<NestedModel.BasicActionModel> findAll() {
+  public final List<RepositoryWithSingleton> findAll() {
     return toList( entities().stream() );
   }
 
   @Nonnull
-  public final List<NestedModel.BasicActionModel> findAll(@Nonnull final Comparator<NestedModel.BasicActionModel> sorter) {
+  public final List<RepositoryWithSingleton> findAll(@Nonnull final Comparator<RepositoryWithSingleton> sorter) {
     return toList( entities().stream().sorted( sorter ) );
   }
 
   @Nonnull
-  public final List<NestedModel.BasicActionModel> findAllByQuery(@Nonnull final Predicate<NestedModel.BasicActionModel> query) {
+  public final List<RepositoryWithSingleton> findAllByQuery(@Nonnull final Predicate<RepositoryWithSingleton> query) {
     return toList( entities().stream().filter( query ) );
   }
 
   @Nonnull
-  public final List<NestedModel.BasicActionModel> findAllByQuery(@Nonnull final Predicate<NestedModel.BasicActionModel> query, @Nonnull final Comparator<NestedModel.BasicActionModel> sorter) {
+  public final List<RepositoryWithSingleton> findAllByQuery(@Nonnull final Predicate<RepositoryWithSingleton> query, @Nonnull final Comparator<RepositoryWithSingleton> sorter) {
     return toList( entities().stream().filter( query ).sorted( sorter ) );
   }
 
   @Nullable
-  public final NestedModel.BasicActionModel findByQuery(@Nonnull final Predicate<NestedModel.BasicActionModel> query) {
+  public final RepositoryWithSingleton findByQuery(@Nonnull final Predicate<RepositoryWithSingleton> query) {
     return entities().stream().filter( query ).findFirst().orElse( null );
   }
 
   @Nonnull
-  public final NestedModel.BasicActionModel getByQuery(@Nonnull final Predicate<NestedModel.BasicActionModel> query) {
-    final NestedModel.BasicActionModel entity = findByQuery( query );
+  public final RepositoryWithSingleton getByQuery(@Nonnull final Predicate<RepositoryWithSingleton> query) {
+    final RepositoryWithSingleton entity = findByQuery( query );
     if ( null == entity ) {
       throw new NoResultException();
     }
@@ -148,7 +148,7 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
 
   @Override
   @Nonnull
-  public final NestedModel$BasicActionModelRepository self() {
+  public final RepositoryWithSingletonRepository self() {
     return this;
   }
 }

@@ -6,7 +6,7 @@ import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.OnDepsChanged;
 import org.realityforge.arez.annotations.Track;
 
-@ArezComponent( singleton = true )
+@ArezComponent( nameIncludesId = false )
 public class SingletonModel
 {
   @Observable

@@ -24,7 +24,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @ArezComponent(
-    singleton = true
+    nameIncludesId = false
 )
 public class CompleteRepositoryExampleRepository implements CompleteRepositoryExampleBaseRepositoryExtension, CompleteRepositoryExample.FooEx {
   private final HashMap<Integer, CompleteRepositoryExample> $$arez$$_entities = new HashMap<>();

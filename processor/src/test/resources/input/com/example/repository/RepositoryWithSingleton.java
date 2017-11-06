@@ -6,7 +6,7 @@ import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.Repository;
 
 @Repository
-@ArezComponent( singleton = true )
+@ArezComponent( nameIncludesId = false )
 public class RepositoryWithSingleton
 {
   @Nonnull

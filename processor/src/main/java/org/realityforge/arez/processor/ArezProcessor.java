@@ -135,7 +135,7 @@ public final class ArezProcessor
 
     final ComponentDescriptor descriptor =
       new ComponentDescriptor( name,
-                               arezComponent.singleton(),
+                               arezComponent.nameIncludesId(),
                                arezComponent.allowEmpty(),
                                generateToString,
                                packageElement,

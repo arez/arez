@@ -15,8 +15,7 @@ import org.realityforge.anodoc.Unsupported;
  * but the repositories provide an easy solution.
  *
  * <p>This annotation can only be added to classes that have been annotated with the
- * {@link ArezComponent} annotation and {@link ArezComponent#singleton()} MUST be
- * false.</p>
+ * {@link ArezComponent} annotation.</p>
  *
  * <p>Annotating a class with this annotation will result in the following artifacts.</p>
  *

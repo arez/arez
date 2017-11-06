@@ -56,7 +56,7 @@ import org.realityforge.arez.annotations.PreDispose;
  * }</pre>
  */
 @Unsupported( "This is still considered experimental and will likely evolve over time" )
-@ArezComponent( singleton = true )
+@ArezComponent( nameIncludesId = false )
 public class IdleStatus
 {
   private static final long DEFAULT_TIMEOUT = 2000L;

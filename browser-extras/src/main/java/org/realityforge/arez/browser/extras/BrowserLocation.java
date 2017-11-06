@@ -28,7 +28,7 @@ import org.realityforge.arez.annotations.PreDispose;
  * the view. Observing the browser location will allow the application to decide whether the
  * route should be updated.</p>
  */
-@ArezComponent( singleton = true )
+@ArezComponent( nameIncludesId = false )
 @Unsupported( "This is still considered experimental and will likely evolve over time" )
 public class BrowserLocation
 {

@@ -23,7 +23,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @ArezComponent(
-    singleton = true
+    nameIncludesId = false
 )
 public class RepositoryWithProtectedConstructorRepository implements RepositoryWithProtectedConstructorBaseRepositoryExtension {
   private final HashMap<Long, RepositoryWithProtectedConstructor> $$arez$$_entities = new HashMap<>();

@@ -201,17 +201,9 @@ final class ComputedDescriptor
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    if ( _componentDescriptor.isSingleton() )
-    {
-      sb.append( "$S" );
-      parameters.add( _componentDescriptor.getNamePrefix() + getName() );
-    }
-    else
-    {
-      sb.append( "$N() + $S" );
-      parameters.add( _componentDescriptor.getComponentNameMethodName() );
-      parameters.add( "." + getName() );
-    }
+    sb.append( "$N() + $S" );
+    parameters.add( _componentDescriptor.getComponentNameMethodName() );
+    parameters.add( "." + getName() );
     sb.append( " : null, super::$N, $T::equals, " );
     parameters.add( _computed.getSimpleName().toString() );
     parameters.add( Objects.class );

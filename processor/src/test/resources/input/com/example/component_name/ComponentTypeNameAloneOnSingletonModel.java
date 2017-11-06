@@ -4,7 +4,7 @@ import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.ComponentTypeName;
 
-@ArezComponent( singleton = true )
+@ArezComponent( nameIncludesId = false )
 public class ComponentTypeNameAloneOnSingletonModel
 {
   @Action
