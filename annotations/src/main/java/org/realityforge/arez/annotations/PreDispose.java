@@ -7,6 +7,8 @@ import java.lang.annotation.Target;
 /**
  * Annotation to identify method invoked prior to disposing element.
  * At most 1 method should be annotated with this annotation.
+ * The PreDispose method is the first method invoked during dispose operation and it occurs at the start
+ * of the transaction that dispose is occurring within.
  *
  * <p>The method that is annotated with @PreDispose must comply with the additional constraints:</p>
  * <ul>
