@@ -176,7 +176,7 @@ public final class Observer
     if ( !_disposed )
     {
       runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
-      getContext().safeAction( Arez.areNamesEnabled() ? getName() : null,
+      getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
                                ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE : null,
                                () -> getContext().getTransaction().markTrackerAsDisposed(),
                                this );

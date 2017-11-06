@@ -267,7 +267,7 @@ public class ComputedValueTest
 
       assertEquals( exception.getMessage(),
                     "Attempting to create READ_WRITE transaction named '" + computedValue.getName() +
-                    "' but it is nested in transaction named '" + context.getTransaction().getName() +
+                    ".dispose' but it is nested in transaction named '" + context.getTransaction().getName() +
                     "' with mode READ_ONLY which is not equal to READ_WRITE." );
 
       assertEquals( observer.isDisposed(), false );
