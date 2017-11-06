@@ -5,6 +5,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Component;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
@@ -22,6 +23,8 @@ public final class Arez_RepositoryWithProtectedConstructor extends RepositoryWit
   @Nonnull
   private final ArezContext $$arez$$_context;
 
+  private final Component $$arez$$_component;
+
   @Nonnull
   private final Observable $$arez$$_name;
 
@@ -29,7 +32,11 @@ public final class Arez_RepositoryWithProtectedConstructor extends RepositoryWit
     super(name);
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_name = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setName( v ) : null );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "RepositoryWithProtectedConstructor", $$arez$$_id(), $$arez$$_name() ) : null;
+    this.$$arez$$_name = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setName( v ) : null );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      this.$$arez$$_component.complete();
+    }
   }
 
   final long $$arez$$_id() {

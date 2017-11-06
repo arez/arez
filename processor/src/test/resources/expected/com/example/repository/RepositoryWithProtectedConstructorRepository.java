@@ -96,7 +96,7 @@ public class RepositoryWithProtectedConstructorRepository implements RepositoryW
 
   /**
    * If config option enabled, wrap the specified list in an immutable list and return it.
-   * This method should be called by repository extensions when returning list results when not using {@link toList(List)}.
+   * This method should be called by repository extensions when returning list results when not using {@link #toList(List)}.
    */
   @Nonnull
   protected final List<RepositoryWithProtectedConstructor> wrap(@Nonnull final List<RepositoryWithProtectedConstructor> list) {

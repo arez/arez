@@ -4,6 +4,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Component;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observer;
 import org.realityforge.braincheck.Guards;
@@ -19,6 +20,8 @@ public final class Arez_RefOnBothModel extends RefOnBothModel implements Disposa
   @Nonnull
   private final ArezContext $$arez$$_context;
 
+  private final Component $$arez$$_component;
+
   @Nonnull
   private final Observer $$arez$$_doStuff;
 
@@ -29,8 +32,12 @@ public final class Arez_RefOnBothModel extends RefOnBothModel implements Disposa
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_doStuff = this.$$arez$$_context.autorun( Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(), false );
-    this.$$arez$$_render = this.$$arez$$_context.tracker( Arez.areNamesEnabled() ? $$arez$$_name() + ".render" : null, true, () -> super.onRenderDepsChanged() );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "RefOnBothModel", $$arez$$_id(), $$arez$$_name() ) : null;
+    this.$$arez$$_doStuff = this.$$arez$$_context.autorun( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(), false );
+    this.$$arez$$_render = this.$$arez$$_context.tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render" : null, true, () -> super.onRenderDepsChanged() );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      this.$$arez$$_component.complete();
+    }
     this.$$arez$$_context.triggerScheduler();
   }
 

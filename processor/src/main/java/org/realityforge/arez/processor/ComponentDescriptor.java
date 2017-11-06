@@ -1578,6 +1578,16 @@ final class ComponentDescriptor
       builder.addField( field.build() );
     }
 
+    //Create the field that contains the component
+    {
+      final FieldSpec.Builder field =
+        FieldSpec.builder( GeneratorUtil.COMPONENT_CLASSNAME,
+                           GeneratorUtil.COMPONENT_FIELD_NAME,
+                           Modifier.FINAL,
+                           Modifier.PRIVATE );
+      builder.addField( field.build() );
+
+    }
     _roObservables.forEach( observable -> observable.buildFields( builder ) );
     _roComputeds.forEach( computed -> computed.buildFields( builder ) );
     _roAutoruns.forEach( autorun -> autorun.buildFields( builder ) );
@@ -1642,6 +1652,18 @@ final class ComponentDescriptor
       builder.addStatement( "this.$N = $N++", GeneratorUtil.ID_FIELD_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
     }
 
+    // Create component representation if required
+    {
+      builder.
+        addStatement( "this.$N = $T.areNativeComponentsEnabled() ? this.$N.createComponent( $S, $N(), $N() ) : null",
+                      GeneratorUtil.COMPONENT_FIELD_NAME,
+                      GeneratorUtil.AREZ_CLASSNAME,
+                      GeneratorUtil.CONTEXT_FIELD_NAME,
+                      _type,
+                      getIdMethodName(),
+                      getComponentNameMethodName() );
+    }
+
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );
     _roComputeds.forEach( computed -> computed.buildInitializer( builder ) );
     _roAutoruns.forEach( autorun -> autorun.buildInitializer( builder ) );
@@ -1652,6 +1674,13 @@ final class ComponentDescriptor
     {
       builder.addStatement( "super.$N()", postConstruct.getSimpleName().toString() );
     }
+
+    final CodeBlock.Builder componentEnabledBlock = CodeBlock.builder();
+    componentEnabledBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )",
+                                            GeneratorUtil.AREZ_CLASSNAME );
+    componentEnabledBlock.addStatement( "this.$N.complete()", GeneratorUtil.COMPONENT_FIELD_NAME );
+    componentEnabledBlock.endControlFlow();
+    builder.addCode( componentEnabledBlock.build() );
 
     if ( !_roAutoruns.isEmpty() )
     {
@@ -1847,7 +1876,7 @@ final class ComponentDescriptor
       addModifiers( Modifier.PROTECTED, Modifier.FINAL ).
       addJavadoc( "If config option enabled, wrap the specified list in an immutable list and return it.\n" +
                   "This method should be called by repository extensions when returning list results " +
-                  "when not using {@link toList(List)}.\n" ).
+                  "when not using {@link #toList(List)}.\n" ).
       addAnnotation( Nonnull.class ).
       addParameter( ParameterSpec.builder( listType, "list", Modifier.FINAL ).
         addAnnotation( Nonnull.class ).build() ).

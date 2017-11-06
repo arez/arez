@@ -3,6 +3,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Component;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
@@ -18,6 +19,8 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   @Nonnull
   private final ArezContext $$arez$$_context;
 
+  private final Component $$arez$$_component;
+
   @Nonnull
   private final Observable $$arez$$_string;
 
@@ -31,9 +34,13 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_string = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".string" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getString() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setString( v ) : null );
-    this.$$arez$$_foo = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".foo" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.isFoo() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setFoo( v ) : null );
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ObservableGuessingModel", $$arez$$_id(), $$arez$$_name() ) : null;
+    this.$$arez$$_string = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".string" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getString() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setString( v ) : null );
+    this.$$arez$$_foo = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".foo" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.isFoo() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setFoo( v ) : null );
+    this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      this.$$arez$$_component.complete();
+    }
   }
 
   final long $$arez$$_id() {

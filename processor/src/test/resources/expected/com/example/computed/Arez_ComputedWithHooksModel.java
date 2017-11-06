@@ -5,6 +5,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Component;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
 import org.realityforge.braincheck.Guards;
@@ -21,6 +22,8 @@ public final class Arez_ComputedWithHooksModel extends ComputedWithHooksModel im
   @Nonnull
   private final ArezContext $$arez$$_context;
 
+  private final Component $$arez$$_component;
+
   @Nonnull
   private final ComputedValue<Long> $$arez$$_time;
 
@@ -28,7 +31,11 @@ public final class Arez_ComputedWithHooksModel extends ComputedWithHooksModel im
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, super::getTime, Objects::equals, this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, this::onTimeDispose );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ComputedWithHooksModel", $$arez$$_id(), $$arez$$_name() ) : null;
+    this.$$arez$$_time = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, super::getTime, Objects::equals, this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, this::onTimeDispose );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      this.$$arez$$_component.complete();
+    }
   }
 
   final long $$arez$$_id() {

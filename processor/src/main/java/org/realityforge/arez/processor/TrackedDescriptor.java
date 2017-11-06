@@ -146,14 +146,16 @@ final class TrackedDescriptor
     assert null != _onDepsChangedMethod;
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = this.$N.tracker( $T.areNamesEnabled() ? " );
+    sb.append( "this.$N = this.$N.tracker( " +
+               "$T.areNativeComponentsEnabled() ? this.$N : null, " +
+               "$T.areNamesEnabled() ? $N() + $S : null, " );
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    sb.append( "$N() + $S" );
+    parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     parameters.add( _componentDescriptor.getComponentNameMethodName() );
     parameters.add( "." + getName() );
-    sb.append( " : null, " );
     sb.append( _mutation );
     sb.append( ", () -> super.$N() )" );
     parameters.add( _onDepsChangedMethod.getSimpleName().toString() );

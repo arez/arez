@@ -1,6 +1,10 @@
 
 [
     {
+        "component": "PersonModel",
+        "type": "ComponentCreateStarted"
+    },
+    {
         "observable": "PersonModel.lastName",
         "type": "ObservableCreated"
     },
@@ -11,6 +15,10 @@
     {
         "computedValue": "PersonModel.fullName",
         "type": "ComputedValueCreated"
+    },
+    {
+        "component": "PersonModel",
+        "type": "ComponentCreateCompleted"
     },
     {
         "observer": "FirstNamePrinter",

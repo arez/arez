@@ -112,7 +112,7 @@ public class CompleteRepositoryExampleRepository implements CompleteRepositoryEx
 
   /**
    * If config option enabled, wrap the specified list in an immutable list and return it.
-   * This method should be called by repository extensions when returning list results when not using {@link toList(List)}.
+   * This method should be called by repository extensions when returning list results when not using {@link #toList(List)}.
    */
   @Nonnull
   protected final List<CompleteRepositoryExample> wrap(@Nonnull final List<CompleteRepositoryExample> list) {

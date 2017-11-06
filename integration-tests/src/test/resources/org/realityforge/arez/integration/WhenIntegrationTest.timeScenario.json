@@ -1,8 +1,16 @@
 
 [
     {
+        "component": "Time",
+        "type": "ComponentCreateStarted"
+    },
+    {
         "observable": "Time.time",
         "type": "ObservableCreated"
+    },
+    {
+        "component": "Time",
+        "type": "ComponentCreateCompleted"
     },
     {
         "mutation": true,
@@ -21,6 +29,10 @@
         "transaction": "Time.updateTime"
     },
     {
+        "component": "Watcher.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
         "computedValue": "Watcher.0.condition",
         "type": "ComputedValueCreated"
     },
@@ -31,6 +43,10 @@
     {
         "observer": "Watcher.0.checkCondition",
         "type": "ReactionScheduled"
+    },
+    {
+        "component": "Watcher.0",
+        "type": "ComponentCreateCompleted"
     },
     {
         "observer": "Watcher.0.checkCondition",

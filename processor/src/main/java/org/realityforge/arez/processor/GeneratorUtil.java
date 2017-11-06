@@ -14,6 +14,7 @@ final class GeneratorUtil
   static final ClassName OBSERVER_CLASSNAME = ClassName.get( "org.realityforge.arez", "Observer" );
   static final ClassName COMPUTED_VALUE_CLASSNAME = ClassName.get( "org.realityforge.arez", "ComputedValue" );
   static final ClassName DISPOSABLE_CLASSNAME = ClassName.get( "org.realityforge.arez", "Disposable" );
+  static final ClassName COMPONENT_CLASSNAME = ClassName.get( "org.realityforge.arez", "Component" );
   static final String FIELD_PREFIX = "$$arez$$_";
   static final String CAUGHT_THROWABLE_NAME = FIELD_PREFIX + "e";
   static final String DISPOSED_FIELD_NAME = FIELD_PREFIX + "disposed";
@@ -23,6 +24,7 @@ final class GeneratorUtil
   static final String NAME_METHOD_NAME = FIELD_PREFIX + "name";
   static final String NEXT_ID_FIELD_NAME = FIELD_PREFIX + "nextId";
   static final String CONTEXT_FIELD_NAME = FIELD_PREFIX + "context";
+  static final String COMPONENT_FIELD_NAME = FIELD_PREFIX + "component";
 
   private GeneratorUtil()
   {

@@ -4,6 +4,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Component;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
@@ -15,13 +16,19 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
   @Nonnull
   private final ArezContext $$arez$$_context;
 
+  private final Component $$arez$$_component;
+
   @Nonnull
   private final Observable $$arez$$_field;
 
   public Arez_ComponentIdOnSingletonModel() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_field = this.$$arez$$_context.createObservable( Arez.areNamesEnabled() ? $$arez$$_name() + ".field" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getField() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setField( v ) : null );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ComponentIdOnSingletonModel", getId(), $$arez$$_name() ) : null;
+    this.$$arez$$_field = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".field" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getField() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setField( v ) : null );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      this.$$arez$$_component.complete();
+    }
   }
 
   String $$arez$$_name() {

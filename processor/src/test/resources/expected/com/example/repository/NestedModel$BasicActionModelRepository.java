@@ -96,7 +96,7 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
 
   /**
    * If config option enabled, wrap the specified list in an immutable list and return it.
-   * This method should be called by repository extensions when returning list results when not using {@link toList(List)}.
+   * This method should be called by repository extensions when returning list results when not using {@link #toList(List)}.
    */
   @Nonnull
   protected final List<NestedModel.BasicActionModel> wrap(@Nonnull final List<NestedModel.BasicActionModel> list) {

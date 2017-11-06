@@ -5,6 +5,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Component;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observer;
 import org.realityforge.braincheck.Guards;
@@ -19,6 +20,8 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
 
   @Nonnull
   private final ArezContext $$arez$$_context;
+
+  private final Component $$arez$$_component;
 
   @Nonnull
   private final Observer $$arez$$_render2;
@@ -36,10 +39,14 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_render2 = this.$$arez$$_context.tracker( Arez.areNamesEnabled() ? $$arez$$_name() + ".render2" : null, true, () -> super.onRender2DepsChanged() );
-    this.$$arez$$_render3 = this.$$arez$$_context.tracker( Arez.areNamesEnabled() ? $$arez$$_name() + ".render3" : null, true, () -> super.onRender3DepsChanged() );
-    this.$$arez$$_render4 = this.$$arez$$_context.tracker( Arez.areNamesEnabled() ? $$arez$$_name() + ".render4" : null, true, () -> super.onRender4DepsChanged() );
-    this.$$arez$$_render1 = this.$$arez$$_context.tracker( Arez.areNamesEnabled() ? $$arez$$_name() + ".render1" : null, true, () -> super.onRender1DepsChanged() );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "TrackedAllTypesModel", $$arez$$_id(), $$arez$$_name() ) : null;
+    this.$$arez$$_render2 = this.$$arez$$_context.tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render2" : null, true, () -> super.onRender2DepsChanged() );
+    this.$$arez$$_render3 = this.$$arez$$_context.tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render3" : null, true, () -> super.onRender3DepsChanged() );
+    this.$$arez$$_render4 = this.$$arez$$_context.tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render4" : null, true, () -> super.onRender4DepsChanged() );
+    this.$$arez$$_render1 = this.$$arez$$_context.tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render1" : null, true, () -> super.onRender1DepsChanged() );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      this.$$arez$$_component.complete();
+    }
   }
 
   final long $$arez$$_id() {

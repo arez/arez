@@ -4,6 +4,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Component;
 import org.realityforge.arez.Disposable;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
@@ -17,10 +18,16 @@ final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent imple
   @Nonnull
   private final ArezContext $$arez$$_context;
 
+  private final Component $$arez$$_component;
+
   Arez_ProtectedAccessComponent() {
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ProtectedAccessComponent", $$arez$$_id(), $$arez$$_name() ) : null;
+    if ( Arez.areNativeComponentsEnabled() ) {
+      this.$$arez$$_component.complete();
+    }
   }
 
   protected final ArezContext getContext() {

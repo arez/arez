@@ -7,6 +7,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Component;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
 import org.realityforge.braincheck.Guards;
@@ -19,6 +20,8 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   @Nonnull
   private final ArezContext $$arez$$_context;
 
+  private final Component $$arez$$_component;
+
   @Nonnull
   private final ComputedValue<IOException> $$arez$$_compError;
 
@@ -28,22 +31,34 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   public Arez_ConcreteModel(final W writer) {
     super(writer);
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
-    this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ConcreteModel", getComponentId(), $$arez$$_name() ) : null;
+    this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
+    this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      this.$$arez$$_component.complete();
+    }
   }
 
   public Arez_ConcreteModel(final IOException error) {
     super(error);
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
-    this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ConcreteModel", getComponentId(), $$arez$$_name() ) : null;
+    this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
+    this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      this.$$arez$$_component.complete();
+    }
   }
 
   public Arez_ConcreteModel(final IOException error, final W writer, final int i) {
     super(error,writer,i);
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
-    this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( Arez.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ConcreteModel", getComponentId(), $$arez$$_name() ) : null;
+    this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
+    this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      this.$$arez$$_component.complete();
+    }
   }
 
   String $$arez$$_name() {

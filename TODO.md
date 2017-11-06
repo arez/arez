@@ -31,8 +31,6 @@ complete as there is too much un-said.
 
 * Enhance Spy to support the access/mutation of of `Observable` if property introspection valid.
 
-* Enhance the annotation processor to generate Components if native components are enabled.
-
 * Annotation processor should generate code that just calls Component.dispose() if native components
   enabled otherwise it continues with current code path.
 

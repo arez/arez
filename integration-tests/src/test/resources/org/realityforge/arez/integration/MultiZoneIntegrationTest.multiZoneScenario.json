@@ -1,6 +1,10 @@
 
 [
     {
+        "component": "PersonModel.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
         "observable": "PersonModel.0.lastName",
         "type": "ObservableCreated"
     },
@@ -13,6 +17,14 @@
         "type": "ComputedValueCreated"
     },
     {
+        "component": "PersonModel.0",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "PersonModel.1",
+        "type": "ComponentCreateStarted"
+    },
+    {
         "observable": "PersonModel.1.lastName",
         "type": "ObservableCreated"
     },
@@ -23,6 +35,10 @@
     {
         "computedValue": "PersonModel.1.fullName",
         "type": "ComputedValueCreated"
+    },
+    {
+        "component": "PersonModel.1",
+        "type": "ComponentCreateCompleted"
     },
     {
         "observer": "FirstNamePrinter1",

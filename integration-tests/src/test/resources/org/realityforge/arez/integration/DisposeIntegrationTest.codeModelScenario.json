@@ -1,6 +1,10 @@
 
 [
     {
+        "component": "CodeModel.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
         "observable": "CodeModel.0.name",
         "type": "ObservableCreated"
     },
@@ -15,6 +19,10 @@
     {
         "computedValue": "CodeModel.0.qualifiedName",
         "type": "ComputedValueCreated"
+    },
+    {
+        "component": "CodeModel.0",
+        "type": "ComponentCreateCompleted"
     },
     {
         "observer": "Printer",

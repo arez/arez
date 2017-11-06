@@ -35,8 +35,16 @@
         "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.create_id_value"
     },
     {
+        "component": "TestComponent.3",
+        "type": "ComponentCreateStarted"
+    },
+    {
         "observable": "TestComponent.3.value",
         "type": "ObservableCreated"
+    },
+    {
+        "component": "TestComponent.3",
+        "type": "ComponentCreateCompleted"
     },
     {
         "observable": "BasicRepositoryIntegrationTest$TestComponentRepository.entities",

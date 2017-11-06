@@ -163,15 +163,17 @@ final class ObservableDescriptor
   {
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = this.$N.createObservable( $T.areNamesEnabled() ? " );
+    sb.append( "this.$N = this.$N.createObservable( " +
+               "$T.areNativeComponentsEnabled() ? this.$N : null, " +
+               "$T.areNamesEnabled() ? $N() + $S : null, " +
+               "$T.arePropertyIntrospectorsEnabled() ? () -> super.$N() : null" );
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
     parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-
-    sb.append( "$N() + $S" );
+    parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     parameters.add( _componentDescriptor.getComponentNameMethodName() );
     parameters.add( "." + getName() );
-    sb.append( " : null, $T.arePropertyIntrospectorsEnabled() ? () -> super.$N() : null" );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     parameters.add( getGetter().getSimpleName().toString() );
 
