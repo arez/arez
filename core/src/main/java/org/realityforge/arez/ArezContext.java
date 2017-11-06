@@ -119,6 +119,23 @@ public final class ArezContext
    * @return true if component is defined in context.
    */
   @Nonnull
+  public Component createComponent( @Nonnull final String type, @Nullable final Object id )
+  {
+    return createComponent( type, id, Arez.areNamesEnabled() ? type + "@" + id : null );
+  }
+
+  /**
+   * Create a component with the specified parameters and return it.
+   * This method should only be invoked if {@link Arez#areNativeComponentsEnabled()} returns true.
+   * This method should not be invoked if {@link #isComponentPresent(String, Object)} returns true for
+   * the parameters.
+   *
+   * @param type the component type.
+   * @param id   the component id.
+   * @param name the name of the component. Should be null if {@link Arez#areNamesEnabled()} returns false.
+   * @return true if component is defined in context.
+   */
+  @Nonnull
   public Component createComponent( @Nonnull final String type, @Nullable final Object id, @Nullable final String name )
   {
     apiInvariant( Arez::areNativeComponentsEnabled,

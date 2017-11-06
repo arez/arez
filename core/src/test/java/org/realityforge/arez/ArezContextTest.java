@@ -1855,6 +1855,25 @@ public class ArezContextTest
   }
 
   @Test
+  public void createComponent_synthesizeNameIfRequired()
+  {
+    final ArezContext context = Arez.context();
+
+    final String type = ValueUtil.randomString();
+    final String id = ValueUtil.randomString();
+
+    assertFalse( context.isComponentPresent( type, id ) );
+
+    final Component component = context.createComponent( type, id );
+
+    assertTrue( context.isComponentPresent( type, id ) );
+
+    assertEquals( component.getType(), type );
+    assertEquals( component.getId(), id );
+    assertEquals( component.getName(), type + "@" + id );
+  }
+
+  @Test
   public void createComponent_spyEventHandlerPresent()
     throws Exception
   {
