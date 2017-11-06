@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
  * <p>The annotation controls the way that contained actions and observables are
  * named (if names are enabled in the system.</p>
  * <ul>
- * <li>The value returned by {@link #name()} indicates the type name for instances
+ * <li>The value returned by {@link #type()} indicates the type name for instances
  * of this object. If not specified it will default to the SimpleName of the class.
  * i.e. The class <tt>com.biz.models.MyModel</tt> will default to a name of
  * "MyModel".</li>
@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
  * to elide the id.</li>
  * </ul>
  * <p>The name of any elements contained within the component follows the pattern
- * "<tt>[ArezComponent.name].[ArezComponent.id].[Element.name]</tt>". If the value of {@link #name()}
+ * "<tt>[ArezComponent.name].[ArezComponent.id].[Element.name]</tt>". If the value of {@link #type()}
  * is the empty string then the "<tt>[ArezComponent.name].</tt>" element of name will be elided.
  * If the value of {@link #nameIncludesId()} is false then the "<tt>[ArezComponent.id].</tt>" element
  * of the name will be elided.</p>
@@ -55,7 +55,7 @@ public @interface ArezComponent
    * @return the name of the type.
    */
   @Nonnull
-  String name() default "<default>";
+  String type() default "<default>";
 
   /**
    * Return true if the name derived for component should include the id, false otherwise.

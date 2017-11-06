@@ -7,7 +7,7 @@ import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.OnDepsChanged;
 import org.realityforge.arez.annotations.Track;
 
-@ArezComponent( name = "MyContainer" )
+@ArezComponent( type = "MyContainer" )
 public class OverrideNamesInModel
 {
   @Observable( name = "myField" )

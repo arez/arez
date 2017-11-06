@@ -84,7 +84,7 @@ final class ComponentDescriptor
   @Nullable
   private List<TypeElement> _repositoryExtensions;
   @Nonnull
-  private final String _name;
+  private final String _type;
   private final boolean _nameIncludesId;
   private final boolean _allowEmpty;
   private final boolean _generateToString;
@@ -123,34 +123,19 @@ final class ComponentDescriptor
   private final Collection<TrackedDescriptor> _roTrackeds =
     Collections.unmodifiableCollection( _trackeds.values() );
 
-  ComponentDescriptor( @Nonnull final String name,
+  ComponentDescriptor( @Nonnull final String type,
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
                        final boolean generateToString,
                        @Nonnull final PackageElement packageElement,
                        @Nonnull final TypeElement element )
   {
-    _name = Objects.requireNonNull( name );
+    _type = Objects.requireNonNull( type );
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
     _generateToString = generateToString;
     _packageElement = Objects.requireNonNull( packageElement );
     _element = Objects.requireNonNull( element );
-  }
-
-  @Nonnull
-  String getName()
-  {
-    return _name;
-  }
-
-  /**
-   * Get the prefix specified by component if any.
-   */
-  @Nonnull
-  private String getNamePrefix()
-  {
-    return getName().isEmpty() ? "" : getName() + ".";
   }
 
   @Nonnull
@@ -1427,12 +1412,12 @@ final class ComponentDescriptor
     if ( _nameIncludesId )
     {
       builder.addStatement( "return $S + $N()",
-                            getNamePrefix(),
+                            _type.isEmpty() ? "" : _type + ".",
                             null == _componentId ? GeneratorUtil.ID_FIELD_NAME : _componentId.getSimpleName() );
     }
     else
     {
-      builder.addStatement( "return $S", getName() );
+      builder.addStatement( "return $S", _type );
     }
     return builder.build();
   }
@@ -1453,7 +1438,7 @@ final class ComponentDescriptor
     builder.addAnnotation( Nonnull.class );
 
     builder.returns( TypeName.get( String.class ) );
-    builder.addStatement( "return $S", getName() );
+    builder.addStatement( "return $S", _type );
     return builder.build();
   }
 
@@ -1688,7 +1673,7 @@ final class ComponentDescriptor
     assert null != extensions;
     if ( ProcessorUtil.isSentinelName( name ) )
     {
-      _repositoryName = _name + "Repository";
+      _repositoryName = _type + "Repository";
     }
     else
     {

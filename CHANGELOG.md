@@ -59,6 +59,7 @@
   always generate name helper methods and a synthetic component id if none has been specified. This has simplified
   the annotation processor and the generated code. To restore the ability to elide the id from the component name,
   the parameter `nameIncludesId=false` is now supported on the `@ArezComponent` annotation.
+* 💥 **\[annotations\]** Rename `name` parameter on `@ArezComponent` to `type` to correctly reflect semantics.
 
 ### [v0.24](https://github.com/realityforge/arez/tree/v0.24) (2017-11-02)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.23...v0.24)

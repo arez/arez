@@ -120,10 +120,10 @@ public final class ArezProcessor
       throw new ArezProcessorException( "@ArezComponent target must not be a non-static nested class", typeElement );
     }
     final ArezComponent arezComponent = typeElement.getAnnotation( ArezComponent.class );
-    final String name =
-      ProcessorUtil.isSentinelName( arezComponent.name() ) ?
+    final String type =
+      ProcessorUtil.isSentinelName( arezComponent.type() ) ?
       typeElement.getSimpleName().toString() :
-      arezComponent.name();
+      arezComponent.type();
 
     final List<ExecutableElement> methods = ProcessorUtil.getMethods( typeElement, processingEnv.getTypeUtils() );
     final boolean generateToString = methods.stream()
@@ -134,7 +134,7 @@ public final class ArezProcessor
                             getPackageOf( m.getEnclosingElement() ).getQualifiedName().toString() ) ) );
 
     final ComponentDescriptor descriptor =
-      new ComponentDescriptor( name,
+      new ComponentDescriptor( type,
                                arezComponent.nameIncludesId(),
                                arezComponent.allowEmpty(),
                                generateToString,
