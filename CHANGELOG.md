@@ -37,6 +37,8 @@
 * 💥 **\[extras\]** Changed the effect of the `Watcher` class from type `Procedure` to `SafeProcedure` as it is not
   expected to throw an exception as it would be swallowed by the framework. This forces the toolkit users to handle
   any error scenarios explicitly.
+* **\[core\]** Change the invariant for enforcing transaction type from an `invariant` to a `apiInvariant` so that
+  can disable invariants but keep apiInvariants enabled and still invariant. This is useful for downstream consumers.
 
 ### [v0.24](https://github.com/realityforge/arez/tree/v0.24) (2017-11-02)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.23...v0.24)
