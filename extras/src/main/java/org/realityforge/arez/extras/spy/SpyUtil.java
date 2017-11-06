@@ -57,23 +57,23 @@ public final class SpyUtil
   @Nonnull
   public static NestingDelta getNestingDelta( @Nonnull final Class<?> type )
   {
-    if ( ComponentCreatedEvent.class == type ||
-         ReactionStartedEvent.class == type ||
+    if ( ReactionStartedEvent.class == type ||
          TransactionStartedEvent.class == type ||
          ComputeStartedEvent.class == type ||
          ActionStartedEvent.class == type )
     {
       return NestingDelta.INCREASE;
     }
-    else if ( ComponentDisposedEvent.class == type ||
-              ReactionCompletedEvent.class == type ||
+    else if ( ReactionCompletedEvent.class == type ||
               TransactionCompletedEvent.class == type ||
               ComputeCompletedEvent.class == type ||
               ActionCompletedEvent.class == type )
     {
       return NestingDelta.DECREASE;
     }
-    else if ( ObserverCreatedEvent.class == type ||
+    else if ( ComponentCreatedEvent.class == type ||
+              ComponentDisposedEvent.class == type ||
+              ObserverCreatedEvent.class == type ||
               ObserverDisposedEvent.class == type ||
               ObserverErrorEvent.class == type ||
               ObservableCreatedEvent.class == type ||
