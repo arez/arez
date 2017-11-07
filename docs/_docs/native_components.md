@@ -1,5 +1,5 @@
 ---
-title: Native Component
+title: Native Components
 category: Other
 order: 2
 ---
