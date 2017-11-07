@@ -31,7 +31,7 @@ public final class Arez_ComputedWithHooksModel extends ComputedWithHooksModel im
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ComputedWithHooksModel", $$arez$$_id(), $$arez$$_name() ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ComputedWithHooksModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
     this.$$arez$$_time = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, super::getTime, Objects::equals, this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, this::onTimeDispose );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();

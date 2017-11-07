@@ -19,7 +19,7 @@ public final class Arez_IntComponentId extends IntComponentId implements Disposa
   public Arez_IntComponentId() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "IntComponentId", getId(), $$arez$$_name() ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "IntComponentId", getId(), $$arez$$_name(), null, null ) : null;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }

@@ -24,7 +24,7 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
   public Arez_ComponentIdOnSingletonModel() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ComponentIdOnSingletonModel", getId(), $$arez$$_name() ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ComponentIdOnSingletonModel", getId(), $$arez$$_name(), null, null ) : null;
     this.$$arez$$_field = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".field" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getField() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setField( v ) : null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();

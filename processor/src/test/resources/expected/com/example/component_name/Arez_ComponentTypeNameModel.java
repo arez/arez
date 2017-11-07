@@ -25,7 +25,7 @@ public final class Arez_ComponentTypeNameModel extends ComponentTypeNameModel im
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ComponentTypeNameModel", $$arez$$_id(), getComponentName() ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ComponentTypeNameModel", $$arez$$_id(), getComponentName(), null, null ) : null;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }

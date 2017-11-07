@@ -19,7 +19,7 @@ public final class Arez_ByteComponentId extends ByteComponentId implements Dispo
   public Arez_ByteComponentId() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ByteComponentId", getId(), $$arez$$_name() ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ByteComponentId", getId(), $$arez$$_name(), null, null ) : null;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }

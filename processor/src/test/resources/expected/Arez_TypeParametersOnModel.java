@@ -23,7 +23,7 @@ public final class Arez_TypeParametersOnModel<T extends Integer> extends TypePar
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "TypeParametersOnModel", $$arez$$_id(), $$arez$$_name() ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "TypeParametersOnModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }

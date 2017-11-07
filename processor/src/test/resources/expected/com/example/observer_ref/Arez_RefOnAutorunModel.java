@@ -29,7 +29,7 @@ public final class Arez_RefOnAutorunModel extends RefOnAutorunModel implements D
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "RefOnAutorunModel", $$arez$$_id(), $$arez$$_name() ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "RefOnAutorunModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
     this.$$arez$$_doStuff = this.$$arez$$_context.autorun( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(), false );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();

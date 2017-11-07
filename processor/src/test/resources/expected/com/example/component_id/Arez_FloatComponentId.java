@@ -19,7 +19,7 @@ public final class Arez_FloatComponentId extends FloatComponentId implements Dis
   public Arez_FloatComponentId() {
     super();
     this.$$arez$$_context = Arez.context();
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "FloatComponentId", getId(), $$arez$$_name() ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "FloatComponentId", getId(), $$arez$$_name(), null, null ) : null;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }

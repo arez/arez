@@ -1654,14 +1654,35 @@ final class ComponentDescriptor
 
     // Create component representation if required
     {
-      builder.
-        addStatement( "this.$N = $T.areNativeComponentsEnabled() ? this.$N.createComponent( $S, $N(), $N() ) : null",
-                      GeneratorUtil.COMPONENT_FIELD_NAME,
-                      GeneratorUtil.AREZ_CLASSNAME,
-                      GeneratorUtil.CONTEXT_FIELD_NAME,
-                      _type,
-                      getIdMethodName(),
-                      getComponentNameMethodName() );
+      final StringBuilder sb = new StringBuilder();
+      final ArrayList<Object> params = new ArrayList<>();
+      sb.append( "this.$N = $T.areNativeComponentsEnabled() ? this.$N.createComponent( $S, $N(), $N(), " );
+      params.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+      params.add( GeneratorUtil.AREZ_CLASSNAME );
+      params.add( GeneratorUtil.CONTEXT_FIELD_NAME );
+      params.add( _type );
+      params.add( getIdMethodName() );
+      params.add( getComponentNameMethodName() );
+      if ( null != _preDispose )
+      {
+        sb.append( "() -> super.$N(), " );
+        params.add( _preDispose.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "null, " );
+      }
+      if ( null != _postDispose )
+      {
+        sb.append( "() -> super.$N() " );
+        params.add( _postDispose.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "null " );
+      }
+      sb.append( ") : null" );
+      builder.addStatement( sb.toString(), params.toArray() );
     }
 
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );
