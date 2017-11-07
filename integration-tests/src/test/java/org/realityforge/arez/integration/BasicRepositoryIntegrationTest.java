@@ -178,7 +178,7 @@ public class BasicRepositoryIntegrationTest
 
     assertEquals( callCount.get(), 1 );
 
-    context.action( true, () -> Disposable.dispose( component1 ) );
+    Disposable.dispose( component1 );
 
     // Dispose recreated the list - huzzah
     assertEquals( callCount.get(), 2 );
