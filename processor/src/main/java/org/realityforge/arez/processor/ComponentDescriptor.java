@@ -45,6 +45,7 @@ import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Autorun;
 import org.realityforge.arez.annotations.ComponentId;
 import org.realityforge.arez.annotations.ComponentName;
+import org.realityforge.arez.annotations.ComponentRef;
 import org.realityforge.arez.annotations.ComponentTypeName;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.ContextRef;
@@ -96,6 +97,8 @@ final class ComponentDescriptor
   private ExecutableElement _postConstruct;
   @Nullable
   private ExecutableElement _componentId;
+  @Nullable
+  private ExecutableElement _componentRef;
   @Nullable
   private ExecutableElement _contextRef;
   @Nullable
@@ -570,6 +573,33 @@ final class ComponentDescriptor
     }
   }
 
+  private void setComponentRef( @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    MethodChecks.mustBeOverridable( ComponentRef.class, method );
+    MethodChecks.mustNotHaveAnyParameters( ComponentRef.class, method );
+    MethodChecks.mustReturnAValue( ComponentRef.class, method );
+    MethodChecks.mustNotThrowAnyExceptions( ComponentRef.class, method );
+
+    final TypeMirror returnType = method.getReturnType();
+    if ( TypeKind.DECLARED != returnType.getKind() ||
+         !returnType.toString().equals( "org.realityforge.arez.Component" ) )
+    {
+      throw new ArezProcessorException( "Method annotated with @ComponentRef must return an instance of " +
+                                        "org.realityforge.arez.Component", method );
+    }
+
+    if ( null != _componentRef )
+    {
+      throw new ArezProcessorException( "@ComponentRef target duplicates existing method named " +
+                                        _componentRef.getSimpleName(), method );
+    }
+    else
+    {
+      _componentRef = Objects.requireNonNull( method );
+    }
+  }
+
   private void setComponentId( @Nonnull final ExecutableElement componentId )
     throws ArezProcessorException
   {
@@ -968,6 +998,7 @@ final class ComponentDescriptor
     final ObservableRef observableRef = method.getAnnotation( ObservableRef.class );
     final Computed computed = method.getAnnotation( Computed.class );
     final ContextRef contextRef = method.getAnnotation( ContextRef.class );
+    final ComponentRef componentRef = method.getAnnotation( ComponentRef.class );
     final ComponentId componentId = method.getAnnotation( ComponentId.class );
     final ComponentTypeName componentTypeName = method.getAnnotation( ComponentTypeName.class );
     final ComponentName componentName = method.getAnnotation( ComponentName.class );
@@ -1025,6 +1056,11 @@ final class ComponentDescriptor
     else if ( null != computed )
     {
       addComputed( computed, method, methodType );
+      return true;
+    }
+    else if ( null != componentRef )
+    {
+      setComponentRef( method );
       return true;
     }
     else if ( null != componentId )
@@ -1096,6 +1132,7 @@ final class ComponentDescriptor
                    Observable.class,
                    ObservableRef.class,
                    Computed.class,
+                   ComponentRef.class,
                    ComponentId.class,
                    ComponentName.class,
                    ComponentTypeName.class,
@@ -1204,6 +1241,10 @@ final class ComponentDescriptor
     if ( null != _contextRef )
     {
       builder.addMethod( buildContextRefMethod() );
+    }
+    if ( null != _componentRef )
+    {
+      builder.addMethod( buildComponentRefMethod() );
     }
     if ( null == _componentId )
     {
@@ -1375,6 +1416,26 @@ final class ComponentDescriptor
       addStatement( "return this.$N", GeneratorUtil.CONTEXT_FIELD_NAME );
     ProcessorUtil.copyDocumentedAnnotations( _contextRef, method );
     ProcessorUtil.copyAccessModifiers( _contextRef, method );
+    return method.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildComponentRefMethod()
+    throws ArezProcessorException
+  {
+    assert null != _componentRef;
+
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( _componentRef.getSimpleName().toString() ).
+      addModifiers( Modifier.FINAL ).
+      returns( GeneratorUtil.COMPONENT_CLASSNAME ).
+      addStatement( "$T.invariant( () -> $T.areNativeComponentsEnabled(), () -> \"Invoked @ComponentRef method '$N' " +
+                    "but Arez.areNativeComponentsEnabled() returned false.\" )",
+                    GeneratorUtil.GUARDS_CLASSNAME,
+                    GeneratorUtil.AREZ_CLASSNAME,
+                    _componentRef.getSimpleName().toString() ).
+      addStatement( "return this.$N", GeneratorUtil.COMPONENT_FIELD_NAME );
+    ProcessorUtil.copyDocumentedAnnotations( _componentRef, method );
+    ProcessorUtil.copyAccessModifiers( _componentRef, method );
     return method.build();
   }
 

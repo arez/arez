@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Add support for `@ComponentRef`
-
 * Add support for `@ComputedValueRef`
 
 * Add `Zone.in(A)` methods where A is a `SafeFunction`, `Function`, `SafeProcedure` or a `Procedure`.
