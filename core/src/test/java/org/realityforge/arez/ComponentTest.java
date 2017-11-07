@@ -1,5 +1,7 @@
 package org.realityforge.arez;
 
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
 import org.realityforge.arez.spy.ComponentCreateCompletedEvent;
@@ -138,7 +140,8 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
     final Observer observer1 = context.autorun( () -> {
     } );
@@ -175,7 +178,8 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
     final Observer observer1 = context.autorun( () -> {
     } );
@@ -200,7 +204,8 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
     component.complete();
 
     final Observer observer1 = context.autorun( () -> {
@@ -220,7 +225,8 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
     final Observer observer1 = context.autorun( () -> {
     } );
@@ -239,7 +245,8 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
+    final Component component =
+      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
     final Observable observable1 = context.createObservable();
     final Observable observable2 = context.createObservable();
@@ -440,21 +447,28 @@ public class ComponentTest
 
     final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
-    final Observable observable1 = context.createObservable();
-    final Observable observable2 = context.createObservable();
-    final ComputedValue computedValue1 = context.createComputedValue( () -> "" );
-    final ComputedValue computedValue2 = context.createComputedValue( () -> "" );
-    final Observer observer1 = context.autorun( () -> {
-    } );
-    final Observer observer2 = context.autorun( () -> {
-    } );
-
-    component.addObservable( observable1 );
-    component.addObservable( observable2 );
-    component.addComputedValue( computedValue1 );
-    component.addComputedValue( computedValue2 );
-    component.addObserver( observer1 );
-    component.addObserver( observer2 );
+    final Observable observable1 = context.createObservable( component, ValueUtil.randomString(), null, null );
+    final Observable observable2 = context.createObservable( component, ValueUtil.randomString(), null, null );
+    final ComputedValue computedValue1 = context.createComputedValue( component,
+                                                                      ValueUtil.randomString(),
+                                                                      () -> "",
+                                                                      Objects::equals,
+                                                                      null,
+                                                                      null,
+                                                                      null,
+                                                                      null );
+    final ComputedValue computedValue2 = context.createComputedValue( component,
+                                                                      ValueUtil.randomString(),
+                                                                      () -> "",
+                                                                      Objects::equals,
+                                                                      null,
+                                                                      null,
+                                                                      null,
+                                                                      null );
+    final Observer observer1 = context.autorun( component, ValueUtil.randomString(), true, () -> {
+    }, false );
+    final Observer observer2 = context.autorun( component, ValueUtil.randomString(), true, () -> {
+    }, false );
 
     assertEquals( component.getObservables().size(), 2 );
     assertEquals( component.getComputedValues().size(), 2 );
@@ -494,14 +508,17 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Observable observable1 = context.createObservable();
+    final AtomicReference<Observable> observable = new AtomicReference<>();
 
-    final SafeProcedure preDispose = () -> assertFalse( Disposable.isDisposed( observable1 ) );
-    final SafeProcedure postDispose = () -> assertTrue( Disposable.isDisposed( observable1 ) );
+    final SafeProcedure preDispose = () -> assertFalse( Disposable.isDisposed( observable.get() ) );
+    final SafeProcedure postDispose = () -> assertTrue( Disposable.isDisposed( observable.get() ) );
     final Component component =
       context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), name, preDispose, postDispose );
 
-    component.addObservable( observable1 );
+    final Observable observable1 = context.createObservable( component, ValueUtil.randomString(), null, null );
+
+    observable.set( observable1 );
+
     component.complete();
 
     assertEquals( component.getObservables().size(), 1 );
