@@ -1,0 +1,135 @@
+
+[
+    {
+        "component": "MyType@1",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Attr1",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "Attr2",
+        "type": "ObservableCreated"
+    },
+    {
+        "computedValue": "Attr3",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "observer": "Render",
+        "type": "ObserverCreated"
+    },
+    {
+        "component": "MyType@1",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "MyType@1",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "MyType@1.dispose"
+    },
+    {
+        "mutation": true,
+        "tracker": "Render",
+        "type": "TransactionStarted",
+        "transaction": "Render.dispose"
+    },
+    {
+        "mutation": true,
+        "tracker": "Render",
+        "type": "TransactionCompleted",
+        "transaction": "Render.dispose"
+    },
+    {
+        "observer": "Render",
+        "type": "ObserverDisposed"
+    },
+    {
+        "computedValue": "Attr3",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "mutation": true,
+        "tracker": "Attr3",
+        "type": "TransactionStarted",
+        "transaction": "Attr3.dispose"
+    },
+    {
+        "mutation": true,
+        "tracker": "Attr3",
+        "type": "TransactionCompleted",
+        "transaction": "Attr3.dispose"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Attr3.dispose"
+    },
+    {
+        "observable": "Attr3",
+        "type": "ObservableChanged"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Attr3.dispose"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Attr1.dispose"
+    },
+    {
+        "observable": "Attr1",
+        "type": "ObservableChanged"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Attr1.dispose"
+    },
+    {
+        "observable": "Attr1",
+        "type": "ObservableDisposed"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Attr2.dispose"
+    },
+    {
+        "observable": "Attr2",
+        "type": "ObservableChanged"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Attr2.dispose"
+    },
+    {
+        "observable": "Attr2",
+        "type": "ObservableDisposed"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "MyType@1.dispose"
+    },
+    {
+        "component": "MyType@1",
+        "type": "ComponentDisposeCompleted"
+    }
+]

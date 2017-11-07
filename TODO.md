@@ -29,9 +29,7 @@ complete as there is too much un-said.
 
 * Enhance WhyRun and write tests for it.
 
-* Enhance Spy to support the access/mutation of of `Observable` if property introspection valid.
-
-* Add integration tests that cover components and spys access to `Observable` properties in components.
+* Enhance Spy to support the access/mutation of of `Observable` if property introspection valid and add integration tests.
 
 * Add registry for top-level Observers, Observables and ComputedValues and make them accessible via spy
   framework.
