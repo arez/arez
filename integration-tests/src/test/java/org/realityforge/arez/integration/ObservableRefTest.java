@@ -19,7 +19,7 @@ public class ObservableRefTest
     private String _other;
 
     @ObservableRef
-    org.realityforge.arez.Observable getOtherIDObservable()
+    org.realityforge.arez.Observable<String> getOtherIDObservable()
     {
       throw new IllegalStateException();
     }

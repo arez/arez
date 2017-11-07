@@ -6,7 +6,7 @@ import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.ObservableRef;
 
 @ArezComponent
-public class DefaultRefNameModel
+public class RawObservableModel
 {
   @Observable
   public long getTime()
@@ -20,7 +20,7 @@ public class DefaultRefNameModel
 
   @Nonnull
   @ObservableRef
-  public org.realityforge.arez.Observable<Long> getTimeObservable()
+  public org.realityforge.arez.Observable getTimeObservable()
   {
     throw new IllegalStateException();
   }

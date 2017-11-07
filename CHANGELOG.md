@@ -27,6 +27,9 @@
   transaction so that event ordering is consistent across different scenarios.
 * **\[core\]** Always wrap the `Observable.dispose()` method in it's own transaction, regardless of whether there
   is currently a transaction active.
+* **\[annotations\]** Made sure that the return value from an `@ObservableRef` annotated method could accept a
+  type parameter. The bug was introduced in v0.23 when `Observable` started to take a type parameter but the annotation
+  processing code had not been updated to reflect change.
 
 ##### Added
 * **\[core\]** Add the `ArezContext.createObservable()` method that will synthesize the observable name if

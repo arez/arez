@@ -60,6 +60,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observable.ObservableWithNoSetter", false },
         new Object[]{ "com.example.observable_ref.DefaultRefNameModel", false },
         new Object[]{ "com.example.observable_ref.NonStandardNameModel", false },
+        new Object[]{ "com.example.observable_ref.RawObservableModel", false },
         new Object[]{ "com.example.observer_ref.CustomNameRefOnAutorunModel", false },
         new Object[]{ "com.example.observer_ref.CustomNameRefOnTrackedModel", false },
         new Object[]{ "com.example.observer_ref.RefOnAutorunModel", false },

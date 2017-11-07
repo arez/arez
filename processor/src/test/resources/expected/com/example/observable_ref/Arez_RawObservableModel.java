@@ -10,7 +10,7 @@ import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_DefaultRefNameModel extends DefaultRefNameModel implements Disposable {
+public final class Arez_RawObservableModel extends RawObservableModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -25,11 +25,11 @@ public final class Arez_DefaultRefNameModel extends DefaultRefNameModel implemen
   @Nonnull
   private final Observable $$arez$$_time;
 
-  public Arez_DefaultRefNameModel() {
+  public Arez_RawObservableModel() {
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "DefaultRefNameModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "RawObservableModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
     this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
@@ -41,7 +41,7 @@ public final class Arez_DefaultRefNameModel extends DefaultRefNameModel implemen
   }
 
   String $$arez$$_name() {
-    return "DefaultRefNameModel." + $$arez$$_id();
+    return "RawObservableModel." + $$arez$$_id();
   }
 
   @Override
@@ -81,7 +81,7 @@ public final class Arez_DefaultRefNameModel extends DefaultRefNameModel implemen
 
   @Nonnull
   @Override
-  public Observable<Long> getTimeObservable() {
+  public Observable getTimeObservable() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     return $$arez$$_time;
   }
@@ -95,10 +95,10 @@ public final class Arez_DefaultRefNameModel extends DefaultRefNameModel implemen
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof Arez_DefaultRefNameModel) ) {
+    } else if ( null == o || !(o instanceof Arez_RawObservableModel) ) {
       return false;
     } else {
-      final Arez_DefaultRefNameModel that = (Arez_DefaultRefNameModel) o;;
+      final Arez_RawObservableModel that = (Arez_RawObservableModel) o;;
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }

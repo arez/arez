@@ -270,9 +270,9 @@ final class ComponentDescriptor
     MethodChecks.mustNotHaveAnyParameters( ObservableRef.class, method );
     MethodChecks.mustNotThrowAnyExceptions( ObservableRef.class, method );
 
-    final TypeMirror returnType = method.getReturnType();
+    final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
-         !returnType.toString().equals( "org.realityforge.arez.Observable" ) )
+         !toRawType( returnType ).toString().equals( "org.realityforge.arez.Observable" ) )
     {
       throw new ArezProcessorException( "Method annotated with @ObservableRef must return an instance of " +
                                         "org.realityforge.arez.Observable", method );
@@ -306,6 +306,20 @@ final class ComponentDescriptor
                                         "observable named " + name, method );
     }
     observable.setRefMethod( method, methodType );
+  }
+
+  @Nonnull
+  private TypeName toRawType( @Nonnull final TypeMirror type )
+  {
+    final TypeName typeName = TypeName.get( type );
+    if ( typeName instanceof ParameterizedTypeName )
+    {
+      return ( (ParameterizedTypeName) typeName ).rawType;
+    }
+    else
+    {
+      return typeName;
+    }
   }
 
   private void addAction( @Nonnull final Action annotation,
