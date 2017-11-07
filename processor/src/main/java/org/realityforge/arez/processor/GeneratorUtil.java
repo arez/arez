@@ -37,7 +37,7 @@ final class GeneratorUtil
     builder.addStatement( "$T.invariant( () -> !this.$N, () -> \"Method invoked on invalid " +
                           "component '\" + $N() + \"'\" )",
                           GUARDS_CLASSNAME,
-                          GeneratorUtil.DISPOSED_FIELD_NAME,
+                          DISPOSED_FIELD_NAME,
                           descriptor.getComponentNameMethodName() );
   }
 }
