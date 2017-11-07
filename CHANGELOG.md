@@ -33,6 +33,13 @@
   names are enabled.
 * Update the release process so that every release creates a "Github Release" and any open milestone that
   matches the release is closed.
+* **\[core\]** Introduce the concept of [Native Components](http://realityforge.org/arez/native_components). Native
+  components allow the explicit representation of components within the core of Arez. This is in contrast to the
+  implicit representation of components that already exists as a result of the `@ArezComponent` annotation and the
+  annotation processor. Native components can be enabled or disabled at compile time and if disabled will have no
+  performance impact. Native components make it possible to introspect the component structure at runtime. This
+  feature is designed to enable the construction of DevTools and as such native components are enabled by default
+  in development mode and disabled in production mode.
 
 ##### Changed
 * 💥 **\[annotations\]** Actually remove `disposable` parameter from the `@ArezComponent` as v0.24 just removed
