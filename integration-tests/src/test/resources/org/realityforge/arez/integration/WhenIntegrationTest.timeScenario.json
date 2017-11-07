@@ -359,6 +359,10 @@
         "transaction": "When@1"
     },
     {
+        "component": "Watcher.0",
+        "type": "ComponentDisposeStarted"
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
@@ -417,6 +421,10 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Watcher.0.dispose"
+    },
+    {
+        "component": "Watcher.0",
+        "type": "ComponentDisposeCompleted"
     },
     {
         "mutation": true,

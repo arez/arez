@@ -107,6 +107,10 @@
         "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.destroy"
     },
     {
+        "component": "TestComponent.1",
+        "type": "ComponentDisposeStarted"
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
@@ -137,6 +141,10 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "TestComponent.1.dispose"
+    },
+    {
+        "component": "TestComponent.1",
+        "type": "ComponentDisposeCompleted"
     },
     {
         "observable": "BasicRepositoryIntegrationTest$TestComponentRepository.entities",
@@ -183,6 +191,10 @@
         "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.destroy"
     },
     {
+        "component": "TestComponent.2",
+        "type": "ComponentDisposeStarted"
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
@@ -213,6 +225,10 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "TestComponent.2.dispose"
+    },
+    {
+        "component": "TestComponent.2",
+        "type": "ComponentDisposeCompleted"
     },
     {
         "observable": "BasicRepositoryIntegrationTest$TestComponentRepository.entities",
