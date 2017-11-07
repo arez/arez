@@ -136,12 +136,15 @@ public final class Component
           _preDispose.call();
         }
         _context.deregisterComponent( this );
-        _observers.forEach( o -> Disposable.dispose( o ) );
-        _observers.clear();
-        _computedValues.forEach( v -> Disposable.dispose( v ) );
-        _computedValues.clear();
-        _observables.forEach( o -> Disposable.dispose( o ) );
-        _observables.clear();
+        /*
+         * Create a new list and perform dispose on each list to avoid concurrent mutation exceptions.
+         * This can probably be significantly optimized when translated to javascript. However native
+         * components are not typically used in production mode so no effort has been made to optimize
+         * the next steps.
+         */
+        new ArrayList<>( _observers ).forEach( o -> Disposable.dispose( o ) );
+        new ArrayList<>( _computedValues ).forEach( v -> Disposable.dispose( v ) );
+        new ArrayList<>( _observables ).forEach( o -> Disposable.dispose( o ) );
         if ( null != _postDispose )
         {
           _postDispose.call();
