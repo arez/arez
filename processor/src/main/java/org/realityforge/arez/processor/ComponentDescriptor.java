@@ -1675,18 +1675,15 @@ final class ComponentDescriptor
       params.add( _type );
       params.add( getIdMethodName() );
       params.add( getComponentNameMethodName() );
-      if ( null != _preDispose )
+      if ( hasRepository() )
       {
-        if ( hasRepository() )
-        {
-          sb.append( "() -> $N(), " );
-          params.add( GeneratorUtil.PRE_DISPOSE_METHOD_NAME );
-        }
-        else
-        {
-          sb.append( "() -> super.$N(), " );
-          params.add( _preDispose.getSimpleName().toString() );
-        }
+        sb.append( "() -> $N(), " );
+        params.add( GeneratorUtil.PRE_DISPOSE_METHOD_NAME );
+      }
+      else if ( null != _preDispose )
+      {
+        sb.append( "() -> super.$N(), " );
+        params.add( _preDispose.getSimpleName().toString() );
       }
       else
       {
