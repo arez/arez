@@ -54,10 +54,14 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
   public void dispose() {
     if ( !isDisposed() ) {
       this.$$arez$$_disposed = true;
-      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-        super.preDispose();
-        this.$$arez$$_entities.dispose();
-      } } );
+      if ( Arez.areNativeComponentsEnabled() ) {
+        this.$$arez$$_component.dispose();
+      } else {
+        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          super.preDispose();
+          this.$$arez$$_entities.dispose();
+        } } );
+      }
     }
   }
 

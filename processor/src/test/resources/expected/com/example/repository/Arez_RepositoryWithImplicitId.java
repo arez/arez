@@ -56,13 +56,21 @@ public final class Arez_RepositoryWithImplicitId extends RepositoryWithImplicitI
   public void dispose() {
     if ( !isDisposed() ) {
       this.$$arez$$_disposed = true;
-      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-        if ( null != this.$$arez$$_onDispose ) {
-          this.$$arez$$_onDispose.onDispose( this );
-          this.$$arez$$_onDispose = null;
-        }
-        this.$$arez$$_name.dispose();
-      } } );
+      if ( Arez.areNativeComponentsEnabled() ) {
+        this.$$arez$$_component.dispose();
+      } else {
+        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          $$arez$$_preDispose();
+          this.$$arez$$_name.dispose();
+        } } );
+      }
+    }
+  }
+
+  void $$arez$$_preDispose() {
+    if ( null != this.$$arez$$_onDispose ) {
+      this.$$arez$$_onDispose.onDispose( this );
+      this.$$arez$$_onDispose = null;
     }
   }
 

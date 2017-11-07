@@ -1220,6 +1220,7 @@ final class ComponentDescriptor
     builder.addMethod( buildDispose() );
     if ( hasRepository() )
     {
+      builder.addMethod( buildPreDispose() );
       builder.addMethod( buildSetOnDispose() );
     }
 
@@ -1443,6 +1444,24 @@ final class ComponentDescriptor
   }
 
   @Nonnull
+  private MethodSpec buildPreDispose()
+    throws ArezProcessorException
+  {
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( GeneratorUtil.PRE_DISPOSE_METHOD_NAME );
+    final CodeBlock.Builder onDisposeCodeBlock = CodeBlock.builder();
+    onDisposeCodeBlock.beginControlFlow( "if ( null != this.$N )", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
+    onDisposeCodeBlock.addStatement( "this.$N.onDispose( this )", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
+    onDisposeCodeBlock.addStatement( "this.$N = null", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
+    onDisposeCodeBlock.endControlFlow();
+    method.addCode( onDisposeCodeBlock.build() );
+    if ( null != _preDispose )
+    {
+      method.addStatement( "super.$N()", _preDispose.getSimpleName().toString() );
+    }
+    return method.build();
+  }
+
+  @Nonnull
   private MethodSpec buildSetOnDispose()
     throws ArezProcessorException
   {
@@ -1466,44 +1485,37 @@ final class ComponentDescriptor
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "if ( !isDisposed() )" );
     codeBlock.addStatement( "this.$N = true", GeneratorUtil.DISPOSED_FIELD_NAME );
-    if ( null != _preDispose ||
-         null != _postDispose ||
-         hasRepository() ||
-         !_roAutoruns.isEmpty() ||
-         !_roTrackeds.isEmpty() ||
-         !_roComputeds.isEmpty() ||
-         !_roObservables.isEmpty() )
-    {
-      final CodeBlock.Builder actionBlock = CodeBlock.builder();
-      actionBlock.beginControlFlow( "this.$N.safeAction( $T.areNamesEnabled() ? $N() + \".dispose\" : null, () -> {",
-                                    GeneratorUtil.CONTEXT_FIELD_NAME,
-                                    GeneratorUtil.AREZ_CLASSNAME,
-                                    getComponentNameMethodName() );
-      if ( hasRepository() )
-      {
-        final CodeBlock.Builder onDisposeCodeBlock = CodeBlock.builder();
-        onDisposeCodeBlock.beginControlFlow( "if ( null != this.$N )", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
-        onDisposeCodeBlock.addStatement( "this.$N.onDispose( this )", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
-        onDisposeCodeBlock.addStatement( "this.$N = null", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
-        onDisposeCodeBlock.endControlFlow();
-        actionBlock.add( onDisposeCodeBlock.build() );
-      }
+    final CodeBlock.Builder nativeComponentBlock = CodeBlock.builder();
+    nativeComponentBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
+    nativeComponentBlock.addStatement( "this.$N.dispose()", GeneratorUtil.COMPONENT_FIELD_NAME );
+    nativeComponentBlock.nextControlFlow( "else" );
 
-      if ( null != _preDispose )
-      {
-        actionBlock.addStatement( "super.$N()", _preDispose.getSimpleName() );
-      }
-      _roAutoruns.forEach( autorun -> autorun.buildDisposer( actionBlock ) );
-      _roTrackeds.forEach( tracked -> tracked.buildDisposer( actionBlock ) );
-      _roComputeds.forEach( computed -> computed.buildDisposer( actionBlock ) );
-      _roObservables.forEach( observable -> observable.buildDisposer( actionBlock ) );
-      if ( null != _postDispose )
-      {
-        actionBlock.addStatement( "super.$N()", _postDispose.getSimpleName() );
-      }
-      actionBlock.endControlFlow( "} )" );
-      codeBlock.add( actionBlock.build() );
+    final CodeBlock.Builder actionBlock = CodeBlock.builder();
+    actionBlock.beginControlFlow( "this.$N.safeAction( $T.areNamesEnabled() ? $N() + \".dispose\" : null, () -> {",
+                                  GeneratorUtil.CONTEXT_FIELD_NAME,
+                                  GeneratorUtil.AREZ_CLASSNAME,
+                                  getComponentNameMethodName() );
+
+    if ( hasRepository() )
+    {
+      actionBlock.addStatement( "$N()", GeneratorUtil.PRE_DISPOSE_METHOD_NAME );
     }
+    else if ( null != _preDispose )
+    {
+      actionBlock.addStatement( "super.$N()", _preDispose.getSimpleName() );
+    }
+    _roAutoruns.forEach( autorun -> autorun.buildDisposer( actionBlock ) );
+    _roTrackeds.forEach( tracked -> tracked.buildDisposer( actionBlock ) );
+    _roComputeds.forEach( computed -> computed.buildDisposer( actionBlock ) );
+    _roObservables.forEach( observable -> observable.buildDisposer( actionBlock ) );
+    if ( null != _postDispose )
+    {
+      actionBlock.addStatement( "super.$N()", _postDispose.getSimpleName() );
+    }
+    actionBlock.endControlFlow( "} )" );
+    nativeComponentBlock.add( actionBlock.build() );
+    nativeComponentBlock.endControlFlow();
+    codeBlock.add( nativeComponentBlock.build() );
     codeBlock.endControlFlow();
 
     builder.addCode( codeBlock.build() );
@@ -1665,8 +1677,16 @@ final class ComponentDescriptor
       params.add( getComponentNameMethodName() );
       if ( null != _preDispose )
       {
-        sb.append( "() -> super.$N(), " );
-        params.add( _preDispose.getSimpleName().toString() );
+        if ( hasRepository() )
+        {
+          sb.append( "() -> $N(), " );
+          params.add( GeneratorUtil.PRE_DISPOSE_METHOD_NAME );
+        }
+        else
+        {
+          sb.append( "() -> super.$N(), " );
+          params.add( _preDispose.getSimpleName().toString() );
+        }
       }
       else
       {

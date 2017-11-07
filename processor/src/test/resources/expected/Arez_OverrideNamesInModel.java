@@ -69,12 +69,16 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   public void dispose() {
     if ( !isDisposed() ) {
       this.$$arez$$_disposed = true;
-      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-        this.$$arez$$_zzzzzz.dispose();
-        this.$$arez$$_XX.dispose();
-        this.$$arez$$_myComputed.dispose();
-        this.$$arez$$_myField.dispose();
-      } } );
+      if ( Arez.areNativeComponentsEnabled() ) {
+        this.$$arez$$_component.dispose();
+      } else {
+        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_zzzzzz.dispose();
+          this.$$arez$$_XX.dispose();
+          this.$$arez$$_myComputed.dispose();
+          this.$$arez$$_myField.dispose();
+        } } );
+      }
     }
   }
 

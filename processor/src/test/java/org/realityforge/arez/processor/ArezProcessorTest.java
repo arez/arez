@@ -65,6 +65,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.overloaded_names.OverloadedActions", false },
         new Object[]{ "com.example.post_construct.PostConstructModel", false },
         new Object[]{ "com.example.repository.CompleteRepositoryExample", true },
+        new Object[]{ "com.example.repository.RepositoryPreDisposeHook", true },
         new Object[]{ "com.example.repository.RepositoryWithExplicitId", true },
         new Object[]{ "com.example.repository.RepositoryWithImplicitId", true },
         new Object[]{ "com.example.repository.RepositoryWithMultipleCtors", true },

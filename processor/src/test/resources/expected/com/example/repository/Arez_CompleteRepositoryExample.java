@@ -62,16 +62,24 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
   public void dispose() {
     if ( !isDisposed() ) {
       this.$$arez$$_disposed = true;
-      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-        if ( null != this.$$arez$$_onDispose ) {
-          this.$$arez$$_onDispose.onDispose( this );
-          this.$$arez$$_onDispose = null;
-        }
-        this.$$arez$$_qualifiedName.dispose();
-        this.$$arez$$_name.dispose();
-        this.$$arez$$_packageName.dispose();
-        this.$$arez$$_rawQualifiedName.dispose();
-      } } );
+      if ( Arez.areNativeComponentsEnabled() ) {
+        this.$$arez$$_component.dispose();
+      } else {
+        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          $$arez$$_preDispose();
+          this.$$arez$$_qualifiedName.dispose();
+          this.$$arez$$_name.dispose();
+          this.$$arez$$_packageName.dispose();
+          this.$$arez$$_rawQualifiedName.dispose();
+        } } );
+      }
+    }
+  }
+
+  void $$arez$$_preDispose() {
+    if ( null != this.$$arez$$_onDispose ) {
+      this.$$arez$$_onDispose.onDispose( this );
+      this.$$arez$$_onDispose = null;
     }
   }
 

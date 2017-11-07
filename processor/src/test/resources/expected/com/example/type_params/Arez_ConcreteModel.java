@@ -74,10 +74,14 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   public void dispose() {
     if ( !isDisposed() ) {
       this.$$arez$$_disposed = true;
-      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-        this.$$arez$$_compError.dispose();
-        this.$$arez$$_compWriter.dispose();
-      } } );
+      if ( Arez.areNativeComponentsEnabled() ) {
+        this.$$arez$$_component.dispose();
+      } else {
+        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_compError.dispose();
+          this.$$arez$$_compWriter.dispose();
+        } } );
+      }
     }
   }
 

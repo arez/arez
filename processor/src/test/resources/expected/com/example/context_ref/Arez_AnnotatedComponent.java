@@ -52,6 +52,12 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
   public void dispose() {
     if ( !isDisposed() ) {
       this.$$arez$$_disposed = true;
+      if ( Arez.areNativeComponentsEnabled() ) {
+        this.$$arez$$_component.dispose();
+      } else {
+        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        } } );
+      }
     }
   }
 

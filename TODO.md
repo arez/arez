@@ -31,10 +31,6 @@ complete as there is too much un-said.
 
 * Enhance Spy to support the access/mutation of of `Observable` if property introspection valid.
 
-* Annotation processor should generate code that just calls Component.dispose() if native components
-  enabled otherwise it continues with current code path. Need to update annotation processor so that pre/post
-  dispose actions are passed in so that the behaviour is effectively the same.
-
 * Add integration tests that cover components and spys access to `Observable` properties in components.
 
 * Add registry for top-level Observers, Observables and ComputedValues and make them accessible via spy

@@ -1,3 +1,6 @@
+package com.example.repository;
+
+import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
@@ -8,12 +11,14 @@ import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_ObservableWithCtorModel extends ObservableWithCtorModel implements Disposable {
+public final class Arez_RepositoryPreDisposeHook extends RepositoryPreDisposeHook implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
 
   private boolean $$arez$$_disposed;
+
+  private OnDispose $$arez$$_onDispose;
 
   @Nonnull
   private final ArezContext $$arez$$_context;
@@ -21,14 +26,14 @@ public final class Arez_ObservableWithCtorModel extends ObservableWithCtorModel 
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable $$arez$$_name;
 
-  public Arez_ObservableWithCtorModel(final long time) {
-    super(time);
+  Arez_RepositoryPreDisposeHook(@Nonnull final String name) {
+    super(name);
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ObservableWithCtorModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "RepositoryPreDisposeHook", $$arez$$_id(), $$arez$$_name(), () -> $$arez$$_preDispose(), () -> super.myPostDispose() ) : null;
+    this.$$arez$$_name = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setName( v ) : null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
@@ -39,7 +44,7 @@ public final class Arez_ObservableWithCtorModel extends ObservableWithCtorModel 
   }
 
   String $$arez$$_name() {
-    return "ObservableWithCtorModel." + $$arez$$_id();
+    return "RepositoryPreDisposeHook." + $$arez$$_id();
   }
 
   @Override
@@ -55,25 +60,40 @@ public final class Arez_ObservableWithCtorModel extends ObservableWithCtorModel 
         this.$$arez$$_component.dispose();
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-          this.$$arez$$_time.dispose();
+          $$arez$$_preDispose();
+          this.$$arez$$_name.dispose();
+          super.myPostDispose();
         } } );
       }
     }
   }
 
+  void $$arez$$_preDispose() {
+    if ( null != this.$$arez$$_onDispose ) {
+      this.$$arez$$_onDispose.onDispose( this );
+      this.$$arez$$_onDispose = null;
+    }
+    super.myPreDispose();
+  }
+
+  void $$arez$$_setOnDispose(OnDispose onDispose) {
+    this.$$arez$$_onDispose = onDispose;
+  }
+
+  @Nonnull
   @Override
-  public long getTime() {
+  public String getName() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    this.$$arez$$_time.reportObserved();
-    return super.getTime();
+    this.$$arez$$_name.reportObserved();
+    return super.getName();
   }
 
   @Override
-  public void setTime(final long time) {
+  public void setName(@Nonnull final String name) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    if ( time != super.getTime() ) {
-      super.setTime(time);
-      this.$$arez$$_time.reportChanged();
+    if ( !Objects.equals(name, super.getName()) ) {
+      super.setName(name);
+      this.$$arez$$_name.reportChanged();
     }
   }
 
@@ -86,10 +106,10 @@ public final class Arez_ObservableWithCtorModel extends ObservableWithCtorModel 
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof Arez_ObservableWithCtorModel) ) {
+    } else if ( null == o || !(o instanceof Arez_RepositoryPreDisposeHook) ) {
       return false;
     } else {
-      final Arez_ObservableWithCtorModel that = (Arez_ObservableWithCtorModel) o;;
+      final Arez_RepositoryPreDisposeHook that = (Arez_RepositoryPreDisposeHook) o;;
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }
@@ -101,5 +121,10 @@ public final class Arez_ObservableWithCtorModel extends ObservableWithCtorModel 
     } else {
       return super.toString();
     }
+  }
+
+  @FunctionalInterface
+  interface OnDispose {
+    void onDispose(Arez_RepositoryPreDisposeHook entity);
   }
 }

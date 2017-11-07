@@ -46,6 +46,12 @@ public final class Arez_TypeParametersOnModel<T extends Integer> extends TypePar
   public void dispose() {
     if ( !isDisposed() ) {
       this.$$arez$$_disposed = true;
+      if ( Arez.areNativeComponentsEnabled() ) {
+        this.$$arez$$_component.dispose();
+      } else {
+        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        } } );
+      }
     }
   }
 

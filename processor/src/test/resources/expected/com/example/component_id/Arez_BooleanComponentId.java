@@ -38,6 +38,12 @@ public final class Arez_BooleanComponentId extends BooleanComponentId implements
   public void dispose() {
     if ( !isDisposed() ) {
       this.$$arez$$_disposed = true;
+      if ( Arez.areNativeComponentsEnabled() ) {
+        this.$$arez$$_component.dispose();
+      } else {
+        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        } } );
+      }
     }
   }
 

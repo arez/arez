@@ -60,10 +60,14 @@ public final class Arez_SubpackageModel extends SubpackageModel implements Dispo
   public void dispose() {
     if ( !isDisposed() ) {
       this.$$arez$$_disposed = true;
-      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-        this.$$arez$$_someValue.dispose();
-        this.$$arez$$_time.dispose();
-      } } );
+      if ( Arez.areNativeComponentsEnabled() ) {
+        this.$$arez$$_component.dispose();
+      } else {
+        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_someValue.dispose();
+          this.$$arez$$_time.dispose();
+        } } );
+      }
     }
   }
 

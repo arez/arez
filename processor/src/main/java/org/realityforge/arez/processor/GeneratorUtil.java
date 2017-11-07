@@ -25,6 +25,7 @@ final class GeneratorUtil
   static final String NEXT_ID_FIELD_NAME = FIELD_PREFIX + "nextId";
   static final String CONTEXT_FIELD_NAME = FIELD_PREFIX + "context";
   static final String COMPONENT_FIELD_NAME = FIELD_PREFIX + "component";
+  static final String PRE_DISPOSE_METHOD_NAME = FIELD_PREFIX + "preDispose";
 
   private GeneratorUtil()
   {

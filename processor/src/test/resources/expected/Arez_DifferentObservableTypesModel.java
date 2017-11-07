@@ -84,17 +84,21 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   public void dispose() {
     if ( !isDisposed() ) {
       this.$$arez$$_disposed = true;
-      this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-        this.$$arez$$_v6.dispose();
-        this.$$arez$$_v7.dispose();
-        this.$$arez$$_v8.dispose();
-        this.$$arez$$_v9.dispose();
-        this.$$arez$$_v1.dispose();
-        this.$$arez$$_v2.dispose();
-        this.$$arez$$_v3.dispose();
-        this.$$arez$$_v4.dispose();
-        this.$$arez$$_v5.dispose();
-      } } );
+      if ( Arez.areNativeComponentsEnabled() ) {
+        this.$$arez$$_component.dispose();
+      } else {
+        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_v6.dispose();
+          this.$$arez$$_v7.dispose();
+          this.$$arez$$_v8.dispose();
+          this.$$arez$$_v9.dispose();
+          this.$$arez$$_v1.dispose();
+          this.$$arez$$_v2.dispose();
+          this.$$arez$$_v3.dispose();
+          this.$$arez$$_v4.dispose();
+          this.$$arez$$_v5.dispose();
+        } } );
+      }
     }
   }
 

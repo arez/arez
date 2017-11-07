@@ -11,7 +11,7 @@ import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_RepositoryWithSingletonRepository extends RepositoryWithSingletonRepository implements Disposable {
+public final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDisposeHookRepository implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -26,11 +26,11 @@ public final class Arez_RepositoryWithSingletonRepository extends RepositoryWith
   @Nonnull
   private final Observable $$arez$$_entities;
 
-  Arez_RepositoryWithSingletonRepository() {
+  Arez_RepositoryPreDisposeHookRepository() {
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "RepositoryWithSingletonRepository", $$arez$$_id(), $$arez$$_name(), () -> super.preDispose(), null ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "RepositoryPreDisposeHookRepository", $$arez$$_id(), $$arez$$_name(), () -> super.preDispose(), null ) : null;
     this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
@@ -42,7 +42,7 @@ public final class Arez_RepositoryWithSingletonRepository extends RepositoryWith
   }
 
   String $$arez$$_name() {
-    return "RepositoryWithSingletonRepository";
+    return "RepositoryPreDisposeHookRepository";
   }
 
   @Override
@@ -67,7 +67,7 @@ public final class Arez_RepositoryWithSingletonRepository extends RepositoryWith
 
   @Nonnull
   @Override
-  protected Collection<RepositoryWithSingleton> entities() {
+  protected Collection<RepositoryPreDisposeHook> entities() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();
@@ -80,7 +80,7 @@ public final class Arez_RepositoryWithSingletonRepository extends RepositoryWith
   }
 
   @Override
-  public void destroy(@Nonnull final RepositoryWithSingleton entity) {
+  public void destroy(@Nonnull final RepositoryPreDisposeHook entity) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".destroy" : null, true, () -> super.destroy(entity), entity );
@@ -97,7 +97,7 @@ public final class Arez_RepositoryWithSingletonRepository extends RepositoryWith
 
   @Nonnull
   @Override
-  RepositoryWithSingleton create(@Nonnull final String name) {
+  RepositoryPreDisposeHook create(@Nonnull final String name) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".create_name" : null, true, () -> super.create(name), name );
@@ -121,10 +121,10 @@ public final class Arez_RepositoryWithSingletonRepository extends RepositoryWith
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof Arez_RepositoryWithSingletonRepository) ) {
+    } else if ( null == o || !(o instanceof Arez_RepositoryPreDisposeHookRepository) ) {
       return false;
     } else {
-      final Arez_RepositoryWithSingletonRepository that = (Arez_RepositoryWithSingletonRepository) o;;
+      final Arez_RepositoryPreDisposeHookRepository that = (Arez_RepositoryPreDisposeHookRepository) o;;
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }
