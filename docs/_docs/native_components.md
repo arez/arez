@@ -19,7 +19,7 @@ processor used naming conventions to link primitive reactive elements together. 
 two observables were from the same component was to look at their names and if enough of the prefix matched then
 they were probably from the same component. i.e. It would be reasonably safe to assume that two observable
 properties named `"Person.42.firstName"` and `"Person.42.lastName"` where properties on a single component
-of type `"Person"` with id `"42"`. 
+of type `"Person"` with id `"42"`.
 
 This was usually sufficient for a human who was inspecting the event logs to get a gist of the interactions between
 the different reactive elements but it made building a DevTool that introspected the components difficult. This lead
