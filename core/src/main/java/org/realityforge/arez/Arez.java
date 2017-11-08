@@ -91,6 +91,16 @@ public final class Arez
   }
 
   /**
+   * Return true if registries for top level reactive components are enabled.
+   *
+   * @return true if registries for top level reactive components are enabled, false otherwise.
+   */
+  public static boolean areRegistriesEnabled()
+  {
+    return areNamesEnabled() && ArezConfig.areRegistriesEnabled();
+  }
+
+  /**
    * Return true if native components are enabled.
    *
    * @return true if native components are enabled, false otherwise.

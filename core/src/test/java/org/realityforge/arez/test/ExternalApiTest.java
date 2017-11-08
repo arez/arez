@@ -94,6 +94,14 @@ public class ExternalApiTest
   }
 
   @Test
+  public void areRegistriesEnabled()
+  {
+    assertTrue( Arez.areRegistriesEnabled() );
+    ArezTestUtil.disableRegistries();
+    assertFalse( Arez.areRegistriesEnabled() );
+  }
+
+  @Test
   public void createComputedValue()
     throws Throwable
   {

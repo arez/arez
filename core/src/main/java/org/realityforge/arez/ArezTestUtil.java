@@ -41,6 +41,7 @@ public final class ArezTestUtil
       disableSpies();
       makeRepositoryResultsModifiable();
       disableNativeComponents();
+      disableRegistries();
     }
     else
     {
@@ -50,6 +51,7 @@ public final class ArezTestUtil
       enableSpies();
       makeRepositoryResultsUnmodifiable();
       enableNativeComponents();
+      enableRegistries();
     }
     purgeReactionsWhenRunawayDetected();
     disableZones();
@@ -265,6 +267,32 @@ public final class ArezTestUtil
   private static void setEnableNativeComponents( final boolean value )
   {
     setConstant( "ENABLE_NATIVE_COMPONENTS", value );
+  }
+
+  /**
+   * Set `arez.enable_registries` setting to true.
+   */
+  public static void enableRegistries()
+  {
+    setEnableRegistries( true );
+  }
+
+  /**
+   * Set `arez.enable_registries` setting to false.
+   */
+  public static void disableRegistries()
+  {
+    setEnableRegistries( false );
+  }
+
+  /**
+   * Configure the `arez.enable_registries` setting.
+   *
+   * @param value the setting.
+   */
+  private static void setEnableRegistries( final boolean value )
+  {
+    setConstant( "ENABLE_REGISTRIES", value );
   }
 
   /**

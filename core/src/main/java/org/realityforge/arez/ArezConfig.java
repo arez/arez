@@ -22,6 +22,8 @@ final class ArezConfig
     "true".equals( System.getProperty( "arez.repositories_results_modifiable", PRODUCTION_MODE ? "true" : "false" ) );
   private static boolean ENABLE_NATIVE_COMPONENTS =
     "true".equals( System.getProperty( "arez.enable_native_components", PRODUCTION_MODE ? "false" : "true" ) );
+  private static boolean ENABLE_REGISTRIES =
+    "true".equals( System.getProperty( "arez.enable_registries", PRODUCTION_MODE ? "false" : "true" ) );
 
   private ArezConfig()
   {
@@ -40,6 +42,11 @@ final class ArezConfig
   static boolean arePropertyIntrospectorsEnabled()
   {
     return ENABLE_PROPERTY_INTROSPECTION;
+  }
+
+  static boolean areRegistriesEnabled()
+  {
+    return ENABLE_REGISTRIES;
   }
 
   static boolean enforceTransactionType()
