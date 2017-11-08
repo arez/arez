@@ -48,6 +48,8 @@
 * **\[annotations\]** Add the `@ComputedValueRef` annotation to allow the reactive component to get access to
   the underling `ComputedValue` instance for a `@Computed` annotated property. This is useful for framework authors
   who need access to low level primitives but still want to make use of the arez component model.
+* **\[core\]** Expose the `Observable` and `ComputedValue` property introspectors introduced in v0.23 via the spy
+  interface. This is designed to enable the ability to write DevTools that introspects these values.
 
 ##### Changed
 * 💥 **\[annotations\]** Actually remove `disposable` parameter from the `@ArezComponent` as v0.24 just removed

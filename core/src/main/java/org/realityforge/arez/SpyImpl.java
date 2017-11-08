@@ -10,6 +10,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.PropertyAccessor;
+import org.realityforge.arez.spy.PropertyMutator;
 import org.realityforge.arez.spy.TransactionInfo;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -372,6 +374,78 @@ final class SpyImpl
   public Collection<String> findAllComponentTypes()
   {
     return Collections.unmodifiableCollection( _context.findAllComponentTypes() );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public <T> boolean hasAccessor( @Nonnull final Observable<T> observable )
+  {
+    invariant( Arez::arePropertyIntrospectorsEnabled,
+               () -> "Spy.hasAccessor invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    return null != observable.getAccessor();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nullable
+  @Override
+  public <T> T getValue( @Nonnull final Observable<T> observable )
+    throws Throwable
+  {
+    invariant( Arez::arePropertyIntrospectorsEnabled,
+               () -> "Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    final PropertyAccessor<T> accessor = observable.getAccessor();
+    apiInvariant( () -> null != accessor,
+                  () -> "Spy.getValue invoked on observable named '" + observable.getName() + "' but " +
+                        "observable has no property accessor." );
+    assert null != accessor;
+    return accessor.get();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public <T> boolean hasMutator( @Nonnull final Observable<T> observable )
+  {
+    invariant( Arez::arePropertyIntrospectorsEnabled,
+               () -> "Spy.hasMutator invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    return null != observable.getMutator();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public <T> void setValue( @Nonnull final Observable<T> observable, @Nullable final T value )
+    throws Throwable
+  {
+    invariant( Arez::arePropertyIntrospectorsEnabled,
+               () -> "Spy.setValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    final PropertyMutator<T> mutator = observable.getMutator();
+    apiInvariant( () -> null != mutator,
+                  () -> "Spy.setValue invoked on observable named '" + observable.getName() + "' but " +
+                        "observable has no property mutator." );
+    assert null != mutator;
+    mutator.set( value );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nullable
+  @Override
+  public <T> T getValue( @Nonnull final ComputedValue<T> computedValue )
+    throws Throwable
+  {
+    invariant( Arez::arePropertyIntrospectorsEnabled,
+               () -> "Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    final PropertyAccessor<T> accessor = computedValue.getObservable().getAccessor();
+    assert null != accessor;
+    return accessor.get();
   }
 
   @TestOnly

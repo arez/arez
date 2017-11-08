@@ -243,4 +243,59 @@ public interface Spy
    */
   @Nonnull
   Collection<String> findAllComponentTypes();
+
+  /**
+   * Return true if the specified Observable has an accessor.
+   * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
+   *
+   * @param observable the Observable.
+   * @return true if an accessor is available.
+   */
+  <T> boolean hasAccessor( @Nonnull Observable<T> observable );
+
+  /**
+   * Return the value of the specified Observable.
+   * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true
+   * and {@link #hasAccessor(Observable)} for the same element returns true.
+   *
+   * @param observable the Observable.
+   * @return the value of the observable.
+   * @throws Throwable if the property accessor throws an exception.
+   */
+  @Nullable
+  <T> T getValue( @Nonnull Observable<T> observable )
+    throws Throwable;
+
+  /**
+   * Return true if the specified Observable has a mutator.
+   * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
+   *
+   * @param observable the Observable.
+   * @return true if a mutator is available.
+   */
+  <T> boolean hasMutator( @Nonnull Observable<T> observable );
+
+  /**
+   * Set the value of the specified Observable.
+   * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true
+   * and {@link #hasMutator(Observable)} for the same element returns true.
+   *
+   * @param observable the Observable.
+   * @param value      the value to set
+   * @throws Throwable if the property accessor throws an exception.
+   */
+  <T> void setValue( @Nonnull Observable<T> observable, @Nullable T value )
+    throws Throwable;
+
+  /**
+   * Return the value of the specified ComputedValue.
+   * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true.
+   *
+   * @param computedValue the ComputedValue.
+   * @return the value of the ComputedValue.
+   * @throws Throwable if the property accessor throws an exception.
+   */
+  @Nullable
+  <T> T getValue( @Nonnull ComputedValue<T> computedValue )
+    throws Throwable;
 }
