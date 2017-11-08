@@ -133,6 +133,8 @@ HEADER
 
       tag = "v#{ENV['PRODUCT_VERSION']}"
 
+      require 'octokit'
+
       client = Octokit::Client.new(:netrc => true, :auto_paginate => true)
       client.login
       client.create_release('realityforge/arez', tag, :name => tag, :body => changes, :draft => false, :prerelease => true)
