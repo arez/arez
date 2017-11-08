@@ -12,4 +12,5 @@
   <set-property name="arez.repositories_results_modifiable" value="false"/>
   <set-property name="arez.enable_spies" value="true"/>
   <set-property name="arez.enable_registries" value="true"/>
+  <set-property name="arez.enable_native_components" value="true"/>
 </module>
