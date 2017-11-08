@@ -42,8 +42,8 @@ console.table(languages);
   - https://github.com/intendia-oss/rxjava-gwt
   - https://github.com/mobxjs/mobx-utils/blob/master/src/from-resource.ts
 
-* Should `ArezContext` be disposable? If so it would need to track all resources created by it and explicitly
-  call dispose on owned resources. Probably can keep a cache using WeakReferences
+* Should `ArezContext` be disposable? If so it would need to enable registries by default so all resources
+  created by the context could be closed when the context is closed. 
 
 * Add test that verifies `TransactionMode` is not in compiled output of production mode.
   Actually I would really like a test tool that we could scan source code and ensure that various elements
