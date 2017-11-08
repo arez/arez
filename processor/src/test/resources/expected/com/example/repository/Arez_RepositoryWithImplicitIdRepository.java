@@ -24,7 +24,7 @@ public final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWit
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_entities;
+  private final Observable<Collection<RepositoryWithImplicitId>> $$arez$$_entities;
 
   Arez_RepositoryWithImplicitIdRepository() {
     super();

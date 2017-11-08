@@ -73,7 +73,7 @@ public final class Arez_DefaultRefNameModel extends DefaultRefNameModel implemen
 
   @Nonnull
   @Override
-  ComputedValue getTimeComputedValue() {
+  ComputedValue<Long> getTimeComputedValue() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     return $$arez$$_time;
   }

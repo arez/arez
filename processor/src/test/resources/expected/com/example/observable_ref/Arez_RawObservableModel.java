@@ -23,7 +23,7 @@ public final class Arez_RawObservableModel extends RawObservableModel implements
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable<Long> $$arez$$_time;
 
   public Arez_RawObservableModel() {
     super();

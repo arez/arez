@@ -19,7 +19,7 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_field;
+  private final Observable<Long> $$arez$$_field;
 
   public Arez_ComponentIdOnSingletonModel() {
     super();

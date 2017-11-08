@@ -24,7 +24,7 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_entities;
+  private final Observable<Collection<RepositoryWithMultipleCtors>> $$arez$$_entities;
 
   Arez_RepositoryWithMultipleCtorsRepository() {
     super();

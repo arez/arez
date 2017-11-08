@@ -26,7 +26,7 @@ public final class Arez_RepositoryPreDisposeHook extends RepositoryPreDisposeHoo
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_name;
+  private final Observable<String> $$arez$$_name;
 
   Arez_RepositoryPreDisposeHook(@Nonnull final String name) {
     super(name);

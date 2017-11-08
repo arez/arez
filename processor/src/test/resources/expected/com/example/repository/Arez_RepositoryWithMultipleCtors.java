@@ -26,7 +26,7 @@ public final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultip
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_name;
+  private final Observable<String> $$arez$$_name;
 
   Arez_RepositoryWithMultipleCtors(@Nonnull final String packageName, @Nonnull final String name) {
     super(packageName,name);

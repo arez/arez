@@ -20,7 +20,7 @@ public class NonStandardNameModel
 
   @Nonnull
   @ObservableRef( name = "time" )
-  public org.realityforge.arez.Observable timeObservable()
+  public org.realityforge.arez.Observable<Long> timeObservable()
   {
     throw new IllegalStateException();
   }

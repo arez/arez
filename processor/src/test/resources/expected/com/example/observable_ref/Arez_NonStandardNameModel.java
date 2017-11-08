@@ -23,7 +23,7 @@ public final class Arez_NonStandardNameModel extends NonStandardNameModel implem
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable<Long> $$arez$$_time;
 
   public Arez_NonStandardNameModel() {
     super();
@@ -81,7 +81,7 @@ public final class Arez_NonStandardNameModel extends NonStandardNameModel implem
 
   @Nonnull
   @Override
-  public Observable timeObservable() {
+  public Observable<Long> timeObservable() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     return $$arez$$_time;
   }

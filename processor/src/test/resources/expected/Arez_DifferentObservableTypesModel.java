@@ -22,31 +22,31 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_v6;
+  private final Observable<Long> $$arez$$_v6;
 
   @Nonnull
-  private final Observable $$arez$$_v7;
+  private final Observable<Float> $$arez$$_v7;
 
   @Nonnull
-  private final Observable $$arez$$_v8;
+  private final Observable<Double> $$arez$$_v8;
 
   @Nonnull
-  private final Observable $$arez$$_v9;
+  private final Observable<Object> $$arez$$_v9;
 
   @Nonnull
-  private final Observable $$arez$$_v1;
+  private final Observable<Boolean> $$arez$$_v1;
 
   @Nonnull
-  private final Observable $$arez$$_v2;
+  private final Observable<Byte> $$arez$$_v2;
 
   @Nonnull
-  private final Observable $$arez$$_v3;
+  private final Observable<Character> $$arez$$_v3;
 
   @Nonnull
-  private final Observable $$arez$$_v4;
+  private final Observable<Short> $$arez$$_v4;
 
   @Nonnull
-  private final Observable $$arez$$_v5;
+  private final Observable<Integer> $$arez$$_v5;
 
   public Arez_DifferentObservableTypesModel() {
     super();

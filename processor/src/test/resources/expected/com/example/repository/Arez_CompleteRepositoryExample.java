@@ -25,13 +25,13 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_name;
+  private final Observable<String> $$arez$$_name;
 
   @Nonnull
-  private final Observable $$arez$$_packageName;
+  private final Observable<String> $$arez$$_packageName;
 
   @Nonnull
-  private final Observable $$arez$$_rawQualifiedName;
+  private final Observable<String> $$arez$$_rawQualifiedName;
 
   @Nonnull
   private final ComputedValue<String> $$arez$$_qualifiedName;

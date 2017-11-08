@@ -24,7 +24,7 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_entities;
+  private final Observable<Collection<CompleteRepositoryExample>> $$arez$$_entities;
 
   Arez_CompleteRepositoryExampleRepository() {
     super();

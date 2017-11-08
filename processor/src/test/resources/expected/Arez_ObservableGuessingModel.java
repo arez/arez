@@ -22,13 +22,13 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_string;
+  private final Observable<String> $$arez$$_string;
 
   @Nonnull
-  private final Observable $$arez$$_foo;
+  private final Observable<Boolean> $$arez$$_foo;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable<Long> $$arez$$_time;
 
   public Arez_ObservableGuessingModel() {
     super();

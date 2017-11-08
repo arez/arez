@@ -22,7 +22,7 @@ public final class Arez_ObservableTypeParametersModel<T extends Integer> extends
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable<T> $$arez$$_time;
 
   public Arez_ObservableTypeParametersModel() {
     super();

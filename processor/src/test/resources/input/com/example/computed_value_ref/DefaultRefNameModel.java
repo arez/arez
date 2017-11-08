@@ -16,7 +16,7 @@ public class DefaultRefNameModel
 
   @Nonnull
   @ComputedValueRef
-  org.realityforge.arez.ComputedValue getTimeComputedValue()
+  org.realityforge.arez.ComputedValue<Long> getTimeComputedValue()
   {
     throw new IllegalStateException();
   }

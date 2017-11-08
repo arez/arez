@@ -22,7 +22,7 @@ public final class Arez_ObservableWithAnnotatedCtorModel extends ObservableWithA
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable<Long> $$arez$$_time;
 
   public Arez_ObservableWithAnnotatedCtorModel(@Nonnegative final long time, final long other, @Nonnull final String foo) {
     super(time,other,foo);

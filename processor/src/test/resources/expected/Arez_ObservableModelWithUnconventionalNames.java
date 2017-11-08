@@ -21,7 +21,7 @@ public final class Arez_ObservableModelWithUnconventionalNames extends Observabl
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable<Long> $$arez$$_time;
 
   public Arez_ObservableModelWithUnconventionalNames() {
     super();

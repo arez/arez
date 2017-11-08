@@ -26,7 +26,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_myField;
+  private final Observable<Long> $$arez$$_myField;
 
   @Nonnull
   private final ComputedValue<Integer> $$arez$$_myComputed;

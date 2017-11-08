@@ -19,7 +19,7 @@ public final class Arez_ComponentIdOnModel extends ComponentIdOnModel implements
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable<Long> $$arez$$_time;
 
   public Arez_ComponentIdOnModel() {
     super();

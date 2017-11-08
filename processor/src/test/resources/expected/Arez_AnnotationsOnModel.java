@@ -24,7 +24,7 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable<String> $$arez$$_time;
 
   @Nonnull
   private final ComputedValue<Integer> $$arez$$_someValue;

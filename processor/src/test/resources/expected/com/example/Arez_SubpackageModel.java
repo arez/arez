@@ -26,7 +26,7 @@ public final class Arez_SubpackageModel extends SubpackageModel implements Dispo
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable<Long> $$arez$$_time;
 
   @Nonnull
   private final ComputedValue<Integer> $$arez$$_someValue;

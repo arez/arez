@@ -26,7 +26,7 @@ public final class Arez_RepositoryWithProtectedConstructor extends RepositoryWit
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_name;
+  private final Observable<String> $$arez$$_name;
 
   protected Arez_RepositoryWithProtectedConstructor(@Nonnull final String name) {
     super(name);

@@ -25,7 +25,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable<Long> $$arez$$_time;
 
   @Nonnull
   private final ComputedValue<Integer> $$arez$$_someValue;

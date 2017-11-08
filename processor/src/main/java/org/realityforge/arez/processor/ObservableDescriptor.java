@@ -4,6 +4,7 @@ import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
@@ -150,8 +151,11 @@ final class ObservableDescriptor
 
   void buildFields( @Nonnull final TypeSpec.Builder builder )
   {
+    assert null != _getterType;
+    final ParameterizedTypeName typeName =
+      ParameterizedTypeName.get( GeneratorUtil.OBSERVABLE_CLASSNAME, TypeName.get( _getterType.getReturnType() ).box() );
     final FieldSpec.Builder field =
-      FieldSpec.builder( GeneratorUtil.OBSERVABLE_CLASSNAME,
+      FieldSpec.builder( typeName,
                          GeneratorUtil.FIELD_PREFIX + getName(),
                          Modifier.FINAL,
                          Modifier.PRIVATE ).
@@ -313,6 +317,23 @@ final class ObservableDescriptor
       throw new ArezProcessorException( "@Observable target defines expectSetter = false but there is no ref " +
                                         "method for observable and thus never possible to report it as changed " +
                                         "and thus should not be observable.", getGetter() );
+    }
+
+    if ( null != _refMethod )
+    {
+      final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
+      if ( typeName instanceof ParameterizedTypeName )
+      {
+        final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
+        final TypeName expectedType = parameterizedTypeName.typeArguments.get( 0 );
+        assert null != _getterType;
+        final TypeName actual = TypeName.get( _getterType.getReturnType() );
+        if ( !actual.box().toString().equals( expectedType.toString() ) )
+        {
+          throw new ArezProcessorException( "@ObservableRef target has a type parameter of " + expectedType +
+                                            " but @Computed method returns type of " + actual, _refMethod );
+        }
+      }
     }
   }
 }

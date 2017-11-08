@@ -22,7 +22,7 @@ public final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitI
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_name;
+  private final Observable<String> $$arez$$_name;
 
   Arez_RepositoryWithExplicitId(@Nonnull final String packageName, @Nonnull final String name) {
     super(packageName,name);

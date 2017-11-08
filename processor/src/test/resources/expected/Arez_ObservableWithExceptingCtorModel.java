@@ -21,7 +21,7 @@ public final class Arez_ObservableWithExceptingCtorModel extends ObservableWithE
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable<Long> $$arez$$_time;
 
   public Arez_ObservableWithExceptingCtorModel() throws Exception {
     super();

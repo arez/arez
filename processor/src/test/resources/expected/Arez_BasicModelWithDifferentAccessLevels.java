@@ -22,10 +22,10 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_time;
+  private final Observable<Long> $$arez$$_time;
 
   @Nonnull
-  private final Observable $$arez$$_value;
+  private final Observable<String> $$arez$$_value;
 
   Arez_BasicModelWithDifferentAccessLevels() {
     super();

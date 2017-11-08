@@ -24,7 +24,7 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_entities;
+  private final Observable<Collection<NestedModel.BasicActionModel>> $$arez$$_entities;
 
   Arez_NestedModel$BasicActionModelRepository() {
     super();

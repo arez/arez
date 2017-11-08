@@ -24,7 +24,7 @@ public final class Arez_RepositoryWithSingletonRepository extends RepositoryWith
   private final Component $$arez$$_component;
 
   @Nonnull
-  private final Observable $$arez$$_entities;
+  private final Observable<Collection<RepositoryWithSingleton>> $$arez$$_entities;
 
   Arez_RepositoryWithSingletonRepository() {
     super();
