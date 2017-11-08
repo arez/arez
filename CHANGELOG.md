@@ -43,6 +43,9 @@
   performance impact. Native components make it possible to introspect the component structure at runtime. This
   feature is designed to enable the construction of DevTools and as such native components are enabled by default
   in development mode and disabled in production mode.
+* **\[annotations\]** Add the `@ComputedValueRef` annotation to allow the reactive component to get access to
+  the underling `ComputedValue` instance for a `@Computed` annotated property. This is useful for framework authors
+  who need access to low level primitives but still want to make use of the arez component model.
 
 ##### Changed
 * 💥 **\[annotations\]** Actually remove `disposable` parameter from the `@ArezComponent` as v0.24 just removed

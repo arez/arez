@@ -16,6 +16,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.type.ExecutableType;
 import org.realityforge.arez.annotations.Computed;
+import org.realityforge.arez.annotations.ComputedValueRef;
 import org.realityforge.arez.annotations.OnActivate;
 import org.realityforge.arez.annotations.OnDeactivate;
 import org.realityforge.arez.annotations.OnDispose;
@@ -48,6 +49,10 @@ final class ComputedDescriptor
   private ExecutableElement _onStale;
   @Nullable
   private ExecutableElement _onDispose;
+  @Nullable
+  private ExecutableElement _refMethod;
+  @Nullable
+  private ExecutableType _refMethodType;
 
   ComputedDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
@@ -59,6 +64,11 @@ final class ComputedDescriptor
   String getName()
   {
     return _name;
+  }
+
+  boolean hasComputed()
+  {
+    return null != _computed;
   }
 
   @Nonnull
@@ -79,6 +89,25 @@ final class ComputedDescriptor
 
     _computed = Objects.requireNonNull( computed );
     _computedType = Objects.requireNonNull( computedType );
+  }
+
+  void setRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
+    throws ArezProcessorException
+  {
+    MethodChecks.mustBeSubclassCallable( ComputedValueRef.class, method );
+    MethodChecks.mustNotHaveAnyParameters( ComputedValueRef.class, method );
+    MethodChecks.mustNotThrowAnyExceptions( ComputedValueRef.class, method );
+
+    if ( null != _refMethod )
+    {
+      throw new ArezProcessorException( "@ComputedValueRef target duplicates existing method named " +
+                                        _refMethod.getSimpleName(), method );
+    }
+    else
+    {
+      _refMethod = Objects.requireNonNull( method );
+      _refMethodType = Objects.requireNonNull( methodType );
+    }
   }
 
   void setOnActivate( @Nonnull final ExecutableElement onActivate )
@@ -165,11 +194,32 @@ final class ComputedDescriptor
         throw new ArezProcessorException( "@OnDispose exists but there is no corresponding @Computed",
                                           _onDispose );
       }
+      else if ( null != _refMethod )
+      {
+        throw new ArezProcessorException( "@ComputedValueRef exists but there is no corresponding @Computed",
+                                          _refMethod );
+      }
       else
       {
         final ExecutableElement onStale = _onStale;
         assert null != onStale;
         throw new ArezProcessorException( "@OnStale exists but there is no corresponding @Computed", onStale );
+      }
+    }
+
+    if ( null != _refMethod )
+    {
+      final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
+      if ( typeName instanceof ParameterizedTypeName )
+      {
+        final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
+        final TypeName expectedType = parameterizedTypeName.typeArguments.get( 0 );
+        final TypeName actual = TypeName.get( _computed.getReturnType() );
+        if ( !actual.box().toString().equals( expectedType.toString() ) )
+        {
+          throw new ArezProcessorException( "@ComputedValueRef target has a type parameter of " + expectedType +
+                                            " but @Computed method returns type of " + actual, _refMethod );
+        }
       }
     }
   }
@@ -268,6 +318,10 @@ final class ComputedDescriptor
     throws ArezProcessorException
   {
     builder.addMethod( buildComputed() );
+    if ( null != _refMethod )
+    {
+      builder.addMethod( buildRefMethod() );
+    }
   }
 
   /**
@@ -299,6 +353,30 @@ final class ComputedDescriptor
                             returnType.box(),
                             GeneratorUtil.FIELD_PREFIX + getName() );
     }
+
+    return builder.build();
+  }
+
+  /**
+   * Generate the accessor for ref method.
+   */
+  @Nonnull
+  private MethodSpec buildRefMethod()
+    throws ArezProcessorException
+  {
+    assert null != _refMethod;
+    assert null != _refMethodType;
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _refMethod.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( _refMethod, builder );
+    ProcessorUtil.copyTypeParameters( _refMethodType, builder );
+    ProcessorUtil.copyDocumentedAnnotations( _refMethod, builder );
+
+    builder.addAnnotation( Override.class );
+    builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
+
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
+
+    builder.addStatement( "return $N", GeneratorUtil.FIELD_PREFIX + getName() );
 
     return builder.build();
   }

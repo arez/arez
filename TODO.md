@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Add support for `@ComputedValueRef`
-
 * Add `Zone.in(A)` methods where A is a `SafeFunction`, `Function`, `SafeProcedure` or a `Procedure`.
 
 * Enhance Watcher so that it times out after specified time and self disposes. Probably implement via

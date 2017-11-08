@@ -48,6 +48,7 @@ import org.realityforge.arez.annotations.ComponentName;
 import org.realityforge.arez.annotations.ComponentRef;
 import org.realityforge.arez.annotations.ComponentTypeName;
 import org.realityforge.arez.annotations.Computed;
+import org.realityforge.arez.annotations.ComputedValueRef;
 import org.realityforge.arez.annotations.ContextRef;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.ObservableRef;
@@ -73,6 +74,7 @@ final class ComponentDescriptor
   private static final String ENTITYLIST_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "entityList";
   private static final String GET_OBSERVABLE_METHOD = "getEntitiesObservable";
   private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observable$" );
+  private static final Pattern COMPUTED_VALUE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ComputedValue$" );
   private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observer$" );
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
   private static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
@@ -488,6 +490,46 @@ final class ComponentDescriptor
     findOrCreateComputed( name ).setComputed( method, computedType );
   }
 
+  private void addComputedValueRef( @Nonnull final ComputedValueRef annotation,
+                                    @Nonnull final ExecutableElement method,
+                                    @Nonnull final ExecutableType methodType )
+    throws ArezProcessorException
+  {
+    MethodChecks.mustBeOverridable( ComputedValueRef.class, method );
+    MethodChecks.mustNotHaveAnyParameters( ComputedValueRef.class, method );
+    MethodChecks.mustNotThrowAnyExceptions( ComputedValueRef.class, method );
+
+    final TypeMirror returnType = methodType.getReturnType();
+    if ( TypeKind.DECLARED != returnType.getKind() ||
+         !toRawType( returnType ).toString().equals( "org.realityforge.arez.ComputedValue" ) )
+    {
+      throw new ArezProcessorException( "Method annotated with @ComputedValueRef must return an instance of " +
+                                        "org.realityforge.arez.ComputedValue", method );
+    }
+
+    final String name;
+    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
+    {
+      name = ProcessorUtil.deriveName( method, COMPUTED_VALUE_REF_PATTERN, annotation.name() );
+      if ( null == name )
+      {
+        throw new ArezProcessorException( "Method annotated with @ComputedValueRef should specify name or be " +
+                                          "named according to the convention get[Name]ComputedValue", method );
+      }
+    }
+    else
+    {
+      name = annotation.name();
+      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "Method annotated with @ComputedValueRef specified invalid name " + name,
+                                          method );
+      }
+    }
+
+    findOrCreateComputed( name ).setRefMethod( method, methodType );
+  }
+
   @Nonnull
   private String deriveComputedName( @Nonnull final ExecutableElement method, @Nonnull final Computed annotation )
     throws ArezProcessorException
@@ -786,7 +828,7 @@ final class ComponentDescriptor
       throw toException( name, sourceType, sourceMethod, Action.class, action.getAction() );
     }
     final ComputedDescriptor computed = _computeds.get( name );
-    if ( null != computed )
+    if ( null != computed && computed.hasComputed() )
     {
       throw toException( name, sourceType, sourceMethod, Computed.class, computed.getComputed() );
     }
@@ -1011,6 +1053,7 @@ final class ComponentDescriptor
     final Observable observable = method.getAnnotation( Observable.class );
     final ObservableRef observableRef = method.getAnnotation( ObservableRef.class );
     final Computed computed = method.getAnnotation( Computed.class );
+    final ComputedValueRef computedValueRef = method.getAnnotation( ComputedValueRef.class );
     final ContextRef contextRef = method.getAnnotation( ContextRef.class );
     final ComponentRef componentRef = method.getAnnotation( ComponentRef.class );
     final ComponentId componentId = method.getAnnotation( ComponentId.class );
@@ -1070,6 +1113,11 @@ final class ComponentDescriptor
     else if ( null != computed )
     {
       addComputed( computed, method, methodType );
+      return true;
+    }
+    else if ( null != computedValueRef )
+    {
+      addComputedValueRef( computedValueRef, method, methodType );
       return true;
     }
     else if ( null != componentRef )
@@ -1146,6 +1194,7 @@ final class ComponentDescriptor
                    Observable.class,
                    ObservableRef.class,
                    Computed.class,
+                   ComputedValueRef.class,
                    ComponentRef.class,
                    ComponentId.class,
                    ComponentName.class,
