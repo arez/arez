@@ -31,6 +31,8 @@ complete as there is too much un-said.
 * Add registry for top-level Observers, Observables and ComputedValues and make them accessible via spy
   framework.
 
+* Disable ArezComponents with empty string as type
+
 * Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
   - https://github.com/zalmoxisus/mobx-remotedev
   - https://github.com/andykog/mobx-devtools
