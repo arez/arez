@@ -51,6 +51,9 @@ console.table(languages);
   that should never be present in compiled output if `areNamesEnabled` is false. Package Y should no be present
   in compiled output unless `areSpiesEnabled` is true etc.
 
+* Should the Spy have direct access to the `Observable`, `ComputedValue` and `Observer` value or should it be
+  abstracted by another info primitive?
+
 ## Process
 
 * Generate links when the application crashes so that we can autofill issue details. Essentially involves
