@@ -51,6 +51,10 @@
   who need access to low level primitives but still want to make use of the arez component model.
 * **\[core\]** Expose the `Observable` and `ComputedValue` property introspectors introduced in v0.23 via the spy
   interface. This is designed to enable the ability to write DevTools that introspects these values.
+* **\[core\]** Define registries for all instances of `Observer`, `Observable` and `ComputedValue` that are not
+  contained by a `Component`. These registries are exposed via the spy interface. As the registries add significant
+  overhead, provide a configuration setting `arez.enable_registries` that is disabled by default but is enabled
+  in development mode.
 
 ##### Changed
 * 💥 **\[annotations\]** Actually remove `disposable` parameter from the `@ArezComponent` as v0.24 just removed
