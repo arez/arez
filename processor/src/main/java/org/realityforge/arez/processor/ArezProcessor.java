@@ -125,6 +125,11 @@ public final class ArezProcessor
       typeElement.getSimpleName().toString() :
       arezComponent.type();
 
+    if ( !ProcessorUtil.isJavaIdentifier( type ) )
+    {
+      throw new ArezProcessorException( "@ArezComponent specified invalid type parameter", typeElement );
+    }
+
     final List<ExecutableElement> methods = ProcessorUtil.getMethods( typeElement, processingEnv.getTypeUtils() );
     final boolean generateToString = methods.stream()
       .noneMatch( m -> m.getSimpleName().toString().equals( "toString" ) &&

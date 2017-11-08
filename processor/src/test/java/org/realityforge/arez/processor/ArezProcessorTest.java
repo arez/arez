@@ -239,8 +239,10 @@ public class ArezProcessorTest
                       "@Autorun target must not throw any exceptions" },
 
         new Object[]{ "com.example.component.AbstractModel", "@ArezComponent target must not be abstract" },
+        new Object[]{ "com.example.component.BadTypeComponent", "@ArezComponent specified invalid type parameter" },
         new Object[]{ "com.example.component.EmptyComponent",
                       "@ArezComponent target has no methods annotated with @Action, @Computed, @Observable, @Track or @Autorun" },
+        new Object[]{ "com.example.component.EmptyTypeComponent", "@ArezComponent specified invalid type parameter" },
         new Object[]{ "com.example.component.EnumModel", "@ArezComponent target must be a class" },
         new Object[]{ "com.example.component.FinalModel", "@ArezComponent target must not be final" },
         new Object[]{ "com.example.component.InterfaceModel", "@ArezComponent target must be a class" },

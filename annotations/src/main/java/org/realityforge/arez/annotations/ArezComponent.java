@@ -23,10 +23,8 @@ import javax.annotation.Nonnull;
  * to elide the id.</li>
  * </ul>
  * <p>The name of any elements contained within the component follows the pattern
- * "<tt>[ArezComponent.name].[ArezComponent.id].[Element.name]</tt>". If the value of {@link #type()}
- * is the empty string then the "<tt>[ArezComponent.name].</tt>" element of name will be elided.
- * If the value of {@link #nameIncludesId()} is false then the "<tt>[ArezComponent.id].</tt>" element
- * of the name will be elided.</p>
+ * "<tt>[ArezComponent.name].[ArezComponent.id].[Element.name]</tt>". If the value of {@link #nameIncludesId()}
+ * is false then the "<tt>[ArezComponent.id].</tt>" element of the name will be elided.</p>
  *
  * <p>The type that is annotated with <tt>@ArezComponent</tt> annotation must comply with the additional constraints:</p>
  * <ul>
@@ -49,8 +47,6 @@ public @interface ArezComponent
   /**
    * Return the name of the type.
    * The value must conform to the requirements of a java identifier.
-   * This can be set to the empty string in which case the {@link Observable}, {@link Computed} and
-   * {@link Action} sub-elements will have no type prefix.
    *
    * @return the name of the type.
    */

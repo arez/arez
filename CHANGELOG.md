@@ -32,6 +32,7 @@
   processing code had not been updated to reflect change.
 * **\[core\]** Fix the generics on the `ArezContext.createObservable(...)` methods to pass the type parameter to
   observable and make sure the type parameter is documented.
+* **\[annotations\]** Enforced naming convention for `type` parameter of the `@ArezComponent` annotation.
 
 ##### Added
 * **\[core\]** Add the `ArezContext.createObservable()` method that will synthesize the observable name if
