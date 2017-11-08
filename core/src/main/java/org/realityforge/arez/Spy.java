@@ -192,7 +192,7 @@ public interface Spy
    * @return the component that contains Observable if any.
    */
   @Nullable
-  Component getComponent( @Nonnull Observable<?> observable );
+  ComponentInfo getComponent( @Nonnull Observable<?> observable );
 
   /**
    * Return the component for specified Observer.
@@ -202,7 +202,7 @@ public interface Spy
    * @return the component that contains Observer if any.
    */
   @Nullable
-  Component getComponent( @Nonnull Observer observer );
+  ComponentInfo getComponent( @Nonnull Observer observer );
 
   /**
    * Return the component for specified ComputedValue.
@@ -212,7 +212,7 @@ public interface Spy
    * @return the component that contains ComputedValue if any.
    */
   @Nullable
-  Component getComponent( @Nonnull ComputedValue<?> computedValue );
+  ComponentInfo getComponent( @Nonnull ComputedValue<?> computedValue );
 
   /**
    * Find the component identified by the specified type and id.

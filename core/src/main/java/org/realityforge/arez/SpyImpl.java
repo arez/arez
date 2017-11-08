@@ -305,11 +305,12 @@ final class SpyImpl
    */
   @Nullable
   @Override
-  public Component getComponent( @Nonnull final Observable<?> observable )
+  public ComponentInfo getComponent( @Nonnull final Observable<?> observable )
   {
     invariant( Arez::areNativeComponentsEnabled,
                () -> "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
-    return observable.getComponent();
+    final Component component = observable.getComponent();
+    return null == component ? null : new ComponentInfoImpl( component );
   }
 
   /**
@@ -317,11 +318,12 @@ final class SpyImpl
    */
   @Nullable
   @Override
-  public Component getComponent( @Nonnull final Observer observer )
+  public ComponentInfo getComponent( @Nonnull final Observer observer )
   {
     invariant( Arez::areNativeComponentsEnabled,
                () -> "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
-    return observer.getComponent();
+    final Component component = observer.getComponent();
+    return null == component ? null : new ComponentInfoImpl( component );
   }
 
   /**
@@ -329,11 +331,12 @@ final class SpyImpl
    */
   @Nullable
   @Override
-  public Component getComponent( @Nonnull final ComputedValue<?> computedValue )
+  public ComponentInfo getComponent( @Nonnull final ComputedValue<?> computedValue )
   {
     invariant( Arez::areNativeComponentsEnabled,
                () -> "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
-    return computedValue.getComponent();
+    final Component component = computedValue.getComponent();
+    return null == component ? null : new ComponentInfoImpl( component );
   }
 
   /**

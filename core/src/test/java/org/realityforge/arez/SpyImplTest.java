@@ -575,7 +575,9 @@ public class SpyImplTest
     final Observable<Object> observable1 = context.createObservable( component, ValueUtil.randomString(), null, null );
     final Observable<Object> observable2 = context.createObservable();
 
-    assertEquals( spy.getComponent( observable1 ), component );
+    final ComponentInfo info = spy.getComponent( observable1 );
+    assertNotNull( info );
+    assertEquals( info.getName(), component.getName() );
     assertEquals( spy.getComponent( observable2 ), null );
   }
 
@@ -614,7 +616,9 @@ public class SpyImplTest
                                    null );
     final ComputedValue<Object> computedValue2 = context.createComputedValue( () -> "" );
 
-    assertEquals( spy.getComponent( computedValue1 ), component );
+    final ComponentInfo info = spy.getComponent( computedValue1 );
+    assertNotNull( info );
+    assertEquals( info.getName(), component.getName() );
     assertEquals( spy.getComponent( computedValue2 ), null );
   }
 
@@ -652,7 +656,9 @@ public class SpyImplTest
     final Observer observer2 = context.autorun( () -> {
     } );
 
-    assertEquals( spy.getComponent( observer1 ), component );
+    final ComponentInfo info = spy.getComponent( observer1 );
+    assertNotNull( info );
+    assertEquals( info.getName(), component.getName() );
     assertEquals( spy.getComponent( observer2 ), null );
   }
 
