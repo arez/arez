@@ -591,10 +591,11 @@ public final class ArezContext
   /**
    * Create an Observable synthesizing name if required.
    *
+   * @param <T> the type of observable.
    * @return the new Observable.
    */
   @Nonnull
-  public Observable createObservable()
+  public <T> Observable<T> createObservable()
   {
     return createObservable( null );
   }
@@ -603,10 +604,11 @@ public final class ArezContext
    * Create an Observable with the specified name.
    *
    * @param name the name of the Observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param <T>  the type of observable.
    * @return the new Observable.
    */
   @Nonnull
-  public Observable createObservable( @Nullable final String name )
+  public <T> Observable<T> createObservable( @Nullable final String name )
   {
     return createObservable( name, null, null );
   }
@@ -617,6 +619,7 @@ public final class ArezContext
    * @param name     the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param accessor the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @param mutator  the mutator for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
+   * @param <T>      the type of observable.
    * @return the new Observable.
    */
   @Nonnull
