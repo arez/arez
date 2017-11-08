@@ -779,6 +779,100 @@ public class SpyImplTest
   }
 
   @Test
+  public void findAllTopLevelObservables()
+  {
+    final ArezContext context = Arez.context();
+
+    final Observable<String> observable = context.createObservable();
+
+    final Spy spy = context.getSpy();
+
+    final Collection<Observable<?>> values = spy.findAllTopLevelObservables();
+    assertEquals( values.size(), 1 );
+    assertEquals( values.contains( observable ), true );
+    assertUnmodifiable( values );
+  }
+
+  @Test
+  public void findAllTopLevelObservables_registriesDisabled()
+  {
+    ArezTestUtil.disableRegistries();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, spy::findAllTopLevelObservables );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false." );
+  }
+
+  @Test
+  public void findAllTopLevelComputedValues()
+  {
+    final ArezContext context = Arez.context();
+
+    final ComputedValue<String> computedValue = context.createComputedValue( () -> "" );
+
+    final Spy spy = context.getSpy();
+
+    final Collection<ComputedValue<?>> values = spy.findAllTopLevelComputedValues();
+    assertEquals( values.size(), 1 );
+    assertEquals( values.contains( computedValue ), true );
+    assertUnmodifiable( values );
+
+    assertEquals( spy.findAllTopLevelObservers().size(), 0 );
+    assertEquals( spy.findAllTopLevelObservables().size(), 0 );
+  }
+
+  @Test
+  public void findAllTopLevelComputedValues_registriesDisabled()
+  {
+    ArezTestUtil.disableRegistries();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, spy::findAllTopLevelComputedValues );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.getTopLevelComputedValues() invoked when Arez.areRegistriesEnabled() returns false." );
+  }
+
+  @Test
+  public void findAllTopLevelObservers()
+  {
+    final ArezContext context = Arez.context();
+
+    final Observer observer = context.autorun( () -> {
+    } );
+
+    final Spy spy = context.getSpy();
+
+    final Collection<Observer> values = spy.findAllTopLevelObservers();
+    assertEquals( values.size(), 1 );
+    assertEquals( values.contains( observer ), true );
+    assertUnmodifiable( values );
+  }
+
+  @Test
+  public void findAllTopLevelObservers_registriesDisabled()
+  {
+    ArezTestUtil.disableRegistries();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, spy::findAllTopLevelObservers );
+
+    assertEquals( exception.getMessage(),
+                  "ArezContext.getTopLevelObservers() invoked when Arez.areRegistriesEnabled() returns false." );
+  }
+
+  @Test
   public void observable_introspection()
     throws Throwable
   {

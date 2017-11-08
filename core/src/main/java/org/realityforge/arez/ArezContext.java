@@ -1542,6 +1542,8 @@ public final class ArezContext
   @Nonnull
   HashMap<String, Observable<?>> getTopLevelObservables()
   {
+    invariant( Arez::areRegistriesEnabled,
+               () -> "ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false." );
     assert null != _observables;
     return _observables;
   }
@@ -1573,6 +1575,8 @@ public final class ArezContext
   @Nonnull
   HashMap<String, Observer> getTopLevelObservers()
   {
+    invariant( Arez::areRegistriesEnabled,
+               () -> "ArezContext.getTopLevelObservers() invoked when Arez.areRegistriesEnabled() returns false." );
     assert null != _observers;
     return _observers;
   }
@@ -1604,6 +1608,8 @@ public final class ArezContext
   @Nonnull
   HashMap<String, ComputedValue<?>> getTopLevelComputedValues()
   {
+    invariant( Arez::areRegistriesEnabled,
+               () -> "ArezContext.getTopLevelComputedValues() invoked when Arez.areRegistriesEnabled() returns false." );
     assert null != _computedValues;
     return _computedValues;
   }

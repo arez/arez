@@ -23,9 +23,6 @@ complete as there is too much un-said.
 
 * Enhance WhyRun and write tests for it.
 
-* Add registry for top-level Observers, Observables and ComputedValues and make them accessible via spy
-  framework.
-
 * Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
   - https://github.com/zalmoxisus/mobx-remotedev
   - https://github.com/andykog/mobx-devtools

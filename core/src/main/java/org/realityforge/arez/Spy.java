@@ -245,6 +245,36 @@ public interface Spy
   Collection<String> findAllComponentTypes();
 
   /**
+   * Find all the collection of observables not contained by a native component.
+   * This method should not be invoked unless {@link Arez#areRegistriesEnabled()} returns true.
+   * This collection returned is unmodifiable.
+   *
+   * @return the collection of observables not contained by a native component.
+   */
+  @Nonnull
+  Collection<Observable<?>> findAllTopLevelObservables();
+
+  /**
+   * Find all the collection of observers not contained by a native component.
+   * This method should not be invoked unless {@link Arez#areRegistriesEnabled()} returns true.
+   * This collection returned is unmodifiable.
+   *
+   * @return the collection of observers not contained by a native component.
+   */
+  @Nonnull
+  Collection<Observer> findAllTopLevelObservers();
+
+  /**
+   * Find all the collection of computed values not contained by a native component.
+   * This method should not be invoked unless {@link Arez#areRegistriesEnabled()} returns true.
+   * This collection returned is unmodifiable.
+   *
+   * @return the collection of computed values not contained by a native component.
+   */
+  @Nonnull
+  Collection<ComputedValue<?>> findAllTopLevelComputedValues();
+
+  /**
    * Return true if the specified Observable has an accessor.
    * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
    *

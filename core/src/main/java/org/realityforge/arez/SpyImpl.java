@@ -379,6 +379,36 @@ final class SpyImpl
   /**
    * {@inheritDoc}
    */
+  @Nonnull
+  @Override
+  public Collection<Observable<?>> findAllTopLevelObservables()
+  {
+    return Collections.unmodifiableCollection( _context.getTopLevelObservables().values() );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public Collection<Observer> findAllTopLevelObservers()
+  {
+    return Collections.unmodifiableCollection( _context.getTopLevelObservers().values() );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public Collection<ComputedValue<?>> findAllTopLevelComputedValues()
+  {
+    return Collections.unmodifiableCollection( _context.getTopLevelComputedValues().values() );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public <T> boolean hasAccessor( @Nonnull final Observable<T> observable )
   {

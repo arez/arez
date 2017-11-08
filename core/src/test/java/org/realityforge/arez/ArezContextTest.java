@@ -2145,14 +2145,20 @@ public class ArezContextTest
                              "ArezContext.registerObservable invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( () -> context.deregisterObservable( observable ),
                              "ArezContext.deregisterObservable invoked when Arez.areRegistriesEnabled() returns false." );
+    assertThrowsWithMessage( context::getTopLevelObservables,
+                             "ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( () -> context.registerObserver( observer ),
                              "ArezContext.registerObserver invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( () -> context.deregisterObserver( observer ),
                              "ArezContext.deregisterObserver invoked when Arez.areRegistriesEnabled() returns false." );
+    assertThrowsWithMessage( context::getTopLevelObservers,
+                             "ArezContext.getTopLevelObservers() invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( () -> context.registerComputedValue( computedValue ),
                              "ArezContext.registerComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( () -> context.deregisterComputedValue( computedValue ),
                              "ArezContext.deregisterComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
+    assertThrowsWithMessage( context::getTopLevelComputedValues,
+                             "ArezContext.getTopLevelComputedValues() invoked when Arez.areRegistriesEnabled() returns false." );
   }
 
   @Test
