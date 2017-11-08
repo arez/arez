@@ -133,6 +133,9 @@ public final class Arez
     return new Zone();
   }
 
+  /**
+   * Save the old zone and make the specified zone the current zone.
+   */
   @SuppressWarnings( "ConstantConditions" )
   static void activateZone( @Nonnull final Zone zone )
   {
@@ -143,6 +146,11 @@ public final class Arez
     c_zone = zone;
   }
 
+  /**
+   * Restore the old zone.
+   * This takes the zone that was current when {@link #activateZone(Zone)} was called for the active zone
+   * and restores it to being the current zone.
+   */
   @SuppressWarnings( "ConstantConditions" )
   static void deactivateZone( @Nonnull final Zone zone )
   {

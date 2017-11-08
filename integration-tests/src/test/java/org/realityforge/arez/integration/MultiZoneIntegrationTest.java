@@ -1,5 +1,6 @@
 package org.realityforge.arez.integration;
 
+import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
@@ -30,29 +31,28 @@ public class MultiZoneIntegrationTest
     context1.getSpy().addSpyEventHandler( recorder );
     context2.getSpy().addSpyEventHandler( recorder );
 
-    zone1.activate();
-    final PersonModel person = PersonModel.create( "Bill", "Smith" );
-
-    zone2.activate();
-    final PersonModel person2 = PersonModel.create( "Bill", "Smith" );
-
-    zone2.deactivate();
-    zone1.deactivate();
+    final AtomicReference<PersonModel> person = new AtomicReference<>();
+    final AtomicReference<PersonModel> person2 = new AtomicReference<>();
+    zone1.run( () ->
+              {
+                person.set( PersonModel.create( "Bill", "Smith" ) );
+                zone2.run( () -> person2.set( PersonModel.create( "Bill", "Smith" ) ) );
+              } );
 
     context1.autorun( "FirstNamePrinter1",
-                      () -> record( recorder, "firstName1", person.getFirstName() ) );
+                      () -> record( recorder, "firstName1", person.get().getFirstName() ) );
     context2.autorun( "FirstNamePrinter2",
-                      () -> record( recorder, "firstName2", person2.getFirstName() ) );
+                      () -> record( recorder, "firstName2", person2.get().getFirstName() ) );
 
     context1.autorun( "FullNamePrinter1",
-                      () -> record( recorder, "fullname1", person.getFullName() ) );
+                      () -> record( recorder, "fullname1", person.get().getFullName() ) );
     context2.autorun( "FullNamePrinter2",
-                      () -> record( recorder, "fullname2", person2.getFullName() ) );
+                      () -> record( recorder, "fullname2", person2.get().getFullName() ) );
 
-    context1.action( "First Name Update1", true, () -> person.setFirstName( "Fred" ) );
-    context1.action( "Last Name Update1", true, () -> person.setLastName( "Donaldo" ) );
+    context1.action( "First Name Update1", true, () -> person.get().setFirstName( "Fred" ) );
+    context1.action( "Last Name Update1", true, () -> person.get().setLastName( "Donaldo" ) );
 
-    context2.action( "Last Name Update2", true, () -> person2.setLastName( "Donaldo" ) );
+    context2.action( "Last Name Update2", true, () -> person2.get().setLastName( "Donaldo" ) );
 
     assertEqualsFixture( recorder.eventsAsString() );
   }
@@ -69,19 +69,18 @@ public class MultiZoneIntegrationTest
     final ArezContext context1 = zone1.getContext();
     final ArezContext context2 = zone2.getContext();
 
-    zone1.activate();
-    final PersonModel person1 = PersonModel.create( "Bill", "Smith" );
+    final AtomicReference<PersonModel> person1 = new AtomicReference<>();
+    final AtomicReference<PersonModel> person2 = new AtomicReference<>();
 
-    zone2.activate();
-    final PersonModel person2 = PersonModel.create( "Bill", "Smith" );
+    zone1.run( () -> {
+      person1.set( PersonModel.create( "Bill", "Smith" ) );
+      zone2.run( () -> person2.set( PersonModel.create( "Bill", "Smith" ) ) );
+    } );
 
-    zone2.deactivate();
-    zone1.deactivate();
-
-    context1.action( () -> assertInTransaction( person1 ) );
-    context1.action( () -> assertNotInTransaction( person2 ) );
-    context2.action( () -> assertNotInTransaction( person1 ) );
-    context2.action( () -> assertInTransaction( person2 ) );
+    context1.action( () -> assertInTransaction( person1.get() ) );
+    context1.action( () -> assertNotInTransaction( person2.get() ) );
+    context2.action( () -> assertNotInTransaction( person1.get() ) );
+    context2.action( () -> assertInTransaction( person2.get() ) );
   }
 
   /**

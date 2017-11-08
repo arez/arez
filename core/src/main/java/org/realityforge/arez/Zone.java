@@ -37,20 +37,82 @@ public final class Zone
   }
 
   /**
-   * Save the old zone and make this the current zone.
+   * Run the specified function in the zone.
+   * Activate the zone on entry, deactivate on exit.
+   *
+   * @param action the function to execute.
    */
-  public void activate()
+  public <T> T safeRun( @Nonnull final SafeFunction<T> action )
   {
     Arez.activateZone( this );
+    try
+    {
+      return action.call();
+    }
+    finally
+    {
+      Arez.deactivateZone( this );
+    }
   }
 
   /**
-   * Restore the old zone.
-   * This takes the zone that was current when {@link #activate()} was called on this zone
-   * and restores it to being the current zone.
+   * Run the specified function in the zone.
+   * Activate the zone on entry, deactivate on exit.
+   *
+   * @param action the function to execute.
+   * @throws Throwable if the function throws an exception.
    */
-  public void deactivate()
+  public <T> T run( @Nonnull final Function<T> action )
+    throws Throwable
   {
-    Arez.deactivateZone( this );
+    Arez.activateZone( this );
+    try
+    {
+      return action.call();
+    }
+    finally
+    {
+      Arez.deactivateZone( this );
+    }
+  }
+
+  /**
+   * Run the specified procedure in the zone.
+   * Activate the zone on entry, deactivate on exit.
+   *
+   * @param action the procedure to execute.
+   */
+  public void safeRun( @Nonnull final SafeProcedure action )
+  {
+    Arez.activateZone( this );
+    try
+    {
+      action.call();
+    }
+    finally
+    {
+      Arez.deactivateZone( this );
+    }
+  }
+
+  /**
+   * Run the specified procedure in the zone.
+   * Activate the zone on entry, deactivate on exit.
+   *
+   * @param action the procedure to execute.
+   * @throws Throwable if the procedure throws an exception.
+   */
+  public void run( @Nonnull final Procedure action )
+    throws Throwable
+  {
+    Arez.activateZone( this );
+    try
+    {
+      action.call();
+    }
+    finally
+    {
+      Arez.deactivateZone( this );
+    }
   }
 }

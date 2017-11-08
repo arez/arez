@@ -78,6 +78,9 @@
   the annotation processor and the generated code. To restore the ability to elide the id from the component name,
   the parameter `nameIncludesId=false` is now supported on the `@ArezComponent` annotation.
 * 💥 **\[annotations\]** Rename `name` parameter on `@ArezComponent` to `type` to correctly reflect semantics.
+* 💥 **\[core\]** Removed the `Zone.activate()` and `Zone.deactivate()` methods and replace them with
+  `Zone.run(Procedure)`, `Zone.run(Function)`, `Zone.safeRun(SafeProcedure)` and `Zone.safeRun(SafeFunction)` as
+  these methods eliminate the need to correct pair activate and deactivate calls.
 
 ### [v0.24](https://github.com/realityforge/arez/tree/v0.24) (2017-11-02)
 [Full Changelog](https://github.com/realityforge/arez/compare/v0.23...v0.24)
