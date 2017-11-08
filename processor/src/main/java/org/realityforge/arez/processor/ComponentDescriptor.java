@@ -207,13 +207,10 @@ final class ComponentDescriptor
     if ( !ProcessorUtil.isSentinelName( annotation.name() ) )
     {
       name = annotation.name();
-      if ( !name.isEmpty() )
+      if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
-        if ( !ProcessorUtil.isJavaIdentifier( name ) )
-        {
-          throw new ArezProcessorException( "Method annotated with @Observable specified invalid name " + name,
-                                            method );
-        }
+        throw new ArezProcessorException( "Method annotated with @Observable specified invalid name " + name,
+                                          method );
       }
     }
     checkNameUnique( name, method, Observable.class );
@@ -293,7 +290,7 @@ final class ComponentDescriptor
     else
     {
       name = annotation.name();
-      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @ObservableRef specified invalid name " + name,
                                           method );
@@ -349,7 +346,7 @@ final class ComponentDescriptor
     else
     {
       final String name = annotation.name();
-      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Action specified invalid name " + name, method );
       }
@@ -384,7 +381,7 @@ final class ComponentDescriptor
     else
     {
       final String name = annotation.name();
-      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Autorun specified invalid name " + name, method );
       }
@@ -422,7 +419,7 @@ final class ComponentDescriptor
     else
     {
       final String name = annotation.name();
-      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Track specified invalid name " + name, method );
       }
@@ -460,7 +457,7 @@ final class ComponentDescriptor
     else
     {
       name = annotation.name();
-      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @ObserverRef specified invalid name " + name,
                                           method );
@@ -520,7 +517,7 @@ final class ComponentDescriptor
     else
     {
       name = annotation.name();
-      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @ComputedValueRef specified invalid name " + name,
                                           method );
@@ -541,7 +538,7 @@ final class ComponentDescriptor
     else
     {
       final String name = annotation.name();
-      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Computed specified invalid name " + name, method );
       }
@@ -591,7 +588,7 @@ final class ComponentDescriptor
       throw new ArezProcessorException( "Unable to derive name for @On" + type + " as does not match " +
                                         "on[Name]" + type + " pattern. Please specify name.", method );
     }
-    else if ( value.isEmpty() || !ProcessorUtil.isJavaIdentifier( value ) )
+    else if ( !ProcessorUtil.isJavaIdentifier( value ) )
     {
       throw new ArezProcessorException( "Method annotated with @On" + type + " specified invalid name " + value,
                                         method );
@@ -1868,7 +1865,7 @@ final class ComponentDescriptor
     }
     else
     {
-      if ( name.isEmpty() || !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Class annotated with @Repository specified an invalid name " + name,
                                           _element );
