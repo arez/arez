@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.25](https://github.com/realityforge/arez/tree/v0.25) (2017-11-08)
+[Full Changelog](https://github.com/realityforge/arez/compare/v0.24...v0.25)
 
 ##### Fixed
 * **\[core\]** When exceptions are thrown when calculating the value for `ComputedValue`, the `ComputedValue`
