@@ -149,10 +149,14 @@ public final class Observer
     else
     {
       _derivedValue = null;
-    }
-    if ( null != _component )
-    {
-      _component.addObserver( this );
+      if ( null != _component )
+      {
+        _component.addObserver( this );
+      }
+      else if ( Arez.areRegistriesEnabled() )
+      {
+        getContext().registerObserver( this );
+      }
     }
   }
 
@@ -197,13 +201,20 @@ public final class Observer
                                ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE : null,
                                () -> getContext().getTransaction().markTrackerAsDisposed(),
                                this );
-      if ( willPropagateSpyEvents() && !isDerivation() )
+      if ( !isDerivation() )
       {
-        reportSpyEvent( new ObserverDisposedEvent( this ) );
-      }
-      if ( null != _component )
-      {
-        _component.removeObserver( this );
+        if ( willPropagateSpyEvents() )
+        {
+          reportSpyEvent( new ObserverDisposedEvent( this ) );
+        }
+        if ( null != _component )
+        {
+          _component.removeObserver( this );
+        }
+        else if ( Arez.areRegistriesEnabled() )
+        {
+          getContext().deregisterObserver( this );
+        }
       }
       if ( null != _computedValue )
       {

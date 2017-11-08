@@ -56,6 +56,8 @@ public class ObservableTest
     assertEquals( observable.getMutator(), mutator );
 
     observable.invariantLeastStaleObserverState();
+
+    assertTrue( context.getTopLevelObservables().containsKey( observable.getName() ) );
   }
 
   @Test
@@ -80,6 +82,8 @@ public class ObservableTest
     assertNull( observable.getMutator() );
 
     observable.invariantLeastStaleObserverState();
+
+    assertFalse( context.getTopLevelObservables().containsKey( observable.getName() ) );
   }
 
   @Test
@@ -90,7 +94,12 @@ public class ObservableTest
 
     final ArezContext context = new ArezContext();
     final Component component =
-      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString(), null, null );
+      new Component( context,
+                     ValueUtil.randomString(),
+                     ValueUtil.randomString(),
+                     ValueUtil.randomString(),
+                     null,
+                     null );
 
     final String name = ValueUtil.randomString();
     final IllegalStateException exception =
@@ -106,13 +115,19 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     final Component component =
-      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString(), null, null );
+      new Component( context,
+                     ValueUtil.randomString(),
+                     ValueUtil.randomString(),
+                     ValueUtil.randomString(),
+                     null,
+                     null );
 
     final String name = ValueUtil.randomString();
     final Observable<String> observable = new Observable<>( context, component, name, null, null, null );
     assertEquals( observable.getName(), name );
     assertEquals( observable.getComponent(), component );
 
+    assertFalse( context.getTopLevelObservables().containsKey( observable.getName() ) );
     assertTrue( component.getObservables().contains( observable ) );
 
     observable.dispose();
@@ -205,6 +220,8 @@ public class ObservableTest
 
     final int currentNextTransactionId = context.currentNextTransactionId();
 
+    assertTrue( context.getTopLevelObservables().containsKey( observable.getName() ) );
+
     observable.dispose();
 
     // Multiple transactions created. 1 for dispose operation and one for reaction
@@ -214,6 +231,8 @@ public class ObservableTest
     assertEquals( observable.getWorkState(), Observable.DISPOSED );
 
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+
+    assertFalse( context.getTopLevelObservables().containsKey( observable.getName() ) );
   }
 
   @Test
@@ -825,6 +844,7 @@ public class ObservableTest
   public void invariantOwner_badObservableLink()
     throws Exception
   {
+    ArezTestUtil.disableRegistries();
     final ArezContext context = new ArezContext();
     setCurrentTransaction( context );
 

@@ -39,6 +39,10 @@ public class ComputedValueTest
     assertEquals( computedValue.getObservable().getName(), name );
     assertEquals( computedValue.getObservable().hasOwner(), true );
     assertEquals( computedValue.getObservable().getOwner(), computedValue.getObserver() );
+
+    assertEquals( context.getTopLevelComputedValues().get( computedValue.getName() ), computedValue );
+    assertEquals( context.getTopLevelObservers().size(), 0 );
+    assertEquals( context.getTopLevelObservables().size(), 0 );
   }
 
   @Test
@@ -87,6 +91,10 @@ public class ComputedValueTest
 
     assertEquals( computedValue.getObserver().getComponent(), null );
     assertEquals( computedValue.getObservable().getComponent(), null );
+
+    // Don't register the worker observables/observers just the computed values
+    assertEquals( component.getObservables().size(), 0 );
+    assertEquals( component.getObservers().size(), 0 );
 
     assertTrue( component.getComputedValues().contains( computedValue ) );
 

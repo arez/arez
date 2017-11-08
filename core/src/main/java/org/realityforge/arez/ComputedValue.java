@@ -91,6 +91,10 @@ public final class ComputedValue<T>
     {
       _component.addComputedValue( this );
     }
+    else if ( Arez.areRegistriesEnabled() )
+    {
+      getContext().registerComputedValue( this );
+    }
   }
 
   /**
@@ -144,6 +148,10 @@ public final class ComputedValue<T>
       if ( null != _component )
       {
         _component.removeComputedValue( this );
+      }
+      else if ( Arez.areRegistriesEnabled() )
+      {
+        getContext().deregisterComputedValue( this );
       }
       _observer.dispose();
     }

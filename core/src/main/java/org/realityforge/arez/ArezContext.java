@@ -62,6 +62,25 @@ public final class ArezContext
   private final HashMap<String, HashMap<Object, Component>> _components =
     Arez.areNativeComponentsEnabled() ? new HashMap<>() : null;
   /**
+   * Registry of top level observables.
+   * These are all the Observables instances not contained within a component.
+   */
+  @Nullable
+  private final HashMap<String, Observable<?>> _observables = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
+  /**
+   * Registry of top level computed values.
+   * These are all the ComputedValue instances not contained within a component.
+   */
+  @Nullable
+  private final HashMap<String, ComputedValue<?>> _computedValues =
+    Arez.areRegistriesEnabled() ? new HashMap<>() : null;
+  /**
+   * Registry of top level observers.
+   * These are all the Observer instances not contained within a component.
+   */
+  @Nullable
+  private final HashMap<String, Observer> _observers = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
+  /**
    * Flag indicating whether the scheduler should run next time it is triggered.
    * This should be active only when there is no uncommitted transaction for context.
    */
@@ -1494,6 +1513,99 @@ public final class ArezContext
     return ArezConfig.enforceTransactionType() ?
            ( mutation ? TransactionMode.READ_WRITE : TransactionMode.READ_ONLY ) :
            null;
+  }
+
+  void registerObservable( @Nonnull final Observable observable )
+  {
+    invariant( Arez::areRegistriesEnabled,
+               () -> "ArezContext.registerObservable invoked when Arez.areRegistriesEnabled() returns false." );
+    final String name = observable.getName();
+    assert null != _observables;
+    invariant( () -> !_observables.containsKey( name ),
+               () -> "ArezContext.registerObservable invoked with observable named '" + name +
+                     "' but an existing observable with that name is already registered." );
+    _observables.put( name, observable );
+  }
+
+  void deregisterObservable( @Nonnull final Observable observable )
+  {
+    invariant( Arez::areRegistriesEnabled,
+               () -> "ArezContext.deregisterObservable invoked when Arez.areRegistriesEnabled() returns false." );
+    final String name = observable.getName();
+    assert null != _observables;
+    invariant( () -> _observables.containsKey( name ),
+               () -> "ArezContext.deregisterObservable invoked with observable named '" + name +
+                     "' but no observable with that name is registered." );
+    _observables.remove( name );
+  }
+
+  @Nonnull
+  HashMap<String, Observable<?>> getTopLevelObservables()
+  {
+    assert null != _observables;
+    return _observables;
+  }
+
+  void registerObserver( @Nonnull final Observer observer )
+  {
+    invariant( Arez::areRegistriesEnabled,
+               () -> "ArezContext.registerObserver invoked when Arez.areRegistriesEnabled() returns false." );
+    final String name = observer.getName();
+    assert null != _observers;
+    invariant( () -> !_observers.containsKey( name ),
+               () -> "ArezContext.registerObserver invoked with observer named '" + name +
+                     "' but an existing observer with that name is already registered." );
+    _observers.put( name, observer );
+  }
+
+  void deregisterObserver( @Nonnull final Observer observer )
+  {
+    invariant( Arez::areRegistriesEnabled,
+               () -> "ArezContext.deregisterObserver invoked when Arez.areRegistriesEnabled() returns false." );
+    final String name = observer.getName();
+    assert null != _observers;
+    invariant( () -> _observers.containsKey( name ),
+               () -> "ArezContext.deregisterObserver invoked with observer named '" + name +
+                     "' but no observer with that name is registered." );
+    _observers.remove( name );
+  }
+
+  @Nonnull
+  HashMap<String, Observer> getTopLevelObservers()
+  {
+    assert null != _observers;
+    return _observers;
+  }
+
+  void registerComputedValue( @Nonnull final ComputedValue computedValue )
+  {
+    invariant( Arez::areRegistriesEnabled,
+               () -> "ArezContext.registerComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
+    final String name = computedValue.getName();
+    assert null != _computedValues;
+    invariant( () -> !_computedValues.containsKey( name ),
+               () -> "ArezContext.registerComputedValue invoked with computed value named '" + name +
+                     "' but an existing computed value with that name is already registered." );
+    _computedValues.put( name, computedValue );
+  }
+
+  void deregisterComputedValue( @Nonnull final ComputedValue computedValue )
+  {
+    invariant( Arez::areRegistriesEnabled,
+               () -> "ArezContext.deregisterComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
+    final String name = computedValue.getName();
+    assert null != _computedValues;
+    invariant( () -> _computedValues.containsKey( name ),
+               () -> "ArezContext.deregisterComputedValue invoked with computed value named '" + name +
+                     "' but no computed value with that name is registered." );
+    _computedValues.remove( name );
+  }
+
+  @Nonnull
+  HashMap<String, ComputedValue<?>> getTopLevelComputedValues()
+  {
+    assert null != _computedValues;
+    return _computedValues;
   }
 
   @TestOnly

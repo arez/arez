@@ -5,6 +5,7 @@ import java.security.AccessControlException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.annotation.Nonnull;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
 import org.realityforge.arez.spy.ComponentCreateStartedEvent;
@@ -2126,5 +2127,109 @@ public class ArezContextTest
 
     assertEquals( exception.getMessage(),
                   "ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
+
+  @Test
+  public void registryAccessWhenDisabled()
+  {
+    ArezTestUtil.disableRegistries();
+
+    final ArezContext context = Arez.context();
+
+    final Observable<Object> observable = context.createObservable();
+    final ComputedValue<String> computedValue = context.createComputedValue( () -> "" );
+    final Observer observer = context.autorun( () -> {
+    } );
+
+    assertThrowsWithMessage( () -> context.registerObservable( observable ),
+                             "ArezContext.registerObservable invoked when Arez.areRegistriesEnabled() returns false." );
+    assertThrowsWithMessage( () -> context.deregisterObservable( observable ),
+                             "ArezContext.deregisterObservable invoked when Arez.areRegistriesEnabled() returns false." );
+    assertThrowsWithMessage( () -> context.registerObserver( observer ),
+                             "ArezContext.registerObserver invoked when Arez.areRegistriesEnabled() returns false." );
+    assertThrowsWithMessage( () -> context.deregisterObserver( observer ),
+                             "ArezContext.deregisterObserver invoked when Arez.areRegistriesEnabled() returns false." );
+    assertThrowsWithMessage( () -> context.registerComputedValue( computedValue ),
+                             "ArezContext.registerComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
+    assertThrowsWithMessage( () -> context.deregisterComputedValue( computedValue ),
+                             "ArezContext.deregisterComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
+  }
+
+  @Test
+  public void observableRegistry()
+  {
+    final ArezContext context = Arez.context();
+
+    final Observable<Object> observable = context.createObservable();
+
+    assertEquals( context.getTopLevelObservables().size(), 1 );
+    assertEquals( context.getTopLevelObservables().get( observable.getName() ), observable );
+
+    assertThrowsWithMessage( () -> context.registerObservable( observable ),
+                             "ArezContext.registerObservable invoked with observable named '" +
+                             observable.getName() + "' but an existing observable with that name is " +
+                             "already registered." );
+
+    assertEquals( context.getTopLevelObservables().size(), 1 );
+    context.getTopLevelObservables().clear();
+    assertEquals( context.getTopLevelObservables().size(), 0 );
+
+    assertThrowsWithMessage( () -> context.deregisterObservable( observable ),
+                             "ArezContext.deregisterObservable invoked with observable named '" +
+                             observable.getName() + "' but no observable with that name is registered." );
+  }
+
+  @Test
+  public void observerRegistry()
+  {
+    final ArezContext context = Arez.context();
+
+    final Observer observer = context.autorun( () -> {
+    } );
+
+    assertEquals( context.getTopLevelObservers().size(), 1 );
+    assertEquals( context.getTopLevelObservers().get( observer.getName() ), observer );
+
+    assertThrowsWithMessage( () -> context.registerObserver( observer ),
+                             "ArezContext.registerObserver invoked with observer named '" +
+                             observer.getName() + "' but an existing observer with that name is " +
+                             "already registered." );
+
+    assertEquals( context.getTopLevelObservers().size(), 1 );
+    context.getTopLevelObservers().clear();
+    assertEquals( context.getTopLevelObservers().size(), 0 );
+
+    assertThrowsWithMessage( () -> context.deregisterObserver( observer ),
+                             "ArezContext.deregisterObserver invoked with observer named '" +
+                             observer.getName() + "' but no observer with that name is registered." );
+  }
+
+  @Test
+  public void computedValueRegistry()
+  {
+    final ArezContext context = Arez.context();
+
+    final ComputedValue computedValue = context.createComputedValue( () -> "" );
+
+    assertEquals( context.getTopLevelComputedValues().size(), 1 );
+    assertEquals( context.getTopLevelComputedValues().get( computedValue.getName() ), computedValue );
+
+    assertThrowsWithMessage( () -> context.registerComputedValue( computedValue ),
+                             "ArezContext.registerComputedValue invoked with computed value named '" +
+                             computedValue.getName() + "' but an existing computed value with that name is " +
+                             "already registered." );
+
+    assertEquals( context.getTopLevelComputedValues().size(), 1 );
+    context.getTopLevelComputedValues().clear();
+    assertEquals( context.getTopLevelComputedValues().size(), 0 );
+
+    assertThrowsWithMessage( () -> context.deregisterComputedValue( computedValue ),
+                             "ArezContext.deregisterComputedValue invoked with computed value named '" +
+                             computedValue.getName() + "' but no computed value with that name is registered." );
+  }
+
+  private void assertThrowsWithMessage( @Nonnull final ThrowingRunnable runnable, @Nonnull final String message )
+  {
+    assertEquals( expectThrows( IllegalStateException.class, runnable ).getMessage(), message );
   }
 }

@@ -119,9 +119,16 @@ public final class Observable<T>
                        "but owner is not a derivation." );
       assert !Arez.areNamesEnabled() || _owner.getName().equals( name );
     }
-    if ( null != _component )
+    if ( !hasOwner() )
     {
-      _component.addObservable( this );
+      if ( null != _component )
+      {
+        _component.addObservable( this );
+      }
+      else if ( Arez.areRegistriesEnabled() )
+      {
+        getContext().registerObservable( this );
+      }
     }
   }
 
@@ -143,14 +150,6 @@ public final class Observable<T>
       // it is an error to invoke reportObserved(). Once all dependencies are removed then
       // this Observable will be deactivated if it is a ComputedValue. Thus no need to call
       // queueForDeactivation() here.
-      if ( willPropagateSpyEvents() && !hasOwner() )
-      {
-        reportSpyEvent( new ObservableDisposedEvent( this ) );
-      }
-      if ( null != _component )
-      {
-        _component.removeObservable( this );
-      }
       if ( hasOwner() )
       {
         /*
@@ -158,6 +157,21 @@ public final class Observable<T>
          * scheduled.
          */
         getOwner().dispose();
+      }
+      else
+      {
+        if ( willPropagateSpyEvents() )
+        {
+          reportSpyEvent( new ObservableDisposedEvent( this ) );
+        }
+        if ( null != _component )
+        {
+          _component.removeObservable( this );
+        }
+        else if ( Arez.areRegistriesEnabled() )
+        {
+          getContext().deregisterObservable( this );
+        }
       }
     }
   }

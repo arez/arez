@@ -68,6 +68,8 @@ public class ObserverTest
     assertEquals( observer.getOnStale(), onStale );
 
     observer.invariantState();
+
+    assertEquals( context.getTopLevelObservers().get( observer.getName() ), observer );
   }
 
   @Test
