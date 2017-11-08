@@ -43,7 +43,7 @@ console.table(languages);
   - https://github.com/mobxjs/mobx-utils/blob/master/src/from-resource.ts
 
 * Should `ArezContext` be disposable? If so it would need to enable registries by default so all resources
-  created by the context could be closed when the context is closed. 
+  created by the context could be closed when the context is closed.
 
 * Add test that verifies `TransactionMode` is not in compiled output of production mode.
   Actually I would really like a test tool that we could scan source code and ensure that various elements
