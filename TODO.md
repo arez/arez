@@ -25,8 +25,6 @@ complete as there is too much un-said.
 
 * Enhance WhyRun and write tests for it.
 
-* Enhance spy so can walk from elements to component
-
 * Enhance Spy to support the access/mutation of of `Observable` if property introspection valid and add
   integration tests.
 

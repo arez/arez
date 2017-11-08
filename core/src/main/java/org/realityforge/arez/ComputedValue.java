@@ -248,7 +248,6 @@ public final class ComputedValue<T>
     }
   }
 
-  @TestOnly
   @Nullable
   Component getComponent()
   {

@@ -185,6 +185,36 @@ public interface Spy
   List<Observable<?>> getDependencies( @Nonnull Observer observer );
 
   /**
+   * Return the component for specified Observable.
+   * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
+   *
+   * @param observable the Observable.
+   * @return the component that contains Observable if any.
+   */
+  @Nullable
+  Component getComponent( @Nonnull Observable<?> observable );
+
+  /**
+   * Return the component for specified Observer.
+   * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
+   *
+   * @param observer the Observer.
+   * @return the component that contains Observer if any.
+   */
+  @Nullable
+  Component getComponent( @Nonnull Observer observer );
+
+  /**
+   * Return the component for specified ComputedValue.
+   * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
+   *
+   * @param computedValue the ComputedValue.
+   * @return the component that contains ComputedValue if any.
+   */
+  @Nullable
+  Component getComponent( @Nonnull ComputedValue<?> computedValue );
+
+  /**
    * Find the component identified by the specified type and id.
    *
    * @param type the component type.

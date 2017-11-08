@@ -3,6 +3,7 @@ package org.realityforge.arez;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.spy.ComponentInfo;
@@ -561,6 +562,115 @@ public class SpyImplTest
     assertEquals( spy.isReadOnly( newReadOnlyObserver( context ) ), true );
     assertEquals( spy.isReadOnly( newDerivation( context ) ), true );
     assertEquals( spy.isReadOnly( newReadWriteObserver( context ) ), false );
+  }
+
+  @Test
+  public void getComponent_Observable()
+  {
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final Component component =
+      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+    final Observable<Object> observable1 = context.createObservable( component, ValueUtil.randomString(), null, null );
+    final Observable<Object> observable2 = context.createObservable();
+
+    assertEquals( spy.getComponent( observable1 ), component );
+    assertEquals( spy.getComponent( observable2 ), null );
+  }
+
+  @Test
+  public void getComponent_Observable_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final Observable<Object> value = context.createObservable();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
+    assertEquals( exception.getMessage(),
+                  "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
+
+  @Test
+  public void getComponent_ComputedValue()
+  {
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final Component component =
+      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+    final ComputedValue<Object> computedValue1 =
+      context.createComputedValue( component,
+                                   ValueUtil.randomString(),
+                                   () -> "",
+                                   Objects::equals,
+                                   null,
+                                   null,
+                                   null,
+                                   null );
+    final ComputedValue<Object> computedValue2 = context.createComputedValue( () -> "" );
+
+    assertEquals( spy.getComponent( computedValue1 ), component );
+    assertEquals( spy.getComponent( computedValue2 ), null );
+  }
+
+  @Test
+  public void getComponent_ComputedValue_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final ComputedValue<Object> value = context.createComputedValue( () -> "" );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
+    assertEquals( exception.getMessage(),
+                  "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
+
+  @Test
+  public void getComponent_Observer()
+  {
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final Component component =
+      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+    final Observer observer1 =
+      context.autorun( component,
+                       ValueUtil.randomString(),
+                       true,
+                       () -> {
+                       },
+                       true );
+    final Observer observer2 = context.autorun( () -> {
+    } );
+
+    assertEquals( spy.getComponent( observer1 ), component );
+    assertEquals( spy.getComponent( observer2 ), null );
+  }
+
+  @Test
+  public void getComponent_Observer_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final Observer value = context.autorun( () -> {
+    } );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
+    assertEquals( exception.getMessage(),
+                  "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test

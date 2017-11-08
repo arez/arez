@@ -471,7 +471,6 @@ public final class Observable<T>
                      "than cached value '" + _leastStaleObserverState.name() + "'." );
   }
 
-  @TestOnly
   @Nullable
   Component getComponent()
   {

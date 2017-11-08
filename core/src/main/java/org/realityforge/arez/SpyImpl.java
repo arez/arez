@@ -305,6 +305,42 @@ final class SpyImpl
    */
   @Nullable
   @Override
+  public Component getComponent( @Nonnull final Observable<?> observable )
+  {
+    invariant( Arez::areNativeComponentsEnabled,
+               () -> "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    return observable.getComponent();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nullable
+  @Override
+  public Component getComponent( @Nonnull final Observer observer )
+  {
+    invariant( Arez::areNativeComponentsEnabled,
+               () -> "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    return observer.getComponent();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nullable
+  @Override
+  public Component getComponent( @Nonnull final ComputedValue<?> computedValue )
+  {
+    invariant( Arez::areNativeComponentsEnabled,
+               () -> "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    return computedValue.getComponent();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nullable
+  @Override
   public ComponentInfo findComponent( @Nonnull final String type, @Nonnull final Object id )
   {
     final Component component = _context.findComponent( type, id );

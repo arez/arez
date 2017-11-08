@@ -746,7 +746,6 @@ public final class Observer
     return _computedValue;
   }
 
-  @TestOnly
   @Nullable
   Component getComponent()
   {
