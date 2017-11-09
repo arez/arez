@@ -1319,6 +1319,44 @@ public class ObservableTest
   }
 
   @Test
+  public void reportChanged_generates_spyEvents_each_call()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadWriteObserver( context );
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    final Observable<?> observable = newObservable( context );
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+
+    observable.addObserver( observer );
+    observer.getDependencies().add( observable );
+
+    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    observable.reportChanged();
+    observable.reportChanged();
+    observable.reportChanged();
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+
+    handler.assertEventCount( 4 );
+
+    final ObservableChangedEvent event = handler.assertNextEvent( ObservableChangedEvent.class );
+    assertEquals( event.getObservable(), observable );
+
+    handler.assertNextEvent( ReactionScheduledEvent.class );
+    handler.assertNextEvent( ObservableChangedEvent.class );
+    handler.assertNextEvent( ObservableChangedEvent.class );
+  }
+
+  @Test
   public void reportPossiblyChanged()
     throws Exception
   {
@@ -1404,6 +1442,44 @@ public class ObservableTest
     handler.assertEventCount( 2 );
     assertEquals( handler.assertEvent( ObservableChangedEvent.class, 0 ).getObservable(), observable );
     assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver(), observer );
+  }
+
+  @Test
+  public void reportChangeConfirmed_generates_spyEvents_for_each_call()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadWriteObserver( context );
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.POSSIBLY_STALE );
+
+    final Observer derivation = newDerivation( context );
+    derivation.setState( ObserverState.UP_TO_DATE );
+
+    final Observable<?> observable = derivation.getDerivedValue();
+    observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+
+    observable.addObserver( observer );
+    observer.getDependencies().add( observable );
+
+    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    observable.reportChangeConfirmed();
+    observable.reportChangeConfirmed();
+    observable.reportChangeConfirmed();
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+
+    handler.assertEventCount( 4 );
+    assertEquals( handler.assertNextEvent( ObservableChangedEvent.class ).getObservable(), observable );
+    assertEquals( handler.assertNextEvent( ReactionScheduledEvent.class ).getObserver(), observer );
+    assertEquals( handler.assertNextEvent( ObservableChangedEvent.class ).getObservable(), observable );
+    assertEquals( handler.assertNextEvent( ObservableChangedEvent.class ).getObservable(), observable );
   }
 
   @Test
