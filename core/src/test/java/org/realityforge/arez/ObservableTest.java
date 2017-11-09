@@ -374,9 +374,7 @@ public class ObservableTest
     final String name = ValueUtil.randomString();
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> {
-        Arez.context().safeAction( name, (SafeProcedure) observable::dispose );
-      } );
+      expectThrows( IllegalStateException.class, () -> context.safeAction( name, (SafeProcedure) observable::dispose ) );
 
     assertTrue( exception.getMessage().startsWith( "Attempting to create READ_WRITE transaction named '" +
                                                    name + "' but it is nested in transaction named '" ) );
