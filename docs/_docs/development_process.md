@@ -45,7 +45,7 @@ decoded add the following.
 ```
 
 Finally you add the public part of the deploy key to the repository at
-[https://github.com/realityforge/arez/settings/keys](https://github.com/realityforge/arez/settings/keys) and
+[https://github.com/arez/arez/settings/keys](https://github.com/arez/arez/settings/keys) and
 make sure you give the key write access.
 
 ### Publishing to Maven Central

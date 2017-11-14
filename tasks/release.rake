@@ -51,8 +51,8 @@ task 'perform_release' do
     stage('PatchChangelog', 'Patch the changelog to update from previous release') do
       changelog = IO.read('CHANGELOG.md')
       changelog = changelog.gsub("### Unreleased\n", <<HEADER)
-### [v#{ENV['PRODUCT_VERSION']}](https://github.com/realityforge/arez/tree/v#{ENV['PRODUCT_VERSION']}) (#{ENV['RELEASE_DATE']})
-[Full Changelog](https://github.com/realityforge/arez/compare/v#{ENV['PREVIOUS_PRODUCT_VERSION']}...v#{ENV['PRODUCT_VERSION']})
+### [v#{ENV['PRODUCT_VERSION']}](https://github.com/arez/arez/tree/v#{ENV['PRODUCT_VERSION']}) (#{ENV['RELEASE_DATE']})
+[Full Changelog](https://github.com/arez/arez/compare/v#{ENV['PREVIOUS_PRODUCT_VERSION']}...v#{ENV['PRODUCT_VERSION']})
 HEADER
       IO.write('CHANGELOG.md', changelog)
 
@@ -76,7 +76,7 @@ title: Arez #{ENV['PRODUCT_VERSION']} released
 type: minor
 ---
 
-[Full Changelog](https://github.com/realityforge/arez/compare/v#{ENV['PREVIOUS_PRODUCT_VERSION']}...v#{ENV['PRODUCT_VERSION']})
+[Full Changelog](https://github.com/arez/arez/compare/v#{ENV['PREVIOUS_PRODUCT_VERSION']}...v#{ENV['PRODUCT_VERSION']})
 
 Changes in this release:
 
@@ -137,13 +137,13 @@ HEADER
 
       client = Octokit::Client.new(:netrc => true, :auto_paginate => true)
       client.login
-      client.create_release('realityforge/arez', tag, :name => tag, :body => changes, :draft => false, :prerelease => true)
+      client.create_release('arez/arez', tag, :name => tag, :body => changes, :draft => false, :prerelease => true)
 
-      candidates = client.list_milestones('realityforge/arez').select {|m| m[:title].to_s == tag}
+      candidates = client.list_milestones('arez/arez').select {|m| m[:title].to_s == tag}
       unless candidates.empty?
         milestone = candidates[0]
         unless milestone[:state] == 'closed'
-          client.update_milestone('realityforge/arez', milestone[:number], :state => 'closed')
+          client.update_milestone('arez/arez', milestone[:number], :state => 'closed')
         end
       end
     end

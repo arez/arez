@@ -63,7 +63,7 @@ console.table(languages);
 * Generate links when the application crashes so that we can autofill issue details. Essentially involves
   crafting urls with parameters. Something like:
 
-  https://github.com/realityforge/arez/issues/new?labels=bug&title=Problem%20X&milestone=v0.18&assignee=realityforge&body=This%20is%20a%20prefilled%20issue
+  https://github.com/arez/arez/issues/new?labels=bug&title=Problem%20X&milestone=v0.18&assignee=realityforge&body=This%20is%20a%20prefilled%20issue
 
 * Setup tool that does comparisons between different versions of the API via a tool such as:
   - https://github.com/siom79/japicmp

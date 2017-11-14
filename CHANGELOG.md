@@ -2,8 +2,11 @@
 
 ### Unreleased
 
-### [v0.25](https://github.com/realityforge/arez/tree/v0.25) (2017-11-08)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.24...v0.25)
+##### Changed
+* 💥 Move arez from `https://github.com/realityforge/arez` to own organization `https://github.com/arez/arez`.
+
+### [v0.25](https://github.com/arez/arez/tree/v0.25) (2017-11-08)
+[Full Changelog](https://github.com/arez/arez/compare/v0.24...v0.25)
 
 ##### Fixed
 * **\[core\]** When exceptions are thrown when calculating the value for `ComputedValue`, the `ComputedValue`
@@ -42,7 +45,7 @@
   names are enabled.
 * Update the release process so that every release creates a "Github Release" and any open milestone that
   matches the release is closed.
-* **\[core\]** Introduce the concept of [Native Components](http://realityforge.org/arez/native_components). Native
+* **\[core\]** Introduce the concept of [Native Components](http://arez.github.io/arez/native_components). Native
   components allow the explicit representation of components within the core of Arez. This is in contrast to the
   implicit representation of components that already exists as a result of the `@ArezComponent` annotation and the
   annotation processor. Native components can be enabled or disabled at compile time and if disabled will have no
@@ -89,8 +92,8 @@
   `Zone.run(Procedure)`, `Zone.run(Function)`, `Zone.safeRun(SafeProcedure)` and `Zone.safeRun(SafeFunction)` as
   these methods eliminate the need to correct pair activate and deactivate calls.
 
-### [v0.24](https://github.com/realityforge/arez/tree/v0.24) (2017-11-02)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.23...v0.24)
+### [v0.24](https://github.com/arez/arez/tree/v0.24) (2017-11-02)
+[Full Changelog](https://github.com/arez/arez/compare/v0.23...v0.24)
 
 ##### Changed
 * 💥 **\[annotations\]** Remove `disposable` parameter from the `@ArezComponent` annotation as all generated
@@ -101,8 +104,8 @@
   version is used, that is useful during testing. Specify the proeprty in `Arez.gwt.xml` so that GWT compiles
   will treat it as a compile time constant and default it to `jul.`
 
-### [v0.23](https://github.com/realityforge/arez/tree/v0.23) (2017-11-01)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.22...v0.23)
+### [v0.23](https://github.com/arez/arez/tree/v0.23) (2017-11-01)
+[Full Changelog](https://github.com/arez/arez/compare/v0.22...v0.23)
 
 ##### Added
 * **\[core\]** Add the `ArezContext.pauseScheduler()` method that allows the developer to manually pause
@@ -142,8 +145,8 @@
   configuration during development via `ArezTestUtil`. The annotation processor was updated to use
   `Arez.areRepositoryResultsModifiable()` when generating repositories.
 
-### [v0.22](https://github.com/realityforge/arez/tree/v0.22) (2017-10-29)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.21...v0.22)
+### [v0.22](https://github.com/arez/arez/tree/v0.22) (2017-10-29)
+[Full Changelog](https://github.com/arez/arez/compare/v0.21...v0.22)
 
 ##### Added
 * **\[annotations\]** Add the `@ObserverRef` annotation to allow the reactive component to get access to
@@ -161,25 +164,25 @@
 * 💥 **\[annotations\]** Renamed the `@OnDepsUpdated` annotation to `@OnDepsChanged` to reflect nomenclature
   used through the rest of the toolkit.
 
-### [v0.21](https://github.com/realityforge/arez/tree/v0.21) (2017-10-28)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.20...v0.21)
+### [v0.21](https://github.com/arez/arez/tree/v0.21) (2017-10-28)
+[Full Changelog](https://github.com/arez/arez/compare/v0.20...v0.21)
 
 ##### Fixed
 * Fixed bug where the annotation processor was not copying the access modifiers from the method annotated with the
   `@ContextRef` annotation to the overriding method in generated subclass.
 
-### [v0.20](https://github.com/realityforge/arez/tree/v0.20) (2017-10-28)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.19...v0.20)
+### [v0.20](https://github.com/arez/arez/tree/v0.20) (2017-10-28)
+[Full Changelog](https://github.com/arez/arez/compare/v0.19...v0.20)
 
 ##### Added
 * Added support for `@ContextRef` annotation that marks a method as returning the `ArezContext` that the
   generated subclass is using.
 
-### [v0.19](https://github.com/realityforge/arez/tree/v0.19) (2017-10-27)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.18...v0.19)
+### [v0.19](https://github.com/arez/arez/tree/v0.19) (2017-10-27)
+[Full Changelog](https://github.com/arez/arez/compare/v0.18...v0.19)
 
 ##### Added
-* Introduce the concept of a [`Zone`](http://realityforge.org/arez/zones) which is an isolated Arez context.
+* Introduce the concept of a [`Zone`](http://arez.github.io/arez/zones) which is an isolated Arez context.
 * Add some cute icons to start of "computed" messages and "scheduled" messages in `ConsoleSpyEventProcessor`.
   These were source from the [mobx-devtools](https://github.com/andykog/mobx-devtools) project.
 * Add support for interleaving transactions from different instances of `ArezContext`. Beginning a transaction
@@ -208,8 +211,8 @@
   `ArezContext` instances) so remove it until a suitable alternative can be found.
 * **\[core\]** Remove `@Unsupported` annotation from `org.realityforge.arez.Arez` as it is now stable.
 
-### [v0.18](https://github.com/realityforge/arez/tree/v0.18) (2017-10-23)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.17...v0.18)
+### [v0.18](https://github.com/arez/arez/tree/v0.18) (2017-10-23)
+[Full Changelog](https://github.com/arez/arez/compare/v0.17...v0.18)
 
 ##### Added
 * Added the class `org.realityforge.arez.ArezTestUtil` that exposes methods that simplify testing `Arez` in
@@ -224,15 +227,15 @@
   be removed from the repository if they are disposed directly by invoking `Disposable.dispose( entity )` or
   similar.
 
-### [v0.17](https://github.com/realityforge/arez/tree/v0.17) (2017-10-23)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.16...v0.17)
+### [v0.17](https://github.com/arez/arez/tree/v0.17) (2017-10-23)
+[Full Changelog](https://github.com/arez/arez/compare/v0.16...v0.17)
 
 ##### Changed
 * Move to GWT 2.8.2.
 * Use a separate color in `ConsoleSpyEventProcessor` for "computed" related events.
 
-### [v0.16](https://github.com/realityforge/arez/tree/v0.16) (2017-10-19)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.15...v0.16)
+### [v0.16](https://github.com/arez/arez/tree/v0.16) (2017-10-19)
+[Full Changelog](https://github.com/arez/arez/compare/v0.15...v0.16)
 
 ##### Added
 * **\[component\]** Introduce the "component" module that provides supporting infrastructure for the components
@@ -253,8 +256,8 @@
   will not cause a compile error. The fix was to ensure that the access modifiers of the `create` method
   matched the access modifiers of the target constructor.
 
-### [v0.15](https://github.com/realityforge/arez/tree/v0.15) (2017-10-18)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.14...v0.15)
+### [v0.15](https://github.com/arez/arez/tree/v0.15) (2017-10-18)
+[Full Changelog](https://github.com/arez/arez/compare/v0.14...v0.15)
 
 ##### Fixed
 * **\[processor\]** Repositories that define a `create` method with no parameters no longer suffix the name with
@@ -280,18 +283,18 @@
 * **\[processor\]** Generated repositories have been reworked to make use of `@ObservableRef` and
   `@Observable(expectSetter = false)` features to simplify code and make it consistent with downstream code.
 
-### [v0.14](https://github.com/realityforge/arez/tree/v0.14) (2017-10-16)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.13...v0.14)
+### [v0.14](https://github.com/arez/arez/tree/v0.14) (2017-10-16)
+[Full Changelog](https://github.com/arez/arez/compare/v0.13...v0.14)
 
 ##### Added
-* **\[browser-extras\]** Introduce the [`BrowserSpyUtil`](http://realityforge.org/arez/api/org/realityforge/arez/browser/extras/spy/BrowserSpyUtil.html)
+* **\[browser-extras\]** Introduce the [`BrowserSpyUtil`](http://arez.github.io/arez/api/org/arez/arez/browser/extras/spy/BrowserSpyUtil.html)
   util class that helps enabling and disabling a singleton console logging spy.
 
 ##### Changed
 * 💥 **\[extras\]** Moved `WhyRun` from the package `org.realityforge.arez.extras` to `org.realityforge.arez.extras.spy`.
 
-### [v0.13](https://github.com/realityforge/arez/tree/v0.13) (2017-10-13)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.11...v0.13)
+### [v0.13](https://github.com/arez/arez/tree/v0.13) (2017-10-13)
+[Full Changelog](https://github.com/arez/arez/compare/v0.11...v0.13)
 
 It should be noted that due to a failure in our automation tools, v0.12 was skipped
 as a version.
@@ -310,8 +313,8 @@ as a version.
   only place it continues to be used.
 * Upgraded `braincheck` dependency to remove transitive dependency on `org.jetbrains:annotations:jar`.
 
-### [v0.11](https://github.com/realityforge/arez/tree/v0.11) (2017-10-11)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.10...v0.11)
+### [v0.11](https://github.com/arez/arez/tree/v0.11) (2017-10-11)
+[Full Changelog](https://github.com/arez/arez/compare/v0.10...v0.11)
 
 ##### Added
 * **\[processor\]** Generated component subclasses that are not singletons will now have `equals()` and
@@ -332,8 +335,8 @@ as a version.
   The automation runs from TravisCI and publishes to Maven Central any time a tag is created that starts with `v`
   and followed by a number.
 
-### [v0.10](https://github.com/realityforge/arez/tree/v0.10) (2017-10-09)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.09...v0.10)
+### [v0.10](https://github.com/arez/arez/tree/v0.10) (2017-10-09)
+[Full Changelog](https://github.com/arez/arez/compare/v0.09...v0.10)
 
 ##### Fixed
 * Fixed several gwt modules that were including too much much in downstream projects. For example the gwt module
@@ -342,8 +345,8 @@ as a version.
   dependency. The `Dev` suffixed modules have all been updated to include no source as they already include a
   module that includes the required source.
 
-### [v0.09](https://github.com/realityforge/arez/tree/v0.09) (2017-10-09)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.08...v0.09)
+### [v0.09](https://github.com/arez/arez/tree/v0.09) (2017-10-09)
+[Full Changelog](https://github.com/arez/arez/compare/v0.08...v0.09)
 
 ##### Fixed
 * Upgraded braincheck library to 1.1.0 to ensure that GWT will remove invariant checks in production mode. A
@@ -352,8 +355,8 @@ as a version.
 * **\[core\]** Reworked the way that `ArezConfig` worked so that the settings are resolved at compile time as desired.
 * **\[core\]** Reworked the way that `ArezLogger` worked so that the logger is resolved at compile time as desired.
 
-### [v0.08](https://github.com/realityforge/arez/tree/v0.08) (2017-10-08)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.07...v0.08)
+### [v0.08](https://github.com/arez/arez/tree/v0.08) (2017-10-08)
+[Full Changelog](https://github.com/arez/arez/compare/v0.07...v0.08)
 
 ##### Added
 * **\[doc\]** Started to improve the infrastructure for building documentation. Started to document the basic
@@ -365,8 +368,8 @@ as a version.
 * 💥 **\[extras\]** Extracted the `spy` sub-package from gwt module `org.realityforge.arez.browser.extras.BrowserExtras`
   and moved it to `org.realityforge.arez.browser.extras.spy.SpyExtras`.
 
-### [v0.07](https://github.com/realityforge/arez/tree/v0.07) (2017-10-05)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.06...v0.07)
+### [v0.07](https://github.com/arez/arez/tree/v0.07) (2017-10-05)
+[Full Changelog](https://github.com/arez/arez/compare/v0.06...v0.07)
 
 ##### Added
 * **\[core\]** Added several helper methods to `ArezContext` to create actions without specifying mutation parameter.
@@ -388,16 +391,16 @@ as a version.
 * **\[core\]** Fixed a bug where the name of actions were not synthesized for actions created via
   `ArezConfig.safeAction(..)` when a null was passed by `ArezConfig.areNamesEnabled()` returned true.
 
-### [v0.06](https://github.com/realityforge/arez/tree/v0.06) (2017-10-04)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.05...v0.06)
+### [v0.06](https://github.com/arez/arez/tree/v0.06) (2017-10-04)
+[Full Changelog](https://github.com/arez/arez/compare/v0.05...v0.06)
 
 ##### Added
 * **\[processor\]** Add an parameter `allowEmpty` to `@ArezComponent` that allows the developer to define
   Arez components without explicitly annotating other elements such as `Observable` annotated methods. This
   is useful if you want to manually manage the creation of Arez elements.
 
-### [v0.05](https://github.com/realityforge/arez/tree/v0.05) (2017-10-04)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.04...v0.05)
+### [v0.05](https://github.com/arez/arez/tree/v0.05) (2017-10-04)
+[Full Changelog](https://github.com/arez/arez/compare/v0.04...v0.05)
 
 ##### Added
 * **\[extras\]** Extract the `StringifyReplacer` from the `ConsoleSpyEventProcessor` class to allow
@@ -435,11 +438,11 @@ as a version.
   scheduled. Thus reactions to an action will be peers of the action in the `ConsoleSpyEventProcessor`, making
   it much easier to how changes flow through the system.
 
-### [v0.04](https://github.com/realityforge/arez/tree/v0.04) (2017-10-03)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.03...v0.04)
+### [v0.04](https://github.com/arez/arez/tree/v0.04) (2017-10-03)
+[Full Changelog](https://github.com/arez/arez/compare/v0.03...v0.04)
 
 ##### Added
-* **\[extras\]** Introduce the [`CssRules`](http://realityforge.org/arez/api/org/realityforge/arez/browser/extras/spy/CssRules.html)
+* **\[extras\]** Introduce the [`CssRules`](http://arez.github.io/arez/api/org/arez/arez/browser/extras/spy/CssRules.html)
   annotation to force IntelliJ IDEA to treat annotate content as css rules for code formatting, completion
   and validation purposes. Use this new annotation to annotate relevant constants and parameters in
   the `ConsoleSpyEventProcessor` class.
@@ -472,32 +475,32 @@ as a version.
   caught exception to use the standard name mangling used through the rest of the generated code. (i.e. prefixing
   the variable name with `$$arez$$_`)
 
-### [v0.03](https://github.com/realityforge/arez/tree/v0.03) (2017-10-02)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.02...v0.03)
+### [v0.03](https://github.com/arez/arez/tree/v0.03) (2017-10-02)
+[Full Changelog](https://github.com/arez/arez/compare/v0.02...v0.03)
 
 ##### Added
-* ✨ **\[extras\]** Add the Arez component [`ObservablePromise`](http://realityforge.org/arez/api/org/realityforge/arez/browser/extras/ObservablePromise.html)
+* ✨ **\[extras\]** Add the Arez component [`ObservablePromise`](http://arez.github.io/arez/api/org/arez/arez/browser/extras/ObservablePromise.html)
   that wraps a javascript native promise and exposes the observable properties.
-* ✨ **\[extras\]** Add the Arez component [`IntervalTicker`](http://realityforge.org/arez/api/org/realityforge/arez/browser/extras/IntervalTicker.html)
+* ✨ **\[extras\]** Add the Arez component [`IntervalTicker`](http://arez.github.io/arez/api/org/arez/arez/browser/extras/IntervalTicker.html)
   that "ticks" at a specified interval. The tick is actually updating the value of an observable property.
-* ✨ **\[extras\]** Add the utility class [`TimedDisposer`](http://realityforge.org/arez/api/org/realityforge/arez/browser/extras/TimedDisposer.html)
+* ✨ **\[extras\]** Add the utility class [`TimedDisposer`](http://arez.github.io/arez/api/org/arez/arez/browser/extras/TimedDisposer.html)
   that disposes a target object after a specified timeout. Combining this with existing Arez components
   makes it easy to add timeouts to reactive elements.
-* **\[core\]** Added [`Disposable.asDisposable(Object)`](http://realityforge.org/arez/api/org/realityforge/arez/Disposable.html#asDisposed-java.lang.Object-)
+* **\[core\]** Added [`Disposable.asDisposable(Object)`](http://arez.github.io/arez/api/org/arez/arez/Disposable.html#asDisposed-java.lang.Object-)
   utility that casts the specified object to a `Disposable`.
 * Added automation to site deploy that verifies there are no broken links before uploading website.
-* Added a [Motivation](http://realityforge.org/arez/overview/motivation/) section to the website.
+* Added a [Motivation](http://arez.github.io/arez/overview/motivation/) section to the website.
 * **\[core\]** Began experimenting with the ability to serialize spy events (i.e. Those in the
   `org.realityforge.arez.spy` package) to `java.util.Map` instances. The goal is to extract and backport
   functionality from several downstream projects including the `example` and `gwt-example` sample projects
-  aimed at serializing events. See the [`SerializableEvent`](http://realityforge.org/arez/api/org/realityforge/arez/spy/SerializableEvent.html)
+  aimed at serializing events. See the [`SerializableEvent`](http://arez.github.io/arez/api/org/arez/arez/spy/SerializableEvent.html)
   interface implemented by all builtin spy events.
-* ✨ **\[extras\]** Extract a [`SpyUtil`](http://realityforge.org/arez/api/org/realityforge/arez/extras/spy/SpyUtil.html)
+* ✨ **\[extras\]** Extract a [`SpyUtil`](http://arez.github.io/arez/api/org/arez/arez/extras/spy/SpyUtil.html)
   class from downstream projects. At this stage it just supports determining whether a spy event increases, decreases
   or does not modify the level of "nesting" in an event stream.
-* ✨ **\[extras\]** Extract the [`AbstractSpyEventProcessor`](http://realityforge.org/arez/api/org/realityforge/arez/extras/spy/AbstractSpyEventProcessor.html)
+* ✨ **\[extras\]** Extract the [`AbstractSpyEventProcessor`](http://arez.github.io/arez/api/org/arez/arez/extras/spy/AbstractSpyEventProcessor.html)
   base class from downstream projects. This class is intended to make it easy to write tools that process spy events.
-* ✨ **\[browser-extras\]** Build the [`ConsoleSpyEventProcessor`](http://realityforge.org/arez/api/org/realityforge/arez/browser/extras/spy/ConsoleSpyEventProcessor.html)
+* ✨ **\[browser-extras\]** Build the [`ConsoleSpyEventProcessor`](http://arez.github.io/arez/api/org/arez/arez/browser/extras/spy/ConsoleSpyEventProcessor.html)
   class. It is a `SpyEventHandler` that prints spy events to the browser console in a developer friendly manner.
 
 ##### Changed
@@ -509,16 +512,16 @@ as a version.
   as part of the filename which is incorrect. This has been corrected. i.e. Previously the poms were named
   `arez-core-0.02-gwt.pom` where as now they are named `arez-core-0.03.pom`
 
-### [v0.02](https://github.com/realityforge/arez/tree/v0.02) (2017-09-28)
-[Full Changelog](https://github.com/realityforge/arez/compare/v0.01...v0.02)
+### [v0.02](https://github.com/arez/arez/tree/v0.02) (2017-09-28)
+[Full Changelog](https://github.com/arez/arez/compare/v0.01...v0.02)
 
 ##### Added
 * Initial support for adding a `@Repository` to an arez component that will cause the generation of a paired
   repository for managing instances of the arez component. Minimal javadocs are available on the
-  [site](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Repository.html) and more advanced
+  [site](http://arez.github.io/arez/api/org/arez/arez/annotations/Repository.html) and more advanced
   user documentation is on the way.
 
-### [v0.01](https://github.com/realityforge/arez/tree/v0.01) (2017-09-27)
-[Full Changelog](https://github.com/realityforge/arez/compare/700fa7f3208cb868c4d7d28caf2772e114315d73...v0.01)
+### [v0.01](https://github.com/arez/arez/tree/v0.01) (2017-09-27)
+[Full Changelog](https://github.com/arez/arez/compare/700fa7f3208cb868c4d7d28caf2772e114315d73...v0.01)
 
 Initial alpha release.

@@ -42,9 +42,8 @@ their dependencies change. Data flows in a directed graph from actions to observ
 ### The Component Model
 
 On top of this architecture, Arez defines a component model driven by annotations. Annotate a class with
-[`@ArezComponent`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/ArezComponent.html) to
-define a component, mark observable properties with the [`@Observable`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Observable.html)
-annotation, mark computed properties with the [`@Computed`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Computed.html)
-annotation and mark observers with either the [`@Autorun`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Autorun.html)
-annotation or the [`@Track`](http://realityforge.org/arez/api/org/realityforge/arez/annotations/Track.html)
+[`@ArezComponent`]({% api_url annotations.ArezComponent %}) to define a component, mark observable properties
+with the [`@Observable`]({% api_url annotations.Observable %}) annotation, mark computed properties with the
+[`@Computed`]({% api_url annotations.Computed %}) annotation and mark observers with either the
+[`@Autorun`]({% api_url annotations.Autorun %}) annotation or the [`@Track`]({% api_url annotations.Track %})
 annotation. The annotated classes are processed at compilation time to produce a ready to use reactive component.

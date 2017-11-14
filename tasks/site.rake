@@ -35,7 +35,7 @@ task 'site:link_check' do
 
   trap('INT') {webserver.shutdown}
   begin
-    sh "yarn blc --ordered --recursive --filter-level 3 http://#{address}:#{port}/arez --exclude https://github.com/realityforge/arez/compare/ --exclude https://github.com/realityforge/arez/settings --exclude https://docs.oracle.com/javase/8/docs/api"
+    sh "yarn blc --ordered --recursive --filter-level 3 http://#{address}:#{port}/arez --exclude https://github.com/arez/arez/compare/ --exclude https://github.com/arez/arez/settings --exclude https://docs.oracle.com/javase/8/docs/api"
   ensure
     webserver.shutdown
   end
