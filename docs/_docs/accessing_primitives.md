@@ -23,14 +23,14 @@ The `@*Ref` annotations include the following:
 
 * `@ObservableRef`: [API Docs]({% api_url annotations.ObservableRef %})
   This method exposes the underlying [Observable]({% api_url Observable %}) for an
-  [@Observable]({% api_url annotations.Observable %}) property. 
+  [@Observable]({% api_url annotations.Observable %}) property.
 * `@ComputedValueRef`: [API Docs]({% api_url annotations.ComputedValueRef %})
-  This method exposes the underlying [ComputedValue]({% api_url ComputedValue %}) for a 
-  [@Computed]({% api_url annotations.Computed %}) property. 
+  This method exposes the underlying [ComputedValue]({% api_url ComputedValue %}) for a
+  [@Computed]({% api_url annotations.Computed %}) property.
 * `@ObserverRef`: [API Docs]({% api_url annotations.ObserverRef %})
-  This method exposes the underlying [Observer]({% api_url Observer %}) for either an 
+  This method exposes the underlying [Observer]({% api_url Observer %}) for either an
   [@Autorun]({% api_url annotations.Autorun %}) annotated method or a [@Track]({% api_url annotations.Track %})
-  annotated method. 
+  annotated method.
 * `@ContextRef`: [API Docs]({% api_url annotations.ContextRef %})
   This method exposes the [ArezContext]({% api_url ArezContext %}) that the component is contained within.
 * `@ComponentRef`: [API Docs]({% api_url annotations.ComponentRef %})
