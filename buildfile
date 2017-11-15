@@ -41,6 +41,7 @@ define 'arez' do
   pom.add_github_project('arez/arez')
   pom.add_developer('realityforge', 'Peter Donald')
 
+  desc 'Arez Core'
   define 'core' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
@@ -61,6 +62,7 @@ define 'arez' do
     test.compile.with TEST_DEPS
   end
 
+  desc 'Arez Annotations'
   define 'annotations' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
@@ -78,6 +80,7 @@ define 'arez' do
     iml.main_dependencies << project('core').package(:jar)
   end
 
+  desc 'Arez Component Support'
   define 'component' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
@@ -96,6 +99,7 @@ define 'arez' do
     test.compile.with TEST_DEPS
   end
 
+  desc 'Arez Extras and Addons'
   define 'extras' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
@@ -124,6 +128,7 @@ define 'arez' do
     iml.main_source_directories << _('generated/processors/main/java')
   end
 
+  desc 'Arez Browser based Extras and Addons'
   define 'browser-extras' do
     pom.provided_dependencies.concat PROVIDED_DEPS + [:jetbrains_annotations]
 
@@ -150,6 +155,7 @@ define 'arez' do
     project.jacoco.enabled = false
   end
 
+  desc 'Arez Annotation processor'
   define 'processor' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
@@ -182,6 +188,7 @@ define 'arez' do
     iml.test_source_directories << _('src/test/resources/bad_input')
   end
 
+  desc 'Arez Integration Tests'
   define 'integration-tests' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
@@ -208,6 +215,7 @@ define 'arez' do
     iml.test_source_directories << _('generated/processors/test/java')
   end
 
+  desc 'Arez GWT Examples'
   define 'gwt-example' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
@@ -228,6 +236,7 @@ define 'arez' do
     project.jacoco.enabled = false
   end
 
+  desc 'Arez Examples used in documentation'
   define 'doc-examples' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
