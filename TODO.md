@@ -58,6 +58,8 @@ console.table(languages);
 * Should the Spy have direct access to the `Observable`, `ComputedValue` and `Observer` value or should it be
   abstracted by another info primitive?
 
+* Change events should now contain the change value if introspectors enabled and present.
+
 ## Process
 
 * Generate links when the application crashes so that we can autofill issue details. Essentially involves
