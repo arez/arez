@@ -6,6 +6,13 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Extract (browser-)extras as separate projects al:
+  - `arez-idlestatus`
+  - `arez-browserlocation`
+  - `arez-promise`
+  - `arez-ticker`
+  - `arez-when`
+
 * Add new browser based library:
   - `arez-localstorage`: stores a value under a key and updates store if changed. Will need a serializer
     to perform serialization to and from the string value in store
@@ -13,6 +20,10 @@ complete as there is too much un-said.
 * Add timer based observer that runs every N milliseconds and updates observable state base on state in
   from external world. Useful when you want to scan an external element (i.e. `document.title`?) that has no
   change events but you want to monitor for change.
+
+* Figure out a mechanism for staging release that roll out changes to peer-libraries and tests that it
+  compiles and passes tests. Then release arez, then release child libraries. This is a more enhanced version
+  of zim for github projects.
 
 * Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
   TimedDisposer that is disposed as part of effect.
