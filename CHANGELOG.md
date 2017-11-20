@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Fixed
+* **\[annotations\]** Fix the documentation on `@OnDepsChanged` annotation to correctly describe the default
+  naming convention.
+
 ### [v0.26](https://github.com/arez/arez/tree/v0.26) (2017-11-14)
 [Full Changelog](https://github.com/arez/arez/compare/v0.25...v0.26)
 

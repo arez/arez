@@ -27,7 +27,7 @@ public @interface OnDepsChanged
    * Return the name of the paired Tracked relative to the component.
    * The value must conform to the requirements of a java identifier.
    * The name need not be specified. If the @Track annotated method is
-   * named "render" then this will default to being named "onRenderDepsUpdate".
+   * named "render" then this will default to being named "onRenderDepsChanged".
    *
    * @return the name of the paired @Track annotated method relative to the component.
    */
