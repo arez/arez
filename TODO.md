@@ -23,6 +23,10 @@ complete as there is too much un-said.
 
 * Enhance `NetworkStatus` so that it includes `lastOnlineAt` and `lastOfflineAt` as observable fields.
 
+* `DeviceMotion` as an observable that listens to `"deviceMotion"` events and makes them observable.
+
+* `GeoPosition` as an observable...
+
 * Figure out a mechanism for staging release that roll out changes to peer-libraries and tests that it
   compiles and passes tests. Then release arez, then release child libraries. This is a more enhanced version
   of zim for github projects.
