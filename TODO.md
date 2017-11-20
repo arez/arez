@@ -109,5 +109,3 @@ console.table(languages);
 * Link back from website to github page
 
 * Create Logo and upload it as organization logo as well as putting it on page
-
-* Document `@Tracked`

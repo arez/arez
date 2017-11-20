@@ -113,3 +113,23 @@ on the `ticketExpired` computed property property so `notifyUserWhenTicketExpire
 `notifyUserWhenTicketExpires()` method would only be invoked `2` times. The `ticketExpired` computed property
 would be recalculated `10` times but it is assumed the that this is significantly less expensive than the `@Autorun`
 method.
+
+## Track and OnDepsChanged
+
+There are times at which it is not possible for Arez to directly schedule and execute a reaction. Existing
+frameworks will have their own mechanisms for scheduling work and if you need to integrate Arez into these
+frameworks you need to decouple the scheduling and execution of reactions. Another scenario where more more
+explicit control over scheduling and execution is required is when you want to rate-limit or "debounce" the
+change notifications to limit the number of times a reaction executes.
+
+To achieve either of these goals, you need to use the `@Track` and `@OnDepsChanged` annotations. The `@Track`
+annotation wraps a method in a tracking transaction which allows the Arez framework to detect which observable
+and computed properties are accessed within the scope of the transaction. If any of these properties are
+modified then Arez will invoke the corresponding method annotated with `@OnDepsChanged` to indicate that the
+tracked method needs to be rescheduled.
+
+An example is illustrated below:
+
+{% highlight java %}
+{% file_content org/realityforge/arez/doc/examples/step5/TrainTicket.java "start_line=/@Track/" "end_line=/@Computed/" include_end_line=false %}
+{% endhighlight %}

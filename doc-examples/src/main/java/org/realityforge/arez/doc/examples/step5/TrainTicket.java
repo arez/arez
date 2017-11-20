@@ -5,6 +5,8 @@ import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Autorun;
 import org.realityforge.arez.annotations.Computed;
 import org.realityforge.arez.annotations.Observable;
+import org.realityforge.arez.annotations.OnDepsChanged;
+import org.realityforge.arez.annotations.Track;
 
 @ArezComponent
 public class TrainTicket
@@ -36,6 +38,23 @@ public class TrainTicket
   public void rideTrain()
   {
     setRemainingRides( getRemainingRides() - 1 );
+  }
+
+  @Track
+  public String render()
+  {
+    return "<table class='ticket'>" +
+           "  <tr>" +
+           "    <th>Remaining Rides</th>" +
+           "    <td>" + getRemainingRides() + "</td>" +
+           "  </tr>" +
+           "</table>";
+  }
+
+  @OnDepsChanged
+  void onRenderDepsChanged()
+  {
+    Renderer.scheduleRender( this );
   }
 
   @Computed
