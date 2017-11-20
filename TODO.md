@@ -44,6 +44,17 @@ complete as there is too much un-said.
 
 * Consider an abstraction like https://github.com/danielearwicker/computed-async-mobx/
 
+* Alternatively adopt the pattern from https://medium.com/javascript-inside/slaying-a-ui-antipattern-in-react-64a3b98242c
+  i.e. The `RemoteData` is
+```
+type RemoteData e a
+    = NotAsked
+    | Loading
+    | Failure e
+    | Success a
+```
+  Then add a React4j component that has four separate methods to render each scenario.
+
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
 * Enhance WhyRun and write tests for it.
