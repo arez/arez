@@ -19,7 +19,7 @@ enhanced class to enable the reactive features.
 
 The simplest way to understand what this means is to look at the code and how it is used.
 
-## Observable Entities
+## Observable Properties
 
 In most applications it is common to define one or more entities to represent the data in the application.
 In Arez, as in normal Java, properties on the entities are often defined using the java bean naming convention
@@ -72,7 +72,7 @@ change. If the code did not use the getter then no problem would arise within th
 however it can be a problem in other contexts (i.e. an `@Autorun` methods) so for the sake of consistency and
 simplicity we recommend that you always use the getter and setter when interacting with observable properties.
 
-## Autorun
+## Autorun reactions
 
 So far we have an entity with an observable property that we can read and write using an action. The application
 is not yet reactive. However let's imagine the application needs to notify the user when the value of the observable
@@ -90,7 +90,7 @@ methods, ensuring that Arez knows which observable properties the `@Autorun` met
 This means that that any time the `remainingRides` observable property is modified, Arez will execute this method.
 If `remainingRides` is zero then the user will be notified that the ticket has expired.
 
-## Computed
+## Computed properties
 
 If you were to put a `System.out.println(...)` call at the top of the `notifyUserWhenTicketExpires()` method you
 would notice that it is called every time that the `remainingRides` observable property is updated. So if
