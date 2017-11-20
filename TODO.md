@@ -21,8 +21,6 @@ complete as there is too much un-said.
   from external world. Useful when you want to scan an external element (i.e. `document.title`?) that has no
   change events but you want to monitor for change.
 
-* Enhance `NetworkStatus` so that it includes `lastOnlineAt` and `lastOfflineAt` as observable fields.
-
 * `DeviceMotion` as an observable that listens to `"deviceMotion"` events and makes them observable.
 
 * `GeoPosition` as an observable...

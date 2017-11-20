@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Added
+* **\[browser-extras\]** Enhance `NetworkStatus` component so that it exposes an observable property
+  `lastChangedAt` that exposes the time at which online status last changed.
+
 ##### Fixed
 * **\[annotations\]** Fix the documentation on `@OnDepsChanged` annotation to correctly describe the default
   naming convention.

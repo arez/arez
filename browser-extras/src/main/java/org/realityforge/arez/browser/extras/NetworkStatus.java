@@ -2,7 +2,9 @@ package org.realityforge.arez.browser.extras;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
+import java.util.Date;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
@@ -35,6 +37,10 @@ import org.realityforge.arez.annotations.OnDeactivate;
  *     Arez.context().autorun( () -> {
  *       final String message = "Network Status: " + ( networkStatus.isOnLine() ? "Online" : "Offline" );
  *       DomGlobal.console.log( message );
+ *       if ( !networkStatus.isOnLine() )
+ *       {
+ *         DomGlobal.console.log( "Offline since: " + networkStatus.getLastChangedAt() );
+ *       }
  *     } );
  *   }
  * }
@@ -46,6 +52,8 @@ public class NetworkStatus
 {
   private final EventListener _listener;
   private boolean _rawOnLine;
+  @Nullable
+  private Date _lastChangedAt;
 
   /**
    * Create an instance of NetworkStatus.
@@ -62,6 +70,7 @@ public class NetworkStatus
   {
     _listener = e -> updateOnlineStatus();
     _rawOnLine = DomGlobal.navigator.onLine;
+    _lastChangedAt = new Date();
   }
 
   /**
@@ -73,6 +82,20 @@ public class NetworkStatus
   public boolean isOnLine()
   {
     return isRawOnLine();
+  }
+
+  /**
+   * Return the last time at which online status changed.
+   * This will default to the time the component was created, otherwise
+   * the time at which the online status was changed.
+   *
+   * @return the last time at which online status changed.
+   */
+  @Observable
+  @Nullable
+  public Date getLastChangedAt()
+  {
+    return _lastChangedAt;
   }
 
   @OnActivate
@@ -100,9 +123,15 @@ public class NetworkStatus
     _rawOnLine = rawOnLine;
   }
 
+  void setLastChangedAt( @Nullable final Date lastChangedAt )
+  {
+    _lastChangedAt = lastChangedAt;
+  }
+
   @Action
   void updateOnlineStatus()
   {
     setRawOnLine( DomGlobal.navigator.onLine );
+    setLastChangedAt( new Date() );
   }
 }
