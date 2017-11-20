@@ -133,3 +133,15 @@ An example is illustrated below:
 {% highlight java %}
 {% file_content org/realityforge/arez/doc/examples/step5/TrainTicket.java "start_line=/@Track/" "end_line=/@Computed/" include_end_line=false %}
 {% endhighlight %}
+
+# Summary
+
+This example, while not entirely realistic, demonstrates the basic mechanisms for enabling reactive Arez components
+within your application. There is more detailed documentation in separate sections for each major feature. However
+this should give you enough of a taste to understand how Arez components are authored from a high level perspective.
+
+The source for the entire example is as follows:
+
+{% highlight java %}
+{% file_content org/realityforge/arez/doc/examples/step5/TrainTicket.java "start_line=/@ArezComponent/" %}
+{% endhighlight %}
