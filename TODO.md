@@ -21,6 +21,8 @@ complete as there is too much un-said.
   from external world. Useful when you want to scan an external element (i.e. `document.title`?) that has no
   change events but you want to monitor for change.
 
+* Enhance `NetworkStatus` so that it includes `lastOnlineAt` and `lastOfflineAt` as observable fields.
+
 * Figure out a mechanism for staging release that roll out changes to peer-libraries and tests that it
   compiles and passes tests. Then release arez, then release child libraries. This is a more enhanced version
   of zim for github projects.
