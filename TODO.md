@@ -115,6 +115,10 @@ console.table(languages);
 
 ## Documentation
 
+* Integrate documentation such as following which seem like good overviews
+  - http://blog.danlew.net/2017/07/27/an-introduction-to-functional-reactive-programming/
+  - https://medium.com/@mweststrate/becoming-fully-reactive-an-in-depth-explanation-of-mobservable-55995262a254
+
 * Make sure # fragments are not always stolen by search javascript and can be used when linking to pages
 
 * Enhance README with practical instructions ala https://github.com/elastic/logstash
