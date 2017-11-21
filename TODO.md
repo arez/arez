@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Extract out arez website to top level site repo for organization.
-
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
   - `arez-browserlocation`
@@ -33,8 +31,6 @@ complete as there is too much un-said.
 * Figure out a mechanism for staging release that roll out changes to peer-libraries and tests that it
   compiles and passes tests. Then release arez, then release child libraries. This is a more enhanced version
   of zim for github projects.
-
-* Document that arez annotations only work on default methods or other methods with an implementation.
 
 * Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
   TimedDisposer that is disposed as part of effect.
@@ -114,6 +110,10 @@ console.table(languages);
   - https://github.com/siom79/japicmp
 
 ## Documentation
+
+* Extract out arez website to top level site repo for organization.
+
+* Document that arez annotations only work on default methods or other methods with an implementation.
 
 * Document repositories.
 
