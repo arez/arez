@@ -1,6 +1,6 @@
 # Arez
 
-<span style="display:block;text-align:center">![Arez](docs/_icons/arez.png)</span>
+<p align="center"><img src="/arez/arez/raw/master/docs/_icons/arez.png" alt="Arez" width="100"></p>
 
 [![Build Status](https://secure.travis-ci.org/arez/arez.png?branch=master)](http://travis-ci.org/arez/arez)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez/arez-core.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez%22)
