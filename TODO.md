@@ -56,7 +56,9 @@ type RemoteData e a
     | Failure e
     | Success a
 ```
-  Then add a React4j component that has four separate methods to render each scenario.
+  Then add a React4j component that has four separate methods to render each scenario. This is also not dissimilar to
+  pattern used for Apollo bound components or a pattern as described in http://lucasmreis.github.io/blog/simple-react-patterns/
+  where each data element has state such as "loading:boolean, error:E, data:A"
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
