@@ -25,6 +25,9 @@ complete as there is too much un-said.
 
 * `GeoPosition` as an observable...
 
+* Seems `react-fns` covers some of similar observables described above but as react components. May be a
+  source of inspiration?  https://github.com/jaredpalmer/react-fns/blob/master/README.md
+
 * Figure out a mechanism for staging release that roll out changes to peer-libraries and tests that it
   compiles and passes tests. Then release arez, then release child libraries. This is a more enhanced version
   of zim for github projects.
