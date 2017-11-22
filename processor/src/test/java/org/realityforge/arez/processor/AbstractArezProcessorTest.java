@@ -9,6 +9,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +22,9 @@ import static org.testng.Assert.*;
 @SuppressWarnings( "Duplicates" )
 abstract class AbstractArezProcessorTest
 {
-  void assertSuccessfulCompile( @Nonnull final String classname, final boolean repositoryEnabled )
+  void assertSuccessfulCompile( @Nonnull final String classname,
+                                final boolean repositoryEnabled,
+                                final boolean daggerEnabled )
     throws Exception
   {
     final String[] elements = classname.contains( "." ) ? classname.split( "\\." ) : new String[]{ classname };
@@ -30,6 +33,7 @@ abstract class AbstractArezProcessorTest
     final StringBuilder repository = repositoryEnabled ? new StringBuilder() : null;
     final StringBuilder arezRepository = repositoryEnabled ? new StringBuilder() : null;
     final StringBuilder repositoryExtension = repositoryEnabled ? new StringBuilder() : null;
+    final StringBuilder daggerModule = daggerEnabled ? new StringBuilder() : null;
     input.append( "input" );
     arezComponent.append( "expected" );
     if ( repositoryEnabled )
@@ -37,6 +41,10 @@ abstract class AbstractArezProcessorTest
       repository.append( "expected" );
       arezRepository.append( "expected" );
       repositoryExtension.append( "expected" );
+    }
+    if ( daggerEnabled )
+    {
+      daggerModule.append( "expected" );
     }
     for ( int i = 0; i < elements.length; i++ )
     {
@@ -48,6 +56,10 @@ abstract class AbstractArezProcessorTest
         repository.append( '/' );
         arezRepository.append( '/' );
         repositoryExtension.append( '/' );
+      }
+      if ( daggerEnabled )
+      {
+        daggerModule.append( '/' );
       }
       final boolean isLastElement = i == elements.length - 1;
       if ( isLastElement )
@@ -71,24 +83,31 @@ abstract class AbstractArezProcessorTest
           repositoryExtension.append( "Repository" );
         }
       }
+      if ( daggerEnabled )
+      {
+        daggerModule.append( "DaggerModule" );
+      }
     }
     input.append( ".java" );
     arezComponent.append( ".java" );
+    final ArrayList<String> expectedOutputs = new ArrayList<>();
+    expectedOutputs.add( arezComponent.toString() );
     if ( repositoryEnabled )
     {
       repository.append( ".java" );
       arezRepository.append( ".java" );
       repositoryExtension.append( ".java" );
-      assertSuccessfulCompile( input.toString(),
-                               arezComponent.toString(),
-                               repository.toString(),
-                               arezRepository.toString(),
-                               repositoryExtension.toString() );
+      expectedOutputs.add( repository.toString() );
+      expectedOutputs.add( arezRepository.toString() );
+      expectedOutputs.add( repositoryExtension.toString() );
     }
-    else
+    if ( daggerEnabled )
     {
-      assertSuccessfulCompile( input.toString(), arezComponent.toString() );
+      daggerModule.append( ".java" );
+      expectedOutputs.add( daggerModule.toString() );
     }
+    assertSuccessfulCompile( input.toString(),
+                             expectedOutputs.toArray( new String[ expectedOutputs.size() ] ) );
   }
 
   void assertSuccessfulCompile( @Nonnull final String inputResource, @Nonnull final String... expectedOutputResources )

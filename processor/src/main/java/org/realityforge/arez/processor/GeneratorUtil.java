@@ -7,6 +7,9 @@ import javax.annotation.Nonnull;
 @SuppressWarnings( "Duplicates" )
 final class GeneratorUtil
 {
+  static final ClassName SINGLETON_CLASSNAME = ClassName.get( "javax.inject", "Singleton" );
+  static final ClassName DAGGER_MODULE_CLASSNAME = ClassName.get( "dagger", "Module" );
+  static final ClassName DAGGER_PROVIDES_CLASSNAME = ClassName.get( "dagger", "Provides" );
   static final ClassName GUARDS_CLASSNAME = ClassName.get( "org.realityforge.braincheck", "Guards" );
   static final ClassName AREZ_CLASSNAME = ClassName.get( "org.realityforge.arez", "Arez" );
   static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "org.realityforge.arez", "ArezContext" );

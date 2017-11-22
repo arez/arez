@@ -5,6 +5,9 @@
 ##### Added
 * **\[browser-extras\]** Enhance `NetworkStatus` component so that it exposes an observable property
   `lastChangedAt` that exposes the time at which online status last changed.
+* **\[annotations\]** Add boolean parameter `dagger` to `@Repository` annotation that defaults to false. If
+  the `dagger` parameter is set to true then a [Dagger2](https://google.github.io/dagger) module will be
+  generated for the generated repository class.
 
 ##### Fixed
 * **\[annotations\]** Fix the documentation on `@OnDepsChanged` annotation to correctly describe the default

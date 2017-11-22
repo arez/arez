@@ -86,6 +86,10 @@ final class ComponentDescriptor
   private String _repositoryName;
   @Nullable
   private List<TypeElement> _repositoryExtensions;
+  /**
+   * Flag controlling whether dagger module is created for repository.
+   */
+  private boolean _generateDaggerModule;
   @Nonnull
   private final String _type;
   private final boolean _nameIncludesId;
@@ -1855,10 +1859,13 @@ final class ComponentDescriptor
   }
 
   @SuppressWarnings( "ConstantConditions" )
-  void configureRepository( @Nonnull final String name, @Nonnull final List<TypeElement> extensions )
+  void configureRepository( @Nonnull final String name,
+                            @Nonnull final List<TypeElement> extensions,
+                            final boolean generateDaggerModule )
   {
     assert null != name;
     assert null != extensions;
+    _generateDaggerModule = generateDaggerModule;
     if ( ProcessorUtil.isSentinelName( name ) )
     {
       _repositoryName = _type + "Repository";
@@ -1915,6 +1922,37 @@ final class ComponentDescriptor
     builder.addMethod( MethodSpec.methodBuilder( "self" ).
       addAnnotation( Nonnull.class ).
       addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
+      returns( ClassName.get( getPackageName(), getRepositoryName() ) ).build() );
+
+    return builder.build();
+  }
+
+  boolean shouldGenerateDaggerModule()
+  {
+    return _generateDaggerModule;
+  }
+
+  @Nonnull
+  TypeSpec buildDaggerModule()
+    throws ArezProcessorException
+  {
+    assert _generateDaggerModule;
+    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getDaggerModuleName() ).
+      addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
+
+    builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
+      addMember( "value", "$S", ArezProcessor.class.getName() ).
+      build() );
+    builder.addAnnotation( GeneratorUtil.DAGGER_MODULE_CLASSNAME );
+
+    ProcessorUtil.copyAccessModifiers( getElement(), builder );
+
+    builder.addMethod( MethodSpec.methodBuilder( "repository" ).
+      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.SINGLETON_CLASSNAME ).
+      addAnnotation( GeneratorUtil.DAGGER_PROVIDES_CLASSNAME ).
+      addModifiers( Modifier.STATIC, Modifier.PUBLIC ).
+      addStatement( "return $T.newRepository()", ClassName.get( getPackageName(), getRepositoryName() ) ).
       returns( ClassName.get( getPackageName(), getRepositoryName() ) ).build() );
 
     return builder.build();
@@ -1991,6 +2029,12 @@ final class ComponentDescriptor
   private String getArezClassName()
   {
     return getNestedClassPrefix() + "Arez_" + getElement().getSimpleName();
+  }
+
+  @Nonnull
+  private String getDaggerModuleName()
+  {
+    return getNestedClassPrefix() + getElement().getSimpleName() + "DaggerModule";
   }
 
   @Nonnull

@@ -43,3 +43,10 @@ artifacts:
 
   jsonassert: org.skyscreamer:jsonassert:jar:1.5.0
   android_json: com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1
+
+  javax_inject: javax.inject:javax.inject:jar:1
+  dagger_core: com.google.dagger:dagger:jar:2.13
+  dagger_producers: com.google.dagger:dagger-producers:jar:2.13
+  dagger_compiler: com.google.dagger:dagger-compiler:jar:2.13
+  googlejavaformat: com.google.googlejavaformat:google-java-format:jar:1.4
+  errorprone: com.google.errorprone:javac-shaded:jar:9-dev-r4023-3

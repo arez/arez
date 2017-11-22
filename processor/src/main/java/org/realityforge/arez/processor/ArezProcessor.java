@@ -94,6 +94,10 @@ public final class ArezProcessor
     {
       emitTypeSpec( descriptor.getPackageName(), descriptor.buildRepository( processingEnv.getTypeUtils() ) );
       emitTypeSpec( descriptor.getPackageName(), descriptor.buildRepositoryExtension() );
+      if ( descriptor.shouldGenerateDaggerModule() )
+      {
+        emitTypeSpec( descriptor.getPackageName(), descriptor.buildDaggerModule() );
+      }
     }
   }
 
@@ -171,7 +175,7 @@ public final class ArezProcessor
         ProcessorUtil.getTypeMirrorsAnnotationParameter( typeElement, "extensions", Repository.class ).stream().
           map( typeMirror -> (TypeElement) processingEnv.getTypeUtils().asElement( typeMirror ) ).
           collect( Collectors.toList() );
-      descriptor.configureRepository( repository.name(), extensions );
+      descriptor.configureRepository( repository.name(), extensions, repository.dagger() );
     }
 
     return descriptor;

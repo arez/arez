@@ -17,6 +17,15 @@ GWT_DEPS =
     :jsinterop_annotations,
     :jsinterop_annotations_sources
   ]
+DAGGER_DEPS =
+  [
+    :javax_inject,
+    :dagger_core,
+    :dagger_producers,
+    :dagger_compiler,
+    :googlejavaformat,
+    :errorprone
+  ]
 
 GWT_EXAMPLES=%w(IdleStatusExample BrowserLocationExample NetworkStatusExample ObservablePromiseExample TimedDisposerExample IntervalTickerExample).collect {|c| "org.realityforge.arez.gwt.examples.#{c}"}
 DOC_EXAMPLES=%w().collect {|c| "org.realityforge.arez.doc.examples.#{c}"}
@@ -172,6 +181,7 @@ define 'arez' do
     test.with :compile_testing,
               Java.tools_jar,
               :truth,
+              DAGGER_DEPS,
               project('core').package(:jar),
               project('core').compile.dependencies
 
@@ -200,6 +210,7 @@ define 'arez' do
                       :javax_json,
                       :jsonassert,
                       :android_json,
+                      DAGGER_DEPS,
                       project('annotations').package(:jar),
                       project('annotations').compile.dependencies,
                       project('core').package(:jar),
