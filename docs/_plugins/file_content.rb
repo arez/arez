@@ -127,9 +127,10 @@ module Jekyll
 
       eliding = false
       lines = lines.collect do |line|
+        last_line_whitespace = line.length - line.lstrip.length
         if line =~ self.doc_elide_end
           eliding = false
-          '...'
+          (' ' * last_line_whitespace) + '...'
         elsif eliding
           nil
         elsif line =~ self.doc_elide_start
