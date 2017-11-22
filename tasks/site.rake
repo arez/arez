@@ -57,6 +57,9 @@ task 'site:deploy' => ['site:build'] do
     origin_url = 'https://github.com/arez/arez.github.io.git'
 
     travis_build_number = ENV['TRAVIS_BUILD_NUMBER']
+    if travis_build_number
+      origin_url = origin_url.gsub('https://github.com/', 'git@github.com:')
+    end
 
     in_dir(SITE_DIR) do
       sh 'git init'
