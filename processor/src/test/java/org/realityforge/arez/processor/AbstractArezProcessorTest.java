@@ -85,7 +85,11 @@ abstract class AbstractArezProcessorTest
       }
       if ( daggerEnabled )
       {
-        daggerModule.append( "DaggerModule" );
+        daggerModule.append( elements[ i ] );
+        if ( isLastElement )
+        {
+          daggerModule.append( "DaggerModule" );
+        }
       }
     }
     input.append( ".java" );
