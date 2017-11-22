@@ -128,7 +128,8 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
   }
 
   @Nonnull
-  public final List<NestedModel.BasicActionModel> findAllByQuery(@Nonnull final Predicate<NestedModel.BasicActionModel> query, @Nonnull final Comparator<NestedModel.BasicActionModel> sorter) {
+  public final List<NestedModel.BasicActionModel> findAllByQuery(@Nonnull final Predicate<NestedModel.BasicActionModel> query,
+      @Nonnull final Comparator<NestedModel.BasicActionModel> sorter) {
     return toList( entities().stream().filter( query ).sorted( sorter ) );
   }
 

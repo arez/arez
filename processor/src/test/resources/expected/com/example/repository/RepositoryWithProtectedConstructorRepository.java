@@ -128,7 +128,8 @@ public class RepositoryWithProtectedConstructorRepository implements RepositoryW
   }
 
   @Nonnull
-  public final List<RepositoryWithProtectedConstructor> findAllByQuery(@Nonnull final Predicate<RepositoryWithProtectedConstructor> query, @Nonnull final Comparator<RepositoryWithProtectedConstructor> sorter) {
+  public final List<RepositoryWithProtectedConstructor> findAllByQuery(@Nonnull final Predicate<RepositoryWithProtectedConstructor> query,
+      @Nonnull final Comparator<RepositoryWithProtectedConstructor> sorter) {
     return toList( entities().stream().filter( query ).sorted( sorter ) );
   }
 

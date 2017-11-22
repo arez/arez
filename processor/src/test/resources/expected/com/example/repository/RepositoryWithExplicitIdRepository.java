@@ -144,7 +144,8 @@ public class RepositoryWithExplicitIdRepository implements RepositoryWithExplici
   }
 
   @Nonnull
-  public final List<RepositoryWithExplicitId> findAllByQuery(@Nonnull final Predicate<RepositoryWithExplicitId> query, @Nonnull final Comparator<RepositoryWithExplicitId> sorter) {
+  public final List<RepositoryWithExplicitId> findAllByQuery(@Nonnull final Predicate<RepositoryWithExplicitId> query,
+      @Nonnull final Comparator<RepositoryWithExplicitId> sorter) {
     return toList( entities().stream().filter( query ).sorted( sorter ) );
   }
 

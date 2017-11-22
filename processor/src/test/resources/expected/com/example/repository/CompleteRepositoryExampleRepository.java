@@ -144,7 +144,8 @@ public class CompleteRepositoryExampleRepository implements CompleteRepositoryEx
   }
 
   @Nonnull
-  public final List<CompleteRepositoryExample> findAllByQuery(@Nonnull final Predicate<CompleteRepositoryExample> query, @Nonnull final Comparator<CompleteRepositoryExample> sorter) {
+  public final List<CompleteRepositoryExample> findAllByQuery(@Nonnull final Predicate<CompleteRepositoryExample> query,
+      @Nonnull final Comparator<CompleteRepositoryExample> sorter) {
     return toList( entities().stream().filter( query ).sorted( sorter ) );
   }
 

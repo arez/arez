@@ -128,7 +128,8 @@ public class RepositoryPreDisposeHookRepository implements RepositoryPreDisposeH
   }
 
   @Nonnull
-  public final List<RepositoryPreDisposeHook> findAllByQuery(@Nonnull final Predicate<RepositoryPreDisposeHook> query, @Nonnull final Comparator<RepositoryPreDisposeHook> sorter) {
+  public final List<RepositoryPreDisposeHook> findAllByQuery(@Nonnull final Predicate<RepositoryPreDisposeHook> query,
+      @Nonnull final Comparator<RepositoryPreDisposeHook> sorter) {
     return toList( entities().stream().filter( query ).sorted( sorter ) );
   }
 

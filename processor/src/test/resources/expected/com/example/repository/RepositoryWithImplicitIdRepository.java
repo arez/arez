@@ -128,7 +128,8 @@ public class RepositoryWithImplicitIdRepository implements RepositoryWithImplici
   }
 
   @Nonnull
-  public final List<RepositoryWithImplicitId> findAllByQuery(@Nonnull final Predicate<RepositoryWithImplicitId> query, @Nonnull final Comparator<RepositoryWithImplicitId> sorter) {
+  public final List<RepositoryWithImplicitId> findAllByQuery(@Nonnull final Predicate<RepositoryWithImplicitId> query,
+      @Nonnull final Comparator<RepositoryWithImplicitId> sorter) {
     return toList( entities().stream().filter( query ).sorted( sorter ) );
   }
 

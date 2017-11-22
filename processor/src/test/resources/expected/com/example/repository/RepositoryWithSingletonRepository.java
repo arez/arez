@@ -128,7 +128,8 @@ public class RepositoryWithSingletonRepository implements RepositoryWithSingleto
   }
 
   @Nonnull
-  public final List<RepositoryWithSingleton> findAllByQuery(@Nonnull final Predicate<RepositoryWithSingleton> query, @Nonnull final Comparator<RepositoryWithSingleton> sorter) {
+  public final List<RepositoryWithSingleton> findAllByQuery(@Nonnull final Predicate<RepositoryWithSingleton> query,
+      @Nonnull final Comparator<RepositoryWithSingleton> sorter) {
     return toList( entities().stream().filter( query ).sorted( sorter ) );
   }
 

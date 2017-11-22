@@ -114,7 +114,8 @@ public final class Arez_RepositoryWithMultipleCtorsRepository extends Repository
 
   @Nonnull
   @Override
-  RepositoryWithMultipleCtors create(@Nonnull final String packageName, @Nonnull final String name) {
+  RepositoryWithMultipleCtors create(@Nonnull final String packageName,
+      @Nonnull final String name) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );

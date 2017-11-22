@@ -24,7 +24,8 @@ public final class Arez_ObservableWithAnnotatedCtorModel extends ObservableWithA
   @Nonnull
   private final Observable<Long> $$arez$$_time;
 
-  public Arez_ObservableWithAnnotatedCtorModel(@Nonnegative final long time, final long other, @Nonnull final String foo) {
+  public Arez_ObservableWithAnnotatedCtorModel(@Nonnegative final long time, final long other,
+      @Nonnull final String foo) {
     super(time,other,foo);
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;

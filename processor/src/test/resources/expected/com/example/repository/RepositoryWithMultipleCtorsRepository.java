@@ -44,7 +44,8 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
       name = "create_packageName_name"
   )
   @Nonnull
-  RepositoryWithMultipleCtors create(@Nonnull final String packageName, @Nonnull final String name) {
+  RepositoryWithMultipleCtors create(@Nonnull final String packageName,
+      @Nonnull final String name) {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(packageName,name);
     entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     this.$$arez$$_entities.put( entity.$$arez$$_id(), entity );
@@ -152,7 +153,8 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
   }
 
   @Nonnull
-  public final List<RepositoryWithMultipleCtors> findAllByQuery(@Nonnull final Predicate<RepositoryWithMultipleCtors> query, @Nonnull final Comparator<RepositoryWithMultipleCtors> sorter) {
+  public final List<RepositoryWithMultipleCtors> findAllByQuery(@Nonnull final Predicate<RepositoryWithMultipleCtors> query,
+      @Nonnull final Comparator<RepositoryWithMultipleCtors> sorter) {
     return toList( entities().stream().filter( query ).sorted( sorter ) );
   }
 
