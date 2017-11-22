@@ -58,7 +58,7 @@ public class WhenIntegrationTest
     @Nonnull
     static TimeModel create( final long time )
     {
-      return new WhenIntegrationTest$Arez_TimeModel( time );
+      return new WhenIntegrationTest_Arez_TimeModel( time );
     }
 
     TimeModel( final long time )

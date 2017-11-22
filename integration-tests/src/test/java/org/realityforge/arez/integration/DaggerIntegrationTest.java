@@ -36,10 +36,10 @@ public class DaggerIntegrationTest
   }
 
   @Singleton
-  @Component( modules = DaggerIntegrationTest$TestComponentDaggerModule.class )
+  @Component( modules = DaggerIntegrationTest_TestComponentDaggerModule.class )
   interface TestDaggerComponent
   {
-    DaggerIntegrationTest$TestComponentRepository repository();
+    DaggerIntegrationTest_TestComponentRepository repository();
   }
 
   @Test
@@ -49,7 +49,7 @@ public class DaggerIntegrationTest
     final TestDaggerComponent daggerComponent = DaggerDaggerIntegrationTest_TestDaggerComponent.create();
     daggerComponent.repository();
     daggerComponent.repository();
-    final DaggerIntegrationTest$TestComponentRepository repository = daggerComponent.repository();
+    final DaggerIntegrationTest_TestComponentRepository repository = daggerComponent.repository();
     final TestComponent component1 = repository.create( "ABCDEF" );
     final TestComponent component2 = repository.create( "CDEFGH" );
     final TestComponent component3 = repository.create( "EFGHIJ" );

@@ -21,7 +21,7 @@ public class EqualsAndHashCodeTest
     @Nonnull
     public static PersonModel create( @Nonnull final String firstName )
     {
-      return new EqualsAndHashCodeTest$Arez_PersonModel( firstName );
+      return new EqualsAndHashCodeTest_Arez_PersonModel( firstName );
     }
 
     PersonModel( @Nonnull final String firstName )

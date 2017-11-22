@@ -23,7 +23,7 @@ public class ComponentRefTest
   public void componentRef()
     throws Throwable
   {
-    final TestComponent instance = new ComponentRefTest$Arez_TestComponent();
+    final TestComponent instance = new ComponentRefTest_Arez_TestComponent();
     final Component component = instance.getComponent();
     assertNotNull( component );
     assertEquals( component.getType(), "TestComponent" );

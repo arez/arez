@@ -26,7 +26,7 @@ public class ContextRefTest
   {
     final ArezContext context = Arez.context();
 
-    final TestComponent component = new ContextRefTest$Arez_TestComponent();
+    final TestComponent component = new ContextRefTest_Arez_TestComponent();
     assertEquals( component.getContext(), context );
   }
 }

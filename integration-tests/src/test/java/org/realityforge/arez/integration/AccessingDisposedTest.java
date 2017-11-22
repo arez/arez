@@ -35,7 +35,7 @@ public class AccessingDisposedTest
   @Test
   public void accessingDisposedComponentResultsInError()
   {
-    final TestComponent component = new AccessingDisposedTest$Arez_TestComponent();
+    final TestComponent component = new AccessingDisposedTest_Arez_TestComponent();
 
     assertEquals( component.invokeCount, 0 );
 
@@ -54,7 +54,7 @@ public class AccessingDisposedTest
   @Test
   public void accessingDisposedSingletonComponentResultsInError()
   {
-    final TestSingletonComponent component = new AccessingDisposedTest$Arez_TestSingletonComponent();
+    final TestSingletonComponent component = new AccessingDisposedTest_Arez_TestSingletonComponent();
 
     assertEquals( component.invokeCount, 0 );
 

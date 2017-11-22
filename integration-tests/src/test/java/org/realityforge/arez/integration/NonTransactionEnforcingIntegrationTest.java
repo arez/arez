@@ -74,7 +74,7 @@ public class NonTransactionEnforcingIntegrationTest
     @Nonnull
     public static PersonModel create( @Nonnull final String firstName, @Nonnull final String lastName )
     {
-      return new NonTransactionEnforcingIntegrationTest$Arez_PersonModel( firstName, lastName );
+      return new NonTransactionEnforcingIntegrationTest_Arez_PersonModel( firstName, lastName );
     }
 
     PersonModel( @Nonnull final String firstName, @Nonnull final String lastName )

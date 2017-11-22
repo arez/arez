@@ -15,6 +15,10 @@
 
 ##### Changed
 * Upgrade the version of javapoet to 1.8.0.
+* 💥 **\[processor\]** Changed the naming convention of the classes generated from nested static classes.
+  Previously the name components were separated by a `$` but this is the same convention that is used by
+  nested classes and thus a nested class could have aname collision with a generated class. Instead the
+  `_` character has been used to separate name components.
 
 ### [v0.26](https://github.com/arez/arez/tree/v0.26) (2017-11-14)
 [Full Changelog](https://github.com/arez/arez/compare/v0.25...v0.26)

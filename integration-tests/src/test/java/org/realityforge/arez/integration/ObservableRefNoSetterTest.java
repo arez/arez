@@ -60,7 +60,7 @@ public class ObservableRefNoSetterTest
   {
     final ArezContext context = Arez.context();
 
-    final TestComponent component = new ObservableRefNoSetterTest$Arez_TestComponent();
+    final TestComponent component = new ObservableRefNoSetterTest_Arez_TestComponent();
     context.action( () -> component.setOtherID( 1 ) );
 
     final SpyEventRecorder recorder = new SpyEventRecorder();

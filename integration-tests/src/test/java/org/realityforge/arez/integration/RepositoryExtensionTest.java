@@ -14,7 +14,7 @@ public class RepositoryExtensionTest
   extends AbstractIntegrationTest
 {
   interface TestComponentRepositoryExtension
-    extends RepositoryExtensionTest$TestComponentBaseRepositoryExtension
+    extends RepositoryExtensionTest_TestComponentBaseRepositoryExtension
   {
     @Nonnull
     default List<TestComponent> findAllLike( @Nonnull final String pattern )
@@ -52,8 +52,8 @@ public class RepositoryExtensionTest
   {
     final ArezContext context = Arez.context();
 
-    final RepositoryExtensionTest$TestComponentRepository repository =
-      RepositoryExtensionTest$TestComponentRepository.newRepository();
+    final RepositoryExtensionTest_TestComponentRepository repository =
+      RepositoryExtensionTest_TestComponentRepository.newRepository();
     final TestComponent component1 = repository.create( "ABCDEF" );
     final TestComponent component2 = repository.create( "CDEFGH" );
     final TestComponent component3 = repository.create( "EFGHIJ" );

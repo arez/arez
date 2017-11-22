@@ -46,7 +46,7 @@ public class ComputedValueRefTest
   {
     final ArezContext context = Arez.context();
 
-    final TestComponent component = new ComputedValueRefTest$Arez_TestComponent();
+    final TestComponent component = new ComputedValueRefTest_Arez_TestComponent();
     component.setOtherID( 1 );
 
     final Integer valueAsInt = context.action( component::getOtherID );

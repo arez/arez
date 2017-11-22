@@ -112,7 +112,7 @@ public class MultiZoneIntegrationTest
     @Nonnull
     public static PersonModel create( @Nonnull final String firstName, @Nonnull final String lastName )
     {
-      return new MultiZoneIntegrationTest$Arez_PersonModel( firstName, lastName );
+      return new MultiZoneIntegrationTest_Arez_PersonModel( firstName, lastName );
     }
 
     PersonModel( @Nonnull final String firstName, @Nonnull final String lastName )

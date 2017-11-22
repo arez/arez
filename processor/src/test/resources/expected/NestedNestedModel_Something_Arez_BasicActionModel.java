@@ -7,7 +7,7 @@ import org.realityforge.arez.Disposable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class NestedNestedModel$Something$Arez_BasicActionModel extends NestedNestedModel.Something.BasicActionModel implements Disposable {
+public final class NestedNestedModel_Something_Arez_BasicActionModel extends NestedNestedModel.Something.BasicActionModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -19,7 +19,7 @@ public final class NestedNestedModel$Something$Arez_BasicActionModel extends Nes
 
   private final Component $$arez$$_component;
 
-  public NestedNestedModel$Something$Arez_BasicActionModel() {
+  public NestedNestedModel_Something_Arez_BasicActionModel() {
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
@@ -80,10 +80,10 @@ public final class NestedNestedModel$Something$Arez_BasicActionModel extends Nes
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof NestedNestedModel$Something$Arez_BasicActionModel) ) {
+    } else if ( null == o || !(o instanceof NestedNestedModel_Something_Arez_BasicActionModel) ) {
       return false;
     } else {
-      final NestedNestedModel$Something$Arez_BasicActionModel that = (NestedNestedModel$Something$Arez_BasicActionModel) o;;
+      final NestedNestedModel_Something_Arez_BasicActionModel that = (NestedNestedModel_Something_Arez_BasicActionModel) o;;
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }

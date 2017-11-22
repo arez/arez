@@ -11,7 +11,7 @@ import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_NestedModel$BasicActionModelRepository extends NestedModel$BasicActionModelRepository implements Disposable {
+public final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_BasicActionModelRepository implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -26,11 +26,11 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
   @Nonnull
   private final Observable<Collection<NestedModel.BasicActionModel>> $$arez$$_entities;
 
-  Arez_NestedModel$BasicActionModelRepository() {
+  Arez_NestedModel_BasicActionModelRepository() {
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "NestedModel$BasicActionModelRepository", $$arez$$_id(), $$arez$$_name(), () -> super.preDispose(), null ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "NestedModel_BasicActionModelRepository", $$arez$$_id(), $$arez$$_name(), () -> super.preDispose(), null ) : null;
     this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
@@ -42,7 +42,7 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
   }
 
   String $$arez$$_name() {
-    return "NestedModel$BasicActionModelRepository";
+    return "NestedModel_BasicActionModelRepository";
   }
 
   @Override
@@ -121,10 +121,10 @@ public final class Arez_NestedModel$BasicActionModelRepository extends NestedMod
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof Arez_NestedModel$BasicActionModelRepository) ) {
+    } else if ( null == o || !(o instanceof Arez_NestedModel_BasicActionModelRepository) ) {
       return false;
     } else {
-      final Arez_NestedModel$BasicActionModelRepository that = (Arez_NestedModel$BasicActionModelRepository) o;;
+      final Arez_NestedModel_BasicActionModelRepository that = (Arez_NestedModel_BasicActionModelRepository) o;;
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }

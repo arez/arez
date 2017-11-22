@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public interface NestedModel$BasicActionModelBaseRepositoryExtension {
+public interface NestedModel_BasicActionModelBaseRepositoryExtension {
   @Nonnull
-  NestedModel$BasicActionModelRepository self();
+  NestedModel_BasicActionModelRepository self();
 }

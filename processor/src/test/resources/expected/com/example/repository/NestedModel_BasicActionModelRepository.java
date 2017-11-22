@@ -25,19 +25,19 @@ import org.realityforge.braincheck.Guards;
 @ArezComponent(
     nameIncludesId = false
 )
-public class NestedModel$BasicActionModelRepository implements NestedModel$BasicActionModelBaseRepositoryExtension {
+public class NestedModel_BasicActionModelRepository implements NestedModel_BasicActionModelBaseRepositoryExtension {
   private final HashMap<Long, NestedModel.BasicActionModel> $$arez$$_entities = new HashMap<>();
   ;
 
   private final Collection<NestedModel.BasicActionModel> $$arez$$_entityList = Collections.unmodifiableCollection( this.$$arez$$_entities.values() );
   ;
 
-  NestedModel$BasicActionModelRepository() {
+  NestedModel_BasicActionModelRepository() {
   }
 
   @Nonnull
-  public static NestedModel$BasicActionModelRepository newRepository() {
-    return new Arez_NestedModel$BasicActionModelRepository();
+  public static NestedModel_BasicActionModelRepository newRepository() {
+    return new Arez_NestedModel_BasicActionModelRepository();
   }
 
   @Action(
@@ -45,7 +45,7 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
   )
   @Nonnull
   public NestedModel.BasicActionModel create() {
-    final NestedModel$Arez_BasicActionModel entity = new NestedModel$Arez_BasicActionModel();
+    final NestedModel_Arez_BasicActionModel entity = new NestedModel_Arez_BasicActionModel();
     entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     this.$$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
@@ -61,14 +61,14 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
 
   public boolean contains(@Nonnull final NestedModel.BasicActionModel entity) {
     getEntitiesObservable().reportObserved();
-    return entity instanceof NestedModel$Arez_BasicActionModel && this.$$arez$$_entities.containsKey( ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_id() );
+    return entity instanceof NestedModel_Arez_BasicActionModel && this.$$arez$$_entities.containsKey( ((NestedModel_Arez_BasicActionModel) entity).$$arez$$_id() );
   }
 
   @Action
   public void destroy(@Nonnull final NestedModel.BasicActionModel entity) {
     assert null != entity;
-    if ( entity instanceof NestedModel$Arez_BasicActionModel && null != this.$$arez$$_entities.remove( ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_id() ) ) {
-      ((NestedModel$Arez_BasicActionModel) entity).$$arez$$_setOnDispose( null );
+    if ( entity instanceof NestedModel_Arez_BasicActionModel && null != this.$$arez$$_entities.remove( ((NestedModel_Arez_BasicActionModel) entity).$$arez$$_id() ) ) {
+      ((NestedModel_Arez_BasicActionModel) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();
     } else {
@@ -149,7 +149,7 @@ public class NestedModel$BasicActionModelRepository implements NestedModel$Basic
 
   @Override
   @Nonnull
-  public final NestedModel$BasicActionModelRepository self() {
+  public final NestedModel_BasicActionModelRepository self() {
     return this;
   }
 }

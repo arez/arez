@@ -134,10 +134,10 @@ public class ArezProcessorTest
     throws Exception
   {
     assertSuccessfulCompile( "input/com/example/repository/NestedModel.java",
-                             "expected/com/example/repository/NestedModel$Arez_BasicActionModel.java",
-                             "expected/com/example/repository/NestedModel$Arez_BasicActionModel.java",
-                             "expected/com/example/repository/NestedModel$Arez_BasicActionModel.java",
-                             "expected/com/example/repository/NestedModel$Arez_BasicActionModel.java" );
+                             "expected/com/example/repository/NestedModel_Arez_BasicActionModel.java",
+                             "expected/com/example/repository/NestedModel_Arez_BasicActionModel.java",
+                             "expected/com/example/repository/NestedModel_Arez_BasicActionModel.java",
+                             "expected/com/example/repository/NestedModel_Arez_BasicActionModel.java" );
   }
 
   @Test
@@ -155,7 +155,7 @@ public class ArezProcessorTest
   public void processSuccessfulNestedCompile()
     throws Exception
   {
-    assertSuccessfulCompile( "input/NestedModel.java", "expected/NestedModel$Arez_BasicActionModel.java" );
+    assertSuccessfulCompile( "input/NestedModel.java", "expected/NestedModel_Arez_BasicActionModel.java" );
   }
 
   @Test
@@ -163,7 +163,7 @@ public class ArezProcessorTest
     throws Exception
   {
     assertSuccessfulCompile( "input/NestedNestedModel.java",
-                             "expected/NestedNestedModel$Something$Arez_BasicActionModel.java" );
+                             "expected/NestedNestedModel_Something_Arez_BasicActionModel.java" );
   }
 
   @Test

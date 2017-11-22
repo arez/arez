@@ -48,7 +48,7 @@ public class ComputedValueIntegrationTest
     @Nonnull
     public static PersonModel create( @Nonnull final String firstName, @Nonnull final String lastName )
     {
-      return new ComputedValueIntegrationTest$Arez_PersonModel( firstName, lastName );
+      return new ComputedValueIntegrationTest_Arez_PersonModel( firstName, lastName );
     }
 
     PersonModel( @Nonnull final String firstName, @Nonnull final String lastName )

@@ -1255,7 +1255,7 @@ final class ComponentDescriptor
     while ( NestingKind.TOP_LEVEL != t.getNestingKind() )
     {
       t = (TypeElement) t.getEnclosingElement();
-      name.insert( 0, t.getSimpleName() + "$" );
+      name.insert( 0, t.getSimpleName() + "_" );
     }
     return name.toString();
   }

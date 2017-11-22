@@ -56,7 +56,7 @@ public class DisposeIntegrationTest
     @Nonnull
     public static CodeModel create( @Nonnull final String packageName, @Nonnull final String name )
     {
-      return new DisposeIntegrationTest$Arez_CodeModel( packageName, name );
+      return new DisposeIntegrationTest_Arez_CodeModel( packageName, name );
     }
 
     CodeModel( @Nonnull final String packageName, @Nonnull final String name )

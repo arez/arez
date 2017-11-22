@@ -50,7 +50,7 @@ public class NoIdInNameIntegrationTest
     @Nonnull
     public static PersonModel create( @Nonnull final String firstName, @Nonnull final String lastName )
     {
-      return new NoIdInNameIntegrationTest$Arez_PersonModel( firstName, lastName );
+      return new NoIdInNameIntegrationTest_Arez_PersonModel( firstName, lastName );
     }
 
     PersonModel( @Nonnull final String firstName, @Nonnull final String lastName )
