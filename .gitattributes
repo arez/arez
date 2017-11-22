@@ -1,6 +1,7 @@
 # DO NOT EDIT: File is auto-generated
 * -text
 *.html text
+*.ico binary
 *.java text
 *.js text
 *.json text
