@@ -32,7 +32,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.create_id_value"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.create_id_value"
     },
     {
         "component": "TestComponent.3",
@@ -47,7 +47,7 @@
         "type": "ComponentCreateCompleted"
     },
     {
-        "observable": "BasicRepositoryIntegrationTest$TestComponentRepository.entities",
+        "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.entities",
         "type": "ObservableChanged"
     },
     {
@@ -58,7 +58,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.create_id_value"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.create_id_value"
     },
     {
         "observer": "ComponentCount",
@@ -104,7 +104,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.destroy"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy"
     },
     {
         "component": "TestComponent.1",
@@ -147,7 +147,7 @@
         "type": "ComponentDisposeCompleted"
     },
     {
-        "observable": "BasicRepositoryIntegrationTest$TestComponentRepository.entities",
+        "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.entities",
         "type": "ObservableChanged"
     },
     {
@@ -158,7 +158,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.destroy"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy"
     },
     {
         "observer": "ComponentCount",
@@ -188,7 +188,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.destroy"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy"
     },
     {
         "component": "TestComponent.2",
@@ -231,7 +231,7 @@
         "type": "ComponentDisposeCompleted"
     },
     {
-        "observable": "BasicRepositoryIntegrationTest$TestComponentRepository.entities",
+        "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.entities",
         "type": "ObservableChanged"
     },
     {
@@ -242,7 +242,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest$TestComponentRepository.destroy"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy"
     },
     {
         "observer": "ComponentCount",
