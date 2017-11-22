@@ -23,8 +23,8 @@ The Arez architecture is based on a strict unidirectional data flow:
   notify _observers_ when they change.
 * _Observers_ update the user-interface, network communication, etc to reflect the current application state.
 
-Actions _may_ be triggered by _observers_ when they update from application but it is more likely that a user action,
-a network message or some other external activity would trigger an action.
+Actions _may_ be triggered by _observers_ when they update from application state but it is more likely that a
+user action, a network message or some other external activity would trigger an action.
 
 <div class="svg-figure">
 {% include SimpleDataflowNodes.svg %}
