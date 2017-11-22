@@ -11,6 +11,7 @@
 * **\[docs\]** Define a placeholder Logo for project and add favicon support to website.
 * **\[docs\]** Move the documentation to a separate repository `https://github.com/arez/arez.github.io` so
   that it is published to `https://arez.github.io` rather than `https://arez.github.io/arez`.
+* **\[docs\]** Add basic documentation of repositories.
 
 ##### Fixed
 * **\[annotations\]** Fix the documentation on `@OnDepsChanged` annotation to correctly describe the default
