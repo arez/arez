@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * <p>If this annotation is present, it indicates that the Annotation processor
  * should call this method to get the ID of the component. This ID should be
  * constant and unique (enough) to identify the component. It is used when generating
- * debug names for observables nested within the component. It is also used as theid
+ * debug names for observables nested within the component. It is also used as the id
  * under which an component is stored when repositories are being generated. If this
  * annotation is not present the Annotation processor will synthesize an ID as a
  * monotonically increasing integer for each instance of the type.</p>
