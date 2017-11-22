@@ -110,54 +110,50 @@ module Jekyll
 
     def render(context)
       content = IO.read(self.derive_filename)
-      if self.start_line || self.end_line
-        lines = content.split("\n")
+      lines = content.split("\n")
 
-        first_line = calculate_first_line(lines)
-        last_line = calculate_last_line(first_line, lines)
+      first_line = calculate_first_line(lines)
+      last_line = calculate_last_line(first_line, lines)
 
-        if first_line < 0
-          raise "Specified a negative first_line parameter when importing file #{self.derive_filename}"
-        elsif last_line >= lines.size
-          raise "Specified a last_line parameter that is after the end of file when importing file #{self.derive_filename}"
-        elsif first_line > last_line
-          raise "Specified a first_line that is after the last_line parameter when importing file #{self.derive_filename}"
-        end
-
-        lines = lines[first_line..last_line]
-
-        eliding = false
-        lines = lines.collect do |line|
-          if line =~ self.doc_elide_end
-            eliding = false
-            '...'
-          elsif eliding
-            nil
-          elsif line =~ self.doc_elide_start
-            eliding = true
-            nil
-          else
-            line
-          end
-        end.compact
-
-        if strip_block?
-          whitespace_at_start = lines.empty? ? 10000000 : lines[0].length
-          lines.each do |line|
-            if 0 != line.length
-              line_whitespace = line.length - line.lstrip.length
-              whitespace_at_start = whitespace_at_start < line_whitespace ? whitespace_at_start : line_whitespace
-            end
-          end
-          (0...(lines.size)).each do |i|
-            lines[i] = lines[i][whitespace_at_start...10000000]
-          end
-        end
-        content = lines.join("\n")
-        strip? ? content.strip! : content
-      else
-        content
+      if first_line < 0
+        raise "Specified a negative first_line parameter when importing file #{self.derive_filename}"
+      elsif last_line >= lines.size
+        raise "Specified a last_line parameter that is after the end of file when importing file #{self.derive_filename}"
+      elsif first_line > last_line
+        raise "Specified a first_line that is after the last_line parameter when importing file #{self.derive_filename}"
       end
+
+      lines = lines[first_line..last_line]
+
+      eliding = false
+      lines = lines.collect do |line|
+        if line =~ self.doc_elide_end
+          eliding = false
+          '...'
+        elsif eliding
+          nil
+        elsif line =~ self.doc_elide_start
+          eliding = true
+          nil
+        else
+          line
+        end
+      end.compact
+
+      if strip_block?
+        whitespace_at_start = lines.empty? ? 10000000 : lines[0].length
+        lines.each do |line|
+          if 0 != line.length
+            line_whitespace = line.length - line.lstrip.length
+            whitespace_at_start = whitespace_at_start < line_whitespace ? whitespace_at_start : line_whitespace
+          end
+        end
+        (0...(lines.size)).each do |i|
+          lines[i] = lines[i][whitespace_at_start...10000000]
+        end
+      end
+      content = lines.join("\n")
+      strip? ? content.strip! : content
     end
 
     def calculate_last_line(first_line, lines)
