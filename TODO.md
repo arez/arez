@@ -131,3 +131,8 @@ console.table(languages);
 * Link back from website to github page
 
 * Integrate Logo into website
+
+* Much of the documentation in VueGWT could be adapted or prvide inspsiration for Arez. See
+  - https://github.com/Axellience/vue-gwt/blob/master/docs-source/book/project-setup.md
+  - https://github.com/Axellience/vue-gwt/blob/master/docs-source/book/essential/class-and-style.md
+  - https://github.com/Axellience/vue-gwt/tree/master/docs-source/book
