@@ -21,7 +21,7 @@ import org.realityforge.anodoc.Unsupported;
  *
  * <ul>
  * <li>A repository named "[MyComponent]Repository"</li>
- * <li>An interface used to define extensions of the repository "[MyComponent]RepositoryExtension"</li>
+ * <li>An interface used to define extensions of the repository "[MyComponent]BaseRepositoryExtension"</li>
  * </ul>
  *
  * <p>The way to add custom queries or \@Computed queries is to define an interface
@@ -35,7 +35,7 @@ import org.realityforge.anodoc.Unsupported;
  *
  * <pre>{@code
  * public interface MyTodoRepositoryExtension
- *   extends TodoRepositoryExtension
+ *   extends TodoBaseRepositoryExtension
  * {
  *   default Todo findByTitle( final String title )
  *   {
