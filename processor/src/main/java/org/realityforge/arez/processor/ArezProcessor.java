@@ -26,7 +26,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Repository;
-import static javax.tools.Diagnostic.Kind.ERROR;
+import static javax.tools.Diagnostic.Kind.*;
 
 /**
  * Annotation processor that analyzes Arez annotated source and generates models from the annotations.
