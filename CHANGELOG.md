@@ -9,6 +9,8 @@
   the `dagger` parameter is set to true then a [Dagger2](https://google.github.io/dagger) module will be
   generated for the generated repository class.
 * **\[docs\]** Define a placeholder Logo for project and add favicon support to website.
+* **\[docs\]** Move the documentation to a separate repository `https://github.com/arez/arez.github.io` so
+  that it is published to `https://arez.github.io` rather than `https://arez.github.io/arez`.
 
 ##### Fixed
 * **\[annotations\]** Fix the documentation on `@OnDepsChanged` annotation to correctly describe the default
