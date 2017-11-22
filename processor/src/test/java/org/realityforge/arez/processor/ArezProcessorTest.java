@@ -316,8 +316,7 @@ public class ArezProcessorTest
                       "@ComponentRef target must not throw any exceptions" },
         new Object[]{ "com.example.component_ref.DuplicateModel",
                       "@ComponentRef target duplicates existing method named getComponent" },
-        new Object[]{ "com.example.component_ref.ParametersModel",
-                      "@ComponentRef target must not have any parameters" },
+        new Object[]{ "com.example.component_ref.ParametersModel", "@ComponentRef target must not have any parameters" },
 
         new Object[]{ "com.example.context_ref.FinalModel", "@ContextRef target must not be final" },
         new Object[]{ "com.example.context_ref.StaticModel", "@ContextRef target must not be static" },

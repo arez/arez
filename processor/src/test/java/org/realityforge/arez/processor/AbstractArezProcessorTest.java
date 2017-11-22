@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.tools.JavaFileObject;
-import static com.google.common.truth.Truth.assert_;
+import static com.google.common.truth.Truth.*;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( "Duplicates" )
