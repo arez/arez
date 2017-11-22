@@ -111,8 +111,6 @@ console.table(languages);
 
 ## Documentation
 
-* Extract out arez website to top level site repo for organization.
-
 * Document that arez annotations only work on default methods or other methods with an implementation.
 
 * Document repositories.
