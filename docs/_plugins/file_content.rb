@@ -47,6 +47,9 @@ module Jekyll
         end
       end
 
+      @doc_elide_start = /DOC ELIDE START/
+      @doc_elide_end = /DOC ELIDE END/
+
       self.options = params
 
       raise 'Missing expected file parameter. Use tag syntax such as {% file_content core:java:org/realityforge/arez/ArezContext.java start_line=23 end_line=23 %}' unless self.file
@@ -76,6 +79,8 @@ module Jekyll
       @file = file
     end
 
+    attr_accessor :doc_elide_start
+    attr_accessor :doc_elide_end
     attr_accessor :start_line
     attr_accessor :end_line
 
@@ -120,6 +125,22 @@ module Jekyll
         end
 
         lines = lines[first_line..last_line]
+
+        eliding = false
+        lines = lines.collect do |line|
+          if line =~ self.doc_elide_end
+            eliding = false
+            '...'
+          elsif eliding
+            nil
+          elsif line =~ self.doc_elide_start
+            eliding = true
+            nil
+          else
+            line
+          end
+        end.compact
+
         if strip_block?
           whitespace_at_start = lines.empty? ? 10000000 : lines[0].length
           lines.each do |line|
