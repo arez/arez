@@ -1,6 +1,6 @@
 title: Arez User Manual
 url: "http://arez.github.io/"
-baseurl: /
+baseurl: ""
 # This configuration controls whether all the menu items are open (true) or only current section (false)
 show_full_navigation: false
 
