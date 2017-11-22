@@ -34,7 +34,7 @@ Firstly you create the key via the following command. Make sure you use an empty
     $ ssh-keygen -t rsa -b 4096 -C "peter@realityforge.org" -f ../deploy
 
 This is a private key and should NOT be checked into source code repository. Instead an encrypted version
-of the file is checked. See the "Encrypting Files for TravisCI" section below for how to do this.
+of the file is checked in. See the "Encrypting Files for TravisCI" section below for how to do this.
 
 Then update the travis configuration file in the `before_install` section and after the encrypted file has been
 decoded add the following.
