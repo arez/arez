@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/util')
 
-SITE_DIR = "#{WORKSPACE_DIR}/reports/site/arez"
+SITE_DIR = "#{WORKSPACE_DIR}/reports/site"
 
 desc 'Copy the javadocs to docs dir'
 task 'site:javadocs' do
@@ -30,12 +30,12 @@ task 'site:link_check' do
   port = socket.local_address.ip_port
   socket.close
 
-  webserver = WEBrick::HTTPServer.new(:Port => port, :DocumentRoot => File.dirname(SITE_DIR))
+  webserver = WEBrick::HTTPServer.new(:Port => port, :DocumentRoot => SITE_DIR)
   Thread.new {webserver.start}
 
   trap('INT') {webserver.shutdown}
   begin
-    sh "yarn blc --ordered --recursive --filter-level 3 http://#{address}:#{port}/arez --exclude https://github.com/arez/arez/compare/ --exclude https://github.com/arez/arez.github.io/settings --exclude https://docs.oracle.com/javase/8/docs/api"
+    sh "yarn blc --ordered --recursive --filter-level 3 http://#{address}:#{port} --exclude https://github.com/arez/arez/compare/ --exclude https://github.com/arez/arez.github.io/settings --exclude https://docs.oracle.com/javase/8/docs/api"
   ensure
     webserver.shutdown
   end
