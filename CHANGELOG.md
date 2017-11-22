@@ -8,6 +8,7 @@
 * **\[annotations\]** Add boolean parameter `dagger` to `@Repository` annotation that defaults to false. If
   the `dagger` parameter is set to true then a [Dagger2](https://google.github.io/dagger) module will be
   generated for the generated repository class.
+* **\[docs\]** Define a placeholder Logo for project and add favicon support to website.
 
 ##### Fixed
 * **\[annotations\]** Fix the documentation on `@OnDepsChanged` annotation to correctly describe the default
