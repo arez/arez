@@ -115,8 +115,6 @@ console.table(languages);
 
 ## Documentation
 
-* Add title to all pages
-
 * Document that arez annotations only work on default methods or other methods with an implementation.
 
 * Integrate documentation such as following which seem like good overviews
