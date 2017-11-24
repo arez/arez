@@ -130,6 +130,7 @@ console.table(languages);
   would allow us to point people at website for further explanation. Then we could expand the exception
   explanations on the website.
 
+* Consider ways or reorganizing - Use react+reason-react as inspiration? Also EmberJS as inspiration - https://www.emberjs.com/
 * Link back from website to github page
 
 * Integrate Logo into website
