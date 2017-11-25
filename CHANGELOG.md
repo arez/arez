@@ -12,6 +12,7 @@
 * **\[docs\]** Move the documentation to a separate repository `https://github.com/arez/arez.github.io` so
   that it is published to `https://arez.github.io` rather than `https://arez.github.io/arez`.
 * **\[docs\]** Add basic documentation of repositories.
+* **\[core\]** Expose the method `ArezContext.isTransactionActive()` with public access.
 
 ##### Fixed
 * **\[annotations\]** Fix the documentation on `@OnDepsChanged` annotation to correctly describe the default

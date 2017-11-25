@@ -693,7 +693,7 @@ public final class ArezContext
    *
    * @return true if there is a transaction in progress.
    */
-  boolean isTransactionActive()
+  public boolean isTransactionActive()
   {
     return Transaction.isTransactionActive() &&
            ( !Arez.areZonesEnabled() || Transaction.current().getContext() == this );
