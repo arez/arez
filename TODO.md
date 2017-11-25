@@ -132,8 +132,6 @@ console.table(languages);
 * Consider ways or reorganizing - Use react+reason-react as inspiration? Also EmberJS as inspiration - https://www.emberjs.com/
 * Link back from website to github page
 
-* Integrate Logo into website
-
 * Much of the documentation in VueGWT could be adapted or provide inspiration for Arez. See
   - https://github.com/Axellience/vue-gwt/blob/master/docs-source/book/project-setup.md
   - https://github.com/Axellience/vue-gwt/blob/master/docs-source/book/essential/class-and-style.md
