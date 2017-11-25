@@ -5,6 +5,10 @@
         "type": "ComponentCreateStarted"
     },
     {
+        "observable": "Time.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
         "observable": "Time.time",
         "type": "ObservableCreated"
     },
@@ -31,6 +35,10 @@
     {
         "component": "Watcher.0",
         "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Watcher.0.isDisposed",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "Watcher.0.condition",
@@ -415,6 +423,26 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Watcher.0.condition.dispose"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Watcher.0.isDisposed.dispose"
+    },
+    {
+        "observable": "Watcher.0.isDisposed",
+        "type": "ObservableChanged"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Watcher.0.isDisposed.dispose"
+    },
+    {
+        "observable": "Watcher.0.isDisposed",
+        "type": "ObservableDisposed"
     },
     {
         "mutation": true,

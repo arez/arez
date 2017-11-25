@@ -4,6 +4,7 @@ import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Component;
 import org.realityforge.arez.Disposable;
+import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
@@ -19,11 +20,14 @@ public final class NestedNestedModel_Something_Arez_BasicActionModel extends Nes
 
   private final Component $$arez$$_component;
 
+  private final Observable<Boolean> $$arez$$_disposedObservable;
+
   public NestedNestedModel_Something_Arez_BasicActionModel() {
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "BasicActionModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
@@ -39,7 +43,12 @@ public final class NestedNestedModel_Something_Arez_BasicActionModel extends Nes
 
   @Override
   public boolean isDisposed() {
-    return this.$$arez$$_disposed;
+    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+      this.$$arez$$_disposedObservable.reportObserved();
+      return this.$$arez$$_disposed;
+    } else {
+      return this.$$arez$$_disposed;
+    }
   }
 
   @Override
@@ -50,6 +59,7 @@ public final class NestedNestedModel_Something_Arez_BasicActionModel extends Nes
         this.$$arez$$_component.dispose();
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_disposedObservable.dispose();
         } } );
       }
     }

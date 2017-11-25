@@ -39,6 +39,10 @@
         "type": "ComponentCreateStarted"
     },
     {
+        "observable": "TestComponent.3.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
         "observable": "TestComponent.3.value",
         "type": "ObservableCreated"
     },
@@ -115,6 +119,26 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "TestComponent.1.dispose"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.1.isDisposed.dispose"
+    },
+    {
+        "observable": "TestComponent.1.isDisposed",
+        "type": "ObservableChanged"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.1.isDisposed.dispose"
+    },
+    {
+        "observable": "TestComponent.1.isDisposed",
+        "type": "ObservableDisposed"
     },
     {
         "mutation": true,
@@ -199,6 +223,26 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "TestComponent.2.dispose"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.2.isDisposed.dispose"
+    },
+    {
+        "observable": "TestComponent.2.isDisposed",
+        "type": "ObservableChanged"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.2.isDisposed.dispose"
+    },
+    {
+        "observable": "TestComponent.2.isDisposed",
+        "type": "ObservableDisposed"
     },
     {
         "mutation": true,

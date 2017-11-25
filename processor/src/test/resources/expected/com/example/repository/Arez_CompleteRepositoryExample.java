@@ -24,6 +24,8 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
 
   private final Component $$arez$$_component;
 
+  private final Observable<Boolean> $$arez$$_disposedObservable;
+
   @Nonnull
   private final Observable<String> $$arez$$_name;
 
@@ -40,6 +42,7 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
     super(packageName,name);
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "CompleteRepositoryExample", getId(), $$arez$$_name(), () -> $$arez$$_preDispose(), null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_name = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setName( v ) : null );
     this.$$arez$$_packageName = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".packageName" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getPackageName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setPackageName( v ) : null );
     this.$$arez$$_rawQualifiedName = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".rawQualifiedName" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getRawQualifiedName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setQualifiedName( v ) : null );
@@ -55,7 +58,12 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
 
   @Override
   public boolean isDisposed() {
-    return this.$$arez$$_disposed;
+    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+      this.$$arez$$_disposedObservable.reportObserved();
+      return this.$$arez$$_disposed;
+    } else {
+      return this.$$arez$$_disposed;
+    }
   }
 
   @Override
@@ -67,6 +75,7 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
           $$arez$$_preDispose();
+          this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_qualifiedName.dispose();
           this.$$arez$$_name.dispose();
           this.$$arez$$_packageName.dispose();

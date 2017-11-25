@@ -5,6 +5,10 @@
         "type": "ComponentCreateStarted"
     },
     {
+        "observable": "CodeModel.0.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
         "observable": "CodeModel.0.name",
         "type": "ObservableCreated"
     },
@@ -359,6 +363,26 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.qualifiedName.dispose"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "CodeModel.0.isDisposed.dispose"
+    },
+    {
+        "observable": "CodeModel.0.isDisposed",
+        "type": "ObservableChanged"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "CodeModel.0.isDisposed.dispose"
+    },
+    {
+        "observable": "CodeModel.0.isDisposed",
+        "type": "ObservableDisposed"
     },
     {
         "mutation": true,

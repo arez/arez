@@ -25,6 +25,8 @@ public final class Arez_RepositoryWithProtectedConstructor extends RepositoryWit
 
   private final Component $$arez$$_component;
 
+  private final Observable<Boolean> $$arez$$_disposedObservable;
+
   @Nonnull
   private final Observable<String> $$arez$$_name;
 
@@ -33,6 +35,7 @@ public final class Arez_RepositoryWithProtectedConstructor extends RepositoryWit
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "RepositoryWithProtectedConstructor", $$arez$$_id(), $$arez$$_name(), () -> $$arez$$_preDispose(), null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_name = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setName( v ) : null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
@@ -49,7 +52,12 @@ public final class Arez_RepositoryWithProtectedConstructor extends RepositoryWit
 
   @Override
   public boolean isDisposed() {
-    return this.$$arez$$_disposed;
+    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+      this.$$arez$$_disposedObservable.reportObserved();
+      return this.$$arez$$_disposed;
+    } else {
+      return this.$$arez$$_disposed;
+    }
   }
 
   @Override
@@ -61,6 +69,7 @@ public final class Arez_RepositoryWithProtectedConstructor extends RepositoryWit
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
           $$arez$$_preDispose();
+          this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_name.dispose();
         } } );
       }

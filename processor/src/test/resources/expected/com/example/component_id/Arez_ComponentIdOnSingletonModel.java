@@ -18,6 +18,8 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
 
   private final Component $$arez$$_component;
 
+  private final Observable<Boolean> $$arez$$_disposedObservable;
+
   @Nonnull
   private final Observable<Long> $$arez$$_field;
 
@@ -25,6 +27,7 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
     super();
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ComponentIdOnSingletonModel", getId(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_field = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".field" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getField() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setField( v ) : null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
@@ -37,7 +40,12 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
 
   @Override
   public boolean isDisposed() {
-    return this.$$arez$$_disposed;
+    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+      this.$$arez$$_disposedObservable.reportObserved();
+      return this.$$arez$$_disposed;
+    } else {
+      return this.$$arez$$_disposed;
+    }
   }
 
   @Override
@@ -48,6 +56,7 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
         this.$$arez$$_component.dispose();
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_field.dispose();
         } } );
       }

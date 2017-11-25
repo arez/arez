@@ -6,6 +6,7 @@ import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Component;
 import org.realityforge.arez.Disposable;
+import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
 import org.realityforge.braincheck.Guards;
 
@@ -22,6 +23,8 @@ public final class Arez_BasicAutorunModel extends BasicAutorunModel implements D
 
   private final Component $$arez$$_component;
 
+  private final Observable<Boolean> $$arez$$_disposedObservable;
+
   @Nonnull
   private final Observer $$arez$$_doStuff;
 
@@ -30,6 +33,7 @@ public final class Arez_BasicAutorunModel extends BasicAutorunModel implements D
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "BasicAutorunModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_doStuff = this.$$arez$$_context.autorun( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(), false );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
@@ -47,7 +51,12 @@ public final class Arez_BasicAutorunModel extends BasicAutorunModel implements D
 
   @Override
   public boolean isDisposed() {
-    return this.$$arez$$_disposed;
+    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+      this.$$arez$$_disposedObservable.reportObserved();
+      return this.$$arez$$_disposed;
+    } else {
+      return this.$$arez$$_disposed;
+    }
   }
 
   @Override
@@ -58,6 +67,7 @@ public final class Arez_BasicAutorunModel extends BasicAutorunModel implements D
         this.$$arez$$_component.dispose();
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_doStuff.dispose();
         } } );
       }

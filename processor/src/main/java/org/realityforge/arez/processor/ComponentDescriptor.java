@@ -1629,6 +1629,7 @@ final class ComponentDescriptor
     {
       actionBlock.addStatement( "super.$N()", _preDispose.getSimpleName() );
     }
+    actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     _roAutoruns.forEach( autorun -> autorun.buildDisposer( actionBlock ) );
     _roTrackeds.forEach( tracked -> tracked.buildDisposer( actionBlock ) );
     _roComputeds.forEach( computed -> computed.buildDisposer( actionBlock ) );
@@ -1661,7 +1662,16 @@ final class ComponentDescriptor
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
 
-    builder.addStatement( "return this.$N", GeneratorUtil.DISPOSED_FIELD_NAME );
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( this.$N.isTransactionActive() && !this.$N.isDisposed() ) ",
+                            GeneratorUtil.CONTEXT_FIELD_NAME,
+                            GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
+    block.addStatement( "this.$N.reportObserved()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
+    block.addStatement( "return this.$N", GeneratorUtil.DISPOSED_FIELD_NAME );
+    block.nextControlFlow( "else" );
+    block.addStatement( "return this.$N", GeneratorUtil.DISPOSED_FIELD_NAME );
+    block.endControlFlow();
+    builder.addCode( block.build() );
 
     return builder.build();
   }
@@ -1720,6 +1730,17 @@ final class ComponentDescriptor
       final FieldSpec.Builder field =
         FieldSpec.builder( GeneratorUtil.COMPONENT_CLASSNAME,
                            GeneratorUtil.COMPONENT_FIELD_NAME,
+                           Modifier.FINAL,
+                           Modifier.PRIVATE );
+      builder.addField( field.build() );
+
+    }
+    {
+      final ParameterizedTypeName typeName =
+        ParameterizedTypeName.get( GeneratorUtil.OBSERVABLE_CLASSNAME, TypeName.BOOLEAN.box() );
+      final FieldSpec.Builder field =
+        FieldSpec.builder( typeName,
+                           GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME,
                            Modifier.FINAL,
                            Modifier.PRIVATE );
       builder.addField( field.build() );
@@ -1825,6 +1846,21 @@ final class ComponentDescriptor
       }
       sb.append( ") : null" );
       builder.addStatement( sb.toString(), params.toArray() );
+    }
+    {
+      builder.addStatement( "this.$N = this.$N.createObservable( " +
+                            "$T.areNativeComponentsEnabled() ? this.$N : null, " +
+                            "$T.areNamesEnabled() ? $N() + $S : null, " +
+                            "$T.arePropertyIntrospectorsEnabled() ? () -> this.$N : null, null )",
+                            GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME,
+                            GeneratorUtil.CONTEXT_FIELD_NAME,
+                            GeneratorUtil.AREZ_CLASSNAME,
+                            GeneratorUtil.COMPONENT_FIELD_NAME,
+                            GeneratorUtil.AREZ_CLASSNAME,
+                            getComponentNameMethodName(),
+                            ".isDisposed",
+                            GeneratorUtil.AREZ_CLASSNAME,
+                            GeneratorUtil.DISPOSED_FIELD_NAME );
     }
 
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );

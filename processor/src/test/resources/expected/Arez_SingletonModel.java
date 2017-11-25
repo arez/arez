@@ -24,6 +24,8 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
 
   private final Component $$arez$$_component;
 
+  private final Observable<Boolean> $$arez$$_disposedObservable;
+
   @Nonnull
   private final Observable<Long> $$arez$$_time;
 
@@ -41,6 +43,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "SingletonModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".someValue" : null, super::someValue, Objects::equals, null, null, null, null );
     this.$$arez$$_myAutorun = this.$$arez$$_context.autorun( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".myAutorun" : null, true, () -> super.myAutorun(), false );
@@ -61,7 +64,12 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
 
   @Override
   public boolean isDisposed() {
-    return this.$$arez$$_disposed;
+    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+      this.$$arez$$_disposedObservable.reportObserved();
+      return this.$$arez$$_disposed;
+    } else {
+      return this.$$arez$$_disposed;
+    }
   }
 
   @Override
@@ -72,6 +80,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
         this.$$arez$$_component.dispose();
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_myAutorun.dispose();
           this.$$arez$$_render.dispose();
           this.$$arez$$_someValue.dispose();

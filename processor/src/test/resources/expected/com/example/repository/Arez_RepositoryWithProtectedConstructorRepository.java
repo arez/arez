@@ -23,6 +23,8 @@ public final class Arez_RepositoryWithProtectedConstructorRepository extends Rep
 
   private final Component $$arez$$_component;
 
+  private final Observable<Boolean> $$arez$$_disposedObservable;
+
   @Nonnull
   private final Observable<Collection<RepositoryWithProtectedConstructor>> $$arez$$_entities;
 
@@ -31,6 +33,7 @@ public final class Arez_RepositoryWithProtectedConstructorRepository extends Rep
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "RepositoryWithProtectedConstructorRepository", $$arez$$_id(), $$arez$$_name(), () -> super.preDispose(), null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
@@ -47,7 +50,12 @@ public final class Arez_RepositoryWithProtectedConstructorRepository extends Rep
 
   @Override
   public boolean isDisposed() {
-    return this.$$arez$$_disposed;
+    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+      this.$$arez$$_disposedObservable.reportObserved();
+      return this.$$arez$$_disposed;
+    } else {
+      return this.$$arez$$_disposed;
+    }
   }
 
   @Override
@@ -59,6 +67,7 @@ public final class Arez_RepositoryWithProtectedConstructorRepository extends Rep
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
           super.preDispose();
+          this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_entities.dispose();
         } } );
       }

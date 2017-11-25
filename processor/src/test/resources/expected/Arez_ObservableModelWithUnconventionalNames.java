@@ -20,6 +20,8 @@ public final class Arez_ObservableModelWithUnconventionalNames extends Observabl
 
   private final Component $$arez$$_component;
 
+  private final Observable<Boolean> $$arez$$_disposedObservable;
+
   @Nonnull
   private final Observable<Long> $$arez$$_time;
 
@@ -28,6 +30,7 @@ public final class Arez_ObservableModelWithUnconventionalNames extends Observabl
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ObservableModelWithUnconventionalNames", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.time() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.time( v ) : null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
@@ -44,7 +47,12 @@ public final class Arez_ObservableModelWithUnconventionalNames extends Observabl
 
   @Override
   public boolean isDisposed() {
-    return this.$$arez$$_disposed;
+    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+      this.$$arez$$_disposedObservable.reportObserved();
+      return this.$$arez$$_disposed;
+    } else {
+      return this.$$arez$$_disposed;
+    }
   }
 
   @Override
@@ -55,6 +63,7 @@ public final class Arez_ObservableModelWithUnconventionalNames extends Observabl
         this.$$arez$$_component.dispose();
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_time.dispose();
         } } );
       }

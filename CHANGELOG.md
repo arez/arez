@@ -13,6 +13,9 @@
   that it is published to `https://arez.github.io` rather than `https://arez.github.io/arez`.
 * **\[docs\]** Add basic documentation of repositories.
 * **\[core\]** Expose the method `ArezContext.isTransactionActive()` with public access.
+* **\[processor\]** Treat the `Disposable.isDisposed()` method on enhanced component classes as "optionally"
+  observable. If a transaction is currently active then it is treated as observable otherwise it is treated
+  as a non-observable property.
 
 ##### Fixed
 * **\[annotations\]** Fix the documentation on `@OnDepsChanged` annotation to correctly describe the default

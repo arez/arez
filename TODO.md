@@ -62,9 +62,8 @@ type RemoteData e a
 
 * Enhance WhyRun and write tests for it.
 
-* isDisposed() should be a magic `@Observable` property. If the value is accessed in a transaction it should be
-  observable, otherwise it should just be a field access. This should allow us to remove the custom dispose magic
-  in generated classes and thus allow anyone to hand create the equivalent of repositories.
+* Figure out a mechanism for removing custom OnDispose magic in generated classes and thus allow anyone to hand
+  create the equivalent of repositories. Potentially through "observable" `isDisposed()`
 
 * Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
   - https://github.com/zalmoxisus/mobx-remotedev

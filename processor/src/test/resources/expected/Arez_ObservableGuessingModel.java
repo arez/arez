@@ -21,6 +21,8 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
 
   private final Component $$arez$$_component;
 
+  private final Observable<Boolean> $$arez$$_disposedObservable;
+
   @Nonnull
   private final Observable<String> $$arez$$_string;
 
@@ -35,6 +37,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ObservableGuessingModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_string = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".string" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getString() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setString( v ) : null );
     this.$$arez$$_foo = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".foo" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.isFoo() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setFoo( v ) : null );
     this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
@@ -53,7 +56,12 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
 
   @Override
   public boolean isDisposed() {
-    return this.$$arez$$_disposed;
+    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+      this.$$arez$$_disposedObservable.reportObserved();
+      return this.$$arez$$_disposed;
+    } else {
+      return this.$$arez$$_disposed;
+    }
   }
 
   @Override
@@ -64,6 +72,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
         this.$$arez$$_component.dispose();
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_string.dispose();
           this.$$arez$$_foo.dispose();
           this.$$arez$$_time.dispose();

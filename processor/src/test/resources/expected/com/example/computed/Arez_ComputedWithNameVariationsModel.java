@@ -8,6 +8,7 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Component;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
+import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
@@ -23,6 +24,8 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
   private final ArezContext $$arez$$_context;
 
   private final Component $$arez$$_component;
+
+  private final Observable<Boolean> $$arez$$_disposedObservable;
 
   @Nonnull
   private final ComputedValue<String> $$arez$$_helper;
@@ -41,6 +44,7 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ComputedWithNameVariationsModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_helper = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".helper" : null, super::helper, Objects::equals, null, null, null, null );
     this.$$arez$$_ready = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".ready" : null, super::isReady, Objects::equals, null, null, null, null );
     this.$$arez$$_foo = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".foo" : null, super::myFooHelperMethod, Objects::equals, null, null, null, null );
@@ -60,7 +64,12 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
 
   @Override
   public boolean isDisposed() {
-    return this.$$arez$$_disposed;
+    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+      this.$$arez$$_disposedObservable.reportObserved();
+      return this.$$arez$$_disposed;
+    } else {
+      return this.$$arez$$_disposed;
+    }
   }
 
   @Override
@@ -71,6 +80,7 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
         this.$$arez$$_component.dispose();
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_helper.dispose();
           this.$$arez$$_ready.dispose();
           this.$$arez$$_foo.dispose();

@@ -5,6 +5,10 @@
         "type": "ComponentCreateStarted"
     },
     {
+        "observable": "PersonModel.0.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
         "observable": "PersonModel.0.lastName",
         "type": "ObservableCreated"
     },

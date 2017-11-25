@@ -8,6 +8,7 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Component;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
+import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
@@ -24,6 +25,8 @@ public final class Arez_PostConstructModel extends PostConstructModel implements
 
   private final Component $$arez$$_component;
 
+  private final Observable<Boolean> $$arez$$_disposedObservable;
+
   @Nonnull
   private final ComputedValue<Integer> $$arez$$_someValue;
 
@@ -32,6 +35,7 @@ public final class Arez_PostConstructModel extends PostConstructModel implements
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "PostConstructModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_someValue = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".someValue" : null, super::someValue, Objects::equals, null, null, null, null );
     super.postConstruct();
     if ( Arez.areNativeComponentsEnabled() ) {
@@ -49,7 +53,12 @@ public final class Arez_PostConstructModel extends PostConstructModel implements
 
   @Override
   public boolean isDisposed() {
-    return this.$$arez$$_disposed;
+    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+      this.$$arez$$_disposedObservable.reportObserved();
+      return this.$$arez$$_disposed;
+    } else {
+      return this.$$arez$$_disposed;
+    }
   }
 
   @Override
@@ -60,6 +69,7 @@ public final class Arez_PostConstructModel extends PostConstructModel implements
         this.$$arez$$_component.dispose();
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_someValue.dispose();
         } } );
       }

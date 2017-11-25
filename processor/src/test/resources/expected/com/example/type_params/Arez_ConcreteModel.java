@@ -10,6 +10,7 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Component;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Disposable;
+import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
@@ -22,6 +23,8 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   private final Component $$arez$$_component;
 
+  private final Observable<Boolean> $$arez$$_disposedObservable;
+
   @Nonnull
   private final ComputedValue<IOException> $$arez$$_compError;
 
@@ -32,6 +35,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     super(writer);
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ConcreteModel", getComponentId(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
     this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
@@ -43,6 +47,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     super(error);
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ConcreteModel", getComponentId(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
     this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
@@ -54,6 +59,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     super(error,writer,i);
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ConcreteModel", getComponentId(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_compError = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
     this.$$arez$$_compWriter = this.$$arez$$_context.createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
@@ -67,7 +73,12 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   @Override
   public boolean isDisposed() {
-    return this.$$arez$$_disposed;
+    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+      this.$$arez$$_disposedObservable.reportObserved();
+      return this.$$arez$$_disposed;
+    } else {
+      return this.$$arez$$_disposed;
+    }
   }
 
   @Override
@@ -78,6 +89,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
         this.$$arez$$_component.dispose();
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_compError.dispose();
           this.$$arez$$_compWriter.dispose();
         } } );

@@ -7,6 +7,7 @@ import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Component;
 import org.realityforge.arez.Disposable;
+import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
 import org.realityforge.braincheck.Guards;
 
@@ -22,6 +23,8 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
   private final ArezContext $$arez$$_context;
 
   private final Component $$arez$$_component;
+
+  private final Observable<Boolean> $$arez$$_disposedObservable;
 
   @Nonnull
   private final Observer $$arez$$_render2;
@@ -40,6 +43,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     this.$$arez$$_context = Arez.context();
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "TrackedAllTypesModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_render2 = this.$$arez$$_context.tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render2" : null, true, () -> super.onRender2DepsChanged() );
     this.$$arez$$_render3 = this.$$arez$$_context.tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render3" : null, true, () -> super.onRender3DepsChanged() );
     this.$$arez$$_render4 = this.$$arez$$_context.tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render4" : null, true, () -> super.onRender4DepsChanged() );
@@ -59,7 +63,12 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
 
   @Override
   public boolean isDisposed() {
-    return this.$$arez$$_disposed;
+    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+      this.$$arez$$_disposedObservable.reportObserved();
+      return this.$$arez$$_disposed;
+    } else {
+      return this.$$arez$$_disposed;
+    }
   }
 
   @Override
@@ -70,6 +79,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
         this.$$arez$$_component.dispose();
       } else {
         this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+          this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_render2.dispose();
           this.$$arez$$_render3.dispose();
           this.$$arez$$_render4.dispose();
