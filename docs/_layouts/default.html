@@ -43,7 +43,7 @@
     <input type="submit" value="Search" style="display: none;">
   </form>
 
-  <nav {% if site.show_full_navigation %}class="full-navigation" {% endif %}>
+  <nav class="full-navigation">
     <ul>
       <li class="nav-item top-level {% if page.url == '/' %}current{% endif %}">
         {% assign home = site.html_pages | where: 'url', '/' | first %}
