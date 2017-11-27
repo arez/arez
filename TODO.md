@@ -105,6 +105,8 @@ console.table(languages);
 * Remove dependency on `arez-annotations` from `arez-processor` project. TRhis would make it very easy to support
   shade the processor deps and make it fully isolated.
 
+* Shade processor deps via https://github.com/lyubomyr-shaydariv/ant-shade-task
+
 ## Process
 
 * Generate links when the application crashes so that we can autofill issue details. Essentially involves
