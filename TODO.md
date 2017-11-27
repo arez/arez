@@ -102,6 +102,9 @@ console.table(languages);
 
 * Change events should now contain the change value if introspectors enabled and present.
 
+* Remove dependency on `arez-annotations` from `arez-processor` project. TRhis would make it very easy to support
+  shade the processor deps and make it fully isolated.
+
 ## Process
 
 * Generate links when the application crashes so that we can autofill issue details. Essentially involves
