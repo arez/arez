@@ -132,6 +132,8 @@ console.table(languages);
 * Consider ways or reorganizing
   - Use react+reason-react as inspiration?
   - EmberJS as inspiration - https://www.emberjs.com/
+  - Inpsiration - particularly on drop down site nav - https://revapi.org/architecture.html
+
 * Link back from website to github page
 
 * Much of the documentation in VueGWT could be adapted or provide inspiration for Arez. See
