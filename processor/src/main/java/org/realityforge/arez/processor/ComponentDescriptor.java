@@ -61,8 +61,6 @@ import org.realityforge.arez.annotations.OnStale;
 import org.realityforge.arez.annotations.PostDispose;
 import org.realityforge.arez.annotations.PreDispose;
 import org.realityforge.arez.annotations.Track;
-import org.realityforge.arez.component.NoResultException;
-import org.realityforge.arez.component.NoSuchEntityException;
 
 /**
  * The class that represents the parsed state of ArezComponent annotated class.
@@ -2234,7 +2232,7 @@ final class ComponentDescriptor
       addStatement( "final $T entity = findByQuery( query )", entityType ).
       addCode( CodeBlock.builder().
         beginControlFlow( "if ( null == entity )" ).
-        addStatement( "throw new $T()", NoResultException.class ).
+        addStatement( "throw new $T()", GeneratorUtil.NO_RESULT_EXCEPTION_CLASSNAME ).
         endControlFlow().
         build() ).
       addStatement( "return entity" ).
@@ -2364,7 +2362,7 @@ final class ComponentDescriptor
       addStatement( "final $T entity = $N( id )", entityType, "findBy" + getIdName() ).
       addCode( CodeBlock.builder().
         beginControlFlow( "if ( null == entity )" ).
-        addStatement( "throw new $T( $T.class, id )", NoSuchEntityException.class, entityType ).
+        addStatement( "throw new $T( $T.class, id )", GeneratorUtil.NO_SUCH_ENTITY_EXCEPTION_CLASSNAME, entityType ).
         endControlFlow().
         build() ).
       addStatement( "return entity" ).

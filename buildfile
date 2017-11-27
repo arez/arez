@@ -174,8 +174,7 @@ define 'arez' do
                  :autocommon,
                  :javapoet,
                  :guava,
-                 project('annotations'),
-                 project('component')
+                 project('annotations')
 
 
     test.with :compile_testing,
@@ -183,7 +182,9 @@ define 'arez' do
               :truth,
               DAGGER_DEPS,
               project('core').package(:jar),
-              project('core').compile.dependencies
+              project('core').compile.dependencies,
+              project('component').package(:jar, :classifier => :gwt),
+              project('component').compile.dependencies
 
     package(:jar)
     package(:sources)
