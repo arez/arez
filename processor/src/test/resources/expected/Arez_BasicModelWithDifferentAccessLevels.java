@@ -31,12 +31,12 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   Arez_BasicModelWithDifferentAccessLevels() {
     super();
-    this.$$arez$$_context = Arez.context();
+    this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "BasicModelWithDifferentAccessLevels", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
-    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
-    this.$$arez$$_value = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "BasicModelWithDifferentAccessLevels", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
+    this.$$arez$$_time = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
+    this.$$arez$$_value = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
@@ -44,12 +44,12 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   protected Arez_BasicModelWithDifferentAccessLevels(final String value) {
     super(value);
-    this.$$arez$$_context = Arez.context();
+    this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "BasicModelWithDifferentAccessLevels", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
-    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
-    this.$$arez$$_value = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "BasicModelWithDifferentAccessLevels", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
+    this.$$arez$$_time = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
+    this.$$arez$$_value = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
@@ -57,15 +57,19 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   public Arez_BasicModelWithDifferentAccessLevels(final String value, final long time) {
     super(value,time);
-    this.$$arez$$_context = Arez.context();
+    this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "BasicModelWithDifferentAccessLevels", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
-    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
-    this.$$arez$$_time = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
-    this.$$arez$$_value = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "BasicModelWithDifferentAccessLevels", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
+    this.$$arez$$_time = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
+    this.$$arez$$_value = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
+  }
+
+  final ArezContext $$arez$$_context() {
+    return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
   }
 
   final long $$arez$$_id() {
@@ -78,7 +82,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   public boolean isDisposed() {
-    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+    if ( $$arez$$_context().isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
       this.$$arez$$_disposedObservable.reportObserved();
       return this.$$arez$$_disposed;
     } else {
@@ -93,7 +97,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arez$$_component.dispose();
       } else {
-        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
           this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_time.dispose();
           this.$$arez$$_value.dispose();
@@ -138,7 +142,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   void doAction3() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doAction3" : null, true, () -> super.doAction3() );
+      $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doAction3" : null, true, () -> super.doAction3() );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -154,7 +158,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   protected void doAction2() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doAction2" : null, true, () -> super.doAction2() );
+      $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doAction2" : null, true, () -> super.doAction2() );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -170,7 +174,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   public void doAction() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doAction" : null, true, () -> super.doAction() );
+      $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doAction" : null, true, () -> super.doAction() );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {

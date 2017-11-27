@@ -26,13 +26,17 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
 
   public Arez_ComponentTypeNameAloneOnSingletonModel() {
     super();
-    this.$$arez$$_context = Arez.context();
+    this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ComponentTypeNameAloneOnSingletonModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
-    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "ComponentTypeNameAloneOnSingletonModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
+  }
+
+  final ArezContext $$arez$$_context() {
+    return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
   }
 
   final long $$arez$$_id() {
@@ -50,7 +54,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
 
   @Override
   public boolean isDisposed() {
-    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+    if ( $$arez$$_context().isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
       this.$$arez$$_disposedObservable.reportObserved();
       return this.$$arez$$_disposed;
     } else {
@@ -65,7 +69,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arez$$_component.dispose();
       } else {
-        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
           this.$$arez$$_disposedObservable.dispose();
         } } );
       }
@@ -76,7 +80,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
   public void doStuff(final long time, final float someOtherParameter) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time,someOtherParameter), time, someOtherParameter );
+      $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time,someOtherParameter), time, someOtherParameter );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {

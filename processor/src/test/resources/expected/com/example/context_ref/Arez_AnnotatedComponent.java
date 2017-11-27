@@ -25,18 +25,19 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
 
   Arez_AnnotatedComponent() {
     super();
-    this.$$arez$$_context = Arez.context();
+    this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "AnnotatedComponent", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
-    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "AnnotatedComponent", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
   }
 
+  @Override
   @Nonnull
   public final ArezContext getContext() {
-    return this.$$arez$$_context;
+    return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
   }
 
   final long $$arez$$_id() {
@@ -49,7 +50,7 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
 
   @Override
   public boolean isDisposed() {
-    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+    if ( getContext().isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
       this.$$arez$$_disposedObservable.reportObserved();
       return this.$$arez$$_disposed;
     } else {
@@ -64,7 +65,7 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arez$$_component.dispose();
       } else {
-        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        getContext().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
           this.$$arez$$_disposedObservable.dispose();
         } } );
       }

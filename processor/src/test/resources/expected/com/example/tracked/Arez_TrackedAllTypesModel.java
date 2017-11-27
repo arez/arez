@@ -40,17 +40,21 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
 
   public Arez_TrackedAllTypesModel() {
     super();
-    this.$$arez$$_context = Arez.context();
+    this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "TrackedAllTypesModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
-    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
-    this.$$arez$$_render2 = this.$$arez$$_context.tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render2" : null, true, () -> super.onRender2DepsChanged() );
-    this.$$arez$$_render3 = this.$$arez$$_context.tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render3" : null, true, () -> super.onRender3DepsChanged() );
-    this.$$arez$$_render4 = this.$$arez$$_context.tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render4" : null, true, () -> super.onRender4DepsChanged() );
-    this.$$arez$$_render1 = this.$$arez$$_context.tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render1" : null, true, () -> super.onRender1DepsChanged() );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "TrackedAllTypesModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
+    this.$$arez$$_render2 = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render2" : null, true, () -> super.onRender2DepsChanged() );
+    this.$$arez$$_render3 = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render3" : null, true, () -> super.onRender3DepsChanged() );
+    this.$$arez$$_render4 = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render4" : null, true, () -> super.onRender4DepsChanged() );
+    this.$$arez$$_render1 = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render1" : null, true, () -> super.onRender1DepsChanged() );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
+  }
+
+  final ArezContext $$arez$$_context() {
+    return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
   }
 
   final long $$arez$$_id() {
@@ -63,7 +67,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
 
   @Override
   public boolean isDisposed() {
-    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+    if ( $$arez$$_context().isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
       this.$$arez$$_disposedObservable.reportObserved();
       return this.$$arez$$_disposed;
     } else {
@@ -78,7 +82,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arez$$_component.dispose();
       } else {
-        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
           this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_render2.dispose();
           this.$$arez$$_render3.dispose();
@@ -94,7 +98,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      this.$$arez$$_context.track( this.$$arez$$_render2, () -> super.render2() );
+      $$arez$$_context().track( this.$$arez$$_render2, () -> super.render2() );
     } catch( final ParseException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final RuntimeException $$arez$$_e ) {
@@ -113,7 +117,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      return this.$$arez$$_context.safeTrack( this.$$arez$$_render3, () -> super.render3() );
+      return $$arez$$_context().safeTrack( this.$$arez$$_render3, () -> super.render3() );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -130,7 +134,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      return this.$$arez$$_context.track( this.$$arez$$_render4, () -> super.render4() );
+      return $$arez$$_context().track( this.$$arez$$_render4, () -> super.render4() );
     } catch( final ParseException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final RuntimeException $$arez$$_e ) {
@@ -149,7 +153,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      this.$$arez$$_context.safeTrack( this.$$arez$$_render1, () -> super.render1() );
+      $$arez$$_context().safeTrack( this.$$arez$$_render1, () -> super.render1() );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {

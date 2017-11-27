@@ -93,8 +93,8 @@ final class ActionDescriptor
     {
       statement.append( "return " );
     }
-    statement.append( "this.$N." );
-    parameterNames.add( GeneratorUtil.CONTEXT_FIELD_NAME );
+    statement.append( "$N()." );
+    parameterNames.add( _componentDescriptor.getContextMethodName() );
 
     if ( isProcedure && isSafe )
     {

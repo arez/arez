@@ -30,16 +30,20 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
 
   public Arez_ScheduleAfterConstructedModel() {
     super();
-    this.$$arez$$_context = Arez.context();
+    this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "ScheduleAfterConstructedModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
-    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
-    this.$$arez$$_doStuff = this.$$arez$$_context.autorun( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(), false );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "ScheduleAfterConstructedModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
+    this.$$arez$$_doStuff = $$arez$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(), false );
     super.postConstruct();
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
-    this.$$arez$$_context.triggerScheduler();
+    $$arez$$_context().triggerScheduler();
+  }
+
+  final ArezContext $$arez$$_context() {
+    return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
   }
 
   final long $$arez$$_id() {
@@ -52,7 +56,7 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
 
   @Override
   public boolean isDisposed() {
-    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+    if ( $$arez$$_context().isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
       this.$$arez$$_disposedObservable.reportObserved();
       return this.$$arez$$_disposed;
     } else {
@@ -67,7 +71,7 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arez$$_component.dispose();
       } else {
-        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
           this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_doStuff.dispose();
         } } );
@@ -78,7 +82,7 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
   @Override
   public void doStuff() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff() );
+    $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff() );
   }
 
   @Override

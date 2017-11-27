@@ -93,10 +93,6 @@ console.table(languages);
   that should never be present in compiled output if `areNamesEnabled` is false. Package Y should no be present
   in compiled output unless `areSpiesEnabled` is true etc.
 
-* In single zone systems, generated components need not cache `ArezContext`. Instead each time the context is
-  needed they could access the context again via `Arez.context()`. The `_context` field could be null which would
-  allow closure/GWT to remove the field.
-
 * Should the Spy have direct access to the `Observable`, `ComputedValue` and `Observer` value or should it be
   abstracted by another info primitive?
 

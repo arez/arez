@@ -167,12 +167,12 @@ final class ObservableDescriptor
   {
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = this.$N.createObservable( " +
+    sb.append( "this.$N = $N().createObservable( " +
                "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                "$T.areNamesEnabled() ? $N() + $S : null, " +
                "$T.arePropertyIntrospectorsEnabled() ? () -> super.$N() : null" );
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
-    parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
+    parameters.add( _componentDescriptor.getContextMethodName() );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );

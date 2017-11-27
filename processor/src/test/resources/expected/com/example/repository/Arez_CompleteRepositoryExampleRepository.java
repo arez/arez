@@ -30,14 +30,18 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
 
   Arez_CompleteRepositoryExampleRepository() {
     super();
-    this.$$arez$$_context = Arez.context();
+    this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? this.$$arez$$_context.createComponent( "CompleteRepositoryExampleRepository", $$arez$$_id(), $$arez$$_name(), () -> super.preDispose(), null ) : null;
-    this.$$arez$$_disposedObservable = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
-    this.$$arez$$_entities = this.$$arez$$_context.createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "CompleteRepositoryExampleRepository", $$arez$$_id(), $$arez$$_name(), () -> super.preDispose(), null ) : null;
+    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
+    this.$$arez$$_entities = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
+  }
+
+  final ArezContext $$arez$$_context() {
+    return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
   }
 
   final long $$arez$$_id() {
@@ -50,7 +54,7 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
 
   @Override
   public boolean isDisposed() {
-    if ( this.$$arez$$_context.isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
+    if ( $$arez$$_context().isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
       this.$$arez$$_disposedObservable.reportObserved();
       return this.$$arez$$_disposed;
     } else {
@@ -65,7 +69,7 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arez$$_component.dispose();
       } else {
-        this.$$arez$$_context.safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
+        $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
           super.preDispose();
           this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_entities.dispose();
@@ -92,7 +96,7 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
   public void destroy(@Nonnull final CompleteRepositoryExample entity) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".destroy" : null, true, () -> super.destroy(entity), entity );
+      $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".destroy" : null, true, () -> super.destroy(entity), entity );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -109,7 +113,7 @@ public final class Arez_CompleteRepositoryExampleRepository extends CompleteRepo
   CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      return this.$$arez$$_context.safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
+      return $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {

@@ -146,11 +146,11 @@ final class TrackedDescriptor
     assert null != _onDepsChangedMethod;
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = this.$N.tracker( " +
+    sb.append( "this.$N = $N().tracker( " +
                "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                "$T.areNamesEnabled() ? $N() + $S : null, " );
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
-    parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
+    parameters.add( _componentDescriptor.getContextMethodName() );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
@@ -234,8 +234,8 @@ final class TrackedDescriptor
     {
       statement.append( "return " );
     }
-    statement.append( "this.$N." );
-    parameterNames.add( GeneratorUtil.CONTEXT_FIELD_NAME );
+    statement.append( "$N()." );
+    parameterNames.add( _componentDescriptor.getContextMethodName() );
 
     if ( isProcedure && isSafe )
     {

@@ -1300,10 +1300,7 @@ final class ComponentDescriptor
 
     buildConstructors( builder, typeUtils );
 
-    if ( null != _contextRef )
-    {
-      builder.addMethod( buildContextRefMethod() );
-    }
+    builder.addMethod( buildContextRefMethod() );
     if ( null != _componentRef )
     {
       builder.addMethod( buildComponentRefMethod() );
@@ -1470,15 +1467,26 @@ final class ComponentDescriptor
   private MethodSpec buildContextRefMethod()
     throws ArezProcessorException
   {
-    assert null != _contextRef;
-
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( _contextRef.getSimpleName().toString() ).
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( getContextMethodName() ).
       addModifiers( Modifier.FINAL ).
       returns( GeneratorUtil.AREZ_CONTEXT_CLASSNAME ).
-      addStatement( "return this.$N", GeneratorUtil.CONTEXT_FIELD_NAME );
-    ProcessorUtil.copyDocumentedAnnotations( _contextRef, method );
-    ProcessorUtil.copyAccessModifiers( _contextRef, method );
+      addStatement( "return $T.areZonesEnabled() ? this.$N : $T.context()",
+                    GeneratorUtil.AREZ_CLASSNAME,
+                    GeneratorUtil.CONTEXT_FIELD_NAME,
+                    GeneratorUtil.AREZ_CLASSNAME );
+    if ( null != _contextRef )
+    {
+      method.addAnnotation( Override.class );
+      ProcessorUtil.copyDocumentedAnnotations( _contextRef, method );
+      ProcessorUtil.copyAccessModifiers( _contextRef, method );
+    }
     return method.build();
+  }
+
+  @Nonnull
+  String getContextMethodName()
+  {
+    return null != _contextRef ? _contextRef.getSimpleName().toString() : GeneratorUtil.CONTEXT_FIELD_NAME;
   }
 
   @Nonnull
@@ -1614,8 +1622,8 @@ final class ComponentDescriptor
     nativeComponentBlock.nextControlFlow( "else" );
 
     final CodeBlock.Builder actionBlock = CodeBlock.builder();
-    actionBlock.beginControlFlow( "this.$N.safeAction( $T.areNamesEnabled() ? $N() + \".dispose\" : null, () -> {",
-                                  GeneratorUtil.CONTEXT_FIELD_NAME,
+    actionBlock.beginControlFlow( "$N().safeAction( $T.areNamesEnabled() ? $N() + \".dispose\" : null, () -> {",
+                                  getContextMethodName(),
                                   GeneratorUtil.AREZ_CLASSNAME,
                                   getComponentNameMethodName() );
 
@@ -1661,8 +1669,8 @@ final class ComponentDescriptor
         returns( TypeName.BOOLEAN );
 
     final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( this.$N.isTransactionActive() && !this.$N.isDisposed() ) ",
-                            GeneratorUtil.CONTEXT_FIELD_NAME,
+    block.beginControlFlow( "if ( $N().isTransactionActive() && !this.$N.isDisposed() ) ",
+                            getContextMethodName(),
                             GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     block.addStatement( "this.$N.reportObserved()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     block.addStatement( "return this.$N", GeneratorUtil.DISPOSED_FIELD_NAME );
@@ -1800,7 +1808,10 @@ final class ComponentDescriptor
     superCall.append( ")" );
     builder.addStatement( superCall.toString(), parameterNames.toArray() );
 
-    builder.addStatement( "this.$N = $T.context()", GeneratorUtil.CONTEXT_FIELD_NAME, GeneratorUtil.AREZ_CLASSNAME );
+    builder.addStatement( "this.$N = $T.areZonesEnabled() ? $T.context() : null",
+                          GeneratorUtil.CONTEXT_FIELD_NAME,
+                          GeneratorUtil.AREZ_CLASSNAME,
+                          GeneratorUtil.AREZ_CLASSNAME );
 
     // Synthesize Id if required
     if ( null == _componentId )
@@ -1812,10 +1823,10 @@ final class ComponentDescriptor
     {
       final StringBuilder sb = new StringBuilder();
       final ArrayList<Object> params = new ArrayList<>();
-      sb.append( "this.$N = $T.areNativeComponentsEnabled() ? this.$N.createComponent( $S, $N(), $N(), " );
+      sb.append( "this.$N = $T.areNativeComponentsEnabled() ? $N().createComponent( $S, $N(), $N(), " );
       params.add( GeneratorUtil.COMPONENT_FIELD_NAME );
       params.add( GeneratorUtil.AREZ_CLASSNAME );
-      params.add( GeneratorUtil.CONTEXT_FIELD_NAME );
+      params.add( getContextMethodName() );
       params.add( _type );
       params.add( getIdMethodName() );
       params.add( getComponentNameMethodName() );
@@ -1846,12 +1857,12 @@ final class ComponentDescriptor
       builder.addStatement( sb.toString(), params.toArray() );
     }
     {
-      builder.addStatement( "this.$N = this.$N.createObservable( " +
+      builder.addStatement( "this.$N = $N().createObservable( " +
                             "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                             "$T.areNamesEnabled() ? $N() + $S : null, " +
                             "$T.arePropertyIntrospectorsEnabled() ? () -> this.$N : null, null )",
                             GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME,
-                            GeneratorUtil.CONTEXT_FIELD_NAME,
+                            getContextMethodName(),
                             GeneratorUtil.AREZ_CLASSNAME,
                             GeneratorUtil.COMPONENT_FIELD_NAME,
                             GeneratorUtil.AREZ_CLASSNAME,
@@ -1881,7 +1892,7 @@ final class ComponentDescriptor
 
     if ( !_roAutoruns.isEmpty() )
     {
-      builder.addStatement( "this.$N.triggerScheduler()", GeneratorUtil.CONTEXT_FIELD_NAME );
+      builder.addStatement( "$N().triggerScheduler()", getContextMethodName() );
     }
 
     return builder.build();

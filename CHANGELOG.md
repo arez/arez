@@ -30,6 +30,9 @@
   Previously the name components were separated by a `$` but this is the same convention that is used by
   nested classes and thus a nested class could have aname collision with a generated class. Instead the
   `_` character has been used to separate name components.
+* **\[processor\]** Change the enhanced component classes to not cache the `ArezContext` in single zone
+  systems. Instead single-zone systems use `Arez.context()` to get the context which allows GWT/GCC to
+  identify the `context` field as unused and eliminate it.
 
 ### [v0.26](https://github.com/arez/arez/tree/v0.26) (2017-11-14)
 [Full Changelog](https://github.com/arez/arez/compare/v0.25...v0.26)

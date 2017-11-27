@@ -247,13 +247,13 @@ final class ComputedDescriptor
     assert null != _computed;
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = this.$N.createComputedValue( " +
+    sb.append( "this.$N = $N().createComputedValue( " +
                "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                "$T.areNamesEnabled() ? $N() + $S : null, " +
                "super::$N, " +
                "$T::equals, " );
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
-    parameters.add( GeneratorUtil.CONTEXT_FIELD_NAME );
+    parameters.add( _componentDescriptor.getContextMethodName() );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
