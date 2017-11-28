@@ -2,22 +2,24 @@
 
 ### Unreleased
 
-### [v0.28](https://github.com/arez/arez/tree/v0.28) (2017-11-28)
-[Full Changelog](https://github.com/arez/arez/compare/v0.27...v0.28)
-
 ##### Added
 * **\[core\]** The `ObservableChangedEvent` spy event will now emit the value of the observable if 
   property introspectors are enabled and the observable has an accessor introspector.
 
 ##### Fixed
-* **\[processor\]** Remove the direct dependency on the `javax.annotation.Nonnull` and
-  `javax.annotation.Nullable` annotations from the `arez-processor` artifact.
-* **\[processor\]** Fix incorrect nullability annotation on `context` field in enhanced component classes.
 * 💥 **\[core\]** The accessor introspector for `ComputedValue` attempted to recalculate the value when accessing
   value which required that the caller was running a transaction and would cause the caller to observe the
   `ComputedValue`. This differed to normal accessors on `Observable` instances that retrieved the value outside of
   a transaction. The `ComputedValue` was changed to align with the behaviour of normal `Observable` instances and
   will access the current value of the property without trying to recalculate the value.
+
+### [v0.28](https://github.com/arez/arez/tree/v0.28) (2017-11-28)
+[Full Changelog](https://github.com/arez/arez/compare/v0.27...v0.28)
+
+##### Fixed
+* **\[processor\]** Remove the direct dependency on the `javax.annotation.Nonnull` and
+  `javax.annotation.Nullable` annotations from the `arez-processor` artifact.
+* **\[processor\]** Fix incorrect nullability annotation on `context` field in enhanced component classes.
 
 ### [v0.27](https://github.com/arez/arez/tree/v0.27) (2017-11-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.26...v0.27)
