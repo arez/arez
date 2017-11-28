@@ -9,6 +9,13 @@
         "type": "ReactionStarted"
     },
     {
+        "action": "ComponentCount",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": false,
         "tracker": "ComponentCount",
         "type": "TransactionStarted",
@@ -25,8 +32,28 @@
         "transaction": "ComponentCount"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "ComponentCount",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "ComponentCount",
         "type": "ReactionCompleted"
+    },
+    {
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.create_id_value",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+            3,
+            "S3"
+        ]
     },
     {
         "mutation": true,
@@ -52,7 +79,8 @@
     },
     {
         "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.entities",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "3 items"
     },
     {
         "observer": "ComponentCount",
@@ -67,6 +95,13 @@
     {
         "observer": "ComponentCount",
         "type": "ReactionStarted"
+    },
+    {
+        "action": "ComponentCount",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": false,
@@ -85,8 +120,26 @@
         "transaction": "ComponentCount"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "ComponentCount",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "ComponentCount",
         "type": "ReactionCompleted"
+    },
+    {
+        "action": "Value Update",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -96,13 +149,25 @@
     },
     {
         "observable": "TestComponent.3.value",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "S3b"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Value Update"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Value Update",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -115,10 +180,24 @@
         "type": "ComponentDisposeStarted"
     },
     {
+        "action": "TestComponent.1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "TestComponent.1.dispose"
+    },
+    {
+        "action": "TestComponent.1.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -128,7 +207,8 @@
     },
     {
         "observable": "TestComponent.1.isDisposed",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": true
     },
     {
         "mutation": true,
@@ -137,8 +217,26 @@
         "transaction": "TestComponent.1.isDisposed.dispose"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.1.isDisposed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observable": "TestComponent.1.isDisposed",
         "type": "ObservableDisposed"
+    },
+    {
+        "action": "TestComponent.1.value.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -148,13 +246,25 @@
     },
     {
         "observable": "TestComponent.1.value",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "S1"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "TestComponent.1.value.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.1.value.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "observable": "TestComponent.1.value",
@@ -165,6 +275,17 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "TestComponent.1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "component": "TestComponent.1",
@@ -172,7 +293,8 @@
     },
     {
         "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.entities",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "2 items"
     },
     {
         "observer": "ComponentCount",
@@ -187,6 +309,13 @@
     {
         "observer": "ComponentCount",
         "type": "ReactionStarted"
+    },
+    {
+        "action": "ComponentCount",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": false,
@@ -205,6 +334,17 @@
         "transaction": "ComponentCount"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "ComponentCount",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "ComponentCount",
         "type": "ReactionCompleted"
     },
@@ -219,10 +359,24 @@
         "type": "ComponentDisposeStarted"
     },
     {
+        "action": "TestComponent.2.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "TestComponent.2.dispose"
+    },
+    {
+        "action": "TestComponent.2.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -232,7 +386,8 @@
     },
     {
         "observable": "TestComponent.2.isDisposed",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": true
     },
     {
         "mutation": true,
@@ -241,8 +396,26 @@
         "transaction": "TestComponent.2.isDisposed.dispose"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.2.isDisposed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observable": "TestComponent.2.isDisposed",
         "type": "ObservableDisposed"
+    },
+    {
+        "action": "TestComponent.2.value.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -252,13 +425,25 @@
     },
     {
         "observable": "TestComponent.2.value",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "S2"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "TestComponent.2.value.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.2.value.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "observable": "TestComponent.2.value",
@@ -269,6 +454,17 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "TestComponent.2.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.2.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "component": "TestComponent.2",
@@ -276,7 +472,8 @@
     },
     {
         "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.entities",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "1 items"
     },
     {
         "observer": "ComponentCount",
@@ -293,6 +490,13 @@
         "type": "ReactionStarted"
     },
     {
+        "action": "ComponentCount",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": false,
         "tracker": "ComponentCount",
         "type": "TransactionStarted",
@@ -307,6 +511,17 @@
         "tracker": "ComponentCount",
         "type": "TransactionCompleted",
         "transaction": "ComponentCount"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "ComponentCount",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "observer": "ComponentCount",

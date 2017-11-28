@@ -9,6 +9,13 @@
         "type": "ReactionStarted"
     },
     {
+        "action": "TransportType",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": false,
         "tracker": "TransportType",
         "type": "TransactionStarted",
@@ -25,6 +32,17 @@
         "transaction": "TransportType"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "TransportType",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "TransportType",
         "type": "ReactionCompleted"
     },
@@ -35,6 +53,13 @@
     {
         "observer": "ResolvedType",
         "type": "ReactionStarted"
+    },
+    {
+        "action": "ResolvedType",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": false,
@@ -53,8 +78,26 @@
         "transaction": "ResolvedType"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "ResolvedType",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "ResolvedType",
         "type": "ReactionCompleted"
+    },
+    {
+        "action": "ID Update",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -64,7 +107,8 @@
     },
     {
         "observable": "TestComponent.0.otherID",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": 22
     },
     {
         "observer": "TransportType",
@@ -81,8 +125,26 @@
         "transaction": "ID Update"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "ID Update",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "TransportType",
         "type": "ReactionStarted"
+    },
+    {
+        "action": "TransportType",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": false,
@@ -101,12 +163,30 @@
         "transaction": "TransportType"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "TransportType",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "TransportType",
         "type": "ReactionCompleted"
     },
     {
         "observer": "ResolvedType",
         "type": "ReactionStarted"
+    },
+    {
+        "action": "ResolvedType",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": false,
@@ -123,6 +203,17 @@
         "tracker": "ResolvedType",
         "type": "TransactionCompleted",
         "transaction": "ResolvedType"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "ResolvedType",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "observer": "ResolvedType",

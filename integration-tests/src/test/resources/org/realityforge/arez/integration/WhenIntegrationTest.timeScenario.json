@@ -17,6 +17,13 @@
         "type": "ComponentCreateCompleted"
     },
     {
+        "action": "Time.updateTime",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
@@ -31,6 +38,17 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Time.updateTime"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Time.updateTime",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "component": "Watcher.0",
@@ -61,6 +79,13 @@
         "type": "ReactionStarted"
     },
     {
+        "action": "Watcher.0.checkCondition",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": true,
         "tracker": "Watcher.0.checkCondition",
         "type": "TransactionStarted",
@@ -95,6 +120,17 @@
         "tracker": "Watcher.0.checkCondition",
         "type": "TransactionCompleted",
         "transaction": "Watcher.0.checkCondition"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Watcher.0.checkCondition",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "observer": "Watcher.0.checkCondition",
@@ -109,6 +145,13 @@
         "type": "ReactionStarted"
     },
     {
+        "action": "TimePrinter",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": false,
         "tracker": "TimePrinter",
         "type": "TransactionStarted",
@@ -125,8 +168,26 @@
         "transaction": "TimePrinter"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "TimePrinter",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "TimePrinter",
         "type": "ReactionCompleted"
+    },
+    {
+        "action": "Time.updateTime",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -151,6 +212,17 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Time.updateTime"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Time.updateTime",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "computedValue": "Watcher.0.condition",
@@ -177,6 +249,13 @@
         "type": "ReactionStarted"
     },
     {
+        "action": "TimePrinter",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": false,
         "tracker": "TimePrinter",
         "type": "TransactionStarted",
@@ -193,8 +272,26 @@
         "transaction": "TimePrinter"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "TimePrinter",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "TimePrinter",
         "type": "ReactionCompleted"
+    },
+    {
+        "action": "Time.updateTime",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -219,6 +316,17 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Time.updateTime"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Time.updateTime",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "computedValue": "Watcher.0.condition",
@@ -245,6 +353,13 @@
         "type": "ReactionStarted"
     },
     {
+        "action": "TimePrinter",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": false,
         "tracker": "TimePrinter",
         "type": "TransactionStarted",
@@ -261,8 +376,26 @@
         "transaction": "TimePrinter"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "TimePrinter",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "TimePrinter",
         "type": "ReactionCompleted"
+    },
+    {
+        "action": "Time.resetTime",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -287,6 +420,17 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Time.resetTime"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Time.resetTime",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "computedValue": "Watcher.0.condition",
@@ -321,6 +465,13 @@
         "type": "ReactionStarted"
     },
     {
+        "action": "TimePrinter",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": false,
         "tracker": "TimePrinter",
         "type": "TransactionStarted",
@@ -335,6 +486,17 @@
         "tracker": "TimePrinter",
         "type": "TransactionCompleted",
         "transaction": "TimePrinter"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TimePrinter",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "observer": "TimePrinter",
@@ -345,10 +507,24 @@
         "type": "ReactionStarted"
     },
     {
+        "action": "Watcher.0.checkCondition",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": true,
         "tracker": "Watcher.0.checkCondition",
         "type": "TransactionStarted",
         "transaction": "Watcher.0.checkCondition"
+    },
+    {
+        "action": "When@1",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": false,
@@ -367,14 +543,39 @@
         "transaction": "When@1"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "When@1",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "component": "Watcher.0",
         "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Watcher.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Watcher.0.dispose"
+    },
+    {
+        "action": "Watcher.0.checkCondition.dispose",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -387,6 +588,17 @@
         "tracker": "Watcher.0.checkCondition",
         "type": "TransactionCompleted",
         "transaction": "Watcher.0.checkCondition.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Watcher.0.checkCondition.dispose",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "observer": "Watcher.0.checkCondition",
@@ -397,6 +609,13 @@
         "type": "ComputedValueDisposed"
     },
     {
+        "action": "Watcher.0.condition.dispose",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": true,
         "tracker": "Watcher.0.condition",
         "type": "TransactionStarted",
@@ -407,6 +626,24 @@
         "tracker": "Watcher.0.condition",
         "type": "TransactionCompleted",
         "transaction": "Watcher.0.condition.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Watcher.0.condition.dispose",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Watcher.0.condition.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -423,6 +660,24 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Watcher.0.condition.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Watcher.0.condition.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Watcher.0.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -439,6 +694,17 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Watcher.0.isDisposed.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Watcher.0.isDisposed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "observable": "Watcher.0.isDisposed",
@@ -451,6 +717,17 @@
         "transaction": "Watcher.0.dispose"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "Watcher.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "component": "Watcher.0",
         "type": "ComponentDisposeCompleted"
     },
@@ -461,10 +738,28 @@
         "transaction": "Watcher.0.checkCondition"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "Watcher.0.checkCondition",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "Watcher.0.checkCondition",
         "type": "ReactionCompleted"
     },
     {
+        "action": "Time.updateTime",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
@@ -485,8 +780,26 @@
         "transaction": "Time.updateTime"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "Time.updateTime",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "TimePrinter",
         "type": "ReactionStarted"
+    },
+    {
+        "action": "TimePrinter",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": false,
@@ -503,12 +816,30 @@
         "tracker": "TimePrinter",
         "type": "TransactionCompleted",
         "transaction": "TimePrinter"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TimePrinter",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "observer": "TimePrinter",
         "type": "ReactionCompleted"
     },
     {
+        "action": "Time.updateTime",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
@@ -529,8 +860,26 @@
         "transaction": "Time.updateTime"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "Time.updateTime",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "TimePrinter",
         "type": "ReactionStarted"
+    },
+    {
+        "action": "TimePrinter",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": false,
@@ -547,6 +896,17 @@
         "tracker": "TimePrinter",
         "type": "TransactionCompleted",
         "transaction": "TimePrinter"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TimePrinter",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "observer": "TimePrinter",

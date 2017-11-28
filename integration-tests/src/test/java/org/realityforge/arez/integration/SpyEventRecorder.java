@@ -1,6 +1,9 @@
 package org.realityforge.arez.integration;
 
 import java.io.StringWriter;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Nonnull;
@@ -89,7 +92,31 @@ final class SpyEventRecorder
     {
       map.remove( "value" );
     }
-    _events.add( Json.createObjectBuilder( map ) );
+    final HashMap<String, Object> output = new HashMap<>();
+    for ( final Map.Entry<String, Object> entry : map.entrySet() )
+    {
+      final String key = entry.getKey();
+      final Object value = entry.getValue();
+      if ( key.equals( "value" ) && value instanceof Collection )
+      {
+        // Useful for debugging repositories
+        output.put( key, ( (Collection) value ).size() + " items" );
+      }
+      else if ( null != value && value.getClass().isArray() )
+      {
+        final ArrayList<Object> v = new ArrayList<>();
+        for ( int i = 0, end = Array.getLength( value ); i < end; i++ )
+        {
+          v.add( Array.get( value, i ) );
+        }
+        output.put( key, v );
+      }
+      else
+      {
+        output.put( key, value );
+      }
+    }
+    _events.add( Json.createObjectBuilder( output ) );
   }
 
   @Nonnull

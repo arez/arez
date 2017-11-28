@@ -37,6 +37,13 @@
         "type": "ReactionStarted"
     },
     {
+        "action": "Printer",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": false,
         "tracker": "Printer",
         "type": "TransactionStarted",
@@ -54,7 +61,8 @@
     },
     {
         "observable": "CodeModel.0.qualifiedName",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "com.example.MyType"
     },
     {
         "mutation": false,
@@ -77,8 +85,26 @@
         "transaction": "Printer"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "Printer",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "Printer",
         "type": "ReactionCompleted"
+    },
+    {
+        "action": "Specific Qualified Name",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -88,7 +114,8 @@
     },
     {
         "observable": "CodeModel.0.rawQualifiedName",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "com.biz.Fred"
     },
     {
         "observer": "CodeModel.0.qualifiedName",
@@ -99,6 +126,17 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Specific Qualified Name"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Specific Qualified Name",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "computedValue": "CodeModel.0.qualifiedName",
@@ -112,7 +150,8 @@
     },
     {
         "observable": "CodeModel.0.qualifiedName",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "com.biz.Fred"
     },
     {
         "observer": "Printer",
@@ -131,6 +170,13 @@
     {
         "observer": "Printer",
         "type": "ReactionStarted"
+    },
+    {
+        "action": "Printer",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": false,
@@ -149,8 +195,26 @@
         "transaction": "Printer"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "Printer",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "Printer",
         "type": "ReactionCompleted"
+    },
+    {
+        "action": "Reset Qualified Name to default",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -160,7 +224,8 @@
     },
     {
         "observable": "CodeModel.0.rawQualifiedName",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": null
     },
     {
         "observer": "CodeModel.0.qualifiedName",
@@ -171,6 +236,17 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Reset Qualified Name to default"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Reset Qualified Name to default",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "computedValue": "CodeModel.0.qualifiedName",
@@ -184,7 +260,8 @@
     },
     {
         "observable": "CodeModel.0.qualifiedName",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "com.example.MyType"
     },
     {
         "observer": "Printer",
@@ -203,6 +280,13 @@
     {
         "observer": "Printer",
         "type": "ReactionStarted"
+    },
+    {
+        "action": "Printer",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": false,
@@ -221,8 +305,26 @@
         "transaction": "Printer"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "Printer",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "Printer",
         "type": "ReactionCompleted"
+    },
+    {
+        "action": "Change Local Name",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -232,7 +334,8 @@
     },
     {
         "observable": "CodeModel.0.name",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "MyType2"
     },
     {
         "observer": "CodeModel.0.qualifiedName",
@@ -243,6 +346,17 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Change Local Name"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Change Local Name",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "computedValue": "CodeModel.0.qualifiedName",
@@ -256,7 +370,8 @@
     },
     {
         "observable": "CodeModel.0.qualifiedName",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "com.example.MyType2"
     },
     {
         "observer": "Printer",
@@ -277,6 +392,13 @@
         "type": "ReactionStarted"
     },
     {
+        "action": "Printer",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": false,
         "tracker": "Printer",
         "type": "TransactionStarted",
@@ -293,8 +415,26 @@
         "transaction": "Printer"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "Printer",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "Printer",
         "type": "ReactionCompleted"
+    },
+    {
+        "action": "Printer.dispose",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -313,8 +453,26 @@
         "transaction": "Printer.dispose"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "Printer.dispose",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "Printer",
         "type": "ObserverDisposed"
+    },
+    {
+        "action": "Dispose Model",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -327,6 +485,13 @@
         "type": "ComponentDisposeStarted"
     },
     {
+        "action": "CodeModel.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
@@ -337,6 +502,13 @@
         "type": "ComputedValueDisposed"
     },
     {
+        "action": "CodeModel.0.qualifiedName.dispose",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": true,
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionStarted",
@@ -347,6 +519,24 @@
         "tracker": "CodeModel.0.qualifiedName",
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.qualifiedName.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "CodeModel.0.qualifiedName.dispose",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "CodeModel.0.qualifiedName.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -356,7 +546,8 @@
     },
     {
         "observable": "CodeModel.0.qualifiedName",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": null
     },
     {
         "mutation": true,
@@ -365,6 +556,24 @@
         "transaction": "CodeModel.0.qualifiedName.dispose"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "CodeModel.0.qualifiedName.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "CodeModel.0.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
@@ -372,7 +581,8 @@
     },
     {
         "observable": "CodeModel.0.isDisposed",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": true
     },
     {
         "mutation": true,
@@ -381,8 +591,26 @@
         "transaction": "CodeModel.0.isDisposed.dispose"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "CodeModel.0.isDisposed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observable": "CodeModel.0.isDisposed",
         "type": "ObservableDisposed"
+    },
+    {
+        "action": "CodeModel.0.name.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -392,7 +620,8 @@
     },
     {
         "observable": "CodeModel.0.name",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "MyType2"
     },
     {
         "mutation": true,
@@ -401,8 +630,26 @@
         "transaction": "CodeModel.0.name.dispose"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "CodeModel.0.name.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observable": "CodeModel.0.name",
         "type": "ObservableDisposed"
+    },
+    {
+        "action": "CodeModel.0.packageName.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -412,7 +659,8 @@
     },
     {
         "observable": "CodeModel.0.packageName",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": "com.example"
     },
     {
         "mutation": true,
@@ -421,8 +669,26 @@
         "transaction": "CodeModel.0.packageName.dispose"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "CodeModel.0.packageName.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observable": "CodeModel.0.packageName",
         "type": "ObservableDisposed"
+    },
+    {
+        "action": "CodeModel.0.rawQualifiedName.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -432,13 +698,25 @@
     },
     {
         "observable": "CodeModel.0.rawQualifiedName",
-        "type": "ObservableChanged"
+        "type": "ObservableChanged",
+        "value": null
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.rawQualifiedName.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "CodeModel.0.rawQualifiedName.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "observable": "CodeModel.0.rawQualifiedName",
@@ -451,6 +729,17 @@
         "transaction": "CodeModel.0.dispose"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "CodeModel.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "component": "CodeModel.0",
         "type": "ComponentDisposeCompleted"
     },
@@ -459,5 +748,16 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Dispose Model"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Dispose Model",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     }
 ]
