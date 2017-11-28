@@ -19,7 +19,7 @@ public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExam
 
   private OnDispose $$arez$$_onDispose;
 
-  @Nonnull
+  @Nullable
   private final ArezContext $$arez$$_context;
 
   private final Component $$arez$$_component;

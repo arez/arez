@@ -1,6 +1,7 @@
 import java.text.ParseException;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Component;
@@ -16,7 +17,7 @@ public final class Arez_ObservableWithSpecificExceptionModel extends ObservableW
 
   private boolean $$arez$$_disposed;
 
-  @Nonnull
+  @Nullable
   private final ArezContext $$arez$$_context;
 
   private final Component $$arez$$_component;

@@ -2,6 +2,7 @@ package com.example.component_id;
 
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Component;
@@ -13,7 +14,7 @@ import org.realityforge.braincheck.Guards;
 public final class Arez_ComponentIdOnModel extends ComponentIdOnModel implements Disposable {
   private boolean $$arez$$_disposed;
 
-  @Nonnull
+  @Nullable
   private final ArezContext $$arez$$_context;
 
   private final Component $$arez$$_component;

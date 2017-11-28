@@ -1783,7 +1783,7 @@ final class ComponentDescriptor
                            GeneratorUtil.CONTEXT_FIELD_NAME,
                            Modifier.FINAL,
                            Modifier.PRIVATE ).
-          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+          addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME );
       builder.addField( field.build() );
     }
 
