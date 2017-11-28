@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+##### Changed
+* **\[processor\]** Shade the processor dependencies so that the only jar required during annotation processing
+  is the annotation processor jar. This eliminates the possibility of processorpath conflicts causing issues in
+  the future.
+
 ### [v0.29](https://github.com/arez/arez/tree/v0.29) (2017-11-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.28...v0.29)
 

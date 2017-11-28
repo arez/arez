@@ -166,15 +166,13 @@ define 'arez' do
 
   desc 'Arez Annotation processor'
   define 'processor' do
-    pom.provided_dependencies.concat PROVIDED_DEPS
+    pom.provided_dependencies.concat [:javax_jsr305]
 
-    compile.with PROVIDED_DEPS,
-                 COMPILE_DEPS,
+    compile.with :javax_jsr305,
                  :autoservice,
                  :autocommon,
                  :javapoet,
                  :guava
-
 
     test.with :compile_testing,
               Java.tools_jar,
@@ -189,6 +187,24 @@ define 'arez' do
     package(:jar)
     package(:sources)
     package(:javadoc)
+
+    package(:jar).enhance do |jar|
+      jar.merge(artifact(:javapoet))
+      jar.merge(artifact(:guava))
+      jar.enhance do |f|
+        shaded_jar = (f.to_s + '-shaded')
+        Buildr.ant 'shade_jar' do |ant|
+          artifact = Buildr.artifact(:shade_task)
+          artifact.invoke
+          ant.taskdef :name => 'shade', :classname => 'org.realityforge.ant.shade.Shade', :classpath => artifact.to_s
+          ant.shade :jar => f.to_s, :uberJar => shaded_jar do
+            ant.relocation :pattern => 'com.squareup.javapoet', :shadedPattern => 'react4j.processor.vendor.javapoet'
+            ant.relocation :pattern => 'com.google', :shadedPattern => 'react4j.processor.vendor.google'
+          end
+        end
+        FileUtils.mv shaded_jar, f.to_s
+      end
+    end
 
     test.using :testng
     test.options[:properties] = { 'arez.fixture_dir' => _('src/test/resources') }
