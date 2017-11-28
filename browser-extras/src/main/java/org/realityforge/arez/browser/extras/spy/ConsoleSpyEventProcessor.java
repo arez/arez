@@ -4,6 +4,7 @@ import elemental2.core.Global;
 import elemental2.dom.DomGlobal;
 import javax.annotation.Nonnull;
 import org.realityforge.anodoc.Unsupported;
+import org.realityforge.arez.Arez;
 import org.realityforge.arez.extras.spy.AbstractSpyEventProcessor;
 import org.realityforge.arez.extras.spy.SpyUtil;
 import org.realityforge.arez.spy.ActionCompletedEvent;
@@ -214,7 +215,11 @@ public class ConsoleSpyEventProcessor
    */
   protected void onObservableChanged( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObservableChangedEvent e )
   {
-    log( d, "%cObservable Changed " + e.getObservable().getName(), OBSERVABLE_COLOR );
+    DomGlobal.console.log( "%cObservable Changed " +
+                           e.getObservable().getName() +
+                           ( Arez.arePropertyIntrospectorsEnabled() ? " Value: %o " : null ),
+                           OBSERVABLE_COLOR,
+                           ( Arez.arePropertyIntrospectorsEnabled() ? e.getValue() : null ) );
   }
 
   /**

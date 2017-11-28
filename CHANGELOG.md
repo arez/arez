@@ -5,6 +5,8 @@
 ##### Added
 * **\[core\]** The `ObservableChangedEvent` spy event will now emit the value of the observable if 
   property introspectors are enabled and the observable has an accessor introspector.
+* **\[browser-extras\]** Enhance the `ConsoleSpyEventProcessor` to log the value field of the
+  `ObservableChangedEvent` spy event if it has been supplied.
 
 ##### Fixed
 * 💥 **\[core\]** The accessor introspector for `ComputedValue` attempted to recalculate the value when accessing
