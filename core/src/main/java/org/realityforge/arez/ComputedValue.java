@@ -262,16 +262,15 @@ public final class ComputedValue<T>
     return _component;
   }
 
+  T getValue()
+  {
+    return _value;
+  }
+
   @TestOnly
   void setValue( final T value )
   {
     _value = value;
-  }
-
-  @TestOnly
-  T getValue()
-  {
-    return _value;
   }
 
   @TestOnly

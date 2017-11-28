@@ -1018,6 +1018,18 @@ public class SpyImplTest
   }
 
   @Test
+  public void computedValue_introspection_noObservers()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final ComputedValue<String> computedValue1 = context.createComputedValue( () -> "42" );
+
+    assertEquals( context.action( () -> spy.getValue( computedValue1 ) ), null );
+  }
+
+  @Test
   public void computedValue_introspection()
     throws Throwable
   {
@@ -1025,6 +1037,7 @@ public class SpyImplTest
     final Spy spy = context.getSpy();
 
     final ComputedValue<String> computedValue1 = context.createComputedValue( () -> "42" );
+    context.autorun( computedValue1::get );
 
     assertEquals( context.action( () -> spy.getValue( computedValue1 ) ), "42" );
   }

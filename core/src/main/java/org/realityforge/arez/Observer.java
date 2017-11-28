@@ -143,7 +143,7 @@ public final class Observer
                           null,
                           name,
                           this,
-                          Arez.arePropertyIntrospectorsEnabled() ? _computedValue::get : null,
+                          Arez.arePropertyIntrospectorsEnabled() ? _computedValue::getValue : null,
                           null );
     }
     else

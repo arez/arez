@@ -1,6 +1,7 @@
 package org.realityforge.arez;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.arez.spy.ActionCompletedEvent;
 import org.realityforge.arez.spy.ActionStartedEvent;
@@ -1316,8 +1317,34 @@ public class ObservableTest
 
     final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 0 );
     assertEquals( event.getObservable(), observable );
+    assertEquals( event.getValue(), null );
 
     handler.assertEvent( ReactionScheduledEvent.class, 1 );
+  }
+
+  @Test
+  public void reportChanged_generates_spyEvent_withValueWhenIntrospectorPresent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadWriteObserver( context );
+    setCurrentTransaction( observer );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    final String currentValue = ValueUtil.randomString();
+    final Observable<?> observable =
+      new Observable<>( context, null, ValueUtil.randomString(), null, () -> currentValue, null );
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    observable.reportChanged();
+    handler.assertEventCount( 1 );
+
+    final ObservableChangedEvent event = handler.assertNextEvent( ObservableChangedEvent.class );
+    assertEquals( event.getObservable(), observable );
+    assertEquals( event.getValue(), currentValue );
   }
 
   @Test
@@ -1442,7 +1469,54 @@ public class ObservableTest
     assertEquals( observer.getState(), ObserverState.STALE );
 
     handler.assertEventCount( 2 );
-    assertEquals( handler.assertEvent( ObservableChangedEvent.class, 0 ).getObservable(), observable );
+
+    final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 0 );
+    assertEquals( event.getObservable(), observable );
+    assertEquals( event.getValue(), null );
+
+    assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver(), observer );
+  }
+
+  @Test
+  public void reportChangeConfirmed_generates_spyEvent_withValueWhenIntrospectorPresent()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadWriteObserver( context );
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.POSSIBLY_STALE );
+
+    final String expectedValue = ValueUtil.randomString();
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> expectedValue, Objects::equals );
+    computedValue.setValue( expectedValue );
+    final Observer derivation =
+      computedValue.getObserver();
+    derivation.setState( ObserverState.UP_TO_DATE );
+
+    final Observable<?> observable = derivation.getDerivedValue();
+    observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+
+    observable.addObserver( observer );
+    observer.getDependencies().add( observable );
+
+    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    observable.reportChangeConfirmed();
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+
+    handler.assertEventCount( 2 );
+
+    final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 0 );
+    assertEquals( event.getObservable(), observable );
+    assertEquals( event.getValue(), expectedValue );
+
     assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver(), observer );
   }
 
