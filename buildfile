@@ -3,8 +3,6 @@ require 'buildr/gpg'
 require 'buildr/single_intermediate_layout'
 
 PROVIDED_DEPS = [:javax_jsr305, :anodoc]
-COMPILE_DEPS = []
-OPTIONAL_DEPS = []
 TEST_DEPS = [:guiceyloops]
 GWT_DEPS =
   [
@@ -55,7 +53,6 @@ define 'arez' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
     compile.with PROVIDED_DEPS,
-                 COMPILE_DEPS,
                  :braincheck
 
     test.options[:properties] = AREZ_TEST_OPTIONS
@@ -75,8 +72,7 @@ define 'arez' do
   define 'annotations' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
-    compile.with PROVIDED_DEPS,
-                 COMPILE_DEPS
+    compile.with PROVIDED_DEPS
 
     gwt_enhance(project)
 
