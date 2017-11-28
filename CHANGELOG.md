@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.28](https://github.com/arez/arez/tree/v0.28) (2017-11-28)
+[Full Changelog](https://github.com/arez/arez/compare/v0.27...v0.28)
 
 ##### Fixed
 * **\[processor\]** Remove the direct dependency on the `javax.annotation.Nonnull` and
