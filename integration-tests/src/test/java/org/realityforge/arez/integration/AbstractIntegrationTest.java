@@ -45,19 +45,19 @@ public abstract class AbstractIntegrationTest
   }
 
   @Nonnull
-  protected final String getFixtureFilename()
+  private String getFixtureFilename()
   {
     return getClass().getName().replace( ".", "/" ) + "." + _currentMethod + ".json";
   }
 
   @Nonnull
-  protected final String loadFile( @Nonnull final Path file )
+  private String loadFile( @Nonnull final Path file )
     throws IOException
   {
     return Files.readAllLines( file ).stream().collect( Collectors.joining( "\n" ) );
   }
 
-  protected final void saveIfOutputEnabled( @Nonnull final Path file, @Nonnull final String contents )
+  private void saveIfOutputEnabled( @Nonnull final Path file, @Nonnull final String contents )
     throws IOException
   {
     if ( outputFiles() )
