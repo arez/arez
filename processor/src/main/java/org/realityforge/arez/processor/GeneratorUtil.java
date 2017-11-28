@@ -7,6 +7,9 @@ import javax.annotation.Nonnull;
 @SuppressWarnings( "Duplicates" )
 final class GeneratorUtil
 {
+  static final ClassName NONNULL_CLASSNAME = ClassName.get( "javax.annotation", "Nonnull" );
+  static final ClassName NULLABLE_CLASSNAME = ClassName.get( "javax.annotation", "Nullable" );
+
   static final ClassName SINGLETON_CLASSNAME = ClassName.get( "javax.inject", "Singleton" );
   static final ClassName DAGGER_MODULE_CLASSNAME = ClassName.get( "dagger", "Module" );
   static final ClassName DAGGER_PROVIDES_CLASSNAME = ClassName.get( "dagger", "Provides" );

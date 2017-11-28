@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Fixed
+* **\[processor\]** Remove the direct dependency on the `javax.annotation.Nonnull` and
+  `javax.annotation.Nullable` annotations from the `arez-processor` artifact.
+
 ### [v0.27](https://github.com/arez/arez/tree/v0.27) (2017-11-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.26...v0.27)
 

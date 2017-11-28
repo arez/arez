@@ -132,7 +132,7 @@ final class TrackedDescriptor
                          GeneratorUtil.FIELD_PREFIX + getName(),
                          Modifier.FINAL,
                          Modifier.PRIVATE ).
-        addAnnotation( Nonnull.class );
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     builder.addField( field.build() );
   }
 

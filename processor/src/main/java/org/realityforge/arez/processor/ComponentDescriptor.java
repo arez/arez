@@ -1623,7 +1623,7 @@ final class ComponentDescriptor
       MethodSpec.methodBuilder( _componentTypeName.getSimpleName().toString() );
     ProcessorUtil.copyAccessModifiers( _componentTypeName, builder );
     builder.addModifiers( Modifier.FINAL );
-    builder.addAnnotation( Nonnull.class );
+    builder.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
 
     builder.returns( TypeName.get( String.class ) );
     builder.addStatement( "return $S", _type );
@@ -1783,7 +1783,7 @@ final class ComponentDescriptor
                            GeneratorUtil.CONTEXT_FIELD_NAME,
                            Modifier.FINAL,
                            Modifier.PRIVATE ).
-          addAnnotation( Nonnull.class );
+          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
       builder.addField( field.build() );
     }
 
@@ -2021,7 +2021,7 @@ final class ComponentDescriptor
     ProcessorUtil.copyAccessModifiers( getElement(), builder );
 
     builder.addMethod( MethodSpec.methodBuilder( "self" ).
-      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
       returns( ClassName.get( getPackageName(), getRepositoryName() ) ).build() );
 
@@ -2049,7 +2049,7 @@ final class ComponentDescriptor
     ProcessorUtil.copyAccessModifiers( getElement(), builder );
 
     builder.addMethod( MethodSpec.methodBuilder( "repository" ).
-      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addAnnotation( GeneratorUtil.SINGLETON_CLASSNAME ).
       addAnnotation( GeneratorUtil.DAGGER_PROVIDES_CLASSNAME ).
       addModifiers( Modifier.STATIC, Modifier.PUBLIC ).
@@ -2166,7 +2166,7 @@ final class ComponentDescriptor
       addJavadoc( "Return the raw collection of entities in the repository.\n" +
                   "This collection should not be exposed to the user but may be used be repository extensions when\n" +
                   "they define custom queries. NOTE: use of this method marks the list as observed.\n" ).
-      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       returns( ParameterizedTypeName.get( ClassName.get( Collection.class ), TypeName.get( getElement().asType() ) ) ).
       addStatement( "return $N", ENTITYLIST_FIELD_NAME ).
       build();
@@ -2182,9 +2182,9 @@ final class ComponentDescriptor
       addJavadoc( "If config option enabled, wrap the specified list in an immutable list and return it.\n" +
                   "This method should be called by repository extensions when returning list results " +
                   "when not using {@link #toList(List)}.\n" ).
-      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addParameter( ParameterSpec.builder( listType, "list", Modifier.FINAL ).
-        addAnnotation( Nonnull.class ).build() ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
       returns( listType ).
       addStatement( "return $T.areRepositoryResultsModifiable() ? $T.unmodifiableList( list ) : list",
                     GeneratorUtil.AREZ_CLASSNAME,
@@ -2199,11 +2199,11 @@ final class ComponentDescriptor
       ParameterizedTypeName.get( ClassName.get( Stream.class ), TypeName.get( getElement().asType() ) );
     return MethodSpec.methodBuilder( "toList" ).
       addModifiers( Modifier.PROTECTED, Modifier.FINAL ).
-      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addJavadoc( "Convert specified stream to a list, wrapping as an immutable list if required.\n" +
                   "This method should be called by repository extensions when returning list results.\n" ).
       addParameter( ParameterSpec.builder( streamType, "stream", Modifier.FINAL ).
-        addAnnotation( Nonnull.class ).build() ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
       returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
       addStatement( "return wrap( stream.collect( $T.toList() ) )", Collectors.class ).
       build();
@@ -2214,7 +2214,7 @@ final class ComponentDescriptor
   {
     return MethodSpec.methodBuilder( "findAll" ).
       addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
       addStatement( "return toList( entities().stream() )", Collectors.class ).
       build();
@@ -2227,9 +2227,9 @@ final class ComponentDescriptor
       ParameterizedTypeName.get( ClassName.get( Comparator.class ), TypeName.get( getElement().asType() ) );
     return MethodSpec.methodBuilder( "findAll" ).
       addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addParameter( ParameterSpec.builder( sorterType, "sorter", Modifier.FINAL ).
-        addAnnotation( Nonnull.class ).build() ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
       returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
       addStatement( "return toList( entities().stream().sorted( sorter ) )", Collectors.class ).
       build();
@@ -2242,9 +2242,9 @@ final class ComponentDescriptor
       ParameterizedTypeName.get( ClassName.get( Predicate.class ), TypeName.get( getElement().asType() ) );
     return MethodSpec.methodBuilder( "findAllByQuery" ).
       addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addParameter( ParameterSpec.builder( queryType, "query", Modifier.FINAL ).
-        addAnnotation( Nonnull.class ).build() ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
       returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
       addStatement( "return toList( entities().stream().filter( query ) )", Collectors.class ).
       build();
@@ -2259,11 +2259,11 @@ final class ComponentDescriptor
       ParameterizedTypeName.get( ClassName.get( Comparator.class ), TypeName.get( getElement().asType() ) );
     return MethodSpec.methodBuilder( "findAllByQuery" ).
       addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addParameter( ParameterSpec.builder( queryType, "query", Modifier.FINAL ).
-        addAnnotation( Nonnull.class ).build() ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
       addParameter( ParameterSpec.builder( sorterType, "sorter", Modifier.FINAL ).
-        addAnnotation( Nonnull.class ).build() ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
       returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
       addStatement( "return toList( entities().stream().filter( query ).sorted( sorter ) )",
                     Collectors.class ).
@@ -2277,9 +2277,9 @@ final class ComponentDescriptor
       ParameterizedTypeName.get( ClassName.get( Predicate.class ), TypeName.get( getElement().asType() ) );
     return MethodSpec.methodBuilder( "findByQuery" ).
       addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( Nullable.class ).
+      addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME ).
       addParameter( ParameterSpec.builder( queryType, "query", Modifier.FINAL ).
-        addAnnotation( Nonnull.class ).build() ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
       returns( TypeName.get( getElement().asType() ) ).
       addStatement( "return entities().stream().filter( query ).findFirst().orElse( null )", Collectors.class ).
       build();
@@ -2293,9 +2293,9 @@ final class ComponentDescriptor
       ParameterizedTypeName.get( ClassName.get( Predicate.class ), entityType );
     return MethodSpec.methodBuilder( "getByQuery" ).
       addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addParameter( ParameterSpec.builder( queryType, "query", Modifier.FINAL ).
-        addAnnotation( Nonnull.class ).build() ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
       returns( entityType ).
       addStatement( "final $T entity = findByQuery( query )", entityType ).
       addCode( CodeBlock.builder().
@@ -2313,7 +2313,7 @@ final class ComponentDescriptor
     return MethodSpec.methodBuilder( "self" ).
       addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
       addAnnotation( Override.class ).
-      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       returns( ClassName.get( getPackageName(), getRepositoryName() ) ).
       addStatement( "return this" ).build();
   }
@@ -2336,7 +2336,7 @@ final class ComponentDescriptor
       MethodSpec.methodBuilder( "contains" ).
         addModifiers( Modifier.PUBLIC ).
         addParameter( ParameterSpec.builder( TypeName.get( element.asType() ), "entity", Modifier.FINAL ).
-          addAnnotation( Nonnull.class ).build() ).
+          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
         returns( TypeName.BOOLEAN );
     method.addStatement( "$N().reportObserved()", GET_OBSERVABLE_METHOD );
     if ( null != _componentId )
@@ -2362,7 +2362,7 @@ final class ComponentDescriptor
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( ClassName.bestGuess( Constants.ACTION_ANNOTATION_CLASSNAME ) ).
         addParameter( ParameterSpec.builder( TypeName.get( getElement().asType() ), "entity", Modifier.FINAL ).
-          addAnnotation( Nonnull.class ).build() );
+          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() );
     method.addStatement( "assert null != entity" );
     final CodeBlock.Builder builder = CodeBlock.builder();
     if ( null != _componentId )
@@ -2412,7 +2412,7 @@ final class ComponentDescriptor
     return MethodSpec.methodBuilder( "findBy" + getIdName() ).
       addModifiers( Modifier.PUBLIC ).
       addParameter( ParameterSpec.builder( getIdType(), "id", Modifier.FINAL ).build() ).
-      addAnnotation( Nullable.class ).
+      addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME ).
       returns( TypeName.get( getElement().asType() ) ).
       addStatement( "$N().reportObserved()", GET_OBSERVABLE_METHOD ).
       addStatement( "return this.$N.get( id )", ENTITIES_FIELD_NAME ).build();
@@ -2424,7 +2424,7 @@ final class ComponentDescriptor
     final TypeName entityType = TypeName.get( getElement().asType() );
     return MethodSpec.methodBuilder( "getBy" + getIdName() ).
       addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addParameter( ParameterSpec.builder( getIdType(), "id", Modifier.FINAL ).build() ).
       returns( entityType ).
       addStatement( "final $T entity = $N( id )", entityType, "findBy" + getIdName() ).
@@ -2442,7 +2442,7 @@ final class ComponentDescriptor
   {
     return MethodSpec.methodBuilder( "newRepository" ).
       addModifiers( Modifier.PUBLIC, Modifier.STATIC ).
-      addAnnotation( Nonnull.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       returns( ClassName.get( getPackageName(), getRepositoryName() ) ).
       addStatement( "return new $T()", ClassName.get( getPackageName(), getArezRepositoryName() ) ).build();
   }
@@ -2461,7 +2461,7 @@ final class ComponentDescriptor
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "create" ).
         addAnnotation( annotationSpec ).
-        addAnnotation( Nonnull.class ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
         returns( TypeName.get( asDeclaredType() ) );
 
     ProcessorUtil.copyAccessModifiers( constructor, builder );
