@@ -435,7 +435,7 @@ public final class Observable<T>
   {
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObservableChangedEvent( this ) );
+      reportSpyEvent( new ObservableChangedEvent( this, getObservableValue() ) );
     }
     getContext().getTransaction().reportChanged( this );
   }
@@ -444,7 +444,7 @@ public final class Observable<T>
   {
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObservableChangedEvent( this ) );
+      reportSpyEvent( new ObservableChangedEvent( this, getObservableValue() ) );
     }
     getContext().getTransaction().reportChangeConfirmed( this );
   }
@@ -452,6 +452,25 @@ public final class Observable<T>
   void reportPossiblyChanged()
   {
     getContext().getTransaction().reportPossiblyChanged( this );
+  }
+
+  /**
+   * Return the value from observable if introspectors are enabled and an accessor has been supplied.
+   */
+  @Nullable
+  private Object getObservableValue()
+  {
+    if ( Arez.arePropertyIntrospectorsEnabled() && null != getAccessor() )
+    {
+      try
+      {
+        return getAccessor().get();
+      }
+      catch ( final Throwable ignored )
+      {
+      }
+    }
+    return null;
   }
 
   void invariantOwner()

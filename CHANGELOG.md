@@ -5,6 +5,10 @@
 ### [v0.28](https://github.com/arez/arez/tree/v0.28) (2017-11-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.27...v0.28)
 
+##### Added
+* **\[core\]** The `ObservableChangedEvent` spy event will now emit the value of the observable if 
+  property introspectors are enabled and the observable has an accessor introspector.
+
 ##### Fixed
 * **\[processor\]** Remove the direct dependency on the `javax.annotation.Nonnull` and
   `javax.annotation.Nullable` annotations from the `arez-processor` artifact.

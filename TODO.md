@@ -97,8 +97,6 @@ console.table(languages);
 * Should the Spy have direct access to the `Observable`, `ComputedValue` and `Observer` value or should it be
   abstracted by another info primitive?
 
-* Change events should now contain the change value if introspectors enabled and present.
-
 * Shade processor deps via https://github.com/lyubomyr-shaydariv/ant-shade-task
 
 ## Process
