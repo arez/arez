@@ -21,7 +21,7 @@ public class WhenIntegrationTest
   {
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
+    final SpyEventRecorder recorder = new SpyEventRecorder( false );
     context.getSpy().addSpyEventHandler( recorder );
 
     final TimeModel timeModel = TimeModel.create( 0 );

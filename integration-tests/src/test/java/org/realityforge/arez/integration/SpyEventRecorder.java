@@ -40,9 +40,16 @@ final class SpyEventRecorder
   extends AbstractSpyEventProcessor
 {
   private final JsonArrayBuilder _events = Json.createArrayBuilder();
+  private final boolean _keepValue;
 
   SpyEventRecorder()
   {
+    this( true );
+  }
+
+  SpyEventRecorder( final boolean keepValue )
+  {
+    _keepValue = keepValue;
     register( ComponentCreateStartedEvent.class );
     register( ComponentCreateCompletedEvent.class );
     register( ComponentDisposeStartedEvent.class );
@@ -78,6 +85,10 @@ final class SpyEventRecorder
     final HashMap<String, Object> map = new HashMap<>();
     event.toMap( map );
     map.remove( "duration" );
+    if ( !_keepValue )
+    {
+      map.remove( "value" );
+    }
     _events.add( Json.createObjectBuilder( map ) );
   }
 
