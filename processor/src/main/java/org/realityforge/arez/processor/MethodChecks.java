@@ -1,6 +1,5 @@
 package org.realityforge.arez.processor;
 
-import java.lang.annotation.Annotation;
 import javax.annotation.Nonnull;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
@@ -16,24 +15,24 @@ final class MethodChecks
    * Verifies that the method is not final, static, abstract or private.
    * The intent is to verify that it can be overridden in sub-class in same package.
    */
-  static void mustBeOverridable( @Nonnull final Class<? extends Annotation> type,
+  static void mustBeOverridable( @Nonnull final String annotationName,
                                  @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    mustNotBeFinal( type, method );
-    mustBeSubclassCallable( type, method );
+    mustNotBeFinal( annotationName, method );
+    mustBeSubclassCallable( annotationName, method );
   }
 
   /**
    * Verifies that the method is not static, abstract or private.
    * The intent is to verify that it can be instance called by sub-class in same package.
    */
-  static void mustBeSubclassCallable( @Nonnull final Class<? extends Annotation> type,
+  static void mustBeSubclassCallable( @Nonnull final String annotationName,
                                       @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    mustNotBeStatic( type, method );
-    mustNotBePrivate( type, method );
+    mustNotBeStatic( annotationName, method );
+    mustNotBePrivate( annotationName, method );
   }
 
   /**
@@ -42,92 +41,93 @@ final class MethodChecks
    * package at a lifecycle stage. It should not raise errors, return values or accept
    * parameters.
    */
-  static void mustBeLifecycleHook( @Nonnull final Class<? extends Annotation> type,
+  static void mustBeLifecycleHook( @Nonnull final String annotationName,
                                    @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    mustBeSubclassCallable( type, method );
-    mustNotHaveAnyParameters( type, method );
-    mustNotReturnAnyValue( type, method );
-    mustNotThrowAnyExceptions( type, method );
+    mustBeSubclassCallable( annotationName, method );
+    mustNotHaveAnyParameters( annotationName, method );
+    mustNotReturnAnyValue( annotationName, method );
+    mustNotThrowAnyExceptions( annotationName, method );
   }
 
-  private static void mustNotBeStatic( @Nonnull final Class<? extends Annotation> type,
+  private static void mustNotBeStatic( @Nonnull final String annotationName,
                                        @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.STATIC ) )
     {
-      throw new ArezProcessorException( "@" + type.getSimpleName() + " target must not be static", method );
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not be static", method );
     }
   }
 
-  private static void mustNotBePrivate( @Nonnull final Class<? extends Annotation> type,
+  private static void mustNotBePrivate( @Nonnull final String annotationName,
                                         @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.PRIVATE ) )
     {
-      throw new ArezProcessorException( "@" + type.getSimpleName() + " target must not be private", method );
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not be private", method );
     }
   }
 
-  private static void mustNotBeFinal( @Nonnull final Class<? extends Annotation> type,
+  private static void mustNotBeFinal( @Nonnull final String annotationName,
                                       @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.FINAL ) )
     {
-      throw new ArezProcessorException( "@" + type.getSimpleName() + " target must not be final", method );
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not be final", method );
     }
   }
 
-  static void mustBeFinal( @Nonnull final Class<? extends Annotation> type, @Nonnull final ExecutableElement method )
+  static void mustBeFinal( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( !method.getModifiers().contains( Modifier.FINAL ) )
     {
-      throw new ArezProcessorException( "@" + type.getSimpleName() + " target must be final", method );
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must be final", method );
     }
   }
 
-  static void mustNotHaveAnyParameters( @Nonnull final Class<? extends Annotation> type,
+  static void mustNotHaveAnyParameters( @Nonnull final String annotationName,
                                         @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( !method.getParameters().isEmpty() )
     {
-      throw new ArezProcessorException( "@" + type.getSimpleName() + " target must not have any parameters", method );
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not have any parameters", method );
     }
   }
 
-  static void mustNotReturnAnyValue( @Nonnull final Class<? extends Annotation> type,
+  static void mustNotReturnAnyValue( @Nonnull final String annotationName,
                                      @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( TypeKind.VOID != method.getReturnType().getKind() )
     {
-      throw new ArezProcessorException( "@" + type.getSimpleName() + " target must not return a value", method );
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not return a value", method );
     }
   }
 
-  static void mustReturnAValue( @Nonnull final Class<? extends Annotation> type,
+  static void mustReturnAValue( @Nonnull final String annotationName,
                                 @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( TypeKind.VOID == method.getReturnType().getKind() )
     {
-      throw new ArezProcessorException( "@" + type.getSimpleName() + " target must return a value", method );
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must return a value", method );
     }
   }
 
-  static void mustNotThrowAnyExceptions( @Nonnull final Class<? extends Annotation> type,
+  static void mustNotThrowAnyExceptions( @Nonnull final String annotationName,
                                          @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( !method.getThrownTypes().isEmpty() )
     {
-      throw new ArezProcessorException( "@" + type.getSimpleName() + " target must not throw any exceptions", method );
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not throw any exceptions", method );
     }
   }
+
 }

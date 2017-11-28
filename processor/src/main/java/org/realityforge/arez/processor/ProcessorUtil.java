@@ -8,7 +8,6 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 import java.lang.annotation.Documented;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +29,7 @@ import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVariable;
+import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
 final class ProcessorUtil
@@ -215,24 +215,80 @@ final class ProcessorUtil
 
   @SuppressWarnings( { "unchecked", "SameParameterValue" } )
   @Nonnull
-  static List<TypeMirror> getTypeMirrorsAnnotationParameter( @Nonnull final Element typeElement,
-                                                             @Nonnull final String parameterName,
-                                                             @Nonnull final Class<?> annotationType )
+  static List<TypeMirror> getTypeMirrorsAnnotationParameter( @Nonnull final Elements elements,
+                                                             @Nonnull final Element typeElement,
+                                                             @Nonnull final String annotationClassName,
+                                                             @Nonnull final String parameterName )
   {
-    final AnnotationMirror annotationMirror = typeElement.getAnnotationMirrors().stream().
-      filter( a -> a.getAnnotationType().toString().equals( annotationType.getName() ) ).findFirst().orElse( null );
-    assert null != annotationMirror;
-    final ExecutableElement annotationKey = annotationMirror.getElementValues().keySet().stream().
+    final AnnotationValue annotationValue =
+      getAnnotationValue( elements, typeElement, annotationClassName, parameterName );
+    return ( (List<AnnotationValue>) annotationValue.getValue() ).stream().
+      map( v -> (TypeMirror) v.getValue() ).collect( Collectors.toList() );
+  }
+
+  @Nonnull
+  private static AnnotationValue getAnnotationValue( @Nonnull final Elements elements,
+                                                     @Nonnull final Element typeElement,
+                                                     @Nonnull final String annotationClassName,
+                                                     @Nonnull final String parameterName )
+  {
+    final AnnotationValue value = findAnnotationValue( elements, typeElement, annotationClassName, parameterName );
+    assert null != value;
+    return value;
+  }
+
+  @Nullable
+  private static AnnotationValue findAnnotationValue( @Nonnull final Elements elements,
+                                                      @Nonnull final Element typeElement,
+                                                      @Nonnull final String annotationClassName,
+                                                      @Nonnull final String parameterName )
+  {
+    final AnnotationMirror mirror = getAnnotationByType( typeElement, annotationClassName );
+    return findAnnotationValue( elements, mirror, parameterName );
+  }
+
+  @Nullable
+  private static AnnotationValue findAnnotationValue( @Nonnull final Elements elements,
+                                                      @Nonnull final AnnotationMirror annotation,
+                                                      @Nonnull final String parameterName )
+  {
+    final Map<? extends ExecutableElement, ? extends AnnotationValue> values =
+      elements.getElementValuesWithDefaults( annotation );
+    final ExecutableElement annotationKey = values.keySet().stream().
       filter( k -> parameterName.equals( k.getSimpleName().toString() ) ).findFirst().orElse( null );
-    final AnnotationValue extensionsAnnotation = annotationMirror.getElementValues().get( annotationKey );
-    if ( null != extensionsAnnotation )
-    {
-      return ( (List<AnnotationValue>) extensionsAnnotation.getValue() ).stream().
-        map( v -> (TypeMirror) v.getValue() ).collect( Collectors.toList() );
-    }
-    else
-    {
-      return Collections.emptyList();
-    }
+    return values.get( annotationKey );
+  }
+
+  @Nonnull
+  static AnnotationValue getAnnotationValue( @Nonnull final Elements elements,
+                                             @Nonnull final AnnotationMirror annotation,
+                                             @Nonnull final String parameterName )
+  {
+    final AnnotationValue value = findAnnotationValue( elements, annotation, parameterName );
+    assert null != value;
+    return value;
+  }
+
+  @Nonnull
+  static AnnotationMirror getAnnotationByType( @Nonnull final Element typeElement,
+                                               @Nonnull final String annotationClassName )
+  {
+    AnnotationMirror mirror = findAnnotationByType( typeElement, annotationClassName );
+    assert null != mirror;
+    return mirror;
+  }
+
+  @Nullable
+  static AnnotationMirror findAnnotationByType( @Nonnull final Element typeElement,
+                                                @Nonnull final String annotationClassName )
+  {
+    return typeElement.getAnnotationMirrors().stream().
+      filter( a -> a.getAnnotationType().toString().equals( annotationClassName ) ).findFirst().orElse( null );
+  }
+
+  @Nonnull
+  static String toSimpleName( @Nonnull final String annotationName )
+  {
+    return annotationName.replaceAll( ".*\\.", "" );
   }
 }

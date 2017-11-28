@@ -173,14 +173,14 @@ define 'arez' do
                  :autoservice,
                  :autocommon,
                  :javapoet,
-                 :guava,
-                 project('annotations')
+                 :guava
 
 
     test.with :compile_testing,
               Java.tools_jar,
               :truth,
               DAGGER_DEPS,
+              project('annotations'),
               project('core').package(:jar),
               project('core').compile.dependencies,
               project('component').package(:jar, :classifier => :gwt),

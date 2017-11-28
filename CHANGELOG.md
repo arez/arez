@@ -20,9 +20,9 @@
 ##### Fixed
 * **\[annotations\]** Fix the documentation on `@OnDepsChanged` annotation to correctly describe the default
   naming convention.
-* **\[processor\]** Enhance the processor to remove the direct dependency on the `arez-component` artifact.
-  If the `arez-processor` is added to a separate `-processorpath` during compilation, the `arez-component`
-  no longer needs to be added to the `-processorpath`.
+* **\[processor\]** Enhance the processor to remove the direct dependency on the `arez-component` and
+  `arez-annotations` artifact. If the `arez-processor` is added to a separate `-processorpath` during
+  compilation, the `arez-component` no longer needs to be added to the `-processorpath`.
 
 ##### Changed
 * Upgrade the version of javapoet to 1.8.0.

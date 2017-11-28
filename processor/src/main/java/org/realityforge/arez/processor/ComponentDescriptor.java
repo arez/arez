@@ -9,7 +9,6 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,7 +25,7 @@ import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.PostConstruct;
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
@@ -39,28 +38,8 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Autorun;
-import org.realityforge.arez.annotations.ComponentId;
-import org.realityforge.arez.annotations.ComponentName;
-import org.realityforge.arez.annotations.ComponentRef;
-import org.realityforge.arez.annotations.ComponentTypeName;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.ComputedValueRef;
-import org.realityforge.arez.annotations.ContextRef;
-import org.realityforge.arez.annotations.Observable;
-import org.realityforge.arez.annotations.ObservableRef;
-import org.realityforge.arez.annotations.ObserverRef;
-import org.realityforge.arez.annotations.OnActivate;
-import org.realityforge.arez.annotations.OnDeactivate;
-import org.realityforge.arez.annotations.OnDepsChanged;
-import org.realityforge.arez.annotations.OnDispose;
-import org.realityforge.arez.annotations.OnStale;
-import org.realityforge.arez.annotations.PostDispose;
-import org.realityforge.arez.annotations.PreDispose;
-import org.realityforge.arez.annotations.Track;
 
 /**
  * The class that represents the parsed state of ArezComponent annotated class.
@@ -88,6 +67,8 @@ final class ComponentDescriptor
    * Flag controlling whether dagger module is created for repository.
    */
   private boolean _generateDaggerModule;
+  @Nonnull
+  private final Elements _elements;
   @Nonnull
   private final String _type;
   private final boolean _nameIncludesId;
@@ -130,13 +111,15 @@ final class ComponentDescriptor
   private final Collection<TrackedDescriptor> _roTrackeds =
     Collections.unmodifiableCollection( _trackeds.values() );
 
-  ComponentDescriptor( @Nonnull final String type,
+  ComponentDescriptor( @Nonnull final Elements elements,
+                       @Nonnull final String type,
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
                        final boolean generateToString,
                        @Nonnull final PackageElement packageElement,
                        @Nonnull final TypeElement element )
   {
+    _elements = Objects.requireNonNull( elements );
     _type = Objects.requireNonNull( type );
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
@@ -169,12 +152,15 @@ final class ComponentDescriptor
     return _trackeds.computeIfAbsent( name, n -> new TrackedDescriptor( this, n ) );
   }
 
-  private void addObservable( @Nonnull final Observable annotation,
+  private void addObservable( @Nonnull final AnnotationMirror annotation,
                               @Nonnull final ExecutableElement method,
                               @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Observable.class, method );
+    MethodChecks.mustBeOverridable( Constants.OBSERVABLE_ANNOTATION_CLASSNAME, method );
+
+    final String declaredName = getAnnotationParameter( annotation, "name" );
+    final boolean expectSetter = getAnnotationParameter( annotation, "expectSetter" );
 
     final TypeMirror returnType = method.getReturnType();
     final String methodName = method.getSimpleName().toString();
@@ -189,7 +175,7 @@ final class ComponentDescriptor
         throw new ArezProcessorException( "Method annotated with @Observable should be a setter or getter", method );
       }
 
-      name = ProcessorUtil.deriveName( method, SETTER_PATTERN, annotation.name() );
+      name = ProcessorUtil.deriveName( method, SETTER_PATTERN, declaredName );
       if ( null == name )
       {
         name = methodName;
@@ -203,28 +189,28 @@ final class ComponentDescriptor
       {
         throw new ArezProcessorException( "Method annotated with @Observable should be a setter or getter", method );
       }
-      name = getPropertyAccessorName( method, annotation.name() );
+      name = getPropertyAccessorName( method, declaredName );
     }
     // Override name if supplied by user
-    if ( !ProcessorUtil.isSentinelName( annotation.name() ) )
+    if ( !ProcessorUtil.isSentinelName( declaredName ) )
     {
-      name = annotation.name();
+      name = declaredName;
       if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Observable specified invalid name " + name,
                                           method );
       }
     }
-    checkNameUnique( name, method, Observable.class );
+    checkNameUnique( name, method, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
 
-    if ( setter && !annotation.expectSetter() )
+    if ( setter && !expectSetter )
     {
       throw new ArezProcessorException( "Method annotated with @Observable is a setter but defines " +
                                         "expectSetter = false for observable named " + name, method );
     }
 
     final ObservableDescriptor observable = findOrCreateObservable( name );
-    if ( !annotation.expectSetter() )
+    if ( !expectSetter )
     {
       observable.setExpectSetter( false );
     }
@@ -262,14 +248,14 @@ final class ComponentDescriptor
     }
   }
 
-  private void addObservableRef( @Nonnull final ObservableRef annotation,
+  private void addObservableRef( @Nonnull final AnnotationMirror annotation,
                                  @Nonnull final ExecutableElement method,
                                  @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( ObservableRef.class, method );
-    MethodChecks.mustNotHaveAnyParameters( ObservableRef.class, method );
-    MethodChecks.mustNotThrowAnyExceptions( ObservableRef.class, method );
+    MethodChecks.mustBeOverridable( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -279,10 +265,11 @@ final class ComponentDescriptor
                                         "org.realityforge.arez.Observable", method );
     }
 
+    final String declaredName = getAnnotationParameter( annotation, "name" );
     final String name;
-    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
+    if ( ProcessorUtil.isSentinelName( declaredName ) )
     {
-      name = ProcessorUtil.deriveName( method, OBSERVABLE_REF_PATTERN, annotation.name() );
+      name = ProcessorUtil.deriveName( method, OBSERVABLE_REF_PATTERN, declaredName );
       if ( null == name )
       {
         throw new ArezProcessorException( "Method annotated with @ObservableRef should specify name or be " +
@@ -291,7 +278,7 @@ final class ComponentDescriptor
     }
     else
     {
-      name = annotation.name();
+      name = declaredName;
       if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @ObservableRef specified invalid name " + name,
@@ -323,31 +310,32 @@ final class ComponentDescriptor
     }
   }
 
-  private void addAction( @Nonnull final Action annotation,
+  private void addAction( @Nonnull final AnnotationMirror annotation,
                           @Nonnull final ExecutableElement method,
                           @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Action.class, method );
+    MethodChecks.mustBeOverridable( Constants.ACTION_ANNOTATION_CLASSNAME, method );
 
     final String name = deriveActionName( method, annotation );
-    checkNameUnique( name, method, Action.class );
-    final ActionDescriptor action =
-      new ActionDescriptor( this, name, annotation.mutation(), annotation.reportParameters(), method, methodType );
+    checkNameUnique( name, method, Constants.ACTION_ANNOTATION_CLASSNAME );
+    final boolean mutation = getAnnotationParameter( annotation, "mutation" );
+    final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
+    final ActionDescriptor action = new ActionDescriptor( this, name, mutation, reportParameters, method, methodType );
     _actions.put( action.getName(), action );
   }
 
   @Nonnull
-  private String deriveActionName( @Nonnull final ExecutableElement method, @Nonnull final Action annotation )
+  private String deriveActionName( @Nonnull final ExecutableElement method, @Nonnull final AnnotationMirror annotation )
     throws ArezProcessorException
   {
-    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
+    final String name = getAnnotationParameter( annotation, "name" );
+    if ( ProcessorUtil.isSentinelName( name ) )
     {
       return method.getSimpleName().toString();
     }
     else
     {
-      final String name = annotation.name();
       if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Action specified invalid name " + name, method );
@@ -356,33 +344,35 @@ final class ComponentDescriptor
     }
   }
 
-  private void addAutorun( @Nonnull final Autorun annotation,
+  private void addAutorun( @Nonnull final AnnotationMirror annotation,
                            @Nonnull final ExecutableElement method,
                            @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Autorun.class, method );
-    MethodChecks.mustNotHaveAnyParameters( Autorun.class, method );
-    MethodChecks.mustNotThrowAnyExceptions( Autorun.class, method );
-    MethodChecks.mustNotReturnAnyValue( Autorun.class, method );
+    MethodChecks.mustBeOverridable( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotReturnAnyValue( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
 
     final String name = deriveAutorunName( method, annotation );
-    checkNameUnique( name, method, Autorun.class );
-    final AutorunDescriptor autorun = new AutorunDescriptor( this, name, annotation.mutation(), method, methodType );
+    checkNameUnique( name, method, Constants.AUTORUN_ANNOTATION_CLASSNAME );
+    final boolean mutation = getAnnotationParameter( annotation, "mutation" );
+    final AutorunDescriptor autorun = new AutorunDescriptor( this, name, mutation, method, methodType );
     _autoruns.put( autorun.getName(), autorun );
   }
 
   @Nonnull
-  private String deriveAutorunName( @Nonnull final ExecutableElement method, @Nonnull final Autorun annotation )
+  private String deriveAutorunName( @Nonnull final ExecutableElement method,
+                                    @Nonnull final AnnotationMirror annotation )
     throws ArezProcessorException
   {
-    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
+    final String name = getAnnotationParameter( annotation, "name" );
+    if ( ProcessorUtil.isSentinelName( name ) )
     {
       return method.getSimpleName().toString();
     }
     else
     {
-      final String name = annotation.name();
       if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Autorun specified invalid name " + name, method );
@@ -391,36 +381,42 @@ final class ComponentDescriptor
     }
   }
 
-  private void addOnDepsChanged( @Nonnull final OnDepsChanged annotation, @Nonnull final ExecutableElement method )
+  private void addOnDepsChanged( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     final String name =
-      deriveHookName( method, TrackedDescriptor.ON_DEPS_CHANGED_PATTERN, "DepsChanged", annotation.name() );
+      deriveHookName( method,
+                      TrackedDescriptor.ON_DEPS_CHANGED_PATTERN,
+                      "DepsChanged",
+                      getAnnotationParameter( annotation, "name" ) );
     findOrCreateTracked( name ).setOnDepsChangedMethod( method );
   }
 
-  private void addTracked( @Nonnull final Track annotation,
+  private void addTracked( @Nonnull final AnnotationMirror annotation,
                            @Nonnull final ExecutableElement method,
                            @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
     final String name = deriveTrackedName( method, annotation );
-    checkNameUnique( name, method, Track.class );
+    checkNameUnique( name, method, Constants.TRACK_ANNOTATION_CLASSNAME );
+    final boolean mutation = getAnnotationParameter( annotation, "mutation" );
+    final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
     final TrackedDescriptor tracked = findOrCreateTracked( name );
-    tracked.setTrackedMethod( annotation.mutation(), annotation.reportParameters(), method, methodType );
+    tracked.setTrackedMethod( mutation, reportParameters, method, methodType );
   }
 
   @Nonnull
-  private String deriveTrackedName( @Nonnull final ExecutableElement method, @Nonnull final Track annotation )
+  private String deriveTrackedName( @Nonnull final ExecutableElement method,
+                                    @Nonnull final AnnotationMirror annotation )
     throws ArezProcessorException
   {
-    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
+    final String name = getAnnotationParameter( annotation, "name" );
+    if ( ProcessorUtil.isSentinelName( name ) )
     {
       return method.getSimpleName().toString();
     }
     else
     {
-      final String name = annotation.name();
       if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Track specified invalid name " + name, method );
@@ -429,14 +425,14 @@ final class ComponentDescriptor
     }
   }
 
-  private void addObserverRef( @Nonnull final ObserverRef annotation,
+  private void addObserverRef( @Nonnull final AnnotationMirror annotation,
                                @Nonnull final ExecutableElement method,
                                @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( ObserverRef.class, method );
-    MethodChecks.mustNotHaveAnyParameters( ObserverRef.class, method );
-    MethodChecks.mustNotThrowAnyExceptions( ObserverRef.class, method );
+    MethodChecks.mustBeOverridable( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = method.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -446,10 +442,11 @@ final class ComponentDescriptor
                                         "org.realityforge.arez.Observer", method );
     }
 
+    final String declaredName = getAnnotationParameter( annotation, "name" );
     final String name;
-    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
+    if ( ProcessorUtil.isSentinelName( declaredName ) )
     {
-      name = ProcessorUtil.deriveName( method, OBSERVER_REF_PATTERN, annotation.name() );
+      name = ProcessorUtil.deriveName( method, OBSERVER_REF_PATTERN, declaredName );
       if ( null == name )
       {
         throw new ArezProcessorException( "Method annotated with @ObserverRef should specify name or be " +
@@ -458,7 +455,7 @@ final class ComponentDescriptor
     }
     else
     {
-      name = annotation.name();
+      name = declaredName;
       if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @ObserverRef specified invalid name " + name,
@@ -479,24 +476,24 @@ final class ComponentDescriptor
     return _computeds.computeIfAbsent( name, n -> new ComputedDescriptor( this, n ) );
   }
 
-  private void addComputed( @Nonnull final Computed annotation,
+  private void addComputed( @Nonnull final AnnotationMirror annotation,
                             @Nonnull final ExecutableElement method,
                             @Nonnull final ExecutableType computedType )
     throws ArezProcessorException
   {
     final String name = deriveComputedName( method, annotation );
-    checkNameUnique( name, method, Computed.class );
+    checkNameUnique( name, method, Constants.COMPUTED_ANNOTATION_CLASSNAME );
     findOrCreateComputed( name ).setComputed( method, computedType );
   }
 
-  private void addComputedValueRef( @Nonnull final ComputedValueRef annotation,
+  private void addComputedValueRef( @Nonnull final AnnotationMirror annotation,
                                     @Nonnull final ExecutableElement method,
                                     @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( ComputedValueRef.class, method );
-    MethodChecks.mustNotHaveAnyParameters( ComputedValueRef.class, method );
-    MethodChecks.mustNotThrowAnyExceptions( ComputedValueRef.class, method );
+    MethodChecks.mustBeOverridable( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -506,10 +503,11 @@ final class ComponentDescriptor
                                         "org.realityforge.arez.ComputedValue", method );
     }
 
+    final String declaredName = getAnnotationParameter( annotation, "name" );
     final String name;
-    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
+    if ( ProcessorUtil.isSentinelName( declaredName ) )
     {
-      name = ProcessorUtil.deriveName( method, COMPUTED_VALUE_REF_PATTERN, annotation.name() );
+      name = ProcessorUtil.deriveName( method, COMPUTED_VALUE_REF_PATTERN, declaredName );
       if ( null == name )
       {
         throw new ArezProcessorException( "Method annotated with @ComputedValueRef should specify name or be " +
@@ -518,7 +516,7 @@ final class ComponentDescriptor
     }
     else
     {
-      name = annotation.name();
+      name = declaredName;
       if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @ComputedValueRef specified invalid name " + name,
@@ -530,16 +528,17 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  private String deriveComputedName( @Nonnull final ExecutableElement method, @Nonnull final Computed annotation )
+  private String deriveComputedName( @Nonnull final ExecutableElement method,
+                                     @Nonnull final AnnotationMirror annotation )
     throws ArezProcessorException
   {
-    if ( ProcessorUtil.isSentinelName( annotation.name() ) )
+    final String name = getAnnotationParameter( annotation, "name" );
+    if ( ProcessorUtil.isSentinelName( name ) )
     {
-      return getPropertyAccessorName( method, annotation.name() );
+      return getPropertyAccessorName( method, name );
     }
     else
     {
-      final String name = annotation.name();
       if ( !ProcessorUtil.isJavaIdentifier( name ) )
       {
         throw new ArezProcessorException( "Method annotated with @Computed specified invalid name " + name, method );
@@ -548,32 +547,45 @@ final class ComponentDescriptor
     }
   }
 
-  private void addOnActivate( @Nonnull final OnActivate annotation, @Nonnull final ExecutableElement method )
+  private void addOnActivate( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    final String name = deriveHookName( method, ComputedDescriptor.ON_ACTIVATE_PATTERN, "Activate", annotation.name() );
+    final String name = deriveHookName( method,
+                                        ComputedDescriptor.ON_ACTIVATE_PATTERN,
+                                        "Activate",
+                                        getAnnotationParameter( annotation, "name" ) );
     findOrCreateComputed( name ).setOnActivate( method );
   }
 
-  private void addOnDeactivate( @Nonnull final OnDeactivate annotation, @Nonnull final ExecutableElement method )
+  private void addOnDeactivate( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     final String name =
-      deriveHookName( method, ComputedDescriptor.ON_DEACTIVATE_PATTERN, "Deactivate", annotation.name() );
+      deriveHookName( method,
+                      ComputedDescriptor.ON_DEACTIVATE_PATTERN,
+                      "Deactivate",
+                      getAnnotationParameter( annotation, "name" ) );
     findOrCreateComputed( name ).setOnDeactivate( method );
   }
 
-  private void addOnStale( @Nonnull final OnStale annotation, @Nonnull final ExecutableElement method )
+  private void addOnStale( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    final String name = deriveHookName( method, ComputedDescriptor.ON_STALE_PATTERN, "Stale", annotation.name() );
+    final String name =
+      deriveHookName( method,
+                      ComputedDescriptor.ON_STALE_PATTERN,
+                      "Stale",
+                      getAnnotationParameter( annotation, "name" ) );
     findOrCreateComputed( name ).setOnStale( method );
   }
 
-  private void addOnDispose( @Nonnull final OnDispose annotation, @Nonnull final ExecutableElement method )
+  private void addOnDispose( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    final String name = deriveHookName( method, ComputedDescriptor.ON_DISPOSE_PATTERN, "Dispose", annotation.name() );
+    final String name = deriveHookName( method,
+                                        ComputedDescriptor.ON_DISPOSE_PATTERN,
+                                        "Dispose",
+                                        getAnnotationParameter( annotation, "name" ) );
     findOrCreateComputed( name ).setOnDispose( method );
   }
 
@@ -604,10 +616,10 @@ final class ComponentDescriptor
   private void setContextRef( @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( ContextRef.class, method );
-    MethodChecks.mustNotHaveAnyParameters( ContextRef.class, method );
-    MethodChecks.mustReturnAValue( ContextRef.class, method );
-    MethodChecks.mustNotThrowAnyExceptions( ContextRef.class, method );
+    MethodChecks.mustBeOverridable( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustReturnAValue( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = method.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -631,10 +643,10 @@ final class ComponentDescriptor
   private void setComponentRef( @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( ComponentRef.class, method );
-    MethodChecks.mustNotHaveAnyParameters( ComponentRef.class, method );
-    MethodChecks.mustReturnAValue( ComponentRef.class, method );
-    MethodChecks.mustNotThrowAnyExceptions( ComponentRef.class, method );
+    MethodChecks.mustBeOverridable( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustReturnAValue( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = method.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -658,11 +670,11 @@ final class ComponentDescriptor
   private void setComponentId( @Nonnull final ExecutableElement componentId )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeSubclassCallable( ComponentId.class, componentId );
-    MethodChecks.mustBeFinal( ComponentId.class, componentId );
-    MethodChecks.mustNotHaveAnyParameters( ComponentId.class, componentId );
-    MethodChecks.mustReturnAValue( ComponentId.class, componentId );
-    MethodChecks.mustNotThrowAnyExceptions( ComponentId.class, componentId );
+    MethodChecks.mustBeSubclassCallable( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
+    MethodChecks.mustBeFinal( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
+    MethodChecks.mustReturnAValue( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
 
     if ( null != _componentId )
     {
@@ -678,10 +690,10 @@ final class ComponentDescriptor
   private void setComponentTypeName( @Nonnull final ExecutableElement componentTypeName )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( ComponentTypeName.class, componentTypeName );
-    MethodChecks.mustNotHaveAnyParameters( ComponentTypeName.class, componentTypeName );
-    MethodChecks.mustReturnAValue( ComponentTypeName.class, componentTypeName );
-    MethodChecks.mustNotThrowAnyExceptions( ComponentTypeName.class, componentTypeName );
+    MethodChecks.mustBeOverridable( Constants.COMPONENT_TYPE_NAME_ANNOTATION_CLASSNAME, componentTypeName );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_TYPE_NAME_ANNOTATION_CLASSNAME, componentTypeName );
+    MethodChecks.mustReturnAValue( Constants.COMPONENT_TYPE_NAME_ANNOTATION_CLASSNAME, componentTypeName );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_TYPE_NAME_ANNOTATION_CLASSNAME, componentTypeName );
 
     final TypeMirror returnType = componentTypeName.getReturnType();
     if ( !( TypeKind.DECLARED == returnType.getKind() &&
@@ -704,10 +716,10 @@ final class ComponentDescriptor
   private void setComponentName( @Nonnull final ExecutableElement componentName )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( ComponentName.class, componentName );
-    MethodChecks.mustNotHaveAnyParameters( ComponentName.class, componentName );
-    MethodChecks.mustReturnAValue( ComponentName.class, componentName );
-    MethodChecks.mustNotThrowAnyExceptions( ComponentName.class, componentName );
+    MethodChecks.mustBeOverridable( Constants.COMPONENT_NAME_ANNOTATION_CLASSNAME, componentName );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_NAME_ANNOTATION_CLASSNAME, componentName );
+    MethodChecks.mustReturnAValue( Constants.COMPONENT_NAME_ANNOTATION_CLASSNAME, componentName );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_NAME_ANNOTATION_CLASSNAME, componentName );
 
     if ( null != _componentName )
     {
@@ -729,7 +741,7 @@ final class ComponentDescriptor
   void setPostConstruct( @Nonnull final ExecutableElement postConstruct )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( PostConstruct.class, postConstruct );
+    MethodChecks.mustBeLifecycleHook( Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME, postConstruct );
 
     if ( null != _postConstruct )
     {
@@ -745,7 +757,7 @@ final class ComponentDescriptor
   private void setPreDispose( @Nonnull final ExecutableElement preDispose )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( PreDispose.class, preDispose );
+    MethodChecks.mustBeLifecycleHook( Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME, preDispose );
 
     if ( null != _preDispose )
     {
@@ -761,7 +773,7 @@ final class ComponentDescriptor
   private void setPostDispose( @Nonnull final ExecutableElement postDispose )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( PostDispose.class, postDispose );
+    MethodChecks.mustBeLifecycleHook( Constants.POST_DISPOSE_ANNOTATION_CLASSNAME, postDispose );
 
     if ( null != _postDispose )
     {
@@ -818,54 +830,75 @@ final class ComponentDescriptor
 
   private void checkNameUnique( @Nonnull final String name,
                                 @Nonnull final ExecutableElement sourceMethod,
-                                @Nonnull final Class<? extends Annotation> sourceType )
+                                @Nonnull final String sourceAnnotationName )
     throws ArezProcessorException
   {
     final ActionDescriptor action = _actions.get( name );
     if ( null != action )
     {
-      throw toException( name, sourceType, sourceMethod, Action.class, action.getAction() );
+      throw toException( name,
+                         sourceAnnotationName,
+                         sourceMethod,
+                         Constants.ACTION_ANNOTATION_CLASSNAME,
+                         action.getAction() );
     }
     final ComputedDescriptor computed = _computeds.get( name );
     if ( null != computed && computed.hasComputed() )
     {
-      throw toException( name, sourceType, sourceMethod, Computed.class, computed.getComputed() );
+      throw toException( name,
+                         sourceAnnotationName,
+                         sourceMethod,
+                         Constants.COMPUTED_ANNOTATION_CLASSNAME,
+                         computed.getComputed() );
     }
     final AutorunDescriptor autorun = _autoruns.get( name );
     if ( null != autorun )
     {
-      throw toException( name, sourceType, sourceMethod, Autorun.class, autorun.getAutorun() );
+      throw toException( name,
+                         sourceAnnotationName,
+                         sourceMethod,
+                         Constants.AUTORUN_ANNOTATION_CLASSNAME,
+                         autorun.getAutorun() );
     }
     // Track have pairs so let the caller determine whether a duplicate occurs in that scenario
-    if ( Track.class != sourceType )
+    if ( !sourceAnnotationName.equals( Constants.TRACK_ANNOTATION_CLASSNAME ) )
     {
       final TrackedDescriptor tracked = _trackeds.get( name );
       if ( null != tracked )
       {
-        throw toException( name, sourceType, sourceMethod, Track.class, tracked.getTrackedMethod() );
+        throw toException( name,
+                           sourceAnnotationName,
+                           sourceMethod,
+                           Constants.TRACK_ANNOTATION_CLASSNAME,
+                           tracked.getTrackedMethod() );
       }
     }
     // Observables have pairs so let the caller determine whether a duplicate occurs in that scenario
-    if ( Observable.class != sourceType )
+    if ( !sourceAnnotationName.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) )
     {
       final ObservableDescriptor observable = _observables.get( name );
       if ( null != observable )
       {
-        throw toException( name, sourceType, sourceMethod, Observable.class, observable.getDefiner() );
+        throw toException( name,
+                           sourceAnnotationName,
+                           sourceMethod,
+                           Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
+                           observable.getDefiner() );
       }
     }
   }
 
   @Nonnull
   private ArezProcessorException toException( @Nonnull final String name,
-                                              @Nonnull final Class<? extends Annotation> source,
+                                              @Nonnull final String sourceAnnotationName,
                                               @Nonnull final ExecutableElement sourceMethod,
-                                              @Nonnull final Class<? extends Annotation> target,
+                                              @Nonnull final String targetAnnotationName,
                                               @Nonnull final ExecutableElement targetElement )
   {
-    return new ArezProcessorException( "Method annotated with @" + source.getSimpleName() + " specified name " +
-                                       name + " that duplicates @" + target.getSimpleName() + " defined by " +
-                                       "method " + targetElement.getSimpleName(), sourceMethod );
+    return new ArezProcessorException( "Method annotated with @" + ProcessorUtil.toSimpleName( sourceAnnotationName ) +
+                                       " specified name " + name + " that duplicates @" +
+                                       ProcessorUtil.toSimpleName( targetAnnotationName ) + " defined by method " +
+                                       targetElement.getSimpleName(), sourceMethod );
   }
 
   void analyzeCandidateMethods( @Nonnull final List<ExecutableElement> methods,
@@ -1047,27 +1080,48 @@ final class ComponentDescriptor
   {
     verifyNoDuplicateAnnotations( method );
 
-    final Action action = method.getAnnotation( Action.class );
-    final Autorun autorun = method.getAnnotation( Autorun.class );
-    final Observable observable = method.getAnnotation( Observable.class );
-    final ObservableRef observableRef = method.getAnnotation( ObservableRef.class );
-    final Computed computed = method.getAnnotation( Computed.class );
-    final ComputedValueRef computedValueRef = method.getAnnotation( ComputedValueRef.class );
-    final ContextRef contextRef = method.getAnnotation( ContextRef.class );
-    final ComponentRef componentRef = method.getAnnotation( ComponentRef.class );
-    final ComponentId componentId = method.getAnnotation( ComponentId.class );
-    final ComponentTypeName componentTypeName = method.getAnnotation( ComponentTypeName.class );
-    final ComponentName componentName = method.getAnnotation( ComponentName.class );
-    final PostConstruct postConstruct = method.getAnnotation( PostConstruct.class );
-    final PreDispose preDispose = method.getAnnotation( PreDispose.class );
-    final PostDispose postDispose = method.getAnnotation( PostDispose.class );
-    final OnActivate onActivate = method.getAnnotation( OnActivate.class );
-    final OnDeactivate onDeactivate = method.getAnnotation( OnDeactivate.class );
-    final OnStale onStale = method.getAnnotation( OnStale.class );
-    final OnDispose onDispose = method.getAnnotation( OnDispose.class );
-    final Track track = method.getAnnotation( Track.class );
-    final OnDepsChanged onDepsChanged = method.getAnnotation( OnDepsChanged.class );
-    final ObserverRef observerRef = method.getAnnotation( ObserverRef.class );
+    final AnnotationMirror action =
+      ProcessorUtil.findAnnotationByType( method, Constants.ACTION_ANNOTATION_CLASSNAME );
+    final AnnotationMirror autorun =
+      ProcessorUtil.findAnnotationByType( method, Constants.AUTORUN_ANNOTATION_CLASSNAME );
+    final AnnotationMirror observable =
+      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
+    final AnnotationMirror observableRef =
+      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME );
+    final AnnotationMirror computed =
+      ProcessorUtil.findAnnotationByType( method, Constants.COMPUTED_ANNOTATION_CLASSNAME );
+    final AnnotationMirror computedValueRef =
+      ProcessorUtil.findAnnotationByType( method, Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME );
+    final AnnotationMirror contextRef =
+      ProcessorUtil.findAnnotationByType( method, Constants.CONTEXT_REF_ANNOTATION_CLASSNAME );
+    final AnnotationMirror componentRef =
+      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_REF_ANNOTATION_CLASSNAME );
+    final AnnotationMirror componentId =
+      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_ID_ANNOTATION_CLASSNAME );
+    final AnnotationMirror componentTypeName =
+      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_TYPE_NAME_ANNOTATION_CLASSNAME );
+    final AnnotationMirror componentName =
+      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_NAME_ANNOTATION_CLASSNAME );
+    final AnnotationMirror postConstruct =
+      ProcessorUtil.findAnnotationByType( method, Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME );
+    final AnnotationMirror preDispose =
+      ProcessorUtil.findAnnotationByType( method, Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME );
+    final AnnotationMirror postDispose =
+      ProcessorUtil.findAnnotationByType( method, Constants.POST_DISPOSE_ANNOTATION_CLASSNAME );
+    final AnnotationMirror onActivate =
+      ProcessorUtil.findAnnotationByType( method, Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME );
+    final AnnotationMirror onDeactivate =
+      ProcessorUtil.findAnnotationByType( method, Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME );
+    final AnnotationMirror onStale =
+      ProcessorUtil.findAnnotationByType( method, Constants.ON_STALE_ANNOTATION_CLASSNAME );
+    final AnnotationMirror onDispose =
+      ProcessorUtil.findAnnotationByType( method, Constants.ON_DISPOSE_ANNOTATION_CLASSNAME );
+    final AnnotationMirror track =
+      ProcessorUtil.findAnnotationByType( method, Constants.TRACK_ANNOTATION_CLASSNAME );
+    final AnnotationMirror onDepsChanged =
+      ProcessorUtil.findAnnotationByType( method, Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME );
+    final AnnotationMirror observerRef =
+      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVER_REF_ANNOTATION_CLASSNAME );
 
     if ( null != observable )
     {
@@ -1183,41 +1237,43 @@ final class ComponentDescriptor
   private void verifyNoDuplicateAnnotations( @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    @SuppressWarnings( "unchecked" )
-    final Class<? extends Annotation>[] annotationTypes =
-      new Class[]{ Action.class,
-                   Autorun.class,
-                   Track.class,
-                   OnDepsChanged.class,
-                   ObserverRef.class,
-                   Observable.class,
-                   ObservableRef.class,
-                   Computed.class,
-                   ComputedValueRef.class,
-                   ComponentRef.class,
-                   ComponentId.class,
-                   ComponentName.class,
-                   ComponentTypeName.class,
-                   PostConstruct.class,
-                   PreDispose.class,
-                   PostDispose.class,
-                   OnActivate.class,
-                   OnDeactivate.class,
-                   OnStale.class };
+    final String[] annotationTypes =
+      new String[]{ Constants.ACTION_ANNOTATION_CLASSNAME,
+                    Constants.AUTORUN_ANNOTATION_CLASSNAME,
+                    Constants.TRACK_ANNOTATION_CLASSNAME,
+                    Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME,
+                    Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
+                    Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
+                    Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME,
+                    Constants.COMPUTED_ANNOTATION_CLASSNAME,
+                    Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME,
+                    Constants.COMPONENT_REF_ANNOTATION_CLASSNAME,
+                    Constants.COMPONENT_ID_ANNOTATION_CLASSNAME,
+                    Constants.COMPONENT_NAME_ANNOTATION_CLASSNAME,
+                    Constants.COMPONENT_TYPE_NAME_ANNOTATION_CLASSNAME,
+                    Constants.CONTEXT_REF_ANNOTATION_CLASSNAME,
+                    Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME,
+                    Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME,
+                    Constants.POST_DISPOSE_ANNOTATION_CLASSNAME,
+                    Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME,
+                    Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
+                    Constants.ON_DISPOSE_ANNOTATION_CLASSNAME,
+                    Constants.ON_STALE_ANNOTATION_CLASSNAME };
     for ( int i = 0; i < annotationTypes.length; i++ )
     {
-      final Class<? extends Annotation> type1 = annotationTypes[ i ];
-      final Object annotation1 = method.getAnnotation( type1 );
+      final String type1 = annotationTypes[ i ];
+      final Object annotation1 = ProcessorUtil.findAnnotationByType( method, type1 );
       if ( null != annotation1 )
       {
         for ( int j = i + 1; j < annotationTypes.length; j++ )
         {
-          final Class<? extends Annotation> type2 = annotationTypes[ j ];
-          final Object annotation2 = method.getAnnotation( type2 );
+          final String type2 = annotationTypes[ j ];
+          final Object annotation2 = ProcessorUtil.findAnnotationByType( method, type2 );
           if ( null != annotation2 )
           {
             final String message =
-              "Method can not be annotated with both @" + type1.getSimpleName() + " and @" + type2.getSimpleName();
+              "Method can not be annotated with both @" + ProcessorUtil.toSimpleName( type1 ) +
+              " and @" + ProcessorUtil.toSimpleName( type2 );
             throw new ArezProcessorException( message, method );
           }
         }
@@ -2021,7 +2077,7 @@ final class ComponentDescriptor
     builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
       addMember( "value", "$S", ArezProcessor.class.getName() ).
       build() );
-    builder.addAnnotation( AnnotationSpec.builder( ArezComponent.class ).
+    builder.addAnnotation( AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_ANNOTATION_CLASSNAME ) ).
       addMember( "nameIncludesId", "false" ).
       build() );
 
@@ -2105,7 +2161,8 @@ final class ComponentDescriptor
   {
     return MethodSpec.methodBuilder( "entities" ).
       addModifiers( Modifier.PROTECTED ).
-      addAnnotation( AnnotationSpec.builder( Observable.class ).addMember( "expectSetter", "false" ).build() ).
+      addAnnotation( AnnotationSpec.builder( ClassName.bestGuess( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) ).
+        addMember( "expectSetter", "false" ).build() ).
       addJavadoc( "Return the raw collection of entities in the repository.\n" +
                   "This collection should not be exposed to the user but may be used be repository extensions when\n" +
                   "they define custom queries. NOTE: use of this method marks the list as observed.\n" ).
@@ -2266,7 +2323,7 @@ final class ComponentDescriptor
   {
     final MethodSpec.Builder method =
       MethodSpec.methodBuilder( GET_OBSERVABLE_METHOD ).
-        addAnnotation( ObservableRef.class ).
+        addAnnotation( ClassName.bestGuess( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME ) ).
         returns( GeneratorUtil.OBSERVABLE_CLASSNAME );
     method.addStatement( "throw new $T()", IllegalStateException.class );
     return method.build();
@@ -2303,7 +2360,7 @@ final class ComponentDescriptor
     final MethodSpec.Builder method =
       MethodSpec.methodBuilder( "destroy" ).
         addModifiers( Modifier.PUBLIC ).
-        addAnnotation( Action.class ).
+        addAnnotation( ClassName.bestGuess( Constants.ACTION_ANNOTATION_CLASSNAME ) ).
         addParameter( ParameterSpec.builder( TypeName.get( getElement().asType() ), "entity", Modifier.FINAL ).
           addAnnotation( Nonnull.class ).build() );
     method.addStatement( "assert null != entity" );
@@ -2338,7 +2395,7 @@ final class ComponentDescriptor
   {
     return MethodSpec.methodBuilder( "preDispose" ).
       addModifiers( Modifier.FINAL ).
-      addAnnotation( PreDispose.class ).
+      addAnnotation( ClassName.bestGuess( Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME ) ).
       addStatement( "this.$N.forEach( e -> $T.dispose( e ) )",
                     ENTITYLIST_FIELD_NAME,
                     GeneratorUtil.DISPOSABLE_CLASSNAME ).
@@ -2399,7 +2456,8 @@ final class ComponentDescriptor
       map( p -> p.getSimpleName().toString() ).collect( Collectors.joining( "_" ) );
     final String actionName = "create" + ( suffix.isEmpty() ? "" : "_" + suffix );
     final AnnotationSpec annotationSpec =
-      AnnotationSpec.builder( Action.class ).addMember( "name", "$S", actionName ).build();
+      AnnotationSpec.builder( ClassName.bestGuess( Constants.ACTION_ANNOTATION_CLASSNAME ) ).
+        addMember( "name", "$S", actionName ).build();
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "create" ).
         addAnnotation( annotationSpec ).
@@ -2505,5 +2563,14 @@ final class ComponentDescriptor
     return null == _componentId ?
            TypeName.LONG :
            TypeName.get( _componentId.getReturnType() );
+  }
+
+  @SuppressWarnings( "unchecked" )
+  private <T> T getAnnotationParameter( @Nonnull final AnnotationMirror annotation,
+                                        @Nonnull final String parameterName )
+  {
+    return (T) ProcessorUtil.getAnnotationValue( _elements,
+                                                 annotation,
+                                                 parameterName ).getValue();
   }
 }

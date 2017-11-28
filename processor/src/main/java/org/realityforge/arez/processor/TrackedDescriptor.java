@@ -18,8 +18,6 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import org.realityforge.arez.annotations.OnDepsChanged;
-import org.realityforge.arez.annotations.Track;
 
 /**
  * The class that represents the parsed state of @Track methods on a @ArezComponent annotated class.
@@ -88,7 +86,7 @@ final class TrackedDescriptor
                          @Nonnull final ExecutableElement method,
                          @Nonnull final ExecutableType trackedMethodType )
   {
-    MethodChecks.mustBeOverridable( Track.class, method );
+    MethodChecks.mustBeOverridable( Constants.TRACK_ANNOTATION_CLASSNAME, method );
     if ( null != _trackedMethod )
     {
       throw new ArezProcessorException( "@Track target duplicates existing method named " +
@@ -106,7 +104,7 @@ final class TrackedDescriptor
 
   void setOnDepsChangedMethod( @Nonnull final ExecutableElement method )
   {
-    MethodChecks.mustBeLifecycleHook( OnDepsChanged.class, method );
+    MethodChecks.mustBeLifecycleHook( Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME, method );
     if ( null != _onDepsChangedMethod )
     {
       throw new ArezProcessorException( "@OnDepsChanged target duplicates existing method named " +

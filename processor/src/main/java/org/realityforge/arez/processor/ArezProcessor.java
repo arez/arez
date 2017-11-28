@@ -16,6 +16,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
@@ -24,8 +25,6 @@ import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Repository;
 import static javax.tools.Diagnostic.Kind.*;
 
 /**
@@ -44,7 +43,9 @@ public final class ArezProcessor
   @Override
   public boolean process( final Set<? extends TypeElement> annotations, final RoundEnvironment env )
   {
-    final Set<? extends Element> elements = env.getElementsAnnotatedWith( ArezComponent.class );
+    final TypeElement annotation =
+      processingEnv.getElementUtils().getTypeElement( Constants.COMPONENT_ANNOTATION_CLASSNAME );
+    final Set<? extends Element> elements = env.getElementsAnnotatedWith( annotation );
     processElements( elements );
     return false;
   }
@@ -123,11 +124,14 @@ public final class ArezProcessor
     {
       throw new ArezProcessorException( "@ArezComponent target must not be a non-static nested class", typeElement );
     }
-    final ArezComponent arezComponent = typeElement.getAnnotation( ArezComponent.class );
+    final AnnotationMirror arezComponent =
+      ProcessorUtil.getAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
+    final String declaredType = getAnnotationParameter( arezComponent, "type" );
+    final boolean nameIncludesId = getAnnotationParameter( arezComponent, "nameIncludesId" );
+    final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
+
     final String type =
-      ProcessorUtil.isSentinelName( arezComponent.type() ) ?
-      typeElement.getSimpleName().toString() :
-      arezComponent.type();
+      ProcessorUtil.isSentinelName( declaredType ) ? typeElement.getSimpleName().toString() : declaredType;
 
     if ( !ProcessorUtil.isJavaIdentifier( type ) )
     {
@@ -143,9 +147,10 @@ public final class ArezProcessor
                             getPackageOf( m.getEnclosingElement() ).getQualifiedName().toString() ) ) );
 
     final ComponentDescriptor descriptor =
-      new ComponentDescriptor( type,
-                               arezComponent.nameIncludesId(),
-                               arezComponent.allowEmpty(),
+      new ComponentDescriptor( processingEnv.getElementUtils(),
+                               type,
+                               nameIncludesId,
+                               allowEmpty,
                                generateToString,
                                packageElement,
                                typeElement );
@@ -168,17 +173,32 @@ public final class ArezProcessor
       }
     }
 
-    final Repository repository = typeElement.getAnnotation( Repository.class );
+    final AnnotationMirror repository =
+      ProcessorUtil.findAnnotationByType( typeElement, Constants.REPOSITORY_ANNOTATION_CLASSNAME );
     if ( null != repository )
     {
       final List<TypeElement> extensions =
-        ProcessorUtil.getTypeMirrorsAnnotationParameter( typeElement, "extensions", Repository.class ).stream().
+        ProcessorUtil.getTypeMirrorsAnnotationParameter( processingEnv.getElementUtils(),
+                                                         typeElement,
+                                                         Constants.REPOSITORY_ANNOTATION_CLASSNAME,
+                                                         "extensions" ).stream().
           map( typeMirror -> (TypeElement) processingEnv.getTypeUtils().asElement( typeMirror ) ).
           collect( Collectors.toList() );
-      descriptor.configureRepository( repository.name(), extensions, repository.dagger() );
+      final String name = getAnnotationParameter( repository, "name" );
+      final boolean dagger = getAnnotationParameter( repository, "dagger" );
+      descriptor.configureRepository( name, extensions, dagger );
     }
 
     return descriptor;
+  }
+
+  @SuppressWarnings( "unchecked" )
+  private <T> T getAnnotationParameter( @Nonnull final AnnotationMirror annotation,
+                                        @Nonnull final String parameterName )
+  {
+    return (T) ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
+                                                 annotation,
+                                                 parameterName ).getValue();
   }
 
   private void emitTypeSpec( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )

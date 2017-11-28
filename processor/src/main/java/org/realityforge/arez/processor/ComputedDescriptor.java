@@ -15,12 +15,6 @@ import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.type.ExecutableType;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.ComputedValueRef;
-import org.realityforge.arez.annotations.OnActivate;
-import org.realityforge.arez.annotations.OnDeactivate;
-import org.realityforge.arez.annotations.OnDispose;
-import org.realityforge.arez.annotations.OnStale;
 
 /**
  * The class that represents the parsed state of @Computed methods on a @ArezComponent annotated class.
@@ -82,10 +76,10 @@ final class ComputedDescriptor
   {
     //The caller already verified that no duplicate computed have been defined
     assert null == _computed;
-    MethodChecks.mustBeOverridable( Computed.class, computed );
-    MethodChecks.mustNotHaveAnyParameters( Computed.class, computed );
-    MethodChecks.mustReturnAValue( Computed.class, computed );
-    MethodChecks.mustNotThrowAnyExceptions( Computed.class, computed );
+    MethodChecks.mustBeOverridable( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
+    MethodChecks.mustReturnAValue( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
 
     _computed = Objects.requireNonNull( computed );
     _computedType = Objects.requireNonNull( computedType );
@@ -94,9 +88,9 @@ final class ComputedDescriptor
   void setRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeSubclassCallable( ComputedValueRef.class, method );
-    MethodChecks.mustNotHaveAnyParameters( ComputedValueRef.class, method );
-    MethodChecks.mustNotThrowAnyExceptions( ComputedValueRef.class, method );
+    MethodChecks.mustBeSubclassCallable( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
 
     if ( null != _refMethod )
     {
@@ -113,7 +107,7 @@ final class ComputedDescriptor
   void setOnActivate( @Nonnull final ExecutableElement onActivate )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( OnActivate.class, onActivate );
+    MethodChecks.mustBeLifecycleHook( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, onActivate );
 
     if ( null != _onActivate )
     {
@@ -129,7 +123,7 @@ final class ComputedDescriptor
   void setOnDeactivate( @Nonnull final ExecutableElement onDeactivate )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( OnDeactivate.class, onDeactivate );
+    MethodChecks.mustBeLifecycleHook( Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME, onDeactivate );
     if ( null != _onDeactivate )
     {
       throw new ArezProcessorException( "@OnDeactivate target duplicates existing method named " +
@@ -145,7 +139,7 @@ final class ComputedDescriptor
   void setOnStale( @Nonnull final ExecutableElement onStale )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( OnStale.class, onStale );
+    MethodChecks.mustBeLifecycleHook( Constants.ON_STALE_ANNOTATION_CLASSNAME, onStale );
     if ( null != _onStale )
     {
       throw new ArezProcessorException( "@OnStale target duplicates existing method named " +
@@ -161,7 +155,7 @@ final class ComputedDescriptor
   void setOnDispose( @Nonnull final ExecutableElement onDispose )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( OnDispose.class, onDispose );
+    MethodChecks.mustBeLifecycleHook( Constants.ON_DISPOSE_ANNOTATION_CLASSNAME, onDispose );
 
     if ( null != _onDispose )
     {
