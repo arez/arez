@@ -174,7 +174,7 @@ public interface Spy
   /**
    * Return the list of dependencies of the Observer.
    * The list is an immutable copy of the dependencies of the {@link Observer}.
-   * If the {@link Observer} is currently runnning (i.e. {@link #isRunning(Observer)}
+   * If the {@link Observer} is currently running (i.e. {@link #isRunning(Observer)}
    * returns true) then the dependencies are provisional and may be added to as transaction
    * completes.
    *
