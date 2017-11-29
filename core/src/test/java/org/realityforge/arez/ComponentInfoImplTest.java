@@ -46,11 +46,9 @@ public class ComponentInfoImplTest
     assertEquals( info.getComputedValues().contains( computedValue ), true );
     assertUnmodifiable( info.getComputedValues() );
 
-    assertFalse( Disposable.isDisposed( info ) );
-    assertFalse( Disposable.isDisposed( component ) );
+    assertFalse( info.isDisposed() );
     component.dispose();
-    assertTrue( Disposable.isDisposed( info ) );
-    assertTrue( Disposable.isDisposed( component ) );
+    assertTrue( info.isDisposed() );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> collection )
