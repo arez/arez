@@ -194,8 +194,8 @@ define 'arez' do
           artifact.invoke
           ant.taskdef :name => 'shade', :classname => 'org.realityforge.ant.shade.Shade', :classpath => artifact.to_s
           ant.shade :jar => f.to_s, :uberJar => shaded_jar do
-            ant.relocation :pattern => 'com.squareup.javapoet', :shadedPattern => 'react4j.processor.vendor.javapoet'
-            ant.relocation :pattern => 'com.google', :shadedPattern => 'react4j.processor.vendor.google'
+            ant.relocation :pattern => 'com.squareup.javapoet', :shadedPattern => 'org.realityforge.arez.processor.vendor.javapoet'
+            ant.relocation :pattern => 'com.google', :shadedPattern => 'org.realityforge.arez.processor.vendor.google'
           end
         end
         FileUtils.mv shaded_jar, f.to_s
