@@ -29,7 +29,6 @@ public class ComponentInfoImplTest
 
     final ComponentInfoImpl info = new ComponentInfoImpl( component );
 
-    assertEquals( component.getContext(), context );
     assertEquals( info.getType(), type );
     assertEquals( info.getId(), id );
     assertEquals( info.getName(), name );
