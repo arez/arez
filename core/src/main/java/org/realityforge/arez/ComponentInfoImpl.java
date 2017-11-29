@@ -101,4 +101,34 @@ final class ComponentInfoImpl
   {
     return _component.toString();
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean equals( final Object o )
+  {
+    if ( this == o )
+    {
+      return true;
+    }
+    else if ( o == null || getClass() != o.getClass() )
+    {
+      return false;
+    }
+    else
+    {
+      final ComponentInfoImpl that = (ComponentInfoImpl) o;
+      return _component.equals( that._component );
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int hashCode()
+  {
+    return _component.hashCode();
+  }
 }

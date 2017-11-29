@@ -51,6 +51,37 @@ public class ComponentInfoImplTest
     assertTrue( info.isDisposed() );
   }
 
+  @SuppressWarnings( "EqualsWithItself" )
+  @Test
+  public void equalsAndHashCode()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Component component1 = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
+    final Component component2 = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
+
+    final ComponentInfoImpl info1a = new ComponentInfoImpl( context.getSpy(), component1 );
+    final ComponentInfoImpl info1b = new ComponentInfoImpl( context.getSpy(), component1 );
+    final ComponentInfoImpl info2 = new ComponentInfoImpl( context.getSpy(), component2 );
+
+    assertEquals( info1a.equals( info1a ), true );
+    assertEquals( info1a.equals( info1b ), true );
+    assertEquals( info1a.equals( info2 ), false );
+
+    assertEquals( info1b.equals( info1a ), true );
+    assertEquals( info1b.equals( info1b ), true );
+    assertEquals( info1b.equals( info2 ), false );
+
+    assertEquals( info2.equals( info1a ), false );
+    assertEquals( info2.equals( info1b ), false );
+    assertEquals( info2.equals( info2 ), true );
+
+    assertEquals( info1a.hashCode(), component1.hashCode() );
+    assertEquals( info1a.hashCode(), info1b.hashCode() );
+    assertEquals( info2.hashCode(), component2.hashCode() );
+  }
+
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> collection )
   {
     assertThrows( UnsupportedOperationException.class, () -> collection.remove( collection.iterator().next() ) );
