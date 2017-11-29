@@ -99,7 +99,7 @@ and publish to GitHub we have been forced to use this strategy.
 
     $ (cd .. && tar cvf secrets.tar release.asc deploy)
     $ mkdir etc
-    $ travis encrypt-file ../secrets.tar etc/secrets
+    $ travis encrypt-file ../secrets.tar etc/secrets --add
     $ git add etc/secrets
 
 Then update the travis configuration file as specified by `travis encrypt-file` command and unpack the archive.
