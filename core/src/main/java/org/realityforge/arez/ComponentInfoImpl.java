@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ObserverInfo;
 
 /**
  * A implementation of {@link ComponentInfo} that proxies to a {@link Component}.
@@ -13,16 +14,16 @@ import org.realityforge.arez.spy.ComponentInfo;
 final class ComponentInfoImpl
   implements ComponentInfo
 {
+  private final Spy _spy;
   private final Component _component;
   private final List<Observable<?>> _observables;
-  private final List<Observer> _observers;
   private final List<ComputedValue<?>> _computedValues;
 
-  ComponentInfoImpl( @Nonnull final Component component )
+  ComponentInfoImpl( @Nonnull final Spy spy, @Nonnull final Component component )
   {
+    _spy = Objects.requireNonNull( spy );
     _component = Objects.requireNonNull( component );
     _observables = Collections.unmodifiableList( _component.getObservables() );
-    _observers = Collections.unmodifiableList( _component.getObservers() );
     _computedValues = Collections.unmodifiableList( _component.getComputedValues() );
   }
 
@@ -69,9 +70,9 @@ final class ComponentInfoImpl
    * {@inheritDoc}
    */
   @Override
-  public Collection<Observer> getObservers()
+  public Collection<ObserverInfo> getObservers()
   {
-    return _observers;
+    return ObserverInfoImpl.asUnmodifiableInfos( _spy, _component.getObservers() );
   }
 
   /**

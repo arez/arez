@@ -94,8 +94,7 @@ console.table(languages);
   that should never be present in compiled output if `areNamesEnabled` is false. Package Y should no be present
   in compiled output unless `areSpiesEnabled` is true etc.
 
-* Should the Spy have direct access to the `Observable`, `ComputedValue` and `Observer` value or should it be
-  abstracted by another info primitive?
+* The SPy should abstract the `Observable` and `ComputedValue` classes behind an Info interface.
 
 ## Process
 

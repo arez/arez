@@ -2,7 +2,6 @@ package org.realityforge.arez.spy;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.arez.Observer;
 
 /**
  * Spy interface into transaction data.
@@ -48,5 +47,5 @@ public interface TransactionInfo
    * @return the Observer that is tracker for this transaction.
    */
   @Nonnull
-  Observer getTracker();
+  ObserverInfo getTracker();
 }

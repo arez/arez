@@ -145,9 +145,11 @@ final class Transaction
     if ( context.willPropagateSpyEvents() )
     {
       assert null != name;
+      final ObserverInfoImpl trackerInfo =
+        null != tracker ? new ObserverInfoImpl( c_transaction.getContext().getSpy(), tracker ) : null;
       final boolean mutation =
         !ArezConfig.enforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
-      context.getSpy().reportSpyEvent( new TransactionStartedEvent( name, mutation, tracker ) );
+      context.getSpy().reportSpyEvent( new TransactionStartedEvent( name, mutation, trackerInfo ) );
     }
     return c_transaction;
   }
@@ -176,9 +178,11 @@ final class Transaction
       final boolean mutation =
         !ArezConfig.enforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
       final Observer tracker = c_transaction.getTracker();
+      final ObserverInfoImpl trackerInfo =
+        null != tracker ? new ObserverInfoImpl( c_transaction.getContext().getSpy(), tracker ) : null;
       final long duration = System.currentTimeMillis() - c_transaction.getStartedAt();
       c_transaction.getContext().getSpy().
-        reportSpyEvent( new TransactionCompletedEvent( name, mutation, tracker, duration ) );
+        reportSpyEvent( new TransactionCompletedEvent( name, mutation, trackerInfo, duration ) );
     }
     final Transaction previousInSameContext =
       Arez.areZonesEnabled() ? c_transaction.getPreviousInSameContext() : c_transaction.getPrevious();

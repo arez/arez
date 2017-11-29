@@ -8,6 +8,7 @@ import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.ComputedValue;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.Observer;
+import org.realityforge.arez.spy.ObserverInfo;
 import org.realityforge.arez.spy.TransactionInfo;
 
 @Unsupported( "This class relies on unsupported Spy API and will co-evolve with Spy capabilities." )
@@ -57,11 +58,11 @@ public final class WhyRun
    */
   @Unsupported( "Expect the output format to change and evolve over time as Spy capabilities improve." )
   @Nonnull
-  public String whyRun( @Nonnull final ArezContext context, @Nonnull final Observer observer )
+  public String whyRun( @Nonnull final ArezContext context, @Nonnull final ObserverInfo observer )
   {
-    if ( context.getSpy().isComputedValue( observer ) )
+    if ( observer.isComputedValue() )
     {
-      return whyRun( context, context.getSpy().asComputedValue( observer ) );
+      return whyRun( context, observer.asComputedValue() );
     }
     else
     {
@@ -76,9 +77,9 @@ public final class WhyRun
    * @return the status description.
    */
   @Nonnull
-  final String describeStatus( @Nonnull final ArezContext context, @Nonnull final Observer observer )
+  final String describeStatus( @Nonnull final ArezContext context, @Nonnull final ObserverInfo observer )
   {
-    final boolean running = context.getSpy().isRunning( observer );
+    final boolean running = observer.isRunning();
     if ( running )
     {
       final TransactionInfo transaction = context.getSpy().getTransaction();
@@ -95,7 +96,7 @@ public final class WhyRun
     {
       return "Disposed";
     }
-    else if ( context.getSpy().isScheduled( observer ) )
+    else if ( observer.isScheduled() )
     {
       return "Scheduled";
     }
@@ -106,7 +107,7 @@ public final class WhyRun
   }
 
   @Nonnull
-  private String whyRunObserver( @Nonnull final ArezContext context, @Nonnull final Observer observer )
+  private String whyRunObserver( @Nonnull final ArezContext context, @Nonnull final ObserverInfo observer )
   {
     final StringBuilder sb = new StringBuilder();
     sb.append( "WhyRun? Observer '" );
@@ -116,16 +117,16 @@ public final class WhyRun
     sb.append( describeStatus( context, observer ) );
     sb.append( "\n" );
     sb.append( "  Mode: " );
-    sb.append( context.getSpy().isReadOnly( observer ) ? "read only" : "read-write" );
+    sb.append( observer.isReadOnly() ? "read only" : "read-write" );
     sb.append( "\n" );
     sb.append( "  * The Observer will run if any of the following observables change:\n" );
-    for ( final Observable observable : context.getSpy().getDependencies( observer ) )
+    for ( final Observable observable : observer.getDependencies() )
     {
       sb.append( "    - " );
       describeObservable( sb, context, observable );
       sb.append( "\n" );
     }
-    if ( context.getSpy().isRunning( observer ) )
+    if ( observer.isRunning() )
     {
       sb.append( "    -  (... or any other observable that is accessed in the remainder of the observers transaction)\n" );
     }

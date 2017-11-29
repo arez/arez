@@ -3,6 +3,7 @@ package org.realityforge.arez;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.realityforge.arez.spy.ObserverInfo;
 import org.realityforge.arez.spy.TransactionInfo;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -12,13 +13,15 @@ import static org.realityforge.braincheck.Guards.*;
 final class TransactionInfoImpl
   implements TransactionInfo
 {
+  private final Spy _spy;
   @Nonnull
   private final Transaction _transaction;
   @Nullable
   private TransactionInfo _parent;
 
-  TransactionInfoImpl( @Nonnull final Transaction transaction )
+  TransactionInfoImpl( @Nonnull final Spy spy, @Nonnull final Transaction transaction )
   {
+    _spy = Objects.requireNonNull( spy );
     _transaction = Objects.requireNonNull( transaction );
   }
 
@@ -57,7 +60,7 @@ final class TransactionInfoImpl
       final Transaction previous = getTransaction().getPrevious();
       if ( null != previous )
       {
-        _parent = new TransactionInfoImpl( previous );
+        _parent = new TransactionInfoImpl( _spy, previous );
         return _parent;
       }
       else
@@ -81,13 +84,13 @@ final class TransactionInfoImpl
    */
   @Nonnull
   @Override
-  public Observer getTracker()
+  public ObserverInfo getTracker()
   {
     final Observer tracker = getTransaction().getTracker();
     apiInvariant( () -> null != tracker,
                   () -> "Invoked getTracker on TransactionInfo named '" + getName() + "' but no tracker exists." );
     assert null != tracker;
-    return tracker;
+    return new ObserverInfoImpl( _spy, tracker );
   }
 
   @Nonnull

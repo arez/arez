@@ -3,7 +3,6 @@ package org.realityforge.arez.extras.spy;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.Arez;
 import org.realityforge.arez.extras.AbstractArezExtrasTest;
 import org.realityforge.arez.spy.ObserverCreatedEvent;
 import org.realityforge.arez.spy.TransactionCompletedEvent;
@@ -125,8 +124,8 @@ public class SpyEventProcessorTest
     throws Throwable
   {
     final TestSpyEventProcessor processor = new TestSpyEventProcessor();
-    final ObserverCreatedEvent event =
-      new ObserverCreatedEvent( Arez.context().tracker( Thread::yield ) );
+
+    final ObserverCreatedEvent event = new ObserverCreatedEvent( new NullObserverInfo() );
 
     final AtomicInteger handleCallCount = new AtomicInteger();
     final BiConsumer<SpyUtil.NestingDelta, ObserverCreatedEvent> handler =

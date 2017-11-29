@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ObserverInfo;
 import org.realityforge.arez.spy.TransactionInfo;
 
 /**
@@ -135,6 +136,7 @@ public interface Spy
    *
    * @param observer the Observer.
    * @return true if the Observer is currently running.
+   * @see org.realityforge.arez.spy.ObserverInfo#isRunning()
    */
   boolean isRunning( @Nonnull Observer observer );
 
@@ -143,6 +145,7 @@ public interface Spy
    *
    * @param observer the Observer.
    * @return true if the Observer is scheduled to run.
+   * @see org.realityforge.arez.spy.ObserverInfo#isScheduled()
    */
   boolean isScheduled( @Nonnull Observer observer );
 
@@ -151,6 +154,7 @@ public interface Spy
    *
    * @param observer the Observer.
    * @return true if the Observer is a ComputedValue.
+   * @see org.realityforge.arez.spy.ObserverInfo#isComputedValue()
    */
   boolean isComputedValue( @Nonnull Observer observer );
 
@@ -159,6 +163,7 @@ public interface Spy
    *
    * @param observer the Observer.
    * @return true if the Observer will use a read-only transaction.
+   * @see org.realityforge.arez.spy.ObserverInfo#isReadOnly()
    */
   boolean isReadOnly( @Nonnull Observer observer );
 
@@ -168,6 +173,7 @@ public interface Spy
    *
    * @param observer the Observer.
    * @return the ComputedValue instance.
+   * @see org.realityforge.arez.spy.ObserverInfo#asComputedValue()
    */
   ComputedValue<?> asComputedValue( @Nonnull Observer observer );
 
@@ -180,6 +186,7 @@ public interface Spy
    *
    * @param observer the Observer.
    * @return the list of dependencies for the Observer.
+   * @see org.realityforge.arez.spy.ObserverInfo#getDependencies()
    */
   @Nonnull
   List<Observable<?>> getDependencies( @Nonnull Observer observer );
@@ -200,6 +207,7 @@ public interface Spy
    *
    * @param observer the Observer.
    * @return the component that contains Observer if any.
+   * @see org.realityforge.arez.spy.ObserverInfo#getComponent()
    */
   @Nullable
   ComponentInfo getComponent( @Nonnull Observer observer );
@@ -262,7 +270,7 @@ public interface Spy
    * @return the collection of observers not contained by a native component.
    */
   @Nonnull
-  Collection<Observer> findAllTopLevelObservers();
+  Collection<ObserverInfo> findAllTopLevelObservers();
 
   /**
    * Find all the collection of computed values not contained by a native component.

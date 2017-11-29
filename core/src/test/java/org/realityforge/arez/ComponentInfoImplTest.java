@@ -27,7 +27,7 @@ public class ComponentInfoImplTest
     component.addObservable( observable );
     component.addComputedValue( computedValue );
 
-    final ComponentInfoImpl info = new ComponentInfoImpl( component );
+    final ComponentInfoImpl info = new ComponentInfoImpl( context.getSpy(), component );
 
     assertEquals( info.getType(), type );
     assertEquals( info.getId(), id );
@@ -39,7 +39,7 @@ public class ComponentInfoImplTest
     assertUnmodifiable( info.getObservables() );
 
     assertEquals( info.getObservers().size(), 1 );
-    assertEquals( info.getObservers().contains( observer ), true );
+    assertEquals( info.getObservers().iterator().next().getName(), observer.getName() );
     assertUnmodifiable( info.getObservers() );
 
     assertEquals( info.getComputedValues().size(), 1 );

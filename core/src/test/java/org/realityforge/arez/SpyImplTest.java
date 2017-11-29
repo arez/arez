@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ObserverInfo;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -851,9 +852,9 @@ public class SpyImplTest
 
     final Spy spy = context.getSpy();
 
-    final Collection<Observer> values = spy.findAllTopLevelObservers();
+    final Collection<ObserverInfo> values = spy.findAllTopLevelObservers();
     assertEquals( values.size(), 1 );
-    assertEquals( values.contains( observer ), true );
+    assertEquals( values.iterator().next().getName(), observer.getName() );
     assertUnmodifiable( values );
   }
 

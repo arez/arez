@@ -16,7 +16,7 @@ public class TransactionInfoImplTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    final TransactionInfoImpl info = new TransactionInfoImpl( transaction );
+    final TransactionInfoImpl info = new TransactionInfoImpl( context.getSpy(), transaction );
 
     assertEquals( info.getName(), transaction.getName() );
     assertEquals( info.getParent(), null );
@@ -32,8 +32,7 @@ public class TransactionInfoImplTest
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    final TransactionInfoImpl info =
-      new TransactionInfoImpl( transaction );
+    final TransactionInfoImpl info = new TransactionInfoImpl( context.getSpy(), transaction );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, info::getTracker );
 
@@ -52,13 +51,13 @@ public class TransactionInfoImplTest
     final Observer observer = newDerivation( context );
     final Transaction transaction =
       new Transaction( context, null, observer.getName(), observer.getMode(), observer );
-    final TransactionInfoImpl info = new TransactionInfoImpl( transaction );
+    final TransactionInfoImpl info = new TransactionInfoImpl( context.getSpy(), transaction );
 
     assertEquals( info.getName(), transaction.getName() );
     assertEquals( info.getParent(), null );
     assertEquals( info.isReadOnly(), true );
     assertEquals( info.isTracking(), true );
-    assertEquals( info.getTracker(), observer );
+    assertEquals( info.getTracker().getName(), observer.getName() );
   }
 
   @Test
@@ -74,7 +73,7 @@ public class TransactionInfoImplTest
       new Transaction( context, null, observer1.getName(), TransactionMode.READ_ONLY, observer1 );
     final Transaction transaction2 =
       new Transaction( context, transaction1, observer2.getName(), TransactionMode.READ_ONLY, observer2 );
-    final TransactionInfoImpl info = new TransactionInfoImpl( transaction2 );
+    final TransactionInfoImpl info = new TransactionInfoImpl( context.getSpy(), transaction2 );
 
     assertEquals( info.getName(), transaction2.getName() );
     final TransactionInfo parent = info.getParent();

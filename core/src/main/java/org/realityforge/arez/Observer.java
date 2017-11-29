@@ -205,7 +205,7 @@ public final class Observer
       {
         if ( willPropagateSpyEvents() )
         {
-          reportSpyEvent( new ObserverDisposedEvent( this ) );
+          reportSpyEvent( new ObserverDisposedEvent( new ObserverInfoImpl( getContext().getSpy(), this ) ) );
         }
         if ( null != _component )
         {
@@ -525,7 +525,7 @@ public final class Observer
         }
         else
         {
-          reportSpyEvent( new ReactionStartedEvent( this ) );
+          reportSpyEvent( new ReactionStartedEvent( new ObserverInfoImpl( getContext().getSpy(), this ) ) );
         }
       }
       else
@@ -553,7 +553,7 @@ public final class Observer
         }
         else
         {
-          reportSpyEvent( new ReactionCompletedEvent( this, duration ) );
+          reportSpyEvent( new ReactionCompletedEvent( new ObserverInfoImpl( getContext().getSpy(), this ), duration ) );
         }
       }
     }

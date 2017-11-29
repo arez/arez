@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.Observer;
 
 /**
  * Notification when Observer completes reaction.
@@ -15,11 +14,11 @@ public final class ReactionCompletedEvent
   public static final String TYPE_NAME = EventUtil.getName( ReactionCompletedEvent.class );
 
   @Nonnull
-  private final Observer _observer;
+  private final ObserverInfo _observer;
   @Nonnegative
   private final long _duration;
 
-  public ReactionCompletedEvent( @Nonnull final Observer observer, @Nonnegative final long duration )
+  public ReactionCompletedEvent( @Nonnull final ObserverInfo observer, @Nonnegative final long duration )
   {
     assert duration >= 0;
     _observer = Objects.requireNonNull( observer );
@@ -27,7 +26,7 @@ public final class ReactionCompletedEvent
   }
 
   @Nonnull
-  public Observer getObserver()
+  public ObserverInfo getObserver()
   {
     return _observer;
   }

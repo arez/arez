@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.arez.Observer;
 
 /**
  * Notification when Transaction starts.
@@ -18,11 +17,11 @@ public final class TransactionStartedEvent
   private final String _name;
   private final boolean _mutation;
   @Nullable
-  private final Observer _tracker;
+  private final ObserverInfo _tracker;
 
   public TransactionStartedEvent( @Nonnull final String name,
                                   final boolean mutation,
-                                  @Nullable final Observer tracker )
+                                  @Nullable final ObserverInfo tracker )
   {
     _name = Objects.requireNonNull( name );
     _mutation = mutation;
@@ -41,7 +40,7 @@ public final class TransactionStartedEvent
   }
 
   @Nullable
-  public Observer getTracker()
+  public ObserverInfo getTracker()
   {
     return _tracker;
   }
@@ -55,7 +54,7 @@ public final class TransactionStartedEvent
     map.put( "type", TYPE_NAME );
     map.put( "transaction", getName() );
     map.put( "mutation", isMutation() );
-    final Observer tracker = getTracker();
+    final ObserverInfo tracker = getTracker();
     map.put( "tracker", null == tracker ? null : tracker.getName() );
   }
 }

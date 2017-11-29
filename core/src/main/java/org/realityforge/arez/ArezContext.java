@@ -602,7 +602,7 @@ public final class ArezContext
       new Observer( this, component, generateNodeName( "Observer", name ), null, mode, reaction, canTrackExplicitly );
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ObserverCreatedEvent( observer ) );
+      getSpy().reportSpyEvent( new ObserverCreatedEvent( new ObserverInfoImpl( getSpy(), observer ) ) );
     }
     return observer;
   }
@@ -683,7 +683,7 @@ public final class ArezContext
   {
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ReactionScheduledEvent( observer ) );
+      getSpy().reportSpyEvent( new ReactionScheduledEvent( new ObserverInfoImpl( getSpy(), observer ) ) );
     }
     _scheduler.scheduleReaction( observer );
   }
@@ -1471,7 +1471,7 @@ public final class ArezContext
   {
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ObserverErrorEvent( observer, error, throwable ) );
+      getSpy().reportSpyEvent( new ObserverErrorEvent( new ObserverInfoImpl( getSpy(), observer ), error, throwable ) );
     }
     _observerErrorHandlerSupport.onObserverError( observer, error, throwable );
   }

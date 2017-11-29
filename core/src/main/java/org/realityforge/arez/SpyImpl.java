@@ -10,6 +10,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ObserverInfo;
 import org.realityforge.arez.spy.PropertyAccessor;
 import org.realityforge.arez.spy.PropertyMutator;
 import org.realityforge.arez.spy.TransactionInfo;
@@ -113,7 +114,7 @@ final class SpyImpl
   public TransactionInfo getTransaction()
   {
     apiInvariant( this::isTransactionActive, () -> "Spy.getTransaction() invoked but no transaction active." );
-    return new TransactionInfoImpl( getContext().getTransaction() );
+    return new TransactionInfoImpl( this, getContext().getTransaction() );
   }
 
   /**
@@ -312,7 +313,7 @@ final class SpyImpl
     invariant( Arez::areNativeComponentsEnabled,
                () -> "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
     final Component component = observable.getComponent();
-    return null == component ? null : new ComponentInfoImpl( component );
+    return null == component ? null : new ComponentInfoImpl( this, component );
   }
 
   /**
@@ -325,7 +326,7 @@ final class SpyImpl
     invariant( Arez::areNativeComponentsEnabled,
                () -> "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
     final Component component = observer.getComponent();
-    return null == component ? null : new ComponentInfoImpl( component );
+    return null == component ? null : new ComponentInfoImpl( this, component );
   }
 
   /**
@@ -338,7 +339,7 @@ final class SpyImpl
     invariant( Arez::areNativeComponentsEnabled,
                () -> "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
     final Component component = computedValue.getComponent();
-    return null == component ? null : new ComponentInfoImpl( component );
+    return null == component ? null : new ComponentInfoImpl( this, component );
   }
 
   /**
@@ -349,7 +350,7 @@ final class SpyImpl
   public ComponentInfo findComponent( @Nonnull final String type, @Nonnull final Object id )
   {
     final Component component = _context.findComponent( type, id );
-    return null != component ? new ComponentInfoImpl( component ) : null;
+    return null != component ? new ComponentInfoImpl( this, component ) : null;
   }
 
   /**
@@ -361,7 +362,7 @@ final class SpyImpl
   {
     final List<ComponentInfoImpl> infos =
       _context.findAllComponentsByType( type ).stream().
-        map( ComponentInfoImpl::new ).
+        map( component -> new ComponentInfoImpl( this, component ) ).
         collect( Collectors.toList() );
     return Collections.unmodifiableCollection( infos );
   }
@@ -391,9 +392,9 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public Collection<Observer> findAllTopLevelObservers()
+  public Collection<ObserverInfo> findAllTopLevelObservers()
   {
-    return Collections.unmodifiableCollection( _context.getTopLevelObservers().values() );
+    return ObserverInfoImpl.asUnmodifiableInfos( this, _context.getTopLevelObservers().values() );
   }
 
   /**

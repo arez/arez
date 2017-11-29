@@ -855,7 +855,7 @@ public class ObserverTest
     handler.assertEvent( TransactionCompletedEvent.class, 2 );
     handler.assertEvent( ActionCompletedEvent.class, 3 );
     final ObserverDisposedEvent event = handler.assertEvent( ObserverDisposedEvent.class, 4 );
-    assertEquals( event.getObserver(), observer );
+    assertEquals( event.getObserver().getName(), observer.getName() );
   }
 
   @Test
@@ -1056,11 +1056,11 @@ public class ObserverTest
 
     {
       final ReactionStartedEvent event = handler.assertEvent( ReactionStartedEvent.class, 0 );
-      assertEquals( event.getObserver(), observer );
+      assertEquals( event.getObserver().getName(), observer.getName() );
     }
     {
       final ReactionCompletedEvent event = handler.assertEvent( ReactionCompletedEvent.class, 1 );
-      assertEquals( event.getObserver(), observer );
+      assertEquals( event.getObserver().getName(), observer.getName() );
       assertTrue( event.getDuration() > 0 );
     }
   }

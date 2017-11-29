@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.arez.Observer;
 import org.realityforge.arez.ObserverError;
 
 /**
@@ -16,13 +15,13 @@ public final class ObserverErrorEvent
   public static final String TYPE_NAME = EventUtil.getName( ObserverErrorEvent.class );
 
   @Nonnull
-  private final Observer _observer;
+  private final ObserverInfo _observer;
   @Nonnull
   private final ObserverError _error;
   @Nullable
   private final Throwable _throwable;
 
-  public ObserverErrorEvent( @Nonnull final Observer observer,
+  public ObserverErrorEvent( @Nonnull final ObserverInfo observer,
                              @Nonnull final ObserverError error,
                              @Nullable final Throwable throwable )
   {
@@ -32,7 +31,7 @@ public final class ObserverErrorEvent
   }
 
   @Nonnull
-  public Observer getObserver()
+  public ObserverInfo getObserver()
   {
     return _observer;
   }

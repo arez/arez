@@ -56,7 +56,7 @@ public class NativeComponentsIntegrationTest
     assertEquals( info.getObservables().contains( observable1 ), true );
     assertEquals( info.getObservables().contains( observable2 ), true );
     assertEquals( info.getObservers().size(), 1 );
-    assertEquals( info.getObservers().contains( observer1 ), true );
+    assertEquals( info.getObservers().iterator().next().getName(), observer1.getName() );
     assertEquals( info.getComputedValues().size(), 1 );
     assertEquals( info.getComputedValues().contains( computedValue1 ), true );
 
