@@ -11,7 +11,7 @@ import org.realityforge.arez.Observer;
  * A representation of a component instance exposed to spy framework.
  */
 public interface ComponentInfo
-  extends Disposable
+  extends ElementInfo
 {
   /**
    * Return the component type.
@@ -30,14 +30,6 @@ public interface ComponentInfo
    */
   @Nonnull
   Object getId();
-
-  /**
-   * Return the unique name of the component.
-   *
-   * @return the name of the component.
-   */
-  @Nonnull
-  String getName();
 
   /**
    * Return the Observables associated with the component.

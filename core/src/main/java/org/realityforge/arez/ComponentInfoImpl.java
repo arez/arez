@@ -87,15 +87,6 @@ final class ComponentInfoImpl
    * {@inheritDoc}
    */
   @Override
-  public void dispose()
-  {
-    _component.dispose();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public boolean isDisposed()
   {
     return _component.isDisposed();

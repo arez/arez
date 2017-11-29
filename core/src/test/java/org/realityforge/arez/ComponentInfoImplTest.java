@@ -49,7 +49,7 @@ public class ComponentInfoImplTest
 
     assertFalse( Disposable.isDisposed( info ) );
     assertFalse( Disposable.isDisposed( component ) );
-    info.dispose();
+    component.dispose();
     assertTrue( Disposable.isDisposed( info ) );
     assertTrue( Disposable.isDisposed( component ) );
   }
