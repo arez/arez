@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+##### Added
+* **\[annotations\]** Add an `inject` parameter to `@ArezComponent` annotation that will add a
+  `@javax.inject.Inject` annotation on the generated classes constructor if set to true.
+* Upgrade Buildr to version 1.5.4.
+
 ##### Changed
 * 💥 **\[core\]** Introduce `ElementInfo` spy interface and change `ComponentInfo` interface to extend it
   rather than `Disposable`. This has the effect of removing the `dispose()` method from the public interface
@@ -10,9 +15,6 @@
   effectively removes the `dispose()` method from the public interface of Observers accessed solely through
   the spy subsystem.
 * **\[core\]** Implement `equals()` and `hashCode()` on `ComponentInfoImpl`.
-* **\[annotations\]** Add an `inject` parameter to `@ArezComponent` annotation that will add a
-  `@javax.inject.Inject` annotation on the generated classes constructor if set to true.
-* Upgrade Buildr to version 1.5.4.
 
 ### [v0.30](https://github.com/arez/arez/tree/v0.30) (2017-11-29)
 [Full Changelog](https://github.com/arez/arez/compare/v0.29...v0.30)
