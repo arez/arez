@@ -13,7 +13,7 @@ import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_DaggerEnabledRepositoryRepository extends DaggerEnabledRepositoryRepository implements Disposable {
+public final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledRepositoryRepository implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -28,14 +28,14 @@ public final class Arez_DaggerEnabledRepositoryRepository extends DaggerEnabledR
   private final Observable<Boolean> $$arez$$_disposedObservable;
 
   @Nonnull
-  private final Observable<Collection<DaggerEnabledRepository>> $$arez$$_entities;
+  private final Observable<Collection<InjectEnabledRepository>> $$arez$$_entities;
 
   @Inject
-  Arez_DaggerEnabledRepositoryRepository() {
+  Arez_InjectEnabledRepositoryRepository() {
     super();
     this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "DaggerEnabledRepositoryRepository", $$arez$$_id(), $$arez$$_name(), () -> super.preDispose(), null ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "InjectEnabledRepositoryRepository", $$arez$$_id(), $$arez$$_name(), () -> super.preDispose(), null ) : null;
     this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_entities = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
@@ -52,7 +52,7 @@ public final class Arez_DaggerEnabledRepositoryRepository extends DaggerEnabledR
   }
 
   String $$arez$$_name() {
-    return "DaggerEnabledRepositoryRepository";
+    return "InjectEnabledRepositoryRepository";
   }
 
   @Override
@@ -83,7 +83,7 @@ public final class Arez_DaggerEnabledRepositoryRepository extends DaggerEnabledR
 
   @Nonnull
   @Override
-  protected Collection<DaggerEnabledRepository> entities() {
+  protected Collection<InjectEnabledRepository> entities() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();
@@ -96,7 +96,7 @@ public final class Arez_DaggerEnabledRepositoryRepository extends DaggerEnabledR
   }
 
   @Override
-  public void destroy(@Nonnull final DaggerEnabledRepository entity) {
+  public void destroy(@Nonnull final InjectEnabledRepository entity) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".destroy" : null, true, () -> super.destroy(entity), entity );
@@ -113,7 +113,7 @@ public final class Arez_DaggerEnabledRepositoryRepository extends DaggerEnabledR
 
   @Nonnull
   @Override
-  DaggerEnabledRepository create(@Nonnull final String name) {
+  InjectEnabledRepository create(@Nonnull final String name) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
       return $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".create_name" : null, true, () -> super.create(name), name );
@@ -137,10 +137,10 @@ public final class Arez_DaggerEnabledRepositoryRepository extends DaggerEnabledR
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof Arez_DaggerEnabledRepositoryRepository) ) {
+    } else if ( null == o || !(o instanceof Arez_InjectEnabledRepositoryRepository) ) {
       return false;
     } else {
-      final Arez_DaggerEnabledRepositoryRepository that = (Arez_DaggerEnabledRepositoryRepository) o;;
+      final Arez_InjectEnabledRepositoryRepository that = (Arez_InjectEnabledRepositoryRepository) o;;
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }

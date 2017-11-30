@@ -76,6 +76,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.post_construct.PostConstructModel", false, false },
         new Object[]{ "com.example.repository.CompleteRepositoryExample", true, false },
         new Object[]{ "com.example.repository.DaggerEnabledRepository", true, true },
+        new Object[]{ "com.example.repository.InjectEnabledRepository", true, false },
         new Object[]{ "com.example.repository.RepositoryPreDisposeHook", true, false },
         new Object[]{ "com.example.repository.RepositoryWithExplicitId", true, false },
         new Object[]{ "com.example.repository.RepositoryWithImplicitId", true, false },

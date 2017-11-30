@@ -12,7 +12,7 @@ public interface DaggerEnabledRepositoryDaggerModule {
   @Nonnull
   @Singleton
   @Provides
-  static DaggerEnabledRepositoryRepository repository() {
-    return DaggerEnabledRepositoryRepository.newRepository();
+  static DaggerEnabledRepositoryRepository provideRepository(final Arez_DaggerEnabledRepositoryRepository repository) {
+    return repository;
   }
 }

@@ -67,6 +67,10 @@ final class ComponentDescriptor
    * Flag controlling whether dagger module is created for repository.
    */
   private boolean _generateDaggerModule;
+  /**
+   * Flag controlling whether Inject annotation is added to repository constructor.
+   */
+  private boolean _repositoryInject;
   @Nonnull
   private final Elements _elements;
   @Nonnull
@@ -1970,11 +1974,13 @@ final class ComponentDescriptor
   @SuppressWarnings( "ConstantConditions" )
   void configureRepository( @Nonnull final String name,
                             @Nonnull final List<TypeElement> extensions,
-                            final boolean generateDaggerModule )
+                            final boolean generateDaggerModule,
+                            final boolean repositoryInject )
   {
     assert null != name;
     assert null != extensions;
     _generateDaggerModule = generateDaggerModule;
+    _repositoryInject = repositoryInject;
     if ( ProcessorUtil.isSentinelName( name ) )
     {
       _repositoryName = _type + "Repository";
@@ -2056,12 +2062,13 @@ final class ComponentDescriptor
 
     ProcessorUtil.copyAccessModifiers( getElement(), builder );
 
-    builder.addMethod( MethodSpec.methodBuilder( "repository" ).
+    builder.addMethod( MethodSpec.methodBuilder( "provideRepository" ).
       addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addAnnotation( GeneratorUtil.SINGLETON_CLASSNAME ).
       addAnnotation( GeneratorUtil.DAGGER_PROVIDES_CLASSNAME ).
       addModifiers( Modifier.STATIC, Modifier.PUBLIC ).
-      addStatement( "return $T.newRepository()", ClassName.get( getPackageName(), getRepositoryName() ) ).
+      addParameter( ClassName.get( getPackageName(), getArezRepositoryName() ), "repository", Modifier.FINAL ).
+      addStatement( "return repository" ).
       returns( ClassName.get( getPackageName(), getRepositoryName() ) ).build() );
 
     return builder.build();
@@ -2085,9 +2092,14 @@ final class ComponentDescriptor
     builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
       addMember( "value", "$S", ArezProcessor.class.getName() ).
       build() );
-    builder.addAnnotation( AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_ANNOTATION_CLASSNAME ) ).
-      addMember( "nameIncludesId", "false" ).
-      build() );
+    final AnnotationSpec.Builder arezComponent =
+      AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_ANNOTATION_CLASSNAME ) ).
+        addMember( "nameIncludesId", "false" );
+    if ( _repositoryInject )
+    {
+      arezComponent.addMember( "inject", "true" );
+    }
+    builder.addAnnotation( arezComponent.build() );
 
     builder.addSuperinterface( ClassName.get( getPackageName(), getRepositoryExtensionName() ) );
     _repositoryExtensions.forEach( e -> builder.addSuperinterface( TypeName.get( e.asType() ) ) );

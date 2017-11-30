@@ -80,4 +80,12 @@ public @interface Repository
    * @return true if a dagger module should be generated for repository.
    */
   boolean dagger() default false;
+
+  /**
+   * Return true if an inject annotation should be added to the constructor of generated repository.
+   * Note that this is effectively true if dagger is true.
+   *
+   * @return true if an inject annotation should be added to the constructor of generated repository.
+   */
+  boolean inject() default false;
 }

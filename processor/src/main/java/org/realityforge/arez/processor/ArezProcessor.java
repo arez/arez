@@ -194,7 +194,8 @@ public final class ArezProcessor
           collect( Collectors.toList() );
       final String name = getAnnotationParameter( repository, "name" );
       final boolean dagger = getAnnotationParameter( repository, "dagger" );
-      descriptor.configureRepository( name, extensions, dagger );
+      final boolean repositoryInject = getAnnotationParameter( repository, "inject" );
+      descriptor.configureRepository( name, extensions, dagger, dagger || repositoryInject );
     }
 
     return descriptor;

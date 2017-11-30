@@ -5,6 +5,9 @@
 ##### Added
 * **\[annotations\]** Add an `inject` parameter to `@ArezComponent` annotation that will add a
   `@javax.inject.Inject` annotation on the generated classes constructor if set to true.
+* **\[annotations\]** Add an `inject` parameter to `@Repository` annotation that will add a
+  `@javax.inject.Inject` annotation on the generated Arez repository implementation if set to true.
+  The parameter will default to the same value as the `dagger` parameter.
 
 ##### Changed
 * 💥 **\[core\]** Introduce `ElementInfo` spy interface and change `ComponentInfo` interface to extend it
