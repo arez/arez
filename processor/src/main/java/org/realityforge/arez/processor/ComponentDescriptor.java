@@ -73,6 +73,7 @@ final class ComponentDescriptor
   private final String _type;
   private final boolean _nameIncludesId;
   private final boolean _allowEmpty;
+  private final boolean _inject;
   private final boolean _generateToString;
   @Nonnull
   private final PackageElement _packageElement;
@@ -115,6 +116,7 @@ final class ComponentDescriptor
                        @Nonnull final String type,
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
+                       final boolean inject,
                        final boolean generateToString,
                        @Nonnull final PackageElement packageElement,
                        @Nonnull final TypeElement element )
@@ -123,6 +125,7 @@ final class ComponentDescriptor
     _type = Objects.requireNonNull( type );
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
+    _inject = inject;
     _generateToString = generateToString;
     _packageElement = Objects.requireNonNull( packageElement );
     _element = Objects.requireNonNull( element );
@@ -1840,6 +1843,11 @@ final class ComponentDescriptor
     ProcessorUtil.copyAccessModifiers( constructor, builder );
     ProcessorUtil.copyExceptions( constructorType, builder );
     ProcessorUtil.copyTypeParameters( constructorType, builder );
+
+    if ( _inject )
+    {
+      builder.addAnnotation( GeneratorUtil.INJECT_CLASSNAME );
+    }
 
     final StringBuilder superCall = new StringBuilder();
     superCall.append( "super(" );

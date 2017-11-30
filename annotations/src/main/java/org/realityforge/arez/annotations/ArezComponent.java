@@ -68,4 +68,12 @@ public @interface ArezComponent
    * @return true if the component does not need to explicitly declare elements, false otherwise.
    */
   boolean allowEmpty() default false;
+
+  /**
+   * Return true if an inject annotation should be added to the constructor of generated component.
+   * It should be noted that classes that set this parameter to true must have at most one constructor.
+   *
+   * @return true if an inject annotation should be added to the constructor of generated component.
+   */
+  boolean inject() default false;
 }

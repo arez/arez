@@ -60,6 +60,9 @@ public class ArezProcessorTest
         new Object[]{ "com.example.context_ref.AnnotatedComponent", false, false },
         new Object[]{ "com.example.context_ref.SimpleComponent", false, false },
         new Object[]{ "com.example.context_ref.ProtectedAccessComponent", false, false },
+        new Object[]{ "com.example.inject.BasicInjectModel", false, false },
+        new Object[]{ "com.example.inject.DefaultCtorModel", false, false },
+        new Object[]{ "com.example.inject.MultipleArgsModel", false, false },
         new Object[]{ "com.example.observable.ObservableWithNoSetter", false, false },
         new Object[]{ "com.example.observable_ref.DefaultRefNameModel", false, false },
         new Object[]{ "com.example.observable_ref.NonStandardNameModel", false, false },
@@ -333,6 +336,9 @@ public class ArezProcessorTest
         new Object[]{ "com.example.context_ref.DuplicateModel",
                       "@ContextRef target duplicates existing method named getContext" },
         new Object[]{ "com.example.context_ref.ParametersModel", "@ContextRef target must not have any parameters" },
+
+        new Object[]{ "com.example.inject.MultipleConstructorsModel",
+                      "@ArezComponent specified inject parameter but has more than one constructor" },
 
         new Object[]{ "com.example.observable_ref.BadNameModel",
                       "Method annotated with @ObservableRef specified invalid name -ace" },

@@ -129,6 +129,7 @@ public final class ArezProcessor
     final String declaredType = getAnnotationParameter( arezComponent, "type" );
     final boolean nameIncludesId = getAnnotationParameter( arezComponent, "nameIncludesId" );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
+    final boolean inject = getAnnotationParameter( arezComponent, "inject" );
 
     final String type =
       ProcessorUtil.isSentinelName( declaredType ) ? typeElement.getSimpleName().toString() : declaredType;
@@ -136,6 +137,12 @@ public final class ArezProcessor
     if ( !ProcessorUtil.isJavaIdentifier( type ) )
     {
       throw new ArezProcessorException( "@ArezComponent specified invalid type parameter", typeElement );
+    }
+
+    if ( inject && ProcessorUtil.getConstructors( typeElement ).size() > 1 )
+    {
+      throw new ArezProcessorException( "@ArezComponent specified inject parameter but has more than one constructor",
+                                        typeElement );
     }
 
     final List<ExecutableElement> methods = ProcessorUtil.getMethods( typeElement, processingEnv.getTypeUtils() );
@@ -151,6 +158,7 @@ public final class ArezProcessor
                                type,
                                nameIncludesId,
                                allowEmpty,
+                               inject,
                                generateToString,
                                packageElement,
                                typeElement );
