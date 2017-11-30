@@ -12,6 +12,7 @@
 * **\[core\]** Implement `equals()` and `hashCode()` on `ComponentInfoImpl`.
 * **\[annotations\]** Add an `inject` parameter to `@ArezComponent` annotation that will add a
   `@javax.inject.Inject` annotation on the generated classes constructor if set to true.
+* Upgrade Buildr to version 1.5.4.
 
 ### [v0.30](https://github.com/arez/arez/tree/v0.30) (2017-11-29)
 [Full Changelog](https://github.com/arez/arez/compare/v0.29...v0.30)
