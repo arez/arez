@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Added
+* **\[annotations\]** Add the `deferSchedule` boolean parameter to the `@ArezComponent` annotation to avoid
+  scheduling autorun actions at the end of the constructor in generated component classes.
+
 ### [v0.31](https://github.com/arez/arez/tree/v0.31) (2017-12-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.30...v0.31)
 

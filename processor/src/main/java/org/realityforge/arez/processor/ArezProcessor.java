@@ -130,6 +130,7 @@ public final class ArezProcessor
     final boolean nameIncludesId = getAnnotationParameter( arezComponent, "nameIncludesId" );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
     final boolean inject = getAnnotationParameter( arezComponent, "inject" );
+    final boolean deferSchedule = getAnnotationParameter( arezComponent, "deferSchedule" );
 
     final String type =
       ProcessorUtil.isSentinelName( declaredType ) ? typeElement.getSimpleName().toString() : declaredType;
@@ -159,6 +160,7 @@ public final class ArezProcessor
                                nameIncludesId,
                                allowEmpty,
                                inject,
+                               deferSchedule,
                                generateToString,
                                packageElement,
                                typeElement );

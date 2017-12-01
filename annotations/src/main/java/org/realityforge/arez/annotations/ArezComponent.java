@@ -76,4 +76,12 @@ public @interface ArezComponent
    * @return true if an inject annotation should be added to the constructor of generated component.
    */
   boolean inject() default false;
+
+  /**
+   * Return true if an the generated component should NOT schedule autorun actions at the end of the
+   * constructor. This is useful if the component creator will trigger schedules manually at a later time.
+   *
+   * @return Return true if an the generated component should NOT schedule autorun actions at the end of the constructor.
+   */
+  boolean deferSchedule() default false;
 }

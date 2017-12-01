@@ -78,6 +78,7 @@ final class ComponentDescriptor
   private final boolean _nameIncludesId;
   private final boolean _allowEmpty;
   private final boolean _inject;
+  private final boolean _deferSchedule;
   private final boolean _generateToString;
   @Nonnull
   private final PackageElement _packageElement;
@@ -121,6 +122,7 @@ final class ComponentDescriptor
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
                        final boolean inject,
+                       final boolean deferSchedule,
                        final boolean generateToString,
                        @Nonnull final PackageElement packageElement,
                        @Nonnull final TypeElement element )
@@ -130,6 +132,7 @@ final class ComponentDescriptor
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
     _inject = inject;
+    _deferSchedule = deferSchedule;
     _generateToString = generateToString;
     _packageElement = Objects.requireNonNull( packageElement );
     _element = Objects.requireNonNull( element );
@@ -1958,7 +1961,7 @@ final class ComponentDescriptor
     componentEnabledBlock.endControlFlow();
     builder.addCode( componentEnabledBlock.build() );
 
-    if ( !_roAutoruns.isEmpty() )
+    if ( !_deferSchedule && !_roAutoruns.isEmpty() )
     {
       builder.addStatement( "$N().triggerScheduler()", getContextMethodName() );
     }
