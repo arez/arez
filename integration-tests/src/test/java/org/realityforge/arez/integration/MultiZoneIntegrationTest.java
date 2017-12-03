@@ -94,6 +94,7 @@ public class MultiZoneIntegrationTest
   /**
    * Test we are not in a transaction by trying to observe an observable.
    */
+  @SuppressWarnings( "ResultOfMethodCallIgnored" )
   private void assertNotInTransaction( @Nonnull final PersonModel person )
   {
     assertThrows( person::getFirstName );
