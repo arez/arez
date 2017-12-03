@@ -33,11 +33,10 @@ public class MultiZoneIntegrationTest
 
     final AtomicReference<PersonModel> person = new AtomicReference<>();
     final AtomicReference<PersonModel> person2 = new AtomicReference<>();
-    zone1.run( () ->
-              {
-                person.set( PersonModel.create( "Bill", "Smith" ) );
-                zone2.run( () -> person2.set( PersonModel.create( "Bill", "Smith" ) ) );
-              } );
+    zone1.run( () -> {
+      person.set( PersonModel.create( "Bill", "Smith" ) );
+      zone2.run( () -> person2.set( PersonModel.create( "Bill", "Smith" ) ) );
+    } );
 
     context1.autorun( "FirstNamePrinter1",
                       () -> record( recorder, "firstName1", person.get().getFirstName() ) );
