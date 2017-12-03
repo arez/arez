@@ -33,7 +33,8 @@ user action, a network message or some other external activity would trigger an 
 A computed value will only be recalculated if it is "active". A computed value is active if it is a dependency
 of an observer or a dependency of another active computed value. This results in an architecture where changes
 flow through the application in a manner not unlike in a spreadsheet and observers react to the changes when
-their dependencies change. Data flows in a directed graph from actions to observers who react to changes.
+their dependencies change. Data flows in a directed graph from actions to observers and the observers react
+to the changes.
 
 <div class="svg-figure">
 {% include DataflowNodes.svg %}
