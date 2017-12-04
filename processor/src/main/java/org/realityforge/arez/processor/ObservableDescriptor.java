@@ -319,9 +319,9 @@ final class ObservableDescriptor
                                         "and thus should not be observable.", getGetter() );
     }
 
-    if ( null != _refMethod )
+    if ( null != _refMethodType )
     {
-      final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
+      final TypeName typeName = TypeName.get( _refMethodType.getReturnType() );
       if ( typeName instanceof ParameterizedTypeName )
       {
         final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
@@ -330,8 +330,9 @@ final class ObservableDescriptor
         final TypeName actual = TypeName.get( _getterType.getReturnType() );
         if ( !actual.box().toString().equals( expectedType.toString() ) )
         {
+          assert null != _refMethod;
           throw new ArezProcessorException( "@ObservableRef target has a type parameter of " + expectedType +
-                                            " but @Computed method returns type of " + actual, _refMethod );
+                                            " but @Observable method returns type of " + actual, _refMethod );
         }
       }
     }
