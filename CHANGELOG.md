@@ -3,7 +3,8 @@
 ### Unreleased
 
 ##### Fixed
-* **\[core\]** Ensure that `@ObservableRef` can be used for `@Observable` properties with a generic type.
+* **\[core\]** Ensure that `@Observable` properties can have a parameterized type.
+* **\[core\]** Ensure that `@ObservableRef` can be used for `@Observable` properties with a parameterized type.
 * **\[core\]** Update javadoc annotations to remove warnings about undocumented parameters and return types.
 
 ### [v0.32](https://github.com/arez/arez/tree/v0.32) (2017-12-01)

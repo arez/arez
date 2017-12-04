@@ -15,6 +15,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.ExecutableType;
+import javax.lang.model.type.TypeMirror;
 
 /**
  * The class that represents the parsed state of Observable properties on a @ArezComponent annotated class.
@@ -258,9 +259,10 @@ final class ObservableDescriptor
 
     builder.addAnnotation( Override.class );
 
+    final TypeMirror parameterType = _setterType.getParameterTypes().get( 0 );
     final VariableElement element = _setter.getParameters().get( 0 );
     final String paramName = element.getSimpleName().toString();
-    final TypeName type = TypeName.get( element.asType() );
+    final TypeName type = TypeName.get( parameterType );
     final ParameterSpec.Builder param =
       ParameterSpec.builder( type, paramName, Modifier.FINAL );
     ProcessorUtil.copyDocumentedAnnotations( element, param );
@@ -302,7 +304,7 @@ final class ObservableDescriptor
     ProcessorUtil.copyDocumentedAnnotations( _getter, builder );
 
     builder.addAnnotation( Override.class );
-    builder.returns( TypeName.get( _getter.getReturnType() ) );
+    builder.returns( TypeName.get( _getterType.getReturnType() ) );
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
 
     builder.addStatement( "this.$N.reportObserved()", GeneratorUtil.FIELD_PREFIX + getName() );

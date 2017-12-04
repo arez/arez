@@ -194,6 +194,30 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void processResolvedParameterizedType()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      JavaFileObjects.forResource( "input/com/example/parameterized_type/ParentModel.java" );
+    final JavaFileObject source2 =
+      JavaFileObjects.forResource( "input/com/example/parameterized_type/ResolvedModel.java" );
+    final String output1 = "expected/com/example/parameterized_type/Arez_ResolvedModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output1 ) );
+  }
+
+  @Test
+  public void processUnresolvedParameterizedType()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      JavaFileObjects.forResource( "input/com/example/parameterized_type/ParentModel.java" );
+    final JavaFileObject source2 =
+      JavaFileObjects.forResource( "input/com/example/parameterized_type/UnresolvedModel.java" );
+    final String output1 = "expected/com/example/parameterized_type/Arez_UnresolvedModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output1 ) );
+  }
+
+  @Test
   public void processSuccessfulWhereGenericsRefinedAndActionsOverriddenHierarchy()
     throws Exception
   {
