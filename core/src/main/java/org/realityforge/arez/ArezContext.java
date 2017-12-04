@@ -167,9 +167,11 @@ public final class ArezContext
    * the parameters. The caller should invoke {@link Component#complete()} on the returned component as
    * soon as the component definition has completed.
    *
-   * @param type the component type.
-   * @param id   the component id.
-   * @param name the name of the component. Should be null if {@link Arez#areNamesEnabled()} returns false.
+   * @param type        the component type.
+   * @param id          the component id.
+   * @param name        the name of the component. Should be null if {@link Arez#areNamesEnabled()} returns false.
+   * @param preDispose  the hook action called just before the Component is disposed. The hook method is called from within the dispose transaction.
+   * @param postDispose the hook action called just after the Component is disposed. The hook method is called from within the dispose transaction.
    * @return true if component is defined in context.
    */
   @Nonnull
@@ -358,6 +360,7 @@ public final class ArezContext
    * Create a ComputedValue with specified parameters.
    *
    * @param <T>                the type of the computed value.
+   * @param component          the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
    * @param name               the name of the ComputedValue.
    * @param function           the function that computes the value.
    * @param equalityComparator the comparator that determines whether the newly computed value differs from existing value.
@@ -652,6 +655,7 @@ public final class ArezContext
   /**
    * Create an Observable.
    *
+   * @param <T>       The type of the value that is observable.
    * @param component the component containing observable if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name      the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param accessor  the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.

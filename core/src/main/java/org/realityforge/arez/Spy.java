@@ -286,6 +286,7 @@ public interface Spy
    * Return true if the specified Observable has an accessor.
    * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
    *
+   * @param <T>        The type of the value that is observable.
    * @param observable the Observable.
    * @return true if an accessor is available.
    */
@@ -296,6 +297,7 @@ public interface Spy
    * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true
    * and {@link #hasAccessor(Observable)} for the same element returns true.
    *
+   * @param <T>        The type of the value that is observable.
    * @param observable the Observable.
    * @return the value of the observable.
    * @throws Throwable if the property accessor throws an exception.
@@ -308,6 +310,7 @@ public interface Spy
    * Return true if the specified Observable has a mutator.
    * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
    *
+   * @param <T>        The type of the value that is observable.
    * @param observable the Observable.
    * @return true if a mutator is available.
    */
@@ -318,6 +321,7 @@ public interface Spy
    * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true
    * and {@link #hasMutator(Observable)} for the same element returns true.
    *
+   * @param <T>        The type of the value that is observable.
    * @param observable the Observable.
    * @param value      the value to set
    * @throws Throwable if the property accessor throws an exception.
@@ -329,6 +333,7 @@ public interface Spy
    * Return the value of the specified ComputedValue.
    * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true.
    *
+   * @param <T>           The type of the value that is computed.
    * @param computedValue the ComputedValue.
    * @return the value of the ComputedValue.
    * @throws Throwable if the property accessor throws an exception.

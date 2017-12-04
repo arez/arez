@@ -40,7 +40,9 @@ public final class Zone
    * Run the specified function in the zone.
    * Activate the zone on entry, deactivate on exit.
    *
+   * @param <T>    The type of the value returned from function.
    * @param action the function to execute.
+   * @return the value returned from function.
    */
   public <T> T safeRun( @Nonnull final SafeFunction<T> action )
   {
@@ -59,7 +61,9 @@ public final class Zone
    * Run the specified function in the zone.
    * Activate the zone on entry, deactivate on exit.
    *
+   * @param <T>    The type of the value returned from function.
    * @param action the function to execute.
+   * @return the value returned from function.
    * @throws Throwable if the function throws an exception.
    */
   public <T> T run( @Nonnull final Function<T> action )

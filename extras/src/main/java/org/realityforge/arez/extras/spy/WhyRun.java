@@ -53,6 +53,7 @@ public final class WhyRun
   /**
    * Return a human readable explanation why the specified observer is/will run.
    *
+   * @param context the context that contains observer.
    * @param observer the observer that we want to investigate.
    * @return a human readable explanation why the node is/will run.
    */
