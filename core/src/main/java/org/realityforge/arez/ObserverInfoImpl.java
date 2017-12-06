@@ -52,36 +52,54 @@ final class ObserverInfoImpl
     return _observer.getName();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isRunning()
   {
     return _spy.isRunning( _observer );
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isScheduled()
   {
     return _spy.isScheduled( _observer );
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isComputedValue()
   {
     return _spy.isComputedValue( _observer );
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isReadOnly()
   {
     return _spy.isReadOnly( _observer );
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ComputedValue<?> asComputedValue()
   {
     return _spy.asComputedValue( _observer );
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nonnull
   @Override
   public List<Observable<?>> getDependencies()
@@ -89,6 +107,9 @@ final class ObserverInfoImpl
     return _spy.getDependencies( _observer );
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   @Override
   public ComponentInfo getComponent()
