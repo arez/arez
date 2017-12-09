@@ -109,7 +109,6 @@ public class ObserverTest
                   "transaction mode but no ComputedValue." );
   }
 
-
   @Test
   public void construct_with_mode_but_checking_DIsabled()
     throws Exception
