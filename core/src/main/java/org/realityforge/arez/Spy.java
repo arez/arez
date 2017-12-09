@@ -342,4 +342,32 @@ public interface Spy
   @Nullable
   <T> T getValue( @Nonnull ComputedValue<T> computedValue )
     throws Throwable;
+
+  /**
+   * Convert the specified observer into an ObserverInfo.
+   *
+   * @param component the Component.
+   * @return the ObservableInfo wrapping observable.
+   */
+  @Nonnull
+  ComponentInfo asComponentInfo( @Nonnull Component component );
+
+  /**
+   * Convert the specified observer into an ObserverInfo.
+   *
+   * @param observer the Observer.
+   * @return the ObservableInfo wrapping observable.
+   */
+  @Nonnull
+  ObserverInfo asObserverInfo( @Nonnull Observer observer );
+
+  /**
+   * Convert the specified observable into an ObservableInfo.
+   *
+   * @param <T>        The type of the value that is observable.
+   * @param observable the Observable.
+   * @return the ObservableInfo wrapping observable.
+   */
+  @Nonnull
+  <T> ObservableInfo asObservableInfo( @Nonnull Observable<T> observable );
 }

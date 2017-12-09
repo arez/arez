@@ -480,6 +480,36 @@ final class SpyImpl
     return accessor.get();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public ComponentInfo asComponentInfo( @Nonnull final Component component )
+  {
+    return new ComponentInfoImpl( this, component );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public ObserverInfo asObserverInfo( @Nonnull final Observer observer )
+  {
+    return new ObserverInfoImpl( this, observer );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public <T> ObservableInfo asObservableInfo( @Nonnull final Observable<T> observable )
+  {
+    return new ObservableInfoImpl( this, observable );
+  }
+
   @TestOnly
   @Nonnull
   ArrayList<SpyEventHandler> getSpyEventHandlers()

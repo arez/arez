@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Added
+* **\[core\]** Add methods on the `Spy` interface that converts from core objects to the equivalent spy specific
+  info object. i.e. `Spy.asComponentInfo(Component)`
+
 ##### Fixed
 * **\[core\]** Add invariant check to ensure that the `Observer` does not accept a `TransactionMode` parameter
   if `Arez.enforceTransactionType()` returns false.

@@ -1061,6 +1061,37 @@ public class SpyImplTest
                   "Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
+  @Test
+  public void asComponentInfo()
+  {
+    final ArezContext context = Arez.context();
+    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
+    final ComponentInfo info = context.getSpy().asComponentInfo( component );
+
+    assertEquals( info.getName(), component.getName() );
+  }
+
+  @Test
+  public void asObserverInfo()
+  {
+    final ArezContext context = Arez.context();
+    final Observer observer = context.autorun( () -> {
+    } );
+    final ObserverInfo info = context.getSpy().asObserverInfo( observer );
+
+    assertEquals( info.getName(), observer.getName() );
+  }
+
+  @Test
+  public void asObservableInfo()
+  {
+    final ArezContext context = Arez.context();
+    final Observable<Object> observable = context.createObservable( ValueUtil.randomString() );
+    final ObservableInfo info = context.getSpy().asObservableInfo( observable );
+
+    assertEquals( info.getName(), observable.getName() );
+  }
+
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> list )
   {
     assertThrows( UnsupportedOperationException.class, () -> list.remove( list.iterator().next() ) );
