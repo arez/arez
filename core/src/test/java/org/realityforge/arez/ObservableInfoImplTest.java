@@ -1,7 +1,9 @@
 package org.realityforge.arez;
 
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
+import org.realityforge.arez.spy.ComponentInfo;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -23,6 +25,51 @@ public class ObservableInfoImplTest
     assertEquals( info.getComponent(), null );
     assertEquals( info.getName(), name );
     assertEquals( info.toString(), name );
+
+    assertEquals( info.hasAccessor(), false );
+    assertEquals( info.hasMutator(), false );
+
+    assertEquals( info.getObservers().size(), 1 );
+    assertEquals( info.getObservers().get( 0 ).getName(), observer.getName() );
+    assertUnmodifiable( info.getObservers() );
+
+    assertEquals( info.isComputedValue(), false );
+    assertEquals( info.isDisposed(), false );
+
+    observable.dispose();
+
+    assertEquals( info.isDisposed(), true );
+  }
+
+  @Test
+  public void basicOperation_withIntrospectors()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+    final String name = ValueUtil.randomString();
+    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
+    final AtomicReference<String> value = new AtomicReference<>();
+    String initialValue = ValueUtil.randomString();
+    value.set( initialValue );
+    final Observable<String> observable = context.createObservable( component, name, value::get, value::set );
+    final Observer observer = context.autorun( observable::reportObserved );
+
+    final ObservableInfoImpl info = new ObservableInfoImpl( context.getSpy(), observable );
+
+    final ComponentInfo componentInfo = info.getComponent();
+    assertNotNull( componentInfo );
+    assertEquals( componentInfo.getType(), component.getType() );
+    assertEquals( info.getName(), name );
+    assertEquals( info.toString(), name );
+
+    assertEquals( info.hasAccessor(), true );
+    assertEquals( info.getValue(), initialValue );
+
+    final String newValue = ValueUtil.randomString();
+
+    assertEquals( info.hasMutator(), true );
+    info.setValue( newValue );
+    assertEquals( info.getValue(), newValue );
 
     assertEquals( info.getObservers().size(), 1 );
     assertEquals( info.getObservers().get( 0 ).getName(), observer.getName() );

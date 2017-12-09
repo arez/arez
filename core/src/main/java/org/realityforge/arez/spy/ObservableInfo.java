@@ -48,4 +48,47 @@ public interface ObservableInfo
    */
   @Nullable
   ComponentInfo getComponent();
+
+  /**
+   * Return true if the specified Observable has an accessor.
+   * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
+   *
+   * @return true if an accessor is available.
+   * @see org.realityforge.arez.Spy#hasAccessor(org.realityforge.arez.Observable)
+   */
+  boolean hasAccessor();
+
+  /**
+   * Return the value of the specified Observable.
+   * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true
+   * and {@link #hasAccessor()} for the same element returns true.
+   *
+   * @return the value of the observable.
+   * @throws Throwable if the property accessor throws an exception.
+   * @see org.realityforge.arez.Spy#getValue(org.realityforge.arez.Observable)
+   */
+  @Nullable
+  Object getValue()
+    throws Throwable;
+
+  /**
+   * Return true if the specified Observable has a mutator.
+   * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
+   *
+   * @return true if a mutator is available.
+   * @see org.realityforge.arez.Spy#hasMutator(org.realityforge.arez.Observable)
+   */
+  boolean hasMutator();
+
+  /**
+   * Set the value of the specified Observable.
+   * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true
+   * and {@link #hasMutator()} for the same element returns true.
+   *
+   * @param value the value to set
+   * @throws Throwable if the property accessor throws an exception.
+   * @see org.realityforge.arez.Spy#setValue(org.realityforge.arez.Observable, Object)
+   */
+  void setValue( @Nullable Object value )
+    throws Throwable;
 }

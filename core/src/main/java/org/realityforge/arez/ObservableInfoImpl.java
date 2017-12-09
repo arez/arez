@@ -95,6 +95,46 @@ final class ObservableInfoImpl
    * {@inheritDoc}
    */
   @Override
+  public boolean hasAccessor()
+  {
+    return _spy.hasAccessor( _observable );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nullable
+  @Override
+  public Object getValue()
+    throws Throwable
+  {
+    return _spy.getValue( _observable );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean hasMutator()
+  {
+    return _spy.hasMutator( _observable );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @SuppressWarnings( "unchecked" )
+  @Override
+  public void setValue( @Nullable final Object value )
+    throws Throwable
+  {
+    _spy.setValue( (Observable<Object>) _observable, value );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public boolean isDisposed()
   {
     return _observable.isDisposed();
