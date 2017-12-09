@@ -109,6 +109,29 @@ public class ObserverTest
                   "transaction mode but no ComputedValue." );
   }
 
+
+  @Test
+  public void construct_with_mode_but_checking_DIsabled()
+    throws Exception
+  {
+    ArezTestUtil.noEnforceTransactionType();
+
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( new ArezContext(),
+                                        null,
+                                        name,
+                                        null,
+                                        TransactionMode.READ_ONLY,
+                                        new TestReaction(),
+                                        false ) );
+
+    assertEquals( exception.getMessage(),
+                  "Observer named '" + name + "' specified mode 'READ_ONLY' when Arez.enforceTransactionType() is false." );
+  }
+
   @Test
   public void construct_with_READ_ONLY_but_ComputableValue()
     throws Exception

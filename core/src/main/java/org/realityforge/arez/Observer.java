@@ -125,6 +125,9 @@ public final class Observer
     }
     else
     {
+      invariant( () -> null == mode,
+                 () -> "Observer named '" + getName() + "' specified mode '" + mode + "' when " +
+                       "Arez.enforceTransactionType() is false." );
       assert null == mode;
     }
     invariant( () -> Arez.areNativeComponentsEnabled() || null == component,

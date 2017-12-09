@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Fixed
+* **\[core\]** Add invariant check to ensure that the `Observer` does not accept a `TransactionMode` parameter
+  if `Arez.enforceTransactionType()` returns false.
+
 ##### Changed
 * 💥 **\[core\]** Introduce `ObservableInfo` interface that is used from within the spy subsystem. This change
   effectively removes the `dispose()` method from the public interface of Observables accessed solely through
