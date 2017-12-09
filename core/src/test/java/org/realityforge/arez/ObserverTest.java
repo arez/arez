@@ -133,6 +133,20 @@ public class ObserverTest
                   "when Arez.enforceTransactionType() is false." );
   }
 
+  @SuppressWarnings( "ResultOfMethodCallIgnored" )
+  @Test
+  public void construct_with_no_mode_and_noEnforceTransactionType()
+    throws Exception
+  {
+    ArezTestUtil.noEnforceTransactionType();
+
+    final String name = ValueUtil.randomString();
+
+    final Observer observer =
+      new Observer( new ArezContext(), null, name, null, null, new TestReaction(), false );
+    assertThrows( observer::getMode );
+  }
+
   @Test
   public void construct_with_READ_ONLY_but_ComputableValue()
     throws Exception
