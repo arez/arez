@@ -7,7 +7,7 @@ import org.realityforge.arez.Arez;
 import org.realityforge.arez.ComputedValue;
 
 /**
- * A representation of a observable instance exposed to spy framework.
+ * A representation of an observable instance exposed to spy framework.
  */
 public interface ObservableInfo
   extends ElementInfo
