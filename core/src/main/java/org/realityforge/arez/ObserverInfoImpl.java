@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ObservableInfo;
 import org.realityforge.arez.spy.ObserverInfo;
 
 /**
@@ -26,8 +27,8 @@ final class ObserverInfoImpl
   }
 
   @Nonnull
-  private static Collection<ObserverInfo> asInfos( @Nonnull final Spy spy,
-                                                   @Nonnull final Collection<Observer> observers )
+  private static List<ObserverInfo> asInfos( @Nonnull final Spy spy,
+                                             @Nonnull final Collection<Observer> observers )
   {
     return observers
       .stream()
@@ -36,10 +37,10 @@ final class ObserverInfoImpl
   }
 
   @Nonnull
-  static Collection<ObserverInfo> asUnmodifiableInfos( @Nonnull final Spy spy,
-                                                       @Nonnull final Collection<Observer> observers )
+  static List<ObserverInfo> asUnmodifiableInfos( @Nonnull final Spy spy,
+                                                 @Nonnull final Collection<Observer> observers )
   {
-    return Collections.unmodifiableCollection( asInfos( spy, observers ) );
+    return Collections.unmodifiableList( asInfos( spy, observers ) );
   }
 
   /**
@@ -102,9 +103,9 @@ final class ObserverInfoImpl
    */
   @Nonnull
   @Override
-  public List<Observable<?>> getDependencies()
+  public List<ObservableInfo> getDependencies()
   {
-    return _spy.getDependencies( _observer );
+    return ObservableInfoImpl.asUnmodifiableInfos( _spy, _spy.getDependencies( _observer ) );
   }
 
   /**

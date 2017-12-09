@@ -1089,7 +1089,7 @@ public class ObserverTest
     handler.assertEvent( TransactionStartedEvent.class, 1 );
     {
       final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 2 );
-      assertEquals( event.getObservable(), computedValue.getObservable() );
+      assertEquals( event.getObservable().getName(), computedValue.getObservable().getName() );
     }
     handler.assertEvent( TransactionCompletedEvent.class, 3 );
     {

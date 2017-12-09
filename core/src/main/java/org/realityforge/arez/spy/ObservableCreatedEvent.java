@@ -3,7 +3,6 @@ package org.realityforge.arez.spy;
 import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.Observable;
 
 /**
  * Notification when Observable is created.
@@ -14,15 +13,15 @@ public final class ObservableCreatedEvent
   public static final String TYPE_NAME = EventUtil.getName( ObservableCreatedEvent.class );
 
   @Nonnull
-  private final Observable<?> _observable;
+  private final ObservableInfo _observable;
 
-  public ObservableCreatedEvent( @Nonnull final Observable<?> observable )
+  public ObservableCreatedEvent( @Nonnull final ObservableInfo observable )
   {
     _observable = Objects.requireNonNull( observable );
   }
 
   @Nonnull
-  public Observable<?> getObservable()
+  public ObservableInfo getObservable()
   {
     return _observable;
   }

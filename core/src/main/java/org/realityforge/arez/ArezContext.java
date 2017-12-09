@@ -672,7 +672,7 @@ public final class ArezContext
       new Observable<>( this, component, generateNodeName( "Observable", name ), null, accessor, mutator );
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ObservableCreatedEvent( observable ) );
+      getSpy().reportSpyEvent( new ObservableCreatedEvent( new ObservableInfoImpl( getSpy(), observable ) ) );
     }
     return observable;
   }

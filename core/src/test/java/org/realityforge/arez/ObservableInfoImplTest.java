@@ -6,7 +6,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObserverInfoImplTest
+public class ObservableInfoImplTest
   extends AbstractArezTest
 {
   @Test
@@ -15,26 +15,23 @@ public class ObserverInfoImplTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final Observable<Object> observable = context.createObservable();
-    final Observer observer = context.autorun( name, false, observable::reportObserved );
+    final Observable<Object> observable = context.createObservable( name );
+    final Observer observer = context.autorun( observable::reportObserved );
 
-    final ObserverInfoImpl info = new ObserverInfoImpl( context.getSpy(), observer );
+    final ObservableInfoImpl info = new ObservableInfoImpl( context.getSpy(), observable );
 
     assertEquals( info.getComponent(), null );
     assertEquals( info.getName(), name );
     assertEquals( info.toString(), name );
 
-    assertEquals( info.getDependencies().size(), 1 );
-    assertEquals( info.getDependencies().get( 0 ).getName(), observable.getName() );
-    assertUnmodifiable( info.getDependencies() );
+    assertEquals( info.getObservers().size(), 1 );
+    assertEquals( info.getObservers().get( 0 ).getName(), observer.getName() );
+    assertUnmodifiable( info.getObservers() );
 
     assertEquals( info.isComputedValue(), false );
-    assertEquals( info.isReadOnly(), true );
-    assertEquals( info.isRunning(), false );
-    assertEquals( info.isScheduled(), false );
     assertEquals( info.isDisposed(), false );
 
-    observer.dispose();
+    observable.dispose();
 
     assertEquals( info.isDisposed(), true );
   }
@@ -47,9 +44,9 @@ public class ObserverInfoImplTest
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue = context.createComputedValue( name, () -> "" );
 
-    final Observer observer = computedValue.getObserver();
+    final Observable<String> observable = computedValue.getObservable();
 
-    final ObserverInfoImpl info = new ObserverInfoImpl( context.getSpy(), observer );
+    final ObservableInfoImpl info = new ObservableInfoImpl( context.getSpy(), observable );
 
     assertEquals( info.getName(), name );
 
@@ -63,13 +60,15 @@ public class ObserverInfoImplTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observable<Object> observable = context.createObservable();
-    final Observer observer1 = context.autorun( ValueUtil.randomString(), false, observable::reportObserved );
-    final Observer observer2 = context.autorun( ValueUtil.randomString(), false, observable::reportObserved );
+    final Observable<Object> observable1 = context.createObservable();
+    final Observable<Object> observable2 = context.createObservable();
 
-    final ObserverInfoImpl info1a = new ObserverInfoImpl( context.getSpy(), observer1 );
-    final ObserverInfoImpl info1b = new ObserverInfoImpl( context.getSpy(), observer1 );
-    final ObserverInfoImpl info2 = new ObserverInfoImpl( context.getSpy(), observer2 );
+    final ObservableInfoImpl info1a = new ObservableInfoImpl( context.getSpy(), observable1 );
+    final ObservableInfoImpl info1b = new ObservableInfoImpl( context.getSpy(), observable1 );
+    final ObservableInfoImpl info2 = new ObservableInfoImpl( context.getSpy(), observable2 );
+
+    //noinspection EqualsBetweenInconvertibleTypes
+    assertEquals( info1a.equals( "" ), false );
 
     assertEquals( info1a.equals( info1a ), true );
     assertEquals( info1a.equals( info1b ), true );
@@ -83,9 +82,9 @@ public class ObserverInfoImplTest
     assertEquals( info2.equals( info1b ), false );
     assertEquals( info2.equals( info2 ), true );
 
-    assertEquals( info1a.hashCode(), observer1.hashCode() );
+    assertEquals( info1a.hashCode(), observable1.hashCode() );
     assertEquals( info1a.hashCode(), info1b.hashCode() );
-    assertEquals( info2.hashCode(), observer2.hashCode() );
+    assertEquals( info2.hashCode(), observable2.hashCode() );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> collection )

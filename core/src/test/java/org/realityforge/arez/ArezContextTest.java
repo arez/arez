@@ -1771,7 +1771,7 @@ public class ArezContextTest
     assertEquals( observable.getName(), name );
     handler.assertEventCount( 1 );
     final ObservableCreatedEvent event = handler.assertEvent( ObservableCreatedEvent.class, 0 );
-    assertEquals( event.getObservable(), observable );
+    assertEquals( event.getObservable().getName(), observable.getName() );
   }
 
   @Test

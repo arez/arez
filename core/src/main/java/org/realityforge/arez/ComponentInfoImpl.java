@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ObservableInfo;
 import org.realityforge.arez.spy.ObserverInfo;
 
 /**
@@ -61,16 +62,16 @@ final class ComponentInfoImpl
    * {@inheritDoc}
    */
   @Override
-  public Collection<Observable<?>> getObservables()
+  public List<ObservableInfo> getObservables()
   {
-    return _observables;
+    return ObservableInfoImpl.asUnmodifiableInfos( _spy, _observables );
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public Collection<ObserverInfo> getObservers()
+  public List<ObserverInfo> getObservers()
   {
     return ObserverInfoImpl.asUnmodifiableInfos( _spy, _component.getObservers() );
   }

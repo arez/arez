@@ -3,7 +3,6 @@ package org.realityforge.arez.spy;
 import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.Observable;
 
 /**
  * Notification when Observable is disposed.
@@ -14,15 +13,15 @@ public final class ObservableDisposedEvent
   public static final String TYPE_NAME = EventUtil.getName( ObservableDisposedEvent.class );
 
   @Nonnull
-  private final Observable<?> _observable;
+  private final ObservableInfo _observable;
 
-  public ObservableDisposedEvent( @Nonnull final Observable<?> observable )
+  public ObservableDisposedEvent( @Nonnull final ObservableInfo observable )
   {
     _observable = Objects.requireNonNull( observable );
   }
 
   @Nonnull
-  public Observable<?> getObservable()
+  public ObservableInfo getObservable()
   {
     return _observable;
   }

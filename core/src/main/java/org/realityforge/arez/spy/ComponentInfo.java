@@ -1,9 +1,9 @@
 package org.realityforge.arez.spy;
 
 import java.util.Collection;
+import java.util.List;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.ComputedValue;
-import org.realityforge.arez.Observable;
 
 /**
  * A representation of a component instance exposed to spy framework.
@@ -36,7 +36,7 @@ public interface ComponentInfo
    *
    * @return the associated observables.
    */
-  Collection<Observable<?>> getObservables();
+  List<ObservableInfo> getObservables();
 
   /**
    * Return the Observers associated with the component.
@@ -46,7 +46,7 @@ public interface ComponentInfo
    *
    * @return the associated observers.
    */
-  Collection<ObserverInfo> getObservers();
+  List<ObserverInfo> getObservers();
 
   /**
    * Return the ComputedValues associated with the component.

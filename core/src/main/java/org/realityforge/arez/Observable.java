@@ -162,7 +162,7 @@ public final class Observable<T>
       {
         if ( willPropagateSpyEvents() )
         {
-          reportSpyEvent( new ObservableDisposedEvent( this ) );
+          reportSpyEvent( new ObservableDisposedEvent( new ObservableInfoImpl( getSpy(), this ) ) );
         }
         if ( null != _component )
         {
@@ -435,7 +435,7 @@ public final class Observable<T>
   {
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObservableChangedEvent( this, getObservableValue() ) );
+      reportSpyEvent( new ObservableChangedEvent( new ObservableInfoImpl( getSpy(), this ), getObservableValue() ) );
     }
     getContext().getTransaction().reportChanged( this );
   }
@@ -444,7 +444,7 @@ public final class Observable<T>
   {
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObservableChangedEvent( this, getObservableValue() ) );
+      reportSpyEvent( new ObservableChangedEvent( new ObservableInfoImpl( getSpy(), this ), getObservableValue() ) );
     }
     getContext().getTransaction().reportChangeConfirmed( this );
   }

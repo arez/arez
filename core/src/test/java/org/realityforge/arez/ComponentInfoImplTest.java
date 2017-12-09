@@ -35,11 +35,11 @@ public class ComponentInfoImplTest
     assertEquals( info.toString(), name );
 
     assertEquals( info.getObservables().size(), 1 );
-    assertEquals( info.getObservables().contains( observable ), true );
+    assertEquals( info.getObservables().get( 0 ).getName(), observable.getName() );
     assertUnmodifiable( info.getObservables() );
 
     assertEquals( info.getObservers().size(), 1 );
-    assertEquals( info.getObservers().iterator().next().getName(), observer.getName() );
+    assertEquals( info.getObservers().get( 0 ).getName(), observer.getName() );
     assertUnmodifiable( info.getObservers() );
 
     assertEquals( info.getComputedValues().size(), 1 );

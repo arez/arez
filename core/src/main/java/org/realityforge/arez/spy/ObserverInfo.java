@@ -5,7 +5,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ComputedValue;
-import org.realityforge.arez.Observable;
 
 /**
  * A representation of a observer instance exposed to spy framework.
@@ -65,7 +64,7 @@ public interface ObserverInfo
    * @see org.realityforge.arez.Spy#getDependencies(org.realityforge.arez.Observer)
    */
   @Nonnull
-  List<Observable<?>> getDependencies();
+  List<ObservableInfo> getDependencies();
 
   /**
    * Return the component for the specified Observer.
