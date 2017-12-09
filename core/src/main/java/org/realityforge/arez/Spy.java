@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ObservableInfo;
 import org.realityforge.arez.spy.ObserverInfo;
 import org.realityforge.arez.spy.TransactionInfo;
 
@@ -260,7 +261,7 @@ public interface Spy
    * @return the collection of observables not contained by a native component.
    */
   @Nonnull
-  Collection<Observable<?>> findAllTopLevelObservables();
+  Collection<ObservableInfo> findAllTopLevelObservables();
 
   /**
    * Find all the collection of observers not contained by a native component.

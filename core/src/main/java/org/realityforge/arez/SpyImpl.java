@@ -10,6 +10,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ObservableInfo;
 import org.realityforge.arez.spy.ObserverInfo;
 import org.realityforge.arez.spy.PropertyAccessor;
 import org.realityforge.arez.spy.PropertyMutator;
@@ -382,9 +383,9 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public Collection<Observable<?>> findAllTopLevelObservables()
+  public Collection<ObservableInfo> findAllTopLevelObservables()
   {
-    return Collections.unmodifiableCollection( _context.getTopLevelObservables().values() );
+    return ObservableInfoImpl.asUnmodifiableInfos( this, _context.getTopLevelObservables().values() );
   }
 
   /**
