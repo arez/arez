@@ -129,7 +129,8 @@ public class ObserverTest
                                         false ) );
 
     assertEquals( exception.getMessage(),
-                  "Observer named '" + name + "' specified mode 'READ_ONLY' when Arez.enforceTransactionType() is false." );
+                  "Observer named '" + name + "' specified mode 'READ_ONLY' " +
+                  "when Arez.enforceTransactionType() is false." );
   }
 
   @Test
