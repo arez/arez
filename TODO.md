@@ -94,7 +94,7 @@ console.table(languages);
   that should never be present in compiled output if `areNamesEnabled` is false. Package Y should no be present
   in compiled output unless `areSpiesEnabled` is true etc.
 
-* The Spy should abstract the `Observable` and `ComputedValue` classes behind an Info interface.
+* The Spy should abstract the `ComputedValue` class behind an Info interface.
 
 ## Process
 
