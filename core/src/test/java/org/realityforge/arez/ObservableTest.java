@@ -1348,6 +1348,46 @@ public class ObservableTest
   }
 
   @Test
+  public void reportChanged_generates_spyEvent_whenValueIntrpspectorErrors()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final String name = ValueUtil.randomString();
+    final PropertyAccessor<Object> accessor = () -> {
+      // This means no value ever possible
+      throw new RuntimeException();
+    };
+    final Observer observer = newReadWriteObserver( context );
+    setCurrentTransaction( observer );
+
+    observer.setState( ObserverState.POSSIBLY_STALE );
+
+    final Observable<?> observable = context.createObservable( name, accessor, null );
+    observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+
+    observable.addObserver( observer );
+    observer.getDependencies().add( observable );
+
+    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    observable.reportChanged();
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+
+    handler.assertEventCount( 2 );
+
+    final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 0 );
+    assertEquals( event.getObservable().getName(), observable.getName() );
+    assertEquals( event.getValue(), null );
+
+    assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver().getName(), observer.getName() );
+  }
+
+  @Test
   public void reportChanged_generates_spyEvents_each_call()
     throws Exception
   {
