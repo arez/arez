@@ -65,6 +65,9 @@ public class ComponentInfoImplTest
     final ComponentInfoImpl info1b = new ComponentInfoImpl( context.getSpy(), component1 );
     final ComponentInfoImpl info2 = new ComponentInfoImpl( context.getSpy(), component2 );
 
+    //noinspection EqualsBetweenInconvertibleTypes
+    assertEquals( info1a.equals( "" ), false );
+
     assertEquals( info1a.equals( info1a ), true );
     assertEquals( info1a.equals( info1b ), true );
     assertEquals( info1a.equals( info2 ), false );

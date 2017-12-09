@@ -71,6 +71,9 @@ public class ObserverInfoImplTest
     final ObserverInfoImpl info1b = new ObserverInfoImpl( context.getSpy(), observer1 );
     final ObserverInfoImpl info2 = new ObserverInfoImpl( context.getSpy(), observer2 );
 
+    //noinspection EqualsBetweenInconvertibleTypes
+    assertEquals( info1a.equals( "" ), false );
+
     assertEquals( info1a.equals( info1a ), true );
     assertEquals( info1a.equals( info1b ), true );
     assertEquals( info1a.equals( info2 ), false );
