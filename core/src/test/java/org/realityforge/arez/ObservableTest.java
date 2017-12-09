@@ -1180,7 +1180,6 @@ public class ObservableTest
 
     final ComputedValueActivatedEvent event = handler.assertEvent( ComputedValueActivatedEvent.class, 0 );
     assertEquals( event.getComputedValue(), derivation.getComputedValue() );
-
   }
 
   @Test
