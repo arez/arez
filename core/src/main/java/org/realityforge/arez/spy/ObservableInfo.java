@@ -39,10 +39,10 @@ public interface ObservableInfo
   List<ObserverInfo> getObservers();
 
   /**
-   * Return the component for the specified Observer.
+   * Return the component for the Observable.
    * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
    *
-   * @return the component that contains Observer if any.
+   * @return the component that contains Observable if any.
    * @see org.realityforge.arez.Spy#getComponent(org.realityforge.arez.Observable)
    */
   @Nullable
