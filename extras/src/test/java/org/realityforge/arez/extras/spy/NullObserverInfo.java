@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.arez.ComputedValue;
-import org.realityforge.arez.Observable;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ComputedValueInfo;
+import org.realityforge.arez.spy.ObservableInfo;
 import org.realityforge.arez.spy.ObserverInfo;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 
@@ -38,14 +38,14 @@ final class NullObserverInfo
   }
 
   @Override
-  public ComputedValue<?> asComputedValue()
+  public ComputedValueInfo asComputedValue()
   {
     return null;
   }
 
   @Nonnull
   @Override
-  public List<Observable<?>> getDependencies()
+  public List<ObservableInfo> getDependencies()
   {
     return Collections.emptyList();
   }
