@@ -3,7 +3,6 @@ package org.realityforge.arez.spy;
 import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.ComputedValue;
 
 /**
  * ComputedValue has been disposed.
@@ -14,15 +13,15 @@ public final class ComputedValueDisposedEvent
   public static final String TYPE_NAME = EventUtil.getName( ComputedValueDisposedEvent.class );
 
   @Nonnull
-  private final ComputedValue<?> _computedValue;
+  private final ComputedValueInfo _computedValue;
 
-  public ComputedValueDisposedEvent( @Nonnull final ComputedValue<?> computedValue )
+  public ComputedValueDisposedEvent( @Nonnull final ComputedValueInfo computedValue )
   {
     _computedValue = Objects.requireNonNull( computedValue );
   }
 
   @Nonnull
-  public ComputedValue<?> getComputedValue()
+  public ComputedValueInfo getComputedValue()
   {
     return _computedValue;
   }

@@ -10,6 +10,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ComputedValueInfo;
 import org.realityforge.arez.spy.ObservableInfo;
 import org.realityforge.arez.spy.ObserverInfo;
 import org.realityforge.arez.spy.PropertyAccessor;
@@ -141,9 +142,9 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public List<Observer> getObservers( @Nonnull final ComputedValue<?> computedValue )
+  public List<ObserverInfo> getObservers( @Nonnull final ComputedValue<?> computedValue )
   {
-    return Collections.unmodifiableList( new ArrayList<>( computedValue.getObservable().getObservers() ) );
+    return ObserverInfoImpl.asUnmodifiableInfos( this, computedValue.getObservable().getObservers() );
   }
 
   /**
@@ -151,7 +152,7 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public List<Observable> getDependencies( @Nonnull final ComputedValue<?> computedValue )
+  public List<ObservableInfo> getDependencies( @Nonnull final ComputedValue<?> computedValue )
   {
     if ( computedValue.isComputing() )
     {
@@ -164,13 +165,13 @@ final class SpyImpl
       else
       {
         // Copy the list removing any duplicates that may exist.
-        final List<Observable> list = observables.stream().distinct().collect( Collectors.toList() );
-        return Collections.unmodifiableList( list );
+        final List<Observable<?>> list = observables.stream().distinct().collect( Collectors.toList() );
+        return ObservableInfoImpl.asUnmodifiableInfos( this, list );
       }
     }
     else
     {
-      return Collections.unmodifiableList( new ArrayList<>( computedValue.getObserver().getDependencies() ) );
+      return ObservableInfoImpl.asUnmodifiableInfos( this, computedValue.getObserver().getDependencies() );
     }
   }
 
@@ -234,9 +235,9 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
-  public ComputedValue<?> asComputedValue( @Nonnull final Observable<?> observable )
+  public ComputedValueInfo asComputedValue( @Nonnull final Observable<?> observable )
   {
-    return observable.getOwner().getComputedValue();
+    return new ComputedValueInfoImpl( this, observable.getOwner().getComputedValue() );
   }
 
   /**
@@ -244,9 +245,9 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public List<Observer> getObservers( @Nonnull final Observable<?> observable )
+  public List<ObserverInfo> getObservers( @Nonnull final Observable<?> observable )
   {
-    return Collections.unmodifiableList( new ArrayList<>( observable.getObservers() ) );
+    return ObserverInfoImpl.asUnmodifiableInfos( this, observable.getObservers() );
   }
 
   /**
@@ -271,9 +272,9 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
-  public ComputedValue<?> asComputedValue( @Nonnull final Observer observer )
+  public ComputedValueInfo asComputedValue( @Nonnull final Observer observer )
   {
-    return ( (Observer) observer ).getComputedValue();
+    return new ComputedValueInfoImpl( this, observer.getComputedValue() );
   }
 
   /**
@@ -281,7 +282,7 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public List<Observable<?>> getDependencies( @Nonnull final Observer observer )
+  public List<ObservableInfo> getDependencies( @Nonnull final Observer observer )
   {
     final Transaction transaction = isTransactionActive() ? getTrackerTransaction( observer ) : null;
     if ( null != transaction )
@@ -295,12 +296,12 @@ final class SpyImpl
       {
         // Copy the list removing any duplicates that may exist.
         final List<Observable<?>> list = observables.stream().distinct().collect( Collectors.toList() );
-        return Collections.unmodifiableList( list );
+        return ObservableInfoImpl.asUnmodifiableInfos( this, list );
       }
     }
     else
     {
-      return Collections.unmodifiableList( new ArrayList<>( observer.getDependencies() ) );
+      return ObservableInfoImpl.asUnmodifiableInfos( this, observer.getDependencies() );
     }
   }
 
@@ -403,9 +404,9 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public Collection<ComputedValue<?>> findAllTopLevelComputedValues()
+  public Collection<ComputedValueInfo> findAllTopLevelComputedValues()
   {
-    return Collections.unmodifiableCollection( _context.getTopLevelComputedValues().values() );
+    return ComputedValueInfoImpl.asUnmodifiableInfos( this, _context.getTopLevelComputedValues().values() );
   }
 
   /**
@@ -508,6 +509,16 @@ final class SpyImpl
   public <T> ObservableInfo asObservableInfo( @Nonnull final Observable<T> observable )
   {
     return new ObservableInfoImpl( this, observable );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public <T> ComputedValueInfo asComputedValueInfo( @Nonnull final ComputedValue<T> computedValue )
+  {
+    return new ComputedValueInfoImpl( this, computedValue );
   }
 
   @TestOnly

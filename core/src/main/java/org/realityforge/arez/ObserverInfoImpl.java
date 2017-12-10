@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ComputedValueInfo;
 import org.realityforge.arez.spy.ObservableInfo;
 import org.realityforge.arez.spy.ObserverInfo;
 
@@ -93,7 +94,7 @@ final class ObserverInfoImpl
    * {@inheritDoc}
    */
   @Override
-  public ComputedValue<?> asComputedValue()
+  public ComputedValueInfo asComputedValue()
   {
     return _spy.asComputedValue( _observer );
   }
@@ -105,7 +106,7 @@ final class ObserverInfoImpl
   @Override
   public List<ObservableInfo> getDependencies()
   {
-    return ObservableInfoImpl.asUnmodifiableInfos( _spy, _spy.getDependencies( _observer ) );
+    return _spy.getDependencies( _observer );
   }
 
   /**

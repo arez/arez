@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.ComputedValue;
 
 /**
  * Notification when Computation completes.
@@ -15,11 +14,11 @@ public final class ComputeCompletedEvent
   public static final String TYPE_NAME = EventUtil.getName( ComputeCompletedEvent.class );
 
   @Nonnull
-  private final ComputedValue<?> _computedValue;
+  private final ComputedValueInfo _computedValue;
   @Nonnegative
   private final long _duration;
 
-  public ComputeCompletedEvent( @Nonnull final ComputedValue<?> computedValue, @Nonnegative final long duration )
+  public ComputeCompletedEvent( @Nonnull final ComputedValueInfo computedValue, @Nonnegative final long duration )
   {
     assert duration >= 0;
     _computedValue = Objects.requireNonNull( computedValue );
@@ -27,7 +26,7 @@ public final class ComputeCompletedEvent
   }
 
   @Nonnull
-  public ComputedValue<?> getComputedValue()
+  public ComputedValueInfo getComputedValue()
   {
     return _computedValue;
   }

@@ -143,7 +143,7 @@ public final class ComputedValue<T>
       _error = null;
       if ( willPropagateSpyEvents() )
       {
-        reportSpyEvent( new ComputedValueDisposedEvent( this ) );
+        reportSpyEvent( new ComputedValueDisposedEvent( new ComputedValueInfoImpl( getSpy(), this ) ) );
       }
       if ( null != _component )
       {

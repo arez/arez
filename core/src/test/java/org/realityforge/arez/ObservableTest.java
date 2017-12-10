@@ -1076,7 +1076,7 @@ public class ObservableTest
 
     handler.assertEventCount( 1 );
     final ComputedValueDeactivatedEvent event = handler.assertEvent( ComputedValueDeactivatedEvent.class, 0 );
-    assertEquals( event.getComputedValue(), derivation.getComputedValue() );
+    assertEquals( event.getComputedValue().getName(), derivation.getComputedValue().getName() );
   }
 
   @Test
@@ -1179,7 +1179,7 @@ public class ObservableTest
     handler.assertEventCount( 1 );
 
     final ComputedValueActivatedEvent event = handler.assertEvent( ComputedValueActivatedEvent.class, 0 );
-    assertEquals( event.getComputedValue(), derivation.getComputedValue() );
+    assertEquals( event.getComputedValue().getName(), derivation.getComputedValue().getName() );
   }
 
   @Test

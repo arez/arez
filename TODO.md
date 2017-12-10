@@ -94,8 +94,6 @@ console.table(languages);
   that should never be present in compiled output if `areNamesEnabled` is false. Package Y should no be present
   in compiled output unless `areSpiesEnabled` is true etc.
 
-* The Spy should abstract the `ComputedValue` class behind an Info interface.
-
 ## Process
 
 * Generate links when the application crashes so that we can autofill issue details. Essentially involves

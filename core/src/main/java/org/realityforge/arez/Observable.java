@@ -298,7 +298,8 @@ public final class Observable<T>
       _owner.setState( ObserverState.INACTIVE );
       if ( willPropagateSpyEvents() )
       {
-        reportSpyEvent( new ComputedValueDeactivatedEvent( _owner.getComputedValue() ) );
+        reportSpyEvent( new ComputedValueDeactivatedEvent( new ComputedValueInfoImpl( getSpy(),
+                                                                                      _owner.getComputedValue() ) ) );
       }
     }
   }
@@ -321,7 +322,8 @@ public final class Observable<T>
     _owner.setState( ObserverState.UP_TO_DATE );
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ComputedValueActivatedEvent( _owner.getComputedValue() ) );
+      reportSpyEvent( new ComputedValueActivatedEvent( new ComputedValueInfoImpl( getSpy(),
+                                                                                  _owner.getComputedValue() ) ) );
     }
   }
 

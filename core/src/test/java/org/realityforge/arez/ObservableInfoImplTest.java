@@ -98,7 +98,7 @@ public class ObservableInfoImplTest
     assertEquals( info.getName(), name );
 
     assertEquals( info.isComputedValue(), true );
-    assertEquals( info.asComputedValue(), computedValue );
+    assertEquals( info.asComputedValue().getName(), computedValue.getName() );
   }
 
   @SuppressWarnings( "EqualsWithItself" )

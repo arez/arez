@@ -43,7 +43,7 @@ public class ComponentInfoImplTest
     assertUnmodifiable( info.getObservers() );
 
     assertEquals( info.getComputedValues().size(), 1 );
-    assertEquals( info.getComputedValues().contains( computedValue ), true );
+    assertEquals( info.getComputedValues().get( 0 ).getName(), computedValue.getName() );
     assertUnmodifiable( info.getComputedValues() );
 
     assertFalse( info.isDisposed() );

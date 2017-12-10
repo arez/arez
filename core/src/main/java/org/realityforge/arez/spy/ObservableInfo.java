@@ -4,7 +4,6 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.arez.Arez;
-import org.realityforge.arez.ComputedValue;
 
 /**
  * A representation of an observable instance exposed to spy framework.
@@ -27,7 +26,7 @@ public interface ObservableInfo
    * @return the ComputedValue instance.
    * @see org.realityforge.arez.Spy#asComputedValue(org.realityforge.arez.Observable)
    */
-  ComputedValue<?> asComputedValue();
+  ComputedValueInfo asComputedValue();
 
   /**
    * Return the list of observers for the Observable.

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ComputedValueInfo;
 import org.realityforge.arez.spy.ObservableInfo;
 import org.realityforge.arez.spy.ObserverInfo;
 
@@ -80,9 +81,9 @@ final class ComponentInfoImpl
    * {@inheritDoc}
    */
   @Override
-  public Collection<ComputedValue<?>> getComputedValues()
+  public List<ComputedValueInfo> getComputedValues()
   {
-    return _computedValues;
+    return ComputedValueInfoImpl.asUnmodifiableInfos( _spy, _computedValues );
   }
 
   /**

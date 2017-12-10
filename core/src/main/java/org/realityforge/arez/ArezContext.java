@@ -389,7 +389,7 @@ public final class ArezContext
     observer.setOnDispose( onDispose );
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ComputedValueCreatedEvent( computedValue ) );
+      getSpy().reportSpyEvent( new ComputedValueCreatedEvent( new ComputedValueInfoImpl( getSpy(), computedValue ) ) );
     }
     return computedValue;
   }

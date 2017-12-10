@@ -524,7 +524,7 @@ public final class Observer
         start = System.currentTimeMillis();
         if ( isDerivation() )
         {
-          reportSpyEvent( new ComputeStartedEvent( getComputedValue() ) );
+          reportSpyEvent( new ComputeStartedEvent( new ComputedValueInfoImpl( getSpy(), getComputedValue() ) ) );
         }
         else
         {
@@ -552,7 +552,8 @@ public final class Observer
         final long duration = System.currentTimeMillis() - start;
         if ( isDerivation() )
         {
-          reportSpyEvent( new ComputeCompletedEvent( getComputedValue(), duration ) );
+          reportSpyEvent( new ComputeCompletedEvent( new ComputedValueInfoImpl( getSpy(), getComputedValue() ),
+                                                     duration ) );
         }
         else
         {

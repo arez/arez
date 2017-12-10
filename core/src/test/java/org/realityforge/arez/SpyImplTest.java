@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ComputedValueInfo;
+import org.realityforge.arez.spy.ElementInfo;
 import org.realityforge.arez.spy.ObservableInfo;
 import org.realityforge.arez.spy.ObserverInfo;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -315,9 +318,9 @@ public class SpyImplTest
     observable.getObservers().add( computedValue.getObserver() );
     computedValue.getObserver().getDependencies().add( observable );
 
-    final List<Observable> dependencies = spy.getDependencies( computedValue );
+    final List<ObservableInfo> dependencies = spy.getDependencies( computedValue );
     assertEquals( dependencies.size(), 1 );
-    assertEquals( dependencies.contains( observable ), true );
+    assertEquals( dependencies.iterator().next().getName(), observable.getName() );
 
     assertUnmodifiable( dependencies );
   }
@@ -350,12 +353,13 @@ public class SpyImplTest
     context.getTransaction().safeGetObservables().add( observable3 );
     context.getTransaction().safeGetObservables().add( observable2 );
 
-    final List<Observable> dependencies = spy.getDependencies( computedValue );
+    final List<String> dependencies = spy.getDependencies( computedValue ).stream().
+      map( ElementInfo::getName ).collect( Collectors.toList() );
     assertEquals( dependencies.size(), 2 );
-    assertEquals( dependencies.contains( observable2 ), true );
-    assertEquals( dependencies.contains( observable3 ), true );
+    assertEquals( dependencies.contains( observable2.getName() ), true );
+    assertEquals( dependencies.contains( observable3.getName() ), true );
 
-    assertUnmodifiable( dependencies );
+    assertUnmodifiable( spy.getDependencies( computedValue ) );
   }
 
   @Test
@@ -382,7 +386,7 @@ public class SpyImplTest
     final Observable<?> observable = observer.getDerivedValue();
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
-    assertEquals( spy.asComputedValue( observable ), computedValue );
+    assertEquals( spy.asComputedValue( observable ).getName(), computedValue.getName() );
   }
 
   @Test
@@ -400,9 +404,9 @@ public class SpyImplTest
     final Observer observer = newReadOnlyObserver( context );
     observable.getObservers().add( observer );
 
-    final List<Observer> observers = spy.getObservers( observable );
+    final List<ObserverInfo> observers = spy.getObservers( observable );
     assertEquals( observers.size(), 1 );
-    assertEquals( observers.contains( observer ), true );
+    assertEquals( observers.iterator().next().getName(), observer.getName() );
 
     assertUnmodifiable( observers );
   }
@@ -430,7 +434,7 @@ public class SpyImplTest
     final Observer observer = newDerivation( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
-    assertEquals( spy.asComputedValue( observer ), computedValue );
+    assertEquals( spy.asComputedValue( observer ).getName(), computedValue.getName() );
   }
 
   @Test
@@ -514,9 +518,9 @@ public class SpyImplTest
     observable.getObservers().add( observer );
     observer.getDependencies().add( observable );
 
-    final List<Observable<?>> dependencies = spy.getDependencies( observer );
+    final List<ObservableInfo> dependencies = spy.getDependencies( observer );
     assertEquals( dependencies.size(), 1 );
-    assertEquals( dependencies.contains( observable ), true );
+    assertEquals( dependencies.get( 0 ).getName(), observable.getName() );
 
     assertUnmodifiable( dependencies );
   }
@@ -546,12 +550,13 @@ public class SpyImplTest
     context.getTransaction().safeGetObservables().add( observable3 );
     context.getTransaction().safeGetObservables().add( observable2 );
 
-    final List<Observable<?>> dependencies = spy.getDependencies( observer );
+    final List<String> dependencies = spy.getDependencies( observer ).stream().
+      map( ElementInfo::getName ).collect( Collectors.toList() );
     assertEquals( dependencies.size(), 2 );
-    assertEquals( dependencies.contains( observable2 ), true );
-    assertEquals( dependencies.contains( observable3 ), true );
+    assertEquals( dependencies.contains( observable2.getName() ), true );
+    assertEquals( dependencies.contains( observable3.getName() ), true );
 
-    assertUnmodifiable( dependencies );
+    assertUnmodifiable( spy.getDependencies( observer ) );
   }
 
   @Test
@@ -819,9 +824,9 @@ public class SpyImplTest
 
     final Spy spy = context.getSpy();
 
-    final Collection<ComputedValue<?>> values = spy.findAllTopLevelComputedValues();
+    final Collection<ComputedValueInfo> values = spy.findAllTopLevelComputedValues();
     assertEquals( values.size(), 1 );
-    assertEquals( values.contains( computedValue ), true );
+    assertEquals( values.iterator().next().getName(), computedValue.getName() );
     assertUnmodifiable( values );
 
     assertEquals( spy.findAllTopLevelObservers().size(), 0 );
@@ -1090,6 +1095,16 @@ public class SpyImplTest
     final ObservableInfo info = context.getSpy().asObservableInfo( observable );
 
     assertEquals( info.getName(), observable.getName() );
+  }
+
+  @Test
+  public void asComputedValueInfo()
+  {
+    final ArezContext context = Arez.context();
+    final ComputedValue<String> computedValue = context.createComputedValue( () -> "" );
+    final ComputedValueInfo info = context.getSpy().asComputedValueInfo( computedValue );
+
+    assertEquals( info.getName(), computedValue.getName() );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> list )

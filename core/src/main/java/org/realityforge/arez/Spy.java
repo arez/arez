@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.spy.ComponentInfo;
+import org.realityforge.arez.spy.ComputedValueInfo;
 import org.realityforge.arez.spy.ObservableInfo;
 import org.realityforge.arez.spy.ObserverInfo;
 import org.realityforge.arez.spy.TransactionInfo;
@@ -90,7 +91,7 @@ public interface Spy
    * @return the list of observers for ComputedValue.
    */
   @Nonnull
-  List<Observer> getObservers( @Nonnull ComputedValue<?> computedValue );
+  List<ObserverInfo> getObservers( @Nonnull ComputedValue<?> computedValue );
 
   /**
    * Return the list of dependencies of the ComputedValue.
@@ -103,7 +104,7 @@ public interface Spy
    * @return the list of dependencies for ComputedValue.
    */
   @Nonnull
-  List<Observable> getDependencies( @Nonnull ComputedValue<?> computedValue );
+  List<ObservableInfo> getDependencies( @Nonnull ComputedValue<?> computedValue );
 
   /**
    * Return true if the Observable is a ComputedValue.
@@ -120,7 +121,7 @@ public interface Spy
    * @param observable the Observable.
    * @return the ComputedValue instance.
    */
-  ComputedValue<?> asComputedValue( @Nonnull Observable<?> observable );
+  ComputedValueInfo asComputedValue( @Nonnull Observable<?> observable );
 
   /**
    * Return the list of observers for the Observable.
@@ -130,7 +131,7 @@ public interface Spy
    * @return the list of observers for Observable.
    */
   @Nonnull
-  List<Observer> getObservers( @Nonnull Observable<?> observable );
+  List<ObserverInfo> getObservers( @Nonnull Observable<?> observable );
 
   /**
    * Return true if the Observer is currently running.
@@ -176,7 +177,7 @@ public interface Spy
    * @return the ComputedValue instance.
    * @see org.realityforge.arez.spy.ObserverInfo#asComputedValue()
    */
-  ComputedValue<?> asComputedValue( @Nonnull Observer observer );
+  ComputedValueInfo asComputedValue( @Nonnull Observer observer );
 
   /**
    * Return the list of dependencies of the Observer.
@@ -190,7 +191,7 @@ public interface Spy
    * @see org.realityforge.arez.spy.ObserverInfo#getDependencies()
    */
   @Nonnull
-  List<Observable<?>> getDependencies( @Nonnull Observer observer );
+  List<ObservableInfo> getDependencies( @Nonnull Observer observer );
 
   /**
    * Return the component for specified Observable.
@@ -281,7 +282,7 @@ public interface Spy
    * @return the collection of computed values not contained by a native component.
    */
   @Nonnull
-  Collection<ComputedValue<?>> findAllTopLevelComputedValues();
+  Collection<ComputedValueInfo> findAllTopLevelComputedValues();
 
   /**
    * Return true if the specified Observable has an accessor.
@@ -370,4 +371,14 @@ public interface Spy
    */
   @Nonnull
   <T> ObservableInfo asObservableInfo( @Nonnull Observable<T> observable );
+
+  /**
+   * Convert the specified computedValue into an ComputedValueInfo.
+   *
+   * @param <T>           The type of the value that is computed.
+   * @param computedValue the ComputedValue.
+   * @return the ComputedValueInfo wrapping the computedValue.
+   */
+  @Nonnull
+  <T> ComputedValueInfo asComputedValueInfo( @Nonnull ComputedValue<T> computedValue );
 }

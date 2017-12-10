@@ -306,7 +306,7 @@ public class ComputedValueTest
 
     // This is the part that disposes the associated ComputedValue
     final ComputedValueDisposedEvent event = handler.assertNextEvent( ComputedValueDisposedEvent.class );
-    assertEquals( event.getComputedValue(), computedValue );
+    assertEquals( event.getComputedValue().getName(), computedValue.getName() );
 
     // This is the part that disposes the Observer
     handler.assertNextEvent( ActionStartedEvent.class );

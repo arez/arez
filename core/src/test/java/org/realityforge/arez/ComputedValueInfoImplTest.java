@@ -1,60 +1,58 @@
 package org.realityforge.arez;
 
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObserverInfoImplTest
+public class ComputedValueInfoImplTest
   extends AbstractArezTest
 {
   @Test
   public void basicOperation()
-    throws Exception
+    throws Throwable
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
     final Observable<Object> observable = context.createObservable();
-    final Observer observer = context.autorun( name, false, observable::reportObserved );
 
-    final ObserverInfoImpl info = new ObserverInfoImpl( context.getSpy(), observer );
+    final AtomicReference<String> value = new AtomicReference<>();
+    final String initialValue = ValueUtil.randomString();
+    value.set( initialValue );
+
+    final ComputedValue<Object> computedValue =
+      context.createComputedValue( name, () -> {
+        observable.reportObserved();
+        return value.get();
+      } );
+    final Observer observer = context.autorun( computedValue::get );
+
+    final ComputedValueInfoImpl info = new ComputedValueInfoImpl( context.getSpy(), computedValue );
 
     assertEquals( info.getComponent(), null );
     assertEquals( info.getName(), name );
     assertEquals( info.toString(), name );
 
+    assertEquals( info.isActive(), true );
+    assertEquals( info.isComputing(), false );
+
+    assertEquals( info.getObservers().size(), 1 );
+    assertEquals( info.getObservers().get( 0 ).getName(), observer.getName() );
+    assertUnmodifiable( info.getObservers() );
+
     assertEquals( info.getDependencies().size(), 1 );
     assertEquals( info.getDependencies().get( 0 ).getName(), observable.getName() );
     assertUnmodifiable( info.getDependencies() );
 
-    assertEquals( info.isComputedValue(), false );
-    assertEquals( info.isReadOnly(), true );
-    assertEquals( info.isRunning(), false );
-    assertEquals( info.isScheduled(), false );
+    assertEquals( info.getValue(), initialValue );
+
     assertEquals( info.isDisposed(), false );
 
-    observer.dispose();
+    computedValue.dispose();
 
     assertEquals( info.isDisposed(), true );
-  }
-
-  @Test
-  public void asComputedValue()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-    final String name = ValueUtil.randomString();
-    final ComputedValue<String> computedValue = context.createComputedValue( name, () -> "" );
-
-    final Observer observer = computedValue.getObserver();
-
-    final ObserverInfoImpl info = new ObserverInfoImpl( context.getSpy(), observer );
-
-    assertEquals( info.getName(), name );
-
-    assertEquals( info.isComputedValue(), true );
-    assertEquals( info.asComputedValue().getName(), computedValue.getName() );
   }
 
   @SuppressWarnings( "EqualsWithItself" )
@@ -63,13 +61,12 @@ public class ObserverInfoImplTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observable<Object> observable = context.createObservable();
-    final Observer observer1 = context.autorun( ValueUtil.randomString(), false, observable::reportObserved );
-    final Observer observer2 = context.autorun( ValueUtil.randomString(), false, observable::reportObserved );
+    final ComputedValue<Object> computedValue1 = context.createComputedValue( () -> "1" );
+    final ComputedValue<Object> computedValue2 = context.createComputedValue( () -> "2" );
 
-    final ObserverInfoImpl info1a = new ObserverInfoImpl( context.getSpy(), observer1 );
-    final ObserverInfoImpl info1b = new ObserverInfoImpl( context.getSpy(), observer1 );
-    final ObserverInfoImpl info2 = new ObserverInfoImpl( context.getSpy(), observer2 );
+    final ComputedValueInfoImpl info1a = new ComputedValueInfoImpl( context.getSpy(), computedValue1 );
+    final ComputedValueInfoImpl info1b = new ComputedValueInfoImpl( context.getSpy(), computedValue1 );
+    final ComputedValueInfoImpl info2 = new ComputedValueInfoImpl( context.getSpy(), computedValue2 );
 
     //noinspection EqualsBetweenInconvertibleTypes
     assertEquals( info1a.equals( "" ), false );
@@ -86,9 +83,9 @@ public class ObserverInfoImplTest
     assertEquals( info2.equals( info1b ), false );
     assertEquals( info2.equals( info2 ), true );
 
-    assertEquals( info1a.hashCode(), observer1.hashCode() );
+    assertEquals( info1a.hashCode(), computedValue1.hashCode() );
     assertEquals( info1a.hashCode(), info1b.hashCode() );
-    assertEquals( info2.hashCode(), observer2.hashCode() );
+    assertEquals( info2.hashCode(), computedValue2.hashCode() );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> collection )

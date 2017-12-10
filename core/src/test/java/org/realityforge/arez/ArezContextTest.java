@@ -1492,7 +1492,7 @@ public class ArezContextTest
     handler.assertEventCount( 1 );
 
     final ComputedValueCreatedEvent event = handler.assertEvent( ComputedValueCreatedEvent.class, 0 );
-    assertEquals( event.getComputedValue(), computedValue );
+    assertEquals( event.getComputedValue().getName(), computedValue.getName() );
   }
 
   @Test

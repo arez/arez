@@ -1121,7 +1121,7 @@ public class ObserverTest
 
     {
       final ComputeStartedEvent event = handler.assertEvent( ComputeStartedEvent.class, 0 );
-      assertEquals( event.getComputedValue(), computedValue );
+      assertEquals( event.getComputedValue().getName(), computedValue.getName() );
     }
     handler.assertEvent( TransactionStartedEvent.class, 1 );
     {
@@ -1131,7 +1131,7 @@ public class ObserverTest
     handler.assertEvent( TransactionCompletedEvent.class, 3 );
     {
       final ComputeCompletedEvent event = handler.assertEvent( ComputeCompletedEvent.class, 4 );
-      assertEquals( event.getComputedValue(), computedValue );
+      assertEquals( event.getComputedValue().getName(), computedValue.getName() );
       assertTrue( event.getDuration() >= 0 );
     }
   }
