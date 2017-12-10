@@ -6,9 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import jsinterop.base.Js;
 import jsinterop.base.JsArrayLike;
-import jsinterop.base.JsArrayLikeOfAny;
 import jsinterop.base.JsPropertyMap;
-import jsinterop.base.JsPropertyMapOfAny;
 
 /**
  * Utility class that helps convert javascript values to strings for JSON.stringify method.
@@ -38,7 +36,7 @@ public class StringifyReplacer
     }
     else if ( Js.typeof( value ).equals( "function" ) )
     {
-      return JsPropertyMap.of( value ).get( "name" );
+      return Js.asPropertyMap( value ).get( "name" );
     }
     else if ( !Js.typeof( value ).equals( "object" ) )
     {
@@ -56,10 +54,10 @@ public class StringifyReplacer
       _array.setAt( _array.getLength(), value );
 
       final String[] propertyNames = getPropertyNames( value );
-      final JsPropertyMapOfAny map = JsPropertyMap.of();
+      final JsPropertyMap<Object> map = JsPropertyMap.of();
       for ( final String propertyName : propertyNames )
       {
-        map.set( propertyName, JsPropertyMap.of( value ).getAny( propertyName ) );
+        map.set( propertyName, Js.asPropertyMap( value ).getAny( propertyName ) );
       }
       return map;
     }
