@@ -69,6 +69,7 @@ final class JsonLogSpyEventProcessor
     super.on( type, ( d, e ) -> log( e ) );
   }
 
+  @SuppressWarnings( "UnnecessaryUnboxing" )
   private void log( @Nonnull final SerializableEvent event )
   {
     final HashMap<String, Object> map = new HashMap<>();
