@@ -9,6 +9,7 @@
 ##### Fixed
 * **\[core\]** Add invariant check to ensure that the `Observer` does not accept a `TransactionMode` parameter
   if `Arez.enforceTransactionType()` returns false.
+* **\[gwt-examples]\]** Fix html launch page for for `IntervalTickerExample`.
 
 ##### Changed
 * 💥 **\[core\]** Introduce `ObservableInfo` interface that is used from within the spy subsystem. This change
