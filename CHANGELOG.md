@@ -17,6 +17,7 @@
 * 💥 **\[core\]** Introduce `ComputedValueInfo` interface that is used from within the spy subsystem. This change
   effectively removes the `dispose()` method from the public interface of ComputedValues accessed solely through
   the spy subsystem.
+* 💥 **\[core\]** Upgrade `com.google.jsinterop:jsinterop-annotations` library to version `1.0.2`.
 * 💥 **\[core\]** Upgrade `com.google.jsinterop:base` library to version `1.0.0-beta-3`.
 * 💥 **\[core\]** Upgrade `com.google.elemental2:*` libraries to version `1.0.0-beta-3`.
 
