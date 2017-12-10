@@ -25,7 +25,7 @@ public class ObservablePromiseExample
   {
     final ObservablePromise.State state = observablePromise.getState();
     final Response response = ObservablePromise.State.FULFILLED == state ? observablePromise.getValue() : null;
-    final elemental2.core.Error error =
+    final elemental2.core.JsError error =
       ObservablePromise.State.REJECTED == state ? Js.cast( observablePromise.getError() ) : null;
     final String message =
       "Promise State: " + state +

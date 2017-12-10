@@ -17,6 +17,7 @@
 * 💥 **\[core\]** Introduce `ComputedValueInfo` interface that is used from within the spy subsystem. This change
   effectively removes the `dispose()` method from the public interface of ComputedValues accessed solely through
   the spy subsystem.
+* 💥 **\[core\]** Upgrade `com.google.elemental2:*` libraries to version `1.0.0-beta-3`.
 
 ### [v0.33](https://github.com/arez/arez/tree/v0.33) (2017-12-04)
 [Full Changelog](https://github.com/arez/arez/compare/v0.32...v0.33)

@@ -1,6 +1,6 @@
 package org.realityforge.arez.browser.extras.spy;
 
-import elemental2.core.Array;
+import elemental2.core.JsArray;
 import elemental2.core.JsObject;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,7 +16,7 @@ import jsinterop.base.JsPropertyMapOfAny;
  */
 public class StringifyReplacer
 {
-  private final JsArrayLikeOfAny _array = JsArrayLike.of( Array.of() );
+  private final JsArrayLike<Object> _array = new JsArray<>();
 
   /**
    * Return the transformed value for key-value pair.
