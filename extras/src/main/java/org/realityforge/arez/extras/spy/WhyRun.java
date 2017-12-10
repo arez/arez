@@ -5,9 +5,8 @@ import javax.annotation.Nonnull;
 import org.realityforge.anodoc.Unsupported;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
-import org.realityforge.arez.ComputedValue;
-import org.realityforge.arez.Observable;
-import org.realityforge.arez.Observer;
+import org.realityforge.arez.spy.ComputedValueInfo;
+import org.realityforge.arez.spy.ObservableInfo;
 import org.realityforge.arez.spy.ObserverInfo;
 import org.realityforge.arez.spy.TransactionInfo;
 
@@ -53,7 +52,7 @@ public final class WhyRun
   /**
    * Return a human readable explanation why the specified observer is/will run.
    *
-   * @param context the context that contains observer.
+   * @param context  the context that contains observer.
    * @param observer the observer that we want to investigate.
    * @return a human readable explanation why the node is/will run.
    */
@@ -121,10 +120,10 @@ public final class WhyRun
     sb.append( observer.isReadOnly() ? "read only" : "read-write" );
     sb.append( "\n" );
     sb.append( "  * The Observer will run if any of the following observables change:\n" );
-    for ( final Observable observable : observer.getDependencies() )
+    for ( final ObservableInfo observable : observer.getDependencies() )
     {
       sb.append( "    - " );
-      describeObservable( sb, context, observable );
+      describeObservable( sb, observable );
       sb.append( "\n" );
     }
     if ( observer.isRunning() )
@@ -135,13 +134,12 @@ public final class WhyRun
   }
 
   private void describeObservable( @Nonnull final StringBuilder sb,
-                                   @Nonnull final ArezContext context,
-                                   @Nonnull final Observable observable )
+                                   @Nonnull final ObservableInfo observable )
   {
-    if ( context.getSpy().isComputedValue( observable ) )
+    if ( observable.isComputedValue() )
     {
       sb.append( "ComputedValue '" );
-      sb.append( context.getSpy().asComputedValue( observable ).getName() );
+      sb.append( observable.asComputedValue().getName() );
       sb.append( "'" );
     }
     else
@@ -153,27 +151,27 @@ public final class WhyRun
   }
 
   @Nonnull
-  private String whyRun( @Nonnull final ArezContext context, @Nonnull final ComputedValue<?> computedValue )
+  private String whyRun( @Nonnull final ArezContext context, @Nonnull final ComputedValueInfo computedValue )
   {
     final StringBuilder sb = new StringBuilder();
     sb.append( "WhyRun? ComputedValue '" );
     sb.append( computedValue.getName() );
     sb.append( "':\n" );
     sb.append( "  * Status: " );
-    if ( context.getSpy().isActive( computedValue ) )
+    if ( computedValue.isActive() )
     {
-      final List<Observer> observers = context.getSpy().getObservers( computedValue );
+      final List<ObserverInfo> observers = computedValue.getObservers();
       sb.append( "Active (The value is used by" );
       sb.append( observers.size() );
       sb.append( " observers)\n" );
       sb.append( "  * If the ComputedValue changes the following observers will react:\n" );
-      for ( final Observer observer : observers )
+      for ( final ObserverInfo observer : observers )
       {
         sb.append( "    - " );
-        if ( context.getSpy().isComputedValue( observer ) )
+        if ( observer.isComputedValue() )
         {
           sb.append( "ComputedValue '" );
-          sb.append( context.getSpy().asComputedValue( observer ).getName() );
+          sb.append( observer.asComputedValue().getName() );
           sb.append( "'" );
         }
         else
@@ -186,13 +184,13 @@ public final class WhyRun
       }
 
       sb.append( "  * The ComputedValue will recalculate if any of the following observables change\n" );
-      for ( final Observable observable : context.getSpy().getDependencies( computedValue ) )
+      for ( final ObservableInfo observable : computedValue.getDependencies() )
       {
         sb.append( "    - " );
-        describeObservable( sb, context, observable );
+        describeObservable( sb, observable );
         sb.append( "\n" );
       }
-      if ( context.getSpy().isTransactionActive() && context.getSpy().isComputing( computedValue ) )
+      if ( context.getSpy().isTransactionActive() && computedValue.isComputing() )
       {
         sb.append( "    -  (... or any other observable is accessed the remainder of the transaction computing value)\n" );
       }
