@@ -53,12 +53,12 @@ public class NativeComponentsIntegrationTest
     assertEquals( info.getId(), id );
     assertEquals( info.getName(), component.getName() );
     assertEquals( info.getObservables().size(), 2 );
-    assertEquals( info.getObservables().contains( observable1 ), true );
-    assertEquals( info.getObservables().contains( observable2 ), true );
+    assertEquals( info.getObservables().get( 0 ).getName(), observable1.getName() );
+    assertEquals( info.getObservables().get( 1 ).getName(), observable2.getName() );
     assertEquals( info.getObservers().size(), 1 );
     assertEquals( info.getObservers().iterator().next().getName(), observer1.getName() );
     assertEquals( info.getComputedValues().size(), 1 );
-    assertEquals( info.getComputedValues().contains( computedValue1 ), true );
+    assertEquals( info.getComputedValues().get( 0 ).getName(), computedValue1.getName() );
 
     assertEquals( context.getSpy().findAllComponentTypes().size(), 1 );
     assertEquals( context.getSpy().findAllComponentTypes().contains( type ), true );
