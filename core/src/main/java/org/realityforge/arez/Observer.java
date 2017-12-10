@@ -528,7 +528,7 @@ public final class Observer
         }
         else
         {
-          reportSpyEvent( new ReactionStartedEvent( new ObserverInfoImpl( getContext().getSpy(), this ) ) );
+          reportSpyEvent( new ReactionStartedEvent( new ObserverInfoImpl( getSpy(), this ) ) );
         }
       }
       else
@@ -557,7 +557,7 @@ public final class Observer
         }
         else
         {
-          reportSpyEvent( new ReactionCompletedEvent( new ObserverInfoImpl( getContext().getSpy(), this ), duration ) );
+          reportSpyEvent( new ReactionCompletedEvent( new ObserverInfoImpl( getSpy(), this ), duration ) );
         }
       }
     }
