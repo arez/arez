@@ -10,9 +10,9 @@ import javax.inject.Singleton;
 @Module
 public interface NestedModel_BasicActionModelRepositoryDaggerModule {
   @Nonnull
-  @Singleton
   @Provides
-  static NestedModel_BasicActionModelRepository provideRepository(final Arez_NestedModel_BasicActionModelRepository repository) {
-    return repository;
+  @Singleton
+  static NestedModel_BasicActionModelRepository provideComponent(final Arez_NestedModel_BasicActionModelRepository component) {
+    return component;
   }
 }

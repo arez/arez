@@ -10,9 +10,9 @@ import javax.inject.Singleton;
 @Module
 public interface RepositoryWithSingletonRepositoryDaggerModule {
   @Nonnull
-  @Singleton
   @Provides
-  static RepositoryWithSingletonRepository provideRepository(final Arez_RepositoryWithSingletonRepository repository) {
-    return repository;
+  @Singleton
+  static RepositoryWithSingletonRepository provideComponent(final Arez_RepositoryWithSingletonRepository component) {
+    return component;
   }
 }

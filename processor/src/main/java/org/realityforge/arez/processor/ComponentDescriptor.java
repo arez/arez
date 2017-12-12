@@ -66,11 +66,11 @@ final class ComponentDescriptor
   /**
    * Flag controlling whether dagger module is created for repository.
    */
-  private boolean _repositoryDaggerModule;
+  private String _repositoryDaggerConfig = "IF_DETECTED";
   /**
    * Flag controlling whether Inject annotation is added to repository constructor.
    */
-  private boolean _repositoryInject;
+  private String _repositoryInjectConfig = "IF_DETECTED";
   @Nonnull
   private final Elements _elements;
   @Nonnull
@@ -2031,13 +2031,13 @@ final class ComponentDescriptor
   @SuppressWarnings( "ConstantConditions" )
   void configureRepository( @Nonnull final String name,
                             @Nonnull final List<TypeElement> extensions,
-                            final boolean generateDaggerModule,
-                            final boolean repositoryInject )
+                            @Nonnull final String repositoryInjectConfig,
+                            @Nonnull final String repositoryDaggerConfig )
   {
     assert null != name;
     assert null != extensions;
-    _repositoryDaggerModule = generateDaggerModule;
-    _repositoryInject = repositoryInject;
+    _repositoryInjectConfig = repositoryInjectConfig;
+    _repositoryDaggerConfig = repositoryDaggerConfig;
     if ( ProcessorUtil.isSentinelName( name ) )
     {
       _repositoryName = _type + "Repository";
@@ -2099,38 +2099,6 @@ final class ComponentDescriptor
     return builder.build();
   }
 
-  boolean shouldGenerateRepositoryDaggerModule()
-  {
-    return _repositoryDaggerModule;
-  }
-
-  @Nonnull
-  TypeSpec buildRepositoryDaggerModule()
-    throws ArezProcessorException
-  {
-    assert _repositoryDaggerModule;
-    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getRepositoryDaggerModuleName() ).
-      addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
-
-    builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
-      addMember( "value", "$S", ArezProcessor.class.getName() ).
-      build() );
-    builder.addAnnotation( GeneratorUtil.DAGGER_MODULE_CLASSNAME );
-
-    ProcessorUtil.copyAccessModifiers( getElement(), builder );
-
-    builder.addMethod( MethodSpec.methodBuilder( "provideRepository" ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      addAnnotation( GeneratorUtil.SINGLETON_CLASSNAME ).
-      addAnnotation( GeneratorUtil.DAGGER_PROVIDES_CLASSNAME ).
-      addModifiers( Modifier.STATIC, Modifier.PUBLIC ).
-      addParameter( ClassName.get( getPackageName(), getArezRepositoryName() ), "repository", Modifier.FINAL ).
-      addStatement( "return repository" ).
-      returns( ClassName.get( getPackageName(), getRepositoryName() ) ).build() );
-
-    return builder.build();
-  }
-
   /**
    * Build the enhanced class for the component.
    */
@@ -2152,11 +2120,16 @@ final class ComponentDescriptor
     final AnnotationSpec.Builder arezComponent =
       AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_ANNOTATION_CLASSNAME ) ).
         addMember( "nameIncludesId", "false" );
-    if ( _repositoryInject )
+    if ( !"IF_DETECTED".equals( _repositoryInjectConfig ) )
     {
-      arezComponent.addMember( "inject", "$T.TRUE", GeneratorUtil.INJECTIBLE_CLASSNAME );
+      arezComponent.addMember( "inject", "$T.$N", GeneratorUtil.INJECTIBLE_CLASSNAME, _repositoryInjectConfig );
+    }
+    if ( !"IF_DETECTED".equals( _repositoryDaggerConfig ) )
+    {
+      arezComponent.addMember( "dagger", "$T.$N", GeneratorUtil.INJECTIBLE_CLASSNAME, _repositoryDaggerConfig );
     }
     builder.addAnnotation( arezComponent.build() );
+    builder.addAnnotation( GeneratorUtil.SINGLETON_CLASSNAME );
 
     builder.addSuperinterface( ClassName.get( getPackageName(), getRepositoryExtensionName() ) );
     _repositoryExtensions.forEach( e -> builder.addSuperinterface( TypeName.get( e.asType() ) ) );
@@ -2213,12 +2186,6 @@ final class ComponentDescriptor
   private String getComponentDaggerModuleName()
   {
     return getNestedClassPrefix() + getElement().getSimpleName() + "DaggerModule";
-  }
-
-  @Nonnull
-  private String getRepositoryDaggerModuleName()
-  {
-    return getNestedClassPrefix() + getElement().getSimpleName() + "RepositoryDaggerModule";
   }
 
   @Nonnull

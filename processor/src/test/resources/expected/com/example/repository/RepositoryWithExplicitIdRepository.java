@@ -11,12 +11,12 @@ import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.inject.Singleton;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Injectible;
 import org.realityforge.arez.annotations.ObservableRef;
 import org.realityforge.arez.annotations.PreDispose;
 import org.realityforge.arez.component.NoResultException;
@@ -25,9 +25,9 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @ArezComponent(
-    nameIncludesId = false,
-    inject = Injectible.TRUE
+    nameIncludesId = false
 )
+@Singleton
 public class RepositoryWithExplicitIdRepository implements RepositoryWithExplicitIdBaseRepositoryExtension {
   private final HashMap<Integer, RepositoryWithExplicitId> $$arez$$_entities = new HashMap<>();
   ;

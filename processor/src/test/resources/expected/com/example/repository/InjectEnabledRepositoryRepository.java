@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.inject.Singleton;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
@@ -27,6 +28,7 @@ import org.realityforge.braincheck.Guards;
     nameIncludesId = false,
     inject = Injectible.TRUE
 )
+@Singleton
 public class InjectEnabledRepositoryRepository implements InjectEnabledRepositoryBaseRepositoryExtension {
   private final HashMap<Long, InjectEnabledRepository> $$arez$$_entities = new HashMap<>();
   ;

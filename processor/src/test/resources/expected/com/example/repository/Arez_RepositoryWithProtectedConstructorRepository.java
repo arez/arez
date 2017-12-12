@@ -5,6 +5,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Component;
@@ -13,6 +14,7 @@ import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
+@Singleton
 public final class Arez_RepositoryWithProtectedConstructorRepository extends RepositoryWithProtectedConstructorRepository implements Disposable {
   private static volatile long $$arez$$_nextId;
 

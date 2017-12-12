@@ -101,10 +101,6 @@ public final class ArezProcessor
     {
       emitTypeSpec( descriptor.getPackageName(), descriptor.buildRepository( processingEnv.getTypeUtils() ) );
       emitTypeSpec( descriptor.getPackageName(), descriptor.buildRepositoryExtension() );
-      if ( descriptor.shouldGenerateRepositoryDaggerModule() )
-      {
-        emitTypeSpec( descriptor.getPackageName(), descriptor.buildRepositoryDaggerModule() );
-      }
     }
   }
 
@@ -223,9 +219,9 @@ public final class ArezProcessor
           map( typeMirror -> (TypeElement) processingEnv.getTypeUtils().asElement( typeMirror ) ).
           collect( Collectors.toList() );
       final String name = getAnnotationParameter( repository, "name" );
-      final boolean repositoryDagger = isRepositoryDaggerRequired( typeElement );
-      final boolean repositoryInject = isRepositoryInjectionRequired( typeElement );
-      descriptor.configureRepository( name, extensions, repositoryDagger, repositoryDagger || repositoryInject );
+      final String repositoryInjectConfig = getRepositoryInjectConfig( typeElement );
+      final String repositoryDaggerConfig = getRepositoryDaggerConfig( typeElement );
+      descriptor.configureRepository( name, extensions, repositoryInjectConfig, repositoryDaggerConfig );
     }
 
     return descriptor;
@@ -279,40 +275,26 @@ public final class ArezProcessor
     }
   }
 
-  private boolean isRepositoryInjectionRequired( @Nonnull final TypeElement typeElement )
+  @Nonnull
+  private String getRepositoryInjectConfig( @Nonnull final TypeElement typeElement )
   {
     final VariableElement injectParameter = (VariableElement)
       ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
                                         typeElement,
                                         Constants.REPOSITORY_ANNOTATION_CLASSNAME,
                                         "inject" ).getValue();
-    switch ( injectParameter.getSimpleName().toString() )
-    {
-      case "TRUE":
-        return true;
-      case "FALSE":
-        return false;
-      default:
-        return null != processingEnv.getElementUtils().getTypeElement( Constants.INJECT_ANNOTATION_CLASSNAME );
-    }
+    return injectParameter.getSimpleName().toString();
   }
 
-  private boolean isRepositoryDaggerRequired( @Nonnull final TypeElement typeElement )
+  @Nonnull
+  private String getRepositoryDaggerConfig( @Nonnull final TypeElement typeElement )
   {
     final VariableElement daggerParameter = (VariableElement)
       ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
                                         typeElement,
                                         Constants.REPOSITORY_ANNOTATION_CLASSNAME,
                                         "dagger" ).getValue();
-    switch ( daggerParameter.getSimpleName().toString() )
-    {
-      case "TRUE":
-        return true;
-      case "FALSE":
-        return false;
-      default:
-        return null != processingEnv.getElementUtils().getTypeElement( Constants.DAGGER_MODULE_CLASSNAME );
-    }
+    return daggerParameter.getSimpleName().toString();
   }
 
   private boolean hasInjectAnnotation( final Element method )

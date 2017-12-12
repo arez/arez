@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Changed
+* **\[processor\]** Use the same mechanisms for building the dagger module between the component and the
+  associated repository type.
+
 ### [v0.35](https://github.com/arez/arez/tree/v0.35) (2017-12-12)
 [Full Changelog](https://github.com/arez/arez/compare/v0.34...v0.35)
 

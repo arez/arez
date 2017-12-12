@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.inject.Singleton;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
@@ -25,8 +26,9 @@ import org.realityforge.braincheck.Guards;
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @ArezComponent(
     nameIncludesId = false,
-    inject = Injectible.TRUE
+    dagger = Injectible.TRUE
 )
+@Singleton
 public class DaggerEnabledRepositoryRepository implements DaggerEnabledRepositoryBaseRepositoryExtension {
   private final HashMap<Long, DaggerEnabledRepository> $$arez$$_entities = new HashMap<>();
   ;
