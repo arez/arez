@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.35](https://github.com/arez/arez/tree/v0.35) (2017-12-12)
+[Full Changelog](https://github.com/arez/arez/compare/v0.34...v0.35)
 
 ##### Added
 * **\[processor\]** Add a `dagger` parameter to `@ArezComponent` that controls whether a dagger module
