@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @Module
-public interface RepositoryWithMultipleCtorsDaggerModule {
+public interface RepositoryWithMultipleCtorsRepositoryDaggerModule {
   @Nonnull
   @Singleton
   @Provides

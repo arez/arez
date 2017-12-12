@@ -2,6 +2,13 @@
 
 ### Unreleased
 
+##### Added
+* **\[processor\]** Add a `dagger` parameter to `@ArezComponent` that controls whether a dagger module
+  is generated for a component. The default value of parameter is `IF_DETECTED` which will generate a
+  dagger module if the component is annotated with a "scope" annotation and the class `dagger.Module`
+  is present on the compile path of the annotated class. A "scope" annotation is an annotation that is
+  itself annotated with the `javax.inject.Scope` annotation.
+
 ##### Changed
 * 💥 **\[annotations\]** Change the type of the `inject` parameter on the `@ArezComponent` and `@Repository`
   annotations and the `dagger` parameter of the `@Repository` annotation to support `TRUE`, `FALSE` and

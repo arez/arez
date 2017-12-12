@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
@@ -92,13 +93,17 @@ public final class ArezProcessor
     final TypeElement typeElement = (TypeElement) element;
     final ComponentDescriptor descriptor = parse( packageElement, typeElement );
     emitTypeSpec( descriptor.getPackageName(), descriptor.buildType( processingEnv.getTypeUtils() ) );
+    if ( descriptor.shouldGenerateComponentDaggerModule() )
+    {
+      emitTypeSpec( descriptor.getPackageName(), descriptor.buildComponentDaggerModule() );
+    }
     if ( descriptor.hasRepository() )
     {
       emitTypeSpec( descriptor.getPackageName(), descriptor.buildRepository( processingEnv.getTypeUtils() ) );
       emitTypeSpec( descriptor.getPackageName(), descriptor.buildRepositoryExtension() );
-      if ( descriptor.shouldGenerateDaggerModule() )
+      if ( descriptor.shouldGenerateRepositoryDaggerModule() )
       {
-        emitTypeSpec( descriptor.getPackageName(), descriptor.buildDaggerModule() );
+        emitTypeSpec( descriptor.getPackageName(), descriptor.buildRepositoryDaggerModule() );
       }
     }
   }
@@ -130,7 +135,11 @@ public final class ArezProcessor
     final String declaredType = getAnnotationParameter( arezComponent, "type" );
     final boolean nameIncludesId = getAnnotationParameter( arezComponent, "nameIncludesId" );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
-    final boolean inject = isInjectionRequired( typeElement );
+    final List<AnnotationMirror> scopeAnnotations =
+      typeElement.getAnnotationMirrors().stream().filter( this::isScopeAnnotation ).collect( Collectors.toList() );
+    final AnnotationMirror scopeAnnotation = scopeAnnotations.isEmpty() ? null : scopeAnnotations.get( 0 );
+    final boolean inject = isInjectionRequired( typeElement, scopeAnnotation );
+    final boolean dagger = isDaggerRequired( typeElement, scopeAnnotation );
     final boolean deferSchedule = getAnnotationParameter( arezComponent, "deferSchedule" );
 
     final String type =
@@ -141,9 +150,25 @@ public final class ArezProcessor
       throw new ArezProcessorException( "@ArezComponent specified invalid type parameter", typeElement );
     }
 
+    if ( !scopeAnnotations.isEmpty() && ProcessorUtil.getConstructors( typeElement ).size() > 1 )
+    {
+      throw new ArezProcessorException( "@ArezComponent target has specified a scope annotation but has more than " +
+                                        "one constructor and thus is not a candidate for injection",
+                                        typeElement );
+    }
+
     if ( inject && ProcessorUtil.getConstructors( typeElement ).size() > 1 )
     {
       throw new ArezProcessorException( "@ArezComponent specified inject parameter but has more than one constructor",
+                                        typeElement );
+    }
+
+    if ( scopeAnnotations.size() > 1 )
+    {
+      final List<String> scopes = scopeAnnotations.stream()
+        .map( a -> processingEnv.getTypeUtils().asElement( a.getAnnotationType() ).asType().toString() )
+        .collect( Collectors.toList() );
+      throw new ArezProcessorException( "@ArezComponent target has specified multiple scope annotations: " + scopes,
                                         typeElement );
     }
 
@@ -160,7 +185,9 @@ public final class ArezProcessor
                                type,
                                nameIncludesId,
                                allowEmpty,
-                               inject,
+                               dagger || inject,
+                               dagger,
+                               scopeAnnotation,
                                deferSchedule,
                                generateToString,
                                packageElement,
@@ -196,15 +223,22 @@ public final class ArezProcessor
           map( typeMirror -> (TypeElement) processingEnv.getTypeUtils().asElement( typeMirror ) ).
           collect( Collectors.toList() );
       final String name = getAnnotationParameter( repository, "name" );
-      final boolean dagger = isRepositoryDaggerRequired( typeElement );
+      final boolean repositoryDagger = isRepositoryDaggerRequired( typeElement );
       final boolean repositoryInject = isRepositoryInjectionRequired( typeElement );
-      descriptor.configureRepository( name, extensions, dagger, dagger || repositoryInject );
+      descriptor.configureRepository( name, extensions, repositoryDagger, repositoryDagger || repositoryInject );
     }
 
     return descriptor;
   }
 
-  private boolean isInjectionRequired( @Nonnull final TypeElement typeElement )
+  private boolean isScopeAnnotation( @Nonnull final AnnotationMirror a )
+  {
+    final Element element = processingEnv.getTypeUtils().asElement( a.getAnnotationType() );
+    return null != ProcessorUtil.findAnnotationByType( element, Constants.SCOPE_ANNOTATION_CLASSNAME );
+  }
+
+  private boolean isInjectionRequired( @Nonnull final TypeElement typeElement,
+                                       @Nullable final AnnotationMirror scopeAnnotation )
   {
     final VariableElement injectParameter = (VariableElement)
       ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
@@ -218,9 +252,30 @@ public final class ArezProcessor
       case "FALSE":
         return false;
       default:
-        return ProcessorUtil.getFieldElements( typeElement ).stream().anyMatch( this::hasInjectAnnotation ) ||
+        return null != scopeAnnotation ||
+               ProcessorUtil.getFieldElements( typeElement ).stream().anyMatch( this::hasInjectAnnotation ) ||
                ProcessorUtil.getMethods( typeElement, processingEnv.getTypeUtils() ).
                  stream().anyMatch( this::hasInjectAnnotation );
+    }
+  }
+
+  private boolean isDaggerRequired( @Nonnull final TypeElement typeElement,
+                                    @Nullable final AnnotationMirror scopeAnnotation )
+  {
+    final VariableElement daggerParameter = (VariableElement)
+      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
+                                        typeElement,
+                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                                        "dagger" ).getValue();
+    switch ( daggerParameter.getSimpleName().toString() )
+    {
+      case "TRUE":
+        return true;
+      case "FALSE":
+        return false;
+      default:
+        return null != scopeAnnotation &&
+               null != processingEnv.getElementUtils().getTypeElement( Constants.DAGGER_MODULE_CLASSNAME );
     }
   }
 

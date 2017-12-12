@@ -8,11 +8,11 @@ import javax.inject.Singleton;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @Module
-public interface RepositoryWithExplicitIdDaggerModule {
+public interface RepositoryWithProtectedConstructorRepositoryDaggerModule {
   @Nonnull
   @Singleton
   @Provides
-  static RepositoryWithExplicitIdRepository provideRepository(final Arez_RepositoryWithExplicitIdRepository repository) {
+  static RepositoryWithProtectedConstructorRepository provideRepository(final Arez_RepositoryWithProtectedConstructorRepository repository) {
     return repository;
   }
 }

@@ -1,4 +1,4 @@
-package com.example.repository;
+package com.example.inject;
 
 import dagger.Module;
 import dagger.Provides;
@@ -8,11 +8,11 @@ import javax.inject.Singleton;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @Module
-public interface RepositoryWithSingletonDaggerModule {
+public interface ScopedInjectModelDaggerModule {
   @Nonnull
-  @Singleton
   @Provides
-  static RepositoryWithSingletonRepository provideRepository(final Arez_RepositoryWithSingletonRepository repository) {
-    return repository;
+  @Singleton
+  static ScopedInjectModel provideComponent(final Arez_ScopedInjectModel component) {
+    return component;
   }
 }

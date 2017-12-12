@@ -23,8 +23,9 @@ import static org.testng.Assert.*;
 abstract class AbstractArezProcessorTest
 {
   void assertSuccessfulCompile( @Nonnull final String classname,
+                                final boolean componentDaggerEnabled,
                                 final boolean repositoryEnabled,
-                                final boolean daggerEnabled )
+                                final boolean repositoryDaggerEnabled )
     throws Exception
   {
     final String[] elements = classname.contains( "." ) ? classname.split( "\\." ) : new String[]{ classname };
@@ -32,34 +33,43 @@ abstract class AbstractArezProcessorTest
     final StringBuilder arezComponent = new StringBuilder();
     final StringBuilder repository = repositoryEnabled ? new StringBuilder() : null;
     final StringBuilder arezRepository = repositoryEnabled ? new StringBuilder() : null;
+    final StringBuilder componentDaggerModule = componentDaggerEnabled ? new StringBuilder() : null;
     final StringBuilder repositoryExtension = repositoryEnabled ? new StringBuilder() : null;
-    final StringBuilder daggerModule = daggerEnabled ? new StringBuilder() : null;
+    final StringBuilder repositoryDaggerModule = repositoryDaggerEnabled ? new StringBuilder() : null;
     input.append( "input" );
     arezComponent.append( "expected" );
+    if ( componentDaggerEnabled )
+    {
+      componentDaggerModule.append( "expected" );
+    }
     if ( repositoryEnabled )
     {
       repository.append( "expected" );
       arezRepository.append( "expected" );
       repositoryExtension.append( "expected" );
     }
-    if ( daggerEnabled )
+    if ( repositoryDaggerEnabled )
     {
-      daggerModule.append( "expected" );
+      repositoryDaggerModule.append( "expected" );
     }
     for ( int i = 0; i < elements.length; i++ )
     {
       input.append( '/' );
       input.append( elements[ i ] );
       arezComponent.append( '/' );
+      if ( componentDaggerEnabled )
+      {
+        componentDaggerModule.append( '/' );
+      }
       if ( repositoryEnabled )
       {
         repository.append( '/' );
         arezRepository.append( '/' );
         repositoryExtension.append( '/' );
       }
-      if ( daggerEnabled )
+      if ( repositoryDaggerEnabled )
       {
-        daggerModule.append( '/' );
+        repositoryDaggerModule.append( '/' );
       }
       final boolean isLastElement = i == elements.length - 1;
       if ( isLastElement )
@@ -71,6 +81,15 @@ abstract class AbstractArezProcessorTest
         }
       }
       arezComponent.append( elements[ i ] );
+      if ( componentDaggerEnabled )
+      {
+        componentDaggerModule.append( elements[ i ] );
+        if ( isLastElement )
+        {
+          componentDaggerModule.append( "DaggerModule" );
+        }
+      }
+
       if ( repositoryEnabled )
       {
         repository.append( elements[ i ] );
@@ -83,12 +102,12 @@ abstract class AbstractArezProcessorTest
           repositoryExtension.append( "Repository" );
         }
       }
-      if ( daggerEnabled )
+      if ( repositoryDaggerEnabled )
       {
-        daggerModule.append( elements[ i ] );
+        repositoryDaggerModule.append( elements[ i ] );
         if ( isLastElement )
         {
-          daggerModule.append( "DaggerModule" );
+          repositoryDaggerModule.append( "RepositoryDaggerModule" );
         }
       }
     }
@@ -96,6 +115,11 @@ abstract class AbstractArezProcessorTest
     arezComponent.append( ".java" );
     final ArrayList<String> expectedOutputs = new ArrayList<>();
     expectedOutputs.add( arezComponent.toString() );
+    if ( componentDaggerEnabled )
+    {
+      componentDaggerModule.append( ".java" );
+      expectedOutputs.add( componentDaggerModule.toString() );
+    }
     if ( repositoryEnabled )
     {
       repository.append( ".java" );
@@ -105,10 +129,10 @@ abstract class AbstractArezProcessorTest
       expectedOutputs.add( arezRepository.toString() );
       expectedOutputs.add( repositoryExtension.toString() );
     }
-    if ( daggerEnabled )
+    if ( repositoryDaggerEnabled )
     {
-      daggerModule.append( ".java" );
-      expectedOutputs.add( daggerModule.toString() );
+      repositoryDaggerModule.append( ".java" );
+      expectedOutputs.add( repositoryDaggerModule.toString() );
     }
     assertSuccessfulCompile( input.toString(),
                              expectedOutputs.toArray( new String[ expectedOutputs.size() ] ) );

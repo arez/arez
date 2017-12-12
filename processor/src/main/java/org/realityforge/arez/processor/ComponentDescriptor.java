@@ -66,7 +66,7 @@ final class ComponentDescriptor
   /**
    * Flag controlling whether dagger module is created for repository.
    */
-  private boolean _generateDaggerModule;
+  private boolean _repositoryDaggerModule;
   /**
    * Flag controlling whether Inject annotation is added to repository constructor.
    */
@@ -78,6 +78,11 @@ final class ComponentDescriptor
   private final boolean _nameIncludesId;
   private final boolean _allowEmpty;
   private final boolean _inject;
+  private final boolean _dagger;
+  /**
+   * Scope annotation that is declared on component and should be transferred to injection providers.
+   */
+  private final AnnotationMirror _scopeAnnotation;
   private final boolean _deferSchedule;
   private final boolean _generateToString;
   @Nonnull
@@ -122,6 +127,8 @@ final class ComponentDescriptor
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
                        final boolean inject,
+                       final boolean dagger,
+                       @Nullable final AnnotationMirror scopeAnnotation,
                        final boolean deferSchedule,
                        final boolean generateToString,
                        @Nonnull final PackageElement packageElement,
@@ -132,6 +139,8 @@ final class ComponentDescriptor
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
     _inject = inject;
+    _dagger = dagger;
+    _scopeAnnotation = scopeAnnotation;
     _deferSchedule = deferSchedule;
     _generateToString = generateToString;
     _packageElement = Objects.requireNonNull( packageElement );
@@ -1346,6 +1355,12 @@ final class ComponentDescriptor
         build() );
     }
     ProcessorUtil.copyAccessModifiers( getElement(), builder );
+    if ( null != _scopeAnnotation )
+    {
+      final DeclaredType annotationType = _scopeAnnotation.getAnnotationType();
+      final TypeElement typeElement = (TypeElement) annotationType.asElement();
+      builder.addAnnotation( ClassName.get( typeElement ) );
+    }
 
     builder.addSuperinterface( GeneratorUtil.DISPOSABLE_CLASSNAME );
     if ( hasRepository() )
@@ -1969,6 +1984,45 @@ final class ComponentDescriptor
     return builder.build();
   }
 
+  boolean shouldGenerateComponentDaggerModule()
+  {
+    return _dagger;
+  }
+
+  @Nonnull
+  TypeSpec buildComponentDaggerModule()
+    throws ArezProcessorException
+  {
+    assert shouldGenerateComponentDaggerModule();
+
+    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getComponentDaggerModuleName() ).
+      addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
+
+    builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
+      addMember( "value", "$S", ArezProcessor.class.getName() ).
+      build() );
+    builder.addAnnotation( GeneratorUtil.DAGGER_MODULE_CLASSNAME );
+
+    ProcessorUtil.copyAccessModifiers( getElement(), builder );
+
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( "provideComponent" ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
+      addAnnotation( GeneratorUtil.DAGGER_PROVIDES_CLASSNAME ).
+      addModifiers( Modifier.STATIC, Modifier.PUBLIC ).
+      addParameter( ClassName.get( getPackageName(), getArezClassName() ), "component", Modifier.FINAL ).
+      addStatement( "return component" ).
+      returns( ClassName.get( getElement() ) );
+    if ( null != _scopeAnnotation )
+    {
+      final DeclaredType annotationType = _scopeAnnotation.getAnnotationType();
+      final TypeElement typeElement = (TypeElement) annotationType.asElement();
+      method.addAnnotation( ClassName.get( typeElement ) );
+    }
+
+    builder.addMethod( method.build() );
+    return builder.build();
+  }
+
   boolean hasRepository()
   {
     return null != _repositoryName;
@@ -1982,7 +2036,7 @@ final class ComponentDescriptor
   {
     assert null != name;
     assert null != extensions;
-    _generateDaggerModule = generateDaggerModule;
+    _repositoryDaggerModule = generateDaggerModule;
     _repositoryInject = repositoryInject;
     if ( ProcessorUtil.isSentinelName( name ) )
     {
@@ -2045,17 +2099,17 @@ final class ComponentDescriptor
     return builder.build();
   }
 
-  boolean shouldGenerateDaggerModule()
+  boolean shouldGenerateRepositoryDaggerModule()
   {
-    return _generateDaggerModule;
+    return _repositoryDaggerModule;
   }
 
   @Nonnull
-  TypeSpec buildDaggerModule()
+  TypeSpec buildRepositoryDaggerModule()
     throws ArezProcessorException
   {
-    assert _generateDaggerModule;
-    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getDaggerModuleName() ).
+    assert _repositoryDaggerModule;
+    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getRepositoryDaggerModuleName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
 
     builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
@@ -2156,9 +2210,15 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  private String getDaggerModuleName()
+  private String getComponentDaggerModuleName()
   {
     return getNestedClassPrefix() + getElement().getSimpleName() + "DaggerModule";
+  }
+
+  @Nonnull
+  private String getRepositoryDaggerModuleName()
+  {
+    return getNestedClassPrefix() + getElement().getSimpleName() + "RepositoryDaggerModule";
   }
 
   @Nonnull
