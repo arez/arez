@@ -176,11 +176,15 @@ public final class ArezProcessor
                          "java.lang".equals( processingEnv.getElementUtils().
                            getPackageOf( m.getEnclosingElement() ).getQualifiedName().toString() ) ) );
 
+    final boolean injectClassesPresent =
+      null != processingEnv.getElementUtils().getTypeElement( Constants.INJECT_ANNOTATION_CLASSNAME );
+
     final ComponentDescriptor descriptor =
       new ComponentDescriptor( processingEnv.getElementUtils(),
                                type,
                                nameIncludesId,
                                allowEmpty,
+                               injectClassesPresent,
                                dagger || inject,
                                dagger,
                                scopeAnnotation,

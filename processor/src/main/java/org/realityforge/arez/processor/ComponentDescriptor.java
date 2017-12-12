@@ -77,6 +77,7 @@ final class ComponentDescriptor
   private final String _type;
   private final boolean _nameIncludesId;
   private final boolean _allowEmpty;
+  private final boolean _injectClassesPresent;
   private final boolean _inject;
   private final boolean _dagger;
   /**
@@ -126,6 +127,7 @@ final class ComponentDescriptor
                        @Nonnull final String type,
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
+                       final boolean injectClassesPresent,
                        final boolean inject,
                        final boolean dagger,
                        @Nullable final AnnotationMirror scopeAnnotation,
@@ -138,6 +140,7 @@ final class ComponentDescriptor
     _type = Objects.requireNonNull( type );
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
+    _injectClassesPresent = injectClassesPresent;
     _inject = inject;
     _dagger = dagger;
     _scopeAnnotation = scopeAnnotation;
@@ -2129,7 +2132,11 @@ final class ComponentDescriptor
       arezComponent.addMember( "dagger", "$T.$N", GeneratorUtil.INJECTIBLE_CLASSNAME, _repositoryDaggerConfig );
     }
     builder.addAnnotation( arezComponent.build() );
-    builder.addAnnotation( GeneratorUtil.SINGLETON_CLASSNAME );
+    if ( "TRUE".equals( _repositoryInjectConfig ) ||
+         ( "IF_DETECTED".equals( _repositoryInjectConfig ) && _injectClassesPresent ) )
+    {
+      builder.addAnnotation( GeneratorUtil.SINGLETON_CLASSNAME );
+    }
 
     builder.addSuperinterface( ClassName.get( getPackageName(), getRepositoryExtensionName() ) );
     _repositoryExtensions.forEach( e -> builder.addSuperinterface( TypeName.get( e.asType() ) ) );
