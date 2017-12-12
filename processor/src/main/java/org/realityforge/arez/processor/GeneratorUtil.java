@@ -23,6 +23,7 @@ final class GeneratorUtil
   static final ClassName COMPUTED_VALUE_CLASSNAME = ClassName.get( "org.realityforge.arez", "ComputedValue" );
   static final ClassName DISPOSABLE_CLASSNAME = ClassName.get( "org.realityforge.arez", "Disposable" );
   static final ClassName COMPONENT_CLASSNAME = ClassName.get( "org.realityforge.arez", "Component" );
+  static final ClassName INJECTIBLE_CLASSNAME = ClassName.get( "org.realityforge.arez.annotations", "Injectible" );
   static final ClassName NO_RESULT_EXCEPTION_CLASSNAME =
     ClassName.get( "org.realityforge.arez.component", "NoResultException" );
   static final ClassName NO_SUCH_ENTITY_EXCEPTION_CLASSNAME =

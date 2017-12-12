@@ -24,6 +24,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import static javax.tools.Diagnostic.Kind.*;
 
@@ -129,7 +130,7 @@ public final class ArezProcessor
     final String declaredType = getAnnotationParameter( arezComponent, "type" );
     final boolean nameIncludesId = getAnnotationParameter( arezComponent, "nameIncludesId" );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
-    final boolean inject = getAnnotationParameter( arezComponent, "inject" );
+    final boolean inject = isInjectionRequired( typeElement );
     final boolean deferSchedule = getAnnotationParameter( arezComponent, "deferSchedule" );
 
     final String type =
@@ -195,12 +196,73 @@ public final class ArezProcessor
           map( typeMirror -> (TypeElement) processingEnv.getTypeUtils().asElement( typeMirror ) ).
           collect( Collectors.toList() );
       final String name = getAnnotationParameter( repository, "name" );
-      final boolean dagger = getAnnotationParameter( repository, "dagger" );
-      final boolean repositoryInject = getAnnotationParameter( repository, "inject" );
+      final boolean dagger = isRepositoryDaggerRequired( typeElement );
+      final boolean repositoryInject = isRepositoryInjectionRequired( typeElement );
       descriptor.configureRepository( name, extensions, dagger, dagger || repositoryInject );
     }
 
     return descriptor;
+  }
+
+  private boolean isInjectionRequired( @Nonnull final TypeElement typeElement )
+  {
+    final VariableElement injectParameter = (VariableElement)
+      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
+                                        typeElement,
+                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                                        "inject" ).getValue();
+    switch ( injectParameter.getSimpleName().toString() )
+    {
+      case "TRUE":
+        return true;
+      case "FALSE":
+        return false;
+      default:
+        return ProcessorUtil.getFieldElements( typeElement ).stream().anyMatch( this::hasInjectAnnotation ) ||
+               ProcessorUtil.getMethods( typeElement, processingEnv.getTypeUtils() ).
+                 stream().anyMatch( this::hasInjectAnnotation );
+    }
+  }
+
+  private boolean isRepositoryInjectionRequired( @Nonnull final TypeElement typeElement )
+  {
+    final VariableElement injectParameter = (VariableElement)
+      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
+                                        typeElement,
+                                        Constants.REPOSITORY_ANNOTATION_CLASSNAME,
+                                        "inject" ).getValue();
+    switch ( injectParameter.getSimpleName().toString() )
+    {
+      case "TRUE":
+        return true;
+      case "FALSE":
+        return false;
+      default:
+        return null != processingEnv.getElementUtils().getTypeElement( Constants.INJECT_ANNOTATION_CLASSNAME );
+    }
+  }
+
+  private boolean isRepositoryDaggerRequired( @Nonnull final TypeElement typeElement )
+  {
+    final VariableElement daggerParameter = (VariableElement)
+      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
+                                        typeElement,
+                                        Constants.REPOSITORY_ANNOTATION_CLASSNAME,
+                                        "dagger" ).getValue();
+    switch ( daggerParameter.getSimpleName().toString() )
+    {
+      case "TRUE":
+        return true;
+      case "FALSE":
+        return false;
+      default:
+        return null != processingEnv.getElementUtils().getTypeElement( Constants.DAGGER_MODULE_CLASSNAME );
+    }
+  }
+
+  private boolean hasInjectAnnotation( final Element method )
+  {
+    return null != ProcessorUtil.findAnnotationByType( method, Constants.INJECT_ANNOTATION_CLASSNAME );
   }
 
   @SuppressWarnings( "unchecked" )

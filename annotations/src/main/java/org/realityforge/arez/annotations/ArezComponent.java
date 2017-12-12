@@ -70,12 +70,14 @@ public @interface ArezComponent
   boolean allowEmpty() default false;
 
   /**
-   * Return true if an inject annotation should be added to the constructor of generated component.
-   * It should be noted that classes that set this parameter to true must have at most one constructor.
+   * Indicate whether an @Inject annotation should be added to constructor of the generated class.
+   * {@link Injectible#TRUE} will force the addition of an @Inject annotation, {@link Injectible#FALSE}
+   * will result in no @Inject annotation and {@link Injectible#IF_DETECTED} will add an @Inject
+   * if any fields or methods in the component or any parent type has an @Inject annotation.
    *
-   * @return true if an inject annotation should be added to the constructor of generated component.
+   * @return enum controlling present of Inject annotation on constructor.
    */
-  boolean inject() default false;
+  Injectible inject() default Injectible.IF_DETECTED;
 
   /**
    * Return true if an the generated component should NOT schedule autorun actions at the end of the

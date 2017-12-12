@@ -75,17 +75,23 @@ public @interface Repository
   Class[] extensions() default {};
 
   /**
-   * Return true if a dagger module should be generated for repository.
+   * Indicate whether a dagger module should be generated for repository.
+   * {@link Injectible#TRUE} will force the generation of the module, {@link Injectible#FALSE}
+   * will result in no dagger module and {@link Injectible#IF_DETECTED} will add a dagger
+   * module if the <code>dagger.Module</code> class is present on the classpath.
    *
-   * @return true if a dagger module should be generated for repository.
+   * @return enum controlling whether a dagger module should be generated for repository.
    */
-  boolean dagger() default false;
+  Injectible dagger() default Injectible.IF_DETECTED;
 
   /**
-   * Return true if an inject annotation should be added to the constructor of generated repository.
-   * Note that this is effectively true if dagger is true.
+   * Indicate whether an @Inject annotation should be added to constructor of the generated repository.
+   * {@link Injectible#TRUE} will force the addition of an @Inject annotation, {@link Injectible#FALSE}
+   * will result in no @Inject annotation and {@link Injectible#IF_DETECTED} will add an @Inject
+   * if any it is present on the classpath. Note that this is effectively {@link Injectible#TRUE} if
+   * dagger parameter is true.
    *
-   * @return true if an inject annotation should be added to the constructor of generated repository.
+   * @return enum controlling present of Inject annotation on constructor of repository.
    */
-  boolean inject() default false;
+  Injectible inject() default Injectible.IF_DETECTED;
 }

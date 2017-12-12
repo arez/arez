@@ -2,10 +2,11 @@ package com.example.repository;
 
 import javax.annotation.Nonnull;
 import org.realityforge.arez.annotations.ArezComponent;
+import org.realityforge.arez.annotations.Injectible;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.Repository;
 
-@Repository( inject = true )
+@Repository( inject = Injectible.TRUE )
 @ArezComponent
 public class InjectEnabledRepository
 {

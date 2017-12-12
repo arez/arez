@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+##### Changed
+* 💥 **\[annotations\]** Change the type of the `inject` parameter on the `@ArezComponent` and `@Repository`
+  annotations and the `dagger` parameter of the `@Repository` annotation to support `TRUE`, `FALSE` and
+  `IF_DETECTED` values. The `IF_DETECTED` value will result in the annotation processor using heuristics
+  to determine if the feature is required. See the javadocs for the specific heuristics for each parameter.
+
 ### [v0.34](https://github.com/arez/arez/tree/v0.34) (2017-12-10)
 [Full Changelog](https://github.com/arez/arez/compare/v0.33...v0.34)
 

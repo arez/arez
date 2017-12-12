@@ -64,6 +64,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inject.BasicInjectModel", false, false },
         new Object[]{ "com.example.inject.DefaultCtorModel", false, false },
         new Object[]{ "com.example.inject.MultipleArgsModel", false, false },
+        new Object[]{ "com.example.inject.NoInjectModel", false, false },
         new Object[]{ "com.example.observable.ObservableWithNoSetter", false, false },
         new Object[]{ "com.example.observable_ref.DefaultRefNameModel", false, false },
         new Object[]{ "com.example.observable_ref.NonStandardNameModel", false, false },
@@ -75,15 +76,16 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observer_ref.RefOnTrackedModel", false, false },
         new Object[]{ "com.example.overloaded_names.OverloadedActions", false, false },
         new Object[]{ "com.example.post_construct.PostConstructModel", false, false },
-        new Object[]{ "com.example.repository.CompleteRepositoryExample", true, false },
+        new Object[]{ "com.example.repository.CompleteRepositoryExample", true, true },
+        new Object[]{ "com.example.repository.DaggerDisabledRepository", true, false },
         new Object[]{ "com.example.repository.DaggerEnabledRepository", true, true },
-        new Object[]{ "com.example.repository.InjectEnabledRepository", true, false },
-        new Object[]{ "com.example.repository.RepositoryPreDisposeHook", true, false },
-        new Object[]{ "com.example.repository.RepositoryWithExplicitId", true, false },
-        new Object[]{ "com.example.repository.RepositoryWithImplicitId", true, false },
-        new Object[]{ "com.example.repository.RepositoryWithMultipleCtors", true, false },
-        new Object[]{ "com.example.repository.RepositoryWithProtectedConstructor", true, false },
-        new Object[]{ "com.example.repository.RepositoryWithSingleton", true, false },
+        new Object[]{ "com.example.repository.InjectEnabledRepository", true, true },
+        new Object[]{ "com.example.repository.RepositoryPreDisposeHook", true, true },
+        new Object[]{ "com.example.repository.RepositoryWithExplicitId", true, true },
+        new Object[]{ "com.example.repository.RepositoryWithImplicitId", true, true },
+        new Object[]{ "com.example.repository.RepositoryWithMultipleCtors", true, true },
+        new Object[]{ "com.example.repository.RepositoryWithProtectedConstructor", true, true },
+        new Object[]{ "com.example.repository.RepositoryWithSingleton", true, true },
         new Object[]{ "com.example.to_string.NoToStringPresent", false, false },
         new Object[]{ "com.example.to_string.ToStringPresent", false, false },
         new Object[]{ "com.example.tracked.BasicTrackedModel", false, false },
@@ -140,9 +142,10 @@ public class ArezProcessorTest
   {
     assertSuccessfulCompile( "input/com/example/repository/NestedModel.java",
                              "expected/com/example/repository/NestedModel_Arez_BasicActionModel.java",
-                             "expected/com/example/repository/NestedModel_Arez_BasicActionModel.java",
-                             "expected/com/example/repository/NestedModel_Arez_BasicActionModel.java",
-                             "expected/com/example/repository/NestedModel_Arez_BasicActionModel.java" );
+                             "expected/com/example/repository/NestedModel_BasicActionModelBaseRepositoryExtension.java",
+                             "expected/com/example/repository/NestedModel_BasicActionModelDaggerModule.java",
+                             "expected/com/example/repository/NestedModel_BasicActionModelRepository.java",
+                             "expected/com/example/repository/Arez_NestedModel_BasicActionModelRepository.java" );
   }
 
   @Test

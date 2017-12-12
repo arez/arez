@@ -24,6 +24,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
@@ -49,6 +50,31 @@ final class ProcessorUtil
       variables.add( TypeVariableName.get( (TypeVariable) argument ) );
     }
     return variables;
+  }
+
+  @Nonnull
+  static List<VariableElement> getFieldElements( @Nonnull final TypeElement element )
+  {
+    final Map<String, VariableElement> methodMap = new LinkedHashMap<>();
+    enumerateFieldElements( element, methodMap );
+    return new ArrayList<>( methodMap.values() );
+  }
+
+  private static void enumerateFieldElements( @Nonnull final TypeElement element,
+                                              @Nonnull final Map<String, VariableElement> fields )
+  {
+    final TypeMirror superclass = element.getSuperclass();
+    if ( TypeKind.NONE != superclass.getKind() )
+    {
+      enumerateFieldElements( (TypeElement) ( (DeclaredType) superclass ).asElement(), fields );
+    }
+    for ( final Element member : element.getEnclosedElements() )
+    {
+      if ( member.getKind() == ElementKind.FIELD )
+      {
+        fields.put( member.getSimpleName().toString(), (VariableElement) member );
+      }
+    }
   }
 
   @Nonnull
@@ -227,10 +253,10 @@ final class ProcessorUtil
   }
 
   @Nonnull
-  private static AnnotationValue getAnnotationValue( @Nonnull final Elements elements,
-                                                     @Nonnull final Element typeElement,
-                                                     @Nonnull final String annotationClassName,
-                                                     @Nonnull final String parameterName )
+  static AnnotationValue getAnnotationValue( @Nonnull final Elements elements,
+                                             @Nonnull final Element typeElement,
+                                             @Nonnull final String annotationClassName,
+                                             @Nonnull final String parameterName )
   {
     final AnnotationValue value = findAnnotationValue( elements, typeElement, annotationClassName, parameterName );
     assert null != value;

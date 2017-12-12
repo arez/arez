@@ -27,27 +27,27 @@ import org.realityforge.braincheck.Guards;
     nameIncludesId = false,
     inject = Injectible.TRUE
 )
-public class InjectEnabledRepositoryRepository implements InjectEnabledRepositoryBaseRepositoryExtension {
-  private final HashMap<Long, InjectEnabledRepository> $$arez$$_entities = new HashMap<>();
+public class DaggerDisabledRepositoryRepository implements DaggerDisabledRepositoryBaseRepositoryExtension {
+  private final HashMap<Long, DaggerDisabledRepository> $$arez$$_entities = new HashMap<>();
   ;
 
-  private final Collection<InjectEnabledRepository> $$arez$$_entityList = Collections.unmodifiableCollection( this.$$arez$$_entities.values() );
+  private final Collection<DaggerDisabledRepository> $$arez$$_entityList = Collections.unmodifiableCollection( this.$$arez$$_entities.values() );
   ;
 
-  InjectEnabledRepositoryRepository() {
+  DaggerDisabledRepositoryRepository() {
   }
 
   @Nonnull
-  public static InjectEnabledRepositoryRepository newRepository() {
-    return new Arez_InjectEnabledRepositoryRepository();
+  public static DaggerDisabledRepositoryRepository newRepository() {
+    return new Arez_DaggerDisabledRepositoryRepository();
   }
 
   @Action(
       name = "create_name"
   )
   @Nonnull
-  InjectEnabledRepository create(@Nonnull final String name) {
-    final Arez_InjectEnabledRepository entity = new Arez_InjectEnabledRepository(name);
+  DaggerDisabledRepository create(@Nonnull final String name) {
+    final Arez_DaggerDisabledRepository entity = new Arez_DaggerDisabledRepository(name);
     entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     this.$$arez$$_entities.put( entity.$$arez$$_id(), entity );
     getEntitiesObservable().reportChanged();
@@ -61,16 +61,16 @@ public class InjectEnabledRepositoryRepository implements InjectEnabledRepositor
     getEntitiesObservable().reportChanged();
   }
 
-  public boolean contains(@Nonnull final InjectEnabledRepository entity) {
+  public boolean contains(@Nonnull final DaggerDisabledRepository entity) {
     getEntitiesObservable().reportObserved();
-    return entity instanceof Arez_InjectEnabledRepository && this.$$arez$$_entities.containsKey( ((Arez_InjectEnabledRepository) entity).$$arez$$_id() );
+    return entity instanceof Arez_DaggerDisabledRepository && this.$$arez$$_entities.containsKey( ((Arez_DaggerDisabledRepository) entity).$$arez$$_id() );
   }
 
   @Action
-  public void destroy(@Nonnull final InjectEnabledRepository entity) {
+  public void destroy(@Nonnull final DaggerDisabledRepository entity) {
     assert null != entity;
-    if ( entity instanceof Arez_InjectEnabledRepository && null != this.$$arez$$_entities.remove( ((Arez_InjectEnabledRepository) entity).$$arez$$_id() ) ) {
-      ((Arez_InjectEnabledRepository) entity).$$arez$$_setOnDispose( null );
+    if ( entity instanceof Arez_DaggerDisabledRepository && null != this.$$arez$$_entities.remove( ((Arez_DaggerDisabledRepository) entity).$$arez$$_id() ) ) {
+      ((Arez_DaggerDisabledRepository) entity).$$arez$$_setOnDispose( null );
       Disposable.dispose( entity );
       getEntitiesObservable().reportChanged();
     } else {
@@ -92,7 +92,7 @@ public class InjectEnabledRepositoryRepository implements InjectEnabledRepositor
       expectSetter = false
   )
   @Nonnull
-  protected Collection<InjectEnabledRepository> entities() {
+  protected Collection<DaggerDisabledRepository> entities() {
     return $$arez$$_entityList;
   }
 
@@ -101,7 +101,7 @@ public class InjectEnabledRepositoryRepository implements InjectEnabledRepositor
    * This method should be called by repository extensions when returning list results when not using {@link #toList(List)}.
    */
   @Nonnull
-  protected final List<InjectEnabledRepository> wrap(@Nonnull final List<InjectEnabledRepository> list) {
+  protected final List<DaggerDisabledRepository> wrap(@Nonnull final List<DaggerDisabledRepository> list) {
     return Arez.areRepositoryResultsModifiable() ? Collections.unmodifiableList( list ) : list;
   }
 
@@ -110,39 +110,39 @@ public class InjectEnabledRepositoryRepository implements InjectEnabledRepositor
    * This method should be called by repository extensions when returning list results.
    */
   @Nonnull
-  protected final List<InjectEnabledRepository> toList(@Nonnull final Stream<InjectEnabledRepository> stream) {
+  protected final List<DaggerDisabledRepository> toList(@Nonnull final Stream<DaggerDisabledRepository> stream) {
     return wrap( stream.collect( Collectors.toList() ) );
   }
 
   @Nonnull
-  public final List<InjectEnabledRepository> findAll() {
+  public final List<DaggerDisabledRepository> findAll() {
     return toList( entities().stream() );
   }
 
   @Nonnull
-  public final List<InjectEnabledRepository> findAll(@Nonnull final Comparator<InjectEnabledRepository> sorter) {
+  public final List<DaggerDisabledRepository> findAll(@Nonnull final Comparator<DaggerDisabledRepository> sorter) {
     return toList( entities().stream().sorted( sorter ) );
   }
 
   @Nonnull
-  public final List<InjectEnabledRepository> findAllByQuery(@Nonnull final Predicate<InjectEnabledRepository> query) {
+  public final List<DaggerDisabledRepository> findAllByQuery(@Nonnull final Predicate<DaggerDisabledRepository> query) {
     return toList( entities().stream().filter( query ) );
   }
 
   @Nonnull
-  public final List<InjectEnabledRepository> findAllByQuery(@Nonnull final Predicate<InjectEnabledRepository> query,
-      @Nonnull final Comparator<InjectEnabledRepository> sorter) {
+  public final List<DaggerDisabledRepository> findAllByQuery(@Nonnull final Predicate<DaggerDisabledRepository> query,
+      @Nonnull final Comparator<DaggerDisabledRepository> sorter) {
     return toList( entities().stream().filter( query ).sorted( sorter ) );
   }
 
   @Nullable
-  public final InjectEnabledRepository findByQuery(@Nonnull final Predicate<InjectEnabledRepository> query) {
+  public final DaggerDisabledRepository findByQuery(@Nonnull final Predicate<DaggerDisabledRepository> query) {
     return entities().stream().filter( query ).findFirst().orElse( null );
   }
 
   @Nonnull
-  public final InjectEnabledRepository getByQuery(@Nonnull final Predicate<InjectEnabledRepository> query) {
-    final InjectEnabledRepository entity = findByQuery( query );
+  public final DaggerDisabledRepository getByQuery(@Nonnull final Predicate<DaggerDisabledRepository> query) {
+    final DaggerDisabledRepository entity = findByQuery( query );
     if ( null == entity ) {
       throw new NoResultException();
     }
@@ -151,7 +151,7 @@ public class InjectEnabledRepositoryRepository implements InjectEnabledRepositor
 
   @Override
   @Nonnull
-  public final InjectEnabledRepositoryRepository self() {
+  public final DaggerDisabledRepositoryRepository self() {
     return this;
   }
 }

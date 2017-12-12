@@ -26,6 +26,8 @@ final class Constants
   static final String TRACK_ANNOTATION_CLASSNAME = "org.realityforge.arez.annotations.Track";
 
   static final String POST_CONSTRUCT_ANNOTATION_CLASSNAME = "javax.annotation.PostConstruct";
+  static final String INJECT_ANNOTATION_CLASSNAME = "javax.inject.Inject";
+  static final String DAGGER_MODULE_CLASSNAME = "dagger.Module";
 
   private Constants()
   {

@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.annotations.ArezComponent;
+import org.realityforge.arez.annotations.Injectible;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.Repository;
 import org.testng.annotations.Test;
@@ -16,7 +17,7 @@ import static org.testng.Assert.*;
 public class RepositoryInjectIntegrationTest
 {
   @ArezComponent
-  @Repository( inject = true )
+  @Repository( inject = Injectible.TRUE )
   static class TestComponent
   {
     private String _value;

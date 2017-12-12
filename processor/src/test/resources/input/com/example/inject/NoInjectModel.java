@@ -4,10 +4,10 @@ import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
 import org.realityforge.arez.annotations.Injectible;
 
-@ArezComponent( inject = Injectible.TRUE )
-public class BasicInjectModel
+@ArezComponent( inject = Injectible.FALSE )
+public class NoInjectModel
 {
-  public BasicInjectModel()
+  public NoInjectModel()
   {
   }
 

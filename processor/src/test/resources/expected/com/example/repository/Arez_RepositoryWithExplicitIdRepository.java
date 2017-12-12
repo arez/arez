@@ -4,6 +4,7 @@ import java.util.Collection;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Component;
@@ -29,6 +30,7 @@ public final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWit
   @Nonnull
   private final Observable<Collection<RepositoryWithExplicitId>> $$arez$$_entities;
 
+  @Inject
   Arez_RepositoryWithExplicitIdRepository() {
     super();
     this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;

@@ -6,14 +6,14 @@ import org.realityforge.arez.annotations.Injectible;
 import org.realityforge.arez.annotations.Observable;
 import org.realityforge.arez.annotations.Repository;
 
-@Repository( dagger = Injectible.TRUE )
+@Repository( dagger = Injectible.FALSE )
 @ArezComponent
-public class DaggerEnabledRepository
+public class DaggerDisabledRepository
 {
   @Nonnull
   private String _name;
 
-  DaggerEnabledRepository( @Nonnull final String name )
+  DaggerDisabledRepository( @Nonnull final String name )
   {
     _name = name;
   }

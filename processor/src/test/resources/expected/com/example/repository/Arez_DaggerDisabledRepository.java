@@ -1,10 +1,9 @@
 package com.example.repository;
 
-import java.util.Collection;
+import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 import org.realityforge.arez.Arez;
 import org.realityforge.arez.ArezContext;
 import org.realityforge.arez.Component;
@@ -13,12 +12,14 @@ import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDisposeHookRepository implements Disposable {
+public final class Arez_DaggerDisabledRepository extends DaggerDisabledRepository implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
 
   private boolean $$arez$$_disposed;
+
+  private OnDispose $$arez$$_onDispose;
 
   @Nullable
   private final ArezContext $$arez$$_context;
@@ -28,16 +29,15 @@ public final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPre
   private final Observable<Boolean> $$arez$$_disposedObservable;
 
   @Nonnull
-  private final Observable<Collection<RepositoryPreDisposeHook>> $$arez$$_entities;
+  private final Observable<String> $$arez$$_name;
 
-  @Inject
-  Arez_RepositoryPreDisposeHookRepository() {
-    super();
+  Arez_DaggerDisabledRepository(@Nonnull final String name) {
+    super(name);
     this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "RepositoryPreDisposeHookRepository", $$arez$$_id(), $$arez$$_name(), () -> super.preDispose(), null ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "DaggerDisabledRepository", $$arez$$_id(), $$arez$$_name(), () -> $$arez$$_preDispose(), null ) : null;
     this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
-    this.$$arez$$_entities = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
+    this.$$arez$$_name = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setName( v ) : null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
@@ -52,7 +52,7 @@ public final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPre
   }
 
   String $$arez$$_name() {
-    return "RepositoryPreDisposeHookRepository";
+    return "DaggerDisabledRepository." + $$arez$$_id();
   }
 
   @Override
@@ -73,58 +73,39 @@ public final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPre
         this.$$arez$$_component.dispose();
       } else {
         $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-          super.preDispose();
+          $$arez$$_preDispose();
           this.$$arez$$_disposedObservable.dispose();
-          this.$$arez$$_entities.dispose();
+          this.$$arez$$_name.dispose();
         } } );
       }
     }
   }
 
-  @Nonnull
-  @Override
-  protected Collection<RepositoryPreDisposeHook> entities() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    this.$$arez$$_entities.reportObserved();
-    return super.entities();
-  }
-
-  @Override
-  Observable getEntitiesObservable() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    return $$arez$$_entities;
-  }
-
-  @Override
-  public void destroy(@Nonnull final RepositoryPreDisposeHook entity) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    try {
-      $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".destroy" : null, true, () -> super.destroy(entity), entity );
-    } catch( final RuntimeException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Exception $$arez$$_e ) {
-      throw new IllegalStateException( $$arez$$_e );
-    } catch( final Error $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Throwable $$arez$$_e ) {
-      throw new IllegalStateException( $$arez$$_e );
+  void $$arez$$_preDispose() {
+    if ( null != this.$$arez$$_onDispose ) {
+      this.$$arez$$_onDispose.onDispose( this );
+      this.$$arez$$_onDispose = null;
     }
   }
 
+  void $$arez$$_setOnDispose(OnDispose onDispose) {
+    this.$$arez$$_onDispose = onDispose;
+  }
+
   @Nonnull
   @Override
-  RepositoryPreDisposeHook create(@Nonnull final String name) {
+  public String getName() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    try {
-      return $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".create_name" : null, true, () -> super.create(name), name );
-    } catch( final RuntimeException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Exception $$arez$$_e ) {
-      throw new IllegalStateException( $$arez$$_e );
-    } catch( final Error $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Throwable $$arez$$_e ) {
-      throw new IllegalStateException( $$arez$$_e );
+    this.$$arez$$_name.reportObserved();
+    return super.getName();
+  }
+
+  @Override
+  public void setName(@Nonnull final String name) {
+    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( !Objects.equals(name, super.getName()) ) {
+      super.setName(name);
+      this.$$arez$$_name.reportChanged();
     }
   }
 
@@ -137,10 +118,10 @@ public final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPre
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof Arez_RepositoryPreDisposeHookRepository) ) {
+    } else if ( null == o || !(o instanceof Arez_DaggerDisabledRepository) ) {
       return false;
     } else {
-      final Arez_RepositoryPreDisposeHookRepository that = (Arez_RepositoryPreDisposeHookRepository) o;;
+      final Arez_DaggerDisabledRepository that = (Arez_DaggerDisabledRepository) o;;
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }
@@ -152,5 +133,10 @@ public final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPre
     } else {
       return super.toString();
     }
+  }
+
+  @FunctionalInterface
+  interface OnDispose {
+    void onDispose(Arez_DaggerDisabledRepository entity);
   }
 }

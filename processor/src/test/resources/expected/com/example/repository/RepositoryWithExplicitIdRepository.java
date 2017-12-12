@@ -16,6 +16,7 @@ import org.realityforge.arez.Disposable;
 import org.realityforge.arez.Observable;
 import org.realityforge.arez.annotations.Action;
 import org.realityforge.arez.annotations.ArezComponent;
+import org.realityforge.arez.annotations.Injectible;
 import org.realityforge.arez.annotations.ObservableRef;
 import org.realityforge.arez.annotations.PreDispose;
 import org.realityforge.arez.component.NoResultException;
@@ -24,7 +25,8 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @ArezComponent(
-    nameIncludesId = false
+    nameIncludesId = false,
+    inject = Injectible.TRUE
 )
 public class RepositoryWithExplicitIdRepository implements RepositoryWithExplicitIdBaseRepositoryExtension {
   private final HashMap<Integer, RepositoryWithExplicitId> $$arez$$_entities = new HashMap<>();

@@ -2100,7 +2100,7 @@ final class ComponentDescriptor
         addMember( "nameIncludesId", "false" );
     if ( _repositoryInject )
     {
-      arezComponent.addMember( "inject", "true" );
+      arezComponent.addMember( "inject", "$T.TRUE", GeneratorUtil.INJECTIBLE_CLASSNAME );
     }
     builder.addAnnotation( arezComponent.build() );
 
