@@ -37,7 +37,7 @@ public class DaggerIntegrationTest
   }
 
   @Singleton
-  @Component( modules = DaggerIntegrationTest_TestComponentDaggerModule.class )
+  @Component( modules = DaggerIntegrationTest_TestComponentRepositoryDaggerModule.class )
   interface TestDaggerComponent
   {
     DaggerIntegrationTest_TestComponentRepository repository();
