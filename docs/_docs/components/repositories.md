@@ -51,9 +51,3 @@ An extension may look something like:
 
 This class must then be added to the `extensions` parameter of the `@Repository` annotation and these methods will
 be available on the repository.
-
-### Dagger Integration
-
-The annotation processor can also generate a [Dagger2](https://google.github.io/dagger) module for the repository
-if the `dagger` parameter on the `@Repository` annotation is set to true. In this scenario a module named
-`MyComponentDaggerModule` will be generated that exposes the repository as a singleton.

@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Added
+* **\[docs\]** Add initial documentation about integrating Arez components into dependency injection
+  frameworks such as [Dagger2](https://google.github.io/dagger) and [GIN](https://code.google.com/archive/p/google-gin/).
+
 ##### Changed
 * **\[processor\]** Use the same mechanisms for building the dagger module between the component and the
   associated repository type.

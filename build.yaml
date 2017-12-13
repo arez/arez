@@ -52,3 +52,8 @@ artifacts:
   dagger_compiler: com.google.dagger:dagger-compiler:jar:2.13
   googlejavaformat: com.google.googlejavaformat:google-java-format:jar:1.4
   errorprone: com.google.errorprone:javac-shaded:jar:9-dev-r4023-3
+
+  gin: com.google.gwt.inject:gin:jar:2.1.2
+  aopalliance: aopalliance:aopalliance:jar:1.0
+  guice: com.google.inject:guice:jar:3.0
+  guice_assistedinject: com.google.inject.extensions:guice-assistedinject:jar:3.0
