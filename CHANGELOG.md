@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+##### Added
+* **\[docs\]** Add expected "Code of Conduct" documentation.
+
 ##### Changed
 * Change the publish task so that it only publishes tag as an artifact if the tag is on the master branch.
 
