@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+##### Changed
+* Change the publish task so that it only publishes tag as an artifact if the tag is on the master branch.
+
 ### [v0.36](https://github.com/arez/arez/tree/v0.36) (2017-12-13)
 [Full Changelog](https://github.com/arez/arez/compare/v0.35...v0.36)
 
