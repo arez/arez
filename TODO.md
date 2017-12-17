@@ -96,6 +96,9 @@ console.table(languages);
 
 ## Process
 
+* Incorporate notes from https://css-tricks.com/open-source-etiquette-guidebook/ into CONTRIBUTING.md and add
+  something similar for issues/pull requests.
+
 * Generate links when the application crashes so that we can autofill issue details. Essentially involves
   crafting urls with parameters. Something like:
 
