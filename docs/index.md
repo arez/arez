@@ -3,7 +3,7 @@ title: Overview
 ---
 
 Arez is a simple, efficient and scalable state management library for client-side applications powered by a
-transparent functional reactive programming core. Arez tracks usage of observable data and reruns observers
+transparent functional reactive programming core. Arez tracks usage of observable data and notifies observers
 when the observable data changes. The library scales from simple, flat domain models to complex, highly
 inter-connected graph-like domain models. Arez trades a higher memory usage for a faster execution speed.
 Arez's goal is to do this while optimizing for developer happiness by eliminating the need for the developer
