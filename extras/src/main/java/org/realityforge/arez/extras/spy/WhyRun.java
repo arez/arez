@@ -3,71 +3,122 @@ package org.realityforge.arez.extras.spy;
 import java.util.List;
 import javax.annotation.Nonnull;
 import org.realityforge.anodoc.Unsupported;
-import org.realityforge.arez.Arez;
-import org.realityforge.arez.ArezContext;
+import org.realityforge.arez.Spy;
 import org.realityforge.arez.spy.ComputedValueInfo;
 import org.realityforge.arez.spy.ObservableInfo;
 import org.realityforge.arez.spy.ObserverInfo;
 import org.realityforge.arez.spy.TransactionInfo;
 
+/**
+ * A very simple utility that describes why an observer or computed value runs.
+ */
 @Unsupported( "This class relies on unsupported Spy API and will co-evolve with Spy capabilities." )
 public final class WhyRun
 {
+  private WhyRun()
+  {
+  }
+
   /**
    * Return a human readable explanation why the current transaction is running.
    * This method will cause an invariant failure if called outside a transaction.
    *
-   * @param context the context to evaluate.
+   * @param spy the spy to introspect.
    * @return a human readable explanation why the current transaction is running.
    */
   @Unsupported( "Expect the output format to change and evolve over time as Spy capabilities improve." )
   @Nonnull
-  public String whyRun( @Nonnull final ArezContext context )
+  public static String whyRun( @Nonnull final Spy spy )
   {
-    assert Arez.areSpiesEnabled();
-    if ( !context.getSpy().isTransactionActive() )
+    if ( spy.isTransactionActive() )
+    {
+      final TransactionInfo transaction = spy.getTransaction();
+      if ( transaction.isTracking() )
+      {
+        return whyRun( spy, transaction.getTracker() );
+      }
+      else
+      {
+        return "Transaction '" + transaction.getName() + "' not tracking, must be an action.";
+      }
+    }
+    else
     {
       return "WhyRun invoked when no active transaction.";
-    }
-    else
-    {
-      final TransactionInfo transaction = context.getSpy().getTransaction();
-      return whyRun( context, transaction );
-    }
-  }
-
-  @Nonnull
-  private String whyRun( @Nonnull final ArezContext context, @Nonnull final TransactionInfo transaction )
-  {
-    if ( !transaction.isTracking() )
-    {
-      return "WhyRun transaction '" + transaction.getName() + "' not tracking, must be an action.";
-    }
-    else
-    {
-      return whyRun( context, transaction.getTracker() );
     }
   }
 
   /**
    * Return a human readable explanation why the specified observer is/will run.
    *
-   * @param context  the context that contains observer.
+   * @param spy      the spy to introspect.
    * @param observer the observer that we want to investigate.
    * @return a human readable explanation why the node is/will run.
    */
   @Unsupported( "Expect the output format to change and evolve over time as Spy capabilities improve." )
   @Nonnull
-  public String whyRun( @Nonnull final ArezContext context, @Nonnull final ObserverInfo observer )
+  public static String whyRun( @Nonnull final Spy spy, @Nonnull final ObserverInfo observer )
   {
     if ( observer.isComputedValue() )
     {
-      return whyRun( context, observer.asComputedValue() );
+      return whyComputedValueRun( spy, observer.asComputedValue() );
     }
     else
     {
-      return whyRunObserver( context, observer );
+      return whyObserverRun( spy, observer );
     }
+  }
+
+  @Nonnull
+  private static String whyObserverRun( @Nonnull final Spy spy, @Nonnull final ObserverInfo observer )
+  {
+    final StringBuilder sb = new StringBuilder();
+    sb.append( "Observer '" );
+    sb.append( observer.getName() );
+    sb.append( "':\n" );
+    sb.append( "  Status: " );
+    sb.append( describeStatus( spy, observer ) );
+    sb.append( "\n" );
+    sb.append( "  Mode: " );
+    sb.append( observer.isReadOnly() ? "read-only" : "read-write" );
+    sb.append( "\n" );
+    sb.append( "  * The Observer will run if any of the following observables change:\n" );
+    describeDependencies( sb, observer.getDependencies() );
+    if ( observer.isRunning() )
+    {
+      sb.append( "    -  (... or any other observable that is accessed in the remainder of the observers transaction)\n" );
+    }
+    return sb.toString();
+  }
+
+  @Nonnull
+  private static String whyComputedValueRun( @Nonnull final Spy spy, @Nonnull final ComputedValueInfo computedValue )
+  {
+    final StringBuilder sb = new StringBuilder();
+    sb.append( "ComputedValue '" );
+    sb.append( computedValue.getName() );
+    sb.append( "':\n" );
+    sb.append( "  * Status: " );
+    sb.append( describeComputedValueStatus( computedValue ) );
+    sb.append( "\n" );
+    if ( computedValue.isActive() )
+    {
+      sb.append( "  * If the ComputedValue changes the following observers will react:\n" );
+      for ( final ObserverInfo observer : computedValue.getObservers() )
+      {
+        sb.append( "    - " );
+        describeObserver( sb, observer );
+        sb.append( "\n" );
+      }
+
+      sb.append( "  * The ComputedValue will recalculate if any of the following observables change\n" );
+      describeDependencies( sb, computedValue.getDependencies() );
+      if ( spy.isTransactionActive() && computedValue.isComputing() )
+      {
+        sb.append( "    -  (... or any other observable is accessed the remainder of the transaction computing value)\n" );
+      }
+    }
+    return sb.toString();
   }
 
   /**
@@ -77,12 +128,12 @@ public final class WhyRun
    * @return the status description.
    */
   @Nonnull
-  final String describeStatus( @Nonnull final ArezContext context, @Nonnull final ObserverInfo observer )
+  private static String describeStatus( @Nonnull final Spy spy, @Nonnull final ObserverInfo observer )
   {
     final boolean running = observer.isRunning();
     if ( running )
     {
-      final TransactionInfo transaction = context.getSpy().getTransaction();
+      final TransactionInfo transaction = spy.getTransaction();
       if ( transaction.isTracking() && transaction.getTracker() == observer )
       {
         return "Running (Current Transaction)";
@@ -106,103 +157,52 @@ public final class WhyRun
     }
   }
 
-  @Nonnull
-  private String whyRunObserver( @Nonnull final ArezContext context, @Nonnull final ObserverInfo observer )
+  /**
+   * Return the status of specified ComputedValue as human readable string.
+   *
+   * @param computedValue the ComputedValue.
+   * @return the status description.
+   */
+  private static String describeComputedValueStatus( @Nonnull final ComputedValueInfo computedValue )
   {
-    final StringBuilder sb = new StringBuilder();
-    sb.append( "WhyRun? Observer '" );
-    sb.append( observer.getName() );
-    sb.append( "':\n" );
-    sb.append( "  Status: " );
-    sb.append( describeStatus( context, observer ) );
-    sb.append( "\n" );
-    sb.append( "  Mode: " );
-    sb.append( observer.isReadOnly() ? "read only" : "read-write" );
-    sb.append( "\n" );
-    sb.append( "  * The Observer will run if any of the following observables change:\n" );
-    for ( final ObservableInfo observable : observer.getDependencies() )
+    if ( computedValue.isActive() )
+    {
+      return "Active (The value is used by" + computedValue.getObservers().size() + " observers)";
+    }
+    else if ( computedValue.isDisposed() )
+    {
+      return "Disposed (The value has been disposed)";
+    }
+    else
+    {
+      return "Inactive (The value is not used by any observers)";
+    }
+  }
+
+  private static void describeDependencies( @Nonnull final StringBuilder sb,
+                                            @Nonnull final List<ObservableInfo> dependencies )
+  {
+    for ( final ObservableInfo observable : dependencies )
     {
       sb.append( "    - " );
       describeObservable( sb, observable );
       sb.append( "\n" );
     }
-    if ( observer.isRunning() )
-    {
-      sb.append( "    -  (... or any other observable that is accessed in the remainder of the observers transaction)\n" );
-    }
-    return sb.toString();
   }
 
-  private void describeObservable( @Nonnull final StringBuilder sb,
-                                   @Nonnull final ObservableInfo observable )
+  private static void describeObservable( @Nonnull final StringBuilder sb, @Nonnull final ObservableInfo observable )
   {
-    if ( observable.isComputedValue() )
-    {
-      sb.append( "ComputedValue '" );
-      sb.append( observable.asComputedValue().getName() );
-      sb.append( "'" );
-    }
-    else
-    {
-      sb.append( "Observable '" );
-      sb.append( observable.getName() );
-      sb.append( "'" );
-    }
+    sb.append( observable.isComputedValue() ? "ComputedValue" : "Observable" );
+    sb.append( " '" );
+    sb.append( observable.getName() );
+    sb.append( "'" );
   }
 
-  @Nonnull
-  private String whyRun( @Nonnull final ArezContext context, @Nonnull final ComputedValueInfo computedValue )
+  private static void describeObserver( @Nonnull final StringBuilder sb, @Nonnull final ObserverInfo observer )
   {
-    final StringBuilder sb = new StringBuilder();
-    sb.append( "WhyRun? ComputedValue '" );
-    sb.append( computedValue.getName() );
-    sb.append( "':\n" );
-    sb.append( "  * Status: " );
-    if ( computedValue.isActive() )
-    {
-      final List<ObserverInfo> observers = computedValue.getObservers();
-      sb.append( "Active (The value is used by" );
-      sb.append( observers.size() );
-      sb.append( " observers)\n" );
-      sb.append( "  * If the ComputedValue changes the following observers will react:\n" );
-      for ( final ObserverInfo observer : observers )
-      {
-        sb.append( "    - " );
-        if ( observer.isComputedValue() )
-        {
-          sb.append( "ComputedValue '" );
-          sb.append( observer.asComputedValue().getName() );
-          sb.append( "'" );
-        }
-        else
-        {
-          sb.append( "Observer '" );
-          sb.append( observer.getName() );
-          sb.append( "'" );
-        }
-        sb.append( "\n" );
-      }
-
-      sb.append( "  * The ComputedValue will recalculate if any of the following observables change\n" );
-      for ( final ObservableInfo observable : computedValue.getDependencies() )
-      {
-        sb.append( "    - " );
-        describeObservable( sb, observable );
-        sb.append( "\n" );
-      }
-      if ( context.getSpy().isTransactionActive() && computedValue.isComputing() )
-      {
-        sb.append( "    -  (... or any other observable is accessed the remainder of the transaction computing value)\n" );
-      }
-    }
-    else if ( computedValue.isDisposed() )
-    {
-      sb.append( "Disposed (The value has been disposed)\n" );
-    }
-    else
-    {
-      sb.append( "Inactive (The value is not used by any observers)\n" );
-    }
-    return sb.toString();
+    sb.append( observer.isComputedValue() ? "ComputedValue" : "Observer" );
+    sb.append( " '" );
+    sb.append( observer.getName() );
+    sb.append( "'" );
   }
 }

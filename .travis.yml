@@ -25,7 +25,7 @@ script: buildr clean site:deploy package jacoco:report publish_if_tagged
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 git:
-  depth: 10
+  depth: false
 env:
   global:
     - MAVEN_CENTRAL_USERNAME=realityforge
