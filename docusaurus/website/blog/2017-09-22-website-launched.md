@@ -11,4 +11,4 @@ the toolkit became viable.
 **Features:**
 
 * Basic overview documentation.
-* [Javadocs]({{ site.baseurl }}/api/index.html) for the external users of the library.
+* [Javadocs](/api/index.html) for the external users of the library.
