@@ -73,7 +73,8 @@ HEADER
       IO.write(filename, <<CONTENT)
 ---
 title: Arez #{ENV['PRODUCT_VERSION']} released
-type: minor
+author: Arez Project
+authorURL: https://github.com/arez
 ---
 
 [Full Changelog](https://github.com/arez/arez/compare/v#{ENV['PREVIOUS_PRODUCT_VERSION']}...v#{ENV['PRODUCT_VERSION']})
