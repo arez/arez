@@ -5,10 +5,10 @@
 ### [v0.37](https://github.com/arez/arez/tree/v0.37) (2017-12-18)
 [Full Changelog](https://github.com/arez/arez/compare/v0.36...v0.37)
 
-##### Added
+#### Added
 * **\[docs\]** Add expected "Code of Conduct" documentation.
 
-##### Changed
+#### Changed
 * Change the publish task so that it only publishes tag as an artifact if the tag is on the master branch.
 * 💥 **\[core\]** Upgrade `com.google.jsinterop:base` library to version `1.0.0-RC1`.
 * 💥 **\[core\]** Upgrade `com.google.elemental2:*` libraries to version `1.0.0-RC1`.
@@ -16,25 +16,25 @@
 ### [v0.36](https://github.com/arez/arez/tree/v0.36) (2017-12-13)
 [Full Changelog](https://github.com/arez/arez/compare/v0.35...v0.36)
 
-##### Added
+#### Added
 * **\[docs\]** Add initial documentation about integrating Arez components into dependency injection
   frameworks such as [Dagger2](https://google.github.io/dagger) and [GIN](https://code.google.com/archive/p/google-gin/).
 
-##### Changed
+#### Changed
 * **\[processor\]** Use the same mechanisms for building the dagger module between the component and the
   associated repository type.
 
 ### [v0.35](https://github.com/arez/arez/tree/v0.35) (2017-12-12)
 [Full Changelog](https://github.com/arez/arez/compare/v0.34...v0.35)
 
-##### Added
+#### Added
 * **\[processor\]** Add a `dagger` parameter to `@ArezComponent` that controls whether a dagger module
   is generated for a component. The default value of parameter is `IF_DETECTED` which will generate a
   dagger module if the component is annotated with a "scope" annotation and the class `dagger.Module`
   is present on the compile path of the annotated class. A "scope" annotation is an annotation that is
   itself annotated with the `javax.inject.Scope` annotation.
 
-##### Changed
+#### Changed
 * 💥 **\[annotations\]** Change the type of the `inject` parameter on the `@ArezComponent` and `@Repository`
   annotations and the `dagger` parameter of the `@Repository` annotation to support `TRUE`, `FALSE` and
   `IF_DETECTED` values. The `IF_DETECTED` value will result in the annotation processor using heuristics
@@ -43,17 +43,17 @@
 ### [v0.34](https://github.com/arez/arez/tree/v0.34) (2017-12-10)
 [Full Changelog](https://github.com/arez/arez/compare/v0.33...v0.34)
 
-##### Added
+#### Added
 * **\[core\]** Add methods on the `Spy` interface that converts from core objects to the equivalent spy specific
   info object. i.e. `Spy.asComponentInfo(Component)`
 
-##### Fixed
+#### Fixed
 * **\[core\]** Add invariant check to ensure that the `Observer` does not accept a `TransactionMode` parameter
   if `Arez.enforceTransactionType()` returns false.
 * **\[gwt-examples]\]** Fix html launch page for for `IntervalTickerExample`.
 * **\[gwt-examples]\]** Fix code in `TimedDisposerExample` to avoid invariant failures when timer is disposed.
 
-##### Changed
+#### Changed
 * 💥 **\[core\]** Introduce `ObservableInfo` interface that is used from within the spy subsystem. This change
   effectively removes the `dispose()` method from the public interface of Observables accessed solely through
   the spy subsystem.
@@ -67,7 +67,7 @@
 ### [v0.33](https://github.com/arez/arez/tree/v0.33) (2017-12-04)
 [Full Changelog](https://github.com/arez/arez/compare/v0.32...v0.33)
 
-##### Fixed
+#### Fixed
 * **\[core\]** Ensure that `@Observable` properties can have a parameterized type.
 * **\[core\]** Ensure that `@ObservableRef` can be used for `@Observable` properties with a parameterized type.
 * **\[core\]** Update javadoc annotations to remove warnings about undocumented parameters and return types.
@@ -75,21 +75,21 @@
 ### [v0.32](https://github.com/arez/arez/tree/v0.32) (2017-12-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.31...v0.32)
 
-##### Added
+#### Added
 * **\[annotations\]** Add the `deferSchedule` boolean parameter to the `@ArezComponent` annotation to avoid
   scheduling autorun actions at the end of the constructor in generated component classes.
 
 ### [v0.31](https://github.com/arez/arez/tree/v0.31) (2017-12-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.30...v0.31)
 
-##### Added
+#### Added
 * **\[annotations\]** Add an `inject` parameter to `@ArezComponent` annotation that will add a
   `@javax.inject.Inject` annotation on the generated classes constructor if set to true.
 * **\[annotations\]** Add an `inject` parameter to `@Repository` annotation that will add a
   `@javax.inject.Inject` annotation on the generated Arez repository implementation if set to true.
   The parameter will default to the same value as the `dagger` parameter.
 
-##### Changed
+#### Changed
 * 💥 **\[core\]** Introduce `ElementInfo` spy interface and change `ComponentInfo` interface to extend it
   rather than `Disposable`. This has the effect of removing the `dispose()` method from the public interface
   of `ComponentInfo`
@@ -102,7 +102,7 @@
 ### [v0.30](https://github.com/arez/arez/tree/v0.30) (2017-11-29)
 [Full Changelog](https://github.com/arez/arez/compare/v0.29...v0.30)
 
-##### Changed
+#### Changed
 * **\[processor\]** Shade the processor dependencies so that the only jar required during annotation processing
   is the annotation processor jar. This eliminates the possibility of processorpath conflicts causing issues in
   the future.
@@ -110,13 +110,13 @@
 ### [v0.29](https://github.com/arez/arez/tree/v0.29) (2017-11-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.28...v0.29)
 
-##### Added
+#### Added
 * **\[core\]** The `ObservableChangedEvent` spy event will now emit the value of the observable if
   property introspectors are enabled and the observable has an accessor introspector.
 * **\[browser-extras\]** Enhance the `ConsoleSpyEventProcessor` to log the value field of the
   `ObservableChangedEvent` spy event if it has been supplied.
 
-##### Fixed
+#### Fixed
 * 💥 **\[core\]** The accessor introspector for `ComputedValue` attempted to recalculate the value when accessing
   value which required that the caller was running a transaction and would cause the caller to observe the
   `ComputedValue`. This differed to normal accessors on `Observable` instances that retrieved the value outside of
@@ -126,7 +126,7 @@
 ### [v0.28](https://github.com/arez/arez/tree/v0.28) (2017-11-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.27...v0.28)
 
-##### Fixed
+#### Fixed
 * **\[processor\]** Remove the direct dependency on the `javax.annotation.Nonnull` and
   `javax.annotation.Nullable` annotations from the `arez-processor` artifact.
 * **\[processor\]** Fix incorrect nullability annotation on `context` field in enhanced component classes.
@@ -134,7 +134,7 @@
 ### [v0.27](https://github.com/arez/arez/tree/v0.27) (2017-11-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.26...v0.27)
 
-##### Added
+#### Added
 * **\[browser-extras\]** Enhance `NetworkStatus` component so that it exposes an observable property
   `lastChangedAt` that exposes the time at which online status last changed.
 * **\[annotations\]** Add boolean parameter `dagger` to `@Repository` annotation that defaults to false. If
@@ -149,14 +149,14 @@
   observable. If a transaction is currently active then it is treated as observable otherwise it is treated
   as a non-observable property.
 
-##### Fixed
+#### Fixed
 * **\[annotations\]** Fix the documentation on `@OnDepsChanged` annotation to correctly describe the default
   naming convention.
 * **\[processor\]** Enhance the processor to remove the direct dependency on the `arez-component` and
   `arez-annotations` artifact. If the `arez-processor` is added to a separate `-processorpath` during
   compilation, the `arez-component` no longer needs to be added to the `-processorpath`.
 
-##### Changed
+#### Changed
 * Upgrade the version of javapoet to 1.8.0.
 * 💥 **\[processor\]** Changed the naming convention of the classes generated from nested static classes.
   Previously the name components were separated by a `$` but this is the same convention that is used by
@@ -169,13 +169,13 @@
 ### [v0.26](https://github.com/arez/arez/tree/v0.26) (2017-11-14)
 [Full Changelog](https://github.com/arez/arez/compare/v0.25...v0.26)
 
-##### Changed
+#### Changed
 * 💥 Move arez from `https://github.com/realityforge/arez` to own organization `https://github.com/arez/arez`.
 
 ### [v0.25](https://github.com/arez/arez/tree/v0.25) (2017-11-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.24...v0.25)
 
-##### Fixed
+#### Fixed
 * **\[core\]** When exceptions are thrown when calculating the value for `ComputedValue`, the `ComputedValue`
   was marked as in error and a null was returned to the caller. This could mislead the observer into thinking
   that the state was valid and/or may lead to hard to track down errors such as `NullPointerException`s when
@@ -207,7 +207,7 @@
   observable and make sure the type parameter is documented.
 * **\[annotations\]** Enforced naming convention for `type` parameter of the `@ArezComponent` annotation.
 
-##### Added
+#### Added
 * **\[core\]** Add the `ArezContext.createObservable()` method that will synthesize the observable name if
   names are enabled.
 * Update the release process so that every release creates a "Github Release" and any open milestone that
@@ -229,7 +229,7 @@
   overhead, provide a configuration setting `arez.enable_registries` that is disabled by default but is enabled
   in development mode.
 
-##### Changed
+#### Changed
 * 💥 **\[annotations\]** Actually remove `disposable` parameter from the `@ArezComponent` as v0.24 just removed
   all the associated functionality and made the parameter ignored.
 * 💥 **\[core\]** Changed the type of the first parameter of `ObserverErrorHandler.onObserverError` from `Node`
@@ -262,7 +262,7 @@
 ### [v0.24](https://github.com/arez/arez/tree/v0.24) (2017-11-02)
 [Full Changelog](https://github.com/arez/arez/compare/v0.23...v0.24)
 
-##### Changed
+#### Changed
 * 💥 **\[annotations\]** Remove `disposable` parameter from the `@ArezComponent` annotation as all generated
   components should implement `Disposable`. Not doing so can lead to memory leaks.
 * 💥 **\[core\]** Change the default value of the compile time property `arez.logger` to be derived from the
@@ -274,12 +274,12 @@
 ### [v0.23](https://github.com/arez/arez/tree/v0.23) (2017-11-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.22...v0.23)
 
-##### Added
+#### Added
 * **\[core\]** Add the `ArezContext.pauseScheduler()` method that allows the developer to manually pause
   reactions and `ArezContext.isSchedulerPaused()` to determine if the scheduler is paused. This gives the
   toolkit user the ability to manually batch actions so application can react to the changes once.
 
-##### Fixed
+#### Fixed
 * **\[core\]** Invariant failures could refer to `ArezConfig.enableNames()` which is a package access internal
   API. Update messages to use public API `Arez.areNamesEnabled()`. Also update internal code to use public API
   where appropriate.
@@ -294,7 +294,7 @@
 * **\[core\]** Ensured that `arez.enable_spies` is a compile time constant by adding it to the `.gwt.xml`
   modules. This was previously omitted which could lead to inconsistent behaviour.
 
-##### Changed
+#### Changed
 * 💥 **\[core\]** Enhance `Observable` to accept accessors and mutators during construction. These accessors
   and mutators allow introspection of the `Observable` at runtime. These are primarily aimed at supporting
   development time tooling and should be optimized away during production builds. To enable this `Observable`
@@ -315,40 +315,40 @@
 ### [v0.22](https://github.com/arez/arez/tree/v0.22) (2017-10-29)
 [Full Changelog](https://github.com/arez/arez/compare/v0.21...v0.22)
 
-##### Added
+#### Added
 * **\[annotations\]** Add the `@ObserverRef` annotation to allow the reactive component to get access to
   the underling `Observer` instance for either a `@Track` or `@Autorun` annotated method. This is useful for
   framework authors who need access to low level primitives but still want to make use of the arez component
   model.
 
-##### Fixed
+#### Fixed
 * Fixed bug where the annotation processor was not copying the documented annotations from the method annotated
   with the `@ContextRef` annotation to the overriding method in generated subclass.
 * Fixed bug where the source code generated for `@Tracked` methods would fail if the `@OnDepsChanged` method
   is protected access and in a different package.
 
-##### Changed
+#### Changed
 * 💥 **\[annotations\]** Renamed the `@OnDepsUpdated` annotation to `@OnDepsChanged` to reflect nomenclature
   used through the rest of the toolkit.
 
 ### [v0.21](https://github.com/arez/arez/tree/v0.21) (2017-10-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.20...v0.21)
 
-##### Fixed
+#### Fixed
 * Fixed bug where the annotation processor was not copying the access modifiers from the method annotated with the
   `@ContextRef` annotation to the overriding method in generated subclass.
 
 ### [v0.20](https://github.com/arez/arez/tree/v0.20) (2017-10-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.19...v0.20)
 
-##### Added
+#### Added
 * Added support for `@ContextRef` annotation that marks a method as returning the `ArezContext` that the
   generated subclass is using.
 
 ### [v0.19](https://github.com/arez/arez/tree/v0.19) (2017-10-27)
 [Full Changelog](https://github.com/arez/arez/compare/v0.18...v0.19)
 
-##### Added
+#### Added
 * Introduce the concept of a [`Zone`](https://arez.github.io/zones) which is an isolated Arez context.
 * Add some cute icons to start of "computed" messages and "scheduled" messages in `ConsoleSpyEventProcessor`.
   These were source from the [mobx-devtools](https://github.com/andykog/mobx-devtools) project.
@@ -357,7 +357,7 @@
   enable isolation between multiple contexts running within the same application.
 * **\[core\]** Introduced `ArezTestUtil.resetConfig(boolean productionMode)` to simplify test setup.
 
-##### Fixed
+#### Fixed
 * **\[processor\]** Fixed bug where disposable of an arez component did not wrap all the dispose actions in
   a single transaction which could result in the `dispose()` causing an observer on the component to react
   when it is partially disposed which often causes failures.
@@ -367,7 +367,7 @@
   can use a package access setter or getter that matches paired methods type and then expose another method that
   is not annotated with `@Observable` to transform to the desired type.
 
-##### Changed
+#### Changed
 * 💥 **\[core\]** Made the `ArezContext` constructors package access so that developers are forced to access
   contexts through the `org.realityforge.arez.Arez` class.
 * 💥 **\[core\]** Move `ArezContext.areNamesEnabled()` to `Arez.areNamesEnabled()`.
@@ -381,12 +381,12 @@
 ### [v0.18](https://github.com/arez/arez/tree/v0.18) (2017-10-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.17...v0.18)
 
-##### Added
+#### Added
 * Added the class `org.realityforge.arez.ArezTestUtil` that exposes methods that simplify testing `Arez` in
   downstream consumers. It exposes mechanisms already used within the Arez library, that were previously
   restricted to use within Arez.
 
-##### Changed
+#### Changed
 * **\[core\]** Expose the method `ArezContext.generateNodeName(...)` to make it easier for downstream libraries
   to generate names for reactive components. Update `ArezExtras` class to make use of this method and remove
   local name generation methods.
@@ -397,14 +397,14 @@
 ### [v0.17](https://github.com/arez/arez/tree/v0.17) (2017-10-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.16...v0.17)
 
-##### Changed
+#### Changed
 * Move to GWT 2.8.2.
 * Use a separate color in `ConsoleSpyEventProcessor` for "computed" related events.
 
 ### [v0.16](https://github.com/arez/arez/tree/v0.16) (2017-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.15...v0.16)
 
-##### Added
+#### Added
 * **\[component\]** Introduce the "component" module that provides supporting infrastructure for the components
   and repositories generated by the annotation processor. This module is seeded by code from the downstream
   projects that they have needed to support their requirements.
@@ -413,7 +413,7 @@
 * **\[processor\]** Add a method `getBy[ComponentId]()` to the generated repository that throws the exception
   `NoSuchEntityException` if unable to component with specified id.
 
-##### Fixed
+#### Fixed
 * **\[core\]** Eliminate assertion failures when `ArezConfig.enforceTransactionType()` is set to false but
   invariant checking is still enabled. Add a basic integration test with `enforceTransactionType` to to false
   to ensure that this continues to work into the future.
@@ -426,14 +426,14 @@
 ### [v0.15](https://github.com/arez/arez/tree/v0.15) (2017-10-18)
 [Full Changelog](https://github.com/arez/arez/compare/v0.14...v0.15)
 
-##### Fixed
+#### Fixed
 * **\[processor\]** Repositories that define a `create` method with no parameters no longer suffix the name with
   a "_" character.
 * **\[processor\]** Repositories will call `reportObserved()` in the generated `findBy[Id]` and `contains` methods.
 * **\[processor\]** The "entities" observable that is defined as part of the generated repository will now be disposed
   correctly when the repository is disposed.
 
-##### Added
+#### Added
 * **\[annotations\]** Add the `@ObservableRef` annotation to allow the reactive component to get access to
   the underling `Observable` instance. This is useful for framework authors who need access to low level
   primitives but still want to make use of the arez component model.
@@ -442,7 +442,7 @@
   annotation to more precisely control how change is detected and when it is propagated. If the `expectSetter`
   parameter is set to false then a `@ObservableRef` must be defined for observable property.
 
-##### Changed
+#### Changed
 * 💥 **\[processor\]** The `destroy` method in repositories have been annotated with `@Action` to avoid the need for
   defining an action separately.
 * **\[processor\]** Accessing a component after it has been disposed results in an Braincheck invariant
@@ -453,11 +453,11 @@
 ### [v0.14](https://github.com/arez/arez/tree/v0.14) (2017-10-16)
 [Full Changelog](https://github.com/arez/arez/compare/v0.13...v0.14)
 
-##### Added
+#### Added
 * **\[browser-extras\]** Introduce the [`BrowserSpyUtil`](https://arez.github.io/api/org/arez/arez/browser/extras/spy/BrowserSpyUtil.html)
   util class that helps enabling and disabling a singleton console logging spy.
 
-##### Changed
+#### Changed
 * 💥 **\[extras\]** Moved `WhyRun` from the package `org.realityforge.arez.extras` to `org.realityforge.arez.extras.spy`.
 
 ### [v0.13](https://github.com/arez/arez/tree/v0.13) (2017-10-13)
@@ -466,12 +466,12 @@
 It should be noted that due to a failure in our automation tools, v0.12 was skipped
 as a version.
 
-##### Added
+#### Added
 * **\[processor\]** The processor now generates a `toString()` if the `@ArezComponent` annotated class has
   not overridden to `Object.toString()` method. It is assumed that if the developer has overridden the
   `Object.toString()` method that they wish to keep that implementation.
 
-##### Changed
+#### Changed
 * Added `org.realityforge.anodoc:anodoc:jar:1.0.0` as a dependency of the project to replace usage of
   `org.realityforge.arez.Unsupported` and `org.realityforge.arez.annotations.Unsupported` with
   `org.realityforge.anodoc.Unsupported` and `org.jetbrains.annotations.TestOnly` with
@@ -483,11 +483,11 @@ as a version.
 ### [v0.11](https://github.com/arez/arez/tree/v0.11) (2017-10-11)
 [Full Changelog](https://github.com/arez/arez/compare/v0.10...v0.11)
 
-##### Added
+#### Added
 * **\[processor\]** Generated component subclasses that are not singletons will now have `equals()` and
   `hashCode()` methods generated based on the component id.
 
-##### Changed
+#### Changed
 * **\[processor\]** Add explicit `assert !isDisposed()` statements into generated override methods for `@Observable`,
   `@Autorun`, `@Computed`, `@Tracked` etc. If these methods had been called after the component had been disposed,
   assertion failures would have been but several layers deeper into the system. Lifting the asserts to the user
@@ -496,7 +496,7 @@ as a version.
   runs through the existing code examples and collects a trace of the events using spy event listeners and compares
   it to fixtures that represent the expected trace.
 
-##### Fixed
+#### Fixed
 * Automate the publishing of releases to Maven Central. Avoids any delay in the artifact being published to Maven
   Central that previously occurred as the process required several manual steps to complete the publishing action.
   The automation runs from TravisCI and publishes to Maven Central any time a tag is created that starts with `v`
@@ -505,7 +505,7 @@ as a version.
 ### [v0.10](https://github.com/arez/arez/tree/v0.10) (2017-10-09)
 [Full Changelog](https://github.com/arez/arez/compare/v0.09...v0.10)
 
-##### Fixed
+#### Fixed
 * Fixed several gwt modules that were including too much much in downstream projects. For example the gwt module
   `org.realityforge.arez.Arez` includes all source for any library that was on the classpath as it included the
   path `""` via `<source path=""/>`. Modules have now been updating to only include packages that are in the same
@@ -515,7 +515,7 @@ as a version.
 ### [v0.09](https://github.com/arez/arez/tree/v0.09) (2017-10-09)
 [Full Changelog](https://github.com/arez/arez/compare/v0.08...v0.09)
 
-##### Fixed
+#### Fixed
 * Upgraded braincheck library to 1.1.0 to ensure that GWT will remove invariant checks in production mode. A
   change that we were unable to identify resulted in the the invariant checking code being permanently disabled
   but still included but unreferenced in the output javascript.
@@ -525,11 +525,11 @@ as a version.
 ### [v0.08](https://github.com/arez/arez/tree/v0.08) (2017-10-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.07...v0.08)
 
-##### Added
+#### Added
 * **\[doc\]** Started to improve the infrastructure for building documentation. Started to document the basic
   approach for defining Arez components using annotations.
 
-##### Changed
+#### Changed
 * 💥 **\[extras\]** Extracted the `spy` sub-package from gwt module `org.realityforge.arez.extras.Extras` and moved
   it to `org.realityforge.arez.extras.spy.SpyExtras`.
 * 💥 **\[extras\]** Extracted the `spy` sub-package from gwt module `org.realityforge.arez.browser.extras.BrowserExtras`
@@ -538,12 +538,12 @@ as a version.
 ### [v0.07](https://github.com/arez/arez/tree/v0.07) (2017-10-05)
 [Full Changelog](https://github.com/arez/arez/compare/v0.06...v0.07)
 
-##### Added
+#### Added
 * **\[core\]** Added several helper methods to `ArezContext` to create actions without specifying mutation parameter.
 * **\[processor\]** Introduce several protected access, helper methods that can be used by extensions when writing
   custom queries. Add minimal javadocs to the generated code to help guide extension developers.
 
-##### Changed
+#### Changed
 * 💥 **\[processor\]** Change the return type of generated `findAll` method from a `java.util.Collection` to a
   `java.util.List`. This makes this class consistent with other query methods in the repository. Custom repository
   extensions should no longer use `findAll` to get the entities to query but should instead use the newly added
@@ -552,7 +552,7 @@ as a version.
   make all query methods that return a `List` in generated repositories return an unmodifiable list. This is enable
   by default if you include the `org.realityforge.arez.ArezDev` gwt module.
 
-##### Fixed
+#### Fixed
 * **\[processor\]** Fixed the grammar of invariant failure message in generated repositories when the
   user attempts to destroy an entity that it not in the repository.
 * **\[core\]** Fixed a bug where the name of actions were not synthesized for actions created via
@@ -561,7 +561,7 @@ as a version.
 ### [v0.06](https://github.com/arez/arez/tree/v0.06) (2017-10-04)
 [Full Changelog](https://github.com/arez/arez/compare/v0.05...v0.06)
 
-##### Added
+#### Added
 * **\[processor\]** Add an parameter `allowEmpty` to `@ArezComponent` that allows the developer to define
   Arez components without explicitly annotating other elements such as `Observable` annotated methods. This
   is useful if you want to manually manage the creation of Arez elements.
@@ -569,13 +569,13 @@ as a version.
 ### [v0.05](https://github.com/arez/arez/tree/v0.05) (2017-10-04)
 [Full Changelog](https://github.com/arez/arez/compare/v0.04...v0.05)
 
-##### Added
+#### Added
 * **\[extras\]** Extract the `StringifyReplacer` from the `ConsoleSpyEventProcessor` class to allow
   subclasses of `ConsoleSpyEventProcessor` to control the mechanisms for formatting action parameters.
 * **\[annotations\]** Enhanced `@Action` and `@Track` to the ability to disable reporting of the parameters
   to the core runtime infrastructure from the generated components.
 
-##### Changed
+#### Changed
 * 💥 **\[browser-extras\]** Update `BrowserLocation` so that it defaults to calling `preventDefault()` on event
   that triggered hash change. This behaviour can be disabled by invoking `BrowserLocation.setPreventDefault(false)`
   to support old behaviour.
@@ -590,7 +590,7 @@ as a version.
   have all been modified to add an extra varargs argument that is the list of parameters passed to the action.
   Remove all the corresponding infrastructure from the annotation processor.
 
-##### Fixed
+#### Fixed
 * **\[core\]** Fixed invariant checking in `Transaction` so that `Observable.reportChanged()` can be invoked
   on a dependency of a `ComputedValue` where the `ComputedValue` has already been marked as `POSSIBLY_STALE`.
 * **\[processor\]** Fixed the generation of annotated methods that override an annotated method in a parent
@@ -608,7 +608,7 @@ as a version.
 ### [v0.04](https://github.com/arez/arez/tree/v0.04) (2017-10-03)
 [Full Changelog](https://github.com/arez/arez/compare/v0.03...v0.04)
 
-##### Added
+#### Added
 * **\[extras\]** Introduce the [`CssRules`](https://arez.github.io/api/org/arez/arez/browser/extras/spy/CssRules.html)
   annotation to force IntelliJ IDEA to treat annotate content as css rules for code formatting, completion
   and validation purposes. Use this new annotation to annotate relevant constants and parameters in
@@ -618,7 +618,7 @@ as a version.
 * **\[processor\]** Enhance the `ArezProcessor` to catch unexpected failures and report the crash to the user,
   directing the user to report the failure as a github issue.
 
-##### Changed
+#### Changed
 * Usage of the invariant checking method call `Guards.invariant(...)` has been replaced by `Guards.apiInvariant(...)`
   in scenarios where the invariant failure is the result of the user of the Arez library supplying invalid data or
   invoking methods before checking whether the elements are in the correct state.
@@ -636,7 +636,7 @@ as a version.
   - `ArezContext.safeProcedure(...)` renamed to `ArezContext.safeAction(Observer, SafeProcedure)`
 * 💥 **\[annotations\]** Rename the `@Tracked` annotation to `@Track`.
 
-##### Fixed
+#### Fixed
 * **\[processor\]** Annotation processor previously generated catch blocks with the caught exception stored in a
   variable named `e`. This broke code where the action passed e as a parameter. This has been fixed by renaming the
   caught exception to use the standard name mangling used through the rest of the generated code. (i.e. prefixing
@@ -645,7 +645,7 @@ as a version.
 ### [v0.03](https://github.com/arez/arez/tree/v0.03) (2017-10-02)
 [Full Changelog](https://github.com/arez/arez/compare/v0.02...v0.03)
 
-##### Added
+#### Added
 * ✨ **\[extras\]** Add the Arez component [`ObservablePromise`](https://arez.github.io/api/org/arez/arez/browser/extras/ObservablePromise.html)
   that wraps a javascript native promise and exposes the observable properties.
 * ✨ **\[extras\]** Add the Arez component [`IntervalTicker`](https://arez.github.io/api/org/arez/arez/browser/extras/IntervalTicker.html)
@@ -670,11 +670,11 @@ as a version.
 * ✨ **\[browser-extras\]** Build the [`ConsoleSpyEventProcessor`](https://arez.github.io/api/org/arez/arez/browser/extras/spy/ConsoleSpyEventProcessor.html)
   class. It is a `SpyEventHandler` that prints spy events to the browser console in a developer friendly manner.
 
-##### Changed
+#### Changed
 * **\[core\]** Rename `ArezContext.reaction(...)` methods to `ArezContext.tracker(...)` to reflect their primary
   purpose of creating a tracker to be passed to the transaction methods.
 
-##### Fixed
+#### Fixed
 * Fix the name of the poms generated by the build tool. In v0.02 and earlier the poms had the classifier
   as part of the filename which is incorrect. This has been corrected. i.e. Previously the poms were named
   `arez-core-0.02-gwt.pom` where as now they are named `arez-core-0.03.pom`
@@ -682,7 +682,7 @@ as a version.
 ### [v0.02](https://github.com/arez/arez/tree/v0.02) (2017-09-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.01...v0.02)
 
-##### Added
+#### Added
 * Initial support for adding a `@Repository` to an arez component that will cause the generation of a paired
   repository for managing instances of the arez component. Minimal javadocs are available on the
   [site](https://arez.github.io/api/org/arez/arez/annotations/Repository.html) and more advanced
