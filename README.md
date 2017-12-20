@@ -21,6 +21,16 @@ has a bad time then then we need to fix the problem.
 For more information about Arez, please see the [Website](https://arez.github.io/). For the source code
 and project support please visit the [GitHub project](https://github.com/arez/arez).
 
+# Contributing
+
+Arez was released as open source so others could benefit from the project. We are thankful for any
+contributions from the community. A [Code of Conduct](CODE_OF_CONDUCT.md) has been put in place and
+a [Contributing](CONTRIBUTING.md) document is under development.
+
+# License
+
+Arez is licensed under [Apache License, Version 2.0](LICENSE).
+
 # Credit
 
 * [Stock Software](http://www.stocksoftware.com.au/) for providing significant support in building and maintaining
