@@ -1,7 +1,5 @@
 ---
 title: Overview
-category: Components
-order: 1
 ---
 
 If you are here it is assumed that you understand the conceptual model of Arez and are ready to

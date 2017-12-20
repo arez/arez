@@ -1,7 +1,5 @@
 ---
 title: Motivation
-category: Overview
-order: 2
 ---
 
 Arez is a simple, efficient and scalable state management library for client-side applications. It is based

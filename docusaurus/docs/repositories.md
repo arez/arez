@@ -1,7 +1,5 @@
 ---
 title: Repositories
-category: Components
-order: 2
 ---
 
 Components defined in Arez have an identifier by default. These identifiers may be an explicit value returned

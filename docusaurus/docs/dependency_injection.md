@@ -1,7 +1,5 @@
 ---
 title: Dependency Injection
-category: Components
-order: 3
 ---
 
 Arez components provide several different mechanisms for integrating into dependency injection

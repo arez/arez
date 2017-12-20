@@ -1,7 +1,5 @@
 ---
 title: Zones
-category: Other
-order: 1
 ---
 
 Zones are the mechanism via which multiple independent [ArezContext]({% api_url ArezContext %}) instances

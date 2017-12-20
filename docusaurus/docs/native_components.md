@@ -1,7 +1,5 @@
 ---
 title: Native Components
-category: Other
-order: 2
 ---
 
 The core elements of Arez are [Observables]({% api_url Observable %}), [Observers]({% api_url Observer %}) and

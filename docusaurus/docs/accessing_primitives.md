@@ -1,7 +1,5 @@
 ---
 title: Accessing primitives
-category: Other
-order: 3
 ---
 
 Most Arez users will make use of annotations to define the reactive components required for their application.
