@@ -1,0 +1,26 @@
+{
+  "docs": {
+    "Getting Started": [
+      "overview"
+    ],
+    "Concepts": [
+      "concepts",
+      "observables",
+      "observers",
+      "computed_values",
+      "native_components"
+    ],
+    "Components": [
+      "components",
+      "accessing_primitives"
+    ],
+    "Advanced Topics": [
+      "dependency_injection",
+      "zones"
+    ],
+    "Project Documentation": [
+      "faq",
+      "development_process"
+    ]
+  }
+}
