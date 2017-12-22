@@ -109,15 +109,11 @@ console.table(languages);
 
 ## Documentation
 
-* Add link icon to all API links
-
 * Document that arez annotations only work on default methods or other methods with an implementation.
 
 * Integrate documentation such as following which seem like good overviews
   - http://blog.danlew.net/2017/07/27/an-introduction-to-functional-reactive-programming/
   - https://medium.com/@mweststrate/becoming-fully-reactive-an-in-depth-explanation-of-mobservable-55995262a254
-
-* Make sure # fragments are not always stolen by search javascript and can be used when linking to pages
 
 * Enhance README with practical instructions ala https://github.com/elastic/logstash
 
@@ -130,8 +126,6 @@ console.table(languages);
   - Use react+reason-react as inspiration?
   - EmberJS as inspiration - https://www.emberjs.com/
   - Inpsiration - particularly on drop down site nav - https://revapi.org/architecture.html
-
-* Link back from website to github page
 
 * Much of the documentation in VueGWT could be adapted or provide inspiration for Arez. See
   - https://github.com/Axellience/vue-gwt/blob/master/docs-source/book/project-setup.md
