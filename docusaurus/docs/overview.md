@@ -27,7 +27,9 @@ Actions _may_ be triggered by _observers_ when they update from application stat
 user action, a network message or some other external activity would trigger an action.
 
 <div class="svg-figure">
-{% include SimpleDataflowNodes.svg %}
+
+{@include: SimpleDataflowNodes.svg}
+
 </div>
 
 A computed value will only be recalculated if it is "active". A computed value is active if it is a dependency
@@ -37,7 +39,9 @@ their dependencies change. Data flows in a directed graph from actions to observ
 to the changes.
 
 <div class="svg-figure">
-{% include DataflowNodes.svg %}
+
+{@include: DataflowNodes.svg}
+
 </div>
 
 ### The Component Model
