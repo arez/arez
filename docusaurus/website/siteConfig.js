@@ -45,8 +45,8 @@ const siteConfig = {
   favicon: 'img/favicon-32x32.png',
   /* colors for website */
   colors: {
-    primaryColor: '#2E8555',
-    secondaryColor: '#205C3B'
+    primaryColor: '#4481D6',
+    secondaryColor: '#4464AD'
   },
   // This copyright info is used in /core/Footer.js and blog rss/atom feeds.
   copyright: 'Copyright © ' + new Date().getFullYear() + ' the Arez Project',

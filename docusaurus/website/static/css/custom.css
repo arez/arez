@@ -1,0 +1,15 @@
+.docsSliderActive nav.toc .navBreadcrumb {
+  background: rgb(249, 249, 249);
+}
+
+.docsNavContainer {
+  background: rgb(249, 249, 249);
+}
+
+nav.toc .toggleNav {
+  background: rgb(249, 249, 249);
+}
+
+footer.nav-footer {
+  background: $secondaryColor;
+}
