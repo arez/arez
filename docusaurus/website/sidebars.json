@@ -12,6 +12,7 @@
     ],
     "Components": [
       "components",
+      "repositories",
       "accessing_primitives"
     ],
     "Advanced Topics": [
