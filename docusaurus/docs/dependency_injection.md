@@ -37,8 +37,9 @@ on the `@ArezComponent` is set to `TRUE`. If the `inject` parameter is `IF_DETEC
 annotated with a "scope" annotation then Arez will annotate the enhanced subclass with the same scope annotation
 and add an `@Inject` annotation to the constructor.
 
-The `@Repository` annotation has a similar `inject` parameter and the base repository will be automatically
-annotated with the `@javax.inject.Singleton` scope annotation if the `javax.inject.Inject` class is present.
+The {@api_url: annotations.Repository} annotation has a similar `inject` parameter and the base repository will
+be automatically annotated with the `@javax.inject.Singleton` scope annotation if the `javax.inject.Inject` class
+is present.
 
 This would be sufficient if the consumer code always consumed the enhanced classes but as this is rarely the
 case, each injection framework has mechanisms that allow the framework to supply an instance of the enhanced
@@ -79,9 +80,9 @@ processors and statically checks the object graph at compilation time. The root 
 a component which is an interface annotated by the `@dagger.Component` annotation. The injection rules are customized
 via `@dagger.Module` annotated classes.
 
-Arez has greater support for the dagger injection framework than GIN. The [@ArezComponent]({% api_url annotations.ArezComponent %})
-and [@Repository]({% api_url annotations.Repository %}) annotations have a `dagger` parameter that controls whether
-the Arez annotation processor generates dagger modules.
+Arez has greater support for the dagger injection framework than GIN. The {@api_url: annotations.ArezComponent}
+and {@api_url: annotations.Repository} annotations have a `dagger` parameter that controls whether the Arez
+annotation processor generates dagger modules.
 
 If the value of the `dagger` parameter is `TRUE` or `IF_DETECTED` and the `dagger.Component` class is on the
 classpath then a module will be generated for each base component and base repository that looks like:

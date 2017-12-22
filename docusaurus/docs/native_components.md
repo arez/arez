@@ -2,15 +2,15 @@
 title: Native Components
 ---
 
-The core elements of Arez are [Observables]({% api_url Observable %}), [Observers]({% api_url Observer %}) and
-[ComputedValues]({% api_url ComputedValue %}) and these are all that is needed at runtime for Arez to build complex
-applications. The initial versions of Arez just used these primitives to construct the first Arez applications.
+The core elements of Arez are [Observables](observables.md), [Observers](observers.md) and
+[ComputedValues](computed_values.md) and these are all that is needed at runtime for Arez to build complex
+applications. The first Arez applications were constructed using just these primitives.
 
 Constructing primitives in this manner was tedious at best. Humans tend to want to use higher level abstractions
-and so was born the annotation driven [Component Model]({{ site.baseurl }}/components/overview). Arez users could
-define "components" that consisted of [@Observable]({% api_url annotations.Observable %}) properties,
-[@Computed]({% api_url annotations.Computed %}) properties and [@Track]({% api_url annotations.Track %}) or
-[@Autorun]({% api_url annotations.Autorun %}) observers.
+and so was born the annotation driven [Component Model](components.md). Arez users could
+define "components" that consisted of {@api_url: annotations.Observable} properties,
+{@api_url: annotations.Computed} properties and {@api_url: annotations.Track} or {@api_url: annotations.Autorun}
+observers.
 
 The component model made authoring the reactive elements of Arez applications relatively easy. However annotation
 processor used naming conventions to link primitive reactive elements together. The only way to know that
