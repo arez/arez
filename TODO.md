@@ -113,8 +113,6 @@ console.table(languages);
 
 * Add downloads/releases to top - maybe similar to https://revapi.org/downloads.html
 
-* Add external link icon on external links.
-
 * Document that arez annotations only work on default methods or other methods with an implementation.
 
 * Integrate documentation such as following which seem like good overviews
