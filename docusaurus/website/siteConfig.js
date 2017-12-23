@@ -45,6 +45,7 @@ const siteConfig = {
   favicon: 'img/favicon-32x32.png',
   /* colors for website */
   colors: {
+    /* This is derived from https://coolors.co/4464ad-393939-a4b0f5-4481d6-f9f9f9 */
     primaryColor: '#4481D6',
     secondaryColor: '#4464AD'
   },
