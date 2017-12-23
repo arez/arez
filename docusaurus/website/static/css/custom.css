@@ -14,17 +14,6 @@ footer.nav-footer {
   background: $secondaryColor;
 }
 
-a[href^="http://"]::after, a[href^="https://"]::after {
-  content: "";
-  display: inline-block;
-  background-size: contain;
-  background: url("/img/external-link.svg") no-repeat center;
-  transform: translate(0, 0.2em);
-  height: 1em;
-  width: 1em;
-  padding-left: 0.5em;
-}
-
 .mainContainer .wrapper p,
 .blockElement p,
 .mainContainer .wrapper ul li,
