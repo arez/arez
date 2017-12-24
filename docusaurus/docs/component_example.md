@@ -27,9 +27,9 @@ the getter with the {@api_url: annotations.Observable} annotation and the class 
 For example, imagine an application that tracks `remainingRides` on a train. Each ticket has a number of
 rides remaining. This could be represented by the component:
 
-{% highlight java %}
+```java
 {% file_content org/realityforge/arez/doc/examples/step1/TrainTicket.java "start_line=/@ArezComponent/" %}
-{% endhighlight %}
+```
 
 Compiling this class will generate a new class named `Arez_TrainTicket`. Rather than directly exposing the
 `Arez_TrainTicket` class to downstream consumers it is more common to define a factory method on the
@@ -39,9 +39,9 @@ This pattern eliminates the need for downstream users to know about the `Arez_Tr
 generated class as an implementation detail that should be hidden from the user. This pattern also makes it
 easier to document the component in javadocs. For example:
 
-{% highlight java %}
+```java
 {% file_content org/realityforge/arez/doc/examples/step2/TrainTicket.java "start_line=/@ArezComponent/" "end_line=/@Observable/" include_end_line=false %}
-{% endhighlight %}
+```
 
 ## Actions
 
@@ -60,9 +60,9 @@ For the sake of brevity, this document will add actions to the existing componen
 application needs a "rideTrain" action that simply decreases the number of rides remaining on a ticket by one
 we could define it using a method such as:
 
-{% highlight java %}
+```java
 {% file_content org/realityforge/arez/doc/examples/step3/TrainTicket.java "start_line=/@Action/" "end_line=/\}/" %}
-{% endhighlight %}
+```
 
 You will notice that this method implementation uses both the setter and getter when modifying the `remainingRides`
 observable property. If the code did not use the setter then downstream observers would not be notified of the
@@ -77,9 +77,9 @@ is not yet reactive. However let's imagine the application needs to notify the u
 property `remainingRides` reaches `0`. We can do this using a method annotated with {@api_url: annotations.Autorun}
 such as
 
-{% highlight java %}
+```java
 {% file_content org/realityforge/arez/doc/examples/step4/TrainTicket.java "start_line=/@Autorun/" "end_line=/^  \}/" %}
-{% endhighlight %}
+```
 
 Any time that this method is executed, Arez will track which observable properties are accessed within the method.
 If the values of any of these observable properties changes, Arez will schedule this method to be re-run in the
@@ -102,9 +102,9 @@ expensive operations such as updating parts of the UI then you may want to optim
 annotated method so that it is only invoked when there is actual work to do. The easiest way to do this is to use a
 {@api_url: annotations.Computed} property as illustrated below.
 
-{% highlight java %}
+```java
 {% file_content org/realityforge/arez/doc/examples/step5/TrainTicket.java "start_line=/@Computed/" "end_line=/^\}/" include_end_line=false %}
-{% endhighlight %}
+```
 
 Extracting the test `0 == getRemainingRides()` as a `ticketExpired` computed property will mean that the {@api_url: annotations.Autorun}
 method no longer has a direct dependency on the `remainingRides` observable property and instead has a dependency
@@ -126,9 +126,9 @@ To achieve either of these goals, you need to use the {@api_url: annotations.Tra
 
 An example is illustrated below:
 
-{% highlight java %}
+```java
 {% file_content org/realityforge/arez/doc/examples/step5/TrainTicket.java "start_line=/@Track/" "end_line=/@Computed/" include_end_line=false %}
-{% endhighlight %}
+```
 
 # Summary
 
@@ -138,6 +138,6 @@ this should give you enough of a taste to understand how Arez components are aut
 
 The source for the entire example is as follows:
 
-{% highlight java %}
+```java
 {% file_content org/realityforge/arez/doc/examples/step5/TrainTicket.java "start_line=/@ArezComponent/" %}
-{% endhighlight %}
+```

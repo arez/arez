@@ -24,6 +24,6 @@ resumed when the method completes.
 
 The current zone can be manipulated by directly interacting with the `Arez` class. A typical example of use is:
 
-{% highlight java %}
+```java
 {% file_content org/realityforge/arez/doc/examples/multi_zone/Example.java "start_line=/^  {/" "end_line=/^  }/" include_start_line=false include_end_line=false strip_block=true %}
-{% endhighlight %}
+```
