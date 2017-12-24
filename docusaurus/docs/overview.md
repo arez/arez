@@ -12,12 +12,3 @@ or even think about when state changes and instead react to those changes on dem
 Anything that can be derived from application state, should be derived from application state. The derivation
 should occur automatically and only when it is needed. The application elements such as the user-interface,
 network communication, data storage etc. are driven by changes in application state.
-
-### The Component Model
-
-On top of this architecture, Arez defines a component model driven by annotations. Annotate a class with
-{@api_url: annotations.ArezComponent} to define a component, mark observable properties with the
-{@api_url: annotations.Observable} annotation, mark computed properties with the {@api_url: annotations.Computed}
-annotation and mark observers with either the {@api_url: annotations.Autorun} annotation or the
-{@api_url: annotations.Track} annotation. The annotated classes are processed at compilation time to produce
-a ready to use reactive component.

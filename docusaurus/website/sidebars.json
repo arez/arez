@@ -12,6 +12,7 @@
     ],
     "Components": [
       "components",
+      "component_example",
       "repositories",
       "accessing_primitives"
     ],
