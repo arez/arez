@@ -22,6 +22,24 @@ const apiUrl = function(code) {
   return `<a href="${url}"><code>${label}</code></a>`;
 };
 
+const HTML_REPLACEMENTS = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;'
+};
+
+function replaceUnsafeChar(ch) {
+  return HTML_REPLACEMENTS[ch];
+}
+
+function escapeHtml(str) {
+  if (/[&<>"]/.test(str)) {
+    return str.replace(/[&<>"]/g, replaceUnsafeChar);
+  }
+  return str;
+}
+
 const embed = new RemarkableEmbed.Plugin();
 embed.register({
   youtube: RemarkableEmbed.extensions.youtube,
