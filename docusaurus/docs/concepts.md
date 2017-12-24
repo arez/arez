@@ -1,5 +1,5 @@
 ---
-title: Conceptual Overview
+title: Concepts Overview
 sidebar_label: Overview
 ---
 
