@@ -9,7 +9,11 @@ const markdownInclude = function(code) {
 const apiUrl = function(code) {
   const elements = code.split('::');
 
-  const label = elements.length > 1 ? elements[0] : ((elements[0].match(/^annotations\./) ? '@' : '') + elements[0].replace(/^.+\./, '') );
+  const label =
+    elements.length >
+    1 ?
+    elements[0] :
+    ((elements[0].match(/^annotations\./) ? '@' : '') + elements[0].replace(/^.+\./, '') );
   const classname = elements.length > 1 ? elements[1] : elements[0];
   const url = '/api/org/realityforge/arez/' +
               classname.replace('.', '/') + '.html' +
