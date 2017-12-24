@@ -1,5 +1,6 @@
 ---
 title: Conceptual Overview
+sidebar_label: Overview
 ---
 
 The Arez architecture is based on a strict unidirectional data flow:
