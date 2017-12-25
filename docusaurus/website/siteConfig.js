@@ -22,9 +22,109 @@ const apiUrl = function(code) {
   return `<a href="${url}"><code>${label}</code></a>`;
 };
 
+function parseParams(params) {
+  params = params.trim();
+  let args = {};
+  let paramsLeft = params;
+  while (paramsLeft) {
+    const result = PARAM_EXTRACTOR.exec(paramsLeft);
+    if (result) {
+      const param = result[2] || result[3] || result[4];
+      const eqIndex = param.indexOf('=');
+      if (-1 === eqIndex) {
+        throw Error(`Bad parameter ${param} extracted from ${params}`);
+      }
+      const key = param.slice(0, eqIndex);
+      args[key] = param.slice(eqIndex + 1);
+      paramsLeft = paramsLeft.slice(result[0].length);
+    }
+    else {
+      break;
+    }
+  }
+  return args;
+}
+
+const PARAM_EXTRACTOR = /(([^\s"'][^\s\}]*)|"([^\"]*)"|'([^']*)')\s*/;
+
+function calculateFirstLine(lines, pattern, includeLine) {
+  if (!pattern) {
+    return 0;
+  }
+
+  const regex = new RegExp(pattern);
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (regex.test(line)) {
+      return i + (includeLine ? 0 : 1);
+    }
+  }
+  throw Error(`Unable to locate first line with pattern ${pattern}`);
+}
+
+function calculateLastLine(lines, startLine, pattern, includeLine) {
+  if (!pattern) {
+    return lines.length - 1;
+  }
+
+  const regex = new RegExp(pattern);
+  for (let i = startLine; i < lines.length; i++) {
+    const line = lines[i];
+    if (regex.test(line)) {
+      return i + (includeLine ? 1 : 0);
+    }
+  }
+  throw Error(`Unable to locate last line with pattern ${pattern}`);
+}
+
+const fileContent = function(params, options) {
+  let args = parseParams(params);
+
+  const project = args['project'] || 'doc-examples';
+  const path = args['path'] || 'src/main/java';
+  const file = args['file'];
+  const language = args['language'] || 'java';
+  const firstLine = args['start_line'];
+  const lastLine = args['end_line'];
+  const includeStartLine = (args['include_start_line'] || 'true') === 'true';
+  const includeEndLine = (args['include_end_line'] || 'true') === 'true';
+  const stripBlock = (args['strip_block'] || 'false') === 'true';
+
+  if (!file) {
+    throw Error(`Failed to specify file parameter ${file}`);
+  }
+
+  const filename = process.cwd() + '/../../' + project + '/' + path + '/' + file;
+  const content = fs.readFileSync(filename, 'utf8');
+  const lines = content.split('\n');
+
+  const start = calculateFirstLine(lines, firstLine, includeStartLine);
+  const end = calculateLastLine(lines, start, lastLine, includeEndLine);
+
+  const selectedLines = lines.slice(start, end);
+  if (stripBlock) {
+    let whitespaceAtStart = 0 === selectedLines.length ? 10000000 : lines[0].length;
+    for (let i = 0; i < selectedLines.length; i++) {
+      const line = selectedLines[i];
+      if (0 !== line.length) {
+        const lineWhitespace = line.search(/\S|$/);
+        whitespaceAtStart = Math.min(whitespaceAtStart, lineWhitespace);
+      }
+    }
+    for (let i = 0; i < selectedLines.length; i++) {
+      selectedLines[i] = selectedLines[i].slice(whitespaceAtStart);
+    }
+  }
+  const newContent = selectedLines.join('\n');
+
+  return '<pre><code>' + options.highlight(newContent, language) + '</code></pre>';
+};
+
 const embed = new RemarkableEmbed.Plugin();
+embed.reg = /{@(\w+)\s*:\s*((([^\s"'][^\s\}]*|"[^\"]*"|'[^']*')\s*)+?)}/;
 embed.register({
   youtube: RemarkableEmbed.extensions.youtube,
+  file_content: fileContent,
   api_url: apiUrl,
   include: markdownInclude
 });

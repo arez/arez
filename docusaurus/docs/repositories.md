@@ -25,9 +25,7 @@ named `getId()` annotated with {@api_url: annotations.ComponentId}.
 The repository can be interacted with in all the ways you would expect with a short snippet of usage looking
 like:
 
-```java
-{% file_content org/realityforge/arez/doc/examples/repository/RepositoryExample.java "start_line=/EXAMPLE START/" "end_line=/EXAMPLE END/" include_start_line=false include_end_line=false %}
-```
+{@file_content: file=org/realityforge/arez/doc/examples/repository/RepositoryExample.java "start_line=EXAMPLE START" "end_line=EXAMPLE END" include_start_line=false include_end_line=false strip_block=true}
 
 Repositories are Arez components and the list of instances is observable. This means that they can be integrated
 as standard reactive components.
@@ -43,9 +41,7 @@ the `self()` method that is generated on the base extension interface as well as
 
 An extension may look something like:
 
-```java
-{% file_content org/realityforge/arez/doc/examples/repository/MyComponentRepositoryExtension.java "start_line=/public interface/" %}
-```
+{@file_content: file=org/realityforge/arez/doc/examples/repository/MyComponentRepositoryExtension.java "start_line=public interface"}
 
 This class must then be added to the `extensions` parameter of the {@api_url: annotations.Repository} annotation and these methods will
 be available on the repository.
