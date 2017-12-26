@@ -18,9 +18,7 @@ repository. The repository generated has the structure as illustrated by the fol
 this repository implementation has `findById` and `getById` which are only present because the component has a method
 named `getId()` annotated with {@api_url: annotations.ComponentId}.
 
-```java
-{% file_content org/realityforge/arez/doc/examples/repository/MyComponentRepository.java "start_line=/public class/" %}
-```
+{@file_content: file=org/realityforge/arez/doc/examples/repository/MyComponentRepository.java "start_line=public class"}
 
 The repository can be interacted with in all the ways you would expect with a short snippet of usage looking
 like:

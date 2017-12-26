@@ -89,6 +89,9 @@ const fileContent = function(params, options) {
   const includeStartLine = (args['include_start_line'] || 'true') === 'true';
   const includeEndLine = (args['include_end_line'] || 'true') === 'true';
   const stripBlock = (args['strip_block'] || 'false') === 'true';
+  const elideStart = args['elide_start'] || 'DOC ELIDE START';
+  const elideEnd = args['elide_end'] || 'DOC ELIDE END';
+  const elideReplacement = args['elide_replacement'] || '...';
 
   if (!file) {
     throw Error(`Failed to specify file parameter ${file}`);
@@ -102,20 +105,38 @@ const fileContent = function(params, options) {
   const end = calculateLastLine(lines, start, lastLine, includeEndLine);
 
   const selectedLines = lines.slice(start, end);
-  if (stripBlock) {
-    let whitespaceAtStart = 0 === selectedLines.length ? 10000000 : lines[0].length;
-    for (let i = 0; i < selectedLines.length; i++) {
-      const line = selectedLines[i];
-      if (0 !== line.length) {
-        const lineWhitespace = line.search(/\S|$/);
-        whitespaceAtStart = Math.min(whitespaceAtStart, lineWhitespace);
-      }
+
+  const elideStartRegex = new RegExp(elideStart);
+  const elideEndRegex = new RegExp(elideEnd);
+
+  let whitespaceAtStart = 0 === selectedLines.length ? 10000000 : lines[0].length;
+  let lastWhitespaceAtStart = 0;
+  let inElission = false;
+
+  const newSelectedLines = [];
+  for (let i = 0; i < selectedLines.length; i++) {
+    const line = selectedLines[i];
+    if (!inElission && elideStartRegex.test(line)) {
+      inElission = true;
+      newSelectedLines.push(Array(lastWhitespaceAtStart + 1).join(' ') + elideReplacement);
     }
-    for (let i = 0; i < selectedLines.length; i++) {
-      selectedLines[i] = selectedLines[i].slice(whitespaceAtStart);
+    else if (inElission && elideEndRegex.test(line)) {
+      inElission = false;
+    }
+    else if (!inElission) {
+      if (0 !== line.length) {
+        lastWhitespaceAtStart = line.search(/\S|$/);
+        whitespaceAtStart = Math.min(whitespaceAtStart, lastWhitespaceAtStart);
+      }
+      newSelectedLines.push(line);
     }
   }
-  const newContent = selectedLines.join('\n');
+  if (stripBlock) {
+    for (let i = 0; i < newSelectedLines.length; i++) {
+      newSelectedLines[i] = newSelectedLines[i].slice(whitespaceAtStart);
+    }
+  }
+  const newContent = newSelectedLines.join('\n');
 
   return '<pre><code>' + options.highlight(newContent, language) + '</code></pre>';
 };
