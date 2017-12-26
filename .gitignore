@@ -11,11 +11,7 @@
 /**/Wip.java
 /.sass-cache
 /node_modules
-/docusaurus/node_modules
-/docusaurus/lib/core/metadata.js
-/docusaurus/lib/core/MetadataBlog.js
-/docusaurus/website/translated_docs
-/docusaurus/website/build/
-/docusaurus/website/yarn.lock
-/docusaurus/website/node_modules
-/docusaurus/website/i18n
+/website/translated_docs
+/website/build/
+/website/node_modules
+/website/i18n
