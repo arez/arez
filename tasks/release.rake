@@ -69,7 +69,7 @@ HEADER
 
       end_index = changelog.index("### [v#{ENV['PREVIOUS_PRODUCT_VERSION']}]", start_index)
 
-      filename = "docs/_posts/#{ENV['RELEASE_DATE']}-version-#{ENV['PRODUCT_VERSION']}-release.md"
+      filename = "website/blog/#{ENV['RELEASE_DATE']}-version-#{ENV['PRODUCT_VERSION']}-release.md"
       IO.write(filename, <<CONTENT)
 ---
 title: Arez #{ENV['PRODUCT_VERSION']} released
