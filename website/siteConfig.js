@@ -97,7 +97,7 @@ const fileContent = function(params, options) {
     throw Error(`Failed to specify file parameter ${file}`);
   }
 
-  const filename = process.cwd() + '/../../' + project + '/' + path + '/' + file;
+  const filename = process.cwd() + '/../' + project + '/' + path + '/' + file;
   const content = fs.readFileSync(filename, 'utf8');
   const lines = content.split('\n');
 
