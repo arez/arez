@@ -23,8 +23,8 @@ end
 desc 'Build the website'
 task 'site:build' do
   rm_rf SITE_DIR
-  mkdir_p File.dirname(SITE_DIR)
-  sh "jekyll build --source #{WORKSPACE_DIR}/docs --destination #{SITE_DIR}"
+  sh "yarn build #{SITE_DIR}"
+  mv "#{WORKSPACE_DIR}/website/build/arez", SITE_DIR
   task('site:javadocs').invoke
   task('site:favicons').invoke
 end
@@ -54,8 +54,7 @@ end
 
 desc 'Serve the website for developing documentation'
 task 'site:serve' do
-  mkdir_p File.dirname(SITE_DIR)
-  sh "jekyll serve --source #{WORKSPACE_DIR}/docs --destination #{SITE_DIR}"
+  sh 'yarn start'
 end
 
 desc 'Build the website'
