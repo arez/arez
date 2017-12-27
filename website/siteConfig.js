@@ -159,7 +159,6 @@ const siteConfig = {
   headerLinks: [
     { doc: 'overview', label: 'Docs' },
     { href: '/api', label: 'API' },
-    { page: 'help', label: 'Help' },
     { blog: true, label: 'Blog' },
     { href: 'https://github.com/arez/arez', label: 'GitHub', external: true }
   ],
