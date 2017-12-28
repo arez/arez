@@ -81,7 +81,7 @@ authorURL: https://github.com/arez
 
 Changes in this release:
 
-#{changelog[start_index, end_index - start_index]}
+#{changelog[start_index, end_index - start_index].gsub('https://arez.github.io','')}
 CONTENT
       sh 'git reset 2>&1 1> /dev/null'
       sh "git add #{filename}"
