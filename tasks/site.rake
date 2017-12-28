@@ -35,6 +35,18 @@ task 'site:link_check' do
   require 'webrick'
   require 'socket'
 
+  # Copy the root and replace any absolute paths to target url with relative paths
+  # This is required as docusaurus forces qualified paths for some elements (i.e. atom/rss feeds)
+  root = "#{WORKSPACE_DIR}/target/site-link-check"
+  mkdir_p File.dirname(root)
+  cp_r SITE_DIR, root
+
+  Dir["#{root}/**/*.html"].each do |filename|
+    content = IO.read(filename)
+    content = content.gsub('https://arez.github.io','')
+    IO.write(filename, content)
+  end
+
   # Get a free port and web address
   socket = Socket.new(:INET, :STREAM, 0)
   socket.bind(Addrinfo.tcp('127.0.0.1', 0))
@@ -42,7 +54,7 @@ task 'site:link_check' do
   port = socket.local_address.ip_port
   socket.close
 
-  webserver = WEBrick::HTTPServer.new(:Port => port, :DocumentRoot => SITE_DIR)
+  webserver = WEBrick::HTTPServer.new(:Port => port, :DocumentRoot => root)
   Thread.new {webserver.start}
 
   trap('INT') {webserver.shutdown}
