@@ -24,6 +24,7 @@ desc 'Build the website'
 task 'site:build' do
   rm_rf SITE_DIR
   sh "yarn build #{SITE_DIR}"
+  mkdir_p File.dirname(SITE_DIR)
   mv "#{WORKSPACE_DIR}/website/build/arez", SITE_DIR
   task('site:javadocs').invoke
   task('site:favicons').invoke
