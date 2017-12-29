@@ -41,7 +41,3 @@ In some scenarios it is useful to derive one piece of data once and use it multi
 shopping cart example, the total value of the goods in the shopping cart may be used to calculate the amount
 left on the voucher and the subtotal. Arez has the ability to cache this value and only recalculate it if it
 becomes stale.
-
-The Arez architecture is based on a strict unidirectional data flow. The application state defines flows to
-agents that are derived from the state. To initiate changes in the system, an agent makes changes to the state
-and allows it to flow to other parts of the application.
