@@ -34,7 +34,7 @@ state.
 
 In Arez, the way that the view is modified is to update the the application state and let the view react to
 the changes. The view will be notified that the state has been updated and will update itself to reflect the
-current state. If the view is purely a projection of the application state, the update process is reasonably
+current state. When the view is purely a projection of the application state, the update process is relatively
 easy to implement.
 
 In some scenarios it is useful to derive one piece of data once and use it multiple locations. i.e. In the
