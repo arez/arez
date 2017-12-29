@@ -7,7 +7,7 @@ on the same dataflow programming model. The reactive programming model found in 
 example of this style of development. A minimal set of data is used to describe the application state and then
 the rest of the application is derived from this minimal set of data.
 
-#### Managing State is Hard
+## Managing State is Hard
 
 Managing state can be hard. When state changes it can be difficult to know which parts of the view needs to be
 updated, and/or which backend processes need to be modified and/or cancelled.
@@ -21,7 +21,7 @@ all those actions need to be reversed, and the processes canceled. This may be i
 Even for this very simple domain, the complexity of the code required to achieve correct or even just
 "good enough" state management can be significant.
 
-#### Managing State in Arez
+## Managing State in Arez
 
 The goal of Arez is to eliminate the complexity around managing state.
 
