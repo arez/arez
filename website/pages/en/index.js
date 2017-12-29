@@ -44,18 +44,14 @@ class HomeSplash extends React.Component {
                     <Button
                       href={
                         siteConfig.baseUrl +
-                        'docs/' +
-                        this.props.language +
-                        '/doc1.html'
+                        'docs/en/doc1.html'
                       }>
                       Example Link
                     </Button>
                     <Button
                       href={
                         siteConfig.baseUrl +
-                        'docs/' +
-                        this.props.language +
-                        '/doc2.html'
+                        'docs/en/doc2.html'
                       }>
                       Example Link 2
                     </Button>
@@ -72,10 +68,9 @@ class HomeSplash extends React.Component {
 
 class Index extends React.Component {
   render() {
-    let language = this.props.language || 'en';
     return (
       <div>
-        <HomeSplash language={language} />
+        <HomeSplash />
         <div className="mainContainer">
           <Container padding={['bottom', 'top']}>
             <GridBlock
