@@ -2,7 +2,9 @@
   "docs": {
     "About": [
       "overview",
-      "motivation"
+      "motivation",
+      "project_setup",
+      "getting_started"
     ],
     "Concepts": [
       "concepts",
