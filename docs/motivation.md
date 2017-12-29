@@ -12,11 +12,20 @@ the rest of the application is derived from this minimal set of data.
 Managing state can be hard. When state changes it can be difficult to know which parts of the view needs to be
 updated, and/or which processes need to be modified and/or cancelled.
 
-Consider the following scenario. If a new item is added to a shopping cart it may involve adding a row to a
-table with the item details, updating an item count elsewhere, updating the amount left on a voucher, updating
-the subtotal if the voucher reaches $0. It may also several asynchronous processes such as requesting availability
-for the item, requesting product details and an image for the product. If that item is immediately removed then
-all those actions need to be reversed, and the processes canceled. This may be interleaved with other updates.
+Consider the relatively simple process of adding a product to shopping cart in a web application. This action
+may trigger the following activities:
+
+* adding a row to a HTML table to contain details about the item.
+* updating an item count.
+* updating the amount left on a voucher (if any).
+* updating the subtotal if the voucher reaches $0.
+* initiating an asynchronous process to check availability of the item.
+* initiating an asynchronous process to retrieve product details.
+* initiating an asynchronous process to retrieve product image.
+
+If the user then decides to remove the item from the shopping cart then the activities need to be reversed and
+the asynchronous processes need to be cancelled. These activities may be interleaved with other updates that are
+triggered by other user activities or other asynchronous processes completing (i.e. a network request is returned).
 
 Even for this very simple domain, the complexity of the code required to achieve correct or even just
 "good enough" state management can be significant.
