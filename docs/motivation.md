@@ -32,7 +32,7 @@ controls, spinners) etc. Non-view components of a web application should also be
 state. It would not be unusual to have the WebSocket connections to backend services derived from application
 state.
 
-An Arez, the way that the view is modified is to update the the application state and let the view react to
+In Arez, the way that the view is modified is to update the the application state and let the view react to
 the changes. The view will be notified that the state has been updated and will update itself to reflect the
 current state. If the view is purely a projection of the application state, the update process is reasonably
 easy to implement.
