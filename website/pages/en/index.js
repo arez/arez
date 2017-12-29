@@ -73,18 +73,6 @@ class HomeSplash extends React.Component {
 class Index extends React.Component {
   render() {
     let language = this.props.language || 'en';
-    const showcase = siteConfig.users
-      .filter(user => {
-        return user.pinned;
-      })
-      .map(user => {
-        return (
-          <a href={user.infoLink}>
-            <img src={user.image} title={user.caption} />
-          </a>
-        );
-      });
-
     return (
       <div>
         <HomeSplash language={language} />
