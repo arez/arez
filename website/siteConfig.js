@@ -160,6 +160,7 @@ const siteConfig = {
     { doc: 'overview', label: 'Docs' },
     { href: '/api', label: 'API' },
     { blog: true, label: 'Blog' },
+    { href: 'https://github.com/arez/arez/releases', label: 'Releases', external: true },
     { href: 'https://github.com/arez/arez', label: 'GitHub', external: true }
   ],
   users: [],
