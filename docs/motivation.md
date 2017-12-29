@@ -10,7 +10,7 @@ the rest of the application is derived from this minimal set of data.
 ## Managing State is Hard
 
 Managing state can be hard. When state changes it can be difficult to know which parts of the view needs to be
-updated, and/or which backend processes need to be modified and/or cancelled.
+updated, and/or which processes need to be modified and/or cancelled.
 
 Consider the following scenario. If a new item is added to a shopping cart it may involve adding a row to a
 table with the item details, updating an item count elsewhere, updating the amount left on a voucher, updating
