@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Changed
+* Move from [Jekyll](https://jekyllrb.com/) to [Docusaurus](https://docusaurus.io/) to generate website.
+  The motivation was the better documentation styling and layout offered by Docusaurus.
+
 ### [v0.37](https://github.com/arez/arez/tree/v0.37) (2017-12-18)
 [Full Changelog](https://github.com/arez/arez/compare/v0.36...v0.37)
 
