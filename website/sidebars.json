@@ -1,0 +1,31 @@
+{
+  "docs": {
+    "About": [
+      "overview",
+      "motivation",
+      "project_setup",
+      "getting_started"
+    ],
+    "Concepts": [
+      "concepts",
+      "observables",
+      "observers",
+      "computed_values",
+      "native_components"
+    ],
+    "Components": [
+      "components",
+      "component_example",
+      "repositories",
+      "accessing_primitives"
+    ],
+    "Advanced Topics": [
+      "dependency_injection",
+      "zones"
+    ],
+    "Project Documentation": [
+      "faq",
+      "development_process"
+    ]
+  }
+}

@@ -7,11 +7,11 @@
 [![codecov](https://codecov.io/gh/arez/arez/branch/master/graph/badge.svg)](https://codecov.io/gh/arez/arez)
 
 Arez is a simple, efficient and scalable state management library for client-side applications powered by a
-transparent functional reactive programming core. Arez tracks usage of observable data and reruns observers
+transparent functional reactive programming core. Arez tracks usage of observable data and notifies observers
 when the observable data changes. The library scales from simple, flat domain models to complex, highly
-inter-connected graph-like domain models. Arez trades a higher memory usage for a faster execution speed.
-Arez's goal is to do this while optimizing for developer happiness by eliminating the need for the developer
-to monitor or even think about when state changes and instead react to those changes on demand.
+inter-connected graph-like domain models. Arez trades a higher memory usage for a faster execution speed
+and better developer experience. Arez's optimizes for developer happiness by eliminating the need to monitor
+or even think about when state changes and instead react to those changes on demand.
 
 Arez is under heavy development and sometimes the documentation does not keep up to date. However the goal of
 the toolkit is to be easy to use and this includes clear and concise documentation. If something is unclear
@@ -20,6 +20,16 @@ has a bad time then then we need to fix the problem.
 
 For more information about Arez, please see the [Website](https://arez.github.io/). For the source code
 and project support please visit the [GitHub project](https://github.com/arez/arez).
+
+# Contributing
+
+Arez was released as open source so others could benefit from the project. We are thankful for any
+contributions from the community. A [Code of Conduct](CODE_OF_CONDUCT.md) has been put in place and
+a [Contributing](CONTRIBUTING.md) document is under development.
+
+# License
+
+Arez is licensed under [Apache License, Version 2.0](LICENSE).
 
 # Credit
 

@@ -212,7 +212,7 @@
   names are enabled.
 * Update the release process so that every release creates a "Github Release" and any open milestone that
   matches the release is closed.
-* **\[core\]** Introduce the concept of [Native Components](https://arez.github.io/native_components). Native
+* **\[core\]** Introduce the concept of [Native Components](https://arez.github.io/docs/native_components.html). Native
   components allow the explicit representation of components within the core of Arez. This is in contrast to the
   implicit representation of components that already exists as a result of the `@ArezComponent` annotation and the
   annotation processor. Native components can be enabled or disabled at compile time and if disabled will have no
@@ -349,7 +349,7 @@
 [Full Changelog](https://github.com/arez/arez/compare/v0.18...v0.19)
 
 #### Added
-* Introduce the concept of a [`Zone`](https://arez.github.io/zones) which is an isolated Arez context.
+* Introduce the concept of a [`Zone`](https://arez.github.io/docs/zones.html) which is an isolated Arez context.
 * Add some cute icons to start of "computed" messages and "scheduled" messages in `ConsoleSpyEventProcessor`.
   These were source from the [mobx-devtools](https://github.com/andykog/mobx-devtools) project.
 * Add support for interleaving transactions from different instances of `ArezContext`. Beginning a transaction
@@ -656,7 +656,7 @@ as a version.
 * **\[core\]** Added [`Disposable.asDisposable(Object)`](https://arez.github.io/api/org/arez/arez/Disposable.html#asDisposed-java.lang.Object-)
   utility that casts the specified object to a `Disposable`.
 * Added automation to site deploy that verifies there are no broken links before uploading website.
-* Added a [Motivation](https://arez.github.io/overview/motivation/) section to the website.
+* Added a [Motivation](https://arez.github.io/docs/motivation.html) section to the website.
 * **\[core\]** Began experimenting with the ability to serialize spy events (i.e. Those in the
   `org.realityforge.arez.spy` package) to `java.util.Map` instances. The goal is to extract and backport
   functionality from several downstream projects including the `example` and `gwt-example` sample projects

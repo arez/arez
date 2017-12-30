@@ -69,18 +69,19 @@ HEADER
 
       end_index = changelog.index("### [v#{ENV['PREVIOUS_PRODUCT_VERSION']}]", start_index)
 
-      filename = "docs/_posts/#{ENV['RELEASE_DATE']}-version-#{ENV['PRODUCT_VERSION']}-release.md"
+      filename = "website/blog/#{ENV['RELEASE_DATE']}-version-#{ENV['PRODUCT_VERSION']}-release.md"
       IO.write(filename, <<CONTENT)
 ---
 title: Arez #{ENV['PRODUCT_VERSION']} released
-type: minor
+author: Arez Project
+authorURL: https://github.com/arez
 ---
 
 [Full Changelog](https://github.com/arez/arez/compare/v#{ENV['PREVIOUS_PRODUCT_VERSION']}...v#{ENV['PRODUCT_VERSION']})
 
 Changes in this release:
 
-#{changelog[start_index, end_index - start_index]}
+#{changelog[start_index, end_index - start_index].gsub('https://arez.github.io','')}
 CONTENT
       sh 'git reset 2>&1 1> /dev/null'
       sh "git add #{filename}"
