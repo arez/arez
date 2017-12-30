@@ -48,7 +48,3 @@ Arez is licensed under [Apache License, Version 2.0](LICENSE).
   - [Meteor Tracker](https://docs.meteor.com/api/tracker.html)
   - [VueJS watchers and Computed properties](https://vuejs.org/v2/guide/computed.html)
   -  KnockoutJS [Observables](http://knockoutjs.com/documentation/observables.html) and [Computed Observables](http://knockoutjs.com/documentation/computedObservables.html)
-
-* The website is derived from the [Edition Template](https://github.com/CloudCannon/edition-jekyll-template)
-  by [Cloud Cannon](https://cloudcannon.com/) that is licensed under the [MIT License](https://github.com/CloudCannon/edition-jekyll-template/blob/master/LICENSE).
-  They also have amazing [tutorial website](https://learn.cloudcannon.com/) for developing jekyll based websites.
