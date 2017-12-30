@@ -109,7 +109,6 @@ console.table(languages);
 
 ## Documentation
 
-* Add downloads/releases to top - maybe similar to https://revapi.org/downloads.html
 
 * Document that arez annotations only work on default methods or other methods with an implementation.
 
