@@ -126,6 +126,8 @@ console.table(languages);
 * Consider ways or reorganizing
   - Use react+reason-react as inspiration?
   - EmberJS as inspiration - https://www.emberjs.com/
+  - https://mobx.js.org
+  - https://redux.js.org/
 
 * Add documentation for extras.
 
