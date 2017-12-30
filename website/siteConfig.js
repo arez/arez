@@ -183,7 +183,7 @@ const siteConfig = {
   },
   scripts: ['https://buttons.github.io/buttons.js'],
   repoUrl: 'https://github.com/arez/arez',
-  editUrl: 'https://github.com/arez/arez/tree/docusaurus/docs/',
+  editUrl: 'https://github.com/arez/arez/tree/master/docs/',
   markdownPlugins: [
     embed.hook
   ]
