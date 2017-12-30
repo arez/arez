@@ -109,6 +109,8 @@ console.table(languages);
 
 ## Documentation
 
+* Add search to website ala https://docusaurus.io/docs/en/search.html - have sent off email to search company.
+  Waiting for a reply ...
 
 * Document that arez annotations only work on default methods or other methods with an implementation.
 
