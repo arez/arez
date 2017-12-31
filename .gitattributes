@@ -10,7 +10,6 @@
 *.png binary
 *.rake text
 *.rb text
-*.scss text
 *.xml text
 *.yaml text
 *.yml text
