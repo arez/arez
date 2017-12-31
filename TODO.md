@@ -94,6 +94,8 @@ console.table(languages);
   that should never be present in compiled output if `areNamesEnabled` is false. Package Y should no be present
   in compiled output unless `areSpiesEnabled` is true etc.
 
+* If the pair of Observable getters are abstract then the generator should be able to supply the implementation.
+
 ## Process
 
 * Incorporate notes from https://css-tricks.com/open-source-etiquette-guidebook/ into CONTRIBUTING.md and add
