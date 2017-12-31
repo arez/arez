@@ -111,6 +111,8 @@ console.table(languages);
 
 ## Documentation
 
+* Add TOC to FAQ and "development process" pages. Probably need a separate parse/render plugin.
+
 * Add search to website ala https://docusaurus.io/docs/en/search.html - have sent off email to search company.
   Waiting for a reply ...
 
