@@ -9,4 +9,3 @@ a class with {@api_url: annotations.ArezComponent} to define a component, mark o
 annotation and mark observers with either the {@api_url: annotations.Autorun} annotation or the
 {@api_url: annotations.Track} annotation. The annotated classes are processed at compilation time to produce
 a ready to use reactive component.
-
