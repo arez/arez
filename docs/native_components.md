@@ -12,8 +12,8 @@ define "components" that consisted of {@api_url: annotations.Observable} propert
 {@api_url: annotations.Computed} properties and {@api_url: annotations.Track} or {@api_url: annotations.Autorun}
 observers.
 
-The component model made authoring the reactive elements of Arez applications relatively easy. However annotation
-processor used naming conventions to link primitive reactive elements together. The only way to know that
+The component model made authoring the reactive elements of Arez applications relatively easy. However the annotation
+processor only used naming conventions to link primitive reactive elements together. The only way to know that
 two observables were from the same component was to look at their names and if enough of the prefix matched then
 they were probably from the same component. i.e. It would be reasonably safe to assume that two observable
 properties named `"Person.42.firstName"` and `"Person.42.lastName"` where properties on a single component
