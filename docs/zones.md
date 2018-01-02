@@ -13,15 +13,20 @@ depending on the way that they are used. As a result, developers must explicitly
 This is activated by setting the `arez.enable_zones` configuration property to `true` in a `.gwt.xml` module.
 
 When zones are enabled, the {@api_url: Arez.context()::ArezContext::context()} method will return the
-{@api_url: ArezContext} of the current zone. When components defined by the {@api_url: annotations.ArezComponent}
-are created, they will invoke {@api_url: Arez.context()::ArezContext::context()} and the component will be bound
-to the current zone.
-
-If a method annotated with {@api_url: annotations.Action}, {@api_url: annotations.Track} or
-{@api_url: annotations.Autorun} is invoked, the method will switch to the zone in which they were created if is
-different from the current zone. The previous zone and any transaction in the zone will be suspended and and
-resumed when the method completes.
+{@api_url: ArezContext} of the current zone. When actions and observers are invoked, Arez will switch to
+the zone in which they were created if it is different from the current zone. The previous zone and any 
+transaction in the zone will be suspended and and resumed when the action or observer completes.
 
 The current zone can be manipulated by directly interacting with the `Arez` class. A typical example of use is:
+
+{@file_content: file=org/realityforge/arez/doc/examples/multi_zone/BasicExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+
+Zones also work with annotation-based [components](components.md). When components defined by the
+{@api_url: annotations.ArezComponent} are created, they will invoke {@api_url: Arez.context()::ArezContext::context()}
+and the component will be bound to the current zone. If a method annotated with {@api_url: annotations.Action},
+{@api_url: annotations.Track} or {@api_url: annotations.Autorun} is invoked, the method will switch to the zone
+in which they were created if is different from the current zone.
+
+An example that uses components is:
 
 {@file_content: file=org/realityforge/arez/doc/examples/multi_zone/Example.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
