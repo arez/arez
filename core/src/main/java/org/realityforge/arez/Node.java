@@ -81,7 +81,7 @@ public abstract class Node
    *
    * @return true if spy events will be propagated, false otherwise.
    */
-  protected final boolean willPropagateSpyEvents()
+  final boolean willPropagateSpyEvents()
   {
     return Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents();
   }
@@ -93,7 +93,7 @@ public abstract class Node
    * @return the spy associated with context.
    */
   @Nonnull
-  protected final Spy getSpy()
+  final Spy getSpy()
   {
     return getContext().getSpy();
   }
@@ -103,7 +103,7 @@ public abstract class Node
    *
    * @param event the event that occurred.
    */
-  protected final void reportSpyEvent( @Nonnull final Object event )
+  final void reportSpyEvent( @Nonnull final Object event )
   {
     getSpy().reportSpyEvent( event );
   }
