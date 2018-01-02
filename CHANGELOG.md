@@ -5,6 +5,8 @@
 #### Changed
 * Move from [Jekyll](https://jekyllrb.com/) to [Docusaurus](https://docusaurus.io/) to generate website.
   The motivation was the better documentation styling and layout offered by Docusaurus.
+* 💥 **\[core\]** Make the `Node` constructor package access as it is not intended to be usable outside the
+  existing Arez primitives that all exist in the same package.
 
 ### [v0.37](https://github.com/arez/arez/tree/v0.37) (2017-12-18)
 [Full Changelog](https://github.com/arez/arez/compare/v0.36...v0.37)

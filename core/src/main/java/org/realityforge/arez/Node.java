@@ -29,7 +29,7 @@ public abstract class Node
   @Nullable
   private final String _name;
 
-  protected Node( @Nonnull final ArezContext context, @Nullable final String name )
+  Node( @Nonnull final ArezContext context, @Nullable final String name )
   {
     apiInvariant( () -> Arez.areNamesEnabled() || null == name,
                   () -> "Node passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
