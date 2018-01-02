@@ -14,17 +14,15 @@
       "computed_values",
       "actions",
       "scheduler",
-      "native_components"
+      "native_components",
+      "zones"
     ],
     "Components": [
       "components",
       "component_example",
       "repositories",
-      "accessing_primitives"
-    ],
-    "Advanced Topics": [
-      "dependency_injection",
-      "zones"
+      "accessing_primitives",
+      "dependency_injection"
     ],
     "Project Documentation": [
       "faq",
