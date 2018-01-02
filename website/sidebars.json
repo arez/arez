@@ -8,9 +8,11 @@
     ],
     "Concepts": [
       "concepts",
+      "transactions",
       "observables",
       "observers",
       "computed_values",
+      "actions",
       "native_components"
     ],
     "Components": [
