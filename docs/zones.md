@@ -14,7 +14,7 @@ This is activated by setting the `arez.enable_zones` configuration property to `
 
 When zones are enabled, the {@api_url: Arez.context()::ArezContext::context()} method will return the
 {@api_url: ArezContext} of the current zone. When actions and observers are invoked, Arez will switch to
-the zone in which they were created if it is different from the current zone. The previous zone and any 
+the zone in which they were created if it is different from the current zone. The previous zone and any
 transaction in the zone will be suspended and and resumed when the action or observer completes.
 
 The current zone can be manipulated by directly interacting with the `Arez` class. A typical example of use is:
