@@ -13,6 +13,7 @@
       "observers",
       "computed_values",
       "actions",
+      "scheduler",
       "native_components"
     ],
     "Components": [
