@@ -113,9 +113,6 @@ console.table(languages);
 
 * Add TOC to FAQ and "development process" pages. Probably need a separate parse/render plugin.
 
-* Add search to website ala https://docusaurus.io/docs/en/search.html - have sent off email to search company.
-  Waiting for a reply ...
-
 * Document that arez annotations only work on default methods or other methods with an implementation.
 
 * Integrate documentation such as following which seem like good overviews
