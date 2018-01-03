@@ -121,7 +121,7 @@ console.table(languages);
   - http://blog.danlew.net/2017/07/27/an-introduction-to-functional-reactive-programming/
   - https://medium.com/@mweststrate/becoming-fully-reactive-an-in-depth-explanation-of-mobservable-55995262a254
 
-* Enhance README with practical instructions ala https://github.com/elastic/logstash
+* Enhance README with practical instructions ala https://github.com/elastic/logstash or maybe docasaurus
 
 * Change error message "Attempting to get current transaction but no transaction is active." to indicate why
   this typically happens. What we should probably do is wrap all exceptions in _e(1234, "My Message") which
