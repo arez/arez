@@ -29,3 +29,20 @@ function that computes the value. It provides a method {@api_url: ComputedValue.
 access the cached value or recalculate the value if it is stale. The {@api_url: ComputedValue} contains the necessary
 logic required to determine staleness and notify dependencies. Internally it uses instances of {@api_url: Observable}
 and {@api_url: Observer} to achieve this goal.
+
+When the computed values is created, several callback can be supplied that allow the developer to customize
+behaviour when certain state transitions occur. These callbacks are typically used if the computed value needs
+to interact with platform services to keep the computed value up to date. i.e. In a web browser environment, a
+computed value may add an event listener to browser objects so that it can invalidate the cached value in response
+to events from the browser.
+
+The callbacks are:
+
+* **onActivate**: This callback is invoked when the computed value goes from having no observers to having 1 or
+  more observers. This callback is often used to subscribe to changes from the native platform.
+* **onDeactivate**: This callback is invoked when the computed value goes from having 1 or more observers to
+  having no observers. This callback is often used to unsubscribe from changes from the native platform.
+* **onStale**: This callback is invoked when the computed value is stale and needs to be recomputed. This callback
+  is often used to initiate processes to update the computed value.
+* **onDispose**: This callback is invoked when the computed value is disposed. This callback is used to release
+  resources (i.e. event listeners) that have been allocated in other callbacks.
