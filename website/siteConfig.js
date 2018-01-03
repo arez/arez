@@ -161,8 +161,13 @@ const siteConfig = {
     { href: '/api', label: 'API' },
     { blog: true, label: 'Blog' },
     { href: 'https://github.com/arez/arez/releases', label: 'Releases', external: true },
-    { href: 'https://github.com/arez/arez', label: 'GitHub', external: true }
+    { href: 'https://github.com/arez/arez', label: 'GitHub', external: true },
+    { search: true }
   ],
+  algolia: {
+    apiKey: 'b8c49751e0914443436822868f0c5000',
+    indexName: 'arez'
+  },
   users: [],
   /* path to images for header/footer */
   headerIcon: 'img/logo.svg',
