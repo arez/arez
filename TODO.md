@@ -76,6 +76,8 @@ var languages = { csharp: { name: "C#", paradigm: "object-oriented" }, fsharp: {
 console.table(languages);
 ```
 
+* Will need to document DevTools - probably with a bunch of screen shots
+
 * Setup testing with browser. Headless Chrome via selenium? GWT test case?
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
   - Perhaps by the latest kid in town - https://www.cypress.io/
