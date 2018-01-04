@@ -20,6 +20,7 @@
     "Components": [
       "components",
       "component_example",
+      "at_arez_component",
       "at_observable",
       "at_computed",
       "at_action",
