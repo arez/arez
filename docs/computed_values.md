@@ -46,3 +46,6 @@ The callbacks are:
   is often used to initiate processes to update the computed value.
 * **onDispose**: This callback is invoked when the computed value is disposed. This callback is used to release
   resources (i.e. event listeners) that have been allocated in other callbacks.
+
+The {@api_url: ComputedValue} class is a relatively low-level primitive and users typically use higher level
+constructs such as the [@Computed](at_computed.md) annotation.

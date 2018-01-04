@@ -11,7 +11,8 @@ Within the Arez system an observable is represented by an instance of the {@api_
 {@api_url: Observable} class does not contain the state that is observed but provides methods that can be
 used to notify Arez when the state is queried or mutated.
 
-The {@api_url: Observable} class is a low-level primitive and is not intended to be directly used by Arez users
+The {@api_url: Observable} class is a low-level primitive and is not intended to be directly used by Arez users.
+(See the [@Observable](at_observable.md) documentation for a higher level API for defining observables.) However
 but it would be possible to implement an observable property using code such as:
 
 {@file_content: file=org/realityforge/arez/doc/examples/observables/ObservableExample.java "start_line=private Observable" "end_line=^}" include_end_line=false strip_block=true}
