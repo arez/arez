@@ -17,7 +17,7 @@ const apiUrl = function(code) {
   const classname = elements.length > 1 ? elements[1] : elements[0];
   const url = '/api/org/realityforge/arez/' +
               classname.replace('.', '/') + '.html' +
-              (elements.length > 2 ? '#' + elements[2].replace('(', '-').replace(')', '-') : '');
+              (elements.length > 2 ? '#' + elements[2].replace('(', '-').replace(',', '-').replace(')', '-') : '');
 
   return `<a href="${url}"><code>${label}</code></a>`;
 };
