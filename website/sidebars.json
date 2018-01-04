@@ -20,6 +20,11 @@
     "Components": [
       "components",
       "component_example",
+      "at_observable",
+      "at_computed",
+      "at_action",
+      "at_autorun",
+      "at_track",
       "repositories",
       "accessing_primitives",
       "dependency_injection"
