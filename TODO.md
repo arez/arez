@@ -115,6 +115,8 @@ console.table(languages);
 
 * Add TOC to FAQ and "development process" pages. Probably need a separate parse/render plugin.
 
+* Performance testing and writeup?
+
 * Document that arez annotations only work on default methods or other methods with an implementation.
 
 * Integrate documentation such as following which seem like good overviews
