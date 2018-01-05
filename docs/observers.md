@@ -16,9 +16,30 @@ an autorun observer is defined, the tracked function will be triggered once imme
 any time the dependencies change. The Arez scheduler is also responsible for wrapping the tracked function in a
 tracking transaction.
 
+There are several low-level {@api_url: ArezContext.autorun(*)::ArezContext::autorun(org.realityforge.arez.Procedure)}
+methods that can be used to create autorun observers, however most users will use more high-level APIs such as
+the [@Autorun](at_autorun.md) annotation.
+
+An example of a basic autorun observer:
+
+{@file_content: file=org/realityforge/arez/doc/examples/autorun/AutorunExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+
+An example of an autorun observer that is explicitly named, uses a read-only transaction and returns a value:
+
+{@file_content: file=org/realityforge/arez/doc/examples/autorun/AutorunExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+
 ## Tracker Observers
 
 Tracker observers separate the tracked function from the callback that is scheduled when the dependencies
 change. This type of observer is used when you need to integrate into a framework that has it's own scheduler
 or when you need to take more control of the scheduling of observers (i.e. to debounce changes or limit the
 invocation of the tracked function to at most once per second).
+
+A tracker observer is more complex than autorun observers within Arez. The developer must explicitly create
+the observer via {@api_url: ArezContext.tracker(*)::ArezContext::tracker(org.realityforge.arez.Procedure)}
+invocation.
+
+{@file_content: file=org/realityforge/arez/doc/examples/tracker/TrackerExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+
+As with Autorun observers these primitive APIs are unlikely to be directly used by the user but it is more likely
+that they will be used indirectly by high-level apis such as the [@Track](at_track.md) annotation.
