@@ -114,7 +114,7 @@ associated with the component. A previous iteration of the framework made it opt
 support {@api_url: Disposable} but this just lead to resource leaks.
 
 It should also be noted that all resources within a component are disposed within the scope of a single
-transaction, to avoid scenario where a partially disposed component reacts to changes occuring during
+transaction, to avoid scenario where a partially disposed component reacts to changes occurring during
 dispose.
 
 ### Why does the annotation processor override equals() and hashCode() methods?
