@@ -24,7 +24,7 @@ will still appear in the pending reactions list but the reaction will be skipped
 
 The API allows users to create autorun observers that will not run immediately. This is sometimes necessary when
 creating complex components that need to be completely constructed prior to enabling the autorun tracking function.
-To support this the Arez api provides the {@api_url: ArezContext.triggerScheduler()::ArezContext:triggerScheduler()}
+To support this the Arez api provides the {@api_url: ArezContext.triggerScheduler()::ArezContext::triggerScheduler()}
 method that will start the scheduler if there are pending reactions and the scheduler is not currently running.
 
 ## Pausing and Resuming
