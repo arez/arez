@@ -8,9 +8,8 @@ applications. The first Arez applications were constructed using just these prim
 
 Constructing primitives in this manner was tedious at best. Humans tend to want to use higher level abstractions
 and so was born the annotation driven [Component Model](components.md). Arez users could
-define "components" that consisted of {@api_url: annotations.Observable} properties,
-{@api_url: annotations.Computed} properties and {@api_url: annotations.Track} or {@api_url: annotations.Autorun}
-observers.
+define "components" that consisted of [@Observable](at_observable.md) properties, [@Computed](at_computed.md)
+properties and [@Track](at_track.md) or [@Autorun](at_autorun.md) observers.
 
 The component model made authoring the reactive elements of Arez applications relatively easy. However the annotation
 processor only used naming conventions to link primitive reactive elements together. The only way to know that
