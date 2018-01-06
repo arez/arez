@@ -22,7 +22,7 @@ The current zone can be manipulated by directly interacting with the `Arez` clas
 {@file_content: file=org/realityforge/arez/doc/examples/multi_zone/BasicExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 Zones also work with annotation-based [components](components.md). When components defined by the
-{@api_url: annotations.ArezComponent} are created, they will invoke {@api_url: Arez.context()::ArezContext::context()}
+[@ArezComponent](at_arez_component.md) are created, they will invoke {@api_url: Arez.context()::ArezContext::context()}
 and the component will be bound to the current zone. If a method annotated with [@Action](at_action.md),
 [@Track](at_track.md) or [@Autorun](at_autorun.md) is invoked, the method will switch to the zone
 in which they were created if is different from the current zone.
