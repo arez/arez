@@ -43,3 +43,17 @@ invocation.
 
 As with Autorun observers these primitive APIs are unlikely to be directly used by the user but it is more likely
 that they will be used indirectly by high-level apis such as the [@Track](at_track.md) annotation.
+
+## Error Handling
+
+Exceptions thrown in an autorun observers's tracked function or a tracker observer's schedule callback are caught by
+the Arez scheduler and passed to an error handler. This is to make sure that an exception in one observer does not
+prevent the scheduled execution of other observers. This also allows observers to recover from exceptions; throwing
+an exception does not break the tracking done by Arez, so a subsequent scheduling of an observer will complete
+normally again if the cause for the exception is removed.
+
+The error handlers are added and removed from the `ArezContext` by way of the {@api_url: ArezContext.addObserverErrorHandler(ObserverErrorHandler)::ArezContext::addObserverErrorHandler(org.realityforge.arez.ObserverErrorHandler)}
+and {@api_url: ArezContext.removeObserverErrorHandler(ObserverErrorHandler)::ArezContext::removeObserverErrorHandler(org.realityforge.arez.ObserverErrorHandler)}
+methods. A simple example that emits errors to the browsers console in a browser environment follows:
+
+{@file_content: file=org/realityforge/arez/doc/examples/observer_error/ObserverErrorHandlerExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
