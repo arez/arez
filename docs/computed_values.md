@@ -30,6 +30,11 @@ access the cached value or recalculate the value if it is stale. The {@api_url: 
 logic required to determine staleness and notify dependencies. Internally it uses instances of {@api_url: Observable}
 and {@api_url: Observer} to achieve this goal.
 
+The {@api_url: ComputedValue} class is a relatively low-level primitive and users typically use higher level
+constructs such as the [@Computed](at_computed.md) annotation.
+
+## Callbacks
+
 When the computed values is created, several callback can be supplied that allow the developer to customize
 behaviour when certain state transitions occur. These callbacks are typically used if the computed value needs
 to interact with platform services to keep the computed value up to date. i.e. In a web browser environment, a
@@ -47,5 +52,3 @@ The callbacks are:
 * **onDispose**: This callback is invoked when the computed value is disposed. This callback is used to release
   resources (i.e. event listeners) that have been allocated in other callbacks.
 
-The {@api_url: ComputedValue} class is a relatively low-level primitive and users typically use higher level
-constructs such as the [@Computed](at_computed.md) annotation.
