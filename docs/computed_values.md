@@ -10,13 +10,13 @@ them wherever possible.
 Computed values are automatically derived from your state if any value that affects them changes. Computed
 values can be optimized away in many cases by Arez as they are assumed to be pure. For example, a computed
 property won't re-run if none of the data used in the previous computation changed. Nor will a computed
-property re-run if is not in use by some other computed property or reaction. In such cases it will be
+property re-run if is not in use by some other computed property or observer. In such cases it will be
 suspended.
 
 Don't confuse computed values with autorun [observers](observers.md). They are both reactively invoked
 expressions, but use computed values if you want to produce a value that can be used by other observers
-or computed values and use autorun [observers](observers.md) if you don't want to produce a new value but
-rather want to achieve an effect. For example imperative side effects like logging, making network requests
+or computed values. Use autorun [observers](observers.md) if you don't want to produce a new value but
+rather want to achieve an effect such as imperative side effects like logging, making network requests
 etc.
 
 This automatic suspension is very convenient. If a computed value is no longer observed, for example the
@@ -51,6 +51,19 @@ The callbacks are:
   is often used to initiate processes to update the computed value.
 * **onDispose**: This callback is invoked when the computed value is disposed. This callback is used to release
   resources (i.e. event listeners) that have been allocated in other callbacks.
+
+## Equality Comparison
+
+Every time an activated computed value's dependency is marked as stale, the computed value will attempt to
+re-computed the computed value. If the computed value is equal to the cached value then the computed value
+will be marked as unchanged and no downstream observers or computed values will be scheduled.
+
+The determination of whether "the computed value is equal" is delegated to a functional interface that is
+supplied to the {@api_url: ComputedValue} instance when it is constructed. The most common approach is to
+use the `Object.equals(...)` to perform comparison and thus delegate equality comparison to the supplied
+value. (The [components](components.md) framework achieves this by passing the a method reference to
+builtin comparator via `Objects::equals`.) However users can supply their own equality code when using the
+low-level API.
 
 ## Error Handling
 
