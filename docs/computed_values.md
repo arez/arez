@@ -52,3 +52,8 @@ The callbacks are:
 * **onDispose**: This callback is invoked when the computed value is disposed. This callback is used to release
   resources (i.e. event listeners) that have been allocated in other callbacks.
 
+## Error Handling
+
+Exceptions thrown when calculating computed values are caught by the Arez runtime using the same mechanisms that
+handle [errors](observers.md#error-handling) in observers. The exception is cached and will be re-thrown in any
+observer that attempts to access the computed value.
