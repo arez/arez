@@ -1,6 +1,6 @@
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.Observable;
+import arez.annotations.Action;
+import arez.annotations.Computed;
+import arez.annotations.Observable;
 
 interface MyAnnotatedInterface
 {

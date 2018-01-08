@@ -1,6 +1,6 @@
 package com.example.parameterized_type;
 
-import org.realityforge.arez.annotations.Observable;
+import arez.annotations.Observable;
 
 class ParentModel<T extends Number>
 {

@@ -1,8 +1,8 @@
 package com.example.context_ref;
 
-import org.realityforge.arez.ArezContext;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.ContextRef;
+import arez.ArezContext;
+import arez.annotations.ArezComponent;
+import arez.annotations.ContextRef;
 
 @ArezComponent( allowEmpty = true )
 class FinalModel

@@ -1,11 +1,9 @@
 package com.example.computed_value_ref;
 
+import arez.annotations.ArezComponent;
+import arez.annotations.Computed;
+import arez.annotations.ComputedValueRef;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.ComputedValueRef;
-import org.realityforge.arez.annotations.Observable;
-import org.realityforge.arez.annotations.ObservableRef;
 
 @ArezComponent
 public class DuplicateRefMethodModel
@@ -18,13 +16,13 @@ public class DuplicateRefMethodModel
 
   @Nonnull
   @ComputedValueRef
-  public org.realityforge.arez.ComputedValue getTimeComputedValue()
+  public arez.ComputedValue getTimeComputedValue()
   {
     throw new IllegalStateException();
   }
 
   @ComputedValueRef( name = "time" )
-  public org.realityforge.arez.ComputedValue getTimeComputedValue2()
+  public arez.ComputedValue getTimeComputedValue2()
   {
     throw new IllegalStateException();
   }

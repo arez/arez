@@ -1,11 +1,11 @@
+import arez.annotations.Action;
+import arez.annotations.ArezComponent;
+import arez.annotations.Autorun;
+import arez.annotations.Computed;
+import arez.annotations.Observable;
+import arez.annotations.OnDepsChanged;
+import arez.annotations.Track;
 import java.text.ParseException;
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Autorun;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.Observable;
-import org.realityforge.arez.annotations.OnDepsChanged;
-import org.realityforge.arez.annotations.Track;
 
 @ArezComponent( type = "MyContainer" )
 public class OverrideNamesInModel

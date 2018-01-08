@@ -1,9 +1,9 @@
 package com.example.context_ref;
 
+import arez.ArezContext;
+import arez.annotations.ArezComponent;
+import arez.annotations.ContextRef;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.ArezContext;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.ContextRef;
 
 @ArezComponent( allowEmpty = true )
 class AnnotatedComponent

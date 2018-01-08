@@ -1,8 +1,8 @@
 package com.example.component_id;
 
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.ComponentId;
-import org.realityforge.arez.annotations.Observable;
+import arez.annotations.ArezComponent;
+import arez.annotations.ComponentId;
+import arez.annotations.Observable;
 
 @ArezComponent
 public class ComponentIdMustReturnValueModel

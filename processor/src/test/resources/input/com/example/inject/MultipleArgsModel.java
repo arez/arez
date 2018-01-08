@@ -1,8 +1,8 @@
 package com.example.inject;
 
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Injectible;
+import arez.annotations.Action;
+import arez.annotations.ArezComponent;
+import arez.annotations.Injectible;
 
 @ArezComponent( inject = Injectible.TRUE )
 public class MultipleArgsModel

@@ -1,9 +1,9 @@
 package com.example.type_params;
 
+import arez.annotations.Action;
+import arez.annotations.ComponentId;
+import arez.annotations.Computed;
 import java.io.Writer;
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.ComponentId;
-import org.realityforge.arez.annotations.Computed;
 
 public abstract class AbstractModel<T extends Throwable, W extends Writer>
 {

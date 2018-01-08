@@ -35,8 +35,8 @@ DAGGER_DEPS =
     :errorprone
   ]
 
-GWT_EXAMPLES=%w(IdleStatusExample BrowserLocationExample NetworkStatusExample ObservablePromiseExample TimedDisposerExample IntervalTickerExample).collect {|c| "org.realityforge.arez.gwt.examples.#{c}"}
-DOC_EXAMPLES=%w().collect {|c| "org.realityforge.arez.doc.examples.#{c}"}
+GWT_EXAMPLES=%w(IdleStatusExample BrowserLocationExample NetworkStatusExample ObservablePromiseExample TimedDisposerExample IntervalTickerExample).collect {|c| "arez.gwt.examples.#{c}"}
+DOC_EXAMPLES=%w().collect {|c| "arez.doc.examples.#{c}"}
 
 # JDK options passed to test environment. Essentially turns assertions on.
 AREZ_TEST_OPTIONS =
@@ -204,8 +204,8 @@ define 'arez' do
           artifact.invoke
           ant.taskdef :name => 'shade', :classname => 'org.realityforge.ant.shade.Shade', :classpath => artifact.to_s
           ant.shade :jar => f.to_s, :uberJar => shaded_jar do
-            ant.relocation :pattern => 'com.squareup.javapoet', :shadedPattern => 'org.realityforge.arez.processor.vendor.javapoet'
-            ant.relocation :pattern => 'com.google', :shadedPattern => 'org.realityforge.arez.processor.vendor.google'
+            ant.relocation :pattern => 'com.squareup.javapoet', :shadedPattern => 'arez.processor.vendor.javapoet'
+            ant.relocation :pattern => 'com.google', :shadedPattern => 'arez.processor.vendor.google'
           end
         end
         FileUtils.mv shaded_jar, f.to_s
@@ -303,11 +303,11 @@ define 'arez' do
           :timestamp => false,
           :link => %w(https://docs.oracle.com/javase/8/docs/api http://www.gwtproject.org/javadoc/latest/),
           :group => {
-            'Core Packages' => 'org.realityforge.arez:org.realityforge.arez.spy*',
-            'Annotation Packages' => 'org.realityforge.arez.annotations*:org.realityforge.arez.processor*',
-            'Component Packages' => 'org.realityforge.arez.component*',
-            'Extras Packages' => 'org.realityforge.arez.extras*',
-            'Browser Extras Packages' => 'org.realityforge.arez.browser*'
+            'Core Packages' => 'arez:arez.spy*',
+            'Annotation Packages' => 'arez.annotations*:arez.processor*',
+            'Component Packages' => 'arez.component*',
+            'Extras Packages' => 'arez.extras*',
+            'Browser Extras Packages' => 'arez.browser*'
           }
     )
 

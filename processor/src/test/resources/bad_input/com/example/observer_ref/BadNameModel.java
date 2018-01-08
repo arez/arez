@@ -1,9 +1,9 @@
 package com.example.observer_ref;
 
-import org.realityforge.arez.Observer;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Autorun;
-import org.realityforge.arez.annotations.ObserverRef;
+import arez.Observer;
+import arez.annotations.ArezComponent;
+import arez.annotations.Autorun;
+import arez.annotations.ObserverRef;
 
 @ArezComponent
 public class BadNameModel

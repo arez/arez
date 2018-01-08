@@ -1,0 +1,16 @@
+<module>
+  <inherits name="arez.Arez"/>
+  <inherits name="org.realityforge.braincheck.BrainCheckDev"/>
+
+  <source path="ignored"/>
+
+  <set-property name="arez.environment" value="development"/>
+
+  <set-property name="arez.enable_names" value="true"/>
+  <set-property name="arez.enable_property_introspection" value="true"/>
+  <set-property name="arez.enforce_transaction_type" value="true"/>
+  <set-property name="arez.repositories_results_modifiable" value="false"/>
+  <set-property name="arez.enable_spies" value="true"/>
+  <set-property name="arez.enable_registries" value="true"/>
+  <set-property name="arez.enable_native_components" value="true"/>
+</module>

@@ -1,17 +1,17 @@
 package com.example.inject;
 
+import arez.Arez;
+import arez.ArezContext;
+import arez.Component;
+import arez.Disposable;
+import arez.Observable;
 import javax.annotation.Generated;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import org.realityforge.arez.Arez;
-import org.realityforge.arez.ArezContext;
-import org.realityforge.arez.Component;
-import org.realityforge.arez.Disposable;
-import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
-@Generated("org.realityforge.arez.processor.ArezProcessor")
+@Generated("arez.processor.ArezProcessor")
 @Singleton
 public final class Arez_ScopedButNoDaggerModel extends ScopedButNoDaggerModel implements Disposable {
   private static volatile long $$arez$$_nextId;

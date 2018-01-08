@@ -1,9 +1,9 @@
 package com.example.inject;
 
+import arez.annotations.Action;
+import arez.annotations.ArezComponent;
+import arez.annotations.Injectible;
 import javax.inject.Singleton;
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Injectible;
 
 @Singleton
 @ArezComponent( dagger = Injectible.FALSE )

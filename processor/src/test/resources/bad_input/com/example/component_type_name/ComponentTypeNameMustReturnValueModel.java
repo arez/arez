@@ -1,8 +1,8 @@
 package com.example.component_type_name;
 
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.ComponentTypeName;
+import arez.annotations.Action;
+import arez.annotations.ArezComponent;
+import arez.annotations.ComponentTypeName;
 
 @ArezComponent
 public class ComponentTypeNameMustReturnValueModel

@@ -16,17 +16,17 @@ an autorun observer is defined, the tracked function will be triggered once imme
 any time the dependencies change. The Arez scheduler is also responsible for wrapping the tracked function in a
 tracking transaction.
 
-There are several low-level {@api_url: ArezContext.autorun(*)::ArezContext::autorun(org.realityforge.arez.Procedure)}
+There are several low-level {@api_url: ArezContext.autorun(*)::ArezContext::autorun(arez.Procedure)}
 methods that can be used to create autorun observers, however most users will use more high-level APIs such as
 the [@Autorun](at_autorun.md) annotation.
 
 An example of a basic autorun observer:
 
-{@file_content: file=org/realityforge/arez/doc/examples/autorun/AutorunExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/autorun/AutorunExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 An example of an autorun observer that is explicitly named, uses a read-only transaction and returns a value:
 
-{@file_content: file=org/realityforge/arez/doc/examples/autorun/AutorunExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/autorun/AutorunExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 ## Tracker Observers
 
@@ -36,10 +36,10 @@ or when you need to take more control of the scheduling of observers (i.e. to de
 invocation of the tracked function to at most once per second).
 
 A tracker observer is more complex than autorun observers within Arez. The developer must explicitly create
-the observer via {@api_url: ArezContext.tracker(*)::ArezContext::tracker(org.realityforge.arez.Procedure)}
+the observer via {@api_url: ArezContext.tracker(*)::ArezContext::tracker(arez.Procedure)}
 invocation.
 
-{@file_content: file=org/realityforge/arez/doc/examples/tracker/TrackerExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/tracker/TrackerExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 As with Autorun observers these primitive APIs are unlikely to be directly used by the user but it is more likely
 that they will be used indirectly by high-level apis such as the [@Track](at_track.md) annotation.
@@ -52,8 +52,8 @@ prevent the scheduled execution of other observers. This also allows observers t
 an exception does not break the tracking done by Arez, so a subsequent scheduling of an observer will complete
 normally again if the cause for the exception is removed.
 
-The error handlers are added and removed from the `ArezContext` by way of the {@api_url: ArezContext.addObserverErrorHandler(ObserverErrorHandler)::ArezContext::addObserverErrorHandler(org.realityforge.arez.ObserverErrorHandler)}
-and {@api_url: ArezContext.removeObserverErrorHandler(ObserverErrorHandler)::ArezContext::removeObserverErrorHandler(org.realityforge.arez.ObserverErrorHandler)}
+The error handlers are added and removed from the `ArezContext` by way of the {@api_url: ArezContext.addObserverErrorHandler(ObserverErrorHandler)::ArezContext::addObserverErrorHandler(arez.ObserverErrorHandler)}
+and {@api_url: ArezContext.removeObserverErrorHandler(ObserverErrorHandler)::ArezContext::removeObserverErrorHandler(arez.ObserverErrorHandler)}
 methods. A simple example that emits errors to the browsers console in a browser environment follows:
 
-{@file_content: file=org/realityforge/arez/doc/examples/observer_error/ObserverErrorHandlerExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/observer_error/ObserverErrorHandlerExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}

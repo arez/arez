@@ -1,9 +1,9 @@
 package com.example.tracked;
 
+import arez.annotations.ArezComponent;
+import arez.annotations.OnDepsChanged;
+import arez.annotations.Track;
 import java.text.ParseException;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.OnDepsChanged;
-import org.realityforge.arez.annotations.Track;
 
 @ArezComponent
 public class BasicTrackedWithExceptionsModel

@@ -1,9 +1,0 @@
-<module>
-  <inherits name="elemental2.dom.Dom"/>
-  <inherits name="org.realityforge.arez.ArezDev"/>
-  <inherits name="org.realityforge.arez.browser.extras.BrowserExtras"/>
-
-  <source path="" includes="TimedDisposerExample.java"/>
-
-  <entry-point class='org.realityforge.arez.gwt.examples.TimedDisposerExample'/>
-</module>

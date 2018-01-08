@@ -6,7 +6,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
-@Generated("org.realityforge.arez.processor.ArezProcessor")
+@Generated("arez.processor.ArezProcessor")
 @Module
 public interface CompleteRepositoryExampleRepositoryDaggerModule {
   @Nonnull

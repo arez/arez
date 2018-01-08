@@ -15,7 +15,7 @@ The {@api_url: Observable} class is a low-level primitive and is not intended to
 (See the [@Observable](at_observable.md) documentation for a higher level API for defining observables.) However
 but it would be possible to implement an observable property using code such as:
 
-{@file_content: file=org/realityforge/arez/doc/examples/observables/ObservableExample.java "start_line=private Observable" "end_line=^}" include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/observables/ObservableExample.java "start_line=private Observable" "end_line=^}" include_end_line=false strip_block=true}
 
 This example does illustrate the basic usage of the class, notably the explicit call to
 {@api_url: Observable.reportObserved()::Observable::reportObserved()} when the property is read and the explicit call to

@@ -36,4 +36,4 @@ observers and computed values have reacted and are consistent with the new state
 However it is sometimes needed by Arez-based frameworks with complex concurrency needs that can ensure that no code
 interacts with Arez components while the scheduler is paused. A simple example of how pausing works is as follows:
 
-{@file_content: file=org/realityforge/arez/doc/examples/scheduler/SchedulerExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/scheduler/SchedulerExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}

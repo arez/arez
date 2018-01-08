@@ -1,9 +1,9 @@
 package com.example.observable_ref;
 
+import arez.annotations.ArezComponent;
+import arez.annotations.Observable;
+import arez.annotations.ObservableRef;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Observable;
-import org.realityforge.arez.annotations.ObservableRef;
 
 @ArezComponent
 public class PrivateModel
@@ -20,7 +20,7 @@ public class PrivateModel
 
   @Nonnull
   @ObservableRef
-  private org.realityforge.arez.Observable getTimeObservable()
+  private arez.Observable getTimeObservable()
   {
     throw new IllegalStateException();
   }

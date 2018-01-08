@@ -1,8 +1,8 @@
 package com.example.pre_dispose;
 
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.PostDispose;
-import org.realityforge.arez.annotations.PreDispose;
+import arez.annotations.ArezComponent;
+import arez.annotations.PostDispose;
+import arez.annotations.PreDispose;
 
 @ArezComponent
 public class PreDisposeAndPostDisposeMethodModel

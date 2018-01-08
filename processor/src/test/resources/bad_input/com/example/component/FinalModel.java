@@ -1,7 +1,7 @@
 package com.example.component;
 
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Observable;
+import arez.annotations.ArezComponent;
+import arez.annotations.Observable;
 
 @ArezComponent
 public final class FinalModel

@@ -1,7 +1,7 @@
 package com.example.action;
 
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.ArezComponent;
+import arez.annotations.Action;
+import arez.annotations.ArezComponent;
 
 @ArezComponent
 public class ReadOnlyActionModel

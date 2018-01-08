@@ -1,7 +1,7 @@
 package com.example.post_dispose;
 
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.PostDispose;
+import arez.annotations.ArezComponent;
+import arez.annotations.PostDispose;
 
 @ArezComponent
 public class PostDisposeReturnValueModel

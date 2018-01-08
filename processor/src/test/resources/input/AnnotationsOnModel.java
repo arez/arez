@@ -1,8 +1,8 @@
+import arez.annotations.Action;
+import arez.annotations.ArezComponent;
+import arez.annotations.Computed;
+import arez.annotations.Observable;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.Observable;
 
 @ArezComponent
 public class AnnotationsOnModel

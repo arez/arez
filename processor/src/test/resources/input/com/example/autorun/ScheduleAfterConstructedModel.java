@@ -1,8 +1,8 @@
 package com.example.autorun;
 
+import arez.annotations.ArezComponent;
+import arez.annotations.Autorun;
 import javax.annotation.PostConstruct;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Autorun;
 
 @ArezComponent
 public class ScheduleAfterConstructedModel

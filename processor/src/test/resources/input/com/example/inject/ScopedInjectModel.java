@@ -1,8 +1,8 @@
 package com.example.inject;
 
+import arez.annotations.Action;
+import arez.annotations.ArezComponent;
 import javax.inject.Singleton;
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.ArezComponent;
 
 @Singleton
 @ArezComponent

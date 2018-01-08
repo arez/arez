@@ -1,18 +1,18 @@
+import arez.Arez;
+import arez.ArezContext;
+import arez.Component;
+import arez.ComputedValue;
+import arez.Disposable;
+import arez.Observable;
+import arez.Observer;
 import java.text.ParseException;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.arez.Arez;
-import org.realityforge.arez.ArezContext;
-import org.realityforge.arez.Component;
-import org.realityforge.arez.ComputedValue;
-import org.realityforge.arez.Disposable;
-import org.realityforge.arez.Observable;
-import org.realityforge.arez.Observer;
 import org.realityforge.braincheck.Guards;
 
-@Generated("org.realityforge.arez.processor.ArezProcessor")
+@Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
 public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implements Disposable {
   private static volatile long $$arez$$_nextId;

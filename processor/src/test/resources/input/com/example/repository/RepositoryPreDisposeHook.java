@@ -1,11 +1,11 @@
 package com.example.repository;
 
+import arez.annotations.ArezComponent;
+import arez.annotations.Observable;
+import arez.annotations.PostDispose;
+import arez.annotations.PreDispose;
+import arez.annotations.Repository;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Observable;
-import org.realityforge.arez.annotations.PostDispose;
-import org.realityforge.arez.annotations.PreDispose;
-import org.realityforge.arez.annotations.Repository;
 
 @Repository
 @ArezComponent

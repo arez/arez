@@ -1,7 +1,7 @@
 package com.example.tracked;
 
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Track;
+import arez.annotations.ArezComponent;
+import arez.annotations.Track;
 
 @ArezComponent
 public class DeriveOnDepsChangedModel

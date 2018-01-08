@@ -1,8 +1,8 @@
 package com.example.computed_value_ref;
 
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.ComputedValueRef;
+import arez.annotations.ArezComponent;
+import arez.annotations.Computed;
+import arez.annotations.ComputedValueRef;
 
 @ArezComponent
 public class ParametersModel
@@ -14,7 +14,7 @@ public class ParametersModel
   }
 
   @ComputedValueRef
-  org.realityforge.arez.ComputedValue getTimeComputedValue( int i )
+  arez.ComputedValue getTimeComputedValue( int i )
   {
     throw new IllegalStateException();
   }

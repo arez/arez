@@ -1,8 +1,8 @@
 package com.example.observable;
 
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Observable;
-import org.realityforge.arez.annotations.ObservableRef;
+import arez.annotations.ArezComponent;
+import arez.annotations.Observable;
+import arez.annotations.ObservableRef;
 
 @ArezComponent
 public class ObservableWithNoSetter
@@ -14,7 +14,7 @@ public class ObservableWithNoSetter
   }
 
   @ObservableRef
-  protected org.realityforge.arez.Observable getTimeObservable()
+  protected arez.Observable getTimeObservable()
   {
     throw new IllegalStateException();
   }

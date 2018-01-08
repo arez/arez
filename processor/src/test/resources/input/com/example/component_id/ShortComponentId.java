@@ -1,7 +1,7 @@
 package com.example.component_id;
 
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.ComponentId;
+import arez.annotations.ArezComponent;
+import arez.annotations.ComponentId;
 
 @ArezComponent( allowEmpty = true )
 public class ShortComponentId

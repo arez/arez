@@ -19,7 +19,7 @@ transaction in the zone will be suspended and and resumed when the action or obs
 
 The current zone can be manipulated by directly interacting with the `Arez` class. A typical example of use is:
 
-{@file_content: file=org/realityforge/arez/doc/examples/multi_zone/BasicExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/multi_zone/BasicExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 Zones also work with annotation-based [components](components.md). When components defined by the
 [@ArezComponent](at_arez_component.md) are created, they will invoke {@api_url: Arez.context()::ArezContext::context()}
@@ -29,4 +29,4 @@ in which they were created if is different from the current zone.
 
 An example that uses components is:
 
-{@file_content: file=org/realityforge/arez/doc/examples/multi_zone/Example.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/multi_zone/Example.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}

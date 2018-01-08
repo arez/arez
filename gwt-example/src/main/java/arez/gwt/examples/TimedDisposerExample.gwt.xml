@@ -1,0 +1,9 @@
+<module>
+  <inherits name="elemental2.dom.Dom"/>
+  <inherits name="arez.ArezDev"/>
+  <inherits name="arez.browser.extras.BrowserExtras"/>
+
+  <source path="" includes="TimedDisposerExample.java"/>
+
+  <entry-point class='arez.gwt.examples.TimedDisposerExample'/>
+</module>

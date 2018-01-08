@@ -1,8 +1,8 @@
 package com.example.post_construct;
 
+import arez.annotations.ArezComponent;
+import arez.annotations.Computed;
 import javax.annotation.PostConstruct;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Computed;
 
 @ArezComponent
 public class PostConstructModel

@@ -1,11 +1,8 @@
 package com.example.computed_value_ref;
 
-import javax.annotation.Nonnull;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.ComputedValueRef;
-import org.realityforge.arez.annotations.Observable;
-import org.realityforge.arez.annotations.ObservableRef;
+import arez.annotations.ArezComponent;
+import arez.annotations.Computed;
+import arez.annotations.ComputedValueRef;
 
 @ArezComponent
 public class PrivateModel
@@ -17,7 +14,7 @@ public class PrivateModel
   }
 
   @ComputedValueRef
-  private org.realityforge.arez.ComputedValue getTimeComputedValue()
+  private arez.ComputedValue getTimeComputedValue()
   {
     throw new IllegalStateException();
   }

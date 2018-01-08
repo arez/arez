@@ -1,9 +1,9 @@
 package com.example.observable_ref;
 
+import arez.annotations.ArezComponent;
+import arez.annotations.Observable;
+import arez.annotations.ObservableRef;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Observable;
-import org.realityforge.arez.annotations.ObservableRef;
 
 @ArezComponent
 public class NonStandardNameModel
@@ -20,7 +20,7 @@ public class NonStandardNameModel
 
   @Nonnull
   @ObservableRef( name = "time" )
-  public org.realityforge.arez.Observable<Long> timeObservable()
+  public arez.Observable<Long> timeObservable()
   {
     throw new IllegalStateException();
   }

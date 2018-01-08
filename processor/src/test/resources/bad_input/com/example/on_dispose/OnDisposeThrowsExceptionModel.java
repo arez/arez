@@ -1,9 +1,9 @@
 package com.example.on_dispose;
 
+import arez.annotations.ArezComponent;
+import arez.annotations.Computed;
+import arez.annotations.OnDispose;
 import java.text.ParseException;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.OnDispose;
 
 @ArezComponent
 public class OnDisposeThrowsExceptionModel

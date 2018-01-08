@@ -1,12 +1,12 @@
 package com.example.repository;
 
+import arez.annotations.ArezComponent;
+import arez.annotations.ComponentId;
+import arez.annotations.Computed;
+import arez.annotations.Observable;
+import arez.annotations.Repository;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.ComponentId;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.Observable;
-import org.realityforge.arez.annotations.Repository;
 
 @Repository( extensions = { CompleteRepositoryExample.FooEx.class } )
 @ArezComponent

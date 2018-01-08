@@ -1,11 +1,11 @@
 package com.example.observer_ref;
 
-import org.realityforge.arez.Observer;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Autorun;
-import org.realityforge.arez.annotations.ObserverRef;
-import org.realityforge.arez.annotations.OnDepsChanged;
-import org.realityforge.arez.annotations.Track;
+import arez.Observer;
+import arez.annotations.ArezComponent;
+import arez.annotations.Autorun;
+import arez.annotations.ObserverRef;
+import arez.annotations.OnDepsChanged;
+import arez.annotations.Track;
 
 @ArezComponent
 public class RefOnBothModel

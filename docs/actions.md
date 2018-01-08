@@ -10,7 +10,7 @@ Arez actions can use read-only transactions and query the state of an Arez to pe
 based on the state. However this is a relatively rare use-case and it is more common to use an observer to
 react to changes and produce side-effects.
 
-The {@api_url: ArezContext.action(*)::ArezContext::action(org.realityforge.arez.Procedure,java.lang.Object...)}
+The {@api_url: ArezContext.action(*)::ArezContext::action(arez.Procedure,java.lang.Object...)}
 methods are low-level primitives not designed to be directly used by Arez users and instead it is expected users
 will use constructs like the [@Action](at_action.md) annotation from the [component](components.md) framework.
 
@@ -27,19 +27,19 @@ exceptions are named `safeAction` while the methods that invoke actions that dec
 
 An example of an action that can throw a checked exception:
 
-{@file_content: file=org/realityforge/arez/doc/examples/actions/ActionExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/actions/ActionExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 An example of an action that returns a value:
 
-{@file_content: file=org/realityforge/arez/doc/examples/actions/ActionExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/actions/ActionExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 An example of an action that does not throw a checked exception and returns a value:
 
-{@file_content: file=org/realityforge/arez/doc/examples/actions/ActionExample3.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/actions/ActionExample3.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 An example of an action that is explicitly named, uses a read-only transaction and returns a value:
 
-{@file_content: file=org/realityforge/arez/doc/examples/actions/ActionExample4.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/actions/ActionExample4.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 While it is possible to use this low-level API it is strongly suggested that users make use of higher level
 APIs such as the [@Action](at_action.md) annotation.

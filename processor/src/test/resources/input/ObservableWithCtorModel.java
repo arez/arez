@@ -1,5 +1,5 @@
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Observable;
+import arez.annotations.ArezComponent;
+import arez.annotations.Observable;
 
 @SuppressWarnings( "WeakerAccess" )
 @ArezComponent

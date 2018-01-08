@@ -1,9 +1,9 @@
 package com.example.on_deactivate;
 
+import arez.annotations.ArezComponent;
+import arez.annotations.Computed;
+import arez.annotations.OnDeactivate;
 import java.text.ParseException;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.OnDeactivate;
 
 @ArezComponent
 public class OnDeactivateThrowsExceptionModel

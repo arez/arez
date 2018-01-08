@@ -1,9 +1,9 @@
 package com.example.name_duplicates;
 
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Observable;
-import org.realityforge.arez.annotations.OnActivate;
+import arez.annotations.Action;
+import arez.annotations.ArezComponent;
+import arez.annotations.Observable;
+import arez.annotations.OnActivate;
 
 @ArezComponent
 public class ObservableAndOnActivateMethodModel

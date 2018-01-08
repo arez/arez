@@ -1,8 +1,8 @@
 package com.example.type_params;
 
+import arez.annotations.ArezComponent;
 import java.io.IOException;
 import java.io.Writer;
-import org.realityforge.arez.annotations.ArezComponent;
 
 @ArezComponent
 public class ConcreteModel<W extends Writer>

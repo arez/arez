@@ -1,7 +1,7 @@
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.PostDispose;
-import org.realityforge.arez.annotations.PreDispose;
+import arez.annotations.ArezComponent;
+import arez.annotations.Computed;
+import arez.annotations.PostDispose;
+import arez.annotations.PreDispose;
 
 @ArezComponent
 public class DisposingModel

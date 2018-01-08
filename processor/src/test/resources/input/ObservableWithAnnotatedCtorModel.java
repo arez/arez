@@ -1,7 +1,7 @@
+import arez.annotations.ArezComponent;
+import arez.annotations.Observable;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Observable;
 
 @SuppressWarnings( "WeakerAccess" )
 @ArezComponent

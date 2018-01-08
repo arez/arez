@@ -1,9 +1,9 @@
 package com.example.observable_ref;
 
+import arez.annotations.ArezComponent;
+import arez.annotations.Observable;
+import arez.annotations.ObservableRef;
 import javax.annotation.Nonnull;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Observable;
-import org.realityforge.arez.annotations.ObservableRef;
 
 @ArezComponent
 public class BadReturnTypeParameterModel
@@ -20,7 +20,7 @@ public class BadReturnTypeParameterModel
 
   @Nonnull
   @ObservableRef
-  public org.realityforge.arez.Observable<String> getTimeObservable()
+  public arez.Observable<String> getTimeObservable()
   {
     throw new IllegalStateException();
   }

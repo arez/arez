@@ -1,6 +1,6 @@
+import arez.annotations.ArezComponent;
+import arez.annotations.Observable;
 import java.text.ParseException;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Observable;
 
 @ArezComponent
 public class ObservableWithSpecificExceptionModel

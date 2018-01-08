@@ -1,9 +1,9 @@
 package com.example.on_stale;
 
+import arez.annotations.ArezComponent;
+import arez.annotations.Computed;
+import arez.annotations.OnStale;
 import java.text.ParseException;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.OnStale;
 
 @ArezComponent
 public class OnStaleThrowsExceptionModel

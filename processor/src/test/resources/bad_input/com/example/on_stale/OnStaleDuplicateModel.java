@@ -1,8 +1,8 @@
 package com.example.on_stale;
 
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.OnStale;
+import arez.annotations.ArezComponent;
+import arez.annotations.Computed;
+import arez.annotations.OnStale;
 
 @ArezComponent
 public class OnStaleDuplicateModel

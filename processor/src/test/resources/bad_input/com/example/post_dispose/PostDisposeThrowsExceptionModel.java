@@ -1,8 +1,8 @@
 package com.example.post_dispose;
 
+import arez.annotations.ArezComponent;
+import arez.annotations.PostDispose;
 import java.text.ParseException;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.PostDispose;
 
 @ArezComponent
 public class PostDisposeThrowsExceptionModel

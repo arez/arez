@@ -1,11 +1,11 @@
 package com.example.computed;
 
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.OnActivate;
-import org.realityforge.arez.annotations.OnDeactivate;
-import org.realityforge.arez.annotations.OnDispose;
-import org.realityforge.arez.annotations.OnStale;
+import arez.annotations.ArezComponent;
+import arez.annotations.Computed;
+import arez.annotations.OnActivate;
+import arez.annotations.OnDeactivate;
+import arez.annotations.OnDispose;
+import arez.annotations.OnStale;
 
 @ArezComponent
 public class ComputedWithHooksModel

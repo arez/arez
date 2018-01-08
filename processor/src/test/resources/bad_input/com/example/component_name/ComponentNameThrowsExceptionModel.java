@@ -1,9 +1,9 @@
 package com.example.component_name;
 
+import arez.annotations.Action;
+import arez.annotations.ArezComponent;
+import arez.annotations.ComponentName;
 import java.io.IOException;
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.ComponentName;
 
 @ArezComponent
 public class ComponentNameThrowsExceptionModel

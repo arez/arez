@@ -1,11 +1,11 @@
 package com.example.inject;
 
+import arez.annotations.Action;
+import arez.annotations.ArezComponent;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import javax.inject.Scope;
 import javax.inject.Singleton;
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.ArezComponent;
 import static java.lang.annotation.RetentionPolicy.*;
 
 @Singleton

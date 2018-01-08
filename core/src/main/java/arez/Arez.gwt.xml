@@ -1,0 +1,45 @@
+<module>
+  <inherits name="com.google.gwt.core.Core"/>
+  <inherits name="org.realityforge.braincheck.BrainCheck"/>
+
+  <source path="" includes="*.java"/>
+  <source path="spy" includes="*.java"/>
+
+  <!--
+    These properties are all defined in arez.ArezConfig
+    See that class for a better understanding of what these properties do.
+  -->
+
+  <define-property name="arez.environment" values="development,production"/>
+  <set-property name="arez.environment" value="production"/>
+
+  <define-property name="arez.enable_names" values="true,false"/>
+  <set-property name="arez.enable_names" value="false"/>
+
+  <define-property name="arez.enable_property_introspection" values="true,false"/>
+  <set-property name="arez.enable_property_introspection" value="false"/>
+
+  <define-property name="arez.enforce_transaction_type" values="true,false"/>
+  <set-property name="arez.enforce_transaction_type" value="false"/>
+
+  <define-property name="arez.purge_reactions_when_runaway_detected" values="true,false"/>
+  <set-property name="arez.purge_reactions_when_runaway_detected" value="true"/>
+
+  <define-property name="arez.repositories_results_modifiable" values="true,false"/>
+  <set-property name="arez.repositories_results_modifiable" value="true"/>
+
+  <define-property name="arez.enable_zones" values="true,false"/>
+  <set-property name="arez.enable_zones" value="false"/>
+
+  <define-property name="arez.enable_spies" values="true,false"/>
+  <set-property name="arez.enable_spies" value="false"/>
+
+  <define-property name="arez.enable_native_components" values="true,false"/>
+  <set-property name="arez.enable_native_components" value="false"/>
+
+  <define-property name="arez.enable_registries" values="true,false"/>
+  <set-property name="arez.enable_registries" value="false"/>
+
+  <define-property name="arez.logger" values="jul,proxy,none"/>
+  <set-property name="arez.logger" value="jul"/>
+</module>

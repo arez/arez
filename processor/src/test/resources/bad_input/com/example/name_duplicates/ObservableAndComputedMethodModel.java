@@ -1,8 +1,8 @@
 package com.example.name_duplicates;
 
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.Computed;
-import org.realityforge.arez.annotations.Observable;
+import arez.annotations.ArezComponent;
+import arez.annotations.Computed;
+import arez.annotations.Observable;
 
 @ArezComponent
 public class ObservableAndComputedMethodModel

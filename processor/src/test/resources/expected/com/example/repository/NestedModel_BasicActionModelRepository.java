@@ -1,5 +1,13 @@
 package com.example.repository;
 
+import arez.Arez;
+import arez.Disposable;
+import arez.Observable;
+import arez.annotations.Action;
+import arez.annotations.ArezComponent;
+import arez.annotations.ObservableRef;
+import arez.annotations.PreDispose;
+import arez.component.NoResultException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,17 +20,9 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
-import org.realityforge.arez.Arez;
-import org.realityforge.arez.Disposable;
-import org.realityforge.arez.Observable;
-import org.realityforge.arez.annotations.Action;
-import org.realityforge.arez.annotations.ArezComponent;
-import org.realityforge.arez.annotations.ObservableRef;
-import org.realityforge.arez.annotations.PreDispose;
-import org.realityforge.arez.component.NoResultException;
 import org.realityforge.braincheck.Guards;
 
-@Generated("org.realityforge.arez.processor.ArezProcessor")
+@Generated("arez.processor.ArezProcessor")
 @ArezComponent(
     nameIncludesId = false
 )
@@ -88,7 +88,7 @@ public class NestedModel_BasicActionModelRepository implements NestedModel_Basic
    * This collection should not be exposed to the user but may be used be repository extensions when
    * they define custom queries. NOTE: use of this method marks the list as observed.
    */
-  @org.realityforge.arez.annotations.Observable(
+  @arez.annotations.Observable(
       expectSetter = false
   )
   @Nonnull

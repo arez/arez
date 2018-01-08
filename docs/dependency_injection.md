@@ -18,9 +18,9 @@ code will use `@Inject` to get references to the base component (i.e. `com.examp
 the base repository (i.e. `com.example.MyComponentRepository`). The consumer code ends up looking
 something like one of the following examples depending on whether constructor based injection is used.
 
-{@file_content: file=org/realityforge/arez/doc/examples/inject1/ExampleConsumer.java "start_line=public class"}
+{@file_content: file=arez/doc/examples/inject1/ExampleConsumer.java "start_line=public class"}
 
-{@file_content: file=org/realityforge/arez/doc/examples/inject2/ExampleConsumer.java "start_line=public class"}
+{@file_content: file=arez/doc/examples/inject2/ExampleConsumer.java "start_line=public class"}
 
 In both scenarios the `ExampleConsumer` class needs to be injected with two separate dependencies; `MyService`
 and `MyEntityRepository`. Every injection framework uses a slightly different mechanism to determine how to
@@ -49,15 +49,15 @@ objects in the object graph are accessed via a `Ginjector` and the injection rul
 supplying `GinModule` classes to the `Ginjector`. A `GinModule` that would expose the base classes in the
 injection the framework is as simple as:
 
-{@file_content: file=org/realityforge/arez/doc/examples/inject2/ExampleGinModule.java "start_line=public class"}
+{@file_content: file=arez/doc/examples/inject2/ExampleGinModule.java "start_line=public class"}
 
 Which could be linked up to a `Ginjector` like:
 
-{@file_content: file=org/realityforge/arez/doc/examples/inject2/ExampleGinjector.java "start_line=public interface"}
+{@file_content: file=arez/doc/examples/inject2/ExampleGinjector.java "start_line=public interface"}
 
 And used in code like:
 
-{@file_content: file=org/realityforge/arez/doc/examples/inject2/Example.java "start_line=  {" "end_line=  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/inject2/Example.java "start_line=  {" "end_line=  }" include_start_line=false include_end_line=false strip_block=true}
 
 Gin was the injection framework of choice for GWT applications for a very long time and thus is present in
 many existing GWT applications. However it is no longer under active development, has problems in modern
@@ -77,12 +77,12 @@ annotation processor generates dagger modules.
 If the value of the `dagger` parameter is `TRUE` or `IF_DETECTED` and the `dagger.Component` class is on the
 classpath then a module will be generated for each base component and base repository that looks like:
 
-{@file_content: file=org/realityforge/arez/doc/examples/inject2/gen/MyServiceDaggerModule.java "start_line=@Module"}
+{@file_content: path=generated/processors/main/java file=arez/doc/examples/inject2/MyServiceDaggerModule.java "start_line=@Generated"}
 
 These can be incorporated into a dagger component like:
 
-{@file_content: file=org/realityforge/arez/doc/examples/inject2/ExampleDaggerComponent.java "start_line=@Singleton"}
+{@file_content: file=arez/doc/examples/inject2/ExampleDaggerComponent.java "start_line=@Singleton"}
 
 And used in code like:
 
-{@file_content: file=org/realityforge/arez/doc/examples/inject2/DaggerExample.java "start_line=  {" "end_line=  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/inject2/DaggerExample.java "start_line=  {" "end_line=  }" include_start_line=false include_end_line=false strip_block=true}

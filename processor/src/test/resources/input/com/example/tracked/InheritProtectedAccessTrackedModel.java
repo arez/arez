@@ -1,7 +1,7 @@
 package com.example.tracked;
 
+import arez.annotations.ArezComponent;
 import com.example.tracked.other.BaseModelProtectedAccess;
-import org.realityforge.arez.annotations.ArezComponent;
 
 @ArezComponent
 public class InheritProtectedAccessTrackedModel

@@ -1,6 +1,6 @@
 package com.example.inheritance;
 
-import org.realityforge.arez.annotations.Action;
+import arez.annotations.Action;
 
 interface MyInterface2
 {
