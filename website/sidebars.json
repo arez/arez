@@ -27,6 +27,7 @@
       "at_autorun",
       "at_track",
       "repositories",
+      "generated_classes",
       "accessing_primitives",
       "dependency_injection"
     ],
