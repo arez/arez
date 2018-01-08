@@ -15,7 +15,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @Singleton
-public final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledRepositoryRepository implements Disposable {
+final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledRepositoryRepository implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;

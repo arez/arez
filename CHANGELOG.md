@@ -9,6 +9,11 @@
   existing Arez primitives that all exist in the same package.
 * 💥 **\[core\]** Make several internal `Node` methods package access rather than protected access as they
   were never intended or able to be used outside the package.
+* 💥 **\[processor\]** The access level of classes that do not have a public constructor has been changed to
+  package access. The only way that a generate class can have a public access level is if there is at least
+  one constructor with public access and the un-enhanced class itself has public access. End-users are expected
+  to add a static factory method to the un-enhanced class or another class within the package to create instances
+  of the component.
 
 ### [v0.37](https://github.com/arez/arez/tree/v0.37) (2017-12-18)
 [Full Changelog](https://github.com/arez/arez/compare/v0.36...v0.37)

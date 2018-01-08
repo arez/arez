@@ -1,6 +1,5 @@
-package com.example.repository;
+package com.example.type_access_levels;
 
-import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -12,14 +11,12 @@ import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-final class Arez_DaggerDisabledRepository extends DaggerDisabledRepository implements Disposable {
+final class Arez_ReduceAccessLevelModel extends ReduceAccessLevelModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
 
   private boolean $$arez$$_disposed;
-
-  private OnDispose $$arez$$_onDispose;
 
   @Nullable
   private final ArezContext $$arez$$_context;
@@ -29,15 +26,15 @@ final class Arez_DaggerDisabledRepository extends DaggerDisabledRepository imple
   private final Observable<Boolean> $$arez$$_disposedObservable;
 
   @Nonnull
-  private final Observable<String> $$arez$$_name;
+  private final Observable<Long> $$arez$$_time;
 
-  Arez_DaggerDisabledRepository(@Nonnull final String name) {
-    super(name);
+  Arez_ReduceAccessLevelModel(final int foo) {
+    super(foo);
     this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "DaggerDisabledRepository", $$arez$$_id(), $$arez$$_name(), () -> $$arez$$_preDispose(), null ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "ReduceAccessLevelModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
     this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
-    this.$$arez$$_name = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setName( v ) : null );
+    this.$$arez$$_time = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
@@ -52,7 +49,7 @@ final class Arez_DaggerDisabledRepository extends DaggerDisabledRepository imple
   }
 
   String $$arez$$_name() {
-    return "DaggerDisabledRepository." + $$arez$$_id();
+    return "ReduceAccessLevelModel." + $$arez$$_id();
   }
 
   @Override
@@ -73,39 +70,26 @@ final class Arez_DaggerDisabledRepository extends DaggerDisabledRepository imple
         this.$$arez$$_component.dispose();
       } else {
         $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-          $$arez$$_preDispose();
           this.$$arez$$_disposedObservable.dispose();
-          this.$$arez$$_name.dispose();
+          this.$$arez$$_time.dispose();
         } } );
       }
     }
   }
 
-  void $$arez$$_preDispose() {
-    if ( null != this.$$arez$$_onDispose ) {
-      this.$$arez$$_onDispose.onDispose( this );
-      this.$$arez$$_onDispose = null;
-    }
-  }
-
-  void $$arez$$_setOnDispose(OnDispose onDispose) {
-    this.$$arez$$_onDispose = onDispose;
-  }
-
-  @Nonnull
   @Override
-  public String getName() {
+  public long getTime() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    this.$$arez$$_name.reportObserved();
-    return super.getName();
+    this.$$arez$$_time.reportObserved();
+    return super.getTime();
   }
 
   @Override
-  public void setName(@Nonnull final String name) {
+  public void setTime(final long time) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    if ( !Objects.equals(name, super.getName()) ) {
-      super.setName(name);
-      this.$$arez$$_name.reportChanged();
+    if ( time != super.getTime() ) {
+      super.setTime(time);
+      this.$$arez$$_time.reportChanged();
     }
   }
 
@@ -118,10 +102,10 @@ final class Arez_DaggerDisabledRepository extends DaggerDisabledRepository imple
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof Arez_DaggerDisabledRepository) ) {
+    } else if ( null == o || !(o instanceof Arez_ReduceAccessLevelModel) ) {
       return false;
     } else {
-      final Arez_DaggerDisabledRepository that = (Arez_DaggerDisabledRepository) o;;
+      final Arez_ReduceAccessLevelModel that = (Arez_ReduceAccessLevelModel) o;;
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }
@@ -133,10 +117,5 @@ final class Arez_DaggerDisabledRepository extends DaggerDisabledRepository imple
     } else {
       return super.toString();
     }
-  }
-
-  @FunctionalInterface
-  interface OnDispose {
-    void onDispose(Arez_DaggerDisabledRepository entity);
   }
 }

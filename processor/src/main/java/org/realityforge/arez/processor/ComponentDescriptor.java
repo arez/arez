@@ -1357,7 +1357,15 @@ final class ComponentDescriptor
         addMember( "value", "$S", "unchecked" ).
         build() );
     }
-    ProcessorUtil.copyAccessModifiers( getElement(), builder );
+    final boolean publicType =
+      ProcessorUtil.getConstructors( getElement() ).
+        stream().
+        anyMatch( c -> c.getModifiers().contains( Modifier.PUBLIC ) ) &&
+      getElement().getModifiers().contains( Modifier.PUBLIC );
+    if ( publicType )
+    {
+      builder.addModifiers( Modifier.PUBLIC );
+    }
     if ( null != _scopeAnnotation )
     {
       final DeclaredType annotationType = _scopeAnnotation.getAnnotationType();

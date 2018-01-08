@@ -14,7 +14,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample implements Disposable {
+final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample implements Disposable {
   private boolean $$arez$$_disposed;
 
   private OnDispose $$arez$$_onDispose;

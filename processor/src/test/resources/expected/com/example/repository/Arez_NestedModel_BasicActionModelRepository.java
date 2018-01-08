@@ -15,7 +15,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
 @Singleton
-public final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_BasicActionModelRepository implements Disposable {
+final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_BasicActionModelRepository implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;

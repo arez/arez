@@ -12,7 +12,7 @@ import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_RepositoryWithImplicitId extends RepositoryWithImplicitId implements Disposable {
+final class Arez_RepositoryWithImplicitId extends RepositoryWithImplicitId implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;

@@ -12,7 +12,7 @@ import org.realityforge.arez.Observable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("org.realityforge.arez.processor.ArezProcessor")
-public final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId implements Disposable {
+final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId implements Disposable {
   private boolean $$arez$$_disposed;
 
   private OnDispose $$arez$$_onDispose;
