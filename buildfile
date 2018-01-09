@@ -353,6 +353,11 @@ end
 Buildr.projects.each do |project|
   unless project.name == 'arez'
     project.doc.options.merge!('Xdoclint:all,-reference' => true)
+    project.compile.options.merge!(:other => ['-s', project._('generated/processors/main/java')])
+    t = project.file(project._('generated/processors/main/java')) do
+      mkdir_p project._('generated/processors/main/java')
+    end
+    project.compile.enhance([t.name])
     project.clean do
       rm_rf project._(:generated)
     end
