@@ -2013,8 +2013,7 @@ final class ComponentDescriptor
       addMember( "value", "$S", ArezProcessor.class.getName() ).
       build() );
     builder.addAnnotation( GeneratorUtil.DAGGER_MODULE_CLASSNAME );
-
-    ProcessorUtil.copyAccessModifiers( getElement(), builder );
+    builder.addModifiers( Modifier.PUBLIC );
 
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "provideComponent" ).
       addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).

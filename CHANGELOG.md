@@ -6,6 +6,8 @@
 * 💥 **\[processor\]** Stop the annotation processor generating the `[Name]BaseRepositoryExtension`
   interface when generating repositories as it offered limited benefit relative to the complexity
   it introduced.
+* **\[processor\]** Always generate the Dagger2 module as a public interface rather than letting
+  the components access modifier dictate the access modifier of the dagger module.
 
 ### [v0.39](https://github.com/arez/arez/tree/v0.39) (2018-01-09)
 [Full Changelog](https://github.com/arez/arez/compare/v0.38...v0.39)
