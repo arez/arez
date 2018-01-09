@@ -5,6 +5,7 @@ title: Generated Classes
 Arez generates one or more classes for every Arez component. The classes generated are as follows:
 
 * [The Enhanced Component Class](#the-enhanced-component-class)
+* [The Dagger Module Class](#the-dagger-module-class)
 
 ## The Enhanced Component Class
 
@@ -30,3 +31,18 @@ framework such as [Dagger2](https://google.github.io/dagger) then it is suggeste
 factory methods such as in the following example:
 
 {@file_content: file=arez/doc/examples/access_level/MyComponent.java start_line=public include_start_line=true}
+
+## The Dagger Module Class
+
+The Dagger module class is used to enable integration with the [Dagger2](https://google.github.io/dagger)
+dependency injection framework to manage Arez components. The [dependency injection](dependency_injection.md)
+documentation describes the exact scenarios when this class is generated. In short this class is generated if the
+annotation processor detect dagger injection is required or if the user explicitly enables dagger support.
+
+The dagger module class is public, regardless of the access level of the underlying
+[`@ArezComponent`](at_arez_component.md) annotated classes access modifier as it is required to integrate with
+a Dagger2 component in a different package.
+
+It should be noted that the dagger annotation processor will also generate several other java classes during the
+compilation process. These are not documented here. Consult the Dagger2 documentation for further details on the
+outputs from the dagger annotation processor.
