@@ -39,6 +39,14 @@ dependency injection framework to manage Arez components. The [dependency inject
 documentation describes the exact scenarios when this class is generated. In short this class is generated if the
 annotation processor detect dagger injection is required or if the user explicitly enables dagger support.
 
+The name of the dagger module class is the same name as the Arez component suffixed with `DaggerModule`. i.e. If
+the name of the Arez component class is `com.example.MyComponent` then the dagger module class would be named
+`com.example.MyComponentDaggerModule`. If the [`@ArezComponent`](at_arez_component.md) annotated class is not a
+top-level type, the enhanced component class name will be include its enclosing types’ names, joined with an
+underscore similar to the way the [enhanced component class](#the-enhanced-component-class) is named. i.e. The
+inner class `com.example.MyContainer.MyComponent` would generate a dagger module class named
+`com.example.MyContainer_MyComponentDaggerModule`.
+
 The dagger module class is public, regardless of the access level of the underlying
 [`@ArezComponent`](at_arez_component.md) annotated classes access modifier as it is required to integrate with
 a Dagger2 component in a different package.
