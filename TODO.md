@@ -114,7 +114,8 @@ console.table(languages);
 
 * Performance testing and writeup?
 
-* Document that arez annotations only work on default methods or other methods with an implementation.
+* Document that arez annotations only work on default methods or other methods with an implementation. 
+  (Also abstract methods if we allow abstract `@Observable`?)
 
 * Integrate documentation such as following which seem like good overviews
   - http://blog.danlew.net/2017/07/27/an-introduction-to-functional-reactive-programming/
