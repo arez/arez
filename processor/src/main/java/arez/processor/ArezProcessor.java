@@ -100,7 +100,6 @@ public final class ArezProcessor
     if ( descriptor.hasRepository() )
     {
       emitTypeSpec( descriptor.getPackageName(), descriptor.buildRepository( processingEnv.getTypeUtils() ) );
-      emitTypeSpec( descriptor.getPackageName(), descriptor.buildRepositoryExtension() );
     }
   }
 

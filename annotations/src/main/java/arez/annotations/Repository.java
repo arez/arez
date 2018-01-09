@@ -17,25 +17,18 @@ import org.realityforge.anodoc.Unsupported;
  * <p>This annotation can only be added to classes that have been annotated with the
  * {@link ArezComponent} annotation.</p>
  *
- * <p>Annotating a class with this annotation will result in the following artifacts.</p>
+ * <p>Annotating a class with this annotation will result in a class named "[MyComponent]Repository"</p>
  *
- * <ul>
- * <li>A repository named "[MyComponent]Repository"</li>
- * <li>An interface used to define extensions of the repository "[MyComponent]BaseRepositoryExtension"</li>
- * </ul>
- *
- * <p>The way to add custom queries or \@Computed queries is to define an interface
- * that extends the base extension interface. The extension interface defines a <code>self()</code>
- * method that you can use to get at the underlying repository. Using this combined with
- * default methods you can define as many new queries and mutations as is desired. The
- * extension class then needs to be registered by setting the appropriate parameter on this
+ * <p>The way to add custom queries or \@Computed queries is to define an interface that
+ * defines an abstract <code>self()</code> that returns the underlying repository. Using this
+ * combined with default methods, you can define as many new queries and mutations as is desired.
+ * The extension class then needs to be registered by setting the appropriate parameter on this
  * annotation.</p>
  *
  * <p>An example of what an extension may look like for a <code>Todo</code> component. See below:</p>
  *
  * <pre>{@code
  * public interface MyTodoRepositoryExtension
- *   extends TodoBaseRepositoryExtension
  * {
  *   default Todo findByTitle( final String title )
  *   {
@@ -47,6 +40,8 @@ import org.realityforge.anodoc.Unsupported;
  *   {
  *     return self().findAllByQuery( Todo::isCompleted );
  *   }
+ *
+ *   MyTodoRepository self();
  * }
  * }</pre>
  */

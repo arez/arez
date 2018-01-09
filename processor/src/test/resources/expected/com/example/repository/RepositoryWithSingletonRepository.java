@@ -27,7 +27,7 @@ import org.realityforge.braincheck.Guards;
     nameIncludesId = false
 )
 @Singleton
-public class RepositoryWithSingletonRepository implements RepositoryWithSingletonBaseRepositoryExtension {
+public class RepositoryWithSingletonRepository {
   private final HashMap<Long, RepositoryWithSingleton> $$arez$$_entities = new HashMap<>();
   ;
 
@@ -149,7 +149,6 @@ public class RepositoryWithSingletonRepository implements RepositoryWithSingleto
     return entity;
   }
 
-  @Override
   @Nonnull
   public final RepositoryWithSingletonRepository self() {
     return this;

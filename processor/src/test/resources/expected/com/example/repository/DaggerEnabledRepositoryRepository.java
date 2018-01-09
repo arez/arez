@@ -29,7 +29,7 @@ import org.realityforge.braincheck.Guards;
     dagger = Injectible.TRUE
 )
 @Singleton
-public class DaggerEnabledRepositoryRepository implements DaggerEnabledRepositoryBaseRepositoryExtension {
+public class DaggerEnabledRepositoryRepository {
   private final HashMap<Long, DaggerEnabledRepository> $$arez$$_entities = new HashMap<>();
   ;
 
@@ -151,7 +151,6 @@ public class DaggerEnabledRepositoryRepository implements DaggerEnabledRepositor
     return entity;
   }
 
-  @Override
   @Nonnull
   public final DaggerEnabledRepositoryRepository self() {
     return this;

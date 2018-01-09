@@ -146,7 +146,6 @@ public class ArezProcessorTest
   {
     assertSuccessfulCompile( "input/com/example/repository/NestedModel.java",
                              "expected/com/example/repository/NestedModel_Arez_BasicActionModel.java",
-                             "expected/com/example/repository/NestedModel_BasicActionModelBaseRepositoryExtension.java",
                              "expected/com/example/repository/NestedModel_BasicActionModelRepositoryDaggerModule.java",
                              "expected/com/example/repository/NestedModel_BasicActionModelRepository.java",
                              "expected/com/example/repository/Arez_NestedModel_BasicActionModelRepository.java" );

@@ -29,7 +29,7 @@ import org.realityforge.braincheck.Guards;
     inject = Injectible.TRUE
 )
 @Singleton
-public class InjectEnabledRepositoryRepository implements InjectEnabledRepositoryBaseRepositoryExtension {
+public class InjectEnabledRepositoryRepository {
   private final HashMap<Long, InjectEnabledRepository> $$arez$$_entities = new HashMap<>();
   ;
 
@@ -151,7 +151,6 @@ public class InjectEnabledRepositoryRepository implements InjectEnabledRepositor
     return entity;
   }
 
-  @Override
   @Nonnull
   public final InjectEnabledRepositoryRepository self() {
     return this;

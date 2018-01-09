@@ -28,7 +28,7 @@ import org.realityforge.braincheck.Guards;
     nameIncludesId = false
 )
 @Singleton
-public class CompleteRepositoryExampleRepository implements CompleteRepositoryExampleBaseRepositoryExtension, CompleteRepositoryExample.FooEx {
+public class CompleteRepositoryExampleRepository implements CompleteRepositoryExample.FooEx {
   private final HashMap<Integer, CompleteRepositoryExample> $$arez$$_entities = new HashMap<>();
   ;
 
@@ -165,7 +165,6 @@ public class CompleteRepositoryExampleRepository implements CompleteRepositoryEx
     return entity;
   }
 
-  @Override
   @Nonnull
   public final CompleteRepositoryExampleRepository self() {
     return this;

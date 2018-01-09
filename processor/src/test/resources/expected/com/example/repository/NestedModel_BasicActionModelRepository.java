@@ -27,7 +27,7 @@ import org.realityforge.braincheck.Guards;
     nameIncludesId = false
 )
 @Singleton
-public class NestedModel_BasicActionModelRepository implements NestedModel_BasicActionModelBaseRepositoryExtension {
+public class NestedModel_BasicActionModelRepository {
   private final HashMap<Long, NestedModel.BasicActionModel> $$arez$$_entities = new HashMap<>();
   ;
 
@@ -149,7 +149,6 @@ public class NestedModel_BasicActionModelRepository implements NestedModel_Basic
     return entity;
   }
 
-  @Override
   @Nonnull
   public final NestedModel_BasicActionModelRepository self() {
     return this;

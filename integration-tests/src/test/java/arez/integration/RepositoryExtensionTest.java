@@ -14,13 +14,14 @@ public class RepositoryExtensionTest
   extends AbstractIntegrationTest
 {
   interface TestComponentRepositoryExtension
-    extends RepositoryExtensionTest_TestComponentBaseRepositoryExtension
   {
     @Nonnull
     default List<TestComponent> findAllLike( @Nonnull final String pattern )
     {
       return self().findAllByQuery( c -> c.getValue().contains( pattern ) );
     }
+
+    RepositoryExtensionTest_TestComponentRepository self();
   }
 
   @ArezComponent

@@ -27,7 +27,7 @@ import org.realityforge.braincheck.Guards;
     nameIncludesId = false
 )
 @Singleton
-public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMultipleCtorsBaseRepositoryExtension {
+public class RepositoryWithMultipleCtorsRepository {
   private final HashMap<Long, RepositoryWithMultipleCtors> $$arez$$_entities = new HashMap<>();
   ;
 
@@ -174,7 +174,6 @@ public class RepositoryWithMultipleCtorsRepository implements RepositoryWithMult
     return entity;
   }
 
-  @Override
   @Nonnull
   public final RepositoryWithMultipleCtorsRepository self() {
     return this;

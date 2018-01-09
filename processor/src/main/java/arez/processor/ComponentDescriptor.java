@@ -2089,27 +2089,6 @@ final class ComponentDescriptor
     _repositoryExtensions = extensions;
   }
 
-  @Nonnull
-  TypeSpec buildRepositoryExtension()
-    throws ArezProcessorException
-  {
-    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getRepositoryExtensionName() ).
-      addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
-
-    builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
-      addMember( "value", "$S", ArezProcessor.class.getName() ).
-      build() );
-
-    ProcessorUtil.copyAccessModifiers( getElement(), builder );
-
-    builder.addMethod( MethodSpec.methodBuilder( "self" ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
-      returns( ClassName.get( getPackageName(), getRepositoryName() ) ).build() );
-
-    return builder.build();
-  }
-
   /**
    * Build the enhanced class for the component.
    */
@@ -2146,7 +2125,6 @@ final class ComponentDescriptor
       builder.addAnnotation( GeneratorUtil.SINGLETON_CLASSNAME );
     }
 
-    builder.addSuperinterface( ClassName.get( getPackageName(), getRepositoryExtensionName() ) );
     _repositoryExtensions.forEach( e -> builder.addSuperinterface( TypeName.get( e.asType() ) ) );
 
     ProcessorUtil.copyAccessModifiers( element, builder );
@@ -2201,12 +2179,6 @@ final class ComponentDescriptor
   private String getComponentDaggerModuleName()
   {
     return getNestedClassPrefix() + getElement().getSimpleName() + "DaggerModule";
-  }
-
-  @Nonnull
-  private String getRepositoryExtensionName()
-  {
-    return getNestedClassPrefix() + getElement().getSimpleName() + "BaseRepositoryExtension";
   }
 
   @Nonnull
@@ -2377,7 +2349,6 @@ final class ComponentDescriptor
   {
     return MethodSpec.methodBuilder( "self" ).
       addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( Override.class ).
       addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       returns( ClassName.get( getPackageName(), getRepositoryName() ) ).
       addStatement( "return this" ).build();

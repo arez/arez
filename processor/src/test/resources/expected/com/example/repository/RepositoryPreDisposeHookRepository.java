@@ -27,7 +27,7 @@ import org.realityforge.braincheck.Guards;
     nameIncludesId = false
 )
 @Singleton
-public class RepositoryPreDisposeHookRepository implements RepositoryPreDisposeHookBaseRepositoryExtension {
+public class RepositoryPreDisposeHookRepository {
   private final HashMap<Long, RepositoryPreDisposeHook> $$arez$$_entities = new HashMap<>();
   ;
 
@@ -149,7 +149,6 @@ public class RepositoryPreDisposeHookRepository implements RepositoryPreDisposeH
     return entity;
   }
 
-  @Override
   @Nonnull
   public final RepositoryPreDisposeHookRepository self() {
     return this;

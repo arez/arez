@@ -27,7 +27,7 @@ import org.realityforge.braincheck.Guards;
     nameIncludesId = false
 )
 @Singleton
-public class RepositoryWithImplicitIdRepository implements RepositoryWithImplicitIdBaseRepositoryExtension {
+public class RepositoryWithImplicitIdRepository {
   private final HashMap<Long, RepositoryWithImplicitId> $$arez$$_entities = new HashMap<>();
   ;
 
@@ -149,7 +149,6 @@ public class RepositoryWithImplicitIdRepository implements RepositoryWithImplici
     return entity;
   }
 
-  @Override
   @Nonnull
   public final RepositoryWithImplicitIdRepository self() {
     return this;
