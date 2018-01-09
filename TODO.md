@@ -65,18 +65,15 @@ type RemoteData e a
 * Figure out a mechanism for removing custom OnDispose magic in generated classes and thus allow anyone to hand
   create the equivalent of repositories. Potentially through "observable" `isDisposed()`
 
-* Once we have Repositories it may be possible to provide a simple use debug UI - maybe somewhat inspired by
+* Introduce DevTools and document. Somewhat inspired by
   - https://github.com/zalmoxisus/mobx-remotedev
   - https://github.com/andykog/mobx-devtools
-
-* Initial repository debug tool could just output tables ala
+  and maybe as simple as outputing tables ala
 
 ```javascript
 var languages = { csharp: { name: "C#", paradigm: "object-oriented" }, fsharp: { name: "F#", paradigm: "functional" } };
 console.table(languages);
 ```
-
-* Will need to document DevTools - probably with a bunch of screen shots
 
 * Setup testing with browser. Headless Chrome via selenium? GWT test case?
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
