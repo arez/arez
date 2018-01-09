@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.39](https://github.com/arez/arez/tree/v0.39) (2018-01-09)
+[Full Changelog](https://github.com/arez/arez/compare/v0.38...v0.39)
 
 #### Fixed
 * Ensure that the source of the annotation generated artifacts is included in the `extras` and
