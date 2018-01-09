@@ -71,25 +71,25 @@ public @interface ArezComponent
 
   /**
    * Indicate whether an @Inject annotation should be added to constructor of the generated class.
-   * {@link Injectible#TRUE} will force the addition of an @Inject annotation, {@link Injectible#FALSE}
-   * will result in no @Inject annotation and {@link Injectible#IF_DETECTED} will add an @Inject
+   * {@link Injectible#ENABLE} will force the addition of an @Inject annotation, {@link Injectible#DISABLE}
+   * will result in no @Inject annotation and {@link Injectible#AUTODETECT} will add an @Inject
    * if any fields or methods in the component or any parent type has an @Inject annotation OR the class
    * has an annotation that is itself annotated with the javax.inject.Scope annotation.
    *
    * @return enum controlling present of Inject annotation on constructor.
    */
-  Injectible inject() default Injectible.IF_DETECTED;
+  Injectible inject() default Injectible.AUTODETECT;
 
   /**
    * Indicate whether a dagger module should be generated for enhanced component class.
-   * {@link Injectible#TRUE} will force the generation of the module, {@link Injectible#FALSE}
-   * will result in no dagger module and {@link Injectible#IF_DETECTED} will add a dagger
+   * {@link Injectible#ENABLE} will force the generation of the module, {@link Injectible#DISABLE}
+   * will result in no dagger module and {@link Injectible#AUTODETECT} will add a dagger
    * module if the <code>dagger.Module</code> class is present on the classpath AND the class
    * has an annotation that is itself annotated with the javax.inject.Scope annotation.
    *
    * @return enum controlling whether a dagger module should be generated for repository.
    */
-  Injectible dagger() default Injectible.IF_DETECTED;
+  Injectible dagger() default Injectible.AUTODETECT;
 
   /**
    * Return true if an the generated component should NOT schedule autorun actions at the end of the

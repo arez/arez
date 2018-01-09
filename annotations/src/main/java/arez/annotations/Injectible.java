@@ -8,13 +8,13 @@ public enum Injectible
   /**
    * Feature should be present.
    */
-  TRUE,
+  ENABLE,
   /**
    * Feature should not be present.
    */
-  FALSE,
+  DISABLE,
   /**
    * Feature should be present if supporting infrastructure is detected.
    */
-  IF_DETECTED
+  AUTODETECT
 }

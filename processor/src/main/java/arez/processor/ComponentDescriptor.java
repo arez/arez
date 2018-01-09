@@ -66,11 +66,11 @@ final class ComponentDescriptor
   /**
    * Flag controlling whether dagger module is created for repository.
    */
-  private String _repositoryDaggerConfig = "IF_DETECTED";
+  private String _repositoryDaggerConfig = "AUTODETECT";
   /**
    * Flag controlling whether Inject annotation is added to repository constructor.
    */
-  private String _repositoryInjectConfig = "IF_DETECTED";
+  private String _repositoryInjectConfig = "AUTODETECT";
   @Nonnull
   private final Elements _elements;
   @Nonnull
@@ -2109,17 +2109,17 @@ final class ComponentDescriptor
     final AnnotationSpec.Builder arezComponent =
       AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_ANNOTATION_CLASSNAME ) ).
         addMember( "nameIncludesId", "false" );
-    if ( !"IF_DETECTED".equals( _repositoryInjectConfig ) )
+    if ( !"AUTODETECT".equals( _repositoryInjectConfig ) )
     {
       arezComponent.addMember( "inject", "$T.$N", GeneratorUtil.INJECTIBLE_CLASSNAME, _repositoryInjectConfig );
     }
-    if ( !"IF_DETECTED".equals( _repositoryDaggerConfig ) )
+    if ( !"AUTODETECT".equals( _repositoryDaggerConfig ) )
     {
       arezComponent.addMember( "dagger", "$T.$N", GeneratorUtil.INJECTIBLE_CLASSNAME, _repositoryDaggerConfig );
     }
     builder.addAnnotation( arezComponent.build() );
-    if ( "TRUE".equals( _repositoryInjectConfig ) ||
-         ( "IF_DETECTED".equals( _repositoryInjectConfig ) && _injectClassesPresent ) )
+    if ( "ENABLE".equals( _repositoryInjectConfig ) ||
+         ( "AUTODETECT".equals( _repositoryInjectConfig ) && _injectClassesPresent ) )
     {
       builder.addAnnotation( GeneratorUtil.SINGLETON_CLASSNAME );
     }

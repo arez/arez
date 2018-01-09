@@ -246,9 +246,9 @@ public final class ArezProcessor
                                         "inject" ).getValue();
     switch ( injectParameter.getSimpleName().toString() )
     {
-      case "TRUE":
+      case "ENABLE":
         return true;
-      case "FALSE":
+      case "DISABLE":
         return false;
       default:
         return null != scopeAnnotation ||
@@ -268,9 +268,9 @@ public final class ArezProcessor
                                         "dagger" ).getValue();
     switch ( daggerParameter.getSimpleName().toString() )
     {
-      case "TRUE":
+      case "ENABLE":
         return true;
-      case "FALSE":
+      case "DISABLE":
         return false;
       default:
         return null != scopeAnnotation &&

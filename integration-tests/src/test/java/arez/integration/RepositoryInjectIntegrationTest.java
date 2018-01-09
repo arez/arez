@@ -17,7 +17,7 @@ import static org.testng.Assert.*;
 public class RepositoryInjectIntegrationTest
 {
   @ArezComponent
-  @Repository( inject = Injectible.TRUE )
+  @Repository( inject = Injectible.ENABLE )
   static class TestComponent
   {
     private String _value;

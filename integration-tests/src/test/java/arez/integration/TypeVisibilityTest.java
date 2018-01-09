@@ -11,7 +11,7 @@ import static org.testng.Assert.*;
 public class TypeVisibilityTest
 {
   @SuppressWarnings( "WeakerAccess" )
-  @ArezComponent( dagger = Injectible.TRUE )
+  @ArezComponent( dagger = Injectible.ENABLE )
   public static class PersonModel
   {
     PersonModel()
@@ -31,7 +31,7 @@ public class TypeVisibilityTest
   }
 
   @SuppressWarnings( "WeakerAccess" )
-  @ArezComponent( dagger = Injectible.TRUE )
+  @ArezComponent( dagger = Injectible.ENABLE )
   public static class PersonModel2
   {
     @Observable

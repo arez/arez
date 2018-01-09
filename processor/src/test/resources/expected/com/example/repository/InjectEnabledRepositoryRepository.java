@@ -26,7 +26,7 @@ import org.realityforge.braincheck.Guards;
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent(
     nameIncludesId = false,
-    inject = Injectible.TRUE
+    inject = Injectible.ENABLE
 )
 @Singleton
 public class InjectEnabledRepositoryRepository {

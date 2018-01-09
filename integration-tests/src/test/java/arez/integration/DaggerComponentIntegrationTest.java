@@ -11,7 +11,7 @@ import static org.testng.Assert.*;
 
 public class DaggerComponentIntegrationTest
 {
-  @ArezComponent( dagger = Injectible.TRUE )
+  @ArezComponent( dagger = Injectible.ENABLE )
   static class TestComponent
   {
     private String _value = "";

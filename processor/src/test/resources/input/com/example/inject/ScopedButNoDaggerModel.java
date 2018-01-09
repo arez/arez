@@ -6,7 +6,7 @@ import arez.annotations.Injectible;
 import javax.inject.Singleton;
 
 @Singleton
-@ArezComponent( dagger = Injectible.FALSE )
+@ArezComponent( dagger = Injectible.DISABLE )
 public class ScopedButNoDaggerModel
 {
   public ScopedButNoDaggerModel()

@@ -29,7 +29,7 @@ a single constructor for the type to be injected. Within the context of Arez thi
 in the enhanced classes (i.e. `com.example.Arez_MyComponent` and `com.example.Arez_MyComponentRepository`).
 
 Arez will add the `@Inject` annotation to the constructor of the enhanced component if the `inject` parameter
-on the `@ArezComponent` is set to `TRUE`. If the `inject` parameter is `IF_DETECTED` and the base component is
+on the `@ArezComponent` is set to `ENABLE`. If the `inject` parameter is `AUTODETECT` and the base component is
 annotated with a "scope" annotation then Arez will annotate the enhanced subclass with the same scope annotation
 and add an `@Inject` annotation to the constructor.
 
@@ -74,7 +74,7 @@ Arez has greater support for the dagger injection framework than GIN. The {@api_
 and {@api_url: annotations.Repository} annotations have a `dagger` parameter that controls whether the Arez
 annotation processor generates dagger modules.
 
-If the value of the `dagger` parameter is `TRUE` or `IF_DETECTED` and the `dagger.Component` class is on the
+If the value of the `dagger` parameter is `ENABLE` or `AUTODETECT` and the `dagger.Component` class is on the
 classpath then a module will be generated for each base component and base repository that looks like:
 
 {@file_content: path=generated/processors/main/java file=arez/doc/examples/inject2/MyServiceDaggerModule.java "start_line=@Generated"}

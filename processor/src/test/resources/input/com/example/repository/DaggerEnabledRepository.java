@@ -6,7 +6,7 @@ import arez.annotations.Observable;
 import arez.annotations.Repository;
 import javax.annotation.Nonnull;
 
-@Repository( dagger = Injectible.TRUE )
+@Repository( dagger = Injectible.ENABLE )
 @ArezComponent
 public class DaggerEnabledRepository
 {

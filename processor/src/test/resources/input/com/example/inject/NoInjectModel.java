@@ -4,7 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Injectible;
 
-@ArezComponent( inject = Injectible.FALSE )
+@ArezComponent( inject = Injectible.DISABLE )
 public class NoInjectModel
 {
   public NoInjectModel()
