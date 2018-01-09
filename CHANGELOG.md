@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.38](https://github.com/arez/arez/tree/v0.38) (2018-01-09)
+[Full Changelog](https://github.com/arez/arez/compare/v0.37...v0.38)
 
 #### Changed
 * Move from [Jekyll](https://jekyllrb.com/) to [Docusaurus](https://docusaurus.io/) to generate website.
