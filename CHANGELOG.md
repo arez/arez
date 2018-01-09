@@ -468,8 +468,8 @@
 [Full Changelog](https://github.com/arez/arez/compare/v0.13...v0.14)
 
 #### Added
-* **\[browser-extras\]** Introduce the [`BrowserSpyUtil`](https://arez.github.io/api/org/arez/arez/browser/extras/spy/BrowserSpyUtil.html)
-  util class that helps enabling and disabling a singleton console logging spy.
+* **\[browser-extras\]** Introduce the `BrowserSpyUtil` util class that helps enabling and disabling a
+  singleton console logging spy.
 
 #### Changed
 * 💥 **\[extras\]** Moved `WhyRun` from the package `org.realityforge.arez.extras` to `org.realityforge.arez.extras.spy`.
@@ -623,10 +623,9 @@ as a version.
 [Full Changelog](https://github.com/arez/arez/compare/v0.03...v0.04)
 
 #### Added
-* **\[extras\]** Introduce the [`CssRules`](https://arez.github.io/api/org/arez/arez/browser/extras/spy/CssRules.html)
-  annotation to force IntelliJ IDEA to treat annotate content as css rules for code formatting, completion
-  and validation purposes. Use this new annotation to annotate relevant constants and parameters in
-  the `ConsoleSpyEventProcessor` class.
+* **\[extras\]** Introduce the `CssRules` annotation to force IntelliJ IDEA to treat annotate content as css
+  rules for code formatting, completion and validation purposes. Use this new annotation to annotate relevant
+  constants and parameters in the `ConsoleSpyEventProcessor` class.
 * **\[extras\]** Enhance the `ConsoleSpyEventProcessor` class so that javascript native objects passed as parameters
   to actions are formatted using `JSON.stringify` so that they produce more human friendly messages.
 * **\[processor\]** Enhance the `ArezProcessor` to catch unexpected failures and report the crash to the user,
@@ -660,29 +659,26 @@ as a version.
 [Full Changelog](https://github.com/arez/arez/compare/v0.02...v0.03)
 
 #### Added
-* ✨ **\[extras\]** Add the Arez component [`ObservablePromise`](https://arez.github.io/api/org/arez/arez/browser/extras/ObservablePromise.html)
-  that wraps a javascript native promise and exposes the observable properties.
-* ✨ **\[extras\]** Add the Arez component [`IntervalTicker`](https://arez.github.io/api/org/arez/arez/browser/extras/IntervalTicker.html)
-  that "ticks" at a specified interval. The tick is actually updating the value of an observable property.
-* ✨ **\[extras\]** Add the utility class [`TimedDisposer`](https://arez.github.io/api/org/arez/arez/browser/extras/TimedDisposer.html)
-  that disposes a target object after a specified timeout. Combining this with existing Arez components
-  makes it easy to add timeouts to reactive elements.
-* **\[core\]** Added [`Disposable.asDisposable(Object)`](https://arez.github.io/api/org/arez/arez/Disposable.html#asDisposed-java.lang.Object-)
-  utility that casts the specified object to a `Disposable`.
+* ✨ **\[extras\]** Add the Arez component `ObservablePromise` that wraps a javascript native promise
+  and exposes the observable properties.
+* ✨ **\[extras\]** Add the Arez component `IntervalTicker` that "ticks" at a specified interval. The tick
+  is actually updating the value of an observable property.
+* ✨ **\[extras\]** Add the utility class `TimedDisposer` that disposes a target object after a specified
+  timeout. Combining this with existing Arez components makes it easy to add timeouts to reactive elements.
+* **\[core\]** Added `Disposable.asDisposable(Object)` utility that casts the specified object to a `Disposable`.
 * Added automation to site deploy that verifies there are no broken links before uploading website.
 * Added a [Motivation](https://arez.github.io/docs/motivation.html) section to the website.
 * **\[core\]** Began experimenting with the ability to serialize spy events (i.e. Those in the
   `org.realityforge.arez.spy` package) to `java.util.Map` instances. The goal is to extract and backport
   functionality from several downstream projects including the `example` and `gwt-example` sample projects
-  aimed at serializing events. See the [`SerializableEvent`](https://arez.github.io/api/org/arez/arez/spy/SerializableEvent.html)
-  interface implemented by all builtin spy events.
-* ✨ **\[extras\]** Extract a [`SpyUtil`](https://arez.github.io/api/org/arez/arez/extras/spy/SpyUtil.html)
-  class from downstream projects. At this stage it just supports determining whether a spy event increases, decreases
-  or does not modify the level of "nesting" in an event stream.
-* ✨ **\[extras\]** Extract the [`AbstractSpyEventProcessor`](https://arez.github.io/api/org/arez/arez/extras/spy/AbstractSpyEventProcessor.html)
-  base class from downstream projects. This class is intended to make it easy to write tools that process spy events.
-* ✨ **\[browser-extras\]** Build the [`ConsoleSpyEventProcessor`](https://arez.github.io/api/org/arez/arez/browser/extras/spy/ConsoleSpyEventProcessor.html)
-  class. It is a `SpyEventHandler` that prints spy events to the browser console in a developer friendly manner.
+  aimed at serializing events. See the `SerializableEvent` interface implemented by all builtin spy events.
+* ✨ **\[extras\]** Extract a `SpyUtil` class from downstream projects. At this stage it just supports
+  determining whether a spy event increases, decreases or does not modify the level of "nesting" in an
+  event stream.
+* ✨ **\[extras\]** Extract the `AbstractSpyEventProcessor` base class from downstream projects. This
+  class is intended to make it easy to write tools that process spy events.
+* ✨ **\[browser-extras\]** Build the `ConsoleSpyEventProcessor` class. It is a `SpyEventHandler` that
+  prints spy events to the browser console in a developer friendly manner.
 
 #### Changed
 * **\[core\]** Rename `ArezContext.reaction(...)` methods to `ArezContext.tracker(...)` to reflect their primary
@@ -698,9 +694,8 @@ as a version.
 
 #### Added
 * Initial support for adding a `@Repository` to an arez component that will cause the generation of a paired
-  repository for managing instances of the arez component. Minimal javadocs are available on the
-  [site](https://arez.github.io/api/org/arez/arez/annotations/Repository.html) and more advanced
-  user documentation is on the way.
+  repository for managing instances of the arez component. Minimal javadocs are available on the site. More
+  advanced user documentation is on the way.
 
 ### [v0.01](https://github.com/arez/arez/tree/v0.01) (2017-09-27)
 [Full Changelog](https://github.com/arez/arez/compare/700fa7f3208cb868c4d7d28caf2772e114315d73...v0.01)
