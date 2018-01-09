@@ -6,6 +6,7 @@ Arez generates one or more classes for every Arez component. The classes generat
 
 * [The Enhanced Component Class](#the-enhanced-component-class)
 * [The Dagger Module Class](#the-dagger-module-class)
+* [The Repository Component Class](#the-repository-component-class)
 
 ## The Enhanced Component Class
 
@@ -54,3 +55,14 @@ a Dagger2 component in a different package.
 It should be noted that the dagger annotation processor will also generate several other java classes during the
 compilation process. These are not documented here. Consult the Dagger2 documentation for further details on the
 outputs from the dagger annotation processor.
+
+## The Repository Component Class
+
+The repository component class is generated if the `@Repository` annotation is present as documented in the
+[repositories](repositories.md) documentation. The repository class is public if the Arez component is public.
+The repository component class is the same name as the Arez component suffixed with `Repository` and follows
+similar conventions with respect to inner classes as the other classes.
+
+It should be noted that the generated repository component class is an Arez component and will subsequently
+generate an [enhanced component class](#the-enhanced-component-class) and potentially a
+[dagger module class](#the-dagger-module-class) when dagger is enabled.
