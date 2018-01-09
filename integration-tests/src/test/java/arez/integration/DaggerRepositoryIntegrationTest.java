@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class DaggerIntegrationTest
+public class DaggerRepositoryIntegrationTest
 {
   @ArezComponent
   @Repository( dagger = Injectible.TRUE )
@@ -37,20 +37,20 @@ public class DaggerIntegrationTest
   }
 
   @Singleton
-  @Component( modules = DaggerIntegrationTest_TestComponentRepositoryDaggerModule.class )
+  @Component( modules = DaggerRepositoryIntegrationTest_TestComponentRepositoryDaggerModule.class )
   interface TestDaggerComponent
   {
-    DaggerIntegrationTest_TestComponentRepository repository();
+    DaggerRepositoryIntegrationTest_TestComponentRepository repository();
   }
 
   @Test
   public void useDaggerComponentToGetAccessToRepository()
     throws Throwable
   {
-    final TestDaggerComponent daggerComponent = DaggerDaggerIntegrationTest_TestDaggerComponent.create();
+    final TestDaggerComponent daggerComponent = DaggerDaggerRepositoryIntegrationTest_TestDaggerComponent.create();
     daggerComponent.repository();
     daggerComponent.repository();
-    final DaggerIntegrationTest_TestComponentRepository repository = daggerComponent.repository();
+    final DaggerRepositoryIntegrationTest_TestComponentRepository repository = daggerComponent.repository();
     final TestComponent component1 = repository.create( "ABCDEF" );
     final TestComponent component2 = repository.create( "CDEFGH" );
     final TestComponent component3 = repository.create( "EFGHIJ" );
