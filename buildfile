@@ -130,6 +130,9 @@ define 'arez' do
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
 
+    # The generators are configured to generate to here.
+    iml.main_source_directories << _('generated/processors/main/java')
+
     gwt_enhance(project)
 
     package(:jar)
@@ -138,9 +141,6 @@ define 'arez' do
 
     test.using :testng
     test.compile.with TEST_DEPS
-
-    # The generators are configured to generate to here.
-    iml.main_source_directories << _('generated/processors/main/java')
   end
 
   desc 'Arez Browser based Extras and Addons'
@@ -162,10 +162,10 @@ define 'arez' do
     test.using :testng
     test.compile.with TEST_DEPS
 
-    gwt_enhance(project)
-
     # The generators are configured to generate to here.
     iml.main_source_directories << _('generated/processors/main/java')
+
+    gwt_enhance(project)
 
     project.jacoco.enabled = false
   end

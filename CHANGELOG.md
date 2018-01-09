@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Fixed
+* Ensure that the source of the annotation generated artifacts is included in the `extras` and
+  `browser-extras` gwt classifier artifact.
+
 ### [v0.38](https://github.com/arez/arez/tree/v0.38) (2018-01-09)
 [Full Changelog](https://github.com/arez/arez/compare/v0.37...v0.38)
 
