@@ -12,8 +12,8 @@
 * **\[processor\]** Always generate the Dagger2 module as a public interface rather than letting
   the components access modifier dictate the access modifier of the dagger module.
 * 💥 **\[annotations\]** Rename the `Injectible` constants to improve clarity;
-  - `TRUE` renamed to `ENABLED`
-  - `FALSE` renamed to `DISABLED`
+  - `TRUE` renamed to `ENABLE`
+  - `FALSE` renamed to `DISABLE`
   - `IF_DETECTED` renamed to `AUTODETECT`
 
 ### [v0.39](https://github.com/arez/arez/tree/v0.39) (2018-01-09)
