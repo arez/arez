@@ -106,6 +106,24 @@ public class TransactionTest
   }
 
   @Test
+  public void rootTransaction_zonesDisabled()
+  {
+    ArezTestUtil.disableZones();
+    final ArezContext context = Arez.context();
+
+    final Transaction transaction1 =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction2 =
+      new Transaction( context, transaction1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    assertEquals( transaction1.isRootTransaction(), true );
+    assertEquals( transaction1.getRootTransaction(), transaction1 );
+
+    assertEquals( transaction2.isRootTransaction(), false );
+    assertEquals( transaction2.getRootTransaction(), transaction1 );
+  }
+
+  @Test
   public void begin()
   {
     final ArezContext context = Arez.context();
