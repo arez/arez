@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 /**
  * Methods marked with this annotation are converted to autoruns.
  *
- * <p>The method that is annotated with @Action must comply with the additional constraints:</p>
+ * <p>The method that is annotated with @Autorun must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must not be private</li>
