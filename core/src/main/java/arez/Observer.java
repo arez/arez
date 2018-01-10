@@ -752,8 +752,6 @@ public final class Observer
   @Nonnull
   ComputedValue<?> getComputedValue()
   {
-    invariant( this::isLive,
-               () -> "Attempted to invoke getComputedValue on disposed observer named '" + getName() + "'." );
     invariant( this::isDerivation,
                () -> "Attempted to invoke getComputedValue on observer named '" + getName() + "' when " +
                      "is not a computed observer." );

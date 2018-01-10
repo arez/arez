@@ -998,14 +998,8 @@ public class ObserverTest
 
     observer.setDisposed( true );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::getComputedValue );
-
-    assertEquals( exception.getMessage(),
-                  "Attempted to invoke getComputedValue on disposed observer named '" +
-                  observer.getName() + "'." );
-
-    observer.setDisposed( false );
-
+    // Should be able to do this because sometimes when we dispose ComputedValue it gets deactivated and
+    // part of dispose of observer needs to access ComputedValue to send out a spy message
     assertEquals( observer.getComputedValue().getName(), observer.getName() );
   }
 
