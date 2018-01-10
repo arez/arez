@@ -314,7 +314,7 @@ final class Transaction
        * up to date and will instead rely on completeTracking to force the state
        * to INACTIVE.
        */
-      if ( !_tracker.isDisposed() )
+      if ( !_tracker.isDisposing() )
       {
         // Mark the tracker as up to date at the start of the transaction.
         // If it is made stale during the transaction then completeTracking() will fix the

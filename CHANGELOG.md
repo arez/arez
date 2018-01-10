@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[core\]** Fixed sequencing bug where disposing an active `ComputedValue` could lead to an error
+  passed to the `ObserverErrorHandler` instances for the `Observer` associated with the `ComputedValue`.
+
 ### [v0.40](https://github.com/arez/arez/tree/v0.40) (2018-01-10)
 [Full Changelog](https://github.com/arez/arez/compare/v0.39...v0.40)
 

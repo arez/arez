@@ -96,6 +96,10 @@ public final class Observer
    * Flag set to true after Observer has been disposed.
    */
   private boolean _disposed;
+  /**
+   * Flag set to true when disposing observer.
+   */
+  private boolean _disposing;
 
   Observer( @Nonnull final ArezContext context,
             @Nullable final Component component,
@@ -199,6 +203,7 @@ public final class Observer
   {
     if ( !_disposed )
     {
+      _disposing = true;
       runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
       getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
                                ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE : null,
@@ -227,6 +232,7 @@ public final class Observer
       {
         _derivedValue.dispose();
       }
+      _disposing = false;
     }
   }
 
@@ -242,6 +248,16 @@ public final class Observer
   public boolean isDisposed()
   {
     return _disposed;
+  }
+
+  /**
+   * Return true during invocation of dispose, false otherwise.
+   *
+   * @return true during invocation of dispose, false otherwise.
+   */
+  boolean isDisposing()
+  {
+    return _disposing;
   }
 
   /**

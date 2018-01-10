@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -936,6 +938,63 @@ public class ObserverTest
     handler.assertNextEvent( ObservableChangedEvent.class );
     handler.assertNextEvent( TransactionCompletedEvent.class );
     handler.assertNextEvent( ActionCompletedEvent.class );
+  }
+
+  @Test
+  public void dispose_via_ComputedValue()
+    throws Exception
+  {
+    final AtomicBoolean hasErrorOccurred = new AtomicBoolean();
+    hasErrorOccurred.set( false );
+    final ArezContext context = new ArezContext();
+    context.addObserverErrorHandler( new ObserverErrorHandler()
+    {
+      @Override
+      public void onObserverError( @Nonnull final Observer observer,
+                                   @Nonnull final ObserverError error,
+                                   @Nullable final Throwable throwable )
+      {
+        hasErrorOccurred.set( true );
+        fail();
+      }
+    } );
+    final Observer observer = newDerivation( context );
+    final ComputedValue<?> computedValue = observer.getComputedValue();
+    setCurrentTransaction( observer );
+    observer.setState( ObserverState.UP_TO_DATE );
+
+    Transaction.setTransaction( null );
+
+    assertEquals( observer.isDisposed(), false );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    computedValue.dispose();
+
+    assertEquals( observer.isDisposed(), true );
+    assertEquals( computedValue.isDisposed(), true );
+
+    handler.assertEventCount( 10 );
+
+    // This is the part that disposes the associated ComputedValue
+    handler.assertNextEvent( ComputedValueDisposedEvent.class );
+
+    // This is the part that disposes the Observer
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
+
+    // This is the part that disposes the associated Observable
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( ObservableChangedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
+
+    // Ensure no observer errors occur
+    assertFalse( hasErrorOccurred.get() );
   }
 
   @Test
