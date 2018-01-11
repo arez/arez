@@ -130,6 +130,7 @@ public final class MemoizeCache<T>
   /**
    * Traverse to leaf map elements and dispose all contained ComputedValue instances.
    */
+  @SuppressWarnings( "unchecked" )
   private void disposeMap( @Nonnull final Map<Object, Object> map, final int depth )
   {
     if ( 1 == depth )
