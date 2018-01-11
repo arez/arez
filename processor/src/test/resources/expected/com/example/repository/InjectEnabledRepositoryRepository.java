@@ -5,7 +5,7 @@ import arez.Disposable;
 import arez.Observable;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Injectible;
+import arez.annotations.Feature;
 import arez.annotations.ObservableRef;
 import arez.annotations.PreDispose;
 import arez.component.NoResultException;
@@ -26,7 +26,7 @@ import org.realityforge.braincheck.Guards;
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent(
     nameIncludesId = false,
-    inject = Injectible.ENABLE
+    inject = Feature.ENABLE
 )
 @Singleton
 public class InjectEnabledRepositoryRepository {

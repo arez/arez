@@ -3,7 +3,7 @@ package arez.integration;
 import arez.Arez;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
-import arez.annotations.Injectible;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
 import dagger.Component;
@@ -17,7 +17,7 @@ import static org.testng.Assert.*;
 public class RepositoryInjectIntegrationTest
 {
   @ArezComponent
-  @Repository( inject = Injectible.ENABLE )
+  @Repository( inject = Feature.ENABLE )
   static class TestComponent
   {
     private String _value;

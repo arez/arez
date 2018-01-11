@@ -2,11 +2,11 @@ package com.example.inject;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Injectible;
+import arez.annotations.Feature;
 import javax.inject.Singleton;
 
 @Singleton
-@ArezComponent( dagger = Injectible.DISABLE )
+@ArezComponent( dagger = Feature.DISABLE )
 public class ScopedButNoDaggerModel
 {
   public ScopedButNoDaggerModel()

@@ -1,7 +1,7 @@
 package arez.integration;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Injectible;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import java.lang.reflect.Modifier;
 import javax.annotation.Nonnull;
@@ -11,7 +11,7 @@ import static org.testng.Assert.*;
 public class TypeVisibilityTest
 {
   @SuppressWarnings( "WeakerAccess" )
-  @ArezComponent( dagger = Injectible.ENABLE )
+  @ArezComponent( dagger = Feature.ENABLE )
   public static class PersonModel
   {
     PersonModel()
@@ -31,7 +31,7 @@ public class TypeVisibilityTest
   }
 
   @SuppressWarnings( "WeakerAccess" )
-  @ArezComponent( dagger = Injectible.ENABLE )
+  @ArezComponent( dagger = Feature.ENABLE )
   public static class PersonModel2
   {
     @Observable

@@ -2,7 +2,7 @@ package arez.integration;
 
 import arez.Arez;
 import arez.annotations.ArezComponent;
-import arez.annotations.Injectible;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import dagger.Component;
 import javax.inject.Singleton;
@@ -11,7 +11,7 @@ import static org.testng.Assert.*;
 
 public class DaggerComponentIntegrationTest
 {
-  @ArezComponent( dagger = Injectible.ENABLE )
+  @ArezComponent( dagger = Feature.ENABLE )
   static class TestComponent
   {
     private String _value = "";

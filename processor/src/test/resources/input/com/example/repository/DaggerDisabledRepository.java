@@ -1,12 +1,12 @@
 package com.example.repository;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Injectible;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
 import javax.annotation.Nonnull;
 
-@Repository( dagger = Injectible.DISABLE )
+@Repository( dagger = Feature.DISABLE )
 @ArezComponent
 public class DaggerDisabledRepository
 {

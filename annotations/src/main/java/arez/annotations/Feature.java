@@ -3,7 +3,7 @@ package arez.annotations;
 /**
  * Enum to control when injectible elements should be present.
  */
-public enum Injectible
+public enum Feature
 {
   /**
    * Feature should be present.

@@ -2,9 +2,9 @@ package com.example.inject;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Injectible;
+import arez.annotations.Feature;
 
-@ArezComponent( inject = Injectible.ENABLE )
+@ArezComponent( inject = Feature.ENABLE )
 public class MultipleConstructorsModel
 {
   public MultipleConstructorsModel()

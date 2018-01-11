@@ -2,9 +2,9 @@ package com.example.inject;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Injectible;
+import arez.annotations.Feature;
 
-@ArezComponent( inject = Injectible.DISABLE )
+@ArezComponent( inject = Feature.DISABLE )
 public class NoInjectModel
 {
   public NoInjectModel()

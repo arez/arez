@@ -71,22 +71,22 @@ public @interface Repository
 
   /**
    * Indicate whether a dagger module should be generated for repository.
-   * {@link Injectible#ENABLE} will force the generation of the module, {@link Injectible#DISABLE}
-   * will result in no dagger module and {@link Injectible#AUTODETECT} will add a dagger
+   * {@link Feature#ENABLE} will force the generation of the module, {@link Feature#DISABLE}
+   * will result in no dagger module and {@link Feature#AUTODETECT} will add a dagger
    * module if the <code>dagger.Module</code> class is present on the classpath.
    *
    * @return enum controlling whether a dagger module should be generated for repository.
    */
-  Injectible dagger() default Injectible.AUTODETECT;
+  Feature dagger() default Feature.AUTODETECT;
 
   /**
    * Indicate whether an @Inject annotation should be added to constructor of the generated repository.
-   * {@link Injectible#ENABLE} will force the addition of an @Inject annotation, {@link Injectible#DISABLE}
-   * will result in no @Inject annotation and {@link Injectible#AUTODETECT} will add an @Inject
-   * if any it is present on the classpath. Note that this is effectively {@link Injectible#ENABLE} if
+   * {@link Feature#ENABLE} will force the addition of an @Inject annotation, {@link Feature#DISABLE}
+   * will result in no @Inject annotation and {@link Feature#AUTODETECT} will add an @Inject
+   * if any it is present on the classpath. Note that this is effectively {@link Feature#ENABLE} if
    * dagger parameter is true.
    *
    * @return enum controlling present of Inject annotation on constructor of repository.
    */
-  Injectible inject() default Injectible.AUTODETECT;
+  Feature inject() default Feature.AUTODETECT;
 }

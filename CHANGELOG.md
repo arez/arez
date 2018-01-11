@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Changed
+* 💥 **\[annotations\]** Rename the `arez.annotations.Injectible` class to `arez.annotations.Feature` to
+  follow conventions in other projects.
+
 ### [v0.41](https://github.com/arez/arez/tree/v0.41) (2018-01-11)
 [Full Changelog](https://github.com/arez/arez/compare/v0.40...v0.41)
 
