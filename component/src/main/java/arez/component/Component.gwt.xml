@@ -1,5 +1,6 @@
 <module>
   <inherits name="com.google.gwt.core.Core"/>
+  <inherits name="arez.Arez"/>
 
   <source path=""/>
 </module>
