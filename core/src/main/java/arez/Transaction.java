@@ -737,6 +737,10 @@ final class Transaction
     {
       _tracker.setState( ObserverState.INACTIVE );
     }
+    else if ( _tracker.isDerivation() && !_tracker.getDerivedValue().hasObservers() )
+    {
+      queueForDeactivation( _tracker.getDerivedValue() );
+    }
 
     /*
      * Check invariants. In both java and non-java code this will be compiled out.

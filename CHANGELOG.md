@@ -9,6 +9,10 @@
 #### Fixed
 * **\[core\]** Fixed sequencing bug where disposing an active `ComputedValue` could lead to an error
   passed to the `ObserverErrorHandler` instances for the `Observer` associated with the `ComputedValue`.
+* **\[core\]** Fixed bug where an `ComputedValue` accessed from actions and not observed by an observer
+  would not be marked as stale when a dependency was updated. Subsequent accesses would return the stale
+  cached value until the `ComputedValue` was observed by an `Observer` and a dependency was changed. The
+  fix involved "deactivating" the `ComputedValue` if there was no observers at the end of the transaction.
 
 ### [v0.40](https://github.com/arez/arez/tree/v0.40) (2018-01-10)
 [Full Changelog](https://github.com/arez/arez/compare/v0.39...v0.40)

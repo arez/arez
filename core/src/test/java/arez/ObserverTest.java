@@ -4,6 +4,7 @@ import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
 import arez.spy.ComputeCompletedEvent;
 import arez.spy.ComputeStartedEvent;
+import arez.spy.ComputedValueDeactivatedEvent;
 import arez.spy.ComputedValueDisposedEvent;
 import arez.spy.ObservableChangedEvent;
 import arez.spy.ObserverDisposedEvent;
@@ -1170,7 +1171,7 @@ public class ObserverTest
 
     computedValue.getObserver().invokeReaction();
 
-    handler.assertEventCount( 5 );
+    handler.assertEventCount( 6 );
 
     {
       final ComputeStartedEvent event = handler.assertEvent( ComputeStartedEvent.class, 0 );
@@ -1181,9 +1182,10 @@ public class ObserverTest
       final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 2 );
       assertEquals( event.getObservable().getName(), computedValue.getObservable().getName() );
     }
-    handler.assertEvent( TransactionCompletedEvent.class, 3 );
+    handler.assertEvent( ComputedValueDeactivatedEvent.class, 3 );
+    handler.assertEvent( TransactionCompletedEvent.class, 4 );
     {
-      final ComputeCompletedEvent event = handler.assertEvent( ComputeCompletedEvent.class, 4 );
+      final ComputeCompletedEvent event = handler.assertEvent( ComputeCompletedEvent.class, 5 );
       assertEquals( event.getComputedValue().getName(), computedValue.getName() );
       assertTrue( event.getDuration() >= 0 );
     }
