@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Added
+* **\[annotations\]** Add a `@Memoize` annotation that supports the creation of observable, memoized methods.
+  See the site documentation for further details.
+
 #### Fixed
 * **\[core\]** Fixed sequencing bug where disposing an active `ComputedValue` could lead to an error
   passed to the `ObserverErrorHandler` instances for the `Observer` associated with the `ComputedValue`.

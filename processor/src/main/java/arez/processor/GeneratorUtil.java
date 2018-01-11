@@ -26,6 +26,8 @@ final class GeneratorUtil
     ClassName.get( "arez.component", "NoResultException" );
   static final ClassName NO_SUCH_ENTITY_EXCEPTION_CLASSNAME =
     ClassName.get( "arez.component", "NoSuchEntityException" );
+  static final ClassName MEMOIZE_CACHE_CLASSNAME =
+    ClassName.get( "arez.component", "MemoizeCache" );
 
   static final String FIELD_PREFIX = "$$arez$$_";
   static final String CAUGHT_THROWABLE_NAME = FIELD_PREFIX + "e";

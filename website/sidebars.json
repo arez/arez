@@ -23,6 +23,7 @@
       "at_arez_component",
       "at_observable",
       "at_computed",
+      "at_memoize",
       "at_action",
       "at_autorun",
       "at_track",

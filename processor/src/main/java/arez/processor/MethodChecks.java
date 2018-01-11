@@ -100,6 +100,16 @@ final class MethodChecks
     }
   }
 
+  static void mustHaveParameters( @Nonnull final String annotationName,
+                                  @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    if ( method.getParameters().isEmpty() )
+    {
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must have parameters", method );
+    }
+  }
+
   static void mustNotReturnAnyValue( @Nonnull final String annotationName,
                                      @Nonnull final ExecutableElement method )
     throws ArezProcessorException

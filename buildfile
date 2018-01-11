@@ -99,7 +99,9 @@ define 'arez' do
   define 'component' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
-    compile.with PROVIDED_DEPS
+    compile.with PROVIDED_DEPS,
+                 project('core').package(:jar, :classifier => :gwt),
+                 project('core').compile.dependencies
 
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']

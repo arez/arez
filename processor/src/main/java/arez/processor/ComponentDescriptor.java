@@ -116,6 +116,9 @@ final class ComponentDescriptor
   private final Map<String, ComputedDescriptor> _computeds = new HashMap<>();
   private final Collection<ComputedDescriptor> _roComputeds =
     Collections.unmodifiableCollection( _computeds.values() );
+  private final Map<String, MemoizeDescriptor> _memoizes = new HashMap<>();
+  private final Collection<MemoizeDescriptor> _roMemoizes =
+    Collections.unmodifiableCollection( _memoizes.values() );
   private final Map<String, AutorunDescriptor> _autoruns = new HashMap<>();
   private final Collection<AutorunDescriptor> _roAutoruns =
     Collections.unmodifiableCollection( _autoruns.values() );
@@ -569,6 +572,36 @@ final class ComponentDescriptor
     }
   }
 
+  private void addMemoize( @Nonnull final AnnotationMirror annotation,
+                           @Nonnull final ExecutableElement method,
+                           @Nonnull final ExecutableType methodType )
+    throws ArezProcessorException
+  {
+    final String name = deriveMemoizeName( method, annotation );
+    checkNameUnique( name, method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
+    _memoizes.computeIfAbsent( name, n -> new MemoizeDescriptor( this, n ) ).setMemoize( method, methodType );
+  }
+
+  @Nonnull
+  private String deriveMemoizeName( @Nonnull final ExecutableElement method,
+                                    @Nonnull final AnnotationMirror annotation )
+    throws ArezProcessorException
+  {
+    final String name = getAnnotationParameter( annotation, "name" );
+    if ( ProcessorUtil.isSentinelName( name ) )
+    {
+      return method.getSimpleName().toString();
+    }
+    else
+    {
+      if ( !ProcessorUtil.isJavaIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "Method annotated with @Memoize specified invalid name " + name, method );
+      }
+      return name;
+    }
+  }
+
   private void addOnActivate( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
@@ -824,11 +857,12 @@ final class ComponentDescriptor
          _roObservables.isEmpty() &&
          _roActions.isEmpty() &&
          _roComputeds.isEmpty() &&
+         _roMemoizes.isEmpty() &&
          _roTrackeds.isEmpty() &&
          _roAutoruns.isEmpty() )
     {
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
-                                        "@Computed, @Observable, @Track or @Autorun", _element );
+                                        "@Computed, @Memoize, @Observable, @Track or @Autorun", _element );
     }
   }
 
@@ -872,6 +906,15 @@ final class ComponentDescriptor
                          sourceMethod,
                          Constants.COMPUTED_ANNOTATION_CLASSNAME,
                          computed.getComputed() );
+    }
+    final MemoizeDescriptor memoize = _memoizes.get( name );
+    if ( null != memoize )
+    {
+      throw toException( name,
+                         sourceAnnotationName,
+                         sourceMethod,
+                         Constants.MEMOIZE_ANNOTATION_CLASSNAME,
+                         memoize.getMemoize() );
     }
     final AutorunDescriptor autorun = _autoruns.get( name );
     if ( null != autorun )
@@ -1144,6 +1187,8 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME );
     final AnnotationMirror observerRef =
       ProcessorUtil.findAnnotationByType( method, Constants.OBSERVER_REF_ANNOTATION_CLASSNAME );
+    final AnnotationMirror memoize =
+      ProcessorUtil.findAnnotationByType( method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
 
     if ( null != observable )
     {
@@ -1193,6 +1238,11 @@ final class ComponentDescriptor
     else if ( null != computedValueRef )
     {
       addComputedValueRef( computedValueRef, method, methodType );
+      return true;
+    }
+    else if ( null != memoize )
+    {
+      addMemoize( memoize, method, methodType );
       return true;
     }
     else if ( null != componentRef )
@@ -1269,6 +1319,7 @@ final class ComponentDescriptor
                     Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME,
                     Constants.COMPUTED_ANNOTATION_CLASSNAME,
                     Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME,
+                    Constants.MEMOIZE_ANNOTATION_CLASSNAME,
                     Constants.COMPONENT_REF_ANNOTATION_CLASSNAME,
                     Constants.COMPONENT_ID_ANNOTATION_CLASSNAME,
                     Constants.COMPONENT_NAME_ANNOTATION_CLASSNAME,
@@ -1420,6 +1471,7 @@ final class ComponentDescriptor
     _roAutoruns.forEach( e -> e.buildMethods( builder ) );
     _roActions.forEach( e -> e.buildMethods( builder ) );
     _roComputeds.forEach( e -> e.buildMethods( builder ) );
+    _roMemoizes.forEach( e -> e.buildMethods( builder ) );
     _roTrackeds.forEach( e -> e.buildMethods( builder ) );
 
     builder.addMethod( buildHashcodeMethod() );
@@ -1731,6 +1783,7 @@ final class ComponentDescriptor
     _roAutoruns.forEach( autorun -> autorun.buildDisposer( actionBlock ) );
     _roTrackeds.forEach( tracked -> tracked.buildDisposer( actionBlock ) );
     _roComputeds.forEach( computed -> computed.buildDisposer( actionBlock ) );
+    _roMemoizes.forEach( computed -> computed.buildDisposer( actionBlock ) );
     _roObservables.forEach( observable -> observable.buildDisposer( actionBlock ) );
     if ( null != _postDispose )
     {
@@ -1846,6 +1899,7 @@ final class ComponentDescriptor
     }
     _roObservables.forEach( observable -> observable.buildFields( builder ) );
     _roComputeds.forEach( computed -> computed.buildFields( builder ) );
+    _roMemoizes.forEach( e -> e.buildFields( builder ) );
     _roAutoruns.forEach( autorun -> autorun.buildFields( builder ) );
     _roTrackeds.forEach( tracked -> tracked.buildFields( builder ) );
   }
@@ -1971,6 +2025,7 @@ final class ComponentDescriptor
 
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );
     _roComputeds.forEach( computed -> computed.buildInitializer( builder ) );
+    _roMemoizes.forEach( e -> e.buildInitializer( builder ) );
     _roAutoruns.forEach( autorun -> autorun.buildInitializer( builder ) );
     _roTrackeds.forEach( tracked -> tracked.buildInitializer( builder ) );
 
