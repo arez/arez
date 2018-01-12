@@ -1,4 +1,4 @@
-<p align="center"><img src="/docs/_icons/arez.png" alt="Arez" width="120"></p>
+<p align="center"><img src="/assets/icons/arez.png" alt="Arez" width="120"></p>
 
 # Arez
 
