@@ -3,7 +3,7 @@ title: Accessing primitives
 ---
 
 Most Arez users will make use of annotations to define the reactive components required for their application.
-For most applications, most of the time this is sufficient. Very occasionally it is useful to get access to the
+For most applications, most of the time, this is sufficient. Very occasionally it is useful to get access to the
 underlying primitives. This could mean getting access to the {@api_url: Observable} instance for
 an {@api_url: annotations.Observable} property, getting access to the {@api_url: ComputedValue} instance for a
 {@api_url: annotations.Computed} property etc. The primary reason that these primitives need to be exposed are to
