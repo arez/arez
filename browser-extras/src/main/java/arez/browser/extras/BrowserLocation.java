@@ -75,7 +75,7 @@ public class BrowserLocation
   }
 
   @PreDispose
-  final void onDispose()
+  final void preDispose()
   {
     DomGlobal.window.removeEventListener( "hashchange", _listener, false );
   }
