@@ -4,7 +4,6 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.PreDispose;
-import arez.browser.extras.Arez_BrowserLocation;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
