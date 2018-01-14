@@ -1,5 +1,6 @@
 package arez.doc.examples.lifecycle;
 
+import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.PreDispose;
 import elemental2.dom.DomGlobal;
@@ -30,7 +31,8 @@ public class BrowserLocation
   }
 
   //DOC ELIDE START
-  private void onHashChangeEvent( @Nonnull final Event e )
+  @Action
+  void onHashChangeEvent( @Nonnull final Event e )
   {
   }
     //DOC ELIDE END

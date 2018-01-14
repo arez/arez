@@ -1,5 +1,6 @@
 package arez.doc.examples.component_id;
 
+import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 
@@ -19,5 +20,9 @@ public class Person
     return _id;
   }
   //DOC ELIDE START
+  @Action
+  public void ignored()
+  {
+  }
   //DOC ELIDE END
 }
