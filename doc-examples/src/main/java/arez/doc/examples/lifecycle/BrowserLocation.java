@@ -35,5 +35,5 @@ public class BrowserLocation
   void onHashChangeEvent( @Nonnull final Event e )
   {
   }
-    //DOC ELIDE END
+  //DOC ELIDE END
 }
