@@ -14,7 +14,7 @@ public class Person
   }
 
   @ComponentId
-  public int getId()
+  public final int getId()
   {
     return _id;
   }
