@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+#### Added
+* **\[docs\]** Continue to expand the "Component" documentation.
+
 #### Changed
 * 💥 **\[annotations\]** Rename the `arez.annotations.ComponentName` class to `arez.annotations.ComponentNameRef`.
 * 💥 **\[annotations\]** Rename the `arez.annotations.ComponentTypeName` class to `arez.annotations.ComponentTypeNameRef`.
