@@ -745,21 +745,21 @@ final class ComponentDescriptor
   private void setComponentTypeName( @Nonnull final ExecutableElement componentTypeName )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Constants.COMPONENT_TYPE_NAME_ANNOTATION_CLASSNAME, componentTypeName );
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_TYPE_NAME_ANNOTATION_CLASSNAME, componentTypeName );
-    MethodChecks.mustReturnAValue( Constants.COMPONENT_TYPE_NAME_ANNOTATION_CLASSNAME, componentTypeName );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_TYPE_NAME_ANNOTATION_CLASSNAME, componentTypeName );
+    MethodChecks.mustBeOverridable( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
+    MethodChecks.mustReturnAValue( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
 
     final TypeMirror returnType = componentTypeName.getReturnType();
     if ( !( TypeKind.DECLARED == returnType.getKind() &&
             returnType.toString().equals( String.class.getName() ) ) )
     {
-      throw new ArezProcessorException( "@ComponentTypeName target must return a String", componentTypeName );
+      throw new ArezProcessorException( "@ComponentTypeNameRef target must return a String", componentTypeName );
     }
 
     if ( null != _componentTypeName )
     {
-      throw new ArezProcessorException( "@ComponentTypeName target duplicates existing method named " +
+      throw new ArezProcessorException( "@ComponentTypeNameRef target duplicates existing method named " +
                                         _componentTypeName.getSimpleName(), componentTypeName );
     }
     else
@@ -771,14 +771,14 @@ final class ComponentDescriptor
   private void setComponentName( @Nonnull final ExecutableElement componentName )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Constants.COMPONENT_NAME_ANNOTATION_CLASSNAME, componentName );
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_NAME_ANNOTATION_CLASSNAME, componentName );
-    MethodChecks.mustReturnAValue( Constants.COMPONENT_NAME_ANNOTATION_CLASSNAME, componentName );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_NAME_ANNOTATION_CLASSNAME, componentName );
+    MethodChecks.mustBeOverridable( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
+    MethodChecks.mustReturnAValue( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
 
     if ( null != _componentName )
     {
-      throw new ArezProcessorException( "@ComponentName target duplicates existing method named " +
+      throw new ArezProcessorException( "@ComponentNameRef target duplicates existing method named " +
                                         _componentName.getSimpleName(), componentName );
     }
     else
@@ -1164,9 +1164,9 @@ final class ComponentDescriptor
     final AnnotationMirror componentId =
       ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_ID_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentTypeName =
-      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_TYPE_NAME_ANNOTATION_CLASSNAME );
+      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentName =
-      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_NAME_ANNOTATION_CLASSNAME );
+      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror postConstruct =
       ProcessorUtil.findAnnotationByType( method, Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME );
     final AnnotationMirror preDispose =
@@ -1322,8 +1322,8 @@ final class ComponentDescriptor
                     Constants.MEMOIZE_ANNOTATION_CLASSNAME,
                     Constants.COMPONENT_REF_ANNOTATION_CLASSNAME,
                     Constants.COMPONENT_ID_ANNOTATION_CLASSNAME,
-                    Constants.COMPONENT_NAME_ANNOTATION_CLASSNAME,
-                    Constants.COMPONENT_TYPE_NAME_ANNOTATION_CLASSNAME,
+                    Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME,
+                    Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME,
                     Constants.CONTEXT_REF_ANNOTATION_CLASSNAME,
                     Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME,
                     Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME,

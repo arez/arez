@@ -2,8 +2,8 @@ package com.example.component_name;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.ComponentName;
-import arez.annotations.ComponentTypeName;
+import arez.annotations.ComponentNameRef;
+import arez.annotations.ComponentTypeNameRef;
 
 @ArezComponent
 public class ComponentTypeNameModel
@@ -13,13 +13,13 @@ public class ComponentTypeNameModel
   {
   }
 
-  @ComponentTypeName
+  @ComponentTypeNameRef
   public String getTypeName()
   {
     return "";
   }
 
-  @ComponentName
+  @ComponentNameRef
   public String getComponentName()
   {
     return "";

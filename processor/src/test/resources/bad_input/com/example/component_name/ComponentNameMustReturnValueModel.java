@@ -2,7 +2,7 @@ package com.example.component_name;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.ComponentName;
+import arez.annotations.ComponentNameRef;
 
 @ArezComponent
 public class ComponentNameMustReturnValueModel
@@ -12,7 +12,7 @@ public class ComponentNameMustReturnValueModel
   {
   }
 
-  @ComponentName
+  @ComponentNameRef
   void getTypeName()
   {
   }

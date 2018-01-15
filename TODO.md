@@ -60,9 +60,6 @@ type RemoteData e a
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
-* Rename `ComponentName` to `ComponentNameRef`, `ComponentTypeName` to `ComponentTypeNameRef` and update accessing
-  primitives documentation.
-
 * Arez components with `@Singleton` scope should default `nameIncludesId` parameter to `false`
 
 * Enhance WhyRun and write tests for it.

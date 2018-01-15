@@ -2,7 +2,7 @@ package com.example.component_type_name;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.ComponentTypeName;
+import arez.annotations.ComponentTypeNameRef;
 import java.io.IOException;
 
 @ArezComponent
@@ -13,7 +13,7 @@ public class ComponentTypeNameThrowsExceptionModel
   {
   }
 
-  @ComponentTypeName
+  @ComponentTypeNameRef
   String getTypeName()
     throws IOException
   {

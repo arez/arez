@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Changed
+* 💥 **\[annotations\]** Rename the `arez.annotations.ComponentName` class to `arez.annotations.ComponentNameRef`.
+* 💥 **\[annotations\]** Rename the `arez.annotations.ComponentTypeName` class to `arez.annotations.ComponentTypeNameRef`.
+
 ### [v0.42](https://github.com/arez/arez/tree/v0.42) (2018-01-11)
 [Full Changelog](https://github.com/arez/arez/compare/v0.41...v0.42)
 

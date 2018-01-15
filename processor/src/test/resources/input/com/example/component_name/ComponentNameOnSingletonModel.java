@@ -2,7 +2,7 @@ package com.example.component_name;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.ComponentName;
+import arez.annotations.ComponentNameRef;
 
 @ArezComponent( nameIncludesId = false )
 public class ComponentNameOnSingletonModel
@@ -12,7 +12,7 @@ public class ComponentNameOnSingletonModel
   {
   }
 
-  @ComponentName
+  @ComponentNameRef
   String getTypeName()
   {
     return null;

@@ -6,9 +6,9 @@ final class Constants
   static final String COMPONENT_ANNOTATION_CLASSNAME = "arez.annotations.ArezComponent";
   static final String AUTORUN_ANNOTATION_CLASSNAME = "arez.annotations.Autorun";
   static final String COMPONENT_ID_ANNOTATION_CLASSNAME = "arez.annotations.ComponentId";
-  static final String COMPONENT_NAME_ANNOTATION_CLASSNAME = "arez.annotations.ComponentName";
+  static final String COMPONENT_NAME_REF_ANNOTATION_CLASSNAME = "arez.annotations.ComponentNameRef";
   static final String COMPONENT_REF_ANNOTATION_CLASSNAME = "arez.annotations.ComponentRef";
-  static final String COMPONENT_TYPE_NAME_ANNOTATION_CLASSNAME = "arez.annotations.ComponentTypeName";
+  static final String COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME = "arez.annotations.ComponentTypeNameRef";
   static final String COMPUTED_ANNOTATION_CLASSNAME = "arez.annotations.Computed";
   static final String COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME = "arez.annotations.ComputedValueRef";
   static final String CONTEXT_REF_ANNOTATION_CLASSNAME = "arez.annotations.ContextRef";

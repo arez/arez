@@ -2,7 +2,7 @@ package com.example.component_name;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.ComponentName;
+import arez.annotations.ComponentNameRef;
 
 @ArezComponent
 public class ComponentNamePrivateModel
@@ -12,7 +12,7 @@ public class ComponentNamePrivateModel
   {
   }
 
-  @ComponentName
+  @ComponentNameRef
   private String getTypeName()
   {
     return null;
