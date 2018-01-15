@@ -22,6 +22,7 @@
       "component_example",
       "at_arez_component",
       "at_component_id",
+      "lifecycle_callbacks",
       "at_observable",
       "at_computed",
       "at_memoize",
