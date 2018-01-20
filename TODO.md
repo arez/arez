@@ -9,6 +9,8 @@ complete as there is too much un-said.
 * Should `@Autorun` and `@Track` default to read-only transactions? It makes sense given they are reactions
   that reflect onto external elements.
 
+* Should replace `@PostConstruct` with internal annotation.
+
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
   - `arez-browserlocation`
