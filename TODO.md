@@ -6,6 +6,9 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Should `@Autorun` and `@Track` default to read-only transactions? It makes sense given they are reactions
+  that reflect onto external elements.
+
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
   - `arez-browserlocation`
@@ -119,6 +122,10 @@ console.table(languages);
 * Integrate documentation such as following which seem like good overviews
   - http://blog.danlew.net/2017/07/27/an-introduction-to-functional-reactive-programming/
   - https://medium.com/@mweststrate/becoming-fully-reactive-an-in-depth-explanation-of-mobservable-55995262a254
+  - "MobX - Like React, but for Data" - http://danielearwicker.github.io/MobX_Like_React_but_for_Data.html
+  - "What’s all this fuss about data-binding?" - https://medium.com/patientbank-engineering-blog/whats-all-this-fuss-about-data-binding-3d2f1f23b4c3
+    (This one is particularly interesting and explain a simple autorun "web framework")
+  - "Why MobX?" - https://medium.com/@eugenkiss/why-mobx-e0530aacd482
 
 * Enhance README with practical instructions ala https://github.com/elastic/logstash or maybe docasaurus
 
