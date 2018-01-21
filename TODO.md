@@ -117,8 +117,6 @@ console.table(languages);
 
 ## Documentation
 
-* Add TOC to FAQ and "development process" pages. Probably need a separate parse/render plugin.
-
 * Performance testing and writeup?
 
 * Integrate documentation such as following which seem like good overviews
