@@ -1,5 +1,22 @@
+const toc = require('markdown-toc');
 const RemarkableEmbed = require('remarkable-embed');
 const fs = require('fs');
+
+// Ugly hack as could not get the remarkable plugin working.
+// Thus will regenerate each time the site config is reloaded
+function updateToc(filename) {
+  try {
+    const path = process.cwd() + '/../docs/' + filename;
+    let content = fs.readFileSync(path, 'utf8');
+    content = toc.insert(content);
+    fs.writeFileSync(path, content, 'utf8');
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+updateToc('faq.md');
+updateToc('development_process.md');
 
 const markdownInclude = function(code) {
   const filename = process.cwd() + '/includes/' + code;
