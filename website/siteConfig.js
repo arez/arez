@@ -8,7 +8,7 @@ function updateToc(filename) {
   try {
     const path = process.cwd() + '/../docs/' + filename;
     let content = fs.readFileSync(path, 'utf8');
-    content = toc.insert(content, { maxdepth: 3 });
+    content = toc.insert(content, { maxdepth: 3 }).trim() + '\n';
     fs.writeFileSync(path, content, 'utf8');
   } catch (err) {
     console.log(err);
