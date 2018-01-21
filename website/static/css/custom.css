@@ -36,3 +36,42 @@ code {
 pre code {
   font-size: 15px;
 }
+
+.page-toc.page-toc > ul li {
+  background: $primaryColor;
+  color: #fff;
+  padding-top: 5px;
+}
+
+.page-toc a {
+  color: inherit;
+  margin: 10px;
+  line-height: 1.65em;
+}
+
+.page-toc.page-toc ul {
+  padding: 0;
+  margin: 0;
+}
+
+.page-toc.page-toc ul {
+  background: #e0e0e0;
+}
+
+.page-toc.page-toc ul li > ul li {
+  padding-top: 10px;
+  background: #e0e0e0;
+  color: #393939;
+  font-size: 14px;
+  list-style: square;
+  margin-left: 30px;
+}
+.page-toc.page-toc ul li > ul li:last-child {
+  padding-bottom: 5px;
+}
+
+.page-toc ul li {
+  list-style: none;
+  padding-left: 0;
+}
+
