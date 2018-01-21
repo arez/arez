@@ -1,12 +1,25 @@
 ---
 title: Development Process
 ---
+<nav class="page-toc">
 
 <!-- toc -->
 
+- [Documentation](#documentation)
+  * [Documenting changes in CHANGELOG.md](#documenting-changes-in-changelogmd)
+- [Publishing](#publishing)
+  * [Publishing the Website](#publishing-the-website)
+  * [Publishing to Maven Central](#publishing-to-maven-central)
+  * [Publishing Coverage Reports to codecov](#publishing-coverage-reports-to-codecov)
+  * [Encrypting Files for TravisCI](#encrypting-files-for-travisci)
+
 <!-- tocstop -->
 
-## Documenting changes in CHANGELOG.md
+</nav>
+
+## Documentation
+
+### Documenting changes in CHANGELOG.md
 
 The Changelog is where users go to see what has changed between versions so it is essential we keep it
 up to date. A poor changelog should be considered a bug to be fixed.
@@ -23,7 +36,9 @@ meanings are as follows:
   - **Fixed** for any bug fixes.
   - **Security** in case of vulnerabilities.
 
-## Publishing the Website
+## Publishing
+
+### Publishing the Website
 
 TravisCI regenerates the website every time a commit is pushed to the master branch. The initial setup was
 derived from a [gist](https://gist.github.com/domenic/ec8b0fc8ab45f39403dd) and customized for our project.
@@ -49,7 +64,7 @@ Finally you add the public part of the deploy key to the repository at
 [https://github.com/arez/arez.github.io/settings/keys](https://github.com/arez/arez.github.io/settings/keys) and
 make sure you give the key write access.
 
-## Publishing to Maven Central
+### Publishing to Maven Central
 
 Arez releases are published to Maven Central. To simplify this process we have automated the release
 process so that the last step of the TravisCI build is to run the task `publish_if_tagged`. If the
@@ -76,7 +91,7 @@ decoded add the following.
   - gpg --import ../release.asc
 ```
 
-## Publishing Coverage Reports to codecov
+### Publishing Coverage Reports to codecov
 
 The project publishes the code coverage reports to codecov. This is to make it easier to review pull requests
 and to get a quick overview on how we are doing test-coverage wise. It is not a goal of the project to get 100%
@@ -92,7 +107,7 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 ```
 
-## Encrypting Files for TravisCI
+### Encrypting Files for TravisCI
 
 TravisCI can only decrypt a single file in a build. As soon as you start requiring multiple secret files you need
 to package them into an archive and encrypt the archive. As we need multiple keys to publish to Maven Central

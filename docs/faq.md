@@ -1,10 +1,22 @@
 ---
 title: Frequently Asked Questions
 ---
+<nav class="page-toc">
 
 <!-- toc -->
 
+- [Application Development](#application-development)
+  * [Why are @Autorun methods not being re-run when observable properties change?](#why-are-autorun-methods-not-being-re-run-when-observable-properties-change)
+- [Library Design](#library-design)
+  * [Why do the change events/notifications not include a description of the change?](#why-do-the-change-eventsnotifications-not-include-a-description-of-the-change)
+- [Component Model](#component-model)
+  * [Why do the generated/enhanced Arez components implement Disposable?](#why-do-the-generatedenhanced-arez-components-implement-disposable)
+  * [Why does the annotation processor override equals() and hashCode() methods?](#why-does-the-annotation-processor-override-equals-and-hashcode-methods)
+  * [Why does the annotation processor only sometimes generate a toString() method?](#why-does-the-annotation-processor-only-sometimes-generate-a-tostring-method)
+
 <!-- tocstop -->
+
+</nav>
 
 ## Application Development
 
