@@ -104,7 +104,7 @@ console.table(languages);
 
 * Add test like https://github.com/Vertispan/gwt-typedarrays/pull/2/files#diff-1
   that compiles an application (TodoMVC?) in production versus development mode and verifies that the production
-  app strips out things such as spies etc. Make sure that they appear in development mode.  
+  app strips out things such as spies etc. Make sure that they appear in development mode.
 
 ## Process
 
@@ -170,10 +170,10 @@ console.table(languages);
     and, use gwt:devmode instead of the gwt:codeserver, tbroyer archetype is all about client-server so it always explain everithing supoussing that you are going to use your own server, but in a client only app you want just a dummy server to bootstrap your module, so gwt:devmode fix this, also another important trick is to move your index.html to your public folder, and try to handle all your resurces using GWT (means do not try to put it in webapp, and best as managed resources than in public folder)
 
     also, note that I use <skipModule>true</skipModule>, this is bc although the tbroyer automodule strategy is a pretty good idea, but there are no IDE integration, intellij ultimate use the existence of a module to auto-detect the gwt facet and to validate if the sources are correctly included, so I always disable and create the module manually
-    
+
     and hehe and another important trick to make intellij works correctly with the tbroyer plugin (althought if you are not using a multimodule project is not needed), configure the gwt-lib as a maven dependency type
-    
-    
+
+
     Also see screenshot in tmp/
 
 
