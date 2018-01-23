@@ -155,7 +155,8 @@ final class ObservableDescriptor
   {
     assert null != _getterType;
     final ParameterizedTypeName typeName =
-      ParameterizedTypeName.get( GeneratorUtil.OBSERVABLE_CLASSNAME, TypeName.get( _getterType.getReturnType() ).box() );
+      ParameterizedTypeName.get( GeneratorUtil.OBSERVABLE_CLASSNAME,
+                                 TypeName.get( _getterType.getReturnType() ).box() );
     final FieldSpec.Builder field =
       FieldSpec.builder( typeName,
                          GeneratorUtil.FIELD_PREFIX + getName(),
