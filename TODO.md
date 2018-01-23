@@ -6,6 +6,7 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* If the pair of Observable getters are abstract then the generator should be able to supply the implementation.
 
 
 * Extract (browser-)extras as separate projects al:
@@ -94,8 +95,6 @@ console.table(languages);
   are not included under certain conditions. i.e. Annotations could be added to methods A, B and C
   that should never be present in compiled output if `areNamesEnabled` is false. Package Y should no be present
   in compiled output unless `areSpiesEnabled` is true etc.
-
-* If the pair of Observable getters are abstract then the generator should be able to supply the implementation.
 
 * Add test like https://github.com/Vertispan/gwt-typedarrays/pull/2/files#diff-1
   that compiles an application (TodoMVC?) in production versus development mode and verifies that the production
