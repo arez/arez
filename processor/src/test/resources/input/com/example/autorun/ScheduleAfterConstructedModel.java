@@ -2,7 +2,7 @@ package com.example.autorun;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Autorun;
-import javax.annotation.PostConstruct;
+import arez.annotations.PostConstruct;
 
 @ArezComponent
 public class ScheduleAfterConstructedModel

@@ -20,6 +20,10 @@
 #### Changed
 * 💥 **\[annotations\]** Rename the `arez.annotations.ComponentName` class to `arez.annotations.ComponentNameRef`.
 * 💥 **\[annotations\]** Rename the `arez.annotations.ComponentTypeName` class to `arez.annotations.ComponentTypeNameRef`.
+* 💥 **\[annotations\]** Replace the usage of `javax.annotation.PostConstruct` with `arez.annotations.PostConstruct`
+  and generated an error if `javax.annotation.PostConstruct` is used from within an Arez component. The goal is to
+  simplify documentation of `PostConstruct` annotation and reduce the places that users need to look to understand
+  the Arez component model.
 
 ### [v0.42](https://github.com/arez/arez/tree/v0.42) (2018-01-11)
 [Full Changelog](https://github.com/arez/arez/compare/v0.41...v0.42)

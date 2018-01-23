@@ -1193,6 +1193,8 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror postConstruct =
       ProcessorUtil.findAnnotationByType( method, Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME );
+    final AnnotationMirror ejbPostConstruct =
+      ProcessorUtil.findAnnotationByType( method, Constants.EJB_POST_CONSTRUCT_ANNOTATION_CLASSNAME );
     final AnnotationMirror preDispose =
       ProcessorUtil.findAnnotationByType( method, Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME );
     final AnnotationMirror postDispose =
@@ -1288,6 +1290,13 @@ final class ComponentDescriptor
     {
       setComponentTypeName( method );
       return true;
+    }
+    else if ( null != ejbPostConstruct )
+    {
+      throw new ArezProcessorException( "@" + Constants.EJB_POST_CONSTRUCT_ANNOTATION_CLASSNAME + " annotation " +
+                                        "not supported in components annotated with @ArezComponent, use the @" +
+                                        Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME + " annotation instead.",
+                                        method );
     }
     else if ( null != postConstruct )
     {

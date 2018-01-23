@@ -2,10 +2,9 @@ package com.example.post_construct;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
-import arez.annotations.PostConstruct;
 
 @ArezComponent
-public class PostConstructDuplicateModel
+public class EjbPostConstructModel
 {
   @Computed
   public int getMyValue()
@@ -13,13 +12,8 @@ public class PostConstructDuplicateModel
     return 0;
   }
 
-  @PostConstruct
-  void postConstruct1()
-  {
-  }
-
-  @PostConstruct
-  void postConstruct2()
+  @javax.annotation.PostConstruct
+  void postConstruct()
   {
   }
 }

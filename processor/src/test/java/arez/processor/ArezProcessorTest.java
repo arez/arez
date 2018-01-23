@@ -588,6 +588,8 @@ public class ArezProcessorTest
                       "Method annotated with @OnDepsChanged specified invalid name -ace" },
         new Object[]{ "com.example.on_deps_updated.OnDepsChangedNoTracked",
                       "@OnDepsChanged target has no corresponding @Track that could be automatically determined" },
+        new Object[]{ "com.example.post_construct.EjbPostConstructModel",
+                      "@javax.annotation.PostConstruct annotation not supported in components annotated with @ArezComponent, use the @arez.annotations.PostConstruct annotation instead." },
         new Object[]{ "com.example.post_construct.PostConstructDuplicateModel",
                       "@PostConstruct target duplicates existing method named postConstruct1" },
         new Object[]{ "com.example.post_construct.PostConstructMustNotHaveParametersModel",

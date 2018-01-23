@@ -2,7 +2,7 @@ package com.example.deprecated;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
-import javax.annotation.PostConstruct;
+import arez.annotations.PostConstruct;
 
 @ArezComponent
 public class DeprecatedPostConstructModel

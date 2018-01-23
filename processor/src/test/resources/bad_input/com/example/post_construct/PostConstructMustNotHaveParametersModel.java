@@ -2,7 +2,7 @@ package com.example.post_construct;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
-import javax.annotation.PostConstruct;
+import arez.annotations.PostConstruct;
 
 @ArezComponent
 public class PostConstructMustNotHaveParametersModel

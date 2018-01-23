@@ -36,7 +36,7 @@ import static javax.tools.Diagnostic.Kind.*;
  */
 @SuppressWarnings( "Duplicates" )
 @AutoService( Processor.class )
-@SupportedAnnotationTypes( { "arez.annotations.*", "javax.annotation.PostConstruct" } )
+@SupportedAnnotationTypes( { "arez.annotations.*" } )
 @SupportedSourceVersion( SourceVersion.RELEASE_8 )
 public final class ArezProcessor
   extends AbstractProcessor

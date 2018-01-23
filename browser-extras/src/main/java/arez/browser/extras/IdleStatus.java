@@ -6,6 +6,7 @@ import arez.annotations.Computed;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
+import arez.annotations.PostConstruct;
 import arez.annotations.PreDispose;
 import arez.browser.extras.Arez_IdleStatus;
 import elemental2.dom.DomGlobal;
@@ -15,7 +16,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Nonnull;
-import javax.annotation.PostConstruct;
 import org.realityforge.anodoc.Unsupported;
 
 /**

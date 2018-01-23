@@ -21,12 +21,13 @@ final class Constants
   static final String ON_DEPS_CHANGED_ANNOTATION_CLASSNAME = "arez.annotations.OnDepsChanged";
   static final String ON_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.OnDispose";
   static final String ON_STALE_ANNOTATION_CLASSNAME = "arez.annotations.OnStale";
+  static final String POST_CONSTRUCT_ANNOTATION_CLASSNAME = "arez.annotations.PostConstruct";
   static final String POST_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.PostDispose";
   static final String PRE_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.PreDispose";
   static final String REPOSITORY_ANNOTATION_CLASSNAME = "arez.annotations.Repository";
   static final String TRACK_ANNOTATION_CLASSNAME = "arez.annotations.Track";
 
-  static final String POST_CONSTRUCT_ANNOTATION_CLASSNAME = "javax.annotation.PostConstruct";
+  static final String EJB_POST_CONSTRUCT_ANNOTATION_CLASSNAME = "javax.annotation.PostConstruct";
   static final String INJECT_ANNOTATION_CLASSNAME = "javax.inject.Inject";
   static final String SINGLETON_ANNOTATION_CLASSNAME = "javax.inject.Singleton";
   static final String SCOPE_ANNOTATION_CLASSNAME = "javax.inject.Scope";

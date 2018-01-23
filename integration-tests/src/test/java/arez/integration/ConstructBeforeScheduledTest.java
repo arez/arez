@@ -2,7 +2,7 @@ package arez.integration;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Autorun;
-import javax.annotation.PostConstruct;
+import arez.annotations.PostConstruct;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 

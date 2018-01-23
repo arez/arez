@@ -3,13 +3,13 @@ package arez.browser.extras;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
+import arez.annotations.PostConstruct;
 import arez.annotations.PreDispose;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import javax.annotation.PostConstruct;
 import org.realityforge.anodoc.Unsupported;
 
 /**

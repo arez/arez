@@ -2,12 +2,12 @@ package arez.doc.examples.lifecycle;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.PostConstruct;
 import arez.annotations.PreDispose;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import javax.annotation.Nonnull;
-import javax.annotation.PostConstruct;
 
 @ArezComponent
 public class BrowserLocation
