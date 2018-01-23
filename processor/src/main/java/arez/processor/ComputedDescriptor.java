@@ -71,6 +71,30 @@ final class ComputedDescriptor
     return Objects.requireNonNull( _computed );
   }
 
+  @Nullable
+  ExecutableElement getOnActivate()
+  {
+    return _onActivate;
+  }
+
+  @Nullable
+  ExecutableElement getOnDeactivate()
+  {
+    return _onDeactivate;
+  }
+
+  @Nullable
+  ExecutableElement getOnStale()
+  {
+    return _onStale;
+  }
+
+  @Nullable
+  ExecutableElement getOnDispose()
+  {
+    return _onDispose;
+  }
+
   void setComputed( @Nonnull final ExecutableElement computed, @Nonnull final ExecutableType computedType )
     throws ArezProcessorException
   {

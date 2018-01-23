@@ -153,6 +153,30 @@ final class ComponentDescriptor
     _element = Objects.requireNonNull( element );
   }
 
+  private boolean hasDeprecatedElements()
+  {
+    return isDeprecated( _postConstruct ) ||
+           _roObservables.stream().anyMatch( e -> ( e.hasSetter() && isDeprecated( e.getSetter() ) ) ||
+                                                  ( e.hasGetter() && isDeprecated( e.getGetter() ) ) ) ||
+           _roComputeds.stream().anyMatch( e -> ( e.hasComputed() && isDeprecated( e.getComputed() ) ) ||
+                                                isDeprecated( e.getOnActivate() ) ||
+                                                isDeprecated( e.getOnDeactivate() ) ||
+                                                isDeprecated( e.getOnStale() ) ||
+                                                isDeprecated( e.getOnDispose() ) ) ||
+           _roActions.stream().anyMatch( e -> isDeprecated( e.getAction() ) ) ||
+           _roAutoruns.stream().anyMatch( e -> isDeprecated( e.getAutorun() ) ) ||
+           _roMemoizes.stream().anyMatch( e -> isDeprecated( e.getMemoize() ) ) ||
+           _roTrackeds.stream().anyMatch( e -> ( e.hasTrackedMethod() && isDeprecated( e.getTrackedMethod() ) ) ||
+                                               ( e.hasOnDepsChangedMethod() &&
+                                                 isDeprecated( e.getOnDepsChangedMethod() ) ) );
+
+  }
+
+  private boolean isDeprecated( @Nullable final ExecutableElement element )
+  {
+    return null != element && null != element.getAnnotation( Deprecated.class );
+  }
+
   @Nonnull
   private DeclaredType asDeclaredType()
   {
@@ -1911,11 +1935,12 @@ final class ComponentDescriptor
   private void buildConstructors( @Nonnull final TypeSpec.Builder builder,
                                   @Nonnull final Types typeUtils )
   {
+    final boolean requiresDeprecatedSuppress = hasDeprecatedElements();
     for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( getElement() ) )
     {
       final ExecutableType methodType =
         (ExecutableType) typeUtils.asMemberOf( (DeclaredType) _element.asType(), constructor );
-      builder.addMethod( buildConstructor( constructor, methodType ) );
+      builder.addMethod( buildConstructor( constructor, methodType, requiresDeprecatedSuppress ) );
     }
   }
 
@@ -1924,12 +1949,20 @@ final class ComponentDescriptor
    */
   @Nonnull
   private MethodSpec buildConstructor( @Nonnull final ExecutableElement constructor,
-                                       @Nonnull final ExecutableType constructorType )
+                                       @Nonnull final ExecutableType constructorType,
+                                       final boolean requiresDeprecatedSuppress )
   {
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
     ProcessorUtil.copyAccessModifiers( constructor, builder );
     ProcessorUtil.copyExceptions( constructorType, builder );
     ProcessorUtil.copyTypeParameters( constructorType, builder );
+
+    if ( requiresDeprecatedSuppress )
+    {
+      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
+                               .addMember( "value", "$S", "deprecation" )
+                               .build() );
+    }
 
     if ( _inject )
     {

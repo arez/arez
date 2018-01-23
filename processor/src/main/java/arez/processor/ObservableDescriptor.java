@@ -1,5 +1,6 @@
 package arez.processor;
 
+import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
@@ -258,6 +259,16 @@ final class ObservableDescriptor
     ProcessorUtil.copyDocumentedAnnotations( _setter, builder );
 
     builder.addAnnotation( Override.class );
+
+    // If the getter is deprecated but the setter is not
+    // then we need to suppress deprecation warnings on setter
+    // as we invoked getter from within it to verify value is
+    // actually changed
+    if ( null == _setter.getAnnotation( Deprecated.class ) &&
+         null != _getter.getAnnotation( Deprecated.class ) )
+    {
+      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).addMember( "value", "$S", "deprecation" ).build() );
+    }
 
     final TypeMirror parameterType = _setterType.getParameterTypes().get( 0 );
     final VariableElement element = _setter.getParameters().get( 0 );
