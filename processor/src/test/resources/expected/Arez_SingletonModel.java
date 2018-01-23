@@ -47,8 +47,8 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
     this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_time = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     this.$$arez$$_someValue = $$arez$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".someValue" : null, super::someValue, Objects::equals, null, null, null, null );
-    this.$$arez$$_myAutorun = $$arez$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".myAutorun" : null, true, () -> super.myAutorun(), false );
-    this.$$arez$$_render = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render" : null, true, () -> super.onRenderDepsChanged() );
+    this.$$arez$$_myAutorun = $$arez$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".myAutorun" : null, false, () -> super.myAutorun(), false );
+    this.$$arez$$_render = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render" : null, false, () -> super.onRenderDepsChanged() );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
@@ -114,7 +114,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   @Override
   public void myAutorun() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".myAutorun" : null, true, () -> super.myAutorun() );
+    $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".myAutorun" : null, false, () -> super.myAutorun() );
   }
 
   @Override

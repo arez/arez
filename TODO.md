@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Should `@Autorun` and `@Track` default to read-only transactions? It makes sense given they are reactions
-  that reflect onto external elements.
 
 
 * Extract (browser-)extras as separate projects al:

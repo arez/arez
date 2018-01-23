@@ -75,7 +75,7 @@ class Watcher
   /**
    * Check the condition and when it returns true the run the effec and dispose the watcher.
    */
-  @Autorun
+  @Autorun( mutation = true )
   void checkCondition()
   {
     if ( condition() )

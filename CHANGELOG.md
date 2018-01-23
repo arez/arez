@@ -24,6 +24,9 @@
   and generated an error if `javax.annotation.PostConstruct` is used from within an Arez component. The goal is to
   simplify documentation of `PostConstruct` annotation and reduce the places that users need to look to understand
   the Arez component model.
+* 💥 **\[annotations\]** The default value of the `mutation` parameter on the `arez.annotations.Track` and
+  `arez.annotations.Autorun` annotations has changed to false. This is primarily to reflect the fact that observers
+  produce effects from Arez state and are not typically used to generate actions or changes.
 
 ### [v0.42](https://github.com/arez/arez/tree/v0.42) (2018-01-11)
 [Full Changelog](https://github.com/arez/arez/compare/v0.41...v0.42)

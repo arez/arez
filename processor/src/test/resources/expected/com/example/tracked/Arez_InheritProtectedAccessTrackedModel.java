@@ -35,7 +35,7 @@ public final class Arez_InheritProtectedAccessTrackedModel extends InheritProtec
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "InheritProtectedAccessTrackedModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
     this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
-    this.$$arez$$_render = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render" : null, true, () -> super.onRenderDepsChanged() );
+    this.$$arez$$_render = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render" : null, false, () -> super.onRenderDepsChanged() );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }

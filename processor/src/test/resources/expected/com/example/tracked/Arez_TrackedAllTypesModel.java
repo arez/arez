@@ -45,10 +45,10 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "TrackedAllTypesModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
     this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
-    this.$$arez$$_render2 = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render2" : null, true, () -> super.onRender2DepsChanged() );
-    this.$$arez$$_render3 = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render3" : null, true, () -> super.onRender3DepsChanged() );
-    this.$$arez$$_render4 = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render4" : null, true, () -> super.onRender4DepsChanged() );
-    this.$$arez$$_render1 = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render1" : null, true, () -> super.onRender1DepsChanged() );
+    this.$$arez$$_render2 = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render2" : null, false, () -> super.onRender2DepsChanged() );
+    this.$$arez$$_render3 = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render3" : null, false, () -> super.onRender3DepsChanged() );
+    this.$$arez$$_render4 = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render4" : null, false, () -> super.onRender4DepsChanged() );
+    this.$$arez$$_render1 = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".render1" : null, false, () -> super.onRender1DepsChanged() );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }

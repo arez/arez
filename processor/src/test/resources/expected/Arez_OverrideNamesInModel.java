@@ -48,8 +48,8 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_myField = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".myField" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     this.$$arez$$_myComputed = $$arez$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".myComputed" : null, super::compute, Objects::equals, null, null, null, null );
-    this.$$arez$$_zzzzzz = $$arez$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".zzzzzz" : null, true, () -> super.zapZap(), false );
-    this.$$arez$$_XX = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".XX" : null, true, () -> super.onRenderDepsChanged() );
+    this.$$arez$$_zzzzzz = $$arez$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".zzzzzz" : null, false, () -> super.zapZap(), false );
+    this.$$arez$$_XX = $$arez$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".XX" : null, false, () -> super.onRenderDepsChanged() );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
@@ -115,7 +115,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   @Override
   public void zapZap() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".zzzzzz" : null, true, () -> super.zapZap() );
+    $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".zzzzzz" : null, false, () -> super.zapZap() );
   }
 
   @Override

@@ -35,8 +35,10 @@ public @interface Autorun
 
   /**
    * Does the autorun mutate state or not.
+   * The default value us false thus making the transaction mode read-only. The intention is that autorun observers
+   * should primarily be reflecting Arez state to external systems. (i.e. views, network layers etc.)
    *
    * @return true if the autorun should run in a READ_WRITE transaction, false if it should run in a READ_ONLY transaction.
    */
-  boolean mutation() default true;
+  boolean mutation() default false;
 }

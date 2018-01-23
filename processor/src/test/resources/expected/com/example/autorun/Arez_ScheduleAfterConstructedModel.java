@@ -35,7 +35,7 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
     this.$$arez$$_id = $$arez$$_nextId++;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "ScheduleAfterConstructedModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
     this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
-    this.$$arez$$_doStuff = $$arez$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(), false );
+    this.$$arez$$_doStuff = $$arez$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, false, () -> super.doStuff(), false );
     super.postConstruct();
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
@@ -83,7 +83,7 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
   @Override
   public void doStuff() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff() );
+    $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, false, () -> super.doStuff() );
   }
 
   @Override

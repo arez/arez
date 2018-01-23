@@ -13,9 +13,9 @@ side-effects but tracker observers decouple the scheduling of an update from run
 Arez leaves responsibility for running the observer to external code. This makes it possible for Arez to be
 integrated into other frameworks that have their own scheduler.
 
-The observer [transaction](transactions.md) is read-write by default but the
+The observer [transaction](transactions.md) is read-only by default but the
 {@api_url: mutation::annotations.Autorun::mutation()} parameter can be used to set the transaction mode to
-read-only. The author of the tracker observer can also omit one of the pair of annotations if the methods are
+read-write. The author of the tracker observer can also omit one of the pair of annotations if the methods are
 named appropriately.
 
 The {@api_url: annotations.Track} annotation is used in libraries such as [React4j](https://react4j.github.io)
