@@ -11,6 +11,11 @@
 
 #### Added
 * **\[docs\]** Continue to expand the "Component" documentation.
+* 💥 **\[processor\]** The default value of the `nameIncludesId` parameter of the `arez.annotations.ArezComponent`
+  is `false` if the class is also annotated with the `javax.inject.Singleton` annotation otherwise the default
+  value is `true`. This changes from the original behaviour where the default value was always `true`. This is
+  to support the very common use case that singleton components do not need and id as part of the name as there
+  is only a single instance.
 
 #### Changed
 * 💥 **\[annotations\]** Rename the `arez.annotations.ComponentName` class to `arez.annotations.ComponentNameRef`.

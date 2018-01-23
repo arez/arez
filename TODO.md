@@ -65,8 +65,6 @@ type RemoteData e a
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
-* Arez components with `@Singleton` scope should default `nameIncludesId` parameter to `false`
-
 * Enhance WhyRun and write tests for it.
 
 * Figure out a mechanism for removing custom OnDispose magic in generated classes and thus allow anyone to hand

@@ -48,7 +48,7 @@ public final class Arez_ScopedInjectModel extends ScopedInjectModel implements D
   }
 
   String $$arez$$_name() {
-    return "ScopedInjectModel." + $$arez$$_id();
+    return "ScopedInjectModel";
   }
 
   @Override

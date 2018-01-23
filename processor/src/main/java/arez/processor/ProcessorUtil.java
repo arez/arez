@@ -285,6 +285,21 @@ final class ProcessorUtil
     return values.get( annotationKey );
   }
 
+  @Nullable
+  static AnnotationValue findAnnotationValue( @Nonnull final Elements elements,
+                                              @Nonnull final AnnotationMirror annotation,
+                                              @Nonnull final String parameterName,
+                                              final boolean includeDefaults )
+  {
+    final Map<? extends ExecutableElement, ? extends AnnotationValue> values =
+      includeDefaults ?
+      elements.getElementValuesWithDefaults( annotation ) :
+      annotation.getElementValues();
+    final ExecutableElement annotationKey = values.keySet().stream().
+      filter( k -> parameterName.equals( k.getSimpleName().toString() ) ).findFirst().orElse( null );
+    return values.get( annotationKey );
+  }
+
   @Nonnull
   static AnnotationValue getAnnotationValue( @Nonnull final Elements elements,
                                              @Nonnull final AnnotationMirror annotation,

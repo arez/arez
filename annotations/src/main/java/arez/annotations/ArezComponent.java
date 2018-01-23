@@ -55,6 +55,8 @@ public @interface ArezComponent
 
   /**
    * Return true if the name derived for component should include the id, false otherwise.
+   * If the user does not specify a value for this parameter but does specify the <tt>javax.inject.Singleton</tt>
+   * on the same type then the default value of this parameter is false, otherwise it is true.
    *
    * @return true to include the id in the component name, false otherwise.
    */

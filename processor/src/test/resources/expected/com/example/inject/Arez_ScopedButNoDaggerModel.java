@@ -48,7 +48,7 @@ public final class Arez_ScopedButNoDaggerModel extends ScopedButNoDaggerModel im
   }
 
   String $$arez$$_name() {
-    return "ScopedButNoDaggerModel." + $$arez$$_id();
+    return "ScopedButNoDaggerModel";
   }
 
   @Override

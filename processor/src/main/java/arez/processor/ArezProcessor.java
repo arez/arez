@@ -18,6 +18,7 @@ import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
@@ -27,6 +28,7 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Elements;
 import static javax.tools.Diagnostic.Kind.*;
 
 /**
@@ -128,7 +130,13 @@ public final class ArezProcessor
     final AnnotationMirror arezComponent =
       ProcessorUtil.getAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
     final String declaredType = getAnnotationParameter( arezComponent, "type" );
-    final boolean nameIncludesId = getAnnotationParameter( arezComponent, "nameIncludesId" );
+    final AnnotationValue nameIncludesIdValue =
+      ProcessorUtil.findAnnotationValue( processingEnv.getElementUtils(), arezComponent, "nameIncludesId", false );
+    final AnnotationMirror singletonAnnotation =
+      ProcessorUtil.findAnnotationByType( typeElement, Constants.SINGLETON_ANNOTATION_CLASSNAME );
+    final boolean nameIncludesIdDefault = null == singletonAnnotation;
+    final boolean nameIncludesId =
+      null == nameIncludesIdValue ? nameIncludesIdDefault : (boolean) nameIncludesIdValue.getValue();
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
     final List<AnnotationMirror> scopeAnnotations =
       typeElement.getAnnotationMirrors().stream().filter( this::isScopeAnnotation ).collect( Collectors.toList() );
