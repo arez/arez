@@ -54,7 +54,7 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
   }
 
   String $$arez$$_name() {
-    return "DefaultMethodsModel";
+    return "DefaultMethodsModel." + $$arez$$_id();
   }
 
   @Override

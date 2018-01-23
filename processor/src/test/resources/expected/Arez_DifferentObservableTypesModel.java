@@ -80,7 +80,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   String $$arez$$_name() {
-    return "DifferentObservableTypesModel";
+    return "DifferentObservableTypesModel." + $$arez$$_id();
   }
 
   @Override

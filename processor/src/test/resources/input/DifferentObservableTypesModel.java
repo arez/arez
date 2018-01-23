@@ -1,7 +1,7 @@
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
-@ArezComponent( nameIncludesId = false )
+@ArezComponent
 public class DifferentObservableTypesModel
 {
   private boolean _v1;

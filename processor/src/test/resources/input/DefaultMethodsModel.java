@@ -1,6 +1,6 @@
 import arez.annotations.ArezComponent;
 
-@ArezComponent( nameIncludesId = false )
+@ArezComponent
 public class DefaultMethodsModel
   implements MyAnnotatedInterface
 {
