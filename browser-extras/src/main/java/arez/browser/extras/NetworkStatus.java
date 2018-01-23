@@ -6,7 +6,6 @@ import arez.annotations.Computed;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import arez.browser.extras.Arez_NetworkStatus;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import java.util.Date;

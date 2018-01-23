@@ -6,7 +6,6 @@ import arez.annotations.Computed;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import arez.browser.extras.Arez_IntervalTicker;
 import elemental2.dom.DomGlobal;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;

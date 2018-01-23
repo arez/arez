@@ -3,7 +3,6 @@ package arez.browser.extras;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.browser.extras.Arez_ObservablePromise;
 import elemental2.promise.IThenable;
 import elemental2.promise.Promise;
 import java.util.Objects;
