@@ -8,7 +8,6 @@ import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import arez.annotations.PostConstruct;
 import arez.annotations.PreDispose;
-import arez.browser.extras.Arez_IdleStatus;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import java.util.Arrays;
