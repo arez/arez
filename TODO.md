@@ -12,8 +12,6 @@ complete as there is too much un-said.
   can be instantiated. Maybe add a parameter to `@ArezComponent` that allows concrete classes and default it to
   false.
 
-* Add integration tests to verify the default value of mutation in observers is read-only
-
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
   - `arez-browserlocation`
