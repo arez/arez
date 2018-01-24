@@ -504,7 +504,7 @@ public final class ArezContext
       createObserver( component,
                       name,
                       mutation,
-                      o -> action( o.getName(),
+                      o -> action( ArezConfig.areNamesEnabled() ? o.getName() : null,
                                    ArezConfig.enforceTransactionType() ? o.getMode() : null,
                                    action,
                                    true,
