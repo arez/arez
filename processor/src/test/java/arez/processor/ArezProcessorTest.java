@@ -109,6 +109,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.to_string.ToStringPresent", false, false, false },
         new Object[]{ "com.example.tracked.BasicTrackedModel", false, false, false },
         new Object[]{ "com.example.tracked.BasicTrackedWithExceptionsModel", false, false, false },
+        new Object[]{ "com.example.tracked.DeriveFinalOnDepsChangedModel", false, false, false },
         new Object[]{ "com.example.tracked.DeriveOnDepsChangedModel", false, false, false },
         new Object[]{ "com.example.tracked.DeriveTrackedModel", false, false, false },
         new Object[]{ "com.example.tracked.NoReportParametersModel", false, false, false },

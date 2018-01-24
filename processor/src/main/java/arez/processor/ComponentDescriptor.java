@@ -1008,11 +1008,7 @@ final class ComponentDescriptor
          * If we get here the method was not annotated so we can try to detect if it is a
          * candidate arez method in case some arez annotations are implied via naming conventions.
          */
-        if ( method.getModifiers().contains( Modifier.FINAL ) )
-        {
-          continue;
-        }
-        else if ( method.getModifiers().contains( Modifier.STATIC ) )
+        if ( method.getModifiers().contains( Modifier.STATIC ) )
         {
           continue;
         }
@@ -1022,23 +1018,26 @@ final class ComponentDescriptor
         final int parameterCount = method.getParameters().size();
         String name;
 
-        name = ProcessorUtil.deriveName( method, SETTER_PATTERN, ProcessorUtil.SENTINEL_NAME );
-        if ( voidReturn && 1 == parameterCount && null != name )
+        if ( !method.getModifiers().contains( Modifier.FINAL ) )
         {
-          setters.put( name, candidateMethod );
-          continue;
-        }
-        name = ProcessorUtil.deriveName( method, ISSER_PATTERN, ProcessorUtil.SENTINEL_NAME );
-        if ( !voidReturn && 0 == parameterCount && null != name )
-        {
-          getters.put( name, candidateMethod );
-          continue;
-        }
-        name = ProcessorUtil.deriveName( method, GETTER_PATTERN, ProcessorUtil.SENTINEL_NAME );
-        if ( !voidReturn && 0 == parameterCount && null != name )
-        {
-          getters.put( name, candidateMethod );
-          continue;
+          name = ProcessorUtil.deriveName( method, SETTER_PATTERN, ProcessorUtil.SENTINEL_NAME );
+          if ( voidReturn && 1 == parameterCount && null != name )
+          {
+            setters.put( name, candidateMethod );
+            continue;
+          }
+          name = ProcessorUtil.deriveName( method, ISSER_PATTERN, ProcessorUtil.SENTINEL_NAME );
+          if ( !voidReturn && 0 == parameterCount && null != name )
+          {
+            getters.put( name, candidateMethod );
+            continue;
+          }
+          name = ProcessorUtil.deriveName( method, GETTER_PATTERN, ProcessorUtil.SENTINEL_NAME );
+          if ( !voidReturn && 0 == parameterCount && null != name )
+          {
+            getters.put( name, candidateMethod );
+            continue;
+          }
         }
         name =
           ProcessorUtil.deriveName( method, TrackedDescriptor.ON_DEPS_CHANGED_PATTERN, ProcessorUtil.SENTINEL_NAME );

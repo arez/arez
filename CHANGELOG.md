@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[processor\]** `@OnDepsChanged` method candidates that are not annotated were being incorrectly ignored
+  if they had a final modifier. Final modifiers are now accepted.
+
 ### [v0.43](https://github.com/arez/arez/tree/v0.43) (2018-01-24)
 [Full Changelog](https://github.com/arez/arez/compare/v0.42...v0.43)
 
