@@ -1642,13 +1642,11 @@ public class TransactionTest
     assertEquals( calculator.getState(), ObserverState.UP_TO_DATE );
 
     Transaction.setTransaction( transaction );
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> transaction.reportPossiblyChanged( observable ) );
 
-    assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' attempted to change observable named '" +
-                  observable.getName() + "' and transaction is READ_WRITE_OWNED but the observable has not been " +
-                  "created by the transaction." );
+    // A computed that causes another computed to recalculate should be allowed
+    transaction.reportPossiblyChanged( observable );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
   }
 
   @Test
@@ -1676,12 +1674,10 @@ public class TransactionTest
 
     Transaction.setTransaction( transaction );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> transaction.reportPossiblyChanged( observable ) );
+    // A computed that causes another computed to recalculate should be allowed
+    transaction.reportPossiblyChanged( observable );
 
-    assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' attempted to change observable named '" +
-                  observable.getName() + "' but transaction is READ_ONLY." );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
   }
 
   @Test

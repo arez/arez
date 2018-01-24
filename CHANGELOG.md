@@ -14,6 +14,10 @@
 * **\[core\]** Fixed bug that could result in invariant failure when the initial immediate execution of an
   `Observer` that caused itself to be rescheduled. This could happen in `@Autorun` methods in components that
   do not set `deferSchedule` parameter to `true` on the `@ArezComponent` annotation.
+* **\[core\]** Fixed a bug in `Transaction` class that resulted in an invariant failure in development mode when a
+  `ComputedValue` had a dependency on a `ComputedValue` that had a dependency on a `ComputedValue` and the caller
+  was a a read-only `Observer`. The code was incorrectly blocking updates of the cached value for `ComputedValue`
+  due to attempting to perform a write in a read-only transaction.
 
 #### Added
 * **\[docs\]** Continue to expand the "Component" documentation.

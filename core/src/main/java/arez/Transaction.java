@@ -496,7 +496,6 @@ final class Transaction
     invariant( observable::hasOwner,
                () -> "Transaction named '" + getName() + "' has attempted to mark observable named '" +
                      observable.getName() + "' as potentially changed but observable is not a derived value." );
-    verifyWriteAllowed( observable );
     observable.invariantLeastStaleObserverState();
     if ( observable.hasObservers() && ObserverState.UP_TO_DATE == observable.getLeastStaleObserverState() )
     {
