@@ -30,6 +30,8 @@
   the `Observable` in the current transaction. In production mode this will typically be eliminated by the
   optimizer. This method allows the Arez application to check pre-conditions prior to altering Arez state to
   eliminate the scenario where state changes have not be correctly propagated.
+* **\[core\]** Pending deactivations occur in the reverse order in which they were queued. This results in less
+  copying whilst deactivations are being processed.
 
 #### Changed
 * 💥 **\[annotations\]** Rename the `arez.annotations.ComponentName` class to `arez.annotations.ComponentNameRef`.

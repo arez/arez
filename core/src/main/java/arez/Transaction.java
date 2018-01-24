@@ -360,13 +360,10 @@ final class Transaction
     int count = 0;
     if ( null != _pendingDeactivations )
     {
-      // WARNING: Deactivations can be enqueued during the deactivation process
-      // so we always need to call _pendingDeactivations.size() through each iteration
-      // of the loop to ensure that new pending deactivations are deactivated.
-      //noinspection ForLoopReplaceableByForEach
-      for ( int i = 0; i < _pendingDeactivations.size(); i++ )
+      // Deactivations can be enqueued during the deactivation process so we always pop the last
+      while ( !_pendingDeactivations.isEmpty() )
       {
-        final Observable observable = _pendingDeactivations.get( i );
+        final Observable observable = _pendingDeactivations.remove( _pendingDeactivations.size() - 1 );
         observable.resetPendingDeactivation();
         if ( observable.isDisposed() )
         {
