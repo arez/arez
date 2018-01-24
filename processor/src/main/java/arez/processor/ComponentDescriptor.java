@@ -1006,7 +1006,7 @@ final class ComponentDescriptor
       {
         /*
          * If we get here the method was not annotated so we can try to detect if it is a
-         * candidate @Observable in case some @Observables are not fully specified.
+         * candidate arez method in case some arez annotations are implied via naming conventions.
          */
         if ( method.getModifiers().contains( Modifier.FINAL ) )
         {
