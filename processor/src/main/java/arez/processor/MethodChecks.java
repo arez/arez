@@ -12,7 +12,7 @@ final class MethodChecks
   }
 
   /**
-   * Verifies that the method is not final, static, abstract or private.
+   * Verifies that the method is not final, static or abstract.
    * The intent is to verify that it can be overridden in sub-class in same package.
    */
   static void mustBeOverridable( @Nonnull final String annotationName,
