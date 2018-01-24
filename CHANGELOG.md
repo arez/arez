@@ -11,6 +11,9 @@
 * **\[processor\]** The enhanced setter for `@Observable` properties, on the generated subclass of Arez components
   will first invoke `Observable.preReportChanged()` before calling setter in the component class to ensure that
   the state is not updated if there is no transaction or the transaction is read-only.
+* **\[core\]** Fixed bug that could result in invariant failure when the initial immediate execution of an
+  `Observer` that caused itself to be rescheduled. This could happen in `@Autorun` methods in components that
+  do not set `deferSchedule` parameter to `true` on the `@ArezComponent` annotation.
 
 #### Added
 * **\[docs\]** Continue to expand the "Component" documentation.

@@ -507,6 +507,14 @@ public final class Observer
   }
 
   /**
+   * Set the scheduled flag. This is called when the observer is schedule so it can not be scheduled again until it has run.
+   */
+  void setScheduledFlag()
+  {
+    _scheduled = true;
+  }
+
+  /**
    * Schedule this observer if it does not already have a reaction pending.
    */
   void schedule()
@@ -516,9 +524,8 @@ public final class Observer
       invariant( this::isActive,
                  () -> "Observer named '" + getName() + "' is not active but an attempt has been made " +
                        "to schedule observer." );
-      if ( !_scheduled )
+      if ( !isScheduled() )
       {
-        _scheduled = true;
         getContext().scheduleReaction( this );
       }
     }
@@ -533,7 +540,6 @@ public final class Observer
   {
     if ( isLive() )
     {
-      clearScheduledFlag();
       final long start;
       if ( willPropagateSpyEvents() )
       {

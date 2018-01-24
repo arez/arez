@@ -101,6 +101,7 @@ final class ReactionScheduler
     invariant( () -> !_pendingObservers.contains( observer ),
                () -> "Attempting to schedule observer named '" + observer.getName() +
                      "' when observer is already pending." );
+    observer.setScheduledFlag();
     _pendingObservers.add( Objects.requireNonNull( observer ) );
   }
 
@@ -207,6 +208,7 @@ final class ReactionScheduler
      */
     _remainingReactionsInCurrentRound--;
     final Observer observer = _pendingObservers.remove( 0 );
+    observer.clearScheduledFlag();
     observer.invokeReaction();
     return true;
   }
