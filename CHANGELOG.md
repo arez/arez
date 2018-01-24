@@ -18,6 +18,8 @@
   `ComputedValue` had a dependency on a `ComputedValue` that had a dependency on a `ComputedValue` and the caller
   was a a read-only `Observer`. The code was incorrectly blocking updates of the cached value for `ComputedValue`
   due to attempting to perform a write in a read-only transaction.
+* **\[core\]** Fixed a bug where a `Observable` could be passed as a parameter to `Transaction.queueForDeactivation()`
+  when it was already queued for deactivation.
 
 #### Added
 * **\[docs\]** Continue to expand the "Component" documentation.

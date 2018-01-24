@@ -402,6 +402,7 @@ final class Transaction
                        "observable named '" + observable.getName() + "' when pending deactivation " +
                        "already exists for observable." );
     }
+    observable.markAsPendingDeactivation();
     _pendingDeactivations.add( Objects.requireNonNull( observable ) );
   }
 

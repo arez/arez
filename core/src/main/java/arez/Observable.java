@@ -210,6 +210,16 @@ public final class Observable<T>
     return _mutator;
   }
 
+  void markAsPendingDeactivation()
+  {
+    _pendingDeactivation = true;
+  }
+
+  boolean isPendingDeactivation()
+  {
+    return _pendingDeactivation;
+  }
+
   void resetPendingDeactivation()
   {
     _pendingDeactivation = false;
@@ -398,9 +408,8 @@ public final class Observable<T>
     invariant( () -> !hasObservers(),
                () -> "Attempted to invoke queueForDeactivation() on observable named '" + getName() +
                      "' but observable has observers." );
-    if ( !_pendingDeactivation )
+    if ( !isPendingDeactivation() )
     {
-      _pendingDeactivation = true;
       getContext().getTransaction().queueForDeactivation( this );
     }
   }
@@ -527,20 +536,8 @@ public final class Observable<T>
   }
 
   @TestOnly
-  boolean isPendingDeactivation()
-  {
-    return _pendingDeactivation;
-  }
-
-  @TestOnly
   int getWorkState()
   {
     return _workState;
-  }
-
-  @TestOnly
-  void markAsPendingDeactivation()
-  {
-    _pendingDeactivation = true;
   }
 }
