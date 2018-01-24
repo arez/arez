@@ -34,7 +34,7 @@ public class ConstructBeforeScheduledTest
   }
 
   @Test
-  public void autorunAndPostConstructSequeincing()
+  public void autorunAndPostConstructSequencing()
   {
     final TestComponent component = new ConstructBeforeScheduledTest_Arez_TestComponent();
 
