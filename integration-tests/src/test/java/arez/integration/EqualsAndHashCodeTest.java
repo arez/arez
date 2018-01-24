@@ -11,7 +11,6 @@ import static org.testng.Assert.*;
 public class EqualsAndHashCodeTest
   extends AbstractIntegrationTest
 {
-
   @SuppressWarnings( "WeakerAccess" )
   @ArezComponent
   public static class PersonModel
