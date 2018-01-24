@@ -97,6 +97,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   public void setString(final String v) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( !Objects.equals(v, super.getString()) ) {
+      this.$$arez$$_string.preReportChanged();
       super.setString(v);
       this.$$arez$$_string.reportChanged();
     }
@@ -113,6 +114,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   public void setFoo(final boolean x) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( x != super.isFoo() ) {
+      this.$$arez$$_foo.preReportChanged();
       super.setFoo(x);
       this.$$arez$$_foo.reportChanged();
     }
@@ -129,6 +131,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   public void setTime(final long time) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( time != super.getTime() ) {
+      this.$$arez$$_time.preReportChanged();
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
     }

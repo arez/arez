@@ -79,6 +79,7 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
   public void setField(final long field) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( field != super.getField() ) {
+      this.$$arez$$_field.preReportChanged();
       super.setField(field);
       this.$$arez$$_field.reportChanged();
     }

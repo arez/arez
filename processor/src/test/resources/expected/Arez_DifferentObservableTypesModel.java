@@ -127,6 +127,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   public void setV6(final long v6) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( v6 != super.getV6() ) {
+      this.$$arez$$_v6.preReportChanged();
       super.setV6(v6);
       this.$$arez$$_v6.reportChanged();
     }
@@ -143,6 +144,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   public void setV7(final float v7) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( v7 != super.getV7() ) {
+      this.$$arez$$_v7.preReportChanged();
       super.setV7(v7);
       this.$$arez$$_v7.reportChanged();
     }
@@ -159,6 +161,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   public void setV8(final double v8) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( v8 != super.getV8() ) {
+      this.$$arez$$_v8.preReportChanged();
       super.setV8(v8);
       this.$$arez$$_v8.reportChanged();
     }
@@ -175,6 +178,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   public void setV9(final Object v9) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( !Objects.equals(v9, super.getV9()) ) {
+      this.$$arez$$_v9.preReportChanged();
       super.setV9(v9);
       this.$$arez$$_v9.reportChanged();
     }
@@ -191,6 +195,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   public void setV1(final boolean v1) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( v1 != super.isV1() ) {
+      this.$$arez$$_v1.preReportChanged();
       super.setV1(v1);
       this.$$arez$$_v1.reportChanged();
     }
@@ -207,6 +212,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   public void setV2(final byte v2) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( v2 != super.getV2() ) {
+      this.$$arez$$_v2.preReportChanged();
       super.setV2(v2);
       this.$$arez$$_v2.reportChanged();
     }
@@ -223,6 +229,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   public void setV3(final char v3) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( v3 != super.getV3() ) {
+      this.$$arez$$_v3.preReportChanged();
       super.setV3(v3);
       this.$$arez$$_v3.reportChanged();
     }
@@ -239,6 +246,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   public void setV4(final short v4) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( v4 != super.getV4() ) {
+      this.$$arez$$_v4.preReportChanged();
       super.setV4(v4);
       this.$$arez$$_v4.reportChanged();
     }
@@ -255,6 +263,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   public void setV5(final int v5) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( v5 != super.getV5() ) {
+      this.$$arez$$_v5.preReportChanged();
       super.setV5(v5);
       this.$$arez$$_v5.reportChanged();
     }

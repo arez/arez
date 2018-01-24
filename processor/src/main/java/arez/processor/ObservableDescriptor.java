@@ -292,6 +292,7 @@ final class ObservableDescriptor
     {
       codeBlock.beginControlFlow( "if ( !$T.equals($N, " + accessor + ") )", Objects.class, paramName );
     }
+    codeBlock.addStatement( "this.$N.preReportChanged()", GeneratorUtil.FIELD_PREFIX + getName() );
     codeBlock.addStatement( mutator, paramName );
     codeBlock.addStatement( "this.$N.reportChanged()", GeneratorUtil.FIELD_PREFIX + getName() );
     codeBlock.endControlFlow();

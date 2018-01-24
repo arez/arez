@@ -86,6 +86,7 @@ public final class Arez_ObservableModelWithUnconventionalNames extends Observabl
   public void time(final long time) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( time != super.time() ) {
+      this.$$arez$$_time.preReportChanged();
       super.time(time);
       this.$$arez$$_time.reportChanged();
     }

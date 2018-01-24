@@ -440,16 +440,26 @@ final class Transaction
   }
 
   /**
+   * Called before making change to observable.
+   * This will check preconditions such as verifying observable is not disposed and observable
+   * is writeable in transaction.
+   */
+  void preReportChanged( @Nonnull final Observable<?> observable )
+  {
+    invariant( () -> !observable.isDisposed(),
+               () -> "Invoked reportChanged on transaction named '" + getName() + "' for observable " +
+                     "named '" + observable.getName() + "' where the observable is disposed." );
+    verifyWriteAllowed( observable );
+  }
+
+  /**
    * Called to report that this observable has changed.
    * This is called when the observable has definitely changed and should
    * not be called for derived values that may have changed.
    */
   void reportChanged( @Nonnull final Observable<?> observable )
   {
-    invariant( () -> !observable.isDisposed(),
-               () -> "Invoked reportChanged on transaction named '" + getName() + "' for observable " +
-                     "named '" + observable.getName() + "' where the observable is disposed." );
-    verifyWriteAllowed( observable );
+    preReportChanged( observable );
     observable.invariantLeastStaleObserverState();
 
     if ( observable.hasObservers() && ObserverState.STALE != observable.getLeastStaleObserverState() )

@@ -12,6 +12,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
+import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -427,6 +428,19 @@ public final class Observable<T>
   public void reportObserved()
   {
     getContext().getTransaction().observe( this );
+  }
+
+  /**
+   * Check that pre-conditions are satisfied before changing observable value.
+   * In production mode this will typically be a no-op. This method should be invoked
+   * before state is modified.
+   */
+  public void preReportChanged()
+  {
+    if ( BrainCheckConfig.checkInvariants() )
+    {
+      getContext().getTransaction().preReportChanged( this );
+    }
   }
 
   /**

@@ -95,6 +95,7 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   public void setTime(@Nonnull final String time) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( !Objects.equals(time, super.getTime()) ) {
+      this.$$arez$$_time.preReportChanged();
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
     }

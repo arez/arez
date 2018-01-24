@@ -8,6 +8,9 @@
   the enhanced subclasses. These include deprecated methods annotated with `@Action`, `@Observable`, `@Computed`,
   `@OnActivate`, `@OnDeactivate`, `@OnStale`, `@OnDispose`, `@Memoize`, `@Track`, `@OnDepsChanged` and `@Autorun`.
   The fix involved suppressing the warnings at the appropriate places in the generated code.
+* **\[processor\]** The enhanced setter for `@Observable` properties, on the generated subclass of Arez components
+  will first invoke `Observable.preReportChanged()` before calling setter in the component class to ensure that
+  the state is not updated if there is no transaction or the transaction is read-only.
 
 #### Added
 * **\[docs\]** Continue to expand the "Component" documentation.
@@ -16,6 +19,10 @@
   value is `true`. This changes from the original behaviour where the default value was always `true`. This is
   to support the very common use case that singleton components do not need and id as part of the name as there
   is only a single instance.
+* **\[core\]** Introduce the method `Observable.preReportChanged()` that checks that it is possible to alter
+  the `Observable` in the current transaction. In production mode this will typically be eliminated by the
+  optimizer. This method allows the Arez application to check pre-conditions prior to altering Arez state to
+  eliminate the scenario where state changes have not be correctly propagated.
 
 #### Changed
 * 💥 **\[annotations\]** Rename the `arez.annotations.ComponentName` class to `arez.annotations.ComponentNameRef`.

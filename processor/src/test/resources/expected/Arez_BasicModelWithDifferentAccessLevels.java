@@ -118,6 +118,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   public void setTime(final long time) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( time != super.getTime() ) {
+      this.$$arez$$_time.preReportChanged();
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
     }
@@ -134,6 +135,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   public void setValue(final String value) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( !Objects.equals(value, super.getValue()) ) {
+      this.$$arez$$_value.preReportChanged();
       super.setValue(value);
       this.$$arez$$_value.reportChanged();
     }

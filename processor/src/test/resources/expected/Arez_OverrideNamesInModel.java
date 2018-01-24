@@ -107,6 +107,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   public void setTime(final long time) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( time != super.getTime() ) {
+      this.$$arez$$_myField.preReportChanged();
       super.setTime(time);
       this.$$arez$$_myField.reportChanged();
     }

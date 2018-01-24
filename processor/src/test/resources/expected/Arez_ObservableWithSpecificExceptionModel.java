@@ -87,6 +87,7 @@ public final class Arez_ObservableWithSpecificExceptionModel extends ObservableW
   public void setTime(final long time) throws ParseException {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( time != super.getTime() ) {
+      this.$$arez$$_time.preReportChanged();
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
     }

@@ -1263,6 +1263,52 @@ public class ObservableTest
   }
 
   @Test
+  public void preReportChanged()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer = newReadWriteObserver( context );
+    setCurrentTransaction( observer );
+
+    final Observable<?> observable = newObservable( context );
+
+    observable.preReportChanged();
+  }
+
+  @Test
+  public void preReportChanged_onDisposedObservable()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( newReadWriteObserver( context ) );
+
+    final Observable<?> observable = newObservable( context );
+    observable.setWorkState( Observable.DISPOSED );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observable::preReportChanged );
+    assertEquals( exception.getMessage(), "Invoked reportChanged on transaction named '" +
+                                          Transaction.current().getName() + "' for observable named '" + observable.getName() +
+                                          "' where the observable is disposed." );
+  }
+
+  @Test
+  public void preReportChanged_inReadOnlyTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setCurrentTransaction( newReadOnlyObserver( context ) );
+
+    final Observable<?> observable = newObservable( context );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observable::preReportChanged );
+    assertEquals( exception.getMessage(), "Transaction named '" +
+                                          Transaction.current().getName() + "' attempted to change observable named '" + observable.getName() +
+                                          "' but transaction is READ_ONLY." );
+  }
+
+  @Test
   public void reportChanged()
     throws Exception
   {

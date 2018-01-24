@@ -110,6 +110,7 @@ public final class Arez_ImplicitSingletonModel extends ImplicitSingletonModel im
   public void setTime(final long time) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     if ( time != super.getTime() ) {
+      this.$$arez$$_time.preReportChanged();
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
     }
