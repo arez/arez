@@ -1,0 +1,1434 @@
+
+[
+    {
+        "component": "FilterContext.1",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "FilterContext.1.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "FilterContext.1.filter",
+        "type": "ObservableCreated"
+    },
+    {
+        "component": "FilterContext.1",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Node.20",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Node.20.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "Node.20.name",
+        "type": "ObservableCreated"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "component": "Node.20",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Node.21",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Node.21.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "Node.21.name",
+        "type": "ObservableCreated"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "component": "Node.21",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Node.22",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Node.22.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "Node.22.name",
+        "type": "ObservableCreated"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "component": "Node.22",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "action": "Transaction@1",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@1"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@1"
+    },
+    {
+        "result": true,
+        "errorMessage": null,
+        "action": "Transaction@1",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@2",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@2"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observable": "Node.21.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@2"
+    },
+    {
+        "result": true,
+        "errorMessage": null,
+        "action": "Transaction@2",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@3",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@3"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.20.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.20.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observable": "Node.20.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.20.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.20.visible"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@3"
+    },
+    {
+        "result": true,
+        "errorMessage": null,
+        "action": "Transaction@3",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@4",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@4"
+    },
+    {
+        "observable": "FilterContext.1.filter",
+        "type": "ObservableChanged",
+        "value": "o"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@4"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@4",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@5",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@5"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@5"
+    },
+    {
+        "result": true,
+        "errorMessage": null,
+        "action": "Transaction@5",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@6",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@6"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@6"
+    },
+    {
+        "result": true,
+        "errorMessage": null,
+        "action": "Transaction@6",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@7",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@7"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.20.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.20.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.20.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.20.visible"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@7"
+    },
+    {
+        "result": true,
+        "errorMessage": null,
+        "action": "Transaction@7",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@8",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@8"
+    },
+    {
+        "observable": "FilterContext.1.filter",
+        "type": "ObservableChanged",
+        "value": "ob"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@8"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@8",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@9",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@9"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@9"
+    },
+    {
+        "result": true,
+        "errorMessage": null,
+        "action": "Transaction@9",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@10",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@10"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@10"
+    },
+    {
+        "result": true,
+        "errorMessage": null,
+        "action": "Transaction@10",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@11",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@11"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.20.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.20.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.20.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.20.visible"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@11"
+    },
+    {
+        "result": true,
+        "errorMessage": null,
+        "action": "Transaction@11",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@12",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@12"
+    },
+    {
+        "observable": "FilterContext.1.filter",
+        "type": "ObservableChanged",
+        "value": "obb"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@12"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@12",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@13",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@13"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@13"
+    },
+    {
+        "result": false,
+        "errorMessage": null,
+        "action": "Transaction@13",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@14",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@14"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observable": "Node.21.visible",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@14"
+    },
+    {
+        "result": false,
+        "errorMessage": null,
+        "action": "Transaction@14",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@15",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@15"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.20.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.20.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observable": "Node.20.visible",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.20.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.20.visible"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@15"
+    },
+    {
+        "result": false,
+        "errorMessage": null,
+        "action": "Transaction@15",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@16",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@16"
+    },
+    {
+        "observable": "FilterContext.1.filter",
+        "type": "ObservableChanged",
+        "value": "ob"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@16"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@16",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@17",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@17"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@17"
+    },
+    {
+        "result": true,
+        "errorMessage": null,
+        "action": "Transaction@17",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@18",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@18"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observable": "Node.21.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@18"
+    },
+    {
+        "result": true,
+        "errorMessage": null,
+        "action": "Transaction@18",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@19",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@19"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.20.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.20.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionStarted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.22.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.22.visible"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.21.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.21.visible"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observable": "Node.20.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "mutation": false,
+        "tracker": "Node.20.visible",
+        "type": "TransactionCompleted",
+        "transaction": "Node.20.visible"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Node.20.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.21.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "computedValue": "Node.22.visible",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@19"
+    },
+    {
+        "result": true,
+        "errorMessage": null,
+        "action": "Transaction@19",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    }
+]
