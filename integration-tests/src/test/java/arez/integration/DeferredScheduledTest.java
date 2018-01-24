@@ -22,7 +22,7 @@ public class DeferredScheduledTest
   }
 
   @Test
-  public void autorunAndPostConstructSequeincing()
+  public void deferScheduleWillDelayAutorun()
   {
     final TestComponent component = new DeferredScheduledTest_Arez_TestComponent();
 
