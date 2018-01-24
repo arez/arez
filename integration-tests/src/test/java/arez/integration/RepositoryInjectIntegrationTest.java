@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class RepositoryInjectIntegrationTest
+  extends AbstractIntegrationTest
 {
   @ArezComponent
   @Repository( inject = Feature.ENABLE )

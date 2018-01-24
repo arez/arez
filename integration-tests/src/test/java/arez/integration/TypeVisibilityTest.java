@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class TypeVisibilityTest
+  extends AbstractIntegrationTest
 {
   @SuppressWarnings( "WeakerAccess" )
   @ArezComponent( dagger = Feature.ENABLE )

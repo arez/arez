@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class AccessingDisposedTest
+  extends AbstractIntegrationTest
 {
   @ArezComponent
   static class TestComponent

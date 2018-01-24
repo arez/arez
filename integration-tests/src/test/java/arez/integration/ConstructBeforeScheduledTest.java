@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ConstructBeforeScheduledTest
+  extends AbstractIntegrationTest
 {
   @ArezComponent
   public static class TestComponent
