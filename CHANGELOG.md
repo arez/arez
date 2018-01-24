@@ -20,6 +20,8 @@
   due to attempting to perform a write in a read-only transaction.
 * **\[core\]** Fixed a bug where a `Observable` could be passed as a parameter to `Transaction.queueForDeactivation()`
   when it was already queued for deactivation.
+* **\[core\]** Made sure that the action wrapping an autorun reaction has the same name as the containing autorun
+  Observer instance.
 
 #### Added
 * **\[docs\]** Continue to expand the "Component" documentation.
