@@ -299,7 +299,9 @@ final class ObservableDescriptor
     if ( null == _setter.getAnnotation( Deprecated.class ) &&
          null != _getter.getAnnotation( Deprecated.class ) )
     {
-      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).addMember( "value", "$S", "deprecation" ).build() );
+      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
+                               .addMember( "value", "$S", "deprecation" )
+                               .build() );
     }
 
     final TypeMirror parameterType = _setterType.getParameterTypes().get( 0 );

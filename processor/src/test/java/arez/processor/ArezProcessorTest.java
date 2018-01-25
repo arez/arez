@@ -301,8 +301,10 @@ public class ArezProcessorTest
         new Object[]{ "com.example.autorun.AutorunThrowsExceptionModel",
                       "@Autorun target must not throw any exceptions" },
 
-        new Object[]{ "com.example.component.ConcreteComponent", "@ArezComponent target must be abstract unless the allowConcrete parameter is set to true" },
-        new Object[]{ "com.example.component.ModelWithAbstractMethod", "@ArezComponent target has an abstract method not implemented by framework" },
+        new Object[]{ "com.example.component.ConcreteComponent",
+                      "@ArezComponent target must be abstract unless the allowConcrete parameter is set to true" },
+        new Object[]{ "com.example.component.ModelWithAbstractMethod",
+                      "@ArezComponent target has an abstract method not implemented by framework" },
         new Object[]{ "com.example.component.BadTypeComponent", "@ArezComponent specified invalid type parameter" },
         new Object[]{ "com.example.component.EmptyComponent",
                       "@ArezComponent target has no methods annotated with @Action, @Computed, @Memoize, @Observable, @Track or @Autorun" },
