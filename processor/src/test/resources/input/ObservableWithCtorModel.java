@@ -3,7 +3,7 @@ import arez.annotations.Observable;
 
 @SuppressWarnings( "WeakerAccess" )
 @ArezComponent
-public class ObservableWithCtorModel
+public abstract class ObservableWithCtorModel
 {
   private long _time;
 

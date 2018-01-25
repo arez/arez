@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class ActionAndObservableSameNameModel
+public abstract class ActionAndObservableSameNameModel
 {
   @Action( name = "x" )
   public long m1()

@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentTypeNameRef;
 
 @ArezComponent
-public class ComponentTypeNamePrivateModel
+public abstract class ComponentTypeNamePrivateModel
 {
   @Action
   void myAction()

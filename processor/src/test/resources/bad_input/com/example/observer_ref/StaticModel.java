@@ -6,7 +6,7 @@ import arez.annotations.Autorun;
 import arez.annotations.ObserverRef;
 
 @ArezComponent
-public class StaticModel
+public abstract class StaticModel
 {
   @Autorun
   public void doStuff()

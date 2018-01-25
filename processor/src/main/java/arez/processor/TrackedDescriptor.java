@@ -86,7 +86,7 @@ final class TrackedDescriptor
                          @Nonnull final ExecutableElement method,
                          @Nonnull final ExecutableType trackedMethodType )
   {
-    MethodChecks.mustBeOverridable( Constants.TRACK_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeWrappable( Constants.TRACK_ANNOTATION_CLASSNAME, method );
     if ( null != _trackedMethod )
     {
       throw new ArezProcessorException( "@Track target duplicates existing method named " +

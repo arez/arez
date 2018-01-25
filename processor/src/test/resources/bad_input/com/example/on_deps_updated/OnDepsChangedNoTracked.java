@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.OnDepsChanged;
 
 @ArezComponent
-public class OnDepsChangedNoTracked
+public abstract class OnDepsChangedNoTracked
 {
   @OnDepsChanged
   void onRenderDepsChanged()

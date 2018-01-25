@@ -3,7 +3,7 @@ import arez.annotations.Observable;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class ObservableGuessingModel
+public abstract class ObservableGuessingModel
 {
   @Observable
   public long getTime()

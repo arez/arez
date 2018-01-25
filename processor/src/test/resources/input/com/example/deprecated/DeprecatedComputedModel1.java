@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 
 @ArezComponent
-public class DeprecatedComputedModel1
+public abstract class DeprecatedComputedModel1
 {
   @Computed
   public long getTime()

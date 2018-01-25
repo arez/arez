@@ -14,16 +14,13 @@ public class ObservableRefNoSetterTest
   extends AbstractIntegrationTest
 {
   @ArezComponent
-  static class TestComponent
+  static abstract class TestComponent
   {
     private int _otherID;
     private String _other;
 
     @ObservableRef
-    arez.Observable getOtherIDObservable()
-    {
-      throw new IllegalStateException();
-    }
+    abstract arez.Observable getOtherIDObservable();
 
     String getOther()
     {

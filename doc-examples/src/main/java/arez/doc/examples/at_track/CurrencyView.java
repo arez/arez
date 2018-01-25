@@ -5,10 +5,10 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 
 @ArezComponent
-public class CurrencyView
+public abstract class CurrencyView
 {
   // A read-only observer that renders
-  @Track( mutation = false )
+  @Track
   public ReactNode render()
   {
     //Render component here

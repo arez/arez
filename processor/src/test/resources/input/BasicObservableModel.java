@@ -2,7 +2,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class BasicObservableModel
+public abstract class BasicObservableModel
 {
   @Observable
   public long getTime()

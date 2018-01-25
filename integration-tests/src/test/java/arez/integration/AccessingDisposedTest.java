@@ -10,7 +10,7 @@ public class AccessingDisposedTest
   extends AbstractIntegrationTest
 {
   @ArezComponent
-  static class TestComponent
+  static abstract class TestComponent
   {
     int invokeCount;
 
@@ -22,7 +22,7 @@ public class AccessingDisposedTest
   }
 
   @ArezComponent( nameIncludesId = false )
-  static class TestSingletonComponent
+  static abstract class TestSingletonComponent
   {
     int invokeCount;
 

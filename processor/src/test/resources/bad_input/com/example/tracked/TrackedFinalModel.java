@@ -5,7 +5,7 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 
 @ArezComponent
-public class TrackedFinalModel
+public abstract class TrackedFinalModel
 {
   @Track
   public final void render()

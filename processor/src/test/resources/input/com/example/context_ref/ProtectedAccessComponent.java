@@ -5,11 +5,8 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
 
 @ArezComponent( allowEmpty = true )
-class ProtectedAccessComponent
+abstract class ProtectedAccessComponent
 {
   @ContextRef
-  protected ArezContext getContext()
-  {
-    throw new IllegalStateException();
-  }
+  protected abstract ArezContext getContext();
 }

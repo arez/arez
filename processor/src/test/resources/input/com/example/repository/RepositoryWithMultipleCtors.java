@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 
 @Repository
 @ArezComponent
-public class RepositoryWithMultipleCtors
+public abstract class RepositoryWithMultipleCtors
 {
   @Nonnull
   private String _name;

@@ -5,12 +5,9 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
 
 @ArezComponent( allowEmpty = true )
-class ThrowsExceptionModel
+abstract class ThrowsExceptionModel
 {
   @ComponentRef
-  Component getComponent()
-    throws Exception
-  {
-    throw new IllegalStateException();
-  }
+  abstract Component getComponent()
+    throws Exception;
 }

@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 
 @Repository( extensions = { CompleteRepositoryExample.FooEx.class } )
 @ArezComponent
-public class CompleteRepositoryExample
+public abstract class CompleteRepositoryExample
 {
   // Unfortunately this this can not have nested content otherwise it will cause the
   // IDE to fail to compile as we put it on the path.

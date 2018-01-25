@@ -10,7 +10,7 @@ import elemental2.dom.EventListener;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class BrowserLocation
+public abstract class BrowserLocation
 {
   private final EventListener _listener = this::onHashChangeEvent;
   //DOC ELIDE START

@@ -5,7 +5,7 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 
 @ArezComponent
-public class OnDepsChangedMustNotHaveParametersModel
+public abstract class OnDepsChangedMustNotHaveParametersModel
 {
   @Track
   public void render()

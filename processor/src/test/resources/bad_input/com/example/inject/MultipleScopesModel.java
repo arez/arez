@@ -11,7 +11,7 @@ import static java.lang.annotation.RetentionPolicy.*;
 @Singleton
 @ArezComponent
 @MultipleScopesModel.MyScope
-public class MultipleScopesModel
+public abstract class MultipleScopesModel
 {
   @Scope
   @Documented

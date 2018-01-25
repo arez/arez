@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
 
 @ArezComponent( allowEmpty = true )
-class FinalModel
+abstract class FinalModel
 {
   @ContextRef
   final ArezContext getContext()

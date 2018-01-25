@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
 
 @ArezComponent( allowEmpty = true )
-class StaticModel
+abstract class StaticModel
 {
   @ComponentRef
   static Component getComponent()

@@ -27,7 +27,7 @@ import org.realityforge.braincheck.Guards;
     nameIncludesId = false
 )
 @Singleton
-public class RepositoryWithMultipleCtorsRepository {
+public abstract class RepositoryWithMultipleCtorsRepository {
   private final HashMap<Long, RepositoryWithMultipleCtors> $$arez$$_entities = new HashMap<>();
   ;
 
@@ -104,9 +104,7 @@ public class RepositoryWithMultipleCtorsRepository {
   }
 
   @ObservableRef
-  Observable getEntitiesObservable() {
-    throw new IllegalStateException();
-  }
+  abstract Observable getEntitiesObservable();
 
   /**
    * Return the raw collection of entities in the repository.

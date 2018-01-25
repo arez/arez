@@ -5,7 +5,7 @@ import arez.annotations.Computed;
 import arez.annotations.PostConstruct;
 
 @ArezComponent
-public class PostConstructNotStaticModel
+public abstract class PostConstructNotStaticModel
 {
   @PostConstruct
   static void postConstruct()

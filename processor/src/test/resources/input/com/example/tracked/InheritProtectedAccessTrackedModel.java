@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import com.example.tracked.other.BaseModelProtectedAccess;
 
 @ArezComponent
-public class InheritProtectedAccessTrackedModel
+public abstract class InheritProtectedAccessTrackedModel
   extends BaseModelProtectedAccess
 {
 }

@@ -7,7 +7,7 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 
 @ArezComponent
-public class RefOnTrackedModel
+public abstract class RefOnTrackedModel
 {
   @Track
   public void render( final long time, float someOtherParameter )
@@ -20,8 +20,5 @@ public class RefOnTrackedModel
   }
 
   @ObserverRef
-  Observer getRenderObserver()
-  {
-    throw new IllegalStateException();
-  }
+  abstract Observer getRenderObserver();
 }

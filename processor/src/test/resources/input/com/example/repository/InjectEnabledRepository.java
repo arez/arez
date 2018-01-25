@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 @Repository( inject = Feature.ENABLE )
 @ArezComponent
-public class InjectEnabledRepository
+public abstract class InjectEnabledRepository
 {
   @Nonnull
   private String _name;

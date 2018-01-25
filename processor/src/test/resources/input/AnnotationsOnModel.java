@@ -5,7 +5,7 @@ import arez.annotations.Observable;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class AnnotationsOnModel
+public abstract class AnnotationsOnModel
 {
   @Observable
   @Nonnull

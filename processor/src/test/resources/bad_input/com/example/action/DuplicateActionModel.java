@@ -4,7 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 
 @ArezComponent
-public class DuplicateActionModel
+public abstract class DuplicateActionModel
 {
   @Action( name = "ace" )
   public void setField()

@@ -122,7 +122,7 @@ public class ObserversMutationParameterIntegrationTest
   }
 
   @ArezComponent( deferSchedule = true )
-  public static class Model1
+  public static abstract class Model1
   {
     String _name = "Initial";
     int _observerRunCount;
@@ -153,7 +153,7 @@ public class ObserversMutationParameterIntegrationTest
   }
 
   @ArezComponent( deferSchedule = true )
-  public static class Model2
+  public static abstract class Model2
   {
     String _name = "Initial";
     int _observerRunCount;
@@ -185,7 +185,7 @@ public class ObserversMutationParameterIntegrationTest
   }
 
   @ArezComponent( deferSchedule = true )
-  public static class Model3
+  public static abstract class Model3
   {
     String _name = "Initial";
     int _observerRunCount;
@@ -216,7 +216,7 @@ public class ObserversMutationParameterIntegrationTest
   }
 
   @ArezComponent
-  public static class Model4
+  public static abstract class Model4
   {
     String _name = "Initial";
     int _observerRunCount;
@@ -251,7 +251,7 @@ public class ObserversMutationParameterIntegrationTest
   }
 
   @ArezComponent
-  public static class Model5
+  public static abstract class Model5
   {
     String _name = "Initial";
     int _observerRunCount;
@@ -287,7 +287,7 @@ public class ObserversMutationParameterIntegrationTest
   }
 
   @ArezComponent
-  public static class Model6
+  public static abstract class Model6
   {
     String _name = "Initial";
     int _observerRunCount;

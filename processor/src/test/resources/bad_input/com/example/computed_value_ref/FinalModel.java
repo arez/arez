@@ -6,7 +6,7 @@ import arez.annotations.ComputedValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class FinalModel
+public abstract class FinalModel
 {
   @Computed
   public long getTime()

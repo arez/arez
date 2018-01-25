@@ -1,12 +1,11 @@
-package com.example.component_name;
+package com.example.component_name_ref;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentNameRef;
-import java.io.IOException;
 
 @ArezComponent
-public class ComponentNameThrowsExceptionModel
+public abstract class ComponentNameRefMustNotHaveParametersModel
 {
   @Action
   void myAction()
@@ -14,9 +13,5 @@ public class ComponentNameThrowsExceptionModel
   }
 
   @ComponentNameRef
-  String getTypeName()
-    throws IOException
-  {
-    return null;
-  }
+  abstract String getTypeName( int i );
 }

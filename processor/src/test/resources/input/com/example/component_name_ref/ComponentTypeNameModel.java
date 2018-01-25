@@ -1,4 +1,4 @@
-package com.example.component_name;
+package com.example.component_name_ref;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -6,7 +6,7 @@ import arez.annotations.ComponentNameRef;
 import arez.annotations.ComponentTypeNameRef;
 
 @ArezComponent
-public class ComponentTypeNameModel
+public abstract class ComponentTypeNameModel
 {
   @Action
   public void doStuff( final long time, float someOtherParameter )
@@ -14,14 +14,8 @@ public class ComponentTypeNameModel
   }
 
   @ComponentTypeNameRef
-  public String getTypeName()
-  {
-    return "";
-  }
+  public abstract String getTypeName();
 
   @ComponentNameRef
-  public String getComponentName()
-  {
-    return "";
-  }
+  public abstract String getComponentName();
 }

@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 
 @ArezComponent
-public class DeprecatedMemoizeModel
+public abstract class DeprecatedMemoizeModel
 {
   @Deprecated
   @Memoize

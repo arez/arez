@@ -5,7 +5,7 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 
 @ArezComponent
-public class OnDepsChangedThrowsExceptionModel
+public abstract class OnDepsChangedThrowsExceptionModel
 {
   @Track
   public void render()

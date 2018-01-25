@@ -6,7 +6,7 @@ import arez.annotations.Autorun;
 import arez.annotations.ObserverRef;
 
 @ArezComponent
-public class PrivateModel
+public abstract class PrivateModel
 {
   @Autorun
   public void doStuff()

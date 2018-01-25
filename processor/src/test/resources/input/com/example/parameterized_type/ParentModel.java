@@ -2,7 +2,7 @@ package com.example.parameterized_type;
 
 import arez.annotations.Observable;
 
-class ParentModel<T extends Number>
+abstract class ParentModel<T extends Number>
 {
   private T _value;
 

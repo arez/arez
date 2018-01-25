@@ -95,7 +95,7 @@ public class MemoizedIntegrationTest
 
   @SuppressWarnings( "WeakerAccess" )
   @ArezComponent
-  public static class PersonModel
+  public static abstract class PersonModel
   {
     private String _name;
     private int _age;

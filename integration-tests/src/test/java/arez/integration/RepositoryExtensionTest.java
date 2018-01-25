@@ -26,7 +26,7 @@ public class RepositoryExtensionTest
 
   @ArezComponent
   @Repository( extensions = TestComponentRepositoryExtension.class )
-  static class TestComponent
+  static abstract class TestComponent
   {
     private String _value;
 

@@ -6,7 +6,7 @@ import arez.annotations.ObservableRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class DuplicateRefMethodModel
+public abstract class DuplicateRefMethodModel
 {
   @Observable
   public long getTime()
@@ -20,15 +20,9 @@ public class DuplicateRefMethodModel
 
   @Nonnull
   @ObservableRef
-  public arez.Observable getTimeObservable()
-  {
-    throw new IllegalStateException();
-  }
+  public abstract arez.Observable getTimeObservable();
 
   @Nonnull
   @ObservableRef( name = "time" )
-  public arez.Observable getTimeObservable2()
-  {
-    throw new IllegalStateException();
-  }
+  public abstract arez.Observable getTimeObservable2();
 }

@@ -6,7 +6,7 @@ import arez.annotations.OnActivate;
 import java.text.ParseException;
 
 @ArezComponent
-public class OnActivateThrowsExceptionModel
+public abstract class OnActivateThrowsExceptionModel
 {
   @Computed
   public int getMyValue()

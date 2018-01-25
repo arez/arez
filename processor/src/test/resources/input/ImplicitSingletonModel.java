@@ -9,7 +9,7 @@ import javax.inject.Singleton;
 
 @Singleton
 @ArezComponent
-public class ImplicitSingletonModel
+public abstract class ImplicitSingletonModel
 {
   @Observable
   public long getTime()

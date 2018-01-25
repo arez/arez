@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 
 @ArezComponent
-public class ComputedThrowsExceptionModel
+public abstract class ComputedThrowsExceptionModel
 {
   @Computed
   public long getField()

@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 
 @ArezComponent
-public class BadNameMemoizeModel
+public abstract class BadNameMemoizeModel
 {
   @Memoize(name = "-ace")
   int getField( int key )

@@ -6,7 +6,7 @@ import arez.annotations.Observable;
 public class MyContainer
 {
   @ArezComponent
-  public static class MyComponent
+  public static abstract class MyComponent
   {
     //DOC ELIDE START
     private int _value;

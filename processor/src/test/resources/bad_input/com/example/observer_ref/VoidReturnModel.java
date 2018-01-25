@@ -5,7 +5,7 @@ import arez.annotations.Autorun;
 import arez.annotations.ObserverRef;
 
 @ArezComponent
-public class VoidReturnModel
+public abstract class VoidReturnModel
 {
   @Autorun
   public void doStuff()
@@ -13,8 +13,5 @@ public class VoidReturnModel
   }
 
   @ObserverRef
-  void getDoStuffObserver()
-  {
-    throw new IllegalStateException();
-  }
+  abstract void getDoStuffObserver();
 }

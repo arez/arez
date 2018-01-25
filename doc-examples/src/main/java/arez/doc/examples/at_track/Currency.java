@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @ArezComponent
-public class Currency
+public abstract class Currency
 {
   private BigDecimal _amount;
 

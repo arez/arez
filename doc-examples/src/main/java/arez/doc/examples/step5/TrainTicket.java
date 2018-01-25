@@ -9,7 +9,7 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 
 @ArezComponent
-public class TrainTicket
+public abstract class TrainTicket
 {
   private int _remainingRides;
 

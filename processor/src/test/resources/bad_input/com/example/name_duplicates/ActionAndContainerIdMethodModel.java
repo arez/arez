@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 
 @ArezComponent
-public class ActionAndContainerIdMethodModel
+public abstract class ActionAndContainerIdMethodModel
 {
   @ComponentId
   @Action

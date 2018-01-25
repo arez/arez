@@ -7,7 +7,7 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 
 @ArezComponent( nameIncludesId = false )
-public class SingletonModel
+public abstract class SingletonModel
 {
   @Observable
   public long getTime()

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 @ArezComponent
-public class ConcreteModel<W extends Writer>
+public abstract class ConcreteModel<W extends Writer>
   extends MiddleModel<W>
 {
   public ConcreteModel( final W writer )

@@ -5,7 +5,7 @@ import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
 
 @ArezComponent
-public class StaticModel
+public abstract class StaticModel
 {
   @Computed
   public long getTime()

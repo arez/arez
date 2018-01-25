@@ -48,7 +48,7 @@ import org.realityforge.anodoc.Unsupported;
  */
 @Unsupported( "This is still considered experimental and will likely evolve over time" )
 @ArezComponent( nameIncludesId = false )
-public class NetworkStatus
+public abstract class NetworkStatus
 {
   private final EventListener _listener;
   private boolean _rawOnLine;

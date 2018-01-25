@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Autorun;
 
 @ArezComponent
-public class DeprecatedAutorunModel
+public abstract class DeprecatedAutorunModel
 {
   @Deprecated
   @Autorun

@@ -1,11 +1,11 @@
-package com.example.component_name;
+package com.example.component_name_ref;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentNameRef;
 
 @ArezComponent
-public class ComponentNameMustReturnValueModel
+public abstract class ComponentNameRefMustReturnValueModel
 {
   @Action
   void myAction()
@@ -13,7 +13,5 @@ public class ComponentNameMustReturnValueModel
   }
 
   @ComponentNameRef
-  void getTypeName()
-  {
-  }
+  abstract void getTypeName();
 }

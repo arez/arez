@@ -5,11 +5,8 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
 
 @ArezComponent( allowEmpty = true )
-class ParametersModel
+abstract class ParametersModel
 {
   @ContextRef
-  ArezContext getContext( int i )
-  {
-    throw new IllegalStateException();
-  }
+  abstract ArezContext getContext( int i );
 }

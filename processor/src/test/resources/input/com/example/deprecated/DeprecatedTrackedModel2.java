@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Track;
 
 @ArezComponent
-public class DeprecatedTrackedModel2
+public abstract class DeprecatedTrackedModel2
 {
   @Track
   public void render( final long time, float someOtherParameter )

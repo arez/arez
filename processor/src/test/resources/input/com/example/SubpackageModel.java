@@ -6,7 +6,7 @@ import arez.annotations.Computed;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class SubpackageModel
+public abstract class SubpackageModel
 {
   @Observable
   public long getTime()

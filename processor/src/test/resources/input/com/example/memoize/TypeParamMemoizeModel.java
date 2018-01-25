@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 
 @ArezComponent
-public class TypeParamMemoizeModel<T>
+public abstract class TypeParamMemoizeModel<T>
 {
   @Memoize
   public T count( final String param )

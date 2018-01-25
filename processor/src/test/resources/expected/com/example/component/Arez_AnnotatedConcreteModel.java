@@ -1,4 +1,4 @@
-package com.example.component_name;
+package com.example.component;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -6,12 +6,11 @@ import arez.Component;
 import arez.Disposable;
 import arez.Observable;
 import javax.annotation.Generated;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_ComponentTypeNameAloneOnSingletonModel extends ComponentTypeNameAloneOnSingletonModel implements Disposable {
+public final class Arez_AnnotatedConcreteModel extends AnnotatedConcreteModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -25,11 +24,11 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
 
   private final Observable<Boolean> $$arez$$_disposedObservable;
 
-  public Arez_ComponentTypeNameAloneOnSingletonModel() {
+  public Arez_AnnotatedConcreteModel() {
     super();
     this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "ComponentTypeNameAloneOnSingletonModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "AnnotatedConcreteModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
     this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
@@ -45,12 +44,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
   }
 
   String $$arez$$_name() {
-    return "ComponentTypeNameAloneOnSingletonModel";
-  }
-
-  @Nonnull
-  public final String getTypeName() {
-    return "ComponentTypeNameAloneOnSingletonModel";
+    return "AnnotatedConcreteModel." + $$arez$$_id();
   }
 
   @Override
@@ -102,10 +96,10 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof Arez_ComponentTypeNameAloneOnSingletonModel) ) {
+    } else if ( null == o || !(o instanceof Arez_AnnotatedConcreteModel) ) {
       return false;
     } else {
-      final Arez_ComponentTypeNameAloneOnSingletonModel that = (Arez_ComponentTypeNameAloneOnSingletonModel) o;;
+      final Arez_AnnotatedConcreteModel that = (Arez_AnnotatedConcreteModel) o;;
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }

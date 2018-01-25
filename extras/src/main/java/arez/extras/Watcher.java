@@ -22,7 +22,7 @@ import org.realityforge.anodoc.TestOnly;
  * read-only or read-write, non-tracking transaction.</p>
  */
 @ArezComponent
-class Watcher
+abstract class Watcher
 {
   /**
    * A human consumable name for effect. It should be non-null if {@link Arez#areNamesEnabled()} returns
@@ -67,10 +67,7 @@ class Watcher
    * Get access to the context associated with the watcher.
    */
   @ContextRef
-  ArezContext context()
-  {
-    throw new IllegalStateException();
-  }
+  abstract ArezContext context();
 
   /**
    * Check the condition and when it returns true the run the effec and dispose the watcher.

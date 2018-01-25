@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 
 @ArezComponent
-public class ParameterizedComputedModel
+public abstract class ParameterizedComputedModel
 {
   @Computed
   public long getField( final int param )

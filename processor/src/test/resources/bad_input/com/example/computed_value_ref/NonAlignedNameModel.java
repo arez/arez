@@ -6,7 +6,7 @@ import arez.annotations.ComputedValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class NonAlignedNameModel
+public abstract class NonAlignedNameModel
 {
   @Computed
   public long getTime()
@@ -16,8 +16,5 @@ public class NonAlignedNameModel
 
   @Nonnull
   @ComputedValueRef
-  public arez.ComputedValue timeComputedValue()
-  {
-    throw new IllegalStateException();
-  }
+  public abstract arez.ComputedValue timeComputedValue();
 }

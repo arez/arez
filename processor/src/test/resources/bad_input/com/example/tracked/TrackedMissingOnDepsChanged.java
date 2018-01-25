@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Track;
 
 @ArezComponent
-public class TrackedMissingOnDepsChanged
+public abstract class TrackedMissingOnDepsChanged
 {
   @Track
   void render()

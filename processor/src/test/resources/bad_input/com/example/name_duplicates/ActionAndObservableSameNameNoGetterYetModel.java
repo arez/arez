@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class ActionAndObservableSameNameNoGetterYetModel
+public abstract class ActionAndObservableSameNameNoGetterYetModel
 {
   @Observable( name = "x" )
   public void setTime( final long time )

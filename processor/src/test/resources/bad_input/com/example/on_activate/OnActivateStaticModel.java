@@ -5,7 +5,7 @@ import arez.annotations.Computed;
 import arez.annotations.OnActivate;
 
 @ArezComponent
-public class OnActivateStaticModel
+public abstract class OnActivateStaticModel
 {
   @Computed
   public int getMyValue()

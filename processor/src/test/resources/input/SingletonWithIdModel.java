@@ -10,7 +10,7 @@ import javax.inject.Singleton;
 @SuppressWarnings( "DefaultAnnotationParam" )
 @Singleton
 @ArezComponent( nameIncludesId = true )
-public class SingletonWithIdModel
+public abstract class SingletonWithIdModel
 {
   @Observable
   public long getTime()

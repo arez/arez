@@ -29,7 +29,7 @@ import org.realityforge.braincheck.Guards;
     dagger = Feature.DISABLE
 )
 @Singleton
-public class DaggerDisabledRepositoryRepository {
+public abstract class DaggerDisabledRepositoryRepository {
   private final HashMap<Long, DaggerDisabledRepository> $$arez$$_entities = new HashMap<>();
   ;
 
@@ -81,9 +81,7 @@ public class DaggerDisabledRepositoryRepository {
   }
 
   @ObservableRef
-  Observable getEntitiesObservable() {
-    throw new IllegalStateException();
-  }
+  abstract Observable getEntitiesObservable();
 
   /**
    * Return the raw collection of entities in the repository.

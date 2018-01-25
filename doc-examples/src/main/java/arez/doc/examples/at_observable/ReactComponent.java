@@ -7,7 +7,7 @@ import arez.annotations.ObservableRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class ReactComponent
+public abstract class ReactComponent
 {
   @Observable( expectSetter = false )
   protected Props props()
@@ -18,14 +18,9 @@ public class ReactComponent
     //DOC ELIDE END
   }
 
+  //This will be overridden and implemented in the Arez subclass
   @ObservableRef
-  protected arez.Observable<Props> getPropsObservable()
-  {
-    //This will be overridden and implemented in the Arez subclass
-    //DOC ELIDE START
-    throw new IllegalStateException();
-    //DOC ELIDE END
-  }
+  abstract arez.Observable<Props> getPropsObservable();
 
   // This method is wrapped in an Action to ensure change is propagated
   // correctly in arez system.
@@ -42,6 +37,7 @@ public class ReactComponent
     //DOC ELIDE START
     //DOC ELIDE END
   }
+
   //DOC ELIDE START
   static class Props
   {

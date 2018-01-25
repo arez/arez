@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.OnStale;
 
 @ArezComponent
-public class ActionAndOnStaleMethodModel
+public abstract class ActionAndOnStaleMethodModel
 {
   @Action
   @OnStale

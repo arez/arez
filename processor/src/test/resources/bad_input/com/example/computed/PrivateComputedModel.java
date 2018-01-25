@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 
 @ArezComponent
-public class PrivateComputedModel
+public abstract class PrivateComputedModel
 {
   @Computed
   private long getField()

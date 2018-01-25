@@ -4,11 +4,8 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
 
 @ArezComponent( allowEmpty = true )
-class VoidModel
+abstract class VoidModel
 {
   @ContextRef
-  void getContext()
-  {
-    throw new IllegalStateException();
-  }
+  abstract void getContext();
 }

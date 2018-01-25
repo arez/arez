@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.OnDispose;
 
 @ArezComponent
-public class OnDisposeNoComputedModel
+public abstract class OnDisposeNoComputedModel
 {
   @OnDispose
   void onMyValueDispose()

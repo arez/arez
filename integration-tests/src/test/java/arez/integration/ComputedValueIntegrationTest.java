@@ -38,7 +38,7 @@ public class ComputedValueIntegrationTest
 
   @SuppressWarnings( "WeakerAccess" )
   @ArezComponent
-  public static class PersonModel
+  public static abstract class PersonModel
   {
     @Nonnull
     private String _firstName;

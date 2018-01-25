@@ -5,7 +5,7 @@ import arez.annotations.Autorun;
 import java.text.ParseException;
 
 @ArezComponent
-public class AutorunThrowsExceptionModel
+public abstract class AutorunThrowsExceptionModel
 {
   @Autorun
   void doStuff()

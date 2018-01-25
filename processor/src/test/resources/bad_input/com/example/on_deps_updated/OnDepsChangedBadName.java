@@ -5,7 +5,7 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 
 @ArezComponent
-public class OnDepsChangedBadName
+public abstract class OnDepsChangedBadName
 {
   @Track
   public void render()

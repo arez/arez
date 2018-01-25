@@ -6,12 +6,9 @@ import arez.annotations.ContextRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent( allowEmpty = true )
-class AnnotatedComponent
+abstract class AnnotatedComponent
 {
   @Nonnull
   @ContextRef
-  public ArezContext getContext()
-  {
-    throw new IllegalStateException();
-  }
+  public abstract ArezContext getContext();
 }

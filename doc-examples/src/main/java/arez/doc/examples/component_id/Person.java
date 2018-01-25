@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 
 @ArezComponent
-public class Person
+public abstract class Person
 {
   private final int _id;
 

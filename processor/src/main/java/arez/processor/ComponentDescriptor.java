@@ -303,6 +303,7 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     MethodChecks.mustBeOverridable( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotHaveAnyParameters( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
 
@@ -364,7 +365,7 @@ final class ComponentDescriptor
                           @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Constants.ACTION_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeWrappable( Constants.ACTION_ANNOTATION_CLASSNAME, method );
 
     final String name = deriveActionName( method, annotation );
     checkNameUnique( name, method, Constants.ACTION_ANNOTATION_CLASSNAME );
@@ -398,7 +399,7 @@ final class ComponentDescriptor
                            @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeWrappable( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotHaveAnyParameters( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotReturnAnyValue( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
@@ -480,6 +481,7 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     MethodChecks.mustBeOverridable( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotHaveAnyParameters( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
 
@@ -541,6 +543,7 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     MethodChecks.mustBeOverridable( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
 
@@ -696,6 +699,7 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     MethodChecks.mustBeOverridable( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotHaveAnyParameters( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustReturnAValue( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
@@ -723,6 +727,7 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     MethodChecks.mustBeOverridable( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustReturnAValue( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
@@ -749,6 +754,7 @@ final class ComponentDescriptor
   private void setComponentId( @Nonnull final ExecutableElement componentId )
     throws ArezProcessorException
   {
+    MethodChecks.mustNotBeAbstract( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
     MethodChecks.mustBeSubclassCallable( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
     MethodChecks.mustBeFinal( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
@@ -766,10 +772,11 @@ final class ComponentDescriptor
     }
   }
 
-  private void setComponentTypeName( @Nonnull final ExecutableElement componentTypeName )
+  private void setComponentTypeNameRef( @Nonnull final ExecutableElement componentTypeName )
     throws ArezProcessorException
   {
     MethodChecks.mustBeOverridable( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
+    MethodChecks.mustBeAbstract( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
     MethodChecks.mustReturnAValue( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
@@ -792,10 +799,11 @@ final class ComponentDescriptor
     }
   }
 
-  private void setComponentName( @Nonnull final ExecutableElement componentName )
+  private void setComponentNameRef( @Nonnull final ExecutableElement componentName )
     throws ArezProcessorException
   {
     MethodChecks.mustBeOverridable( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
+    MethodChecks.mustBeAbstract( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
     MethodChecks.mustReturnAValue( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
@@ -1058,6 +1066,28 @@ final class ComponentDescriptor
     linkUnAnnotatedObservables( getters, setters );
     linkUnAnnotatedTracked( trackeds, onDepsChangeds );
     linkObserverRefs();
+
+    /*
+     * ALl of the maps will have called remove() for all matching candidates.
+     * Thus any left are the non-arez methods.
+     */
+
+    ensureNoAbstractMethods( getters.values() );
+    ensureNoAbstractMethods( setters.values() );
+    ensureNoAbstractMethods( trackeds.values() );
+    ensureNoAbstractMethods( onDepsChangeds.values() );
+  }
+
+  private void ensureNoAbstractMethods( @Nonnull final Collection<CandidateMethod> candidateMethods )
+  {
+    candidateMethods
+      .stream()
+      .map( CandidateMethod::getMethod )
+      .filter( m -> m.getModifiers().contains( Modifier.ABSTRACT ) )
+      .forEach( m -> {
+        throw new ArezProcessorException( "@ArezComponent target has an abstract method not implemented by framework",
+                                          m );
+      } );
   }
 
   private void linkObserverRefs()
@@ -1100,7 +1130,7 @@ final class ComponentDescriptor
       }
       else if ( !observable.hasSetter() && observable.expectSetter() )
       {
-        final CandidateMethod candidate = setters.get( observable.getName() );
+        final CandidateMethod candidate = setters.remove( observable.getName() );
         if ( null != candidate )
         {
           observable.setSetter( candidate.getMethod(), candidate.getMethodType() );
@@ -1113,7 +1143,7 @@ final class ComponentDescriptor
       }
       else if ( !observable.hasGetter() )
       {
-        final CandidateMethod candidate = getters.get( observable.getName() );
+        final CandidateMethod candidate = getters.remove( observable.getName() );
         if ( null != candidate )
         {
           observable.setGetter( candidate.getMethod(), candidate.getMethodType() );
@@ -1135,7 +1165,7 @@ final class ComponentDescriptor
     {
       if ( !tracked.hasTrackedMethod() )
       {
-        final CandidateMethod candidate = trackeds.get( tracked.getName() );
+        final CandidateMethod candidate = trackeds.remove( tracked.getName() );
         if ( null != candidate )
         {
           tracked.setTrackedMethod( false, true, candidate.getMethod(), candidate.getMethodType() );
@@ -1148,7 +1178,7 @@ final class ComponentDescriptor
       }
       else if ( !tracked.hasOnDepsChangedMethod() )
       {
-        final CandidateMethod candidate = onDepsChangeds.get( tracked.getName() );
+        final CandidateMethod candidate = onDepsChangeds.remove( tracked.getName() );
         if ( null != candidate )
         {
           tracked.setOnDepsChangedMethod( candidate.getMethod() );
@@ -1282,12 +1312,12 @@ final class ComponentDescriptor
     }
     else if ( null != componentName )
     {
-      setComponentName( method );
+      setComponentNameRef( method );
       return true;
     }
     else if ( null != componentTypeName )
     {
-      setComponentTypeName( method );
+      setComponentTypeNameRef( method );
       return true;
     }
     else if ( null != ejbPostConstruct )
@@ -2224,6 +2254,8 @@ final class ComponentDescriptor
 
     ProcessorUtil.copyAccessModifiers( element, builder );
 
+    builder.addModifiers( Modifier.ABSTRACT );
+
     //Add the default access, no-args constructor
     builder.addMethod( MethodSpec.constructorBuilder().build() );
 
@@ -2452,12 +2484,10 @@ final class ComponentDescriptor
   @Nonnull
   private MethodSpec buildObservableAccessorMethod()
   {
-    final MethodSpec.Builder method =
-      MethodSpec.methodBuilder( GET_OBSERVABLE_METHOD ).
-        addAnnotation( ClassName.bestGuess( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME ) ).
-        returns( GeneratorUtil.OBSERVABLE_CLASSNAME );
-    method.addStatement( "throw new $T()", IllegalStateException.class );
-    return method.build();
+    return MethodSpec.methodBuilder( GET_OBSERVABLE_METHOD ).
+      addModifiers( Modifier.ABSTRACT ).
+      addAnnotation( ClassName.bestGuess( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME ) ).
+      returns( GeneratorUtil.OBSERVABLE_CLASSNAME ).build();
   }
 
   @Nonnull

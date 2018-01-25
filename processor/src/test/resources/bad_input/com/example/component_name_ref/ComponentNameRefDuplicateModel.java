@@ -1,11 +1,11 @@
-package com.example.component_name;
+package com.example.component_name_ref;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentNameRef;
 
 @ArezComponent
-public class ComponentNameMustNotHaveParametersModel
+public abstract class ComponentNameRefDuplicateModel
 {
   @Action
   void myAction()
@@ -13,8 +13,8 @@ public class ComponentNameMustNotHaveParametersModel
   }
 
   @ComponentNameRef
-  String getTypeName( int i )
-  {
-    return null;
-  }
+  abstract String getTypeName();
+
+  @ComponentNameRef
+  abstract String getTypeName2();
 }

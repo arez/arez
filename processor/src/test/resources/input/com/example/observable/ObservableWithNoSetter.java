@@ -5,7 +5,7 @@ import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
 
 @ArezComponent
-public class ObservableWithNoSetter
+public abstract class ObservableWithNoSetter
 {
   @Observable( expectSetter = false )
   public long getTime()
@@ -14,8 +14,5 @@ public class ObservableWithNoSetter
   }
 
   @ObservableRef
-  protected arez.Observable getTimeObservable()
-  {
-    throw new IllegalStateException();
-  }
+  protected abstract arez.Observable getTimeObservable();
 }

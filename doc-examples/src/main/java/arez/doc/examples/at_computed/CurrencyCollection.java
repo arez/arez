@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ArezComponent
-public class CurrencyCollection
+public abstract class CurrencyCollection
 {
   @Observable
   public String getFilter()

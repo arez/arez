@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Track;
 
 @ArezComponent
-public class DeprecatedTrackedModel1
+public abstract class DeprecatedTrackedModel1
 {
   @Track
   @Deprecated

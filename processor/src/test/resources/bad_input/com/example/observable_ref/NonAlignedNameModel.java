@@ -6,7 +6,7 @@ import arez.annotations.ObservableRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class NonAlignedNameModel
+public abstract class NonAlignedNameModel
 {
   @Observable
   public long getTime()
@@ -20,8 +20,5 @@ public class NonAlignedNameModel
 
   @Nonnull
   @ObservableRef
-  public arez.Observable timeObservable()
-  {
-    throw new IllegalStateException();
-  }
+  public abstract arez.Observable timeObservable();
 }

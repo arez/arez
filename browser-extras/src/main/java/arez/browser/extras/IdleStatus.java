@@ -57,7 +57,7 @@ import org.realityforge.anodoc.Unsupported;
  */
 @Unsupported( "This is still considered experimental and will likely evolve over time" )
 @ArezComponent( nameIncludesId = false )
-public class IdleStatus
+public abstract class IdleStatus
 {
   private static final long DEFAULT_TIMEOUT = 2000L;
   private final EventListener _listener = e -> resetLastActivityTime();

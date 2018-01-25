@@ -1,22 +1,23 @@
-package com.example.component;
+package com.example.component_id;
 
 import arez.annotations.ArezComponent;
+import arez.annotations.ComponentId;
 import arez.annotations.Observable;
 
 @ArezComponent
-public abstract class AbstractModel
+public abstract class ComponentIdNotAbstractModel
 {
-  private long _field;
+  @ComponentId
+  abstract long getId();
 
   @Observable
   public long getField()
   {
-    return _field;
+    return 0;
   }
 
   @Observable
   public void setField( final long field )
   {
-    _field = field;
   }
 }

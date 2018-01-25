@@ -4,7 +4,7 @@ import arez.annotations.PostDispose;
 import arez.annotations.PreDispose;
 
 @ArezComponent
-public class DisposingModel
+public abstract class DisposingModel
 {
   @PreDispose
   protected void preDispose()

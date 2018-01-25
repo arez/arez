@@ -6,7 +6,7 @@ import arez.annotations.Track;
 import java.text.ParseException;
 
 @ArezComponent
-public class TrackedAllTypesModel
+public abstract class TrackedAllTypesModel
 {
   @Track
   public void render1()

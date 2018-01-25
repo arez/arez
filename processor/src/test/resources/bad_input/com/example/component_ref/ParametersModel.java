@@ -5,11 +5,8 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
 
 @ArezComponent( allowEmpty = true )
-class ParametersModel
+abstract class ParametersModel
 {
   @ComponentRef
-  Component getComponent(int i)
-  {
-    throw new IllegalStateException();
-  }
+  abstract Component getComponent(int i);
 }

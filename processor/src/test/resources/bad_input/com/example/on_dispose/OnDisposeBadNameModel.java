@@ -5,7 +5,7 @@ import arez.annotations.Computed;
 import arez.annotations.OnDispose;
 
 @ArezComponent
-public class OnDisposeBadNameModel
+public abstract class OnDisposeBadNameModel
 {
   @Computed
   public int getMyValue()

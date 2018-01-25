@@ -6,7 +6,7 @@ import arez.annotations.ComputedValueRef;
 import java.text.ParseException;
 
 @ArezComponent
-public class ThrowsExceptionModel
+public abstract class ThrowsExceptionModel
 {
   @Computed
   public long getTime()
@@ -15,9 +15,6 @@ public class ThrowsExceptionModel
   }
 
   @ComputedValueRef
-  arez.ComputedValue getTimeComputedValue()
-    throws ParseException
-  {
-    throw new IllegalStateException();
-  }
+  abstract arez.ComputedValue getTimeComputedValue()
+    throws ParseException;
 }

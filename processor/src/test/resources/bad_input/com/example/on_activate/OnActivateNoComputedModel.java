@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.OnActivate;
 
 @ArezComponent
-public class OnActivateNoComputedModel
+public abstract class OnActivateNoComputedModel
 {
   @OnActivate
   void onMyValueActivate()

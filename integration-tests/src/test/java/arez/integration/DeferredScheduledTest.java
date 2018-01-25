@@ -10,7 +10,7 @@ public class DeferredScheduledTest
   extends AbstractIntegrationTest
 {
   @ArezComponent( deferSchedule = true )
-  public static class TestComponent
+  public static abstract class TestComponent
   {
     int _autorunCallCount;
 

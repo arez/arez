@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentTypeNameRef;
 
 @ArezComponent
-public class ComponentTypeNameDuplicateModel
+public abstract class ComponentTypeNameDuplicateModel
 {
   @Action
   void myAction()
@@ -13,14 +13,8 @@ public class ComponentTypeNameDuplicateModel
   }
 
   @ComponentTypeNameRef
-  String getTypeName()
-  {
-    return null;
-  }
+  abstract String getTypeName();
 
   @ComponentTypeNameRef
-  String getTypeName2()
-  {
-    return null;
-  }
+  abstract String getTypeName2();
 }

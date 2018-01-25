@@ -5,7 +5,7 @@ import arez.annotations.ComponentId;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class ComponentIdNotFinalModel
+public abstract class ComponentIdNotFinalModel
 {
   @ComponentId
   long getId()

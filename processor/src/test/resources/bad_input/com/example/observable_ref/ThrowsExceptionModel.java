@@ -7,7 +7,7 @@ import java.text.ParseException;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class ThrowsExceptionModel
+public abstract class ThrowsExceptionModel
 {
   @Observable
   public long getTime()
@@ -21,9 +21,6 @@ public class ThrowsExceptionModel
 
   @Nonnull
   @ObservableRef
-  public arez.Observable getTimeObservable()
-    throws ParseException
-  {
-    throw new IllegalStateException();
-  }
+  public abstract arez.Observable getTimeObservable()
+    throws ParseException;
 }

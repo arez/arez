@@ -6,7 +6,7 @@ import arez.annotations.Autorun;
 import arez.annotations.ObserverRef;
 
 @ArezComponent
-public class ExceptionModel
+public abstract class ExceptionModel
 {
   @Autorun
   public void doStuff()
@@ -14,9 +14,6 @@ public class ExceptionModel
   }
 
   @ObserverRef
-  Observer getDoStuffObserver()
-    throws Exception
-  {
-    throw new IllegalStateException();
-  }
+  abstract Observer getDoStuffObserver()
+    throws Exception;
 }

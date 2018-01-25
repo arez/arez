@@ -5,7 +5,7 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 
 @ArezComponent
-public class ProtectedAccessTrackedModel
+public abstract class ProtectedAccessTrackedModel
 {
   @Track
   protected void render( final long time, float someOtherParameter )

@@ -4,7 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 
 @ArezComponent
-public class PrivateActionModel
+public abstract class PrivateActionModel
 {
   @Action
   private void setField()

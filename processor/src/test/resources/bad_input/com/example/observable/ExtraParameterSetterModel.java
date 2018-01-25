@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class ExtraParameterSetterModel
+public abstract class ExtraParameterSetterModel
 {
   private long _field;
 

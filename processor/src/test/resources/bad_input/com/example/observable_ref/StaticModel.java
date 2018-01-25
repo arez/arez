@@ -6,7 +6,7 @@ import arez.annotations.ObservableRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class StaticModel
+public abstract class StaticModel
 {
   @Observable
   public long getTime()

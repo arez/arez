@@ -5,12 +5,9 @@ import arez.annotations.ComputedValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class NoComputedValueModel
+public abstract class NoComputedValueModel
 {
   @Nonnull
   @ComputedValueRef
-  public arez.ComputedValue getTimeComputedValue()
-  {
-    throw new IllegalStateException();
-  }
+  public abstract arez.ComputedValue getTimeComputedValue();
 }

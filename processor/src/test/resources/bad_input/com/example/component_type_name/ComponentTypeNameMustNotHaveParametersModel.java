@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentTypeNameRef;
 
 @ArezComponent
-public class ComponentTypeNameMustNotHaveParametersModel
+public abstract class ComponentTypeNameMustNotHaveParametersModel
 {
   @Action
   void myAction()
@@ -13,8 +13,5 @@ public class ComponentTypeNameMustNotHaveParametersModel
   }
 
   @ComponentTypeNameRef
-  String getTypeName( int i )
-  {
-    return null;
-  }
+  abstract String getTypeName( int i );
 }

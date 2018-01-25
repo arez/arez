@@ -6,7 +6,7 @@ import arez.annotations.Autorun;
 import arez.annotations.ObserverRef;
 
 @ArezComponent
-public class BadNameModel
+public abstract class BadNameModel
 {
   @Autorun
   public void doStuff()
@@ -14,8 +14,5 @@ public class BadNameModel
   }
 
   @ObserverRef( name = "-ace" )
-  Observer getDoStuffObserver()
-  {
-    throw new IllegalStateException();
-  }
+  abstract Observer getDoStuffObserver();
 }

@@ -4,7 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 
 @ArezComponent
-public class GenericsModel
+public abstract class GenericsModel
   extends GenericsMiddleModel<Integer>
 {
   @Action

@@ -5,7 +5,7 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 
 @ArezComponent
-public class TrackedDuplicatedModel
+public abstract class TrackedDuplicatedModel
 {
   @Track
   public void render()

@@ -8,7 +8,7 @@ import arez.annotations.OnDispose;
 import arez.annotations.OnStale;
 
 @ArezComponent
-public class DeprecatedComputedModel4
+public abstract class DeprecatedComputedModel4
 {
   @Computed
   public long getTime()

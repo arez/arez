@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 
 @ArezComponent
-public class ActionAndComputedSameNameModel
+public abstract class ActionAndComputedSameNameModel
 {
   @Computed( name = "x" )
   public long m1()

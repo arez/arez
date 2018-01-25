@@ -8,7 +8,7 @@ import arez.annotations.Track;
 import java.text.ParseException;
 
 @ArezComponent( type = "MyContainer" )
-public class OverrideNamesInModel
+public abstract class OverrideNamesInModel
 {
   @Observable( name = "myField" )
   public long getTime()

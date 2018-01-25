@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 
 @Repository
 @ArezComponent
-public class RepositoryWithProtectedConstructor
+public abstract class RepositoryWithProtectedConstructor
 {
   @Nonnull
   private String _name;

@@ -6,6 +6,16 @@
 * **\[processor\]** `@OnDepsChanged` method candidates that are not annotated were being incorrectly ignored
   if they had a final modifier. Final modifiers are now accepted.
 
+#### Changed
+* 💥 **\[processor\]** Classes annotated with the `arez.annotations.ArezComponent` annotation must be abstract
+  rather than concrete unless the parameter `allowConcrete` is set to `true`. This eliminates a class of bugs
+  resulting from developers instantiating the non-reactive component classes but still expecting the component
+  to be reactive.
+* 💥 **\[processor\]** The `arez.annotations.*Ref` annotations must only appear on abstract methods. Previously
+  these annotations would be placed on methods that throw exceptions or return dummy values with the expectation
+  that the generated subclass would override the methods to provide useful functionality. Now that types annotated
+  with `@ArezComponent` can be marked as abstract, these methods must now be abstract.
+
 ### [v0.43](https://github.com/arez/arez/tree/v0.43) (2018-01-24)
 [Full Changelog](https://github.com/arez/arez/compare/v0.42...v0.43)
 

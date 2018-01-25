@@ -6,7 +6,7 @@ import arez.annotations.Observable;
 import arez.annotations.OnStale;
 
 @ArezComponent
-public class ObservableAndOnStaleMethodModel
+public abstract class ObservableAndOnStaleMethodModel
 {
   private long _field;
 

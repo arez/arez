@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 
 @ArezComponent
-public class ComputedWithNameVariationsModel
+public abstract class ComputedWithNameVariationsModel
 {
   @Computed
   public long getTime()

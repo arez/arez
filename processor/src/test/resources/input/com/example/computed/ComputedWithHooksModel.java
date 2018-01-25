@@ -8,7 +8,7 @@ import arez.annotations.OnDispose;
 import arez.annotations.OnStale;
 
 @ArezComponent
-public class ComputedWithHooksModel
+public abstract class ComputedWithHooksModel
 {
   @Computed
   public long getTime()

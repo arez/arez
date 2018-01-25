@@ -2,7 +2,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class DifferentObservableTypesModel
+public abstract class DifferentObservableTypesModel
 {
   private boolean _v1;
   private byte _v2;

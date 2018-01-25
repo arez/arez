@@ -5,7 +5,7 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 
 @ArezComponent
-public class TrackedBadNameModel
+public abstract class TrackedBadNameModel
 {
   @Track(name = "-ace")
   static void render()

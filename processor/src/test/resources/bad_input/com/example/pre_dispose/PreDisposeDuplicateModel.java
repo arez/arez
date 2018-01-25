@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.PreDispose;
 
 @ArezComponent
-public class PreDisposeDuplicateModel
+public abstract class PreDisposeDuplicateModel
 {
   @PreDispose
   void foo()

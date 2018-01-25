@@ -3,7 +3,7 @@ import arez.annotations.Observable;
 import java.text.ParseException;
 
 @ArezComponent
-public class ObservableWithSpecificExceptionModel
+public abstract class ObservableWithSpecificExceptionModel
 {
   @Observable
   public long getTime()

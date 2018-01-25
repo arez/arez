@@ -2,16 +2,15 @@ package arez.doc.examples.at_autorun;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Autorun;
-import arez.doc.examples.at_action.Currency;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 
 @ArezComponent
-public class CurrencyView
+public abstract class CurrencyView
 {
-  private final Currency bitcoin = new Currency();
+  private final Currency bitcoin = new Arez_Currency();
 
-  @Autorun( mutation = false )
+  @Autorun
   public void renderView()
   {
     final Element element = DomGlobal.document.getElementById( "currencyTracker" );

@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 
 @ArezComponent
-public class FinalMemoizeModel
+public abstract class FinalMemoizeModel
 {
   @Memoize
   final int getField( int key )

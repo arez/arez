@@ -5,7 +5,7 @@ import arez.annotations.Computed;
 import arez.annotations.PostConstruct;
 
 @ArezComponent
-public class PostConstructDuplicateModel
+public abstract class PostConstructDuplicateModel
 {
   @Computed
   public int getMyValue()

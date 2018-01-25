@@ -13,15 +13,12 @@ public class ComputedValueRefTest
   extends AbstractIntegrationTest
 {
   @ArezComponent
-  static class TestComponent
+  static abstract class TestComponent
   {
     private int _otherID;
 
     @ComputedValueRef
-    ComputedValue<Integer> getOtherIDComputedValue()
-    {
-      throw new IllegalStateException();
-    }
+    abstract ComputedValue<Integer> getOtherIDComputedValue();
 
     String getOther()
     {

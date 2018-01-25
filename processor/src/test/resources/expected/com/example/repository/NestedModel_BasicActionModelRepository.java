@@ -27,7 +27,7 @@ import org.realityforge.braincheck.Guards;
     nameIncludesId = false
 )
 @Singleton
-public class NestedModel_BasicActionModelRepository {
+public abstract class NestedModel_BasicActionModelRepository {
   private final HashMap<Long, NestedModel.BasicActionModel> $$arez$$_entities = new HashMap<>();
   ;
 
@@ -79,9 +79,7 @@ public class NestedModel_BasicActionModelRepository {
   }
 
   @ObservableRef
-  Observable getEntitiesObservable() {
-    throw new IllegalStateException();
-  }
+  abstract Observable getEntitiesObservable();
 
   /**
    * Return the raw collection of entities in the repository.

@@ -261,7 +261,7 @@ public class NestedComputedValueIntegrationTest
 
   @SuppressWarnings( "WeakerAccess" )
   @ArezComponent
-  public static class FilterContext
+  public static abstract class FilterContext
   {
     private String _filter = "";
 
@@ -285,7 +285,7 @@ public class NestedComputedValueIntegrationTest
 
   @SuppressWarnings( "WeakerAccess" )
   @ArezComponent
-  public static class Node
+  public static abstract class Node
   {
     private final FilterContext _context;
     private final Node _parent;

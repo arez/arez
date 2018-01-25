@@ -6,7 +6,7 @@ import arez.annotations.ComputedValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class DuplicateRefMethodModel
+public abstract class DuplicateRefMethodModel
 {
   @Computed
   public long getTime()
@@ -16,14 +16,8 @@ public class DuplicateRefMethodModel
 
   @Nonnull
   @ComputedValueRef
-  public arez.ComputedValue getTimeComputedValue()
-  {
-    throw new IllegalStateException();
-  }
+  public abstract arez.ComputedValue getTimeComputedValue();
 
   @ComputedValueRef( name = "time" )
-  public arez.ComputedValue getTimeComputedValue2()
-  {
-    throw new IllegalStateException();
-  }
+  public abstract arez.ComputedValue getTimeComputedValue2();
 }

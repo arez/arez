@@ -6,7 +6,7 @@ import arez.annotations.Repository;
 
 @Repository( extensions = { RepositoryExtensionNotInterface.Foo.class } )
 @ArezComponent
-public class RepositoryExtensionNotInterface
+public abstract class RepositoryExtensionNotInterface
 {
   public enum Foo
   {

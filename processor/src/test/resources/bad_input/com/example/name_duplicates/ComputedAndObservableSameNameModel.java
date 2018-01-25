@@ -5,7 +5,7 @@ import arez.annotations.Computed;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class ComputedAndObservableSameNameModel
+public abstract class ComputedAndObservableSameNameModel
 {
   @Computed( name = "x" )
   public long m1()

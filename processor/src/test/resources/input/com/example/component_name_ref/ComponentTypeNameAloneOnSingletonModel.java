@@ -1,11 +1,11 @@
-package com.example.component_name;
+package com.example.component_name_ref;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentTypeNameRef;
 
 @ArezComponent( nameIncludesId = false )
-public class ComponentTypeNameAloneOnSingletonModel
+public abstract class ComponentTypeNameAloneOnSingletonModel
 {
   @Action
   public void doStuff( final long time, float someOtherParameter )
@@ -13,8 +13,5 @@ public class ComponentTypeNameAloneOnSingletonModel
   }
 
   @ComponentTypeNameRef
-  public String getTypeName()
-  {
-    return "";
-  }
+  public abstract String getTypeName();
 }

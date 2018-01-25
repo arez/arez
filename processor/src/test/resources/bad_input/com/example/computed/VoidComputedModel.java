@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 
 @ArezComponent
-public class VoidComputedModel
+public abstract class VoidComputedModel
 {
   @Computed
   public void getField()

@@ -19,7 +19,7 @@ public class RepositoryInjectIntegrationTest
 {
   @ArezComponent
   @Repository( inject = Feature.ENABLE )
-  static class TestComponent
+  static abstract class TestComponent
   {
     private String _value;
 

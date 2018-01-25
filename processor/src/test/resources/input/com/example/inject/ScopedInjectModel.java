@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 
 @Singleton
 @ArezComponent
-public class ScopedInjectModel
+public abstract class ScopedInjectModel
 {
   public ScopedInjectModel()
   {

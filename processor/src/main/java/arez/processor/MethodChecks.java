@@ -12,6 +12,18 @@ final class MethodChecks
   }
 
   /**
+   * Verifies that the method is not final, static, abstract or private.
+   * The intent is to verify that it can be overridden and wrapped in a sub-class in the same package.
+   */
+  static void mustBeWrappable( @Nonnull final String annotationName,
+                                 @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    mustBeOverridable( annotationName, method );
+    mustNotBeAbstract( annotationName, method );
+  }
+
+  /**
    * Verifies that the method is not final, static or abstract.
    * The intent is to verify that it can be overridden in sub-class in same package.
    */
@@ -45,6 +57,7 @@ final class MethodChecks
                                    @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
+    mustNotBeAbstract( annotationName, method );
     mustBeSubclassCallable( annotationName, method );
     mustNotHaveAnyParameters( annotationName, method );
     mustNotReturnAnyValue( annotationName, method );
@@ -58,6 +71,24 @@ final class MethodChecks
     if ( method.getModifiers().contains( Modifier.STATIC ) )
     {
       throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not be static", method );
+    }
+  }
+
+  static void mustNotBeAbstract( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    if ( method.getModifiers().contains( Modifier.ABSTRACT ) )
+    {
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not be abstract", method );
+    }
+  }
+
+  static void mustBeAbstract( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    if ( !method.getModifiers().contains( Modifier.ABSTRACT ) )
+    {
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must be abstract", method );
     }
   }
 

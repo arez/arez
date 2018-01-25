@@ -6,7 +6,7 @@ import arez.annotations.ComponentTypeNameRef;
 import java.io.IOException;
 
 @ArezComponent
-public class ComponentTypeNameThrowsExceptionModel
+public abstract class ComponentTypeNameThrowsExceptionModel
 {
   @Action
   void myAction()
@@ -14,9 +14,6 @@ public class ComponentTypeNameThrowsExceptionModel
   }
 
   @ComponentTypeNameRef
-  String getTypeName()
-    throws IOException
-  {
-    return null;
-  }
+  abstract String getTypeName()
+    throws IOException;
 }

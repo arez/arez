@@ -7,7 +7,7 @@ import arez.annotations.ComputedValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class BadNameModel
+public abstract class BadNameModel
 {
   @Computed
   public long getTime()
@@ -17,8 +17,5 @@ public class BadNameModel
 
   @Nonnull
   @ComputedValueRef( name = "-ace" )
-  public ComputedValue getTimeComputedValue()
-  {
-    throw new IllegalStateException();
-  }
+  abstract ComputedValue getTimeComputedValue();
 }

@@ -5,7 +5,7 @@ import arez.annotations.ComponentId;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class ComponentIdMustNotHaveParametersModel
+public abstract class ComponentIdMustNotHaveParametersModel
 {
   @ComponentId
   final long getId( final int ignored )

@@ -5,7 +5,7 @@ import arez.annotations.ComponentId;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class ObservableAndContainerIdMethodModel
+public abstract class ObservableAndContainerIdMethodModel
 {
   private long _field;
 

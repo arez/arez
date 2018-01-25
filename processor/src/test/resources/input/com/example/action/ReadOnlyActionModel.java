@@ -4,7 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 
 @ArezComponent
-public class ReadOnlyActionModel
+public abstract class ReadOnlyActionModel
 {
   @Action( mutation = false )
   public int queryStuff( final long time )

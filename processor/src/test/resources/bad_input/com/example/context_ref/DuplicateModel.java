@@ -5,17 +5,11 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
 
 @ArezComponent( allowEmpty = true )
-class DuplicateModel
+abstract class DuplicateModel
 {
   @ContextRef
-  ArezContext getContext()
-  {
-    throw new IllegalStateException();
-  }
+  abstract ArezContext getContext();
 
   @ContextRef
-  ArezContext getContext2()
-  {
-    throw new IllegalStateException();
-  }
+  abstract ArezContext getContext2();
 }

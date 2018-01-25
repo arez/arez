@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.PreDispose;
 
 @ArezComponent
-public class PreDisposePrivateModel
+public abstract class PreDisposePrivateModel
 {
   @PreDispose
   private void doStuff()

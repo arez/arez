@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 
 @Singleton
 @ArezComponent
-public class MultipleConstructorsScopedModel
+public abstract class MultipleConstructorsScopedModel
 {
   public MultipleConstructorsScopedModel()
   {

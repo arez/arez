@@ -46,7 +46,7 @@ import static org.realityforge.braincheck.Guards.*;
  */
 @Unsupported( "This is still considered experimental and will likely evolve over time" )
 @ArezComponent
-public class ObservablePromise<T, E>
+public abstract class ObservablePromise<T, E>
 {
   /**
    * The state of the promise.

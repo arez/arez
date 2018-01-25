@@ -6,7 +6,7 @@ public class NestedNestedModel
   public static class Something
   {
     @ArezComponent
-    public static class BasicActionModel
+    public static abstract class BasicActionModel
     {
       @Action
       public void doStuff( final long time )

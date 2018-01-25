@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.OnDepsChanged;
 
 @ArezComponent
-public class DeriveTrackedModel
+public abstract class DeriveTrackedModel
 {
   public void render( final long time, float someOtherParameter )
   {

@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 
 @Repository( name = "-abc" )
 @ArezComponent
-public class RepositoryBadName
+public abstract class RepositoryBadName
 {
   private String _name;
 

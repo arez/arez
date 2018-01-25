@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Autorun;
 
 @ArezComponent( deferSchedule = true )
-public class ScheduleDeferredModel
+public abstract class ScheduleDeferredModel
 {
   @Autorun
   public void doStuff()

@@ -28,7 +28,7 @@ import org.realityforge.anodoc.Unsupported;
  */
 @ArezComponent( nameIncludesId = false )
 @Unsupported( "This is still considered experimental and will likely evolve over time" )
-public class BrowserLocation
+public abstract class BrowserLocation
 {
   private final EventListener _listener = this::onHashChangeEvent;
 

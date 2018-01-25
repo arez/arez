@@ -10,13 +10,10 @@ public class ComponentRefTest
   extends AbstractIntegrationTest
 {
   @ArezComponent( allowEmpty = true )
-  static class TestComponent
+  static abstract class TestComponent
   {
     @ComponentRef
-    Component getComponent()
-    {
-      throw new IllegalStateException();
-    }
+    abstract Component getComponent();
   }
 
   @Test

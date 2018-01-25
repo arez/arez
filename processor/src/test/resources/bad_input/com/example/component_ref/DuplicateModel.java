@@ -5,17 +5,11 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
 
 @ArezComponent( allowEmpty = true )
-class DuplicateModel
+abstract class DuplicateModel
 {
   @ComponentRef
-  Component getComponent()
-  {
-    throw new IllegalStateException();
-  }
+  abstract Component getComponent();
 
   @ComponentRef
-  Component getComponent2()
-  {
-    throw new IllegalStateException();
-  }
+  abstract Component getComponent2();
 }

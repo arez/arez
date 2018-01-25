@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 
 @SuppressWarnings( "WeakerAccess" )
 @ArezComponent
-public class ObservableWithAnnotatedCtorModel
+public abstract class ObservableWithAnnotatedCtorModel
 {
   public ObservableWithAnnotatedCtorModel( @Nonnegative final long time,
                                            @SuppressWarnings( "" ) final long other,

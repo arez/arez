@@ -1,11 +1,11 @@
-package com.example.component_name;
+package com.example.component_name_ref;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentNameRef;
 
 @ArezComponent
-public class ComponentNameStaticModel
+public abstract class ComponentNameRefFinalModel
 {
   @Action
   void myAction()
@@ -13,7 +13,7 @@ public class ComponentNameStaticModel
   }
 
   @ComponentNameRef
-  static String getTypeName()
+  final String getTypeName()
   {
     return null;
   }

@@ -5,7 +5,7 @@ import arez.annotations.Computed;
 import arez.annotations.PostConstruct;
 
 @ArezComponent
-public class DeprecatedPostConstructModel
+public abstract class DeprecatedPostConstructModel
 {
   @Deprecated
   @PostConstruct

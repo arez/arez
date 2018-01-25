@@ -5,7 +5,7 @@ import arez.annotations.PostDispose;
 import java.text.ParseException;
 
 @ArezComponent
-public class PostDisposeThrowsExceptionModel
+public abstract class PostDisposeThrowsExceptionModel
 {
   @PostDispose
   void doStuff()

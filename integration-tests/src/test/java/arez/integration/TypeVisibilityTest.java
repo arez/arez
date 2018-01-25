@@ -13,7 +13,7 @@ public class TypeVisibilityTest
 {
   @SuppressWarnings( "WeakerAccess" )
   @ArezComponent( dagger = Feature.ENABLE )
-  public static class PersonModel
+  public static abstract class PersonModel
   {
     PersonModel()
     {
@@ -33,7 +33,7 @@ public class TypeVisibilityTest
 
   @SuppressWarnings( "WeakerAccess" )
   @ArezComponent( dagger = Feature.ENABLE )
-  public static class PersonModel2
+  public static abstract class PersonModel2
   {
     @Observable
     @Nonnull

@@ -5,7 +5,7 @@ import arez.annotations.Memoize;
 import java.io.IOException;
 
 @ArezComponent
-public class ThrowsExceptionMemoizeModel
+public abstract class ThrowsExceptionMemoizeModel
 {
   @Memoize
   int getField( int key )

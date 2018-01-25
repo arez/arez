@@ -113,10 +113,6 @@ public final class ArezProcessor
     {
       throw new ArezProcessorException( "@ArezComponent target must be a class", typeElement );
     }
-    else if ( typeElement.getModifiers().contains( Modifier.ABSTRACT ) )
-    {
-      throw new ArezProcessorException( "@ArezComponent target must not be abstract", typeElement );
-    }
     else if ( typeElement.getModifiers().contains( Modifier.FINAL ) )
     {
       throw new ArezProcessorException( "@ArezComponent target must not be final", typeElement );
@@ -136,6 +132,7 @@ public final class ArezProcessor
     final boolean nameIncludesIdDefault = null == singletonAnnotation;
     final boolean nameIncludesId =
       null == nameIncludesIdValue ? nameIncludesIdDefault : (boolean) nameIncludesIdValue.getValue();
+    final boolean allowConcrete = getAnnotationParameter( arezComponent, "allowConcrete" );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
     final List<AnnotationMirror> scopeAnnotations =
       typeElement.getAnnotationMirrors().stream().filter( this::isScopeAnnotation ).collect( Collectors.toList() );
@@ -143,6 +140,12 @@ public final class ArezProcessor
     final boolean inject = isInjectionRequired( typeElement, scopeAnnotation );
     final boolean dagger = isDaggerRequired( typeElement, scopeAnnotation );
     final boolean deferSchedule = getAnnotationParameter( arezComponent, "deferSchedule" );
+
+    if ( !typeElement.getModifiers().contains( Modifier.ABSTRACT ) && !allowConcrete )
+    {
+      throw new ArezProcessorException( "@ArezComponent target must be abstract unless the allowConcrete " +
+                                        "parameter is set to true", typeElement );
+    }
 
     final String type =
       ProcessorUtil.isSentinelName( declaredType ) ? typeElement.getSimpleName().toString() : declaredType;

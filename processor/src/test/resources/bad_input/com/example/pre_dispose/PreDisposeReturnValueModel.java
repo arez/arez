@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.PreDispose;
 
 @ArezComponent
-public class PreDisposeReturnValueModel
+public abstract class PreDisposeReturnValueModel
 {
   @PreDispose
   int doStuff()

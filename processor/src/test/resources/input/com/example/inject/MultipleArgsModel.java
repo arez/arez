@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 
 @ArezComponent( inject = Feature.ENABLE )
-public class MultipleArgsModel
+public abstract class MultipleArgsModel
 {
   public MultipleArgsModel( int i, String foo )
   {

@@ -3,7 +3,7 @@ package com.example.inheritance;
 import arez.annotations.ArezComponent;
 
 @ArezComponent
-class MyModel
+abstract class MyModel
   extends ParentModel
 {
 }

@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class BadObservableName2Model
+public abstract class BadObservableName2Model
 {
   private long _field;
 

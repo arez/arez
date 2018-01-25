@@ -6,7 +6,7 @@ import arez.annotations.Observable;
 import arez.annotations.PreDispose;
 
 @ArezComponent
-public class ObservableAndPreDisposeMethodModel
+public abstract class ObservableAndPreDisposeMethodModel
 {
   private long _field;
 

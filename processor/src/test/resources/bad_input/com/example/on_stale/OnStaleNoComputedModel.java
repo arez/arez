@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.OnStale;
 
 @ArezComponent
-public class OnStaleNoComputedModel
+public abstract class OnStaleNoComputedModel
 {
   @OnStale
   void onMyValueStale()

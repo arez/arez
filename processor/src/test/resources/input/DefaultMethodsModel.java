@@ -1,7 +1,7 @@
 import arez.annotations.ArezComponent;
 
 @ArezComponent
-public class DefaultMethodsModel
+public abstract class DefaultMethodsModel
   implements MyAnnotatedInterface
 {
 }

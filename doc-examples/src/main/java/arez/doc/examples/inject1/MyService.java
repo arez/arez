@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 
 @Singleton
 @ArezComponent
-public class MyService
+public abstract class MyService
 {
   @Action
   public void performAction( final int value )

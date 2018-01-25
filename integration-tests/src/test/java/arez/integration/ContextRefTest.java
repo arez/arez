@@ -11,13 +11,10 @@ public class ContextRefTest
   extends AbstractIntegrationTest
 {
   @ArezComponent( allowEmpty = true )
-  static class TestComponent
+  static abstract class TestComponent
   {
     @ContextRef
-    ArezContext getContext()
-    {
-      throw new IllegalStateException();
-    }
+    abstract ArezContext getContext();
   }
 
   @Test

@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 
 @ArezComponent( allowEmpty = true )
-public class IntComponentId
+public abstract class IntComponentId
 {
   @ComponentId
   public final int getId()

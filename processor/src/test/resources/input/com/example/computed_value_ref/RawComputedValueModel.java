@@ -5,7 +5,7 @@ import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
 
 @ArezComponent
-public class RawComputedValueModel
+public abstract class RawComputedValueModel
 {
   @Computed
   public long getTime()
@@ -14,8 +14,5 @@ public class RawComputedValueModel
   }
 
   @ComputedValueRef
-  arez.ComputedValue getTimeComputedValue()
-  {
-    throw new IllegalStateException();
-  }
+  abstract arez.ComputedValue getTimeComputedValue();
 }

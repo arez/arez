@@ -4,11 +4,8 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
 
 @ArezComponent( allowEmpty = true )
-class BadTypeModel
+abstract class BadTypeModel
 {
   @ContextRef
-  String getContext()
-  {
-    throw new IllegalStateException();
-  }
+  abstract String getContext();
 }

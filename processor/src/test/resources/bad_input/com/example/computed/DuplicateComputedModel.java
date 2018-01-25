@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 
 @ArezComponent
-public class DuplicateComputedModel
+public abstract class DuplicateComputedModel
 {
   @Computed( name = "ace" )
   public int getX()

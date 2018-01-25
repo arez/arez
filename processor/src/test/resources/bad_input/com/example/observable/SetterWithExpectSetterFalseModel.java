@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class SetterWithExpectSetterFalseModel
+public abstract class SetterWithExpectSetterFalseModel
 {
   private long _field;
 

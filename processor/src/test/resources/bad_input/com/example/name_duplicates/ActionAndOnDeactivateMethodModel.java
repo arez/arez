@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.OnDeactivate;
 
 @ArezComponent
-public class ActionAndOnDeactivateMethodModel
+public abstract class ActionAndOnDeactivateMethodModel
 {
   @Action
   @OnDeactivate

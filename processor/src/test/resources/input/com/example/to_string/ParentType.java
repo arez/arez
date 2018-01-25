@@ -1,6 +1,6 @@
 package com.example.to_string;
 
-public class ParentType
+public abstract class ParentType
 {
   @Override
   public String toString()

@@ -5,9 +5,9 @@ import arez.annotations.ArezComponent;
 import java.math.BigDecimal;
 
 @ArezComponent
-public class Wallet
+public abstract class Wallet
 {
-  private final Currency aud = new Currency();
+  private final Currency aud = new Arez_Currency();
 
   // A read-write action that updates observable value
   @Action

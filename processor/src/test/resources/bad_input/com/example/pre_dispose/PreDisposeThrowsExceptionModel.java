@@ -5,7 +5,7 @@ import arez.annotations.PreDispose;
 import java.text.ParseException;
 
 @ArezComponent
-public class PreDisposeThrowsExceptionModel
+public abstract class PreDisposeThrowsExceptionModel
 {
   @PreDispose
   void doStuff()

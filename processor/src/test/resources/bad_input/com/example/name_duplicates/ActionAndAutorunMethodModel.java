@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Autorun;
 
 @ArezComponent
-public class ActionAndAutorunMethodModel
+public abstract class ActionAndAutorunMethodModel
 {
   @Autorun
   @Action

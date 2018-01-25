@@ -6,7 +6,7 @@ import arez.annotations.Repository;
 
 @Repository( extensions = { RepositoryExtensionHasBadSelf.Foo.class } )
 @ArezComponent
-public class RepositoryExtensionHasBadSelf
+public abstract class RepositoryExtensionHasBadSelf
 {
   public interface Foo
   {

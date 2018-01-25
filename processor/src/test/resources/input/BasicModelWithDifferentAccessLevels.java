@@ -3,7 +3,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class BasicModelWithDifferentAccessLevels
+public abstract class BasicModelWithDifferentAccessLevels
 {
   private String _value;
   private long _time;

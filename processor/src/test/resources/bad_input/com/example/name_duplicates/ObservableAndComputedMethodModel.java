@@ -5,7 +5,7 @@ import arez.annotations.Computed;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class ObservableAndComputedMethodModel
+public abstract class ObservableAndComputedMethodModel
 {
   private long _field;
 

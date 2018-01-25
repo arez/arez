@@ -6,7 +6,7 @@ import arez.annotations.Autorun;
 import arez.annotations.ObserverRef;
 
 @ArezComponent
-public class ParametersModel
+public abstract class ParametersModel
 {
   @Autorun
   public void doStuff()
@@ -14,8 +14,5 @@ public class ParametersModel
   }
 
   @ObserverRef
-  Observer getDoStuffObserver( int i )
-  {
-    throw new IllegalStateException();
-  }
+  abstract Observer getDoStuffObserver( int i );
 }

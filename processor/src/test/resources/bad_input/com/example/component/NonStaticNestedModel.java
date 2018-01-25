@@ -6,7 +6,7 @@ import arez.annotations.Observable;
 public final class NonStaticNestedModel
 {
   @ArezComponent
-  public class NestedModel
+  public abstract class NestedModel
   {
     private long _field;
 

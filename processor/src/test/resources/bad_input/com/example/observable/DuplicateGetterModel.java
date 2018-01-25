@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class DuplicateGetterModel
+public abstract class DuplicateGetterModel
 {
   private long _field;
 

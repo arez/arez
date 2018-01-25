@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 
 @ArezComponent
-public class EjbPostConstructModel
+public abstract class EjbPostConstructModel
 {
   @Computed
   public int getMyValue()

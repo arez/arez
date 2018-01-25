@@ -5,11 +5,8 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ObserverRef;
 
 @ArezComponent
-public class RefOnNeitherModel
+public abstract class RefOnNeitherModel
 {
   @ObserverRef
-  Observer getRenderObserver()
-  {
-    throw new IllegalStateException();
-  }
+  abstract Observer getRenderObserver();
 }

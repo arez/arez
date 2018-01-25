@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class MyModel
+public abstract class MyModel
 {
   private int _value;
 

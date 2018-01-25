@@ -5,7 +5,7 @@ import arez.annotations.Autorun;
 import arez.annotations.ObserverRef;
 
 @ArezComponent
-public class BadReturnTypeModel
+public abstract class BadReturnTypeModel
 {
   @Autorun
   public void doStuff()
@@ -13,8 +13,5 @@ public class BadReturnTypeModel
   }
 
   @ObserverRef
-  String getDoStuffObserver()
-  {
-    throw new IllegalStateException();
-  }
+  abstract String getDoStuffObserver();
 }

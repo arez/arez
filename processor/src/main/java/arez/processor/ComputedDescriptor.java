@@ -100,7 +100,7 @@ final class ComputedDescriptor
   {
     //The caller already verified that no duplicate computed have been defined
     assert null == _computed;
-    MethodChecks.mustBeOverridable( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
+    MethodChecks.mustBeWrappable( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
     MethodChecks.mustReturnAValue( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );

@@ -3,7 +3,7 @@ import arez.annotations.Observable;
 
 @SuppressWarnings( "WeakerAccess" )
 @ArezComponent
-public class ObservableWithExceptingCtorModel
+public abstract class ObservableWithExceptingCtorModel
 {
   public ObservableWithExceptingCtorModel()
     throws Exception

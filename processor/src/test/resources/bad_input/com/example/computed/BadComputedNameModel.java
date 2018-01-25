@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 
 @ArezComponent
-public class BadComputedNameModel
+public abstract class BadComputedNameModel
 {
   @Computed( name = "-ace" )
   public int setField()

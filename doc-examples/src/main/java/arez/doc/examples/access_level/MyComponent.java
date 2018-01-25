@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class MyComponent
+public abstract class MyComponent
 {
   public static MyComponent create()
   {

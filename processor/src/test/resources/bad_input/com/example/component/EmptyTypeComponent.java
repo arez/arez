@@ -3,6 +3,6 @@ package com.example.component;
 import arez.annotations.ArezComponent;
 
 @ArezComponent( type = "" )
-public class EmptyTypeComponent
+public abstract class EmptyTypeComponent
 {
 }

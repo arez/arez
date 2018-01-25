@@ -5,7 +5,7 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 
 @ArezComponent
-public class NoReportParametersModel
+public abstract class NoReportParametersModel
 {
   @Track( reportParameters = false )
   public void render( final long time, float someOtherParameter )

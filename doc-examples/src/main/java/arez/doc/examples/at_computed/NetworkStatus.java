@@ -10,7 +10,7 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 
 @ArezComponent
-public class NetworkStatus
+public abstract class NetworkStatus
 {
   private final EventListener _listener;
   private boolean _rawOnLine;

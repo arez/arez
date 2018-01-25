@@ -72,6 +72,14 @@ public @interface ArezComponent
   boolean allowEmpty() default false;
 
   /**
+   * Return true if the component type does not need to be abstract.
+   * Otherwise an error will be generated if this annotation is added to a concrete type.
+   *
+   * @return true true if the component type does not need to be abstract.
+   */
+  boolean allowConcrete() default false;
+
+  /**
    * Indicate whether an @Inject annotation should be added to constructor of the generated class.
    * {@link Feature#ENABLE} will force the addition of an @Inject annotation, {@link Feature#DISABLE}
    * will result in no @Inject annotation and {@link Feature#AUTODETECT} will add an @Inject

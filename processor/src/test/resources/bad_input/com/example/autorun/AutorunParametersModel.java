@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Autorun;
 
 @ArezComponent
-public class AutorunParametersModel
+public abstract class AutorunParametersModel
 {
   @Autorun
   void doStuff( int i )

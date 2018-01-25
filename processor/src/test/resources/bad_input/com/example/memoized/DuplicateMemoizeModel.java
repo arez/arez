@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 
 @ArezComponent
-public class DuplicateMemoizeModel
+public abstract class DuplicateMemoizeModel
 {
   @Memoize
   int method1( int key )

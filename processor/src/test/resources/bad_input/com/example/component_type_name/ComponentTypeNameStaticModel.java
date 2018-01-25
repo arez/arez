@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentTypeNameRef;
 
 @ArezComponent
-public class ComponentTypeNameStaticModel
+public abstract class ComponentTypeNameStaticModel
 {
   @Action
   void myAction()

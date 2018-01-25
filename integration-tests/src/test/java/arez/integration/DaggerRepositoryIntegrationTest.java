@@ -16,7 +16,7 @@ public class DaggerRepositoryIntegrationTest
 {
   @ArezComponent
   @Repository( dagger = Feature.ENABLE )
-  static class TestComponent
+  static abstract class TestComponent
   {
     private String _value;
 

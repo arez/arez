@@ -10,7 +10,7 @@ public class ConstructBeforeScheduledTest
   extends AbstractIntegrationTest
 {
   @ArezComponent
-  public static class TestComponent
+  public static abstract class TestComponent
   {
     boolean _postConstructCalled;
     boolean _autorunCalledBeforePostConstructCalled;

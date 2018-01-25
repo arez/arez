@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.PostDispose;
 
 @ArezComponent
-public class PostDisposeStaticModel
+public abstract class PostDisposeStaticModel
 {
   @PostDispose
   static void doStuff()

@@ -4,7 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 
 @ArezComponent
-public class BadActionName2Model
+public abstract class BadActionName2Model
 {
   @Action( name = "ace-" )
   public void setField()

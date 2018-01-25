@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class ActionDuplicatesObservableNameModel
+public abstract class ActionDuplicatesObservableNameModel
 {
   private long _field;
 

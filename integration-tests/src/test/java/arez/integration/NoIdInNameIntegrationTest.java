@@ -40,7 +40,7 @@ public class NoIdInNameIntegrationTest
 
   @SuppressWarnings( "WeakerAccess" )
   @ArezComponent( nameIncludesId = false )
-  public static class PersonModel
+  public static abstract class PersonModel
   {
     @Nonnull
     private String _firstName;

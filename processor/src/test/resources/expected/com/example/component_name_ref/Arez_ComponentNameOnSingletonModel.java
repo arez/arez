@@ -1,4 +1,4 @@
-package com.example.component_name;
+package com.example.component_name_ref;
 
 import arez.Arez;
 import arez.ArezContext;

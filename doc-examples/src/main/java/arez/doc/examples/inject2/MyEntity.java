@@ -6,7 +6,7 @@ import arez.annotations.Repository;
 
 @ArezComponent
 @Repository
-public class MyEntity
+public abstract class MyEntity
 {
   private int _value;
 

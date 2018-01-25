@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 
 @ArezComponent
-public class ActionAndComputedMethodModel
+public abstract class ActionAndComputedMethodModel
 {
   @Computed
   @Action

@@ -5,12 +5,9 @@ import arez.annotations.ObservableRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class NoObservableModel
+public abstract class NoObservableModel
 {
   @Nonnull
   @ObservableRef
-  public arez.Observable getTimeObservable()
-  {
-    throw new IllegalStateException();
-  }
+  public abstract arez.Observable getTimeObservable();
 }

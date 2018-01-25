@@ -5,11 +5,8 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
 
 @ArezComponent( allowEmpty = true )
-class ProtectedAccessComponent
+abstract class ProtectedAccessComponent
 {
   @ComponentRef
-  protected Component getComponent()
-  {
-    throw new IllegalStateException();
-  }
+  protected abstract Component getComponent();
 }

@@ -35,7 +35,7 @@ import static org.realityforge.braincheck.Guards.*;
  * }</pre>
  */
 @ArezComponent
-public class IntervalTicker
+public abstract class IntervalTicker
 {
   /**
    * The duration between ticks. Must be a postivive value.

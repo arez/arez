@@ -4,11 +4,8 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
 
 @ArezComponent( allowEmpty = true )
-class VoidModel
+abstract class VoidModel
 {
   @ComponentRef
-  void getComponent()
-  {
-    throw new IllegalStateException();
-  }
+  abstract void getComponent();
 }

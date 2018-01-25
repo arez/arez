@@ -50,7 +50,7 @@ public class WhenIntegrationTest
   }
 
   @ArezComponent( type = "Time", nameIncludesId = false )
-  public static class TimeModel
+  public static abstract class TimeModel
     implements TimeModelExtension
   {
     private long _time;

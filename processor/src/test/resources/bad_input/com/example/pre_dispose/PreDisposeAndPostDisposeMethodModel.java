@@ -5,7 +5,7 @@ import arez.annotations.PostDispose;
 import arez.annotations.PreDispose;
 
 @ArezComponent
-public class PreDisposeAndPostDisposeMethodModel
+public abstract class PreDisposeAndPostDisposeMethodModel
 {
   @PreDispose
   @PostDispose

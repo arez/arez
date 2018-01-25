@@ -2,7 +2,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class ObservableModelWithUnconventionalNames
+public abstract class ObservableModelWithUnconventionalNames
 {
   @Observable
   public long time()

@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class TrainTicket
+public abstract class TrainTicket
 {
   private int _remainingRides;
 

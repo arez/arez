@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentTypeNameRef;
 
 @ArezComponent
-public class ComponentTypeNameReturnNonStringModel
+public abstract class ComponentTypeNameReturnNonStringModel
 {
   @Action
   void myAction()
@@ -13,8 +13,5 @@ public class ComponentTypeNameReturnNonStringModel
   }
 
   @ComponentTypeNameRef
-  Integer getTypeName()
-  {
-    return null;
-  }
+  abstract Integer getTypeName();
 }

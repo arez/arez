@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class PrivateObservableSetterModel
+public abstract class PrivateObservableSetterModel
 {
   private long _field;
 

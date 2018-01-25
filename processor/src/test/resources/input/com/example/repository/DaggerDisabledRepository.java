@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 @Repository( dagger = Feature.DISABLE )
 @ArezComponent
-public class DaggerDisabledRepository
+public abstract class DaggerDisabledRepository
 {
   @Nonnull
   private String _name;

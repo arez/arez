@@ -6,7 +6,7 @@ import arez.annotations.Repository;
 
 @Repository( extensions = { RepositoryExtensionIsClass.Foo.class } )
 @ArezComponent
-public class RepositoryExtensionIsClass
+public abstract class RepositoryExtensionIsClass
 {
   public static class Foo
   {

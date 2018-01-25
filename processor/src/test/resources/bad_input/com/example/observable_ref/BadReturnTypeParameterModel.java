@@ -6,7 +6,7 @@ import arez.annotations.ObservableRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class BadReturnTypeParameterModel
+public abstract class BadReturnTypeParameterModel
 {
   @Observable
   public long getTime()
@@ -20,8 +20,5 @@ public class BadReturnTypeParameterModel
 
   @Nonnull
   @ObservableRef
-  public arez.Observable<String> getTimeObservable()
-  {
-    throw new IllegalStateException();
-  }
+  abstract arez.Observable<String> getTimeObservable();
 }

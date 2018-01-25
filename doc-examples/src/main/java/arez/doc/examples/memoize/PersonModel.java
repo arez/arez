@@ -6,7 +6,7 @@ import arez.annotations.Observable;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public class PersonModel
+public abstract class PersonModel
 {
   private String _name;
 

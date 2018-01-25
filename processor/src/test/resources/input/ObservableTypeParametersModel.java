@@ -2,7 +2,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class ObservableTypeParametersModel<T extends Integer>
+public abstract class ObservableTypeParametersModel<T extends Integer>
 {
   @Observable
   public T getTime()

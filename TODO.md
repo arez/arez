@@ -8,10 +8,6 @@ complete as there is too much un-said.
 
 * If the pair of Observable getters are abstract then the generator should be able to supply the implementation.
 
-* Consider forcing all `@ArezComponent` annotated types to being abstract. Avoids bug where non-reactive example
-  can be instantiated. Maybe add a parameter to `@ArezComponent` that allows concrete classes and default it to
-  false.
-
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
   - `arez-browserlocation`

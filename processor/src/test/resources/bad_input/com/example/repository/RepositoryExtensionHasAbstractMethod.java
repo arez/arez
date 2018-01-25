@@ -6,7 +6,7 @@ import arez.annotations.Repository;
 
 @Repository( extensions = { RepositoryExtensionHasAbstractMethod.Foo.class } )
 @ArezComponent
-public class RepositoryExtensionHasAbstractMethod
+public abstract class RepositoryExtensionHasAbstractMethod
 {
   public interface Foo
   {

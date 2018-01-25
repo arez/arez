@@ -6,7 +6,7 @@ import arez.annotations.Observable;
 import arez.annotations.OnDeactivate;
 
 @ArezComponent
-public class ObservableAndOnDeactivateMethodModel
+public abstract class ObservableAndOnDeactivateMethodModel
 {
   private long _field;
 

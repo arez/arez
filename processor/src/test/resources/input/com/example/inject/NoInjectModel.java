@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 
 @ArezComponent( inject = Feature.DISABLE )
-public class NoInjectModel
+public abstract class NoInjectModel
 {
   public NoInjectModel()
   {

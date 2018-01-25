@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public class FinalObservableGetterModel
+public abstract class FinalObservableGetterModel
 {
   private long _field;
 

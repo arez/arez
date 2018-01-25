@@ -44,7 +44,7 @@ public class DisposeIntegrationTest
 
   @SuppressWarnings( "WeakerAccess" )
   @ArezComponent
-  public static class CodeModel
+  public static abstract class CodeModel
   {
     @Nonnull
     private String _name;

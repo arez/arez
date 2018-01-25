@@ -6,7 +6,7 @@ import arez.annotations.Observable;
 import arez.annotations.PostDispose;
 
 @ArezComponent
-public class ObservableAndPostDisposeMethodModel
+public abstract class ObservableAndPostDisposeMethodModel
 {
   private long _field;
 

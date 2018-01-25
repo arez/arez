@@ -19,7 +19,7 @@ public class BasicRepositoryIntegrationTest
 {
   @ArezComponent
   @Repository
-  static class TestComponent
+  static abstract class TestComponent
   {
     private final int _id;
     private String _value;

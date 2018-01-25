@@ -29,7 +29,7 @@ import org.realityforge.braincheck.Guards;
     inject = Feature.ENABLE
 )
 @Singleton
-public class InjectEnabledRepositoryRepository {
+public abstract class InjectEnabledRepositoryRepository {
   private final HashMap<Long, InjectEnabledRepository> $$arez$$_entities = new HashMap<>();
   ;
 
@@ -81,9 +81,7 @@ public class InjectEnabledRepositoryRepository {
   }
 
   @ObservableRef
-  Observable getEntitiesObservable() {
-    throw new IllegalStateException();
-  }
+  abstract Observable getEntitiesObservable();
 
   /**
    * Return the raw collection of entities in the repository.
