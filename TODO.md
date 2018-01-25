@@ -122,18 +122,10 @@ console.table(languages);
     (This one is particularly interesting and explain a simple autorun "web framework")
   - "Why MobX?" - https://medium.com/@eugenkiss/why-mobx-e0530aacd482
 
-* Enhance README with practical instructions ala https://github.com/elastic/logstash or maybe docasaurus
-
 * Change error message "Attempting to get current transaction but no transaction is active." to indicate why
   this typically happens. What we should probably do is wrap all exceptions in _e(1234, "My Message") which
   would allow us to point people at website for further explanation. Then we could expand the exception
   explanations on the website.
-
-* Consider ways or reorganizing
-  - Use react+reason-react as inspiration?
-  - EmberJS as inspiration - https://www.emberjs.com/
-  - https://mobx.js.org
-  - https://redux.js.org/
 
 * Add documentation for extras.
 
