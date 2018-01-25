@@ -86,7 +86,7 @@ public final class Arez_ObservableTypeParametersModel<T extends Integer> extends
   @Override
   public void setTime(final T time) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    if ( !Objects.equals(time, super.getTime()) ) {
+    if ( !Objects.equals( time, super.getTime() ) ) {
       this.$$arez$$_time.preReportChanged();
       super.setTime(time);
       this.$$arez$$_time.reportChanged();

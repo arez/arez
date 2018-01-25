@@ -9,6 +9,12 @@ For example:
 
 {@file_content: file=arez/doc/examples/at_observable/MyModel.java start_line=@ArezComponent "end_line=^}"}
 
+The component can also be defined using a pair of abstract getters and setters, in which case the annotation
+processor will provide a suitable implementation of the getter. This often results in shorter, simpler code.
+For example:
+
+{@file_content: file=arez/doc/examples/at_observable2/MyModel.java start_line=@ArezComponent "end_line=^}"}
+
 There are additional constraints that are apply when defining observable. i.e. The type of the getter and setter
 must match. These constraints are detailed in the {@api_url: annotations.Observable} API documentation.
 

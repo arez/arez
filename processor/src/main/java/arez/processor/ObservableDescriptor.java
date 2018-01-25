@@ -164,6 +164,15 @@ final class ObservableDescriptor
                          Modifier.PRIVATE ).
         addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     builder.addField( field.build() );
+    if ( getGetter().getModifiers().contains( Modifier.ABSTRACT ) )
+    {
+      final TypeName type = TypeName.get( _getterType.getReturnType() );
+      final FieldSpec.Builder dataField =
+        FieldSpec.builder( type,
+                           GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName(),
+                           Modifier.PRIVATE );
+      builder.addField( dataField.build() );
+    }
   }
 
   void buildInitializer( @Nonnull final MethodSpec.Builder builder )
@@ -173,7 +182,7 @@ final class ObservableDescriptor
     sb.append( "this.$N = $N().createObservable( " +
                "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                "$T.areNamesEnabled() ? $N() + $S : null, " +
-               "$T.arePropertyIntrospectorsEnabled() ? () -> super.$N() : null" );
+               "$T.arePropertyIntrospectorsEnabled() ? () -> " );
     parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
     parameters.add( _componentDescriptor.getContextMethodName() );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
@@ -182,14 +191,36 @@ final class ObservableDescriptor
     parameters.add( _componentDescriptor.getComponentNameMethodName() );
     parameters.add( "." + getName() );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( getGetter().getSimpleName().toString() );
+
+    final boolean abstractObservables = getGetter().getModifiers().contains( Modifier.ABSTRACT );
+    if ( abstractObservables )
+    {
+      sb.append( "this.$N" );
+      parameters.add( GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName() );
+    }
+    else
+    {
+      sb.append( "super.$N()" );
+      parameters.add( getGetter().getSimpleName() );
+    }
+    sb.append( " : null" );
 
     if ( hasSetter() )
     {
       //setter
-      sb.append( ", $T.arePropertyIntrospectorsEnabled() ? v -> super.$N( v ) : null" );
+      sb.append( ", $T.arePropertyIntrospectorsEnabled() ? v -> " );
       parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-      parameters.add( getSetter().getSimpleName().toString() );
+      if ( abstractObservables )
+      {
+        sb.append( "this.$N = v" );
+        parameters.add( GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName() );
+      }
+      else
+      {
+        sb.append( "super.$N( v )" );
+        parameters.add( getSetter().getSimpleName() );
+      }
+      sb.append( " : null" );
     }
     else
     {
@@ -282,18 +313,48 @@ final class ObservableDescriptor
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
-    final String accessor = "super." + _getter.getSimpleName() + "()";
-    final String mutator = "super." + _setter.getSimpleName() + "($N)";
+    final boolean abstractObservables = getGetter().getModifiers().contains( Modifier.ABSTRACT );
     if ( type.isPrimitive() )
     {
-      codeBlock.beginControlFlow( "if ( $N != " + accessor + " )", paramName );
+      if ( abstractObservables )
+      {
+        codeBlock.beginControlFlow( "if ( $N != this.$N )",
+                                    paramName,
+                                    GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName() );
+      }
+      else
+      {
+        codeBlock.beginControlFlow( "if ( $N != super.$N() )",
+                                    paramName,
+                                    _getter.getSimpleName() );
+      }
     }
     else
     {
-      codeBlock.beginControlFlow( "if ( !$T.equals($N, " + accessor + ") )", Objects.class, paramName );
+      if ( abstractObservables )
+      {
+        codeBlock.beginControlFlow( "if ( !$T.equals( $N, this.$N ) )",
+                                    Objects.class,
+                                    paramName,
+                                    GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName() );
+      }
+      else
+      {
+        codeBlock.beginControlFlow( "if ( !$T.equals( $N, super.$N() ) )",
+                                    Objects.class,
+                                    paramName,
+                                    _getter.getSimpleName() );
+      }
     }
     codeBlock.addStatement( "this.$N.preReportChanged()", GeneratorUtil.FIELD_PREFIX + getName() );
-    codeBlock.addStatement( mutator, paramName );
+    if ( abstractObservables )
+    {
+      codeBlock.addStatement( "this.$N = $N", GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName(), paramName );
+    }
+    else
+    {
+      codeBlock.addStatement( "super.$N($N)", _setter.getSimpleName(), paramName );
+    }
     codeBlock.addStatement( "this.$N.reportChanged()", GeneratorUtil.FIELD_PREFIX + getName() );
     codeBlock.endControlFlow();
     builder.addCode( codeBlock.build() );
@@ -321,7 +382,15 @@ final class ObservableDescriptor
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
 
     builder.addStatement( "this.$N.reportObserved()", GeneratorUtil.FIELD_PREFIX + getName() );
-    builder.addStatement( "return super." + _getter.getSimpleName() + "()" );
+
+    if ( getGetter().getModifiers().contains( Modifier.ABSTRACT ) )
+    {
+      builder.addStatement( "return this.$N", GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName() );
+    }
+    else
+    {
+      builder.addStatement( "return super.$N()", _getter.getSimpleName() );
+    }
     return builder.build();
   }
 
@@ -350,6 +419,31 @@ final class ObservableDescriptor
                                             " but @Observable method returns type of " + actual, _refMethod );
         }
       }
+    }
+    if ( getGetter().getModifiers().contains( Modifier.ABSTRACT ) )
+    {
+      if ( !hasSetter() )
+      {
+        throw new ArezProcessorException( "@Observable target defines expectSetter = false but is abstract. This " +
+                                          "is not compatible as there is no opportunity for the processor to " +
+                                          "generate the setter.", getGetter() );
+      }
+      else
+      {
+        final ExecutableElement setter = getSetter();
+        if ( !setter.getModifiers().contains( Modifier.ABSTRACT ) )
+        {
+          throw new ArezProcessorException( "@Observable property defines an abstract getter but a concrete setter. " +
+                                            "Both getter and setter must be concrete or both must be abstract.",
+                                            getGetter() );
+        }
+      }
+    }
+    else if ( hasSetter() && getSetter().getModifiers().contains( Modifier.ABSTRACT ) )
+    {
+      throw new ArezProcessorException( "@Observable property defines an abstract setter but a concrete getter. " +
+                                        "Both getter and setter must be concrete or both must be abstract.",
+                                        getSetter() );
     }
   }
 }

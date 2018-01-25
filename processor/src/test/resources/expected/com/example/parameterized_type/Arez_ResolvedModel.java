@@ -88,7 +88,7 @@ final class Arez_ResolvedModel extends ResolvedModel implements Disposable {
   @Override
   public void setValue(final Integer value) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    if ( !Objects.equals(value, super.getValue()) ) {
+    if ( !Objects.equals( value, super.getValue() ) ) {
       this.$$arez$$_value.preReportChanged();
       super.setValue(value);
       this.$$arez$$_value.reportChanged();

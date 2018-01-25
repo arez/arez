@@ -177,7 +177,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   @Override
   public void setV9(final Object v9) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    if ( !Objects.equals(v9, super.getV9()) ) {
+    if ( !Objects.equals( v9, super.getV9() ) ) {
       this.$$arez$$_v9.preReportChanged();
       super.setV9(v9);
       this.$$arez$$_v9.reportChanged();

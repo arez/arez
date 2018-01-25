@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* If the pair of Observable getters are abstract then the generator should be able to supply the implementation.
-
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
   - `arez-browserlocation`

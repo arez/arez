@@ -1,10 +1,11 @@
-package com.example.repository;
+package com.example.observable;
 
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
+import java.util.Date;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -12,14 +13,12 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_RepositoryWithSingleton extends RepositoryWithSingleton implements Disposable {
+public final class Arez_AbstractNonPrimitiveObservablesModel extends AbstractNonPrimitiveObservablesModel implements Disposable {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
 
   private boolean $$arez$$_disposed;
-
-  private OnDispose $$arez$$_onDispose;
 
   @Nullable
   private final ArezContext $$arez$$_context;
@@ -29,15 +28,17 @@ final class Arez_RepositoryWithSingleton extends RepositoryWithSingleton impleme
   private final Observable<Boolean> $$arez$$_disposedObservable;
 
   @Nonnull
-  private final Observable<String> $$arez$$_name;
+  private final Observable<Date> $$arez$$_time;
 
-  Arez_RepositoryWithSingleton(@Nonnull final String name) {
-    super(name);
+  private Date $$arez$$_$$data$$_time;
+
+  public Arez_AbstractNonPrimitiveObservablesModel() {
+    super();
     this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "RepositoryWithSingleton", $$arez$$_id(), $$arez$$_name(), () -> $$arez$$_preDispose(), null ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "AbstractNonPrimitiveObservablesModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
     this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
-    this.$$arez$$_name = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setName( v ) : null );
+    this.$$arez$$_time = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_$$data$$_time : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arez$$_$$data$$_time = v : null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
@@ -52,7 +53,7 @@ final class Arez_RepositoryWithSingleton extends RepositoryWithSingleton impleme
   }
 
   String $$arez$$_name() {
-    return "RepositoryWithSingleton";
+    return "AbstractNonPrimitiveObservablesModel." + $$arez$$_id();
   }
 
   @Override
@@ -73,40 +74,27 @@ final class Arez_RepositoryWithSingleton extends RepositoryWithSingleton impleme
         this.$$arez$$_component.dispose();
       } else {
         $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-          $$arez$$_preDispose();
           this.$$arez$$_disposedObservable.dispose();
-          this.$$arez$$_name.dispose();
+          this.$$arez$$_time.dispose();
         } } );
       }
     }
   }
 
-  void $$arez$$_preDispose() {
-    if ( null != this.$$arez$$_onDispose ) {
-      this.$$arez$$_onDispose.onDispose( this );
-      this.$$arez$$_onDispose = null;
-    }
-  }
-
-  void $$arez$$_setOnDispose(OnDispose onDispose) {
-    this.$$arez$$_onDispose = onDispose;
-  }
-
-  @Nonnull
   @Override
-  public String getName() {
+  public Date getTime() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    this.$$arez$$_name.reportObserved();
-    return super.getName();
+    this.$$arez$$_time.reportObserved();
+    return this.$$arez$$_$$data$$_time;
   }
 
   @Override
-  public void setName(@Nonnull final String name) {
+  public void setTime(final Date value) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    if ( !Objects.equals( name, super.getName() ) ) {
-      this.$$arez$$_name.preReportChanged();
-      super.setName(name);
-      this.$$arez$$_name.reportChanged();
+    if ( !Objects.equals( value, this.$$arez$$_$$data$$_time ) ) {
+      this.$$arez$$_time.preReportChanged();
+      this.$$arez$$_$$data$$_time = value;
+      this.$$arez$$_time.reportChanged();
     }
   }
 
@@ -119,10 +107,10 @@ final class Arez_RepositoryWithSingleton extends RepositoryWithSingleton impleme
   public final boolean equals(final Object o) {
     if ( this == o ) {
       return true;
-    } else if ( null == o || !(o instanceof Arez_RepositoryWithSingleton) ) {
+    } else if ( null == o || !(o instanceof Arez_AbstractNonPrimitiveObservablesModel) ) {
       return false;
     } else {
-      final Arez_RepositoryWithSingleton that = (Arez_RepositoryWithSingleton) o;;
+      final Arez_AbstractNonPrimitiveObservablesModel that = (Arez_AbstractNonPrimitiveObservablesModel) o;;
       return $$arez$$_id() == that.$$arez$$_id();
     }
   }
@@ -134,10 +122,5 @@ final class Arez_RepositoryWithSingleton extends RepositoryWithSingleton impleme
     } else {
       return super.toString();
     }
-  }
-
-  @FunctionalInterface
-  interface OnDispose {
-    void onDispose(Arez_RepositoryWithSingleton entity);
   }
 }

@@ -6,6 +6,11 @@
 * **\[processor\]** `@OnDepsChanged` method candidates that are not annotated were being incorrectly ignored
   if they had a final modifier. Final modifiers are now accepted.
 
+#### Added
+* 💥 **\[processor\]** An `arez.annotations.Observable` property can now be defined by an abstract getter and an
+  abstract setter. Previously the proeprty had to be defined by a concrete getter and a concrete setter. If the
+  methods are abstract the annotation processor will generate the methods and a field in the generated subclass.
+
 #### Changed
 * 💥 **\[processor\]** Classes annotated with the `arez.annotations.ArezComponent` annotation must be abstract
   rather than concrete unless the parameter `allowConcrete` is set to `true`. This eliminates a class of bugs

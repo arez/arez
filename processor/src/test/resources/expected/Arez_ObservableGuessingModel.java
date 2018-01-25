@@ -96,7 +96,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   @Override
   public void setString(final String v) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    if ( !Objects.equals(v, super.getString()) ) {
+    if ( !Objects.equals( v, super.getString() ) ) {
       this.$$arez$$_string.preReportChanged();
       super.setString(v);
       this.$$arez$$_string.reportChanged();

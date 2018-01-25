@@ -30,6 +30,7 @@ final class GeneratorUtil
     ClassName.get( "arez.component", "MemoizeCache" );
 
   static final String FIELD_PREFIX = "$$arez$$_";
+  static final String OBSERVABLE_FIELD_PREFIX = FIELD_PREFIX + "$$data$$_";
   static final String CAUGHT_THROWABLE_NAME = FIELD_PREFIX + "e";
   static final String DISPOSED_FIELD_NAME = FIELD_PREFIX + "disposed";
   static final String DISPOSED_OBSERVABLE_FIELD_NAME = FIELD_PREFIX + "disposedObservable";

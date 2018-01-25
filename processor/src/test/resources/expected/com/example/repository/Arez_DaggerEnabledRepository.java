@@ -103,7 +103,7 @@ final class Arez_DaggerEnabledRepository extends DaggerEnabledRepository impleme
   @Override
   public void setName(@Nonnull final String name) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    if ( !Objects.equals(name, super.getName()) ) {
+    if ( !Objects.equals( name, super.getName() ) ) {
       this.$$arez$$_name.preReportChanged();
       super.setName(name);
       this.$$arez$$_name.reportChanged();
