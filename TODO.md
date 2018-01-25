@@ -6,6 +6,9 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Figure out a mechanism for removing custom OnDispose magic in generated classes and thus allow anyone to hand
+  create the equivalent of repositories. Potentially through "observable" `isDisposed()`
+
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
   - `arez-browserlocation`
@@ -27,10 +30,6 @@ complete as there is too much un-said.
 
 * Seems `react-fns` covers some of similar observables described above but as react components. May be a
   source of inspiration?  https://github.com/jaredpalmer/react-fns/blob/master/README.md
-
-* Figure out a mechanism for staging release that roll out changes to peer-libraries and tests that it
-  compiles and passes tests. Then release arez, then release child libraries. This is a more enhanced version
-  of zim for github projects.
 
 * Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
   TimedDisposer that is disposed as part of effect.
@@ -61,9 +60,6 @@ type RemoteData e a
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
 * Enhance WhyRun and write tests for it.
-
-* Figure out a mechanism for removing custom OnDispose magic in generated classes and thus allow anyone to hand
-  create the equivalent of repositories. Potentially through "observable" `isDisposed()`
 
 * Introduce DevTools and document. Somewhat inspired by
   - https://github.com/zalmoxisus/mobx-remotedev
@@ -96,6 +92,10 @@ console.table(languages);
 * Add test like https://github.com/Vertispan/gwt-typedarrays/pull/2/files#diff-1
   that compiles an application (TodoMVC?) in production versus development mode and verifies that the production
   app strips out things such as spies etc. Make sure that they appear in development mode.
+
+* Figure out a mechanism for staging release that roll out changes to peer-libraries and tests that it
+  compiles and passes tests. Then release arez, then release child libraries. This is a more enhanced version
+  of zim for github projects.
 
 ## Process
 
