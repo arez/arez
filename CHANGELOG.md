@@ -11,7 +11,7 @@
 
 #### Added
 * 💥 **\[processor\]** An `arez.annotations.Observable` property can now be defined by an abstract getter and an
-  abstract setter. Previously the proeprty had to be defined by a concrete getter and a concrete setter. If the
+  abstract setter. Previously the property had to be defined by a concrete getter and a concrete setter. If the
   methods are abstract the annotation processor will generate the methods and a field in the generated subclass.
 
 #### Changed
@@ -399,7 +399,7 @@
 * 💥 **\[core\]** Change the default value of the compile time property `arez.logger` to be derived from the
   `arez.environment` setting. If `arez.environment` is `production` then `arez.logger` is set to `jul` and a
   `java.util.Logger` based implementation is used. If `arez.environment` is `development` then a proxy based
-  version is used, that is useful during testing. Specify the proeprty in `Arez.gwt.xml` so that GWT compiles
+  version is used, that is useful during testing. Specify the property in `Arez.gwt.xml` so that GWT compiles
   will treat it as a compile time constant and default it to `jul.`
 
 ### [v0.23](https://github.com/arez/arez/tree/v0.23) (2017-11-01)
