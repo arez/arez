@@ -134,6 +134,10 @@ console.table(languages);
   - https://github.com/Axellience/vue-gwt/blob/master/docs-source/book/essential/class-and-style.md
   - https://github.com/Axellience/vue-gwt/tree/master/docs-source/book
 
+* Prepare are screencast for Arez.
+  - See eghead training videos as well.
+  - https://www.youtube.com/playlist?list=PLV5CVI1eNcJhc9Lxu83Zp4uyqP2yKV4xl&app=desktop
+
 ## Mobx State Tree
 
 * We could incorporate a mechanism like Mobx State Tree to serialize observable data of components as
