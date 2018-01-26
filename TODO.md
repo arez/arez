@@ -9,6 +9,14 @@ complete as there is too much un-said.
 * Figure out a mechanism for removing custom OnDispose magic in generated classes and thus allow anyone to hand
   create the equivalent of repositories. Potentially through "observable" `isDisposed()`
 
+* Introduce generic `AbstractRepository` that generated repositories can extend
+
+* Make it so extensions work - probably via extending AbstractRepository
+
+* add a lot more tests
+
+* `preReportChanged()` added to Repository?
+
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
   - `arez-browserlocation`
