@@ -52,6 +52,12 @@ public interface Disposable
     return object instanceof Disposable && ( (Disposable) object ).isDisposed();
   }
 
+  /**
+   * Cast specified object to instance of Disposable.
+   * Invariant checks will verify that the cast is valid before proceeding.
+   *
+   * @return the object cast to Disposable.
+   */
   @Nonnull
   static Disposable asDisposable( @Nonnull final Object object )
   {
