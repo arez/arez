@@ -116,7 +116,6 @@ public class BasicRepositoryIntegrationTest
     //getById should throw an exception if not found
     final NoSuchEntityException exception =
       expectThrows( NoSuchEntityException.class, () -> context.action( () -> repository.getById( 2 ) ) );
-    assertEquals( exception.getType(), TestComponent.class );
     assertEquals( exception.getId(), 2 );
   }
 

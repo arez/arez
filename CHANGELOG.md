@@ -6,6 +6,11 @@
 * 💥 **\[components\]** Introduce the `arez.components.Identifiable` interface that is implemented by generated
   component classes and can be used to access the underlying Arez identifier.
 
+#### Changed
+* 💥 **\[components\]** Removed the `type` parameter from the exception `arez.component.NoSuchEntityException`
+  so that Class instances can be optimized away in production code. The parameter provided limited utility and
+  was a hold-over from an earlier component system.
+
 ### [v0.44](https://github.com/arez/arez/tree/v0.44) (2018-01-25)
 [Full Changelog](https://github.com/arez/arez/compare/v0.43...v0.44)
 

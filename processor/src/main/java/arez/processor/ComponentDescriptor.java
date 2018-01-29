@@ -2608,7 +2608,7 @@ final class ComponentDescriptor
       addStatement( "final $T entity = $N( id )", entityType, "findBy" + getIdName() ).
       addCode( CodeBlock.builder().
         beginControlFlow( "if ( null == entity )" ).
-        addStatement( "throw new $T( $T.class, id )", GeneratorUtil.NO_SUCH_ENTITY_EXCEPTION_CLASSNAME, entityType ).
+        addStatement( "throw new $T( id )", GeneratorUtil.NO_SUCH_ENTITY_EXCEPTION_CLASSNAME ).
         endControlFlow().
         build() ).
       addStatement( "return entity" ).

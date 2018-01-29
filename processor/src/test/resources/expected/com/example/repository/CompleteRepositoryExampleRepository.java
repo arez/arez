@@ -89,7 +89,7 @@ public abstract class CompleteRepositoryExampleRepository implements CompleteRep
   public final CompleteRepositoryExample getById(final int id) {
     final CompleteRepositoryExample entity = findById( id );
     if ( null == entity ) {
-      throw new NoSuchEntityException( CompleteRepositoryExample.class, id );
+      throw new NoSuchEntityException( id );
     }
     return entity;
   }

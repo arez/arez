@@ -11,31 +11,16 @@ public class NoSuchEntityException
   extends NoResultException
 {
   @Nonnull
-  private final Class<?> _type;
-  @Nonnull
   private final Object _id;
 
   /**
    * Create the exception
    *
-   * @param type the type of the entity that was queried.
-   * @param id   the id of the entity that was queried.
+   * @param id the id of the entity that was queried.
    */
-  public NoSuchEntityException( @Nonnull final Class<?> type, @Nonnull final Object id )
+  public NoSuchEntityException( @Nonnull final Object id )
   {
-    _type = Objects.requireNonNull( type );
     _id = Objects.requireNonNull( id );
-  }
-
-  /**
-   * Return the type of the entity that was not found.
-   *
-   * @return the type of the entity that was not found.
-   */
-  @Nonnull
-  public Class<?> getType()
-  {
-    return _type;
   }
 
   /**
@@ -52,6 +37,6 @@ public class NoSuchEntityException
   @Override
   public String toString()
   {
-    return "NoSuchEntityException[type=" + _type + ", id=" + _id + ']';
+    return "NoSuchEntityException[id=" + _id + ']';
   }
 }

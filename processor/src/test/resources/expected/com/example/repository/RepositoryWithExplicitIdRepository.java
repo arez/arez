@@ -89,7 +89,7 @@ public abstract class RepositoryWithExplicitIdRepository {
   public final RepositoryWithExplicitId getById(final int id) {
     final RepositoryWithExplicitId entity = findById( id );
     if ( null == entity ) {
-      throw new NoSuchEntityException( RepositoryWithExplicitId.class, id );
+      throw new NoSuchEntityException( id );
     }
     return entity;
   }
