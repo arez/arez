@@ -23,8 +23,7 @@ final class GeneratorUtil
   static final ClassName COMPONENT_CLASSNAME = ClassName.get( "arez", "Component" );
   static final ClassName INJECTIBLE_CLASSNAME = ClassName.get( "arez.annotations", "Feature" );
   static final ClassName IDENTIFIABLE_CLASSNAME = ClassName.get( "arez.component", "Identifiable" );
-  static final ClassName NO_RESULT_EXCEPTION_CLASSNAME =
-    ClassName.get( "arez.component", "NoResultException" );
+  static final ClassName NO_RESULT_EXCEPTION_CLASSNAME = ClassName.get( "arez.component", "NoResultException" );
   static final ClassName NO_SUCH_ENTITY_EXCEPTION_CLASSNAME =
     ClassName.get( "arez.component", "NoSuchEntityException" );
   static final ClassName MEMOIZE_CACHE_CLASSNAME =
