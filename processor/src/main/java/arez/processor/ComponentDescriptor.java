@@ -1617,8 +1617,7 @@ final class ComponentDescriptor
   private MethodSpec buildHashcodeMethod()
     throws ArezProcessorException
   {
-    final String idMethod =
-      null == _componentId ? GeneratorUtil.ID_FIELD_NAME : _componentId.getSimpleName().toString();
+    final String idMethod = getIdMethodName();
 
     final MethodSpec.Builder method =
       MethodSpec.methodBuilder( "hashCode" ).
@@ -1769,9 +1768,7 @@ final class ComponentDescriptor
     builder.returns( TypeName.get( String.class ) );
     if ( _nameIncludesId )
     {
-      builder.addStatement( "return $S + $N()",
-                            _type.isEmpty() ? "" : _type + ".",
-                            null == _componentId ? GeneratorUtil.ID_FIELD_NAME : _componentId.getSimpleName() );
+      builder.addStatement( "return $S + $N()", _type.isEmpty() ? "" : _type + ".", getIdMethodName() );
     }
     else
     {
