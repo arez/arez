@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
+import arez.component.Identifiable;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -12,7 +13,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_ResolvedModel extends ResolvedModel implements Disposable {
+final class Arez_ResolvedModel extends ResolvedModel implements Disposable, Identifiable<Long> {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -47,6 +48,12 @@ final class Arez_ResolvedModel extends ResolvedModel implements Disposable {
 
   final long $$arez$$_id() {
     return this.$$arez$$_id;
+  }
+
+  @Override
+  @Nonnull
+  public final Long getArezId() {
+    return $$arez$$_id();
   }
 
   String $$arez$$_name() {

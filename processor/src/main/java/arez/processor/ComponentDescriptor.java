@@ -95,6 +95,8 @@ final class ComponentDescriptor
   @Nullable
   private ExecutableElement _componentId;
   @Nullable
+  private ExecutableType _componentIdMethodType;
+  @Nullable
   private ExecutableElement _componentRef;
   @Nullable
   private ExecutableElement _contextRef;
@@ -751,7 +753,8 @@ final class ComponentDescriptor
     }
   }
 
-  private void setComponentId( @Nonnull final ExecutableElement componentId )
+  private void setComponentId( @Nonnull final ExecutableElement componentId,
+                               @Nonnull final ExecutableType componentIdMethodType )
     throws ArezProcessorException
   {
     MethodChecks.mustNotBeAbstract( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
@@ -769,6 +772,7 @@ final class ComponentDescriptor
     else
     {
       _componentId = Objects.requireNonNull( componentId );
+      _componentIdMethodType = componentIdMethodType;
     }
   }
 
@@ -1307,7 +1311,7 @@ final class ComponentDescriptor
     }
     else if ( null != componentId )
     {
-      setComponentId( method );
+      setComponentId( method, methodType );
       return true;
     }
     else if ( null != componentName )
@@ -1487,6 +1491,8 @@ final class ComponentDescriptor
     }
 
     builder.addSuperinterface( GeneratorUtil.DISPOSABLE_CLASSNAME );
+    builder.addSuperinterface( ParameterizedTypeName.get( GeneratorUtil.IDENTIFIABLE_CLASSNAME, getIdType().box() ) );
+
     if ( hasRepository() )
     {
       final TypeSpec onDispose =
@@ -1514,6 +1520,7 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildComponentIdMethod() );
     }
+    builder.addMethod( buildArezIdMethod() );
     builder.addMethod( buildComponentNameMethod() );
     final MethodSpec method = buildComponentTypeNameMethod();
     if ( null != method )
@@ -1713,6 +1720,19 @@ final class ComponentDescriptor
     ProcessorUtil.copyDocumentedAnnotations( _componentRef, method );
     ProcessorUtil.copyAccessModifiers( _componentRef, method );
     return method.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildArezIdMethod()
+    throws ArezProcessorException
+  {
+    return MethodSpec.methodBuilder( "getArezId" ).
+      addAnnotation( Override.class ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
+      addModifiers( Modifier.PUBLIC ).
+      addModifiers( Modifier.FINAL ).
+      returns( getIdType().box() ).
+      addStatement( "return $N()", getIdMethodName() ).build();
   }
 
   @Nonnull
@@ -2701,6 +2721,11 @@ final class ComponentDescriptor
   @Nonnull
   private String getIdMethodName()
   {
+    /*
+     * Note that it is a deliberate choice to not use getArezId() as that will box Id which for the
+     * "normal" case involves converting a long to a Long and it was decided that the slight increase in
+     * code size was worth the slightly reduced memory pressure.
+     */
     return null != _componentId ? _componentId.getSimpleName().toString() : GeneratorUtil.ID_FIELD_NAME;
   }
 
@@ -2721,9 +2746,9 @@ final class ComponentDescriptor
   @Nonnull
   private TypeName getIdType()
   {
-    return null == _componentId ?
+    return null == _componentIdMethodType ?
            TypeName.LONG :
-           TypeName.get( _componentId.getReturnType() );
+           TypeName.get( _componentIdMethodType.getReturnType() );
   }
 
   @SuppressWarnings( "unchecked" )

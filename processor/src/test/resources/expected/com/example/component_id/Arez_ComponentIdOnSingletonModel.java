@@ -5,13 +5,14 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
+import arez.component.Identifiable;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSingletonModel implements Disposable {
+public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSingletonModel implements Disposable, Identifiable<Long> {
   private boolean $$arez$$_disposed;
 
   @Nullable
@@ -37,6 +38,12 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
 
   final ArezContext $$arez$$_context() {
     return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
+  }
+
+  @Override
+  @Nonnull
+  public final Long getArezId() {
+    return getId();
   }
 
   String $$arez$$_name() {

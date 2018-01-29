@@ -6,6 +6,7 @@ import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
 import arez.Observable;
+import arez.component.Identifiable;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Objects;
@@ -16,7 +17,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W> implements Disposable {
+public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W> implements Disposable, Identifiable<IOException> {
   private boolean $$arez$$_disposed;
 
   @Nullable
@@ -70,6 +71,12 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   final ArezContext $$arez$$_context() {
     return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
+  }
+
+  @Override
+  @Nonnull
+  public final IOException getArezId() {
+    return getComponentId();
   }
 
   String $$arez$$_name() {

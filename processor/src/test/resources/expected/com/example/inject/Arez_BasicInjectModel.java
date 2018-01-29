@@ -5,13 +5,15 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
+import arez.component.Identifiable;
 import javax.annotation.Generated;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_BasicInjectModel extends BasicInjectModel implements Disposable {
+public final class Arez_BasicInjectModel extends BasicInjectModel implements Disposable, Identifiable<Long> {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -43,6 +45,12 @@ public final class Arez_BasicInjectModel extends BasicInjectModel implements Dis
 
   final long $$arez$$_id() {
     return this.$$arez$$_id;
+  }
+
+  @Override
+  @Nonnull
+  public final Long getArezId() {
+    return $$arez$$_id();
   }
 
   String $$arez$$_name() {

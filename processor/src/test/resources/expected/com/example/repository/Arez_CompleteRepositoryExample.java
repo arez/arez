@@ -6,6 +6,7 @@ import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
 import arez.Observable;
+import arez.component.Identifiable;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -14,7 +15,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample implements Disposable {
+final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample implements Disposable, Identifiable<Integer> {
   private boolean $$arez$$_disposed;
 
   private OnDispose $$arez$$_onDispose;
@@ -54,6 +55,12 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
 
   final ArezContext $$arez$$_context() {
     return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
+  }
+
+  @Override
+  @Nonnull
+  public final Integer getArezId() {
+    return getId();
   }
 
   String $$arez$$_name() {

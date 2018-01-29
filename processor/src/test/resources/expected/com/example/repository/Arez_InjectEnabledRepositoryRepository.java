@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
+import arez.component.Identifiable;
 import java.util.Collection;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -15,7 +16,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @Singleton
-final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledRepositoryRepository implements Disposable {
+final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledRepositoryRepository implements Disposable, Identifiable<Long> {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -51,6 +52,12 @@ final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledReposito
 
   final long $$arez$$_id() {
     return this.$$arez$$_id;
+  }
+
+  @Override
+  @Nonnull
+  public final Long getArezId() {
+    return $$arez$$_id();
   }
 
   String $$arez$$_name() {

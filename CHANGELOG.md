@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Added
+* 💥 **\[components\]** Introduce the `arez.components.Identifiable` interface that is implemented by generated
+  component classes and can be used to access the underlying Arez identifier.
+
 ### [v0.44](https://github.com/arez/arez/tree/v0.44) (2018-01-25)
 [Full Changelog](https://github.com/arez/arez/compare/v0.43...v0.44)
 

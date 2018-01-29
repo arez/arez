@@ -6,6 +6,7 @@ import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
 import arez.Observable;
+import arez.component.Identifiable;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -14,7 +15,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_DeprecatedComputedModel3 extends DeprecatedComputedModel3 implements Disposable {
+public final class Arez_DeprecatedComputedModel3 extends DeprecatedComputedModel3 implements Disposable, Identifiable<Long> {
   private static volatile long $$arez$$_nextId;
 
   private final long $$arez$$_id;
@@ -50,6 +51,12 @@ public final class Arez_DeprecatedComputedModel3 extends DeprecatedComputedModel
 
   final long $$arez$$_id() {
     return this.$$arez$$_id;
+  }
+
+  @Override
+  @Nonnull
+  public final Long getArezId() {
+    return $$arez$$_id();
   }
 
   String $$arez$$_name() {
