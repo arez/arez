@@ -2,6 +2,7 @@ package arez.component;
 
 import arez.Disposable;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -9,7 +10,10 @@ import static org.realityforge.braincheck.Guards.*;
  * The <code>ArezId</code> is used by Arez classes when manipulating the component. As long as
  * {@link Disposable#dispose()} has not been invoked on the component then the <code>ArezId</code>
  * value should be unique within the scope of the {@link arez.ArezContext}.
+ *
+ * @param <K> the type of the id.
  */
+@SuppressWarnings( "unchecked" )
 public interface Identifiable<K>
 {
   /**
@@ -25,9 +29,11 @@ public interface Identifiable<K>
   /**
    * Dispose the supplied object if it is Disposable, else do nothing.
    *
+   * @param <K>    the type of the id.
    * @param object the object to dispose.
+   * @return the arez id if the object is Identifiable, otherwise null.
    */
-  @SuppressWarnings( "unchecked" )
+  @Nullable
   static <K> K getArezId( @Nonnull final Object object )
   {
     if ( object instanceof Identifiable )
@@ -44,13 +50,15 @@ public interface Identifiable<K>
    * Cast specified object to instance of Identifiable.
    * Invariant checks will verify that the cast is valid before proceeding.
    *
+   * @param <K>    the type parameter for Identifiable.
+   * @param object the object.
    * @return the object cast to Identifiable.
    */
   @Nonnull
-  static Identifiable asIdentifiable( @Nonnull final Object object )
+  static <K> Identifiable<K> asIdentifiable( @Nonnull final Object object )
   {
     apiInvariant( () -> object instanceof Identifiable,
                   () -> "Object passed to asIdentifiable does not implement Identifiable. Object: " + object );
-    return (Identifiable) object;
+    return (Identifiable<K>) object;
   }
 }
