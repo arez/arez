@@ -27,11 +27,12 @@ public interface Identifiable<K>
    *
    * @param object the object to dispose.
    */
-  static Object getArezId( @Nonnull final Object object )
+  @SuppressWarnings( "unchecked" )
+  static <K> K getArezId( @Nonnull final Object object )
   {
     if ( object instanceof Identifiable )
     {
-      return ( (Identifiable<?>) object ).getArezId();
+      return ( (Identifiable<K>) object ).getArezId();
     }
     else
     {
