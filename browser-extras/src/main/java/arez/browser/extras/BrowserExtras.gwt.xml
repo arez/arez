@@ -1,5 +1,4 @@
 <module>
-  <inherits name="arez.Arez"/>
   <inherits name="arez.component.Component"/>
   <inherits name="elemental2.dom.Dom"/>
 
