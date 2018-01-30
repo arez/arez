@@ -281,6 +281,18 @@ final class ProcessorUtil
     final AnnotationValue annotationValue =
       getAnnotationValue( elements, typeElement, annotationClassName, parameterName );
     return ( (List<AnnotationValue>) annotationValue.getValue() ).stream().
+      peek( v -> {
+        if ( !( v.getValue() instanceof TypeMirror ) )
+        {
+          throw new ArezProcessorException( "Error resolving value from array parameter named '" + parameterName +
+                                            "' to a type. The value is '" + v.getValue() + "'. It is likely the " +
+                                            "Arez annotation processor or another annotation processor is failing. " +
+                                            "Please fix these issues and try compilation again. If this does not " +
+                                            "work then please report the failure to the developers so that it can be " +
+                                            "fixed.\n Report the error at: https://github.com/arez/arez/issues\n",
+                                            typeElement );
+        }
+      } ).
       map( v -> (TypeMirror) v.getValue() ).collect( Collectors.toList() );
   }
 
