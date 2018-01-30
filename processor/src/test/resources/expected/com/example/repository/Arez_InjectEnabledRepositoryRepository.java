@@ -6,7 +6,7 @@ import arez.Component;
 import arez.Disposable;
 import arez.Observable;
 import arez.component.Identifiable;
-import java.util.Collection;
+import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,7 +31,7 @@ final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledReposito
   private final Observable<Boolean> $$arez$$_disposedObservable;
 
   @Nonnull
-  private final Observable<Collection<InjectEnabledRepository>> $$arez$$_entities;
+  private final Observable<Stream<InjectEnabledRepository>> $$arez$$_entities;
 
   @Inject
   Arez_InjectEnabledRepositoryRepository() {
@@ -92,7 +92,7 @@ final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledReposito
 
   @Nonnull
   @Override
-  protected Collection<InjectEnabledRepository> entities() {
+  protected Stream<InjectEnabledRepository> entities() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();

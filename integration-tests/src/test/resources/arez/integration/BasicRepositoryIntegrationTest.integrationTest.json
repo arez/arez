@@ -78,11 +78,6 @@
         "type": "ComponentCreateCompleted"
     },
     {
-        "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.entities",
-        "type": "ObservableChanged",
-        "value": "3 items"
-    },
-    {
         "observer": "ComponentCount",
         "type": "ReactionScheduled"
     },
@@ -211,6 +206,10 @@
         "value": true
     },
     {
+        "observer": "ComponentCount",
+        "type": "ReactionScheduled"
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -290,15 +289,6 @@
     {
         "component": "TestComponent.1",
         "type": "ComponentDisposeCompleted"
-    },
-    {
-        "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.entities",
-        "type": "ObservableChanged",
-        "value": "2 items"
-    },
-    {
-        "observer": "ComponentCount",
-        "type": "ReactionScheduled"
     },
     {
         "mutation": true,
@@ -390,6 +380,10 @@
         "value": true
     },
     {
+        "observer": "ComponentCount",
+        "type": "ReactionScheduled"
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -469,15 +463,6 @@
     {
         "component": "TestComponent.2",
         "type": "ComponentDisposeCompleted"
-    },
-    {
-        "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.entities",
-        "type": "ObservableChanged",
-        "value": "1 items"
-    },
-    {
-        "observer": "ComponentCount",
-        "type": "ReactionScheduled"
     },
     {
         "mutation": true,
