@@ -56,6 +56,7 @@ public interface Disposable
    * Cast specified object to instance of Disposable.
    * Invariant checks will verify that the cast is valid before proceeding.
    *
+   * @param object the object to cast to Disposable.
    * @return the object cast to Disposable.
    */
   @Nonnull
