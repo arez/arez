@@ -1,6 +1,7 @@
 <module>
   <inherits name="com.google.gwt.core.Core"/>
   <inherits name="arez.Arez"/>
+  <inherits name="arez.annotations.Annotations"/>
 
   <source path=""/>
 </module>
