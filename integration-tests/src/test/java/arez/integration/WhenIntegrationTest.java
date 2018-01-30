@@ -31,6 +31,7 @@ public class WhenIntegrationTest
                   () -> record( recorder, "timeReset", "true" ) );
     context.autorun( "TimePrinter", () -> {
       // Observe time so we get callback
+      @SuppressWarnings( "unused" )
       final long ignored = timeModel.getTime();
       // Can not record actual time here as it will change run to run and
       // our test infra is not up to skipping fields atm
