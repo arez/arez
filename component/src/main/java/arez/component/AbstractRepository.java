@@ -40,6 +40,8 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
    * Register specified entity in list of entities managed by the repository.
    * The expectation that this is invoked after the entity has been created but before it is returned
    * to the repository user.
+   *
+   * @param entity the entity to register.
    */
   protected final void registerEntity( @Nonnull final T entity )
   {
@@ -63,6 +65,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   /**
    * Return true if the specified entity is contained in the repository.
    *
+   * @param entity the entity.
    * @return true if the specified entity is contained in the repository, false otherwise.
    */
   public boolean contains( @Nonnull final T entity )
