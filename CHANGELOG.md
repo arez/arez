@@ -4,7 +4,9 @@
 
 #### Changed
 * 💥 **\[core\]** Moved the `ArezExtras.when(*)` static methods to `ArezContext` instance methods. The goal is
-  to enable the usage of the `when` syntax in higher level abstractions such as the component model.
+  to enable the usage of the `when` syntax in higher level abstractions such as the component model. This
+  resulted in the removal of the GWT module `arez.extras.Extras` as there was no longer any code that was
+  included in the module.
 
 ### [v0.45](https://github.com/arez/arez/tree/v0.45) (2018-01-30)
 [Full Changelog](https://github.com/arez/arez/compare/v0.44...v0.45)
