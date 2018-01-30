@@ -13,15 +13,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,9 +44,6 @@ import javax.lang.model.util.Types;
 @SuppressWarnings( "Duplicates" )
 final class ComponentDescriptor
 {
-  private static final String ENTITIES_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "entities";
-  private static final String ENTITYLIST_FIELD_NAME = GeneratorUtil.FIELD_PREFIX + "entityList";
-  private static final String GET_OBSERVABLE_METHOD = "getEntitiesObservable";
   private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observable$" );
   private static final Pattern COMPUTED_VALUE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ComputedValue$" );
   private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observer$" );
@@ -2267,6 +2261,11 @@ final class ComponentDescriptor
       builder.addAnnotation( GeneratorUtil.SINGLETON_CLASSNAME );
     }
 
+    builder.superclass( ParameterizedTypeName.get( GeneratorUtil.ABSTRACT_REPOSITORY_CLASSNAME,
+                                                   getIdType().box(),
+                                                   ClassName.get( getElement() ),
+                                                   ClassName.get( getPackageName(), getRepositoryName() ) ) );
+
     _repositoryExtensions.forEach( e -> builder.addSuperinterface( TypeName.get( e.asType() ) ) );
 
     ProcessorUtil.copyAccessModifiers( element, builder );
@@ -2275,8 +2274,6 @@ final class ComponentDescriptor
 
     //Add the default access, no-args constructor
     builder.addMethod( MethodSpec.constructorBuilder().build() );
-
-    buildRepositoryFields( builder );
 
     // Add the factory method
     builder.addMethod( buildFactoryMethod() );
@@ -2288,27 +2285,13 @@ final class ComponentDescriptor
       builder.addMethod( buildRepositoryCreate( constructor, methodType, arezType ) );
     }
 
-    builder.addMethod( buildPreDisposeMethod() );
+    builder.addMethod( buildPreDisposeEntityMethod() );
 
-    builder.addMethod( buildContainsMethod( element, arezType ) );
-    builder.addMethod( buildDestroyMethod( arezType ) );
     if ( null != _componentId )
     {
       builder.addMethod( buildFindByIdMethod() );
       builder.addMethod( buildGetByIdMethod() );
     }
-    builder.addMethod( buildObservableAccessorMethod() );
-    builder.addMethod( buildEntitiesMethod() );
-    builder.addMethod( buildResultWrapperMethod() );
-    builder.addMethod( buildListConverterMethod() );
-    builder.addMethod( buildFindAllMethod() );
-    builder.addMethod( buildFindAllSortedMethod() );
-    builder.addMethod( buildFindAllByQueryMethod() );
-    builder.addMethod( buildFindAllByQuerySortedMethod() );
-    builder.addMethod( buildFindByQueryMethod() );
-    builder.addMethod( buildGetByQueryMethod() );
-
-    builder.addMethod( buildSelfMethod() );
 
     return builder.build();
   }
@@ -2338,248 +2321,16 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  private MethodSpec buildEntitiesMethod()
-  {
-    return MethodSpec.methodBuilder( "entities" ).
-      addModifiers( Modifier.PROTECTED ).
-      addAnnotation( AnnotationSpec.builder( ClassName.bestGuess( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) ).
-        addMember( "expectSetter", "false" ).build() ).
-      addJavadoc( "Return the raw collection of entities in the repository.\n" +
-                  "This collection should not be exposed to the user but may be used be repository extensions when\n" +
-                  "they define custom queries. NOTE: use of this method marks the list as observed.\n" ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      returns( ParameterizedTypeName.get( ClassName.get( Collection.class ), TypeName.get( getElement().asType() ) ) ).
-      addStatement( "return $N", ENTITYLIST_FIELD_NAME ).
-      build();
-  }
-
-  @Nonnull
-  private MethodSpec buildResultWrapperMethod()
-  {
-    final ParameterizedTypeName listType =
-      ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) );
-    return MethodSpec.methodBuilder( "wrap" ).
-      addModifiers( Modifier.PROTECTED, Modifier.FINAL ).
-      addJavadoc( "If config option enabled, wrap the specified list in an immutable list and return it.\n" +
-                  "This method should be called by repository extensions when returning list results " +
-                  "when not using {@link #toList(List)}.\n" ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      addParameter( ParameterSpec.builder( listType, "list", Modifier.FINAL ).
-        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
-      returns( listType ).
-      addStatement( "return $T.areRepositoryResultsModifiable() ? $T.unmodifiableList( list ) : list",
-                    GeneratorUtil.AREZ_CLASSNAME,
-                    Collections.class ).
-      build();
-  }
-
-  @Nonnull
-  private MethodSpec buildListConverterMethod()
-  {
-    final ParameterizedTypeName streamType =
-      ParameterizedTypeName.get( ClassName.get( Stream.class ), TypeName.get( getElement().asType() ) );
-    return MethodSpec.methodBuilder( "toList" ).
-      addModifiers( Modifier.PROTECTED, Modifier.FINAL ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      addJavadoc( "Convert specified stream to a list, wrapping as an immutable list if required.\n" +
-                  "This method should be called by repository extensions when returning list results.\n" ).
-      addParameter( ParameterSpec.builder( streamType, "stream", Modifier.FINAL ).
-        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
-      returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
-      addStatement( "return wrap( stream.collect( $T.toList() ) )", Collectors.class ).
-      build();
-  }
-
-  @Nonnull
-  private MethodSpec buildFindAllMethod()
-  {
-    return MethodSpec.methodBuilder( "findAll" ).
-      addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
-      addStatement( "return toList( entities().stream() )", Collectors.class ).
-      build();
-  }
-
-  @Nonnull
-  private MethodSpec buildFindAllSortedMethod()
-  {
-    final ParameterizedTypeName sorterType =
-      ParameterizedTypeName.get( ClassName.get( Comparator.class ), TypeName.get( getElement().asType() ) );
-    return MethodSpec.methodBuilder( "findAll" ).
-      addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      addParameter( ParameterSpec.builder( sorterType, "sorter", Modifier.FINAL ).
-        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
-      returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
-      addStatement( "return toList( entities().stream().sorted( sorter ) )", Collectors.class ).
-      build();
-  }
-
-  @Nonnull
-  private MethodSpec buildFindAllByQueryMethod()
-  {
-    final ParameterizedTypeName queryType =
-      ParameterizedTypeName.get( ClassName.get( Predicate.class ), TypeName.get( getElement().asType() ) );
-    return MethodSpec.methodBuilder( "findAllByQuery" ).
-      addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      addParameter( ParameterSpec.builder( queryType, "query", Modifier.FINAL ).
-        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
-      returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
-      addStatement( "return toList( entities().stream().filter( query ) )", Collectors.class ).
-      build();
-  }
-
-  @Nonnull
-  private MethodSpec buildFindAllByQuerySortedMethod()
-  {
-    final ParameterizedTypeName queryType =
-      ParameterizedTypeName.get( ClassName.get( Predicate.class ), TypeName.get( getElement().asType() ) );
-    final ParameterizedTypeName sorterType =
-      ParameterizedTypeName.get( ClassName.get( Comparator.class ), TypeName.get( getElement().asType() ) );
-    return MethodSpec.methodBuilder( "findAllByQuery" ).
-      addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      addParameter( ParameterSpec.builder( queryType, "query", Modifier.FINAL ).
-        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
-      addParameter( ParameterSpec.builder( sorterType, "sorter", Modifier.FINAL ).
-        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
-      returns( ParameterizedTypeName.get( ClassName.get( List.class ), TypeName.get( getElement().asType() ) ) ).
-      addStatement( "return toList( entities().stream().filter( query ).sorted( sorter ) )",
-                    Collectors.class ).
-      build();
-  }
-
-  @Nonnull
-  private MethodSpec buildFindByQueryMethod()
-  {
-    final ParameterizedTypeName queryType =
-      ParameterizedTypeName.get( ClassName.get( Predicate.class ), TypeName.get( getElement().asType() ) );
-    return MethodSpec.methodBuilder( "findByQuery" ).
-      addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME ).
-      addParameter( ParameterSpec.builder( queryType, "query", Modifier.FINAL ).
-        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
-      returns( TypeName.get( getElement().asType() ) ).
-      addStatement( "return entities().stream().filter( query ).findFirst().orElse( null )", Collectors.class ).
-      build();
-  }
-
-  @Nonnull
-  private MethodSpec buildGetByQueryMethod()
-  {
-    final TypeName entityType = TypeName.get( getElement().asType() );
-    final ParameterizedTypeName queryType =
-      ParameterizedTypeName.get( ClassName.get( Predicate.class ), entityType );
-    return MethodSpec.methodBuilder( "getByQuery" ).
-      addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      addParameter( ParameterSpec.builder( queryType, "query", Modifier.FINAL ).
-        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
-      returns( entityType ).
-      addStatement( "final $T entity = findByQuery( query )", entityType ).
-      addCode( CodeBlock.builder().
-        beginControlFlow( "if ( null == entity )" ).
-        addStatement( "throw new $T()", GeneratorUtil.NO_RESULT_EXCEPTION_CLASSNAME ).
-        endControlFlow().
-        build() ).
-      addStatement( "return entity" ).
-      build();
-  }
-
-  @Nonnull
-  private MethodSpec buildSelfMethod()
-  {
-    return MethodSpec.methodBuilder( "self" ).
-      addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      returns( ClassName.get( getPackageName(), getRepositoryName() ) ).
-      addStatement( "return this" ).build();
-  }
-
-  @Nonnull
-  private MethodSpec buildObservableAccessorMethod()
-  {
-    return MethodSpec.methodBuilder( GET_OBSERVABLE_METHOD ).
-      addModifiers( Modifier.ABSTRACT ).
-      addAnnotation( ClassName.bestGuess( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME ) ).
-      returns( GeneratorUtil.OBSERVABLE_CLASSNAME ).build();
-  }
-
-  @Nonnull
-  private MethodSpec buildContainsMethod( final TypeElement element, final ClassName arezType )
+  private MethodSpec buildPreDisposeEntityMethod()
   {
     final MethodSpec.Builder method =
-      MethodSpec.methodBuilder( "contains" ).
-        addModifiers( Modifier.PUBLIC ).
-        addParameter( ParameterSpec.builder( TypeName.get( element.asType() ), "entity", Modifier.FINAL ).
-          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() ).
-        returns( TypeName.BOOLEAN );
-    method.addStatement( "$N().reportObserved()", GET_OBSERVABLE_METHOD );
-    if ( null != _componentId )
-    {
-      method.addStatement( "return this.$N.containsKey( entity.$N() )", ENTITIES_FIELD_NAME, getIdMethodName() );
-    }
-    else
-    {
-      method.addStatement( "return entity instanceof $T && this.$N.containsKey( (($T) entity).$N() )",
-                           arezType,
-                           ENTITIES_FIELD_NAME,
-                           arezType,
-                           getIdMethodName() );
-    }
-    return method.build();
-  }
-
-  @Nonnull
-  private MethodSpec buildDestroyMethod( @Nonnull final ClassName arezType )
-  {
-    final MethodSpec.Builder method =
-      MethodSpec.methodBuilder( "destroy" ).
-        addModifiers( Modifier.PUBLIC ).
-        addAnnotation( ClassName.bestGuess( Constants.ACTION_ANNOTATION_CLASSNAME ) ).
-        addParameter( ParameterSpec.builder( TypeName.get( getElement().asType() ), "entity", Modifier.FINAL ).
+      MethodSpec.methodBuilder( "preDisposeEntity" ).
+        addModifiers( Modifier.PROTECTED ).
+        addAnnotation( Override.class ).
+        addParameter( ParameterSpec.builder( ClassName.get( getElement() ), "entity", Modifier.FINAL ).
           addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() );
-    method.addStatement( "assert null != entity" );
-    final CodeBlock.Builder builder = CodeBlock.builder();
-    if ( null != _componentId )
-    {
-      builder.beginControlFlow( "if ( null != this.$N.remove( entity.$N() ) )",
-                                ENTITIES_FIELD_NAME,
-                                getIdMethodName() );
-    }
-    else
-    {
-      builder.beginControlFlow( "if ( entity instanceof $T && null != this.$N.remove( (($T) entity).$N() ) )",
-                                arezType,
-                                ENTITIES_FIELD_NAME,
-                                arezType,
-                                getIdMethodName() );
-    }
-    builder.addStatement( "(($N) entity).$N( null )", getArezClassName(), GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME );
-    builder.addStatement( "$T.dispose( entity )", GeneratorUtil.DISPOSABLE_CLASSNAME );
-    builder.addStatement( "$N().reportChanged()", GET_OBSERVABLE_METHOD );
-    builder.nextControlFlow( "else" );
-    builder.addStatement( "$T.fail( () -> \"Called destroy() passing an entity that was not in the repository. " +
-                          "Entity: \" + entity )", GeneratorUtil.GUARDS_CLASSNAME );
-    builder.endControlFlow();
-    method.addCode( builder.build() );
+    method.addStatement( "(($N) entity).$N( null )", getArezClassName(), GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME );
     return method.build();
-  }
-
-  @Nonnull
-  private MethodSpec buildPreDisposeMethod()
-  {
-    return MethodSpec.methodBuilder( "preDispose" ).
-      addModifiers( Modifier.FINAL ).
-      addAnnotation( ClassName.bestGuess( Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME ) ).
-      addStatement( "this.$N.forEach( e -> $T.dispose( e ) )",
-                    ENTITYLIST_FIELD_NAME,
-                    GeneratorUtil.DISPOSABLE_CLASSNAME ).
-      addStatement( "this.$N.clear()", ENTITIES_FIELD_NAME ).
-      addStatement( "$N().reportChanged()", GET_OBSERVABLE_METHOD ).
-      build();
   }
 
   @Nonnull
@@ -2592,8 +2343,7 @@ final class ComponentDescriptor
       addParameter( ParameterSpec.builder( getIdType(), "id", Modifier.FINAL ).build() ).
       addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME ).
       returns( TypeName.get( getElement().asType() ) ).
-      addStatement( "$N().reportObserved()", GET_OBSERVABLE_METHOD ).
-      addStatement( "return this.$N.get( id )", ENTITIES_FIELD_NAME ).build();
+      addStatement( "return findByArezId( id )" ).build();
   }
 
   @Nonnull
@@ -2605,13 +2355,7 @@ final class ComponentDescriptor
       addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addParameter( ParameterSpec.builder( getIdType(), "id", Modifier.FINAL ).build() ).
       returns( entityType ).
-      addStatement( "final $T entity = $N( id )", entityType, "findBy" + getIdName() ).
-      addCode( CodeBlock.builder().
-        beginControlFlow( "if ( null == entity )" ).
-        addStatement( "throw new $T( id )", GeneratorUtil.NO_SUCH_ENTITY_EXCEPTION_CLASSNAME ).
-        endControlFlow().
-        build() ).
-      addStatement( "return entity" ).
+      addStatement( "return getByArezId( id )" ).
       build();
   }
 
@@ -2673,9 +2417,8 @@ final class ComponentDescriptor
 
     builder.addStatement( "entity.$N( e -> destroy( e ) )", GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME );
 
-    builder.addStatement( "this.$N.put( entity.$N(), entity )", ENTITIES_FIELD_NAME, getIdMethodName() );
-    builder.addStatement( "$N().reportChanged()", GET_OBSERVABLE_METHOD );
-    builder.addStatement( "return entity", ENTITIES_FIELD_NAME );
+    builder.addStatement( "registerEntity( entity )" );
+    builder.addStatement( "return entity" );
     return builder.build();
   }
 
@@ -2683,36 +2426,6 @@ final class ComponentDescriptor
   String getPackageName()
   {
     return _packageElement.getQualifiedName().toString();
-  }
-
-  private void buildRepositoryFields( @Nonnull final TypeSpec.Builder builder )
-  {
-    // Create the entities field
-    {
-      final CodeBlock.Builder initializer = CodeBlock.builder().addStatement( "new $T<>()", HashMap.class );
-      final ParameterizedTypeName fieldType =
-        ParameterizedTypeName.get( ClassName.get( HashMap.class ),
-                                   getIdType().box(),
-                                   TypeName.get( _element.asType() ) );
-      final FieldSpec.Builder field =
-        FieldSpec.builder( fieldType, ENTITIES_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE ).
-          initializer( initializer.build() );
-      builder.addField( field.build() );
-    }
-
-    // Create the entityList field
-    {
-      final CodeBlock.Builder initializer =
-        CodeBlock.builder().addStatement( "$T.unmodifiableCollection( this.$N.values() )",
-                                          Collections.class,
-                                          ENTITIES_FIELD_NAME );
-      final ParameterizedTypeName fieldType =
-        ParameterizedTypeName.get( ClassName.get( Collection.class ), TypeName.get( _element.asType() ) );
-      final FieldSpec.Builder field =
-        FieldSpec.builder( fieldType, ENTITYLIST_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE ).
-          initializer( initializer.build() );
-      builder.addField( field.build() );
-    }
   }
 
   @Nonnull

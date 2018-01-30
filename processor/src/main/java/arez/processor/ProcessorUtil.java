@@ -8,6 +8,7 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 import java.lang.annotation.Documented;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,15 +82,15 @@ final class ProcessorUtil
   static List<ExecutableElement> getMethods( @Nonnull final TypeElement element,
                                              @Nonnull final Types typeUtils )
   {
-    final Map<String, ExecutableElement> methodMap = new LinkedHashMap<>();
+    final Map<String, ArrayList<ExecutableElement>> methodMap = new LinkedHashMap<>();
     enumerateMethods( element, typeUtils, element, methodMap );
-    return new ArrayList<>( methodMap.values() );
+    return methodMap.values().stream().flatMap( Collection::stream ).collect( Collectors.toList() );
   }
 
   private static void enumerateMethods( @Nonnull final TypeElement scope,
                                         @Nonnull final Types typeUtils,
                                         @Nonnull final TypeElement element,
-                                        @Nonnull final Map<String, ExecutableElement> methods )
+                                        @Nonnull final Map<String, ArrayList<ExecutableElement>> methods )
   {
     final TypeMirror superclass = element.getSuperclass();
     if ( TypeKind.NONE != superclass.getKind() )
@@ -107,9 +108,40 @@ final class ProcessorUtil
       {
         final ExecutableType methodType =
           (ExecutableType) typeUtils.asMemberOf( (DeclaredType) scope.asType(), member );
-        methods.put( member.getSimpleName() + methodType.toString(), (ExecutableElement) member );
+        final String key = member.getSimpleName().toString();
+        final ArrayList<ExecutableElement> elements = methods.computeIfAbsent( key, k -> new ArrayList<>() );
+        boolean found = false;
+        final int size = elements.size();
+        for ( int i = 0; i < size; i++ )
+        {
+          if ( isSubsignature( typeUtils, scope, methodType, elements.get( i ) ) )
+          {
+            if ( !member.getModifiers().contains( Modifier.ABSTRACT ) )
+            {
+              elements.set( i, (ExecutableElement) member );
+            }
+            found = true;
+            break;
+          }
+        }
+        if ( !found )
+        {
+          elements.add( (ExecutableElement) member );
+        }
       }
     }
+  }
+
+  private static boolean isSubsignature( @Nonnull final Types typeUtils,
+                                         @Nonnull final TypeElement scope,
+                                         @Nonnull final ExecutableType methodType,
+                                         @Nonnull final ExecutableElement candidate )
+  {
+    final ExecutableType candidateType =
+      (ExecutableType) typeUtils.asMemberOf( (DeclaredType) scope.asType(), candidate );
+    final boolean isEqual = methodType.equals( candidateType );
+    final boolean isSubsignature = typeUtils.isSubsignature( methodType, candidateType );
+    return isSubsignature || isEqual;
   }
 
   @Nonnull

@@ -16,12 +16,12 @@ public abstract class CompleteRepositoryExample
   // IDE to fail to compile as we put it on the path.
   public interface FooEx
   {
-    //default Foo findByName( @Nonnull final String name )
-    //{
-    //  return self().findByQuery( f -> f.getName().equals( name ) );
-    //}
-    //
-    //CompleteRepositoryExampleRepository self();
+    default CompleteRepositoryExample findByName( @Nonnull final String name )
+    {
+      return self().findByQuery( f -> f.getName().equals( name ) );
+    }
+
+    CompleteRepositoryExampleRepository self();
   }
 
   private final int _id;

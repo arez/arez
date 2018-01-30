@@ -99,17 +99,16 @@ final class Arez_RepositoryWithMultipleCtorsRepository extends RepositoryWithMul
   }
 
   @Override
-  Observable getEntitiesObservable() {
+  protected Observable getEntitiesObservable() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     return $$arez$$_entities;
   }
 
-  @Nonnull
   @Override
-  RepositoryWithMultipleCtors create() {
+  public void destroy(@Nonnull final RepositoryWithMultipleCtors arg0) {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      return $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".create" : null, true, () -> super.create() );
+      $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".destroy" : null, true, () -> super.destroy(arg0), arg0 );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {
@@ -121,11 +120,12 @@ final class Arez_RepositoryWithMultipleCtorsRepository extends RepositoryWithMul
     }
   }
 
+  @Nonnull
   @Override
-  public void destroy(@Nonnull final RepositoryWithMultipleCtors entity) {
+  RepositoryWithMultipleCtors create() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     try {
-      $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".destroy" : null, true, () -> super.destroy(entity), entity );
+      return $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".create" : null, true, () -> super.create() );
     } catch( final RuntimeException $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Exception $$arez$$_e ) {

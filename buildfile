@@ -100,6 +100,8 @@ define 'arez' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
     compile.with PROVIDED_DEPS,
+                 project('annotations').package(:jar, :classifier => :gwt),
+                 project('annotations').compile.dependencies,
                  project('core').package(:jar, :classifier => :gwt),
                  project('core').compile.dependencies
 
