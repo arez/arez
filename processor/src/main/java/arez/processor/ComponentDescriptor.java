@@ -1574,8 +1574,7 @@ final class ComponentDescriptor
   private MethodSpec buildEqualsMethod()
     throws ArezProcessorException
   {
-    final String idMethod =
-      null == _componentId ? GeneratorUtil.ID_FIELD_NAME : _componentId.getSimpleName().toString();
+    final String idMethod = getIdMethodName();
 
     final MethodSpec.Builder method =
       MethodSpec.methodBuilder( "equals" ).
