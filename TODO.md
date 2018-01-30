@@ -135,7 +135,7 @@ console.table(languages);
   - https://github.com/Axellience/vue-gwt/tree/master/docs-source/book
 
 * Prepare are screencast for Arez.
-  - See eghead training videos as well.
+  - See egghead training videos as well.
   - https://www.youtube.com/playlist?list=PLV5CVI1eNcJhc9Lxu83Zp4uyqP2yKV4xl&app=desktop
 
 ## Mobx State Tree
