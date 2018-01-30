@@ -1,7 +1,0 @@
-<module>
-  <inherits name="arez.Arez"/>
-  <inherits name="arez.component.Component"/>
-  <inherits name="arez.extras.spy.SpyExtras"/>
-
-  <source path="" includes="*.java"/>
-</module>

@@ -5,7 +5,6 @@ import arez.ArezContext;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.extras.ArezExtras;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
@@ -28,8 +27,8 @@ public class WhenIntegrationTest
 
     timeModel.updateTime();
 
-    ArezExtras.when( () -> 0 == timeModel.getTime(),
-                     () -> record( recorder, "timeReset", "true" ) );
+    context.when( () -> 0 == timeModel.getTime(),
+                  () -> record( recorder, "timeReset", "true" ) );
     context.autorun( "TimePrinter", () -> {
       // Observe time so we get callback
       final long ignored = timeModel.getTime();

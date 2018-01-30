@@ -127,7 +127,9 @@ console.table(languages);
   would allow us to point people at website for further explanation. Then we could expand the exception
   explanations on the website.
 
-* Add documentation for extras.
+* Add documentation for browser-extras.
+
+* Document `ArezContext.when(...)` methods and describe it as an observer?.
 
 * Much of the documentation in VueGWT could be adapted or provide inspiration for Arez. See
   - https://github.com/Axellience/vue-gwt/blob/master/docs-source/book/project-setup.md

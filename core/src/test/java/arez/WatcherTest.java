@@ -1,14 +1,5 @@
-package arez.extras;
+package arez;
 
-import arez.Arez;
-import arez.ArezContext;
-import arez.Disposable;
-import arez.Observable;
-import arez.Observer;
-import arez.ObserverError;
-import arez.ObserverErrorHandler;
-import arez.SafeFunction;
-import arez.SafeProcedure;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,7 +8,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class WatcherTest
-  extends AbstractArezExtrasTest
+  extends AbstractArezTest
 {
   @Test
   public void basicOperation()
@@ -41,11 +32,10 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Watcher watcher = new Arez_Watcher( name, mutation, condition, procedure );
+    final Watcher watcher = new Watcher( context, name, mutation, condition, procedure );
 
     assertEquals( watcher.getName(), name );
     assertEquals( watcher.isMutation(), mutation );
-    assertEquals( watcher.getCondition(), condition );
     assertEquals( watcher.getEffect(), procedure );
 
     assertEquals( conditionRun.get(), 1 );
@@ -93,7 +83,7 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Watcher watcher = new Arez_Watcher( name, mutation, condition, procedure );
+    final Watcher watcher = new Watcher( context, name, mutation, condition, procedure );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
@@ -144,7 +134,7 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    new Arez_Watcher( name, mutation, condition, procedure );
+    new Watcher( context, name, mutation, condition, procedure );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
@@ -189,7 +179,7 @@ public class WatcherTest
       observable.reportChanged();
     };
 
-    new Arez_Watcher( ValueUtil.randomString(), false, () -> true, effect );
+    new Watcher( context, ValueUtil.randomString(), false, () -> true, effect );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 1 );
@@ -216,7 +206,7 @@ public class WatcherTest
       observable.reportChanged();
     };
 
-    new Arez_Watcher( ValueUtil.randomString(), true, () -> true, effect );
+    new Watcher( context, ValueUtil.randomString(), true, () -> true, effect );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 0 );

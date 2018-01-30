@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Changed
+* 💥 **\[core\]** Moved the `ArezExtras.when(*)` static methods to `ArezContext` instance methods. The goal is
+  to enable the usage of the `when` syntax in higher level abstractions such as the component model.
+
 ### [v0.45](https://github.com/arez/arez/tree/v0.45) (2018-01-30)
 [Full Changelog](https://github.com/arez/arez/compare/v0.44...v0.45)
 

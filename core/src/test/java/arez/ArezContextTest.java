@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.security.AccessControlException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -2238,6 +2239,57 @@ public class ArezContextTest
     assertThrowsWithMessage( () -> context.deregisterComputedValue( computedValue ),
                              "ArezContext.deregisterComputedValue invoked with computed value named '" +
                              computedValue.getName() + "' but no computed value with that name is registered." );
+  }
+
+  @Test
+  public void when()
+    throws Throwable
+  {
+    final AtomicInteger conditionRun = new AtomicInteger();
+    final AtomicInteger effectRun = new AtomicInteger();
+
+    final String name = ValueUtil.randomString();
+    final SafeFunction<Boolean> condition = () -> {
+      conditionRun.incrementAndGet();
+      return false;
+    };
+    final SafeProcedure procedure = effectRun::incrementAndGet;
+
+    final Disposable node = Arez.context().when( name, true, condition, procedure );
+
+    assertTrue( node instanceof Watcher );
+    final Watcher watcher = (Watcher) node;
+    assertEquals( watcher.getName(), name );
+    assertEquals( conditionRun.get(), 1 );
+    assertEquals( effectRun.get(), 0 );
+  }
+
+  @Test
+  public void when_minimalParameters()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+    final Observable observable = context.createObservable();
+
+    final AtomicBoolean result = new AtomicBoolean();
+
+    final AtomicInteger conditionRun = new AtomicInteger();
+    final AtomicInteger effectRun = new AtomicInteger();
+
+    final SafeFunction<Boolean> condition = () -> {
+      conditionRun.incrementAndGet();
+      observable.reportObserved();
+      return result.get();
+    };
+    final SafeProcedure procedure = effectRun::incrementAndGet;
+
+    final Disposable node = context.when( condition, procedure );
+
+    assertTrue( node instanceof Watcher );
+    final Watcher watcher = (Watcher) node;
+    assertEquals( watcher.getName(), "When@2", "The name has @2 as one other Arez entity created (Observable)" );
+    assertEquals( conditionRun.get(), 1 );
+    assertEquals( effectRun.get(), 0 );
   }
 
   private void assertThrowsWithMessage( @Nonnull final ThrowingRunnable runnable, @Nonnull final String message )

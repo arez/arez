@@ -1,14 +1,5 @@
-package arez.extras;
+package arez;
 
-import arez.Arez;
-import arez.ArezContext;
-import arez.Disposable;
-import arez.SafeFunction;
-import arez.SafeProcedure;
-import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
-import arez.annotations.Computed;
-import arez.annotations.ContextRef;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,15 +12,9 @@ import org.realityforge.anodoc.TestOnly;
  * any time any of the observed elements are updated. The effect procedure is run in either a
  * read-only or read-write, non-tracking transaction.</p>
  */
-@ArezComponent
-abstract class Watcher
+final class Watcher
+  extends Node
 {
-  /**
-   * A human consumable name for effect. It should be non-null if {@link Arez#areNamesEnabled()} returns
-   * true and <tt>null</tt> otherwise.
-   */
-  @Nullable
-  private final String _name;
   /**
    * True if the effect should run in a read-write transaction.
    */
@@ -38,74 +23,80 @@ abstract class Watcher
    * The condition to test.
    */
   @Nonnull
-  private final SafeFunction<Boolean> _condition;
+  private final ComputedValue<Boolean> _condition;
   /**
    * The effect/action to run when condition is true.
    */
   private final SafeProcedure _effect;
 
   /**
+   * The observer responsible for watching the condition and running the effect reaction when condition triggered.
+   */
+  private final Observer _watcher;
+
+  /**
    * Create the watcher.
    *
+   * @param context   the Arez context.
    * @param name      the name (if any) used when naming the underlying Arez resources.
    * @param mutation  true if the effect can mutate state, false otherwise.
    * @param condition The function that determines when the effect is run.
    * @param effect    The procedure that is executed when the condition is true.
    */
-  Watcher( @Nullable final String name,
+  Watcher( @Nonnull final ArezContext context,
+           @Nullable final String name,
            final boolean mutation,
            @Nonnull final SafeFunction<Boolean> condition,
            @Nonnull final SafeProcedure effect )
   {
-    _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
+    super( context, name );
+    Objects.requireNonNull( condition );
     _mutation = mutation;
-    _condition = Objects.requireNonNull( condition );
     _effect = Objects.requireNonNull( effect );
+    _condition =
+      getContext().createComputedValue( Arez.areNamesEnabled() ? getName() + ".condition" : null, condition );
+    _watcher =
+      getContext().autorun( Arez.areNamesEnabled() ? getName() + ".watcher" : null, true, this::checkCondition, false );
+
+    getContext().triggerScheduler();
   }
 
   /**
-   * Get access to the context associated with the watcher.
+   * Check the condition and when it returns true the run the effect and dispose the watcher.
    */
-  @ContextRef
-  abstract ArezContext context();
-
-  /**
-   * Check the condition and when it returns true the run the effec and dispose the watcher.
-   */
-  @Autorun( mutation = true )
-  void checkCondition()
+  private void checkCondition()
   {
-    if ( condition() )
+    if ( _condition.get() )
     {
-      context().safeAction( _name, _mutation, _effect );
-      Disposable.dispose( this );
+      getContext().safeAction( Arez.areNamesEnabled() ? getName() : null, _mutation, _effect );
+      Disposable.dispose( _watcher );
+      Disposable.dispose( _condition );
     }
   }
 
-  @Computed
-  boolean condition()
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void dispose()
   {
-    return _condition.call();
+    Disposable.dispose( _watcher );
+    Disposable.dispose( _condition );
   }
 
-  @TestOnly
-  @Nullable
-  String getName()
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isDisposed()
   {
-    return _name;
+    return Disposable.isDisposed( _watcher );
   }
 
   @TestOnly
   boolean isMutation()
   {
     return _mutation;
-  }
-
-  @TestOnly
-  @Nonnull
-  SafeFunction<Boolean> getCondition()
-  {
-    return _condition;
   }
 
   @TestOnly
