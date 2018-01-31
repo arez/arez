@@ -1566,14 +1566,13 @@ public class ArezContextTest
 
     handler.assertEventCount( 7 );
 
-    assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver().getName(), observer.getName() );
-    assertEquals( handler.assertEvent( ReactionStartedEvent.class, 1 ).getObserver().getName(), observer.getName() );
-    assertEquals( handler.assertEvent( ActionStartedEvent.class, 2 ).getName(), observer.getName() );
-    assertEquals( handler.assertEvent( TransactionStartedEvent.class, 3 ).getTracker().getName(), observer.getName() );
-    assertEquals( handler.assertEvent( TransactionCompletedEvent.class, 4 ).getTracker().getName(),
-                  observer.getName() );
-    assertEquals( handler.assertEvent( ActionCompletedEvent.class, 5 ).getName(), observer.getName() );
-    assertEquals( handler.assertEvent( ReactionCompletedEvent.class, 6 ).getObserver().getName(), observer.getName() );
+    assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver().getName(), name );
+    assertEquals( handler.assertEvent( ReactionStartedEvent.class, 1 ).getObserver().getName(), name );
+    assertEquals( handler.assertEvent( ActionStartedEvent.class, 2 ).getName(), name );
+    assertEquals( handler.assertEvent( TransactionStartedEvent.class, 3 ).getTracker().getName(), name );
+    assertEquals( handler.assertEvent( TransactionCompletedEvent.class, 4 ).getTracker().getName(), name );
+    assertEquals( handler.assertEvent( ActionCompletedEvent.class, 5 ).getName(), name );
+    assertEquals( handler.assertEvent( ReactionCompletedEvent.class, 6 ).getObserver().getName(), name );
   }
 
   @Test
