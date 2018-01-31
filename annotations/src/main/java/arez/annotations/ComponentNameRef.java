@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
  * Annotate the method that will be overridden to provider the debug name for the Arez component.
  * This is useful when the user wants to manually create Arez elements (i.e. Observables,
  * Autoruns, Computeds etc) and wants to use the same naming convention as the generated Arez
- * subclass. If not specified Arez will generate a private method (currently named <tt>$$arez$$_id()</tt>)
+ * subclass. If not specified Arez will generate a private method (currently named <tt>$$arez$$_name()</tt>)
  * that serves the same purpose. The method returns a string name for the model if names are enabled.
  *
  * <p>This annotation should appear at most once on a component. The
