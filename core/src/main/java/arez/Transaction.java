@@ -23,6 +23,13 @@ final class Transaction
   @Nullable
   private static Transaction c_transaction;
   /**
+   * Flag indicating whether this transaction is currently suspended or not.
+   * Suspended transactions are transactions that will not collect dependencies and will not allow
+   * the current thread to access or mutate observable data. Suspended transactions can also not
+   * have other transactions begin until it has been resumed.
+   */
+  private static boolean c_suspended;
+  /**
    * Reference to the system to which this transaction belongs.
    */
   @Nonnull
@@ -89,13 +96,14 @@ final class Transaction
   private boolean _disposeTracker;
 
   /**
-   * Return true if there is a transaction in progress.
+   * Return true if there is a transaction for speciffied context in progress.
    *
-   * @return true if there is a transaction in progress.
+   * @return true if there is a transaction for speciffied context in progress.
    */
-  static boolean isTransactionActive()
+  static boolean isTransactionActive( @Nonnull final ArezContext context )
   {
-    return null != c_transaction;
+    return null != c_transaction &&
+           ( !Arez.areZonesEnabled() || c_transaction.getContext() == context );
   }
 
   /**
@@ -108,8 +116,10 @@ final class Transaction
   @Nonnull
   static Transaction current()
   {
-    invariant( Transaction::isTransactionActive,
+    invariant( () -> null != c_transaction,
                () -> "Attempting to get current transaction but no transaction is active." );
+    invariant( () -> !c_suspended,
+               () -> "Attempting to get current transaction but transaction is suspended." );
     assert null != c_transaction;
     return c_transaction;
   }
@@ -142,6 +152,10 @@ final class Transaction
                        "nested in a transaction named '" + c_transaction.getName() + "' from a " +
                        "different context." );
     }
+    invariant( () -> !c_suspended,
+               () -> "Attempted to create transaction named '" + name + "' while " +
+                     "nested in a suspended transaction named '" + c_transaction.getName() + "'." );
+
     c_transaction = new Transaction( context, c_transaction, name, mode, tracker );
     context.disableScheduler();
     c_transaction.begin();
@@ -174,6 +188,9 @@ final class Transaction
     invariant( () -> c_transaction == transaction,
                () -> "Attempting to commit transaction named '" + transaction.getName() + "' but this does " +
                      "not match existing transaction named '" + c_transaction.getName() + "'." );
+    invariant( () -> !c_suspended,
+               () -> "Attempting to commit transaction named '" + transaction.getName() +
+                     "' transaction is suspended." );
     c_transaction.commit();
     if ( c_transaction.getContext().willPropagateSpyEvents() )
     {
@@ -194,6 +211,48 @@ final class Transaction
       c_transaction.getContext().enableScheduler();
     }
     c_transaction = c_transaction.getPrevious();
+  }
+
+  /**
+   * Suspend specified transaction and stop it collecting dependencies.
+   * It should be the current transaction.
+   *
+   * @param transaction the transaction.
+   */
+  static void suspend( @Nonnull final Transaction transaction )
+  {
+    invariant( () -> null != c_transaction,
+               () -> "Attempting to suspend transaction named '" + transaction.getName() +
+                     "' but no transaction is active." );
+    assert null != c_transaction;
+    invariant( () -> c_transaction == transaction,
+               () -> "Attempting to suspend transaction named '" + transaction.getName() + "' but this does " +
+                     "not match existing transaction named '" + c_transaction.getName() + "'." );
+    invariant( () -> !c_suspended,
+               () -> "Attempting to suspend transaction named '" + transaction.getName() +
+                     "' but transaction is already suspended." );
+    c_suspended = true;
+  }
+
+  /**
+   * Resume specified transaction and start it collecting dependencies again.
+   * It should be the current transaction.
+   *
+   * @param transaction the transaction.
+   */
+  static void resume( @Nonnull final Transaction transaction )
+  {
+    invariant( () -> null != c_transaction,
+               () -> "Attempting to resume transaction named '" + transaction.getName() +
+                     "' but no transaction is active." );
+    assert null != c_transaction;
+    invariant( () -> c_transaction == transaction,
+               () -> "Attempting to resume transaction named '" + transaction.getName() + "' but this does " +
+                     "not match existing transaction named '" + c_transaction.getName() + "'." );
+    invariant( () -> c_suspended,
+               () -> "Attempting to resume transaction named '" + transaction.getName() +
+                     "' but transaction is not suspended." );
+    c_suspended = false;
   }
 
   Transaction( @Nonnull final ArezContext context,
@@ -837,5 +896,23 @@ final class Transaction
   static void setTransaction( @Nullable final Transaction transaction )
   {
     c_transaction = transaction;
+  }
+
+  @TestOnly
+  static boolean isSuspended()
+  {
+    return c_suspended;
+  }
+
+  @TestOnly
+  static void markAsSuspended()
+  {
+    c_suspended = true;
+  }
+
+  @TestOnly
+  static void resetSuspendedFlag()
+  {
+    c_suspended = false;
   }
 }

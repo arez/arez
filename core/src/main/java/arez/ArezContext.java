@@ -753,8 +753,7 @@ public final class ArezContext
    */
   public boolean isTransactionActive()
   {
-    return Transaction.isTransactionActive() &&
-           ( !Arez.areZonesEnabled() || Transaction.current().getContext() == this );
+    return Transaction.isTransactionActive( this );
   }
 
   /**
