@@ -2292,6 +2292,96 @@ public class ArezContextTest
     assertEquals( effectRun.get(), 0 );
   }
 
+  @Test
+  public void noTxAction_function()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final String expectedValue = ValueUtil.randomString();
+    final String v0 =
+      context.action( () -> {
+        assertTrue( context.isTransactionActive() );
+
+        return context.noTxAction( () -> {
+          assertFalse( context.isTransactionActive() );
+          return expectedValue;
+        } );
+      } );
+
+    assertFalse( context.isTransactionActive() );
+
+    assertEquals( v0, expectedValue );
+  }
+
+  @Test
+  public void noTxAction_safeFunction()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    final String expectedValue = ValueUtil.randomString();
+    final String v0 =
+      context.action( () -> {
+        assertTrue( context.isTransactionActive() );
+
+        return context.safeNoTxAction( () -> {
+          assertFalse( context.isTransactionActive() );
+          return expectedValue;
+        } );
+      } );
+
+    assertFalse( context.isTransactionActive() );
+
+    assertEquals( v0, expectedValue );
+  }
+
+  @Test
+  public void noTxAction_procedure()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    context.action( () -> {
+      assertTrue( context.isTransactionActive() );
+
+      context.noTxAction( () -> {
+        assertFalse( context.isTransactionActive() );
+      } );
+
+      assertTrue( context.isTransactionActive() );
+    } );
+
+    assertFalse( context.isTransactionActive() );
+  }
+
+  @Test
+  public void noTxAction_safeProcedure()
+    throws Throwable
+  {
+    final ArezContext context = new ArezContext();
+
+    assertFalse( context.isTransactionActive() );
+
+    context.action( () -> {
+      assertTrue( context.isTransactionActive() );
+
+      context.safeNoTxAction( () -> {
+        assertFalse( context.isTransactionActive() );
+      } );
+
+      assertTrue( context.isTransactionActive() );
+    } );
+
+    assertFalse( context.isTransactionActive() );
+  }
+
   private void assertThrowsWithMessage( @Nonnull final ThrowingRunnable runnable, @Nonnull final String message )
   {
     assertEquals( expectThrows( IllegalStateException.class, runnable ).getMessage(), message );

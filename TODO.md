@@ -128,6 +128,8 @@ console.table(languages);
 
 * Document `ArezContext.when(...)` methods and describe it as an observer?.
 
+* Document `ArezContext.noTxAction(...)` methods and describe it in transaction section.
+
 * Much of the documentation in VueGWT could be adapted or provide inspiration for Arez. See
   - https://github.com/Axellience/vue-gwt/blob/master/docs-source/book/project-setup.md
   - https://github.com/Axellience/vue-gwt/blob/master/docs-source/book/essential/class-and-style.md

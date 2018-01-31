@@ -1483,6 +1483,100 @@ public final class ArezContext
   }
 
   /**
+   * Execute the specified action outside of a transaction.
+   * The transaction is suspended for the duration of the action and the action must not
+   * attempt to create a nested transaction.
+   * The action may throw an exception.
+   *
+   * @param action the action to execute.
+   * @throws Throwable if the action throws an an exception.
+   */
+  public void noTxAction( @Nonnull final Procedure action )
+    throws Throwable
+  {
+    final Transaction current = Transaction.current();
+    Transaction.suspend( current );
+    try
+    {
+      action.call();
+    }
+    finally
+    {
+      Transaction.resume( current );
+    }
+  }
+
+  /**
+   * Execute the specified action outside of a transaction.
+   * The transaction is suspended for the duration of the action and the action must not
+   * attempt to create a nested transaction.
+   * The action may throw an exception.
+   *
+   * @param <T>    the type of return value.
+   * @param action the action to execute.
+   * @return the value returned from the action.
+   * @throws Throwable if the action throws an an exception.
+   */
+  public <T> T noTxAction( @Nonnull final Function<T> action )
+    throws Throwable
+  {
+    final Transaction current = Transaction.current();
+    Transaction.suspend( current );
+    try
+    {
+      return action.call();
+    }
+    finally
+    {
+      Transaction.resume( current );
+    }
+  }
+
+  /**
+   * Execute the specified action outside of a transaction.
+   * The transaction is suspended for the duration of the action and the action must not
+   * attempt to create a nested transaction.
+   *
+   * @param action the action to execute.
+   */
+  public void safeNoTxAction( @Nonnull final SafeProcedure action )
+  {
+    final Transaction current = Transaction.current();
+    Transaction.suspend( current );
+    try
+    {
+      action.call();
+    }
+    finally
+    {
+      Transaction.resume( current );
+    }
+  }
+
+  /**
+   * Execute the specified action outside of a transaction.
+   * The transaction is suspended for the duration of the action and the action must not
+   * attempt to create a nested transaction.
+   *
+   * @param <T>    the type of return value.
+   * @param action the action to execute.
+   * @return the value returned from the action.
+   */
+  public <T> T safeNoTxAction( @Nonnull final SafeFunction<T> action )
+  {
+    final Transaction current = Transaction.current();
+    Transaction.suspend( current );
+    try
+    {
+      return action.call();
+    }
+    finally
+    {
+      Transaction.resume( current );
+    }
+  }
+
+  /**
    * Return next transaction id and increment internal counter.
    * The id is a monotonically increasing number starting at 1.
    *
