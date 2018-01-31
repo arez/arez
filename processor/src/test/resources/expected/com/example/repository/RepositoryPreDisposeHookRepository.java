@@ -27,13 +27,7 @@ public abstract class RepositoryPreDisposeHookRepository extends AbstractReposit
   @Nonnull
   RepositoryPreDisposeHook create(@Nonnull final String name) {
     final Arez_RepositoryPreDisposeHook entity = new Arez_RepositoryPreDisposeHook(name);
-    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     registerEntity( entity );
     return entity;
-  }
-
-  @Override
-  protected void preDisposeEntity(@Nonnull final RepositoryPreDisposeHook entity) {
-    ((Arez_RepositoryPreDisposeHook) entity).$$arez$$_setOnDispose( null );
   }
 }

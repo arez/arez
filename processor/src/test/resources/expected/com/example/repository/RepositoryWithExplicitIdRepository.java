@@ -28,14 +28,8 @@ public abstract class RepositoryWithExplicitIdRepository extends AbstractReposit
   @Nonnull
   RepositoryWithExplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_RepositoryWithExplicitId entity = new Arez_RepositoryWithExplicitId(packageName,name);
-    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     registerEntity( entity );
     return entity;
-  }
-
-  @Override
-  protected void preDisposeEntity(@Nonnull final RepositoryWithExplicitId entity) {
-    ((Arez_RepositoryWithExplicitId) entity).$$arez$$_setOnDispose( null );
   }
 
   @Nullable

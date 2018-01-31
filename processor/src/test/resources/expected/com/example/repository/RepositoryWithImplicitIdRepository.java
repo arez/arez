@@ -27,13 +27,7 @@ public abstract class RepositoryWithImplicitIdRepository extends AbstractReposit
   @Nonnull
   RepositoryWithImplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_RepositoryWithImplicitId entity = new Arez_RepositoryWithImplicitId(packageName,name);
-    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     registerEntity( entity );
     return entity;
-  }
-
-  @Override
-  protected void preDisposeEntity(@Nonnull final RepositoryWithImplicitId entity) {
-    ((Arez_RepositoryWithImplicitId) entity).$$arez$$_setOnDispose( null );
   }
 }

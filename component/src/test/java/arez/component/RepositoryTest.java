@@ -437,8 +437,15 @@ public class RepositoryTest
     }
 
     @Override
-    protected void preDisposeEntity( @Nonnull final MyEntity entity )
+    protected String getRepositoryName()
     {
+      return "MyRepository";
+    }
+
+    @Override
+    protected ArezContext getContext()
+    {
+      return Arez.context();
     }
 
     @Override

@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[processor\]** Remove the specialized `OnDispose` hook that was added to Arez components if they had an
+  associated `Repository`. Implement the same functionality through the `ArezContext.when(...)` observers
+  that observe the `disposed` observable property and remove the entity from the repository when the entity
+  is disposed.
+
 #### Changed
 * 💥 **\[core\]** Moved the `ArezExtras.when(*)` static methods to `ArezContext` instance methods. The goal is
   to enable the usage of the `when` syntax in higher level abstractions such as the component model. This

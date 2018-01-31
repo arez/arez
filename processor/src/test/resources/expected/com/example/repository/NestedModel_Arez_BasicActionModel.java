@@ -19,8 +19,6 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
 
   private boolean $$arez$$_disposed;
 
-  private OnDispose $$arez$$_onDispose;
-
   @Nullable
   private final ArezContext $$arez$$_context;
 
@@ -32,7 +30,7 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
     super();
     this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "BasicActionModel", $$arez$$_id(), $$arez$$_name(), () -> $$arez$$_preDispose(), null ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "BasicActionModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
     this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
@@ -75,22 +73,10 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
         this.$$arez$$_component.dispose();
       } else {
         $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-          $$arez$$_preDispose();
           this.$$arez$$_disposedObservable.dispose();
         } } );
       }
     }
-  }
-
-  void $$arez$$_preDispose() {
-    if ( null != this.$$arez$$_onDispose ) {
-      this.$$arez$$_onDispose.onDispose( this );
-      this.$$arez$$_onDispose = null;
-    }
-  }
-
-  void $$arez$$_setOnDispose(OnDispose onDispose) {
-    this.$$arez$$_onDispose = onDispose;
   }
 
   @Override

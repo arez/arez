@@ -34,14 +34,11 @@ final class GeneratorUtil
   static final String CAUGHT_THROWABLE_NAME = FIELD_PREFIX + "e";
   static final String DISPOSED_FIELD_NAME = FIELD_PREFIX + "disposed";
   static final String DISPOSED_OBSERVABLE_FIELD_NAME = FIELD_PREFIX + "disposedObservable";
-  static final String ON_DISPOSE_FIELD_NAME = FIELD_PREFIX + "onDispose";
-  static final String SET_ON_DISPOSE_METHOD_NAME = FIELD_PREFIX + "setOnDispose";
   static final String ID_FIELD_NAME = FIELD_PREFIX + "id";
   static final String NAME_METHOD_NAME = FIELD_PREFIX + "name";
   static final String NEXT_ID_FIELD_NAME = FIELD_PREFIX + "nextId";
   static final String CONTEXT_FIELD_NAME = FIELD_PREFIX + "context";
   static final String COMPONENT_FIELD_NAME = FIELD_PREFIX + "component";
-  static final String PRE_DISPOSE_METHOD_NAME = FIELD_PREFIX + "preDispose";
 
   private GeneratorUtil()
   {

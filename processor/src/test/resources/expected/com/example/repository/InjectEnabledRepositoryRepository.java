@@ -29,13 +29,7 @@ public abstract class InjectEnabledRepositoryRepository extends AbstractReposito
   @Nonnull
   InjectEnabledRepository create(@Nonnull final String name) {
     final Arez_InjectEnabledRepository entity = new Arez_InjectEnabledRepository(name);
-    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     registerEntity( entity );
     return entity;
-  }
-
-  @Override
-  protected void preDisposeEntity(@Nonnull final InjectEnabledRepository entity) {
-    ((Arez_InjectEnabledRepository) entity).$$arez$$_setOnDispose( null );
   }
 }

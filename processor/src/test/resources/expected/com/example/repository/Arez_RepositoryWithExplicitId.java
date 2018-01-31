@@ -16,8 +16,6 @@ import org.realityforge.braincheck.Guards;
 final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId implements Disposable, Identifiable<Integer> {
   private boolean $$arez$$_disposed;
 
-  private OnDispose $$arez$$_onDispose;
-
   @Nullable
   private final ArezContext $$arez$$_context;
 
@@ -31,7 +29,7 @@ final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId imple
   Arez_RepositoryWithExplicitId(@Nonnull final String packageName, @Nonnull final String name) {
     super(packageName,name);
     this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "RepositoryWithExplicitId", getId(), $$arez$$_name(), () -> $$arez$$_preDispose(), null ) : null;
+    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "RepositoryWithExplicitId", getId(), $$arez$$_name(), null, null ) : null;
     this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
     this.$$arez$$_name = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setName( v ) : null );
     if ( Arez.areNativeComponentsEnabled() ) {
@@ -71,23 +69,11 @@ final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId imple
         this.$$arez$$_component.dispose();
       } else {
         $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-          $$arez$$_preDispose();
           this.$$arez$$_disposedObservable.dispose();
           this.$$arez$$_name.dispose();
         } } );
       }
     }
-  }
-
-  void $$arez$$_preDispose() {
-    if ( null != this.$$arez$$_onDispose ) {
-      this.$$arez$$_onDispose.onDispose( this );
-      this.$$arez$$_onDispose = null;
-    }
-  }
-
-  void $$arez$$_setOnDispose(OnDispose onDispose) {
-    this.$$arez$$_onDispose = onDispose;
   }
 
   @Nonnull

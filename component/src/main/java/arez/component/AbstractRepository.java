@@ -1,9 +1,12 @@
 package arez.component;
 
 import arez.Arez;
+import arez.ArezContext;
 import arez.Disposable;
 import arez.Observable;
 import arez.annotations.Action;
+import arez.annotations.ComponentNameRef;
+import arez.annotations.ContextRef;
 import arez.annotations.ObservableRef;
 import arez.annotations.PreDispose;
 import java.util.Collections;
@@ -15,7 +18,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.Unsupported;
 import org.realityforge.braincheck.Guards;
 
 /**
@@ -34,7 +36,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   /**
    * A map of all the entities ArezId to entity.
    */
-  private final HashMap<K, T> _entities = new HashMap<>();
+  private final HashMap<K, RepositoryEntry<T>> _entities = new HashMap<>();
 
   /**
    * Register specified entity in list of entities managed by the repository.
@@ -46,7 +48,15 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   protected final void registerEntity( @Nonnull final T entity )
   {
     getEntitiesObservable().preReportChanged();
-    _entities.put( Identifiable.getArezId( entity ), entity );
+    final RepositoryEntry<T> entry = new RepositoryEntry<>( entity );
+    final K arezId = Identifiable.getArezId( entity );
+    _entities.put( arezId, entry );
+    final Disposable monitor =
+      getContext().when( Arez.areNamesEnabled() ? getRepositoryName() + ".Watcher." + arezId : null,
+                         true,
+                         () -> Disposable.isDisposed( entity ),
+                         () -> destroy( entity ) );
+    entry.setMonitor( monitor );
     getEntitiesObservable().reportChanged();
   }
 
@@ -57,7 +67,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   protected void preDispose()
   {
     getEntitiesObservable().preReportChanged();
-    _entities.values().forEach( Disposable::dispose );
+    _entities.values().forEach( e -> Disposable.dispose( e ) );
     _entities.clear();
     getEntitiesObservable().reportChanged();
   }
@@ -84,11 +94,11 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   @Action
   public void destroy( @Nonnull final T entity )
   {
-    if ( null != _entities.remove( Identifiable.<K>getArezId( entity ) ) )
+    final RepositoryEntry<T> entry = _entities.remove( Identifiable.<K>getArezId( entity ) );
+    if ( null != entry )
     {
       getEntitiesObservable().preReportChanged();
-      preDisposeEntity( entity );
-      Disposable.dispose( entity );
+      Disposable.dispose( entry );
       getEntitiesObservable().reportChanged();
     }
     else
@@ -96,16 +106,6 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
       Guards.fail( () -> "Called destroy() passing an entity that was not in the repository. Entity: " + entity );
     }
   }
-
-  /**
-   * A hook method invoked prior to disposing specified entity.
-   * This method may disappear in the future, as it is currently used to support an optimization hack
-   * that may not have any performance benefit.
-   *
-   * @param entity the entity that is about to be disposed.
-   */
-  @Unsupported
-  protected abstract void preDisposeEntity( @Nonnull T entity );
 
   /**
    * Return all the entities.
@@ -196,8 +196,8 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   public T findByArezId( @Nonnull final K arezId )
   {
     getEntitiesObservable().reportObserved();
-    final T entity = _entities.get( arezId );
-    return null != entity && !Disposable.isDisposed( entity ) ? entity : null;
+    final RepositoryEntry<T> entry = _entities.get( arezId );
+    return null != entry && notDisposed( entry ) ? entry.getEntity() : null;
   }
 
   /**
@@ -232,6 +232,22 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   }
 
   /**
+   * Return the context associated with the repository.
+   *
+   * @return the context associated with the repository.
+   */
+  @ContextRef
+  protected abstract ArezContext getContext();
+
+  /**
+   * Return the name associated with the repository.
+   *
+   * @return the name associated with the repository.
+   */
+  @ComponentNameRef
+  protected abstract String getRepositoryName();
+
+  /**
    * Return the observable associated with entities.
    * This template method is implemented by the Arez annotation processor and is used internally
    * to repository. It should not be invoked by extensions.
@@ -252,7 +268,17 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   @Nonnull
   protected Stream<T> entities()
   {
-    return _entities.values().stream().filter( e -> !Disposable.isDisposed( e ) );
+    return _entities.values().stream().filter( this::notDisposed ).map( RepositoryEntry::getEntity );
+  }
+
+  /**
+   * Return true if entry is not disposed.
+   *
+   * @return true if entry is not disposed.
+   */
+  private boolean notDisposed( @Nonnull final RepositoryEntry<T> entry )
+  {
+    return getContext().safeOutsideTransaction( () -> !Disposable.isDisposed( entry ) );
   }
 
   /**

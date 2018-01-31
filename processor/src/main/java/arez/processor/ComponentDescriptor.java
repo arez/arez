@@ -1524,11 +1524,6 @@ final class ComponentDescriptor
 
     builder.addMethod( buildIsDisposed() );
     builder.addMethod( buildDispose() );
-    if ( hasRepository() )
-    {
-      builder.addMethod( buildPreDispose() );
-      builder.addMethod( buildSetOnDispose() );
-    }
 
     _roObservables.forEach( e -> e.buildMethods( builder ) );
     _roAutoruns.forEach( e -> e.buildMethods( builder ) );
@@ -1790,33 +1785,6 @@ final class ComponentDescriptor
     return builder.build();
   }
 
-  @Nonnull
-  private MethodSpec buildPreDispose()
-    throws ArezProcessorException
-  {
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( GeneratorUtil.PRE_DISPOSE_METHOD_NAME );
-    final CodeBlock.Builder onDisposeCodeBlock = CodeBlock.builder();
-    onDisposeCodeBlock.beginControlFlow( "if ( null != this.$N )", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
-    onDisposeCodeBlock.addStatement( "this.$N.onDispose( this )", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
-    onDisposeCodeBlock.addStatement( "this.$N = null", GeneratorUtil.ON_DISPOSE_FIELD_NAME );
-    onDisposeCodeBlock.endControlFlow();
-    method.addCode( onDisposeCodeBlock.build() );
-    if ( null != _preDispose )
-    {
-      method.addStatement( "super.$N()", _preDispose.getSimpleName().toString() );
-    }
-    return method.build();
-  }
-
-  @Nonnull
-  private MethodSpec buildSetOnDispose()
-    throws ArezProcessorException
-  {
-    return MethodSpec.methodBuilder( GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME ).
-      addParameter( ParameterSpec.builder( ClassName.bestGuess( "OnDispose" ), "onDispose" ).build() ).
-      addStatement( "this.$N = onDispose", GeneratorUtil.ON_DISPOSE_FIELD_NAME ).build();
-  }
-
   /**
    * Generate the dispose method.
    */
@@ -1843,11 +1811,7 @@ final class ComponentDescriptor
                                   GeneratorUtil.AREZ_CLASSNAME,
                                   getComponentNameMethodName() );
 
-    if ( hasRepository() )
-    {
-      actionBlock.addStatement( "$N()", GeneratorUtil.PRE_DISPOSE_METHOD_NAME );
-    }
-    else if ( null != _preDispose )
+    if ( null != _preDispose )
     {
       actionBlock.addStatement( "super.$N()", _preDispose.getSimpleName() );
     }
@@ -1928,14 +1892,6 @@ final class ComponentDescriptor
     final FieldSpec.Builder disposableField =
       FieldSpec.builder( TypeName.BOOLEAN, GeneratorUtil.DISPOSED_FIELD_NAME, Modifier.PRIVATE );
     builder.addField( disposableField.build() );
-    if ( hasRepository() )
-    {
-      final FieldSpec.Builder onDisposeField =
-        FieldSpec.builder( ClassName.bestGuess( "OnDispose" ),
-                           GeneratorUtil.ON_DISPOSE_FIELD_NAME,
-                           Modifier.PRIVATE );
-      builder.addField( onDisposeField.build() );
-    }
 
     // Create the field that contains the context
     {
@@ -2062,12 +2018,7 @@ final class ComponentDescriptor
       params.add( _type );
       params.add( getIdMethodName() );
       params.add( getComponentNameMethodName() );
-      if ( hasRepository() )
-      {
-        sb.append( "() -> $N(), " );
-        params.add( GeneratorUtil.PRE_DISPOSE_METHOD_NAME );
-      }
-      else if ( null != _preDispose )
+      if ( null != _preDispose )
       {
         sb.append( "() -> super.$N(), " );
         params.add( _preDispose.getSimpleName().toString() );
@@ -2284,8 +2235,6 @@ final class ComponentDescriptor
       builder.addMethod( buildRepositoryCreate( constructor, methodType, arezType ) );
     }
 
-    builder.addMethod( buildPreDisposeEntityMethod() );
-
     if ( null != _componentId )
     {
       builder.addMethod( buildFindByIdMethod() );
@@ -2317,19 +2266,6 @@ final class ComponentDescriptor
   private String getRepositoryName()
   {
     return getNestedClassPrefix() + getElement().getSimpleName() + "Repository";
-  }
-
-  @Nonnull
-  private MethodSpec buildPreDisposeEntityMethod()
-  {
-    final MethodSpec.Builder method =
-      MethodSpec.methodBuilder( "preDisposeEntity" ).
-        addModifiers( Modifier.PROTECTED ).
-        addAnnotation( Override.class ).
-        addParameter( ParameterSpec.builder( ClassName.get( getElement() ), "entity", Modifier.FINAL ).
-          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).build() );
-    method.addStatement( "(($N) entity).$N( null )", getArezClassName(), GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME );
-    return method.build();
   }
 
   @Nonnull
@@ -2413,9 +2349,6 @@ final class ComponentDescriptor
 
     newCall.append( ")" );
     builder.addStatement( newCall.toString(), parameters.toArray() );
-
-    builder.addStatement( "entity.$N( e -> destroy( e ) )", GeneratorUtil.SET_ON_DISPOSE_METHOD_NAME );
-
     builder.addStatement( "registerEntity( entity )" );
     builder.addStatement( "return entity" );
     return builder.build();

@@ -28,7 +28,6 @@ public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepo
   RepositoryWithMultipleCtors create(@Nonnull final String packageName,
       @Nonnull final String name) {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(packageName,name);
-    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     registerEntity( entity );
     return entity;
   }
@@ -39,7 +38,6 @@ public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepo
   @Nonnull
   RepositoryWithMultipleCtors create(@Nonnull final String name) {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(name);
-    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     registerEntity( entity );
     return entity;
   }
@@ -50,13 +48,7 @@ public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepo
   @Nonnull
   RepositoryWithMultipleCtors create() {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors();
-    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     registerEntity( entity );
     return entity;
-  }
-
-  @Override
-  protected void preDisposeEntity(@Nonnull final RepositoryWithMultipleCtors entity) {
-    ((Arez_RepositoryWithMultipleCtors) entity).$$arez$$_setOnDispose( null );
   }
 }

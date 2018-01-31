@@ -27,13 +27,7 @@ public abstract class RepositoryWithProtectedConstructorRepository extends Abstr
   @Nonnull
   protected RepositoryWithProtectedConstructor create(@Nonnull final String name) {
     final Arez_RepositoryWithProtectedConstructor entity = new Arez_RepositoryWithProtectedConstructor(name);
-    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     registerEntity( entity );
     return entity;
-  }
-
-  @Override
-  protected void preDisposeEntity(@Nonnull final RepositoryWithProtectedConstructor entity) {
-    ((Arez_RepositoryWithProtectedConstructor) entity).$$arez$$_setOnDispose( null );
   }
 }

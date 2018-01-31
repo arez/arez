@@ -27,13 +27,7 @@ public abstract class NestedModel_BasicActionModelRepository extends AbstractRep
   @Nonnull
   public NestedModel.BasicActionModel create() {
     final NestedModel_Arez_BasicActionModel entity = new NestedModel_Arez_BasicActionModel();
-    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     registerEntity( entity );
     return entity;
-  }
-
-  @Override
-  protected void preDisposeEntity(@Nonnull final NestedModel.BasicActionModel entity) {
-    ((NestedModel_Arez_BasicActionModel) entity).$$arez$$_setOnDispose( null );
   }
 }

@@ -27,13 +27,7 @@ public abstract class RepositoryWithSingletonRepository extends AbstractReposito
   @Nonnull
   RepositoryWithSingleton create(@Nonnull final String name) {
     final Arez_RepositoryWithSingleton entity = new Arez_RepositoryWithSingleton(name);
-    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     registerEntity( entity );
     return entity;
-  }
-
-  @Override
-  protected void preDisposeEntity(@Nonnull final RepositoryWithSingleton entity) {
-    ((Arez_RepositoryWithSingleton) entity).$$arez$$_setOnDispose( null );
   }
 }

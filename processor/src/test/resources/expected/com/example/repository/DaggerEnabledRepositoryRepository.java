@@ -29,13 +29,7 @@ public abstract class DaggerEnabledRepositoryRepository extends AbstractReposito
   @Nonnull
   DaggerEnabledRepository create(@Nonnull final String name) {
     final Arez_DaggerEnabledRepository entity = new Arez_DaggerEnabledRepository(name);
-    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     registerEntity( entity );
     return entity;
-  }
-
-  @Override
-  protected void preDisposeEntity(@Nonnull final DaggerEnabledRepository entity) {
-    ((Arez_DaggerEnabledRepository) entity).$$arez$$_setOnDispose( null );
   }
 }

@@ -28,14 +28,8 @@ public abstract class CompleteRepositoryExampleRepository extends AbstractReposi
   @Nonnull
   CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_CompleteRepositoryExample entity = new Arez_CompleteRepositoryExample(packageName,name);
-    entity.$$arez$$_setOnDispose( e -> destroy( e ) );
     registerEntity( entity );
     return entity;
-  }
-
-  @Override
-  protected void preDisposeEntity(@Nonnull final CompleteRepositoryExample entity) {
-    ((Arez_CompleteRepositoryExample) entity).$$arez$$_setOnDispose( null );
   }
 
   @Nullable

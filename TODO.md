@@ -6,9 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Figure out a mechanism for removing custom OnDispose magic in generated classes and thus allow anyone to hand
-  create the equivalent of repositories. Potentially through "observable" `isDisposed()`
-
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
   - `arez-browserlocation`
