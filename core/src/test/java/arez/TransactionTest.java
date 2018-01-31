@@ -2342,14 +2342,13 @@ public class TransactionTest
     context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
-    final Observer tracker = null;
-    Transaction.begin( context, name, TransactionMode.READ_ONLY, tracker );
+    Transaction.begin( context, name, TransactionMode.READ_ONLY, null );
 
     handler.assertEventCount( 1 );
     final TransactionStartedEvent event = handler.assertEvent( TransactionStartedEvent.class, 0 );
     assertEquals( event.getName(), name );
     assertEquals( event.isMutation(), false );
-    assertEquals( event.getTracker(), tracker );
+    assertEquals( event.getTracker(), null );
   }
 
   @Test
