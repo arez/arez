@@ -21,6 +21,11 @@ public class RepositoryExtensionTest
       return self().findAllByQuery( c -> c.getValue().contains( pattern ) );
     }
 
+    default long count()
+    {
+      return self().entities().count();
+    }
+
     RepositoryExtensionTest_TestComponentRepository self();
   }
 
@@ -59,6 +64,7 @@ public class RepositoryExtensionTest
     final TestComponent component2 = repository.create( "CDEFGH" );
     final TestComponent component3 = repository.create( "EFGHIJ" );
 
+    context.action( false, () -> assertEquals( repository.count(), 3 ) );
     context.action( false, () -> assertEquals( repository.findAllLike( "AB" ).size(), 1 ) );
     context.action( false, () -> assertEquals( repository.findAllLike( "AB" ).contains( component1 ), true ) );
     context.action( false, () -> assertEquals( repository.findAllLike( "CD" ).size(), 2 ) );

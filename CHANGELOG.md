@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[component\]** Make the `AbstractRepository.entities()` method public so that it can be used by extensions.
+
 ### [v0.46](https://github.com/arez/arez/tree/v0.46) (2018-01-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.45...v0.46)
 

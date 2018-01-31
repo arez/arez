@@ -258,15 +258,14 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   protected abstract Observable getEntitiesObservable();
 
   /**
-   * Return the raw collection of entities in the repository.
-   * This collection should not be exposed to the repository user but may be used be repository extensions when
-   * they define custom queries. NOTE: use of this method marks the list as observed.
+   * Return a stream of all entities in the repository.
+   * This method is typically used by repository extensions.
    *
    * @return the underlying entities.
    */
   @arez.annotations.Observable( expectSetter = false )
   @Nonnull
-  protected Stream<T> entities()
+  public Stream<T> entities()
   {
     return _entities.values().stream().filter( this::notDisposed ).map( RepositoryEntry::getEntity );
   }
