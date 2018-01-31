@@ -2821,4 +2821,25 @@ public class TransactionTest
                   "Attempting to suspend transaction named '" + transaction.getName() +
                   "' but no transaction is active." );
   }
+
+  @Test
+  public void isTransactionActive()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    transaction.begin();
+
+    assertFalse( Transaction.isTransactionActive( context ) );
+
+    Transaction.setTransaction( transaction );
+
+    assertTrue( Transaction.isTransactionActive( context ) );
+
+    Transaction.markAsSuspended();
+
+    assertFalse( Transaction.isTransactionActive( context ) );
+  }
 }

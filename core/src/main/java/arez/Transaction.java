@@ -103,6 +103,7 @@ final class Transaction
   static boolean isTransactionActive( @Nonnull final ArezContext context )
   {
     return null != c_transaction &&
+           !c_suspended &&
            ( !Arez.areZonesEnabled() || c_transaction.getContext() == context );
   }
 
