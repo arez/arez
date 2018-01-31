@@ -1545,6 +1545,7 @@ public class ArezContextTest
     assertEquals( callCount.get(), 1 );
   }
 
+  @SuppressWarnings( "ConstantConditions" )
   @Test
   public void autorun_runImmediately()
     throws Exception
