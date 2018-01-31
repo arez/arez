@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.46](https://github.com/arez/arez/tree/v0.46) (2018-01-31)
+[Full Changelog](https://github.com/arez/arez/compare/v0.45...v0.46)
 
 #### Fixed
 * **\[processor\]** Remove the specialized `OnDispose` hook that was added to Arez components if they had an
