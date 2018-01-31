@@ -93,7 +93,7 @@ final class Arez_CompleteRepositoryExampleRepository extends CompleteRepositoryE
 
   @Nonnull
   @Override
-  protected Stream<CompleteRepositoryExample> entities() {
+  public Stream<CompleteRepositoryExample> entities() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();

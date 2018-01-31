@@ -93,7 +93,7 @@ final class Arez_RepositoryWithProtectedConstructorRepository extends Repository
 
   @Nonnull
   @Override
-  protected Stream<RepositoryWithProtectedConstructor> entities() {
+  public Stream<RepositoryWithProtectedConstructor> entities() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();

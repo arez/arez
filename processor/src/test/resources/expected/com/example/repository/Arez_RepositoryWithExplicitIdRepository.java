@@ -93,7 +93,7 @@ final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWithExplic
 
   @Nonnull
   @Override
-  protected Stream<RepositoryWithExplicitId> entities() {
+  public Stream<RepositoryWithExplicitId> entities() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();

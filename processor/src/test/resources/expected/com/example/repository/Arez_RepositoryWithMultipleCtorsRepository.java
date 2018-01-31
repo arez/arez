@@ -93,7 +93,7 @@ final class Arez_RepositoryWithMultipleCtorsRepository extends RepositoryWithMul
 
   @Nonnull
   @Override
-  protected Stream<RepositoryWithMultipleCtors> entities() {
+  public Stream<RepositoryWithMultipleCtors> entities() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();

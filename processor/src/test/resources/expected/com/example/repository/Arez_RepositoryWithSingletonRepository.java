@@ -93,7 +93,7 @@ final class Arez_RepositoryWithSingletonRepository extends RepositoryWithSinglet
 
   @Nonnull
   @Override
-  protected Stream<RepositoryWithSingleton> entities() {
+  public Stream<RepositoryWithSingleton> entities() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();

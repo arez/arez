@@ -93,7 +93,7 @@ final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledReposito
 
   @Nonnull
   @Override
-  protected Stream<InjectEnabledRepository> entities() {
+  public Stream<InjectEnabledRepository> entities() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();

@@ -93,7 +93,7 @@ final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledReposi
 
   @Nonnull
   @Override
-  protected Stream<DaggerDisabledRepository> entities() {
+  public Stream<DaggerDisabledRepository> entities() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();

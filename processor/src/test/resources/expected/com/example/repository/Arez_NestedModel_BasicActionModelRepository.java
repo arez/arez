@@ -93,7 +93,7 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
 
   @Nonnull
   @Override
-  protected Stream<NestedModel.BasicActionModel> entities() {
+  public Stream<NestedModel.BasicActionModel> entities() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();

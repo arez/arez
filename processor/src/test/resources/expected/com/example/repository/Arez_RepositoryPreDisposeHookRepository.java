@@ -93,7 +93,7 @@ final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDispose
 
   @Nonnull
   @Override
-  protected Stream<RepositoryPreDisposeHook> entities() {
+  public Stream<RepositoryPreDisposeHook> entities() {
     Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     this.$$arez$$_entities.reportObserved();
     return super.entities();
