@@ -2591,6 +2591,5 @@ public class TransactionTest
     assertEquals( exception.getMessage(),
                   "Attempted to invoke getPreviousInSameContext() on transaction named '" +
                   transaction.getName() + "' when zones are not enabled." );
-
   }
 }
