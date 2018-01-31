@@ -2,14 +2,10 @@ package arez.component;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.ArezTestUtil;
 import arez.Disposable;
 import arez.Observable;
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
@@ -335,64 +331,6 @@ public class RepositoryTest
     final int[] ids = context.safeAction( () -> repository.entities().mapToInt( e -> e.getArezId() ).toArray() );
     assertEquals( ids.length, 1 );
     assertEquals( ids[ 0 ], 303 );
-  }
-
-  @Test
-  public void wrap_when_areRepositoryResultsModifiable_isTrue()
-  {
-    final MyRepository repository = MyRepository.create();
-
-    final ArrayList<MyEntity> input = new ArrayList<>();
-    final MyEntity entity = new MyEntity( 1 );
-    input.add( entity );
-    final List<MyEntity> output = repository.wrap( input );
-
-    assertFalse( output == input );
-
-    assertListUnmodifiable( output, () -> new MyEntity( 22 ) );
-
-    assertEquals( output.size(), 1 );
-    assertEquals( output.get( 0 ), entity );
-  }
-
-  @Test
-  public void wrap_when_areRepositoryResultsModifiable_isFalse()
-  {
-    ArezTestUtil.makeRepositoryResultsModifiable();
-
-    final MyRepository repository = MyRepository.create();
-
-    final ArrayList<MyEntity> input = new ArrayList<>();
-    final MyEntity entity = new MyEntity( 1 );
-    input.add( entity );
-    final List<MyEntity> output = repository.wrap( input );
-
-    assertTrue( output == input );
-
-    assertEquals( output.size(), 1 );
-    assertEquals( output.get( 0 ), entity );
-  }
-
-  @Test
-  public void asList()
-  {
-    final MyRepository repository = MyRepository.create();
-
-    final ArrayList<MyEntity> input = new ArrayList<>();
-    final MyEntity entity = new MyEntity( 1 );
-    input.add( entity );
-    final List<MyEntity> output = repository.asList( input.stream() );
-
-    assertListUnmodifiable( output, () -> new MyEntity( 22 ) );
-
-    assertEquals( output.size(), 1 );
-    assertEquals( output.get( 0 ), entity );
-  }
-
-  private <T> void assertListUnmodifiable( @Nonnull final List<T> list, @Nonnull final Supplier<T> creator )
-  {
-    assertNotNull( list.get( 0 ) );
-    assertThrows( UnsupportedOperationException.class, () -> list.add( creator.get() ) );
   }
 
   static class MyEntity

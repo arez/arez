@@ -4,6 +4,9 @@
 
 #### Fixed
 * **\[component\]** Make the `AbstractRepository.entities()` method public so that it can be used by extensions.
+* **\[component\]** Extract utility methods from `AbstractRepository` to `RepositoryUtil` that are responsible for
+  converting streams into lists and wrapping converting results into unmodifiable lists when returning values from
+  repository queries.
 
 ### [v0.46](https://github.com/arez/arez/tree/v0.46) (2018-01-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.45...v0.46)

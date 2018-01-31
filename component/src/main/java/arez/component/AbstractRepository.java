@@ -9,12 +9,10 @@ import arez.annotations.ComponentNameRef;
 import arez.annotations.ContextRef;
 import arez.annotations.ObservableRef;
 import arez.annotations.PreDispose;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,8 +23,8 @@ import org.realityforge.braincheck.Guards;
  * This class is used by the annotation processor as a base class from which to derive the actual
  * repositories for each type.
  *
- * <p>When multiple results are returned as a list, they are passed through {@link #asList(Stream)} or
- * {@link #wrap(List)} and this will convert the result set to an unmodifiable list if
+ * <p>When multiple results are returned as a list, they are passed through {@link RepositoryUtil#asList(Stream)} or
+ * {@link RepositoryUtil#toResults(List)} and this will convert the result set to an unmodifiable list if
  * {@link Arez#areRepositoryResultsModifiable()} returns true. Typically this means that in
  * development mode these will be made immutable but that the lists will be passed through as-is
  * in production mode for maximum performance.</p>
@@ -115,7 +113,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   @Nonnull
   public final List<T> findAll()
   {
-    return asList( entities() );
+    return RepositoryUtil.asList( entities() );
   }
 
   /**
@@ -127,7 +125,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   @Nonnull
   public final List<T> findAll( @Nonnull final Comparator<T> sorter )
   {
-    return asList( entities().sorted( sorter ) );
+    return RepositoryUtil.asList( entities().sorted( sorter ) );
   }
 
   /**
@@ -139,7 +137,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   @Nonnull
   public final List<T> findAllByQuery( @Nonnull final Predicate<T> query )
   {
-    return asList( entities().filter( query ) );
+    return RepositoryUtil.asList( entities().filter( query ) );
   }
 
   /**
@@ -152,7 +150,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   @Nonnull
   public final List<T> findAllByQuery( @Nonnull final Predicate<T> query, @Nonnull final Comparator<T> sorter )
   {
-    return asList( entities().filter( query ).sorted( sorter ) );
+    return RepositoryUtil.asList( entities().filter( query ).sorted( sorter ) );
   }
 
   /**
@@ -278,31 +276,5 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   private boolean notDisposed( @Nonnull final RepositoryEntry<T> entry )
   {
     return getContext().safeNoTxAction( () -> !Disposable.isDisposed( entry ) );
-  }
-
-  /**
-   * If config option enabled, wrap the specified list in an immutable list and return it.
-   * This method should be called by repository extensions when returning list results when not using {@link #asList(Stream)}.
-   *
-   * @param list the input list.
-   * @return the output list
-   */
-  @Nonnull
-  protected final List<T> wrap( @Nonnull final List<T> list )
-  {
-    return Arez.areRepositoryResultsModifiable() ? list : Collections.unmodifiableList( list );
-  }
-
-  /**
-   * Convert specified stream to a list, wrapping as an immutable list if required.
-   * This method should be called by repository extensions when returning list results.
-   *
-   * @param stream the input stream.
-   * @return the output list
-   */
-  @Nonnull
-  protected final List<T> asList( @Nonnull final Stream<T> stream )
-  {
-    return wrap( stream.collect( Collectors.toList() ) );
   }
 }
