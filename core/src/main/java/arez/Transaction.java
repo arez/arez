@@ -11,6 +11,9 @@ import org.realityforge.anodoc.VisibleForTesting;
 import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 
+/**
+ * Representation of transactions within an Arez system.
+ */
 final class Transaction
 {
   /**
