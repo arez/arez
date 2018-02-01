@@ -871,13 +871,13 @@ public class TransactionTest
 
     Transaction.current().completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertEquals( tracker.getDependencies().contains( observable ), true );
     assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
 
     // Make sure the derivation observer has state updated
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     observable.invariantLeastStaleObserverState();
   }

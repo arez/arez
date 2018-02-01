@@ -720,7 +720,7 @@ final class Transaction
           {
             final Observer owner = observable.getOwner();
             final ObserverState dependenciesState = owner.getState();
-            if ( dependenciesState.ordinal() > newDerivationState.ordinal() )
+            if ( dependenciesState == ObserverState.STALE )
             {
               newDerivationState = dependenciesState;
             }

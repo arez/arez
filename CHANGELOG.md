@@ -2,6 +2,13 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[core\]** Fixed inefficiency where dependencies of an observer that are in a `POSSIBLY_STALE` state
+  will cause the observer to be marked as `POSSIBLY_STALE` as the observers transaction is completing.
+  This will schedule a potentially unnecessary reaction in the scenario where the dependency moves from
+  `POSSIBLY_STALE` back to `UP_TO_DATE` as in when a `ComputedValue` is determined to not have changed.
+  Now a dependency has to become `STALE` within a transaction before the observer will be rescheduled.
+
 #### Changed
 * **\[core\]** Enforced several constraints within code to catch unexpected scenarios such as; read-only
   observers triggering schedules of other observers, computed value observers triggering schedules of self
