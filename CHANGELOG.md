@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+#### Changed
+* **\[core\]** Enforced several constraints within code to catch unexpected scenarios such as; read-only
+  observers triggering schedules of other observers, computed value observers triggering schedules of self
+  etc. These scenarios should never occur but if they did would leave Arez in an inconsistent state. The
+  invariants added catch these scenarios in development mode.
+
 ### [v0.47](https://github.com/arez/arez/tree/v0.47) (2018-01-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.46...v0.47)
 

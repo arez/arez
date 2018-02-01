@@ -1377,6 +1377,45 @@ public class ArezContextTest
   }
 
   @Test
+  public void scheduleReaction_shouldAbortInReadOnlyTransaction()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observer observer = newReadOnlyObserver( context );
+
+    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> context.action( false, () -> context.scheduleReaction( observer ) ) );
+    assertEquals( exception.getMessage(),
+                  "Observer named '" + observer.getName() + "' attempted to be scheduled " +
+                  "during read-only transaction." );
+  }
+
+  @Test
+  public void scheduleReaction_shouldAbortInReadWriteOwnedTransaction()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Observer derivation = newDerivation();
+
+    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+
+    setCurrentTransaction( derivation );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> context.scheduleReaction( derivation ) );
+    assertEquals( exception.getMessage(),
+                  "Observer named '" + derivation.getName() + "' attempted to schedule itself " +
+                  "during read-only tracking transaction. Observers that are supporting ComputedValue " +
+                  "instances must not schedule self." );
+  }
+
+  @Test
   public void scheduleReaction_generates_spyEvent()
     throws Exception
   {

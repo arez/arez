@@ -743,6 +743,18 @@ public final class ArezContext
     {
       getSpy().reportSpyEvent( new ReactionScheduledEvent( new ObserverInfoImpl( getSpy(), observer ) ) );
     }
+    if ( ArezConfig.enforceTransactionType() && isTransactionActive() )
+    {
+      final TransactionMode mode = getTransaction().getMode();
+      invariant( () -> mode != TransactionMode.READ_ONLY,
+                 () -> "Observer named '" + observer.getName() + "' attempted to be scheduled during " +
+                       "read-only transaction." );
+      invariant( () -> getTransaction().getTracker() != observer ||
+                       mode == TransactionMode.READ_WRITE,
+                 () -> "Observer named '" + observer.getName() + "' attempted to schedule itself during " +
+                       "read-only tracking transaction. Observers that are supporting ComputedValue instances " +
+                       "must not schedule self." );
+    }
     _scheduler.scheduleReaction( observer );
   }
 
