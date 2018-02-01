@@ -1604,11 +1604,13 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( calculator.getState(), ObserverState.UP_TO_DATE );
 
-    Transaction.setTransaction( transaction );
-    transaction.reportPossiblyChanged( observable );
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.reportPossiblyChanged( observable ) );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
-    assertEquals( calculator.getState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( exception.getMessage(),
+                  "Observer named '" + calculator.getName() + "' attempted to schedule itself during " +
+                  "read-only tracking transaction. Observers that are supporting ComputedValue instances must" +
+                  " not schedule self." );
   }
 
   @Test
