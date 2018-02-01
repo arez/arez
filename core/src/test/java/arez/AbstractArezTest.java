@@ -111,6 +111,12 @@ public abstract class AbstractArezTest
   }
 
   @Nonnull
+  final Observer newReadOnlyObserver()
+  {
+    return newReadOnlyObserver( Arez.context() );
+  }
+
+  @Nonnull
   final Observer newReadOnlyObserver( @Nonnull final ArezContext context )
   {
     return new Observer( context,
@@ -123,6 +129,12 @@ public abstract class AbstractArezTest
   }
 
   @Nonnull
+  final Observable<?> newObservable()
+  {
+    return newObservable( Arez.context() );
+  }
+
+  @Nonnull
   final Observable<?> newObservable( final ArezContext context )
   {
     return new Observable<>( context, null, ValueUtil.randomString(), null, null, null );
@@ -131,6 +143,16 @@ public abstract class AbstractArezTest
   final void setCurrentTransaction( @Nonnull final ArezContext context )
   {
     setCurrentTransaction( newReadOnlyObserver( context ) );
+  }
+
+  final void setupReadWriteTransaction()
+  {
+    setupReadWriteTransaction( Arez.context() );
+  }
+
+  final void setupReadWriteTransaction( @Nonnull final ArezContext context )
+  {
+    setCurrentTransaction( newReadWriteObserver( context ) );
   }
 
   final void setCurrentTransaction( @Nonnull final Observer observer )
