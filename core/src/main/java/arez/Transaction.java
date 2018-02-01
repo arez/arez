@@ -773,6 +773,12 @@ final class Transaction
           if ( leastStaleObserverState == ObserverState.INACTIVE ||
                leastStaleObserverState.ordinal() > newDerivationState.ordinal() )
           {
+            /*
+             * This code is probably not reachable. This assertion failure has been added to see
+             * if there is any scenario within the production applications that trigger this scenario.
+             */
+            fail( () -> "Transaction named '" + getName() + "' added a new dependency named '" +
+                        observable.getName() + "' that needed to have the least observable state" );
             observable.setLeastStaleObserverState( newDerivationState );
           }
         }
