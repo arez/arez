@@ -546,8 +546,9 @@ public class ObserverTest
   public void setState()
     throws Exception
   {
+    setupReadWriteTransaction();
+
     final Observer observer = newReadOnlyObserver();
-    setCurrentTransaction( observer );
 
     final TestProcedure onActivate = new TestProcedure();
     final TestProcedure onDeactivate = new TestProcedure();
@@ -637,9 +638,10 @@ public class ObserverTest
   public void setState_onComputedValue()
     throws Exception
   {
+    setupReadWriteTransaction();
+
     final Observer observer = newDerivation();
     final Observable<?> derivedValue = observer.getDerivedValue();
-    setCurrentTransaction( observer );
 
     final Observer watcher = ensureDerivationHasObserver( observer );
     watcher.setState( ObserverState.UP_TO_DATE );
@@ -734,15 +736,16 @@ public class ObserverTest
   public void schedule()
     throws Exception
   {
-    final ArezContext context = Arez.context();
+    setupReadWriteTransaction();
     final Observer observer = newReadOnlyObserver();
-    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
     assertEquals( observer.isScheduled(), false );
 
     observer.schedule();
+
+    final ArezContext context = Arez.context();
 
     assertEquals( observer.isScheduled(), true );
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
@@ -760,8 +763,9 @@ public class ObserverTest
   public void schedule_when_Disposed()
     throws Exception
   {
+    setupReadWriteTransaction();
+
     final Observer observer = newReadOnlyObserver();
-    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
     observer.setDisposed( true );
@@ -1252,8 +1256,9 @@ public class ObserverTest
   public void shouldCompute_STALE()
     throws Exception
   {
+    setupReadWriteTransaction();
+
     final Observer observer = newReadOnlyObserver();
-    setCurrentTransaction( observer );
 
     observer.setState( ObserverState.STALE );
 
