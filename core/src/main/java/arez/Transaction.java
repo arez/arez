@@ -557,6 +557,10 @@ final class Transaction
     invariant( observable::hasOwner,
                () -> "Transaction named '" + getName() + "' has attempted to mark observable named '" +
                      observable.getName() + "' as potentially changed but observable is not a derived value." );
+    invariant( () -> !ArezConfig.enforceTransactionType() || TransactionMode.READ_ONLY != getMode(),
+               () -> "Transaction named '" + getName() + "' attempted to call reportPossiblyChanged in " +
+                     "read-only transaction." );
+
     observable.invariantLeastStaleObserverState();
     if ( observable.hasObservers() && ObserverState.UP_TO_DATE == observable.getLeastStaleObserverState() )
     {

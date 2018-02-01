@@ -1669,12 +1669,16 @@ public class TransactionTest
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
-    Transaction.setTransaction( transaction );
+    // A read-only transaction can not cause a computed to recalculate
 
-    // A computed that causes another computed to recalculate should be allowed
-    transaction.reportPossiblyChanged( observable );
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> Transaction.current().reportPossiblyChanged( observable ) );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( exception.getMessage(),
+                  "Transaction named '" + Transaction.current().getName() + "' attempted to call " +
+                  "reportPossiblyChanged in read-only transaction." );
+
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
