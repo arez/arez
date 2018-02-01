@@ -844,7 +844,7 @@ public class TransactionTest
   public void completeTracking_calculatedObservableStale_mustUpdateNewDependencies()
   {
     final ArezContext context = Arez.context();
-    final Observer tracker = newDerivation( context );
+    final Observer tracker = newDerivation();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
@@ -867,9 +867,9 @@ public class TransactionTest
     observer.getDependencies().add( observable );
     observable.getObservers().add( observer );
 
-    transaction.safeGetObservables().add( observable );
+    Transaction.current().safeGetObservables().add( observable );
 
-    transaction.completeTracking();
+    Transaction.current().completeTracking();
 
     assertEquals( tracker.getState(), ObserverState.POSSIBLY_STALE );
     assertEquals( tracker.getDependencies().size(), 1 );
@@ -1653,9 +1653,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-    Transaction.setTransaction( transaction );
+    setupReadOnlyTransaction();
 
     final Observer calculator = newDerivation( context );
     calculator.setState( ObserverState.UP_TO_DATE );
