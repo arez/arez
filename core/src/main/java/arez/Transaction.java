@@ -753,11 +753,14 @@ final class Transaction
 
     // Some newly observed derivation owned observables may have become stale during
     // tracking operation but they have had no chance to propagate staleness to this
-    // observer so rectify this.
+    // observer so rectify this. This should NOT reschedule tracker.
     // NOTE: This must occur before subsequent observable.addObserver() calls
     if ( !_tracker.isDisposed() && ObserverState.UP_TO_DATE != newDerivationState )
     {
-      _tracker.setState( newDerivationState );
+      if ( _tracker.getState().ordinal() < newDerivationState.ordinal() )
+      {
+        _tracker.setState( newDerivationState, false );
+      }
     }
 
     if ( null != _observables )
