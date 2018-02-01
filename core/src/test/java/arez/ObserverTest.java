@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -927,18 +925,12 @@ public class ObserverTest
   {
     setIgnoreObserverErrors( true );
     setPrintObserverErrors( false );
+
     final AtomicBoolean hasErrorOccurred = new AtomicBoolean();
     hasErrorOccurred.set( false );
-    Arez.context().addObserverErrorHandler( new ObserverErrorHandler()
-    {
-      @Override
-      public void onObserverError( @Nonnull final Observer observer,
-                                   @Nonnull final ObserverError error,
-                                   @Nullable final Throwable throwable )
-      {
-        hasErrorOccurred.set( true );
-        fail();
-      }
+    Arez.context().addObserverErrorHandler( ( observer, error, throwable ) -> {
+      hasErrorOccurred.set( true );
+      fail();
     } );
     final Observer observer = newDerivation();
     final ComputedValue<?> computedValue = observer.getComputedValue();
