@@ -877,7 +877,6 @@ public class TransactionTest
     assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
 
     // Make sure the derivation observer has state updated
-    assertEquals( tracker.getState(), ObserverState.POSSIBLY_STALE );
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
 
     observable.invariantLeastStaleObserverState();
