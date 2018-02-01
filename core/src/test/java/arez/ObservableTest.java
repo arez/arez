@@ -804,20 +804,19 @@ public class ObservableTest
   public void invariantLeastStaleObserverState_multipleObservers()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
-    setupReadOnlyTransaction( context );
+    setupReadWriteTransaction();
 
-    final Observer observer1 = newReadOnlyObserver( context );
-    final Observer observer2 = newReadOnlyObserver( context );
-    final Observer observer3 = newReadOnlyObserver( context );
-    final Observer observer4 = newDerivation( context );
+    final Observer observer1 = newReadOnlyObserver();
+    final Observer observer2 = newReadOnlyObserver();
+    final Observer observer3 = newReadOnlyObserver();
+    final Observer observer4 = newDerivation();
 
     observer1.setState( ObserverState.UP_TO_DATE );
     observer2.setState( ObserverState.POSSIBLY_STALE );
     observer3.setState( ObserverState.STALE );
     observer4.setState( ObserverState.INACTIVE );
 
-    final Observable<?> observable = newObservable( context );
+    final Observable<?> observable = newObservable();
 
     observer1.getDependencies().add( observable );
     observer2.getDependencies().add( observable );
@@ -867,18 +866,17 @@ public class ObservableTest
   public void invariantObserversLinked()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
-    setupReadOnlyTransaction( context );
+    setupReadWriteTransaction();
 
-    final Observer observer1 = newReadOnlyObserver( context );
-    final Observer observer2 = newReadOnlyObserver( context );
-    final Observer observer3 = newReadOnlyObserver( context );
+    final Observer observer1 = newReadOnlyObserver();
+    final Observer observer2 = newReadOnlyObserver();
+    final Observer observer3 = newReadOnlyObserver();
 
     observer1.setState( ObserverState.UP_TO_DATE );
     observer2.setState( ObserverState.POSSIBLY_STALE );
     observer3.setState( ObserverState.STALE );
 
-    final Observable<?> observable = newObservable( context );
+    final Observable<?> observable = newObservable();
 
     observer1.getDependencies().add( observable );
     observer2.getDependencies().add( observable );
@@ -1288,8 +1286,8 @@ public class ObservableTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observable::preReportChanged );
     assertEquals( exception.getMessage(), "Invoked reportChanged on transaction named '" +
-                                          Transaction.current().getName() + "' for observable named '" + observable.getName() +
-                                          "' where the observable is disposed." );
+                                          Transaction.current().getName() + "' for observable named '" +
+                                          observable.getName() + "' where the observable is disposed." );
   }
 
   @Test
@@ -1303,8 +1301,8 @@ public class ObservableTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observable::preReportChanged );
-    assertEquals( exception.getMessage(), "Transaction named '" +
-                                          Transaction.current().getName() + "' attempted to change observable named '" + observable.getName() +
+    assertEquals( exception.getMessage(), "Transaction named '" + Transaction.current().getName() +
+                                          "' attempted to change observable named '" + observable.getName() +
                                           "' but transaction is READ_ONLY." );
   }
 
