@@ -151,7 +151,7 @@ public class ReactionSchedulerTest
   {
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
+    final Observer observer = newReadWriteObserver();
     final TestReaction reaction = (TestReaction) observer.getReaction();
     assertNotNull( reaction );
 
@@ -195,7 +195,7 @@ public class ReactionSchedulerTest
   {
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
+    final Observer observer = newReadWriteObserver();
     final TestReaction reaction = (TestReaction) observer.getReaction();
     assertNotNull( reaction );
 
@@ -225,8 +225,7 @@ public class ReactionSchedulerTest
   {
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
-    setCurrentTransaction( observer );
+    setupReadWriteTransaction();
 
     final int round1Size = 10;
     final int round2Size = 4;
@@ -336,7 +335,7 @@ public class ReactionSchedulerTest
 
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
+    final Observer observer = newReadWriteObserver();
 
     setCurrentTransaction( observer );
 
@@ -444,7 +443,7 @@ public class ReactionSchedulerTest
   {
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
-    setupReadOnlyTransaction();
+    setupReadWriteTransaction();
 
     final Observer[] observers = new Observer[ 10 ];
     final Observable[] observables = new Observable[ observers.length ];
@@ -499,7 +498,7 @@ public class ReactionSchedulerTest
   {
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
+    final Observer observer = newReadWriteObserver();
 
     setCurrentTransaction( observer );
 
