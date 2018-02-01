@@ -87,6 +87,12 @@ public abstract class AbstractArezTest
   }
 
   @Nonnull
+  final Observer newReadWriteObserver()
+  {
+    return newReadWriteObserver( Arez.context() );
+  }
+
+  @Nonnull
   final Observer newReadWriteObserver( @Nonnull final ArezContext context )
   {
     return new Observer( context,
