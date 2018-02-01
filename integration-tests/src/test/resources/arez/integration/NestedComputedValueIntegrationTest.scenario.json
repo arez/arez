@@ -1902,10 +1902,6 @@
         "type": "ComputeCompleted"
     },
     {
-        "observer": "Node.0.visible",
-        "type": "ReactionScheduled"
-    },
-    {
         "mutation": false,
         "tracker": "Node.0.visible",
         "type": "TransactionCompleted",
@@ -2187,10 +2183,6 @@
         "type": "ComputeCompleted"
     },
     {
-        "observer": "Node.6.visible",
-        "type": "ReactionScheduled"
-    },
-    {
         "mutation": false,
         "tracker": "Node.7.visible",
         "type": "TransactionCompleted",
@@ -2213,22 +2205,6 @@
     {
         "computedValue": "Node.7.visible",
         "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "observer": "Node.7.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.7.visible"
     },
     {
         "computedValue": "Node.7.visible",
@@ -2275,10 +2251,6 @@
         "tracker": "Node.12.visible",
         "type": "TransactionStarted",
         "transaction": "Node.12.visible"
-    },
-    {
-        "observer": "Node.12.visible",
-        "type": "ReactionScheduled"
     },
     {
         "mutation": false,
@@ -2462,26 +2434,6 @@
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "Node.0.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.0.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.0.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.0.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.0.visible"
-    },
-    {
-        "computedValue": "Node.0.visible",
-        "type": "ComputeCompleted"
-    },
-    {
         "observer": "Observer@4",
         "type": "ReactionStarted"
     },
@@ -2748,74 +2700,6 @@
         "type": "ReactionCompleted"
     },
     {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "observer": "Node.6.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "observer": "Node.7.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.12.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.12.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.12.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.12.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.12.visible"
-    },
-    {
-        "computedValue": "Node.12.visible",
-        "type": "ComputeCompleted"
-    },
-    {
         "observer": "Observer@19",
         "type": "ReactionStarted"
     },
@@ -2928,70 +2812,6 @@
     {
         "observer": "Observer@18",
         "type": "ReactionCompleted"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "observer": "Node.6.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeCompleted"
     },
     {
         "action": "Transaction@22",
@@ -3137,10 +2957,6 @@
     {
         "computedValue": "Node.2.visible",
         "type": "ComputeCompleted"
-    },
-    {
-        "observer": "Node.0.visible",
-        "type": "ReactionScheduled"
     },
     {
         "mutation": false,
@@ -3515,10 +3331,6 @@
         "type": "ReactionScheduled"
     },
     {
-        "observer": "Node.6.visible",
-        "type": "ReactionScheduled"
-    },
-    {
         "mutation": false,
         "tracker": "Node.7.visible",
         "type": "TransactionCompleted",
@@ -3552,22 +3364,6 @@
         "type": "ComputeStarted"
     },
     {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "observer": "Node.7.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.7.visible"
-    },
-    {
         "computedValue": "Node.7.visible",
         "type": "ComputeCompleted"
     },
@@ -3620,22 +3416,6 @@
         "type": "ComputeStarted"
     },
     {
-        "mutation": false,
-        "tracker": "Node.12.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.12.visible"
-    },
-    {
-        "observer": "Node.12.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.12.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.12.visible"
-    },
-    {
         "computedValue": "Node.12.visible",
         "type": "ComputeCompleted"
     },
@@ -3705,26 +3485,6 @@
     },
     {
         "computedValue": "Node.19.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.0.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.0.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.0.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.0.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.0.visible"
-    },
-    {
-        "computedValue": "Node.0.visible",
         "type": "ComputeCompleted"
     },
     {
@@ -3956,30 +3716,6 @@
         "type": "ReactionCompleted"
     },
     {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "observer": "Node.6.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeCompleted"
-    },
-    {
         "observer": "Observer@7",
         "type": "ReactionStarted"
     },
@@ -4016,114 +3752,6 @@
     {
         "observer": "Observer@7",
         "type": "ReactionCompleted"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "observer": "Node.7.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.12.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.12.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.12.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.12.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.12.visible"
-    },
-    {
-        "computedValue": "Node.12.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "observer": "Node.6.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeCompleted"
     },
     {
         "action": "Transaction@23",
@@ -4598,10 +4226,6 @@
         "type": "ComputeCompleted"
     },
     {
-        "observer": "Node.6.visible",
-        "type": "ReactionScheduled"
-    },
-    {
         "mutation": false,
         "tracker": "Node.6.visible",
         "type": "TransactionCompleted",
@@ -4620,10 +4244,6 @@
         "tracker": "Node.7.visible",
         "type": "TransactionStarted",
         "transaction": "Node.7.visible"
-    },
-    {
-        "observer": "Node.7.visible",
-        "type": "ReactionScheduled"
     },
     {
         "mutation": false,
@@ -4688,10 +4308,6 @@
         "tracker": "Node.12.visible",
         "type": "TransactionStarted",
         "transaction": "Node.12.visible"
-    },
-    {
-        "observer": "Node.12.visible",
-        "type": "ReactionScheduled"
     },
     {
         "mutation": false,
@@ -4896,138 +4512,6 @@
     {
         "observer": "Observer@1",
         "type": "ReactionCompleted"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "observer": "Node.6.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "observer": "Node.7.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.12.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.12.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.12.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.12.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.12.visible"
-    },
-    {
-        "computedValue": "Node.12.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "observer": "Node.6.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeCompleted"
     },
     {
         "action": "Transaction@24",
@@ -5478,10 +4962,6 @@
         "type": "ComputeCompleted"
     },
     {
-        "observer": "Node.6.visible",
-        "type": "ReactionScheduled"
-    },
-    {
         "mutation": false,
         "tracker": "Node.6.visible",
         "type": "TransactionCompleted",
@@ -5500,10 +4980,6 @@
         "tracker": "Node.7.visible",
         "type": "TransactionStarted",
         "transaction": "Node.7.visible"
-    },
-    {
-        "observer": "Node.7.visible",
-        "type": "ReactionScheduled"
     },
     {
         "mutation": false,
@@ -5568,10 +5044,6 @@
         "tracker": "Node.12.visible",
         "type": "TransactionStarted",
         "transaction": "Node.12.visible"
-    },
-    {
-        "observer": "Node.12.visible",
-        "type": "ReactionScheduled"
     },
     {
         "mutation": false,
@@ -5776,137 +5248,5 @@
     {
         "observer": "Observer@1",
         "type": "ReactionCompleted"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "observer": "Node.6.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "observer": "Node.7.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.12.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.12.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.12.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.12.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.12.visible"
-    },
-    {
-        "computedValue": "Node.12.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "observer": "Node.6.visible",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.7.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.7.visible"
-    },
-    {
-        "computedValue": "Node.7.visible",
-        "type": "ComputeCompleted"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionStarted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "mutation": false,
-        "tracker": "Node.6.visible",
-        "type": "TransactionCompleted",
-        "transaction": "Node.6.visible"
-    },
-    {
-        "computedValue": "Node.6.visible",
-        "type": "ComputeCompleted"
     }
 ]
