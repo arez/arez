@@ -846,11 +846,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
     final Observer tracker = newDerivation();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
-    Transaction.setTransaction( transaction );
-
-    tracker.setState( ObserverState.UP_TO_DATE );
+    setCurrentTransaction( tracker );
 
     ensureDerivationHasObserver( tracker );
     tracker.setState( ObserverState.UP_TO_DATE );
