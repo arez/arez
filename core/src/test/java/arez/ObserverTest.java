@@ -1218,13 +1218,11 @@ public class ObserverTest
   public void invokeReaction_onUpToDateObserver()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
-
     final TestReaction reaction = new TestReaction();
     final Observer observer =
-      new Observer( context, null, ValueUtil.randomString(), null, TransactionMode.READ_ONLY, reaction, false );
+      new Observer( Arez.context(), null, ValueUtil.randomString(), null, TransactionMode.READ_ONLY, reaction, false );
 
-    setCurrentTransaction( context );
+    setupReadWriteTransaction();
     observer.setState( ObserverState.UP_TO_DATE );
     Transaction.setTransaction( null );
 

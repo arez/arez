@@ -66,7 +66,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
@@ -206,7 +206,7 @@ public class ObservableTest
 
     final Observer observer = newReadOnlyObserver( context );
 
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
     observer.setState( ObserverState.UP_TO_DATE );
@@ -245,7 +245,7 @@ public class ObservableTest
 
     final Observer observer = newReadOnlyObserver( context );
 
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
     observer.setState( ObserverState.UP_TO_DATE );
@@ -278,7 +278,7 @@ public class ObservableTest
     final Observer observer = newDerivation( context );
     final Observable<?> observable = observer.getDerivedValue();
 
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
     observer.setState( ObserverState.UP_TO_DATE );
@@ -396,7 +396,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
     final Observer owner = newReadOnlyObserver( context );
 
     final String name = ValueUtil.randomString();
@@ -783,7 +783,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
     final Observable<?> observable = newObservable( context );
 
     observable.setLeastStaleObserverState( ObserverState.STALE );
@@ -805,7 +805,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer observer1 = newReadOnlyObserver( context );
     final Observer observer2 = newReadOnlyObserver( context );
@@ -849,7 +849,7 @@ public class ObservableTest
   {
     ArezTestUtil.disableRegistries();
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer observer = newDerivation( context );
 
@@ -868,7 +868,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer observer1 = newReadOnlyObserver( context );
     final Observer observer2 = newReadOnlyObserver( context );
@@ -907,7 +907,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
@@ -930,7 +930,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
@@ -950,7 +950,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
@@ -974,7 +974,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observable<?> observable = newObservable( context );
 
@@ -993,7 +993,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
@@ -1019,7 +1019,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
@@ -1039,7 +1039,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
@@ -1058,7 +1058,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
@@ -1084,7 +1084,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
@@ -1108,7 +1108,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer derivation = newDerivation( context );
 
@@ -1124,7 +1124,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observable<?> observable = newObservable( context );
 
@@ -1141,7 +1141,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.INACTIVE );
@@ -1160,7 +1160,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.INACTIVE );
@@ -1187,7 +1187,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.INACTIVE );
@@ -1211,7 +1211,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observer derivation = newDerivation( context );
     derivation.setState( ObserverState.UP_TO_DATE );
@@ -1231,7 +1231,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observable<?> observable = newObservable( context );
 
@@ -1248,7 +1248,7 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final Observable<?> observable = newObservable( context );
 

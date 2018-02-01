@@ -188,7 +188,7 @@ public class SpyImplTest
 
     assertEquals( spy.isTransactionActive(), false );
 
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     assertEquals( spy.isTransactionActive(), true );
   }
@@ -205,7 +205,7 @@ public class SpyImplTest
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
     assertEquals( spy.isActive( computedValue ), false );
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
     computedValue.getObserver().setState( ObserverState.UP_TO_DATE );
     assertEquals( spy.isActive( computedValue ), true );
   }
@@ -291,7 +291,7 @@ public class SpyImplTest
 
     computedValue.setComputing( true );
 
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> spy.getTransactionComputing( computedValue ) );
@@ -445,7 +445,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     assertEquals( spy.getTransaction().getName(), context.getTransaction().getName() );
   }
@@ -480,7 +480,7 @@ public class SpyImplTest
 
     assertEquals( spy.isRunning( observer ), true );
 
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     assertEquals( spy.isRunning( observer ), false );
   }

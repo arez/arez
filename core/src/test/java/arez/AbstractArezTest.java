@@ -140,7 +140,12 @@ public abstract class AbstractArezTest
     return new Observable<>( context, null, ValueUtil.randomString(), null, null, null );
   }
 
-  final void setCurrentTransaction( @Nonnull final ArezContext context )
+  final void setupReadOnlyTransaction()
+  {
+    setupReadOnlyTransaction( Arez.context() );
+  }
+
+  final void setupReadOnlyTransaction( @Nonnull final ArezContext context )
   {
     setCurrentTransaction( newReadOnlyObserver( context ) );
   }

@@ -357,7 +357,7 @@ public class ComputedValueTest
       new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals );
     final Observer observer = computedValue.getObserver();
 
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     observer.setState( ObserverState.UP_TO_DATE );
     computedValue.setValue( "XXX" );
@@ -376,7 +376,7 @@ public class ComputedValueTest
       new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals );
     final Observer observer = computedValue.getObserver();
 
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     observer.setState( ObserverState.UP_TO_DATE );
     final IllegalStateException error = new IllegalStateException();
@@ -402,7 +402,7 @@ public class ComputedValueTest
       new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals );
     final Observer observer = computedValue.getObserver();
 
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     observer.setState( ObserverState.UP_TO_DATE );
     final Error error = new Error();
@@ -428,7 +428,7 @@ public class ComputedValueTest
       new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals );
     final Observer observer = computedValue.getObserver();
 
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     observer.setState( ObserverState.UP_TO_DATE );
     final IllegalStateException error = new IllegalStateException();
@@ -454,7 +454,7 @@ public class ComputedValueTest
       new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals );
     final Observer observer = computedValue.getObserver();
 
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     observer.setState( ObserverState.STALE );
     computedValue.setValue( "XXX" );
@@ -498,7 +498,7 @@ public class ComputedValueTest
       new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals );
     final Observer observer = computedValue.getObserver();
 
-    setCurrentTransaction( context );
+    setupReadOnlyTransaction( context );
 
     observer.setState( ObserverState.UP_TO_DATE );
     computedValue.setValue( "XXX" );
