@@ -516,6 +516,9 @@ public class ObserverTest
   public void runHook_hookThrowsException()
     throws Exception
   {
+    setIgnoreObserverErrors( true );
+    setPrintObserverErrors( false );
+
     final Observer observer = newReadOnlyObserver();
 
     final Exception exception = new Exception( "X" );
@@ -922,6 +925,8 @@ public class ObserverTest
   public void dispose_via_ComputedValue()
     throws Exception
   {
+    setIgnoreObserverErrors( true );
+    setPrintObserverErrors( false );
     final AtomicBoolean hasErrorOccurred = new AtomicBoolean();
     hasErrorOccurred.set( false );
     Arez.context().addObserverErrorHandler( new ObserverErrorHandler()
@@ -1069,6 +1074,9 @@ public class ObserverTest
   public void invokeReaction()
     throws Exception
   {
+    setIgnoreObserverErrors( true );
+    setPrintObserverErrors( false );
+
     final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
@@ -1201,6 +1209,9 @@ public class ObserverTest
   public void invokeReaction_reactionGeneratesError()
     throws Exception
   {
+    setIgnoreObserverErrors( true );
+    setPrintObserverErrors( false );
+
     final String name = ValueUtil.randomString();
     final TransactionMode mode = TransactionMode.READ_ONLY;
 
@@ -1296,6 +1307,9 @@ public class ObserverTest
   public void shouldCompute_POSSIBLY_STALE_ComputableThrowsException()
     throws Exception
   {
+    setIgnoreObserverErrors( true );
+    setPrintObserverErrors( false );
+
     final ArezContext context = Arez.context();
     final ComputedValue<String> computedValue =
       new ComputedValue<>( context, null, ValueUtil.randomString(), ValueUtil::randomString, Objects::equals );
@@ -1325,6 +1339,9 @@ public class ObserverTest
   public void shouldCompute_POSSIBLY_STALE_ComputableReThrowsException()
     throws Exception
   {
+    setIgnoreObserverErrors( true );
+    setPrintObserverErrors( false );
+
     final ComputedValue<String> computedValue =
       new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), ValueUtil::randomString, Objects::equals );
     final Observer observer = computedValue.getObserver();

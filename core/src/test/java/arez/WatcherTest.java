@@ -104,6 +104,9 @@ public class WatcherTest
   public void conditionReadOnlyTransaction()
     throws Throwable
   {
+    setIgnoreObserverErrors( true );
+    setPrintObserverErrors( false );
+
     final ArezContext context = Arez.context();
 
     final AtomicInteger errorCount = new AtomicInteger();
@@ -162,6 +165,9 @@ public class WatcherTest
   public void verifyEffectWhenReadOnlyTransaction()
     throws Exception
   {
+    setIgnoreObserverErrors( true );
+    setPrintObserverErrors( false );
+
     final ArezContext context = Arez.context();
 
     final AtomicInteger errorCount = new AtomicInteger();

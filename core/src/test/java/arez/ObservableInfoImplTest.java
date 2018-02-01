@@ -36,6 +36,9 @@ public class ObservableInfoImplTest
     assertEquals( info.isComputedValue(), false );
     assertEquals( info.isDisposed(), false );
 
+    // Dispose observer to avoid accessing observable when it is disposed
+    observer.dispose();
+
     observable.dispose();
 
     assertEquals( info.isDisposed(), true );
@@ -77,6 +80,9 @@ public class ObservableInfoImplTest
 
     assertEquals( info.isComputedValue(), false );
     assertEquals( info.isDisposed(), false );
+
+    // Dispose observer to avoid accessing observable when it is disposed
+    observer.dispose();
 
     observable.dispose();
 

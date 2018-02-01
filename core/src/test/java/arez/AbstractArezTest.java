@@ -1,7 +1,9 @@
 package arez;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.BrainCheckTestUtil;
@@ -9,9 +11,14 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import static org.testng.Assert.*;
 
 public abstract class AbstractArezTest
 {
+  private final ArrayList<String> _observerErrors = new ArrayList<>();
+  private boolean _ignoreObserverErrors;
+  private boolean _printObserverErrors;
+
   @BeforeMethod
   protected void beforeTest()
     throws Exception
@@ -20,6 +27,10 @@ public abstract class AbstractArezTest
     ArezTestUtil.resetConfig( false );
     ArezTestUtil.enableZones();
     getProxyLogger().setLogger( new TestLogger() );
+    _ignoreObserverErrors = false;
+    _printObserverErrors = true;
+    _observerErrors.clear();
+    Arez.context().addObserverErrorHandler( this::onObserverError );
   }
 
   @AfterMethod
@@ -28,6 +39,10 @@ public abstract class AbstractArezTest
   {
     BrainCheckTestUtil.resetConfig( true );
     ArezTestUtil.resetConfig( true );
+    if ( !_ignoreObserverErrors && !_observerErrors.isEmpty() )
+    {
+      fail( "Unexpected Observer Errors: " + _observerErrors.stream().collect( Collectors.joining( "\n" ) ) );
+    }
   }
 
   @Nonnull
@@ -167,7 +182,7 @@ public abstract class AbstractArezTest
     setupReadWriteTransaction( Arez.context() );
   }
 
-  final void setupReadWriteTransaction( @Nonnull final ArezContext context )
+  private void setupReadWriteTransaction( @Nonnull final ArezContext context )
   {
     setCurrentTransaction( newReadWriteObserver( context ) );
   }
@@ -180,5 +195,33 @@ public abstract class AbstractArezTest
                                                  ValueUtil.randomString(),
                                                  observer.getMode(),
                                                  observer ) );
+  }
+
+  protected final void setIgnoreObserverErrors( final boolean ignoreObserverErrors )
+  {
+    _ignoreObserverErrors = ignoreObserverErrors;
+  }
+
+  protected final void setPrintObserverErrors( final boolean printObserverErrors )
+  {
+    _printObserverErrors = printObserverErrors;
+  }
+
+  private void onObserverError( @Nonnull final Observer observer,
+                                @Nonnull final ObserverError error,
+                                @Nullable final Throwable throwable )
+  {
+    final String message = "Observer: " + observer.getName() + " Error: " + error + " " + throwable;
+    _observerErrors.add( message );
+    if ( _printObserverErrors )
+    {
+      System.out.println( message );
+    }
+  }
+
+  @Nonnull
+  final ArrayList<String> getObserverErrors()
+  {
+    return _observerErrors;
   }
 }
