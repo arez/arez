@@ -636,6 +636,98 @@ public class ObserverTest
   }
 
   @Test
+  public void setState_scheduleFalse()
+    throws Exception
+  {
+    setupReadWriteTransaction();
+
+    final Observer observer = newReadOnlyObserver();
+
+    final TestProcedure onActivate = new TestProcedure();
+    final TestProcedure onDeactivate = new TestProcedure();
+    final TestProcedure onStale = new TestProcedure();
+
+    observer.setOnActivate( onActivate );
+    observer.setOnDeactivate( onDeactivate );
+    observer.setOnStale( onStale );
+
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+
+    observer.setState( ObserverState.INACTIVE, false );
+
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( onActivate.getCalls(), 0 );
+    assertEquals( onDeactivate.getCalls(), 0 );
+    assertEquals( onStale.getCalls(), 0 );
+
+    observer.setState( ObserverState.UP_TO_DATE, false );
+
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 0 );
+    assertEquals( onStale.getCalls(), 0 );
+
+    observer.setState( ObserverState.POSSIBLY_STALE, false );
+
+    assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 0 );
+    assertEquals( onStale.getCalls(), 0 );
+
+    observer.clearScheduledFlag();
+    Arez.context().getScheduler().getPendingObservers().remove( observer );
+    assertEquals( observer.isScheduled(), false );
+
+    observer.setState( ObserverState.STALE, false );
+    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 0 );
+    assertEquals( onStale.getCalls(), 1 );
+
+    observer.setState( ObserverState.UP_TO_DATE, false );
+
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 0 );
+    assertEquals( onStale.getCalls(), 1 );
+
+    observer.setState( ObserverState.STALE, false );
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 0 );
+    assertEquals( onStale.getCalls(), 2 );
+
+    final Observable<?> observable1 = newObservable();
+    final Observable<?> observable2 = newObservable();
+
+    observer.getDependencies().add( observable1 );
+    observer.getDependencies().add( observable2 );
+    observable1.addObserver( observer );
+    observable2.addObserver( observer );
+
+    assertEquals( observer.getDependencies().size(), 2 );
+    assertEquals( observable1.getObservers().size(), 1 );
+    assertEquals( observable2.getObservers().size(), 1 );
+
+    observer.setState( ObserverState.INACTIVE, false );
+
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 1 );
+    assertEquals( onStale.getCalls(), 2 );
+
+    assertEquals( observer.getDependencies().size(), 0 );
+    assertEquals( observable1.getObservers().size(), 0 );
+    assertEquals( observable2.getObservers().size(), 0 );
+  }
+
+  @Test
   public void setState_onComputedValue()
     throws Exception
   {

@@ -333,10 +333,23 @@ public final class Observer
   /**
    * Set the state of the observer.
    * Call the hook actions for relevant state change.
+   * This is equivalent to passing true in <code>schedule</code> parameter to {@link #setState(ObserverState, boolean)}
    *
    * @param state the new state of the observer.
    */
   void setState( @Nonnull final ObserverState state )
+  {
+    setState( state, true );
+  }
+
+  /**
+   * Set the state of the observer.
+   * Call the hook actions for relevant state change.
+   *
+   * @param state the new state of the observer.
+   * @param schedule true if a state transition can cause observer to reschedule, false otherwise.
+   */
+  void setState( @Nonnull final ObserverState state, final boolean schedule )
   {
     invariant( () -> getContext().isTransactionActive(),
                () -> "Attempt to invoke setState on observer named '" + getName() + "' when there is " +
@@ -349,7 +362,10 @@ public final class Observer
       if ( null == _derivedValue && ObserverState.STALE == state )
       {
         runHook( getOnStale(), ObserverError.ON_STALE_ERROR );
-        schedule();
+        if ( schedule )
+        {
+          schedule();
+        }
       }
       else if ( null != _derivedValue &&
                 ObserverState.UP_TO_DATE == originalState &&
@@ -359,7 +375,10 @@ public final class Observer
         // during construction, prior to _derivedValue being set.
         _derivedValue.reportPossiblyChanged();
         runHook( getOnStale(), ObserverError.ON_STALE_ERROR );
-        schedule();
+        if ( schedule )
+        {
+          schedule();
+        }
       }
       else if ( ObserverState.INACTIVE == _state )
       {
