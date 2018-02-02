@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.48](https://github.com/arez/arez/tree/v0.48) (2018-02-02)
+[Full Changelog](https://github.com/arez/arez/compare/v0.47...v0.48)
 
 #### Fixed
 * **\[core\]** Fixed inefficiency where dependencies of an observer that are in a `POSSIBLY_STALE` state
