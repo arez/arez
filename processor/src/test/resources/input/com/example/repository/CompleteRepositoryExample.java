@@ -12,8 +12,6 @@ import javax.annotation.Nullable;
 @ArezComponent
 public abstract class CompleteRepositoryExample
 {
-  // Unfortunately this this can not have nested content otherwise it will cause the
-  // IDE to fail to compile as we put it on the path.
   public interface FooEx
   {
     default CompleteRepositoryExample findByName( @Nonnull final String name )
