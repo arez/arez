@@ -152,9 +152,4 @@ final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultipleCtors
       return super.toString();
     }
   }
-
-  @FunctionalInterface
-  interface OnDispose {
-    void onDispose(Arez_RepositoryWithMultipleCtors entity);
-  }
 }

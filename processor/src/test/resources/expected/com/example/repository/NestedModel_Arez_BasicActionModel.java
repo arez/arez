@@ -120,9 +120,4 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
       return super.toString();
     }
   }
-
-  @FunctionalInterface
-  interface OnDispose {
-    void onDispose(NestedModel_Arez_BasicActionModel entity);
-  }
 }

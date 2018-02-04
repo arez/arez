@@ -130,9 +130,4 @@ final class Arez_RepositoryPreDisposeHook extends RepositoryPreDisposeHook imple
       return super.toString();
     }
   }
-
-  @FunctionalInterface
-  interface OnDispose {
-    void onDispose(Arez_RepositoryPreDisposeHook entity);
-  }
 }

@@ -128,9 +128,4 @@ final class Arez_RepositoryWithSingleton extends RepositoryWithSingleton impleme
       return super.toString();
     }
   }
-
-  @FunctionalInterface
-  interface OnDispose {
-    void onDispose(Arez_RepositoryWithSingleton entity);
-  }
 }

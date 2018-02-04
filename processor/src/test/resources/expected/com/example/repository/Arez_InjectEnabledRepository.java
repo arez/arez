@@ -128,9 +128,4 @@ final class Arez_InjectEnabledRepository extends InjectEnabledRepository impleme
       return super.toString();
     }
   }
-
-  @FunctionalInterface
-  interface OnDispose {
-    void onDispose(Arez_InjectEnabledRepository entity);
-  }
 }

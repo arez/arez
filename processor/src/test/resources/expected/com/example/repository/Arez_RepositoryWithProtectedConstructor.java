@@ -128,9 +128,4 @@ final class Arez_RepositoryWithProtectedConstructor extends RepositoryWithProtec
       return super.toString();
     }
   }
-
-  @FunctionalInterface
-  interface OnDispose {
-    void onDispose(Arez_RepositoryWithProtectedConstructor entity);
-  }
 }

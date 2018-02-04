@@ -128,9 +128,4 @@ final class Arez_RepositoryWithImplicitId extends RepositoryWithImplicitId imple
       return super.toString();
     }
   }
-
-  @FunctionalInterface
-  interface OnDispose {
-    void onDispose(Arez_RepositoryWithImplicitId entity);
-  }
 }

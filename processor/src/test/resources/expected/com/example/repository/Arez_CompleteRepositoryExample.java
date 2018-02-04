@@ -179,9 +179,4 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
       return super.toString();
     }
   }
-
-  @FunctionalInterface
-  interface OnDispose {
-    void onDispose(Arez_CompleteRepositoryExample entity);
-  }
 }

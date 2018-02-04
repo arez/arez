@@ -1487,20 +1487,6 @@ final class ComponentDescriptor
     builder.addSuperinterface( GeneratorUtil.DISPOSABLE_CLASSNAME );
     builder.addSuperinterface( ParameterizedTypeName.get( GeneratorUtil.IDENTIFIABLE_CLASSNAME, getIdType().box() ) );
 
-    if ( hasRepository() )
-    {
-      final TypeSpec onDispose =
-        TypeSpec.interfaceBuilder( "OnDispose" ).
-          addModifiers( Modifier.STATIC ).
-          addAnnotation( FunctionalInterface.class ).
-          addMethod( MethodSpec.methodBuilder( "onDispose" ).
-            addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
-            addParameter( ParameterSpec.builder( ClassName.bestGuess( getArezClassName() ), "entity" ).build() ).
-            build() ).
-          build();
-      builder.addType( onDispose );
-    }
-
     buildFields( builder );
 
     buildConstructors( builder, typeUtils );

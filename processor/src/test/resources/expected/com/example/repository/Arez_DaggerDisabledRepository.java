@@ -128,9 +128,4 @@ final class Arez_DaggerDisabledRepository extends DaggerDisabledRepository imple
       return super.toString();
     }
   }
-
-  @FunctionalInterface
-  interface OnDispose {
-    void onDispose(Arez_DaggerDisabledRepository entity);
-  }
 }
