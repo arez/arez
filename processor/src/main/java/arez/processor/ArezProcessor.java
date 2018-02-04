@@ -177,7 +177,8 @@ public final class ArezProcessor
                                         typeElement );
     }
 
-    final List<ExecutableElement> methods = ProcessorUtil.getMethods( typeElement, processingEnv.getTypeUtils() );
+    final List<ExecutableElement> methods =
+      ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
     final boolean generateToString = methods.stream().
       noneMatch( m -> m.getSimpleName().toString().equals( "toString" ) &&
                       m.getParameters().size() == 0 &&
@@ -263,7 +264,7 @@ public final class ArezProcessor
       default:
         return null != scopeAnnotation ||
                ProcessorUtil.getFieldElements( typeElement ).stream().anyMatch( this::hasInjectAnnotation ) ||
-               ProcessorUtil.getMethods( typeElement, processingEnv.getTypeUtils() ).
+               ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() ).
                  stream().anyMatch( this::hasInjectAnnotation );
     }
   }

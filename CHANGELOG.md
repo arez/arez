@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[processor\]** Fixed bug where abstract interface methods could cause the annotation processor to fail
+  if the concrete implementation of the method was present on the type but higher in the hierarchy. This was
+  exacerbated when generic types were used. THe failure was `"@ArezComponent target has an abstract method
+  not implemented by framework"`.
+
 #### Changed
 * **\[processor\]** Remove the unused nested class `OnDispose` that was added to enhanced component classes.
 

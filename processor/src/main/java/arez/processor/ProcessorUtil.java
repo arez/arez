@@ -80,14 +80,16 @@ final class ProcessorUtil
 
   @Nonnull
   static List<ExecutableElement> getMethods( @Nonnull final TypeElement element,
+                                             @Nonnull final Elements elementUtils,
                                              @Nonnull final Types typeUtils )
   {
     final Map<String, ArrayList<ExecutableElement>> methodMap = new LinkedHashMap<>();
-    enumerateMethods( element, typeUtils, element, methodMap );
+    enumerateMethods( element, elementUtils, typeUtils, element, methodMap );
     return methodMap.values().stream().flatMap( Collection::stream ).collect( Collectors.toList() );
   }
 
   private static void enumerateMethods( @Nonnull final TypeElement scope,
+                                        @Nonnull final Elements elementUtils,
                                         @Nonnull final Types typeUtils,
                                         @Nonnull final TypeElement element,
                                         @Nonnull final Map<String, ArrayList<ExecutableElement>> methods )
@@ -95,41 +97,71 @@ final class ProcessorUtil
     final TypeMirror superclass = element.getSuperclass();
     if ( TypeKind.NONE != superclass.getKind() )
     {
-      enumerateMethods( scope, typeUtils, (TypeElement) ( (DeclaredType) superclass ).asElement(), methods );
+      final TypeElement superclassElement = (TypeElement) ( (DeclaredType) superclass ).asElement();
+      enumerateMethods( scope, elementUtils, typeUtils, superclassElement, methods );
     }
     for ( final TypeMirror interfaceType : element.getInterfaces() )
     {
       final TypeElement interfaceElement = (TypeElement) ( (DeclaredType) interfaceType ).asElement();
-      enumerateMethods( scope, typeUtils, interfaceElement, methods );
+      enumerateMethods( scope, elementUtils, typeUtils, interfaceElement, methods );
     }
     for ( final Element member : element.getEnclosedElements() )
     {
       if ( member.getKind() == ElementKind.METHOD )
       {
-        final ExecutableType methodType =
-          (ExecutableType) typeUtils.asMemberOf( (DeclaredType) scope.asType(), member );
-        final String key = member.getSimpleName().toString();
-        final ArrayList<ExecutableElement> elements = methods.computeIfAbsent( key, k -> new ArrayList<>() );
-        boolean found = false;
-        final int size = elements.size();
-        for ( int i = 0; i < size; i++ )
-        {
-          if ( isSubsignature( typeUtils, scope, methodType, elements.get( i ) ) )
-          {
-            if ( !member.getModifiers().contains( Modifier.ABSTRACT ) )
-            {
-              elements.set( i, (ExecutableElement) member );
-            }
-            found = true;
-            break;
-          }
-        }
-        if ( !found )
-        {
-          elements.add( (ExecutableElement) member );
-        }
+        final ExecutableElement method = (ExecutableElement) member;
+        processMethod( elementUtils, typeUtils, scope, methods, method );
       }
     }
+  }
+
+  private static void processMethod( @Nonnull final Elements elementUtils,
+                                     @Nonnull final Types typeUtils,
+                                     @Nonnull final TypeElement typeElement,
+                                     @Nonnull final Map<String, ArrayList<ExecutableElement>> methods,
+                                     @Nonnull final ExecutableElement method )
+  {
+    final ExecutableType methodType =
+      (ExecutableType) typeUtils.asMemberOf( (DeclaredType) typeElement.asType(), method );
+
+    final String key = method.getSimpleName().toString();
+    final ArrayList<ExecutableElement> elements = methods.computeIfAbsent( key, k -> new ArrayList<>() );
+    boolean found = false;
+    final int size = elements.size();
+    for ( int i = 0; i < size; i++ )
+    {
+      final ExecutableElement executableElement = elements.get( i );
+      if ( method.equals( executableElement ) )
+      {
+        found = true;
+        break;
+      }
+      else if ( isSubsignature( typeUtils, typeElement, methodType, executableElement ) )
+      {
+        if ( !isAbstractInterfaceMethod( method ) )
+        {
+          elements.set( i, method );
+        }
+        found = true;
+        break;
+      }
+      else if ( elementUtils.overrides( method, executableElement, typeElement ) )
+      {
+        elements.set( i, method );
+        found = true;
+        break;
+      }
+    }
+    if ( !found )
+    {
+      elements.add( method );
+    }
+  }
+
+  private static boolean isAbstractInterfaceMethod( final @Nonnull ExecutableElement method )
+  {
+    return method.getModifiers().contains( Modifier.ABSTRACT ) &&
+           ElementKind.INTERFACE == method.getEnclosingElement().getKind();
   }
 
   private static boolean isSubsignature( @Nonnull final Types typeUtils,

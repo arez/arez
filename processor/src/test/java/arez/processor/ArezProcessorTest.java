@@ -164,6 +164,20 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void processSuccessfulWhereAbstractMethodWithGenericParameterIsRefinedInMiddleComponent()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      JavaFileObjects.forResource( "input/com/example/override_generics/BaseModel.java" );
+    final JavaFileObject source2 =
+      JavaFileObjects.forResource( "input/com/example/override_generics/MiddleModel.java" );
+    final JavaFileObject source3 =
+      JavaFileObjects.forResource( "input/com/example/override_generics/LeafModel.java" );
+    final String output = "expected/com/example/override_generics/Arez_LeafModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output ) );
+  }
+
+  @Test
   public void processSuccessfulNestedCompileWithRepositories()
     throws Exception
   {
