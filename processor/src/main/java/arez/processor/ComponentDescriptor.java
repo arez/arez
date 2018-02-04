@@ -51,7 +51,7 @@ final class ComponentDescriptor
   private static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
   private static final Pattern ISSER_PATTERN = Pattern.compile( "^is([A-Z].*)$" );
   private static final List<String> OBJECT_METHODS =
-    Arrays.asList( "hashCode", "equals", "clone", "toString", "finalize" );
+    Arrays.asList( "hashCode", "equals", "clone", "toString", "finalize", "getClass", "wait", "notifyAll", "notify" );
 
   @Nullable
   private String _repositoryName;
