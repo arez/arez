@@ -23,6 +23,7 @@ public final class RepositoryUtil
    * This method should be called by repository extensions when returning list results
    * when not using {@link #asList(Stream)}.
    *
+   * @param <T>  the type of elements in list.
    * @param list the input list.
    * @return the output list
    */
@@ -36,6 +37,7 @@ public final class RepositoryUtil
    * Convert specified stream to a list, wrapping as an immutable list if required.
    * This method should be called by repository extensions when returning list results.
    *
+   * @param <T>    the type of elements in stream.
    * @param stream the input stream.
    * @return the output list
    */
