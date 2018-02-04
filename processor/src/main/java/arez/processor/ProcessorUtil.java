@@ -165,12 +165,12 @@ final class ProcessorUtil
   }
 
   private static boolean isSubsignature( @Nonnull final Types typeUtils,
-                                         @Nonnull final TypeElement scope,
+                                         @Nonnull final TypeElement typeElement,
                                          @Nonnull final ExecutableType methodType,
                                          @Nonnull final ExecutableElement candidate )
   {
     final ExecutableType candidateType =
-      (ExecutableType) typeUtils.asMemberOf( (DeclaredType) scope.asType(), candidate );
+      (ExecutableType) typeUtils.asMemberOf( (DeclaredType) typeElement.asType(), candidate );
     final boolean isEqual = methodType.equals( candidateType );
     final boolean isSubsignature = typeUtils.isSubsignature( methodType, candidateType );
     return isSubsignature || isEqual;
