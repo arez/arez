@@ -164,6 +164,22 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void processSuccessfulReactArezGenericsScenario()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      JavaFileObjects.forResource( "input/com/example/override_generics/BaseReactComponent.java" );
+    final JavaFileObject source2 =
+      JavaFileObjects.forResource( "input/com/example/override_generics/ArezReactComponent.java" );
+    final JavaFileObject source3 =
+      JavaFileObjects.forResource( "input/com/example/override_generics/MyArezReactComponent.java" );
+    final JavaFileObject source4 =
+      JavaFileObjects.forResource( "input/com/example/override_generics/MyArezReactComponent_.java" );
+    final String output = "expected/com/example/override_generics/Arez_MyArezReactComponent_.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2, source3, source4 ), Collections.singletonList( output ) );
+  }
+
+  @Test
   public void processSuccessfulWhereAbstractMethodWithGenericParameterIsRefinedInMiddleComponent()
     throws Exception
   {
