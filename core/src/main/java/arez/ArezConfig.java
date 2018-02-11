@@ -24,6 +24,10 @@ final class ArezConfig
     "true".equals( System.getProperty( "arez.enable_native_components", PRODUCTION_MODE ? "false" : "true" ) );
   private static boolean ENABLE_REGISTRIES =
     "true".equals( System.getProperty( "arez.enable_registries", PRODUCTION_MODE ? "false" : "true" ) );
+  private static boolean CHECK_INVARIANTS =
+    "true".equals( System.getProperty( "arez.check_invariants", PRODUCTION_MODE ? "false" : "true" ) );
+  private static boolean CHECK_API_INVARIANTS =
+    "true".equals( System.getProperty( "arez.check_api_invariants", PRODUCTION_MODE ? "false" : "true" ) );
 
   private ArezConfig()
   {
@@ -77,5 +81,15 @@ final class ArezConfig
   static boolean areNativeComponentsEnabled()
   {
     return ENABLE_NATIVE_COMPONENTS;
+  }
+
+  static boolean checkInvariants()
+  {
+    return CHECK_INVARIANTS;
+  }
+
+  static boolean checkApiInvariants()
+  {
+    return CHECK_API_INVARIANTS;
   }
 }

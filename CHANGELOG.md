@@ -9,6 +9,10 @@
   compiler with optimizations. Now when spies are disabled, the classes `ActionStartedEvent` and
   `ActionCompletedEvent` are optimized out.
 
+#### Added
+* **\[core\]** Introduce the configuration setting `arez.check_invariants` and `arez.check_api_invariants`
+  that provide mechanisms to explicitly control whether invariants checking is enabled in the Arez library.
+
 #### Changed
 * Upgrade the braincheck dependency to `1.4.0`.
 

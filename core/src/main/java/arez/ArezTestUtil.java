@@ -42,6 +42,8 @@ public final class ArezTestUtil
       makeRepositoryResultsModifiable();
       disableNativeComponents();
       disableRegistries();
+      noCheckInvariants();
+      noCheckApiInvariants();
     }
     else
     {
@@ -52,6 +54,8 @@ public final class ArezTestUtil
       makeRepositoryResultsUnmodifiable();
       enableNativeComponents();
       enableRegistries();
+      checkInvariants();
+      checkApiInvariants();
     }
     purgeReactionsWhenRunawayDetected();
     disableZones();
@@ -294,6 +298,58 @@ public final class ArezTestUtil
   private static void setEnableRegistries( final boolean value )
   {
     setConstant( "ENABLE_REGISTRIES", value );
+  }
+
+  /**
+   * Set `arez.check_invariants` setting to true.
+   */
+  public static void checkInvariants()
+  {
+    setCheckInvariants( true );
+  }
+
+  /**
+   * Set the `arez.check_invariants` setting to false.
+   */
+  public static void noCheckInvariants()
+  {
+    setCheckInvariants( false );
+  }
+
+  /**
+   * Configure the `arez.check_invariants` setting.
+   *
+   * @param checkInvariants the "check invariants" setting.
+   */
+  private static void setCheckInvariants( final boolean checkInvariants )
+  {
+    setConstant( "CHECK_INVARIANTS", checkInvariants );
+  }
+
+  /**
+   * Set `arez.check_api_invariants` setting to true.
+   */
+  public static void checkApiInvariants()
+  {
+    setCheckInvariants( true );
+  }
+
+  /**
+   * Set the `arez.check_api_invariants` setting to false.
+   */
+  public static void noCheckApiInvariants()
+  {
+    setCheckInvariants( false );
+  }
+
+  /**
+   * Configure the `arez.check_api_invariants` setting.
+   *
+   * @param checkApiInvariants the "check invariants" setting.
+   */
+  private static void setCheckApiInvariants( final boolean checkApiInvariants )
+  {
+    setConstant( "CHECK_API_INVARIANTS", checkApiInvariants );
   }
 
   /**

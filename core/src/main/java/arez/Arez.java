@@ -1,9 +1,11 @@
 package arez;
 
 import java.util.ArrayList;
+import javaemul.internal.annotations.ForceInline;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
+import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -118,6 +120,28 @@ public final class Arez
   static boolean shouldEnforceTransactionType()
   {
     return ArezConfig.enforceTransactionType();
+  }
+
+  /**
+   * Return true if invariants will be checked.
+   *
+   * @return true if invariants will be checked.
+   */
+  @ForceInline
+  public static boolean shouldCheckInvariants()
+  {
+    return ArezConfig.checkInvariants() && BrainCheckConfig.checkInvariants();
+  }
+
+  /**
+   * Return true if apiInvariants will be checked.
+   *
+   * @return true if apiInvariants will be checked.
+   */
+  @ForceInline
+  public static boolean shouldCheckApiInvariants()
+  {
+    return ArezConfig.checkApiInvariants() && BrainCheckConfig.checkApiInvariants();
   }
 
   /**
