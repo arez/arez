@@ -17,6 +17,10 @@
 
 #### Changed
 * Upgrade the braincheck dependency to `1.4.0`.
+* Invariant messages are started are prefixed with `"Arez-####: "` so it is easy to identify and communicate
+  sources of error. The numbers are currently continuous and not ordered in any meaningful order. It is
+  expected that over time that as invariants are added and removed the numbers may develop gaps but no number
+  should ever be reused to avoid confusion when discussing particular errors.
 
 ### [v0.49](https://github.com/arez/arez/tree/v0.49) (2018-02-05)
 [Full Changelog](https://github.com/arez/arez/compare/v0.48...v0.49)
