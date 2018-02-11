@@ -139,7 +139,7 @@ final class Transaction
                             @Nullable final TransactionMode mode,
                             @Nullable final Observer tracker )
   {
-    if ( ArezConfig.enforceTransactionType() && TransactionMode.READ_WRITE == mode && null != c_transaction )
+    if ( Arez.shouldEnforceTransactionType() && TransactionMode.READ_WRITE == mode && null != c_transaction )
     {
       apiInvariant( () -> TransactionMode.READ_WRITE == c_transaction.getMode(),
                     () -> "Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
@@ -166,7 +166,7 @@ final class Transaction
       final ObserverInfoImpl trackerInfo =
         null != tracker ? new ObserverInfoImpl( c_transaction.getContext().getSpy(), tracker ) : null;
       final boolean mutation =
-        !ArezConfig.enforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
+        !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
       context.getSpy().reportSpyEvent( new TransactionStartedEvent( name, mutation, trackerInfo ) );
     }
     return c_transaction;
@@ -197,7 +197,7 @@ final class Transaction
     {
       final String name = c_transaction.getName();
       final boolean mutation =
-        !ArezConfig.enforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
+        !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
       final Observer tracker = c_transaction.getTracker();
       final ObserverInfoImpl trackerInfo =
         null != tracker ? new ObserverInfoImpl( c_transaction.getContext().getSpy(), tracker ) : null;
@@ -269,7 +269,7 @@ final class Transaction
     _id = context.nextTransactionId();
     _previous = previous;
     _previousInSameContext = Arez.areZonesEnabled() ? findPreviousTransactionInSameContext() : null;
-    _mode = ArezConfig.enforceTransactionType() ? Objects.requireNonNull( mode ) : null;
+    _mode = Arez.shouldEnforceTransactionType() ? Objects.requireNonNull( mode ) : null;
     _tracker = tracker;
     _startedAt = Arez.areSpiesEnabled() ? System.currentTimeMillis() : 0;
 
@@ -340,7 +340,7 @@ final class Transaction
     invariant( () -> null != _tracker,
                () -> "Attempted to invoke markTrackerAsDisposed on transaction named '" + getName() +
                      "' when there is no tracker associated with the transaction." );
-    invariant( () -> !ArezConfig.enforceTransactionType() || TransactionMode.READ_WRITE == getMode(),
+    invariant( () -> !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == getMode(),
                () -> "Attempted to invoke markTrackerAsDisposed on transaction named '" + getName() +
                      "' when the transaction mode is " + getMode().name() + " and not READ_WRITE." );
     assert null != _tracker;
@@ -557,7 +557,7 @@ final class Transaction
     invariant( observable::hasOwner,
                () -> "Transaction named '" + getName() + "' has attempted to mark observable named '" +
                      observable.getName() + "' as potentially changed but observable is not a derived value." );
-    invariant( () -> !ArezConfig.enforceTransactionType() || TransactionMode.READ_ONLY != getMode(),
+    invariant( () -> !Arez.shouldEnforceTransactionType() || TransactionMode.READ_ONLY != getMode(),
                () -> "Transaction named '" + getName() + "' attempted to call reportPossiblyChanged in " +
                      "read-only transaction." );
 
@@ -661,7 +661,7 @@ final class Transaction
 
   void verifyWriteAllowed( @Nonnull final Observable observable )
   {
-    if ( ArezConfig.enforceTransactionType() )
+    if ( Arez.shouldEnforceTransactionType() )
     {
       if ( TransactionMode.READ_ONLY == _mode )
       {

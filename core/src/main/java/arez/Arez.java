@@ -111,6 +111,16 @@ public final class Arez
   }
 
   /**
+   * Return true if Arez should enforce transaction modes.
+   *
+   * @return true if Arez should enforce transaction modes.
+   */
+  static boolean shouldEnforceTransactionType()
+  {
+    return ArezConfig.enforceTransactionType();
+  }
+
+  /**
    * Return the ArezContext from the provider.
    *
    * @return the ArezContext.

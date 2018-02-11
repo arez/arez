@@ -112,10 +112,10 @@ public final class Observable<T>
                         "Arez.arePropertyIntrospectorsEnabled() is false." );
     if ( null != _owner )
     {
-      // This invariant can not be checked if ArezConfig.enforceTransactionType() is false as
+      // This invariant can not be checked if Arez.shouldEnforceTransactionType() is false as
       // the variable has yet to be assigned and no transaction mode set. Thus just skip the
       // check in this scenario.
-      invariant( () -> !ArezConfig.enforceTransactionType() || _owner.isDerivation(),
+      invariant( () -> !Arez.shouldEnforceTransactionType() || _owner.isDerivation(),
                  () -> "Observable named '" + getName() + "' has owner specified " +
                        "but owner is not a derivation." );
       assert !Arez.areNamesEnabled() || _owner.getName().equals( name );
@@ -142,7 +142,7 @@ public final class Observable<T>
     if ( !isDisposed() )
     {
       getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
-                               ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE : null,
+                               Arez.shouldEnforceTransactionType() ? TransactionMode.READ_WRITE : null,
                                this::performDispose,
                                null );
       // All dependencies should have been released by the time it comes to deactivate phase.

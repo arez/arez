@@ -555,7 +555,7 @@ public final class ArezContext
                       name,
                       mutation,
                       o -> action( Arez.areNamesEnabled() ? o.getName() : null,
-                                   ArezConfig.enforceTransactionType() ? o.getMode() : null,
+                                   Arez.shouldEnforceTransactionType() ? o.getMode() : null,
                                    action,
                                    true,
                                    o ),
@@ -743,7 +743,7 @@ public final class ArezContext
     {
       getSpy().reportSpyEvent( new ReactionScheduledEvent( new ObserverInfoImpl( getSpy(), observer ) ) );
     }
-    if ( ArezConfig.enforceTransactionType() && isTransactionActive() )
+    if ( Arez.shouldEnforceTransactionType() && isTransactionActive() )
     {
       final TransactionMode mode = getTransaction().getMode();
       invariant( () -> mode != TransactionMode.READ_ONLY,
@@ -977,7 +977,7 @@ public final class ArezContext
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
     return action( generateNodeName( tracker ),
-                   ArezConfig.enforceTransactionType() ? tracker.getMode() : null,
+                   Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
                    action,
                    tracker,
                    parameters );
@@ -1131,7 +1131,7 @@ public final class ArezContext
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
     return safeAction( generateNodeName( tracker ),
-                       ArezConfig.enforceTransactionType() ? tracker.getMode() : null,
+                       Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
                        action,
                        tracker,
                        parameters );
@@ -1283,7 +1283,7 @@ public final class ArezContext
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
     action( generateNodeName( tracker ),
-            ArezConfig.enforceTransactionType() ? tracker.getMode() : null,
+            Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
             action,
             true,
             tracker,
@@ -1433,7 +1433,7 @@ public final class ArezContext
                   () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
                         "observer is not a tracker." );
     safeAction( generateNodeName( tracker ),
-                ArezConfig.enforceTransactionType() ? tracker.getMode() : null,
+                Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
                 action,
                 tracker,
                 parameters );
@@ -1673,7 +1673,7 @@ public final class ArezContext
   @Nullable
   private TransactionMode mutationToTransactionMode( final boolean mutation )
   {
-    return ArezConfig.enforceTransactionType() ?
+    return Arez.shouldEnforceTransactionType() ?
            ( mutation ? TransactionMode.READ_WRITE : TransactionMode.READ_ONLY ) :
            null;
   }

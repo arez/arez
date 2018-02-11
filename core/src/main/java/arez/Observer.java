@@ -110,7 +110,7 @@ public final class Observer
             final boolean canTrackExplicitly )
   {
     super( context, name );
-    if ( ArezConfig.enforceTransactionType() )
+    if ( Arez.shouldEnforceTransactionType() )
     {
       if ( TransactionMode.READ_WRITE_OWNED == mode )
       {
@@ -140,7 +140,7 @@ public final class Observer
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
     _component = component;
     _computedValue = computedValue;
-    _mode = ArezConfig.enforceTransactionType() ? Objects.requireNonNull( mode ) : null;
+    _mode = Arez.shouldEnforceTransactionType() ? Objects.requireNonNull( mode ) : null;
     _reaction = Objects.requireNonNull( reaction );
     _canTrackExplicitly = canTrackExplicitly;
     if ( null != _computedValue )
@@ -188,10 +188,10 @@ public final class Observer
   {
     /*
      * We do not use "null != _derivedValue" as it is called from constructor of observable
-     * prior to assigning it to _derivedValue. However it is only called if ArezConfig.enforceTransactionType()
+     * prior to assigning it to _derivedValue. However it is only called if Arez.shouldEnforceTransactionType()
      * so we can use "null != _derivedValue" when not enabled.
      */
-    return ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE_OWNED == getMode() : null != _derivedValue;
+    return Arez.shouldEnforceTransactionType() ? TransactionMode.READ_WRITE_OWNED == getMode() : null != _derivedValue;
   }
 
   /**
@@ -206,7 +206,7 @@ public final class Observer
       _disposing = true;
       runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
       getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
-                               ArezConfig.enforceTransactionType() ? TransactionMode.READ_WRITE : null,
+                               Arez.shouldEnforceTransactionType() ? TransactionMode.READ_WRITE : null,
                                () -> getContext().getTransaction().markTrackerAsDisposed(),
                                this );
       if ( !isDerivation() )
@@ -289,7 +289,7 @@ public final class Observer
   @Nullable
   TransactionMode getMode()
   {
-    assert ArezConfig.enforceTransactionType();
+    assert Arez.shouldEnforceTransactionType();
     return _mode;
   }
 
