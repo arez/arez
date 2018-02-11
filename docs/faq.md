@@ -13,6 +13,8 @@ title: Frequently Asked Questions
   * [Why do the generated/enhanced Arez components implement Disposable?](#why-do-the-generatedenhanced-arez-components-implement-disposable)
   * [Why does the annotation processor override equals() and hashCode() methods?](#why-does-the-annotation-processor-override-equals-and-hashcode-methods)
   * [Why does the annotation processor only sometimes generate a toString() method?](#why-does-the-annotation-processor-only-sometimes-generate-a-tostring-method)
+- [Library Implementation Decisions](#library-implementation-decisions)
+  * [Why guard invariant checks with `Arez.shouldCheckInvariants()`?](#why-guard-invariant-checks-with-arezshouldcheckinvariants)
 
 <!-- tocstop -->
 
@@ -137,3 +139,37 @@ then Arez will override `toString()` to return a value such as `"ArezComponent[m
 noted that if names are not enabled by the Arez compile time configuration (i.e.
 {@api_url: Arez.areNamesEnabled()::Arez::areNamesEnabled()} returns false) then the base `Object.toString()`
 method will be invoked.
+
+## Library Implementation Decisions
+
+### Why guard invariant checks with `Arez.shouldCheckInvariants()`?
+
+The codebase is filled with lots of calls to the `Guards.invariant(...)` and `Guards.apiInvariant(...)` methods
+from the `BrainCheck` library. If the appropriate configuration settings are supplied, these methods will verify
+that invariants and expectations of the Arez library are true at runtime. As these checks can be expensive, they
+should not be run in production mode. If these checks are not run then the code should not be generated in a
+GWT/Browser based application.
+
+The initial design of `BrainCheck` went through several iterations to ensure that the code is not present in
+generated javascript output and this seems to be true when the code complexity is low. However the GWT 2.8.2
+compiler will fail to eliminate the code for the lambdas passed to the the invariant methods, even after the
+code for invariant methods is eliminated. It is unclear the trigger for this problem as the same sequence of
+code would be optimized in one context but kept in another context within the same application.
+
+To work around this limitation of the GWT compiler, code the previously looked like:
+
+    Guards.invariant( () -> this.state == expected,
+                      () -> "State " + this.state + " does not match expected " + expected );
+
+Had to be rewritten to look like:
+
+    if ( Arez.shouldCheckInvariants() )
+    {
+      Guards.invariant( () -> this.state == expected,
+                        () -> "State " + this.state + " does not match expected " + expected );
+    }
+
+This has produced significantly more clutter in the codebase but needs to be supported while GWT 2.x continues
+to be a deployment target. As an indication of how much of an impact it can have, the size of one trivial
+application went from 141KB to 74KB after this change. If/When Arez targets GWT 3.x and not GWT 2.x, it is
+expected that most of this complexity can be removed from the codebase.
