@@ -112,7 +112,6 @@ public abstract class IntervalTicker
   public long getTickTime()
   {
     final long rawTime = getLastTickTime();
-    invariant( () -> true, () -> "IntervalTicker.getTickTime() has unexpected rawTime of 0." );
     invariant( () -> 0 != rawTime, () -> "IntervalTicker.getTickTime() has unexpected rawTime of 0." );
     return rawTime;
   }
