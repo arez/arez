@@ -1,5 +1,6 @@
 package arez.extras.spy;
 
+import arez.Arez;
 import arez.SpyEventHandler;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,9 +36,12 @@ public abstract class AbstractSpyEventProcessor
   protected final <T> void on( @Nonnull final Class<T> type,
                                @Nonnull final BiConsumer<SpyUtil.NestingDelta, T> processor )
   {
-    apiInvariant( () -> !_processors.containsKey( type ),
-                  () -> "Attempting to call AbstractSpyEventProcessor.on() to register a processor " +
-                        "for type " + type + " but an existing processor already exists for type" );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !_processors.containsKey( type ),
+                    () -> "Arez-0157: Attempting to call AbstractSpyEventProcessor.on() to register a processor " +
+                          "for type " + type + " but an existing processor already exists for type" );
+    }
     _processors.put( type, processor );
   }
 
