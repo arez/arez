@@ -1,5 +1,6 @@
 package arez.component;
 
+import arez.Arez;
 import arez.Disposable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -57,8 +58,12 @@ public interface Identifiable<K>
   @Nonnull
   static <K> Identifiable<K> asIdentifiable( @Nonnull final Object object )
   {
-    apiInvariant( () -> object instanceof Identifiable,
-                  () -> "Object passed to asIdentifiable does not implement Identifiable. Object: " + object );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> object instanceof Identifiable,
+                    () -> "Arez-0158: Object passed to asIdentifiable does not implement " +
+                          "Identifiable. Object: " + object );
+    }
     return (Identifiable<K>) object;
   }
 }

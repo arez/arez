@@ -34,6 +34,6 @@ public class IdentifiableTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Identifiable.asIdentifiable( element ) );
     assertEquals( exception.getMessage(),
-                  "Object passed to asIdentifiable does not implement Identifiable. Object: " + element );
+                  "Arez-0158: Object passed to asIdentifiable does not implement Identifiable. Object: " + element );
   }
 }

@@ -86,10 +86,14 @@ public final class MemoizeCache<T>
                        @Nonnull final Function<T> function,
                        @Nonnegative final int argCount )
   {
-    apiInvariant( () -> Arez.areNamesEnabled() || null == name,
-                  () -> "MemoizeCache passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
-    apiInvariant( () -> argCount > 0,
-                  () -> "MemoizeCache constructed with invalid argCount: " + argCount + ". Expected positive value." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> Arez.areNamesEnabled() || null == name,
+                    () -> "Arez-0159: MemoizeCache passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
+      apiInvariant( () -> argCount > 0,
+                    () -> "Arez-0160: MemoizeCache constructed with invalid argCount: " + argCount +
+                          ". Expected positive value." );
+    }
     _context = Objects.requireNonNull( context );
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
     _function = Objects.requireNonNull( function );
@@ -104,7 +108,11 @@ public final class MemoizeCache<T>
    */
   public T get( @Nonnull final Object... args )
   {
-    apiInvariant( () -> !isDisposed(), () -> "MemoizeCache named '" + _name + "' had get() invoked when disposed." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !isDisposed(),
+                    () -> "Arez-0161: MemoizeCache named '" + _name + "' had get() invoked when disposed." );
+    }
     return getComputedValue( args ).get();
   }
 
@@ -159,9 +167,12 @@ public final class MemoizeCache<T>
   @SuppressWarnings( "unchecked" )
   private ComputedValue<T> getComputedValue( @Nonnull final Object... args )
   {
-    apiInvariant( () -> args.length == _argCount,
-                  () -> "MemoizeCache.getComputedValue called with " + args.length + " arguments but expected " +
-                        _argCount + " arguments." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> args.length == _argCount,
+                    () -> "Arez-0162: MemoizeCache.getComputedValue called with " + args.length +
+                          " arguments but expected " + _argCount + " arguments." );
+    }
     Map<Object, Object> map = _cache;
     final int size = args.length - 1;
     for ( int i = 0; i < size; i++ )
@@ -194,9 +205,12 @@ public final class MemoizeCache<T>
   @SuppressWarnings( "unchecked" )
   void disposeComputedValue( @Nonnull final Object... args )
   {
-    invariant( () -> args.length == _argCount,
-               () -> "MemoizeCache.disposeComputedValue called with " + args.length + " argument but expected " +
-                     _argCount + " arguments." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> args.length == _argCount,
+                 () -> "Arez-0163: MemoizeCache.disposeComputedValue called with " + args.length +
+                       " argument but expected " + _argCount + " arguments." );
+    }
     if ( _disposed )
     {
       return;

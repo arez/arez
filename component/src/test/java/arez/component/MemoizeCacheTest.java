@@ -148,7 +148,7 @@ public class MemoizeCacheTest
       expectThrows( IllegalStateException.class, () -> cache.disposeComputedValue( "a" ) );
 
     assertEquals( exception.getMessage(),
-                  "MemoizeCache.disposeComputedValue called with 1 argument but expected 2 arguments." );
+                  "Arez-0163: MemoizeCache.disposeComputedValue called with 1 argument but expected 2 arguments." );
   }
 
   @Test
@@ -161,7 +161,7 @@ public class MemoizeCacheTest
       expectThrows( IllegalStateException.class, () -> cache.get( "a" ) );
 
     assertEquals( exception.getMessage(),
-                  "MemoizeCache.getComputedValue called with 1 arguments but expected 2 arguments." );
+                  "Arez-0162: MemoizeCache.getComputedValue called with 1 arguments but expected 2 arguments." );
   }
 
   @Test
@@ -175,7 +175,7 @@ public class MemoizeCacheTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> cache.get( "a", "b" ) );
 
-    assertEquals( exception.getMessage(), "MemoizeCache named 'X' had get() invoked when disposed." );
+    assertEquals( exception.getMessage(), "Arez-0161: MemoizeCache named 'X' had get() invoked when disposed." );
   }
 
   @Test
@@ -188,7 +188,7 @@ public class MemoizeCacheTest
                     () -> new MemoizeCache<>( Arez.context(), "X", args -> args[ 0 ], 1 ) );
 
     assertEquals( exception.getMessage(),
-                  "MemoizeCache passed a name 'X' but Arez.areNamesEnabled() is false" );
+                  "Arez-0159: MemoizeCache passed a name 'X' but Arez.areNamesEnabled() is false" );
   }
 
   @Test
@@ -199,6 +199,6 @@ public class MemoizeCacheTest
                     () -> new MemoizeCache<>( Arez.context(), "X", args -> args[ 0 ], 0 ) );
 
     assertEquals( exception.getMessage(),
-                  "MemoizeCache constructed with invalid argCount: 0. Expected positive value." );
+                  "Arez-0160: MemoizeCache constructed with invalid argCount: 0. Expected positive value." );
   }
 }
