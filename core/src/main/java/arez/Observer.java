@@ -346,7 +346,7 @@ public final class Observer
    * Set the state of the observer.
    * Call the hook actions for relevant state change.
    *
-   * @param state the new state of the observer.
+   * @param state    the new state of the observer.
    * @param schedule true if a state transition can cause observer to reschedule, false otherwise.
    */
   void setState( @Nonnull final ObserverState state, final boolean schedule )
