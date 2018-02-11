@@ -4,6 +4,10 @@
 
 #### Fixed
 * **\[extras\]** Remove useless invariant check in `IntervalTicker` class.
+* **\[core\]** Reordered code in `ArezContext.action(...)` so that code that code that is replaced with a
+  compile time constant (i.e. `Arez.areSpiesEnabled()`) occurs first which significantly helps the GWT
+  compiler with optimizations. Now when spies are disabled, the classes `ActionStartedEvent` and
+  `ActionCompletedEvent` are optimized out.
 
 ### [v0.49](https://github.com/arez/arez/tree/v0.49) (2018-02-05)
 [Full Changelog](https://github.com/arez/arez/compare/v0.48...v0.49)

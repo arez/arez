@@ -1310,7 +1310,7 @@ public final class ArezContext
     long startedAt = 0L;
     try
     {
-      if ( reportAction && Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && reportAction && getSpy().willPropagateSpyEvents() )
       {
         startedAt = System.currentTimeMillis();
         assert null != name;
@@ -1325,7 +1325,7 @@ public final class ArezContext
       {
         Transaction.commit( transaction );
       }
-      if ( reportAction && Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && reportAction && getSpy().willPropagateSpyEvents() )
       {
         completed = true;
         final long duration = System.currentTimeMillis() - startedAt;
@@ -1340,7 +1340,7 @@ public final class ArezContext
     }
     finally
     {
-      if ( reportAction && Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && reportAction && getSpy().willPropagateSpyEvents() )
       {
         if ( !completed )
         {
