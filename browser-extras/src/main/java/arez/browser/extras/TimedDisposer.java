@@ -1,11 +1,12 @@
 package arez.browser.extras;
 
+import arez.Arez;
 import arez.Disposable;
 import elemental2.dom.DomGlobal;
 import java.util.Objects;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import org.realityforge.braincheck.Guards;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * Utility class that will dispose specified target after a delay.
@@ -35,9 +36,12 @@ public final class TimedDisposer
   private TimedDisposer( @Nonnull final Disposable target,
                          @Nonnegative final long timeout )
   {
-    Guards.apiInvariant( () -> timeout >= 0,
-                         () -> "TimedDisposer passed an invalid timeout. Expected postive number " +
-                               "but actual value: " + timeout );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> timeout >= 0,
+                    () -> "Arez-0164: TimedDisposer passed an invalid timeout. Expected postive number " +
+                          "but actual value: " + timeout );
+    }
     _target = Objects.requireNonNull( target );
     _timeoutId = DomGlobal.setTimeout( e -> performDispose( false ), timeout );
   }

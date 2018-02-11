@@ -1,5 +1,6 @@
 package arez.browser.extras;
 
+import arez.Arez;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
@@ -125,17 +126,23 @@ public abstract class ObservablePromise<T, E>
   @Observable
   public T getValue()
   {
-    apiInvariant( () -> _state == State.FULFILLED,
-                  () -> "ObservablePromise.getValue() called when the promise is not in fulfilled state. " +
-                        "State: " + _state + ", Promise: " + _promise );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> _state == State.FULFILLED,
+                    () -> "Arez-0165: ObservablePromise.getValue() called when the promise is not in " +
+                          "fulfilled state. State: " + _state + ", Promise: " + _promise );
+    }
     return _value;
   }
 
   void setValue( final T value )
   {
-    invariant( () -> _state == State.FULFILLED,
-               () -> "ObservablePromise.setValue() called when promise is in incorrect state. " +
-                     "State: " + _state + ", Promise: " + _promise );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> _state == State.FULFILLED,
+                 () -> "Arez-0166: ObservablePromise.setValue() called when promise is in incorrect state. " +
+                       "State: " + _state + ", Promise: " + _promise );
+    }
     _value = value;
   }
 
@@ -149,17 +156,23 @@ public abstract class ObservablePromise<T, E>
   @Observable
   public E getError()
   {
-    apiInvariant( () -> _state == State.REJECTED,
-                  () -> "ObservablePromise.getError() called when the promise is not in rejected state. " +
-                        "State: " + _state + ", Promise: " + _promise );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> _state == State.REJECTED,
+                    () -> "Arez-0167: ObservablePromise.getError() called when the promise is not in " +
+                          "rejected state. State: " + _state + ", Promise: " + _promise );
+    }
     return _error;
   }
 
   void setError( final E error )
   {
-    invariant( () -> _state == State.REJECTED,
-               () -> "ObservablePromise.setError() called when promise is in incorrect state. " +
-                     "State: " + _state + ", Promise: " + _promise );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> _state == State.REJECTED,
+                 () -> "Arez-0168: ObservablePromise.setError() called when promise is in incorrect state. " +
+                       "State: " + _state + ", Promise: " + _promise );
+    }
     _error = error;
   }
 

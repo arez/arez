@@ -1,5 +1,6 @@
 package arez.browser.extras;
 
+import arez.Arez;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
@@ -91,9 +92,13 @@ public abstract class IntervalTicker
    */
   public void setInterval( final long interval )
   {
-    apiInvariant( () -> interval >= 0,
-                  () -> "IntervalTicker.setInterval() was passed an invalid interval. Expected a positive number " +
-                        "but actual value was " + interval );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> interval >= 0,
+                    () ->
+                      "Arez-0169: IntervalTicker.setInterval() was passed an invalid interval. Expected " +
+                      "a positive number but actual value was " + interval );
+    }
     _interval = interval;
     if ( 0 != _intervalId )
     {
@@ -112,7 +117,10 @@ public abstract class IntervalTicker
   public long getTickTime()
   {
     final long rawTime = getLastTickTime();
-    invariant( () -> 0 != rawTime, () -> "IntervalTicker.getTickTime() has unexpected rawTime of 0." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> 0 != rawTime, () -> "Arez-0170: IntervalTicker.getTickTime() has unexpected rawTime of 0." );
+    }
     return rawTime;
   }
 
@@ -147,7 +155,11 @@ public abstract class IntervalTicker
 
   private void setupTimer()
   {
-    invariant( () -> 0 == _intervalId, () -> "IntervalTicker.setupTimer() called but timer is already active." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> 0 == _intervalId,
+                 () -> "Arez-0171: IntervalTicker.setupTimer() called but timer is already active." );
+    }
     _intervalId = DomGlobal.setInterval( e -> tick(), _interval );
     /*
      * Can not use setLastTickTime because this is invoked in context of READ_ONLY_OWNED transaction.
@@ -158,7 +170,11 @@ public abstract class IntervalTicker
 
   private void clearTimer()
   {
-    invariant( () -> 0 != _intervalId, () -> "IntervalTicker.clearTimer() called but no timer is active." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> 0 != _intervalId,
+                 () -> "Arez-0172: IntervalTicker.clearTimer() called but no timer is active." );
+    }
     DomGlobal.clearTimeout( _intervalId );
     _intervalId = 0;
     _lastTickTime = 0;
