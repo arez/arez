@@ -39,7 +39,7 @@ artifacts:
   elemental2_dom: com.google.elemental2:elemental2-dom:jar:1.0.0-RC1
   elemental2_promise: com.google.elemental2:elemental2-promise:jar:1.0.0-RC1
 
-  braincheck: org.realityforge.braincheck:braincheck:jar:gwt:1.3.0
+  braincheck: org.realityforge.braincheck:braincheck:jar:gwt:1.4.0
 
   javax_json: org.glassfish:javax.json:jar:1.1
 

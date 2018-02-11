@@ -9,6 +9,9 @@
   compiler with optimizations. Now when spies are disabled, the classes `ActionStartedEvent` and
   `ActionCompletedEvent` are optimized out.
 
+#### Changed
+* Upgrade the braincheck dependency to `1.4.0`.
+
 ### [v0.49](https://github.com/arez/arez/tree/v0.49) (2018-02-05)
 [Full Changelog](https://github.com/arez/arez/compare/v0.48...v0.49)
 
