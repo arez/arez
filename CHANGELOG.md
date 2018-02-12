@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+#### Changed
+* Removed the usage of the gwt internal `@ForceInline` annotation. Measurements indicated it had no impact
+  on the output size as it was placed on methods that were already considered inline candidates by the GWT
+  compiler.
+
 ### [v0.50](https://github.com/arez/arez/tree/v0.50) (2018-02-12)
 [Full Changelog](https://github.com/arez/arez/compare/v0.49...v0.50)
 
