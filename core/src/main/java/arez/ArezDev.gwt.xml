@@ -13,4 +13,6 @@
   <set-property name="arez.enable_spies" value="true"/>
   <set-property name="arez.enable_registries" value="true"/>
   <set-property name="arez.enable_native_components" value="true"/>
+  <set-property name="arez.check_invariants" value="true"/>
+  <set-property name="arez.check_api_invariants" value="true"/>
 </module>

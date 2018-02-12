@@ -6,6 +6,9 @@
 * **\[core\]** Ensure that `ArezContext.willPropagateSpyEvents()` is used internally rather than chaining
   it with other checks such as `Arez.areSpiesEnabled()` which should be functionally equivalent but confuse
   the GWT compiler so that it can not always perform DCE effectively.
+* **\[core\]** Fixed a bug introduced in `v0.50` where the invariant checking was disabled even when the
+  `arez.ArezDev` gwt module was included. The fix was to explicitly enable the configuration settings in
+  the module.
 
 #### Changed
 * **\[core\]** Move the extraction of the configuration setting `arez.logger` to `arez.ArezConfig` to be
