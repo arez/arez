@@ -89,13 +89,17 @@ public final class Arez_NonStandardNameModel extends NonStandardNameModel implem
 
   @Override
   public long getTime() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     return this.$$arez$$_time.get();
   }
 
   @Override
   ComputedValue timeComputedValue() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     return $$arez$$_time;
   }
 

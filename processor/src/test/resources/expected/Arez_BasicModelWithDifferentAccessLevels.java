@@ -116,14 +116,18 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   protected long getTime() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
 
   @Override
   public void setTime(final long time) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     if ( time != super.getTime() ) {
       this.$$arez$$_time.preReportChanged();
       super.setTime(time);
@@ -133,14 +137,18 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   String getValue() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     this.$$arez$$_value.reportObserved();
     return super.getValue();
   }
 
   @Override
   public void setValue(final String value) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     if ( !Objects.equals( value, super.getValue() ) ) {
       this.$$arez$$_value.preReportChanged();
       super.setValue(value);
@@ -150,7 +158,9 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   void doAction3() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doAction3" : null, true, () -> super.doAction3() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -166,7 +176,9 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   protected void doAction2() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doAction2" : null, true, () -> super.doAction2() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -182,7 +194,9 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   @Override
   public void doAction() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doAction" : null, true, () -> super.doAction() );
     } catch( final RuntimeException $$arez$$_e ) {

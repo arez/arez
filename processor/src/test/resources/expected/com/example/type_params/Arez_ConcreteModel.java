@@ -111,7 +111,9 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   @Override
   public void handleWriter(final W writer) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".handleWriter" : null, true, () -> super.handleWriter(writer), writer );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -127,7 +129,9 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   @Override
   public void handleError(final IOException error) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".handleError" : null, true, () -> super.handleError(error), error );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -143,7 +147,9 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   @Override
   public W genWriter() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       return $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".genWriter" : null, true, () -> super.genWriter() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -159,7 +165,9 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   @Override
   public IOException genError() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       return $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".genError" : null, true, () -> super.genError() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -175,13 +183,17 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   @Override
   public IOException compError() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     return this.$$arez$$_compError.get();
   }
 
   @Override
   public W compWriter() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     return this.$$arez$$_compWriter.get();
   }
 

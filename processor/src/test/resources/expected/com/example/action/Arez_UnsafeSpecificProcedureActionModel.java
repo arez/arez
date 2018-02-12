@@ -82,7 +82,9 @@ public final class Arez_UnsafeSpecificProcedureActionModel extends UnsafeSpecifi
 
   @Override
   public void doStuff(final long time) throws ParseException {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().action(Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
     } catch( final ParseException $$arez$$_e ) {

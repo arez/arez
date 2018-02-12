@@ -79,7 +79,9 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
 
   @Override
   public void doStuff(final long time) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
     } catch( final RuntimeException $$arez$$_e ) {

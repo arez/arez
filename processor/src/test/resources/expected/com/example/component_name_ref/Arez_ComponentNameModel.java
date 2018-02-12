@@ -81,7 +81,9 @@ public final class Arez_ComponentNameModel extends ComponentNameModel implements
 
   @Override
   public void doStuff(final long time, final float someOtherParameter) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getComponentName() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getComponentName() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? getComponentName() + ".doStuff" : null, true, () -> super.doStuff(time,someOtherParameter), time, someOtherParameter );
     } catch( final RuntimeException $$arez$$_e ) {

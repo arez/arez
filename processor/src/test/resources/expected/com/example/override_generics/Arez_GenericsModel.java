@@ -81,7 +81,9 @@ public final class Arez_GenericsModel extends GenericsModel implements Disposabl
 
   @Override
   public void foo(final Integer v) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".foo" : null, true, () -> super.foo(v), v );
     } catch( final RuntimeException $$arez$$_e ) {

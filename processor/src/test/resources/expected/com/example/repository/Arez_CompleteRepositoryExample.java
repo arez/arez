@@ -96,14 +96,18 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
   @Nonnull
   @Override
   public String getName() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     this.$$arez$$_name.reportObserved();
     return super.getName();
   }
 
   @Override
   public void setName(@Nonnull final String name) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     if ( !Objects.equals( name, super.getName() ) ) {
       this.$$arez$$_name.preReportChanged();
       super.setName(name);
@@ -114,14 +118,18 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
   @Nonnull
   @Override
   public String getPackageName() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     this.$$arez$$_packageName.reportObserved();
     return super.getPackageName();
   }
 
   @Override
   public void setPackageName(@Nonnull final String packageName) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     if ( !Objects.equals( packageName, super.getPackageName() ) ) {
       this.$$arez$$_packageName.preReportChanged();
       super.setPackageName(packageName);
@@ -132,14 +140,18 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
   @Nullable
   @Override
   public String getRawQualifiedName() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     this.$$arez$$_rawQualifiedName.reportObserved();
     return super.getRawQualifiedName();
   }
 
   @Override
   public void setQualifiedName(@Nullable final String qualifiedName) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     if ( !Objects.equals( qualifiedName, super.getRawQualifiedName() ) ) {
       this.$$arez$$_rawQualifiedName.preReportChanged();
       super.setQualifiedName(qualifiedName);
@@ -150,7 +162,9 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
   @Nonnull
   @Override
   public String getQualifiedName() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     return this.$$arez$$_qualifiedName.get();
   }
 

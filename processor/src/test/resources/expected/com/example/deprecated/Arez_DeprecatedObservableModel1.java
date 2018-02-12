@@ -88,7 +88,9 @@ public final class Arez_DeprecatedObservableModel1 extends DeprecatedObservableM
   @Deprecated
   @Override
   public long getTime() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     this.$$arez$$_time.reportObserved();
     return super.getTime();
   }
@@ -96,7 +98,9 @@ public final class Arez_DeprecatedObservableModel1 extends DeprecatedObservableM
   @Override
   @SuppressWarnings("deprecation")
   void setTime(final long time) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     if ( time != super.getTime() ) {
       this.$$arez$$_time.preReportChanged();
       super.setTime(time);

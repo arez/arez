@@ -87,7 +87,9 @@ public final class Arez_TypeParamMemoizeModel<T> extends TypeParamMemoizeModel<T
 
   @Override
   public T count(final String param) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     return this.$$arez$$_count.get( param );
   }
 

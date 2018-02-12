@@ -89,7 +89,9 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
 
   @Override
   public void doStuff() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, false, () -> super.doStuff() );
   }
 

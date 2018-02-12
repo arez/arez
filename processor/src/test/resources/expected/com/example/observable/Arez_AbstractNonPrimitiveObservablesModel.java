@@ -90,14 +90,18 @@ public final class Arez_AbstractNonPrimitiveObservablesModel extends AbstractNon
 
   @Override
   public Date getTime() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     this.$$arez$$_time.reportObserved();
     return this.$$arez$$_$$data$$_time;
   }
 
   @Override
   public void setTime(final Date value) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     if ( !Objects.equals( value, this.$$arez$$_$$data$$_time ) ) {
       this.$$arez$$_time.preReportChanged();
       this.$$arez$$_$$data$$_time = value;

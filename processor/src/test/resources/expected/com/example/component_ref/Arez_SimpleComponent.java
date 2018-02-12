@@ -42,7 +42,9 @@ final class Arez_SimpleComponent extends SimpleComponent implements Disposable, 
   }
 
   final Component getComponent() {
-    Guards.invariant( () -> Arez.areNativeComponentsEnabled(), () -> "Invoked @ComponentRef method 'getComponent' but Arez.areNativeComponentsEnabled() returned false." );
+    if ( Arez.shouldCheckInvariants() ) {
+      Guards.invariant( () -> Arez.areNativeComponentsEnabled(), () -> "Invoked @ComponentRef method 'getComponent' but Arez.areNativeComponentsEnabled() returned false." );
+    }
     return this.$$arez$$_component;
   }
 

@@ -87,14 +87,18 @@ final class Arez_UnresolvedModel<X extends Number> extends UnresolvedModel<X> im
 
   @Override
   public X getValue() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     this.$$arez$$_value.reportObserved();
     return super.getValue();
   }
 
   @Override
   public void setValue(final X value) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     if ( !Objects.equals( value, super.getValue() ) ) {
       this.$$arez$$_value.preReportChanged();
       super.setValue(value);

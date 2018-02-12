@@ -81,7 +81,9 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
 
   @Override
   public void myAction() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".myAction" : null, true, () -> super.myAction() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -97,7 +99,9 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
 
   @Override
   public void myAction(final int i) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".myAction2" : null, true, () -> super.myAction(i), i );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -113,7 +117,9 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
 
   @Override
   public void myAction(final float i) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".myAction3" : null, true, () -> super.myAction(i), i );
     } catch( final RuntimeException $$arez$$_e ) {

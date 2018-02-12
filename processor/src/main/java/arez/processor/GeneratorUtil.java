@@ -1,6 +1,7 @@
 package arez.processor;
 
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import javax.annotation.Nonnull;
 
@@ -44,10 +45,15 @@ final class GeneratorUtil
   static void generateNotDisposedInvariant( @Nonnull final ComponentDescriptor descriptor,
                                             @Nonnull final MethodSpec.Builder builder )
   {
-    builder.addStatement( "$T.invariant( () -> !this.$N, () -> \"Method invoked on invalid " +
-                          "component '\" + $N() + \"'\" )",
-                          GUARDS_CLASSNAME,
-                          DISPOSED_FIELD_NAME,
-                          descriptor.getComponentNameMethodName() );
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.apiInvariant( () -> !this.$N, () -> \"Method invoked on invalid " +
+                        "component '\" + $N() + \"'\" )",
+                        GUARDS_CLASSNAME,
+                        DISPOSED_FIELD_NAME,
+                        descriptor.getComponentNameMethodName() );
+    block.endControlFlow();
+
+    builder.addCode( block.build() );
   }
 }

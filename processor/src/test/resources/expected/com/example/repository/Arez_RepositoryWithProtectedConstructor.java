@@ -88,14 +88,18 @@ final class Arez_RepositoryWithProtectedConstructor extends RepositoryWithProtec
   @Nonnull
   @Override
   public String getName() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     this.$$arez$$_name.reportObserved();
     return super.getName();
   }
 
   @Override
   public void setName(@Nonnull final String name) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     if ( !Objects.equals( name, super.getName() ) ) {
       this.$$arez$$_name.preReportChanged();
       super.setName(name);

@@ -89,7 +89,9 @@ public final class Arez_DeprecatedMemoizeModel extends DeprecatedMemoizeModel im
   @Deprecated
   @Override
   public long count(final long time, final float someOtherParameter) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     return this.$$arez$$_count.get( time, someOtherParameter );
   }
 

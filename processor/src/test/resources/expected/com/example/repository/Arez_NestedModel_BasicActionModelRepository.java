@@ -94,20 +94,26 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
   @Nonnull
   @Override
   public Stream<NestedModel.BasicActionModel> entities() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
+    }
     this.$$arez$$_entities.reportObserved();
     return super.entities();
   }
 
   @Override
   protected Observable getEntitiesObservable() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
+    }
     return $$arez$$_entities;
   }
 
   @Override
   public void destroy(@Nonnull final NestedModel.BasicActionModel arg0) {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
+    }
     try {
       getContext().safeAction(Arez.areNamesEnabled() ? getRepositoryName() + ".destroy" : null, true, () -> super.destroy(arg0), arg0 );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -124,7 +130,9 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
   @Nonnull
   @Override
   public NestedModel.BasicActionModel create() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
+    }
     try {
       return getContext().safeAction(Arez.areNamesEnabled() ? getRepositoryName() + ".create" : null, true, () -> super.create() );
     } catch( final RuntimeException $$arez$$_e ) {

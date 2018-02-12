@@ -8,6 +8,10 @@
   compile time constant (i.e. `Arez.areSpiesEnabled()`) occurs first which significantly helps the GWT
   compiler with optimizations. Now when spies are disabled, the classes `ActionStartedEvent` and
   `ActionCompletedEvent` are optimized out.
+* **\[processor\]** Add explicit checks using `Arez.shouldCheckApiInvariants()` in generated component
+  classes where an invariant check is generated. This works around a limitation in GWT 2.x dead code
+  elimination optimization and ensures that all the lambdas created for invariant checking are optimized
+  out in production mode.
 
 #### Added
 * **\[core\]** Introduce the configuration setting `arez.check_invariants` and `arez.check_api_invariants`

@@ -81,7 +81,9 @@ public final class Arez_ComponentNameOnSingletonModel extends ComponentNameOnSin
 
   @Override
   void myAction() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getTypeName() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getTypeName() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? getTypeName() + ".myAction" : null, true, () -> super.myAction() );
     } catch( final RuntimeException $$arez$$_e ) {

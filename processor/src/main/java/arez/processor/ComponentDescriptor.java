@@ -1683,13 +1683,20 @@ final class ComponentDescriptor
 
     final MethodSpec.Builder method = MethodSpec.methodBuilder( _componentRef.getSimpleName().toString() ).
       addModifiers( Modifier.FINAL ).
-      returns( GeneratorUtil.COMPONENT_CLASSNAME ).
-      addStatement( "$T.invariant( () -> $T.areNativeComponentsEnabled(), () -> \"Invoked @ComponentRef method '$N' " +
-                    "but Arez.areNativeComponentsEnabled() returned false.\" )",
-                    GeneratorUtil.GUARDS_CLASSNAME,
-                    GeneratorUtil.AREZ_CLASSNAME,
-                    _componentRef.getSimpleName().toString() ).
-      addStatement( "return this.$N", GeneratorUtil.COMPONENT_FIELD_NAME );
+      returns( GeneratorUtil.COMPONENT_CLASSNAME );
+
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
+    block.addStatement( "$T.invariant( () -> $T.areNativeComponentsEnabled(), () -> \"Invoked @ComponentRef " +
+                        "method '$N' but Arez.areNativeComponentsEnabled() returned false.\" )",
+                        GeneratorUtil.GUARDS_CLASSNAME,
+                        GeneratorUtil.AREZ_CLASSNAME,
+                        _componentRef.getSimpleName().toString() );
+    block.endControlFlow();
+
+    method.addCode( block.build() );
+
+    method.addStatement( "return this.$N", GeneratorUtil.COMPONENT_FIELD_NAME );
     ProcessorUtil.copyDocumentedAnnotations( _componentRef, method );
     ProcessorUtil.copyAccessModifiers( _componentRef, method );
     return method.build();

@@ -89,7 +89,9 @@ public final class Arez_TypeParametersModel extends TypeParametersModel implemen
 
   @Override
   public <T extends Integer> T getTime() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     return (T) this.$$arez$$_time.get();
   }
 

@@ -81,7 +81,9 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Lon
 
   @Override
   public void doOtherStuff() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doOtherStuff" : null, true, () -> super.doOtherStuff() );
     } catch( final RuntimeException $$arez$$_e ) {
@@ -97,7 +99,9 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Lon
 
   @Override
   public void doStuff() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff() );
     } catch( final RuntimeException $$arez$$_e ) {

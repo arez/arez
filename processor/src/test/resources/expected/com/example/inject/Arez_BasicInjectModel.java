@@ -83,7 +83,9 @@ public final class Arez_BasicInjectModel extends BasicInjectModel implements Dis
 
   @Override
   public void myActionStuff() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".myActionStuff" : null, true, () -> super.myActionStuff() );
     } catch( final RuntimeException $$arez$$_e ) {

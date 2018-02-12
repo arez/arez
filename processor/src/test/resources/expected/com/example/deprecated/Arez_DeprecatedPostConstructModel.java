@@ -91,7 +91,9 @@ public final class Arez_DeprecatedPostConstructModel extends DeprecatedPostConst
 
   @Override
   public int someValue() {
-    Guards.invariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+    }
     return this.$$arez$$_someValue.get();
   }
 
