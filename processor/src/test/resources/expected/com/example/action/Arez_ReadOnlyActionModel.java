@@ -86,11 +86,7 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
     }
     try {
       return $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".queryStuff" : null, false, () -> super.queryStuff(time), time );
-    } catch( final RuntimeException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Exception $$arez$$_e ) {
-      throw new IllegalStateException( $$arez$$_e );
-    } catch( final Error $$arez$$_e ) {
+    } catch( final RuntimeException | Error $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
       throw new IllegalStateException( $$arez$$_e );

@@ -86,9 +86,7 @@ public final class Arez_UnsafeFunctionActionModel extends UnsafeFunctionActionMo
     }
     try {
       return $$arez$$_context().action(Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
-    } catch( final Exception $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Error $$arez$$_e ) {
+    } catch( final Exception | Error $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
       throw new IllegalStateException( $$arez$$_e );

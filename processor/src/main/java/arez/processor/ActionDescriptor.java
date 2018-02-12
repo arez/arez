@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
@@ -165,36 +166,35 @@ final class ActionDescriptor
 
     codeBlock.addStatement( statement.toString(), parameterNames.toArray() );
 
-    if ( !thrownTypes.isEmpty() )
+    final boolean catchThrowable = thrownTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.Throwable" ) );
+    final boolean catchException = thrownTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.Exception" ) );
+    final boolean catchRuntimeException =
+      thrownTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) );
+    int thrownCount = thrownTypes.size();
+    final ArrayList<Object> args = new ArrayList<>();
+    args.addAll( thrownTypes );
+    if ( !catchThrowable && !catchRuntimeException && !catchException )
     {
-      final ArrayList<Object> args = new ArrayList<>();
-      args.addAll( thrownTypes );
-      args.add( GeneratorUtil.CAUGHT_THROWABLE_NAME );
-
-      codeBlock.nextControlFlow( "catch( final " +
-                                 thrownTypes.stream().map( t -> "$T" ).collect( Collectors.joining( " | " ) ) +
-                                 " $N )", args.toArray() );
-      codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
+      thrownCount++;
+      args.add( TypeName.get( RuntimeException.class ) );
+    }
+    if ( !catchThrowable )
+    {
+      thrownCount++;
+      args.add( TypeName.get( Error.class ) );
     }
 
-    if ( thrownTypes.stream().noneMatch( t -> t.toString().equals( "java.lang.Throwable" ) ) )
+    args.add( GeneratorUtil.CAUGHT_THROWABLE_NAME );
+
+    final String code =
+      "catch( final " +
+      IntStream.range( 0, thrownCount ).mapToObj( t -> "$T" ).collect( Collectors.joining( " | " ) ) +
+      " $N )";
+    codeBlock.nextControlFlow( code, args.toArray() );
+    codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
+
+    if ( !catchThrowable )
     {
-      if ( thrownTypes.stream().noneMatch( t -> t.toString().equals( "java.lang.Exception" ) ) )
-      {
-        if ( thrownTypes.stream().noneMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) ) )
-        {
-          codeBlock.nextControlFlow( "catch( final $T $N )",
-                                     RuntimeException.class,
-                                     GeneratorUtil.CAUGHT_THROWABLE_NAME );
-          codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
-        }
-        codeBlock.nextControlFlow( "catch( final $T $N )", Exception.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
-        codeBlock.addStatement( "throw new $T( $N )",
-                                IllegalStateException.class,
-                                GeneratorUtil.CAUGHT_THROWABLE_NAME );
-      }
-      codeBlock.nextControlFlow( "catch( final $T $N )", Error.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
-      codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
       codeBlock.nextControlFlow( "catch( final $T $N )", Throwable.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
       codeBlock.addStatement( "throw new $T( $N )", IllegalStateException.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
     }

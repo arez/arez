@@ -88,13 +88,7 @@ public final class Arez_MultiThrowAction extends MultiThrowAction implements Dis
     }
     try {
       $$arez$$_context().action(Arez.areNamesEnabled() ? $$arez$$_name() + ".myAction" : null, true, () -> super.myAction() );
-    } catch( final ParseException | IOException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final RuntimeException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Exception $$arez$$_e ) {
-      throw new IllegalStateException( $$arez$$_e );
-    } catch( final Error $$arez$$_e ) {
+    } catch( final ParseException | IOException | RuntimeException | Error $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
       throw new IllegalStateException( $$arez$$_e );
