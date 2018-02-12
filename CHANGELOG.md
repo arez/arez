@@ -7,6 +7,13 @@
   it with other checks such as `Arez.areSpiesEnabled()` which should be functionally equivalent but confuse
   the GWT compiler so that it can not always perform DCE effectively.
 
+#### Changed
+* **\[core\]** Move the extraction of the configuration setting `arez.logger` to `arez.ArezConfig` to be
+  consistent with other configuration settings.
+* **\[core\]** Enhanced the `arez.logger` setting to support `"console"` and `"console_js"` values and
+  default to `"console_js"` in GWT based applications. This eliminates the need to compile the
+  `java.util.logging.*` classes in GWT application if it is not used other than for the Arez library.
+
 ### [v0.51](https://github.com/arez/arez/tree/v0.51) (2018-02-12)
 [Full Changelog](https://github.com/arez/arez/compare/v0.50...v0.51)
 

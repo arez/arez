@@ -6,6 +6,7 @@ require 'buildr/jacoco'
 
 PROVIDED_DEPS = [:javax_jsr305, :anodoc]
 TEST_DEPS = [:guiceyloops]
+JSINTEROP_ANNOTATION_DEPS = [:jsinterop_annotations, :jsinterop_annotations_sources]
 GWT_DEPS =
   [
     :gwt_user,
@@ -13,10 +14,8 @@ GWT_DEPS =
     :elemental2_dom,
     :elemental2_promise,
     :jsinterop_base,
-    :jsinterop_base_sources,
-    :jsinterop_annotations,
-    :jsinterop_annotations_sources
-  ]
+    :jsinterop_base_sources
+  ] + JSINTEROP_ANNOTATION_DEPS
 GIN_DEPS =
   [
     :javax_inject,
@@ -63,7 +62,8 @@ define 'arez' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
     compile.with PROVIDED_DEPS,
-                 :braincheck
+                 :braincheck,
+                 JSINTEROP_ANNOTATION_DEPS
 
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']

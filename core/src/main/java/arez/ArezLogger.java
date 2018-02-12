@@ -3,6 +3,9 @@ package arez;
 import java.util.logging.Level;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 import org.realityforge.anodoc.TestOnly;
 
 /**
@@ -10,11 +13,11 @@ import org.realityforge.anodoc.TestOnly;
  */
 final class ArezLogger
 {
-  private static final String LOGGER_TYPE =
-    System.getProperty( "arez.logger", ArezConfig.isProductionMode() ? "jul" : "proxy" );
   private static final Logger c_logger =
-    LOGGER_TYPE.equals( "jul" ) ? new JavaUtilLogger() :
-    LOGGER_TYPE.equals( "proxy" ) ? new ProxyLogger() :
+    "console".equals( ArezConfig.loggerType() ) ? new BasicLogger() :
+    "console_js".equals( ArezConfig.loggerType() ) ? new BasicJsLogger() :
+    "jul".equals( ArezConfig.loggerType() ) ? new JavaUtilLogger() :
+    "proxy".equals( ArezConfig.loggerType() ) ? new ProxyLogger() :
     new NoopLogger();
 
   private ArezLogger()
@@ -55,6 +58,48 @@ final class ArezLogger
     @Override
     public void log( @Nonnull final String message, @Nullable final Throwable throwable )
     {
+    }
+  }
+
+  /**
+   * The basic log provider implementation.
+   */
+  private static final class BasicLogger
+    implements Logger
+  {
+    @Override
+    public void log( @Nonnull final String message, @Nullable final Throwable throwable )
+    {
+      System.out.println( message );
+      if ( null != throwable )
+      {
+        throwable.printStackTrace( System.out );
+      }
+    }
+  }
+
+  @JsType( isNative = true, name = "window.console", namespace = JsPackage.GLOBAL )
+  private static final class NativeJsLoggerUtil
+  {
+    @JsMethod
+    public static native void log( Object message );
+  }
+
+  /**
+   * The basic log provider implementation.
+   */
+  private static final class BasicJsLogger
+    implements Logger
+  {
+
+    @Override
+    public void log( @Nonnull final String message, @Nullable final Throwable throwable )
+    {
+      NativeJsLoggerUtil.log( message );
+      if ( null != throwable )
+      {
+        NativeJsLoggerUtil.log( throwable );
+      }
     }
   }
 

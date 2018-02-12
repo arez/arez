@@ -28,6 +28,11 @@ final class ArezConfig
     "true".equals( System.getProperty( "arez.check_invariants", PRODUCTION_MODE ? "false" : "true" ) );
   private static boolean CHECK_API_INVARIANTS =
     "true".equals( System.getProperty( "arez.check_api_invariants", PRODUCTION_MODE ? "false" : "true" ) );
+  /**
+   * Valid values are: "none", "basic", "jul" (java.util.logging) and "proxy" (for testing)
+   */
+  private static final String LOGGER_TYPE =
+    System.getProperty( "arez.logger", PRODUCTION_MODE ? "basic" : "proxy" );
 
   private ArezConfig()
   {
@@ -91,5 +96,10 @@ final class ArezConfig
   static boolean checkApiInvariants()
   {
     return CHECK_API_INVARIANTS;
+  }
+
+  static String loggerType()
+  {
+    return LOGGER_TYPE;
   }
 }

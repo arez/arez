@@ -46,6 +46,6 @@
   <define-property name="arez.check_api_invariants" values="true,false"/>
   <set-property name="arez.check_api_invariants" value="false"/>
 
-  <define-property name="arez.logger" values="jul,proxy,none"/>
-  <set-property name="arez.logger" value="jul"/>
+  <define-property name="arez.logger" values="console_js,jul,proxy,none"/>
+  <set-property name="arez.logger" value="console_js"/>
 </module>
