@@ -8,6 +8,9 @@ complete as there is too much un-said.
 
 * Note somewhere that current error is `Arez-0172`
 
+* Add option to not emit equals and hashcode methods if native components are not enabled and repository
+  is not enabled. The GWT compiler has problems optimizing these methods away even when they are not used.
+
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
   - `arez-browserlocation`
