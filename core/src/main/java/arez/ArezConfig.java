@@ -6,7 +6,7 @@ package arez;
 final class ArezConfig
 {
   private static final boolean PRODUCTION_MODE =
-    System.getProperty( "arez.environment", "production" ).equals( "production" );
+    "production".equals( System.getProperty( "arez.environment", "production" ) );
   private static boolean ENABLE_NAMES =
     "true".equals( System.getProperty( "arez.enable_names", PRODUCTION_MODE ? "false" : "true" ) );
   private static boolean ENABLE_PROPERTY_INTROSPECTION =
