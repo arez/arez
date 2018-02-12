@@ -22,6 +22,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.action.NoReportParametersModel", false, false, false },
         new Object[]{ "com.example.action.FunctionActionThrowsRuntimeExceptionModel", false, false, false },
         new Object[]{ "com.example.action.FunctionActionThrowsThrowableModel", false, false, false },
+        new Object[]{ "com.example.action.MultiThrowAction", false, false, false },
         new Object[]{ "com.example.action.UnsafeSpecificFunctionActionModel", false, false, false },
         new Object[]{ "com.example.action.UnsafeSpecificProcedureActionModel", false, false, false },
         new Object[]{ "com.example.action.UnsafeFunctionActionModel", false, false, false },

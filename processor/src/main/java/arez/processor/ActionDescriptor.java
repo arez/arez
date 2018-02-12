@@ -8,6 +8,7 @@ import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
@@ -164,9 +165,15 @@ final class ActionDescriptor
 
     codeBlock.addStatement( statement.toString(), parameterNames.toArray() );
 
-    for ( final TypeMirror exception : thrownTypes )
+    if ( !thrownTypes.isEmpty() )
     {
-      codeBlock.nextControlFlow( "catch( final $T $N )", exception, GeneratorUtil.CAUGHT_THROWABLE_NAME );
+      final ArrayList<Object> args = new ArrayList<>();
+      args.addAll( thrownTypes );
+      args.add( GeneratorUtil.CAUGHT_THROWABLE_NAME );
+
+      codeBlock.nextControlFlow( "catch( final " +
+                                 thrownTypes.stream().map( t -> "$T" ).collect( Collectors.joining( " | " ) ) +
+                                 " $N )", args.toArray() );
       codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
     }
 
