@@ -41,7 +41,8 @@ public class TransactionTest
     final Transaction transaction = new Transaction( Arez.context(), null, null, TransactionMode.READ_ONLY, null );
     final IllegalStateException exception = expectThrows( IllegalStateException.class, transaction::getName );
 
-    assertEquals( exception.getMessage(), "Transaction.getName() invoked when Arez.areNamesEnabled() is false" );
+    assertEquals( exception.getMessage(),
+                  "Arez-0133: Transaction.getName() invoked when Arez.areNamesEnabled() is false" );
   }
 
   @Test
@@ -56,7 +57,8 @@ public class TransactionTest
                                                                                  TransactionMode.READ_ONLY,
                                                                                  null ) );
 
-    assertEquals( exception.getMessage(), "Transaction passed a name 'X' but Arez.areNamesEnabled() is false" );
+    assertEquals( exception.getMessage(),
+                  "Arez-0131: Transaction passed a name 'X' but Arez.areNamesEnabled() is false" );
   }
 
   @Test
@@ -84,7 +86,7 @@ public class TransactionTest
                     () -> new Transaction( context, null, name, TransactionMode.READ_WRITE_OWNED, null ) );
 
     assertEquals( exception.getMessage(),
-                  "Attempted to create transaction named '" + name +
+                  "Arez-0132: Attempted to create transaction named '" + name +
                   "' with mode READ_WRITE_OWNED but no tracker specified." );
   }
 
@@ -303,7 +305,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.observe( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Invoked observe on transaction named '" +
+                  "Arez-0142: Invoked observe on transaction named '" +
                   transaction.getName() + "' for observable named '" + observable.getName() +
                   "' where the observable is disposed." );
   }
@@ -325,7 +327,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.observe( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Invoked observe on transaction named '" +
+                  "Arez-0143: Invoked observe on transaction named '" +
                   transaction.getName() + "' for observable named '" + observable.getName() +
                   "' where the observable is owned by the tracker." );
   }
@@ -447,8 +449,8 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, transaction::completeTracking );
 
     assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' has no associated tracker so " +
-                  "_observables should be null but are not." );
+                  "Arez-0154: Transaction named '" + transaction.getName() + "' has no associated " +
+                  "tracker so _observables should be null but are not." );
   }
 
   @Test
@@ -468,8 +470,8 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, transaction::completeTracking );
 
     assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' called completeTracking but _tracker " +
-                  "state of INACTIVE is not expected when tracker has not been disposed." );
+                  "Arez-0155: Transaction named '" + transaction.getName() + "' called completeTracking " +
+                  "but _tracker state of INACTIVE is not expected when tracker has not been disposed." );
   }
 
   @Test
@@ -954,7 +956,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.queueForDeactivation( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Invoked queueForDeactivation on transaction named '" +
+                  "Arez-0141: Invoked queueForDeactivation on transaction named '" +
                   transaction.getName() + "' for observable named '" + observable.getName() +
                   "' when pending deactivation already exists for observable." );
   }
@@ -977,7 +979,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.queueForDeactivation( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Invoked queueForDeactivation on transaction named '" +
+                  "Arez-0140: Invoked queueForDeactivation on transaction named '" +
                   transaction.getName() + "' for observable named '" + observable.getName() +
                   "' when observable can not be deactivated." );
   }
@@ -1091,7 +1093,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, transaction::processPendingDeactivations );
 
     assertEquals( exception.getMessage(),
-                  "Attempting to deactivate disposed observable named '" + observable.getName() +
+                  "Arez-0139: Attempting to deactivate disposed observable named '" + observable.getName() +
                   "' in transaction named '" + transaction.getName() + "' but the observable still has observers." );
 
   }
@@ -1210,7 +1212,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, transaction2::processPendingDeactivations );
 
     assertEquals( exception.getMessage(),
-                  "Invoked processPendingDeactivations on transaction named '" +
+                  "Arez-0138: Invoked processPendingDeactivations on transaction named '" +
                   transaction2.getName() + "' which is not the root transaction." );
   }
 
@@ -1244,8 +1246,8 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.verifyWriteAllowed( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' attempted to change observable named '" +
-                  observable.getName() + "' but transaction is READ_ONLY." );
+                  "Arez-0152: Transaction named '" + transaction.getName() + "' attempted to change " +
+                  "observable named '" + observable.getName() + "' but transaction is READ_ONLY." );
   }
 
   @Test
@@ -1284,9 +1286,9 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.verifyWriteAllowed( observable2 ) );
 
     assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' attempted to change observable named '" +
-                  observable2.getName() + "' and transaction is READ_WRITE_OWNED but the observable has not been " +
-                  "created by the transaction." );
+                  "Arez-0153: Transaction named '" + transaction.getName() + "' attempted to change " +
+                  "observable named '" + observable2.getName() + "' and transaction is READ_WRITE_OWNED but the " +
+                  "observable has not been created by the transaction." );
   }
 
   @Test
@@ -1362,7 +1364,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.reportChanged( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Invoked reportChanged on transaction named '" + transaction.getName() +
+                  "Arez-0144: Invoked reportChanged on transaction named '" + transaction.getName() +
                   "' for observable named '" + observable.getName() + "' where the observable is disposed." );
   }
 
@@ -1392,8 +1394,8 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.reportChanged( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' attempted to change observable named '" +
-                  observable.getName() + "' but transaction is READ_ONLY." );
+                  "Arez-0152: Transaction named '" + transaction.getName() + "' attempted to change " +
+                  "observable named '" + observable.getName() + "' but transaction is READ_ONLY." );
   }
 
   @Test
@@ -1422,7 +1424,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.reportChanged( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' has attempted to explicitly " +
+                  "Arez-0145: Transaction named '" + transaction.getName() + "' has attempted to explicitly " +
                   "change observable named '" + observable.getName() + "' and observable is in unexpected " +
                   "state INACTIVE." );
   }
@@ -1557,7 +1559,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.reportPossiblyChanged( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Invoked reportPossiblyChanged on transaction named '" + transaction.getName() +
+                  "Arez-0146: Invoked reportPossiblyChanged on transaction named '" + transaction.getName() +
                   "' for observable named '" + observable.getName() + "' where the observable is disposed." );
   }
 
@@ -1608,8 +1610,8 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.reportPossiblyChanged( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Observer named '" + calculator.getName() + "' attempted to schedule itself during " +
-                  "read-only tracking transaction. Observers that are supporting ComputedValue instances must" +
+                  "Arez-0014: Observer named '" + calculator.getName() + "' attempted to schedule itself " +
+                  "during read-only tracking transaction. Observers that are supporting ComputedValue instances must" +
                   " not schedule self." );
   }
 
@@ -1673,8 +1675,8 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> Transaction.current().reportPossiblyChanged( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Transaction named '" + Transaction.current().getName() + "' attempted to call " +
-                  "reportPossiblyChanged in read-only transaction." );
+                  "Arez-0148: Transaction named '" + Transaction.current().getName() + "' attempted to " +
+                  "call reportPossiblyChanged in read-only transaction." );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
@@ -1705,7 +1707,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.reportPossiblyChanged( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' has attempted to mark " +
+                  "Arez-0147: Transaction named '" + transaction.getName() + "' has attempted to mark " +
                   "observable named '" + observable.getName() + "' as potentially changed but observable " +
                   "is not a derived value." );
   }
@@ -1799,8 +1801,9 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> context.getTransaction().reportChangeConfirmed( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Invoked reportChangeConfirmed on transaction named '" + context.getTransaction().getName() +
-                  "' for observable named '" + observable.getName() + "' where the observable is disposed." );
+                  "Arez-0149: Invoked reportChangeConfirmed on transaction named '" +
+                  context.getTransaction().getName() + "' for observable named '" + observable.getName() +
+                  "' where the observable is disposed." );
   }
 
   @Test
@@ -1931,9 +1934,9 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.reportChangeConfirmed( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' attempted to change observable named '" +
-                  observable.getName() + "' and transaction is READ_WRITE_OWNED but the observable has not been " +
-                  "created by the transaction." );
+                  "Arez-0153: Transaction named '" + transaction.getName() + "' attempted to change " +
+                  "observable named '" + observable.getName() + "' and transaction is READ_WRITE_OWNED but the " +
+                  "observable has not been created by the transaction." );
   }
 
   @Test
@@ -1965,8 +1968,11 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.reportChangeConfirmed( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' attempted to change observable named '" +
-                  observable.getName() + "' but transaction is READ_ONLY." );
+                  "Arez-0152: Transaction named '" +
+                  transaction.getName() +
+                  "' attempted to change observable named '" +
+                  observable.getName() +
+                  "' but transaction is READ_ONLY." );
   }
 
   @Test
@@ -1993,7 +1999,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.reportChangeConfirmed( observable ) );
 
     assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' has attempted to mark " +
+                  "Arez-0150: Transaction named '" + transaction.getName() + "' has attempted to mark " +
                   "observable named '" + observable.getName() + "' as potentially changed but observable " +
                   "is not a derived value." );
   }
@@ -2063,7 +2069,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.invariantObserverIsTracker( observable, observer ) );
 
     assertEquals( exception.getMessage(),
-                  "Transaction named '" + transaction.getName() + "' attempted to call " +
+                  "Arez-0151: Transaction named '" + transaction.getName() + "' attempted to call " +
                   "reportChangeConfirmed for observable named '" + observable.getName() + "' and found a " +
                   "dependency named '" + observer.getName() + "' that is UP_TO_DATE but is not the tracker of " +
                   "any transactions in the hierarchy: [" + transaction.getName() + "]." );
@@ -2135,8 +2141,8 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, transaction::markTrackerAsDisposed );
 
     assertEquals( exception.getMessage(),
-                  "Attempted to invoke markTrackerAsDisposed on transaction named '" + transaction.getName() +
-                  "' when there is no tracker associated with the transaction." );
+                  "Arez-0135: Attempted to invoke markTrackerAsDisposed on transaction named '" +
+                  transaction.getName() + "' when there is no tracker associated with the transaction." );
   }
 
   @Test
@@ -2177,8 +2183,8 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, transaction::markTrackerAsDisposed );
 
     assertEquals( exception.getMessage(),
-                  "Attempted to invoke markTrackerAsDisposed on transaction named '" + transaction.getName() +
-                  "' when the transaction mode is READ_ONLY and not READ_WRITE." );
+                  "Arez-0136: Attempted to invoke markTrackerAsDisposed on transaction named '" +
+                  transaction.getName() + "' when the transaction mode is READ_ONLY and not READ_WRITE." );
 
     assertEquals( transaction.shouldDisposeTracker(), false );
     assertEquals( tracker.isDisposed(), false );
@@ -2195,7 +2201,8 @@ public class TransactionTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, transaction::getStartedAt );
 
-    assertEquals( exception.getMessage(), "Transaction.getStartedAt() invoked when Arez.areSpiesEnabled() is false" );
+    assertEquals( exception.getMessage(),
+                  "Arez-0134: Transaction.getStartedAt() invoked when Arez.areSpiesEnabled() is false" );
   }
 
   @Test
@@ -2327,7 +2334,7 @@ public class TransactionTest
                     () -> Transaction.begin( context2, name2, TransactionMode.READ_ONLY, null ) );
 
     assertEquals( exception.getMessage(),
-                  "Zones are not enabled but the transaction named '" + name2 + "' is nested in a " +
+                  "Arez-0120: Zones are not enabled but the transaction named '" + name2 + "' is nested in a " +
                   "transaction named '" + name1 + "' from a different context." );
   }
 
@@ -2365,7 +2372,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class,
                     () -> Transaction.begin( context, name, TransactionMode.READ_WRITE, null ) );
     assertEquals( exception.getMessage(),
-                  "Attempting to create READ_WRITE transaction named '" + name +
+                  "Arez-0119: Attempting to create READ_WRITE transaction named '" + name +
                   "' but it is nested in transaction named '" + transaction.getName() + "' with " +
                   "mode READ_ONLY which is not equal to READ_WRITE." );
   }
@@ -2386,7 +2393,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class,
                     () -> Transaction.begin( context, name, TransactionMode.READ_ONLY, null ) );
     assertEquals( exception.getMessage(),
-                  "Attempted to create transaction named '" + name + "' while " +
+                  "Arez-0121: Attempted to create transaction named '" + name + "' while " +
                   "nested in a suspended transaction named '" + transaction.getName() + "'." );
   }
 
@@ -2405,7 +2412,7 @@ public class TransactionTest
       expectThrows( IllegalStateException.class,
                     () -> Transaction.begin( context, name, TransactionMode.READ_WRITE, null ) );
     assertEquals( exception.getMessage(),
-                  "Attempting to create READ_WRITE transaction named '" + name +
+                  "Arez-0119: Attempting to create READ_WRITE transaction named '" + name +
                   "' but it is nested in transaction named '" + transaction.getName() + "' with " +
                   "mode READ_WRITE_OWNED which is not equal to READ_WRITE." );
   }
@@ -2574,7 +2581,7 @@ public class TransactionTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Transaction.commit( transaction2 ) );
     assertEquals( exception.getMessage(),
-                  "Attempting to commit transaction named '" + transaction2.getName() +
+                  "Arez-0123: Attempting to commit transaction named '" + transaction2.getName() +
                   "' but this does not match existing transaction named '" + transaction.getName() + "'." );
   }
 
@@ -2593,7 +2600,9 @@ public class TransactionTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Transaction.commit( transaction ) );
     assertEquals( exception.getMessage(),
-                  "Attempting to commit transaction named '" + transaction.getName() + "' transaction is suspended." );
+                  "Arez-0124: Attempting to commit transaction named '" +
+                  transaction.getName() +
+                  "' transaction is suspended." );
   }
 
   @Test
@@ -2609,7 +2618,7 @@ public class TransactionTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Transaction.commit( transaction ) );
     assertEquals( exception.getMessage(),
-                  "Attempting to commit transaction named '" + transaction.getName() +
+                  "Arez-0122: Attempting to commit transaction named '" + transaction.getName() +
                   "' but no transaction is active." );
   }
 
@@ -2624,7 +2633,7 @@ public class TransactionTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, transaction::getPreviousInSameContext );
     assertEquals( exception.getMessage(),
-                  "Attempted to invoke getPreviousInSameContext() on transaction named '" +
+                  "Arez-0137: Attempted to invoke getPreviousInSameContext() on transaction named '" +
                   transaction.getName() + "' when zones are not enabled." );
   }
 
@@ -2648,7 +2657,8 @@ public class TransactionTest
   {
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, Transaction::current );
-    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+    assertEquals( exception.getMessage(),
+                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
   }
 
   @Test
@@ -2665,7 +2675,8 @@ public class TransactionTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, Transaction::current );
-    assertEquals( exception.getMessage(), "Attempting to get current transaction but transaction is suspended." );
+    assertEquals( exception.getMessage(),
+                  "Arez-0118: Attempting to get current transaction but transaction is suspended." );
   }
 
   @Test
@@ -2700,7 +2711,7 @@ public class TransactionTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Transaction.resume( transaction ) );
     assertEquals( exception.getMessage(),
-                  "Attempting to resume transaction named '" + transaction.getName() +
+                  "Arez-0128: Attempting to resume transaction named '" + transaction.getName() +
                   "' but no transaction is active." );
   }
 
@@ -2718,7 +2729,7 @@ public class TransactionTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Transaction.resume( transaction ) );
     assertEquals( exception.getMessage(),
-                  "Attempting to resume transaction named '" + transaction.getName() +
+                  "Arez-0130: Attempting to resume transaction named '" + transaction.getName() +
                   "' but transaction is not suspended." );
   }
 
@@ -2741,7 +2752,7 @@ public class TransactionTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Transaction.resume( transaction2 ) );
     assertEquals( exception.getMessage(),
-                  "Attempting to resume transaction named '" + transaction2.getName() +
+                  "Arez-0129: Attempting to resume transaction named '" + transaction2.getName() +
                   "' but this does not match existing transaction named '" + transaction.getName() + "'." );
   }
 
@@ -2781,7 +2792,7 @@ public class TransactionTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Transaction.suspend( transaction ) );
     assertEquals( exception.getMessage(),
-                  "Attempting to suspend transaction named '" + transaction.getName() +
+                  "Arez-0126: Attempting to suspend transaction named '" + transaction.getName() +
                   "' but this does not match existing transaction named '" + transaction2.getName() + "'." );
   }
 
@@ -2800,7 +2811,7 @@ public class TransactionTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Transaction.suspend( transaction ) );
     assertEquals( exception.getMessage(),
-                  "Attempting to suspend transaction named '" + transaction.getName() +
+                  "Arez-0127: Attempting to suspend transaction named '" + transaction.getName() +
                   "' but transaction is already suspended." );
   }
 
@@ -2817,7 +2828,7 @@ public class TransactionTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Transaction.suspend( transaction ) );
     assertEquals( exception.getMessage(),
-                  "Attempting to suspend transaction named '" + transaction.getName() +
+                  "Arez-0125: Attempting to suspend transaction named '" + transaction.getName() +
                   "' but no transaction is active." );
   }
 

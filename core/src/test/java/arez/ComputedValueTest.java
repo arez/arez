@@ -65,7 +65,7 @@ public class ComputedValueTest
       expectThrows( IllegalStateException.class,
                     () -> new ComputedValue<>( context, component, name, () -> "", Objects::equals ) );
     assertEquals( exception.getMessage(),
-                  "ComputedValue named '" + name + "' has component specified but " +
+                  "Arez-0048: ComputedValue named '" + name + "' has component specified but " +
                   "Arez.areNativeComponentsEnabled() is false." );
   }
 
@@ -339,7 +339,7 @@ public class ComputedValueTest
       final IllegalStateException exception = expectThrows( IllegalStateException.class, computedValue::dispose );
 
       assertEquals( exception.getMessage(),
-                    "Attempting to create READ_WRITE transaction named '" + computedValue.getName() +
+                    "Arez-0119: Attempting to create READ_WRITE transaction named '" + computedValue.getName() +
                     ".dispose' but it is nested in transaction named '" + context.getTransaction().getName() +
                     "' with mode READ_ONLY which is not equal to READ_WRITE." );
 
@@ -438,7 +438,7 @@ public class ComputedValueTest
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, computedValue::get );
     assertEquals( exception.getMessage(),
-                  "ComputedValue generated a value during computation for ComputedValue named '" +
+                  "Arez-0051: ComputedValue generated a value during computation for ComputedValue named '" +
                   computedValue.getName() + "' but still has a non-null value." );
 
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
@@ -484,7 +484,7 @@ public class ComputedValueTest
       expectThrows( IllegalStateException.class, computedValue::get );
 
     assertEquals( exception.getMessage(),
-                  "ComputedValue named '" + computedValue.getName() + "' accessed after it " +
+                  "Arez-0050: ComputedValue named '" + computedValue.getName() + "' accessed after it " +
                   "has been disposed." );
   }
 
@@ -509,7 +509,7 @@ public class ComputedValueTest
       expectThrows( IllegalStateException.class, computedValue::get );
 
     assertEquals( exception.getMessage(),
-                  "Detected a cycle deriving ComputedValue named '" + computedValue.getName() + "'." );
+                  "Arez-0049: Detected a cycle deriving ComputedValue named '" + computedValue.getName() + "'." );
 
     computedValue.setComputing( false );
 

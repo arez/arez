@@ -70,7 +70,8 @@ public class SpyImplTest
       expectThrows( IllegalStateException.class, () -> spy.reportSpyEvent( event ) );
 
     assertEquals( exception.getMessage(),
-                  "Attempting to report SpyEvent '" + event + "' but willPropagateSpyEvents() returns false." );
+                  "Arez-0104: Attempting to report SpyEvent '" + event +
+                  "' but willPropagateSpyEvents() returns false." );
   }
 
   @Test
@@ -86,7 +87,7 @@ public class SpyImplTest
       expectThrows( IllegalStateException.class, () -> support.addSpyEventHandler( handler ) );
 
     assertEquals( exception.getMessage(),
-                  "Attempting to add handler " + handler + " that is already in the list of spy handlers." );
+                  "Arez-0102: Attempting to add handler " + handler + " that is already in the list of spy handlers." );
   }
 
   @Test
@@ -101,7 +102,7 @@ public class SpyImplTest
       expectThrows( IllegalStateException.class, () -> support.removeSpyEventHandler( handler ) );
 
     assertEquals( exception.getMessage(),
-                  "Attempting to remove handler " + handler + " that is not in the list of spy handlers." );
+                  "Arez-0103: Attempting to remove handler " + handler + " that is not in the list of spy handlers." );
   }
 
   @Test
@@ -297,8 +298,8 @@ public class SpyImplTest
       expectThrows( IllegalStateException.class, () -> spy.getTransactionComputing( computedValue ) );
 
     assertEquals( exception.getMessage(),
-                  "ComputedValue named '" + computedValue.getName() + "' is marked as computing but unable " +
-                  "to locate transaction responsible for computing ComputedValue" );
+                  "Arez-0106: ComputedValue named '" + computedValue.getName() + "' is marked as " +
+                  "computing but unable to locate transaction responsible for computing ComputedValue" );
   }
 
   @Test
@@ -461,7 +462,7 @@ public class SpyImplTest
     final IllegalStateException exception = expectThrows( IllegalStateException.class, spy::getTransaction );
 
     assertEquals( exception.getMessage(),
-                  "Spy.getTransaction() invoked but no transaction active." );
+                  "Arez-0105: Spy.getTransaction() invoked but no transaction active." );
   }
 
   @Test
@@ -602,7 +603,7 @@ public class SpyImplTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
     assertEquals( exception.getMessage(),
-                  "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+                  "Arez-0107: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -643,7 +644,7 @@ public class SpyImplTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
     assertEquals( exception.getMessage(),
-                  "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+                  "Arez-0109: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -684,7 +685,7 @@ public class SpyImplTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
     assertEquals( exception.getMessage(),
-                  "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+                  "Arez-0108: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -750,7 +751,7 @@ public class SpyImplTest
       expectThrows( IllegalStateException.class, () -> spy.findComponent( type, id ) );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+                  "Arez-0010: ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -767,7 +768,7 @@ public class SpyImplTest
       expectThrows( IllegalStateException.class, () -> spy.findAllComponentsByType( type ) );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.findAllComponentsByType() invoked when Arez.areNativeComponentsEnabled() returns false." );
+                  "Arez-0011: ArezContext.findAllComponentsByType() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -782,7 +783,7 @@ public class SpyImplTest
       expectThrows( IllegalStateException.class, spy::findAllComponentTypes );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false." );
+                  "Arez-0012: ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -812,7 +813,7 @@ public class SpyImplTest
       expectThrows( IllegalStateException.class, spy::findAllTopLevelObservables );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false." );
+                  "Arez-0026: ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false." );
   }
 
   @Test
@@ -845,7 +846,7 @@ public class SpyImplTest
       expectThrows( IllegalStateException.class, spy::findAllTopLevelComputedValues );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.getTopLevelComputedValues() invoked when Arez.areRegistriesEnabled() returns false." );
+                  "Arez-0036: ArezContext.getTopLevelComputedValues() invoked when Arez.areRegistriesEnabled() returns false." );
   }
 
   @Test
@@ -876,7 +877,7 @@ public class SpyImplTest
       expectThrows( IllegalStateException.class, spy::findAllTopLevelObservers );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.getTopLevelObservers() invoked when Arez.areRegistriesEnabled() returns false." );
+                  "Arez-0031: ArezContext.getTopLevelObservers() invoked when Arez.areRegistriesEnabled() returns false." );
   }
 
   @Test
@@ -910,7 +911,7 @@ public class SpyImplTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> spy.getValue( observable3 ) );
     assertEquals( exception.getMessage(),
-                  "Spy.getValue invoked on observable named '" + observable3.getName() + "' but " +
+                  "Arez-0112: Spy.getValue invoked on observable named '" + observable3.getName() + "' but " +
                   "observable has no property accessor." );
 
     spy.setValue( observable1, "71" );
@@ -920,7 +921,7 @@ public class SpyImplTest
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> spy.setValue( observable2, "71" ) );
     assertEquals( exception2.getMessage(),
-                  "Spy.setValue invoked on observable named '" + observable2.getName() + "' but " +
+                  "Arez-0115: Spy.setValue invoked on observable named '" + observable2.getName() + "' but " +
                   "observable has no property mutator." );
   }
 
@@ -938,7 +939,7 @@ public class SpyImplTest
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.getValue( computedValue1 ) ) );
     assertEquals( exception2.getMessage(),
-                  "Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+                  "Arez-0111: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
   @Test
@@ -955,7 +956,7 @@ public class SpyImplTest
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.hasAccessor( observable ) ) );
     assertEquals( exception2.getMessage(),
-                  "Spy.hasAccessor invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+                  "Arez-0110: Spy.hasAccessor invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
   @Test
@@ -972,7 +973,7 @@ public class SpyImplTest
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.hasMutator( observable ) ) );
     assertEquals( exception2.getMessage(),
-                  "Spy.hasMutator invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+                  "Arez-0113: Spy.hasMutator invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
   @Test
@@ -987,7 +988,7 @@ public class SpyImplTest
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.getValue( observable ) ) );
     assertEquals( exception2.getMessage(),
-                  "Spy.getValue invoked on observable named '" + observable.getName() +
+                  "Arez-0112: Spy.getValue invoked on observable named '" + observable.getName() +
                   "' but observable has no property accessor." );
   }
 
@@ -1005,7 +1006,7 @@ public class SpyImplTest
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.setValue( computedValue1, 44 ) ) );
     assertEquals( exception2.getMessage(),
-                  "Spy.setValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+                  "Arez-0114: Spy.setValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
   @Test
@@ -1020,7 +1021,7 @@ public class SpyImplTest
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.setValue( observable, 44 ) ) );
     assertEquals( exception2.getMessage(),
-                  "Spy.setValue invoked on observable named '" + observable.getName() +
+                  "Arez-0115: Spy.setValue invoked on observable named '" + observable.getName() +
                   "' but observable has no property mutator." );
   }
 
@@ -1063,7 +1064,7 @@ public class SpyImplTest
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.getValue( computedValue1 ) ) );
     assertEquals( exception2.getMessage(),
-                  "Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+                  "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
   @Test

@@ -74,8 +74,12 @@ final class ReactionScheduler
    */
   void setMaxReactionRounds( @Nonnegative final int maxReactionRounds )
   {
-    invariant( () -> maxReactionRounds >= 0,
-               () -> "Attempting to set maxReactionRounds to negative value " + maxReactionRounds + "." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> maxReactionRounds >= 0,
+                 () -> "Arez-0098: Attempting to set maxReactionRounds to negative " +
+                       "value " + maxReactionRounds + "." );
+    }
     _maxReactionRounds = maxReactionRounds;
   }
 
@@ -98,9 +102,12 @@ final class ReactionScheduler
    */
   void scheduleReaction( @Nonnull final Observer observer )
   {
-    invariant( () -> !_pendingObservers.contains( observer ),
-               () -> "Attempting to schedule observer named '" + observer.getName() +
-                     "' when observer is already pending." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> !_pendingObservers.contains( observer ),
+                 () -> "Arez-0099: Attempting to schedule observer named '" + observer.getName() +
+                       "' when observer is already pending." );
+    }
     observer.setScheduledFlag();
     _pendingObservers.add( Objects.requireNonNull( observer ) );
   }
@@ -167,9 +174,12 @@ final class ReactionScheduler
      * All reactions expect to run as top level transactions so
      * there should be no transaction active.
      */
-    invariant( () -> !getContext().isTransactionActive(),
-               () -> "Invoked runObserver when transaction named '" +
-                     getContext().getTransaction().getName() + "' is active." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> !getContext().isTransactionActive(),
+                 () -> "Arez-0100: Invoked runObserver when transaction named '" +
+                       getContext().getTransaction().getName() + "' is active." );
+    }
     final int pendingObserverCount = _pendingObservers.size();
     // If we have reached the last observer in this round then
     // determine if we need any more rounds and if we do ensure
@@ -221,7 +231,7 @@ final class ReactionScheduler
   void onRunawayReactionsDetected()
   {
     final List<String> observerNames =
-      BrainCheckConfig.checkInvariants() && BrainCheckConfig.verboseErrorMessages() ?
+      Arez.shouldCheckInvariants() && BrainCheckConfig.verboseErrorMessages() ?
       _pendingObservers.stream().map( Node::getName ).collect( Collectors.toList() ) :
       null;
 
@@ -230,8 +240,11 @@ final class ReactionScheduler
       _pendingObservers.clear();
     }
 
-    fail( () -> "Runaway reaction(s) detected. Observers still running after " + _maxReactionRounds +
-                " rounds. Current observers include: " + observerNames );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      fail( () -> "Arez-0101: Runaway reaction(s) detected. Observers still running after " + _maxReactionRounds +
+                  " rounds. Current observers include: " + observerNames );
+    }
   }
 
   @Nonnull

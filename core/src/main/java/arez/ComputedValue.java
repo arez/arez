@@ -5,7 +5,6 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
-import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -68,9 +67,12 @@ public final class ComputedValue<T>
                  @Nonnull final EqualityComparator<T> equalityComparator )
   {
     super( context, name );
-    invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
-               () -> "ComputedValue named '" + getName() + "' has component specified but " +
-                     "Arez.areNativeComponentsEnabled() is false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
+                 () -> "Arez-0048: ComputedValue named '" + getName() + "' has component specified but " +
+                       "Arez.areNativeComponentsEnabled() is false." );
+    }
     _component = component;
     _function = Objects.requireNonNull( function );
     _equalityComparator = Objects.requireNonNull( equalityComparator );
@@ -104,10 +106,13 @@ public final class ComputedValue<T>
    */
   public T get()
   {
-    apiInvariant( () -> !_computing,
-                  () -> "Detected a cycle deriving ComputedValue named '" + getName() + "'." );
-    apiInvariant( _observer::isLive,
-                  () -> "ComputedValue named '" + getName() + "' accessed after it has been disposed." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !_computing,
+                    () -> "Arez-0049: Detected a cycle deriving ComputedValue named '" + getName() + "'." );
+      apiInvariant( _observer::isLive,
+                    () -> "Arez-0050: ComputedValue named '" + getName() + "' accessed after it has been disposed." );
+    }
     getObservable().reportObserved();
     if ( _observer.shouldCompute() )
     {
@@ -115,9 +120,12 @@ public final class ComputedValue<T>
     }
     if ( null != _error )
     {
-      invariant( () -> null == _value,
-                 () -> "ComputedValue generated a value during computation for ComputedValue named '" + getName() +
-                       "' but still has a non-null value." );
+      if ( Arez.shouldCheckInvariants() )
+      {
+        invariant( () -> null == _value,
+                   () -> "Arez-0051: ComputedValue generated a value during computation for ComputedValue named '" +
+                         getName() + "' but still has a non-null value." );
+      }
       if ( _error instanceof RuntimeException )
       {
         throw (RuntimeException) _error;
@@ -239,7 +247,7 @@ public final class ComputedValue<T>
    */
   T computeValue()
   {
-    if ( BrainCheckConfig.checkInvariants() )
+    if ( Arez.shouldCheckInvariants() )
     {
       _computing = true;
     }
@@ -249,7 +257,7 @@ public final class ComputedValue<T>
     }
     finally
     {
-      if ( BrainCheckConfig.checkInvariants() )
+      if ( Arez.shouldCheckInvariants() )
       {
         _computing = false;
       }

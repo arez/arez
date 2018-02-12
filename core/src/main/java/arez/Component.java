@@ -64,8 +64,11 @@ public final class Component
              @Nullable final SafeProcedure preDispose,
              @Nullable final SafeProcedure postDispose )
   {
-    apiInvariant( () -> Arez.areNamesEnabled() || null == name,
-                  () -> "Component passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> Arez.areNamesEnabled() || null == name,
+                    () -> "Arez-0037: Component passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
+    }
     _context = context;
     _type = Objects.requireNonNull( type );
     _id = Objects.requireNonNull( id );
@@ -106,7 +109,11 @@ public final class Component
   @Nonnull
   public String getName()
   {
-    apiInvariant( Arez::areNamesEnabled, () -> "Component.getName() invoked when Arez.areNamesEnabled() is false" );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( Arez::areNamesEnabled,
+                    () -> "Arez-0038: Component.getName() invoked when Arez.areNamesEnabled() is false" );
+    }
     assert null != _name;
     return _name;
   }
@@ -229,12 +236,16 @@ public final class Component
    */
   void addObserver( @Nonnull final Observer observer )
   {
-    apiInvariant( () -> !_complete,
-                  () -> "Component.addObserver invoked on component '" + getName() + "' specifying observer " +
-                        "named '" + observer.getName() + "' when component.complete() has already been called." );
-    apiInvariant( () -> !_observers.contains( observer ),
-                  () -> "Component.addObserver invoked on component '" + getName() + "' specifying observer " +
-                        "named '" + observer.getName() + "' when observer already exists for component." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !_complete,
+                    () -> "Arez-0039: Component.addObserver invoked on component '" + getName() + "' specifying " +
+                          "observer named '" + observer.getName() + "' when component.complete() has already been " +
+                          "called." );
+      apiInvariant( () -> !_observers.contains( observer ),
+                    () -> "Arez-0040: Component.addObserver invoked on component '" + getName() + "' specifying " +
+                          "observer named '" + observer.getName() + "' when observer already exists for component." );
+    }
     _observers.add( observer );
   }
 
@@ -246,9 +257,12 @@ public final class Component
    */
   void removeObserver( @Nonnull final Observer observer )
   {
-    apiInvariant( () -> _observers.contains( observer ),
-                  () -> "Component.removeObserver invoked on component '" + getName() + "' specifying observer " +
-                        "named '" + observer.getName() + "' when observer does not exist for component." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> _observers.contains( observer ),
+                    () -> "Arez-0041: Component.removeObserver invoked on component '" + getName() + "' specifying " +
+                          "observer named '" + observer.getName() + "' when observer does not exist for component." );
+    }
     _observers.remove( observer );
   }
 
@@ -271,12 +285,17 @@ public final class Component
    */
   void addObservable( @Nonnull final Observable observable )
   {
-    apiInvariant( () -> !_complete,
-                  () -> "Component.addObservable invoked on component '" + getName() + "' specifying observable " +
-                        "named '" + observable.getName() + "' when component.complete() has already been called." );
-    apiInvariant( () -> !_observables.contains( observable ),
-                  () -> "Component.addObservable invoked on component '" + getName() + "' specifying observable " +
-                        "named '" + observable.getName() + "' when observable already exists for component." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !_complete,
+                    () -> "Arez-0042: Component.addObservable invoked on component '" + getName() + "' " +
+                          "specifying observable named '" + observable.getName() + "' when component.complete() " +
+                          "has already been called." );
+      apiInvariant( () -> !_observables.contains( observable ),
+                    () -> "Arez-0043: Component.addObservable invoked on component '" + getName() + "' " +
+                          "specifying observable named '" + observable.getName() + "' when observable already " +
+                          "exists for component." );
+    }
     _observables.add( observable );
   }
 
@@ -288,9 +307,13 @@ public final class Component
    */
   void removeObservable( @Nonnull final Observable observable )
   {
-    apiInvariant( () -> _observables.contains( observable ),
-                  () -> "Component.removeObservable invoked on component '" + getName() + "' specifying observable " +
-                        "named '" + observable.getName() + "' when observable does not exist for component." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> _observables.contains( observable ),
+                    () -> "Arez-0044: Component.removeObservable invoked on component '" + getName() + "' " +
+                          "specifying observable named '" + observable.getName() + "' when observable does not " +
+                          "exist for component." );
+    }
     _observables.remove( observable );
   }
 
@@ -313,14 +336,17 @@ public final class Component
    */
   void addComputedValue( @Nonnull final ComputedValue computedValue )
   {
-    apiInvariant( () -> !_complete,
-                  () -> "Component.addComputedValue invoked on component '" + getName() + "' specifying " +
-                        "computedValue named '" + computedValue.getName() + "' when component.complete() has " +
-                        "already been called." );
-    apiInvariant( () -> !_computedValues.contains( computedValue ),
-                  () -> "Component.addComputedValue invoked on component '" + getName() + "' specifying " +
-                        "computedValue named '" + computedValue.getName() + "' when computedValue already exists " +
-                        "for component." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !_complete,
+                    () -> "Arez-0045: Component.addComputedValue invoked on component '" + getName() + "' " +
+                          "specifying computedValue named '" + computedValue.getName() + "' when " +
+                          "component.complete() has already been called." );
+      apiInvariant( () -> !_computedValues.contains( computedValue ),
+                    () -> "Arez-0046: Component.addComputedValue invoked on component '" + getName() + "' " +
+                          "specifying computedValue named '" + computedValue.getName() + "' when computedValue " +
+                          "already exists for component." );
+    }
     _computedValues.add( computedValue );
   }
 
@@ -332,10 +358,13 @@ public final class Component
    */
   void removeComputedValue( @Nonnull final ComputedValue computedValue )
   {
-    apiInvariant( () -> _computedValues.contains( computedValue ),
-                  () -> "Component.removeComputedValue invoked on component '" + getName() + "' specifying " +
-                        "computedValue named '" + computedValue.getName() + "' when computedValue does not exist " +
-                        "for component." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> _computedValues.contains( computedValue ),
+                    () -> "Arez-0047: Component.removeComputedValue invoked on component '" + getName() + "' " +
+                          "specifying computedValue named '" + computedValue.getName() + "' when computedValue " +
+                          "does not exist for component." );
+    }
     _computedValues.remove( computedValue );
   }
 

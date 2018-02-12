@@ -44,8 +44,12 @@ final class SpyImpl
   @Override
   public void addSpyEventHandler( @Nonnull final SpyEventHandler handler )
   {
-    apiInvariant( () -> !_spyEventHandlers.contains( handler ),
-                  () -> "Attempting to add handler " + handler + " that is already in the list of spy handlers." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !_spyEventHandlers.contains( handler ),
+                    () -> "Arez-0102: Attempting to add handler " + handler + " that is already " +
+                          "in the list of spy handlers." );
+    }
     _spyEventHandlers.add( Objects.requireNonNull( handler ) );
   }
 
@@ -55,8 +59,12 @@ final class SpyImpl
   @Override
   public void removeSpyEventHandler( @Nonnull final SpyEventHandler handler )
   {
-    apiInvariant( () -> _spyEventHandlers.contains( handler ),
-                  () -> "Attempting to remove handler " + handler + " that is not in the list of spy handlers." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> _spyEventHandlers.contains( handler ),
+                    () -> "Arez-0103: Attempting to remove handler " + handler + " that is not " +
+                          "in the list of spy handlers." );
+    }
     _spyEventHandlers.remove( Objects.requireNonNull( handler ) );
   }
 
@@ -66,8 +74,12 @@ final class SpyImpl
   @Override
   public void reportSpyEvent( @Nonnull final Object event )
   {
-    invariant( this::willPropagateSpyEvents,
-               () -> "Attempting to report SpyEvent '" + event + "' but willPropagateSpyEvents() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( this::willPropagateSpyEvents,
+                 () -> "Arez-0104: Attempting to report SpyEvent '" + event + "' but " +
+                       "willPropagateSpyEvents() returns false." );
+    }
     for ( final SpyEventHandler handler : _spyEventHandlers )
     {
       try
@@ -115,7 +127,11 @@ final class SpyImpl
   @Override
   public TransactionInfo getTransaction()
   {
-    apiInvariant( this::isTransactionActive, () -> "Spy.getTransaction() invoked but no transaction active." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( this::isTransactionActive,
+                    () -> "Arez-0105: Spy.getTransaction() invoked but no transaction active." );
+    }
     return new TransactionInfoImpl( this, getContext().getTransaction() );
   }
 
@@ -183,9 +199,12 @@ final class SpyImpl
   {
     assert computedValue.isComputing();
     final Transaction transaction = getTrackerTransaction( computedValue.getObserver() );
-    invariant( () -> transaction != null,
-               () -> "ComputedValue named '" + computedValue.getName() + "' is marked as computing but " +
-                     "unable to locate transaction responsible for computing ComputedValue" );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> transaction != null,
+                 () -> "Arez-0106: ComputedValue named '" + computedValue.getName() + "' is marked as computing but " +
+                       "unable to locate transaction responsible for computing ComputedValue" );
+    }
     assert null != transaction;
     return transaction;
   }
@@ -312,8 +331,11 @@ final class SpyImpl
   @Override
   public ComponentInfo getComponent( @Nonnull final Observable<?> observable )
   {
-    invariant( Arez::areNativeComponentsEnabled,
-               () -> "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areNativeComponentsEnabled,
+                 () -> "Arez-0107: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    }
     final Component component = observable.getComponent();
     return null == component ? null : new ComponentInfoImpl( this, component );
   }
@@ -325,8 +347,11 @@ final class SpyImpl
   @Override
   public ComponentInfo getComponent( @Nonnull final Observer observer )
   {
-    invariant( Arez::areNativeComponentsEnabled,
-               () -> "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areNativeComponentsEnabled,
+                 () -> "Arez-0108: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    }
     final Component component = observer.getComponent();
     return null == component ? null : new ComponentInfoImpl( this, component );
   }
@@ -338,8 +363,11 @@ final class SpyImpl
   @Override
   public ComponentInfo getComponent( @Nonnull final ComputedValue<?> computedValue )
   {
-    invariant( Arez::areNativeComponentsEnabled,
-               () -> "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areNativeComponentsEnabled,
+                 () -> "Arez-0109: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    }
     final Component component = computedValue.getComponent();
     return null == component ? null : new ComponentInfoImpl( this, component );
   }
@@ -415,8 +443,11 @@ final class SpyImpl
   @Override
   public <T> boolean hasAccessor( @Nonnull final Observable<T> observable )
   {
-    invariant( Arez::arePropertyIntrospectorsEnabled,
-               () -> "Spy.hasAccessor invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::arePropertyIntrospectorsEnabled,
+                 () -> "Arez-0110: Spy.hasAccessor invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    }
     return null != observable.getAccessor();
   }
 
@@ -428,12 +459,18 @@ final class SpyImpl
   public <T> T getValue( @Nonnull final Observable<T> observable )
     throws Throwable
   {
-    invariant( Arez::arePropertyIntrospectorsEnabled,
-               () -> "Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::arePropertyIntrospectorsEnabled,
+                 () -> "Arez-0111: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    }
     final PropertyAccessor<T> accessor = observable.getAccessor();
-    apiInvariant( () -> null != accessor,
-                  () -> "Spy.getValue invoked on observable named '" + observable.getName() + "' but " +
-                        "observable has no property accessor." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> null != accessor,
+                    () -> "Arez-0112: Spy.getValue invoked on observable named '" + observable.getName() + "' but " +
+                          "observable has no property accessor." );
+    }
     assert null != accessor;
     return accessor.get();
   }
@@ -444,8 +481,11 @@ final class SpyImpl
   @Override
   public <T> boolean hasMutator( @Nonnull final Observable<T> observable )
   {
-    invariant( Arez::arePropertyIntrospectorsEnabled,
-               () -> "Spy.hasMutator invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::arePropertyIntrospectorsEnabled,
+                 () -> "Arez-0113: Spy.hasMutator invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    }
     return null != observable.getMutator();
   }
 
@@ -456,12 +496,18 @@ final class SpyImpl
   public <T> void setValue( @Nonnull final Observable<T> observable, @Nullable final T value )
     throws Throwable
   {
-    invariant( Arez::arePropertyIntrospectorsEnabled,
-               () -> "Spy.setValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::arePropertyIntrospectorsEnabled,
+                 () -> "Arez-0114: Spy.setValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    }
     final PropertyMutator<T> mutator = observable.getMutator();
-    apiInvariant( () -> null != mutator,
-                  () -> "Spy.setValue invoked on observable named '" + observable.getName() + "' but " +
-                        "observable has no property mutator." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> null != mutator,
+                    () -> "Arez-0115: Spy.setValue invoked on observable named '" + observable.getName() +
+                          "' but observable has no property mutator." );
+    }
     assert null != mutator;
     mutator.set( value );
   }
@@ -474,8 +520,11 @@ final class SpyImpl
   public <T> T getValue( @Nonnull final ComputedValue<T> computedValue )
     throws Throwable
   {
-    invariant( Arez::arePropertyIntrospectorsEnabled,
-               () -> "Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::arePropertyIntrospectorsEnabled,
+                 () -> "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    }
     final PropertyAccessor<T> accessor = computedValue.getObservable().getAccessor();
     assert null != accessor;
     return accessor.get();

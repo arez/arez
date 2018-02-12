@@ -181,12 +181,18 @@ public final class ArezContext
                                     @Nullable final SafeProcedure preDispose,
                                     @Nullable final SafeProcedure postDispose )
   {
-    apiInvariant( Arez::areNativeComponentsEnabled,
-                  () -> "ArezContext.createComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( Arez::areNativeComponentsEnabled,
+                    () -> "Arez-0008: ArezContext.createComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    }
     final HashMap<Object, Component> map = getComponentByTypeMap( type );
-    apiInvariant( () -> !map.containsKey( id ),
-                  () -> "ArezContext.createComponent() invoked for type '" + type + "' and id '" + id + "' but a " +
-                        "component already exists for specified type+id." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !map.containsKey( id ),
+                    () -> "Arez-0009: ArezContext.createComponent() invoked for type '" + type + "' and id '" +
+                          id + "' but a component already exists for specified type+id." );
+    }
     final Component component = new Component( this, type, id, name, preDispose, postDispose );
     map.put( id, component );
     if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
@@ -203,14 +209,20 @@ public final class ArezContext
    */
   void deregisterComponent( @Nonnull final Component component )
   {
-    invariant( Arez::areNativeComponentsEnabled,
-               () -> "ArezContext.deregisterComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areNativeComponentsEnabled,
+                 () -> "Arez-0006: ArezContext.deregisterComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    }
     final String type = component.getType();
     final HashMap<Object, Component> map = getComponentByTypeMap( type );
     final Component removed = map.remove( component.getId() );
-    invariant( () -> component == removed,
-               () -> "ArezContext.deregisterComponent() invoked for '" + component + "' but was unable to remove " +
-                     "specified component from registry. Actual component removed: " + removed );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> component == removed,
+                 () -> "Arez-0007: ArezContext.deregisterComponent() invoked for '" + component + "' but was " +
+                       "unable to remove specified component from registry. Actual component removed: " + removed );
+    }
     if ( map.isEmpty() )
     {
       assert _components != null;
@@ -228,8 +240,11 @@ public final class ArezContext
   @Nullable
   Component findComponent( @Nonnull final String type, @Nonnull final Object id )
   {
-    invariant( Arez::areNativeComponentsEnabled,
-               () -> "ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areNativeComponentsEnabled,
+                 () -> "Arez-0010: ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    }
     assert null != _components;
     final HashMap<Object, Component> map = _components.get( type );
     if ( null != map )
@@ -251,8 +266,11 @@ public final class ArezContext
   @Nonnull
   Collection<Component> findAllComponentsByType( @Nonnull final String type )
   {
-    invariant( Arez::areNativeComponentsEnabled,
-               () -> "ArezContext.findAllComponentsByType() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areNativeComponentsEnabled,
+                 () -> "Arez-0011: ArezContext.findAllComponentsByType() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    }
     assert null != _components;
     final HashMap<Object, Component> map = _components.get( type );
     if ( null != map )
@@ -273,8 +291,11 @@ public final class ArezContext
   @Nonnull
   Collection<String> findAllComponentTypes()
   {
-    invariant( Arez::areNativeComponentsEnabled,
-               () -> "ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areNativeComponentsEnabled,
+                 () -> "Arez-0012: ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    }
     assert null != _components;
     return _components.keySet();
   }
@@ -743,15 +764,15 @@ public final class ArezContext
     {
       getSpy().reportSpyEvent( new ReactionScheduledEvent( new ObserverInfoImpl( getSpy(), observer ) ) );
     }
-    if ( Arez.shouldEnforceTransactionType() && isTransactionActive() )
+    if ( Arez.shouldEnforceTransactionType() && isTransactionActive() && Arez.shouldCheckInvariants() )
     {
       final TransactionMode mode = getTransaction().getMode();
       invariant( () -> mode != TransactionMode.READ_ONLY,
-                 () -> "Observer named '" + observer.getName() + "' attempted to be scheduled during " +
+                 () -> "Arez-0013: Observer named '" + observer.getName() + "' attempted to be scheduled during " +
                        "read-only transaction." );
       invariant( () -> getTransaction().getTracker() != observer ||
                        mode == TransactionMode.READ_WRITE,
-                 () -> "Observer named '" + observer.getName() + "' attempted to schedule itself during " +
+                 () -> "Arez-0014: Observer named '" + observer.getName() + "' attempted to schedule itself during " +
                        "read-only tracking transaction. Observers that are supporting ComputedValue instances " +
                        "must not schedule self." );
     }
@@ -779,8 +800,11 @@ public final class ArezContext
   Transaction getTransaction()
   {
     final Transaction current = Transaction.current();
-    invariant( () -> !Arez.areZonesEnabled() || current.getContext() == this,
-               () -> "Attempting to get current transaction but current transaction is for different context." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> !Arez.areZonesEnabled() || current.getContext() == this,
+                 () -> "Arez-0015: Attempting to get current transaction but current transaction is for different context." );
+    }
     return current;
   }
 
@@ -819,8 +843,11 @@ public final class ArezContext
   void releaseSchedulerLock()
   {
     _schedulerLockCount--;
-    invariant( () -> _schedulerLockCount >= 0,
-               () -> "releaseSchedulerLock() reduced schedulerLockCount below 0." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> _schedulerLockCount >= 0,
+                 () -> "Arez-0016: releaseSchedulerLock() reduced schedulerLockCount below 0." );
+    }
     triggerScheduler();
   }
 
@@ -973,9 +1000,12 @@ public final class ArezContext
                       @Nonnull final Object... parameters )
     throws Throwable
   {
-    apiInvariant( tracker::canTrackExplicitly,
-                  () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
-                        "observer is not a tracker." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( tracker::canTrackExplicitly,
+                    () -> "Arez-0017: Attempted to track Observer named '" + tracker.getName() + "' but " +
+                          "observer is not a tracker." );
+    }
     return action( generateNodeName( tracker ),
                    Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
                    action,
@@ -1127,9 +1157,12 @@ public final class ArezContext
                           @Nonnull final SafeFunction<T> action,
                           @Nonnull final Object... parameters )
   {
-    apiInvariant( tracker::canTrackExplicitly,
-                  () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
-                        "observer is not a tracker." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( tracker::canTrackExplicitly,
+                    () -> "Arez-0018: Attempted to track Observer named '" + tracker.getName() + "' but " +
+                          "observer is not a tracker." );
+    }
     return safeAction( generateNodeName( tracker ),
                        Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
                        action,
@@ -1279,9 +1312,12 @@ public final class ArezContext
                      @Nonnull final Object... parameters )
     throws Throwable
   {
-    apiInvariant( tracker::canTrackExplicitly,
-                  () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
-                        "observer is not a tracker." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( tracker::canTrackExplicitly,
+                    () -> "Arez-0019: Attempted to track Observer named '" + tracker.getName() + "' but " +
+                          "observer is not a tracker." );
+    }
     action( generateNodeName( tracker ),
             Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
             action,
@@ -1429,9 +1465,12 @@ public final class ArezContext
                          @Nonnull final SafeProcedure action,
                          @Nonnull final Object... parameters )
   {
-    apiInvariant( tracker::canTrackExplicitly,
-                  () -> "Attempted to track Observer named '" + tracker.getName() + "' but " +
-                        "observer is not a tracker." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( tracker::canTrackExplicitly,
+                    () -> "Arez-0020: Attempted to track Observer named '" + tracker.getName() + "' but " +
+                          "observer is not a tracker." );
+    }
     safeAction( generateNodeName( tracker ),
                 Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
                 action,
@@ -1659,7 +1698,10 @@ public final class ArezContext
   @Nonnull
   public Spy getSpy()
   {
-    apiInvariant( Arez::areSpiesEnabled, () -> "Attempting to get Spy but spies are not enabled." );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( Arez::areSpiesEnabled, () -> "Arez-0021: Attempting to get Spy but spies are not enabled." );
+    }
     assert null != _spy;
     return _spy;
   }
@@ -1680,99 +1722,132 @@ public final class ArezContext
 
   void registerObservable( @Nonnull final Observable observable )
   {
-    invariant( Arez::areRegistriesEnabled,
-               () -> "ArezContext.registerObservable invoked when Arez.areRegistriesEnabled() returns false." );
     final String name = observable.getName();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0022: ArezContext.registerObservable invoked when Arez.areRegistriesEnabled() returns false." );
+      assert null != _observables;
+      invariant( () -> !_observables.containsKey( name ),
+                 () -> "Arez-0023: ArezContext.registerObservable invoked with observable named '" + name +
+                       "' but an existing observable with that name is already registered." );
+    }
     assert null != _observables;
-    invariant( () -> !_observables.containsKey( name ),
-               () -> "ArezContext.registerObservable invoked with observable named '" + name +
-                     "' but an existing observable with that name is already registered." );
     _observables.put( name, observable );
   }
 
   void deregisterObservable( @Nonnull final Observable observable )
   {
-    invariant( Arez::areRegistriesEnabled,
-               () -> "ArezContext.deregisterObservable invoked when Arez.areRegistriesEnabled() returns false." );
     final String name = observable.getName();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0024: ArezContext.deregisterObservable invoked when Arez.areRegistriesEnabled() returns false." );
+      assert null != _observables;
+      invariant( () -> _observables.containsKey( name ),
+                 () -> "Arez-0025: ArezContext.deregisterObservable invoked with observable named '" + name +
+                       "' but no observable with that name is registered." );
+    }
     assert null != _observables;
-    invariant( () -> _observables.containsKey( name ),
-               () -> "ArezContext.deregisterObservable invoked with observable named '" + name +
-                     "' but no observable with that name is registered." );
     _observables.remove( name );
   }
 
   @Nonnull
   HashMap<String, Observable<?>> getTopLevelObservables()
   {
-    invariant( Arez::areRegistriesEnabled,
-               () -> "ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0026: ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false." );
+    }
     assert null != _observables;
     return _observables;
   }
 
   void registerObserver( @Nonnull final Observer observer )
   {
-    invariant( Arez::areRegistriesEnabled,
-               () -> "ArezContext.registerObserver invoked when Arez.areRegistriesEnabled() returns false." );
     final String name = observer.getName();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0027: ArezContext.registerObserver invoked when Arez.areRegistriesEnabled() returns false." );
+      assert null != _observers;
+      invariant( () -> !_observers.containsKey( name ),
+                 () -> "Arez-0028: ArezContext.registerObserver invoked with observer named '" + name +
+                       "' but an existing observer with that name is already registered." );
+    }
     assert null != _observers;
-    invariant( () -> !_observers.containsKey( name ),
-               () -> "ArezContext.registerObserver invoked with observer named '" + name +
-                     "' but an existing observer with that name is already registered." );
     _observers.put( name, observer );
   }
 
   void deregisterObserver( @Nonnull final Observer observer )
   {
-    invariant( Arez::areRegistriesEnabled,
-               () -> "ArezContext.deregisterObserver invoked when Arez.areRegistriesEnabled() returns false." );
     final String name = observer.getName();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0029: ArezContext.deregisterObserver invoked when Arez.areRegistriesEnabled() returns false." );
+      assert null != _observers;
+      invariant( () -> _observers.containsKey( name ),
+                 () -> "Arez-0030: ArezContext.deregisterObserver invoked with observer named '" + name +
+                       "' but no observer with that name is registered." );
+    }
     assert null != _observers;
-    invariant( () -> _observers.containsKey( name ),
-               () -> "ArezContext.deregisterObserver invoked with observer named '" + name +
-                     "' but no observer with that name is registered." );
     _observers.remove( name );
   }
 
   @Nonnull
   HashMap<String, Observer> getTopLevelObservers()
   {
-    invariant( Arez::areRegistriesEnabled,
-               () -> "ArezContext.getTopLevelObservers() invoked when Arez.areRegistriesEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0031: ArezContext.getTopLevelObservers() invoked when Arez.areRegistriesEnabled() returns false." );
+    }
     assert null != _observers;
     return _observers;
   }
 
   void registerComputedValue( @Nonnull final ComputedValue computedValue )
   {
-    invariant( Arez::areRegistriesEnabled,
-               () -> "ArezContext.registerComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
     final String name = computedValue.getName();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0032: ArezContext.registerComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
+      assert null != _computedValues;
+      invariant( () -> !_computedValues.containsKey( name ),
+                 () -> "Arez-0033: ArezContext.registerComputedValue invoked with computed value named '" + name +
+                       "' but an existing computed value with that name is already registered." );
+    }
     assert null != _computedValues;
-    invariant( () -> !_computedValues.containsKey( name ),
-               () -> "ArezContext.registerComputedValue invoked with computed value named '" + name +
-                     "' but an existing computed value with that name is already registered." );
     _computedValues.put( name, computedValue );
   }
 
   void deregisterComputedValue( @Nonnull final ComputedValue computedValue )
   {
-    invariant( Arez::areRegistriesEnabled,
-               () -> "ArezContext.deregisterComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
     final String name = computedValue.getName();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0034: ArezContext.deregisterComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
+      assert null != _computedValues;
+      invariant( () -> _computedValues.containsKey( name ),
+                 () -> "Arez-0035: ArezContext.deregisterComputedValue invoked with computed value named '" + name +
+                       "' but no computed value with that name is registered." );
+    }
     assert null != _computedValues;
-    invariant( () -> _computedValues.containsKey( name ),
-               () -> "ArezContext.deregisterComputedValue invoked with computed value named '" + name +
-                     "' but no computed value with that name is registered." );
     _computedValues.remove( name );
   }
 
   @Nonnull
   HashMap<String, ComputedValue<?>> getTopLevelComputedValues()
   {
-    invariant( Arez::areRegistriesEnabled,
-               () -> "ArezContext.getTopLevelComputedValues() invoked when Arez.areRegistriesEnabled() returns false." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0036: ArezContext.getTopLevelComputedValues() invoked when Arez.areRegistriesEnabled() returns false." );
+    }
     assert null != _computedValues;
     return _computedValues;
   }

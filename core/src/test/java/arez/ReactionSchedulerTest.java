@@ -54,7 +54,7 @@ public class ReactionSchedulerTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> scheduler.setMaxReactionRounds( -1 ) );
 
-    assertEquals( exception.getMessage(), "Attempting to set maxReactionRounds to negative value -1." );
+    assertEquals( exception.getMessage(), "Arez-0098: Attempting to set maxReactionRounds to negative value -1." );
   }
 
   @Test
@@ -72,7 +72,7 @@ public class ReactionSchedulerTest
       expectThrows( IllegalStateException.class, scheduler::onRunawayReactionsDetected );
 
     assertEquals( exception.getMessage(),
-                  "Runaway reaction(s) detected. Observers still running after " +
+                  "Arez-0101: Runaway reaction(s) detected. Observers still running after " +
                   scheduler.getMaxReactionRounds() + " rounds. Current observers include: [" +
                   observer.getName() + "]" );
 
@@ -141,7 +141,7 @@ public class ReactionSchedulerTest
       expectThrows( IllegalStateException.class, () -> scheduler.scheduleReaction( observer ) );
 
     assertEquals( exception.getMessage(),
-                  "Attempting to schedule observer named '" + observer.getName() +
+                  "Arez-0099: Attempting to schedule observer named '" + observer.getName() +
                   "' when observer is already pending." );
   }
 
@@ -214,9 +214,8 @@ public class ReactionSchedulerTest
       expectThrows( IllegalStateException.class, scheduler::runObserver );
 
     assertEquals( exception.getMessage(),
-                  "Invoked runObserver when transaction named '" +
-                  Arez.context().getTransaction().getName() +
-                  "' is active." );
+                  "Arez-0100: Invoked runObserver when transaction named '" +
+                  Arez.context().getTransaction().getName() + "' is active." );
   }
 
   @Test
@@ -379,7 +378,7 @@ public class ReactionSchedulerTest
         }
       } );
     assertEquals( exception.getMessage(),
-                  "Runaway reaction(s) detected. Observers still running after 20 rounds. " +
+                  "Arez-0101: Runaway reaction(s) detected. Observers still running after 20 rounds. " +
                   "Current observers include: [" + toSchedule.getName() + "]" );
 
     assertEquals( reactionCount.get(), 20 );

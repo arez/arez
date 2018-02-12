@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
-import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -110,33 +109,37 @@ public final class Observer
             final boolean canTrackExplicitly )
   {
     super( context, name );
-    if ( Arez.shouldEnforceTransactionType() )
+    if ( Arez.shouldCheckInvariants() )
     {
-      if ( TransactionMode.READ_WRITE_OWNED == mode )
+      if ( Arez.shouldEnforceTransactionType() )
       {
-        invariant( () -> null != computedValue,
-                   () -> "Attempted to construct an observer named '" + getName() + "' with READ_WRITE_OWNED " +
-                         "transaction mode but no ComputedValue." );
-        assert null != computedValue;
-        invariant( () -> !canTrackExplicitly,
-                   () -> "Attempted to construct an ComputedValue '" + getName() + "' that could track explicitly." );
+        if ( TransactionMode.READ_WRITE_OWNED == mode )
+        {
+          invariant( () -> null != computedValue,
+                     () -> "Arez-0079: Attempted to construct an observer named '" + getName() + "' with " +
+                           "READ_WRITE_OWNED transaction mode but no ComputedValue." );
+          assert null != computedValue;
+          invariant( () -> !canTrackExplicitly,
+                     () -> "Arez-0080: Attempted to construct an ComputedValue '" + getName() + "' that could " +
+                           "track explicitly." );
+        }
+        else if ( null != computedValue )
+        {
+          fail( () -> "Arez-0081: Attempted to construct an observer named '" + getName() + "' with " + mode +
+                      " transaction mode and a ComputedValue." );
+        }
       }
-      else if ( null != computedValue )
+      else
       {
-        fail( () -> "Attempted to construct an observer named '" + getName() + "' with " + mode +
-                    " transaction mode and a ComputedValue." );
+        invariant( () -> null == mode,
+                   () -> "Arez-0082: Observer named '" + getName() + "' specified mode '" + mode + "' when " +
+                         "Arez.enforceTransactionType() is false." );
+        assert null == mode;
       }
+      invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
+                 () -> "Arez-0083: Observer named '" + getName() + "' has component specified but " +
+                       "Arez.areNativeComponentsEnabled() is false." );
     }
-    else
-    {
-      invariant( () -> null == mode,
-                 () -> "Observer named '" + getName() + "' specified mode '" + mode + "' when " +
-                       "Arez.enforceTransactionType() is false." );
-      assert null == mode;
-    }
-    invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
-               () -> "Observer named '" + getName() + "' has component specified but " +
-                     "Arez.areNativeComponentsEnabled() is false." );
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
     _component = component;
     _computedValue = computedValue;
@@ -170,11 +173,15 @@ public final class Observer
   @Nonnull
   Observable<?> getDerivedValue()
   {
-    invariant( this::isLive,
-               () -> "Attempted to invoke getDerivedValue on disposed observer named '" + getName() + "'." );
-    invariant( this::isDerivation,
-               () -> "Attempted to invoke getDerivedValue on observer named '" + getName() + "' when is not " +
-                     "a computed observer." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( this::isLive,
+                 () -> "Arez-0084: Attempted to invoke getDerivedValue on disposed observer " +
+                       "named '" + getName() + "'." );
+      invariant( this::isDerivation,
+                 () -> "Arez-0085: Attempted to invoke getDerivedValue on observer named '" +
+                       getName() + "' when is not a computed observer." );
+    }
     assert null != _derivedValue;
     return _derivedValue;
   }
@@ -351,10 +358,13 @@ public final class Observer
    */
   void setState( @Nonnull final ObserverState state, final boolean schedule )
   {
-    invariant( () -> getContext().isTransactionActive(),
-               () -> "Attempt to invoke setState on observer named '" + getName() + "' when there is " +
-                     "no active transaction." );
-    invariantState();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> getContext().isTransactionActive(),
+                 () -> "Arez-0086: Attempt to invoke setState on observer named '" + getName() + "' when there is " +
+                       "no active transaction." );
+      invariantState();
+    }
     if ( !state.equals( _state ) )
     {
       final ObserverState originalState = _state;
@@ -387,10 +397,17 @@ public final class Observer
       }
       else if ( ObserverState.INACTIVE == originalState )
       {
-        invariant( this::isLive, () -> "Attempted to activate disposed observer named '" + getName() + "'." );
+        if ( Arez.shouldCheckInvariants() )
+        {
+          invariant( this::isLive,
+                     () -> "Arez-0087: Attempted to activate disposed observer named '" + getName() + "'." );
+        }
         runHook( getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
       }
-      invariantState();
+      if ( Arez.shouldCheckInvariants() )
+      {
+        invariantState();
+      }
     }
   }
 
@@ -540,9 +557,12 @@ public final class Observer
   {
     if ( isLive() )
     {
-      invariant( this::isActive,
-                 () -> "Observer named '" + getName() + "' is not active but an attempt has been made " +
-                       "to schedule observer." );
+      if ( Arez.shouldCheckInvariants() )
+      {
+        invariant( this::isActive,
+                   () -> "Arez-0088: Observer named '" + getName() + "' is not active but an attempt has been made " +
+                         "to schedule observer." );
+      }
       if ( !isScheduled() )
       {
         getContext().scheduleReaction( this );
@@ -689,11 +709,17 @@ public final class Observer
    */
   void replaceDependencies( @Nonnull final ArrayList<Observable<?>> dependencies )
   {
-    invariantDependenciesUnique( "Pre replaceDependencies" );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariantDependenciesUnique( "Pre replaceDependencies" );
+    }
     _dependencies = Objects.requireNonNull( dependencies );
-    invariantDependenciesUnique( "Post replaceDependencies" );
-    invariantDependenciesBackLink( "Post replaceDependencies" );
-    invariantDependenciesNotDisposed();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariantDependenciesUnique( "Post replaceDependencies" );
+      invariantDependenciesBackLink( "Post replaceDependencies" );
+      invariantDependenciesNotDisposed();
+    }
   }
 
   /**
@@ -704,12 +730,11 @@ public final class Observer
    */
   void invariantDependenciesUnique( @Nonnull final String context )
   {
-    // This invariant check should not be needed but this guarantees the (GWT) optimizer removes this code
-    if ( BrainCheckConfig.checkInvariants() )
+    if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> getDependencies().size() == new HashSet<>( getDependencies() ).size(),
-                 () -> context + ": The set of dependencies in observer named '" + getName() + "' is " +
-                       "not unique. Current list: '" +
+                 () -> "Arez-0089: " + context + ": The set of dependencies in observer named '" +
+                       getName() + "' is not unique. Current list: '" +
                        getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ) + "'." );
     }
   }
@@ -722,13 +747,12 @@ public final class Observer
    */
   void invariantDependenciesBackLink( @Nonnull final String context )
   {
-    // This invariant check should not be needed but this guarantees the (GWT) optimizer removes this code
-    if ( BrainCheckConfig.checkInvariants() )
+    if ( Arez.shouldCheckInvariants() )
     {
       getDependencies().forEach( observable ->
                                    invariant( () -> observable.getObservers().contains( this ),
-                                              () -> context + ": Observer named '" + getName() + "' has " +
-                                                    "dependency observable named '" + observable.getName() +
+                                              () -> "Arez-0090: " + context + ": Observer named '" + getName() +
+                                                    "' has dependency observable named '" + observable.getName() +
                                                     "' which does not contain the observer in the list of " +
                                                     "observers." ) );
       invariantDerivationState();
@@ -740,12 +764,11 @@ public final class Observer
    */
   void invariantDependenciesNotDisposed()
   {
-    // This invariant check should not be needed but this guarantees the (GWT) optimizer removes this code
-    if ( BrainCheckConfig.checkInvariants() )
+    if ( Arez.shouldCheckInvariants() )
     {
       getDependencies().forEach( observable ->
                                    invariant( () -> !observable.isDisposed(),
-                                              () -> "Observer named '" + getName() + "' has dependency " +
+                                              () -> "Arez-0091: Observer named '" + getName() + "' has dependency " +
                                                     "observable named '" + observable.getName() +
                                                     "' which is disposed." ) );
       invariantDerivationState();
@@ -757,29 +780,34 @@ public final class Observer
    */
   void invariantState()
   {
-    if ( isInactive() )
+    if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> getDependencies().isEmpty(),
-                 () -> "Observer named '" + getName() + "' is inactive but still has dependencies: " +
-                       getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ) + "." );
-    }
-    if ( isDerivation() && isLive() )
-    {
-      invariant( () -> Objects.equals( getDerivedValue().hasOwner() ? getDerivedValue().getOwner() : null,
-                                       this ),
-                 () -> "Observer named '" + getName() + "' has a derived value that does not " +
-                       "link back to observer." );
+      if ( isInactive() )
+      {
+        invariant( () -> getDependencies().isEmpty(),
+                   () -> "Arez-0092: Observer named '" + getName() + "' is inactive but still has dependencies: " +
+                         getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ) + "." );
+      }
+      if ( isDerivation() && isLive() )
+      {
+        invariant( () -> Objects.equals( getDerivedValue().hasOwner() ? getDerivedValue().getOwner() : null, this ),
+                   () -> "Arez-0093: Observer named '" + getName() + "' has a derived value that does not " +
+                         "link back to observer." );
+      }
     }
   }
 
   void invariantDerivationState()
   {
-    if ( isDerivation() && isActive() && !isDisposed() )
+    if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> !getDerivedValue().getObservers().isEmpty() ||
-                       Objects.equals( getContext().getTransaction().getTracker(), this ),
-                 () -> "Observer named '" + getName() + "' is a derivation and active but the " +
-                       "derived value has no observers." );
+      if ( isDerivation() && isActive() && !isDisposed() )
+      {
+        invariant( () -> !getDerivedValue().getObservers().isEmpty() ||
+                         Objects.equals( getContext().getTransaction().getTracker(), this ),
+                   () -> "Arez-0094: Observer named '" + getName() + "' is a derivation and active but the " +
+                         "derived value has no observers." );
+      }
     }
   }
 
@@ -793,9 +821,12 @@ public final class Observer
   @Nonnull
   ComputedValue<?> getComputedValue()
   {
-    invariant( this::isDerivation,
-               () -> "Attempted to invoke getComputedValue on observer named '" + getName() + "' when " +
-                     "is not a computed observer." );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( this::isDerivation,
+                 () -> "Arez-0095: Attempted to invoke getComputedValue on observer named '" + getName() + "' when " +
+                       "is not a computed observer." );
+    }
     assert null != _computedValue;
     return _computedValue;
   }

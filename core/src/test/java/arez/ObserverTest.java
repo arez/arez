@@ -106,7 +106,7 @@ public class ObserverTest
                                         false ) );
 
     assertEquals( exception.getMessage(),
-                  "Attempted to construct an observer named '" + name + "' with READ_WRITE_OWNED " +
+                  "Arez-0079: Attempted to construct an observer named '" + name + "' with READ_WRITE_OWNED " +
                   "transaction mode but no ComputedValue." );
   }
 
@@ -129,7 +129,7 @@ public class ObserverTest
                                         false ) );
 
     assertEquals( exception.getMessage(),
-                  "Observer named '" + name + "' specified mode 'READ_ONLY' " +
+                  "Arez-0082: Observer named '" + name + "' specified mode 'READ_ONLY' " +
                   "when Arez.enforceTransactionType() is false." );
   }
 
@@ -165,7 +165,7 @@ public class ObserverTest
                                         false ) );
 
     assertEquals( exception.getMessage(),
-                  "Attempted to construct an observer named '" + name + "' with READ_ONLY " +
+                  "Arez-0081: Attempted to construct an observer named '" + name + "' with READ_ONLY " +
                   "transaction mode and a ComputedValue." );
   }
 
@@ -185,7 +185,7 @@ public class ObserverTest
                                         true ) );
 
     assertEquals( exception.getMessage(),
-                  "Attempted to construct an ComputedValue '" + computedValue.getName() +
+                  "Arez-0080: Attempted to construct an ComputedValue '" + computedValue.getName() +
                   "' that could track explicitly." );
   }
 
@@ -214,7 +214,7 @@ public class ObserverTest
                                         new TestReaction(),
                                         false ) );
     assertEquals( exception.getMessage(),
-                  "Observer named '" + name + "' has component specified but " +
+                  "Arez-0083: Observer named '" + name + "' has component specified but " +
                   "Arez.areNativeComponentsEnabled() is false." );
   }
 
@@ -257,7 +257,7 @@ public class ObserverTest
       expectThrows( IllegalStateException.class, () -> observer.invariantDependenciesBackLink( "TEST1" ) );
 
     assertEquals( exception.getMessage(),
-                  "TEST1: Observer named '" + observer.getName() + "' has dependency observable named '" +
+                  "Arez-0090: TEST1: Observer named '" + observer.getName() + "' has dependency observable named '" +
                   observable.getName() + "' which does not contain the observer in the list of observers." );
 
     //Setup correct back link
@@ -284,7 +284,7 @@ public class ObserverTest
       expectThrows( IllegalStateException.class, observer::invariantDependenciesNotDisposed );
 
     assertEquals( exception.getMessage(),
-                  "Observer named '" + observer.getName() + "' has dependency observable named '" +
+                  "Arez-0091: Observer named '" + observer.getName() + "' has dependency observable named '" +
                   observable.getName() + "' which is disposed." );
 
     observable.setWorkState( 0 );
@@ -311,8 +311,8 @@ public class ObserverTest
       expectThrows( IllegalStateException.class, () -> observer.invariantDependenciesUnique( "TEST2" ) );
 
     assertEquals( exception.getMessage(),
-                  "TEST2: The set of dependencies in observer named '" + observer.getName() + "' is " +
-                  "not unique. Current list: '[" + observable.getName() + ", " + observable.getName() + "]'." );
+                  "Arez-0089: TEST2: The set of dependencies in observer named '" + observer.getName() +
+                  "' is not unique. Current list: '[" + observable.getName() + ", " + observable.getName() + "]'." );
   }
 
   @Test
@@ -330,7 +330,7 @@ public class ObserverTest
       expectThrows( IllegalStateException.class, observer::invariantState );
 
     assertEquals( exception.getMessage(),
-                  "Observer named '" + observer.getName() + "' is inactive " +
+                  "Arez-0092: Observer named '" + observer.getName() + "' is inactive " +
                   "but still has dependencies: [" + observable.getName() + "]." );
   }
 
@@ -348,7 +348,7 @@ public class ObserverTest
       expectThrows( IllegalStateException.class, observer::invariantState );
 
     assertEquals( exception.getMessage(),
-                  "Observer named '" + observer.getName() + "' has a derived value " +
+                  "Arez-0093: Observer named '" + observer.getName() + "' has a derived value " +
                   "that does not link back to observer." );
   }
 
@@ -368,7 +368,7 @@ public class ObserverTest
       expectThrows( IllegalStateException.class, observer::invariantDerivationState );
 
     assertEquals( exception.getMessage(),
-                  "Observer named '" + observer.getName() + "' is a derivation and " +
+                  "Arez-0094: Observer named '" + observer.getName() + "' is a derivation and " +
                   "active but the derived value has no observers." );
 
     ensureDerivationHasObserver( observer );
@@ -803,7 +803,7 @@ public class ObserverTest
       expectThrows( IllegalStateException.class, () -> observer.setState( ObserverState.UP_TO_DATE ) );
 
     assertEquals( exception.getMessage(),
-                  "Attempted to activate disposed observer named '" + observer.getName() + "'." );
+                  "Arez-0087: Attempted to activate disposed observer named '" + observer.getName() + "'." );
 
     observer.setDisposed( false );
 
@@ -822,7 +822,7 @@ public class ObserverTest
       expectThrows( IllegalStateException.class, () -> observer.setState( ObserverState.UP_TO_DATE ) );
 
     assertEquals( exception.getMessage(),
-                  "Attempt to invoke setState on observer named '" + observer.getName() + "' when " +
+                  "Arez-0086: Attempt to invoke setState on observer named '" + observer.getName() + "' when " +
                   "there is no active transaction." );
   }
 
@@ -887,7 +887,7 @@ public class ObserverTest
     final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::schedule );
 
     assertEquals( exception.getMessage(),
-                  "Observer named '" + observer.getName() + "' is not active but an attempt has " +
+                  "Arez-0088: Observer named '" + observer.getName() + "' is not active but an attempt has " +
                   "been made to schedule observer." );
   }
 
@@ -1075,7 +1075,7 @@ public class ObserverTest
     final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::getDerivedValue );
 
     assertEquals( exception.getMessage(),
-                  "Attempted to invoke getDerivedValue on observer named '" + observer.getName() +
+                  "Arez-0085: Attempted to invoke getDerivedValue on observer named '" + observer.getName() +
                   "' when is not a computed observer." );
   }
 
@@ -1090,7 +1090,8 @@ public class ObserverTest
     final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::getDerivedValue );
 
     assertEquals( exception.getMessage(),
-                  "Attempted to invoke getDerivedValue on disposed observer named '" + observer.getName() + "'." );
+                  "Arez-0084: Attempted to invoke getDerivedValue on disposed observer named '" +
+                  observer.getName() + "'." );
 
     observer.setDisposed( false );
 
@@ -1108,7 +1109,7 @@ public class ObserverTest
     final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::getComputedValue );
 
     assertEquals( exception.getMessage(),
-                  "Attempted to invoke getComputedValue on observer named '" + observer.getName() +
+                  "Arez-0095: Attempted to invoke getComputedValue on observer named '" + observer.getName() +
                   "' when is not a computed observer." );
   }
 

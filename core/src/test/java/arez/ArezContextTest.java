@@ -76,7 +76,8 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+    assertEquals( exception.getMessage(),
+                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final String expectedValue = ValueUtil.randomString();
 
@@ -172,7 +173,8 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+    assertEquals( exception.getMessage(),
+                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final String name = ValueUtil.randomString();
 
@@ -422,7 +424,8 @@ public class ArezContextTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> context.track( observer, callCount::incrementAndGet ) );
     assertEquals( exception.getMessage(),
-                  "Attempted to track Observer named '" + observer.getName() + "' but observer is not a tracker." );
+                  "Arez-0017: Attempted to track Observer named '" + observer.getName() +
+                  "' but observer is not a tracker." );
 
     assertEquals( callCount.get(), 0 );
   }
@@ -436,7 +439,8 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+    assertEquals( exception.getMessage(),
+                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final String expectedValue = ValueUtil.randomString();
 
@@ -532,7 +536,8 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+    assertEquals( exception.getMessage(),
+                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final AccessControlException secException = new AccessControlException( "" );
 
@@ -705,7 +710,8 @@ public class ArezContextTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> context.safeTrack( observer, callCount::incrementAndGet ) );
     assertEquals( exception.getMessage(),
-                  "Attempted to track Observer named '" + observer.getName() + "' but observer is not a tracker." );
+                  "Arez-0018: Attempted to track Observer named '" + observer.getName() +
+                  "' but observer is not a tracker." );
 
     assertEquals( callCount.get(), 0 );
   }
@@ -750,7 +756,8 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+    assertEquals( exception.getMessage(),
+                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final AccessControlException secException = new AccessControlException( "" );
 
@@ -878,7 +885,8 @@ public class ArezContextTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> context.safeTrack( observer, procedure ) );
     assertEquals( exception.getMessage(),
-                  "Attempted to track Observer named '" + observer.getName() + "' but observer is not a tracker." );
+                  "Arez-0020: Attempted to track Observer named '" + observer.getName() +
+                  "' but observer is not a tracker." );
 
     assertEquals( callCount.get(), 0 );
   }
@@ -928,7 +936,9 @@ public class ArezContextTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> context.track( observer, procedure ) );
     assertEquals( exception.getMessage(),
-                  "Attempted to track Observer named '" + observer.getName() + "' but observer is not a tracker." );
+                  "Arez-0019: Attempted to track Observer named '" +
+                  observer.getName() +
+                  "' but observer is not a tracker." );
 
     assertEquals( callCount.get(), 0 );
   }
@@ -993,7 +1003,8 @@ public class ArezContextTest
 
     assertFalse( context.isTransactionActive() );
     final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+    assertEquals( exception.getMessage(),
+                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final Observable<?> observable = newObservable( context );
     assertEquals( observable.getObservers().size(), 0 );
@@ -1080,7 +1091,8 @@ public class ArezContextTest
 
     assertFalse( context.isTransactionActive() );
     final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+    assertEquals( exception.getMessage(),
+                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final Observable<?> observable = newObservable( context );
     assertEquals( observable.getObservers().size(), 0 );
@@ -1167,7 +1179,8 @@ public class ArezContextTest
 
     assertFalse( context.isTransactionActive() );
     final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(), "Attempting to get current transaction but no transaction is active." );
+    assertEquals( exception.getMessage(),
+                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final String name = ValueUtil.randomString();
     final IOException ioException = new IOException();
@@ -1357,7 +1370,7 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getSpy );
-    assertEquals( exception.getMessage(), "Attempting to get Spy but spies are not enabled." );
+    assertEquals( exception.getMessage(), "Arez-0021: Attempting to get Spy but spies are not enabled." );
   }
 
   @Test
@@ -1390,7 +1403,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class,
                     () -> context.action( false, () -> context.scheduleReaction( observer ) ) );
     assertEquals( exception.getMessage(),
-                  "Observer named '" + observer.getName() + "' attempted to be scheduled " +
+                  "Arez-0013: Observer named '" + observer.getName() + "' attempted to be scheduled " +
                   "during read-only transaction." );
   }
 
@@ -1410,7 +1423,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class,
                     () -> context.scheduleReaction( derivation ) );
     assertEquals( exception.getMessage(),
-                  "Observer named '" + derivation.getName() + "' attempted to schedule itself " +
+                  "Arez-0014: Observer named '" + derivation.getName() + "' attempted to schedule itself " +
                   "during read-only tracking transaction. Observers that are supporting ComputedValue " +
                   "instances must not schedule self." );
   }
@@ -1877,7 +1890,7 @@ public class ArezContextTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Arez.context().releaseSchedulerLock() );
 
-    assertEquals( exception.getMessage(), "releaseSchedulerLock() reduced schedulerLockCount below 0." );
+    assertEquals( exception.getMessage(), "Arez-0016: releaseSchedulerLock() reduced schedulerLockCount below 0." );
   }
 
   @Test
@@ -1979,7 +1992,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class, () -> context.createComponent( type, id, name ) );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.createComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+                  "Arez-0008: ArezContext.createComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -1998,7 +2011,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class, () -> context.createComponent( type, id, ValueUtil.randomString() ) );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.createComponent() invoked for type '" + type + "' and id '" + id +
+                  "Arez-0009: ArezContext.createComponent() invoked for type '" + type + "' and id '" + id +
                   "' but a component already exists for specified type+id." );
   }
 
@@ -2038,7 +2051,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class, () -> context.deregisterComponent( component ) );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.deregisterComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+                  "Arez-0006: ArezContext.deregisterComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -2061,8 +2074,8 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class, () -> context.deregisterComponent( component ) );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.deregisterComponent() invoked for '" + component + "' but was unable to " +
-                  "remove specified component from registry. Actual component removed: " + component2 );
+                  "Arez-0007: ArezContext.deregisterComponent() invoked for '" + component + "' but was " +
+                  "unable to remove specified component from registry. Actual component removed: " + component2 );
   }
 
   @Test
@@ -2142,7 +2155,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class, () -> context.findComponent( type, id ) );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+                  "Arez-0010: ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -2158,7 +2171,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class, () -> context.findAllComponentsByType( type ) );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.findAllComponentsByType() invoked when Arez.areNativeComponentsEnabled() returns false." );
+                  "Arez-0011: ArezContext.findAllComponentsByType() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -2172,7 +2185,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class, context::findAllComponentTypes );
 
     assertEquals( exception.getMessage(),
-                  "ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false." );
+                  "Arez-0012: ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -2188,23 +2201,23 @@ public class ArezContextTest
     } );
 
     assertThrowsWithMessage( () -> context.registerObservable( observable ),
-                             "ArezContext.registerObservable invoked when Arez.areRegistriesEnabled() returns false." );
+                             "Arez-0022: ArezContext.registerObservable invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( () -> context.deregisterObservable( observable ),
-                             "ArezContext.deregisterObservable invoked when Arez.areRegistriesEnabled() returns false." );
+                             "Arez-0024: ArezContext.deregisterObservable invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( context::getTopLevelObservables,
-                             "ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false." );
+                             "Arez-0026: ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( () -> context.registerObserver( observer ),
-                             "ArezContext.registerObserver invoked when Arez.areRegistriesEnabled() returns false." );
+                             "Arez-0027: ArezContext.registerObserver invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( () -> context.deregisterObserver( observer ),
-                             "ArezContext.deregisterObserver invoked when Arez.areRegistriesEnabled() returns false." );
+                             "Arez-0029: ArezContext.deregisterObserver invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( context::getTopLevelObservers,
-                             "ArezContext.getTopLevelObservers() invoked when Arez.areRegistriesEnabled() returns false." );
+                             "Arez-0031: ArezContext.getTopLevelObservers() invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( () -> context.registerComputedValue( computedValue ),
-                             "ArezContext.registerComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
+                             "Arez-0032: ArezContext.registerComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( () -> context.deregisterComputedValue( computedValue ),
-                             "ArezContext.deregisterComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
+                             "Arez-0034: ArezContext.deregisterComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( context::getTopLevelComputedValues,
-                             "ArezContext.getTopLevelComputedValues() invoked when Arez.areRegistriesEnabled() returns false." );
+                             "Arez-0036: ArezContext.getTopLevelComputedValues() invoked when Arez.areRegistriesEnabled() returns false." );
   }
 
   @Test
@@ -2218,7 +2231,7 @@ public class ArezContextTest
     assertEquals( context.getTopLevelObservables().get( observable.getName() ), observable );
 
     assertThrowsWithMessage( () -> context.registerObservable( observable ),
-                             "ArezContext.registerObservable invoked with observable named '" +
+                             "Arez-0023: ArezContext.registerObservable invoked with observable named '" +
                              observable.getName() + "' but an existing observable with that name is " +
                              "already registered." );
 
@@ -2227,7 +2240,7 @@ public class ArezContextTest
     assertEquals( context.getTopLevelObservables().size(), 0 );
 
     assertThrowsWithMessage( () -> context.deregisterObservable( observable ),
-                             "ArezContext.deregisterObservable invoked with observable named '" +
+                             "Arez-0025: ArezContext.deregisterObservable invoked with observable named '" +
                              observable.getName() + "' but no observable with that name is registered." );
   }
 
@@ -2243,7 +2256,7 @@ public class ArezContextTest
     assertEquals( context.getTopLevelObservers().get( observer.getName() ), observer );
 
     assertThrowsWithMessage( () -> context.registerObserver( observer ),
-                             "ArezContext.registerObserver invoked with observer named '" +
+                             "Arez-0028: ArezContext.registerObserver invoked with observer named '" +
                              observer.getName() + "' but an existing observer with that name is " +
                              "already registered." );
 
@@ -2252,7 +2265,7 @@ public class ArezContextTest
     assertEquals( context.getTopLevelObservers().size(), 0 );
 
     assertThrowsWithMessage( () -> context.deregisterObserver( observer ),
-                             "ArezContext.deregisterObserver invoked with observer named '" +
+                             "Arez-0030: ArezContext.deregisterObserver invoked with observer named '" +
                              observer.getName() + "' but no observer with that name is registered." );
   }
 
@@ -2267,16 +2280,16 @@ public class ArezContextTest
     assertEquals( context.getTopLevelComputedValues().get( computedValue.getName() ), computedValue );
 
     assertThrowsWithMessage( () -> context.registerComputedValue( computedValue ),
-                             "ArezContext.registerComputedValue invoked with computed value named '" +
-                             computedValue.getName() + "' but an existing computed value with that name is " +
-                             "already registered." );
+                             "Arez-0033: ArezContext.registerComputedValue invoked with computed value " +
+                             "named '" + computedValue.getName() + "' but an existing computed value with that name " +
+                             "is already registered." );
 
     assertEquals( context.getTopLevelComputedValues().size(), 1 );
     context.getTopLevelComputedValues().clear();
     assertEquals( context.getTopLevelComputedValues().size(), 0 );
 
     assertThrowsWithMessage( () -> context.deregisterComputedValue( computedValue ),
-                             "ArezContext.deregisterComputedValue invoked with computed value named '" +
+                             "Arez-0035: ArezContext.deregisterComputedValue invoked with computed value named '" +
                              computedValue.getName() + "' but no computed value with that name is registered." );
   }
 

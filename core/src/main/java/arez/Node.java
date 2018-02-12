@@ -31,8 +31,11 @@ public abstract class Node
 
   Node( @Nonnull final ArezContext context, @Nullable final String name )
   {
-    apiInvariant( () -> Arez.areNamesEnabled() || null == name,
-                  () -> "Node passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> Arez.areNamesEnabled() || null == name,
+                    () -> "Arez-0052: Node passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
+    }
     _context = Objects.requireNonNull( context );
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
   }
@@ -47,7 +50,11 @@ public abstract class Node
   @Nonnull
   public final String getName()
   {
-    apiInvariant( Arez::areNamesEnabled, () -> "Node.getName() invoked when Arez.areNamesEnabled() is false" );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( Arez::areNamesEnabled,
+                    () -> "Arez-0053: Node.getName() invoked when Arez.areNamesEnabled() is false" );
+    }
     assert null != _name;
     return _name;
   }

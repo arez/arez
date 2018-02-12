@@ -173,7 +173,10 @@ public final class Arez
   @Nonnull
   public static Zone createZone()
   {
-    apiInvariant( Arez::areZonesEnabled, () -> "Invoked Arez.createZone() but zones are not enabled." );
+    if ( shouldCheckApiInvariants() )
+    {
+      apiInvariant( Arez::areZonesEnabled, () -> "Arez-0001: Invoked Arez.createZone() but zones are not enabled." );
+    }
     return new Zone();
   }
 
@@ -183,7 +186,10 @@ public final class Arez
   @SuppressWarnings( "ConstantConditions" )
   static void activateZone( @Nonnull final Zone zone )
   {
-    invariant( Arez::areZonesEnabled, () -> "Invoked Arez.activateZone() but zones are not enabled." );
+    if ( shouldCheckInvariants() )
+    {
+      invariant( Arez::areZonesEnabled, () -> "Arez-0002: Invoked Arez.activateZone() but zones are not enabled." );
+    }
     assert null != c_zoneStack;
     assert null != zone;
     c_zoneStack.add( c_zone );
@@ -198,8 +204,14 @@ public final class Arez
   @SuppressWarnings( "ConstantConditions" )
   static void deactivateZone( @Nonnull final Zone zone )
   {
-    invariant( Arez::areZonesEnabled, () -> "Invoked Arez.deactivateZone() but zones are not enabled." );
-    apiInvariant( () -> c_zone == zone, () -> "Attempted to deactivate zone that is not active." );
+    if ( shouldCheckInvariants() )
+    {
+      invariant( Arez::areZonesEnabled, () -> "Arez-0003: Invoked Arez.deactivateZone() but zones are not enabled." );
+    }
+    if ( shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> c_zone == zone, () -> "Arez-0004: Attempted to deactivate zone that is not active." );
+    }
     assert null != c_zoneStack;
     c_zone = c_zoneStack.isEmpty() ? c_defaultZone : c_zoneStack.remove( c_zoneStack.size() - 1 );
   }
@@ -212,7 +224,10 @@ public final class Arez
   @Nonnull
   static Zone currentZone()
   {
-    invariant( Arez::areZonesEnabled, () -> "Invoked Arez.currentZone() but zones are not enabled." );
+    if ( shouldCheckInvariants() )
+    {
+      invariant( Arez::areZonesEnabled, () -> "Arez-0005: Invoked Arez.currentZone() but zones are not enabled." );
+    }
     assert null != c_zone;
     return c_zone;
   }

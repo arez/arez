@@ -145,7 +145,7 @@ public class ArezTest
     ArezTestUtil.disableZones();
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, Arez::createZone );
-    assertEquals( exception.getMessage(), "Invoked Arez.createZone() but zones are not enabled." );
+    assertEquals( exception.getMessage(), "Arez-0001: Invoked Arez.createZone() but zones are not enabled." );
   }
 
   @Test
@@ -155,7 +155,7 @@ public class ArezTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Arez.activateZone( new Zone() ) );
-    assertEquals( exception.getMessage(), "Invoked Arez.activateZone() but zones are not enabled." );
+    assertEquals( exception.getMessage(), "Arez-0002: Invoked Arez.activateZone() but zones are not enabled." );
   }
 
   @Test
@@ -165,7 +165,7 @@ public class ArezTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Arez.deactivateZone( new Zone() ) );
-    assertEquals( exception.getMessage(), "Invoked Arez.deactivateZone() but zones are not enabled." );
+    assertEquals( exception.getMessage(), "Arez-0003: Invoked Arez.deactivateZone() but zones are not enabled." );
   }
 
   @Test
@@ -174,7 +174,7 @@ public class ArezTest
     ArezTestUtil.disableZones();
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, Arez::currentZone );
-    assertEquals( exception.getMessage(), "Invoked Arez.currentZone() but zones are not enabled." );
+    assertEquals( exception.getMessage(), "Arez-0005: Invoked Arez.currentZone() but zones are not enabled." );
   }
 
   @Test
@@ -183,6 +183,6 @@ public class ArezTest
     ArezTestUtil.enableZones();
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Arez.deactivateZone( new Zone() ) );
-    assertEquals( exception.getMessage(), "Attempted to deactivate zone that is not active." );
+    assertEquals( exception.getMessage(), "Arez-0004: Attempted to deactivate zone that is not active." );
   }
 }
