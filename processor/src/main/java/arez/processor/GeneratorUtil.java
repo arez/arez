@@ -3,7 +3,14 @@ package arez.processor;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
+import javax.lang.model.type.TypeMirror;
 
 @SuppressWarnings( "Duplicates" )
 final class GeneratorUtil
@@ -55,5 +62,52 @@ final class GeneratorUtil
     block.endControlFlow();
 
     builder.addCode( block.build() );
+  }
+
+  static void generateTryBlock( @Nonnull final MethodSpec.Builder builder,
+                                @Nonnull final List<? extends TypeMirror> expectedThrowTypes,
+                                @Nonnull final Consumer<CodeBlock.Builder> action )
+  {
+    final CodeBlock.Builder codeBlock = CodeBlock.builder();
+    codeBlock.beginControlFlow( "try" );
+
+    action.accept( codeBlock );
+
+    final boolean catchThrowable =
+      expectedThrowTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.Throwable" ) );
+    final boolean catchException =
+      expectedThrowTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.Exception" ) );
+    final boolean catchRuntimeException =
+      expectedThrowTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) );
+    int thrownCount = expectedThrowTypes.size();
+    final ArrayList<Object> args = new ArrayList<>();
+    args.addAll( expectedThrowTypes );
+    if ( !catchThrowable && !catchRuntimeException && !catchException )
+    {
+      thrownCount++;
+      args.add( TypeName.get( RuntimeException.class ) );
+    }
+    if ( !catchThrowable )
+    {
+      thrownCount++;
+      args.add( TypeName.get( Error.class ) );
+    }
+
+    args.add( CAUGHT_THROWABLE_NAME );
+
+    final String code =
+      "catch( final " +
+      IntStream.range( 0, thrownCount ).mapToObj( t -> "$T" ).collect( Collectors.joining( " | " ) ) +
+      " $N )";
+    codeBlock.nextControlFlow( code, args.toArray() );
+    codeBlock.addStatement( "throw $N", CAUGHT_THROWABLE_NAME );
+
+    if ( !catchThrowable )
+    {
+      codeBlock.nextControlFlow( "catch( final $T $N )", Throwable.class, CAUGHT_THROWABLE_NAME );
+      codeBlock.addStatement( "throw new $T( $N )", IllegalStateException.class, CAUGHT_THROWABLE_NAME );
+    }
+    codeBlock.endControlFlow();
+    builder.addCode( codeBlock.build() );
   }
 }
