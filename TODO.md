@@ -88,6 +88,16 @@ console.table(languages);
   that should never be present in compiled output if `areNamesEnabled` is false. Package Y should no be present
   in compiled output unless `areSpiesEnabled` is true etc.
 
+* Add a testing library that tests outputs. Given a `MyFile.symbolMap` and a set of configuration settings,
+  the library should have assertions that check certain combinations of files are never present. This could be used
+  by Arez itself but potentially also by downstream applications and libraries. Some candidate rules include:
+  - if `!areSpiesEnabled()` then no files in `arez.spy.*` nor `arez.Spy*` nor `arez.*InfoImpl`
+  - if `!areZonesEnabled()` then no `arez.Zone`
+  - if `!shouldEnforceTransactionType()` then no `arez.TransactionMode`
+  - if `!areNativeComponentsEnabled()` then no `arez.Component*`
+  - Never `arez.ArezTestUtil`
+  - etc.
+
 * Add test like https://github.com/Vertispan/gwt-typedarrays/pull/2/files#diff-1
   that compiles an application (TodoMVC?) in production versus development mode and verifies that the production
   app strips out things such as spies etc. Make sure that they appear in development mode.
