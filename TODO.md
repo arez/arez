@@ -8,6 +8,8 @@ complete as there is too much un-said.
 
 * Note somewhere that current error is `Arez-0172`
 
+* Should generate `@Autorun` method that throws an exception as should never call it directly.
+
 * Add option to not emit equals and hashcode methods if native components are not enabled and repository
   is not enabled. The GWT compiler has problems optimizing these methods away even when they are not used.
 
