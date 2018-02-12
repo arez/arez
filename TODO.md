@@ -121,10 +121,12 @@ console.table(languages);
     (This one is particularly interesting and explain a simple autorun "web framework")
   - "Why MobX?" - https://medium.com/@eugenkiss/why-mobx-e0530aacd482
 
+* Enhance runtime so we link to website documentation for each numbered error. i.e. Arez-0022 could be linked
+  to https://arez.github.io/errors.html#Arez-0022 For this we would need to enhanced the code that generates
+  invariant failure and add documentation to the website.
+
 * Change error message "Attempting to get current transaction but no transaction is active." to indicate why
-  this typically happens. What we should probably do is wrap all exceptions in _e(1234, "My Message") which
-  would allow us to point people at website for further explanation. Then we could expand the exception
-  explanations on the website.
+  this typically happens.
 
 * Add documentation for browser-extras.
 
