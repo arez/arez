@@ -195,7 +195,7 @@ public final class ArezContext
     }
     final Component component = new Component( this, type, id, name, preDispose, postDispose );
     map.put( id, component );
-    if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+    if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ComponentCreateStartedEvent( component ) );
     }
@@ -1027,7 +1027,7 @@ public final class ArezContext
     T result;
     try
     {
-      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() )
       {
         startedAt = System.currentTimeMillis();
         assert null != name;
@@ -1042,7 +1042,7 @@ public final class ArezContext
       {
         Transaction.commit( transaction );
       }
-      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() )
       {
         completed = true;
         final long duration = System.currentTimeMillis() - startedAt;
@@ -1058,7 +1058,7 @@ public final class ArezContext
     }
     finally
     {
-      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() )
       {
         if ( !completed )
         {
@@ -1183,7 +1183,7 @@ public final class ArezContext
     T result;
     try
     {
-      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() )
       {
         startedAt = System.currentTimeMillis();
         assert null != name;
@@ -1198,7 +1198,7 @@ public final class ArezContext
       {
         Transaction.commit( transaction );
       }
-      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() )
       {
         completed = true;
         final long duration = System.currentTimeMillis() - startedAt;
@@ -1214,7 +1214,7 @@ public final class ArezContext
     }
     finally
     {
-      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() )
       {
         if ( !completed )
         {
@@ -1346,7 +1346,7 @@ public final class ArezContext
     long startedAt = 0L;
     try
     {
-      if ( Arez.areSpiesEnabled() && reportAction && getSpy().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() && reportAction )
       {
         startedAt = System.currentTimeMillis();
         assert null != name;
@@ -1361,7 +1361,7 @@ public final class ArezContext
       {
         Transaction.commit( transaction );
       }
-      if ( Arez.areSpiesEnabled() && reportAction && getSpy().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() && reportAction )
       {
         completed = true;
         final long duration = System.currentTimeMillis() - startedAt;
@@ -1376,7 +1376,7 @@ public final class ArezContext
     }
     finally
     {
-      if ( Arez.areSpiesEnabled() && reportAction && getSpy().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() && reportAction )
       {
         if ( !completed )
         {
@@ -1490,7 +1490,7 @@ public final class ArezContext
     long startedAt = 0L;
     try
     {
-      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() )
       {
         startedAt = System.currentTimeMillis();
         assert null != name;
@@ -1505,7 +1505,7 @@ public final class ArezContext
       {
         Transaction.commit( transaction );
       }
-      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() )
       {
         completed = true;
         final long duration = System.currentTimeMillis() - startedAt;
@@ -1520,7 +1520,7 @@ public final class ArezContext
     }
     finally
     {
-      if ( Arez.areSpiesEnabled() && getSpy().willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() )
       {
         if ( !completed )
         {

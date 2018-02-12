@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[core\]** Ensure that `ArezContext.willPropagateSpyEvents()` is used internally rather than chaining
+  it with other checks such as `Arez.areSpiesEnabled()` which should be functionally equivalent but confuse
+  the GWT compiler so that it can not always perform DCE effectively.
+
 ### [v0.51](https://github.com/arez/arez/tree/v0.51) (2018-02-12)
 [Full Changelog](https://github.com/arez/arez/compare/v0.50...v0.51)
 
