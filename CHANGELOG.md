@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.51](https://github.com/arez/arez/tree/v0.51) (2018-02-12)
+[Full Changelog](https://github.com/arez/arez/compare/v0.50...v0.51)
 
 #### Fixed
 * **\[processor\]** The annotation processor generated multiple catch and throw blocks to handle declared
