@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
+import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -68,10 +69,17 @@ final class ObserverErrorHandlerSupport
       }
       catch ( final Throwable nestedError )
       {
-        final String message =
-          ArezUtil.safeGetString( () -> "Exception when notifying error handler '" + errorHandler + "' of '" +
-                                        error.name() + "' error in observer named '" + observer.getName() + "'." );
-        ArezLogger.log( message, nestedError );
+        if ( Arez.areNamesEnabled() && BrainCheckConfig.verboseErrorMessages() )
+        {
+          final String message =
+            ArezUtil.safeGetString( () -> "Exception when notifying error handler '" + errorHandler + "' of '" +
+                                          error.name() + "' error in observer named '" + observer.getName() + "'." );
+          ArezLogger.log( message, nestedError );
+        }
+        else
+        {
+          ArezLogger.log( "Error triggered when invoking ObserverErrorHandler.onObserverError()", nestedError );
+        }
       }
     }
   }

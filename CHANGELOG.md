@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+#### Changed
+* **\[core\]** Updated `ObserverErrorHandlerSupport` to improve dead code elimination in production mode.
+  Previously when an `ObserverErrorHandler` produced an error, the error handler would delegate to
+  `ThrowableUtil` to produce a detailed error message while the new code delegates to platform to decode
+  throwables and produces a slightly less comprehensive message.
+
 ### [v0.52](https://github.com/arez/arez/tree/v0.52) (2018-02-13)
 [Full Changelog](https://github.com/arez/arez/compare/v0.51...v0.52)
 

@@ -103,6 +103,7 @@ console.table(languages);
   - if `!areZonesEnabled()` then no `arez.Zone`
   - if `!shouldEnforceTransactionType()` then no `arez.TransactionMode`
   - if `!areNativeComponentsEnabled()` then no `arez.Component*`
+  - if `!areNamesEnabled()` then no `ThrowableUtil`
   - Never `arez.ArezTestUtil`
   - etc.
 
