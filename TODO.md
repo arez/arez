@@ -8,6 +8,9 @@ complete as there is too much un-said.
 
 * Note somewhere that current error is `Arez-0172`
 
+* Default to remove `java.util.Logging` in `ArezLogger` in production mode ... or better yet just
+  optimize out the class in production mode? Enforce that not present with test as below?
+
 * Should generate `@Autorun` method that throws an exception as should never call it directly.
 
 * Add option to not emit equals and hashcode methods if native components are not enabled and repository
