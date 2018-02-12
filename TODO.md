@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Note somewhere that current error is `Arez-0172`
+
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
   - `arez-browserlocation`
