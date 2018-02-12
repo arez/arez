@@ -5,6 +5,9 @@ package arez;
  */
 final class ArezConfig
 {
+  /**
+   * Valid values are: "production" and "development".
+   */
   private static final boolean PRODUCTION_MODE =
     "production".equals( System.getProperty( "arez.environment", "production" ) );
   private static boolean ENABLE_NAMES =
