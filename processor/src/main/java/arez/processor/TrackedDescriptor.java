@@ -290,40 +290,9 @@ final class TrackedDescriptor
     }
     statement.append( " )" );
 
-    final CodeBlock.Builder codeBlock = CodeBlock.builder();
-    codeBlock.beginControlFlow( "try" );
-
-    codeBlock.addStatement( statement.toString(), parameterNames.toArray() );
-
-    for ( final TypeMirror exception : thrownTypes )
-    {
-      codeBlock.nextControlFlow( "catch( final $T $N )", exception, GeneratorUtil.CAUGHT_THROWABLE_NAME );
-      codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
-    }
-
-    if ( thrownTypes.stream().noneMatch( t -> t.toString().equals( "java.lang.Throwable" ) ) )
-    {
-      if ( thrownTypes.stream().noneMatch( t -> t.toString().equals( "java.lang.Exception" ) ) )
-      {
-        if ( thrownTypes.stream().noneMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) ) )
-        {
-          codeBlock.nextControlFlow( "catch( final $T $N )",
-                                     RuntimeException.class,
-                                     GeneratorUtil.CAUGHT_THROWABLE_NAME );
-          codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
-        }
-        codeBlock.nextControlFlow( "catch( final $T $N )", Exception.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
-        codeBlock.addStatement( "throw new $T( $N )",
-                                IllegalStateException.class,
-                                GeneratorUtil.CAUGHT_THROWABLE_NAME );
-      }
-      codeBlock.nextControlFlow( "catch( final $T $N )", Error.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
-      codeBlock.addStatement( "throw $N", GeneratorUtil.CAUGHT_THROWABLE_NAME );
-      codeBlock.nextControlFlow( "catch( final $T $N )", Throwable.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
-      codeBlock.addStatement( "throw new $T( $N )", IllegalStateException.class, GeneratorUtil.CAUGHT_THROWABLE_NAME );
-    }
-    codeBlock.endControlFlow();
-    builder.addCode( codeBlock.build() );
+    GeneratorUtil.generateTryBlock( builder,
+                                    thrownTypes,
+                                    b -> b.addStatement( statement.toString(), parameterNames.toArray() ) );
 
     return builder.build();
   }

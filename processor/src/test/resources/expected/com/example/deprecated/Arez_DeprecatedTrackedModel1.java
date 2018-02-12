@@ -94,11 +94,7 @@ public final class Arez_DeprecatedTrackedModel1 extends DeprecatedTrackedModel1 
     }
     try {
       $$arez$$_context().safeTrack( this.$$arez$$_render, () -> super.render(time,someOtherParameter), time, someOtherParameter );
-    } catch( final RuntimeException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Exception $$arez$$_e ) {
-      throw new IllegalStateException( $$arez$$_e );
-    } catch( final Error $$arez$$_e ) {
+    } catch( final RuntimeException | Error $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
       throw new IllegalStateException( $$arez$$_e );

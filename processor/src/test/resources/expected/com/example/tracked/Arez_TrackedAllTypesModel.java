@@ -108,13 +108,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     }
     try {
       $$arez$$_context().track( this.$$arez$$_render2, () -> super.render2() );
-    } catch( final ParseException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final RuntimeException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Exception $$arez$$_e ) {
-      throw new IllegalStateException( $$arez$$_e );
-    } catch( final Error $$arez$$_e ) {
+    } catch( final ParseException | RuntimeException | Error $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
       throw new IllegalStateException( $$arez$$_e );
@@ -128,11 +122,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     }
     try {
       return $$arez$$_context().safeTrack( this.$$arez$$_render3, () -> super.render3() );
-    } catch( final RuntimeException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Exception $$arez$$_e ) {
-      throw new IllegalStateException( $$arez$$_e );
-    } catch( final Error $$arez$$_e ) {
+    } catch( final RuntimeException | Error $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
       throw new IllegalStateException( $$arez$$_e );
@@ -146,13 +136,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     }
     try {
       return $$arez$$_context().track( this.$$arez$$_render4, () -> super.render4() );
-    } catch( final ParseException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final RuntimeException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Exception $$arez$$_e ) {
-      throw new IllegalStateException( $$arez$$_e );
-    } catch( final Error $$arez$$_e ) {
+    } catch( final ParseException | RuntimeException | Error $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
       throw new IllegalStateException( $$arez$$_e );
@@ -166,11 +150,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     }
     try {
       $$arez$$_context().safeTrack( this.$$arez$$_render1, () -> super.render1() );
-    } catch( final RuntimeException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Exception $$arez$$_e ) {
-      throw new IllegalStateException( $$arez$$_e );
-    } catch( final Error $$arez$$_e ) {
+    } catch( final RuntimeException | Error $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
       throw new IllegalStateException( $$arez$$_e );

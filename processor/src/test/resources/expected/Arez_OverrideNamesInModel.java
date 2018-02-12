@@ -161,13 +161,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     }
     try {
       $$arez$$_context().track( this.$$arez$$_XX, () -> super.render() );
-    } catch( final ParseException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final RuntimeException $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Exception $$arez$$_e ) {
-      throw new IllegalStateException( $$arez$$_e );
-    } catch( final Error $$arez$$_e ) {
+    } catch( final ParseException | RuntimeException | Error $$arez$$_e ) {
       throw $$arez$$_e;
     } catch( final Throwable $$arez$$_e ) {
       throw new IllegalStateException( $$arez$$_e );

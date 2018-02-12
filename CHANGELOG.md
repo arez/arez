@@ -6,8 +6,8 @@
 * **\[processor\]** The annotation processor generated multiple catch and throw blocks to handle declared
   exceptions on actions. This resulted in significantly more complex code. The processor was updated to use
   the `multi-catch` feature introduced in Java 7SE to simplify the code.
-* **\[processor\]** Enhance the annotation processor to collapse multiple catch blocks in actions to reduce
-  code size and simplify generated code.
+* **\[processor\]** Enhance the annotation processor to collapse multiple catch blocks in actions and tracked
+  observers to reduce code size and simplify generated code.
 
 #### Changed
 * Removed the usage of the gwt internal `@ForceInline` annotation. Measurements indicated it had no impact
