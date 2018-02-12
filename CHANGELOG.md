@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.52](https://github.com/arez/arez/tree/v0.52) (2018-02-13)
+[Full Changelog](https://github.com/arez/arez/compare/v0.51...v0.52)
 
 #### Fixed
 * **\[core\]** Ensure that `ArezContext.willPropagateSpyEvents()` is used internally rather than chaining
