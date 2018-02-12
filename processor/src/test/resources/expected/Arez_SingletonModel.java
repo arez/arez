@@ -162,9 +162,6 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     }
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    }
     try {
       $$arez$$_context().safeTrack( this.$$arez$$_render, () -> super.render() );
     } catch( final RuntimeException $$arez$$_e ) {

@@ -12,6 +12,9 @@
   classes where an invariant check is generated. This works around a limitation in GWT 2.x dead code
   elimination optimization and ensures that all the lambdas created for invariant checking are optimized
   out in production mode.
+* **\[processor\]** Fixed a bug where methods annotated `@Track` generated duplicate invariant checking
+  code. This could significantly slow down development mode, particularly as `@Track` observers are often
+  the most common type of observer within web applications using Arez.
 
 #### Added
 * **\[core\]** Introduce the configuration setting `arez.check_invariants` and `arez.check_api_invariants`

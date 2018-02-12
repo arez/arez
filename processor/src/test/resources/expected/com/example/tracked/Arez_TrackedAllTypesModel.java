@@ -106,9 +106,6 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     }
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    }
     try {
       $$arez$$_context().track( this.$$arez$$_render2, () -> super.render2() );
     } catch( final ParseException $$arez$$_e ) {
@@ -126,9 +123,6 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
 
   @Override
   protected int render3() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     }
@@ -150,9 +144,6 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     }
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    }
     try {
       return $$arez$$_context().track( this.$$arez$$_render4, () -> super.render4() );
     } catch( final ParseException $$arez$$_e ) {
@@ -170,9 +161,6 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
 
   @Override
   public void render1() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
-    }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
     }

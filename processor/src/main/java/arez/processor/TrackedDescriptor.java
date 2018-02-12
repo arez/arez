@@ -290,8 +290,6 @@ final class TrackedDescriptor
     }
     statement.append( " )" );
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
-
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "try" );
 
