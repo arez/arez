@@ -20,7 +20,7 @@
 * **\[core\]** Introduce the configuration setting `arez.check_invariants` and `arez.check_api_invariants`
   that provide mechanisms to explicitly control whether invariants checking is enabled in the Arez library.
   Add support methods `Arez.shouldCheckInvariants()` and `Arez.shouldCheckApiInvariants()` that expose this
-  configuration to application code. 
+  configuration to application code.
 
 #### Changed
 * Upgrade the braincheck dependency to `1.4.0`.
