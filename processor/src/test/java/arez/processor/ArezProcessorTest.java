@@ -646,6 +646,8 @@ public class ArezProcessorTest
                       "Method annotated with @Observable specified name x that duplicates @Computed defined by method m1" },
         new Object[]{ "com.example.tracked.TrackedDuplicatedModel",
                       "@Track target duplicates existing method named render" },
+        new Object[]{ "com.example.tracked.TrackedDuplicatedName",
+                      "Method annotated with @Computed specified name render that duplicates @Track defined by method render" },
         new Object[]{ "com.example.tracked.TrackedAbstractModel", "@Track target must not be abstract" },
         new Object[]{ "com.example.tracked.TrackedFinalModel", "@Track target must not be final" },
         new Object[]{ "com.example.tracked.TrackedNotStaticModel", "@Track target must not be static" },
