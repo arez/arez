@@ -9,6 +9,8 @@
 * **\[processor\]** The methods on the generated repository and the repository class itself incorrectly
   had defined the access level as public. This has been corrected so that the access level of the component
   class determines the access level of the methods and the repository type.
+* **\[processor\]** Make sure that the annotation processor copies documented annotations when implementing
+  the method annotated by `@ComponentNameRef`.
 
 #### Changed
 * **\[core\]** Updated `ObserverErrorHandlerSupport` to improve dead code elimination in production mode.

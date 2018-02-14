@@ -62,6 +62,7 @@ final class Arez_RepositoryWithMultipleCtorsRepository extends RepositoryWithMul
     return $$arez$$_id();
   }
 
+  @Nonnull
   protected final String getRepositoryName() {
     return "RepositoryWithMultipleCtorsRepository";
   }

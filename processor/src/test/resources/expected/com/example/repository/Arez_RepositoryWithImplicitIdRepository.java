@@ -62,6 +62,7 @@ final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplic
     return $$arez$$_id();
   }
 
+  @Nonnull
   protected final String getRepositoryName() {
     return "RepositoryWithImplicitIdRepository";
   }

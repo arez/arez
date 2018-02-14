@@ -62,6 +62,7 @@ final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledReposi
     return $$arez$$_id();
   }
 
+  @Nonnull
   protected final String getRepositoryName() {
     return "DaggerDisabledRepositoryRepository";
   }

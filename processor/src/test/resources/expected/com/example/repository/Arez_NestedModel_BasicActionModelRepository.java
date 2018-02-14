@@ -62,6 +62,7 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
     return $$arez$$_id();
   }
 
+  @Nonnull
   protected final String getRepositoryName() {
     return "NestedModel_BasicActionModelRepository";
   }

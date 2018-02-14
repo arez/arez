@@ -62,6 +62,7 @@ final class Arez_RepositoryWithSingletonRepository extends RepositoryWithSinglet
     return $$arez$$_id();
   }
 
+  @Nonnull
   protected final String getRepositoryName() {
     return "RepositoryWithSingletonRepository";
   }

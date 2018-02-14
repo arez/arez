@@ -1798,6 +1798,7 @@ final class ComponentDescriptor
     else
     {
       builder = MethodSpec.methodBuilder( _componentName.getSimpleName().toString() );
+      ProcessorUtil.copyDocumentedAnnotations( _componentName, builder );
       ProcessorUtil.copyAccessModifiers( _componentName, builder );
       builder.addModifiers( Modifier.FINAL );
     }

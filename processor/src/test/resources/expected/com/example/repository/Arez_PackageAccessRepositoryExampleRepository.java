@@ -62,6 +62,7 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
     return $$arez$$_id();
   }
 
+  @Nonnull
   protected final String getRepositoryName() {
     return "PackageAccessRepositoryExampleRepository";
   }

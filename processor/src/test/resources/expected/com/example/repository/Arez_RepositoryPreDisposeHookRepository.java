@@ -62,6 +62,7 @@ final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDispose
     return $$arez$$_id();
   }
 
+  @Nonnull
   protected final String getRepositoryName() {
     return "RepositoryPreDisposeHookRepository";
   }

@@ -62,6 +62,7 @@ final class Arez_RepositoryWithProtectedConstructorRepository extends Repository
     return $$arez$$_id();
   }
 
+  @Nonnull
   protected final String getRepositoryName() {
     return "RepositoryWithProtectedConstructorRepository";
   }
