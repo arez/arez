@@ -235,6 +235,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
    * @return the context associated with the repository.
    */
   @ContextRef
+  @Nonnull
   protected abstract ArezContext getContext();
 
   /**
@@ -243,6 +244,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
    * @return the name associated with the repository.
    */
   @ComponentNameRef
+  @Nonnull
   protected abstract String getRepositoryName();
 
   /**
@@ -253,6 +255,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
    * @return the Arez observable associated with entities observable property.
    */
   @ObservableRef
+  @Nonnull
   protected abstract Observable getEntitiesObservable();
 
   /**

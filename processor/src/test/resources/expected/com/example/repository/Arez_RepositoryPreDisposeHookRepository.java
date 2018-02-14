@@ -47,6 +47,7 @@ final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDispose
   }
 
   @Override
+  @Nonnull
   protected final ArezContext getContext() {
     return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
   }
@@ -101,6 +102,7 @@ final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDispose
     return super.entities();
   }
 
+  @Nonnull
   @Override
   protected Observable getEntitiesObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
