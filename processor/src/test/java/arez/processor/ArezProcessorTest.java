@@ -106,6 +106,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.repository.PackageAccessRepositoryExample", false, true, true },
         new Object[]{ "com.example.repository.RepositoryPreDisposeHook", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithExplicitId", false, true, true },
+        new Object[]{ "com.example.repository.RepositoryWithExplicitNonStandardId", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithImplicitId", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithMultipleCtors", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithProtectedConstructor", false, true, true },

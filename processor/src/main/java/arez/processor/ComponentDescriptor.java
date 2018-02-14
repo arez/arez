@@ -2414,15 +2414,16 @@ final class ComponentDescriptor
   @Nonnull
   private String getIdName()
   {
-    if ( null != _componentId )
+    assert null != _componentId;
+    final String name = ProcessorUtil.deriveName( _componentId, GETTER_PATTERN, ProcessorUtil.SENTINEL_NAME );
+    if ( null != name )
     {
-      final String name = ProcessorUtil.deriveName( _componentId, GETTER_PATTERN, ProcessorUtil.SENTINEL_NAME );
-      if ( null != name )
-      {
-        return Character.toUpperCase( name.charAt( 0 ) ) + ( name.length() > 1 ? name.substring( 1 ) : "" );
-      }
+      return Character.toUpperCase( name.charAt( 0 ) ) + ( name.length() > 1 ? name.substring( 1 ) : "" );
     }
-    return "Id";
+    else
+    {
+      return "Id";
+    }
   }
 
   @Nonnull
