@@ -2267,7 +2267,7 @@ final class ComponentDescriptor
 
     builder.superclass( ParameterizedTypeName.get( GeneratorUtil.ABSTRACT_REPOSITORY_CLASSNAME,
                                                    getIdType().box(),
-                                                   ClassName.get( getElement() ),
+                                                   ClassName.get( element ),
                                                    ClassName.get( getPackageName(), getRepositoryName() ) ) );
 
     _repositoryExtensions.forEach( e -> builder.addSuperinterface( TypeName.get( e.asType() ) ) );
@@ -2282,7 +2282,7 @@ final class ComponentDescriptor
     // Add the factory method
     builder.addMethod( buildFactoryMethod() );
 
-    for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( getElement() ) )
+    for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( element ) )
     {
       final ExecutableType methodType =
         (ExecutableType) typeUtils.asMemberOf( (DeclaredType) _element.asType(), constructor );
