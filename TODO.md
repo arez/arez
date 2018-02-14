@@ -18,7 +18,6 @@ complete as there is too much un-said.
   - `arez-browserlocation`
   - `arez-promise`
   - `arez-ticker`
-  - `arez-when`
 
 * Add new browser based library:
   - `arez-localstorage`: stores a value under a key and updates store if changed. Will need a serializer
