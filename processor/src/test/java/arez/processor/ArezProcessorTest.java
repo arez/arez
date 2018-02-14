@@ -476,6 +476,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observable_ref.DuplicateRefMethodModel",
                       "Method annotated with @ObservableRef defines duplicate ref accessor for observable named time" },
         new Object[]{ "com.example.observable_ref.FinalModel", "@ObservableRef target must not be final" },
+        new Object[]{ "com.example.observable_ref.NonAbstractModel", "@ObservableRef target must be abstract" },
         new Object[]{ "com.example.observable_ref.NonAlignedNameModel",
                       "Method annotated with @ObservableRef should specify name or be named according to the convention get[Name]Observable" },
         new Object[]{ "com.example.observable_ref.NoObservableModel",
