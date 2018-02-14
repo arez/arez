@@ -36,7 +36,7 @@ final class GeneratorUtil
 
   static final String FIELD_PREFIX = "$$arez$$_";
   static final String OBSERVABLE_FIELD_PREFIX = FIELD_PREFIX + "$$data$$_";
-  static final String CAUGHT_THROWABLE_NAME = FIELD_PREFIX + "e";
+  private static final String CAUGHT_THROWABLE_NAME = FIELD_PREFIX + "e";
   static final String DISPOSED_FIELD_NAME = FIELD_PREFIX + "disposed";
   static final String DISPOSED_OBSERVABLE_FIELD_NAME = FIELD_PREFIX + "disposedObservable";
   static final String ID_FIELD_NAME = FIELD_PREFIX + "id";
