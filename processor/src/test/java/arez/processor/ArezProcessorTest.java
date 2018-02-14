@@ -728,6 +728,8 @@ public class ArezProcessorTest
                       "Method can not be annotated with both @Computed and @ComponentId" },
         new Object[]{ "com.example.name_duplicates.ComputedAndPreDisposeMethodModel",
                       "Method can not be annotated with both @Computed and @PreDispose" },
+        new Object[]{ "com.example.name_duplicates.ComputedAndTrackMethodModel",
+                      "Method can not be annotated with both @Track and @Computed" },
         new Object[]{ "com.example.name_duplicates.ComputedAndPostDisposeMethodModel",
                       "Method can not be annotated with both @Computed and @PostDispose" },
         new Object[]{ "com.example.name_duplicates.ComputedAndOnActivateMethodModel",
