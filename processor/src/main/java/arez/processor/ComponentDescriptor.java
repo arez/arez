@@ -94,9 +94,9 @@ final class ComponentDescriptor
   @Nullable
   private ExecutableElement _contextRef;
   @Nullable
-  private ExecutableElement _componentTypeName;
+  private ExecutableElement _componentTypeNameRef;
   @Nullable
-  private ExecutableElement _componentName;
+  private ExecutableElement _componentNameRef;
   @Nullable
   private ExecutableElement _preDispose;
   @Nullable
@@ -840,14 +840,14 @@ final class ComponentDescriptor
       throw new ArezProcessorException( "@ComponentTypeNameRef target must return a String", componentTypeName );
     }
 
-    if ( null != _componentTypeName )
+    if ( null != _componentTypeNameRef )
     {
       throw new ArezProcessorException( "@ComponentTypeNameRef target duplicates existing method named " +
-                                        _componentTypeName.getSimpleName(), componentTypeName );
+                                        _componentTypeNameRef.getSimpleName(), componentTypeName );
     }
     else
     {
-      _componentTypeName = Objects.requireNonNull( componentTypeName );
+      _componentTypeNameRef = Objects.requireNonNull( componentTypeName );
     }
   }
 
@@ -860,14 +860,14 @@ final class ComponentDescriptor
     MethodChecks.mustReturnAValue( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
 
-    if ( null != _componentName )
+    if ( null != _componentNameRef )
     {
       throw new ArezProcessorException( "@ComponentNameRef target duplicates existing method named " +
-                                        _componentName.getSimpleName(), componentName );
+                                        _componentNameRef.getSimpleName(), componentName );
     }
     else
     {
-      _componentName = Objects.requireNonNull( componentName );
+      _componentNameRef = Objects.requireNonNull( componentName );
     }
   }
 
@@ -1700,7 +1700,7 @@ final class ComponentDescriptor
   @Nonnull
   String getComponentNameMethodName()
   {
-    return null == _componentName ? GeneratorUtil.NAME_METHOD_NAME : _componentName.getSimpleName().toString();
+    return null == _componentNameRef ? GeneratorUtil.NAME_METHOD_NAME : _componentNameRef.getSimpleName().toString();
   }
 
   @Nonnull
@@ -1789,15 +1789,15 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     final MethodSpec.Builder builder;
-    if ( null == _componentName )
+    if ( null == _componentNameRef )
     {
       builder = MethodSpec.methodBuilder( GeneratorUtil.NAME_METHOD_NAME );
     }
     else
     {
-      builder = MethodSpec.methodBuilder( _componentName.getSimpleName().toString() );
-      ProcessorUtil.copyDocumentedAnnotations( _componentName, builder );
-      ProcessorUtil.copyAccessModifiers( _componentName, builder );
+      builder = MethodSpec.methodBuilder( _componentNameRef.getSimpleName().toString() );
+      ProcessorUtil.copyDocumentedAnnotations( _componentNameRef, builder );
+      ProcessorUtil.copyAccessModifiers( _componentNameRef, builder );
       builder.addModifiers( Modifier.FINAL );
     }
 
@@ -1817,14 +1817,14 @@ final class ComponentDescriptor
   private MethodSpec buildComponentTypeNameMethod()
     throws ArezProcessorException
   {
-    if ( null == _componentTypeName )
+    if ( null == _componentTypeNameRef )
     {
       return null;
     }
 
     final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( _componentTypeName.getSimpleName().toString() );
-    ProcessorUtil.copyAccessModifiers( _componentTypeName, builder );
+      MethodSpec.methodBuilder( _componentTypeNameRef.getSimpleName().toString() );
+    ProcessorUtil.copyAccessModifiers( _componentTypeNameRef, builder );
     builder.addModifiers( Modifier.FINAL );
     builder.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
 
