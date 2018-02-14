@@ -125,7 +125,7 @@ final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledReposito
 
   @Nonnull
   @Override
-  InjectEnabledRepository create(@Nonnull final String name) {
+  public InjectEnabledRepository create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     }

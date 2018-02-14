@@ -125,7 +125,7 @@ final class Arez_RepositoryWithMultipleCtorsRepository extends RepositoryWithMul
 
   @Nonnull
   @Override
-  RepositoryWithMultipleCtors create() {
+  public RepositoryWithMultipleCtors create() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     }
@@ -140,7 +140,7 @@ final class Arez_RepositoryWithMultipleCtorsRepository extends RepositoryWithMul
 
   @Nonnull
   @Override
-  RepositoryWithMultipleCtors create(@Nonnull final String packageName,
+  public RepositoryWithMultipleCtors create(@Nonnull final String packageName,
       @Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
@@ -156,7 +156,7 @@ final class Arez_RepositoryWithMultipleCtorsRepository extends RepositoryWithMul
 
   @Nonnull
   @Override
-  RepositoryWithMultipleCtors create(@Nonnull final String name) {
+  public RepositoryWithMultipleCtors create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     }

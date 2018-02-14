@@ -125,7 +125,7 @@ final class Arez_RepositoryWithProtectedConstructorRepository extends Repository
 
   @Nonnull
   @Override
-  protected RepositoryWithProtectedConstructor create(@Nonnull final String name) {
+  public RepositoryWithProtectedConstructor create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     }

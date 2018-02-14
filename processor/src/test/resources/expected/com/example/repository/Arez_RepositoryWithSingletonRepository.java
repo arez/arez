@@ -125,7 +125,7 @@ final class Arez_RepositoryWithSingletonRepository extends RepositoryWithSinglet
 
   @Nonnull
   @Override
-  RepositoryWithSingleton create(@Nonnull final String name) {
+  public RepositoryWithSingleton create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     }

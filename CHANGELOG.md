@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+#### Fixed
+
+* **\[processor\]** The `create` methods on the generated repository incorrectly had their access level
+  determined by the access level of the associated components constructor. This has been corrected so
+  that the access level of the component class determines the access level of the method.
+
 #### Changed
 * **\[core\]** Updated `ObserverErrorHandlerSupport` to improve dead code elimination in production mode.
   Previously when an `ObserverErrorHandler` produced an error, the error handler would delegate to

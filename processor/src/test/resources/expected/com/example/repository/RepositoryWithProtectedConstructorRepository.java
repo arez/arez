@@ -25,7 +25,7 @@ public abstract class RepositoryWithProtectedConstructorRepository extends Abstr
       name = "create_name"
   )
   @Nonnull
-  protected RepositoryWithProtectedConstructor create(@Nonnull final String name) {
+  public RepositoryWithProtectedConstructor create(@Nonnull final String name) {
     final Arez_RepositoryWithProtectedConstructor entity = new Arez_RepositoryWithProtectedConstructor(name);
     registerEntity( entity );
     return entity;

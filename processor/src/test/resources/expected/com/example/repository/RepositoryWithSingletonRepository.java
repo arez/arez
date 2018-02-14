@@ -25,7 +25,7 @@ public abstract class RepositoryWithSingletonRepository extends AbstractReposito
       name = "create_name"
   )
   @Nonnull
-  RepositoryWithSingleton create(@Nonnull final String name) {
+  public RepositoryWithSingleton create(@Nonnull final String name) {
     final Arez_RepositoryWithSingleton entity = new Arez_RepositoryWithSingleton(name);
     registerEntity( entity );
     return entity;

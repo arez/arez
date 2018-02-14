@@ -26,7 +26,8 @@ public abstract class CompleteRepositoryExampleRepository extends AbstractReposi
       name = "create_packageName_name"
   )
   @Nonnull
-  CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {
+  public CompleteRepositoryExample create(@Nonnull final String packageName,
+      @Nonnull final String name) {
     final Arez_CompleteRepositoryExample entity = new Arez_CompleteRepositoryExample(packageName,name);
     registerEntity( entity );
     return entity;

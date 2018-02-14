@@ -125,7 +125,8 @@ final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWithExplic
 
   @Nonnull
   @Override
-  RepositoryWithExplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
+  public RepositoryWithExplicitId create(@Nonnull final String packageName,
+      @Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     }

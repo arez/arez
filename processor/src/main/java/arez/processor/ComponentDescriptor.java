@@ -2375,7 +2375,7 @@ final class ComponentDescriptor
         addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
         returns( TypeName.get( asDeclaredType() ) );
 
-    ProcessorUtil.copyAccessModifiers( constructor, builder );
+    ProcessorUtil.copyAccessModifiers( getElement(), builder );
     ProcessorUtil.copyExceptions( methodType, builder );
     ProcessorUtil.copyTypeParameters( methodType, builder );
 

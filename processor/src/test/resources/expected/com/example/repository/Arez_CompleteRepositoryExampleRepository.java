@@ -125,7 +125,8 @@ final class Arez_CompleteRepositoryExampleRepository extends CompleteRepositoryE
 
   @Nonnull
   @Override
-  CompleteRepositoryExample create(@Nonnull final String packageName, @Nonnull final String name) {
+  public CompleteRepositoryExample create(@Nonnull final String packageName,
+      @Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     }

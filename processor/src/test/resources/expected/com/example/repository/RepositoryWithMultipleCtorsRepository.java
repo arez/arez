@@ -25,7 +25,7 @@ public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepo
       name = "create_packageName_name"
   )
   @Nonnull
-  RepositoryWithMultipleCtors create(@Nonnull final String packageName,
+  public RepositoryWithMultipleCtors create(@Nonnull final String packageName,
       @Nonnull final String name) {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(packageName,name);
     registerEntity( entity );
@@ -36,7 +36,7 @@ public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepo
       name = "create_name"
   )
   @Nonnull
-  RepositoryWithMultipleCtors create(@Nonnull final String name) {
+  public RepositoryWithMultipleCtors create(@Nonnull final String name) {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(name);
     registerEntity( entity );
     return entity;
@@ -46,7 +46,7 @@ public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepo
       name = "create"
   )
   @Nonnull
-  RepositoryWithMultipleCtors create() {
+  public RepositoryWithMultipleCtors create() {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors();
     registerEntity( entity );
     return entity;

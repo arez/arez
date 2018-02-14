@@ -125,7 +125,7 @@ final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDispose
 
   @Nonnull
   @Override
-  RepositoryPreDisposeHook create(@Nonnull final String name) {
+  public RepositoryPreDisposeHook create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     }

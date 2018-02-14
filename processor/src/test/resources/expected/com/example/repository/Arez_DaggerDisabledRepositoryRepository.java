@@ -125,7 +125,7 @@ final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledReposi
 
   @Nonnull
   @Override
-  DaggerDisabledRepository create(@Nonnull final String name) {
+  public DaggerDisabledRepository create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
     }
