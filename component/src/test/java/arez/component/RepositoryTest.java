@@ -374,18 +374,21 @@ public class RepositoryTest
       return new MyRepository();
     }
 
+    @Nonnull
     @Override
     protected String getRepositoryName()
     {
       return "MyRepository";
     }
 
+    @Nonnull
     @Override
     protected ArezContext getContext()
     {
       return Arez.context();
     }
 
+    @Nonnull
     @Override
     protected Observable getEntitiesObservable()
     {
