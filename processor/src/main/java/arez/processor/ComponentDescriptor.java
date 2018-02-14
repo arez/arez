@@ -55,8 +55,6 @@ final class ComponentDescriptor
     Arrays.asList( "hashCode", "equals", "clone", "toString", "finalize", "getClass", "wait", "notifyAll", "notify" );
 
   @Nullable
-  private String _repositoryName;
-  @Nullable
   private List<TypeElement> _repositoryExtensions;
   /**
    * Flag controlling whether dagger module is created for repository.
@@ -2172,7 +2170,7 @@ final class ComponentDescriptor
 
   boolean hasRepository()
   {
-    return null != _repositoryName;
+    return null != _repositoryExtensions;
   }
 
   @SuppressWarnings( "ConstantConditions" )
@@ -2185,24 +2183,6 @@ final class ComponentDescriptor
     assert null != extensions;
     _repositoryInjectConfig = repositoryInjectConfig;
     _repositoryDaggerConfig = repositoryDaggerConfig;
-    if ( ProcessorUtil.isSentinelName( name ) )
-    {
-      _repositoryName = _type + "Repository";
-    }
-    else
-    {
-      if ( !SourceVersion.isIdentifier( name ) )
-      {
-        throw new ArezProcessorException( "@Repository target specified an invalid name '" + name + "'. The " +
-                                          "name must be a valid java identifier.", _element );
-      }
-      else if ( SourceVersion.isKeyword( name ) )
-      {
-        throw new ArezProcessorException( "@Repository target specified an invalid name '" + name + "'. The " +
-                                          "name must not be a java keyword.", _element );
-      }
-      _repositoryName = name;
-    }
     for ( final TypeElement extension : extensions )
     {
       if ( ElementKind.INTERFACE != extension.getKind() )

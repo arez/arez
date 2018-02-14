@@ -23,6 +23,7 @@
 * **\[processor\]** Added checks in the annotation processor that names are not keywords. This can cause
   problems during code generation.
 * **\[component\]** Added some nullability annotations to the ref methods in the `AbstractRepository` class.
+* **\[annotations\]** Remove the `name` parameter from the `@Repository` annotation as it is no longer unused.
 
 ### [v0.52](https://github.com/arez/arez/tree/v0.52) (2018-02-13)
 [Full Changelog](https://github.com/arez/arez/compare/v0.51...v0.52)

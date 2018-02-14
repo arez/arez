@@ -783,11 +783,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.repository.RepositoryExtensionHasBadSelf",
                       "Class annotated with @Repository defined an extension that has a non default method. Extension: com.example.repository.RepositoryExtensionHasBadSelf.Foo Method: self(int)" },
         new Object[]{ "com.example.repository.RepositoryExtensionHasAbstractMethod",
-                      "Class annotated with @Repository defined an extension that has a non default method. Extension: com.example.repository.RepositoryExtensionHasAbstractMethod.Foo Method: other(int)" },
-        new Object[]{ "com.example.repository.RepositoryBadName",
-                      "@Repository target specified an invalid name '-abc'. The name must be a valid java identifier." },
-        new Object[]{ "com.example.repository.RepositoryBadName2",
-                      "@Repository target specified an invalid name 'package'. The name must not be a java keyword." }
+                      "Class annotated with @Repository defined an extension that has a non default method. Extension: com.example.repository.RepositoryExtensionHasAbstractMethod.Foo Method: other(int)" }
       };
   }
 
