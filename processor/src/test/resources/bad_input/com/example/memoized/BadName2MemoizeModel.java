@@ -6,7 +6,7 @@ import arez.annotations.Memoize;
 @ArezComponent
 public abstract class BadName2MemoizeModel
 {
-  @Memoize( name = "ace-" )
+  @Memoize( name = "protected" )
   int getField( int key )
   {
     return 0;

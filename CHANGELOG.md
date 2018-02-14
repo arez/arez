@@ -7,6 +7,11 @@
   Previously when an `ObserverErrorHandler` produced an error, the error handler would delegate to
   `ThrowableUtil` to produce a detailed error message while the new code delegates to platform to decode
   throwables and produces a slightly less comprehensive message.
+* **\[processor\]** Used code supplied by the JVM to detect whether a name is a valid java identifier and
+  removed custom code to detect whether name is a java identifier. Enhanced the exceptions to give greater
+  context to why a name is invalid.
+* **\[processor\]** Added checks in the annotation processor that names are not keywords. This can cause
+  problems during code generation.
 
 ### [v0.52](https://github.com/arez/arez/tree/v0.52) (2018-02-13)
 [Full Changelog](https://github.com/arez/arez/compare/v0.51...v0.52)

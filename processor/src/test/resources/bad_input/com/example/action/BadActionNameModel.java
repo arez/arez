@@ -6,7 +6,7 @@ import arez.annotations.ArezComponent;
 @ArezComponent
 public abstract class BadActionNameModel
 {
-  @Action( name = "-ace" )
+  @Action( name = "assert" )
   public void setField()
   {
   }

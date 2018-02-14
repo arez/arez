@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -240,10 +241,15 @@ final class ComponentDescriptor
     if ( !ProcessorUtil.isSentinelName( declaredName ) )
     {
       name = declaredName;
-      if ( !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "Method annotated with @Observable specified invalid name " + name,
-                                          method );
+        throw new ArezProcessorException( "@Observable target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@Observable target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
       }
     }
     checkNameUnique( name, method, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
@@ -325,10 +331,15 @@ final class ComponentDescriptor
     else
     {
       name = declaredName;
-      if ( !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "Method annotated with @ObservableRef specified invalid name " + name,
-                                          method );
+        throw new ArezProcessorException( "@ObservableRef target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@ObservableRef target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
       }
     }
 
@@ -382,9 +393,15 @@ final class ComponentDescriptor
     }
     else
     {
-      if ( !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "Method annotated with @Action specified invalid name " + name, method );
+        throw new ArezProcessorException( "@Action target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@Action target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
       }
       return name;
     }
@@ -419,9 +436,15 @@ final class ComponentDescriptor
     }
     else
     {
-      if ( !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "Method annotated with @Autorun specified invalid name " + name, method );
+        throw new ArezProcessorException( "@Autorun target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@Autorun target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
       }
       return name;
     }
@@ -463,9 +486,15 @@ final class ComponentDescriptor
     }
     else
     {
-      if ( !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "Method annotated with @Track specified invalid name " + name, method );
+        throw new ArezProcessorException( "@Track target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@Track target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
       }
       return name;
     }
@@ -503,10 +532,15 @@ final class ComponentDescriptor
     else
     {
       name = declaredName;
-      if ( !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "Method annotated with @ObserverRef specified invalid name " + name,
-                                          method );
+        throw new ArezProcessorException( "@ObserverRef target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@ObserverRef target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
       }
     }
     if ( _observerRefs.containsKey( name ) )
@@ -565,10 +599,15 @@ final class ComponentDescriptor
     else
     {
       name = declaredName;
-      if ( !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "Method annotated with @ComputedValueRef specified invalid name " + name,
-                                          method );
+        throw new ArezProcessorException( "@ComputedValueRef target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@ComputedValueRef target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
       }
     }
 
@@ -587,9 +626,15 @@ final class ComponentDescriptor
     }
     else
     {
-      if ( !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "Method annotated with @Computed specified invalid name " + name, method );
+        throw new ArezProcessorException( "@Computed target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@Computed target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
       }
       return name;
     }
@@ -617,9 +662,15 @@ final class ComponentDescriptor
     }
     else
     {
-      if ( !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "Method annotated with @Memoize specified invalid name " + name, method );
+        throw new ArezProcessorException( "@Memoize target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@Memoize target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
       }
       return name;
     }
@@ -680,10 +731,15 @@ final class ComponentDescriptor
       throw new ArezProcessorException( "Unable to derive name for @On" + type + " as does not match " +
                                         "on[Name]" + type + " pattern. Please specify name.", method );
     }
-    else if ( !ProcessorUtil.isJavaIdentifier( value ) )
+    else if ( !SourceVersion.isIdentifier( value ) )
     {
-      throw new ArezProcessorException( "Method annotated with @On" + type + " specified invalid name " + value,
-                                        method );
+      throw new ArezProcessorException( "@On" + type + " target specified an invalid name '" + value + "'. The " +
+                                        "name must be a valid java identifier.", _element );
+    }
+    else if ( SourceVersion.isKeyword( value ) )
+    {
+      throw new ArezProcessorException( "@On" + type + " target specified an invalid name '" + value + "'. The " +
+                                        "name must not be a java keyword.", _element );
     }
     else
     {
@@ -2134,10 +2190,15 @@ final class ComponentDescriptor
     }
     else
     {
-      if ( !ProcessorUtil.isJavaIdentifier( name ) )
+      if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "Class annotated with @Repository specified an invalid name " + name,
-                                          _element );
+        throw new ArezProcessorException( "@Repository target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", _element );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@Repository target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", _element );
       }
       _repositoryName = name;
     }

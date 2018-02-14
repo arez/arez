@@ -150,9 +150,15 @@ public final class ArezProcessor
     final String type =
       ProcessorUtil.isSentinelName( declaredType ) ? typeElement.getSimpleName().toString() : declaredType;
 
-    if ( !ProcessorUtil.isJavaIdentifier( type ) )
+    if ( !SourceVersion.isIdentifier( type ) )
     {
-      throw new ArezProcessorException( "@ArezComponent specified invalid type parameter", typeElement );
+      throw new ArezProcessorException( "@ArezComponent target specified an invalid type '" + type + "'. The " +
+                                        "type must be a valid java identifier.", typeElement );
+    }
+    else if ( SourceVersion.isKeyword( type ) )
+    {
+      throw new ArezProcessorException( "@ArezComponent target specified an invalid type '" + type + "'. The " +
+                                        "type must not be a java keyword.", typeElement );
     }
 
     if ( !scopeAnnotations.isEmpty() && ProcessorUtil.getConstructors( typeElement ).size() > 1 )
