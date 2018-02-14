@@ -34,7 +34,7 @@ public abstract class CompleteRepositoryExampleRepository extends AbstractReposi
   }
 
   @Nullable
-  public CompleteRepositoryExample findById(final int id) {
+  public final CompleteRepositoryExample findById(final int id) {
     return findByArezId( id );
   }
 

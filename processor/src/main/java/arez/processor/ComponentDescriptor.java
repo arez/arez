@@ -2327,35 +2327,40 @@ final class ComponentDescriptor
   {
     assert null != _componentId;
 
-    return MethodSpec.methodBuilder( "findBy" + getIdName() ).
-      addModifiers( Modifier.PUBLIC ).
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( "findBy" + getIdName() ).
+      addModifiers( Modifier.FINAL ).
       addParameter( ParameterSpec.builder( getIdType(), "id", Modifier.FINAL ).build() ).
       addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME ).
       returns( TypeName.get( getElement().asType() ) ).
-      addStatement( "return findByArezId( id )" ).build();
+      addStatement( "return findByArezId( id )" );
+    ProcessorUtil.copyAccessModifiers( getElement(), method );
+    return method.build();
   }
 
   @Nonnull
   private MethodSpec buildGetByIdMethod()
   {
     final TypeName entityType = TypeName.get( getElement().asType() );
-    return MethodSpec.methodBuilder( "getBy" + getIdName() ).
-      addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( "getBy" + getIdName() ).
+      addModifiers( Modifier.FINAL ).
       addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addParameter( ParameterSpec.builder( getIdType(), "id", Modifier.FINAL ).build() ).
       returns( entityType ).
-      addStatement( "return getByArezId( id )" ).
-      build();
+      addStatement( "return getByArezId( id )" );
+    ProcessorUtil.copyAccessModifiers( getElement(), method );
+    return method.build();
   }
 
   @Nonnull
   private MethodSpec buildFactoryMethod()
   {
-    return MethodSpec.methodBuilder( "newRepository" ).
-      addModifiers( Modifier.PUBLIC, Modifier.STATIC ).
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( "newRepository" ).
+      addModifiers( Modifier.STATIC ).
       addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       returns( ClassName.get( getPackageName(), getRepositoryName() ) ).
-      addStatement( "return new $T()", ClassName.get( getPackageName(), getArezRepositoryName() ) ).build();
+      addStatement( "return new $T()", ClassName.get( getPackageName(), getArezRepositoryName() ) );
+    ProcessorUtil.copyAccessModifiers( getElement(), method );
+    return method.build();
   }
 
   @Nonnull

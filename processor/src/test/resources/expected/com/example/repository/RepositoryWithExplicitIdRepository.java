@@ -34,7 +34,7 @@ public abstract class RepositoryWithExplicitIdRepository extends AbstractReposit
   }
 
   @Nullable
-  public RepositoryWithExplicitId findById(final int id) {
+  public final RepositoryWithExplicitId findById(final int id) {
     return findByArezId( id );
   }
 
