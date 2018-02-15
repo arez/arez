@@ -16,6 +16,10 @@ complete as there is too much un-said.
 * Add option to not emit equals and hashcode methods if native components are not enabled and repository
   is not enabled. The GWT compiler has problems optimizing these methods away even when they are not used.
 
+* Components that have observables defined by abstract methods should have some way of annotating these
+  observables so that you can pass in initial values via generated constructor. Perhaps these variables
+  occur at start of constructor parameter list or at end in the order that they are defined.
+
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
   - `arez-browserlocation`
