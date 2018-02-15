@@ -33,7 +33,11 @@ complete as there is too much un-said.
 
 * Components that have observables defined by abstract methods should have some way of annotating these
   observables so that you can pass in initial values via generated constructor. Perhaps these variables
-  occur at start of constructor parameter list or at end in the order that they are defined.
+  occur at start of constructor parameter list or at end in the order that they are defined. It seems like
+  the best way is to add an `initializer` parameter to annotation. This would start with `AUTODETECT` and
+  must be `DISABLE` when applied to non abstract methods, will be enabled if `AUTODETECT` and `@Nonnull`
+  observable with abstract methods, otherwise `AUTODETECT` will be disabled. `ENABLE` is not valid on
+  non-abstract observables..
 
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
