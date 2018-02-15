@@ -6,6 +6,19 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Consider a priority system fir schedules and that way we can schedule disposes so they get
+  highest priority. We may need to ensure that `ComputedValues` + `Observers` who are scheduled will not
+  cause errors if disposed after they are scheduled. Also need to make sure that `ComputedValues`
+  which are deactivated by dispose don't run. It seems like associated with each `Observer` will be a
+  priority where dispose gets bumped to top?
+
+* Should we also make it easy for a component to autodispose if several other candidates dispose? What
+  we end up is foreign key actions - i.e. if that other component over there is disposed then we can
+  either null out our connection or dispose self.
+
+* Should we add an interface where we can just watch a component (which is probably just equivalent to
+  observing isDisposed?)
+
 * Dispose should have it's own transaction type that can run within scope of `READ_WRITE_OWNED` as things
   can get disposed when deactivated.
 
