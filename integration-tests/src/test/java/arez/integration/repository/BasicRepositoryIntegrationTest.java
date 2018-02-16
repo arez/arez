@@ -1,4 +1,4 @@
-package arez.integration;
+package arez.integration.repository;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -9,6 +9,8 @@ import arez.annotations.Observable;
 import arez.annotations.Repository;
 import arez.component.NoResultException;
 import arez.component.NoSuchEntityException;
+import arez.integration.AbstractIntegrationTest;
+import arez.integration.SpyEventRecorder;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
@@ -49,7 +51,7 @@ public class BasicRepositoryIntegrationTest
   }
 
   @Test
-  public void integrationTest()
+  public void scenario()
     throws Throwable
   {
     final ArezContext context = Arez.context();

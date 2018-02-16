@@ -1,10 +1,11 @@
-package arez.integration;
+package arez.integration.repository;
 
 import arez.Arez;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
+import arez.integration.AbstractIntegrationTest;
 import java.util.List;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;

@@ -39,18 +39,18 @@ import javax.json.stream.JsonGenerator;
 /**
  * A recorder used to record results of test run.
  */
-final class SpyEventRecorder
+public final class SpyEventRecorder
   extends AbstractSpyEventProcessor
 {
   private final JsonArrayBuilder _events = Json.createArrayBuilder();
   private final boolean _keepValue;
 
-  SpyEventRecorder()
+  public SpyEventRecorder()
   {
     this( true );
   }
 
-  SpyEventRecorder( final boolean keepValue )
+  public SpyEventRecorder( final boolean keepValue )
   {
     _keepValue = keepValue;
     register( ComponentCreateStartedEvent.class );
@@ -120,13 +120,13 @@ final class SpyEventRecorder
   }
 
   @Nonnull
-  JsonArrayBuilder getEvents()
+  public JsonArrayBuilder getEvents()
   {
     return _events;
   }
 
   @Nonnull
-  String eventsAsString()
+  public String eventsAsString()
   {
     final Map<String, Object> properties = new HashMap<>( 1 );
     properties.put( JsonGenerator.PRETTY_PRINTING, true );
