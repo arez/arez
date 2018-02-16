@@ -1,8 +1,9 @@
-package arez.integration;
+package arez.integration.context_ref;
 
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
+import arez.integration.AbstractIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
