@@ -14,18 +14,18 @@ import org.realityforge.braincheck.Guards;
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
 public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements Disposable, Identifiable<Long> {
-  private static volatile long $$arez$$_nextId;
+  private static volatile long $$arezi$$_nextId;
 
-  private final long $$arez$$_id;
+  private final long $$arezi$$_id;
 
-  private byte $$arez$$_state;
+  private byte $$arezi$$_state;
 
   @Nullable
-  private final ArezContext $$arez$$_context;
+  private final ArezContext $$arezi$$_context;
 
-  private final Component $$arez$$_component;
+  private final Component $$arezi$$_component;
 
-  private final Observable<Boolean> $$arez$$_disposedObservable;
+  private final Observable<Boolean> $$arezi$$_disposedObservable;
 
   @Nonnull
   private final Observable<String> $$arez$$_time;
@@ -35,66 +35,66 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
 
   public Arez_AnnotationsOnModel() {
     super();
-    this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
-    this.$$arez$$_id = $$arez$$_nextId++;
-    this.$$arez$$_state = 1;
-    this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "AnnotationsOnModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
-    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_state >= 0 : null, null );
-    this.$$arez$$_time = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
-    this.$$arez$$_someValue = $$arez$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".someValue" : null, super::someValue, Objects::equals, null, null, null, null );
+    this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
+    this.$$arezi$$_id = $$arezi$$_nextId++;
+    this.$$arezi$$_state = 1;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "AnnotationsOnModel", $$arezi$$_id(), $$arezi$$_name(), null, null ) : null;
+    this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
+    this.$$arez$$_time = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
+    this.$$arez$$_someValue = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".someValue" : null, super::someValue, Objects::equals, null, null, null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
-      this.$$arez$$_component.complete();
+      this.$$arezi$$_component.complete();
     }
-    this.$$arez$$_state = 2;
-    this.$$arez$$_state = 3;
+    this.$$arezi$$_state = 2;
+    this.$$arezi$$_state = 3;
   }
 
-  final ArezContext $$arez$$_context() {
+  final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> this.$$arez$$_state == 0, () -> "Method invoked on uninitialized component named '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arezi$$_state == 0, () -> "Method invoked on uninitialized component named '" + $$arezi$$_name() + "'" );
     }
-    return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
+    return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
 
-  final long $$arez$$_id() {
-    return this.$$arez$$_id;
+  final long $$arezi$$_id() {
+    return this.$$arezi$$_id;
   }
 
   @Override
   @Nonnull
   public final Long getArezId() {
-    return $$arez$$_id();
+    return $$arezi$$_id();
   }
 
-  String $$arez$$_name() {
+  String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> this.$$arez$$_state == 0, () -> "Method invoked on uninitialized component named '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arezi$$_state == 0, () -> "Method invoked on uninitialized component named '" + $$arezi$$_name() + "'" );
     }
-    return "AnnotationsOnModel." + $$arez$$_id();
+    return "AnnotationsOnModel." + $$arezi$$_id();
   }
 
   @Override
   public boolean isDisposed() {
-    if ( $$arez$$_context().isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
-      this.$$arez$$_disposedObservable.reportObserved();
+    if ( $$arezi$$_context().isTransactionActive() && !this.$$arezi$$_disposedObservable.isDisposed() )  {
+      this.$$arezi$$_disposedObservable.reportObserved();
     }
-    return this.$$arez$$_state < 0;
+    return this.$$arezi$$_state < 0;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      this.$$arez$$_state = -2;
+      this.$$arezi$$_state = -2;
       if ( Arez.areNativeComponentsEnabled() ) {
-        this.$$arez$$_component.dispose();
+        this.$$arezi$$_component.dispose();
       } else {
-        $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".dispose" : null, () -> { {
-          this.$$arez$$_disposedObservable.dispose();
+        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
+          this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_someValue.dispose();
           this.$$arez$$_time.dispose();
         } } );
       }
-      this.$$arez$$_state = -1;
+      this.$$arezi$$_state = -1;
     }
   }
 
@@ -102,7 +102,7 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   @Override
   public String getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arezi$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arezi$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arezi$$_name() + "'" );
     }
     this.$$arez$$_time.reportObserved();
     return super.getTime();
@@ -111,7 +111,7 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   @Override
   public void setTime(@Nonnull final String time) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arezi$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arezi$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arezi$$_name() + "'" );
     }
     if ( !Objects.equals( time, super.getTime() ) ) {
       this.$$arez$$_time.preReportChanged();
@@ -123,14 +123,14 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   @Override
   public void doStuff(@Nonnull final String time) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arezi$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arezi$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
-    } catch( final RuntimeException | Error $$arez$$_e ) {
-      throw $$arez$$_e;
-    } catch( final Throwable $$arez$$_e ) {
-      throw new IllegalStateException( $$arez$$_e );
+      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
+    } catch( final RuntimeException | Error $$arez_exception$$ ) {
+      throw $$arez_exception$$;
+    } catch( final Throwable $$arez_exception$$ ) {
+      throw new IllegalStateException( $$arez_exception$$ );
     }
   }
 
@@ -138,14 +138,14 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   @Override
   public Integer someValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arezi$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arezi$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arezi$$_name() + "'" );
     }
     return this.$$arez$$_someValue.get();
   }
 
   @Override
   public final int hashCode() {
-    return Long.hashCode( $$arez$$_id() );
+    return Long.hashCode( $$arezi$$_id() );
   }
 
   @Override
@@ -156,14 +156,14 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
       return false;
     } else {
       final Arez_AnnotationsOnModel that = (Arez_AnnotationsOnModel) o;;
-      return $$arez$$_id() == that.$$arez$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }
 
   @Override
   public final String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + $$arez$$_name() + "]";
+      return "ArezComponent[" + $$arezi$$_name() + "]";
     } else {
       return super.toString();
     }

@@ -34,9 +34,22 @@ final class GeneratorUtil
   static final ClassName IDENTIFIABLE_CLASSNAME = ClassName.get( "arez.component", "Identifiable" );
   static final ClassName MEMOIZE_CACHE_CLASSNAME = ClassName.get( "arez.component", "MemoizeCache" );
 
+  /**
+   * Prefix for fields that are used to generate Arez elements.
+   */
   static final String FIELD_PREFIX = "$$arez$$_";
-  static final String OBSERVABLE_FIELD_PREFIX = FIELD_PREFIX + "$$data$$_";
-  private static final String CAUGHT_THROWABLE_NAME = FIELD_PREFIX + "e";
+  /**
+   * For fields that are synthesized to hold data for abstract observable properties.
+   */
+  static final String OBSERVABLE_DATA_FIELD_PREFIX = "$$arezd$$_";
+  /**
+   * For fields/elements used internally for component to manage lifecycle.
+   */
+  private static final String FRAMEWORK_PREFIX = "$$arezi$$_";
+  /**
+   * The name of exceptions when caught by Arez infrastructure.
+   */
+  private static final String CAUGHT_THROWABLE_NAME = "$$arez_exception$$";
   /**
    * State field holds the state of entity.
    *  0 = initial value,
@@ -46,13 +59,13 @@ final class GeneratorUtil
    * -2 = component dispose started
    * -1 = component dispose completed
    */
-  static final String STATE_FIELD_NAME = FIELD_PREFIX + "state";
-  static final String DISPOSED_OBSERVABLE_FIELD_NAME = FIELD_PREFIX + "disposedObservable";
-  static final String ID_FIELD_NAME = FIELD_PREFIX + "id";
-  static final String NAME_METHOD_NAME = FIELD_PREFIX + "name";
-  static final String NEXT_ID_FIELD_NAME = FIELD_PREFIX + "nextId";
-  static final String CONTEXT_FIELD_NAME = FIELD_PREFIX + "context";
-  static final String COMPONENT_FIELD_NAME = FIELD_PREFIX + "component";
+  static final String STATE_FIELD_NAME = FRAMEWORK_PREFIX + "state";
+  static final String DISPOSED_OBSERVABLE_FIELD_NAME = FRAMEWORK_PREFIX + "disposedObservable";
+  static final String ID_FIELD_NAME = FRAMEWORK_PREFIX + "id";
+  static final String NAME_METHOD_NAME = FRAMEWORK_PREFIX + "name";
+  static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
+  static final String CONTEXT_FIELD_NAME = FRAMEWORK_PREFIX + "context";
+  static final String COMPONENT_FIELD_NAME = FRAMEWORK_PREFIX + "component";
 
   private GeneratorUtil()
   {

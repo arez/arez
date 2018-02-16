@@ -10,6 +10,10 @@
   if an attempt is made to call a method annotated with `@ComponentRef` in the constructor of the component
   or in a method annotated with `@PostConstruct` as the component element has not been created initialized
   until after the `@PostConstruct` method returns.
+* **\[processor\]** Changed the way that the annotation processor synthesizes names of fields that are used
+  to track internal state such as the `id`, `state`, `context` etc. fields so that they can never collide
+  with names synthesized to manage reactive aspects of a component. This means it is now possible to define
+  observable properties, computed properties or observers that have a name that matches these internal names.
 
 ### [v0.53](https://github.com/arez/arez/tree/v0.53) (2018-02-14)
 [Full Changelog](https://github.com/arez/arez/compare/v0.52...v0.53)
