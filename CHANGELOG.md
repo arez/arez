@@ -3,10 +3,10 @@
 ### Unreleased
 
 #### Fixed
-* **\[processor\]** The enhanced component now generates an invariant failure, when invariants are enabled,
+* **\[processor\]** The enhanced component now generates an invariant failure (when invariants are enabled)
   if an attempt is made to call methods annotated with `@ContextRef` or `@ComponentNameRef` in the constructor
   of the component as the arez state is not initialized until after the constructor returns.
-* **\[processor\]** The enhanced component now generates an invariant failure, when invariants are enabled,
+* **\[processor\]** The enhanced component now generates an invariant failure (when invariants are enabled)
   if an attempt is made to call a method annotated with `@ComponentRef` in the constructor of the component
   or in a method annotated with `@PostConstruct` as the component element has not been created initialized
   until after the `@PostConstruct` method returns.
