@@ -1,7 +1,8 @@
-package arez.integration;
+package arez.integration.component_name_ref;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentNameRef;
+import arez.integration.AbstractIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
