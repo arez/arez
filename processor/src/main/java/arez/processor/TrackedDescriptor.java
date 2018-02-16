@@ -128,12 +128,15 @@ final class TrackedDescriptor
   void buildFields( @Nonnull final TypeSpec.Builder builder )
   {
     final FieldSpec.Builder field =
-      FieldSpec.builder( GeneratorUtil.OBSERVER_CLASSNAME,
-                         GeneratorUtil.FIELD_PREFIX + getName(),
-                         Modifier.FINAL,
-                         Modifier.PRIVATE ).
+      FieldSpec.builder( GeneratorUtil.OBSERVER_CLASSNAME, getFieldName(), Modifier.FINAL, Modifier.PRIVATE ).
         addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     builder.addField( field.build() );
+  }
+
+  @Nonnull
+  private String getFieldName()
+  {
+    return GeneratorUtil.FIELD_PREFIX + getName();
   }
 
   /**
@@ -147,7 +150,7 @@ final class TrackedDescriptor
     sb.append( "this.$N = $N().tracker( " +
                "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                "$T.areNamesEnabled() ? $N() + $S : null, " );
-    parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
+    parameters.add( getFieldName() );
     parameters.add( _componentDescriptor.getContextMethodName() );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
@@ -163,7 +166,7 @@ final class TrackedDescriptor
 
   void buildDisposer( @Nonnull final CodeBlock.Builder codeBlock )
   {
-    codeBlock.addStatement( "this.$N.dispose()", GeneratorUtil.FIELD_PREFIX + getName() );
+    codeBlock.addStatement( "this.$N.dispose()", getFieldName() );
   }
 
   void buildMethods( @Nonnull final TypeSpec.Builder builder )
@@ -195,7 +198,7 @@ final class TrackedDescriptor
 
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
 
-    builder.addStatement( "return $N", GeneratorUtil.FIELD_PREFIX + getName() );
+    builder.addStatement( "return $N", getFieldName() );
 
     return builder.build();
   }
@@ -253,7 +256,7 @@ final class TrackedDescriptor
     }
 
     statement.append( "( this.$N, " );
-    parameterNames.add( GeneratorUtil.FIELD_PREFIX + getName() );
+    parameterNames.add( getFieldName() );
 
     statement.append( "() -> super." );
     statement.append( _trackedMethod.getSimpleName() );

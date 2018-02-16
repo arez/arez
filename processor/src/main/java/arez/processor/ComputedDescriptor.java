@@ -252,12 +252,15 @@ final class ComputedDescriptor
     final ParameterizedTypeName typeName =
       ParameterizedTypeName.get( GeneratorUtil.COMPUTED_VALUE_CLASSNAME, parameterType );
     final FieldSpec.Builder field =
-      FieldSpec.builder( typeName,
-                         GeneratorUtil.FIELD_PREFIX + getName(),
-                         Modifier.FINAL,
-                         Modifier.PRIVATE ).
+      FieldSpec.builder( typeName, getFieldName(), Modifier.FINAL, Modifier.PRIVATE ).
         addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     builder.addField( field.build() );
+  }
+
+  @Nonnull
+  private String getFieldName()
+  {
+    return GeneratorUtil.FIELD_PREFIX + getName();
   }
 
   void buildInitializer( @Nonnull MethodSpec.Builder builder )
@@ -270,7 +273,7 @@ final class ComputedDescriptor
                "$T.areNamesEnabled() ? $N() + $S : null, " +
                "super::$N, " +
                "$T::equals, " );
-    parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
+    parameters.add( getFieldName() );
     parameters.add( _componentDescriptor.getContextMethodName() );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
@@ -329,7 +332,7 @@ final class ComputedDescriptor
 
   void buildDisposer( @Nonnull final CodeBlock.Builder codeBlock )
   {
-    codeBlock.addStatement( "this.$N.dispose()", GeneratorUtil.FIELD_PREFIX + getName() );
+    codeBlock.addStatement( "this.$N.dispose()", getFieldName() );
   }
 
   void buildMethods( @Nonnull final TypeSpec.Builder builder )
@@ -363,13 +366,13 @@ final class ComputedDescriptor
 
     if ( _computed.getTypeParameters().isEmpty() )
     {
-      builder.addStatement( "return this.$N.get()", GeneratorUtil.FIELD_PREFIX + getName() );
+      builder.addStatement( "return this.$N.get()", getFieldName() );
     }
     else
     {
       builder.addStatement( "return ($T) this.$N.get()",
                             returnType.box(),
-                            GeneratorUtil.FIELD_PREFIX + getName() );
+                            getFieldName() );
     }
 
     return builder.build();
@@ -394,7 +397,7 @@ final class ComputedDescriptor
 
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
 
-    builder.addStatement( "return $N", GeneratorUtil.FIELD_PREFIX + getName() );
+    builder.addStatement( "return $N", getFieldName() );
 
     return builder.build();
   }

@@ -159,7 +159,7 @@ final class ObservableDescriptor
                                  TypeName.get( _getterType.getReturnType() ).box() );
     final FieldSpec.Builder field =
       FieldSpec.builder( typeName,
-                         GeneratorUtil.FIELD_PREFIX + getName(),
+                         getFieldName(),
                          Modifier.FINAL,
                          Modifier.PRIVATE ).
         addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
@@ -169,10 +169,22 @@ final class ObservableDescriptor
       final TypeName type = TypeName.get( _getterType.getReturnType() );
       final FieldSpec.Builder dataField =
         FieldSpec.builder( type,
-                           GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName(),
+                           getDataFieldName(),
                            Modifier.PRIVATE );
       builder.addField( dataField.build() );
     }
+  }
+
+  @Nonnull
+  private String getDataFieldName()
+  {
+    return GeneratorUtil.OBSERVABLE_DATA_FIELD_PREFIX + getName();
+  }
+
+  @Nonnull
+  private String getFieldName()
+  {
+    return GeneratorUtil.FIELD_PREFIX + getName();
   }
 
   void buildInitializer( @Nonnull final MethodSpec.Builder builder )
@@ -183,7 +195,7 @@ final class ObservableDescriptor
                "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                "$T.areNamesEnabled() ? $N() + $S : null, " +
                "$T.arePropertyIntrospectorsEnabled() ? () -> " );
-    parameters.add( GeneratorUtil.FIELD_PREFIX + getName() );
+    parameters.add( getFieldName() );
     parameters.add( _componentDescriptor.getContextMethodName() );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
@@ -196,7 +208,7 @@ final class ObservableDescriptor
     if ( abstractObservables )
     {
       sb.append( "this.$N" );
-      parameters.add( GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName() );
+      parameters.add( getDataFieldName() );
     }
     else
     {
@@ -213,7 +225,7 @@ final class ObservableDescriptor
       if ( abstractObservables )
       {
         sb.append( "this.$N = v" );
-        parameters.add( GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName() );
+        parameters.add( getDataFieldName() );
       }
       else
       {
@@ -233,7 +245,7 @@ final class ObservableDescriptor
 
   void buildDisposer( @Nonnull final CodeBlock.Builder codeBlock )
   {
-    codeBlock.addStatement( "this.$N.dispose()", GeneratorUtil.FIELD_PREFIX + getName() );
+    codeBlock.addStatement( "this.$N.dispose()", getFieldName() );
   }
 
   void buildMethods( @Nonnull final TypeSpec.Builder builder )
@@ -269,7 +281,7 @@ final class ObservableDescriptor
 
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
 
-    builder.addStatement( "return $N", GeneratorUtil.FIELD_PREFIX + getName() );
+    builder.addStatement( "return $N", getFieldName() );
 
     return builder.build();
   }
@@ -322,7 +334,7 @@ final class ObservableDescriptor
       {
         codeBlock.beginControlFlow( "if ( $N != this.$N )",
                                     paramName,
-                                    GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName() );
+                                    getDataFieldName() );
       }
       else
       {
@@ -338,7 +350,7 @@ final class ObservableDescriptor
         codeBlock.beginControlFlow( "if ( !$T.equals( $N, this.$N ) )",
                                     Objects.class,
                                     paramName,
-                                    GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName() );
+                                    getDataFieldName() );
       }
       else
       {
@@ -348,16 +360,16 @@ final class ObservableDescriptor
                                     _getter.getSimpleName() );
       }
     }
-    codeBlock.addStatement( "this.$N.preReportChanged()", GeneratorUtil.FIELD_PREFIX + getName() );
+    codeBlock.addStatement( "this.$N.preReportChanged()", getFieldName() );
     if ( abstractObservables )
     {
-      codeBlock.addStatement( "this.$N = $N", GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName(), paramName );
+      codeBlock.addStatement( "this.$N = $N", getDataFieldName(), paramName );
     }
     else
     {
       codeBlock.addStatement( "super.$N($N)", _setter.getSimpleName(), paramName );
     }
-    codeBlock.addStatement( "this.$N.reportChanged()", GeneratorUtil.FIELD_PREFIX + getName() );
+    codeBlock.addStatement( "this.$N.reportChanged()", getFieldName() );
     codeBlock.endControlFlow();
     builder.addCode( codeBlock.build() );
 
@@ -383,11 +395,11 @@ final class ObservableDescriptor
     builder.returns( TypeName.get( _getterType.getReturnType() ) );
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
 
-    builder.addStatement( "this.$N.reportObserved()", GeneratorUtil.FIELD_PREFIX + getName() );
+    builder.addStatement( "this.$N.reportObserved()", getFieldName() );
 
     if ( getGetter().getModifiers().contains( Modifier.ABSTRACT ) )
     {
-      builder.addStatement( "return this.$N", GeneratorUtil.OBSERVABLE_FIELD_PREFIX + getName() );
+      builder.addStatement( "return this.$N", getDataFieldName() );
     }
     else
     {

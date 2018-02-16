@@ -77,7 +77,7 @@ final class MemoizeDescriptor
       ParameterizedTypeName.get( GeneratorUtil.MEMOIZE_CACHE_CLASSNAME, parameterType );
     final FieldSpec.Builder field =
       FieldSpec.builder( typeName,
-                         getCacheName(),
+                         getFieldName(),
                          Modifier.FINAL,
                          Modifier.PRIVATE ).
         addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
@@ -91,7 +91,7 @@ final class MemoizeDescriptor
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
     sb.append( "this.$N = new $T<>( $N(), $T.areNamesEnabled() ? $N() + $S : null, args -> super.$N(" );
-    parameters.add( getCacheName() );
+    parameters.add( getFieldName() );
     parameters.add( GeneratorUtil.MEMOIZE_CACHE_CLASSNAME );
     parameters.add( _componentDescriptor.getContextMethodName() );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
@@ -118,11 +118,11 @@ final class MemoizeDescriptor
 
   void buildDisposer( @Nonnull final CodeBlock.Builder codeBlock )
   {
-    codeBlock.addStatement( "this.$N.dispose()", getCacheName() );
+    codeBlock.addStatement( "this.$N.dispose()", getFieldName() );
   }
 
   @Nonnull
-  private String getCacheName()
+  private String getFieldName()
   {
     return GeneratorUtil.FIELD_PREFIX + getName();
   }
@@ -173,7 +173,7 @@ final class MemoizeDescriptor
       parameters.add( returnType.box() );
     }
     sb.append( "this.$N.get( " );
-    parameters.add( getCacheName() );
+    parameters.add( getFieldName() );
 
     boolean first = true;
     for ( final VariableElement element : _memoize.getParameters() )
