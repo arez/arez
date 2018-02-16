@@ -6,7 +6,7 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Consider a priority system fir schedules and that way we can schedule disposes so they get
+* Consider a priority system for schedules and that way we can schedule disposes so they get
   highest priority. We may need to ensure that `ComputedValues` + `Observers` who are scheduled will not
   cause errors if disposed after they are scheduled. Also need to make sure that `ComputedValues`
   which are deactivated by dispose don't run. It seems like associated with each `Observer` will be a
