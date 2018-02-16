@@ -19,7 +19,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
 
   private final long $$arez$$_id;
 
-  private boolean $$arez$$_disposed;
+  private byte $$arez$$_state;
 
   @Nullable
   private final ArezContext $$arez$$_context;
@@ -44,8 +44,9 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
     super();
     this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
+    this.$$arez$$_state = 1;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "SingletonModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
-    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
+    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_state >= 0 : null, null );
     this.$$arez$$_time = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     this.$$arez$$_someValue = $$arez$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".someValue" : null, super::someValue, Objects::equals, null, null, null, null );
     this.$$arez$$_myAutorun = $$arez$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".myAutorun" : null, false, () -> super.myAutorun(), false );
@@ -53,10 +54,15 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
+    this.$$arez$$_state = 2;
     $$arez$$_context().triggerScheduler();
+    this.$$arez$$_state = 3;
   }
 
   final ArezContext $$arez$$_context() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> this.$$arez$$_state == 0, () -> "Method invoked on uninitialized component named '" + $$arez$$_name() + "'" );
+    }
     return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
   }
 
@@ -71,6 +77,9 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   }
 
   String $$arez$$_name() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> this.$$arez$$_state == 0, () -> "Method invoked on uninitialized component named '" + $$arez$$_name() + "'" );
+    }
     return "SingletonModel";
   }
 
@@ -78,16 +87,14 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   public boolean isDisposed() {
     if ( $$arez$$_context().isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
       this.$$arez$$_disposedObservable.reportObserved();
-      return this.$$arez$$_disposed;
-    } else {
-      return this.$$arez$$_disposed;
     }
+    return this.$$arez$$_state < 0;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      this.$$arez$$_disposed = true;
+      this.$$arez$$_state = -2;
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arez$$_component.dispose();
       } else {
@@ -99,13 +106,14 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
           this.$$arez$$_time.dispose();
         } } );
       }
+      this.$$arez$$_state = -1;
     }
   }
 
   @Override
   public long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     this.$$arez$$_time.reportObserved();
     return super.getTime();
@@ -114,7 +122,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   @Override
   public void setTime(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     if ( time != super.getTime() ) {
       this.$$arez$$_time.preReportChanged();
@@ -126,7 +134,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   @Override
   public void myAutorun() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     $$arez$$_context().safeAction( Arez.areNamesEnabled() ? $$arez$$_name() + ".myAutorun" : null, false, () -> super.myAutorun() );
   }
@@ -134,7 +142,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   @Override
   public void doStuff(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     try {
       $$arez$$_context().safeAction(Arez.areNamesEnabled() ? $$arez$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
@@ -148,7 +156,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   @Override
   public int someValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     return this.$$arez$$_someValue.get();
   }
@@ -156,7 +164,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   @Override
   public void render() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     try {
       $$arez$$_context().safeTrack( this.$$arez$$_render, () -> super.render() );

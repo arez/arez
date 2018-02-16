@@ -16,7 +16,7 @@ import org.realityforge.braincheck.Guards;
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
 final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryExample implements Disposable, Identifiable<Integer> {
-  private boolean $$arez$$_disposed;
+  private byte $$arez$$_state;
 
   @Nullable
   private final ArezContext $$arez$$_context;
@@ -41,8 +41,9 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
       @Nonnull final String name) {
     super(packageName,name);
     this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
+    this.$$arez$$_state = 1;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "PackageAccessRepositoryExample", getId(), $$arez$$_name(), null, null ) : null;
-    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
+    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_state >= 0 : null, null );
     this.$$arez$$_name = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setName( v ) : null );
     this.$$arez$$_packageName = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".packageName" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getPackageName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setPackageName( v ) : null );
     this.$$arez$$_rawQualifiedName = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".rawQualifiedName" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getRawQualifiedName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setQualifiedName( v ) : null );
@@ -50,9 +51,14 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
+    this.$$arez$$_state = 2;
+    this.$$arez$$_state = 3;
   }
 
   final ArezContext $$arez$$_context() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> this.$$arez$$_state == 0, () -> "Method invoked on uninitialized component named '" + $$arez$$_name() + "'" );
+    }
     return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
   }
 
@@ -63,6 +69,9 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
   }
 
   String $$arez$$_name() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> this.$$arez$$_state == 0, () -> "Method invoked on uninitialized component named '" + $$arez$$_name() + "'" );
+    }
     return "PackageAccessRepositoryExample." + getId();
   }
 
@@ -70,16 +79,14 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
   public boolean isDisposed() {
     if ( $$arez$$_context().isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
       this.$$arez$$_disposedObservable.reportObserved();
-      return this.$$arez$$_disposed;
-    } else {
-      return this.$$arez$$_disposed;
     }
+    return this.$$arez$$_state < 0;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      this.$$arez$$_disposed = true;
+      this.$$arez$$_state = -2;
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arez$$_component.dispose();
       } else {
@@ -91,6 +98,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
           this.$$arez$$_rawQualifiedName.dispose();
         } } );
       }
+      this.$$arez$$_state = -1;
     }
   }
 
@@ -98,7 +106,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
   @Override
   public String getName() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     this.$$arez$$_name.reportObserved();
     return super.getName();
@@ -107,7 +115,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
   @Override
   public void setName(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     if ( !Objects.equals( name, super.getName() ) ) {
       this.$$arez$$_name.preReportChanged();
@@ -120,7 +128,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
   @Override
   public String getPackageName() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     this.$$arez$$_packageName.reportObserved();
     return super.getPackageName();
@@ -129,7 +137,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
   @Override
   public void setPackageName(@Nonnull final String packageName) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     if ( !Objects.equals( packageName, super.getPackageName() ) ) {
       this.$$arez$$_packageName.preReportChanged();
@@ -142,7 +150,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
   @Override
   public String getRawQualifiedName() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     this.$$arez$$_rawQualifiedName.reportObserved();
     return super.getRawQualifiedName();
@@ -151,7 +159,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
   @Override
   public void setQualifiedName(@Nullable final String qualifiedName) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     if ( !Objects.equals( qualifiedName, super.getRawQualifiedName() ) ) {
       this.$$arez$$_rawQualifiedName.preReportChanged();
@@ -164,7 +172,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
   @Override
   public String getQualifiedName() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     return this.$$arez$$_qualifiedName.get();
   }

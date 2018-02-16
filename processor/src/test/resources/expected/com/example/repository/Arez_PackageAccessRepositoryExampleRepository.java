@@ -21,7 +21,7 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
 
   private final long $$arez$$_id;
 
-  private boolean $$arez$$_disposed;
+  private byte $$arez$$_state;
 
   @Nullable
   private final ArezContext $$arez$$_context;
@@ -38,17 +38,23 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
     super();
     this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
+    this.$$arez$$_state = 1;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "PackageAccessRepositoryExampleRepository", $$arez$$_id(), getRepositoryName(), () -> super.preDispose(), null ) : null;
-    this.$$arez$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? getRepositoryName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
+    this.$$arez$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? getRepositoryName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_state >= 0 : null, null );
     this.$$arez$$_entities = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? getRepositoryName() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
+    this.$$arez$$_state = 2;
+    this.$$arez$$_state = 3;
   }
 
   @Override
   @Nonnull
   protected final ArezContext getContext() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> this.$$arez$$_state == 0, () -> "Method invoked on uninitialized component named '" + getRepositoryName() + "'" );
+    }
     return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
   }
 
@@ -64,6 +70,9 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
 
   @Nonnull
   protected final String getRepositoryName() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> this.$$arez$$_state == 0, () -> "Method invoked on uninitialized component named '" + getRepositoryName() + "'" );
+    }
     return "PackageAccessRepositoryExampleRepository";
   }
 
@@ -71,16 +80,14 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
   public boolean isDisposed() {
     if ( getContext().isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
       this.$$arez$$_disposedObservable.reportObserved();
-      return this.$$arez$$_disposed;
-    } else {
-      return this.$$arez$$_disposed;
     }
+    return this.$$arez$$_state < 0;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      this.$$arez$$_disposed = true;
+      this.$$arez$$_state = -2;
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arez$$_component.dispose();
       } else {
@@ -90,6 +97,7 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
           this.$$arez$$_entities.dispose();
         } } );
       }
+      this.$$arez$$_state = -1;
     }
   }
 
@@ -97,7 +105,7 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
   @Override
   public Stream<PackageAccessRepositoryExample> entities() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + getRepositoryName() + "'" );
     }
     this.$$arez$$_entities.reportObserved();
     return super.entities();
@@ -107,7 +115,7 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
   @Override
   protected Observable getEntitiesObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + getRepositoryName() + "'" );
     }
     return $$arez$$_entities;
   }
@@ -115,7 +123,7 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
   @Override
   public void destroy(@Nonnull final PackageAccessRepositoryExample arg0) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + getRepositoryName() + "'" );
     }
     try {
       getContext().safeAction(Arez.areNamesEnabled() ? getRepositoryName() + ".destroy" : null, true, () -> super.destroy(arg0), arg0 );
@@ -131,7 +139,7 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
   PackageAccessRepositoryExample create(@Nonnull final String packageName,
       @Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + getRepositoryName() + "'" );
     }
     try {
       return getContext().safeAction(Arez.areNamesEnabled() ? getRepositoryName() + ".create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );

@@ -2,6 +2,15 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[processor\]** The enhanced component now generates an invariant failure, when invariants are enabled,
+  if an attempt is made to call methods annotated with `@ContextRef` or `@ComponentNameRef` in the constructor
+  of the component as the arez state is not initialized until after the constructor returns.
+* **\[processor\]** The enhanced component now generates an invariant failure, when invariants are enabled,
+  if an attempt is made to call a method annotated with `@ComponentRef` in the constructor of the component
+  or in a method annotated with `@PostConstruct` as the component element has not been created initialized
+  until after the `@PostConstruct` method returns.
+
 ### [v0.53](https://github.com/arez/arez/tree/v0.53) (2018-02-14)
 [Full Changelog](https://github.com/arez/arez/compare/v0.52...v0.53)
 

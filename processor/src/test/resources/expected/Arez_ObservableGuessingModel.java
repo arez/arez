@@ -16,7 +16,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
 
   private final long $$arez$$_id;
 
-  private boolean $$arez$$_disposed;
+  private byte $$arez$$_state;
 
   @Nullable
   private final ArezContext $$arez$$_context;
@@ -38,17 +38,23 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
     super();
     this.$$arez$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arez$$_id = $$arez$$_nextId++;
+    this.$$arez$$_state = 1;
     this.$$arez$$_component = Arez.areNativeComponentsEnabled() ? $$arez$$_context().createComponent( "ObservableGuessingModel", $$arez$$_id(), $$arez$$_name(), null, null ) : null;
-    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_disposed : null, null );
+    this.$$arez$$_disposedObservable = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arez$$_state >= 0 : null, null );
     this.$$arez$$_string = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".string" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getString() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setString( v ) : null );
     this.$$arez$$_foo = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".foo" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.isFoo() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setFoo( v ) : null );
     this.$$arez$$_time = $$arez$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arez$$_component : null, Arez.areNamesEnabled() ? $$arez$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arez$$_component.complete();
     }
+    this.$$arez$$_state = 2;
+    this.$$arez$$_state = 3;
   }
 
   final ArezContext $$arez$$_context() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> this.$$arez$$_state == 0, () -> "Method invoked on uninitialized component named '" + $$arez$$_name() + "'" );
+    }
     return Arez.areZonesEnabled() ? this.$$arez$$_context : Arez.context();
   }
 
@@ -63,6 +69,9 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   }
 
   String $$arez$$_name() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> this.$$arez$$_state == 0, () -> "Method invoked on uninitialized component named '" + $$arez$$_name() + "'" );
+    }
     return "ObservableGuessingModel." + $$arez$$_id();
   }
 
@@ -70,16 +79,14 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   public boolean isDisposed() {
     if ( $$arez$$_context().isTransactionActive() && !this.$$arez$$_disposedObservable.isDisposed() )  {
       this.$$arez$$_disposedObservable.reportObserved();
-      return this.$$arez$$_disposed;
-    } else {
-      return this.$$arez$$_disposed;
     }
+    return this.$$arez$$_state < 0;
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      this.$$arez$$_disposed = true;
+      this.$$arez$$_state = -2;
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arez$$_component.dispose();
       } else {
@@ -90,13 +97,14 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
           this.$$arez$$_time.dispose();
         } } );
       }
+      this.$$arez$$_state = -1;
     }
   }
 
   @Override
   public String getString() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     this.$$arez$$_string.reportObserved();
     return super.getString();
@@ -105,7 +113,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   @Override
   public void setString(final String v) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     if ( !Objects.equals( v, super.getString() ) ) {
       this.$$arez$$_string.preReportChanged();
@@ -117,7 +125,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   @Override
   public boolean isFoo() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     this.$$arez$$_foo.reportObserved();
     return super.isFoo();
@@ -126,7 +134,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   @Override
   public void setFoo(final boolean x) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     if ( x != super.isFoo() ) {
       this.$$arez$$_foo.preReportChanged();
@@ -138,7 +146,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   @Override
   public long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     this.$$arez$$_time.reportObserved();
     return super.getTime();
@@ -147,7 +155,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   @Override
   public void setTime(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> !this.$$arez$$_disposed, () -> "Method invoked on invalid component '" + $$arez$$_name() + "'" );
+      Guards.apiInvariant( () -> this.$$arez$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arez$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arez$$_name() + "'" );
     }
     if ( time != super.getTime() ) {
       this.$$arez$$_time.preReportChanged();

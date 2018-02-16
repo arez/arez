@@ -1709,11 +1709,14 @@ final class ComponentDescriptor
   {
     final MethodSpec.Builder method = MethodSpec.methodBuilder( getContextMethodName() ).
       addModifiers( Modifier.FINAL ).
-      returns( GeneratorUtil.AREZ_CONTEXT_CLASSNAME ).
-      addStatement( "return $T.areZonesEnabled() ? this.$N : $T.context()",
-                    GeneratorUtil.AREZ_CLASSNAME,
-                    GeneratorUtil.CONTEXT_FIELD_NAME,
-                    GeneratorUtil.AREZ_CLASSNAME );
+      returns( GeneratorUtil.AREZ_CONTEXT_CLASSNAME );
+
+    GeneratorUtil.generateNotInitializedInvariant( this, method );
+
+    method.addStatement( "return $T.areZonesEnabled() ? this.$N : $T.context()",
+                         GeneratorUtil.AREZ_CLASSNAME,
+                         GeneratorUtil.CONTEXT_FIELD_NAME,
+                         GeneratorUtil.AREZ_CLASSNAME );
     if ( null != _contextRef )
     {
       method.addAnnotation( Override.class );
@@ -1738,6 +1741,9 @@ final class ComponentDescriptor
     final MethodSpec.Builder method = MethodSpec.methodBuilder( _componentRef.getSimpleName().toString() ).
       addModifiers( Modifier.FINAL ).
       returns( GeneratorUtil.COMPONENT_CLASSNAME );
+
+    GeneratorUtil.generateNotConstructedInvariant( this, method );
+    GeneratorUtil.generateNotDisposedInvariant( this, method );
 
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
@@ -1802,6 +1808,7 @@ final class ComponentDescriptor
     }
 
     builder.returns( TypeName.get( String.class ) );
+    GeneratorUtil.generateNotInitializedInvariant( this, builder );
     if ( _nameIncludesId )
     {
       builder.addStatement( "return $S + $N()", _type.isEmpty() ? "" : _type + ".", getIdMethodName() );
@@ -1847,7 +1854,7 @@ final class ComponentDescriptor
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "if ( !isDisposed() )" );
-    codeBlock.addStatement( "this.$N = true", GeneratorUtil.DISPOSED_FIELD_NAME );
+    codeBlock.addStatement( "this.$N = -2", GeneratorUtil.STATE_FIELD_NAME );
     final CodeBlock.Builder nativeComponentBlock = CodeBlock.builder();
     nativeComponentBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
     nativeComponentBlock.addStatement( "this.$N.dispose()", GeneratorUtil.COMPONENT_FIELD_NAME );
@@ -1877,6 +1884,7 @@ final class ComponentDescriptor
     nativeComponentBlock.add( actionBlock.build() );
     nativeComponentBlock.endControlFlow();
     codeBlock.add( nativeComponentBlock.build() );
+    codeBlock.addStatement( "this.$N = -1", GeneratorUtil.STATE_FIELD_NAME );
     codeBlock.endControlFlow();
 
     builder.addCode( codeBlock.build() );
@@ -1902,12 +1910,9 @@ final class ComponentDescriptor
                             getContextMethodName(),
                             GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     block.addStatement( "this.$N.reportObserved()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
-    block.addStatement( "return this.$N", GeneratorUtil.DISPOSED_FIELD_NAME );
-    block.nextControlFlow( "else" );
-    block.addStatement( "return this.$N", GeneratorUtil.DISPOSED_FIELD_NAME );
     block.endControlFlow();
     builder.addCode( block.build() );
-
+    builder.addStatement( "return this.$N < 0", GeneratorUtil.STATE_FIELD_NAME );
     return builder.build();
   }
 
@@ -1938,7 +1943,7 @@ final class ComponentDescriptor
     }
 
     final FieldSpec.Builder disposableField =
-      FieldSpec.builder( TypeName.BOOLEAN, GeneratorUtil.DISPOSED_FIELD_NAME, Modifier.PRIVATE );
+      FieldSpec.builder( TypeName.BYTE, GeneratorUtil.STATE_FIELD_NAME, Modifier.PRIVATE );
     builder.addField( disposableField.build() );
 
     // Create the field that contains the context
@@ -2054,6 +2059,7 @@ final class ComponentDescriptor
     {
       builder.addStatement( "this.$N = $N++", GeneratorUtil.ID_FIELD_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
     }
+    builder.addStatement( "this.$N = 1", GeneratorUtil.STATE_FIELD_NAME );
 
     // Create component representation if required
     {
@@ -2091,7 +2097,7 @@ final class ComponentDescriptor
       builder.addStatement( "this.$N = $N().createObservable( " +
                             "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                             "$T.areNamesEnabled() ? $N() + $S : null, " +
-                            "$T.arePropertyIntrospectorsEnabled() ? () -> this.$N : null, null )",
+                            "$T.arePropertyIntrospectorsEnabled() ? () -> this.$N >= 0 : null, null )",
                             GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME,
                             getContextMethodName(),
                             GeneratorUtil.AREZ_CLASSNAME,
@@ -2100,7 +2106,7 @@ final class ComponentDescriptor
                             getComponentNameMethodName(),
                             ".isDisposed",
                             GeneratorUtil.AREZ_CLASSNAME,
-                            GeneratorUtil.DISPOSED_FIELD_NAME );
+                            GeneratorUtil.STATE_FIELD_NAME );
     }
 
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );
@@ -2122,10 +2128,14 @@ final class ComponentDescriptor
     componentEnabledBlock.endControlFlow();
     builder.addCode( componentEnabledBlock.build() );
 
+    builder.addStatement( "this.$N = 2", GeneratorUtil.STATE_FIELD_NAME );
+
     if ( !_deferSchedule && !_roAutoruns.isEmpty() )
     {
       builder.addStatement( "$N().triggerScheduler()", getContextMethodName() );
     }
+
+    builder.addStatement( "this.$N = 3", GeneratorUtil.STATE_FIELD_NAME );
 
     return builder.build();
   }

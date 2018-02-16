@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Make sure `assert !isDisposed()` in all ref methods .. including name retrieval. 
-
 * Consider a priority system fir schedules and that way we can schedule disposes so they get
   highest priority. We may need to ensure that `ComputedValues` + `Observers` who are scheduled will not
   cause errors if disposed after they are scheduled. Also need to make sure that `ComputedValues`
