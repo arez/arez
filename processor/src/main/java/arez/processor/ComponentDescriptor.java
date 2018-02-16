@@ -185,6 +185,12 @@ final class ComponentDescriptor
   }
 
   @Nonnull
+  String getType()
+  {
+    return _type;
+  }
+
+  @Nonnull
   private ObservableDescriptor findOrCreateObservable( @Nonnull final String name )
   {
     return _observables.computeIfAbsent( name, n -> new ObservableDescriptor( this, n ) );
