@@ -90,7 +90,7 @@ final class GeneratorUtil
   {
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
-    block.addStatement( "$T.apiInvariant( () -> this.$N == 0 || this.$N == 1, () -> \"Method invoked on un-constructed component named '\" + $N() + \"'\" )",
+    block.addStatement( "$T.apiInvariant( () -> !(this.$N == 0 || this.$N == 1), () -> \"Method invoked on un-constructed component named '\" + $N() + \"'\" )",
                         GUARDS_CLASSNAME,
                         STATE_FIELD_NAME,
                         STATE_FIELD_NAME,
