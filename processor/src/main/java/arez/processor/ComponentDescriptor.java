@@ -1748,6 +1748,7 @@ final class ComponentDescriptor
       addModifiers( Modifier.FINAL ).
       returns( GeneratorUtil.COMPONENT_CLASSNAME );
 
+    GeneratorUtil.generateNotInitializedInvariant( this, method );
     GeneratorUtil.generateNotConstructedInvariant( this, method );
     GeneratorUtil.generateNotDisposedInvariant( this, method );
 
