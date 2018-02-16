@@ -582,7 +582,7 @@
     {
         "observable": "CodeModel.0.isDisposed",
         "type": "ObservableChanged",
-        "value": true
+        "value": false
     },
     {
         "mutation": true,

@@ -1861,7 +1861,9 @@ final class ComponentDescriptor
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "if ( !isDisposed() )" );
-    codeBlock.addStatement( "this.$N = -2", GeneratorUtil.STATE_FIELD_NAME );
+    codeBlock.addStatement( "this.$N = $T.COMPONENT_DISPOSING",
+                            GeneratorUtil.STATE_FIELD_NAME,
+                            GeneratorUtil.COMPONENT_STATE_CLASSNAME );
     final CodeBlock.Builder nativeComponentBlock = CodeBlock.builder();
     nativeComponentBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
     nativeComponentBlock.addStatement( "this.$N.dispose()", GeneratorUtil.COMPONENT_FIELD_NAME );
@@ -1891,7 +1893,9 @@ final class ComponentDescriptor
     nativeComponentBlock.add( actionBlock.build() );
     nativeComponentBlock.endControlFlow();
     codeBlock.add( nativeComponentBlock.build() );
-    codeBlock.addStatement( "this.$N = -1", GeneratorUtil.STATE_FIELD_NAME );
+    codeBlock.addStatement( "this.$N = $T.COMPONENT_DISPOSED",
+                            GeneratorUtil.STATE_FIELD_NAME,
+                            GeneratorUtil.COMPONENT_STATE_CLASSNAME );
     codeBlock.endControlFlow();
 
     builder.addCode( codeBlock.build() );
@@ -1919,7 +1923,9 @@ final class ComponentDescriptor
     block.addStatement( "this.$N.reportObserved()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     block.endControlFlow();
     builder.addCode( block.build() );
-    builder.addStatement( "return this.$N < 0", GeneratorUtil.STATE_FIELD_NAME );
+    builder.addStatement( "return $T.isDisposingOrDisposed( this.$N )",
+                          GeneratorUtil.COMPONENT_STATE_CLASSNAME,
+                          GeneratorUtil.STATE_FIELD_NAME );
     return builder.build();
   }
 
@@ -2066,7 +2072,9 @@ final class ComponentDescriptor
     {
       builder.addStatement( "this.$N = $N++", GeneratorUtil.ID_FIELD_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
     }
-    builder.addStatement( "this.$N = 1", GeneratorUtil.STATE_FIELD_NAME );
+    builder.addStatement( "this.$N = $T.COMPONENT_INITIALIZED",
+                          GeneratorUtil.STATE_FIELD_NAME,
+                          GeneratorUtil.COMPONENT_STATE_CLASSNAME );
 
     // Create component representation if required
     {
@@ -2135,14 +2143,18 @@ final class ComponentDescriptor
     componentEnabledBlock.endControlFlow();
     builder.addCode( componentEnabledBlock.build() );
 
-    builder.addStatement( "this.$N = 2", GeneratorUtil.STATE_FIELD_NAME );
+    builder.addStatement( "this.$N = $T.COMPONENT_CONSTRUCTED",
+                          GeneratorUtil.STATE_FIELD_NAME,
+                          GeneratorUtil.COMPONENT_STATE_CLASSNAME );
 
     if ( !_deferSchedule && !_roAutoruns.isEmpty() )
     {
       builder.addStatement( "$N().triggerScheduler()", getContextMethodName() );
     }
 
-    builder.addStatement( "this.$N = 3", GeneratorUtil.STATE_FIELD_NAME );
+    builder.addStatement( "this.$N = $T.COMPONENT_READY",
+                          GeneratorUtil.STATE_FIELD_NAME,
+                          GeneratorUtil.COMPONENT_STATE_CLASSNAME );
 
     return builder.build();
   }

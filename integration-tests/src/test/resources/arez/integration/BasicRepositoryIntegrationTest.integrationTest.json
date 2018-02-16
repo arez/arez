@@ -381,7 +381,7 @@
     {
         "observable": "TestComponent.1.isDisposed",
         "type": "ObservableChanged",
-        "value": true
+        "value": false
     },
     {
         "mutation": true,
@@ -658,7 +658,7 @@
     {
         "observable": "TestComponent.2.isDisposed",
         "type": "ObservableChanged",
-        "value": true
+        "value": false
     },
     {
         "mutation": true,

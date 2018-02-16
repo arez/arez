@@ -6,6 +6,7 @@ import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
 import arez.Observable;
+import arez.component.ComponentState;
 import arez.component.Identifiable;
 import java.util.Objects;
 import javax.annotation.Generated;
@@ -37,7 +38,7 @@ public final class Arez_DeprecatedPostConstructModel extends DeprecatedPostConst
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = $$arezi$$_nextId++;
-    this.$$arezi$$_state = 1;
+    this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "DeprecatedPostConstructModel", $$arezi$$_id(), $$arezi$$_name(), null, null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
     this.$$arez$$_someValue = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".someValue" : null, super::someValue, Objects::equals, null, null, null, null );
@@ -45,13 +46,13 @@ public final class Arez_DeprecatedPostConstructModel extends DeprecatedPostConst
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
-    this.$$arezi$$_state = 2;
-    this.$$arezi$$_state = 3;
+    this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
+    this.$$arezi$$_state = ComponentState.COMPONENT_READY;
   }
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> this.$$arezi$$_state == 0, () -> "Method invoked on uninitialized component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'DeprecatedPostConstructModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -68,7 +69,7 @@ public final class Arez_DeprecatedPostConstructModel extends DeprecatedPostConst
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> this.$$arezi$$_state == 0, () -> "Method invoked on uninitialized component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'DeprecatedPostConstructModel'" );
     }
     return "DeprecatedPostConstructModel." + $$arezi$$_id();
   }
@@ -78,13 +79,13 @@ public final class Arez_DeprecatedPostConstructModel extends DeprecatedPostConst
     if ( $$arezi$$_context().isTransactionActive() && !this.$$arezi$$_disposedObservable.isDisposed() )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }
-    return this.$$arezi$$_state < 0;
+    return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
   }
 
   @Override
   public void dispose() {
     if ( !isDisposed() ) {
-      this.$$arezi$$_state = -2;
+      this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSING;
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
@@ -93,14 +94,14 @@ public final class Arez_DeprecatedPostConstructModel extends DeprecatedPostConst
           this.$$arez$$_someValue.dispose();
         } } );
       }
-      this.$$arezi$$_state = -1;
+      this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
     }
   }
 
   @Override
   public int someValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> this.$$arezi$$_state >= 2, () -> "Method invoked on dispos" + (this.$$arezi$$_state == -2 ? "ing" : "ed" ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     return this.$$arez$$_someValue.get();
   }

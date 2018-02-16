@@ -14,6 +14,14 @@
   to track internal state such as the `id`, `state`, `context` etc. fields so that they can never collide
   with names synthesized to manage reactive aspects of a component. This means it is now possible to define
   observable properties, computed properties or observers that have a name that matches these internal names.
+* **\[processor\]** The enhanced component now generates a more useful invariant failure (when invariants are
+  enabled) if an attempt is made to access any of the observable properties, computed properties or tracked
+  observers before they have been constructed.
+* **\[processor\]** The `ObservableChanged` event generated from Arez when disposing a component will
+  accurately report the value it is changing to as true.
+
+#### Added
+* **\[component\]** Introduce the `ComponentState` class to help inspect component state in generated classes.
 
 ### [v0.53](https://github.com/arez/arez/tree/v0.53) (2018-02-14)
 [Full Changelog](https://github.com/arez/arez/compare/v0.52...v0.53)
