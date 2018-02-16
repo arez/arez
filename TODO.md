@@ -28,6 +28,9 @@ complete as there is too much un-said.
 
 * Add option to not emit equals and hashcode methods if native components are not enabled and repository
   is not enabled. The GWT compiler has problems optimizing these methods away even when they are not used.
+  We could mark this as a `Feature` so we could explicitly ENABLE or DISABLE it. `AUTODETECT` would mean
+  that they are generated if repositories are enabled and when native components are active they are
+  used otherwise a call to super is all that is provided.
 
 * Components that have observables defined by abstract methods should have some way of annotating these
   observables so that you can pass in initial values via generated constructor. Perhaps these variables
