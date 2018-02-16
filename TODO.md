@@ -26,6 +26,8 @@ complete as there is too much un-said.
 
 * Should generate `@Autorun` method that throws an exception as should never call it directly.
 
+* Add (rake?) task that scans source code to ensure there are no duplicate error numbers.
+
 * Add option to not emit equals and hashcode methods if native components are not enabled and repository
   is not enabled. The GWT compiler has problems optimizing these methods away even when they are not used.
   We could mark this as a `Feature` so we could explicitly ENABLE or DISABLE it. `AUTODETECT` would mean
