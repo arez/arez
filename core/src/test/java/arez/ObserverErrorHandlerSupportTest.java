@@ -162,4 +162,37 @@ public class ObserverErrorHandlerSupportTest
 
     assertEquals( getTestLogger().getEntries().size(), 2 );
   }
+
+  @Test
+  public void onObserverError_whereOneHandlerGeneratesError_but_Arez_areNamesEnabled_is_false()
+  {
+    ArezTestUtil.disableNames();
+
+    final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
+
+    final ArezContext context = new ArezContext();
+    final Observer observer =
+      new Observer( context, null, null, null, TransactionMode.READ_ONLY, new TestReaction(), false );
+    final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
+    final Throwable throwable = null;
+
+    final RuntimeException exception = new RuntimeException( "X" );
+
+    final ObserverErrorHandler handler2 = ( observerArg, errorArg, throwableArg ) -> {
+      throw exception;
+    };
+    support.addObserverErrorHandler( handler2 );
+
+    support.onObserverError( observer, error, throwable );
+
+    final ArrayList<TestLogger.LogEntry> entries = getTestLogger().getEntries();
+    assertEquals( entries.size(), 1 );
+    final TestLogger.LogEntry entry1 = entries.get( 0 );
+    assertEquals( entry1.getMessage(), "Error triggered when invoking ObserverErrorHandler.onObserverError()" );
+    assertEquals( entry1.getThrowable(), exception );
+
+    support.onObserverError( observer, error, throwable );
+
+    assertEquals( getTestLogger().getEntries().size(), 2 );
+  }
 }
