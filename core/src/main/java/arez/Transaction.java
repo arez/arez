@@ -143,9 +143,9 @@ final class Transaction
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      if ( Arez.shouldEnforceTransactionType() && TransactionMode.READ_WRITE == mode && null != c_transaction )
+      if ( Arez.shouldEnforceTransactionType() && null != c_transaction )
       {
-        apiInvariant( () -> TransactionMode.READ_WRITE == c_transaction.getMode(),
+        apiInvariant( () -> TransactionMode.READ_WRITE != mode || TransactionMode.READ_WRITE == c_transaction.getMode(),
                       () -> "Arez-0119: Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
                             "nested in transaction named '" + c_transaction.getName() + "' with mode " +
                             c_transaction.getMode().name() + " which is not equal to READ_WRITE." );
