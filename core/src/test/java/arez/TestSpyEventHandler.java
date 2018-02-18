@@ -1,6 +1,7 @@
 package arez;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import static org.testng.Assert.*;
@@ -70,6 +71,19 @@ final class TestSpyEventHandler
   {
     final T event = assertEvent( type, _currentAssertIndex );
     _currentAssertIndex++;
+    return event;
+  }
+
+  /**
+   * Assert "next" Event is of specific type.
+   * Increment the next counter, run action.
+   */
+  @Nonnull
+  <T> T assertNextEvent( @Nonnull final Class<T> type, @Nonnull final Consumer<T> action )
+  {
+    final T event = assertEvent( type, _currentAssertIndex );
+    _currentAssertIndex++;
+    action.accept( event );
     return event;
   }
 
