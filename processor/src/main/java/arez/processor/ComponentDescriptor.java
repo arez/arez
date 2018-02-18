@@ -222,7 +222,7 @@ final class ComponentDescriptor
       //Should be a setter
       if ( 1 != method.getParameters().size() )
       {
-        throw new ArezProcessorException( "Method annotated with @Observable should be a setter or getter", method );
+        throw new ArezProcessorException( "@Observable target should be a setter or getter", method );
       }
 
       name = ProcessorUtil.deriveName( method, SETTER_PATTERN, declaredName );
@@ -237,7 +237,7 @@ final class ComponentDescriptor
       //Must be a getter
       if ( 0 != method.getParameters().size() )
       {
-        throw new ArezProcessorException( "Method annotated with @Observable should be a setter or getter", method );
+        throw new ArezProcessorException( "@Observable target should be a setter or getter", method );
       }
       name = getPropertyAccessorName( method, declaredName );
     }
