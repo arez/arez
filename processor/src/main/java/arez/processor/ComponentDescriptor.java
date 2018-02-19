@@ -1750,6 +1750,7 @@ final class ComponentDescriptor
 
     GeneratorUtil.generateNotInitializedInvariant( this, method );
     GeneratorUtil.generateNotConstructedInvariant( this, method );
+    GeneratorUtil.generateNotCompleteInvariant( this, method );
     GeneratorUtil.generateNotDisposedInvariant( this, method );
 
     final CodeBlock.Builder block = CodeBlock.builder();
@@ -2130,6 +2131,10 @@ final class ComponentDescriptor
     _roAutoruns.forEach( autorun -> autorun.buildInitializer( builder ) );
     _roTrackeds.forEach( tracked -> tracked.buildInitializer( builder ) );
 
+    builder.addStatement( "this.$N = $T.COMPONENT_CONSTRUCTED",
+                          GeneratorUtil.STATE_FIELD_NAME,
+                          GeneratorUtil.COMPONENT_STATE_CLASSNAME );
+
     final ExecutableElement postConstruct = getPostConstruct();
     if ( null != postConstruct )
     {
@@ -2143,7 +2148,7 @@ final class ComponentDescriptor
     componentEnabledBlock.endControlFlow();
     builder.addCode( componentEnabledBlock.build() );
 
-    builder.addStatement( "this.$N = $T.COMPONENT_CONSTRUCTED",
+    builder.addStatement( "this.$N = $T.COMPONENT_COMPLETE",
                           GeneratorUtil.STATE_FIELD_NAME,
                           GeneratorUtil.COMPONENT_STATE_CLASSNAME );
 

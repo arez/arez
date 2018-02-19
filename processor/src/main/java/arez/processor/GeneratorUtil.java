@@ -98,6 +98,22 @@ final class GeneratorUtil
     builder.addCode( block.build() );
   }
 
+  static void generateNotCompleteInvariant( @Nonnull final ComponentDescriptor descriptor,
+                                               @Nonnull final MethodSpec.Builder builder )
+  {
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.apiInvariant( () -> $T.hasBeenCompleted( this.$N ), () -> \"Method invoked " +
+                        "on incomplete component named '\" + $N() + \"'\" )",
+                        GUARDS_CLASSNAME,
+                        COMPONENT_STATE_CLASSNAME,
+                        STATE_FIELD_NAME,
+                        descriptor.getComponentNameMethodName() );
+    block.endControlFlow();
+
+    builder.addCode( block.build() );
+  }
+
   static void generateNotDisposedInvariant( @Nonnull final ComponentDescriptor descriptor,
                                             @Nonnull final MethodSpec.Builder builder )
   {

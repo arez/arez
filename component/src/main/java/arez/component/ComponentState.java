@@ -20,15 +20,21 @@ public final class ComponentState
   public final static byte COMPONENT_INITIALIZED = 1;
   /**
    * The reactive elements have been created (i.e. the {@link arez.Observable}, {@link arez.Observer},
-   * {@link arez.ComputedValue} etc.), the {@link arez.annotations.PostConstruct} has been invoked and
-   * the {@link arez.Component} has been instantiated. The scheduler has not been triggered.
+   * {@link arez.ComputedValue} etc.). The {@link arez.annotations.PostConstruct} has NOT been invoked nor
+   * has the {@link arez.Component} been instantiated. This means the component is ready to be interacted with
+   * in a {@link arez.annotations.PostConstruct} method but has not been fully constructed.
    */
   public final static byte COMPONENT_CONSTRUCTED = 2;
+  /**
+   * The {@link arez.annotations.PostConstruct} method has been invoked and
+   * the {@link arez.Component} has been instantiated. The scheduler has not been triggered.
+   */
+  public final static byte COMPONENT_COMPLETE = 3;
   /**
    * The scheduler has been triggered and any {@link arez.annotations.Autorun} methods have been invoked
    * or scheduled.
    */
-  public final static byte COMPONENT_READY = 3;
+  public final static byte COMPONENT_READY = 4;
   /**
    * The component is disposing.
    */
@@ -58,6 +64,17 @@ public final class ComponentState
   public static boolean hasBeenConstructed( final byte state )
   {
     return hasBeenInitialized( state ) && COMPONENT_INITIALIZED != state;
+  }
+
+  /**
+   * Return true if the component has been completed.
+   *
+   * @param state the component state.
+   * @return true if the component has been completed.
+   */
+  public static boolean hasBeenCompleted( final byte state )
+  {
+    return hasBeenConstructed( state ) && COMPONENT_CONSTRUCTED != state;
   }
 
   /**
@@ -100,6 +117,8 @@ public final class ComponentState
         return "initialized";
       case COMPONENT_CONSTRUCTED:
         return "constructed";
+      case COMPONENT_COMPLETE:
+        return "complete";
       case COMPONENT_READY:
         return "ready";
       case COMPONENT_DISPOSING:
