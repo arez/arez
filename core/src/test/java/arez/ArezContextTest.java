@@ -2403,9 +2403,7 @@ public class ArezContextTest
     context.action( () -> {
       assertTrue( context.isTransactionActive() );
 
-      context.noTxAction( () -> {
-        assertFalse( context.isTransactionActive() );
-      } );
+      context.noTxAction( () -> assertFalse( context.isTransactionActive() ) );
 
       assertTrue( context.isTransactionActive() );
     } );
@@ -2424,9 +2422,7 @@ public class ArezContextTest
     context.action( () -> {
       assertTrue( context.isTransactionActive() );
 
-      context.safeNoTxAction( () -> {
-        assertFalse( context.isTransactionActive() );
-      } );
+      context.safeNoTxAction( () -> assertFalse( context.isTransactionActive() ) );
 
       assertTrue( context.isTransactionActive() );
     } );
