@@ -12,7 +12,7 @@ public final class ComponentState
   /**
    * The component has been created, but not yet initialized.
    */
-  public final static byte COMPONENT_CREATED = 0;
+  private final static byte COMPONENT_CREATED = 0;
   /**
    * The components constructor has been called, the {@link arez.ArezContext} field initialized (if necessary),
    * and the synthetic id has been generated (if required).
