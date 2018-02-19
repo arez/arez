@@ -75,9 +75,8 @@ public class ArezContextTest
 
     assertFalse( context.isTransactionActive() );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(),
-                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
+    assertThrowsWithMessage( context::getTransaction,
+                             "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final String expectedValue = ValueUtil.randomString();
 
@@ -172,9 +171,8 @@ public class ArezContextTest
 
     assertFalse( context.isTransactionActive() );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(),
-                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
+    assertThrowsWithMessage( context::getTransaction,
+                             "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final String name = ValueUtil.randomString();
 
@@ -421,11 +419,9 @@ public class ArezContextTest
 
     final Observer observer = newObserver( context );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.track( observer, callCount::incrementAndGet ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0017: Attempted to track Observer named '" + observer.getName() +
-                  "' but observer is not a tracker." );
+    assertThrowsWithMessage( () -> context.track( observer, callCount::incrementAndGet ),
+                             "Arez-0017: Attempted to track Observer named '" + observer.getName() +
+                             "' but observer is not a tracker." );
 
     assertEquals( callCount.get(), 0 );
   }
@@ -438,9 +434,8 @@ public class ArezContextTest
 
     assertFalse( context.isTransactionActive() );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(),
-                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
+    assertThrowsWithMessage( context::getTransaction,
+                             "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final String expectedValue = ValueUtil.randomString();
 
@@ -535,9 +530,8 @@ public class ArezContextTest
 
     assertFalse( context.isTransactionActive() );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(),
-                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
+    assertThrowsWithMessage( context::getTransaction,
+                             "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final AccessControlException secException = new AccessControlException( "" );
 
@@ -707,11 +701,9 @@ public class ArezContextTest
 
     final Observer observer = newObserver( context );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.safeTrack( observer, callCount::incrementAndGet ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0018: Attempted to track Observer named '" + observer.getName() +
-                  "' but observer is not a tracker." );
+    assertThrowsWithMessage( () -> context.safeTrack( observer, callCount::incrementAndGet ),
+                             "Arez-0018: Attempted to track Observer named '" + observer.getName() +
+                             "' but observer is not a tracker." );
 
     assertEquals( callCount.get(), 0 );
   }
@@ -755,9 +747,8 @@ public class ArezContextTest
 
     assertFalse( context.isTransactionActive() );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(),
-                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
+    assertThrowsWithMessage( context::getTransaction,
+                             "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final AccessControlException secException = new AccessControlException( "" );
 
@@ -882,11 +873,9 @@ public class ArezContextTest
     final Observer observer = newObserver( context );
 
     final SafeProcedure procedure = callCount::incrementAndGet;
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.safeTrack( observer, procedure ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0020: Attempted to track Observer named '" + observer.getName() +
-                  "' but observer is not a tracker." );
+    assertThrowsWithMessage( () -> context.safeTrack( observer, procedure ),
+                             "Arez-0020: Attempted to track Observer named '" + observer.getName() +
+                             "' but observer is not a tracker." );
 
     assertEquals( callCount.get(), 0 );
   }
@@ -933,12 +922,9 @@ public class ArezContextTest
     final Observer observer = newObserver( context );
 
     final Procedure procedure = callCount::incrementAndGet;
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.track( observer, procedure ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0019: Attempted to track Observer named '" +
-                  observer.getName() +
-                  "' but observer is not a tracker." );
+    assertThrowsWithMessage( () -> context.track( observer, procedure ),
+                             "Arez-0019: Attempted to track Observer named '" +
+                             observer.getName() + "' but observer is not a tracker." );
 
     assertEquals( callCount.get(), 0 );
   }
@@ -1002,9 +988,8 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     assertFalse( context.isTransactionActive() );
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(),
-                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
+    assertThrowsWithMessage( context::getTransaction,
+                             "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final Observable<?> observable = newObservable( context );
     assertEquals( observable.getObservers().size(), 0 );
@@ -1090,9 +1075,8 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     assertFalse( context.isTransactionActive() );
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(),
-                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
+    assertThrowsWithMessage( context::getTransaction,
+                             "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final Observable<?> observable = newObservable( context );
     assertEquals( observable.getObservers().size(), 0 );
@@ -1178,9 +1162,8 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     assertFalse( context.isTransactionActive() );
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getTransaction );
-    assertEquals( exception.getMessage(),
-                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
+    assertThrowsWithMessage( context::getTransaction,
+                             "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
     final String name = ValueUtil.randomString();
     final IOException ioException = new IOException();
@@ -1369,8 +1352,7 @@ public class ArezContextTest
 
     final ArezContext context = new ArezContext();
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, context::getSpy );
-    assertEquals( exception.getMessage(), "Arez-0021: Attempting to get Spy but spies are not enabled." );
+    assertThrowsWithMessage( context::getSpy, "Arez-0021: Attempting to get Spy but spies are not enabled." );
   }
 
   @Test
@@ -1399,12 +1381,9 @@ public class ArezContextTest
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.action( false, () -> context.scheduleReaction( observer ) ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0013: Observer named '" + observer.getName() + "' attempted to be scheduled " +
-                  "during read-only transaction." );
+    assertThrowsWithMessage( () -> context.action( false, () -> context.scheduleReaction( observer ) ),
+                             "Arez-0013: Observer named '" + observer.getName() + "' attempted to be scheduled " +
+                             "during read-only transaction." );
   }
 
   @Test
@@ -1419,13 +1398,10 @@ public class ArezContextTest
 
     setCurrentTransaction( derivation );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.scheduleReaction( derivation ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0014: Observer named '" + derivation.getName() + "' attempted to schedule itself " +
-                  "during read-only tracking transaction. Observers that are supporting ComputedValue " +
-                  "instances must not schedule self." );
+    assertThrowsWithMessage( () -> context.scheduleReaction( derivation ),
+                             "Arez-0014: Observer named '" + derivation.getName() + "' attempted to schedule itself " +
+                             "during read-only tracking transaction. Observers that are supporting ComputedValue " +
+                             "instances must not schedule self." );
   }
 
   @Test
@@ -1887,10 +1863,8 @@ public class ArezContextTest
   @Test
   public void releaseSchedulerLock_whenNoLock()
   {
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> Arez.context().releaseSchedulerLock() );
-
-    assertEquals( exception.getMessage(), "Arez-0016: releaseSchedulerLock() reduced schedulerLockCount below 0." );
+    assertThrowsWithMessage( () -> Arez.context().releaseSchedulerLock(),
+                             "Arez-0016: releaseSchedulerLock() reduced schedulerLockCount below 0." );
   }
 
   @Test
@@ -1988,11 +1962,8 @@ public class ArezContextTest
     final String id = ValueUtil.randomString();
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.createComponent( type, id, name ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0008: ArezContext.createComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    assertThrowsWithMessage( () -> context.createComponent( type, id, name ),
+                             "Arez-0008: ArezContext.createComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -2007,12 +1978,9 @@ public class ArezContextTest
 
     assertTrue( context.isComponentPresent( type, id ) );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.createComponent( type, id, ValueUtil.randomString() ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0009: ArezContext.createComponent() invoked for type '" + type + "' and id '" + id +
-                  "' but a component already exists for specified type+id." );
+    assertThrowsWithMessage( () -> context.createComponent( type, id, ValueUtil.randomString() ),
+                             "Arez-0009: ArezContext.createComponent() invoked for type '" + type + "' and id '" + id +
+                             "' but a component already exists for specified type+id." );
   }
 
   @Test
@@ -2025,11 +1993,8 @@ public class ArezContextTest
     final String type = ValueUtil.randomString();
     final String id = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.isComponentPresent( type, id ) );
-
-    assertEquals( exception.getMessage(),
-                  "ArezContext.isComponentPresent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    assertThrowsWithMessage( () -> context.isComponentPresent( type, id ),
+                             "ArezContext.isComponentPresent() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -2047,11 +2012,8 @@ public class ArezContextTest
                      null,
                      null );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.deregisterComponent( component ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0006: ArezContext.deregisterComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    assertThrowsWithMessage( () -> context.deregisterComponent( component ),
+                             "Arez-0006: ArezContext.deregisterComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -2070,12 +2032,10 @@ public class ArezContextTest
     final Component component2 =
       context.createComponent( component.getType(), component.getId(), ValueUtil.randomString() );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.deregisterComponent( component ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0007: ArezContext.deregisterComponent() invoked for '" + component + "' but was " +
-                  "unable to remove specified component from registry. Actual component removed: " + component2 );
+    assertThrowsWithMessage( () -> context.deregisterComponent( component ),
+                             "Arez-0007: ArezContext.deregisterComponent() invoked for '" +
+                             component + "' but was unable to remove specified component from registry. " +
+                             "Actual component removed: " + component2 );
   }
 
   @Test
@@ -2151,11 +2111,8 @@ public class ArezContextTest
     final String type = ValueUtil.randomString();
     final String id = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.findComponent( type, id ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0010: ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    assertThrowsWithMessage( () -> context.findComponent( type, id ),
+                             "Arez-0010: ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -2167,11 +2124,8 @@ public class ArezContextTest
 
     final String type = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.findAllComponentsByType( type ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0011: ArezContext.findAllComponentsByType() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    assertThrowsWithMessage( () -> context.findAllComponentsByType( type ),
+                             "Arez-0011: ArezContext.findAllComponentsByType() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -2181,11 +2135,8 @@ public class ArezContextTest
 
     final ArezContext context = Arez.context();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, context::findAllComponentTypes );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0012: ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    assertThrowsWithMessage( context::findAllComponentTypes,
+                             "Arez-0012: ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
