@@ -1,8 +1,9 @@
-package arez.integration;
+package arez.integration.post_construct;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Autorun;
 import arez.annotations.PostConstruct;
+import arez.integration.AbstractIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
