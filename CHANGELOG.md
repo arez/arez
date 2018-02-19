@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.54](https://github.com/arez/arez/tree/v0.54) (2018-02-19)
+[Full Changelog](https://github.com/arez/arez/compare/v0.53...v0.54)
 
 #### Fixed
 * **\[processor\]** The enhanced component now generates an invariant failure (when invariants are enabled)
