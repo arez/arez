@@ -30,6 +30,6 @@ public class ComponentRefCalledInPostConstructTest
   {
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, ComponentRefCalledInPostConstructTest_Arez_TestComponent::new );
-    assertEquals( exception.getMessage(), "Method invoked on un-constructed component named 'TestComponent.0'" );
+    assertEquals( exception.getMessage(), "Method invoked on incomplete component named 'TestComponent.0'" );
   }
 }
