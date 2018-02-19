@@ -92,7 +92,7 @@ final class Arez_RepositoryWithProtectedConstructorRepository extends Repository
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        getContext().safeAction( Arez.areNamesEnabled() ? getRepositoryName() + ".dispose" : null, () -> { {
+        getContext().dispose( Arez.areNamesEnabled() ? getRepositoryName() : null, () -> { {
           super.preDispose();
           this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_entities.dispose();

@@ -62,6 +62,23 @@ public class TransactionTest
   }
 
   @Test
+  public void construct_withTrackerAnd_DISPOSE_Mode()
+  {
+    final String name = ValueUtil.randomString();
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Transaction( Arez.context(),
+                                           null,
+                                           name,
+                                           TransactionMode.DISPOSE,
+                                           newReadOnlyObserver() ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0178: Attempted to create transaction named '" + name +
+                  "' with mode DISPOSE and incorrectly specified tracker." );
+  }
+
+  @Test
   public void construction_whenSpyDisabled()
   {
     ArezTestUtil.disableSpies();
@@ -283,6 +300,32 @@ public class TransactionTest
   }
 
   @Test
+  public void observe_in_DISPOSE_transaction()
+  {
+    final ArezContext context = Arez.context();
+    final Observer tracker = newDerivation( context );
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.DISPOSE, null );
+    Transaction.setTransaction( transaction );
+
+    transaction.beginTracking();
+
+    final Observable<?> observable = newObservable( context );
+
+    assertEquals( tracker.getDependencies().size(), 0 );
+    assertEquals( observable.getObservers().size(), 0 );
+    assertNull( transaction.getObservables() );
+    assertNotEquals( transaction.getId(), observable.getLastTrackerTransactionId() );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.observe( observable ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0174: Transaction named '" + transaction.getName() + "' attempted to call " +
+                  "observe in dispose transaction." );
+  }
+
+  @Test
   public void observe_onDisposedObservable()
   {
     final ArezContext context = Arez.context();
@@ -487,8 +530,10 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
-    transaction.markTrackerAsDisposed();
+    tracker.markDependenciesLeastStaleObserverAsUpToDate();
+    tracker.clearDependencies();
+    tracker.setDisposed( true );
+    tracker.setState( ObserverState.INACTIVE );
 
     // This dependency "retained" (until tracker disposed)
     final Observable<?> observable1 = newObservable( context );
@@ -2128,69 +2173,6 @@ public class TransactionTest
   }
 
   @Test
-  public void markTrackerAsDisposed_whenNoTracker()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-    Transaction.setTransaction( transaction );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, transaction::markTrackerAsDisposed );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0135: Attempted to invoke markTrackerAsDisposed on transaction named '" +
-                  transaction.getName() + "' when there is no tracker associated with the transaction." );
-  }
-
-  @Test
-  public void markTrackerAsDisposed()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Observer tracker = newDerivation( context );
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, tracker );
-    Transaction.setTransaction( transaction );
-
-    assertEquals( transaction.shouldDisposeTracker(), false );
-    assertEquals( tracker.isDisposed(), false );
-
-    transaction.markTrackerAsDisposed();
-
-    assertEquals( transaction.shouldDisposeTracker(), true );
-    assertEquals( tracker.isDisposed(), true );
-  }
-
-  @Test
-  public void markTrackerAsDisposed_butTransactionREAD_ONLY()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Observer tracker = newDerivation( context );
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    Transaction.setTransaction( transaction );
-
-    assertEquals( transaction.shouldDisposeTracker(), false );
-    assertEquals( tracker.isDisposed(), false );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, transaction::markTrackerAsDisposed );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0136: Attempted to invoke markTrackerAsDisposed on transaction named '" +
-                  transaction.getName() + "' when the transaction mode is READ_ONLY and not READ_WRITE." );
-
-    assertEquals( transaction.shouldDisposeTracker(), false );
-    assertEquals( tracker.isDisposed(), false );
-  }
-
-  @Test
   public void getStartedAt_whenSpyDisabled()
   {
     ArezTestUtil.disableSpies();
@@ -2375,6 +2357,29 @@ public class TransactionTest
                   "Arez-0119: Attempting to create READ_WRITE transaction named '" + name +
                   "' but it is nested in transaction named '" + transaction.getName() + "' with " +
                   "mode READ_ONLY which is not equal to READ_WRITE." );
+  }
+
+  @Test
+  public void beginTransaction_attemptToNest_in_DISPOSE_mode_transaction()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    Transaction.setTransaction( new Transaction( context,
+                                                 null,
+                                                 ValueUtil.randomString(),
+                                                 TransactionMode.DISPOSE,
+                                                 null ) );
+    final Transaction transaction = context.getTransaction();
+
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Transaction.begin( context, name, TransactionMode.READ_ONLY, null ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0175: Attempting to create transaction named '" + name +
+                  "' but it is nested inside a DISPOSE transaction named '" + transaction.getName() + "'." );
   }
 
   @Test
@@ -2851,5 +2856,57 @@ public class TransactionTest
     Transaction.markAsSuspended();
 
     assertFalse( Transaction.isTransactionActive( context ) );
+  }
+
+  static class MyDisposable
+    implements Disposable
+  {
+    private boolean _disposed;
+
+    @Override
+    public void dispose()
+    {
+      _disposed = true;
+    }
+
+    @Override
+    public boolean isDisposed()
+    {
+      return _disposed;
+    }
+  }
+
+  @Test
+  public void reportDispose()
+  {
+    final Transaction transaction =
+      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.DISPOSE, null );
+
+    final MyDisposable node = new MyDisposable();
+
+    transaction.reportDispose( node );
+
+    node.dispose();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.reportDispose( node ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0176: Invoked reportDispose on transaction named '" +
+                  transaction.getName() + "' where the element is disposed." );
+  }
+
+  @Test
+  public void reportDispose_BAD_TransactionMode()
+  {
+    final Transaction transaction =
+      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    final MyDisposable node = new MyDisposable();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.reportDispose( node ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0177: Invoked reportDispose on transaction named '" +
+                  transaction.getName() + "' but the transaction mode is not DISPOSING but is READ_ONLY." );
   }
 }

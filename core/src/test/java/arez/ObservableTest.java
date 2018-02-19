@@ -297,7 +297,7 @@ public class ObservableTest
 
     assertEquals( observable.isDisposed(), true );
 
-    handler.assertEventCount( 11 );
+    handler.assertEventCount( 15 );
 
     // This is the part that disposes the associated Observable
     handler.assertNextEvent( ActionStartedEvent.class );
@@ -314,6 +314,10 @@ public class ObservableTest
     handler.assertNextEvent( ActionCompletedEvent.class );
 
     // This is the part that disposes the associated ComputedValue
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
     handler.assertNextEvent( ComputedValueDisposedEvent.class );
   }
 

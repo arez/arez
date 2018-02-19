@@ -302,24 +302,29 @@ public class ComputedValueTest
     assertEquals( observer.isDisposed(), true );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
 
-    handler.assertEventCount( 10 );
+    handler.assertEventCount( 14 );
 
     // This is the part that disposes the associated ComputedValue
-    final ComputedValueDisposedEvent event = handler.assertNextEvent( ComputedValueDisposedEvent.class );
-    assertEquals( event.getComputedValue().getName(), computedValue.getName() );
+    final String disposeAction = computedValue.getName() + ".dispose";
+    handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( ComputedValueDisposedEvent.class,
+                             e -> assertEquals( e.getComputedValue().getName(), computedValue.getName() ) );
 
     // This is the part that disposes the Observer
-    handler.assertNextEvent( ActionStartedEvent.class );
-    handler.assertNextEvent( TransactionStartedEvent.class );
-    handler.assertNextEvent( TransactionCompletedEvent.class );
-    handler.assertNextEvent( ActionCompletedEvent.class );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
 
     // This is the part that disposes the associated Observable
-    handler.assertNextEvent( ActionStartedEvent.class );
-    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
     handler.assertNextEvent( ObservableChangedEvent.class );
-    handler.assertNextEvent( TransactionCompletedEvent.class );
-    handler.assertNextEvent( ActionCompletedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
   }
 
   @Test
@@ -336,14 +341,9 @@ public class ComputedValueTest
 
       assertEquals( observer.isDisposed(), false );
 
-      final IllegalStateException exception = expectThrows( IllegalStateException.class, computedValue::dispose );
+      computedValue.dispose();
 
-      assertEquals( exception.getMessage(),
-                    "Arez-0119: Attempting to create READ_WRITE transaction named '" + computedValue.getName() +
-                    ".dispose' but it is nested in transaction named '" + context.getTransaction().getName() +
-                    "' with mode READ_ONLY which is not equal to READ_WRITE." );
-
-      assertEquals( observer.isDisposed(), false );
+      assertEquals( observer.isDisposed(), true );
     } );
   }
 

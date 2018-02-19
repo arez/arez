@@ -543,20 +543,20 @@
     },
     {
         "action": "When@1.watcher.dispose",
-        "tracked": true,
+        "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "mutation": true,
-        "tracker": "When@1.watcher",
+        "mutation": false,
+        "tracker": null,
         "type": "TransactionStarted",
         "transaction": "When@1.watcher.dispose"
     },
     {
-        "mutation": true,
-        "tracker": "When@1.watcher",
+        "mutation": false,
+        "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "When@1.watcher.dispose"
     },
@@ -564,7 +564,7 @@
         "result": null,
         "errorMessage": null,
         "action": "When@1.watcher.dispose",
-        "tracked": true,
+        "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
         "type": "ActionCompleted",
@@ -576,25 +576,21 @@
         "type": "ObserverDisposed"
     },
     {
-        "computedValue": "When@1.condition",
-        "type": "ComputedValueDisposed"
-    },
-    {
         "action": "When@1.condition.dispose",
-        "tracked": true,
+        "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "mutation": true,
-        "tracker": "When@1.condition",
+        "mutation": false,
+        "tracker": null,
         "type": "TransactionStarted",
         "transaction": "When@1.condition.dispose"
     },
     {
-        "mutation": true,
-        "tracker": "When@1.condition",
+        "mutation": false,
+        "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "When@1.condition.dispose"
     },
@@ -602,7 +598,41 @@
         "result": null,
         "errorMessage": null,
         "action": "When@1.condition.dispose",
-        "tracked": true,
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "When@1.condition",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "When@1.condition.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "When@1.condition.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "When@1.condition.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "When@1.condition.dispose",
+        "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
         "type": "ActionCompleted",
@@ -617,7 +647,7 @@
         ]
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "When@1.condition.dispose"
@@ -627,7 +657,7 @@
         "type": "ObservableChanged"
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "When@1.condition.dispose"

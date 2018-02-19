@@ -80,7 +80,7 @@ public final class Arez_ComponentNameModel extends ComponentNameModel implements
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? getComponentName() + ".dispose" : null, () -> { {
+        $$arezi$$_context().dispose( Arez.areNamesEnabled() ? getComponentName() : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
         } } );
       }

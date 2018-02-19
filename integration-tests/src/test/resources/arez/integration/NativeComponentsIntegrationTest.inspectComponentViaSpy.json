@@ -36,27 +36,27 @@
         ]
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "MyType@1.dispose"
     },
     {
         "action": "Render.dispose",
-        "tracked": true,
+        "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "mutation": true,
-        "tracker": "Render",
+        "mutation": false,
+        "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Render.dispose"
     },
     {
-        "mutation": true,
-        "tracker": "Render",
+        "mutation": false,
+        "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Render.dispose"
     },
@@ -64,7 +64,7 @@
         "result": null,
         "errorMessage": null,
         "action": "Render.dispose",
-        "tracked": true,
+        "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
         "type": "ActionCompleted",
@@ -76,25 +76,21 @@
         "type": "ObserverDisposed"
     },
     {
-        "computedValue": "Attr3",
-        "type": "ComputedValueDisposed"
-    },
-    {
         "action": "Attr3.dispose",
-        "tracked": true,
+        "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "mutation": true,
-        "tracker": "Attr3",
+        "mutation": false,
+        "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Attr3.dispose"
     },
     {
-        "mutation": true,
-        "tracker": "Attr3",
+        "mutation": false,
+        "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Attr3.dispose"
     },
@@ -102,7 +98,41 @@
         "result": null,
         "errorMessage": null,
         "action": "Attr3.dispose",
-        "tracked": true,
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "Attr3",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "Attr3.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Attr3.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Attr3.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Attr3.dispose",
+        "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
         "type": "ActionCompleted",
@@ -117,7 +147,7 @@
         ]
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Attr3.dispose"
@@ -128,7 +158,7 @@
         "value": null
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Attr3.dispose"
@@ -152,7 +182,7 @@
         ]
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Attr1.dispose"
@@ -163,7 +193,7 @@
         "value": null
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Attr1.dispose"
@@ -191,7 +221,7 @@
         ]
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Attr2.dispose"
@@ -202,7 +232,7 @@
         "value": null
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Attr2.dispose"
@@ -223,7 +253,7 @@
         "type": "ObservableDisposed"
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "MyType@1.dispose"

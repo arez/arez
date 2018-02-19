@@ -89,10 +89,6 @@ final class Transaction
    */
   @Nullable
   private ArrayList<Observable<?>> _observables;
-  /**
-   * Flag set to true when the current tracker should be disposed at the end.
-   */
-  private boolean _disposeTracker;
 
   /**
    * Return true if there is a transaction for speciffied context in progress.
@@ -149,6 +145,9 @@ final class Transaction
                       () -> "Arez-0119: Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
                             "nested in transaction named '" + c_transaction.getName() + "' with mode " +
                             c_transaction.getMode().name() + " which is not equal to READ_WRITE." );
+        apiInvariant( () -> TransactionMode.DISPOSE != c_transaction.getMode() || TransactionMode.DISPOSE == mode,
+                      () -> "Arez-0175: Attempting to create transaction named '" + name + "' but it is " +
+                            "nested inside a DISPOSE transaction named '" + c_transaction.getName() + "'." );
       }
     }
     if ( Arez.shouldCheckInvariants() )
@@ -298,6 +297,9 @@ final class Transaction
       invariant( () -> TransactionMode.READ_WRITE_OWNED != mode || null != tracker,
                  () -> "Arez-0132: Attempted to create transaction named '" + getName() +
                        "' with mode READ_WRITE_OWNED but no tracker specified." );
+      invariant( () -> TransactionMode.DISPOSE != mode || null == tracker,
+                 () -> "Arez-0178: Attempted to create transaction named '" + getName() +
+                       "' with mode DISPOSE and incorrectly specified tracker." );
     }
   }
 
@@ -362,22 +364,6 @@ final class Transaction
   public String toString()
   {
     return Arez.areNamesEnabled() ? getName() : super.toString();
-  }
-
-  void markTrackerAsDisposed()
-  {
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( () -> null != _tracker,
-                 () -> "Arez-0135: Attempted to invoke markTrackerAsDisposed on transaction named '" + getName() +
-                       "' when there is no tracker associated with the transaction." );
-      invariant( () -> !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == getMode(),
-                 () -> "Arez-0136: Attempted to invoke markTrackerAsDisposed on transaction named '" + getName() +
-                       "' when the transaction mode is " + getMode().name() + " and not READ_WRITE." );
-    }
-    assert null != _tracker;
-    _tracker.setDisposed( true );
-    _disposeTracker = true;
   }
 
   int getId()
@@ -528,6 +514,9 @@ final class Transaction
       invariant( () -> !observable.isDisposed(),
                  () -> "Arez-0142: Invoked observe on transaction named '" + getName() + "' for observable named '" +
                        observable.getName() + "' where the observable is disposed." );
+      invariant( () -> !Arez.shouldEnforceTransactionType() || TransactionMode.DISPOSE != getMode(),
+                 () -> "Arez-0174: Transaction named '" + getName() + "' attempted to call observe in dispose " +
+                       "transaction." );
     }
     if ( null != _tracker )
     {
@@ -555,6 +544,25 @@ final class Transaction
         observable.setLastTrackerTransactionId( id );
         safeGetObservables().add( observable );
       }
+    }
+  }
+
+  /**
+   * Called when disposing a arez node.
+   * This will check transaction mode.
+   *
+   * @param disposable the element being disposed.
+   */
+  void reportDispose( @Nonnull final Disposable disposable )
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> !disposable.isDisposed(),
+                 () -> "Arez-0176: Invoked reportDispose on transaction named '" + getName() +
+                       "' where the element is disposed." );
+      invariant( () -> !Arez.shouldEnforceTransactionType() || TransactionMode.DISPOSE == getMode(),
+                 () -> "Arez-0177: Invoked reportDispose on transaction named '" + getName() +
+                       "' but the transaction mode is not DISPOSING but is " + getMode() + "." );
     }
   }
 
@@ -912,11 +920,7 @@ final class Transaction
       }
     }
 
-    if ( _disposeTracker )
-    {
-      _tracker.setState( ObserverState.INACTIVE );
-    }
-    else if ( _tracker.isDerivation() && !_tracker.getDerivedValue().hasObservers() )
+    if ( !Disposable.isDisposed( _tracker ) && _tracker.isDerivation() && !_tracker.getDerivedValue().hasObservers() )
     {
       queueForDeactivation( _tracker.getDerivedValue() );
     }
@@ -994,12 +998,6 @@ final class Transaction
   ArrayList<Observable> getPendingDeactivations()
   {
     return _pendingDeactivations;
-  }
-
-  @TestOnly
-  boolean shouldDisposeTracker()
-  {
-    return _disposeTracker;
   }
 
   @TestOnly

@@ -137,7 +137,7 @@ public final class Component
       {
         _context.getSpy().reportSpyEvent( new ComponentDisposeStartedEvent( this ) );
       }
-      _context.safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, () -> {
+      _context.dispose( Arez.areNamesEnabled() ? getName() : null, () -> {
         if ( null != _preDispose )
         {
           _preDispose.call();

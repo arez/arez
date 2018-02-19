@@ -19,6 +19,13 @@
   observers before they have been constructed.
 * **\[processor\]** The `ObservableChanged` event generated from Arez when disposing a component will
   accurately report the value it is changing to as true.
+* **\[core\]** An invariant failure could be generated when the update of a `ComputedValue` led to the
+  deactivation of other `ComputedValue` instances which triggered a disposal of the `ComputedValue` and other
+  potential Arez elements. The invariant failure resulted from `dispose()` requiring a `READ_WRITE` transaction
+  mode while being nested in a `READ_WRITE_OWNED`. This frequently happened when using the `@Memoize` annotation
+  or in custom application code that derived view models from other observable and computed properties. The fix
+  for this is to introduce a new transaction mode `DISPOSE` which can only be used to dispose Arez elements
+  and can not have any nested transactions.
 
 #### Added
 * **\[component\]** Introduce the `ComponentState` class to help inspect component state in generated classes.

@@ -19,10 +19,7 @@ complete as there is too much un-said.
 * Should we add an interface where we can just watch a component (which is probably just equivalent to
   observing isDisposed?)
 
-* Dispose should have it's own transaction type that can run within scope of `READ_WRITE_OWNED` as things
-  can get disposed when deactivated.
-
-* Note somewhere that current error is `Arez-0172`
+* Note somewhere that current error is `Arez-0178`
 
 * Should generate `@Autorun` method that throws an exception as should never call it directly.
 

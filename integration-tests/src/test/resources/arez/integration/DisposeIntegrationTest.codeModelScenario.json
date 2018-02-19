@@ -431,14 +431,14 @@
     },
     {
         "action": "Printer.dispose",
-        "tracked": true,
+        "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "mutation": true,
-        "tracker": "Printer",
+        "mutation": false,
+        "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Printer.dispose"
     },
@@ -447,8 +447,8 @@
         "type": "ComputedValueDeactivated"
     },
     {
-        "mutation": true,
-        "tracker": "Printer",
+        "mutation": false,
+        "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Printer.dispose"
     },
@@ -456,7 +456,7 @@
         "result": null,
         "errorMessage": null,
         "action": "Printer.dispose",
-        "tracked": true,
+        "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
         "type": "ActionCompleted",
@@ -492,31 +492,27 @@
         ]
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "CodeModel.0.dispose"
     },
     {
-        "computedValue": "CodeModel.0.qualifiedName",
-        "type": "ComputedValueDisposed"
-    },
-    {
         "action": "CodeModel.0.qualifiedName.dispose",
-        "tracked": true,
+        "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "mutation": true,
-        "tracker": "CodeModel.0.qualifiedName",
+        "mutation": false,
+        "tracker": null,
         "type": "TransactionStarted",
         "transaction": "CodeModel.0.qualifiedName.dispose"
     },
     {
-        "mutation": true,
-        "tracker": "CodeModel.0.qualifiedName",
+        "mutation": false,
+        "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.qualifiedName.dispose"
     },
@@ -524,7 +520,41 @@
         "result": null,
         "errorMessage": null,
         "action": "CodeModel.0.qualifiedName.dispose",
-        "tracked": true,
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "CodeModel.0.qualifiedName",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "CodeModel.0.qualifiedName.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "CodeModel.0.qualifiedName.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "CodeModel.0.qualifiedName.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "CodeModel.0.qualifiedName.dispose",
+        "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
         "type": "ActionCompleted",
@@ -539,7 +569,7 @@
         ]
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "CodeModel.0.qualifiedName.dispose"
@@ -550,7 +580,7 @@
         "value": null
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.qualifiedName.dispose"
@@ -574,7 +604,7 @@
         ]
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "CodeModel.0.isDisposed.dispose"
@@ -585,7 +615,7 @@
         "value": false
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.isDisposed.dispose"
@@ -613,7 +643,7 @@
         ]
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "CodeModel.0.name.dispose"
@@ -624,7 +654,7 @@
         "value": "MyType2"
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.name.dispose"
@@ -652,7 +682,7 @@
         ]
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "CodeModel.0.packageName.dispose"
@@ -663,7 +693,7 @@
         "value": "com.example"
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.packageName.dispose"
@@ -691,7 +721,7 @@
         ]
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "CodeModel.0.rawQualifiedName.dispose"
@@ -702,7 +732,7 @@
         "value": null
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.rawQualifiedName.dispose"
@@ -723,7 +753,7 @@
         "type": "ObservableDisposed"
     },
     {
-        "mutation": true,
+        "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "CodeModel.0.dispose"

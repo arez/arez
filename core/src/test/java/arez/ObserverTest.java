@@ -111,6 +111,27 @@ public class ObserverTest
   }
 
   @Test
+  public void construct_with_DISPOSE_transactionMode()
+    throws Exception
+  {
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( Arez.context(),
+                                        null,
+                                        name,
+                                        null,
+                                        TransactionMode.DISPOSE,
+                                        new TestReaction(),
+                                        false ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0173: Attempted to construct an observer named '" + name + "' with DISPOSE " +
+                  "transaction mode. Observers must not specify this mode." );
+  }
+
+  @Test
   public void construct_with_mode_but_checking_DIsabled()
     throws Exception
   {
@@ -993,7 +1014,7 @@ public class ObserverTest
     assertEquals( derivedValue.isDisposed(), true );
     assertEquals( computedValue.isDisposed(), true );
 
-    handler.assertEventCount( 10 );
+    handler.assertEventCount( 14 );
 
     // This is the part that disposes the Observer
     handler.assertNextEvent( ActionStartedEvent.class );
@@ -1002,6 +1023,10 @@ public class ObserverTest
     handler.assertNextEvent( ActionCompletedEvent.class );
 
     // This is the part that disposes the associated ComputedValue
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
     handler.assertNextEvent( ComputedValueDisposedEvent.class );
 
     // This is the part that disposes the associated Observable
@@ -1042,9 +1067,13 @@ public class ObserverTest
     assertEquals( observer.isDisposed(), true );
     assertEquals( computedValue.isDisposed(), true );
 
-    handler.assertEventCount( 10 );
+    handler.assertEventCount( 14 );
 
     // This is the part that disposes the associated ComputedValue
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
     handler.assertNextEvent( ComputedValueDisposedEvent.class );
 
     // This is the part that disposes the Observer

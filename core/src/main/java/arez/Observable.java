@@ -150,10 +150,7 @@ public final class Observable<T>
   {
     if ( !isDisposed() )
     {
-      getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
-                               Arez.shouldEnforceTransactionType() ? TransactionMode.READ_WRITE : null,
-                               this::performDispose,
-                               null );
+      getContext().dispose( Arez.areNamesEnabled() ? getName() : null, this::performDispose );
       // All dependencies should have been released by the time it comes to deactivate phase.
       // The Observable has been marked as changed, forcing all observers to re-evaluate and
       // ultimately this will result in their removal of this Observable as a dependency as
@@ -188,6 +185,7 @@ public final class Observable<T>
 
   private void performDispose()
   {
+    getContext().getTransaction().reportDispose( this );
     reportChanged();
     _workState = DISPOSED;
   }

@@ -1870,7 +1870,7 @@ final class ComponentDescriptor
     nativeComponentBlock.nextControlFlow( "else" );
 
     final CodeBlock.Builder actionBlock = CodeBlock.builder();
-    actionBlock.beginControlFlow( "$N().safeAction( $T.areNamesEnabled() ? $N() + \".dispose\" : null, () -> {",
+    actionBlock.beginControlFlow( "$N().dispose( $T.areNamesEnabled() ? $N() : null, () -> {",
                                   getContextMethodName(),
                                   GeneratorUtil.AREZ_CLASSNAME,
                                   getComponentNameMethodName() );
