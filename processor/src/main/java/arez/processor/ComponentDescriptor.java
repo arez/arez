@@ -1183,7 +1183,7 @@ final class ComponentDescriptor
     {
       if ( !observable.hasSetter() && !observable.hasGetter() )
       {
-        throw new ArezProcessorException( "@ObservableRef target unable to associated with an Observable property",
+        throw new ArezProcessorException( "@ObservableRef target unable to be associated with an Observable property",
                                           observable.getRefMethod() );
       }
       else if ( !observable.hasSetter() && observable.expectSetter() )

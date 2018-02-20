@@ -481,7 +481,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observable_ref.NonAlignedNameModel",
                       "Method annotated with @ObservableRef should specify name or be named according to the convention get[Name]Observable" },
         new Object[]{ "com.example.observable_ref.NoObservableModel",
-                      "@ObservableRef target unable to associated with an Observable property" },
+                      "@ObservableRef target unable to be associated with an Observable property" },
         new Object[]{ "com.example.observable_ref.ParametersModel",
                       "@ObservableRef target must not have any parameters" },
         new Object[]{ "com.example.observable_ref.PrivateModel", "@ObservableRef target must not be private" },
