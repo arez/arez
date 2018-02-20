@@ -33,7 +33,6 @@ public final class Arez_LongComponentId extends LongComponentId implements Dispo
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
-    this.$$arezi$$_state = ComponentState.COMPONENT_COMPLETE;
     this.$$arezi$$_state = ComponentState.COMPONENT_READY;
   }
 

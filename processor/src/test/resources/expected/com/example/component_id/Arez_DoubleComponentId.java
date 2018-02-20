@@ -33,7 +33,6 @@ public final class Arez_DoubleComponentId extends DoubleComponentId implements D
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
-    this.$$arezi$$_state = ComponentState.COMPONENT_COMPLETE;
     this.$$arezi$$_state = ComponentState.COMPONENT_READY;
   }
 

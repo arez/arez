@@ -42,7 +42,6 @@ public final class Arez_RawObservableModel extends RawObservableModel implements
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
-    this.$$arezi$$_state = ComponentState.COMPONENT_COMPLETE;
     this.$$arezi$$_state = ComponentState.COMPONENT_READY;
   }
 

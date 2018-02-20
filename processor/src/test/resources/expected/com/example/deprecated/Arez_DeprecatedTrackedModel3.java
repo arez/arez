@@ -44,7 +44,6 @@ public final class Arez_DeprecatedTrackedModel3 extends DeprecatedTrackedModel3 
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
-    this.$$arezi$$_state = ComponentState.COMPONENT_COMPLETE;
     this.$$arezi$$_state = ComponentState.COMPONENT_READY;
   }
 

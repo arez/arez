@@ -46,7 +46,6 @@ public final class Arez_AbstractNonPrimitiveObservablesModel extends AbstractNon
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
-    this.$$arezi$$_state = ComponentState.COMPONENT_COMPLETE;
     this.$$arezi$$_state = ComponentState.COMPONENT_READY;
   }
 

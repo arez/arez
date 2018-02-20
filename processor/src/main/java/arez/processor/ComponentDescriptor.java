@@ -2148,12 +2148,12 @@ final class ComponentDescriptor
     componentEnabledBlock.endControlFlow();
     builder.addCode( componentEnabledBlock.build() );
 
-    builder.addStatement( "this.$N = $T.COMPONENT_COMPLETE",
-                          GeneratorUtil.STATE_FIELD_NAME,
-                          GeneratorUtil.COMPONENT_STATE_CLASSNAME );
-
     if ( !_deferSchedule && !_roAutoruns.isEmpty() )
     {
+      builder.addStatement( "this.$N = $T.COMPONENT_COMPLETE",
+                            GeneratorUtil.STATE_FIELD_NAME,
+                            GeneratorUtil.COMPONENT_STATE_CLASSNAME );
+
       builder.addStatement( "$N().triggerScheduler()", getContextMethodName() );
     }
 

@@ -38,7 +38,6 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
-    this.$$arezi$$_state = ComponentState.COMPONENT_COMPLETE;
     this.$$arezi$$_state = ComponentState.COMPONENT_READY;
   }
 

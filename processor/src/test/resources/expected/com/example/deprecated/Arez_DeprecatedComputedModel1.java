@@ -45,7 +45,6 @@ public final class Arez_DeprecatedComputedModel1 extends DeprecatedComputedModel
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
-    this.$$arezi$$_state = ComponentState.COMPONENT_COMPLETE;
     this.$$arezi$$_state = ComponentState.COMPONENT_READY;
   }
 

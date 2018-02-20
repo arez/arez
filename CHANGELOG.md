@@ -5,6 +5,10 @@
 #### Fixed
 * **\[processor\]** Fixed the grammar of the error message when `@ObservableRef` is present but no associated
   `@Observable` is present.
+* **\[processor\]** Avoid assigning the `COMPONENT_COMPLETE` value to the `state` field in the constructors of
+  the enhanced component subclass if the scheduler is not going to be triggered. This triggers the
+  `SA_FIELD_DOUBLE_ASSIGNMENT` warning in findbugs and omitting the assignment has no impact on the behaviour
+  of the code at runtime.
 
 ### [v0.54](https://github.com/arez/arez/tree/v0.54) (2018-02-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.53...v0.54)
