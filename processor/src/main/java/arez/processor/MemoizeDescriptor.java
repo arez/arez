@@ -1,5 +1,6 @@
 package arez.processor;
 
+import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
@@ -148,6 +149,14 @@ final class MemoizeDescriptor
     final TypeName returnType = TypeName.get( _memoizeType.getReturnType() );
     builder.returns( returnType );
 
+    final boolean hasTypeParameters = !_memoize.getTypeParameters().isEmpty();
+    if ( hasTypeParameters )
+    {
+      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
+                               .addMember( "value", "$S", "unchecked" )
+                               .build() );
+    }
+
     {
       final List<? extends VariableElement> parameters = _memoize.getParameters();
       final int paramCount = parameters.size();
@@ -167,7 +176,7 @@ final class MemoizeDescriptor
     final StringBuilder sb = new StringBuilder();
     final ArrayList<Object> parameters = new ArrayList<>();
     sb.append( "return " );
-    if ( !_memoize.getTypeParameters().isEmpty() )
+    if ( hasTypeParameters )
     {
       sb.append( "($T) " );
       parameters.add( returnType.box() );

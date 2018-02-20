@@ -96,6 +96,7 @@ public final class Arez_LocalTypeParamMemoizeModel extends LocalTypeParamMemoize
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public <T> T count(final String param) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
