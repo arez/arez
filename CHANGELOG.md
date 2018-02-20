@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.56](https://github.com/arez/arez/tree/v0.56) (2018-02-20)
+[Full Changelog](https://github.com/arez/arez/compare/v0.55...v0.56)
 
 #### Fixed
 * **\[processor\]** Updated the `isDispose()` method to avoid invoking `reportObserved()` on the `"disposable"`
