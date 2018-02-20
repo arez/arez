@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.55](https://github.com/arez/arez/tree/v0.55) (2018-02-20)
+[Full Changelog](https://github.com/arez/arez/compare/v0.54...v0.55)
 
 #### Fixed
 * **\[processor\]** Fixed the grammar of the error message when `@ObservableRef` is present but no associated
