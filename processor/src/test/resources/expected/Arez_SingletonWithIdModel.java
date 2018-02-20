@@ -91,15 +91,16 @@ public final class Arez_SingletonWithIdModel extends SingletonWithIdModel implem
 
   @Override
   public boolean isDisposed() {
-    if ( $$arezi$$_context().isTransactionActive() && !this.$$arezi$$_disposedObservable.isDisposed() )  {
+    final boolean isDisposed = ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
+    if ( !isDisposed && $$arezi$$_context().isTransactionActive() )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }
-    return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
+    return isDisposed;
   }
 
   @Override
   public void dispose() {
-    if ( !isDisposed() ) {
+    if ( !ComponentState.isDisposingOrDisposed( this.$$arezi$$_state ) ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSING;
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();

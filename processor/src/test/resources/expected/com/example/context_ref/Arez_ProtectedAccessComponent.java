@@ -68,15 +68,16 @@ final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent imple
 
   @Override
   public boolean isDisposed() {
-    if ( getContext().isTransactionActive() && !this.$$arezi$$_disposedObservable.isDisposed() )  {
+    final boolean isDisposed = ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
+    if ( !isDisposed && getContext().isTransactionActive() )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }
-    return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
+    return isDisposed;
   }
 
   @Override
   public void dispose() {
-    if ( !isDisposed() ) {
+    if ( !ComponentState.isDisposingOrDisposed( this.$$arezi$$_state ) ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSING;
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();

@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[processor\]** Updated the `isDispose()` method to avoid invoking `reportObserved()` on the `"disposable"`
+  observable property if the component is disposed or being disposed.
+
 ### [v0.55](https://github.com/arez/arez/tree/v0.55) (2018-02-20)
 [Full Changelog](https://github.com/arez/arez/compare/v0.54...v0.55)
 

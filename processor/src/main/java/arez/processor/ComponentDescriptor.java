@@ -1861,7 +1861,9 @@ final class ComponentDescriptor
         addAnnotation( Override.class );
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
-    codeBlock.beginControlFlow( "if ( !isDisposed() )" );
+    codeBlock.beginControlFlow( "if ( !$T.isDisposingOrDisposed( this.$N ) )",
+                                GeneratorUtil.COMPONENT_STATE_CLASSNAME,
+                                GeneratorUtil.STATE_FIELD_NAME );
     codeBlock.addStatement( "this.$N = $T.COMPONENT_DISPOSING",
                             GeneratorUtil.STATE_FIELD_NAME,
                             GeneratorUtil.COMPONENT_STATE_CLASSNAME );
@@ -1917,14 +1919,15 @@ final class ComponentDescriptor
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
 
+    builder.addStatement( "final boolean isDisposed = $T.isDisposingOrDisposed( this.$N )",
+                          GeneratorUtil.COMPONENT_STATE_CLASSNAME,
+                          GeneratorUtil.STATE_FIELD_NAME );
     final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $N().isTransactionActive() && !this.$N.isDisposed() ) ",
-                            getContextMethodName(),
-                            GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
+    block.beginControlFlow( "if ( !isDisposed && $N().isTransactionActive() ) ", getContextMethodName() );
     block.addStatement( "this.$N.reportObserved()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     block.endControlFlow();
     builder.addCode( block.build() );
-    builder.addStatement( "return $T.isDisposingOrDisposed( this.$N )",
+    builder.addStatement( "return isDisposed",
                           GeneratorUtil.COMPONENT_STATE_CLASSNAME,
                           GeneratorUtil.STATE_FIELD_NAME );
     return builder.build();
