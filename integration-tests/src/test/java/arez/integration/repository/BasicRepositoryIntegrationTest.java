@@ -7,6 +7,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
+import arez.component.ComponentObservable;
 import arez.component.NoResultException;
 import arez.component.NoSuchEntityException;
 import arez.integration.AbstractIntegrationTest;
@@ -169,7 +170,7 @@ public class BasicRepositoryIntegrationTest
     final AtomicInteger callCount = new AtomicInteger();
 
     context.autorun( () -> {
-      repository.findAll();
+      repository.findAll().forEach( ComponentObservable::observe );
       callCount.incrementAndGet();
     } );
 
