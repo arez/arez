@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Should generate `@Autorun` method that throws an exception as should never call it directly.
+
 * Consider a priority system for schedules and that way we can schedule disposes so they get
   highest priority. We may need to ensure that `ComputedValues` + `Observers` who are scheduled will not
   cause errors if disposed after they are scheduled. Also need to make sure that `ComputedValues`
@@ -16,7 +18,6 @@ complete as there is too much un-said.
   we end up is foreign key actions - i.e. if that other component over there is disposed then we can
   either null out our connection or dispose self.
 
-* Should generate `@Autorun` method that throws an exception as should never call it directly.
 
 * Add option to not emit equals and hashcode methods if native components are not enabled and repository
   is not enabled. The GWT compiler has problems optimizing these methods away even when they are not used.
