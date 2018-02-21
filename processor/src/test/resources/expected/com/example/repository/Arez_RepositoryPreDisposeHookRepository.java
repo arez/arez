@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
+import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.Identifiable;
 import java.util.stream.Stream;
@@ -17,7 +18,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @Singleton
-final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDisposeHookRepository implements Disposable, Identifiable<Long> {
+final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDisposeHookRepository implements Disposable, Identifiable<Long>, ComponentObservable {
   private static volatile long $$arezi$$_nextId;
 
   private final long $$arezi$$_id;
@@ -78,12 +79,20 @@ final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDispose
   }
 
   @Override
-  public boolean isDisposed() {
+  public boolean observe() {
     final boolean isDisposed = ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
-    if ( !isDisposed && getContext().isTransactionActive() )  {
+    if ( Arez.shouldCheckApiInvariants() && Arez.areSpiesEnabled() )  {
+      Guards.apiInvariant( () -> getContext().isTransactionActive() && getContext().getSpy().getTransaction().isTracking(), () -> "observe method invoked outside a tracking transaction on component of type 'RepositoryPreDisposeHookRepository'" );
+    }
+    if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }
-    return isDisposed;
+    return !isDisposed;
+  }
+
+  @Override
+  public boolean isDisposed() {
+    return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
   }
 
   @Override

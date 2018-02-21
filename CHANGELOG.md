@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+#### Changed
+* 💥 **\[component\]** Introduced `arez.component.ComponentObservable` so that observers can observe a
+  component without observing a particular property. The annotation processor has been enhanced so that
+  all the generated components implement this interface.
+
 ### [v0.56](https://github.com/arez/arez/tree/v0.56) (2018-02-20)
 [Full Changelog](https://github.com/arez/arez/compare/v0.55...v0.56)
 

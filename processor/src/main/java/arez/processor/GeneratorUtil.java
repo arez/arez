@@ -34,6 +34,7 @@ final class GeneratorUtil
   static final ClassName IDENTIFIABLE_CLASSNAME = ClassName.get( "arez.component", "Identifiable" );
   static final ClassName MEMOIZE_CACHE_CLASSNAME = ClassName.get( "arez.component", "MemoizeCache" );
   static final ClassName COMPONENT_STATE_CLASSNAME = ClassName.get( "arez.component", "ComponentState" );
+  static final ClassName COMPONENT_OBSERVABLE_CLASSNAME = ClassName.get( "arez.component", "ComponentObservable" );
 
   /**
    * Prefix for fields that are used to generate Arez elements.

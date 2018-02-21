@@ -1546,6 +1546,7 @@ final class ComponentDescriptor
 
     builder.addSuperinterface( GeneratorUtil.DISPOSABLE_CLASSNAME );
     builder.addSuperinterface( ParameterizedTypeName.get( GeneratorUtil.IDENTIFIABLE_CLASSNAME, getIdType().box() ) );
+    builder.addSuperinterface( GeneratorUtil.COMPONENT_OBSERVABLE_CLASSNAME );
 
     buildFields( builder );
 
@@ -1568,6 +1569,7 @@ final class ComponentDescriptor
       builder.addMethod( method );
     }
 
+    builder.addMethod( buildObserve() );
     builder.addMethod( buildIsDisposed() );
     builder.addMethod( buildDispose() );
 
@@ -1919,15 +1921,48 @@ final class ComponentDescriptor
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
 
+    builder.addStatement( "return $T.isDisposingOrDisposed( this.$N )",
+                          GeneratorUtil.COMPONENT_STATE_CLASSNAME,
+                          GeneratorUtil.STATE_FIELD_NAME );
+    return builder.build();
+  }
+
+  /**
+   * Generate the observe method.
+   */
+  @Nonnull
+  private MethodSpec buildObserve()
+    throws ArezProcessorException
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "observe" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class ).
+        returns( TypeName.BOOLEAN );
+
     builder.addStatement( "final boolean isDisposed = $T.isDisposingOrDisposed( this.$N )",
                           GeneratorUtil.COMPONENT_STATE_CLASSNAME,
                           GeneratorUtil.STATE_FIELD_NAME );
+
+    final CodeBlock.Builder guardBlock = CodeBlock.builder();
+    guardBlock.beginControlFlow( "if ( $T.shouldCheckApiInvariants() && $T.areSpiesEnabled() ) ",
+                                 GeneratorUtil.AREZ_CLASSNAME,
+                                 GeneratorUtil.AREZ_CLASSNAME );
+    guardBlock.addStatement(
+      "$T.apiInvariant( () -> $N().isTransactionActive() && $N().getSpy().getTransaction().isTracking(), () -> \"observe method invoked outside a tracking transaction on component of type '$N'\" )",
+      GeneratorUtil.GUARDS_CLASSNAME,
+      getContextMethodName(),
+      getContextMethodName(),
+      getType() );
+    guardBlock.endControlFlow();
+    builder.addCode( guardBlock.build() );
+
     final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( !isDisposed && $N().isTransactionActive() ) ", getContextMethodName() );
+    block.beginControlFlow( "if ( !isDisposed ) ", getContextMethodName() );
     block.addStatement( "this.$N.reportObserved()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     block.endControlFlow();
     builder.addCode( block.build() );
-    builder.addStatement( "return isDisposed",
+    builder.addStatement( "return !isDisposed",
                           GeneratorUtil.COMPONENT_STATE_CLASSNAME,
                           GeneratorUtil.STATE_FIELD_NAME );
     return builder.build();

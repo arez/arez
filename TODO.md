@@ -19,7 +19,7 @@ complete as there is too much un-said.
 * Should we add an interface where we can just watch a component (which is probably just equivalent to
   observing isDisposed?)
 
-* Note somewhere that current error is `Arez-0178`
+* Note somewhere that current error is `Arez-0179`
 
 * Should generate `@Autorun` method that throws an exception as should never call it directly.
 

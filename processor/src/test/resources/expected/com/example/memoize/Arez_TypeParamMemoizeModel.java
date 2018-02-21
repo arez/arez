@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
+import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.Identifiable;
 import arez.component.MemoizeCache;
@@ -14,7 +15,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_TypeParamMemoizeModel<T> extends TypeParamMemoizeModel<T> implements Disposable, Identifiable<Long> {
+public final class Arez_TypeParamMemoizeModel<T> extends TypeParamMemoizeModel<T> implements Disposable, Identifiable<Long>, ComponentObservable {
   private static volatile long $$arezi$$_nextId;
 
   private final long $$arezi$$_id;
@@ -71,12 +72,20 @@ public final class Arez_TypeParamMemoizeModel<T> extends TypeParamMemoizeModel<T
   }
 
   @Override
-  public boolean isDisposed() {
+  public boolean observe() {
     final boolean isDisposed = ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
-    if ( !isDisposed && $$arezi$$_context().isTransactionActive() )  {
+    if ( Arez.shouldCheckApiInvariants() && Arez.areSpiesEnabled() )  {
+      Guards.apiInvariant( () -> $$arezi$$_context().isTransactionActive() && $$arezi$$_context().getSpy().getTransaction().isTracking(), () -> "observe method invoked outside a tracking transaction on component of type 'TypeParamMemoizeModel'" );
+    }
+    if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }
-    return isDisposed;
+    return !isDisposed;
+  }
+
+  @Override
+  public boolean isDisposed() {
+    return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
   }
 
   @Override
