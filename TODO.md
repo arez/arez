@@ -137,6 +137,13 @@ console.table(languages);
   compiles and passes tests. Then release arez, then release child libraries. This is a more enhanced version
   of zim for github projects.
 
+* Verify that methods defined on all components are not defined as part of the arez annotated methods. These
+  include:
+    - observe
+    - dispose
+    - isDisposed
+    - getArezId
+
 ## Process
 
 * Incorporate notes from https://css-tricks.com/open-source-etiquette-guidebook/ into CONTRIBUTING.md and add
