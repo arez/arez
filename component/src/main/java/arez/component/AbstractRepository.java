@@ -278,6 +278,6 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
    */
   private boolean notDisposed( @Nonnull final RepositoryEntry<T> entry )
   {
-    return getContext().safeNoTxAction( () -> !Disposable.isDisposed( entry ) );
+    return !Disposable.isDisposed( entry );
   }
 }
