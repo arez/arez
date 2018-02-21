@@ -178,6 +178,10 @@ console.table(languages);
 
 * Add documentation for browser-extras.
 
+* Document `Identifiable`
+
+* Document `ComponentObservable`
+
 * Document `ArezContext.when(...)` methods and describe it as an observer?.
 
 * Document `ArezContext.noTxAction(...)` methods and describe it in transaction section.
