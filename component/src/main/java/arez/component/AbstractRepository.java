@@ -193,9 +193,18 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   @Nullable
   public T findByArezId( @Nonnull final K arezId )
   {
-    getEntitiesObservable().reportObserved();
     final RepositoryEntry<T> entry = _entities.get( arezId );
-    return null != entry && notDisposed( entry ) ? entry.getEntity() : null;
+    if ( null != entry && !Disposable.isDisposed( entry ) )
+    {
+      final T entity = entry.getEntity();
+      ComponentObservable.observe( entity );
+      return entity;
+    }
+    else
+    {
+      getEntitiesObservable().reportObserved();
+      return null;
+    }
   }
 
   /**

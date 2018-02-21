@@ -334,7 +334,7 @@ public class RepositoryTest
   }
 
   static class MyEntity
-    implements Identifiable<Integer>, Disposable
+    implements Identifiable<Integer>, Disposable, ComponentObservable
   {
     private int _arezId;
     private boolean _disposed;
@@ -342,6 +342,12 @@ public class RepositoryTest
     MyEntity( final int arezId )
     {
       _arezId = arezId;
+    }
+
+    @Override
+    public boolean observe()
+    {
+      return !isDisposed();
     }
 
     @Override
