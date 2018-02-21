@@ -16,11 +16,7 @@ complete as there is too much un-said.
   we end up is foreign key actions - i.e. if that other component over there is disposed then we can
   either null out our connection or dispose self.
 
-* Note somewhere that current error is `Arez-0179`
-
 * Should generate `@Autorun` method that throws an exception as should never call it directly.
-
-* Add (rake?) task that scans source code to ensure there are no duplicate error numbers.
 
 * Add option to not emit equals and hashcode methods if native components are not enabled and repository
   is not enabled. The GWT compiler has problems optimizing these methods away even when they are not used.
