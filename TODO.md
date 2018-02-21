@@ -34,7 +34,7 @@ complete as there is too much un-said.
   the best way is to add an `initializer` parameter to annotation. This would start with `AUTODETECT` and
   must be `DISABLE` when applied to non abstract methods, will be enabled if `AUTODETECT` and `@Nonnull`
   observable with abstract methods, otherwise `AUTODETECT` will be disabled. `ENABLE` is not valid on
-  non-abstract observables..
+  non-abstract observables.
 
 * Extract (browser-)extras as separate projects al:
   - `arez-idlestatus`
