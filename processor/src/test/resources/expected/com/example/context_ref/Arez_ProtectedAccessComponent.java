@@ -70,9 +70,6 @@ final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent imple
   @Override
   public boolean observe() {
     final boolean isDisposed = ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
-    if ( Arez.shouldCheckApiInvariants() && Arez.areSpiesEnabled() )  {
-      Guards.apiInvariant( () -> getContext().isTransactionActive() && getContext().getSpy().getTransaction().isTracking(), () -> "observe method invoked outside a tracking transaction on component of type 'ProtectedAccessComponent'" );
-    }
     if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }

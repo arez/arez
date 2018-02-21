@@ -43,18 +43,6 @@ public class ComponentObservableTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> ComponentObservable.observe( component ) );
     assertEquals( exception.getMessage(),
-                  "observe method invoked outside a tracking transaction on component of type 'TestComponent2'" );
-  }
-
-  @Test
-  public void outsideTrackingTransaction()
-    throws Throwable
-  {
-    final ComponentObservableTest_Arez_TestComponent2 component = new ComponentObservableTest_Arez_TestComponent2();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> Arez.context().action( () -> ComponentObservable.observe( component ) ) );
-    assertEquals( exception.getMessage(),
-                  "observe method invoked outside a tracking transaction on component of type 'TestComponent2'" );
+                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
   }
 }

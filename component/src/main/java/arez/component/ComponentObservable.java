@@ -12,8 +12,8 @@ public interface ComponentObservable
 {
   /**
    * Return true if the component is "alive" a.k.a. not disposing or disposed.
-   * This method MUST be invoked within the context of a tracking transaction
-   * (i.e. not an Action) and will add the component as a dependency unless
+   * This method MUST be invoked within a non-DISPOSE transaction and will add
+   * the component as a dependency if the transaction is tracking, unless
    * this component is disposing or disposed.
    *
    * @return true if the component is "alive" a.k.a. not disposing or disposed.

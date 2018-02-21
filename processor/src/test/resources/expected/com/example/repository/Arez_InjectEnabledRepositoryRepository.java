@@ -81,9 +81,6 @@ final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledReposito
   @Override
   public boolean observe() {
     final boolean isDisposed = ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
-    if ( Arez.shouldCheckApiInvariants() && Arez.areSpiesEnabled() )  {
-      Guards.apiInvariant( () -> getContext().isTransactionActive() && getContext().getSpy().getTransaction().isTracking(), () -> "observe method invoked outside a tracking transaction on component of type 'InjectEnabledRepositoryRepository'" );
-    }
     if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }

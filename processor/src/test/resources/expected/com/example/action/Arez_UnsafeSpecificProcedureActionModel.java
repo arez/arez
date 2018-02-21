@@ -70,9 +70,6 @@ public final class Arez_UnsafeSpecificProcedureActionModel extends UnsafeSpecifi
   @Override
   public boolean observe() {
     final boolean isDisposed = ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
-    if ( Arez.shouldCheckApiInvariants() && Arez.areSpiesEnabled() )  {
-      Guards.apiInvariant( () -> $$arezi$$_context().isTransactionActive() && $$arezi$$_context().getSpy().getTransaction().isTracking(), () -> "observe method invoked outside a tracking transaction on component of type 'UnsafeSpecificProcedureActionModel'" );
-    }
     if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }

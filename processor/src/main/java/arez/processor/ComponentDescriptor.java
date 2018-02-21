@@ -1944,19 +1944,6 @@ final class ComponentDescriptor
                           GeneratorUtil.COMPONENT_STATE_CLASSNAME,
                           GeneratorUtil.STATE_FIELD_NAME );
 
-    final CodeBlock.Builder guardBlock = CodeBlock.builder();
-    guardBlock.beginControlFlow( "if ( $T.shouldCheckApiInvariants() && $T.areSpiesEnabled() ) ",
-                                 GeneratorUtil.AREZ_CLASSNAME,
-                                 GeneratorUtil.AREZ_CLASSNAME );
-    guardBlock.addStatement(
-      "$T.apiInvariant( () -> $N().isTransactionActive() && $N().getSpy().getTransaction().isTracking(), () -> \"observe method invoked outside a tracking transaction on component of type '$N'\" )",
-      GeneratorUtil.GUARDS_CLASSNAME,
-      getContextMethodName(),
-      getContextMethodName(),
-      getType() );
-    guardBlock.endControlFlow();
-    builder.addCode( guardBlock.build() );
-
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( !isDisposed ) ", getContextMethodName() );
     block.addStatement( "this.$N.reportObserved()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
