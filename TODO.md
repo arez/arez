@@ -123,10 +123,6 @@ console.table(languages);
   - Never `arez.ArezTestUtil`
   - etc.
 
-* Add test like https://github.com/Vertispan/gwt-typedarrays/pull/2/files#diff-1
-  that compiles an application (TodoMVC?) in production versus development mode and verifies that the production
-  app strips out things such as spies etc. Make sure that they appear in development mode.
-
 * Figure out a mechanism for staging release that roll out changes to peer-libraries and tests that it
   compiles and passes tests. Then release arez, then release child libraries. This is a more enhanced version
   of zim for github projects.
