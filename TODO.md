@@ -112,12 +112,6 @@ console.table(languages);
   created by the context could be closed when the context is closed. It probably only makes sense in multi
   zone scenario and should generate invariant check failure otherwise.
 
-* Add test that verifies `TransactionMode` is not in compiled output of production mode.
-  Actually I would really like a test tool that we could scan source code and ensure that various elements
-  are not included under certain conditions. i.e. Annotations could be added to methods A, B and C
-  that should never be present in compiled output if `areNamesEnabled` is false. Package Y should no be present
-  in compiled output unless `areSpiesEnabled` is true etc.
-
 * Add a testing library that tests outputs. Given a `MyFile.symbolMap` and a set of configuration settings,
   the library should have assertions that check certain combinations of files are never present. This could be used
   by Arez itself but potentially also by downstream applications and libraries. Some candidate rules include:
