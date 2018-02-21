@@ -68,7 +68,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Lon
 
   @Override
   public boolean observe() {
-    final boolean isDisposed = ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
+    final boolean isDisposed = isDisposed();
     if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }

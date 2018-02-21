@@ -69,7 +69,7 @@ final class Arez_SimpleComponent extends SimpleComponent implements Disposable, 
 
   @Override
   public boolean observe() {
-    final boolean isDisposed = ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
+    final boolean isDisposed = isDisposed();
     if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }

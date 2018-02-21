@@ -79,7 +79,7 @@ public final class Arez_SubpackageModel extends SubpackageModel implements Dispo
 
   @Override
   public boolean observe() {
-    final boolean isDisposed = ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
+    final boolean isDisposed = isDisposed();
     if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }

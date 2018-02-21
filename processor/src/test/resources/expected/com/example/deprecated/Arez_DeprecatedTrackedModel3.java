@@ -74,7 +74,7 @@ public final class Arez_DeprecatedTrackedModel3 extends DeprecatedTrackedModel3 
 
   @Override
   public boolean observe() {
-    final boolean isDisposed = ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
+    final boolean isDisposed = isDisposed();
     if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }

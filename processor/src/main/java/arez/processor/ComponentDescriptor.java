@@ -1940,9 +1940,7 @@ final class ComponentDescriptor
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
 
-    builder.addStatement( "final boolean isDisposed = $T.isDisposingOrDisposed( this.$N )",
-                          GeneratorUtil.COMPONENT_STATE_CLASSNAME,
-                          GeneratorUtil.STATE_FIELD_NAME );
+    builder.addStatement( "final boolean isDisposed = isDisposed()" );
 
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( !isDisposed ) ", getContextMethodName() );

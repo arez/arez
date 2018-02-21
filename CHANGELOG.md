@@ -5,6 +5,8 @@
 #### Changed
 * 💥 **\[component\]** Change the contract of `arez.component.ComponentObservable` to allow it to be called
   from non-tracking transactions.
+* **\[processor\]** Improve the code generated for the `observe()` method so it is easier for the
+  GWT compiler to optimize.
 
 ### [v0.57](https://github.com/arez/arez/tree/v0.57) (2018-02-21)
 [Full Changelog](https://github.com/arez/arez/compare/v0.56...v0.57)

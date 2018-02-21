@@ -73,7 +73,7 @@ final class Arez_ResolvedModel extends ResolvedModel implements Disposable, Iden
 
   @Override
   public boolean observe() {
-    final boolean isDisposed = ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
+    final boolean isDisposed = isDisposed();
     if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }
