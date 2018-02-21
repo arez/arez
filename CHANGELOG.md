@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.57](https://github.com/arez/arez/tree/v0.57) (2018-02-21)
+[Full Changelog](https://github.com/arez/arez/compare/v0.56...v0.57)
 
 #### Changed
 * 💥 **\[component\]** Introduced `arez.component.ComponentObservable` so that observers can observe a
