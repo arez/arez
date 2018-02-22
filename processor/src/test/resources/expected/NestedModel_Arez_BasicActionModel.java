@@ -109,18 +109,26 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
 
   @Override
   public final int hashCode() {
-    return Long.hashCode( $$arezi$$_id() );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      return Long.hashCode( $$arezi$$_id() );
+    } else {
+      return super.hashCode();
+    }
   }
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof NestedModel_Arez_BasicActionModel) ) {
-      return false;
+    if ( Arez.areNativeComponentsEnabled() ) {
+      if ( this == o ) {
+        return true;
+      } else if ( null == o || !(o instanceof NestedModel_Arez_BasicActionModel) ) {
+        return false;
+      } else {
+        final NestedModel_Arez_BasicActionModel that = (NestedModel_Arez_BasicActionModel) o;;
+        return $$arezi$$_id() == that.$$arezi$$_id();
+      }
     } else {
-      final NestedModel_Arez_BasicActionModel that = (NestedModel_Arez_BasicActionModel) o;;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return super.equals( o );
     }
   }
 

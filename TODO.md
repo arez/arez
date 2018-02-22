@@ -18,13 +18,6 @@ complete as there is too much un-said.
   we end up is foreign key actions - i.e. if that other component over there is disposed then we can
   either null out our connection or dispose self.
 
-
-* Add option to not emit equals and hashcode methods if native components are not enabled and repository
-  is not enabled. The GWT compiler has problems optimizing these methods away even when they are not used.
-  We could mark this as a `Feature` so we could explicitly ENABLE or DISABLE it. `AUTODETECT` would mean
-  that they are generated if repositories are enabled and when native components are active they are
-  used otherwise a call to super is all that is provided.
-
 * Components that have observables defined by abstract methods should have some way of annotating these
   observables so that you can pass in initial values via generated constructor. Perhaps these variables
   occur at start of constructor parameter list or at end in the order that they are defined. It seems like

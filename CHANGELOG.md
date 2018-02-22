@@ -10,6 +10,12 @@
 * **\[component\]** Optimive the `AbstractRepository.findByArezId()` method so that if the entity is located
   then that entity is observed, otherwise the set of entities is observed. This ensures that the caller will
   become stale or be notified of either the entity being disposed or new entities being added to the collection.
+* **\[processor\]** Add a `requireEquals` parameter to the `ArezComponent` annotation. This controls whether
+  the business logic requires that the `equals(Object)` and `hashCode()` methods are implemented. If they are
+  not required then they are guarded in such a way that the GWT compiler can remove the methods during
+  optimization. The default value is `AUTODETECT` which enables the method if an `@Repository` annotation is
+  present on the component otherwise disables generation of these methods. It is an error to set the parameter
+  to `DISABLE` if an `@Repository` annotation is present on the component.
 
 ### [v0.57](https://github.com/arez/arez/tree/v0.57) (2018-02-21)
 [Full Changelog](https://github.com/arez/arez/compare/v0.56...v0.57)

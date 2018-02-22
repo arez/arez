@@ -139,6 +139,7 @@ public final class ArezProcessor
     final AnnotationMirror scopeAnnotation = scopeAnnotations.isEmpty() ? null : scopeAnnotations.get( 0 );
     final boolean inject = isInjectionRequired( typeElement, scopeAnnotation );
     final boolean dagger = isDaggerRequired( typeElement, scopeAnnotation );
+    final boolean requireEquals = isEqualsRequired( typeElement );
     final boolean deferSchedule = getAnnotationParameter( arezComponent, "deferSchedule" );
 
     if ( !typeElement.getModifiers().contains( Modifier.ABSTRACT ) && !allowConcrete )
@@ -203,6 +204,7 @@ public final class ArezProcessor
                                injectClassesPresent,
                                dagger || inject,
                                dagger,
+                               requireEquals,
                                scopeAnnotation,
                                deferSchedule,
                                generateToString,
@@ -292,6 +294,24 @@ public final class ArezProcessor
       default:
         return null != scopeAnnotation &&
                null != processingEnv.getElementUtils().getTypeElement( Constants.DAGGER_MODULE_CLASSNAME );
+    }
+  }
+
+  private boolean isEqualsRequired( @Nonnull final TypeElement typeElement )
+  {
+    final VariableElement injectParameter = (VariableElement)
+      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
+                                        typeElement,
+                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                                        "requireEquals" ).getValue();
+    switch ( injectParameter.getSimpleName().toString() )
+    {
+      case "ENABLE":
+        return true;
+      case "DISABLE":
+        return false;
+      default:
+        return null != ProcessorUtil.findAnnotationByType( typeElement, Constants.REPOSITORY_ANNOTATION_CLASSNAME );
     }
   }
 

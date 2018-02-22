@@ -74,6 +74,10 @@ final class ComponentDescriptor
   private final boolean _inject;
   private final boolean _dagger;
   /**
+   * Annotation that indicates whether equals/hashCode should be implemented. See arez.annotations.ArezComponent.requireEquals()
+   */
+  private final boolean _requireEquals;
+  /**
    * Scope annotation that is declared on component and should be transferred to injection providers.
    */
   private final AnnotationMirror _scopeAnnotation;
@@ -128,6 +132,7 @@ final class ComponentDescriptor
                        final boolean injectClassesPresent,
                        final boolean inject,
                        final boolean dagger,
+                       final boolean requireEquals,
                        @Nullable final AnnotationMirror scopeAnnotation,
                        final boolean deferSchedule,
                        final boolean generateToString,
@@ -141,6 +146,7 @@ final class ComponentDescriptor
     _injectClassesPresent = injectClassesPresent;
     _inject = inject;
     _dagger = dagger;
+    _requireEquals = requireEquals;
     _scopeAnnotation = scopeAnnotation;
     _deferSchedule = deferSchedule;
     _generateToString = generateToString;
@@ -1645,7 +1651,21 @@ final class ComponentDescriptor
       codeBlock.addStatement( "return $N() == that.$N()", idMethod, idMethod );
     }
     codeBlock.endControlFlow();
-    method.addCode( codeBlock.build() );
+
+    if ( _requireEquals )
+    {
+      method.addCode( codeBlock.build() );
+    }
+    else
+    {
+      final CodeBlock.Builder guardBlock = CodeBlock.builder();
+      guardBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
+      guardBlock.add( codeBlock.build() );
+      guardBlock.nextControlFlow( "else" );
+      guardBlock.addStatement( "return super.equals( o )" );
+      guardBlock.endControlFlow();
+      method.addCode( guardBlock.build() );
+    }
     return method.build();
   }
 
@@ -1661,47 +1681,101 @@ final class ComponentDescriptor
         addAnnotation( Override.class ).
         returns( TypeName.INT );
     final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : TypeKind.LONG;
-    if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
+    if ( _requireEquals )
     {
-      method.addStatement( "return null != $N() ? $N().hashCode() : $T.identityHashCode( this )",
-                           idMethod,
-                           idMethod,
-                           System.class );
-    }
-    else if ( kind == TypeKind.BYTE )
-    {
-      method.addStatement( "return $T.hashCode( $N() )", Byte.class, idMethod );
-    }
-    else if ( kind == TypeKind.CHAR )
-    {
-      method.addStatement( "return $T.hashCode( $N() )", Character.class, idMethod );
-    }
-    else if ( kind == TypeKind.SHORT )
-    {
-      method.addStatement( "return $T.hashCode( $N() )", Short.class, idMethod );
-    }
-    else if ( kind == TypeKind.INT )
-    {
-      method.addStatement( "return $T.hashCode( $N() )", Integer.class, idMethod );
-    }
-    else if ( kind == TypeKind.LONG )
-    {
-      method.addStatement( "return $T.hashCode( $N() )", Long.class, idMethod );
-    }
-    else if ( kind == TypeKind.FLOAT )
-    {
-      method.addStatement( "return $T.hashCode( $N() )", Float.class, idMethod );
-    }
-    else if ( kind == TypeKind.DOUBLE )
-    {
-      method.addStatement( "return $T.hashCode( $N() )", Double.class, idMethod );
+      if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
+      {
+        method.addStatement( "return null != $N() ? $N().hashCode() : $T.identityHashCode( this )",
+                             idMethod,
+                             idMethod,
+                             System.class );
+      }
+      else if ( kind == TypeKind.BYTE )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Byte.class, idMethod );
+      }
+      else if ( kind == TypeKind.CHAR )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Character.class, idMethod );
+      }
+      else if ( kind == TypeKind.SHORT )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Short.class, idMethod );
+      }
+      else if ( kind == TypeKind.INT )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Integer.class, idMethod );
+      }
+      else if ( kind == TypeKind.LONG )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Long.class, idMethod );
+      }
+      else if ( kind == TypeKind.FLOAT )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Float.class, idMethod );
+      }
+      else if ( kind == TypeKind.DOUBLE )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Double.class, idMethod );
+      }
+      else
+      {
+        // So very unlikely but will cover it for completeness
+        assert kind == TypeKind.BOOLEAN;
+        method.addStatement( "return $T.hashCode( $N() )", Boolean.class, idMethod );
+      }
     }
     else
     {
-      // So very unlikely but will cover it for completeness
-      assert kind == TypeKind.BOOLEAN;
-      method.addStatement( "return $T.hashCode( $N() )", Boolean.class, idMethod );
+      final CodeBlock.Builder guardBlock = CodeBlock.builder();
+      guardBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
+      if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
+      {
+        guardBlock.addStatement( "return null != $N() ? $N().hashCode() : $T.identityHashCode( this )",
+                                 idMethod,
+                                 idMethod,
+                                 System.class );
+      }
+      else if ( kind == TypeKind.BYTE )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Byte.class, idMethod );
+      }
+      else if ( kind == TypeKind.CHAR )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Character.class, idMethod );
+      }
+      else if ( kind == TypeKind.SHORT )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Short.class, idMethod );
+      }
+      else if ( kind == TypeKind.INT )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Integer.class, idMethod );
+      }
+      else if ( kind == TypeKind.LONG )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Long.class, idMethod );
+      }
+      else if ( kind == TypeKind.FLOAT )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Float.class, idMethod );
+      }
+      else if ( kind == TypeKind.DOUBLE )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Double.class, idMethod );
+      }
+      else
+      {
+        // So very unlikely but will cover it for completeness
+        assert kind == TypeKind.BOOLEAN;
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Boolean.class, idMethod );
+      }
+      guardBlock.nextControlFlow( "else" );
+      guardBlock.addStatement( "return super.hashCode()" );
+      guardBlock.endControlFlow();
+      method.addCode( guardBlock.build() );
     }
+
     return method.build();
   }
 

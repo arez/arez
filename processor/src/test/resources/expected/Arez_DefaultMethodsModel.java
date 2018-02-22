@@ -151,18 +151,26 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
 
   @Override
   public final int hashCode() {
-    return Long.hashCode( $$arezi$$_id() );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      return Long.hashCode( $$arezi$$_id() );
+    } else {
+      return super.hashCode();
+    }
   }
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_DefaultMethodsModel) ) {
-      return false;
+    if ( Arez.areNativeComponentsEnabled() ) {
+      if ( this == o ) {
+        return true;
+      } else if ( null == o || !(o instanceof Arez_DefaultMethodsModel) ) {
+        return false;
+      } else {
+        final Arez_DefaultMethodsModel that = (Arez_DefaultMethodsModel) o;;
+        return $$arezi$$_id() == that.$$arezi$$_id();
+      }
     } else {
-      final Arez_DefaultMethodsModel that = (Arez_DefaultMethodsModel) o;;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return super.equals( o );
     }
   }
 

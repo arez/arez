@@ -205,18 +205,26 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   @Override
   public final int hashCode() {
-    return null != getComponentId() ? getComponentId().hashCode() : System.identityHashCode( this );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      return null != getComponentId() ? getComponentId().hashCode() : System.identityHashCode( this );
+    } else {
+      return super.hashCode();
+    }
   }
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_ConcreteModel) ) {
-      return false;
+    if ( Arez.areNativeComponentsEnabled() ) {
+      if ( this == o ) {
+        return true;
+      } else if ( null == o || !(o instanceof Arez_ConcreteModel) ) {
+        return false;
+      } else {
+        final Arez_ConcreteModel that = (Arez_ConcreteModel) o;;
+        return null != getComponentId() && getComponentId().equals( that.getComponentId() );
+      }
     } else {
-      final Arez_ConcreteModel that = (Arez_ConcreteModel) o;;
-      return null != getComponentId() && getComponentId().equals( that.getComponentId() );
+      return super.equals( o );
     }
   }
 

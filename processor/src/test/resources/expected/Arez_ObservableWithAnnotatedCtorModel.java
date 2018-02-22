@@ -123,18 +123,26 @@ public final class Arez_ObservableWithAnnotatedCtorModel extends ObservableWithA
 
   @Override
   public final int hashCode() {
-    return Long.hashCode( $$arezi$$_id() );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      return Long.hashCode( $$arezi$$_id() );
+    } else {
+      return super.hashCode();
+    }
   }
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_ObservableWithAnnotatedCtorModel) ) {
-      return false;
+    if ( Arez.areNativeComponentsEnabled() ) {
+      if ( this == o ) {
+        return true;
+      } else if ( null == o || !(o instanceof Arez_ObservableWithAnnotatedCtorModel) ) {
+        return false;
+      } else {
+        final Arez_ObservableWithAnnotatedCtorModel that = (Arez_ObservableWithAnnotatedCtorModel) o;;
+        return $$arezi$$_id() == that.$$arezi$$_id();
+      }
     } else {
-      final Arez_ObservableWithAnnotatedCtorModel that = (Arez_ObservableWithAnnotatedCtorModel) o;;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return super.equals( o );
     }
   }
 

@@ -117,18 +117,26 @@ public final class Arez_ProtectedAccessTrackedModel extends ProtectedAccessTrack
 
   @Override
   public final int hashCode() {
-    return Long.hashCode( $$arezi$$_id() );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      return Long.hashCode( $$arezi$$_id() );
+    } else {
+      return super.hashCode();
+    }
   }
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_ProtectedAccessTrackedModel) ) {
-      return false;
+    if ( Arez.areNativeComponentsEnabled() ) {
+      if ( this == o ) {
+        return true;
+      } else if ( null == o || !(o instanceof Arez_ProtectedAccessTrackedModel) ) {
+        return false;
+      } else {
+        final Arez_ProtectedAccessTrackedModel that = (Arez_ProtectedAccessTrackedModel) o;;
+        return $$arezi$$_id() == that.$$arezi$$_id();
+      }
     } else {
-      final Arez_ProtectedAccessTrackedModel that = (Arez_ProtectedAccessTrackedModel) o;;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return super.equals( o );
     }
   }
 

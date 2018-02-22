@@ -111,18 +111,26 @@ public final class Arez_NoInjectModel extends NoInjectModel implements Disposabl
 
   @Override
   public final int hashCode() {
-    return Long.hashCode( $$arezi$$_id() );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      return Long.hashCode( $$arezi$$_id() );
+    } else {
+      return super.hashCode();
+    }
   }
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_NoInjectModel) ) {
-      return false;
+    if ( Arez.areNativeComponentsEnabled() ) {
+      if ( this == o ) {
+        return true;
+      } else if ( null == o || !(o instanceof Arez_NoInjectModel) ) {
+        return false;
+      } else {
+        final Arez_NoInjectModel that = (Arez_NoInjectModel) o;;
+        return $$arezi$$_id() == that.$$arezi$$_id();
+      }
     } else {
-      final Arez_NoInjectModel that = (Arez_NoInjectModel) o;;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return super.equals( o );
     }
   }
 

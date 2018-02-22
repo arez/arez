@@ -88,18 +88,26 @@ public final class Arez_DoubleComponentId extends DoubleComponentId implements D
 
   @Override
   public final int hashCode() {
-    return Double.hashCode( getId() );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      return Double.hashCode( getId() );
+    } else {
+      return super.hashCode();
+    }
   }
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_DoubleComponentId) ) {
-      return false;
+    if ( Arez.areNativeComponentsEnabled() ) {
+      if ( this == o ) {
+        return true;
+      } else if ( null == o || !(o instanceof Arez_DoubleComponentId) ) {
+        return false;
+      } else {
+        final Arez_DoubleComponentId that = (Arez_DoubleComponentId) o;;
+        return getId() == that.getId();
+      }
     } else {
-      final Arez_DoubleComponentId that = (Arez_DoubleComponentId) o;;
-      return getId() == that.getId();
+      return super.equals( o );
     }
   }
 

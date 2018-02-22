@@ -88,18 +88,26 @@ public final class Arez_ShortComponentId extends ShortComponentId implements Dis
 
   @Override
   public final int hashCode() {
-    return Short.hashCode( getId() );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      return Short.hashCode( getId() );
+    } else {
+      return super.hashCode();
+    }
   }
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_ShortComponentId) ) {
-      return false;
+    if ( Arez.areNativeComponentsEnabled() ) {
+      if ( this == o ) {
+        return true;
+      } else if ( null == o || !(o instanceof Arez_ShortComponentId) ) {
+        return false;
+      } else {
+        final Arez_ShortComponentId that = (Arez_ShortComponentId) o;;
+        return getId() == that.getId();
+      }
     } else {
-      final Arez_ShortComponentId that = (Arez_ShortComponentId) o;;
-      return getId() == that.getId();
+      return super.equals( o );
     }
   }
 

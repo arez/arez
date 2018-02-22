@@ -114,18 +114,26 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
 
   @Override
   public final int hashCode() {
-    return Long.hashCode( getId() );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      return Long.hashCode( getId() );
+    } else {
+      return super.hashCode();
+    }
   }
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_ComponentIdOnSingletonModel) ) {
-      return false;
+    if ( Arez.areNativeComponentsEnabled() ) {
+      if ( this == o ) {
+        return true;
+      } else if ( null == o || !(o instanceof Arez_ComponentIdOnSingletonModel) ) {
+        return false;
+      } else {
+        final Arez_ComponentIdOnSingletonModel that = (Arez_ComponentIdOnSingletonModel) o;;
+        return getId() == that.getId();
+      }
     } else {
-      final Arez_ComponentIdOnSingletonModel that = (Arez_ComponentIdOnSingletonModel) o;;
-      return getId() == that.getId();
+      return super.equals( o );
     }
   }
 

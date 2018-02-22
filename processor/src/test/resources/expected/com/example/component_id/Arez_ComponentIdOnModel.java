@@ -114,18 +114,26 @@ public final class Arez_ComponentIdOnModel extends ComponentIdOnModel implements
 
   @Override
   public final int hashCode() {
-    return Integer.hashCode( getId() );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      return Integer.hashCode( getId() );
+    } else {
+      return super.hashCode();
+    }
   }
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_ComponentIdOnModel) ) {
-      return false;
+    if ( Arez.areNativeComponentsEnabled() ) {
+      if ( this == o ) {
+        return true;
+      } else if ( null == o || !(o instanceof Arez_ComponentIdOnModel) ) {
+        return false;
+      } else {
+        final Arez_ComponentIdOnModel that = (Arez_ComponentIdOnModel) o;;
+        return getId() == that.getId();
+      }
     } else {
-      final Arez_ComponentIdOnModel that = (Arez_ComponentIdOnModel) o;;
-      return getId() == that.getId();
+      return super.equals( o );
     }
   }
 
