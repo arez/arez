@@ -16,6 +16,12 @@
   optimization. The default value is `AUTODETECT` which enables the method if an `@Repository` annotation is
   present on the component otherwise disables generation of these methods. It is an error to set the parameter
   to `DISABLE` if an `@Repository` annotation is present on the component.
+* 💥 **\[core\]** Split the `arez.ArezDev` GWT module into `arez.ArezDev` and `arez.ArezDebug`. The
+  `arez.ArezDebug` GWT modules is equivalent to the `arez.ArezDev` GWT module prior to the split. The
+  `arez.ArezDev` after the split does not enable the configuration flags `arez.enable_property_introspection`,
+  `arez.enable_spies`, `arez.enable_registries`, `arez.enable_native_components` or `arez.check_invariants`.
+  The aim of this change is to reduce the execution overhead associated with inheriting from the `arez.ArezDev`
+  GWT module during development.
 
 ### [v0.57](https://github.com/arez/arez/tree/v0.57) (2018-02-21)
 [Full Changelog](https://github.com/arez/arez/compare/v0.56...v0.57)

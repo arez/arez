@@ -9,10 +9,6 @@ complete as there is too much un-said.
 * Add ability to flag `ComponentObservable.observe` method as a computable and add a deactivate hook
   that disposes self on unobserve. Probably done as parameter to `ArezComponent`
 
-* Should have an "Debug" variant of the gwt modules that enables native components, invariant checking,
-  `enable_registries`, `enable_property_introspection` etc. The default development experience should not
-  need it.
-
 * Should generate `@Autorun` method that throws an exception as should never call it directly.
 
 * Consider a priority system for schedules and that way we can schedule disposes so they get
