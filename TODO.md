@@ -6,6 +6,9 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Add ability to flag `ComponentObservable.observe` method as a computable and add a deactivate hook
+  that disposes self on unobserve. Probably done as parameter to `ArezComponent`
+
 * Should have an "Debug" variant of the gwt modules that enables native components, invariant checking,
   `enable_registries`, `enable_property_introspection` etc. The default development experience should not
   need it.
