@@ -2,6 +2,7 @@ package arez.component;
 
 import arez.Arez;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -21,14 +22,16 @@ public interface ComponentObservable
   boolean observe();
 
   /**
-   * Invoke {@link #observe()} on the supplied object.
+   * Invoke {@link #observe()} on the supplied object if any.
+   * If a null object is passed into this method then it will return true.
+   * If an object that is not an instance of {@link ComponentObservable} is passed into this method then it will return true.
    *
-   * @param object the object to observe.
-   * @return true if the component is "alive" a.k.a. not disposing or disposed.
+   * @param object the object to observe if any.
+   * @return false if the component is not disposing or disposed, true otherwise.
    */
-  static boolean observe( @Nonnull final Object object )
+  static boolean observe( @Nullable final Object object )
   {
-    return asComponentObservable( object ).observe();
+    return !( object instanceof ComponentObservable ) || asComponentObservable( object ).observe();
   }
 
   /**

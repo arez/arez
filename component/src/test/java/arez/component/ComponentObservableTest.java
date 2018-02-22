@@ -24,17 +24,23 @@ public class ComponentObservableTest
   }
 
   @Test
-  public void componentObservable()
+  public void observe()
   {
     assertEquals( ComponentObservable.observe( new TestElement( true ) ), true );
     assertEquals( ComponentObservable.observe( new TestElement( false ) ), false );
+    assertEquals( ComponentObservable.observe( new Object() ), true );
+    assertEquals( ComponentObservable.observe( null ), true );
+  }
 
+  @Test
+  public void asComponentObservable()
+  {
     final TestElement element = new TestElement( true );
     assertEquals( ComponentObservable.asComponentObservable( element ), element );
   }
 
   @Test
-  public void nonComponentObservable()
+  public void asComponentObservable_nonObservable()
   {
     final Object element = new Object();
     final IllegalStateException exception =

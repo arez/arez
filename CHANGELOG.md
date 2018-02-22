@@ -5,6 +5,10 @@
 #### Changed
 * 💥 **\[component\]** Change the contract of `arez.component.ComponentObservable` to allow it to be called
   from non-tracking transactions.
+* 💥 **\[component\]** Change the parameter to `ComponentObservable.observe(Object)` so that it is `@Nullable`
+  and it can also be a value that does not implement the `ComponentObservable` interface. In both scenarios
+  the value `true` is returned. This covers the most common scenario where code is using the
+  `ComponentObservable.observe(Object)` method to observe an entity and know when it has been disposed.
 * **\[processor\]** Improve the code generated for the `observe()` method so it is easier for the
   GWT compiler to optimize.
 * **\[component\]** Optimive the `AbstractRepository.findByArezId()` method so that if the entity is located
