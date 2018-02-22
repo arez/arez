@@ -11,7 +11,7 @@
   `ComponentObservable.observe(Object)` method to observe an entity and know when it has been disposed.
 * **\[processor\]** Improve the code generated for the `observe()` method so it is easier for the
   GWT compiler to optimize.
-* **\[component\]** Optimive the `AbstractRepository.findByArezId()` method so that if the entity is located
+* **\[component\]** Optimize the `AbstractRepository.findByArezId()` method so that if the entity is located
   then that entity is observed, otherwise the set of entities is observed. This ensures that the caller will
   become stale or be notified of either the entity being disposed or new entities being added to the collection.
 * **\[processor\]** Add a `requireEquals` parameter to the `ArezComponent` annotation. This controls whether
