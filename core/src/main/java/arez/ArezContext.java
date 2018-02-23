@@ -440,8 +440,8 @@ public final class ArezContext
    * @param effect    The procedure that is executed when the condition is true.
    * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
    */
-  public Disposable when( @Nonnull final SafeFunction<Boolean> condition,
-                          @Nonnull final SafeProcedure effect )
+  public Observer when( @Nonnull final SafeFunction<Boolean> condition,
+                        @Nonnull final SafeProcedure effect )
   {
     return when( false, condition, effect );
   }
@@ -455,18 +455,16 @@ public final class ArezContext
    * @param effect    The procedure that is executed when the condition is true.
    * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
    */
-  public Disposable when( final boolean mutation,
-                          @Nonnull final SafeFunction<Boolean> condition,
-                          @Nonnull final SafeProcedure effect )
+  public Observer when( final boolean mutation,
+                        @Nonnull final SafeFunction<Boolean> condition,
+                        @Nonnull final SafeProcedure effect )
   {
     return when( null, mutation, condition, effect );
   }
 
   /**
    * Wait until a condition is true, then run effect.
-   * The condition function is run in a read-only, tracking transaction and will be re-evaluated
-   * any time any of the observed elements are updated. The effect procedure is run in either a
-   * read-only or read-write, non-tracking transaction.
+   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, boolean)} for further details.
    *
    * @param name      the debug name (if any) used when naming the underlying Arez resources.
    * @param mutation  true if the effect can mutate state, false otherwise.
@@ -474,12 +472,60 @@ public final class ArezContext
    * @param effect    The procedure that is executed when the condition is true.
    * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
    */
-  public Disposable when( @Nullable final String name,
-                          final boolean mutation,
-                          @Nonnull final SafeFunction<Boolean> condition,
-                          @Nonnull final SafeProcedure effect )
+  public Observer when( @Nullable final String name,
+                        final boolean mutation,
+                        @Nonnull final SafeFunction<Boolean> condition,
+                        @Nonnull final SafeProcedure effect )
   {
-    return new Watcher( this, generateNodeName( "When", name ), mutation, condition, effect );
+    return when( name, mutation, condition, effect, true );
+  }
+
+  /**
+   * Wait until a condition is true, then run effect.
+   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, boolean)} for further details.
+   *
+   * @param name      the debug name (if any) used when naming the underlying Arez resources.
+   * @param mutation  true if the effect can mutate state, false otherwise.
+   * @param condition The function that determines when the effect is run.
+   * @param effect    The procedure that is executed when the condition is true.
+   * @param runImmediately true to invoke condition immediately, false to schedule reaction for next reaction cycle.
+   * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
+   */
+  public Observer when( @Nullable final String name,
+                        final boolean mutation,
+                        @Nonnull final SafeFunction<Boolean> condition,
+                        @Nonnull final SafeProcedure effect,
+                        final boolean runImmediately )
+  {
+    return when( null, name, mutation, condition, effect, runImmediately );
+  }
+  /**
+   * Wait until a condition is true, then run effect.
+   * The condition function is run in a read-only, tracking transaction and will be re-evaluated
+   * any time any of the observed elements are updated. The effect procedure is run in either a
+   * read-only or read-write, non-tracking transaction.
+   *
+   * @param name           the debug name (if any) used when naming the underlying Arez resources.
+   * @param mutation       true if the effect can mutate state, false otherwise.
+   * @param condition      The function that determines when the effect is run.
+   * @param effect         The procedure that is executed when the condition is true.
+   * @param runImmediately true to invoke condition immediately, false to schedule reaction for next reaction cycle.
+   * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
+   */
+  public Observer when( @Nullable final Component component,
+                        @Nullable final String name,
+                        final boolean mutation,
+                        @Nonnull final SafeFunction<Boolean> condition,
+                        @Nonnull final SafeProcedure effect,
+                        final boolean runImmediately )
+  {
+    return new Watcher( this,
+                        component,
+                        generateNodeName( "When", name ),
+                        mutation,
+                        condition,
+                        effect,
+                        runImmediately ).getWatcher();
   }
 
   /**

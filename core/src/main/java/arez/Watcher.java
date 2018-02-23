@@ -37,28 +37,51 @@ final class Watcher
   /**
    * Create the watcher.
    *
-   * @param context   the Arez context.
-   * @param name      the name (if any) used when naming the underlying Arez resources.
-   * @param mutation  true if the effect can mutate state, false otherwise.
-   * @param condition The function that determines when the effect is run.
-   * @param effect    The procedure that is executed when the condition is true.
+   * @param context        the Arez context.
+   * @param name           the name (if any) used when naming the underlying Arez resources.
+   * @param mutation       true if the effect can mutate state, false otherwise.
+   * @param condition      The function that determines when the effect is run.
+   * @param effect         The procedure that is executed when the condition is true.
+   * @param runImmediately True if condition should be scheduled immediately.
    */
   Watcher( @Nonnull final ArezContext context,
+           @Nullable final Component component,
            @Nullable final String name,
            final boolean mutation,
            @Nonnull final SafeFunction<Boolean> condition,
-           @Nonnull final SafeProcedure effect )
+           @Nonnull final SafeProcedure effect,
+           final boolean runImmediately )
   {
     super( context, name );
     Objects.requireNonNull( condition );
     _mutation = mutation;
     _effect = Objects.requireNonNull( effect );
     _condition =
-      getContext().createComputedValue( Arez.areNamesEnabled() ? getName() + ".condition" : null, condition );
+      getContext().createComputedValue( Arez.areNativeComponentsEnabled() ? component : null,
+                                        Arez.areNamesEnabled() ? getName() + ".condition" : null,
+                                        condition,
+                                        Objects::equals,
+                                        null,
+                                        this::dispose,
+                                        null,
+                                        null );
     _watcher =
-      getContext().autorun( Arez.areNamesEnabled() ? getName() + ".watcher" : null, true, this::checkCondition, false );
+      getContext().autorun( Arez.areNativeComponentsEnabled() ? component : null,
+                            Arez.areNamesEnabled() ? getName() + ".watcher" : null,
+                            true,
+                            this::checkCondition,
+                            false );
 
-    getContext().triggerScheduler();
+    if ( runImmediately )
+    {
+      getContext().triggerScheduler();
+    }
+  }
+
+  @Nonnull
+  Observer getWatcher()
+  {
+    return _watcher;
   }
 
   /**
@@ -97,6 +120,13 @@ final class Watcher
   boolean isMutation()
   {
     return _mutation;
+  }
+
+  @TestOnly
+  @Nonnull
+  ComputedValue<Boolean> getCondition()
+  {
+    return _condition;
   }
 
   @TestOnly

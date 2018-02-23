@@ -2258,11 +2258,11 @@ public class ArezContextTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Disposable node = Arez.context().when( name, true, condition, procedure );
+    final ArezContext context = Arez.context();
+    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
+    final Observer node = context.when( component, name, true, condition, procedure, true );
 
-    assertTrue( node instanceof Watcher );
-    final Watcher watcher = (Watcher) node;
-    assertEquals( watcher.getName(), name );
+    assertEquals( node.getName(), name + ".watcher" );
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
   }
@@ -2286,11 +2286,9 @@ public class ArezContextTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Disposable node = context.when( condition, procedure );
+    final Observer node = context.when( condition, procedure );
 
-    assertTrue( node instanceof Watcher );
-    final Watcher watcher = (Watcher) node;
-    assertEquals( watcher.getName(), "When@2", "The name has @2 as one other Arez entity created (Observable)" );
+    assertEquals( node.getName(), "When@2.watcher", "The name has @2 as one other Arez entity created (Observable)" );
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
   }

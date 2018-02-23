@@ -17,6 +17,7 @@ public class WatcherTest
     final ArezContext context = Arez.context();
 
     final Observable observable = context.createObservable();
+    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
 
     final AtomicBoolean result = new AtomicBoolean();
 
@@ -32,11 +33,16 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Watcher watcher = new Watcher( context, name, mutation, condition, procedure );
+    final Watcher watcher = new Watcher( context, component, name, mutation, condition, procedure, true );
 
     assertEquals( watcher.getName(), name );
     assertEquals( watcher.isMutation(), mutation );
     assertEquals( watcher.getEffect(), procedure );
+    assertEquals( watcher.getWatcher().getName(), name + ".watcher" );
+    assertEquals( watcher.getWatcher().getComponent(), component );
+
+    assertEquals( watcher.getCondition().getName(), name + ".condition" );
+    assertEquals( watcher.getCondition().getComponent(), component );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
@@ -62,6 +68,38 @@ public class WatcherTest
   }
 
   @Test
+  public void basicOperation_noRunImmediately()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final Observable observable = context.createObservable();
+
+    final AtomicBoolean result = new AtomicBoolean();
+
+    final AtomicInteger conditionRun = new AtomicInteger();
+    final AtomicInteger effectRun = new AtomicInteger();
+
+    final boolean mutation = true;
+    final SafeFunction<Boolean> condition = () -> {
+      conditionRun.incrementAndGet();
+      observable.reportObserved();
+      return result.get();
+    };
+    final SafeProcedure procedure = effectRun::incrementAndGet;
+
+    new Watcher( context, null, ValueUtil.randomString(), mutation, condition, procedure, false );
+
+    assertEquals( conditionRun.get(), 0 );
+    assertEquals( effectRun.get(), 0 );
+
+    context.triggerScheduler();
+
+    assertEquals( conditionRun.get(), 1 );
+    assertEquals( effectRun.get(), 0 );
+  }
+
+  @Test
   public void dispose_releasesResources()
     throws Throwable
   {
@@ -83,16 +121,61 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Watcher watcher = new Watcher( context, name, mutation, condition, procedure );
+    final Watcher watcher = new Watcher( context, null, name, mutation, condition, procedure, true );
+
+    assertEquals( conditionRun.get(), 1 );
+    assertEquals( effectRun.get(), 0 );
+    assertEquals( Disposable.isDisposed( watcher ), false );
+    assertEquals( Disposable.isDisposed( watcher.getWatcher() ), false );
+    assertEquals( Disposable.isDisposed( watcher.getCondition() ), false );
+
+    result.set( true );
+    Disposable.dispose( watcher );
+
+    assertEquals( Disposable.isDisposed( watcher ), true );
+    assertEquals( Disposable.isDisposed( watcher.getWatcher() ), true );
+    assertEquals( Disposable.isDisposed( watcher.getCondition() ), true );
+
+    context.action( ValueUtil.randomString(), true, observable::reportChanged );
+
+    assertEquals( conditionRun.get(), 1 );
+    assertEquals( effectRun.get(), 0 );
+  }
+
+  @Test
+  public void dispose_of_observer_disposesCondition()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final Observable observable = context.createObservable();
+
+    final AtomicBoolean result = new AtomicBoolean();
+
+    final AtomicInteger conditionRun = new AtomicInteger();
+    final AtomicInteger effectRun = new AtomicInteger();
+
+    final String name = ValueUtil.randomString();
+    final boolean mutation = true;
+    final SafeFunction<Boolean> condition = () -> {
+      conditionRun.incrementAndGet();
+      observable.reportObserved();
+      return result.get();
+    };
+    final SafeProcedure procedure = effectRun::incrementAndGet;
+
+    final Watcher watcher = new Watcher( context, null, name, mutation, condition, procedure, true );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
     assertEquals( Disposable.isDisposed( watcher ), false );
 
     result.set( true );
-    Disposable.dispose( watcher );
+    Disposable.dispose( watcher.getWatcher() );
 
     assertEquals( Disposable.isDisposed( watcher ), true );
+    assertEquals( Disposable.isDisposed( watcher.getWatcher() ), true );
+    assertEquals( Disposable.isDisposed( watcher.getCondition() ), true );
 
     context.action( ValueUtil.randomString(), true, observable::reportChanged );
 
@@ -137,7 +220,7 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    new Watcher( context, name, mutation, condition, procedure );
+    new Watcher( context, null, name, mutation, condition, procedure, true );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
@@ -185,7 +268,7 @@ public class WatcherTest
       observable.reportChanged();
     };
 
-    new Watcher( context, ValueUtil.randomString(), false, () -> true, effect );
+    new Watcher( context, null, ValueUtil.randomString(), false, () -> true, effect, true );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 1 );
@@ -212,7 +295,7 @@ public class WatcherTest
       observable.reportChanged();
     };
 
-    new Watcher( context, ValueUtil.randomString(), true, () -> true, effect );
+    new Watcher( context, null, ValueUtil.randomString(), true, () -> true, effect, true );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 0 );

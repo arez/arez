@@ -26,6 +26,13 @@
   `arez.enable_spies`, `arez.enable_registries`, `arez.enable_native_components` or `arez.check_invariants`.
   The aim of this change is to reduce the execution overhead associated with inheriting from the `arez.ArezDev`
   GWT module during development.
+* **\[core\]** Changed the `ArezContext.when(...)` methods to return the observer that is created to watch the
+  condition. If the invoking code calls `dispose()` on the observer then the condition will self-dispose when
+  it is deactivated.
+* **\[core\]** Change the `ArezContext.when(...)` method to support passing a component that contains the
+  reactive components created by the `when(...)` call.
+* **\[core\]** Add a parameter to the `ArezContext.when(...)` methods to control whether the contained autorun
+  observer should run immediately or wait till the next scheduler invocation.
 
 ### [v0.57](https://github.com/arez/arez/tree/v0.57) (2018-02-21)
 [Full Changelog](https://github.com/arez/arez/compare/v0.56...v0.57)
