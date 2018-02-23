@@ -14,11 +14,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -124,6 +127,9 @@ final class ComponentDescriptor
   private final Map<String, TrackedDescriptor> _trackeds = new HashMap<>();
   private final Collection<TrackedDescriptor> _roTrackeds =
     Collections.unmodifiableCollection( _trackeds.values() );
+  private final Map<ExecutableElement, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
+  private final Collection<DependencyDescriptor> _roDependencies =
+    Collections.unmodifiableCollection( _dependencies.values() );
 
   ComponentDescriptor( @Nonnull final Elements elements,
                        @Nonnull final String type,
@@ -948,6 +954,7 @@ final class ComponentDescriptor
   {
     _roObservables.forEach( ObservableDescriptor::validate );
     _roComputeds.forEach( ComputedDescriptor::validate );
+    _roDependencies.forEach( DependencyDescriptor::validate );
 
     if ( !_allowEmpty &&
          _roObservables.isEmpty() &&
@@ -955,6 +962,7 @@ final class ComponentDescriptor
          _roComputeds.isEmpty() &&
          _roMemoizes.isEmpty() &&
          _roTrackeds.isEmpty() &&
+         _roDependencies.isEmpty() &&
          _roAutoruns.isEmpty() )
     {
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
@@ -1113,6 +1121,8 @@ final class ComponentDescriptor
     linkUnAnnotatedTracked( trackeds, onDepsChangeds );
     linkObserverRefs();
 
+    linkDependencies( getters.values() );
+
     /*
      * ALl of the maps will have called remove() for all matching candidates.
      * Thus any left are the non-arez methods.
@@ -1122,6 +1132,80 @@ final class ComponentDescriptor
     ensureNoAbstractMethods( setters.values() );
     ensureNoAbstractMethods( trackeds.values() );
     ensureNoAbstractMethods( onDepsChangeds.values() );
+  }
+
+  private void linkDependencies( @Nonnull final Collection<CandidateMethod> candidates )
+  {
+    _roObservables
+      .stream()
+      .filter( ObservableDescriptor::hasGetter )
+      .filter( o -> hasDependencyAnnotation( o.getGetter() ) )
+      .forEach( o -> addOrUpdateDependency( o.getGetter(), o ) );
+
+    _roComputeds
+      .stream()
+      .filter( ComputedDescriptor::hasComputed )
+      .map( ComputedDescriptor::getComputed )
+      .filter( this::hasDependencyAnnotation )
+      .forEach( this::addDependency );
+
+    candidates
+      .stream()
+      .map( CandidateMethod::getMethod )
+      .filter( this::hasDependencyAnnotation )
+      .forEach( this::addDependency );
+  }
+
+  private boolean hasDependencyAnnotation( @Nonnull final ExecutableElement method )
+  {
+    return null != ProcessorUtil.findAnnotationByType( method, Constants.DEPENDENCY_ANNOTATION_CLASSNAME );
+  }
+
+  private void addOrUpdateDependency( @Nonnull final ExecutableElement method,
+                                      @Nonnull final ObservableDescriptor observable )
+  {
+    final DependencyDescriptor dependencyDescriptor =
+      _dependencies.computeIfAbsent( method, this::createDependencyDescriptor );
+    dependencyDescriptor.setObservable( observable );
+  }
+
+  private void addDependency( @Nonnull final ExecutableElement method )
+  {
+    _dependencies.put( method, createDependencyDescriptor( method ) );
+  }
+
+  @Nonnull
+  private DependencyDescriptor createDependencyDescriptor( @Nonnull final ExecutableElement method )
+  {
+    MethodChecks.mustNotHaveAnyParameters( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotBeStatic( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotBePrivate( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustReturnAValue( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
+
+    if ( TypeKind.DECLARED != method.getReturnType().getKind() )
+    {
+      throw new ArezProcessorException( "@Dependency target must return a non-primitive value", method );
+    }
+    final boolean cascade = isActionCascade( method );
+    return new DependencyDescriptor( method, cascade );
+  }
+
+  private boolean isActionCascade( @Nonnull final ExecutableElement method )
+  {
+    final VariableElement injectParameter = (VariableElement)
+      ProcessorUtil.getAnnotationValue( _elements,
+                                        method,
+                                        Constants.DEPENDENCY_ANNOTATION_CLASSNAME,
+                                        "action" ).getValue();
+    switch ( injectParameter.getSimpleName().toString() )
+    {
+      case "CASCADE":
+        return true;
+      case "SET_NULL":
+      default:
+        return false;
+    }
   }
 
   private void ensureNoAbstractMethods( @Nonnull final Collection<CandidateMethod> candidateMethods )
@@ -1290,6 +1374,8 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.OBSERVER_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror memoize =
       ProcessorUtil.findAnnotationByType( method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
+    final AnnotationMirror dependency =
+      ProcessorUtil.findAnnotationByType( method, Constants.DEPENDENCY_ANNOTATION_CLASSNAME );
 
     if ( null != observable )
     {
@@ -1408,6 +1494,11 @@ final class ComponentDescriptor
       addOnDispose( onDispose, method );
       return true;
     }
+    else if ( null != dependency )
+    {
+      addDependency( method );
+      return false;
+    }
     else
     {
       return false;
@@ -1439,7 +1530,8 @@ final class ComponentDescriptor
                     Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME,
                     Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
                     Constants.ON_DISPOSE_ANNOTATION_CLASSNAME,
-                    Constants.ON_STALE_ANNOTATION_CLASSNAME };
+                    Constants.ON_STALE_ANNOTATION_CLASSNAME,
+                    Constants.DEPENDENCY_ANNOTATION_CLASSNAME };
     for ( int i = 0; i < annotationTypes.length; i++ )
     {
       final String type1 = annotationTypes[ i ];
@@ -1449,13 +1541,18 @@ final class ComponentDescriptor
         for ( int j = i + 1; j < annotationTypes.length; j++ )
         {
           final String type2 = annotationTypes[ j ];
-          final Object annotation2 = ProcessorUtil.findAnnotationByType( method, type2 );
-          if ( null != annotation2 )
+          if ( !type2.equals( Constants.DEPENDENCY_ANNOTATION_CLASSNAME ) ||
+               !type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
+               !type1.equals( Constants.COMPUTED_ANNOTATION_CLASSNAME ) )
           {
-            final String message =
-              "Method can not be annotated with both @" + ProcessorUtil.toSimpleName( type1 ) +
-              " and @" + ProcessorUtil.toSimpleName( type2 );
-            throw new ArezProcessorException( message, method );
+            final Object annotation2 = ProcessorUtil.findAnnotationByType( method, type2 );
+            if ( null != annotation2 )
+            {
+              final String message =
+                "Method can not be annotated with both @" + ProcessorUtil.toSimpleName( type1 ) +
+                " and @" + ProcessorUtil.toSimpleName( type2 );
+              throw new ArezProcessorException( message, method );
+            }
           }
         }
       }
@@ -1557,6 +1654,15 @@ final class ComponentDescriptor
       builder.addMethod( method );
     }
 
+    if ( !getCascadeOnDisposeDependencies().isEmpty() )
+    {
+      builder.addMethod( buildCascadeOnDisposeDepsMethod() );
+    }
+    if ( !getSetNullOnDisposeDependencies().isEmpty() )
+    {
+      builder.addMethod( buildSetNullOnDisposeDepsMethod() );
+    }
+
     builder.addMethod( buildObserve() );
     builder.addMethod( buildIsDisposed() );
     builder.addMethod( buildDispose() );
@@ -1575,6 +1681,53 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildToStringMethod() );
     }
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildSetNullOnDisposeDepsMethod()
+    throws ArezProcessorException
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( GeneratorUtil.SET_NULL_ON_DISPOSE_METHOD_NAME );
+    builder.addModifiers( Modifier.PRIVATE, Modifier.FINAL );
+
+    final AtomicInteger count = new AtomicInteger( 1 );
+    getSetNullOnDisposeDependencies().forEach( d -> {
+      final String varName = "dependency" + count.get();
+      count.incrementAndGet();
+      builder.addStatement( "final $T $N = $N()",
+                            d.getMethod().getReturnType(),
+                            varName,
+                            d.getMethod().getSimpleName().toString() );
+      final CodeBlock.Builder codeBlock = CodeBlock.builder();
+      codeBlock.beginControlFlow( "if ( !$T.observe( $N ) ) ", GeneratorUtil.COMPONENT_OBSERVABLE_CLASSNAME, varName );
+      codeBlock.addStatement( "$N( null )", d.getObservable().getSetter().getSimpleName().toString() );
+      codeBlock.endControlFlow( "" );
+      builder.addCode( codeBlock.build() );
+    } );
+    return builder.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildCascadeOnDisposeDepsMethod()
+    throws ArezProcessorException
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( GeneratorUtil.GET_CASCADE_ON_DISPOSE_DEPS_METHOD_NAME );
+    builder.addModifiers( Modifier.PRIVATE, Modifier.FINAL );
+    builder.returns( ParameterizedTypeName.get( Stream.class, Object.class ) );
+
+    final ArrayList<Object> params = new ArrayList<>();
+    params.add( Stream.class );
+    getCascadeOnDisposeDependencies().forEach( d -> params.add( d.getMethod().getSimpleName().toString() ) );
+    builder.addStatement( "return $T.of(" +
+                          getCascadeOnDisposeDependencies().stream()
+                            .map( d -> "$N()" )
+                            .collect( Collectors.joining( ", " ) ) +
+                          ")",
+                          params.toArray() );
 
     return builder.build();
   }
@@ -1927,6 +2080,14 @@ final class ComponentDescriptor
                             GeneratorUtil.COMPONENT_STATE_CLASSNAME );
     final CodeBlock.Builder nativeComponentBlock = CodeBlock.builder();
     nativeComponentBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
+    if ( !getCascadeOnDisposeDependencies().isEmpty() )
+    {
+      nativeComponentBlock.addStatement( "this.$N.dispose()", GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME );
+    }
+    if ( !getSetNullOnDisposeDependencies().isEmpty() )
+    {
+      nativeComponentBlock.addStatement( "this.$N.dispose()", GeneratorUtil.SET_NULL_ON_DISPOSE_FIELD_NAME );
+    }
     nativeComponentBlock.addStatement( "this.$N.dispose()", GeneratorUtil.COMPONENT_FIELD_NAME );
     nativeComponentBlock.nextControlFlow( "else" );
 
@@ -1941,6 +2102,15 @@ final class ComponentDescriptor
       actionBlock.addStatement( "super.$N()", _preDispose.getSimpleName() );
     }
     actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
+    if ( !getCascadeOnDisposeDependencies().isEmpty() )
+    {
+      actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME );
+    }
+    if ( !getSetNullOnDisposeDependencies().isEmpty() )
+    {
+      actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.SET_NULL_ON_DISPOSE_FIELD_NAME );
+    }
+
     _roAutoruns.forEach( autorun -> autorun.buildDisposer( actionBlock ) );
     _roTrackeds.forEach( tracked -> tracked.buildDisposer( actionBlock ) );
     _roComputeds.forEach( computed -> computed.buildDisposer( actionBlock ) );
@@ -2076,6 +2246,37 @@ final class ComponentDescriptor
     _roMemoizes.forEach( e -> e.buildFields( builder ) );
     _roAutoruns.forEach( autorun -> autorun.buildFields( builder ) );
     _roTrackeds.forEach( tracked -> tracked.buildFields( builder ) );
+    if ( !getCascadeOnDisposeDependencies().isEmpty() )
+    {
+      final FieldSpec.Builder field =
+        FieldSpec.builder( GeneratorUtil.OBSERVER_CLASSNAME,
+                           GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME,
+                           Modifier.FINAL,
+                           Modifier.PRIVATE ).
+          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+      builder.addField( field.build() );
+
+    }
+    if ( !getSetNullOnDisposeDependencies().isEmpty() )
+    {
+      final FieldSpec.Builder field =
+        FieldSpec.builder( GeneratorUtil.OBSERVER_CLASSNAME,
+                           GeneratorUtil.SET_NULL_ON_DISPOSE_FIELD_NAME,
+                           Modifier.FINAL,
+                           Modifier.PRIVATE ).
+          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+      builder.addField( field.build() );
+    }
+  }
+
+  private List<DependencyDescriptor> getCascadeOnDisposeDependencies()
+  {
+    return _roDependencies.stream().filter( DependencyDescriptor::shouldCascadeDispose ).collect( Collectors.toList() );
+  }
+
+  private List<DependencyDescriptor> getSetNullOnDisposeDependencies()
+  {
+    return _roDependencies.stream().filter( d -> !d.shouldCascadeDispose() ).collect( Collectors.toList() );
   }
 
   /**
@@ -2210,6 +2411,15 @@ final class ComponentDescriptor
     _roAutoruns.forEach( autorun -> autorun.buildInitializer( builder ) );
     _roTrackeds.forEach( tracked -> tracked.buildInitializer( builder ) );
 
+    if ( !getCascadeOnDisposeDependencies().isEmpty() )
+    {
+      buildCascadeOnDisposeInitializer( builder );
+    }
+    if ( !getSetNullOnDisposeDependencies().isEmpty() )
+    {
+      buildSetNullOnDisposeInitializer( builder );
+    }
+
     builder.addStatement( "this.$N = $T.COMPONENT_CONSTRUCTED",
                           GeneratorUtil.STATE_FIELD_NAME,
                           GeneratorUtil.COMPONENT_STATE_CLASSNAME );
@@ -2227,7 +2437,7 @@ final class ComponentDescriptor
     componentEnabledBlock.endControlFlow();
     builder.addCode( componentEnabledBlock.build() );
 
-    if ( !_deferSchedule && !_roAutoruns.isEmpty() )
+    if ( !_deferSchedule && ( !_roAutoruns.isEmpty() || !_roDependencies.isEmpty() ) )
     {
       builder.addStatement( "this.$N = $T.COMPONENT_COMPLETE",
                             GeneratorUtil.STATE_FIELD_NAME,
@@ -2241,6 +2451,35 @@ final class ComponentDescriptor
                           GeneratorUtil.COMPONENT_STATE_CLASSNAME );
 
     return builder.build();
+  }
+
+  private void buildCascadeOnDisposeInitializer( @Nonnull final MethodSpec.Builder builder )
+  {
+    builder.addStatement(
+      "this.$N = $N().when( $T.areNamesEnabled() ? $N() + $S : null, false, () -> $N().peek( $T::observe ).anyMatch( $T::isDisposed ), () -> $T.dispose( this ), false )",
+      GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME,
+      getContextMethodName(),
+      GeneratorUtil.AREZ_CLASSNAME,
+      GeneratorUtil.NAME_METHOD_NAME,
+      ".cascadeOnDispose",
+      GeneratorUtil.GET_CASCADE_ON_DISPOSE_DEPS_METHOD_NAME,
+      GeneratorUtil.COMPONENT_OBSERVABLE_CLASSNAME,
+      GeneratorUtil.DISPOSABLE_CLASSNAME,
+      GeneratorUtil.DISPOSABLE_CLASSNAME );
+  }
+
+  private void buildSetNullOnDisposeInitializer( @Nonnull final MethodSpec.Builder builder )
+  {
+    builder.addStatement(
+      "this.$N = $N().autorun( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, true, () -> $N(), false )",
+      GeneratorUtil.SET_NULL_ON_DISPOSE_FIELD_NAME,
+      getContextMethodName(),
+      GeneratorUtil.AREZ_CLASSNAME,
+      GeneratorUtil.COMPONENT_FIELD_NAME,
+      GeneratorUtil.AREZ_CLASSNAME,
+      getComponentNameMethodName(),
+      ".setNullOnDispose",
+      GeneratorUtil.SET_NULL_ON_DISPOSE_METHOD_NAME );
   }
 
   boolean shouldGenerateComponentDaggerModule()

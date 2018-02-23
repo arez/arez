@@ -17,10 +17,6 @@ complete as there is too much un-said.
   which are deactivated by dispose don't run. It seems like associated with each `Observer` will be a
   priority where dispose gets bumped to top?
 
-* Should we also make it easy for a component to autodispose if several other candidates dispose? What
-  we end up is foreign key actions - i.e. if that other component over there is disposed then we can
-  either null out our connection or dispose self.
-
 * Components that have observables defined by abstract methods should have some way of annotating these
   observables so that you can pass in initial values via generated constructor. Perhaps these variables
   occur at start of constructor parameter list or at end in the order that they are defined. It seems like

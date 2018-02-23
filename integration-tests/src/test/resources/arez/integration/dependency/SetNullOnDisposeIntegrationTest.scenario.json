@@ -1,0 +1,674 @@
+
+[
+    {
+        "component": "Model1.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Model1.0.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "Model1.0.name",
+        "type": "ObservableCreated"
+    },
+    {
+        "component": "Model1.0",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Model1.1.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "Model1.1.name",
+        "type": "ObservableCreated"
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Model2.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Model2.0.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "Model2.0.reference",
+        "type": "ObservableCreated"
+    },
+    {
+        "observer": "Model2.0.setNullOnDispose",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "Model2.0.setNullOnDispose",
+        "type": "ReactionScheduled"
+    },
+    {
+        "component": "Model2.0",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "observer": "Model2.0.setNullOnDispose",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Model2.0.setNullOnDispose",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": "Model2.0.setNullOnDispose",
+        "type": "TransactionStarted",
+        "transaction": "Model2.0.setNullOnDispose"
+    },
+    {
+        "mutation": true,
+        "tracker": "Model2.0.setNullOnDispose",
+        "type": "TransactionCompleted",
+        "transaction": "Model2.0.setNullOnDispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.0.setNullOnDispose",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Model2.0.setNullOnDispose",
+        "type": "ReactionCompleted"
+    },
+    {
+        "component": "Model2.1",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Model2.1.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "Model2.1.reference",
+        "type": "ObservableCreated"
+    },
+    {
+        "observer": "Model2.1.setNullOnDispose",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "Model2.1.setNullOnDispose",
+        "type": "ReactionScheduled"
+    },
+    {
+        "component": "Model2.1",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "observer": "Model2.1.setNullOnDispose",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Model2.1.setNullOnDispose",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": "Model2.1.setNullOnDispose",
+        "type": "TransactionStarted",
+        "transaction": "Model2.1.setNullOnDispose"
+    },
+    {
+        "mutation": true,
+        "tracker": "Model2.1.setNullOnDispose",
+        "type": "TransactionCompleted",
+        "transaction": "Model2.1.setNullOnDispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.1.setNullOnDispose",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Model2.1.setNullOnDispose",
+        "type": "ReactionCompleted"
+    },
+    {
+        "action": "Model2.0.setNullOnDispose.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model2.0.setNullOnDispose.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model2.0.setNullOnDispose.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.0.setNullOnDispose.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Model2.0.setNullOnDispose",
+        "type": "ObserverDisposed"
+    },
+    {
+        "component": "Model2.0",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model2.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model2.0.dispose"
+    },
+    {
+        "action": "Model2.0.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model2.0.isDisposed.dispose"
+    },
+    {
+        "observable": "Model2.0.isDisposed",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model2.0.isDisposed.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.0.isDisposed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model2.0.isDisposed",
+        "type": "ObservableDisposed"
+    },
+    {
+        "action": "Model2.0.reference.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model2.0.reference.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model2.0.reference.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.0.reference.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model2.0.reference",
+        "type": "ObservableDisposed"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model2.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model2.0",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "component": "Model1.0",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model1.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.0.dispose"
+    },
+    {
+        "action": "Model1.0.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.0.isDisposed.dispose"
+    },
+    {
+        "observable": "Model1.0.isDisposed",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.0.isDisposed.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.0.isDisposed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.0.isDisposed",
+        "type": "ObservableDisposed"
+    },
+    {
+        "action": "Model1.0.name.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.0.name.dispose"
+    },
+    {
+        "observable": "Model1.0.name",
+        "type": "ObservableChanged",
+        "value": "Model1A"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.0.name.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.0.name.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.0.name",
+        "type": "ObservableDisposed"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model1.0",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "action": "Transaction@1",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@1"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@1"
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model1.1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.dispose"
+    },
+    {
+        "action": "Model1.1.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.isDisposed.dispose"
+    },
+    {
+        "observable": "Model1.1.isDisposed",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "observer": "Model2.1.setNullOnDispose",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.isDisposed.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.isDisposed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.1.isDisposed",
+        "type": "ObservableDisposed"
+    },
+    {
+        "action": "Model1.1.name.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.name.dispose"
+    },
+    {
+        "observable": "Model1.1.name",
+        "type": "ObservableChanged",
+        "value": "Model1B"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.name.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.name.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.1.name",
+        "type": "ObservableDisposed"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Model2.1.setNullOnDispose",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Model2.1.setNullOnDispose",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": "Model2.1.setNullOnDispose",
+        "type": "TransactionStarted",
+        "transaction": "Model2.1.setNullOnDispose"
+    },
+    {
+        "observable": "Model2.1.reference",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "observer": "Model2.1.setNullOnDispose",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": "Model2.1.setNullOnDispose",
+        "type": "TransactionCompleted",
+        "transaction": "Model2.1.setNullOnDispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.1.setNullOnDispose",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Model2.1.setNullOnDispose",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "Model2.1.setNullOnDispose",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Model2.1.setNullOnDispose",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": "Model2.1.setNullOnDispose",
+        "type": "TransactionStarted",
+        "transaction": "Model2.1.setNullOnDispose"
+    },
+    {
+        "mutation": true,
+        "tracker": "Model2.1.setNullOnDispose",
+        "type": "TransactionCompleted",
+        "transaction": "Model2.1.setNullOnDispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.1.setNullOnDispose",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Model2.1.setNullOnDispose",
+        "type": "ReactionCompleted"
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "action": "Transaction@2",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@2"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@2"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@2",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    }
+]

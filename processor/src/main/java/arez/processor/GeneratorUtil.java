@@ -47,7 +47,7 @@ final class GeneratorUtil
   /**
    * For fields/elements used internally for component to manage lifecycle.
    */
-  private static final String FRAMEWORK_PREFIX = "$$arezi$$_";
+  static final String FRAMEWORK_PREFIX = "$$arezi$$_";
   /**
    * The name of exceptions when caught by Arez infrastructure.
    */
@@ -62,6 +62,10 @@ final class GeneratorUtil
   static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
   static final String CONTEXT_FIELD_NAME = FRAMEWORK_PREFIX + "context";
   static final String COMPONENT_FIELD_NAME = FRAMEWORK_PREFIX + "component";
+  static final String CASCADE_ON_DISPOSE_FIELD_NAME = FRAMEWORK_PREFIX + "cascadeOnDispose";
+  static final String GET_CASCADE_ON_DISPOSE_DEPS_METHOD_NAME = FRAMEWORK_PREFIX + "getCascadeOnDisposeDependencies";
+  static final String SET_NULL_ON_DISPOSE_FIELD_NAME = FRAMEWORK_PREFIX + "setNullOnDispose";
+  static final String SET_NULL_ON_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "setNullOnDispose";
 
   private GeneratorUtil()
   {

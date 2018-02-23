@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+#### Added
+* **\[annotations\]** Introduce the `Dependency` annotation that can be used to annotate methods that return
+  dependencies of a component. If the dependencies are disposed then the component will either cascade the
+  dispose to itself or null the reference depending on whether the `action` parameter is set to `CASCADE` or
+  `SET_NULL`.
+
 #### Changed
 * 💥 **\[component\]** Change the contract of `arez.component.ComponentObservable` to allow it to be called
   from non-tracking transactions.
