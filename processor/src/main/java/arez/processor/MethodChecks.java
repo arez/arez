@@ -64,8 +64,7 @@ final class MethodChecks
     mustNotThrowAnyExceptions( annotationName, method );
   }
 
-  private static void mustNotBeStatic( @Nonnull final String annotationName,
-                                       @Nonnull final ExecutableElement method )
+  static void mustNotBeStatic( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.STATIC ) )
@@ -92,8 +91,8 @@ final class MethodChecks
     }
   }
 
-  private static void mustNotBePrivate( @Nonnull final String annotationName,
-                                        @Nonnull final ExecutableElement method )
+  static void mustNotBePrivate( @Nonnull final String annotationName,
+                                @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.PRIVATE ) )
