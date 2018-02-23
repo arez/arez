@@ -70,12 +70,7 @@ final class Watcher
                             Arez.areNamesEnabled() ? getName() + ".watcher" : null,
                             true,
                             this::checkCondition,
-                            false );
-
-    if ( runImmediately )
-    {
-      getContext().triggerScheduler();
-    }
+                            runImmediately );
   }
 
   @Nonnull
