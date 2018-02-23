@@ -2426,14 +2426,12 @@ public class ArezContextTest
     final IllegalStateException re = new IllegalStateException( "Some Message" );
 
     final String name = ValueUtil.randomString();
-    assertThrowsWithMessage( () -> {
-      context.dispose( name, () -> {
-        assertTrue( context.isTransactionActive() );
-        assertEquals( context.getTransaction().getName(), name + ".dispose" );
-        assertEquals( context.getTransaction().getMode(), TransactionMode.DISPOSE );
-        throw re;
-      } );
-    }, "Some Message" );
+    assertThrowsWithMessage( () -> context.dispose( name, () -> {
+      assertTrue( context.isTransactionActive() );
+      assertEquals( context.getTransaction().getName(), name + ".dispose" );
+      assertEquals( context.getTransaction().getMode(), TransactionMode.DISPOSE );
+      throw re;
+    } ), "Some Message" );
 
     handler.assertEventCount( 4 );
     handler.assertNextEvent( ActionStartedEvent.class );
