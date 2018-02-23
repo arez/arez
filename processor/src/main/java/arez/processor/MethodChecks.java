@@ -16,7 +16,7 @@ final class MethodChecks
    * The intent is to verify that it can be overridden and wrapped in a sub-class in the same package.
    */
   static void mustBeWrappable( @Nonnull final String annotationName,
-                                 @Nonnull final ExecutableElement method )
+                               @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     mustBeOverridable( annotationName, method );
@@ -69,7 +69,9 @@ final class MethodChecks
   {
     if ( method.getModifiers().contains( Modifier.STATIC ) )
     {
-      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not be static", method );
+      throw new ArezProcessorException( "@" +
+                                        ProcessorUtil.toSimpleName( annotationName ) +
+                                        " target must not be static", method );
     }
   }
 
@@ -78,7 +80,9 @@ final class MethodChecks
   {
     if ( method.getModifiers().contains( Modifier.ABSTRACT ) )
     {
-      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not be abstract", method );
+      throw new ArezProcessorException( "@" +
+                                        ProcessorUtil.toSimpleName( annotationName ) +
+                                        " target must not be abstract", method );
     }
   }
 
@@ -87,7 +91,8 @@ final class MethodChecks
   {
     if ( !method.getModifiers().contains( Modifier.ABSTRACT ) )
     {
-      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must be abstract", method );
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must be abstract",
+                                        method );
     }
   }
 
@@ -97,7 +102,9 @@ final class MethodChecks
   {
     if ( method.getModifiers().contains( Modifier.PRIVATE ) )
     {
-      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not be private", method );
+      throw new ArezProcessorException( "@" +
+                                        ProcessorUtil.toSimpleName( annotationName ) +
+                                        " target must not be private", method );
     }
   }
 
@@ -107,7 +114,9 @@ final class MethodChecks
   {
     if ( method.getModifiers().contains( Modifier.FINAL ) )
     {
-      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not be final", method );
+      throw new ArezProcessorException( "@" +
+                                        ProcessorUtil.toSimpleName( annotationName ) +
+                                        " target must not be final", method );
     }
   }
 
@@ -116,7 +125,8 @@ final class MethodChecks
   {
     if ( !method.getModifiers().contains( Modifier.FINAL ) )
     {
-      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must be final", method );
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must be final",
+                                        method );
     }
   }
 
@@ -126,7 +136,9 @@ final class MethodChecks
   {
     if ( !method.getParameters().isEmpty() )
     {
-      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not have any parameters", method );
+      throw new ArezProcessorException( "@" +
+                                        ProcessorUtil.toSimpleName( annotationName ) +
+                                        " target must not have any parameters", method );
     }
   }
 
@@ -136,7 +148,9 @@ final class MethodChecks
   {
     if ( method.getParameters().isEmpty() )
     {
-      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must have parameters", method );
+      throw new ArezProcessorException( "@" +
+                                        ProcessorUtil.toSimpleName( annotationName ) +
+                                        " target must have parameters", method );
     }
   }
 
@@ -146,7 +160,9 @@ final class MethodChecks
   {
     if ( TypeKind.VOID != method.getReturnType().getKind() )
     {
-      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not return a value", method );
+      throw new ArezProcessorException( "@" +
+                                        ProcessorUtil.toSimpleName( annotationName ) +
+                                        " target must not return a value", method );
     }
   }
 
@@ -156,7 +172,9 @@ final class MethodChecks
   {
     if ( TypeKind.VOID == method.getReturnType().getKind() )
     {
-      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must return a value", method );
+      throw new ArezProcessorException( "@" +
+                                        ProcessorUtil.toSimpleName( annotationName ) +
+                                        " target must return a value", method );
     }
   }
 
@@ -166,8 +184,9 @@ final class MethodChecks
   {
     if ( !method.getThrownTypes().isEmpty() )
     {
-      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must not throw any exceptions", method );
+      throw new ArezProcessorException( "@" +
+                                        ProcessorUtil.toSimpleName( annotationName ) +
+                                        " target must not throw any exceptions", method );
     }
   }
-
 }
