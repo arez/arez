@@ -946,8 +946,8 @@ final class ComponentDescriptor
   void validate()
     throws ArezProcessorException
   {
-    validateObservables();
-    validateComputeds();
+    _roObservables.forEach( ObservableDescriptor::validate );
+    _roComputeds.forEach( ComputedDescriptor::validate );
 
     if ( !_allowEmpty &&
          _roObservables.isEmpty() &&
@@ -959,24 +959,6 @@ final class ComponentDescriptor
     {
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
                                         "@Computed, @Memoize, @Observable, @Track or @Autorun", _element );
-    }
-  }
-
-  private void validateObservables()
-    throws ArezProcessorException
-  {
-    for ( final ObservableDescriptor observable : _roObservables )
-    {
-      observable.validate();
-    }
-  }
-
-  private void validateComputeds()
-    throws ArezProcessorException
-  {
-    for ( final ComputedDescriptor computed : _roComputeds )
-    {
-      computed.validate();
     }
   }
 
