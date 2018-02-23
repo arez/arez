@@ -9,11 +9,11 @@
         "type": "ObservableCreated"
     },
     {
-        "observable": "PersonModel.0.lastName",
+        "observable": "PersonModel.0.firstName",
         "type": "ObservableCreated"
     },
     {
-        "observable": "PersonModel.0.firstName",
+        "observable": "PersonModel.0.lastName",
         "type": "ObservableCreated"
     },
     {
@@ -33,11 +33,11 @@
         "type": "ObservableCreated"
     },
     {
-        "observable": "PersonModel.1.lastName",
+        "observable": "PersonModel.1.firstName",
         "type": "ObservableCreated"
     },
     {
-        "observable": "PersonModel.1.firstName",
+        "observable": "PersonModel.1.lastName",
         "type": "ObservableCreated"
     },
     {

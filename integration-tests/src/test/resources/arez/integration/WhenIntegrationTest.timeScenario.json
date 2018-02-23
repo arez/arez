@@ -60,10 +60,6 @@
     },
     {
         "observer": "When@1.watcher",
-        "type": "ReactionScheduled"
-    },
-    {
-        "observer": "When@1.watcher",
         "type": "ReactionStarted"
     },
     {

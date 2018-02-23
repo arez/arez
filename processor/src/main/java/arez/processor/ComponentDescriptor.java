@@ -108,23 +108,23 @@ final class ComponentDescriptor
   private ExecutableElement _preDispose;
   @Nullable
   private ExecutableElement _postDispose;
-  private final Map<String, CandidateMethod> _observerRefs = new HashMap<>();
-  private final Map<String, ObservableDescriptor> _observables = new HashMap<>();
+  private final Map<String, CandidateMethod> _observerRefs = new LinkedHashMap<>();
+  private final Map<String, ObservableDescriptor> _observables = new LinkedHashMap<>();
   private final Collection<ObservableDescriptor> _roObservables =
     Collections.unmodifiableCollection( _observables.values() );
-  private final Map<String, ActionDescriptor> _actions = new HashMap<>();
+  private final Map<String, ActionDescriptor> _actions = new LinkedHashMap<>();
   private final Collection<ActionDescriptor> _roActions =
     Collections.unmodifiableCollection( _actions.values() );
-  private final Map<String, ComputedDescriptor> _computeds = new HashMap<>();
+  private final Map<String, ComputedDescriptor> _computeds = new LinkedHashMap<>();
   private final Collection<ComputedDescriptor> _roComputeds =
     Collections.unmodifiableCollection( _computeds.values() );
-  private final Map<String, MemoizeDescriptor> _memoizes = new HashMap<>();
+  private final Map<String, MemoizeDescriptor> _memoizes = new LinkedHashMap<>();
   private final Collection<MemoizeDescriptor> _roMemoizes =
     Collections.unmodifiableCollection( _memoizes.values() );
-  private final Map<String, AutorunDescriptor> _autoruns = new HashMap<>();
+  private final Map<String, AutorunDescriptor> _autoruns = new LinkedHashMap<>();
   private final Collection<AutorunDescriptor> _roAutoruns =
     Collections.unmodifiableCollection( _autoruns.values() );
-  private final Map<String, TrackedDescriptor> _trackeds = new HashMap<>();
+  private final Map<String, TrackedDescriptor> _trackeds = new LinkedHashMap<>();
   private final Collection<TrackedDescriptor> _roTrackeds =
     Collections.unmodifiableCollection( _trackeds.values() );
   private final Map<ExecutableElement, DependencyDescriptor> _dependencies = new LinkedHashMap<>();

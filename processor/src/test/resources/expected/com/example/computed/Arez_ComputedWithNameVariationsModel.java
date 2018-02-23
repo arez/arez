@@ -32,16 +32,16 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
   private final Observable<Boolean> $$arezi$$_disposedObservable;
 
   @Nonnull
-  private final ComputedValue<String> $$arez$$_helper;
+  private final ComputedValue<Long> $$arez$$_time;
 
   @Nonnull
   private final ComputedValue<Boolean> $$arez$$_ready;
 
   @Nonnull
-  private final ComputedValue<String> $$arez$$_foo;
+  private final ComputedValue<String> $$arez$$_helper;
 
   @Nonnull
-  private final ComputedValue<Long> $$arez$$_time;
+  private final ComputedValue<String> $$arez$$_foo;
 
   public Arez_ComputedWithNameVariationsModel() {
     super();
@@ -50,10 +50,10 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ComputedWithNameVariationsModel", $$arezi$$_id(), $$arezi$$_name(), null, null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
-    this.$$arez$$_helper = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".helper" : null, super::helper, Objects::equals, null, null, null, null );
-    this.$$arez$$_ready = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".ready" : null, super::isReady, Objects::equals, null, null, null, null );
-    this.$$arez$$_foo = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".foo" : null, super::myFooHelperMethod, Objects::equals, null, null, null, null );
     this.$$arez$$_time = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, super::getTime, Objects::equals, null, null, null, null );
+    this.$$arez$$_ready = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".ready" : null, super::isReady, Objects::equals, null, null, null, null );
+    this.$$arez$$_helper = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".helper" : null, super::helper, Objects::equals, null, null, null, null );
+    this.$$arez$$_foo = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".foo" : null, super::myFooHelperMethod, Objects::equals, null, null, null, null );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
@@ -108,10 +108,10 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
       } else {
         $$arezi$$_context().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
-          this.$$arez$$_helper.dispose();
-          this.$$arez$$_ready.dispose();
-          this.$$arez$$_foo.dispose();
           this.$$arez$$_time.dispose();
+          this.$$arez$$_ready.dispose();
+          this.$$arez$$_helper.dispose();
+          this.$$arez$$_foo.dispose();
         } } );
       }
       this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
@@ -119,11 +119,11 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
   }
 
   @Override
-  public String helper() {
+  public long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    return this.$$arez$$_helper.get();
+    return this.$$arez$$_time.get();
   }
 
   @Override
@@ -135,19 +135,19 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
   }
 
   @Override
+  public String helper() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    return this.$$arez$$_helper.get();
+  }
+
+  @Override
   public String myFooHelperMethod() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     return this.$$arez$$_foo.get();
-  }
-
-  @Override
-  public long getTime() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    return this.$$arez$$_time.get();
   }
 
   @Override

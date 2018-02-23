@@ -9,11 +9,11 @@
         "type": "ObservableCreated"
     },
     {
-        "observable": "PersonModel.lastName",
+        "observable": "PersonModel.firstName",
         "type": "ObservableCreated"
     },
     {
-        "observable": "PersonModel.firstName",
+        "observable": "PersonModel.lastName",
         "type": "ObservableCreated"
     },
     {

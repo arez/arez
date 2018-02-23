@@ -30,10 +30,10 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   private final Observable<Boolean> $$arezi$$_disposedObservable;
 
   @Nonnull
-  private final ComputedValue<IOException> $$arez$$_compError;
+  private final ComputedValue<W> $$arez$$_compWriter;
 
   @Nonnull
-  private final ComputedValue<W> $$arez$$_compWriter;
+  private final ComputedValue<IOException> $$arez$$_compError;
 
   public Arez_ConcreteModel(final W writer) {
     super(writer);
@@ -41,8 +41,8 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ConcreteModel", getComponentId(), $$arezi$$_name(), null, null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
-    this.$$arez$$_compError = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
     this.$$arez$$_compWriter = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
+    this.$$arez$$_compError = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
@@ -56,8 +56,8 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ConcreteModel", getComponentId(), $$arezi$$_name(), null, null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
-    this.$$arez$$_compError = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
     this.$$arez$$_compWriter = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
+    this.$$arez$$_compError = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
@@ -71,8 +71,8 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ConcreteModel", getComponentId(), $$arezi$$_name(), null, null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
-    this.$$arez$$_compError = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
     this.$$arez$$_compWriter = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compWriter" : null, super::compWriter, Objects::equals, null, null, null, null );
+    this.$$arez$$_compError = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compError" : null, super::compError, Objects::equals, null, null, null, null );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
@@ -123,8 +123,8 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
       } else {
         $$arezi$$_context().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
-          this.$$arez$$_compError.dispose();
           this.$$arez$$_compWriter.dispose();
+          this.$$arez$$_compError.dispose();
         } } );
       }
       this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
@@ -188,19 +188,19 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   }
 
   @Override
-  public IOException compError() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    return this.$$arez$$_compError.get();
-  }
-
-  @Override
   public W compWriter() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     return this.$$arez$$_compWriter.get();
+  }
+
+  @Override
+  public IOException compError() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    return this.$$arez$$_compError.get();
   }
 
   @Override

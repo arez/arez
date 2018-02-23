@@ -28,13 +28,13 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   private final Observable<Boolean> $$arezi$$_disposedObservable;
 
   @Nonnull
-  private final Observable<String> $$arez$$_string;
+  private final Observable<Long> $$arez$$_time;
 
   @Nonnull
   private final Observable<Boolean> $$arez$$_foo;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_time;
+  private final Observable<String> $$arez$$_string;
 
   public Arez_ObservableGuessingModel() {
     super();
@@ -43,9 +43,9 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ObservableGuessingModel", $$arezi$$_id(), $$arezi$$_name(), null, null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
-    this.$$arez$$_string = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".string" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getString() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setString( v ) : null );
-    this.$$arez$$_foo = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".foo" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.isFoo() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setFoo( v ) : null );
     this.$$arez$$_time = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
+    this.$$arez$$_foo = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".foo" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.isFoo() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setFoo( v ) : null );
+    this.$$arez$$_string = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".string" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getString() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setString( v ) : null );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
@@ -100,9 +100,9 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
       } else {
         $$arezi$$_context().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
-          this.$$arez$$_string.dispose();
-          this.$$arez$$_foo.dispose();
           this.$$arez$$_time.dispose();
+          this.$$arez$$_foo.dispose();
+          this.$$arez$$_string.dispose();
         } } );
       }
       this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
@@ -110,23 +110,23 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   }
 
   @Override
-  public String getString() {
+  public long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    this.$$arez$$_string.reportObserved();
-    return super.getString();
+    this.$$arez$$_time.reportObserved();
+    return super.getTime();
   }
 
   @Override
-  public void setString(final String v) {
+  public void setTime(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( !Objects.equals( v, super.getString() ) ) {
-      this.$$arez$$_string.preReportChanged();
-      super.setString(v);
-      this.$$arez$$_string.reportChanged();
+    if ( time != super.getTime() ) {
+      this.$$arez$$_time.preReportChanged();
+      super.setTime(time);
+      this.$$arez$$_time.reportChanged();
     }
   }
 
@@ -152,23 +152,23 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   }
 
   @Override
-  public long getTime() {
+  public String getString() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    this.$$arez$$_time.reportObserved();
-    return super.getTime();
+    this.$$arez$$_string.reportObserved();
+    return super.getString();
   }
 
   @Override
-  public void setTime(final long time) {
+  public void setString(final String v) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( time != super.getTime() ) {
-      this.$$arez$$_time.preReportChanged();
-      super.setTime(time);
-      this.$$arez$$_time.reportChanged();
+    if ( !Objects.equals( v, super.getString() ) ) {
+      this.$$arez$$_string.preReportChanged();
+      super.setString(v);
+      this.$$arez$$_string.reportChanged();
     }
   }
 

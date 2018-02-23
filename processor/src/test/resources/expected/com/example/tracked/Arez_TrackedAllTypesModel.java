@@ -31,6 +31,9 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
   private final Observable<Boolean> $$arezi$$_disposedObservable;
 
   @Nonnull
+  private final Observer $$arez$$_render1;
+
+  @Nonnull
   private final Observer $$arez$$_render2;
 
   @Nonnull
@@ -39,9 +42,6 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
   @Nonnull
   private final Observer $$arez$$_render4;
 
-  @Nonnull
-  private final Observer $$arez$$_render1;
-
   public Arez_TrackedAllTypesModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
@@ -49,10 +49,10 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "TrackedAllTypesModel", $$arezi$$_id(), $$arezi$$_name(), null, null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
+    this.$$arez$$_render1 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render1" : null, false, () -> super.onRender1DepsChanged() );
     this.$$arez$$_render2 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render2" : null, false, () -> super.onRender2DepsChanged() );
     this.$$arez$$_render3 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render3" : null, false, () -> super.onRender3DepsChanged() );
     this.$$arez$$_render4 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render4" : null, false, () -> super.onRender4DepsChanged() );
-    this.$$arez$$_render1 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render1" : null, false, () -> super.onRender1DepsChanged() );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
@@ -107,13 +107,27 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
       } else {
         $$arezi$$_context().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
+          this.$$arez$$_render1.dispose();
           this.$$arez$$_render2.dispose();
           this.$$arez$$_render3.dispose();
           this.$$arez$$_render4.dispose();
-          this.$$arez$$_render1.dispose();
         } } );
       }
       this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
+    }
+  }
+
+  @Override
+  public void render1() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    try {
+      $$arezi$$_context().safeTrack( this.$$arez$$_render1, () -> super.render1() );
+    } catch( final RuntimeException | Error $$arez_exception$$ ) {
+      throw $$arez_exception$$;
+    } catch( final Throwable $$arez_exception$$ ) {
+      throw new IllegalStateException( $$arez_exception$$ );
     }
   }
 
@@ -153,20 +167,6 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     try {
       return $$arezi$$_context().track( this.$$arez$$_render4, () -> super.render4() );
     } catch( final ParseException | RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
-  }
-
-  @Override
-  public void render1() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    try {
-      $$arezi$$_context().safeTrack( this.$$arez$$_render1, () -> super.render1() );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
       throw new IllegalStateException( $$arez_exception$$ );

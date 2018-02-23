@@ -179,12 +179,12 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   }
 
   @Override
-  void doAction3() {
+  public void doAction() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doAction3" : null, true, () -> super.doAction3() );
+      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doAction" : null, true, () -> super.doAction() );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -207,12 +207,12 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   }
 
   @Override
-  public void doAction() {
+  void doAction3() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doAction" : null, true, () -> super.doAction() );
+      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doAction3" : null, true, () -> super.doAction3() );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

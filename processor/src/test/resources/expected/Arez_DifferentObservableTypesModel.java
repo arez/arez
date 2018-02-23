@@ -28,18 +28,6 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   private final Observable<Boolean> $$arezi$$_disposedObservable;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_v6;
-
-  @Nonnull
-  private final Observable<Float> $$arez$$_v7;
-
-  @Nonnull
-  private final Observable<Double> $$arez$$_v8;
-
-  @Nonnull
-  private final Observable<Object> $$arez$$_v9;
-
-  @Nonnull
   private final Observable<Boolean> $$arez$$_v1;
 
   @Nonnull
@@ -54,6 +42,18 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   @Nonnull
   private final Observable<Integer> $$arez$$_v5;
 
+  @Nonnull
+  private final Observable<Long> $$arez$$_v6;
+
+  @Nonnull
+  private final Observable<Float> $$arez$$_v7;
+
+  @Nonnull
+  private final Observable<Double> $$arez$$_v8;
+
+  @Nonnull
+  private final Observable<Object> $$arez$$_v9;
+
   public Arez_DifferentObservableTypesModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
@@ -61,15 +61,15 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "DifferentObservableTypesModel", $$arezi$$_id(), $$arezi$$_name(), null, null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
-    this.$$arez$$_v6 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v6" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV6() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV6( v ) : null );
-    this.$$arez$$_v7 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v7" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV7() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV7( v ) : null );
-    this.$$arez$$_v8 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v8" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV8() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV8( v ) : null );
-    this.$$arez$$_v9 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v9" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV9() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV9( v ) : null );
     this.$$arez$$_v1 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v1" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.isV1() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV1( v ) : null );
     this.$$arez$$_v2 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v2" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV2() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV2( v ) : null );
     this.$$arez$$_v3 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV3() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV3( v ) : null );
     this.$$arez$$_v4 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v4" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV4() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV4( v ) : null );
     this.$$arez$$_v5 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v5" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV5() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV5( v ) : null );
+    this.$$arez$$_v6 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v6" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV6() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV6( v ) : null );
+    this.$$arez$$_v7 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v7" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV7() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV7( v ) : null );
+    this.$$arez$$_v8 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v8" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV8() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV8( v ) : null );
+    this.$$arez$$_v9 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v9" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV9() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV9( v ) : null );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
@@ -124,102 +124,18 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
       } else {
         $$arezi$$_context().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
-          this.$$arez$$_v6.dispose();
-          this.$$arez$$_v7.dispose();
-          this.$$arez$$_v8.dispose();
-          this.$$arez$$_v9.dispose();
           this.$$arez$$_v1.dispose();
           this.$$arez$$_v2.dispose();
           this.$$arez$$_v3.dispose();
           this.$$arez$$_v4.dispose();
           this.$$arez$$_v5.dispose();
+          this.$$arez$$_v6.dispose();
+          this.$$arez$$_v7.dispose();
+          this.$$arez$$_v8.dispose();
+          this.$$arez$$_v9.dispose();
         } } );
       }
       this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
-    }
-  }
-
-  @Override
-  public long getV6() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    this.$$arez$$_v6.reportObserved();
-    return super.getV6();
-  }
-
-  @Override
-  public void setV6(final long v6) {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    if ( v6 != super.getV6() ) {
-      this.$$arez$$_v6.preReportChanged();
-      super.setV6(v6);
-      this.$$arez$$_v6.reportChanged();
-    }
-  }
-
-  @Override
-  public float getV7() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    this.$$arez$$_v7.reportObserved();
-    return super.getV7();
-  }
-
-  @Override
-  public void setV7(final float v7) {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    if ( v7 != super.getV7() ) {
-      this.$$arez$$_v7.preReportChanged();
-      super.setV7(v7);
-      this.$$arez$$_v7.reportChanged();
-    }
-  }
-
-  @Override
-  public double getV8() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    this.$$arez$$_v8.reportObserved();
-    return super.getV8();
-  }
-
-  @Override
-  public void setV8(final double v8) {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    if ( v8 != super.getV8() ) {
-      this.$$arez$$_v8.preReportChanged();
-      super.setV8(v8);
-      this.$$arez$$_v8.reportChanged();
-    }
-  }
-
-  @Override
-  public Object getV9() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    this.$$arez$$_v9.reportObserved();
-    return super.getV9();
-  }
-
-  @Override
-  public void setV9(final Object v9) {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    if ( !Objects.equals( v9, super.getV9() ) ) {
-      this.$$arez$$_v9.preReportChanged();
-      super.setV9(v9);
-      this.$$arez$$_v9.reportChanged();
     }
   }
 
@@ -325,6 +241,90 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
       this.$$arez$$_v5.preReportChanged();
       super.setV5(v5);
       this.$$arez$$_v5.reportChanged();
+    }
+  }
+
+  @Override
+  public long getV6() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    this.$$arez$$_v6.reportObserved();
+    return super.getV6();
+  }
+
+  @Override
+  public void setV6(final long v6) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    if ( v6 != super.getV6() ) {
+      this.$$arez$$_v6.preReportChanged();
+      super.setV6(v6);
+      this.$$arez$$_v6.reportChanged();
+    }
+  }
+
+  @Override
+  public float getV7() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    this.$$arez$$_v7.reportObserved();
+    return super.getV7();
+  }
+
+  @Override
+  public void setV7(final float v7) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    if ( v7 != super.getV7() ) {
+      this.$$arez$$_v7.preReportChanged();
+      super.setV7(v7);
+      this.$$arez$$_v7.reportChanged();
+    }
+  }
+
+  @Override
+  public double getV8() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    this.$$arez$$_v8.reportObserved();
+    return super.getV8();
+  }
+
+  @Override
+  public void setV8(final double v8) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    if ( v8 != super.getV8() ) {
+      this.$$arez$$_v8.preReportChanged();
+      super.setV8(v8);
+      this.$$arez$$_v8.reportChanged();
+    }
+  }
+
+  @Override
+  public Object getV9() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    this.$$arez$$_v9.reportObserved();
+    return super.getV9();
+  }
+
+  @Override
+  public void setV9(final Object v9) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    if ( !Objects.equals( v9, super.getV9() ) ) {
+      this.$$arez$$_v9.preReportChanged();
+      super.setV9(v9);
+      this.$$arez$$_v9.reportChanged();
     }
   }
 

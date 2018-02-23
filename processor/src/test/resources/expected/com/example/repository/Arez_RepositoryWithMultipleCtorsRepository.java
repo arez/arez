@@ -144,21 +144,6 @@ final class Arez_RepositoryWithMultipleCtorsRepository extends RepositoryWithMul
 
   @Nonnull
   @Override
-  public RepositoryWithMultipleCtors create() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
-    }
-    try {
-      return getContext().safeAction(Arez.areNamesEnabled() ? getRepositoryName() + ".create" : null, true, () -> super.create() );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
-  }
-
-  @Nonnull
-  @Override
   public RepositoryWithMultipleCtors create(@Nonnull final String packageName,
       @Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -181,6 +166,21 @@ final class Arez_RepositoryWithMultipleCtorsRepository extends RepositoryWithMul
     }
     try {
       return getContext().safeAction(Arez.areNamesEnabled() ? getRepositoryName() + ".create_name" : null, true, () -> super.create(name), name );
+    } catch( final RuntimeException | Error $$arez_exception$$ ) {
+      throw $$arez_exception$$;
+    } catch( final Throwable $$arez_exception$$ ) {
+      throw new IllegalStateException( $$arez_exception$$ );
+    }
+  }
+
+  @Nonnull
+  @Override
+  public RepositoryWithMultipleCtors create() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
+    }
+    try {
+      return getContext().safeAction(Arez.areNamesEnabled() ? getRepositoryName() + ".create" : null, true, () -> super.create() );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
