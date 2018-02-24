@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[component\]** Fixed bug in `ComponentState.isActive(state)` so that if the state is
+  `ComponentState.COMPONENT_COMPLETE` then it is categorized as active. Otherwise invariant failures would
+  be triggered if any the autoruns and or dependency observers were scheduled and attempted to access observable
+  or computed properties.
+
 #### Added
 * **\[annotations\]** Introduce the `Dependency` annotation that can be used to annotate methods that return
   dependencies of a component. If the dependencies are disposed then the component will either cascade the

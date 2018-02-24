@@ -86,7 +86,7 @@ public final class ComponentState
    */
   public static boolean isActive( final byte state )
   {
-    return COMPONENT_CONSTRUCTED == state || COMPONENT_READY == state;
+    return COMPONENT_CONSTRUCTED == state || COMPONENT_COMPLETE == state || COMPONENT_READY == state;
   }
 
   /**
