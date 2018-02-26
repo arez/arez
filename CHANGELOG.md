@@ -5,6 +5,9 @@
 #### Fixed
 * **\[processor\]** Fixed bug that resulted in poorly generated code when there was a `@Dependency`
   annotation as well as a `@ComponentNameRef` annotation within the same class.
+* **\[processor\]** The observer generated when `@Dependency` annotated methods with `CASCADE` was not associated
+  with the native component instance when native components were enabled. This annotation processor now
+  generates the required setup code.
 
 ### [v0.58](https://github.com/arez/arez/tree/v0.58) (2018-02-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.57...v0.58)

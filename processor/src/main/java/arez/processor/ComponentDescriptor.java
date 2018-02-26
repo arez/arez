@@ -2456,9 +2456,11 @@ final class ComponentDescriptor
   private void buildCascadeOnDisposeInitializer( @Nonnull final MethodSpec.Builder builder )
   {
     builder.addStatement(
-      "this.$N = $N().when( $T.areNamesEnabled() ? $N() + $S : null, false, () -> $N().peek( $T::observe ).anyMatch( $T::isDisposed ), () -> $T.dispose( this ), false )",
+      "this.$N = $N().when( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, false, () -> $N().peek( $T::observe ).anyMatch( $T::isDisposed ), () -> $T.dispose( this ), false )",
       GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME,
       getContextMethodName(),
+      GeneratorUtil.AREZ_CLASSNAME,
+      GeneratorUtil.COMPONENT_FIELD_NAME,
       GeneratorUtil.AREZ_CLASSNAME,
       getComponentNameMethodName(),
       ".cascadeOnDispose",
