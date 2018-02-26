@@ -19,7 +19,7 @@ annotation. The observer will automatically track dependencies as they change.
 
 It should be noted that only observable properties can be marked as a `SET_NULL` dependency as that is the
 only mechanism that Arez can use to trigger a re-evaluation of the condition function after a reference to
-a dependency has been set to null. This may 
+a dependency has been set to null.
 
 An example:
 
