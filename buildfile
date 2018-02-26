@@ -300,7 +300,7 @@ define 'arez' do
     project.jacoco.enabled = false
   end
 
-  doc.from(projects(%w(annotations core processor extras browser-extras))).
+  doc.from(projects(%w(annotations core processor component extras browser-extras))).
     using(:javadoc,
           :windowtitle => 'Arez API Documentation',
           :linksource => true,
