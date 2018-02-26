@@ -15,7 +15,7 @@ by the component and another internal observer if there are any `SET_NULL` depen
 will invoke the methods annotated with the {@api_url: annotations.Dependency} annotation within the scope of
 a tracking transaction and this means the {@api_url: annotations.Dependency} annotation can be on a method
 annotated with either the {@api_url: annotations.Observable} annotation or the {@api_url: annotations.Computed}
-annotation. The observer will automatically track dependencies as they change.  
+annotation. The observer will automatically track dependencies as they change.
 
 It should be noted that only observable properties can be marked as a `SET_NULL` dependency as that is the
 only mechanism that Arez can use to trigger a re-evaluation of the condition function after a reference to
