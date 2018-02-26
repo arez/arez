@@ -165,8 +165,6 @@ console.table(languages);
 
 * Document `@Dependency`
 
-* Document `ArezContext.when(...)` methods and describe it as an observer?.
-
 * Document `ArezContext.noTxAction(...)` methods and describe it in transaction section.
 
 * Much of the documentation in VueGWT could be adapted or provide inspiration for Arez. See
