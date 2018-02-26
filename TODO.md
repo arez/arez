@@ -123,6 +123,8 @@ console.table(languages);
     - isDisposed
     - getArezId
 
+* When actions should not necessarily autodispose.
+
 ## Process
 
 * Incorporate notes from https://css-tricks.com/open-source-etiquette-guidebook/ into CONTRIBUTING.md and add
