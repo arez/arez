@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.58](https://github.com/arez/arez/tree/v0.58) (2018-02-26)
+[Full Changelog](https://github.com/arez/arez/compare/v0.57...v0.58)
 
 #### Fixed
 * **\[component\]** Fixed bug in `ComponentState.isActive(state)` so that if the state is
