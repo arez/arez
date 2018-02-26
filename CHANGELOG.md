@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[processor\]** Fixed bug that resulted in poorly generated code when there was a `@Dependency`
+  annotation as well as a `@ComponentNameRef` annotation within the same class.
+
 ### [v0.58](https://github.com/arez/arez/tree/v0.58) (2018-02-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.57...v0.58)
 

@@ -2460,7 +2460,7 @@ final class ComponentDescriptor
       GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME,
       getContextMethodName(),
       GeneratorUtil.AREZ_CLASSNAME,
-      GeneratorUtil.NAME_METHOD_NAME,
+      getComponentNameMethodName(),
       ".cascadeOnDispose",
       GeneratorUtil.GET_CASCADE_ON_DISPOSE_DEPS_METHOD_NAME,
       GeneratorUtil.COMPONENT_OBSERVABLE_CLASSNAME,
