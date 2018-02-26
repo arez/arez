@@ -476,7 +476,8 @@ public class ArezProcessorTest
 
         new Object[]{ "com.example.dependency.AbstractDependency",
                       "@ArezComponent target has an abstract method not implemented by framework" },
-        new Object[]{ "com.example.dependency.ParametersDependency", "@Dependency target must not have any parameters" },
+        new Object[]{ "com.example.dependency.ParametersDependency",
+                      "@Dependency target must not have any parameters" },
         new Object[]{ "com.example.dependency.PrimitiveReturnDependency",
                       "@Dependency target must return a non-primitive value" },
         new Object[]{ "com.example.dependency.PrivateDependency", "@Dependency target must not be private" },
