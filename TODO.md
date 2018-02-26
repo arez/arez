@@ -163,6 +163,8 @@ console.table(languages);
 
 * Document `ComponentObservable`
 
+* Document `@Dependency`
+
 * Document `ArezContext.when(...)` methods and describe it as an observer?.
 
 * Document `ArezContext.noTxAction(...)` methods and describe it in transaction section.
