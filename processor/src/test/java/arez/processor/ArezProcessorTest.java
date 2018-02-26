@@ -484,6 +484,8 @@ public class ArezProcessorTest
                       "@Dependency target defined an action of 'SET_NULL' but dependency is not an observable so the annotation processor does not know how to set the value to null." },
         new Object[]{ "com.example.dependency.SetNullObservableNoSetterDependency",
                       "@Dependency target defined an action of 'SET_NULL' but dependency is an observable with no setter defined so the annotation processor does not know how to set the value to null." },
+        new Object[]{ "com.example.dependency.SetNullOnNonnullDependency",
+                      "@Dependency target defined an action of 'SET_NULL' but the setter is annotated with @javax.annotation.Nonnull." },
         new Object[]{ "com.example.dependency.StaticDependency", "@Dependency target must not be static" },
         new Object[]{ "com.example.dependency.ThrowsDependency", "@Dependency target must not throw any exceptions" },
         new Object[]{ "com.example.dependency.VoidReturnDependency", "@Dependency target must return a value" },

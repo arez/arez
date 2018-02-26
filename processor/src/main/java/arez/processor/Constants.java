@@ -33,6 +33,7 @@ final class Constants
   static final String SINGLETON_ANNOTATION_CLASSNAME = "javax.inject.Singleton";
   static final String SCOPE_ANNOTATION_CLASSNAME = "javax.inject.Scope";
   static final String DAGGER_MODULE_CLASSNAME = "dagger.Module";
+  static final String NONNULL_ANNOTATION_CLASSNAME = "javax.annotation.Nonnull";
 
   private Constants()
   {
