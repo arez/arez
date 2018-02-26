@@ -163,8 +163,6 @@ console.table(languages);
 
 * Document `ComponentObservable`
 
-* Document `@Dependency`
-
 * Document `ArezContext.noTxAction(...)` methods and describe it in transaction section.
 
 * Much of the documentation in VueGWT could be adapted or provide inspiration for Arez. See

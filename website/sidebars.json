@@ -29,6 +29,7 @@
       "at_action",
       "at_autorun",
       "at_track",
+      "at_dependency",
       "repositories",
       "generated_classes",
       "accessing_primitives",
