@@ -123,7 +123,7 @@ console.table(languages);
     - isDisposed
     - getArezId
 
-* When actions should not necessarily autodispose.
+* When actions should not necessarily autodispose. Non-autodispose ones could be added to annotation API.
 
 ## Process
 
