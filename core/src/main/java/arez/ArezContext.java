@@ -505,6 +505,7 @@ public final class ArezContext
    * any time any of the observed elements are updated. The effect procedure is run in either a
    * read-only or read-write, non-tracking transaction.
    *
+   * @param component      the component containing when observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name           the debug name (if any) used when naming the underlying Arez resources.
    * @param mutation       true if the effect can mutate state, false otherwise.
    * @param condition      The function that determines when the effect is run.
