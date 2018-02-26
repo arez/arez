@@ -6,6 +6,7 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* ArezComponent.type => ArezComponent.name
 
 * Should generate `@Autorun` method that throws an exception as should never call it directly.
 
