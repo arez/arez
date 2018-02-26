@@ -728,6 +728,105 @@
         "transaction": "Model2.0.dispose"
     },
     {
+        "action": "Model2.0.cascadeOnDispose.condition.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.0.cascadeOnDispose.condition.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "Model2.0.cascadeOnDispose.condition",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "Model2.0.cascadeOnDispose.condition.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.0.cascadeOnDispose.condition.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Model2.0.cascadeOnDispose.condition.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
+    },
+    {
+        "observable": "Model2.0.cascadeOnDispose.condition",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.0.cascadeOnDispose.condition.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "action": "Model2.0.isDisposed.dispose",
         "tracked": false,
         "type": "ActionStarted",
@@ -853,10 +952,6 @@
         "transaction": "Model2.0.reference3.dispose"
     },
     {
-        "observer": "Model2.0.cascadeOnDispose.condition",
-        "type": "ReactionScheduled"
-    },
-    {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -942,105 +1037,6 @@
         "result": null,
         "errorMessage": null,
         "action": "Model2.0.cascadeOnDispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "action": "Model2.0.cascadeOnDispose.condition.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model2.0.cascadeOnDispose.condition.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "computedValue": "Model2.0.cascadeOnDispose.condition",
-        "type": "ComputedValueDisposed"
-    },
-    {
-        "action": "Model2.0.cascadeOnDispose.condition.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model2.0.cascadeOnDispose.condition.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "action": "Model2.0.cascadeOnDispose.condition.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
-    },
-    {
-        "observable": "Model2.0.cascadeOnDispose.condition",
-        "type": "ObservableChanged",
-        "value": null
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model2.0.cascadeOnDispose.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
