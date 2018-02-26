@@ -8,9 +8,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
-@ArezComponent(
-    nameIncludesId = false
-)
+@ArezComponent
 @Singleton
 public abstract class RepositoryWithSingletonRepository extends AbstractRepository<Long, RepositoryWithSingleton, RepositoryWithSingletonRepository> {
   RepositoryWithSingletonRepository() {

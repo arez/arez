@@ -8,9 +8,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
-@ArezComponent(
-    nameIncludesId = false
-)
+@ArezComponent
 @Singleton
 public abstract class NestedModel_BasicActionModelRepository extends AbstractRepository<Long, NestedModel.BasicActionModel, NestedModel_BasicActionModelRepository> {
   NestedModel_BasicActionModelRepository() {

@@ -9,6 +9,10 @@
   with the native component instance when native components were enabled. This annotation processor now
   generates the required setup code.
 
+#### Changed
+* **\[processor\]** Avoid specifying the `nameIncludesId` parameter in generated repository classes if the
+  `@Singleton` annotation will be added as it is redundant.
+
 ### [v0.58](https://github.com/arez/arez/tree/v0.58) (2018-02-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.57...v0.58)
 

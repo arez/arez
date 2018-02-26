@@ -10,7 +10,6 @@ import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent(
-    nameIncludesId = false,
     inject = Feature.ENABLE
 )
 @Singleton

@@ -2582,9 +2582,17 @@ final class ComponentDescriptor
     builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
       addMember( "value", "$S", ArezProcessor.class.getName() ).
       build() );
+
+    final boolean addSingletonAnnotation =
+      "ENABLE".equals( _repositoryInjectConfig ) ||
+      ( "AUTODETECT".equals( _repositoryInjectConfig ) && _injectClassesPresent );
+
     final AnnotationSpec.Builder arezComponent =
-      AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_ANNOTATION_CLASSNAME ) ).
-        addMember( "nameIncludesId", "false" );
+      AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_ANNOTATION_CLASSNAME ) );
+    if ( !addSingletonAnnotation )
+    {
+      arezComponent.addMember( "nameIncludesId", "false" );
+    }
     if ( !"AUTODETECT".equals( _repositoryInjectConfig ) )
     {
       arezComponent.addMember( "inject", "$T.$N", GeneratorUtil.INJECTIBLE_CLASSNAME, _repositoryInjectConfig );
@@ -2594,8 +2602,7 @@ final class ComponentDescriptor
       arezComponent.addMember( "dagger", "$T.$N", GeneratorUtil.INJECTIBLE_CLASSNAME, _repositoryDaggerConfig );
     }
     builder.addAnnotation( arezComponent.build() );
-    if ( "ENABLE".equals( _repositoryInjectConfig ) ||
-         ( "AUTODETECT".equals( _repositoryInjectConfig ) && _injectClassesPresent ) )
+    if ( addSingletonAnnotation )
     {
       builder.addAnnotation( GeneratorUtil.SINGLETON_CLASSNAME );
     }

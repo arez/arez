@@ -9,9 +9,7 @@ import javax.annotation.Nullable;
 import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
-@ArezComponent(
-    nameIncludesId = false
-)
+@ArezComponent
 @Singleton
 abstract class PackageAccessRepositoryExampleRepository extends AbstractRepository<Integer, PackageAccessRepositoryExample, PackageAccessRepositoryExampleRepository> implements PackageAccessRepositoryExample.FooEx {
   PackageAccessRepositoryExampleRepository() {
