@@ -9,6 +9,10 @@
   with the native component instance when native components were enabled. This annotation processor now
   generates the required setup code.
 
+#### Added
+* **\[annotations\]** Add the `disposeOnDeactivate` parameter to the `@ArezComponent` annotation. If set to true
+  then a component will self-dispose after it has ceased to be observed via the `ComponentObservable.observe()` method.
+
 #### Changed
 * **\[processor\]** Avoid specifying the `nameIncludesId` parameter in generated repository classes if the
   `@Singleton` annotation will be added as it is redundant.

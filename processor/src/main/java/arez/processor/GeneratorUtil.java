@@ -57,6 +57,7 @@ final class GeneratorUtil
    */
   static final String STATE_FIELD_NAME = FRAMEWORK_PREFIX + "state";
   static final String DISPOSED_OBSERVABLE_FIELD_NAME = FRAMEWORK_PREFIX + "disposedObservable";
+  static final String DISPOSE_ON_DEACTIVATE_FIELD_NAME = FRAMEWORK_PREFIX + "disposeOnDeactivate";
   static final String ID_FIELD_NAME = FRAMEWORK_PREFIX + "id";
   static final String NAME_METHOD_NAME = FRAMEWORK_PREFIX + "name";
   static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
@@ -66,6 +67,7 @@ final class GeneratorUtil
   static final String GET_CASCADE_ON_DISPOSE_DEPS_METHOD_NAME = FRAMEWORK_PREFIX + "getCascadeOnDisposeDependencies";
   static final String SET_NULL_ON_DISPOSE_FIELD_NAME = FRAMEWORK_PREFIX + "setNullOnDispose";
   static final String SET_NULL_ON_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "setNullOnDispose";
+  static final String INTERNAL_OBSERVE_METHOD_NAME = FRAMEWORK_PREFIX + "observe";
 
   private GeneratorUtil()
   {

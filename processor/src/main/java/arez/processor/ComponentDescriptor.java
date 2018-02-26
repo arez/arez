@@ -73,6 +73,7 @@ final class ComponentDescriptor
   private final String _type;
   private final boolean _nameIncludesId;
   private final boolean _allowEmpty;
+  private final boolean _disposeOnDeactivate;
   private final boolean _injectClassesPresent;
   private final boolean _inject;
   private final boolean _dagger;
@@ -135,6 +136,7 @@ final class ComponentDescriptor
                        @Nonnull final String type,
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
+                       final boolean disposeOnDeactivate,
                        final boolean injectClassesPresent,
                        final boolean inject,
                        final boolean dagger,
@@ -149,6 +151,7 @@ final class ComponentDescriptor
     _type = Objects.requireNonNull( type );
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
+    _disposeOnDeactivate = disposeOnDeactivate;
     _injectClassesPresent = injectClassesPresent;
     _inject = inject;
     _dagger = dagger;
@@ -1663,6 +1666,7 @@ final class ComponentDescriptor
       builder.addMethod( buildSetNullOnDisposeDepsMethod() );
     }
 
+    builder.addMethod( buildInternalObserve() );
     builder.addMethod( buildObserve() );
     builder.addMethod( buildIsDisposed() );
     builder.addMethod( buildDispose() );
@@ -2157,13 +2161,12 @@ final class ComponentDescriptor
    * Generate the observe method.
    */
   @Nonnull
-  private MethodSpec buildObserve()
+  private MethodSpec buildInternalObserve()
     throws ArezProcessorException
   {
     final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( "observe" ).
-        addModifiers( Modifier.PUBLIC ).
-        addAnnotation( Override.class ).
+      MethodSpec.methodBuilder( GeneratorUtil.INTERNAL_OBSERVE_METHOD_NAME ).
+        addModifiers( Modifier.PRIVATE ).
         returns( TypeName.BOOLEAN );
 
     builder.addStatement( "final boolean isDisposed = isDisposed()" );
@@ -2176,6 +2179,30 @@ final class ComponentDescriptor
     builder.addStatement( "return !isDisposed",
                           GeneratorUtil.COMPONENT_STATE_CLASSNAME,
                           GeneratorUtil.STATE_FIELD_NAME );
+    return builder.build();
+  }
+
+  /**
+   * Generate the observe method.
+   */
+  @Nonnull
+  private MethodSpec buildObserve()
+    throws ArezProcessorException
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "observe" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class ).
+        returns( TypeName.BOOLEAN );
+
+    if ( _disposeOnDeactivate )
+    {
+      builder.addStatement( "return $N.get()", GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME );
+    }
+    else
+    {
+      builder.addStatement( "return $N()", GeneratorUtil.INTERNAL_OBSERVE_METHOD_NAME );
+    }
     return builder.build();
   }
 
@@ -2262,6 +2289,16 @@ final class ComponentDescriptor
       final FieldSpec.Builder field =
         FieldSpec.builder( GeneratorUtil.OBSERVER_CLASSNAME,
                            GeneratorUtil.SET_NULL_ON_DISPOSE_FIELD_NAME,
+                           Modifier.FINAL,
+                           Modifier.PRIVATE ).
+          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+      builder.addField( field.build() );
+    }
+    if ( _disposeOnDeactivate )
+    {
+      final FieldSpec.Builder field =
+        FieldSpec.builder( ParameterizedTypeName.get( GeneratorUtil.COMPUTED_VALUE_CLASSNAME, TypeName.BOOLEAN.box() ),
+                           GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME,
                            Modifier.FINAL,
                            Modifier.PRIVATE ).
           addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
@@ -2403,6 +2440,22 @@ final class ComponentDescriptor
                             ".isDisposed",
                             GeneratorUtil.AREZ_CLASSNAME,
                             GeneratorUtil.STATE_FIELD_NAME );
+    }
+    if ( _disposeOnDeactivate )
+    {
+      builder.addStatement( "this.$N = $N().createComputedValue( " +
+                            "$T.areNativeComponentsEnabled() ? this.$N : null, " +
+                            "$T.areNamesEnabled() ? $N() + $S : null, " +
+                            "() -> $N(), $T::equals, null, () -> dispose(), null, null )",
+                            GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME,
+                            getContextMethodName(),
+                            GeneratorUtil.AREZ_CLASSNAME,
+                            GeneratorUtil.COMPONENT_FIELD_NAME,
+                            GeneratorUtil.AREZ_CLASSNAME,
+                            getComponentNameMethodName(),
+                            ".disposeOnDeactivate",
+                            GeneratorUtil.INTERNAL_OBSERVE_METHOD_NAME,
+                            Objects.class );
     }
 
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );

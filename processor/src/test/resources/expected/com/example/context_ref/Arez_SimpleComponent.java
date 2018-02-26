@@ -67,13 +67,17 @@ final class Arez_SimpleComponent extends SimpleComponent implements Disposable, 
     return "SimpleComponent." + $$arezi$$_id();
   }
 
-  @Override
-  public boolean observe() {
+  private boolean $$arezi$$_observe() {
     final boolean isDisposed = isDisposed();
     if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }
     return !isDisposed;
+  }
+
+  @Override
+  public boolean observe() {
+    return $$arezi$$_observe();
   }
 
   @Override

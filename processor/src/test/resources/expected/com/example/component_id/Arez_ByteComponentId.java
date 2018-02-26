@@ -57,13 +57,17 @@ public final class Arez_ByteComponentId extends ByteComponentId implements Dispo
     return "ByteComponentId." + getId();
   }
 
-  @Override
-  public boolean observe() {
+  private boolean $$arezi$$_observe() {
     final boolean isDisposed = isDisposed();
     if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }
     return !isDisposed;
+  }
+
+  @Override
+  public boolean observe() {
+    return $$arezi$$_observe();
   }
 
   @Override

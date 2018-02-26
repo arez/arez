@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Add ability to flag `ComponentObservable.observe` method as a computable and add a deactivate hook
-  that disposes self on unobserve. Probably done as parameter to `ArezComponent`
 
 * Should generate `@Autorun` method that throws an exception as should never call it directly.
 

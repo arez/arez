@@ -132,6 +132,7 @@ public final class ArezProcessor
     final boolean nameIncludesIdDefault = null == singletonAnnotation;
     final boolean nameIncludesId =
       null == nameIncludesIdValue ? nameIncludesIdDefault : (boolean) nameIncludesIdValue.getValue();
+    final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
     final boolean allowConcrete = getAnnotationParameter( arezComponent, "allowConcrete" );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
     final List<AnnotationMirror> scopeAnnotations =
@@ -201,6 +202,7 @@ public final class ArezProcessor
                                type,
                                nameIncludesId,
                                allowEmpty,
+                               disposeOnDeactivate,
                                injectClassesPresent,
                                dagger || inject,
                                dagger,

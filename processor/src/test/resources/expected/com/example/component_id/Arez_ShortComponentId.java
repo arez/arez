@@ -57,13 +57,17 @@ public final class Arez_ShortComponentId extends ShortComponentId implements Dis
     return "ShortComponentId." + getId();
   }
 
-  @Override
-  public boolean observe() {
+  private boolean $$arezi$$_observe() {
     final boolean isDisposed = isDisposed();
     if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }
     return !isDisposed;
+  }
+
+  @Override
+  public boolean observe() {
+    return $$arezi$$_observe();
   }
 
   @Override

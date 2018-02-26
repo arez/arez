@@ -68,13 +68,17 @@ public final class Arez_DefaultCtorModel extends DefaultCtorModel implements Dis
     return "DefaultCtorModel." + $$arezi$$_id();
   }
 
-  @Override
-  public boolean observe() {
+  private boolean $$arezi$$_observe() {
     final boolean isDisposed = isDisposed();
     if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }
     return !isDisposed;
+  }
+
+  @Override
+  public boolean observe() {
+    return $$arezi$$_observe();
   }
 
   @Override

@@ -80,6 +80,15 @@ public @interface ArezComponent
   boolean allowConcrete() default false;
 
   /**
+   * Return true if the component should dispose itself once it is no longer "observed".
+   * By "observed" it means that the component will have {@link arez.component.ComponentObservable#observe(Object)}
+   * called on it.
+   *
+   * @return true if the component should dispose itself once it is no longer "observed".
+   */
+  boolean disposeOnDeactivate() default false;
+
+  /**
    * Indicate whether an @Inject annotation should be added to constructor of the generated class.
    * {@link Feature#ENABLE} will force the addition of an @Inject annotation, {@link Feature#DISABLE}
    * will result in no @Inject annotation and {@link Feature#AUTODETECT} will add an @Inject

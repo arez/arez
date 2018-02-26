@@ -70,13 +70,17 @@ public final class Arez_ScopedButNoDaggerModel extends ScopedButNoDaggerModel im
     return "ScopedButNoDaggerModel";
   }
 
-  @Override
-  public boolean observe() {
+  private boolean $$arezi$$_observe() {
     final boolean isDisposed = isDisposed();
     if ( !isDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }
     return !isDisposed;
+  }
+
+  @Override
+  public boolean observe() {
+    return $$arezi$$_observe();
   }
 
   @Override

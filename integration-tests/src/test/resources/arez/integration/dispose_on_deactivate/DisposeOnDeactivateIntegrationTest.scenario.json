@@ -1,0 +1,300 @@
+
+[
+    {
+        "component": "Model1.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Model1.0.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
+        "computedValue": "Model1.0.disposeOnDeactivate",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "component": "Model1.0",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "observer": "Observer@1",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "Observer@1",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@1",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@1",
+        "type": "TransactionStarted",
+        "transaction": "Observer@1"
+    },
+    {
+        "computedValue": "Model1.0.disposeOnDeactivate",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model1.0.disposeOnDeactivate",
+        "type": "TransactionStarted",
+        "transaction": "Model1.0.disposeOnDeactivate"
+    },
+    {
+        "observable": "Model1.0.disposeOnDeactivate",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "mutation": false,
+        "tracker": "Model1.0.disposeOnDeactivate",
+        "type": "TransactionCompleted",
+        "transaction": "Model1.0.disposeOnDeactivate"
+    },
+    {
+        "computedValue": "Model1.0.disposeOnDeactivate",
+        "type": "ComputeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@1",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@1"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@1",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@1",
+        "type": "ReactionCompleted"
+    },
+    {
+        "action": "Observer@1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Observer@1.dispose"
+    },
+    {
+        "component": "Model1.0",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model1.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.0.dispose"
+    },
+    {
+        "action": "Model1.0.disposeOnDeactivate.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.0.disposeOnDeactivate.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.0.disposeOnDeactivate.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.0.disposeOnDeactivate.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "Model1.0.disposeOnDeactivate",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "Model1.0.disposeOnDeactivate.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.0.disposeOnDeactivate.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.0.disposeOnDeactivate.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.0.disposeOnDeactivate.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Model1.0.disposeOnDeactivate.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.0.disposeOnDeactivate.dispose"
+    },
+    {
+        "observable": "Model1.0.disposeOnDeactivate",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.0.disposeOnDeactivate.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.0.disposeOnDeactivate.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Model1.0.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.0.isDisposed.dispose"
+    },
+    {
+        "observable": "Model1.0.isDisposed",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.0.isDisposed.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.0.isDisposed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.0.isDisposed",
+        "type": "ObservableDisposed"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model1.0",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "computedValue": "Model1.0.disposeOnDeactivate",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Observer@1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@1",
+        "type": "ObserverDisposed"
+    }
+]

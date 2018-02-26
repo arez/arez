@@ -35,6 +35,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.autorun.ScheduleAfterConstructedModel", false, false, false },
         new Object[]{ "com.example.autorun.ScheduleDeferredModel", false, false, false },
         new Object[]{ "com.example.component.AnnotatedConcreteModel", false, false, false },
+        new Object[]{ "com.example.component.DisposeOnDeactivateModel", false, false, false },
         new Object[]{ "com.example.component_id.BooleanComponentId", false, false, false },
         new Object[]{ "com.example.component_id.BooleanComponentIdRequireEquals", false, false, false },
         new Object[]{ "com.example.component_id.ByteComponentId", false, false, false },
