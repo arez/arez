@@ -59,13 +59,13 @@ final class DependencyDescriptor
     {
       if ( null == _observable )
       {
-        throw new ArezProcessorException( "@Dependency target defined an action of 'SET_NULL' but dependency is " +
+        throw new ArezProcessorException( "@Dependency target defined an action of 'SET_NULL' but the dependency is " +
                                           "not an observable so the annotation processor does not know how to set " +
                                           "the value to null.", _method );
       }
       else if ( !_observable.hasSetter() )
       {
-        throw new ArezProcessorException( "@Dependency target defined an action of 'SET_NULL' but dependency is " +
+        throw new ArezProcessorException( "@Dependency target defined an action of 'SET_NULL' but the dependency is " +
                                           "an observable with no setter defined so the annotation processor does " +
                                           "not know how to set the value to null.", _method );
       }
