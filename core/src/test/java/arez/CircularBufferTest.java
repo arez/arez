@@ -142,4 +142,32 @@ public class CircularBufferTest
     assertEquals( buffer.pop(), "D" );
     assertEquals( buffer.pop(), null );
   }
+
+  @Test
+  public void addFirst()
+  {
+    final CircularBuffer<String> buffer = new CircularBuffer<>( 3 );
+    assertEquals( buffer.size(), 0 );
+
+    buffer.add( "A" );
+    buffer.add( "B" );
+    buffer.add( "C" );
+    // This triggers both a grow and a wrap
+    buffer.addFirst( "D" );
+
+    assertEquals( buffer.size(), 4 );
+
+    assertEquals( buffer.pop(), "D" );
+    assertEquals( buffer.pop(), "A" );
+    assertEquals( buffer.pop(), "B" );
+    assertEquals( buffer.pop(), "C" );
+
+    buffer.addFirst( "E" );
+    buffer.addFirst( "F" );
+    buffer.add( "G" );
+
+    assertEquals( buffer.pop(), "F" );
+    assertEquals( buffer.pop(), "E" );
+    assertEquals( buffer.pop(), "G" );
+  }
 }

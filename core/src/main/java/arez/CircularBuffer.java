@@ -66,6 +66,12 @@ final class CircularBuffer<T>
     insertLast( Objects.requireNonNull( object ) );
   }
 
+  void addFirst( @Nonnull final T object )
+  {
+    tryGrowBeforeAdd();
+    insertFirst( Objects.requireNonNull( object ) );
+  }
+
   private void tryGrowBeforeAdd()
   {
     final int newSize = size() + 1;
@@ -115,6 +121,25 @@ final class CircularBuffer<T>
     {
       shrink( size );
     }
+  }
+
+  /**
+   * Insert specified object at head of the buffer.
+   *
+   * @param object the object.
+   */
+  private void insertFirst( @Nonnull final T object )
+  {
+    if ( 0 == _head )
+    {
+      _head = _elements.length - 1;
+      _isWrappedBuffer = true;
+    }
+    else
+    {
+      _head--;
+    }
+    _elements[ _head ] = object;
   }
 
   /**
