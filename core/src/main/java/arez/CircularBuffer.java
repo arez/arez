@@ -118,7 +118,7 @@ final class CircularBuffer<T>
   }
 
   /**
-   * Insert specified object at tail of buffer.
+   * Insert specified object at tail of the buffer.
    *
    * @param object the object.
    */
