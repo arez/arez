@@ -70,7 +70,17 @@ final class Watcher
                             Arez.areNamesEnabled() ? getName() + ".watcher" : null,
                             true,
                             this::checkCondition,
-                            runImmediately );
+                            false );
+    /*
+     * Can not pass this as flag when constructing watcher, otherwise this class could attempt
+     * to dispose when condition starts as being true before _watcher has been assigned which
+     * results in either a dangling life watcher or an invariant failure depending on configuration
+     * of the application.
+     */
+    if ( runImmediately )
+    {
+      getContext().triggerScheduler();
+    }
   }
 
   @Nonnull
