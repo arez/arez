@@ -62,12 +62,17 @@ final class CircularBuffer<T>
 
   void add( @Nonnull final T object )
   {
+    tryGrowBeforeAdd();
+    insertLast( Objects.requireNonNull( object ) );
+  }
+
+  private void tryGrowBeforeAdd()
+  {
     final int newSize = size() + 1;
     if ( newSize > _elements.length )
     {
       grow( newSize );
     }
-    insertLast( Objects.requireNonNull( object ) );
   }
 
   @Nullable
