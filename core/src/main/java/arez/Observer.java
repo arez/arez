@@ -88,7 +88,7 @@ public final class Observer
   @Nullable
   private final Observable<?> _derivedValue;
   /**
-   * Flag set to true if Observer can be passed as tracker into one of the transaciton emthods.
+   * Flag set to true if Observer can be passed as tracker into one of the transaction methods.
    */
   private final boolean _canTrackExplicitly;
   /**
