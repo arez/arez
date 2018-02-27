@@ -8,6 +8,8 @@
   `Disposable.dispose(watcher)` being invoked before watcher had been assigned.
 * **\[core\]** Significantly optimized scheduler by replacing a `ArrayList` that removed elements from the start
   with a `CircularBuffer`.
+* **\[core\]** Optimize the `Transaction.completeTracking()` method by removing invariant checks for an impossible
+  scenario. Guards some of the remaining invariant checks inside an `if( Arez.shouldCheckInvariants() )` block.
 
 ### [v0.59](https://github.com/arez/arez/tree/v0.59) (2018-02-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.58...v0.59)

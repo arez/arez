@@ -877,20 +877,11 @@ final class Transaction
           //Observable was not a dependency so it needs to be observed
           observable.addObserver( _tracker );
           dependenciesChanged = true;
-          final ObserverState leastStaleObserverState = observable.getLeastStaleObserverState();
-          if ( leastStaleObserverState == ObserverState.INACTIVE ||
-               leastStaleObserverState.ordinal() > newDerivationState.ordinal() )
+          if ( Arez.shouldCheckInvariants() )
           {
-            /*
-             * This code is probably not reachable. This assertion failure has been added to see
-             * if there is any scenario within the production applications that trigger this scenario.
-             */
-            if ( Arez.shouldCheckInvariants() )
-            {
-              fail( () -> "Arez-0156: Transaction named '" + getName() + "' added a new dependency named '" +
-                          observable.getName() + "' that needed to have the least observable state" );
-            }
-            observable.setLeastStaleObserverState( newDerivationState );
+            final ObserverState leastStaleObserverState = observable.getLeastStaleObserverState();
+            assert !( leastStaleObserverState == ObserverState.INACTIVE ||
+                      leastStaleObserverState.ordinal() > newDerivationState.ordinal() );
           }
         }
       }
