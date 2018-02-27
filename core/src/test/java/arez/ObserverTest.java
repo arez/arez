@@ -31,7 +31,8 @@ public class ObserverTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
     final Reaction reaction = new TestReaction();
-    final Observer observer = new Observer( context, null, name, null, TransactionMode.READ_ONLY, reaction, false );
+    final Observer observer =
+      new Observer( context, null, name, null, TransactionMode.READ_ONLY, reaction, false, false );
 
     // Verify all "Node" behaviour
     assertEquals( observer.getContext(), context );
@@ -50,6 +51,8 @@ public class ObserverTest
     assertEquals( observer.isScheduled(), false );
 
     assertEquals( observer.isDerivation(), false );
+
+    assertEquals( observer.isHighPriority(), false );
 
     // All the hooks start out null
     assertEquals( observer.getOnActivate(), null );
@@ -103,6 +106,7 @@ public class ObserverTest
                                         null,
                                         TransactionMode.READ_WRITE_OWNED,
                                         new TestReaction(),
+                                        false,
                                         false ) );
 
     assertEquals( exception.getMessage(),
@@ -124,6 +128,7 @@ public class ObserverTest
                                         null,
                                         TransactionMode.DISPOSE,
                                         new TestReaction(),
+                                        false,
                                         false ) );
 
     assertEquals( exception.getMessage(),
@@ -147,6 +152,7 @@ public class ObserverTest
                                         null,
                                         TransactionMode.READ_ONLY,
                                         new TestReaction(),
+                                        false,
                                         false ) );
 
     assertEquals( exception.getMessage(),
@@ -164,7 +170,7 @@ public class ObserverTest
     final String name = ValueUtil.randomString();
 
     final Observer observer =
-      new Observer( Arez.context(), null, name, null, null, new TestReaction(), false );
+      new Observer( Arez.context(), null, name, null, null, new TestReaction(), false, false );
     assertThrows( observer::getMode );
   }
 
@@ -183,6 +189,7 @@ public class ObserverTest
                                         computedValue,
                                         TransactionMode.READ_ONLY,
                                         new TestReaction(),
+                                        false,
                                         false ) );
 
     assertEquals( exception.getMessage(),
@@ -203,6 +210,7 @@ public class ObserverTest
                                         computedValue,
                                         TransactionMode.READ_WRITE_OWNED,
                                         new TestReaction(),
+                                        false,
                                         true ) );
 
     assertEquals( exception.getMessage(),
@@ -233,6 +241,7 @@ public class ObserverTest
                                         null,
                                         TransactionMode.READ_ONLY,
                                         new TestReaction(),
+                                        false,
                                         false ) );
     assertEquals( exception.getMessage(),
                   "Arez-0083: Observer named '" + name + "' has component specified but " +
@@ -253,7 +262,14 @@ public class ObserverTest
 
     final String name = ValueUtil.randomString();
     final Observer observer =
-      new Observer( Arez.context(), component, name, null, TransactionMode.READ_ONLY, new TestReaction(), false );
+      new Observer( Arez.context(),
+                    component,
+                    name,
+                    null,
+                    TransactionMode.READ_ONLY,
+                    new TestReaction(),
+                    false,
+                    false );
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
 
@@ -1209,7 +1225,7 @@ public class ObserverTest
       assertEquals( observer.getName(), name );
     };
 
-    final Observer observer = new Observer( context, null, name, null, mode, reaction, false );
+    final Observer observer = new Observer( context, null, name, null, mode, reaction, false, false );
 
     observer.invokeReaction();
 
@@ -1231,6 +1247,7 @@ public class ObserverTest
                     null,
                     TransactionMode.READ_ONLY,
                     o -> Thread.sleep( 1 ),
+                    false,
                     false );
 
     observer.invokeReaction();
@@ -1287,7 +1304,14 @@ public class ObserverTest
   {
     final TestReaction reaction = new TestReaction();
     final Observer observer =
-      new Observer( Arez.context(), null, ValueUtil.randomString(), null, TransactionMode.READ_ONLY, reaction, false );
+      new Observer( Arez.context(),
+                    null,
+                    ValueUtil.randomString(),
+                    null,
+                    TransactionMode.READ_ONLY,
+                    reaction,
+                    false,
+                    false );
 
     observer.setDisposed( true );
 
@@ -1308,7 +1332,14 @@ public class ObserverTest
   {
     final TestReaction reaction = new TestReaction();
     final Observer observer =
-      new Observer( Arez.context(), null, ValueUtil.randomString(), null, TransactionMode.READ_ONLY, reaction, false );
+      new Observer( Arez.context(),
+                    null,
+                    ValueUtil.randomString(),
+                    null,
+                    TransactionMode.READ_ONLY,
+                    reaction,
+                    false,
+                    false );
 
     setupReadWriteTransaction();
     observer.setState( ObserverState.UP_TO_DATE );
@@ -1346,7 +1377,7 @@ public class ObserverTest
       throw exception;
     };
 
-    final Observer observer = new Observer( Arez.context(), null, name, null, mode, reaction, false );
+    final Observer observer = new Observer( Arez.context(), null, name, null, mode, reaction, false, false );
 
     observer.invokeReaction();
 

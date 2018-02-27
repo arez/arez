@@ -128,6 +128,46 @@ public class ReactionSchedulerTest
   }
 
   @Test
+  public void scheduleReaction_highPriorityObserver()
+    throws Exception
+  {
+    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+
+    final Observer observer1 = newReadOnlyObserver();
+    final Observer observer2 = new Observer( Arez.context(),
+                                             null,
+                                             ValueUtil.randomString(),
+                                             null,
+                                             TransactionMode.READ_ONLY,
+                                             new TestReaction(),
+                                             true,
+                                             false );
+    final Observer observer3 = newReadOnlyObserver();
+    final Observer observer4 = new Observer( Arez.context(),
+                                             null,
+                                             ValueUtil.randomString(),
+                                             null,
+                                             TransactionMode.READ_ONLY,
+                                             new TestReaction(),
+                                             true,
+                                             false );
+
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+
+    scheduler.scheduleReaction( observer1 );
+    scheduler.scheduleReaction( observer2 );
+    scheduler.scheduleReaction( observer3 );
+    scheduler.scheduleReaction( observer4 );
+
+    assertEquals( scheduler.getPendingObservers().size(), 4 );
+    // 2 was a high priority and thus moved to front, 4 was high priority so it also added to front
+    assertEquals( scheduler.getPendingObservers().get( 0 ), observer4 );
+    assertEquals( scheduler.getPendingObservers().get( 1 ), observer2 );
+    assertEquals( scheduler.getPendingObservers().get( 2 ), observer1 );
+    assertEquals( scheduler.getPendingObservers().get( 3 ), observer3 );
+  }
+
+  @Test
   public void scheduleReaction_observerAlreadyScheduled()
     throws Exception
   {
@@ -261,6 +301,7 @@ public class ReactionSchedulerTest
                       null,
                       TransactionMode.READ_WRITE,
                       reactions[ i ],
+                      false,
                       false );
       observables[ i ] = newObservable();
 
@@ -354,7 +395,14 @@ public class ReactionSchedulerTest
       }
     };
     final Observer toSchedule =
-      new Observer( Arez.context(), null, ValueUtil.randomString(), null, TransactionMode.READ_WRITE, reaction, false );
+      new Observer( Arez.context(),
+                    null,
+                    ValueUtil.randomString(),
+                    null,
+                    TransactionMode.READ_WRITE,
+                    reaction,
+                    false,
+                    false );
     final Observable<?> observable = newObservable();
 
     toSchedule.setState( ObserverState.UP_TO_DATE );
@@ -413,7 +461,14 @@ public class ReactionSchedulerTest
       }
     };
     final Observer toSchedule =
-      new Observer( Arez.context(), null, ValueUtil.randomString(), null, TransactionMode.READ_ONLY, reaction, false );
+      new Observer( Arez.context(),
+                    null,
+                    ValueUtil.randomString(),
+                    null,
+                    TransactionMode.READ_ONLY,
+                    reaction,
+                    false,
+                    false );
     final Observable<?> observable = newObservable();
 
     toSchedule.setState( ObserverState.UP_TO_DATE );
@@ -482,6 +537,7 @@ public class ReactionSchedulerTest
                       null,
                       TransactionMode.READ_WRITE,
                       reactions[ i ],
+                      false,
                       false );
       observables[ i ] = newObservable();
 

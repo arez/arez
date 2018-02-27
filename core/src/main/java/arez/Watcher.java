@@ -50,6 +50,7 @@ final class Watcher
            final boolean mutation,
            @Nonnull final SafeFunction<Boolean> condition,
            @Nonnull final SafeProcedure effect,
+           final boolean highPriority,
            final boolean runImmediately )
   {
     super( context, name );
@@ -70,6 +71,7 @@ final class Watcher
                             Arez.areNamesEnabled() ? getName() + ".watcher" : null,
                             true,
                             this::checkCondition,
+                            highPriority,
                             false );
     /*
      * Can not pass this as flag when constructing watcher, otherwise this class could attempt

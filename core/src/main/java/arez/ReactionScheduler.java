@@ -106,7 +106,14 @@ final class ReactionScheduler
                        "' when observer is already pending." );
     }
     observer.setScheduledFlag();
-    _pendingObservers.add( Objects.requireNonNull( observer ) );
+    if ( observer.isHighPriority() )
+    {
+      _pendingObservers.addFirst( Objects.requireNonNull( observer ) );
+    }
+    else
+    {
+      _pendingObservers.add( Objects.requireNonNull( observer ) );
+    }
   }
 
   /**

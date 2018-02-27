@@ -33,13 +33,14 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Watcher watcher = new Watcher( context, component, name, mutation, condition, procedure, true );
+    final Watcher watcher = new Watcher( context, component, name, mutation, condition, procedure, false, true );
 
     assertEquals( watcher.getName(), name );
     assertEquals( watcher.isMutation(), mutation );
     assertEquals( watcher.getEffect(), procedure );
     assertEquals( watcher.getWatcher().getName(), name + ".watcher" );
     assertEquals( watcher.getWatcher().getComponent(), component );
+    assertEquals( watcher.getWatcher().isHighPriority(), false );
 
     assertEquals( watcher.getCondition().getName(), name + ".condition" );
     assertEquals( watcher.getCondition().getComponent(), component );
@@ -88,7 +89,7 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    new Watcher( context, null, ValueUtil.randomString(), mutation, condition, procedure, false );
+    new Watcher( context, null, ValueUtil.randomString(), mutation, condition, procedure, false, false );
 
     assertEquals( conditionRun.get(), 0 );
     assertEquals( effectRun.get(), 0 );
@@ -97,6 +98,57 @@ public class WatcherTest
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
+  }
+
+  @Test
+  public void basicOperation_highPriorityEnabled()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger conditionRun1 = new AtomicInteger();
+    final AtomicInteger conditionRun2 = new AtomicInteger();
+    final AtomicInteger conditionRun3 = new AtomicInteger();
+    final ArrayList<String> results = new ArrayList<>();
+
+    final SafeFunction<Boolean> condition1 = () -> {
+      conditionRun1.incrementAndGet();
+      results.add( "1" );
+      return false;
+    };
+    final SafeFunction<Boolean> condition2 = () -> {
+      conditionRun2.incrementAndGet();
+      results.add( "2" );
+      return false;
+    };
+    final SafeFunction<Boolean> condition3 = () -> {
+      conditionRun3.incrementAndGet();
+      results.add( "3" );
+      return false;
+    };
+    final SafeProcedure procedure = () -> {
+    };
+
+    new Watcher( context, null, ValueUtil.randomString(), true, condition1, procedure, true, false );
+    new Watcher( context, null, ValueUtil.randomString(), true, condition2, procedure, true, false );
+    new Watcher( context, null, ValueUtil.randomString(), true, condition3, procedure, false, false );
+
+    assertEquals( conditionRun1.get(), 0 );
+    assertEquals( conditionRun2.get(), 0 );
+    assertEquals( conditionRun3.get(), 0 );
+
+    context.triggerScheduler();
+
+    assertEquals( conditionRun1.get(), 1 );
+    assertEquals( conditionRun2.get(), 1 );
+    assertEquals( conditionRun3.get(), 1 );
+
+    assertEquals( results.size(), 3 );
+
+    // NOTE: the second got scheduled ahead of the first as high priority gets added to the start of the list
+    assertEquals( results.get( 0 ), "2" );
+    assertEquals( results.get( 1 ), "1" );
+    assertEquals( results.get( 2 ), "3" );
   }
 
   @Test
@@ -121,7 +173,7 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Watcher watcher = new Watcher( context, null, name, mutation, condition, procedure, true );
+    final Watcher watcher = new Watcher( context, null, name, mutation, condition, procedure, false, true );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
@@ -164,7 +216,7 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Watcher watcher = new Watcher( context, null, name, mutation, condition, procedure, true );
+    final Watcher watcher = new Watcher( context, null, name, mutation, condition, procedure, false, true );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
@@ -220,7 +272,7 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    new Watcher( context, null, name, mutation, condition, procedure, true );
+    new Watcher( context, null, name, mutation, condition, procedure, false, true );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
@@ -268,7 +320,7 @@ public class WatcherTest
       observable.reportChanged();
     };
 
-    new Watcher( context, null, ValueUtil.randomString(), false, () -> true, effect, true );
+    new Watcher( context, null, ValueUtil.randomString(), false, () -> true, effect, false, true );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 1 );
@@ -295,7 +347,7 @@ public class WatcherTest
       observable.reportChanged();
     };
 
-    new Watcher( context, null, ValueUtil.randomString(), true, () -> true, effect, true );
+    new Watcher( context, null, ValueUtil.randomString(), true, () -> true, effect, false, true );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 0 );

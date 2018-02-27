@@ -467,9 +467,9 @@ public class ComponentTest
                                                                       null,
                                                                       null );
     final Observer observer1 = context.autorun( component, ValueUtil.randomString(), true, () -> {
-    }, false );
+    }, false, false );
     final Observer observer2 = context.autorun( component, ValueUtil.randomString(), true, () -> {
-    }, false );
+    }, false, false );
 
     assertEquals( component.getObservables().size(), 2 );
     assertEquals( component.getComputedValues().size(), 2 );

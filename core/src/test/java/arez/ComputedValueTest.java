@@ -35,6 +35,7 @@ public class ComputedValueTest
     // Verify the linking of all child elements
     assertEquals( computedValue.getObserver().getName(), name );
     assertEquals( computedValue.getObserver().isDerivation(), true );
+    assertEquals( computedValue.getObserver().isHighPriority(), false );
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
     assertEquals( computedValue.getObservable().getName(), name );
     assertEquals( computedValue.getObservable().hasOwner(), true );

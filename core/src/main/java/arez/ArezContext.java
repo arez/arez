@@ -464,7 +464,7 @@ public final class ArezContext
 
   /**
    * Wait until a condition is true, then run effect.
-   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, boolean)} for further details.
+   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, boolean, boolean)} for further details.
    *
    * @param name      the debug name (if any) used when naming the underlying Arez resources.
    * @param mutation  true if the effect can mutate state, false otherwise.
@@ -482,12 +482,12 @@ public final class ArezContext
 
   /**
    * Wait until a condition is true, then run effect.
-   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, boolean)} for further details.
+   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, boolean, boolean)} for further details.
    *
-   * @param name      the debug name (if any) used when naming the underlying Arez resources.
-   * @param mutation  true if the effect can mutate state, false otherwise.
-   * @param condition The function that determines when the effect is run.
-   * @param effect    The procedure that is executed when the condition is true.
+   * @param name           the debug name (if any) used when naming the underlying Arez resources.
+   * @param mutation       true if the effect can mutate state, false otherwise.
+   * @param condition      The function that determines when the effect is run.
+   * @param effect         The procedure that is executed when the condition is true.
    * @param runImmediately true to invoke condition immediately, false to schedule reaction for next reaction cycle.
    * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
    */
@@ -497,8 +497,31 @@ public final class ArezContext
                         @Nonnull final SafeProcedure effect,
                         final boolean runImmediately )
   {
-    return when( null, name, mutation, condition, effect, runImmediately );
+    return when( name, mutation, condition, effect, false, runImmediately );
   }
+
+  /**
+   * Wait until a condition is true, then run effect.
+   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, boolean, boolean)} for further details.
+   *
+   * @param name           the debug name (if any) used when naming the underlying Arez resources.
+   * @param mutation       true if the effect can mutate state, false otherwise.
+   * @param condition      The function that determines when the effect is run.
+   * @param effect         The procedure that is executed when the condition is true.
+   * @param highPriority   true if the observer is a high priority observer.
+   * @param runImmediately true to invoke condition immediately, false to schedule reaction for next reaction cycle.
+   * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
+   */
+  public Observer when( @Nullable final String name,
+                        final boolean mutation,
+                        @Nonnull final SafeFunction<Boolean> condition,
+                        @Nonnull final SafeProcedure effect,
+                        final boolean highPriority,
+                        final boolean runImmediately )
+  {
+    return when( null, name, mutation, condition, effect, highPriority, runImmediately );
+  }
+
   /**
    * Wait until a condition is true, then run effect.
    * The condition function is run in a read-only, tracking transaction and will be re-evaluated
@@ -510,6 +533,7 @@ public final class ArezContext
    * @param mutation       true if the effect can mutate state, false otherwise.
    * @param condition      The function that determines when the effect is run.
    * @param effect         The procedure that is executed when the condition is true.
+   * @param highPriority   true if the observer is a high priority observer.
    * @param runImmediately true to invoke condition immediately, false to schedule reaction for next reaction cycle.
    * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
    */
@@ -518,6 +542,7 @@ public final class ArezContext
                         final boolean mutation,
                         @Nonnull final SafeFunction<Boolean> condition,
                         @Nonnull final SafeProcedure effect,
+                        final boolean highPriority,
                         final boolean runImmediately )
   {
     return new Watcher( this,
@@ -526,6 +551,7 @@ public final class ArezContext
                         mutation,
                         condition,
                         effect,
+                        highPriority,
                         runImmediately ).getWatcher();
   }
 
@@ -598,7 +624,27 @@ public final class ArezContext
                            @Nonnull final Procedure action,
                            final boolean runImmediately )
   {
-    return autorun( null, name, mutation, action, runImmediately );
+    return autorun( name, mutation, action, false, runImmediately );
+  }
+
+  /**
+   * Create an autorun observer.
+   *
+   * @param name           the name of the observer.
+   * @param mutation       true if the action may modify state, false otherwise.
+   * @param action         the action defining the observer.
+   * @param highPriority   true if the observer is a high priority observer.
+   * @param runImmediately true to invoke action immediately, false to schedule reaction for next reaction cycle.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer autorun( @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure action,
+                           final boolean highPriority,
+                           final boolean runImmediately )
+  {
+    return autorun( null, name, mutation, action, highPriority, runImmediately );
   }
 
   /**
@@ -608,6 +654,7 @@ public final class ArezContext
    * @param name           the name of the observer.
    * @param mutation       true if the action may modify state, false otherwise.
    * @param action         the action defining the observer.
+   * @param highPriority   true if the observer is a high priority observer.
    * @param runImmediately true to invoke action immediately, false to schedule reaction for next reaction cycle.
    * @return the new Observer.
    */
@@ -616,6 +663,7 @@ public final class ArezContext
                            @Nullable final String name,
                            final boolean mutation,
                            @Nonnull final Procedure action,
+                           final boolean highPriority,
                            final boolean runImmediately )
   {
     final Observer observer =
@@ -627,6 +675,7 @@ public final class ArezContext
                                    action,
                                    true,
                                    o ),
+                      highPriority,
                       false );
     if ( runImmediately )
     {
@@ -703,16 +752,39 @@ public final class ArezContext
                            final boolean mutation,
                            @Nonnull final Procedure action )
   {
-    return createObserver( component, name, mutation, o -> action.call(), true );
+    return tracker( component, name, mutation, action, false );
+  }
+
+  /**
+   * Create a "tracker" observer.
+   * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
+   *
+   * @param component    the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name         the name of the observer.
+   * @param mutation     true if the observer may modify state during tracking, false otherwise.
+   * @param highPriority true if the observer is a high priority observer.
+   * @param action       the action invoked as the reaction.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer tracker( @Nullable final Component component,
+                           @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure action,
+                           final boolean highPriority )
+  {
+    return createObserver( component, name, mutation, o -> action.call(), highPriority, true );
   }
 
   /**
    * Create an observer with specified parameters.
    *
-   * @param component the component containing observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name      the name of the observer.
-   * @param mutation  true if the reaction may modify state, false otherwise.
-   * @param reaction  the reaction defining observer.
+   * @param component    the component containing observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name         the name of the observer.
+   * @param mutation     true if the reaction may modify state, false otherwise.
+   * @param reaction     the reaction defining observer.
+   * @param highPriority true if the observer is a high priority observer.
    * @return the new Observer.
    */
   @Nonnull
@@ -720,11 +792,19 @@ public final class ArezContext
                            @Nullable final String name,
                            final boolean mutation,
                            @Nonnull final Reaction reaction,
+                           final boolean highPriority,
                            final boolean canTrackExplicitly )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =
-      new Observer( this, component, generateNodeName( "Observer", name ), null, mode, reaction, canTrackExplicitly );
+      new Observer( this,
+                    component,
+                    generateNodeName( "Observer", name ),
+                    null,
+                    mode,
+                    reaction,
+                    highPriority,
+                    canTrackExplicitly );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObserverCreatedEvent( new ObserverInfoImpl( getSpy(), observer ) ) );

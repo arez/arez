@@ -1484,6 +1484,7 @@ public class ArezContextTest
     assertEquals( computedValue.getObserver().getOnActivate(), null );
     assertEquals( computedValue.getObserver().getOnDeactivate(), null );
     assertEquals( computedValue.getObserver().getOnStale(), null );
+    assertEquals( computedValue.getObserver().isHighPriority(), false );
   }
 
   @Test
@@ -1504,6 +1505,7 @@ public class ArezContextTest
     assertEquals( computedValue.getObserver().getOnActivate(), null );
     assertEquals( computedValue.getObserver().getOnDeactivate(), null );
     assertEquals( computedValue.getObserver().getOnStale(), null );
+    assertEquals( computedValue.getObserver().isHighPriority(), false );
   }
 
   @Test
@@ -1537,6 +1539,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), "Observer@22" );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isHighPriority(), false );
     assertEquals( callCount.get(), 1 );
   }
 
@@ -1551,7 +1554,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
     final String name = ValueUtil.randomString();
-    final Observer observer = context.autorun( component, name, true, callCount::incrementAndGet, false );
+    final Observer observer = context.autorun( component, name, true, callCount::incrementAndGet, false, false );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
@@ -1570,6 +1573,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), "Observer@22" );
     assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isHighPriority(), false );
     assertEquals( callCount.get(), 1 );
   }
 
@@ -1590,6 +1594,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.isHighPriority(), false );
     assertEquals( callCount.get(), 1 );
 
     handler.assertEventCount( 7 );
@@ -1601,6 +1606,19 @@ public class ArezContextTest
     assertEquals( handler.assertEvent( TransactionCompletedEvent.class, 4 ).getTracker().getName(), name );
     assertEquals( handler.assertEvent( ActionCompletedEvent.class, 5 ).getName(), name );
     assertEquals( handler.assertEvent( ReactionCompletedEvent.class, 6 ).getObserver().getName(), name );
+  }
+
+  @Test
+  public void autorun_highPriority()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final Observer observer =
+      context.autorun( null, ValueUtil.randomString(), true, callCount::incrementAndGet, true, false );
+
+    assertEquals( observer.isHighPriority(), true );
   }
 
   @Test
@@ -1619,6 +1637,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.isHighPriority(), false );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
 
@@ -1639,11 +1658,13 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = context.tracker( name, false, callCount::incrementAndGet );
+    final Observer observer = context.tracker( null, name, false, callCount::incrementAndGet, true );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.getComponent(), null );
+    assertEquals( observer.isHighPriority(), true );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
@@ -1666,6 +1687,7 @@ public class ArezContextTest
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
+    assertEquals( observer.isHighPriority(), false );
   }
 
   @Test
@@ -1703,7 +1725,7 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final Observer observer =
-      context.createObserver( null, ValueUtil.randomString(), true, new TestReaction(), false );
+      context.createObserver( null, ValueUtil.randomString(), true, new TestReaction(), false, false );
 
     handler.assertEventCount( 1 );
 
@@ -1717,7 +1739,7 @@ public class ArezContextTest
     final ArezContext context = new ArezContext();
 
     final Observer observer =
-      context.createObserver( null, ValueUtil.randomString(), false, new TestReaction(), true );
+      context.createObserver( null, ValueUtil.randomString(), false, new TestReaction(), false, true );
 
     assertEquals( observer.canTrackExplicitly(), true );
   }
@@ -2260,9 +2282,10 @@ public class ArezContextTest
 
     final ArezContext context = Arez.context();
     final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
-    final Observer node = context.when( component, name, true, condition, procedure, true );
+    final Observer node = context.when( component, name, true, condition, procedure, true, true );
 
     assertEquals( node.getName(), name + ".watcher" );
+    assertEquals( node.isHighPriority(), true );
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
   }
@@ -2289,6 +2312,7 @@ public class ArezContextTest
     final Observer node = context.when( condition, procedure );
 
     assertEquals( node.getName(), "When@2.watcher", "The name has @2 as one other Arez entity created (Observable)" );
+    assertEquals( node.isHighPriority(), false );
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
   }

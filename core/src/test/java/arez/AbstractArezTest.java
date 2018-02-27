@@ -116,6 +116,7 @@ public abstract class AbstractArezTest
                          null,
                          TransactionMode.READ_WRITE,
                          new TestReaction(),
+                         false,
                          false );
   }
 
@@ -152,6 +153,7 @@ public abstract class AbstractArezTest
                          null,
                          TransactionMode.READ_ONLY,
                          new TestReaction(),
+                         false,
                          false );
   }
 

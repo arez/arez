@@ -88,6 +88,7 @@ public final class ComputedValue<T>
                                                           this::compute,
                                                           false,
                                                           o ),
+                              false,
                               false );
     if ( null != _component )
     {

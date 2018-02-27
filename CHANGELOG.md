@@ -11,6 +11,17 @@
 * **\[core\]** Optimize the `Transaction.completeTracking()` method by removing invariant checks for an impossible
   scenario. Guards some of the remaining invariant checks inside an `if( Arez.shouldCheckInvariants() )` block.
 
+#### Added
+* **\[core\]** Added the ability to create `"high priority"` observers. These observers are prepended to the start
+  of the pending observers list when they are scheduled. Normal priority observers are appended to pending observers
+  list when they are scheduled.
+
+#### Changed
+* **\[processor\]** Change the `cascadeOnDispose` and  the `setNullOnDispose` observer in generated classes to be
+  high priority observers. This means that the scheduler will prioritizing disposing and unlinking of disposed
+  components over other reactions. This minimizes the need for application code to check `Disposable.isDisposed(...)`
+  on each arez component before accessing it in a reaction.
+
 ### [v0.59](https://github.com/arez/arez/tree/v0.59) (2018-02-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.58...v0.59)
 

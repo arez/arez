@@ -2509,7 +2509,7 @@ final class ComponentDescriptor
   private void buildCascadeOnDisposeInitializer( @Nonnull final MethodSpec.Builder builder )
   {
     builder.addStatement(
-      "this.$N = $N().when( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, false, () -> $N().peek( $T::observe ).anyMatch( $T::isDisposed ), () -> $T.dispose( this ), false )",
+      "this.$N = $N().when( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, false, () -> $N().peek( $T::observe ).anyMatch( $T::isDisposed ), () -> $T.dispose( this ), true, false )",
       GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME,
       getContextMethodName(),
       GeneratorUtil.AREZ_CLASSNAME,
@@ -2526,7 +2526,7 @@ final class ComponentDescriptor
   private void buildSetNullOnDisposeInitializer( @Nonnull final MethodSpec.Builder builder )
   {
     builder.addStatement(
-      "this.$N = $N().autorun( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, true, () -> $N(), false )",
+      "this.$N = $N().autorun( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, true, () -> $N(), true, false )",
       GeneratorUtil.SET_NULL_ON_DISPOSE_FIELD_NAME,
       getContextMethodName(),
       GeneratorUtil.AREZ_CLASSNAME,

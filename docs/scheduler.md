@@ -13,10 +13,11 @@ In all cases the Arez scheduler reacts to changes in the Arez state and schedule
 the outer most transaction is completed. This makes sure intermediate or incomplete values produced during a
 transaction are not visible to the rest of the application until the transaction has completed.
 
-The scheduler contains a list of pending reactions and will execute the reactions in the order in which they
-were scheduled. A reaction is scheduled the first time any dependency of the reaction is changed (i.e. the
-{@api_url: Observable.reportChanged()::Observable::reportChanged()} is invoked on the dependency). The reaction
-will not be rescheduled while the reaction is in the pending reactions list.
+The scheduler contains a list of pending reactions. High priority observers are added to the start of the list while
+normal priority observers are appended to the end of the list. The scheduler will execute the observer's reactions
+in the order in which they appear in the list. A reaction is scheduled the first time any dependency of the reaction
+is changed (i.e. the {@api_url: Observable.reportChanged()::Observable::reportChanged()} is invoked on the
+dependency). The reaction will not be rescheduled while the reaction is in the pending reactions list.
 
 Recalculation of computed values can be scheduled but before the transaction has completed the transaction may try
 to read the computed value in which case the computed value will be re-calculated immediately. The computed value
