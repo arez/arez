@@ -87,6 +87,20 @@
     },
     {
         "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.watcher",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "ComponentCount",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.create_id_value"
+    },
+    {
+        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.watcher",
         "type": "ReactionStarted"
     },
     {
@@ -147,16 +161,6 @@
     {
         "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.watcher",
         "type": "ReactionCompleted"
-    },
-    {
-        "observer": "ComponentCount",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.create_id_value"
     },
     {
         "observer": "ComponentCount",
