@@ -124,7 +124,7 @@ public final class ArezProcessor
     }
     final AnnotationMirror arezComponent =
       ProcessorUtil.getAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
-    final String declaredType = getAnnotationParameter( arezComponent, "type" );
+    final String declaredType = getAnnotationParameter( arezComponent, "name" );
     final AnnotationValue nameIncludesIdValue =
       ProcessorUtil.findAnnotationValue( processingEnv.getElementUtils(), arezComponent, "nameIncludesId", false );
     final AnnotationMirror singletonAnnotation =

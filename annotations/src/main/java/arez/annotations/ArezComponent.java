@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
  * <p>The annotation controls the way that contained actions and observables are
  * named (if names are enabled in the system.</p>
  * <ul>
- * <li>The value returned by {@link #type()} indicates the type name for instances
+ * <li>The value returned by {@link #name()} indicates the type name for instances
  * of this object. If not specified it will default to the SimpleName of the class.
  * i.e. The class <tt>com.biz.models.MyModel</tt> will default to a name of
  * "MyModel".</li>
@@ -51,7 +51,7 @@ public @interface ArezComponent
    * @return the name of the type.
    */
   @Nonnull
-  String type() default "<default>";
+  String name() default "<default>";
 
   /**
    * Return true if the name derived for component should include the id, false otherwise.

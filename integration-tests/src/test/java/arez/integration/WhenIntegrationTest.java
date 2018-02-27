@@ -49,7 +49,7 @@ public class WhenIntegrationTest
     assertEqualsFixture( recorder.eventsAsString() );
   }
 
-  @ArezComponent( type = "Time", nameIncludesId = false )
+  @ArezComponent( name = "Time", nameIncludesId = false )
   public static abstract class TimeModel
     implements TimeModelExtension
   {

@@ -7,7 +7,7 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 import java.text.ParseException;
 
-@ArezComponent( type = "MyContainer" )
+@ArezComponent( name = "MyContainer" )
 public abstract class OverrideNamesInModel
 {
   @Observable( name = "myField" )

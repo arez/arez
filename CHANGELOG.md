@@ -21,6 +21,8 @@
   high priority observers. This means that the scheduler will prioritizing disposing and unlinking of disposed
   components over other reactions. This minimizes the need for application code to check `Disposable.isDisposed(...)`
   on each arez component before accessing it in a reaction.
+* 💥 **\[annotations\]** Rename the parameter `type` in `@ArezComponent` to `name` for consistency with
+  other annotations.
 
 ### [v0.59](https://github.com/arez/arez/tree/v0.59) (2018-02-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.58...v0.59)
