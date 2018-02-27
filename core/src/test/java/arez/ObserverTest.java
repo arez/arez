@@ -608,7 +608,7 @@ public class ObserverTest
     assertEquals( onStale.getCalls(), 0 );
 
     observer.clearScheduledFlag();
-    Arez.context().getScheduler().getPendingObservers().remove( observer );
+    Arez.context().getScheduler().getPendingObservers().truncate( 0 );
     assertEquals( observer.isScheduled(), false );
 
     observer.setState( ObserverState.STALE );
@@ -700,7 +700,7 @@ public class ObserverTest
     assertEquals( onStale.getCalls(), 0 );
 
     observer.clearScheduledFlag();
-    Arez.context().getScheduler().getPendingObservers().remove( observer );
+    Arez.context().getScheduler().getPendingObservers().truncate( 0 );
     assertEquals( observer.isScheduled(), false );
 
     observer.setState( ObserverState.STALE, false );
@@ -788,7 +788,7 @@ public class ObserverTest
     assertEquals( derivedValue.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
 
     observer.clearScheduledFlag();
-    Arez.context().getScheduler().getPendingObservers().remove( observer );
+    Arez.context().getScheduler().getPendingObservers().truncate( 0 );
     assertEquals( observer.isScheduled(), false );
 
     observer.setState( ObserverState.UP_TO_DATE );

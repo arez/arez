@@ -6,6 +6,8 @@
 * **\[core\]** Fixed bug that was introduced into `ArezContext.when(...)` methods that could result in an invariant
   failure if the condition immediately resolved to true. The invariant failure was the result of
   `Disposable.dispose(watcher)` being invoked before watcher had been assigned.
+* **\[core\]** Significantly optimized scheduler by replacing a `ArrayList` that removed elements from the start
+  with a `CircularBuffer`.
 
 ### [v0.59](https://github.com/arez/arez/tree/v0.59) (2018-02-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.58...v0.59)

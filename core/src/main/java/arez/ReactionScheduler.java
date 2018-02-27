@@ -1,6 +1,5 @@
 package arez;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -29,11 +28,9 @@ final class ReactionScheduler
   private final ArezContext _context;
   /**
    * Observers that have been scheduled but are not yet running.
-   *
-   * In future this should be a circular buffer.
    */
   @Nonnull
-  private final ArrayList<Observer> _pendingObservers = new ArrayList<>();
+  private final CircularBuffer<Observer> _pendingObservers = new CircularBuffer<>( 100 );
   /**
    * The current reaction round.
    */
@@ -204,20 +201,17 @@ final class ReactionScheduler
     }
     /*
      * If we get to here there are still observers that need processing and we have not
-     * exceeded our round budget. So we pop the last observer off the list and process it.
+     * exceeded our round budget. So we pop an observer off the list and process it.
      *
      * NOTE: The selection of the first observer ensures that the same observer is not
      * scheduled multiple times within a single round. This means that when runaway reaction
      * detection code is active, the list of pending observers contains those observers
-     * that have likely lead to the runaway reaction.
-     *
-     * However this is very inefficient as it involves memory allocations and/or copies. We should
-     * move to using a circular buffer that avoids both of these scenarios.
-     *
-     * TODO: Replace _pendingObservers with CircularBuffer.
+     * that have likely lead to the runaway reaction. This of course assumes that the observers
+     * were scheduled by appending to the buffer.
      */
     _remainingReactionsInCurrentRound--;
-    final Observer observer = _pendingObservers.remove( 0 );
+    final Observer observer = _pendingObservers.pop();
+    assert null != observer;
     observer.clearScheduledFlag();
     observer.invokeReaction();
     return true;
@@ -255,7 +249,7 @@ final class ReactionScheduler
 
   @TestOnly
   @Nonnull
-  ArrayList<Observer> getPendingObservers()
+  CircularBuffer<Observer> getPendingObservers()
   {
     return _pendingObservers;
   }
