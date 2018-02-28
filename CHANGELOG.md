@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.61](https://github.com/arez/arez/tree/v0.61) (2018-02-28)
+[Full Changelog](https://github.com/arez/arez/compare/v0.60...v0.61)
 
 #### Fixed
 * **\[processor\]** Changed the generated `cascadeOnDispose` method for collecting dependencies to defer
