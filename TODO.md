@@ -8,12 +8,6 @@ complete as there is too much un-said.
 
 * Should generate `@Autorun` method that throws an exception as should never call it directly.
 
-* Consider a priority system for schedules and that way we can schedule disposes so they get
-  highest priority. We may need to ensure that `ComputedValues` + `Observers` who are scheduled will not
-  cause errors if disposed after they are scheduled. Also need to make sure that `ComputedValues`
-  which are deactivated by dispose don't run. It seems like associated with each `Observer` will be a
-  priority where dispose gets bumped to top?
-
 * Components that have observables defined by abstract methods should have some way of annotating these
   observables so that you can pass in initial values via generated constructor. Perhaps these variables
   occur at start of constructor parameter list or at end in the order that they are defined. It seems like
