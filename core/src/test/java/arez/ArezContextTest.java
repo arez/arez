@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -65,6 +66,34 @@ public class ArezContextTest
     context.triggerScheduler();
 
     assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
+  public void triggerScheduler_inEnvironment()
+  {
+    final ArezContext context = new ArezContext();
+    final AtomicInteger callCount = new AtomicInteger();
+    final AtomicReference<String> environment = new AtomicReference<>();
+
+    context.setEnvironment( a -> {
+      environment.set( "RED" );
+      a.call();
+      environment.set( null );
+    } );
+
+    context.autorun( ValueUtil.randomString(), false, () -> {
+      callCount.incrementAndGet();
+      assertEquals( environment.get(), "RED" );
+
+    }, false );
+
+    assertEquals( callCount.get(), 0 );
+    assertEquals( environment.get(), null );
+
+    context.triggerScheduler();
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( environment.get(), null );
   }
 
   @Test

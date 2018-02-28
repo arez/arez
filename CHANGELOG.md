@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+#### Added
+* **\[core\]** Add the ability to control the execution environment in which reactions are scheduled by supplying a
+  `ReactionEnvironment` instance to `ArezContext`. This makes it easy to interact with other frameworks or toolkits
+  that have their own scheduler such as [React4j](https://react4j.github.io). A typically scenario involves pausing
+  other schedulers while the Arez scheduler is active or at least putting other schedulers into "batch update" mode.
+
 ### [v0.61](https://github.com/arez/arez/tree/v0.61) (2018-02-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.60...v0.61)
 
