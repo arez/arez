@@ -26,7 +26,7 @@
   list when they are scheduled.
 
 #### Changed
-* **\[processor\]** Change the `cascadeOnDispose` and  the `setNullOnDispose` observer in generated classes to be
+* **\[processor\]** Change the `cascadeOnDispose` and the `setNullOnDispose` observer in generated classes to be
   high priority observers. This means that the scheduler will prioritizing disposing and unlinking of disposed
   components over other reactions. This minimizes the need for application code to check `Disposable.isDisposed(...)`
   on each arez component before accessing it in a reaction.
