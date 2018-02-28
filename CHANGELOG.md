@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[processor\]** Changed the generated `cascadeOnDispose` method for collecting dependencies to defer
+  accessing the dependency until it is needed. This avoids the scenario where multiple dependencies could
+  be disposed when `cascadeOnDispose` is invoked and one of the dependencies derived from disposed
+  dependencies.
+
 ### [v0.60](https://github.com/arez/arez/tree/v0.60) (2018-02-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.59...v0.60)
 

@@ -1721,14 +1721,16 @@ final class ComponentDescriptor
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( GeneratorUtil.GET_CASCADE_ON_DISPOSE_DEPS_METHOD_NAME );
     builder.addModifiers( Modifier.PRIVATE, Modifier.FINAL );
-    builder.returns( ParameterizedTypeName.get( Stream.class, Object.class ) );
+    builder.returns( ParameterizedTypeName.get( ClassName.get( Stream.class ),
+                                                ParameterizedTypeName.get( GeneratorUtil.SAFE_FUNCTION_CLASSNAME,
+                                                                           ClassName.OBJECT ) ) );
 
     final ArrayList<Object> params = new ArrayList<>();
     params.add( Stream.class );
     getCascadeOnDisposeDependencies().forEach( d -> params.add( d.getMethod().getSimpleName().toString() ) );
     builder.addStatement( "return $T.of(" +
                           getCascadeOnDisposeDependencies().stream()
-                            .map( d -> "$N()" )
+                            .map( d -> "() -> $N()" )
                             .collect( Collectors.joining( ", " ) ) +
                           ")",
                           params.toArray() );
@@ -2509,7 +2511,7 @@ final class ComponentDescriptor
   private void buildCascadeOnDisposeInitializer( @Nonnull final MethodSpec.Builder builder )
   {
     builder.addStatement(
-      "this.$N = $N().when( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, false, () -> $N().peek( $T::observe ).anyMatch( $T::isDisposed ), () -> $T.dispose( this ), true, false )",
+      "this.$N = $N().when( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, false, () -> $N().map( $T::call ).peek( $T::observe ).anyMatch( $T::isDisposed ), () -> $T.dispose( this ), true, false )",
       GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME,
       getContextMethodName(),
       GeneratorUtil.AREZ_CLASSNAME,
@@ -2518,6 +2520,7 @@ final class ComponentDescriptor
       getComponentNameMethodName(),
       ".cascadeOnDispose",
       GeneratorUtil.GET_CASCADE_ON_DISPOSE_DEPS_METHOD_NAME,
+      GeneratorUtil.SAFE_FUNCTION_CLASSNAME,
       GeneratorUtil.COMPONENT_OBSERVABLE_CLASSNAME,
       GeneratorUtil.DISPOSABLE_CLASSNAME,
       GeneratorUtil.DISPOSABLE_CLASSNAME );

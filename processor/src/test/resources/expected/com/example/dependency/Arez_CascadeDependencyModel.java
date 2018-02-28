@@ -6,6 +6,7 @@ import arez.Component;
 import arez.Disposable;
 import arez.Observable;
 import arez.Observer;
+import arez.SafeFunction;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.Identifiable;
@@ -40,7 +41,7 @@ public final class Arez_CascadeDependencyModel extends CascadeDependencyModel im
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "CascadeDependencyModel", $$arezi$$_id(), $$arezi$$_name(), null, null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
-    this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".cascadeOnDispose" : null, false, () -> $$arezi$$_getCascadeOnDisposeDependencies().peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), true, false );
+    this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".cascadeOnDispose" : null, false, () -> $$arezi$$_getCascadeOnDisposeDependencies().map( SafeFunction::call ).peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), true, false );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
@@ -74,8 +75,8 @@ public final class Arez_CascadeDependencyModel extends CascadeDependencyModel im
     return "CascadeDependencyModel." + $$arezi$$_id();
   }
 
-  private final Stream<Object> $$arezi$$_getCascadeOnDisposeDependencies() {
-    return Stream.of(getTime());
+  private final Stream<SafeFunction<Object>> $$arezi$$_getCascadeOnDisposeDependencies() {
+    return Stream.of(() -> getTime());
   }
 
   private boolean $$arezi$$_observe() {

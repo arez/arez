@@ -7,6 +7,7 @@ import arez.ComputedValue;
 import arez.Disposable;
 import arez.Observable;
 import arez.Observer;
+import arez.SafeFunction;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.Identifiable;
@@ -54,7 +55,7 @@ public final class Arez_ComplexDependencyModel extends ComplexDependencyModel im
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
     this.$$arez$$_value3 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".value3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue3() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue3( v ) : null );
     this.$$arez$$_value2 = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".value2" : null, super::getValue2, Objects::equals, null, null, null, null );
-    this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".cascadeOnDispose" : null, false, () -> $$arezi$$_getCascadeOnDisposeDependencies().peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), true, false );
+    this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".cascadeOnDispose" : null, false, () -> $$arezi$$_getCascadeOnDisposeDependencies().map( SafeFunction::call ).peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), true, false );
     this.$$arezi$$_setNullOnDispose = $$arezi$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".setNullOnDispose" : null, true, () -> $$arezi$$_setNullOnDispose(), true, false );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     if ( Arez.areNativeComponentsEnabled() ) {
@@ -89,8 +90,8 @@ public final class Arez_ComplexDependencyModel extends ComplexDependencyModel im
     return "ComplexDependencyModel." + $$arezi$$_id();
   }
 
-  private final Stream<Object> $$arezi$$_getCascadeOnDisposeDependencies() {
-    return Stream.of(getValue1(), getValue2());
+  private final Stream<SafeFunction<Object>> $$arezi$$_getCascadeOnDisposeDependencies() {
+    return Stream.of(() -> getValue1(), () -> getValue2());
   }
 
   private final void $$arezi$$_setNullOnDispose() {
