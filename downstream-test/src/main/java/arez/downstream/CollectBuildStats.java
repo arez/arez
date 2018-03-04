@@ -128,14 +128,8 @@ public final class CollectBuildStats
   @Nonnull
   private static OrderedProperties buildAndRecordStatistics()
   {
-    buildProject();
-    return recordStatistics();
-  }
-
-  private static void buildProject()
-  {
-    // GWT must be set as otherwise it can bleed through from current environment
     Ruby.buildr( "clean", "package", "EXCLUDE_GWT_DEV_MODULE=true", "GWT=react4j-todomvc" );
+    return recordStatistics();
   }
 
   @Nonnull
