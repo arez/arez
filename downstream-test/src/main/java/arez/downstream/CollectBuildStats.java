@@ -120,7 +120,7 @@ public final class CollectBuildStats
         } );
       } );
 
-      statistics.forEach( ( k, v ) -> System.out.println( k + ": " + v ) );
+      statistics.keySet().forEach( k -> System.out.println( k + ": " + statistics.get( k ) ) );
       Gir.messenger().info( "Writing build statistics to " + statisticsFile + "." );
       statistics.store( new FileWriter( statisticsFile.toFile() ), null );
     } );
