@@ -3,6 +3,7 @@ package arez.downstream;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -17,6 +18,15 @@ public final class OrderedProperties
   @Override
   public synchronized Enumeration<Object> keys()
   {
-    return Collections.enumeration( new TreeSet<>( super.keySet() ) );
+    return Collections.enumeration( keySet() );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Set<Object> keySet()
+  {
+    return new TreeSet<>( super.keySet() );
   }
 }
