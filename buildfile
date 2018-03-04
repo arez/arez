@@ -280,10 +280,10 @@ define 'arez' do
 
     test.options[:java_args] = ['-ea']
 
+    local_test_repository_url = URI.join('file:///', project._(:target, :local_test_repository)).to_s
     compile.enhance do
-      file_url = URI.join('file:///', project._(:target, :local_test_repository)).to_s
       old_release_to = repositories.release_to
-      repositories.release_to = file_url
+      repositories.release_to = local_test_repository_url
       begin
         projects(%w(annotations core processor component extras browser-extras)).each do |prj|
           prj.packages.each do |pkg|
@@ -301,6 +301,7 @@ define 'arez' do
       properties = {}
       properties['arez.version'] = project.version
       properties['arez.deploy_test.work_dir'] = _(:target, 'deploy_test/workdir').to_s
+      properties['arez.deploy_test.local_repository_url'] = local_test_repository_url
       Java::Commands.java 'arez.downstream.CollectBuildStats', { :classpath => cp, :properties => properties }
     end
 
