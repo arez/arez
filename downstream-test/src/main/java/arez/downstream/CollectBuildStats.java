@@ -8,6 +8,7 @@ import gir.ruby.Buildr;
 import gir.ruby.Ruby;
 import gir.sys.SystemProperty;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,6 +26,9 @@ public final class CollectBuildStats
       final OrderedProperties statistics = new OrderedProperties();
       final Path workingDirectory =
         Paths.get( SystemProperty.get( "arez.deploy_test.work_dir" ) ).toAbsolutePath().normalize();
+      final Path statisticsFile =
+        Paths.get( SystemProperty.get( "arez.deploy_test.statistics_file" ) ).toAbsolutePath().normalize();
+
       final String localRepositoryUrl = SystemProperty.get( "arez.deploy_test.local_repository_url" );
 
       if ( !workingDirectory.toFile().exists() )
@@ -117,6 +121,8 @@ public final class CollectBuildStats
       } );
 
       statistics.forEach( ( k, v ) -> System.out.println( k + ": " + v ) );
+      Gir.messenger().info( "Writing build statistics to " + statisticsFile + "." );
+      statistics.store( new FileWriter( statisticsFile.toFile() ), null );
     } );
   }
 

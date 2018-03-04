@@ -302,6 +302,7 @@ define 'arez' do
       properties['arez.version'] = project.version
       properties['arez.deploy_test.work_dir'] = _(:target, 'deploy_test/workdir').to_s
       properties['arez.deploy_test.local_repository_url'] = local_test_repository_url
+      properties['arez.deploy_test.statistics_file'] = _(:target, 'statistics.properties').to_s
       Java::Commands.java 'arez.downstream.CollectBuildStats', { :classpath => cp, :properties => properties }
     end
 
