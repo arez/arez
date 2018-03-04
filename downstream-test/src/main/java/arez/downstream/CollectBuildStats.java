@@ -137,7 +137,7 @@ public final class CollectBuildStats
     final File jsFile = outputJsFile.toFile();
     assert jsFile.exists();
     final long length = jsFile.length();
-    branchStatistics.put( "todomvc.size", length );
+    branchStatistics.setProperty( "todomvc.size", String.valueOf( length ) );
     return branchStatistics;
   }
 }
