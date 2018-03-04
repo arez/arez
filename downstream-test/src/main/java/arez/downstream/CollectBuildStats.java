@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 
@@ -24,7 +22,7 @@ public final class CollectBuildStats
   {
     Gir.go( () -> {
       final String version = SystemProperty.get( "arez.version" );
-      final HashMap<String, OrderedProperties> statistics = new HashMap<>();
+      final OrderedProperties statistics = new OrderedProperties();
       final Path workingDirectory =
         Paths.get( SystemProperty.get( "arez.deploy_test.work_dir" ) ).toAbsolutePath().normalize();
       final String localRepositoryUrl = SystemProperty.get( "arez.deploy_test.local_repository_url" );
@@ -68,8 +66,8 @@ public final class CollectBuildStats
             boolean initialBuildSuccess = false;
             try
             {
-              final OrderedProperties buildProperties = buildAndRecordStatistics();
-              statistics.put( branch + ".before", buildProperties );
+              final String prefix = branch + ".before.";
+              buildAndRecordStatistics().forEach( ( key, value ) -> statistics.put( prefix + key, value ) );
               initialBuildSuccess = true;
             }
             catch ( final GirException ge )
@@ -94,8 +92,8 @@ public final class CollectBuildStats
 
               try
               {
-                final OrderedProperties buildProperties = buildAndRecordStatistics();
-                statistics.put( branch + ".after", buildProperties );
+                final String prefix = branch + ".after.";
+                buildAndRecordStatistics().forEach( ( key, value ) -> statistics.put( prefix + key, value ) );
               }
               catch ( final GirException ge )
               {
@@ -117,11 +115,8 @@ public final class CollectBuildStats
           } );
         } );
       } );
-      for ( final Map.Entry<String, OrderedProperties> branchStatistics : statistics.entrySet() )
-      {
-        final String branch = branchStatistics.getKey();
-        System.out.println( branch + ": " + branchStatistics.getValue() );
-      }
+
+      statistics.forEach( ( k, v ) -> System.out.println( k + ": " + v ) );
     } );
   }
 
