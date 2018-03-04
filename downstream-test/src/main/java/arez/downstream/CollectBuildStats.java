@@ -2,6 +2,7 @@ package arez.downstream;
 
 import gir.Gir;
 import gir.GirException;
+import gir.delta.Patch;
 import gir.git.Git;
 import gir.io.FileUtil;
 import gir.ruby.Buildr;
@@ -122,7 +123,8 @@ public final class CollectBuildStats
 
       statistics.keySet().forEach( k -> System.out.println( k + ": " + statistics.get( k ) ) );
       Gir.messenger().info( "Writing build statistics to " + statisticsFile + "." );
-      statistics.store( new FileWriter( statisticsFile.toFile() ), null );
+      statistics.store( new FileWriter( statisticsFile.toFile() ), "" );
+      Patch.file( statisticsFile, c -> c.replaceAll( "\\#.*\n", "" ) );
     } );
   }
 
