@@ -274,6 +274,40 @@ define 'arez' do
     project.jacoco.enabled = false
   end
 
+  desc 'Test Arez in downstream projects'
+  define 'downstream-test' do
+    compile.with :gir, PROVIDED_DEPS
+
+    test.options[:java_args] = ['-ea']
+
+    compile.enhance do
+      file_url = URI.join('file:///', project._(:target, :local_test_repository)).to_s
+      old_release_to = repositories.release_to
+      repositories.release_to = file_url
+      begin
+        projects(%w(annotations core processor component extras browser-extras)).each do |prj|
+          prj.packages.each do |pkg|
+            pkg.upload
+          end
+        end
+      ensure
+        repositories.release_to = old_release_to
+      end
+    end
+
+    test.compile.enhance do
+      cp = project.compile.dependencies.map(&:to_s) + [project.compile.target.to_s]
+
+      properties = {}
+      properties['arez.version'] = project.version
+      properties['arez.deploy_test.work_dir'] = _(:target, 'deploy_test/workdir').to_s
+      Java::Commands.java 'arez.downstream.CollectBuildStats', { :classpath => cp, :properties => properties }
+    end
+
+    test.using :testng
+    test.compile.with PROVIDED_DEPS, TEST_DEPS
+  end
+
   desc 'Arez Examples used in documentation'
   define 'doc-examples' do
     pom.provided_dependencies.concat PROVIDED_DEPS
