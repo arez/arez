@@ -14,11 +14,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Properties;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 
 public final class CollectBuildStats
 {
+  private static final String STATISTICS_FILE = "statistics.properties";
+
   public static void main( final String[] args )
     throws Exception
   {
@@ -71,13 +74,15 @@ public final class CollectBuildStats
             boolean initialBuildSuccess = false;
             try
             {
-              final String prefix = branch + ".before.";
-              buildAndRecordStatistics().forEach( ( key, value ) -> statistics.put( prefix + key, value ) );
+              final String prefix = branch + ".before";
+              final Path archiveDir = workingDirectory.resolve( "archive" ).resolve( prefix );
+              buildAndRecordStatistics( archiveDir );
+              loadStatistics( statistics, archiveDir, prefix );
               initialBuildSuccess = true;
             }
-            catch ( final GirException ge )
+            catch ( final GirException | IOException e )
             {
-              Gir.messenger().info( "Failed to build branch '" + branch + "' before modifications.", ge );
+              Gir.messenger().info( "Failed to build branch '" + branch + "' before modifications.", e );
             }
 
             Git.clean();
@@ -97,19 +102,21 @@ public final class CollectBuildStats
 
               try
               {
-                final String prefix = branch + ".after.";
-                buildAndRecordStatistics().forEach( ( key, value ) -> statistics.put( prefix + key, value ) );
+                final String prefix = branch + ".after";
+                final Path archiveDir = workingDirectory.resolve( "archive" ).resolve( prefix );
+                buildAndRecordStatistics( archiveDir );
+                loadStatistics( statistics, archiveDir, prefix );
               }
-              catch ( final GirException ge )
+              catch ( final GirException | IOException e )
               {
                 if ( !initialBuildSuccess )
                 {
                   Gir.messenger().error( "Failed to build branch '" + branch + "' before modifications " +
-                                         "but branch also failed prior to modifications.", ge );
+                                         "but branch also failed prior to modifications.", e );
                 }
                 else
                 {
-                  Gir.messenger().error( "Failed to build branch '" + branch + "' after modifications.", ge );
+                  Gir.messenger().error( "Failed to build branch '" + branch + "' after modifications.", e );
                 }
               }
             }
@@ -122,30 +129,86 @@ public final class CollectBuildStats
       } );
 
       statistics.keySet().forEach( k -> System.out.println( k + ": " + statistics.get( k ) ) );
-      Gir.messenger().info( "Writing build statistics to " + statisticsFile + "." );
-      statistics.store( new FileWriter( statisticsFile.toFile() ), "" );
-      Patch.file( statisticsFile, c -> c.replaceAll( "\\#.*\n", "" ) );
+      Gir.messenger().info( "Writing overall build statistics to " + statisticsFile + "." );
+      writeProperties( statisticsFile, statistics );
     } );
   }
 
-  @Nonnull
-  private static OrderedProperties buildAndRecordStatistics()
+  private static void loadStatistics( @Nonnull final OrderedProperties statistics,
+                                      @Nonnull final Path archiveDir,
+                                      @Nonnull final String keyPrefix )
+    throws IOException
   {
-    Ruby.buildr( "clean", "package", "EXCLUDE_GWT_DEV_MODULE=true", "GWT=react4j-todomvc" );
-    return recordStatistics();
+    final Properties properties = new Properties();
+    properties.load( Files.newBufferedReader( archiveDir.resolve( STATISTICS_FILE ) ) );
+    properties.forEach( ( key, value ) -> statistics.put( keyPrefix + "." + key, value ) );
   }
 
-  @Nonnull
-  private static OrderedProperties recordStatistics()
+  private static void writeProperties( @Nonnull final Path outputFile, @Nonnull final OrderedProperties properties )
   {
-    final OrderedProperties branchStatistics = new OrderedProperties();
-    final Path currentDirectory = FileUtil.getCurrentDirectory();
-    final Path outputJsFile =
-      currentDirectory.resolve( "target/generated/gwt/react4j.todomvc.TodomvcProd/todomvc/todomvc.nocache.js" );
+    try
+    {
+      properties.store( new FileWriter( outputFile.toFile() ), "" );
+      Patch.file( outputFile, c -> c.replaceAll( "\\#.*\n", "" ) );
+    }
+    catch ( final IOException ioe )
+    {
+      final String message = "Failed to write properties file: " + outputFile;
+      Gir.messenger().error( message, ioe );
+      throw new GirException( message, ioe );
+    }
+  }
+
+  private static void buildAndRecordStatistics( @Nonnull final Path archiveDir )
+  {
+    if ( !archiveDir.toFile().mkdirs() )
+    {
+      final String message = "Error creating archive directory: " + archiveDir;
+      Gir.messenger().error( message );
+    }
+
+    // Perform the build
+    Ruby.buildr( "clean", "package", "EXCLUDE_GWT_DEV_MODULE=true", "GWT=react4j-todomvc" );
+
+    archiveOutput( archiveDir );
+    archiveStatistics( archiveDir );
+  }
+
+  private static void archiveStatistics( final @Nonnull Path archiveDir )
+  {
+    final OrderedProperties properties = new OrderedProperties();
+    properties.setProperty( "todomvc.size", String.valueOf( getTodoMvcSize() ) );
+
+    final Path statisticsFile = archiveDir.resolve( STATISTICS_FILE );
+    Gir.messenger().info( "Archiving statistics to " + statisticsFile + "." );
+    writeProperties( statisticsFile, properties );
+  }
+
+  private static void archiveOutput( @Nonnull final Path archiveDir )
+  {
+    archiveDirectory( FileUtil.getCurrentDirectory().resolve( "target/assets" ), archiveDir.resolve( "assets" ) );
+  }
+
+  private static void archiveDirectory( @Nonnull final Path assetsDir, @Nonnull final Path targetDir )
+  {
+    Gir.messenger().info( "Archiving output " + assetsDir + " to " + targetDir );
+    try
+    {
+      FileUtil.copyDirectory( assetsDir, targetDir );
+    }
+    catch ( final GirException e )
+    {
+      final String message = "Failed to archive directory: " + assetsDir;
+      Gir.messenger().error( message, e );
+    }
+  }
+
+  private static long getTodoMvcSize()
+  {
+    final Path outputJsFile = FileUtil.getCurrentDirectory()
+      .resolve( "target/generated/gwt/react4j.todomvc.TodomvcProd/todomvc/todomvc.nocache.js" );
     final File jsFile = outputJsFile.toFile();
     assert jsFile.exists();
-    final long length = jsFile.length();
-    branchStatistics.setProperty( "todomvc.size", String.valueOf( length ) );
-    return branchStatistics;
+    return jsFile.length();
   }
 }
