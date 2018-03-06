@@ -20,8 +20,6 @@ import javax.annotation.Nonnull;
 
 public final class CollectBuildStats
 {
-  private static final String STATISTICS_FILE = "statistics.properties";
-
   public static void main( final String[] args )
     throws Exception
   {
@@ -140,7 +138,7 @@ public final class CollectBuildStats
     throws IOException
   {
     final Properties properties = new Properties();
-    properties.load( Files.newBufferedReader( archiveDir.resolve( STATISTICS_FILE ) ) );
+    properties.load( Files.newBufferedReader( archiveDir.resolve( "statistics.properties" ) ) );
     properties.forEach( ( key, value ) -> statistics.put( keyPrefix + "." + key, value ) );
   }
 
@@ -179,7 +177,7 @@ public final class CollectBuildStats
     final OrderedProperties properties = new OrderedProperties();
     properties.setProperty( "todomvc.size", String.valueOf( getTodoMvcSize() ) );
 
-    final Path statisticsFile = archiveDir.resolve( STATISTICS_FILE );
+    final Path statisticsFile = archiveDir.resolve( "statistics.properties" );
     Gir.messenger().info( "Archiving statistics to " + statisticsFile + "." );
     writeProperties( statisticsFile, properties );
   }
