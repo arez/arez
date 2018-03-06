@@ -73,7 +73,7 @@ public final class ComputedValue<T>
                  () -> "Arez-0048: ComputedValue named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
     }
-    _component = component;
+    _component = Arez.areNativeComponentsEnabled() ? component : null;
     _function = Objects.requireNonNull( function );
     _equalityComparator = Objects.requireNonNull( equalityComparator );
     _value = null;

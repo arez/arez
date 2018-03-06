@@ -97,7 +97,7 @@ public final class Observable<T>
               @Nullable final PropertyMutator<T> mutator )
   {
     super( context, name );
-    _component = component;
+    _component = Arez.areNativeComponentsEnabled() ? component : null;
     _owner = owner;
     _accessor = accessor;
     _mutator = mutator;

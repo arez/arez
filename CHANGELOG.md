@@ -7,6 +7,10 @@
   are contained within the cache, prior to attempting to access values. The `ComputedValue` instances could be
   disposed when native components are enabled.
 
+#### Changed
+* **\[core\]** Guard the assignment of native `Component` instances in the `Observable`, `Observer` and
+  `ComputedValue` elements to improve the ability for the GWT compiler to optimize out the assignment.
+
 ### [v0.62](https://github.com/arez/arez/tree/v0.62) (2018-02-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.61...v0.62)
 
