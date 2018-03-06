@@ -2,8 +2,11 @@ package arez.integration;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.Component;
+import arez.Disposable;
 import arez.Observer;
 import arez.annotations.ArezComponent;
+import arez.annotations.ComponentRef;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,7 +38,10 @@ public class MemoizedIntegrationTest
 
     context.autorun( "SearchResult - red",
                      () -> {
-                       record( recorder, "doesSearchMatch - red", person.doesSearchMatch( "red" ) );
+                       if ( !Disposable.isDisposed( person ) )
+                       {
+                         record( recorder, "doesSearchMatch - red", person.doesSearchMatch( "red" ) );
+                       }
                        searchCounts[ 0 ].incrementAndGet();
                      } );
     final Observer observer3 =
@@ -46,12 +52,18 @@ public class MemoizedIntegrationTest
                        } );
     context.autorun( "SearchResult - red - 20",
                      () -> {
-                       record( recorder, "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
+                       if ( !Disposable.isDisposed( person ) )
+                       {
+                         record( recorder, "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
+                       }
                        searchCounts[ 2 ].incrementAndGet();
                      } );
     context.autorun( "SearchResult - red - 5",
                      () -> {
-                       record( recorder, "doesSearchMatch - red", person.doesFullSearchMatch( "red", 5 ) );
+                       if ( !Disposable.isDisposed( person ) )
+                       {
+                         record( recorder, "doesSearchMatch - red", person.doesFullSearchMatch( "red", 5 ) );
+                       }
                        searchCounts[ 3 ].incrementAndGet();
                      } );
 
@@ -69,11 +81,18 @@ public class MemoizedIntegrationTest
     context.action( "Update 3", true, () -> person.setName( "Fred" ) );
     context.action( "Update 3", true, () -> person.setName( "Bill" ) );
 
-    assertEqualsFixture( recorder.eventsAsString() );
     assertEquals( searchCounts[ 0 ].get(), 4 );
     assertEquals( searchCounts[ 1 ].get(), 1 );
     assertEquals( searchCounts[ 2 ].get(), 0 );
     assertEquals( searchCounts[ 3 ].get(), 4 );
+
+    Disposable.dispose( person );
+
+    assertEqualsFixture( recorder.eventsAsString() );
+    assertEquals( searchCounts[ 0 ].get(), 5 );
+    assertEquals( searchCounts[ 1 ].get(), 1 );
+    assertEquals( searchCounts[ 2 ].get(), 1 );
+    assertEquals( searchCounts[ 3 ].get(), 5 );
   }
 
   @Test
@@ -111,6 +130,9 @@ public class MemoizedIntegrationTest
       _name = name;
       _age = age;
     }
+
+    @ComponentRef
+    abstract Component getComponent();
 
     @Observable
     public String getName()

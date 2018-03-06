@@ -1522,5 +1522,583 @@
     {
         "observer": "SearchResult - red - 5",
         "type": "ReactionCompleted"
+    },
+    {
+        "component": "PersonModel.0",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "PersonModel.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.dispose"
+    },
+    {
+        "action": "PersonModel.0.doesSearchMatch.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.doesSearchMatch.0.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.doesSearchMatch.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "PersonModel.0.doesSearchMatch.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "PersonModel.0.doesSearchMatch.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.doesSearchMatch.0.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.doesSearchMatch.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "PersonModel.0.doesSearchMatch.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "PersonModel.0.doesSearchMatch.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.doesSearchMatch.0.dispose"
+    },
+    {
+        "observable": "PersonModel.0.doesSearchMatch.0",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "observer": "SearchResult - red",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.doesSearchMatch.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "PersonModel.0.doesSearchMatch.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "PersonModel.0.doesFullSearchMatch.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.doesFullSearchMatch.0.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.doesFullSearchMatch.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "PersonModel.0.doesFullSearchMatch.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "PersonModel.0.doesFullSearchMatch.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.doesFullSearchMatch.0.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.doesFullSearchMatch.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "PersonModel.0.doesFullSearchMatch.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "PersonModel.0.doesFullSearchMatch.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.doesFullSearchMatch.0.dispose"
+    },
+    {
+        "observable": "PersonModel.0.doesFullSearchMatch.0",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "observer": "SearchResult - red - 20",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.doesFullSearchMatch.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "PersonModel.0.doesFullSearchMatch.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "PersonModel.0.doesFullSearchMatch.1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.doesFullSearchMatch.1.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.doesFullSearchMatch.1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "PersonModel.0.doesFullSearchMatch.1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "PersonModel.0.doesFullSearchMatch.1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.doesFullSearchMatch.1.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.doesFullSearchMatch.1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "PersonModel.0.doesFullSearchMatch.1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "PersonModel.0.doesFullSearchMatch.1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.doesFullSearchMatch.1.dispose"
+    },
+    {
+        "observable": "PersonModel.0.doesFullSearchMatch.1",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "observer": "SearchResult - red - 5",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.doesFullSearchMatch.1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "PersonModel.0.doesFullSearchMatch.1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "PersonModel.0.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.isDisposed.dispose"
+    },
+    {
+        "observable": "PersonModel.0.isDisposed",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.isDisposed.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "PersonModel.0.isDisposed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "PersonModel.0.isDisposed",
+        "type": "ObservableDisposed"
+    },
+    {
+        "action": "PersonModel.0.name.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.name.dispose"
+    },
+    {
+        "observable": "PersonModel.0.name",
+        "type": "ObservableChanged",
+        "value": "Bill"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.name.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "PersonModel.0.name.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "PersonModel.0.name",
+        "type": "ObservableDisposed"
+    },
+    {
+        "action": "PersonModel.0.age.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.age.dispose"
+    },
+    {
+        "observable": "PersonModel.0.age",
+        "type": "ObservableChanged",
+        "value": 15
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.age.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "PersonModel.0.age.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "PersonModel.0.age",
+        "type": "ObservableDisposed"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "PersonModel.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "SearchResult - red",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "SearchResult - red",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "SearchResult - red",
+        "type": "TransactionStarted",
+        "transaction": "SearchResult - red"
+    },
+    {
+        "mutation": false,
+        "tracker": "SearchResult - red",
+        "type": "TransactionCompleted",
+        "transaction": "SearchResult - red"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "SearchResult - red",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "SearchResult - red",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "SearchResult - red - 20",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "SearchResult - red - 20",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "SearchResult - red - 20",
+        "type": "TransactionStarted",
+        "transaction": "SearchResult - red - 20"
+    },
+    {
+        "mutation": false,
+        "tracker": "SearchResult - red - 20",
+        "type": "TransactionCompleted",
+        "transaction": "SearchResult - red - 20"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "SearchResult - red - 20",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "SearchResult - red - 20",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "SearchResult - red - 5",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "SearchResult - red - 5",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "SearchResult - red - 5",
+        "type": "TransactionStarted",
+        "transaction": "SearchResult - red - 5"
+    },
+    {
+        "mutation": false,
+        "tracker": "SearchResult - red - 5",
+        "type": "TransactionCompleted",
+        "transaction": "SearchResult - red - 5"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "SearchResult - red - 5",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "SearchResult - red - 5",
+        "type": "ReactionCompleted"
+    },
+    {
+        "component": "PersonModel.0",
+        "type": "ComponentDisposeCompleted"
     }
 ]
