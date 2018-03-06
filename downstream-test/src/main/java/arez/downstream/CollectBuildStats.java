@@ -174,7 +174,7 @@ public final class CollectBuildStats
     archiveStatistics( archiveDir );
   }
 
-  private static void archiveStatistics( final @Nonnull Path archiveDir )
+  private static void archiveStatistics( @Nonnull final Path archiveDir )
   {
     final OrderedProperties properties = new OrderedProperties();
     properties.setProperty( "todomvc.size", String.valueOf( getTodoMvcSize() ) );
