@@ -165,7 +165,7 @@ public final class MemoizeCache<T>
    * @param args the arguments passed to the memoized function.
    */
   @SuppressWarnings( "unchecked" )
-  private ComputedValue<T> getComputedValue( @Nonnull final Object... args )
+  ComputedValue<T> getComputedValue( @Nonnull final Object... args )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -179,7 +179,14 @@ public final class MemoizeCache<T>
     {
       map = (Map<Object, Object>) map.computeIfAbsent( args[ i ], v -> new HashMap<>() );
     }
-    return (ComputedValue<T>) map.computeIfAbsent( args[ size ], v -> createComputedValue( args ) );
+    ComputedValue<T> computedValue =
+      (ComputedValue<T>) map.computeIfAbsent( args[ size ], v -> createComputedValue( args ) );
+    if ( Disposable.isDisposed( computedValue ) )
+    {
+      computedValue = createComputedValue( args );
+      map.put( args[ size ], computedValue );
+    }
+    return computedValue;
   }
 
   /**

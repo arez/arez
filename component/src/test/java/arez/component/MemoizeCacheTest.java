@@ -80,6 +80,37 @@ public class MemoizeCacheTest
   }
 
   @Test
+  public void getComputedValue_recreatesDisposedElements()
+  {
+    final AtomicInteger callCount = new AtomicInteger();
+    final MemoizeCache.Function<String> function = args -> {
+      callCount.incrementAndGet();
+      return args[ 0 ] + "." + args[ 1 ];
+    };
+    final ArezContext context = Arez.context();
+    final String name = ValueUtil.randomString();
+    final MemoizeCache<String> cache =
+      new MemoizeCache<>( context, name, function, 2 );
+
+    final ComputedValue<String> computedValue1 = cache.getComputedValue( "a", "b" );
+    final ComputedValue<String> computedValue1b = cache.getComputedValue( "a", "b" );
+
+    assertEquals( computedValue1.isDisposed(), false );
+    assertEquals( computedValue1, computedValue1b );
+
+    computedValue1.dispose();
+
+    assertEquals( computedValue1.isDisposed(), true );
+
+    final ComputedValue<String> computedValue2 = cache.getComputedValue( "a", "b" );
+    final ComputedValue<String> computedValue2b = cache.getComputedValue( "a", "b" );
+
+    assertEquals( computedValue2.isDisposed(), false );
+    assertNotEquals( computedValue2, computedValue1 );
+    assertEquals( computedValue2, computedValue2b );
+  }
+
+  @Test
   public void disposingCacheClearsOutComputedValues()
   {
     final AtomicInteger callCount = new AtomicInteger();
