@@ -13,6 +13,9 @@
 #### Changed
 * **\[core\]** Guard the assignment of native `Component` instances in the `Observable`, `Observer` and
   `ComputedValue` elements to improve the ability for the GWT compiler to optimize out the assignment.
+* **\[core\]** Remove the constraint that reactive components can only be added to a native component prior
+  to the native component marking itself as complete. This allows the `@Memoize` annotation to dynamically
+  add and remove `COmputedValue` instances as required.
 
 ### [v0.62](https://github.com/arez/arez/tree/v0.62) (2018-02-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.61...v0.62)

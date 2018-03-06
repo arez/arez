@@ -338,10 +338,6 @@ public final class Component
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> !_complete,
-                    () -> "Arez-0045: Component.addComputedValue invoked on component '" + getName() + "' " +
-                          "specifying computedValue named '" + computedValue.getName() + "' when " +
-                          "component.complete() has already been called." );
       apiInvariant( () -> !_computedValues.contains( computedValue ),
                     () -> "Arez-0046: Component.addComputedValue invoked on component '" + getName() + "' " +
                           "specifying computedValue named '" + computedValue.getName() + "' when computedValue " +
