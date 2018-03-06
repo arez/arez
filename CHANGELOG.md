@@ -3,6 +3,9 @@
 ### Unreleased
 
 #### Fixed
+* **\[component\]** Instances of `ComputedValue` created by the `MemoizeCache` class can be created with a
+  native component specified. This exposes the `ComputedValue` instances to the spy infrastructure and ensures
+  all of the reactive elements are managed using a single approach.
 * **\[component\]** Fixed the `MemoizeCache` so that it will recreate disposed `ComputedValue` instances that
   are contained within the cache, prior to attempting to access values. The `ComputedValue` instances could be
   disposed when native components are enabled.
