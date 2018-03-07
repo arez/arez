@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.64](https://github.com/arez/arez/tree/v0.64) (2018-03-07)
+[Full Changelog](https://github.com/arez/arez/compare/v0.63...v0.64)
 
 #### Fixed
 * **\[core\]** Fixed a bug that occurred when a "When" observer was explicitly disposed prior to the effect
