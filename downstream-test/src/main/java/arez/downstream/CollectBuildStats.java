@@ -120,10 +120,10 @@ public final class CollectBuildStats
                 Gir.messenger().error( "Failed to emit _buildr.rb configuration file.", ioe );
               }
 
+              final String prefix = branch + ".after";
+              final Path archiveDir = workingDirectory.resolve( "archive" ).resolve( prefix );
               try
               {
-                final String prefix = branch + ".after";
-                final Path archiveDir = workingDirectory.resolve( "archive" ).resolve( prefix );
                 buildAndRecordStatistics( archiveDir );
                 loadStatistics( overallStatistics, archiveDir, prefix );
                 loadStatistics( fixtureStatistics, archiveDir, version + "." + branch );
@@ -139,6 +139,7 @@ public final class CollectBuildStats
                 {
                   Gir.messenger().error( "Failed to build branch '" + branch + "' after modifications.", e );
                 }
+                FileUtil.deleteDir( archiveDir );
                 /*
                  * If the build has failed for one of the downstream projects then make sure the command fails.
                  */
