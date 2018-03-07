@@ -15,7 +15,7 @@
   for clarity and to improve code size.
 * **\[core\]** Allow `Observer` instances to be added to native component `Component` when the component has
   already been completed. This supports the use case where `when` observers are created when a new entity is
-  added to a repository. 
+  added to a repository.
 
 ### [v0.63](https://github.com/arez/arez/tree/v0.63) (2018-03-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.62...v0.63)
