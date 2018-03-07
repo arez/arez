@@ -293,6 +293,7 @@ define 'arez' do
       projects_to_upload =projects(%w(annotations core processor component extras browser-extras))
       old_release_to = repositories.release_to
       begin
+        # First we install them in a local repository so we don't have to access the network during local builds
         repositories.release_to = local_test_repository_url
         projects_to_upload.each do |prj|
           prj.packages.each do |pkg|
