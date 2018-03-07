@@ -9,6 +9,8 @@
   or garbage collected.
 * **\[core\]** Fixed a bug where an `Observer` has an `OnDispose` hook that recursively attempts to dispose
   itself. This previously attempted to perform dispose action again and caused invariant failures.
+* **\[component\]** Fixed a bug where when observers created by `AbstractRepository` subclasses to monitor
+  entities added to the repository were not being correctly disposed.
 
 #### Added
 * **\[core\]** Added the ability to create `"high priority"` `ComputedValue` instances. This results in the

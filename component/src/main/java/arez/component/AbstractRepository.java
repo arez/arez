@@ -59,10 +59,13 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
     final K arezId = Identifiable.getArezId( entity );
     _entities.put( arezId, entry );
     final Disposable monitor =
-      getContext().when( Arez.areNamesEnabled() ? getRepositoryName() + ".Watcher." + arezId : null,
+      getContext().when( Arez.areNativeComponentsEnabled() ? component() : null,
+                         Arez.areNamesEnabled() ? getRepositoryName() + ".Watcher." + arezId : null,
                          true,
                          () -> Disposable.isDisposed( entity ),
-                         () -> destroy( entity ) );
+                         () -> destroy( entity ),
+                         true,
+                         true );
     entry.setMonitor( monitor );
     getEntitiesObservable().reportChanged();
   }
