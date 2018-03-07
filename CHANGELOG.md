@@ -7,6 +7,8 @@
   running. This left the associated `ComputedValue` un-disposed and if `Arez.areRegistriesEnabled()` returns
   true or `Arez.areNativeComponentsEnabled()` returns true then the `ComputedValue` would never be disposed
   or garbage collected.
+* **\[core\]** Fixed a bug where an `Observer` has an `OnDispose` hook that recursively attempts to dispose
+  itself. This previously attempted to perform dispose action again and caused invariant failures.
 
 #### Added
 * **\[core\]** Added the ability to create `"high priority"` `ComputedValue` instances. This results in the

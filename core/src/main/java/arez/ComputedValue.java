@@ -170,7 +170,10 @@ public final class ComputedValue<T>
       {
         getContext().deregisterComputedValue( this );
       }
-      _observer.dispose();
+      if ( !_observer.isDisposing() )
+      {
+        _observer.dispose();
+      }
     }
   }
 

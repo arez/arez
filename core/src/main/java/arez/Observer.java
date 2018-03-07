@@ -227,7 +227,7 @@ public final class Observer
   @Override
   public void dispose()
   {
-    if ( !_disposed )
+    if ( !_disposed && !_disposing )
     {
       _disposing = true;
       runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
