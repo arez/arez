@@ -290,10 +290,11 @@ define 'arez' do
 
     local_test_repository_url = URI.join('file:///', project._(:target, :local_test_repository)).to_s
     compile.enhance do
+      projects_to_upload =projects(%w(annotations core processor component extras browser-extras))
       old_release_to = repositories.release_to
       repositories.release_to = local_test_repository_url
       begin
-        projects(%w(annotations core processor component extras browser-extras)).each do |prj|
+        projects_to_upload.each do |prj|
           prj.packages.each do |pkg|
             pkg.upload
           end
