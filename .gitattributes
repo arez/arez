@@ -8,6 +8,7 @@
 *.json text
 *.md text
 *.png binary
+*.properties text
 *.rake text
 *.rb text
 *.xml text
