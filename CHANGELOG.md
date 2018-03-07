@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.63](https://github.com/arez/arez/tree/v0.63) (2018-03-07)
+[Full Changelog](https://github.com/arez/arez/compare/v0.62...v0.63)
 
 #### Fixed
 * **\[component\]** Instances of `ComputedValue` created by the `MemoizeCache` class can be created with a
