@@ -2086,14 +2086,6 @@ final class ComponentDescriptor
                             GeneratorUtil.COMPONENT_STATE_CLASSNAME );
     final CodeBlock.Builder nativeComponentBlock = CodeBlock.builder();
     nativeComponentBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
-    if ( !getCascadeOnDisposeDependencies().isEmpty() )
-    {
-      nativeComponentBlock.addStatement( "this.$N.dispose()", GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME );
-    }
-    if ( !getSetNullOnDisposeDependencies().isEmpty() )
-    {
-      nativeComponentBlock.addStatement( "this.$N.dispose()", GeneratorUtil.SET_NULL_ON_DISPOSE_FIELD_NAME );
-    }
     nativeComponentBlock.addStatement( "this.$N.dispose()", GeneratorUtil.COMPONENT_FIELD_NAME );
     nativeComponentBlock.nextControlFlow( "else" );
 

@@ -109,7 +109,6 @@ public final class Arez_ComputedDependency extends ComputedDependency implements
     if ( !ComponentState.isDisposingOrDisposed( this.$$arezi$$_state ) ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSING;
       if ( Arez.areNativeComponentsEnabled() ) {
-        this.$$arezi$$_cascadeOnDispose.dispose();
         this.$$arezi$$_component.dispose();
       } else {
         $$arezi$$_context().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {

@@ -125,8 +125,6 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
     if ( !ComponentState.isDisposingOrDisposed( this.$$arezi$$_state ) ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSING;
       if ( Arez.areNativeComponentsEnabled() ) {
-        this.$$arezi$$_cascadeOnDispose.dispose();
-        this.$$arezi$$_setNullOnDispose.dispose();
         this.$$arezi$$_component.dispose();
       } else {
         $$arezi$$_context().dispose( Arez.areNamesEnabled() ? getComponentName() : null, () -> { {
