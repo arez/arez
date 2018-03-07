@@ -2440,7 +2440,7 @@ final class ComponentDescriptor
       builder.addStatement( "this.$N = $N().createComputedValue( " +
                             "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                             "$T.areNamesEnabled() ? $N() + $S : null, " +
-                            "() -> $N(), $T::equals, null, () -> dispose(), null, null )",
+                            "() -> $N(), $T::equals, null, () -> dispose(), null, null, true )",
                             GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME,
                             getContextMethodName(),
                             GeneratorUtil.AREZ_CLASSNAME,

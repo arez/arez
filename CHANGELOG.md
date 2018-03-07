@@ -11,6 +11,9 @@
   itself. This previously attempted to perform dispose action again and caused invariant failures.
 * **\[component\]** Fixed a bug where when observers created by `AbstractRepository` subclasses to monitor
   entities added to the repository were not being correctly disposed.
+* **\[processor\]** Make sure that the `ComputedValue` created when the `disposeOnDeactivate` parameter on
+  the `@ArezComponent` is true, is set as a high priority. This means this dispose will be prioritized before
+  other state transforming reactions.
 
 #### Added
 * **\[core\]** Added the ability to create `"high priority"` `ComputedValue` instances. This results in the
