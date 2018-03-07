@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
+import arez.Observer;
 import arez.annotations.Action;
 import arez.annotations.ComponentNameRef;
 import arez.annotations.ComponentRef;
@@ -58,7 +59,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
     final RepositoryEntry<T> entry = new RepositoryEntry<>( entity );
     final K arezId = Identifiable.getArezId( entity );
     _entities.put( arezId, entry );
-    final Disposable monitor =
+    final Observer monitor =
       getContext().when( Arez.areNativeComponentsEnabled() ? component() : null,
                          Arez.areNamesEnabled() ? getRepositoryName() + ".Watcher." + arezId : null,
                          true,

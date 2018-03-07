@@ -1,6 +1,7 @@
 package arez.component;
 
 import arez.Disposable;
+import arez.Observer;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -22,7 +23,7 @@ final class RepositoryEntry<E>
    * The monitor observer that will remove entity from repository if it is independent disposed.
    */
   @Nullable
-  private Disposable _monitor;
+  private Observer _monitor;
 
   /**
    * Create entry for entity.
@@ -50,7 +51,7 @@ final class RepositoryEntry<E>
    *
    * @param monitor the monitor that will remove entity from repository when entity is disposed.
    */
-  void setMonitor( @Nonnull final Disposable monitor )
+  void setMonitor( @Nonnull final Observer monitor )
   {
     _monitor = Objects.requireNonNull( monitor );
   }
