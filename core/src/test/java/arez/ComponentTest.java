@@ -401,26 +401,6 @@ public class ComponentTest
   }
 
   @Test
-  public void addComputedValue_complete()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-    final String name = ValueUtil.randomString();
-
-    final Component component =
-      new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
-    component.complete();
-
-    final ComputedValue computedValue1 = context.createComputedValue( () -> "" );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> component.addComputedValue( computedValue1 ) );
-    assertEquals( exception.getMessage(), "Arez-0045: Component.addComputedValue invoked on component '" + name +
-                                          "' specifying computedValue named '" + computedValue1.getName() +
-                                          "' when component.complete() has already been called." );
-  }
-
-  @Test
   public void removeComputedValue_noExist()
     throws Exception
   {

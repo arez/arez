@@ -274,6 +274,56 @@ define 'arez' do
     project.jacoco.enabled = false
   end
 
+  desc 'Test Arez in downstream projects'
+  define 'downstream-test' do
+    compile.with :gir, PROVIDED_DEPS
+
+    test.options[:properties] =
+      AREZ_TEST_OPTIONS.merge(
+        # Take the version that we are releasing else fallback to project version
+        'arez.version' => ENV['PRODUCT_VERSION'] || project.version,
+        'arez.deploy_test.fixture_dir' => _('src/test/resources/fixtures').to_s,
+        'arez.deploy_test.work_dir' => _(:target, 'deploy_test/workdir').to_s
+
+      )
+    test.options[:java_args] = ['-ea']
+
+    local_test_repository_url = URI.join('file:///', project._(:target, :local_test_repository)).to_s
+    compile.enhance do
+      old_release_to = repositories.release_to
+      repositories.release_to = local_test_repository_url
+      begin
+        projects(%w(annotations core processor component extras browser-extras)).each do |prj|
+          prj.packages.each do |pkg|
+            pkg.upload
+          end
+        end
+      ensure
+        repositories.release_to = old_release_to
+      end
+    end
+
+    test.compile.enhance do
+      cp = project.compile.dependencies.map(&:to_s) + [project.compile.target.to_s]
+
+      properties = {}
+      # Take the version that we are releasing else fallback to project version
+      properties['arez.version'] = ENV['PRODUCT_VERSION'] || project.version
+      properties['arez.deploy_test.work_dir'] = _(:target, 'deploy_test/workdir').to_s
+      properties['arez.deploy_test.fixture_dir'] = _('src/test/resources/fixtures').to_s
+      properties['arez.deploy_test.local_repository_url'] = local_test_repository_url
+      properties['arez.deploy_test.store_statistics'] = ENV['STORE_BUILD_STATISTICS'] == 'true'
+
+      Java::Commands.java 'arez.downstream.CollectBuildStats', { :classpath => cp, :properties => properties }
+    end
+
+    # Only run this test when preparing for release
+    test.exclude '*BuildStatsTest' unless ENV['PRODUCT_VERSION']
+
+    test.using :testng
+    test.compile.with PROVIDED_DEPS, TEST_DEPS
+  end
+
   desc 'Arez Examples used in documentation'
   define 'doc-examples' do
     pom.provided_dependencies.concat PROVIDED_DEPS

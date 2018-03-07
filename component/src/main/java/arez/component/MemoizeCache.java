@@ -2,6 +2,7 @@ package arez.component;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
 import arez.Procedure;
@@ -51,6 +52,12 @@ public final class MemoizeCache<T>
   @Nullable
   private final String _name;
   /**
+   * The component that this memoize cache is contained within.
+   * This should only be set if {@link Arez#areNativeComponentsEnabled()} is true but can be null even if this is true.
+   */
+  @Nullable
+  private final Component _component;
+  /**
    * The function memoized.
    */
   @Nonnull
@@ -76,12 +83,14 @@ public final class MemoizeCache<T>
   /**
    * Create the Memoize method cache.
    *
-   * @param context  the context in which to create ComputedValue instances.
-   * @param name     a human consumable prefix for computed values.
-   * @param function the memoized function.
-   * @param argCount the number of arguments expected to be passed to memoized function.
+   * @param context   the context in which to create ComputedValue instances.
+   * @param component the associated native component if any. This should only be set if {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name      a human consumable prefix for computed values.
+   * @param function  the memoized function.
+   * @param argCount  the number of arguments expected to be passed to memoized function.
    */
   public MemoizeCache( @Nonnull final ArezContext context,
+                       @Nullable final Component component,
                        @Nullable final String name,
                        @Nonnull final Function<T> function,
                        @Nonnegative final int argCount )
@@ -95,6 +104,7 @@ public final class MemoizeCache<T>
                           ". Expected positive value." );
     }
     _context = Objects.requireNonNull( context );
+    _component = Arez.areNativeComponentsEnabled() ? component : null;
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
     _function = Objects.requireNonNull( function );
     _argCount = argCount;
@@ -165,7 +175,7 @@ public final class MemoizeCache<T>
    * @param args the arguments passed to the memoized function.
    */
   @SuppressWarnings( "unchecked" )
-  private ComputedValue<T> getComputedValue( @Nonnull final Object... args )
+  ComputedValue<T> getComputedValue( @Nonnull final Object... args )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -179,7 +189,14 @@ public final class MemoizeCache<T>
     {
       map = (Map<Object, Object>) map.computeIfAbsent( args[ i ], v -> new HashMap<>() );
     }
-    return (ComputedValue<T>) map.computeIfAbsent( args[ size ], v -> createComputedValue( args ) );
+    ComputedValue<T> computedValue =
+      (ComputedValue<T>) map.computeIfAbsent( args[ size ], v -> createComputedValue( args ) );
+    if ( Disposable.isDisposed( computedValue ) )
+    {
+      computedValue = createComputedValue( args );
+      map.put( args[ size ], computedValue );
+    }
+    return computedValue;
   }
 
   /**
@@ -189,10 +206,11 @@ public final class MemoizeCache<T>
    */
   private ComputedValue<T> createComputedValue( @Nonnull final Object... args )
   {
+    final Component component = Arez.areNativeComponentsEnabled() ? _component : null;
     final String name = Arez.areNamesEnabled() ? _name + "." + _nextIndex++ : null;
     final Procedure onDeactivate = () -> disposeComputedValue( args );
     final SafeFunction<T> function = () -> _function.call( args );
-    return _context.createComputedValue( name, function, Objects::equals, null, onDeactivate, null, null );
+    return _context.createComputedValue( component, name, function, Objects::equals, null, onDeactivate, null, null );
   }
 
   /**

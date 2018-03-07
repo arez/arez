@@ -154,7 +154,7 @@ public final class Observer
                        "Arez.areNativeComponentsEnabled() is false." );
     }
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
-    _component = component;
+    _component = Arez.areNativeComponentsEnabled() ? component : null;
     _computedValue = computedValue;
     _mode = Arez.shouldEnforceTransactionType() ? Objects.requireNonNull( mode ) : null;
     _reaction = Objects.requireNonNull( reaction );

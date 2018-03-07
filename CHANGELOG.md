@@ -2,6 +2,21 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[component\]** Instances of `ComputedValue` created by the `MemoizeCache` class can be created with a
+  native component specified. This exposes the `ComputedValue` instances to the spy infrastructure and ensures
+  all of the reactive elements are managed using a single approach.
+* **\[component\]** Fixed the `MemoizeCache` so that it will recreate disposed `ComputedValue` instances that
+  are contained within the cache, prior to attempting to access values. The `ComputedValue` instances could be
+  disposed when native components are enabled.
+
+#### Changed
+* **\[core\]** Guard the assignment of native `Component` instances in the `Observable`, `Observer` and
+  `ComputedValue` elements to improve the ability for the GWT compiler to optimize out the assignment.
+* **\[core\]** Remove the constraint that reactive components can only be added to a native component prior
+  to the native component marking itself as complete. This allows the `@Memoize` annotation to dynamically
+  add and remove `COmputedValue` instances as required.
+
 ### [v0.62](https://github.com/arez/arez/tree/v0.62) (2018-02-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.61...v0.62)
 

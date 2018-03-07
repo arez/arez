@@ -57,3 +57,5 @@ artifacts:
   aopalliance: aopalliance:aopalliance:jar:1.0
   guice: com.google.inject:guice:jar:3.0
   guice_assistedinject: com.google.inject.extensions:guice-assistedinject:jar:3.0
+
+  gir: org.realityforge.gir:gir-core:jar:0.02
