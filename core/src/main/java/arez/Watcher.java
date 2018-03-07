@@ -73,6 +73,7 @@ final class Watcher
                             this::checkCondition,
                             highPriority,
                             false );
+    _watcher.setOnDispose( () -> Disposable.dispose( _condition ) );
     /*
      * Can not pass this as flag when constructing watcher, otherwise this class could attempt
      * to dispose when condition starts as being true before _watcher has been assigned which
@@ -96,11 +97,10 @@ final class Watcher
    */
   private void checkCondition()
   {
-    if ( _condition.get() )
+    if ( !Disposable.isDisposed( _condition ) && _condition.get() )
     {
       getContext().safeAction( Arez.areNamesEnabled() ? getName() : null, _mutation, _effect );
       Disposable.dispose( _watcher );
-      Disposable.dispose( _condition );
     }
   }
 
@@ -111,7 +111,6 @@ final class Watcher
   public void dispose()
   {
     Disposable.dispose( _watcher );
-    Disposable.dispose( _condition );
   }
 
   /**

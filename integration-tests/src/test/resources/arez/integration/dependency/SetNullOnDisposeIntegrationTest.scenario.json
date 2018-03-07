@@ -157,6 +157,23 @@
         "type": "ReactionCompleted"
     },
     {
+        "component": "Model2.0",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model2.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model2.0.dispose"
+    },
+    {
         "action": "Model2.0.setNullOnDispose.dispose",
         "tracked": false,
         "type": "ActionStarted",
@@ -189,23 +206,6 @@
     {
         "observer": "Model2.0.setNullOnDispose",
         "type": "ObserverDisposed"
-    },
-    {
-        "component": "Model2.0",
-        "type": "ComponentDisposeStarted"
-    },
-    {
-        "action": "Model2.0.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.dispose"
     },
     {
         "action": "Model2.0.isDisposed.dispose",

@@ -542,40 +542,6 @@
         ]
     },
     {
-        "action": "When@1.watcher.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "When@1.watcher.dispose"
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "When@1.watcher.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "When@1.watcher.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "When@1.watcher",
-        "type": "ObserverDisposed"
-    },
-    {
         "action": "When@1.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
@@ -657,6 +623,10 @@
         "type": "ObservableChanged"
     },
     {
+        "observer": "When@1.watcher",
+        "type": "ReactionScheduled"
+    },
+    {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -672,6 +642,40 @@
         "type": "ActionCompleted",
         "parameters": [
         ]
+    },
+    {
+        "action": "When@1.watcher.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "When@1.watcher.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "When@1.watcher.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "When@1.watcher.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "When@1.watcher",
+        "type": "ObserverDisposed"
     },
     {
         "mutation": true,

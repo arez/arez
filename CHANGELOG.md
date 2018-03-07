@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+#### Fixed
+* **\[core\]** Fixed a bug that occurred when a "When" observer was explicitly disposed prior to the effect
+  running. This left the associated `ComputedValue` un-disposed and if `Arez.areRegistriesEnabled()` returns
+  true or `Arez.areNativeComponentsEnabled()` returns true then the `ComputedValue` would never be disposed
+  or garbage collected.
+
 #### Added
 * **\[core\]** Added the ability to create `"high priority"` `ComputedValue` instances. This results in the
   observer that is created by the `ComputedValue` instance being marked as high priority. High priority
