@@ -317,6 +317,9 @@ define 'arez' do
       Java::Commands.java 'arez.downstream.CollectBuildStats', { :classpath => cp, :properties => properties }
     end
 
+    # Only run this test when preparing for release
+    test.exclude '*BuildStatsTest' unless ENV['PRODUCT_VERSION']
+
     test.using :testng
     test.compile.with PROVIDED_DEPS, TEST_DEPS
   end
