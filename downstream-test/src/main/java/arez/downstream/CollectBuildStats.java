@@ -24,12 +24,18 @@ public final class CollectBuildStats
     throws Exception
   {
     Gir.go( () -> {
+      final boolean storeStatistics =
+        System.getProperty( "arez.deploy_test.store_statistics", "false" ).equals( "true" );
       final String version = SystemProperty.get( "arez.version" );
-      final OrderedProperties statistics = new OrderedProperties();
+      final OrderedProperties overallStatistics = new OrderedProperties();
       final Path workingDirectory =
         Paths.get( SystemProperty.get( "arez.deploy_test.work_dir" ) ).toAbsolutePath().normalize();
-      final Path statisticsFile =
-        Paths.get( SystemProperty.get( "arez.deploy_test.statistics_file" ) ).toAbsolutePath().normalize();
+      final Path fixtureDirectory =
+        Paths.get( SystemProperty.get( "arez.deploy_test.fixture_dir" ) ).toAbsolutePath().normalize();
+
+      final Path path = fixtureDirectory.resolve( "statistics.properties" );
+      final OrderedProperties fixtureStatistics = new OrderedProperties();
+      fixtureStatistics.load( Files.newBufferedReader( path ) );
 
       final String localRepositoryUrl = SystemProperty.get( "arez.deploy_test.local_repository_url" );
 
@@ -75,7 +81,8 @@ public final class CollectBuildStats
               final String prefix = branch + ".before";
               final Path archiveDir = workingDirectory.resolve( "archive" ).resolve( prefix );
               buildAndRecordStatistics( archiveDir );
-              loadStatistics( statistics, archiveDir, prefix );
+              loadStatistics( overallStatistics, archiveDir, prefix );
+              loadStatistics( fixtureStatistics, archiveDir, version + "." + branch );
               initialBuildSuccess = true;
             }
             catch ( final GirException | IOException e )
@@ -103,7 +110,8 @@ public final class CollectBuildStats
                 final String prefix = branch + ".after";
                 final Path archiveDir = workingDirectory.resolve( "archive" ).resolve( prefix );
                 buildAndRecordStatistics( archiveDir );
-                loadStatistics( statistics, archiveDir, prefix );
+                loadStatistics( overallStatistics, archiveDir, prefix );
+                loadStatistics( fixtureStatistics, archiveDir, version + "." + branch );
               }
               catch ( final GirException | IOException e )
               {
@@ -126,9 +134,16 @@ public final class CollectBuildStats
         } );
       } );
 
-      statistics.keySet().forEach( k -> System.out.println( k + ": " + statistics.get( k ) ) );
+      overallStatistics.keySet().forEach( k -> System.out.println( k + ": " + overallStatistics.get( k ) ) );
+      final Path statisticsFile = workingDirectory.resolve( "statistics.properties" );
       Gir.messenger().info( "Writing overall build statistics to " + statisticsFile + "." );
-      writeProperties( statisticsFile, statistics );
+      writeProperties( statisticsFile, overallStatistics );
+
+      if ( storeStatistics )
+      {
+        Gir.messenger().info( "Updating fixture build statistics at" + path + "." );
+        writeProperties( path, fixtureStatistics );
+      }
     } );
   }
 
