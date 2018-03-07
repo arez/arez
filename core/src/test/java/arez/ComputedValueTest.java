@@ -23,7 +23,7 @@ public class ComputedValueTest
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> "";
     final EqualityComparator<String> comparator = Objects::equals;
-    final ComputedValue<String> computedValue = new ComputedValue<>( context, null, name, function, comparator );
+    final ComputedValue<String> computedValue = new ComputedValue<>( context, null, name, function, comparator, false );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
@@ -47,6 +47,15 @@ public class ComputedValueTest
   }
 
   @Test
+  public void highPriorityComputedValue()
+    throws Exception
+  {
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( new ArezContext(), null, ValueUtil.randomString(), () -> "", Objects::equals, true );
+    assertEquals( computedValue.getObserver().isHighPriority(), true );
+  }
+
+  @Test
   public void constructWithComponentWhenNativeComponentsDisabled()
     throws Exception
   {
@@ -64,7 +73,7 @@ public class ComputedValueTest
     final String name = ValueUtil.randomString();
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new ComputedValue<>( context, component, name, () -> "", Objects::equals ) );
+                    () -> new ComputedValue<>( context, component, name, () -> "", Objects::equals, false ) );
     assertEquals( exception.getMessage(),
                   "Arez-0048: ComputedValue named '" + name + "' has component specified but " +
                   "Arez.areNativeComponentsEnabled() is false." );
@@ -85,7 +94,7 @@ public class ComputedValueTest
 
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, component, name, () -> "", Objects::equals );
+      new ComputedValue<>( context, component, name, () -> "", Objects::equals, false );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getComponent(), component );
@@ -118,7 +127,7 @@ public class ComputedValueTest
       return value.get();
     };
     final EqualityComparator<String> comparator = Objects::equals;
-    final ComputedValue<String> computedValue = new ComputedValue<>( context, null, name, function, comparator );
+    final ComputedValue<String> computedValue = new ComputedValue<>( context, null, name, function, comparator, false );
     ref.set( computedValue );
     assertEquals( computedValue.computeValue(), "" );
 
@@ -138,7 +147,7 @@ public class ComputedValueTest
     final String value2 = ValueUtil.randomString();
     final SafeFunction<String> function = value::get;
     final EqualityComparator<String> comparator = Objects::equals;
-    final ComputedValue<String> computedValue = new ComputedValue<>( context, null, name, function, comparator );
+    final ComputedValue<String> computedValue = new ComputedValue<>( context, null, name, function, comparator, false );
 
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -170,7 +179,7 @@ public class ComputedValueTest
     final String value2 = ValueUtil.randomString();
     final SafeFunction<String> function = value::get;
     final EqualityComparator<String> comparator = Objects::equals;
-    final ComputedValue<String> computedValue = new ComputedValue<>( context, null, name, function, comparator );
+    final ComputedValue<String> computedValue = new ComputedValue<>( context, null, name, function, comparator, false );
 
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -203,7 +212,7 @@ public class ComputedValueTest
     final String value1 = ValueUtil.randomString();
     final SafeFunction<String> function = value::get;
     final EqualityComparator<String> comparator = Objects::equals;
-    final ComputedValue<String> computedValue = new ComputedValue<>( context, null, name, function, comparator );
+    final ComputedValue<String> computedValue = new ComputedValue<>( context, null, name, function, comparator, false );
 
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -236,7 +245,7 @@ public class ComputedValueTest
       throw new IllegalStateException( message );
     };
     final EqualityComparator<String> comparator = Objects::equals;
-    final ComputedValue<String> computedValue = new ComputedValue<>( context, null, name, function, comparator );
+    final ComputedValue<String> computedValue = new ComputedValue<>( context, null, name, function, comparator, false );
 
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -355,7 +364,7 @@ public class ComputedValueTest
     final ArezContext context = new ArezContext();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -374,7 +383,7 @@ public class ComputedValueTest
     final ArezContext context = new ArezContext();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -400,7 +409,7 @@ public class ComputedValueTest
     final ArezContext context = new ArezContext();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -426,7 +435,7 @@ public class ComputedValueTest
     final ArezContext context = new ArezContext();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -452,7 +461,7 @@ public class ComputedValueTest
     final ArezContext context = new ArezContext();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -471,7 +480,7 @@ public class ComputedValueTest
     final ArezContext context = new ArezContext();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false );
     final Observer observer = computedValue.getObserver();
 
     setCurrentTransaction( observer );
@@ -496,7 +505,7 @@ public class ComputedValueTest
     final ArezContext context = new ArezContext();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );

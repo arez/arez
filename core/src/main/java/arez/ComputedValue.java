@@ -64,7 +64,8 @@ public final class ComputedValue<T>
                  @Nullable final Component component,
                  @Nullable final String name,
                  @Nonnull final SafeFunction<T> function,
-                 @Nonnull final EqualityComparator<T> equalityComparator )
+                 @Nonnull final EqualityComparator<T> equalityComparator,
+                 final boolean highPriority )
   {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
@@ -88,7 +89,7 @@ public final class ComputedValue<T>
                                                           this::compute,
                                                           false,
                                                           o ),
-                              false,
+                              highPriority,
                               false );
     if ( null != _component )
     {

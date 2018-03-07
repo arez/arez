@@ -406,8 +406,50 @@ public final class ArezContext
                                                    @Nullable final Procedure onStale,
                                                    @Nullable final Procedure onDispose )
   {
+    return createComputedValue( component,
+                                name,
+                                function,
+                                equalityComparator,
+                                onActivate,
+                                onDeactivate,
+                                onStale,
+                                onDispose,
+                                false );
+  }
+
+  /**
+   * Create a ComputedValue with specified parameters.
+   *
+   * @param <T>                the type of the computed value.
+   * @param component          the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name               the name of the ComputedValue.
+   * @param function           the function that computes the value.
+   * @param equalityComparator the comparator that determines whether the newly computed value differs from existing value.
+   * @param onActivate         the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDeactivate       the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onStale            the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDispose          the procedure to invoke when the ComputedValue id disposed.
+   * @param highPriority       true if the associated observer is created as a high-priority observer.
+   * @return the ComputedValue instance.
+   */
+  @Nonnull
+  public <T> ComputedValue<T> createComputedValue( @Nullable final Component component,
+                                                   @Nullable final String name,
+                                                   @Nonnull final SafeFunction<T> function,
+                                                   @Nonnull final EqualityComparator<T> equalityComparator,
+                                                   @Nullable final Procedure onActivate,
+                                                   @Nullable final Procedure onDeactivate,
+                                                   @Nullable final Procedure onStale,
+                                                   @Nullable final Procedure onDispose,
+                                                   final boolean highPriority )
+  {
     final ComputedValue<T> computedValue =
-      new ComputedValue<>( this, component, generateNodeName( "ComputedValue", name ), function, equalityComparator );
+      new ComputedValue<>( this,
+                           component,
+                           generateNodeName( "ComputedValue", name ),
+                           function,
+                           equalityComparator,
+                           highPriority );
     final Observer observer = computedValue.getObserver();
     observer.setOnActivate( onActivate );
     observer.setOnDeactivate( onDeactivate );

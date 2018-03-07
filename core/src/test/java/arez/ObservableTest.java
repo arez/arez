@@ -1577,7 +1577,7 @@ public class ObservableTest
 
     final String expectedValue = ValueUtil.randomString();
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> expectedValue, Objects::equals );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> expectedValue, Objects::equals, false );
     computedValue.setValue( expectedValue );
     final Observer derivation =
       computedValue.getObserver();

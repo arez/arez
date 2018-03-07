@@ -1466,8 +1466,17 @@ public class ArezContextTest
     final Procedure onDeactivate = ValueUtil::randomString;
     final Procedure onStale = ValueUtil::randomString;
     final Procedure onDispose = ValueUtil::randomString;
+    final boolean highPriority = true;
     final ComputedValue<String> computedValue =
-      context.createComputedValue( name, function, Objects::equals, onActivate, onDeactivate, onStale, onDispose );
+      context.createComputedValue( null,
+                                   name,
+                                   function,
+                                   Objects::equals,
+                                   onActivate,
+                                   onDeactivate,
+                                   onStale,
+                                   onDispose,
+                                   highPriority );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
@@ -1477,6 +1486,7 @@ public class ArezContextTest
     assertEquals( computedValue.getObserver().getOnDeactivate(), onDeactivate );
     assertEquals( computedValue.getObserver().getOnStale(), onStale );
     assertEquals( computedValue.getObserver().getOnDispose(), onDispose );
+    assertEquals( computedValue.getObserver().isHighPriority(), highPriority );
   }
 
   @Test
