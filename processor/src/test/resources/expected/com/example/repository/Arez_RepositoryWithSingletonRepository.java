@@ -60,6 +60,26 @@ final class Arez_RepositoryWithSingletonRepository extends RepositoryWithSinglet
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
 
+  @Nonnull
+  protected final Component component() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'RepositoryWithSingletonRepository'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.hasBeenConstructed( this.$$arezi$$_state ), () -> "Method invoked on un-constructed component named '" + getRepositoryName() + "'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.hasBeenCompleted( this.$$arezi$$_state ), () -> "Method invoked on incomplete component named '" + getRepositoryName() + "'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
+    }
+    if ( Arez.shouldCheckInvariants() ) {
+      Guards.invariant( () -> Arez.areNativeComponentsEnabled(), () -> "Invoked @ComponentRef method 'component' but Arez.areNativeComponentsEnabled() returned false." );
+    }
+    return this.$$arezi$$_component;
+  }
+
   final long $$arezi$$_id() {
     return this.$$arezi$$_id;
   }

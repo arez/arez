@@ -2,10 +2,12 @@ package arez.component;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.Component;
 import arez.Disposable;
 import arez.Observable;
 import arez.annotations.Action;
 import arez.annotations.ComponentNameRef;
+import arez.annotations.ComponentRef;
 import arez.annotations.ContextRef;
 import arez.annotations.ObservableRef;
 import arez.annotations.PreDispose;
@@ -35,6 +37,13 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
    * A map of all the entities ArezId to entity.
    */
   private final HashMap<K, RepositoryEntry<T>> _entities = new HashMap<>();
+
+  /**
+   * Return the component associated with component if native components enabled.
+   */
+  @ComponentRef
+  @Nonnull
+  protected abstract Component component();
 
   /**
    * Register specified entity in list of entities managed by the repository.

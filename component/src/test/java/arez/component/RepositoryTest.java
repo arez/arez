@@ -2,6 +2,7 @@ package arez.component;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.Component;
 import arez.Disposable;
 import arez.Observable;
 import java.util.Comparator;
@@ -373,11 +374,19 @@ public class RepositoryTest
   static class MyRepository
     extends AbstractRepository<Integer, MyEntity, MyRepository>
   {
+    private final Component _component = Arez.context().createComponent( "MyRepository", "1" );
     private final Observable<Object> _observable = Arez.context().createObservable();
 
     static MyRepository create()
     {
       return new MyRepository();
+    }
+
+    @Override
+    @Nonnull
+    protected Component component()
+    {
+      return _component;
     }
 
     @Nonnull
