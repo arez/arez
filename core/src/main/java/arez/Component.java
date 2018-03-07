@@ -238,10 +238,6 @@ public final class Component
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> !_complete,
-                    () -> "Arez-0039: Component.addObserver invoked on component '" + getName() + "' specifying " +
-                          "observer named '" + observer.getName() + "' when component.complete() has already been " +
-                          "called." );
       apiInvariant( () -> !_observers.contains( observer ),
                     () -> "Arez-0040: Component.addObserver invoked on component '" + getName() + "' specifying " +
                           "observer named '" + observer.getName() + "' when observer already exists for component." );

@@ -212,11 +212,15 @@ public class ComponentTest
     final Observer observer1 = context.autorun( () -> {
     } );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> component.addObserver( observer1 ) );
-    assertEquals( exception.getMessage(), "Arez-0039: Component.addObserver invoked on component '" + name +
-                                          "' specifying observer named '" + observer1.getName() +
-                                          "' when component.complete() has already been called." );
+    assertEquals( component.getObservers().size(), 0 );
+
+    // We should be able to add observers after the component is complete. This is typically used
+    // for when observers that we want associated with the component. (i.e. The watchers contained
+    // by repositories that remove entry in repository when entity is disposed)
+    component.addObserver( observer1 );
+
+    assertEquals( component.getObservers().size(), 1 );
+    assertEquals( component.getObservers().contains( observer1 ), true );
   }
 
   @Test
