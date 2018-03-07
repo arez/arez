@@ -112,7 +112,7 @@ public final class CollectBuildStats
               Gir.messenger().info( "Building branch " + branch + " after modifications." );
               try
               {
-                final String content = "repositories.remote << '" + localRepositoryUrl + "'\n";
+                final String content = "repositories.remote.unshift('" + localRepositoryUrl + "')\n";
                 Files.write( appDirectory.resolve( "_buildr.rb" ), content.getBytes() );
               }
               catch ( final IOException ioe )
