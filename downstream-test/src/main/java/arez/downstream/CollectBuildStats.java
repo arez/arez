@@ -23,6 +23,21 @@ public final class CollectBuildStats
   public static void main( final String[] args )
     throws Exception
   {
+    try
+    {
+      run();
+    }
+    catch ( final Exception e )
+    {
+      Gir.messenger().error( "Failed command.", e );
+      e.printStackTrace( System.err );
+      System.exit( 42 );
+    }
+  }
+
+  private static void run()
+    throws Exception
+  {
     Gir.go( () -> {
       final boolean storeStatistics =
         System.getProperty( "arez.deploy_test.store_statistics", "false" ).equals( "true" );
@@ -123,6 +138,18 @@ public final class CollectBuildStats
                 else
                 {
                   Gir.messenger().error( "Failed to build branch '" + branch + "' after modifications.", e );
+                }
+                /*
+                 * If the build has failed for one of the downstream projects then make sure the command fails.
+                 */
+                if ( e instanceof GirException )
+                {
+                  //noinspection RedundantCast
+                  throw (GirException) e;
+                }
+                else
+                {
+                  throw new GirException( e );
                 }
               }
             }
