@@ -4,6 +4,7 @@ import gir.Gir;
 import gir.GirException;
 import gir.delta.Patch;
 import gir.git.Git;
+import gir.io.Exec;
 import gir.io.FileUtil;
 import gir.ruby.Buildr;
 import gir.ruby.Ruby;
@@ -127,6 +128,9 @@ public final class CollectBuildStats
                 buildAndRecordStatistics( archiveDir );
                 loadStatistics( overallStatistics, archiveDir, prefix );
                 loadStatistics( fixtureStatistics, archiveDir, version + "." + branch );
+                Git.checkout( branch );
+                Exec.system( "git", "merge", newBranch );
+                Git.deleteBranch( newBranch );
               }
               catch ( final GirException | IOException e )
               {
