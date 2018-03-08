@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.66](https://github.com/arez/arez/tree/v0.66) (2018-03-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.65...v0.66)
 
