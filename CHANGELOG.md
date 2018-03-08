@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+#### Fixed
+* Fixed a bug in the release process that resulted in failing to update downstream artifacts.
+
 ### [v0.65](https://github.com/arez/arez/tree/v0.65) (2018-03-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.64...v0.65)
 
