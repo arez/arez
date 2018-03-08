@@ -278,6 +278,9 @@ define 'arez' do
   define 'downstream-test' do
     compile.with :gir, PROVIDED_DEPS
 
+    test.compile.with :javacsv,
+                      :jetbrains_annotations
+
     test.options[:properties] =
       AREZ_TEST_OPTIONS.merge(
         # Take the version that we are releasing else fallback to project version
