@@ -5,6 +5,9 @@
 ### [v0.65](https://github.com/arez/arez/tree/v0.65) (2018-03-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.64...v0.65)
 
+#### Changed
+* Update the version of Arez in `react4j-todomvc` as part of the Arez release process.
+
 ### [v0.64](https://github.com/arez/arez/tree/v0.64) (2018-03-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.63...v0.64)
 
