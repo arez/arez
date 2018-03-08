@@ -79,7 +79,6 @@ public final class CollectBuildStats
             Gir.messenger().info( "Processing branch " + branch + "." );
 
             Git.checkout( branch );
-            Git.pull();
             Git.clean();
             final String newBranch = branch + "-ArezUpgrade-" + version;
             System.out.println( "Checking out " + newBranch );
