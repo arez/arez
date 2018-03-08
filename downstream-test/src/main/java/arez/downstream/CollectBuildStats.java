@@ -30,7 +30,7 @@ public final class CollectBuildStats
     }
     catch ( final Exception e )
     {
-      Gir.messenger().error( "Failed command.", e );
+      System.err.println( "Failed command." );
       e.printStackTrace( System.err );
       System.exit( 42 );
     }
