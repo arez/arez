@@ -91,6 +91,20 @@ decoded add the following.
   - gpg --import ../release.asc
 ```
 
+### Publishing to Downstream Projects
+
+Arez updates several downstream projects during it's release process process. The goal of this process
+is to ensure these downstream projects are always up to date with the latest version of Arez. However
+there is a delay between publishing to Maven Central and the artifacts being available in Maven Central.
+To combat this we deploy the required artifacts to a separate staging repository.
+
+To enable this we needed to provide encrypted credentials to TravisCI. The easiest way to do this is
+to run the commands below and add the output under `env.global` key in the travis configuration.
+This encrypts the password but makes it available when building on TravisCI.
+
+    travis encrypt STAGING_USERNAME=MyStagingUsername --add
+    travis encrypt STAGING_PASSWORD=MyStagingPassword --add
+
 ### Publishing Coverage Reports to codecov
 
 The project publishes the code coverage reports to codecov. This is to make it easier to review pull requests
