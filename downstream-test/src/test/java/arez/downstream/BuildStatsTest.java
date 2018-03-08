@@ -1,11 +1,6 @@
 package arez.downstream;
 
-import gir.sys.SystemProperty;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Properties;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -13,6 +8,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class BuildStatsTest
+  extends AbstractDownstreamTest
 {
   @Test
   public void arez()
@@ -35,7 +31,7 @@ public class BuildStatsTest
     final Properties fixtureStatistics = loadFixtureStatistics();
 
     final long fixtureSize =
-      extractSize( fixtureStatistics, SystemProperty.get( "arez.version" ) + "." + branch );
+      extractSize( fixtureStatistics, getArezVersion() + "." + branch );
     final long beforeSize = extractSize( buildStatistics, branch + "." + "before" );
     final long afterSize = extractSize( buildStatistics, branch + "." + "after" );
 
@@ -72,45 +68,13 @@ public class BuildStatsTest
   private Properties loadBuildStatistics()
     throws IOException
   {
-    return loadProperties( getBuildStatisticsFile().toFile() );
+    return loadProperties( getWorkDir().resolve( "statistics.properties" ).toFile() );
   }
 
   @Nonnull
   private Properties loadFixtureStatistics()
     throws IOException
   {
-    return loadProperties( getFixtureStatisticsFile().toFile() );
-  }
-
-  @Nonnull
-  private Properties loadProperties( @Nonnegative final File file )
-    throws IOException
-  {
-    final Properties properties = new Properties();
-    try ( final FileReader fileReader = new FileReader( file ) )
-    {
-      properties.load( fileReader );
-    }
-    return properties;
-  }
-
-  @Nonnull
-  private Path getFixtureStatisticsFile()
-  {
-    return Paths
-      .get( SystemProperty.get( "arez.deploy_test.fixture_dir" ) )
-      .toAbsolutePath()
-      .normalize()
-      .resolve( "statistics.properties" );
-  }
-
-  @Nonnull
-  private Path getBuildStatisticsFile()
-  {
-    return Paths
-      .get( SystemProperty.get( "arez.deploy_test.work_dir" ) )
-      .toAbsolutePath()
-      .normalize()
-      .resolve( "statistics.properties" );
+    return loadProperties( getFixtureDir().resolve( "statistics.properties" ).toFile() );
   }
 }
