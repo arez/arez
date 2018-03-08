@@ -71,4 +71,42 @@ final class SymbolEntryIndex
             " but the following classNames match: " + matches );
     }
   }
+
+  /**
+   * Verify no entry for member exists in index.
+   * If a match is found then fail assertion error.
+   *
+   * @param classNamePattern  the pattern to match className.
+   * @param memberNamePattern the pattern to match member name.
+   */
+  void assertNoMemberMatches( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String classNamePattern,
+                              @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String memberNamePattern )
+  {
+    assertNoMemberMatches( Pattern.compile( "^" + classNamePattern + "$" ),
+                           Pattern.compile( "^" + memberNamePattern + "$" ) );
+  }
+
+  /**
+   * Verify no entry for member exists in index.
+   * If a match is found then fail assertion error.
+   *
+   * @param classNamePattern  the pattern to match className.
+   * @param memberNamePattern the pattern to match member name.
+   */
+  void assertNoMemberMatches( @Nonnull final Pattern classNamePattern, @Nonnull final Pattern memberNamePattern )
+  {
+    final List<SymbolEntry> matches =
+      _classNameToEntry
+        .entrySet()
+        .stream()
+        .filter( e -> classNamePattern.matcher( e.getKey() ).matches() &&
+                      e.getValue().stream().anyMatch( s -> memberNamePattern.matcher( s.getMemberName() ).matches() ) )
+        .flatMap( e -> e.getValue().stream() )
+        .collect( Collectors.toList() );
+    if ( !matches.isEmpty() )
+    {
+      fail( "Expected that the SymbolMap would have no members that match: classNamePattern '" + classNamePattern +
+            "', memberPattern '" + memberNamePattern + "' but the following entries match: " + matches );
+    }
+  }
 }
