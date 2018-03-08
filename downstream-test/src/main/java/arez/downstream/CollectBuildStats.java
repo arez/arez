@@ -161,6 +161,7 @@ public final class CollectBuildStats
             else
             {
               Gir.messenger().info( "Branch " + branch + " not rebuilt as no modifications made." );
+              Git.checkout( branch );
               Git.deleteBranch( newBranch );
             }
           } );
