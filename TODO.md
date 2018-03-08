@@ -103,10 +103,6 @@ console.table(languages);
   - Never `arez.ArezTestUtil`
   - etc.
 
-* Figure out a mechanism for staging release that roll out changes to peer-libraries and tests that it
-  compiles and passes tests. Then release arez, then release child libraries. This is a more enhanced version
-  of zim for github projects.
-
 * Verify that methods defined on all components are not defined as part of the arez annotated methods. These
   include:
     - observe
