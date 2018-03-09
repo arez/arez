@@ -37,6 +37,7 @@ public class BuildOutputTest
     // Assert no Component cruft is enabled as !Arez.areNativeComponentsEnabled() in the build
     index.assertNoClassNameMatches( "arez\\.Component.*" );
     index.assertNoMemberMatches( ".*\\.Arez_.*", "$$arezi$$_component" );
+    index.assertNoMemberMatches( ".*\\.Arez_.*Repository", "component" );
 
     // Assert no Transaction validation cruft is enabled as !Arez.shouldEnforceTransactionType() in the build
     index.assertNoClassNameMatches( "arez\\.TransactionMode" );
