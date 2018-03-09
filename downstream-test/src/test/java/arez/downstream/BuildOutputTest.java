@@ -44,6 +44,7 @@ public class BuildOutputTest
 
     // !Arez.areNamesEnabled in the build
     index.assertNoClassNameMatches( "arez\\.ThrowableUtil" );
+    index.assertNoMemberMatches( ".*\\.Arez_.*Repository", "getRepositoryName" );
     index.assertNoMemberMatches( ".*\\.Arez_.*", "toString" );
 
     // This should never appear as it is not meant to be GWT compiled
