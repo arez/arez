@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.68](https://github.com/arez/arez/tree/v0.68) (2018-03-09)
+[Full Changelog](https://github.com/arez/arez/compare/v0.67...v0.68)
 
 #### Fixed
 * Fixed the `downstream-test` project so that it correctly builds even when run on a release branch.
