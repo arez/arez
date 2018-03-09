@@ -160,8 +160,19 @@ public final class CollectBuildStats
                * We copy the before build to after directory as later steps will perform further analysis
                * so we need to have the build on the filesystem.
                */
-              FileUtil.copyDirectory( getArchiveDir( workingDirectory, branch + ".before" ),
-                                      getArchiveDir( workingDirectory, branch + ".after" ) );
+              final String build = branch + ".after";
+              final Path archiveDir = getArchiveDir( workingDirectory, build );
+              FileUtil.copyDirectory( getArchiveDir( workingDirectory, branch + ".before" ), archiveDir );
+              try
+              {
+                loadStatistics( overallStatistics, archiveDir, build );
+                loadStatistics( fixtureStatistics, archiveDir, version + "." + branch );
+              }
+              catch ( final IOException e )
+              {
+                Gir.messenger().error( "Failed to load statistics for branch '" + branch + "'.", e );
+                throw new GirException( e );
+              }
             }
           } );
         } );
