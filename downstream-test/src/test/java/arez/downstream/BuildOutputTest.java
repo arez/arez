@@ -62,6 +62,9 @@ public class BuildOutputTest
     // This pattern should apply if nameIncludeId is false (or @Singleton present), no @Repository annotation and !Arez.areNativeComponentsEnabled()
     index.assertNoMemberMatches( "arez\\.browser\\.extras\\.Arez_BrowserLocation", "$$arezi$$_id" );
     index.assertNoMemberMatches( "arez\\.browser\\.extras\\.Arez_BrowserLocation", "$$arezi$$_nextId" );
+
+    //TODO: Add tests when ArezComponent.requireEquals = DISABLE to ensure no hashCode or equals
+    //TODO: assert no Observable.preReportChanged if assertions disabled
   }
 
   @Nonnull
