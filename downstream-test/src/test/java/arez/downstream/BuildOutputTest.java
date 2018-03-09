@@ -56,6 +56,9 @@ public class BuildOutputTest
     // This should be optimized out completely
     index.assertNoClassNameMatches( "arez\\.ArezConfig" );
 
+    // This should be eliminated as it will improve the ability for GWT compiler to dead-code-eliminate
+    index.assertNoMemberMatches( "arez\\.Arez", "$clinit" );
+
     // This pattern should apply if nameIncludeId is false (or @Singleton present), no @Repository annotation and !Arez.areNativeComponentsEnabled()
     index.assertNoMemberMatches( "arez\\.browser\\.extras\\.Arez_BrowserLocation", "$$arezi$$_id" );
     index.assertNoMemberMatches( "arez\\.browser\\.extras\\.Arez_BrowserLocation", "$$arezi$$_nextId" );

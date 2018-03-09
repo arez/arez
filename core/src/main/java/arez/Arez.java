@@ -15,8 +15,6 @@ import static org.realityforge.braincheck.Guards.*;
  */
 public final class Arez
 {
-  @Nullable
-  private static ArezContext c_context = Arez.areZonesEnabled() ? null : new ArezContext();
   /**
    * Default zone if zones are enabled.
    */
@@ -156,8 +154,7 @@ public final class Arez
     }
     else
     {
-      assert null != c_context;
-      return c_context;
+      return ArezContextHolder.context();
     }
   }
 
@@ -238,7 +235,7 @@ public final class Arez
   {
     c_defaultZone = new Zone();
     c_zone = c_defaultZone;
-    c_context = new ArezContext();
+    ArezContextHolder.reset();
     c_zoneStack = new ArrayList<>();
   }
 

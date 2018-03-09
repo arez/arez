@@ -8,6 +8,8 @@
 * **\[core\]** Rework `arez.Node` so that the context is derived from the singleton context unless the
   `Arez.areZonesEnabled()` method returns true. This reduces the size of data stored for each reactive component
   in the system.
+* **\[core\]** Extract `arez.ArezContextHolder` class to hold the singleton state and eliminate the `<clinit>`
+  method on the `arez.Arez` class and thus allow further build time optimizations.
 
 ### [v0.66](https://github.com/arez/arez/tree/v0.66) (2018-03-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.65...v0.66)
