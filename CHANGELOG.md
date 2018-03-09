@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+#### Fixed
+* Fixed the `downstream-test` project so that it correctly builds even when run on a release branch.
+
 ### [v0.67](https://github.com/arez/arez/tree/v0.67) (2018-03-09)
 [Full Changelog](https://github.com/arez/arez/compare/v0.66...v0.67)
 
