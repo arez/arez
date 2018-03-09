@@ -1,9 +1,6 @@
 package arez;
 
-import java.util.ArrayList;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
 import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -15,23 +12,6 @@ import static org.realityforge.braincheck.Guards.*;
  */
 public final class Arez
 {
-  /**
-   * Default zone if zones are enabled.
-   */
-  @Nullable
-  private static Zone c_defaultZone = Arez.areZonesEnabled() ? new Zone() : null;
-  /**
-   * Default zone if zones are enabled.
-   */
-  @Nullable
-  private static Zone c_zone = Arez.areZonesEnabled() ? c_defaultZone : null;
-  /**
-   * The zones that were previously active.
-   * If there is no zones in the stack and a zone is deactivated then the default zone is made current.
-   */
-  @Nullable
-  private static ArrayList<Zone> c_zoneStack = Arez.areZonesEnabled() ? new ArrayList<>() : null;
-
   private Arez()
   {
   }
@@ -147,15 +127,7 @@ public final class Arez
   @Nonnull
   public static ArezContext context()
   {
-    if ( areZonesEnabled() )
-    {
-      assert null != c_zone;
-      return c_zone.getContext();
-    }
-    else
-    {
-      return ArezContextHolder.context();
-    }
+    return areZonesEnabled() ? ArezZoneHolder.context() : ArezContextHolder.context();
   }
 
   /**
@@ -180,14 +152,7 @@ public final class Arez
   @SuppressWarnings( "ConstantConditions" )
   static void activateZone( @Nonnull final Zone zone )
   {
-    if ( shouldCheckInvariants() )
-    {
-      invariant( Arez::areZonesEnabled, () -> "Arez-0002: Invoked Arez.activateZone() but zones are not enabled." );
-    }
-    assert null != c_zoneStack;
-    assert null != zone;
-    c_zoneStack.add( c_zone );
-    c_zone = zone;
+    ArezZoneHolder.activateZone( zone );
   }
 
   /**
@@ -198,16 +163,7 @@ public final class Arez
   @SuppressWarnings( "ConstantConditions" )
   static void deactivateZone( @Nonnull final Zone zone )
   {
-    if ( shouldCheckInvariants() )
-    {
-      invariant( Arez::areZonesEnabled, () -> "Arez-0003: Invoked Arez.deactivateZone() but zones are not enabled." );
-    }
-    if ( shouldCheckApiInvariants() )
-    {
-      apiInvariant( () -> c_zone == zone, () -> "Arez-0004: Attempted to deactivate zone that is not active." );
-    }
-    assert null != c_zoneStack;
-    c_zone = c_zoneStack.isEmpty() ? c_defaultZone : c_zoneStack.remove( c_zoneStack.size() - 1 );
+    ArezZoneHolder.deactivateZone( zone );
   }
 
   /**
@@ -218,40 +174,6 @@ public final class Arez
   @Nonnull
   static Zone currentZone()
   {
-    if ( shouldCheckInvariants() )
-    {
-      invariant( Arez::areZonesEnabled, () -> "Arez-0005: Invoked Arez.currentZone() but zones are not enabled." );
-    }
-    assert null != c_zone;
-    return c_zone;
-  }
-
-  /**
-   * Clear the state to cleanup .
-   * This is dangerous as it may leave dangling references and should only be done in tests.
-   */
-  @TestOnly
-  static void reset()
-  {
-    c_defaultZone = new Zone();
-    c_zone = c_defaultZone;
-    ArezContextHolder.reset();
-    c_zoneStack = new ArrayList<>();
-  }
-
-  @TestOnly
-  @Nonnull
-  static Zone getDefaultZone()
-  {
-    assert null != c_defaultZone;
-    return c_defaultZone;
-  }
-
-  @TestOnly
-  @Nonnull
-  static ArrayList<Zone> getZoneStack()
-  {
-    assert null != c_zoneStack;
-    return c_zoneStack;
+    return ArezZoneHolder.currentZone();
   }
 }

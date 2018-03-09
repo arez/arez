@@ -8,8 +8,10 @@
 * **\[core\]** Rework `arez.Node` so that the context is derived from the singleton context unless the
   `Arez.areZonesEnabled()` method returns true. This reduces the size of data stored for each reactive component
   in the system.
-* **\[core\]** Extract `arez.ArezContextHolder` class to hold the singleton state and eliminate the `<clinit>`
-  method on the `arez.Arez` class and thus allow further build time optimizations.
+* **\[core\]** Extract the `arez.ArezContextHolder` class and the `arez.ArezZoneHolder` class from `arez.Arez`
+  to hold the state that was previously `arez.Arez` and eliminate the `<clinit>` method on the `arez.Arez` class.
+  This allowed further build time optimizations as the GWT compiler could inline the accessors for the build
+  time constants.
 
 ### [v0.66](https://github.com/arez/arez/tree/v0.66) (2018-03-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.65...v0.66)
