@@ -41,6 +41,8 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
 
   /**
    * Return the component associated with component if native components enabled.
+   *
+   * @return the component associated with component if native components enabled.
    */
   @ComponentRef
   @Nonnull
