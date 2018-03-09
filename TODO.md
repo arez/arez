@@ -92,17 +92,6 @@ console.table(languages);
   created by the context could be closed when the context is closed. It probably only makes sense in multi
   zone scenario and should generate invariant check failure otherwise.
 
-* Add a testing library that tests outputs. Given a `MyFile.symbolMap` and a set of configuration settings,
-  the library should have assertions that check certain combinations of files are never present. This could be used
-  by Arez itself but potentially also by downstream applications and libraries. Some candidate rules include:
-  - if `!areSpiesEnabled()` then no files in `arez.spy.*` nor `arez.Spy*` nor `arez.*InfoImpl`
-  - if `!areZonesEnabled()` then no `arez.Zone`
-  - if `!shouldEnforceTransactionType()` then no `arez.TransactionMode`
-  - if `!areNativeComponentsEnabled()` then no `arez.Component*`
-  - if `!areNamesEnabled()` then no `ThrowableUtil`
-  - Never `arez.ArezTestUtil`
-  - etc.
-
 * Verify that methods defined on all components are not defined as part of the arez annotated methods. These
   include:
     - observe
