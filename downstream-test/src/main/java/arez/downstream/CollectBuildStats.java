@@ -282,10 +282,13 @@ public final class CollectBuildStats
 
   private static long getTodoMvcSize()
   {
-    final Path outputJsFile = FileUtil.getCurrentDirectory()
-      .resolve( "target/generated/gwt/react4j.todomvc.TodomvcProd/todomvc/todomvc.nocache.js" );
-    final File jsFile = outputJsFile.toFile();
-    assert jsFile.exists();
-    return jsFile.length();
+    return getFileSize( "target/generated/gwt/react4j.todomvc.TodomvcProd/todomvc/todomvc.nocache.js" );
+  }
+
+  private static long getFileSize( @Nonnull final String filename )
+  {
+    final File file = FileUtil.getCurrentDirectory().resolve( filename ).toFile();
+    assert file.exists();
+    return file.length();
   }
 }
