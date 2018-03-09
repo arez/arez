@@ -300,6 +300,8 @@ define 'arez' do
         repositories.release_to = local_test_repository_url
         projects_to_upload.each do |prj|
           prj.packages.each do |pkg|
+            # Uninstall version already present in local maven cache
+            pkg.uninstall
             # Install version into local repository
             pkg.upload
           end
