@@ -94,7 +94,7 @@ public final class CollectBuildStats
             try
             {
               final String prefix = branch + ".before";
-              final Path archiveDir = workingDirectory.resolve( "archive" ).resolve( prefix );
+              final Path archiveDir = getArchiveDir( workingDirectory, prefix );
               buildAndRecordStatistics( archiveDir );
               loadStatistics( overallStatistics, archiveDir, prefix );
               loadStatistics( fixtureStatistics, archiveDir, version + "." + branch );
@@ -121,7 +121,7 @@ public final class CollectBuildStats
               }
 
               final String prefix = branch + ".after";
-              final Path archiveDir = workingDirectory.resolve( "archive" ).resolve( prefix );
+              final Path archiveDir = getArchiveDir( workingDirectory, prefix );
               try
               {
                 buildAndRecordStatistics( archiveDir );
@@ -178,6 +178,12 @@ public final class CollectBuildStats
         writeProperties( path, fixtureStatistics );
       }
     } );
+  }
+
+  @Nonnull
+  private static Path getArchiveDir( @Nonnull final Path workingDirectory, @Nonnull final String build )
+  {
+    return workingDirectory.resolve( "archive" ).resolve( build );
   }
 
   private static void loadStatistics( @Nonnull final OrderedProperties statistics,
