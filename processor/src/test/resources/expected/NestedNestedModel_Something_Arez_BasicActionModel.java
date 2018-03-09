@@ -29,7 +29,7 @@ public final class NestedNestedModel_Something_Arez_BasicActionModel extends Nes
   public NestedNestedModel_Something_Arez_BasicActionModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
-    this.$$arezi$$_id = $$arezi$$_nextId++;
+    this.$$arezi$$_id = ( Arez.areNativeComponentsEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0L;
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "BasicActionModel", $$arezi$$_id(), $$arezi$$_name(), null, null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
@@ -48,6 +48,9 @@ public final class NestedNestedModel_Something_Arez_BasicActionModel extends Nes
   }
 
   final long $$arezi$$_id() {
+    if ( Arez.shouldCheckInvariants() && !Arez.areNamesEnabled() && !Arez.areNativeComponentsEnabled() ) {
+      Guards.fail( () -> "Method invoked to access id when id not expected." );
+    }
     return this.$$arezi$$_id;
   }
 

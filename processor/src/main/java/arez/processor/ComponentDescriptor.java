@@ -2006,10 +2006,35 @@ final class ComponentDescriptor
   {
     assert null == _componentId;
 
-    return MethodSpec.methodBuilder( GeneratorUtil.ID_FIELD_NAME ).
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( GeneratorUtil.ID_FIELD_NAME ).
       addModifiers( Modifier.FINAL ).
-      returns( TypeName.LONG ).
-      addStatement( "return this.$N", GeneratorUtil.ID_FIELD_NAME ).build();
+      returns( TypeName.LONG );
+
+    if ( !hasRepository() )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      if ( _nameIncludesId )
+      {
+        block.beginControlFlow(
+          "if ( $T.shouldCheckInvariants() && !$T.areNamesEnabled() && !$T.areNativeComponentsEnabled() )",
+          GeneratorUtil.AREZ_CLASSNAME,
+          GeneratorUtil.AREZ_CLASSNAME,
+          GeneratorUtil.AREZ_CLASSNAME );
+      }
+      else
+      {
+        block.beginControlFlow( "if ( $T.shouldCheckInvariants() && !$T.areNativeComponentsEnabled() )",
+                                GeneratorUtil.AREZ_CLASSNAME,
+                                GeneratorUtil.AREZ_CLASSNAME );
+      }
+      block.addStatement( "$T.fail( () -> \"Method invoked to access id when id not expected.\" )",
+                          GeneratorUtil.GUARDS_CLASSNAME );
+      block.endControlFlow();
+
+      method.addCode( block.build() );
+    }
+
+    return method.addStatement( "return this.$N", GeneratorUtil.ID_FIELD_NAME ).build();
   }
 
   /**
@@ -2382,7 +2407,29 @@ final class ComponentDescriptor
     // Synthesize Id if required
     if ( null == _componentId )
     {
-      builder.addStatement( "this.$N = $N++", GeneratorUtil.ID_FIELD_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
+      if ( _nameIncludesId )
+      {
+        if ( hasRepository() )
+        {
+          builder.addStatement( "this.$N = $N++", GeneratorUtil.ID_FIELD_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
+        }
+        else
+        {
+          builder.addStatement(
+            "this.$N = ( $T.areNativeComponentsEnabled() || $T.areNativeComponentsEnabled() ) ? $N++ : 0L",
+            GeneratorUtil.ID_FIELD_NAME,
+            GeneratorUtil.AREZ_CLASSNAME,
+            GeneratorUtil.AREZ_CLASSNAME,
+            GeneratorUtil.NEXT_ID_FIELD_NAME );
+        }
+      }
+      else
+      {
+        builder.addStatement( "this.$N = $T.areNativeComponentsEnabled() ? $N++ : 0L",
+                              GeneratorUtil.ID_FIELD_NAME,
+                              GeneratorUtil.AREZ_CLASSNAME,
+                              GeneratorUtil.NEXT_ID_FIELD_NAME );
+      }
     }
     builder.addStatement( "this.$N = $T.COMPONENT_INITIALIZED",
                           GeneratorUtil.STATE_FIELD_NAME,
