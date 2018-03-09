@@ -233,6 +233,7 @@ public final class CollectBuildStats
   private static void archiveOutput( @Nonnull final Path archiveDir )
   {
     archiveDirectory( FileUtil.getCurrentDirectory().resolve( "target/assets" ), archiveDir.resolve( "assets" ) );
+    archiveDirectory( FileUtil.getCurrentDirectory().resolve( "target/gwt_compile_reports" ), archiveDir.resolve( "compileReports" ) );
   }
 
   private static void archiveDirectory( @Nonnull final Path assetsDir, @Nonnull final Path targetDir )
