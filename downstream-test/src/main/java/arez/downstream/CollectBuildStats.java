@@ -254,6 +254,7 @@ public final class CollectBuildStats
   {
     final OrderedProperties properties = new OrderedProperties();
     properties.setProperty( "todomvc.size", String.valueOf( getTodoMvcSize() ) );
+    properties.setProperty( "todomvc.gz.size", String.valueOf( getTodoMvcGzSize() ) );
 
     final Path statisticsFile = archiveDir.resolve( "statistics.properties" );
     Gir.messenger().info( "Archiving statistics to " + statisticsFile + "." );
@@ -283,6 +284,11 @@ public final class CollectBuildStats
   private static long getTodoMvcSize()
   {
     return getFileSize( "target/generated/gwt/react4j.todomvc.TodomvcProd/todomvc/todomvc.nocache.js" );
+  }
+
+  private static long getTodoMvcGzSize()
+  {
+    return getFileSize( "target/generated/gwt/react4j.todomvc.TodomvcProd/todomvc/todomvc.nocache.js.gz" );
   }
 
   private static long getFileSize( @Nonnull final String filename )
