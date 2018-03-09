@@ -25,6 +25,7 @@ public class BuildOutputTest
     // Assert no Zone cruft is enabled as !Arez.areZonesEnabled() in the build
     index.assertNoClassNameMatches( "arez\\.Zone" );
     index.assertNoMemberMatches( ".*\\.Arez_.*", "$$arezi$$_context" );
+    index.assertNoMemberMatches( "arez\\.Node", "_context" );
 
     // Assert no Component cruft is enabled as !Arez.areNativeComponentsEnabled() in the build
     index.assertNoClassNameMatches( "arez\\.Component.*" );
