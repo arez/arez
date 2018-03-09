@@ -162,6 +162,12 @@ public final class CollectBuildStats
               Gir.messenger().info( "Branch " + branch + " not rebuilt as no modifications made." );
               Git.checkout( branch );
               Git.deleteBranch( newBranch );
+              /*
+               * We copy the before build to after directory as later steps will perform further analysis
+               * so we need to have the build on the filesystem.
+               */
+              FileUtil.copyDirectory( getArchiveDir( workingDirectory, branch + ".before" ),
+                                      getArchiveDir( workingDirectory, branch + ".after" ) );
             }
           } );
         } );
