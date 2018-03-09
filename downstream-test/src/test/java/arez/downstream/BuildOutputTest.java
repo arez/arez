@@ -24,6 +24,13 @@ public class BuildOutputTest
 
     // Assert no Zone cruft is enabled as !Arez.areZonesEnabled() in the build
     index.assertNoClassNameMatches( "arez\\.Zone" );
+    index.assertNoMemberMatches( "arez\\.Arez", "createZone" );
+    index.assertNoMemberMatches( "arez\\.Arez", "activateZone" );
+    index.assertNoMemberMatches( "arez\\.Arez", "deactivateZone" );
+    index.assertNoMemberMatches( "arez\\.Arez", "currentZone" );
+    index.assertNoMemberMatches( "arez\\.Arez", "c_defaultZone" );
+    index.assertNoMemberMatches( "arez\\.Arez", "c_zone" );
+    index.assertNoMemberMatches( "arez\\.Arez", "c_zoneStack" );
     index.assertNoMemberMatches( ".*\\.Arez_.*", "$$arezi$$_context" );
     index.assertNoMemberMatches( "arez\\.Node", "_context" );
 
@@ -39,6 +46,9 @@ public class BuildOutputTest
 
     // This should never appear as it is not meant to be GWT compiled
     index.assertNoClassNameMatches( "arez\\.ArezTestUtil" );
+    index.assertNoMemberMatches( "arez\\.Arez", "reset" );
+    index.assertNoMemberMatches( "arez\\.Arez", "getDefaultZone" );
+    index.assertNoMemberMatches( "arez\\.Arez", "getZoneStack" );
 
     // This should be optimized out completely
     index.assertNoClassNameMatches( "arez\\.ArezConfig" );
