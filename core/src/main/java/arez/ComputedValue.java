@@ -60,7 +60,7 @@ public final class ComputedValue<T>
    */
   private boolean _disposed;
 
-  ComputedValue( @Nonnull final ArezContext context,
+  ComputedValue( @Nullable final ArezContext context,
                  @Nullable final Component component,
                  @Nullable final String name,
                  @Nonnull final SafeFunction<T> function,
@@ -79,7 +79,7 @@ public final class ComputedValue<T>
     _equalityComparator = Objects.requireNonNull( equalityComparator );
     _value = null;
     _computing = false;
-    _observer = new Observer( context,
+    _observer = new Observer( Arez.areZonesEnabled() ? context : null,
                               null,
                               Arez.areNamesEnabled() ? getName() : null,
                               this,

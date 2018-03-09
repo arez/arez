@@ -444,7 +444,7 @@ public final class ArezContext
                                                    final boolean highPriority )
   {
     final ComputedValue<T> computedValue =
-      new ComputedValue<>( this,
+      new ComputedValue<>( Arez.areZonesEnabled() ? this : null,
                            component,
                            generateNodeName( "ComputedValue", name ),
                            function,
@@ -592,7 +592,7 @@ public final class ArezContext
                         final boolean highPriority,
                         final boolean runImmediately )
   {
-    return new Watcher( this,
+    return new Watcher( Arez.areZonesEnabled() ? this : null,
                         component,
                         generateNodeName( "When", name ),
                         mutation,
@@ -844,7 +844,7 @@ public final class ArezContext
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =
-      new Observer( this,
+      new Observer( Arez.areZonesEnabled() ? this : null,
                     component,
                     generateNodeName( "Observer", name ),
                     null,
@@ -918,7 +918,12 @@ public final class ArezContext
                                              @Nullable final PropertyMutator<T> mutator )
   {
     final Observable<T> observable =
-      new Observable<>( this, component, generateNodeName( "Observable", name ), null, accessor, mutator );
+      new Observable<>( Arez.areZonesEnabled() ? this : null,
+                        component,
+                        generateNodeName( "Observable", name ),
+                        null,
+                        accessor,
+                        mutator );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObservableCreatedEvent( new ObservableInfoImpl( getSpy(), observable ) ) );

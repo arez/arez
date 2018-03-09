@@ -20,7 +20,7 @@ public abstract class Node
   /**
    * Reference to the system to which this node belongs.
    */
-  @Nonnull
+  @Nullable
   private final ArezContext _context;
   /**
    * A human consumable name for node. It should be non-null if {@link Arez#areNamesEnabled()} returns
@@ -29,14 +29,19 @@ public abstract class Node
   @Nullable
   private final String _name;
 
-  Node( @Nonnull final ArezContext context, @Nullable final String name )
+  Node( @Nullable final ArezContext context, @Nullable final String name )
   {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      apiInvariant( () -> Arez.areZonesEnabled() || null == context,
+                    () -> "Arez-0180: Node passed a context but Arez.areZonesEnabled() is false" );
+    }
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> Arez.areNamesEnabled() || null == name,
                     () -> "Arez-0052: Node passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
     }
-    _context = Objects.requireNonNull( context );
+    _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
   }
 
@@ -62,7 +67,7 @@ public abstract class Node
   @Nonnull
   final ArezContext getContext()
   {
-    return _context;
+    return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
 
   /**

@@ -5,6 +5,9 @@
 #### Changed
 * **\[processor\]** Re-arrange the generated code so that the GWT compiler can eliminate the static `nextId`
   field in generated classes if it is not actually used.
+* **\[core\]** Rework `arez.Node` so that the context is derived from the singleton context unless the
+  `Arez.areZonesEnabled()` method returns true. This reduces the size of data stored for each reactive component
+  in the system.
 
 ### [v0.66](https://github.com/arez/arez/tree/v0.66) (2018-03-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.65...v0.66)

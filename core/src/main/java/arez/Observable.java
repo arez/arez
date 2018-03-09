@@ -89,7 +89,7 @@ public final class Observable<T>
   @Nullable
   private final PropertyMutator<T> _mutator;
 
-  Observable( @Nonnull final ArezContext context,
+  Observable( @Nullable final ArezContext context,
               @Nullable final Component component,
               @Nullable final String name,
               @Nullable final Observer owner,

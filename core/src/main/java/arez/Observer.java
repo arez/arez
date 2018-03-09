@@ -107,7 +107,7 @@ public final class Observer
    */
   private boolean _disposing;
 
-  Observer( @Nonnull final ArezContext context,
+  Observer( @Nullable final ArezContext context,
             @Nullable final Component component,
             @Nullable final String name,
             @Nullable final ComputedValue<?> computedValue,

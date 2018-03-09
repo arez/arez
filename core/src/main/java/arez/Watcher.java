@@ -44,7 +44,7 @@ final class Watcher
    * @param effect         The procedure that is executed when the condition is true.
    * @param runImmediately True if condition should be scheduled immediately.
    */
-  Watcher( @Nonnull final ArezContext context,
+  Watcher( @Nullable final ArezContext context,
            @Nullable final Component component,
            @Nullable final String name,
            final boolean mutation,

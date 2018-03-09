@@ -1,6 +1,5 @@
 package arez;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -12,7 +11,7 @@ public class NodeTest
   static class TestNode
     extends Node
   {
-    TestNode( @Nonnull final ArezContext context,
+    TestNode( @Nullable final ArezContext context,
               @Nullable final String name )
     {
       super( context, name );
@@ -73,5 +72,20 @@ public class NodeTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0052: Node passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
+  }
+
+  @Test
+  public void contextSuppliedWhenZonesDisabled()
+    throws Exception
+  {
+    ArezTestUtil.disableZones();
+
+    final ArezContext context = new ArezContext();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> new TestNode( context, ValueUtil.randomString() ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0180: Node passed a context but Arez.areZonesEnabled() is false" );
   }
 }
