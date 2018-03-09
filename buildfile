@@ -300,6 +300,7 @@ define 'arez' do
         repositories.release_to = local_test_repository_url
         projects_to_upload.each do |prj|
           prj.packages.each do |pkg|
+            # Install version into local repository
             pkg.upload
           end
         end
