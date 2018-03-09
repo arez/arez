@@ -93,6 +93,8 @@ public final class CollectBuildStats
             boolean initialBuildSuccess = false;
             try
             {
+              customizeBuildr( appDirectory, localRepositoryUrl );
+
               final String prefix = branch + ".before";
               final Path archiveDir = getArchiveDir( workingDirectory, prefix );
               buildAndRecordStatistics( archiveDir );
@@ -110,15 +112,7 @@ public final class CollectBuildStats
             if ( Buildr.patchBuildYmlDependency( appDirectory, "org.realityforge.arez", version ) )
             {
               Gir.messenger().info( "Building branch " + branch + " after modifications." );
-              try
-              {
-                final String content = "repositories.remote.unshift('" + localRepositoryUrl + "')\n";
-                Files.write( appDirectory.resolve( "_buildr.rb" ), content.getBytes() );
-              }
-              catch ( final IOException ioe )
-              {
-                Gir.messenger().error( "Failed to emit _buildr.rb configuration file.", ioe );
-              }
+              customizeBuildr( appDirectory, localRepositoryUrl );
 
               final String prefix = branch + ".after";
               final Path archiveDir = getArchiveDir( workingDirectory, prefix );
@@ -184,6 +178,19 @@ public final class CollectBuildStats
         writeProperties( path, fixtureStatistics );
       }
     } );
+  }
+
+  private static void customizeBuildr( @Nonnull final Path appDirectory, @Nonnull final String localRepositoryUrl )
+  {
+    try
+    {
+      final String content = "repositories.remote.unshift('" + localRepositoryUrl + "')\n";
+      Files.write( appDirectory.resolve( "_buildr.rb" ), content.getBytes() );
+    }
+    catch ( final IOException ioe )
+    {
+      Gir.messenger().error( "Failed to emit _buildr.rb configuration file.", ioe );
+    }
   }
 
   @Nonnull
