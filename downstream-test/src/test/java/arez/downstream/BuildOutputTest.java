@@ -42,6 +42,9 @@ public class BuildOutputTest
     // Assert no Transaction validation cruft is enabled as !Arez.shouldEnforceTransactionType() in the build
     index.assertNoClassNameMatches( "arez\\.TransactionMode" );
 
+    // Assert RepositoryUtil is eliminated once !Arez.areRepositoryResultsModifiable() in the build
+    index.assertNoClassNameMatches( "arez\\.component\\.RepositoryUtil" );
+
     // !Arez.areNamesEnabled in the build
     index.assertNoClassNameMatches( "arez\\.ThrowableUtil" );
     index.assertNoMemberMatches( ".*\\.Arez_.*Repository", "getRepositoryName" );
