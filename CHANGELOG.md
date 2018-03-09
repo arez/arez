@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Fixed
+* The `ArezTestUtil.checkApiInvariants()` and `ArezTestUtil.noCheckApiInvariants()` were incorrectly setting
+  the `checkInvariants` flag rather than the `checkApiInvariants` flag.
+
 #### Changed
 * **\[processor\]** Re-arrange the generated code so that the GWT compiler can eliminate the static `nextId`
   field in generated classes if it is not actually used.

@@ -332,7 +332,7 @@ public final class ArezTestUtil
    */
   public static void checkApiInvariants()
   {
-    setCheckInvariants( true );
+    setCheckApiInvariants( true );
   }
 
   /**
@@ -340,7 +340,7 @@ public final class ArezTestUtil
    */
   public static void noCheckApiInvariants()
   {
-    setCheckInvariants( false );
+    setCheckApiInvariants( false );
   }
 
   /**
