@@ -41,6 +41,7 @@ public class BuildOutputTest
 
     // This pattern should apply if nameIncludeId is false (or @Singleton present), no @Repository annotation and !Arez.areNativeComponentsEnabled()
     index.assertNoMemberMatches( "arez\\.browser\\.extras\\.Arez_BrowserLocation", "$$arezi$$_id" );
+    index.assertNoMemberMatches( "arez\\.browser\\.extras\\.Arez_BrowserLocation", "$$arezi$$_nextId" );
   }
 
   @Nonnull
