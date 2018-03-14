@@ -49,27 +49,85 @@ public final class SymbolEntryIndex
    * Verify no entry for ClassName exists in index.
    * If a match is found then fail assertion error.
    *
-   * @param pattern the pattern
+   * @param classNamePattern the pattern
    */
-  public void assertNoClassNameMatches( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String pattern )
+  public void assertNoClassNameMatches( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String classNamePattern )
   {
-    assertNoClassNameMatches( Pattern.compile( "^" + pattern + "$" ) );
+    assertNoClassNameMatches( Pattern.compile( "^" + classNamePattern + "$" ) );
   }
 
   /**
    * Verify no entry for ClassName exists in index.
    * If a match is found then fail assertion error.
    *
-   * @param pattern the pattern
+   * @param classNamePattern the pattern
    */
-  public void assertNoClassNameMatches( @Nonnull final Pattern pattern )
+  public void assertNoClassNameMatches( @Nonnull final Pattern classNamePattern )
   {
-    final List<String> matches =
-      _classNameToEntry.keySet().stream().filter( n -> pattern.matcher( n ).matches() ).collect( Collectors.toList() );
+    final List<String> matches = findSymbolsByClassName( classNamePattern );
     if ( !matches.isEmpty() )
     {
-      fail( "Expected that the SymbolMap would have no classNames that match pattern " + pattern +
+      fail( "Expected that the SymbolMap would have no classNames that match pattern " + classNamePattern +
             " but the following classNames match: " + matches );
+    }
+  }
+
+  /**
+   * Verify that a symbol is either present or not present based on present parameter.
+   *
+   * @param classNamePattern the pattern to match className.
+   * @param present          true if member is expected to be present, false otherwise.
+   */
+  public void assertSymbol( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String classNamePattern,
+                            final boolean present )
+  {
+    assertSymbol( Pattern.compile( "^" + classNamePattern + "$" ),
+                  present );
+  }
+
+  /**
+   * Verify that a symbol is either present or not present based on present parameter.
+   *
+   * @param classNamePattern the pattern to match className.
+   * @param present          true if member is expected to be present, false otherwise.
+   */
+  public void assertSymbol( @Nonnull final Pattern classNamePattern,
+                            final boolean present )
+  {
+    if ( present )
+    {
+      assertClassNameMatches( classNamePattern );
+    }
+    else
+    {
+      assertNoClassNameMatches( classNamePattern );
+    }
+  }
+
+  /**
+   * Verify at least one entry for ClassName exists in index.
+   * If no matches are found then fail assertion error.
+   *
+   * @param classNamePattern the pattern
+   */
+  public void assertClassNameMatches( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String classNamePattern )
+  {
+    assertClassNameMatches( Pattern.compile( "^" + classNamePattern + "$" ) );
+  }
+
+  /**
+   * Verify at least one entry for ClassName exists in index.
+   * If no matches are found then fail assertion error.
+   *
+   * @param classNamePattern the pattern
+   */
+  public void assertClassNameMatches( @Nonnull final Pattern classNamePattern )
+  {
+    final List<String> matches = findSymbolsByClassName( classNamePattern );
+    if ( matches.isEmpty() )
+    {
+      fail( "Expected that the SymbolMap would have at least one classname that matches className " +
+            "pattern " + classNamePattern + "." );
     }
   }
 
@@ -142,11 +200,11 @@ public final class SymbolEntryIndex
    * @param memberNamePattern the pattern to match member name.
    * @param present           true if member is expected to be present, false otherwise.
    */
-  public void assertMember( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String classNamePattern,
+  public void assertSymbol( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String classNamePattern,
                             @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String memberNamePattern,
                             final boolean present )
   {
-    assertMember( Pattern.compile( "^" + classNamePattern + "$" ),
+    assertSymbol( Pattern.compile( "^" + classNamePattern + "$" ),
                   Pattern.compile( "^" + memberNamePattern + "$" ),
                   present );
   }
@@ -158,7 +216,7 @@ public final class SymbolEntryIndex
    * @param memberNamePattern the pattern to match member name.
    * @param present           true if member is expected to be present, false otherwise.
    */
-  public void assertMember( @Nonnull final Pattern classNamePattern,
+  public void assertSymbol( @Nonnull final Pattern classNamePattern,
                             @Nonnull final Pattern memberNamePattern,
                             final boolean present )
   {
@@ -173,7 +231,34 @@ public final class SymbolEntryIndex
   }
 
   /**
-   * Find members by classname pattern and member pattern.
+   * Find symbols by classname pattern and member pattern.
+   *
+   * @param classNamePattern the pattern to match className.
+   * @return the SymbolEntry instances that match.
+   */
+  @Nonnull
+  public List<String> findSymbolsByClassName( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String classNamePattern )
+  {
+    return findSymbolsByClassName( Pattern.compile( "^" + classNamePattern + "$" ) );
+  }
+
+  /**
+   * Find symbols by classname pattern and member pattern.
+   *
+   * @param classNamePattern the pattern to match className.
+   * @return the SymbolEntry instances that match.
+   */
+  @Nonnull
+  public List<String> findSymbolsByClassName( @Nonnull final Pattern classNamePattern )
+  {
+    return _classNameToEntry.keySet()
+      .stream()
+      .filter( n -> classNamePattern.matcher( n ).matches() )
+      .collect( Collectors.toList() );
+  }
+
+  /**
+   * Find symbols by classname pattern and member pattern.
    *
    * @param classNamePattern  the pattern to match className.
    * @param memberNamePattern the pattern to match member name.
