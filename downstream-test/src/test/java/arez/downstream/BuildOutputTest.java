@@ -19,7 +19,7 @@ public class BuildOutputTest
 
     final SymbolEntryIndex index = SymbolEntryIndex.readSymbolMapIntoIndex( getSymbolMapPath( build ) );
 
-    ArezBuildAsserts.assertArezOutputs( index, false, false, false, false, false, false );
+    ArezBuildAsserts.assertArezOutputs( index, false, false, false, false, false, false, false );
 
     // This pattern should apply if nameIncludeId is false (or @Singleton present), no @Repository annotation and !Arez.areNativeComponentsEnabled()
     ArezBuildAsserts.assertSyntheticId( index, "arez\\.browser\\.extras\\.Arez_BrowserLocation", false );

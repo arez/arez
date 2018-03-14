@@ -47,6 +47,14 @@ public final class ArezBuildAsserts
     index.assertSymbol( ".*\\.Arez_.*", "toString", enabled );
   }
 
+  public static void assertAreRegistriesEnabled( @Nonnull final SymbolEntryIndex index,
+                                                 final boolean enabled )
+  {
+    index.assertSymbol( "arez\\.ArezContext", "_observables", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "_computedValues", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "_observers", enabled );
+  }
+
   public static void assertSpyOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
   {
     // Assert Spy files are either present or not present based on spiesEnabled parameter
@@ -92,6 +100,7 @@ public final class ArezBuildAsserts
                                         final boolean areNamesEnabled,
                                         final boolean areSpiesEnabled,
                                         final boolean areNativeComponentsEnabled,
+                                        final boolean areRegistriesEnabled,
                                         final boolean areZonesEnabled,
                                         final boolean shouldEnforceTransactionType,
                                         final boolean areRepositoryResultsModifiable )
@@ -100,6 +109,7 @@ public final class ArezBuildAsserts
     assertAreNamesEnabled( index, areNamesEnabled );
     assertSpyOutputs( index, areSpiesEnabled );
     assertNativeComponentOutputs( index, areNativeComponentsEnabled );
+    assertAreRegistriesEnabled( index, areRegistriesEnabled );
     assertZoneOutputs( index, areZonesEnabled );
     assertShouldEnforceTransactionTypeOutputs( index, shouldEnforceTransactionType );
     assertAreRepositoryResultsModifiableOutputs( index, areRepositoryResultsModifiable );
