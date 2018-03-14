@@ -1,5 +1,6 @@
 package arez.downstream;
 
+import arez.downstream.util.SymbolEntryIndex;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

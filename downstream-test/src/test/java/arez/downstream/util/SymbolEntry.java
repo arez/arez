@@ -1,4 +1,4 @@
-package arez.downstream;
+package arez.downstream.util;
 
 import com.csvreader.CsvReader;
 import java.io.BufferedReader;
