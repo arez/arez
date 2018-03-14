@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.intellij.lang.annotations.RegExp;
 import static org.testng.Assert.*;
 
@@ -189,5 +190,22 @@ final class SymbolEntryIndex
                     e.getValue().stream().anyMatch( s -> memberNamePattern.matcher( s.getMemberName() ).matches() ) )
       .flatMap( e -> e.getValue().stream() )
       .collect( Collectors.toList() );
+  }
+
+  /**
+   * Find symbol by jsni identifier.
+   *
+   * @param jsniIdentifier the JSNI identifier.
+   * @return the SymbolEntry instance that matches if any.
+   */
+  @Nullable
+  public SymbolEntry findByJsniIdentifier( @Nonnull final String jsniIdentifier )
+  {
+    return _classNameToEntry
+      .entrySet()
+      .stream()
+      .flatMap( e -> e.getValue().stream().filter( s -> s.getJsniIdent().equals( jsniIdentifier ) ) )
+      .findAny()
+      .orElse( null );
   }
 }
