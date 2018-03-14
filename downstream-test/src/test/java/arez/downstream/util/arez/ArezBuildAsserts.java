@@ -38,6 +38,16 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.component\\.RepositoryUtil", enabled );
   }
 
+  public static void assertAreObserverErrorHandlersEnabledOutputs( @Nonnull final SymbolEntryIndex index,
+                                                                   final boolean enabled )
+  {
+    index.assertSymbol( "arez\\.ObserverErrorHandler", enabled );
+    index.assertSymbol( "arez\\.ObserverErrorHandlerSupport", enabled );
+    // This is actually only elided when both Spy and ObserverErrorHandler are both disabled but mostly
+    // if observer error handlers are disabled then spies are disabled so adding this assertion here
+    index.assertSymbol( "arez\\.ObserverError", enabled );
+  }
+
   public static void assertAreNamesEnabled( @Nonnull final SymbolEntryIndex index,
                                             final boolean enabled )
   {
@@ -101,6 +111,7 @@ public final class ArezBuildAsserts
                                         final boolean areSpiesEnabled,
                                         final boolean areNativeComponentsEnabled,
                                         final boolean areRegistriesEnabled,
+                                        final boolean areObserverErrorHandlersEnabled,
                                         final boolean areZonesEnabled,
                                         final boolean shouldEnforceTransactionType,
                                         final boolean areRepositoryResultsModifiable )

@@ -48,8 +48,9 @@ public final class ArezContext
   /**
    * Support infrastructure for propagating observer errors.
    */
-  @Nonnull
-  private final ObserverErrorHandlerSupport _observerErrorHandlerSupport = new ObserverErrorHandlerSupport();
+  @Nullable
+  private final ObserverErrorHandlerSupport _observerErrorHandlerSupport =
+    Arez.areObserverErrorHandlersEnabled() ? new ObserverErrorHandlerSupport() : null;
   /**
    * Support infrastructure for supporting spy events.
    */
@@ -1936,23 +1937,37 @@ public final class ArezContext
 
   /**
    * Add error handler to the list of error handlers called.
-   * The handler should not already be in the list.
+   * The handler should not already be in the list. This method should NOT be called if
+   * {@link Arez#areObserverErrorHandlersEnabled()} returns false.
    *
    * @param handler the error handler.
    */
   public void addObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areObserverErrorHandlersEnabled,
+                 () -> "Arez-0182: ArezContext.addObserverErrorHandler() invoked when Arez.areObserverErrorHandlersEnabled() returns false." );
+    }
+    assert null != _observerErrorHandlerSupport;
     _observerErrorHandlerSupport.addObserverErrorHandler( handler );
   }
 
   /**
    * Remove error handler from list of existing error handlers.
-   * The handler should already be in the list.
+   * The handler should already be in the list. This method should NOT be called if
+   * {@link Arez#areObserverErrorHandlersEnabled()} returns false.
    *
    * @param handler the error handler.
    */
   public void removeObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areObserverErrorHandlersEnabled,
+                 () -> "Arez-0181: ArezContext.removeObserverErrorHandler() invoked when Arez.areObserverErrorHandlersEnabled() returns false." );
+    }
+    assert null != _observerErrorHandlerSupport;
     _observerErrorHandlerSupport.removeObserverErrorHandler( handler );
   }
 
@@ -1971,7 +1986,11 @@ public final class ArezContext
     {
       getSpy().reportSpyEvent( new ObserverErrorEvent( new ObserverInfoImpl( getSpy(), observer ), error, throwable ) );
     }
-    _observerErrorHandlerSupport.onObserverError( observer, error, throwable );
+    if ( Arez.areObserverErrorHandlersEnabled() )
+    {
+      assert null != _observerErrorHandlerSupport;
+      _observerErrorHandlerSupport.onObserverError( observer, error, throwable );
+    }
   }
 
   /**
@@ -2152,6 +2171,7 @@ public final class ArezContext
   @Nonnull
   ObserverErrorHandlerSupport getObserverErrorHandlerSupport()
   {
+    assert null != _observerErrorHandlerSupport;
     return _observerErrorHandlerSupport;
   }
 

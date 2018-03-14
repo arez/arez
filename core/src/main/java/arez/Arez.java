@@ -90,6 +90,16 @@ public final class Arez
   }
 
   /**
+   * Return true if observer error handlers are enabled.
+   *
+   * @return true if observer error handlers are enabled, false otherwise.
+   */
+  public static boolean areObserverErrorHandlersEnabled()
+  {
+    return ArezConfig.areObserverErrorHandlersEnabled();
+  }
+
+  /**
    * Return true if Arez should enforce transaction modes.
    *
    * @return true if Arez should enforce transaction modes.

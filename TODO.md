@@ -65,9 +65,6 @@ type RemoteData e a
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
-* Add setting that can be set to disable observer errors. In this case `ObserverErrorHandlerSupport` and related
-  infrastructure should be stripped out of the build bundle.
-
 * Enhance WhyRun and write tests for it.
 
 * Introduce DevTools and document. Somewhat inspired by

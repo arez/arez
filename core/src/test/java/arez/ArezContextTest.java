@@ -1374,6 +1374,35 @@ public class ArezContextTest
   }
 
   @Test
+  public void addObserverErrorHandler_whenDisabled()
+    throws Exception
+  {
+    ArezTestUtil.disableObserverErrorHandlers();
+
+    final ArezContext context = new ArezContext();
+
+    final ObserverErrorHandler handler = ( o, e, t ) -> {
+    };
+
+    assertThrowsWithMessage( () -> context.addObserverErrorHandler( handler ),
+                             "Arez-0182: ArezContext.addObserverErrorHandler() invoked when Arez.areObserverErrorHandlersEnabled() returns false." );
+  }
+
+  @Test
+  public void removeObserverErrorHandler_whenDisabled()
+    throws Exception
+  {
+    ArezTestUtil.disableObserverErrorHandlers();
+
+    final ArezContext context = new ArezContext();
+
+    final ObserverErrorHandler handler = ( o, e, t ) -> {
+    };
+
+    assertThrowsWithMessage( () -> context.removeObserverErrorHandler( handler ),
+                             "Arez-0181: ArezContext.removeObserverErrorHandler() invoked when Arez.areObserverErrorHandlersEnabled() returns false." );
+  }
+  @Test
   public void getSpy_whenSpiesDisabled()
     throws Exception
   {

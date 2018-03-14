@@ -2,6 +2,14 @@
 
 ### Unreleased
 
+#### Added
+* **\[core\]** Add the build time configuration setting `arez.enable_observer_error_handlers` and default
+  it to `true`. Expose the setting as `Arez.areObserverErrorHandlersEnabled()` and update the testing
+  infrastructure in the class `ArezTestUtil` to add support for configuring the setting during tests.
+  Added assertions to `ArezBuildAsserts` to verify that the `ObserverErrorHandler` classes are stripped
+  out of the GWT compiled output when setting is set to `false`. This resulted in a marginally smaller
+  output size if the setting is set to `false`.
+
 #### Changed
 * The `BuildOutputTest` test has been significantly enhanced to ensure that the result of GWT compilation
   does not include unexpected outputs.

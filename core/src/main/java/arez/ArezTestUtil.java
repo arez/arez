@@ -57,6 +57,7 @@ public final class ArezTestUtil
       checkInvariants();
       checkApiInvariants();
     }
+    enableObserverErrorHandlers();
     purgeReactionsWhenRunawayDetected();
     disableZones();
 
@@ -299,6 +300,32 @@ public final class ArezTestUtil
   private static void setEnableRegistries( final boolean value )
   {
     setConstant( "ENABLE_REGISTRIES", value );
+  }
+
+  /**
+   * Set `arez.enable_observer_error_handlers` setting to true.
+   */
+  public static void enableObserverErrorHandlers()
+  {
+    setEnableObserverErrorHandlers( true );
+  }
+
+  /**
+   * Set `arez.enable_observer_error_handlers` setting to false.
+   */
+  public static void disableObserverErrorHandlers()
+  {
+    setEnableObserverErrorHandlers( false );
+  }
+
+  /**
+   * Configure the `arez.enable_observer_error_handlers` setting.
+   *
+   * @param value the setting.
+   */
+  private static void setEnableObserverErrorHandlers( final boolean value )
+  {
+    setConstant( "ENABLE_OBSERVER_ERROR_HANDLERS", value );
   }
 
   /**
