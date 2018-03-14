@@ -1348,7 +1348,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void reportObserverError_when_spyEventHandler_PResent()
+  public void reportObserverError_when_spyEventHandler_present()
     throws Exception
   {
     final ArezContext context = new ArezContext();
