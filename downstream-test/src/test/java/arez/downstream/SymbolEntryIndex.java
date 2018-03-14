@@ -17,7 +17,7 @@ import static org.testng.Assert.*;
  * Index into which symbolMap can be loadded and assertions invoked on contents of index.
  */
 @SuppressWarnings( "WeakerAccess" )
-final class SymbolEntryIndex
+public final class SymbolEntryIndex
 {
   private final HashMap<String, ArrayList<SymbolEntry>> _classNameToEntry = new HashMap<>();
 
@@ -30,7 +30,7 @@ final class SymbolEntryIndex
    * @throws ParseException if there is an error parsing file.
    */
   @Nonnull
-  static SymbolEntryIndex readSymbolMapIntoIndex( @Nonnull final Path symbolMapPath )
+  public static SymbolEntryIndex readSymbolMapIntoIndex( @Nonnull final Path symbolMapPath )
     throws IOException, ParseException
   {
     final SymbolEntryIndex index = new SymbolEntryIndex();
@@ -51,7 +51,7 @@ final class SymbolEntryIndex
    *
    * @param pattern the pattern
    */
-  void assertNoClassNameMatches( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String pattern )
+  public void assertNoClassNameMatches( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String pattern )
   {
     assertNoClassNameMatches( Pattern.compile( "^" + pattern + "$" ) );
   }
@@ -62,7 +62,7 @@ final class SymbolEntryIndex
    *
    * @param pattern the pattern
    */
-  void assertNoClassNameMatches( @Nonnull final Pattern pattern )
+  public void assertNoClassNameMatches( @Nonnull final Pattern pattern )
   {
     final List<String> matches =
       _classNameToEntry.keySet().stream().filter( n -> pattern.matcher( n ).matches() ).collect( Collectors.toList() );

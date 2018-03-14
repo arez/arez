@@ -14,7 +14,7 @@ import static org.testng.Assert.*;
 /**
  * Represents a symbol in the GWT output.
  */
-final class SymbolEntry
+public final class SymbolEntry
 {
   @Nonnull
   private final String _jsName;
@@ -110,43 +110,43 @@ final class SymbolEntry
   }
 
   @Nonnull
-  String getJsName()
+  public String getJsName()
   {
     return _jsName;
   }
 
   @Nonnull
-  String getJsniIdent()
+  public String getJsniIdent()
   {
     return _jsniIdent;
   }
 
   @Nonnull
-  String getClassName()
+  public String getClassName()
   {
     return _className;
   }
 
   @Nonnull
-  String getMemberName()
+  public String getMemberName()
   {
     return _memberName;
   }
 
   @Nonnull
-  String getSourceUri()
+  public String getSourceUri()
   {
     return _sourceUri;
   }
 
   @Nonnull
-  String getSourceLine()
+  public String getSourceLine()
   {
     return _sourceLine;
   }
 
   @Nonnull
-  String getFragmentNumber()
+  public String getFragmentNumber()
   {
     return _fragmentNumber;
   }
