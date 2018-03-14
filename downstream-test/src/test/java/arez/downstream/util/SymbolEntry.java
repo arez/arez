@@ -61,22 +61,31 @@ public final class SymbolEntry
   {
     final BufferedReader br = new BufferedReader( new FileReader( path.toFile() ) );
 
-    final int permutationCount = 6;
-    for ( int i = 0; i < permutationCount; i++ )
+    int skippedLines = 0;
+    boolean foundHeaders = false;
+    while ( !foundHeaders )
     {
-      // Read the first 6 lines of symbol map which happen to be all the permutation proeprties
-      // Assume that the following line is the header we care about
-      br.readLine();
+      // Skip the comment start of line
+      assertEquals( br.read(), '#' );
+      assertEquals( br.read(), ' ' );
+      br.mark( 1 );
+      final int ch = br.read();
+      if ( '{' == ch )
+      {
+        br.readLine();
+        skippedLines++;
+      }
+      else
+      {
+        br.reset();
+        foundHeaders = true;
+      }
     }
-    // Skip the comment start of headers line
-    assertEquals( br.read(), '#' );
-    assertEquals( br.read(), ' ' );
 
     final CsvReader reader = new CsvReader( br );
     if ( !reader.readHeaders() )
     {
-      fail( "Failed to find headers in symbolFile " + path + " Skipped " + permutationCount +
-            " permutation lines" );
+      fail( "Failed to find headers in symbolFile " + path + " Skipped " + skippedLines + " permutation lines" );
     }
     checkHeader( reader, 0, "jsName" );
     checkHeader( reader, 1, "jsniIdent" );
