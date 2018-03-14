@@ -79,8 +79,8 @@ final class SymbolEntryIndex
    * @param classNamePattern  the pattern to match className.
    * @param memberNamePattern the pattern to match member name.
    */
-  void assertNoMemberMatches( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String classNamePattern,
-                              @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String memberNamePattern )
+  public void assertNoMemberMatches( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String classNamePattern,
+                                     @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String memberNamePattern )
   {
     assertNoMemberMatches( Pattern.compile( "^" + classNamePattern + "$" ),
                            Pattern.compile( "^" + memberNamePattern + "$" ) );
@@ -93,20 +93,101 @@ final class SymbolEntryIndex
    * @param classNamePattern  the pattern to match className.
    * @param memberNamePattern the pattern to match member name.
    */
-  void assertNoMemberMatches( @Nonnull final Pattern classNamePattern, @Nonnull final Pattern memberNamePattern )
+  public void assertNoMemberMatches( @Nonnull final Pattern classNamePattern, @Nonnull final Pattern memberNamePattern )
   {
-    final List<SymbolEntry> matches =
-      _classNameToEntry
-        .entrySet()
-        .stream()
-        .filter( e -> classNamePattern.matcher( e.getKey() ).matches() &&
-                      e.getValue().stream().anyMatch( s -> memberNamePattern.matcher( s.getMemberName() ).matches() ) )
-        .flatMap( e -> e.getValue().stream() )
-        .collect( Collectors.toList() );
+    final List<SymbolEntry> matches = findMembersByPatterns( classNamePattern, memberNamePattern );
     if ( !matches.isEmpty() )
     {
       fail( "Expected that the SymbolMap would have no members that match: classNamePattern '" + classNamePattern +
             "', memberPattern '" + memberNamePattern + "' but the following entries match: " + matches );
     }
+  }
+
+  /**
+   * Verify at least one member exists in the index that matches patterns.
+   * If a no match is found then fail assertion error.
+   *
+   * @param classNamePattern  the pattern to match className.
+   * @param memberNamePattern the pattern to match member name.
+   */
+  public void assertMemberMatches( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String classNamePattern,
+                                   @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String memberNamePattern )
+  {
+    assertMemberMatches( Pattern.compile( "^" + classNamePattern + "$" ),
+                         Pattern.compile( "^" + memberNamePattern + "$" ) );
+  }
+
+  /**
+   * Verify at least one member exists in the index that matches patterns.
+   * If a no match is found then fail assertion error.
+   *
+   * @param classNamePattern  the pattern to match className.
+   * @param memberNamePattern the pattern to match member name.
+   */
+  public void assertMemberMatches( @Nonnull final Pattern classNamePattern, @Nonnull final Pattern memberNamePattern )
+  {
+    final List<SymbolEntry> matches = findMembersByPatterns( classNamePattern, memberNamePattern );
+    if ( matches.isEmpty() )
+    {
+      fail( "Expected that the SymbolMap would have at least one member that matched: classNamePattern '" +
+            classNamePattern + "', memberPattern '" + memberNamePattern + "' but no entries matched." );
+    }
+  }
+
+  /**
+   * Verify that either a member that matches patterns is either present or not present based on present parameter.
+   *
+   * @param classNamePattern  the pattern to match className.
+   * @param memberNamePattern the pattern to match member name.
+   * @param present           true if member is expected to be present, false otherwise.
+   */
+  public void assertMember( @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String classNamePattern,
+                            @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String memberNamePattern,
+                            final boolean present )
+  {
+    assertMember( Pattern.compile( "^" + classNamePattern + "$" ),
+                  Pattern.compile( "^" + memberNamePattern + "$" ),
+                  present );
+  }
+
+  /**
+   * Verify that either a member that matches patterns is either present or not present based on present parameter.
+   *
+   * @param classNamePattern  the pattern to match className.
+   * @param memberNamePattern the pattern to match member name.
+   * @param present           true if member is expected to be present, false otherwise.
+   */
+  public void assertMember( @Nonnull final Pattern classNamePattern,
+                            @Nonnull final Pattern memberNamePattern,
+                            final boolean present )
+  {
+    if ( present )
+    {
+      assertMemberMatches( classNamePattern, memberNamePattern );
+    }
+    else
+    {
+      assertNoMemberMatches( classNamePattern, memberNamePattern );
+    }
+  }
+
+  /**
+   * Find members by classname pattern and member pattern.
+   *
+   * @param classNamePattern  the pattern to match className.
+   * @param memberNamePattern the pattern to match member name.
+   * @return the SymbolEntry instances that match.
+   */
+  @Nonnull
+  public List<SymbolEntry> findMembersByPatterns( @Nonnull final Pattern classNamePattern,
+                                                  @Nonnull final Pattern memberNamePattern )
+  {
+    return _classNameToEntry
+      .entrySet()
+      .stream()
+      .filter( e -> classNamePattern.matcher( e.getKey() ).matches() &&
+                    e.getValue().stream().anyMatch( s -> memberNamePattern.matcher( s.getMemberName() ).matches() ) )
+      .flatMap( e -> e.getValue().stream() )
+      .collect( Collectors.toList() );
   }
 }
