@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.69](https://github.com/arez/arez/tree/v0.69) (2018-03-14)
+[Full Changelog](https://github.com/arez/arez/compare/v0.68...v0.69)
 
 #### Added
 * **\[core\]** Add the build time configuration setting `arez.enable_observer_error_handlers` and default
