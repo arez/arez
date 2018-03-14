@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Changed
+* The `BuildOutputTest` test has been significantly enhanced to ensure that the result of GWT compilation
+  does not include unexpected outputs.
+
 ### [v0.68](https://github.com/arez/arez/tree/v0.68) (2018-03-09)
 [Full Changelog](https://github.com/arez/arez/compare/v0.67...v0.68)
 
