@@ -1,8 +1,8 @@
 package arez.downstream.util.arez;
 
-import arez.downstream.util.SymbolEntryIndex;
 import javax.annotation.Nonnull;
 import org.intellij.lang.annotations.RegExp;
+import org.realityforge.gwt.symbolmap.SymbolEntryIndex;
 
 public final class ArezBuildAsserts
 {

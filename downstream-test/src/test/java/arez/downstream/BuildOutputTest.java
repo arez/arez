@@ -1,11 +1,11 @@
 package arez.downstream;
 
-import arez.downstream.util.SymbolEntryIndex;
 import arez.downstream.util.arez.ArezBuildAsserts;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import javax.annotation.Nonnull;
+import org.realityforge.gwt.symbolmap.SymbolEntryIndex;
 import org.testng.annotations.Test;
 
 public class BuildOutputTest

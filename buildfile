@@ -279,7 +279,8 @@ define 'arez' do
     compile.with :gir, PROVIDED_DEPS
 
     test.compile.with :javacsv,
-                      :jetbrains_annotations
+                      :jetbrains_annotations,
+                      :gwt_symbolmap
 
     test.options[:properties] =
       AREZ_TEST_OPTIONS.merge(

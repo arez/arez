@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Changed
+* The `BuildOutputTest` test now uses the external library `org.realityforge.gwt.symbolmap:gwt-symbolmap:jar:0.01`
+  that was created by exporting `SymbolEntry` and related classes from this project.
+
 ### [v0.69](https://github.com/arez/arez/tree/v0.69) (2018-03-14)
 [Full Changelog](https://github.com/arez/arez/compare/v0.68...v0.69)
 
