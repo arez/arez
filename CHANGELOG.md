@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.70](https://github.com/arez/arez/tree/v0.70) (2018-03-15)
+[Full Changelog](https://github.com/arez/arez/compare/v0.69...v0.70)
 
 #### Changed
 * The `BuildOutputTest` test now uses the external library `org.realityforge.gwt.symbolmap:gwt-symbolmap:jar:0.02`
