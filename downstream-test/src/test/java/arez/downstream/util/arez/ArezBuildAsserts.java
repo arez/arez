@@ -103,7 +103,6 @@ public final class ArezBuildAsserts
   {
     index.assertSymbol( classNamePattern, "$$arezi$$_id", enabled );
     index.assertSymbol( classNamePattern, "$$arezi$$_nextId", enabled );
-
   }
 
   public static void assertArezOutputs( @Nonnull final SymbolEntryIndex index,
