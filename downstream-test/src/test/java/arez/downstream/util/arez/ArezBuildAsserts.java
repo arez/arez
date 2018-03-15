@@ -4,12 +4,20 @@ import javax.annotation.Nonnull;
 import org.intellij.lang.annotations.RegExp;
 import org.realityforge.gwt.symbolmap.SymbolEntryIndex;
 
+/**
+ * A collection of assertions about the expected symbols present in GWT javascript output.
+ */
 public final class ArezBuildAsserts
 {
   private ArezBuildAsserts()
   {
   }
 
+  /**
+   * This assertion verifies that the standard inlines have occurred.
+   *
+   * @param index the index that contains all symbols for output target.
+   */
   public static void assertStandardOutputs( @Nonnull final SymbolEntryIndex index )
   {
     // This should never appear as it is not meant to be GWT compiled
@@ -24,6 +32,13 @@ public final class ArezBuildAsserts
     index.assertNoMemberMatches( "arez\\.Arez", "$clinit" );
   }
 
+  /**
+   * This assertion verifies that the symbols that are conditional on the `arez.enforce_transaction_type`
+   * setting are present if enabled and not present if not enabled.
+   *
+   * @param index   the index that contains all symbols for output target.
+   * @param enabled true if setting is enabled, false otherwise.
+   */
   public static void assertShouldEnforceTransactionTypeOutputs( @Nonnull final SymbolEntryIndex index,
                                                                 final boolean enabled )
   {
@@ -31,6 +46,13 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.TransactionMode", enabled );
   }
 
+  /**
+   * This assertion verifies that the symbols that are conditional on the `arez.repositories_results_modifiable`
+   * setting are present if enabled and not present if not enabled.
+   *
+   * @param index   the index that contains all symbols for output target.
+   * @param enabled true if setting is enabled, false otherwise.
+   */
   public static void assertAreRepositoryResultsModifiableOutputs( @Nonnull final SymbolEntryIndex index,
                                                                   final boolean enabled )
   {
@@ -38,6 +60,13 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.component\\.RepositoryUtil", enabled );
   }
 
+  /**
+   * This assertion verifies that the symbols that are conditional on the `arez.enable_observer_error_handlers`
+   * setting are present if enabled and not present if not enabled.
+   *
+   * @param index   the index that contains all symbols for output target.
+   * @param enabled true if setting is enabled, false otherwise.
+   */
   public static void assertAreObserverErrorHandlersEnabledOutputs( @Nonnull final SymbolEntryIndex index,
                                                                    final boolean enabled )
   {
@@ -48,15 +77,28 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.ObserverError", enabled );
   }
 
+  /**
+   * This assertion verifies that the symbols that are conditional on the `arez.enable_names`
+   * setting are present if enabled and not present if not enabled.
+   *
+   * @param index   the index that contains all symbols for output target.
+   * @param enabled true if setting is enabled, false otherwise.
+   */
   public static void assertAreNamesEnabled( @Nonnull final SymbolEntryIndex index,
                                             final boolean enabled )
   {
-    // !Arez.areNamesEnabled in the build
     index.assertSymbol( "arez\\.ThrowableUtil", enabled );
     index.assertSymbol( ".*\\.Arez_.*Repository", "getRepositoryName", enabled );
     index.assertSymbol( ".*\\.Arez_.*", "toString", enabled );
   }
 
+  /**
+   * This assertion verifies that the symbols that are conditional on the `arez.enable_registries`
+   * setting are present if enabled and not present if not enabled.
+   *
+   * @param index   the index that contains all symbols for output target.
+   * @param enabled true if setting is enabled, false otherwise.
+   */
   public static void assertAreRegistriesEnabled( @Nonnull final SymbolEntryIndex index,
                                                  final boolean enabled )
   {
@@ -65,14 +107,27 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.ArezContext", "_observers", enabled );
   }
 
+  /**
+   * This assertion verifies that the symbols that are conditional on the `arez.enable_spies`
+   * setting are present if enabled and not present if not enabled.
+   *
+   * @param index   the index that contains all symbols for output target.
+   * @param enabled true if setting is enabled, false otherwise.
+   */
   public static void assertSpyOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
   {
-    // Assert Spy files are either present or not present based on spiesEnabled parameter
     index.assertSymbol( "arez\\.spy\\..*", enabled );
     index.assertSymbol( "arez\\.Spy.*", enabled );
     index.assertSymbol( "arez\\..*InfoImpl", enabled );
   }
 
+  /**
+   * This assertion verifies that the symbols that are conditional on the `arez.enable_zones`
+   * setting are present if enabled and not present if not enabled.
+   *
+   * @param index   the index that contains all symbols for output target.
+   * @param enabled true if setting is enabled, false otherwise.
+   */
   public static void assertZoneOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
   {
 
@@ -86,6 +141,13 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.Node", "_context", enabled );
   }
 
+  /**
+   * This assertion verifies that the symbols that are conditional on the `arez.enable_native_components`
+   * setting are present if enabled and not present if not enabled.
+   *
+   * @param index   the index that contains all symbols for output target.
+   * @param enabled true if setting is enabled, false otherwise.
+   */
   public static void assertNativeComponentOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
   {
     // Assert no Component cruft is enabled as !Arez.areNativeComponentsEnabled() in the build
@@ -97,6 +159,13 @@ public final class ArezBuildAsserts
     assertSyntheticId( index, ".*\\.Arez_[^\\.]+Repository", false );
   }
 
+  /**
+   * Assert that a synthetic id is present or not present in classes specified by pattern.
+   *
+   * @param index            the index that contains all symbols for output target.
+   * @param classNamePattern the pattern that determine which classes should be matched.
+   * @param enabled          true if syntheticId should be present, false otherwise.
+   */
   public static void assertSyntheticId( @Nonnull final SymbolEntryIndex index,
                                         @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String classNamePattern,
                                         final boolean enabled )
@@ -105,6 +174,19 @@ public final class ArezBuildAsserts
     index.assertSymbol( classNamePattern, "$$arezi$$_nextId", enabled );
   }
 
+  /**
+   * Assert normal arez outputs based on specified Arez compile time settings.
+   *
+   * @param index                           the index that contains all symbols for output target.
+   * @param areNamesEnabled                 the value of the `arez.enable_names` setting.
+   * @param areSpiesEnabled                 the value of the `arez.enable_spies` setting.
+   * @param areNativeComponentsEnabled      the value of the `arez.enable_native_components` setting.
+   * @param areRegistriesEnabled            the value of the `arez.enable_registries` setting.
+   * @param areObserverErrorHandlersEnabled the value of the `arez.enable_observer_error_handlers` setting.
+   * @param areZonesEnabled                 the value of the `arez.enable_zones` setting.
+   * @param shouldEnforceTransactionType    the value of the `arez.enforce_transaction_type` setting.
+   * @param areRepositoryResultsModifiable  the value of the `arez.repositories_results_modifiable` setting.
+   */
   public static void assertArezOutputs( @Nonnull final SymbolEntryIndex index,
                                         final boolean areNamesEnabled,
                                         final boolean areSpiesEnabled,
