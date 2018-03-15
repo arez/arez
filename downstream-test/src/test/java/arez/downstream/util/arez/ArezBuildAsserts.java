@@ -121,6 +121,7 @@ public final class ArezBuildAsserts
     assertSpyOutputs( index, areSpiesEnabled );
     assertNativeComponentOutputs( index, areNativeComponentsEnabled );
     assertAreRegistriesEnabled( index, areRegistriesEnabled );
+    assertAreObserverErrorHandlersEnabledOutputs( index, areObserverErrorHandlersEnabled );
     assertZoneOutputs( index, areZonesEnabled );
     assertShouldEnforceTransactionTypeOutputs( index, shouldEnforceTransactionType );
     assertAreRepositoryResultsModifiableOutputs( index, areRepositoryResultsModifiable );
