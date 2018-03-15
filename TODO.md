@@ -89,6 +89,8 @@ console.table(languages);
   created by the context could be closed when the context is closed. It probably only makes sense in multi
   zone scenario and should generate invariant check failure otherwise.
 
+* Document `ArezBuildAsserts` and move it into a separate module that can be used in downstream libraries.
+
 * Enhance `BuildOutputTest` test to test multiple variants where we patch the build time constants for different
   build types. We should also extract the classes the load GWT symbol files to run tests against them into a
   separate library.
