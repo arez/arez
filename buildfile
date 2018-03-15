@@ -274,13 +274,22 @@ define 'arez' do
     project.jacoco.enabled = false
   end
 
+  desc 'Utilities to output of GWT when compiling Arez applications'
+  define 'gwt-output-qa' do
+    compile.with PROVIDED_DEPS,
+                 :javacsv,
+                 :jetbrains_annotations,
+                 :gwt_symbolmap,
+                 :testng
+
+    package(:jar)
+    package(:sources)
+    package(:javadoc)
+  end
+
   desc 'Test Arez in downstream projects'
   define 'downstream-test' do
     compile.with :gir, PROVIDED_DEPS
-
-    test.compile.with :javacsv,
-                      :jetbrains_annotations,
-                      :gwt_symbolmap
 
     test.options[:properties] =
       AREZ_TEST_OPTIONS.merge(
@@ -341,7 +350,9 @@ define 'arez' do
     test.exclude '*BuildStatsTest' unless ENV['PRODUCT_VERSION']
 
     test.using :testng
-    test.compile.with PROVIDED_DEPS, TEST_DEPS
+    test.compile.with TEST_DEPS,
+                      project('gwt-output-qa').package(:jar),
+                      project('gwt-output-qa').compile.dependencies
   end
 
   desc 'Arez Examples used in documentation'

@@ -1,4 +1,4 @@
-package arez.downstream.util.arez;
+package arez.gwt.qa;
 
 import javax.annotation.Nonnull;
 import org.intellij.lang.annotations.RegExp;

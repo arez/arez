@@ -1,6 +1,6 @@
 package arez.downstream;
 
-import arez.downstream.util.arez.ArezBuildAsserts;
+import arez.gwt.qa.ArezBuildAsserts;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
