@@ -90,8 +90,7 @@ console.table(languages);
   zone scenario and should generate invariant check failure otherwise.
 
 * Enhance `BuildOutputTest` test to test multiple variants where we patch the build time constants for different
-  build types. We should also extract the classes the load GWT symbol files to run tests against them into a
-  separate library.
+  build types.
 
 * Verify that methods defined on all components are not defined as part of the arez annotated methods. These
   include:
