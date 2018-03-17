@@ -39,7 +39,7 @@ public class BuildStatsTest
     {
       if ( fixtureSize != afterSize )
       {
-        fail( "Build size does not katch the value specified in fixtures file for branch '" + branch +
+        fail( "Build size does not match the value specified in fixtures file for branch '" + branch +
               "'. The fixture specifies the value as " + fixtureSize + " while the actual size is " +
               afterSize + ". If this is acceptable then re-run the build passing PRODUCT_VERSION=... " +
               "and STORE_BUILD_STATISTICS=true to update the fixture file." );
