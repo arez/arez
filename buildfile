@@ -297,7 +297,6 @@ define 'arez' do
         'arez.version' => ENV['PRODUCT_VERSION'] || project.version,
         'arez.deploy_test.fixture_dir' => _('src/test/resources/fixtures').to_s,
         'arez.deploy_test.work_dir' => _(:target, 'deploy_test/workdir').to_s
-
       )
     test.options[:java_args] = ['-ea']
 
