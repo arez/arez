@@ -67,10 +67,6 @@ define 'arez' do
     package(:jar)
     package(:sources)
     package(:javadoc)
-
-    # This dependency is added to make it easy to cross reference
-    # core classes in javadocs but code should not make use of it.
-    iml.main_dependencies << project('core').package(:jar)
   end
 
   desc 'Arez Core'
