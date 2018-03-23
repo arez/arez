@@ -8,6 +8,9 @@
 * **\[processor\]** Remove all dependencies declared in the pom for the `arez-processor` artifact so
   that tools that inspect the pom do not incorrectly try to add the dependencies to the classpath. All
   required dependencies have been shaded in.
+* **\[core\]** Fixed the pom generated for the `arez-core` artifact to included the classifiers of
+  dependencies so that the tools that inspect the pom include the correct artifacts when generating the
+  classpath.
 
 #### Added
 * **\[gwt-output-qa\]** Extracted the `ArezBuildAsserts` class into a separate module so that it can be
