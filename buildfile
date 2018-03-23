@@ -9,7 +9,6 @@ TEST_DEPS = [:guiceyloops]
 JSINTEROP_ANNOTATION_DEPS = [:jsinterop_annotations, :jsinterop_annotations_sources]
 GWT_DEPS =
   [
-    :gwt_user,
     :elemental2_core,
     :elemental2_dom,
     :elemental2_promise,
@@ -258,7 +257,8 @@ define 'arez' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
     compile.with project('browser-extras').package(:jar, :classifier => :gwt),
-                 project('browser-extras').compile.dependencies
+                 project('browser-extras').compile.dependencies,
+                 :gwt_user
 
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
@@ -360,6 +360,7 @@ define 'arez' do
 
     compile.with project('browser-extras').package(:jar, :classifier => :gwt),
                  project('browser-extras').compile.dependencies,
+                 :gwt_user,
                  DAGGER_DEPS,
                  GIN_DEPS
 

@@ -16,6 +16,9 @@
 * **\[gwt-output-qa\]** Extracted the `ArezBuildAsserts` class into a separate module so that it can be
   distributed as a jar and made available to downstream libraries.
 
+#### Changed
+* **\[browser-extras\]** Remove unused dependency on `gwt-user` artifact.
+
 ### [v0.70](https://github.com/arez/arez/tree/v0.70) (2018-03-15)
 [Full Changelog](https://github.com/arez/arez/compare/v0.69...v0.70)
 
