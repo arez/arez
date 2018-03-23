@@ -176,7 +176,7 @@ define 'arez' do
 
   desc 'Arez Annotation processor'
   define 'processor' do
-    pom.provided_dependencies.concat [:javax_jsr305]
+    pom.dependency_filter = Proc.new {|_| false }
 
     compile.with :javax_jsr305,
                  :autoservice,

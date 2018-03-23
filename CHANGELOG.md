@@ -5,6 +5,9 @@
 ##### Fixed
 * Specify that parent pom for generated poms as 'org.sonatype.oss:oss-parent:pom:8' rather than
   'org.sonatype.oss:oss-parent:pom:7' that fixes improves compatibility with later versions of Maven.
+* **\[processor\]** Remove all dependencies declared in the pom for the `arez-processor` artifact so
+  that tools that inspect the pom do not incorrectly try to add the dependencies to the classpath. All
+  required dependencies have been shaded in.
 
 #### Added
 * **\[gwt-output-qa\]** Extracted the `ArezBuildAsserts` class into a separate module so that it can be
