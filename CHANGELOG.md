@@ -18,6 +18,10 @@
 
 #### Changed
 * **\[browser-extras\]** Remove unused dependency on `gwt-user` artifact.
+* Removed the gwt classifier for artifacts intended to be consumed by downstream projects. This does result
+  in source code being added to jars that are only intended for use on serverside however it significantly
+  decreases the complexity when managing dependencies in GWT based applications which is the primary
+  purpose of the library.
 
 ### [v0.70](https://github.com/arez/arez/tree/v0.70) (2018-03-15)
 [Full Changelog](https://github.com/arez/arez/compare/v0.69...v0.70)
