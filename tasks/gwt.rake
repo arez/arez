@@ -59,7 +59,7 @@ CONTENT
     end
   end
 
-  project.package(:jar, :classifier => :gwt).tap do |j|
+  project.package(:jar).tap do |j|
     extra_deps.each do |dep|
       j.include("#{dep}/*")
     end

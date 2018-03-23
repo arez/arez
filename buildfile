@@ -99,9 +99,9 @@ define 'arez' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
     compile.with PROVIDED_DEPS,
-                 project('annotations').package(:jar, :classifier => :gwt),
+                 project('annotations').package(:jar),
                  project('annotations').compile.dependencies,
-                 project('core').package(:jar, :classifier => :gwt),
+                 project('core').package(:jar),
                  project('core').compile.dependencies
 
     test.options[:properties] = AREZ_TEST_OPTIONS
@@ -121,11 +121,11 @@ define 'arez' do
   define 'extras' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
-    compile.with project('annotations').package(:jar, :classifier => :gwt),
+    compile.with project('annotations').package(:jar),
                  project('annotations').compile.dependencies,
-                 project('core').package(:jar, :classifier => :gwt),
+                 project('core').package(:jar),
                  project('core').compile.dependencies,
-                 project('component').package(:jar, :classifier => :gwt),
+                 project('component').package(:jar),
                  project('component').compile.dependencies,
                  project('processor').package(:jar),
                  project('processor').compile.dependencies
@@ -150,7 +150,7 @@ define 'arez' do
   define 'browser-extras' do
     pom.provided_dependencies.concat PROVIDED_DEPS + [:jetbrains_annotations]
 
-    compile.with project('extras').package(:jar, :classifier => :gwt),
+    compile.with project('extras').package(:jar),
                  project('extras').compile.dependencies,
                  :jetbrains_annotations,
                  GWT_DEPS
@@ -190,7 +190,7 @@ define 'arez' do
               project('annotations'),
               project('core').package(:jar),
               project('core').compile.dependencies,
-              project('component').package(:jar, :classifier => :gwt),
+              project('component').package(:jar),
               project('component').compile.dependencies
 
     package(:jar)
@@ -241,7 +241,7 @@ define 'arez' do
                       project('annotations').compile.dependencies,
                       project('core').package(:jar),
                       project('core').compile.dependencies,
-                      project('component').package(:jar, :classifier => :gwt),
+                      project('component').package(:jar),
                       project('component').compile.dependencies,
                       project('extras').package(:jar),
                       project('extras').compile.dependencies,
@@ -256,7 +256,7 @@ define 'arez' do
   define 'gwt-example' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
-    compile.with project('browser-extras').package(:jar, :classifier => :gwt),
+    compile.with project('browser-extras').package(:jar),
                  project('browser-extras').compile.dependencies,
                  :gwt_user
 
@@ -358,7 +358,7 @@ define 'arez' do
   define 'doc-examples' do
     pom.provided_dependencies.concat PROVIDED_DEPS
 
-    compile.with project('browser-extras').package(:jar, :classifier => :gwt),
+    compile.with project('browser-extras').package(:jar),
                  project('browser-extras').compile.dependencies,
                  :gwt_user,
                  DAGGER_DEPS,
