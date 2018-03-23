@@ -58,8 +58,6 @@ define 'arez' do
 
   desc 'Arez Annotations'
   define 'annotations' do
-    pom.provided_dependencies.concat PROVIDED_DEPS
-
     compile.with PROVIDED_DEPS
 
     gwt_enhance(project)
@@ -71,7 +69,9 @@ define 'arez' do
 
   desc 'Arez Core'
   define 'core' do
-    pom.provided_dependencies.concat PROVIDED_DEPS
+    pom.additional_dependencies << project('annotations').package(:jar)
+    pom.include_transitive_dependencies << project('annotations').package(:jar)
+    pom.dependency_filter = Proc.new {|dep| !project('annotations').compile.dependencies.include?(dep[:artifact]) && (dep[:group].to_s != 'com.google.jsinterop' || (dep[:id].to_s == 'jsinterop-annotations' && dep[:classifier].nil?))}
 
     compile.with PROVIDED_DEPS,
                  :braincheck,
@@ -92,7 +92,8 @@ define 'arez' do
 
   desc 'Arez Component Support'
   define 'component' do
-    pom.provided_dependencies.concat PROVIDED_DEPS
+    pom.include_transitive_dependencies << project('core').package(:jar)
+    pom.dependency_filter = Proc.new {|dep| !project('core').compile.dependencies.include?(dep[:artifact]) && !project('annotations').compile.dependencies.include?(dep[:artifact]) && dep[:artifact] != project('annotations').package(:jar)}
 
     compile.with PROVIDED_DEPS,
                  project('annotations').package(:jar),
@@ -115,7 +116,8 @@ define 'arez' do
 
   desc 'Arez Extras and Addons'
   define 'extras' do
-    pom.provided_dependencies.concat PROVIDED_DEPS
+    pom.include_transitive_dependencies << project('component').package(:jar)
+    pom.dependency_filter = Proc.new {|dep| !project('component').compile.dependencies.include?(dep[:artifact]) && !project('processor').compile.dependencies.include?(dep[:artifact]) && dep[:artifact] != project('processor').package(:jar) }
 
     compile.with project('annotations').package(:jar),
                  project('annotations').compile.dependencies,
@@ -144,7 +146,10 @@ define 'arez' do
 
   desc 'Arez Browser based Extras and Addons'
   define 'browser-extras' do
-    pom.provided_dependencies.concat PROVIDED_DEPS + [:jetbrains_annotations]
+    pom.provided_dependencies.concat [:jetbrains_annotations]
+    pom.include_transitive_dependencies << project('extras').package(:jar)
+    pom.include_transitive_dependencies << artifact(:elemental2_dom)
+    pom.dependency_filter = Proc.new {|dep| !project('extras').compile.dependencies.include?(dep[:artifact]) && dep[:group].to_s != 'com.google.jsinterop' && dep[:id].to_s != 'elemental2-promise' && dep[:id].to_s != 'elemental2-core'}
 
     compile.with project('extras').package(:jar),
                  project('extras').compile.dependencies,

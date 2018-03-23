@@ -18,6 +18,9 @@
 
 #### Changed
 * **\[browser-extras\]** Remove unused dependency on `gwt-user` artifact.
+* Change the generated poms so that transitive dependencies of intra-project modules are not duplicated
+  as dependencies within each modules dependencies list and instead intra-project dependencies include
+  dependencies transitively.
 * Removed the gwt classifier for artifacts intended to be consumed by downstream projects. This does result
   in source code being added to jars that are only intended for use on serverside however it significantly
   decreases the complexity when managing dependencies in GWT based applications which is the primary
