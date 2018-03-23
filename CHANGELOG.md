@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Fixed
+* Specify that parent pom for generated poms as 'org.sonatype.oss:oss-parent:pom:8' rather than
+  'org.sonatype.oss:oss-parent:pom:7' that fixes improves compatibility with later versions of Maven.
+
 #### Added
 * **\[gwt-output-qa\]** Extracted the `ArezBuildAsserts` class into a separate module so that it can be
   distributed as a jar and made available to downstream libraries.
