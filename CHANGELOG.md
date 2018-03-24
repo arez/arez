@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+#### Changed
+* Upgrade `org.realityforge.braincheck:braincheck:jar` artifact to `1.5.0` which removes the gwt classifier.
+
 ### [v0.71](https://github.com/arez/arez/tree/v0.71) (2018-03-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.70...v0.71)
 
