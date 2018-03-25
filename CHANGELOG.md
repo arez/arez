@@ -10,6 +10,8 @@
 #### Changed
 * Upgrade `org.realityforge.braincheck:braincheck:jar` artifact to `1.5.0` which removes the gwt classifier.
 * Upgrade `org.realityforge.gir:gir-core:jar` artifact to `0.03`.
+* Enhance the `downstream-test` project so that it also builds using the maven build system. These tests are
+  designed to ensure that the dependencies as defined in the poms are structure correctly for a Maven project.
 
 ### [v0.71](https://github.com/arez/arez/tree/v0.71) (2018-03-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.70...v0.71)

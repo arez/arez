@@ -6,6 +6,7 @@ import gir.delta.Patch;
 import gir.git.Git;
 import gir.io.Exec;
 import gir.io.FileUtil;
+import gir.maven.Maven;
 import gir.ruby.Buildr;
 import gir.ruby.Ruby;
 import gir.sys.SystemProperty;
@@ -75,8 +76,10 @@ public final class CollectBuildStats
           Git.checkout();
           Git.pull();
           Git.deleteLocalBranches();
-          Stream.of( "raw", "arez", "dagger" ).forEach( branch -> {
+          Stream.of( "raw", "arez", "dagger", "raw_maven", "arez_maven", "dagger_maven" ).forEach( branch -> {
             Gir.messenger().info( "Processing branch " + branch + "." );
+
+            final boolean isMaven = branch.endsWith( "_maven" );
 
             Git.checkout( branch );
             Git.clean();
@@ -93,11 +96,18 @@ public final class CollectBuildStats
             boolean initialBuildSuccess = false;
             try
             {
-              customizeBuildr( appDirectory, localRepositoryUrl );
+              if ( isMaven )
+              {
+                customizeMaven( appDirectory, localRepositoryUrl );
+              }
+              else
+              {
+                customizeBuildr( appDirectory, localRepositoryUrl );
+              }
 
               final String prefix = branch + ".before";
               final Path archiveDir = getArchiveDir( workingDirectory, prefix );
-              buildAndRecordStatistics( archiveDir );
+              buildAndRecordStatistics( archiveDir, !isMaven );
               loadStatistics( overallStatistics, archiveDir, prefix );
               loadStatistics( fixtureStatistics, archiveDir, version + "." + branch );
               initialBuildSuccess = true;
@@ -107,20 +117,46 @@ public final class CollectBuildStats
               Gir.messenger().info( "Failed to build branch '" + branch + "' before modifications.", e );
             }
 
+            Git.resetBranch();
             Git.clean();
 
-            if ( Buildr.patchBuildYmlDependency( appDirectory, "org.realityforge.arez", version ) )
+            final boolean patched;
+            if ( isMaven )
+            {
+              patched = Maven.patchPomProperty( appDirectory,
+                                                () -> "Update the 'arez' dependencies to version '" + version + "'",
+                                                "arez.version",
+                                                version );
+            }
+            else
+            {
+              patched = Buildr.patchBuildYmlDependency( appDirectory, "org.realityforge.arez", version );
+            }
+
+            if ( patched )
             {
               Gir.messenger().info( "Building branch " + branch + " after modifications." );
-              customizeBuildr( appDirectory, localRepositoryUrl );
+              if ( isMaven )
+              {
+                customizeMaven( appDirectory, localRepositoryUrl );
+              }
+              else
+              {
+                customizeBuildr( appDirectory, localRepositoryUrl );
+              }
 
               final String prefix = branch + ".after";
               final Path archiveDir = getArchiveDir( workingDirectory, prefix );
               try
               {
-                buildAndRecordStatistics( archiveDir );
+                buildAndRecordStatistics( archiveDir, !isMaven );
                 loadStatistics( overallStatistics, archiveDir, prefix );
                 loadStatistics( fixtureStatistics, archiveDir, version + "." + branch );
+                if ( isMaven )
+                {
+                  // Reset is required to remove changes that were made to the pom to add local repository
+                  Git.resetBranch();
+                }
                 Git.checkout( branch );
                 Exec.system( "git", "merge", newBranch );
                 Git.deleteBranch( newBranch );
@@ -204,6 +240,20 @@ public final class CollectBuildStats
     }
   }
 
+  private static void customizeMaven( @Nonnull final Path appDirectory, @Nonnull final String localRepositoryUrl )
+  {
+    final String replacement =
+      "    <repository>\n" +
+      "      <id>local-repository</id>\n" +
+      "      <url>" + localRepositoryUrl + "</url>\n" +
+      "    </repository>\n" +
+      "  </repositories>";
+    if ( !Patch.file( appDirectory.resolve( "pom.xml" ), c -> c.replace( "</repositories>", replacement ) ) )
+    {
+      Gir.messenger().error( "Failed to patch pom.xml to add local repository." );
+    }
+  }
+
   @Nonnull
   private static Path getArchiveDir( @Nonnull final Path workingDirectory, @Nonnull final String build )
   {
@@ -235,7 +285,7 @@ public final class CollectBuildStats
     }
   }
 
-  private static void buildAndRecordStatistics( @Nonnull final Path archiveDir )
+  private static void buildAndRecordStatistics( @Nonnull final Path archiveDir, final boolean useBuildr )
   {
     if ( !archiveDir.toFile().mkdirs() )
     {
@@ -243,28 +293,48 @@ public final class CollectBuildStats
       Gir.messenger().error( message );
     }
 
-    // Perform the build
-    Ruby.buildr( "clean", "package", "EXCLUDE_GWT_DEV_MODULE=true", "GWT=react4j-todomvc" );
+    if ( useBuildr )
+    {
+      // Perform the build
+      Ruby.buildr( "clean", "package", "EXCLUDE_GWT_DEV_MODULE=true", "GWT=react4j-todomvc" );
 
-    archiveOutput( archiveDir );
+      archiveBuildrOutput( archiveDir );
+    }
+    else
+    {
+      // Assume maven
+      Exec.system( "mvn", "clean", "package" );
+
+      archiveMavenOutput( archiveDir );
+    }
     archiveStatistics( archiveDir );
   }
 
   private static void archiveStatistics( @Nonnull final Path archiveDir )
   {
     final OrderedProperties properties = new OrderedProperties();
-    properties.setProperty( "todomvc.size", String.valueOf( getTodoMvcSize() ) );
-    properties.setProperty( "todomvc.gz.size", String.valueOf( getTodoMvcGzSize() ) );
+    properties.setProperty( "todomvc.size", String.valueOf( getTodoMvcSize( archiveDir ) ) );
+    properties.setProperty( "todomvc.gz.size", String.valueOf( getTodoMvcGzSize( archiveDir ) ) );
 
     final Path statisticsFile = archiveDir.resolve( "statistics.properties" );
     Gir.messenger().info( "Archiving statistics to " + statisticsFile + "." );
     writeProperties( statisticsFile, properties );
   }
 
-  private static void archiveOutput( @Nonnull final Path archiveDir )
+  private static void archiveBuildrOutput( @Nonnull final Path archiveDir )
   {
-    archiveDirectory( FileUtil.getCurrentDirectory().resolve( "target/assets" ), archiveDir.resolve( "assets" ) );
-    archiveDirectory( FileUtil.getCurrentDirectory().resolve( "target/gwt_compile_reports" ), archiveDir.resolve( "compileReports" ) );
+    final Path currentDirectory = FileUtil.getCurrentDirectory();
+    archiveDirectory( currentDirectory.resolve( "target/assets" ), archiveDir.resolve( "assets" ) );
+    archiveDirectory( currentDirectory.resolve( "target/gwt_compile_reports/react4j.todomvc.TodomvcProd" ),
+                      archiveDir.resolve( "compileReports" ) );
+  }
+
+  private static void archiveMavenOutput( @Nonnull final Path archiveDir )
+  {
+    archiveDirectory( FileUtil.getCurrentDirectory().resolve( "target/react4j-todomvc-1.0.0-SNAPSHOT" ),
+                      archiveDir.resolve( "assets" ) );
+    archiveDirectory( FileUtil.getCurrentDirectory().resolve( "target/extras" ),
+                      archiveDir.resolve( "compileReports" ) );
   }
 
   private static void archiveDirectory( @Nonnull final Path assetsDir, @Nonnull final Path targetDir )
@@ -281,19 +351,19 @@ public final class CollectBuildStats
     }
   }
 
-  private static long getTodoMvcSize()
+  private static long getTodoMvcSize( @Nonnull final Path archiveDir )
   {
-    return getFileSize( "target/generated/gwt/react4j.todomvc.TodomvcProd/todomvc/todomvc.nocache.js" );
+    return getFileSize( archiveDir.resolve( "assets" ).resolve( "todomvc" ).resolve( "todomvc.nocache.js" ) );
   }
 
-  private static long getTodoMvcGzSize()
+  private static long getTodoMvcGzSize( @Nonnull final Path archiveDir )
   {
-    return getFileSize( "target/generated/gwt/react4j.todomvc.TodomvcProd/todomvc/todomvc.nocache.js.gz" );
+    return getFileSize( archiveDir.resolve( "assets" ).resolve( "todomvc" ).resolve( "todomvc.nocache.js.gz" ) );
   }
 
-  private static long getFileSize( @Nonnull final String filename )
+  private static long getFileSize( @Nonnull final Path path )
   {
-    final File file = FileUtil.getCurrentDirectory().resolve( filename ).toFile();
+    final File file = path.toFile();
     assert file.exists();
     return file.length();
   }
