@@ -117,11 +117,10 @@ HEADER
     stage('PushChanges', 'Push changes to git repository') do
       sh 'git push'
       sh 'git push --tags'
-      if ENV['STAGING_USERNAME']
-        # Only push the downstream projects if we have also staged a release. This typically only
-        # happens when the release is occurring on Travis.
-        sh 'cd target/arez_downstream-test/deploy_test/workdir/react4j-todomvc && git push --all'
-      end
+      # Push the changes that have been made locally in downstream projects.
+      # Artifacts have been pushed to staging repository by this time so they should build
+      # even if it has not made it through the Maven release process
+      sh 'cd target/arez_downstream-test/deploy_test/workdir/react4j-todomvc && git push --all'
     end
 
     stage('GithubRelease', 'Create a Release on GitHub') do
