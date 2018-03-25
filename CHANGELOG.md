@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.73](https://github.com/arez/arez/tree/v0.73) (2018-03-25)
+[Full Changelog](https://github.com/arez/arez/compare/v0.72...v0.73)
 
 ##### Fixed
 * The annotation processor code was not packaged in gwt jars.
