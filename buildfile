@@ -314,7 +314,7 @@ define 'arez' do
             pkg.upload
           end
         end
-        if ENV['STAGING_USERNAME']
+        if ENV['STAGE_RELEASE'] == 'true'
           # Then we install it to a remote repository so that TravisCI can access the builds when it attempts
           # to perform a release
           repositories.release_to =
