@@ -116,6 +116,8 @@ define 'arez' do
 
   desc 'Arez Extras and Addons'
   define 'extras' do
+    project.enable_annotation_processor = true
+
     pom.include_transitive_dependencies << project('component').package(:jar)
     pom.dependency_filter = Proc.new {|dep| !project('component').compile.dependencies.include?(dep[:artifact]) && !project('processor').compile.dependencies.include?(dep[:artifact]) && dep[:artifact] != project('processor').package(:jar) }
 
@@ -131,9 +133,6 @@ define 'arez' do
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
 
-    # The generators are configured to generate to here.
-    iml.main_source_directories << _('generated/processors/main/java')
-
     gwt_enhance(project)
 
     package(:jar)
@@ -146,6 +145,8 @@ define 'arez' do
 
   desc 'Arez Browser based Extras and Addons'
   define 'browser-extras' do
+    project.enable_annotation_processor = true
+
     pom.provided_dependencies.concat [:jetbrains_annotations]
     pom.include_transitive_dependencies << project('extras').package(:jar)
     pom.include_transitive_dependencies << artifact(:elemental2_dom)
@@ -165,9 +166,6 @@ define 'arez' do
 
     test.using :testng
     test.compile.with TEST_DEPS
-
-    # The generators are configured to generate to here.
-    iml.main_source_directories << _('generated/processors/main/java')
 
     gwt_enhance(project)
 
@@ -357,6 +355,7 @@ define 'arez' do
 
   desc 'Arez Examples used in documentation'
   define 'doc-examples' do
+    project.enable_annotation_processor = true
     pom.provided_dependencies.concat PROVIDED_DEPS
 
     compile.with project('browser-extras').package(:jar),
@@ -377,8 +376,6 @@ define 'arez' do
     end
     iml.add_gwt_facet(gwt_modules, :settings => { :compilerMaxHeapSize => '1024' }, :gwt_dev_artifact => :gwt_dev)
 
-    # The generators are configured to generate to here.
-    iml.main_source_directories << _('generated/processors/main/java')
     project.jacoco.enabled = false
   end
 
@@ -424,28 +421,10 @@ define 'arez' do
                               :vm_parameters => "-Xmx3G -Djava.io.tmpdir=#{_("tmp/gwt/#{short_name}")}",
                               :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export', short_name)}/")
   end
-
-  ipr.add_component('CompilerConfiguration') do |component|
-    component.annotationProcessing do |xml|
-      xml.profile(:default => true, :name => 'Default', :enabled => true) do
-        xml.sourceOutputDir :name => 'generated/processors/main/java'
-        xml.sourceTestOutputDir :name => 'generated/processors/test/java'
-        xml.outputRelativeToContentRoot :value => true
-      end
-    end
-  end
 end
 
 Buildr.projects.each do |project|
   unless project.name == 'arez'
     project.doc.options.merge!('Xdoclint:all,-reference' => true)
-    project.compile.options.merge!(:other => ['-s', project._('generated/processors/main/java')])
-    t = project.file(project._('generated/processors/main/java')) do
-      mkdir_p project._('generated/processors/main/java')
-    end
-    project.compile.enhance([t.name])
-    project.clean do
-      rm_rf project._(:generated)
-    end
   end
 end
