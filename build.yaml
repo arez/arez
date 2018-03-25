@@ -59,7 +59,7 @@ artifacts:
   guice: com.google.inject:guice:jar:3.0
   guice_assistedinject: com.google.inject.extensions:guice-assistedinject:jar:3.0
 
-  gir: org.realityforge.gir:gir-core:jar:0.02
+  gir: org.realityforge.gir:gir-core:jar:0.03
 
   javacsv: net.sourceforge.javacsv:javacsv:jar:2.1
 
