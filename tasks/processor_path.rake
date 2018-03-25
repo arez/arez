@@ -14,11 +14,6 @@ module Buildr
       end
 
       before_define do |project|
-        if project.enable_annotation_processor?
-          project.file(project._(:generated, 'processors/main/java')) do
-            mkdir_p project._(:generated, 'processors/main/java')
-          end
-        end
         t = project.task('processors_setup') do
           mkdir_p project._(:generated, 'processors/main/java') if project.enable_annotation_processor?
         end
@@ -27,7 +22,15 @@ module Buildr
         if project.iml?
           project.iml.instance_variable_set('@main_generated_source_directories', [])
           project.iml.instance_variable_set('@processorpath', {})
-          if project.enable_annotation_processor?
+        end
+      end
+
+      after_define do |project|
+        if project.enable_annotation_processor?
+          project.file(project._(:generated, 'processors/main/java')).enhance([project.compile])
+
+          project.compile.options.merge!(:other => ['-s', project._(:generated, 'processors/main/java')])
+          if project.iml? && project.enable_annotation_processor?
             project.iml.main_generated_source_directories << project._(:generated, 'processors/main/java')
           end
           project.clean do
@@ -35,12 +38,7 @@ module Buildr
             rm_rf project._(:generated, 'processors/main/java')
           end
         end
-      end
 
-      after_define do |project|
-        if project.enable_annotation_processor?
-          project.compile.options.merge!(:other => ['-s', project._(:generated, 'processors/main/java')])
-        end
         unless project.processorpath.empty?
           processor_deps = Buildr.artifacts(project.processorpath)
           project.compile.enhance(processor_deps)

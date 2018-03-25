@@ -62,6 +62,7 @@ CONTENT
       j.enhance([dep])
       j.include("#{dep}/*")
     end
+    j.include(project._(:generated, 'processors/main/java/arez')) if project.enable_annotation_processor?
     project.assets.paths.each do |path|
       j.include("#{path}/*")
     end
