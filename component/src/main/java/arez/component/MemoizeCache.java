@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
+import arez.EqualityComparator;
 import arez.Procedure;
 import arez.SafeFunction;
 import java.util.HashMap;
@@ -210,7 +211,14 @@ public final class MemoizeCache<T>
     final String name = Arez.areNamesEnabled() ? _name + "." + _nextIndex++ : null;
     final Procedure onDeactivate = () -> disposeComputedValue( args );
     final SafeFunction<T> function = () -> _function.call( args );
-    return _context.createComputedValue( component, name, function, Objects::equals, null, onDeactivate, null, null );
+    return _context.createComputedValue( component,
+                                         name,
+                                         function,
+                                         EqualityComparator.defaultComparator(),
+                                         null,
+                                         onDeactivate,
+                                         null,
+                                         null );
   }
 
   /**

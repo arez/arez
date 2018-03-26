@@ -10,6 +10,11 @@
 #### Changed
 * **\[core\]** Add an invariant that verified that `highPriority` observers can not observer normal
   priority `ComputedValue` instances.
+* **\[core\]** Extracted a single instance of "standard" `EqualityComparator` implementation and made it
+  available via `EqualityComparator.defaultComparator()`. This reduced the number of synthetic types that
+  GWT was forced to create compared to the approach of passing around method references. This reduced
+  the codesize a fraction of a `%` in small applications and a larger amount in large applications that
+  used many `ComputedValue` instances.
 
 ### [v0.73](https://github.com/arez/arez/tree/v0.73) (2018-03-25)
 [Full Changelog](https://github.com/arez/arez/compare/v0.72...v0.73)

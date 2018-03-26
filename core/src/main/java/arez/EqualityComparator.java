@@ -1,5 +1,6 @@
 package arez;
 
+import java.util.Objects;
 import javax.annotation.Nullable;
 
 /**
@@ -10,6 +11,23 @@ import javax.annotation.Nullable;
 @FunctionalInterface
 public interface EqualityComparator<T>
 {
+  /**
+   * The default comparator.
+   */
+  EqualityComparator<?> DEFAULT_COMPARATOR = Objects::equals;
+
+  /**
+   * Return a default equality comparator.
+   *
+   * @param <T> the type to compare.
+   * @return the comparator.
+   */
+  @SuppressWarnings( "unchecked" )
+  static <T> EqualityComparator<T> defaultComparator()
+  {
+    return (EqualityComparator<T>) DEFAULT_COMPARATOR;
+  }
+
   /**
    * Return true if values are considered to be equal, false otherwise.
    *

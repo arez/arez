@@ -272,7 +272,7 @@ final class ComputedDescriptor
                "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                "$T.areNamesEnabled() ? $N() + $S : null, " +
                "super::$N, " +
-               "$T::equals, " );
+               "$T.defaultComparator(), " );
     parameters.add( getFieldName() );
     parameters.add( _componentDescriptor.getContextMethodName() );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
@@ -281,7 +281,7 @@ final class ComputedDescriptor
     parameters.add( _componentDescriptor.getComponentNameMethodName() );
     parameters.add( "." + getName() );
     parameters.add( _computed.getSimpleName().toString() );
-    parameters.add( Objects.class );
+    parameters.add( GeneratorUtil.EQUALITY_COMPARATOR_CLASSNAME );
 
     if ( null != _onActivate )
     {

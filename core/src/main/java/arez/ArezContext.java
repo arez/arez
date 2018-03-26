@@ -13,7 +13,6 @@ import arez.spy.ReactionScheduledEvent;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Objects;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -331,7 +330,7 @@ public final class ArezContext
   public <T> ComputedValue<T> createComputedValue( @Nullable final String name,
                                                    @Nonnull final SafeFunction<T> function )
   {
-    return createComputedValue( name, function, Objects::equals );
+    return createComputedValue( name, function, EqualityComparator.defaultComparator() );
   }
 
   /**
