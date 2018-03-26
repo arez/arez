@@ -65,7 +65,8 @@ final class Watcher
                                         null,
                                         this::dispose,
                                         null,
-                                        null );
+                                        null,
+                                        highPriority );
     _watcher =
       getContext().autorun( Arez.areNativeComponentsEnabled() ? component : null,
                             Arez.areNamesEnabled() ? getName() + ".watcher" : null,

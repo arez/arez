@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+##### Fixed
+* **\[core\]** Fixed a bug where `highPriority` "When" observers would create a normal priority condition
+  which would result in an effectively normal priority as the condition will not be recomputed with a high
+  priority but even though the observer watching the condition was high priority.
+
 ### [v0.73](https://github.com/arez/arez/tree/v0.73) (2018-03-25)
 [Full Changelog](https://github.com/arez/arez/compare/v0.72...v0.73)
 

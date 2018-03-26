@@ -129,9 +129,19 @@ public class WatcherTest
     final SafeProcedure procedure = () -> {
     };
 
-    new Watcher( context, null, ValueUtil.randomString(), true, condition1, procedure, true, false );
-    new Watcher( context, null, ValueUtil.randomString(), true, condition2, procedure, true, false );
-    new Watcher( context, null, ValueUtil.randomString(), true, condition3, procedure, false, false );
+    final Watcher watcher1 =
+      new Watcher( context, null, ValueUtil.randomString(), true, condition1, procedure, true, false );
+    final Watcher watcher2 =
+      new Watcher( context, null, ValueUtil.randomString(), true, condition2, procedure, true, false );
+    final Watcher watcher3 =
+      new Watcher( context, null, ValueUtil.randomString(), true, condition3, procedure, false, false );
+
+    assertEquals( watcher1.getWatcher().isHighPriority(), true );
+    assertEquals( watcher1.getCondition().getObserver().isHighPriority(), true );
+    assertEquals( watcher2.getWatcher().isHighPriority(), true );
+    assertEquals( watcher2.getCondition().getObserver().isHighPriority(), true );
+    assertEquals( watcher3.getWatcher().isHighPriority(), false );
+    assertEquals( watcher3.getCondition().getObserver().isHighPriority(), false );
 
     assertEquals( conditionRun1.get(), 0 );
     assertEquals( conditionRun2.get(), 0 );
