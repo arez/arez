@@ -46,9 +46,9 @@ derived from a [gist](https://gist.github.com/domenic/ec8b0fc8ab45f39403dd) and 
 The basic idea is to setup the GitHub project with a deploy key, encrypt the key and make it available to
 TravisCI that will unencrypt it as part of the build.
 
-Firstly you create the key via the following command. Make sure you use an empty password.
+Firstly you create the key via the following command.
 
-    $ ssh-keygen -t rsa -b 4096 -C "peter@realityforge.org" -f ../deploy
+    $ ssh-keygen -t rsa -b 4096 -C "peter@realityforge.org" -f ../deploy -P ""
 
 This is a private key and should NOT be checked into source code repository. Instead an encrypted version
 of the file is checked in. See the "Encrypting Files for TravisCI" section below for how to do this.
