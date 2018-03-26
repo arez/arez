@@ -7,6 +7,10 @@
   which would result in an effectively normal priority as the condition will not be recomputed with a high
   priority but even though the observer watching the condition was high priority.
 
+#### Changed
+* **\[core\]** Add an invariant that verified that `highPriority` observers can not observer normal
+  priority `ComputedValue` instances.
+
 ### [v0.73](https://github.com/arez/arez/tree/v0.73) (2018-03-25)
 [Full Changelog](https://github.com/arez/arez/compare/v0.72...v0.73)
 

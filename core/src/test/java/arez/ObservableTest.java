@@ -514,6 +514,35 @@ public class ObservableTest
   }
 
   @Test
+  public void addObserver_highPriorityObserver_lowPriorityCOmputed()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    final Observer observer =
+      new Observer( context,
+                    null,
+                    ValueUtil.randomString(),
+                    null,
+                    TransactionMode.READ_ONLY,
+                    new TestReaction(),
+                    true,
+                    false );
+    setCurrentTransaction( observer );
+
+    final Observable<?> observable =
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false ).getObservable();
+    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0183: Attempting to add observer named '" + observer.getName() + "' to observable " +
+                  "named '" + observable.getName() + "' where the observer is scheduled at a high priority but " +
+                  "the observables owner is scheduled at a normal priority." );
+  }
+
+  @Test
   public void addObserver_whenObserverDisposed()
     throws Exception
   {
