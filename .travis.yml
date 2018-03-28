@@ -23,7 +23,7 @@ install:
 - gem install bundler
 - bundle install
 script: buildr clean package jacoco:report site:deploy error_codes:check_duplicates
-  publish_if_tagged
+  mcrt:publish_if_tagged
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 git:
