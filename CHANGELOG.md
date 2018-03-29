@@ -2,6 +2,13 @@
 
 ### Unreleased
 
+##### Fixed
+* **\[core\]** Fixed a bug where the `LeastStaleObserverState` of an `Observable` could be incorrect during
+  `dispose()` invocation of a `ComputedValue` that derives the `Observable`. This does not impact runtime
+  correctness in production builds. When hen the `ArezDebug` GWT module is used or invariant checking is
+  explicitly enabled by compile time configuration, invariant checks can fail when validating the value of
+  the `LeastStaleObserverState` field.
+
 ### [v0.74](https://github.com/arez/arez/tree/v0.74) (2018-03-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.73...v0.74)
 

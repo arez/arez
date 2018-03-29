@@ -545,7 +545,13 @@ public final class Observer
    */
   void clearDependencies()
   {
-    getDependencies().forEach( dependency -> dependency.removeObserver( this ) );
+    getDependencies().forEach( dependency -> {
+      dependency.removeObserver( this );
+      if( !dependency.hasObservers() )
+      {
+        dependency.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+      }
+    } );
     getDependencies().clear();
   }
 

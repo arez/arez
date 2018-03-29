@@ -959,6 +959,44 @@ public class ObserverTest
   }
 
   @Test
+  public void dispose_onComputedValue()
+    throws Exception
+  {
+    final Observer observer = newDerivation();
+    setCurrentTransaction( observer );
+    observer.setState( ObserverState.STALE );
+
+    final Observable<?> observable = newObservable();
+    observable.setLeastStaleObserverState( ObserverState.STALE );
+    observable.getObservers().add( observer );
+    observer.getDependencies().add( observable );
+
+    Transaction.setTransaction( null );
+
+    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observer.isLive(), true );
+    assertEquals( observer.isDisposed(), false );
+    assertEquals( observable.getObservers().size(), 1 );
+
+    observer.dispose();
+
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.isLive(), false );
+    assertEquals( observer.isDisposed(), true );
+    assertEquals( observable.getObservers().size(), 0 );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+
+    final ArezContext context = Arez.context();
+
+    final int currentNextTransactionId = context.currentNextTransactionId();
+
+    observer.dispose();
+
+    // This verifies no new transactions were created
+    assertEquals( context.currentNextTransactionId(), currentNextTransactionId );
+  }
+
+  @Test
   public void dispose_invokedHook()
     throws Exception
   {
