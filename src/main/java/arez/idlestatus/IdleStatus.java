@@ -39,7 +39,7 @@ import org.realityforge.anodoc.Unsupported;
  * import com.google.gwt.core.client.EntryPoint;
  * import elemental2.dom.DomGlobal;
  * import arez.Arez;
- * import arez.browser.extras.IdleStatus;
+ * import arez.idlestatus.IdleStatus;
  *
  * public class IdleStatusExample
  *   implements EntryPoint
