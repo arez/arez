@@ -116,7 +116,12 @@ console.table(languages);
 
 ## Documentation
 
+* Add Issue template that asks for suggested solution:
+  https://raw.githubusercontent.com/kentcdodds/generator-kcd-oss/master/generators/app/templates/github/ISSUE_TEMPLATE.md
+
 * Performance testing and writeup?
+
+* Incorporate elements of https://github.com/GoogleCloudPlatform/agones/blob/master/CONTRIBUTING.md
 
 * Integrate documentation such as following which seem like good overviews
   - http://blog.danlew.net/2017/07/27/an-introduction-to-functional-reactive-programming/
