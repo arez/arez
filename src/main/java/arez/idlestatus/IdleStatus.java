@@ -20,7 +20,7 @@ import org.realityforge.anodoc.Unsupported;
 /**
  * An observable model that declares state that tracks when the user is "idle".
  * A user is considered idle if they have not interacted with the browser
- * for specific amount of time.
+ * for a specified amount of time.
  *
  * <p>Application code can observe the idle state via accessing {@link #isIdle()}.
  * Typically this is done in a tracking transaction such as those defined by autorun.</p>
