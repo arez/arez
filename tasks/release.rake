@@ -77,6 +77,16 @@ HEADER
       sh 'git commit -m "Update CHANGELOG.md in preparation for release"'
     end
 
+    stage('PatchReadme', 'Patch the README to update from previous release') do
+      contents = IO.read('README.md')
+      contents = contents.gsub("<version>#{ENV['PREVIOUS_PRODUCT_VERSION']}</version>", "<version>#{ENV['PRODUCT_VERSION']}</version>")
+      IO.write('README.md', contents)
+
+      sh 'git reset 2>&1 1> /dev/null'
+      sh 'git add README.md'
+      sh 'git commit -m "Update README.md in preparation for release"'
+    end
+
     stage('TagProject', 'Tag the project') do
       sh "git tag v#{ENV['PRODUCT_VERSION']}"
     end
