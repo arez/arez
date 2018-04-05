@@ -36,12 +36,6 @@ complete as there is too much un-said.
 * Seems `react-fns` covers some of similar observables described above but as react components. May be a
   source of inspiration?  https://github.com/jaredpalmer/react-fns/blob/master/README.md
 
-* Enhance Watcher so that it times out after specified time and self disposes. Probably implement via
-  TimedDisposer that is disposed as part of effect.
-
-* Add an adapter that is like a "when" produces a promise that resolves when a condition occurs, is rejected when
-  another condition occurs or when the adapter is disposed. And a timed variant that uses TimedDisposer undercovers.
-
 * Implement https://mobx.js.org/refguide/autorun-async.html - will need a timer abstraction that works in both
   browser context and non-browser context. But after we do this then we can also implemented delayed whens in
   extras (rather than browser-extras which would be required now). Could also moved TimedDisposer back to
