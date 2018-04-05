@@ -284,6 +284,8 @@ define 'arez' do
     package(:jar)
     package(:sources)
     package(:javadoc)
+
+    project.jacoco.enabled = false
   end
 
   desc 'Test Arez in downstream projects'
@@ -351,6 +353,8 @@ define 'arez' do
     test.compile.with TEST_DEPS,
                       project('gwt-output-qa').package(:jar),
                       project('gwt-output-qa').compile.dependencies
+
+    project.jacoco.enabled = false
   end
 
   desc 'Arez Examples used in documentation'
