@@ -344,16 +344,12 @@ final class ProcessorUtil
     return values.get( annotationKey );
   }
 
+  @SuppressWarnings( "SameParameterValue" )
   @Nullable
-  static AnnotationValue findAnnotationValue( @Nonnull final Elements elements,
-                                              @Nonnull final AnnotationMirror annotation,
-                                              @Nonnull final String parameterName,
-                                              final boolean includeDefaults )
+  static AnnotationValue findAnnotationValueNoDefaults( @Nonnull final AnnotationMirror annotation,
+                                                        @Nonnull final String parameterName )
   {
-    final Map<? extends ExecutableElement, ? extends AnnotationValue> values =
-      includeDefaults ?
-      elements.getElementValuesWithDefaults( annotation ) :
-      annotation.getElementValues();
+    final Map<? extends ExecutableElement, ? extends AnnotationValue> values = annotation.getElementValues();
     final ExecutableElement annotationKey = values.keySet().stream().
       filter( k -> parameterName.equals( k.getSimpleName().toString() ) ).findFirst().orElse( null );
     return values.get( annotationKey );
