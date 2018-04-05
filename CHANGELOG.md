@@ -8,6 +8,10 @@
   correctness in production builds. When hen the `ArezDebug` GWT module is used or invariant checking is
   explicitly enabled by compile time configuration, invariant checks can fail when validating the value of
   the `LeastStaleObserverState` field.
+* **\[processor\]** Fixed a bug where a wildcard parameterized observable property with both a setter and a
+  getter present where the type parameter is derived from the containing type was being incorrectly identified
+  as having different types. This scenario is allowed and a test was added to ensure that it will continue to
+  be supported.
 
 ### [v0.74](https://github.com/arez/arez/tree/v0.74) (2018-03-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.73...v0.74)

@@ -222,7 +222,8 @@ public final class ArezProcessor
       {
         final TypeMirror returnType = observable.getGetterType().getReturnType();
         final TypeMirror parameterType = observable.getSetterType().getParameterTypes().get( 0 );
-        if ( !processingEnv.getTypeUtils().isSameType( parameterType, returnType ) )
+        if ( !processingEnv.getTypeUtils().isSameType( parameterType, returnType ) &&
+             !parameterType.toString().equals( returnType.toString() ) )
         {
           throw new ArezProcessorException( "@Observable property defines a setter and getter with different types." +
                                             " Getter type: " + returnType + " Setter type: " + parameterType + ".",
