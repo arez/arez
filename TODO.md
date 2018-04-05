@@ -17,7 +17,6 @@ complete as there is too much un-said.
   non-abstract observables.
 
 * Extract (browser-)extras as separate projects al:
-  - `arez-idlestatus`
   - `arez-browserlocation`
   - `arez-promise`
   - `arez-ticker`

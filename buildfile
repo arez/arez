@@ -34,7 +34,7 @@ DAGGER_DEPS =
     :errorprone
   ]
 
-GWT_EXAMPLES=%w(IdleStatusExample BrowserLocationExample NetworkStatusExample ObservablePromiseExample TimedDisposerExample IntervalTickerExample).collect {|c| "arez.gwt.examples.#{c}"}
+GWT_EXAMPLES=%w(BrowserLocationExample NetworkStatusExample ObservablePromiseExample TimedDisposerExample IntervalTickerExample).collect {|c| "arez.gwt.examples.#{c}"}
 DOC_EXAMPLES=%w().collect {|c| "arez.doc.examples.#{c}"}
 
 # JDK options passed to test environment. Essentially turns assertions on.

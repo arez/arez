@@ -1,8 +1,0 @@
-<module>
-  <inherits name="arez.ArezDev"/>
-  <inherits name="arez.browser.extras.BrowserExtras"/>
-
-  <source path="" includes="IdleStatusExample.java"/>
-
-  <entry-point class='arez.gwt.examples.IdleStatusExample'/>
-</module>
