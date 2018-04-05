@@ -41,11 +41,6 @@ final class DependencyDescriptor
     _observable = Objects.requireNonNull( observable );
   }
 
-  boolean hasObservable()
-  {
-    return null != _observable;
-  }
-
   @Nonnull
   ObservableDescriptor getObservable()
   {
