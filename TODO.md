@@ -60,16 +60,6 @@ type RemoteData e a
 
 * Enhance WhyRun and write tests for it.
 
-* Introduce DevTools and document. Somewhat inspired by
-  - https://github.com/zalmoxisus/mobx-remotedev
-  - https://github.com/andykog/mobx-devtools
-  and maybe as simple as outputing tables ala
-
-```javascript
-var languages = { csharp: { name: "C#", paradigm: "object-oriented" }, fsharp: { name: "F#", paradigm: "functional" } };
-console.table(languages);
-```
-
 * Setup testing with browser. Headless Chrome via selenium? GWT test case?
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
   - Perhaps by the latest kid in town - https://www.cypress.io/
@@ -104,6 +94,29 @@ console.table(languages);
       return true;
     }
   }
+```
+
+#### DevTools
+
+Build the equivalent of Mobx DevTools. We already support a reasonable console logging but need
+mechanisms to enable and disable. Possibly we also need to support looking at dependencies of components. Do we
+do this by caching arez components on WeakHashmap in componentDidMount/componentWillUnmount and then supporting
+accessing transitive dependency tree via UI?
+
+Possibly we also need the ability to browse the repositories in the application. Register repositories on
+startup and then browse via tables?
+
+* https://github.com/gaearon/redux-devtools
+* https://github.com/zalmoxisus/mobx-remotedev
+* https://github.com/andykog/mobx-devtools
+
+Once this is done remove the setting of dependencies in state as can trigger infinite state updates in some scenarios.
+
+* Maybe as simple as outputing tables ala
+
+```javascript
+var languages = { csharp: { name: "C#", paradigm: "object-oriented" }, fsharp: { name: "F#", paradigm: "functional" } };
+console.table(languages);
 ```
 
 ## Process
