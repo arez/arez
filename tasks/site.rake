@@ -40,7 +40,7 @@ end
 
 desc 'Publish website iff current HEAD is a tag on blessed branch'
 task 'site:publish_if_tagged' do
-  candidate_branches = %(master)
+  candidate_branches = %w(master)
   tag = get_head_tag_if_any
   if tag.nil?
     puts 'Current HEAD is not a tag. Skipping site:publish step.'
