@@ -15,6 +15,9 @@
 * **\[processor\]** Generate an error where the setter or getter of an observable property has a type argument.
   This avoids the scenario where generated code will not compile due to missing type arguments.
 
+#### Changed
+* Upgrade the Dagger2 support to version `2.15`.
+
 ### [v0.74](https://github.com/arez/arez/tree/v0.74) (2018-03-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.73...v0.74)
 

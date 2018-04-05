@@ -28,6 +28,7 @@ DAGGER_DEPS =
     :javax_inject,
     :dagger_core,
     :dagger_producers,
+    :dagger_spi,
     :dagger_compiler,
     :googlejavaformat,
     :errorprone
