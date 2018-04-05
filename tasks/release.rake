@@ -121,6 +121,10 @@ HEADER
       # Artifacts have been pushed to staging repository by this time so they should build
       # even if it has not made it through the Maven release process
       sh 'cd target/arez_downstream-test/deploy_test/workdir/react4j-todomvc && git push --all'
+
+      # Release arez-idlestatus - need to extract the version from that project
+      idlestatus_version = IO.read('target/arez_downstream-test/deploy_test/workdir/arez-idlestatus/CHANGELOG.md')[/^### \[v(\d+\.\d+)\]/, 1]
+      sh "cd target/arez_downstream-test/deploy_test/workdir/arez-idlestatus && bundle exec buildr perform_release STAGE=PushChanges PRODUCT_VERSION=#{idlestatus_version}"
     end
 
     stage('GithubRelease', 'Create a Release on GitHub') do
