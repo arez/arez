@@ -126,6 +126,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.repository.DaggerDisabledRepository", false, true, false },
         new Object[]{ "com.example.repository.DaggerEnabledRepository", false, true, true },
         new Object[]{ "com.example.repository.InjectEnabledRepository", false, true, true },
+        new Object[]{ "com.example.repository.InjectDisabledRepository", false, false, false },
         new Object[]{ "com.example.repository.PackageAccessRepositoryExample", false, true, true },
         new Object[]{ "com.example.repository.RepositoryPreDisposeHook", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithExplicitId", false, true, true },
