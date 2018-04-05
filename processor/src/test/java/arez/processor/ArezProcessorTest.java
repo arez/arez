@@ -786,7 +786,7 @@ public class ArezProcessorTest
                       "Method can not be annotated with both @PreDispose and @PostDispose" },
 
         new Object[]{ "com.example.observable.AbstractGetterNoSetterModel",
-                      "@Observable target defines expectSetter = false but there is no ref method for observable and thus never possible to report it as changed and thus should not be observable." },
+                      "@Observable target defines expectSetter = false but is abstract. This is not compatible as there is no opportunity for the processor to generate the setter." },
         new Object[]{ "com.example.observable.NonAbstractGetterModel",
                       "@Observable property defines an abstract setter but a concrete getter. Both getter and setter must be concrete or both must be abstract." },
         new Object[]{ "com.example.observable.NonAbstractSetterModel",
