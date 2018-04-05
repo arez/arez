@@ -54,96 +54,93 @@ public final class BuildDownstream
           Gir.messenger().error( "Failed to create working directory: " + workingDirectory );
         }
       }
-      Stream.of( "arez-idlestatus" ).forEach( project -> {
+      Stream.of( "arez-idlestatus" ).forEach( project -> FileUtil.inDirectory( workingDirectory, () -> {
+        Gir.messenger().info( "Cloning " + project + " into " + workingDirectory );
+        Git.clone( "https://github.com/arez/" + project + ".git", project );
+        final Path appDirectory = workingDirectory.resolve( project );
+        FileUtil.inDirectory( appDirectory, () -> {
+          Git.fetch();
+          Git.resetBranch();
+          Git.checkout();
+          Git.pull();
+          Git.deleteLocalBranches();
+          Gir.messenger().info( "Processing branch master." );
 
-        FileUtil.inDirectory( workingDirectory, () -> {
-          Gir.messenger().info( "Cloning " + project + " into " + workingDirectory );
-          Git.clone( "https://github.com/arez/" + project + ".git", project );
-          final Path appDirectory = workingDirectory.resolve( project );
-          FileUtil.inDirectory( appDirectory, () -> {
-            Git.fetch();
-            Git.resetBranch();
-            Git.checkout();
+          Git.checkout( "master" );
+          Git.clean();
+          final String newBranch = "master-ArezUpgrade-" + version;
+
+          Git.checkout( newBranch, true );
+          if ( Git.remoteTrackingBranches().contains( "origin/" + newBranch ) )
+          {
             Git.pull();
-            Git.deleteLocalBranches();
-            Gir.messenger().info( "Processing branch master." );
+          }
+          Git.clean();
 
-            Git.checkout( "master" );
-            Git.clean();
-            final String newBranch = "master-ArezUpgrade-" + version;
+          Gir.messenger().info( "Building branch master prior to modifications." );
+          boolean initialBuildSuccess = false;
+          try
+          {
+            customizeBuildr( appDirectory, localRepositoryUrl );
+            Ruby.buildr( "clean", "package", "PRODUCT_VERSION=", "PREVIOUS_PRODUCT_VERSION=" );
+            initialBuildSuccess = true;
+          }
+          catch ( final GirException e )
+          {
+            Gir.messenger().info( "Failed to build branch 'master' before modifications.", e );
+          }
 
-            Git.checkout( newBranch, true );
-            if ( Git.remoteTrackingBranches().contains( "origin/" + newBranch ) )
-            {
-              Git.pull();
-            }
-            Git.clean();
+          Git.resetBranch();
+          Git.clean();
 
-            Gir.messenger().info( "Building branch master prior to modifications." );
-            boolean initialBuildSuccess = false;
+          final String group = "org.realityforge.arez";
+          final Function<String, String> patchFunction1 = c -> Buildr.patchMavenCoordinates( c, group, version );
+          final boolean patched =
+            Patch.patchAndAddFile( appDirectory, appDirectory.resolve( "build.yaml" ), patchFunction1 );
+
+          if ( patched )
+          {
+            final String message = "Update the '" + group + "' dependencies to version '" + version + "'";
+            final Function<String, String> patchFunction = c -> c.replace( "### Unreleased\n\n",
+                                                                           "### Unreleased\n\n" + message + "\n\n" );
+            Patch.patchAndAddFile( appDirectory, appDirectory.resolve( "CHANGELOG.md" ), patchFunction );
+            Git.commit( message );
+
+            Gir.messenger().info( "Building branch master after modifications." );
+            customizeBuildr( appDirectory, localRepositoryUrl );
+
             try
             {
-              customizeBuildr( appDirectory, localRepositoryUrl );
-              Ruby.buildr( "clean", "package", "PRODUCT_VERSION=", "PREVIOUS_PRODUCT_VERSION=" );
-              initialBuildSuccess = true;
+              Ruby.buildr( "perform_release",
+                           "LAST_STAGE=PatchChangelogPostRelease",
+                           "PRODUCT_VERSION=",
+                           "PREVIOUS_PRODUCT_VERSION=" );
+              Git.checkout( "master" );
+              Exec.system( "git", "merge", newBranch );
+              Git.deleteBranch( newBranch );
             }
             catch ( final GirException e )
             {
-              Gir.messenger().info( "Failed to build branch 'master' before modifications.", e );
-            }
-
-            Git.resetBranch();
-            Git.clean();
-
-            final String group = "org.realityforge.arez";
-            final Function<String, String> patchFunction1 = c -> Buildr.patchMavenCoordinates( c, group, version );
-            final boolean patched =
-              Patch.patchAndAddFile( appDirectory, appDirectory.resolve( "build.yaml" ), patchFunction1 );
-
-            if ( patched )
-            {
-              final String message = "Update the '" + group + "' dependencies to version '" + version + "'";
-              final Function<String, String> patchFunction = c -> c.replace( "### Unreleased\n\n",
-                                                                             "### Unreleased\n\n" + message + "\n\n" );
-              Patch.patchAndAddFile( appDirectory, appDirectory.resolve( "CHANGELOG.md" ), patchFunction );
-              Git.commit( message );
-
-              Gir.messenger().info( "Building branch master after modifications." );
-              customizeBuildr( appDirectory, localRepositoryUrl );
-
-              try
+              if ( !initialBuildSuccess )
               {
-                Ruby.buildr( "perform_release",
-                             "LAST_STAGE=PatchChangelogPostRelease",
-                             "PRODUCT_VERSION=",
-                             "PREVIOUS_PRODUCT_VERSION=" );
-                Git.checkout( "master" );
-                Exec.system( "git", "merge", newBranch );
-                Git.deleteBranch( newBranch );
+                Gir.messenger().error( "Failed to build branch 'master' before modifications " +
+                                       "but branch also failed prior to modifications.", e );
               }
-              catch ( final GirException e )
+              else
               {
-                if ( !initialBuildSuccess )
-                {
-                  Gir.messenger().error( "Failed to build branch 'master' before modifications " +
-                                         "but branch also failed prior to modifications.", e );
-                }
-                else
-                {
-                  Gir.messenger().error( "Failed to build branch 'master' after modifications.", e );
-                }
-                throw e;
+                Gir.messenger().error( "Failed to build branch 'master' after modifications.", e );
               }
+              throw e;
             }
-            else
-            {
-              Gir.messenger().info( "Branch master not rebuilt as no modifications made." );
-              Git.checkout( "master" );
-              Git.deleteBranch( newBranch );
-            }
-          } );
+          }
+          else
+          {
+            Gir.messenger().info( "Branch master not rebuilt as no modifications made." );
+            Git.checkout( "master" );
+            Git.deleteBranch( newBranch );
+          }
         } );
-      } );
+      } ) );
     } );
   }
 
