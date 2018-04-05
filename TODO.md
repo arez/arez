@@ -101,6 +101,18 @@ console.table(languages);
 
 * When actions should not necessarily autodispose. Non-autodispose ones could be added to annotation API.
 
+* On Java9 upgrade may need to do something like `isBeforeJava9() ? "javax.annotation.Generated" : "javax.annotation.processing.Generated";
+```java
+ private static boolean isBeforeJava9() {
+    try {
+      Class.forName("java.lang.Module");
+      return false;
+    } catch (ClassNotFoundException e) {
+      return true;
+    }
+  }
+```
+
 ## Process
 
 * Incorporate notes from https://css-tricks.com/open-source-etiquette-guidebook/ into CONTRIBUTING.md and add
