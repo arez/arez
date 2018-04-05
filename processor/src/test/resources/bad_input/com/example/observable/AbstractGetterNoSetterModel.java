@@ -6,8 +6,6 @@ import arez.annotations.Observable;
 @ArezComponent
 public abstract class AbstractGetterNoSetterModel
 {
-  private long _field;
-
   @Observable( expectSetter = false )
   public abstract long getField();
 }
