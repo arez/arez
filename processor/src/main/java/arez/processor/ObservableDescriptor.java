@@ -459,5 +459,15 @@ final class ObservableDescriptor
                                         "Both getter and setter must be concrete or both must be abstract.",
                                         getSetter() );
     }
+    if ( expectSetter() && !getSetterType().getTypeVariables().isEmpty() )
+    {
+      throw new ArezProcessorException( "@Observable target defines type variables. Method level type parameters " +
+                                        "are not supported for observable values.", getSetter() );
+    }
+    if ( !getGetterType().getTypeVariables().isEmpty() )
+    {
+      throw new ArezProcessorException( "@Observable target defines type variables. Method level type parameters " +
+                                        "are not supported for observable values.", getGetter() );
+    }
   }
 }

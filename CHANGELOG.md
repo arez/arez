@@ -12,6 +12,8 @@
   getter present where the type parameter is derived from the containing type was being incorrectly identified
   as having different types. This scenario is allowed and a test was added to ensure that it will continue to
   be supported.
+* **\[processor\]** Generate an error where the setter or getter of an observable property has a type argument.
+  This avoids the scenario where generated code will not compile due to missing type arguments.
 
 ### [v0.74](https://github.com/arez/arez/tree/v0.74) (2018-03-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.73...v0.74)
