@@ -122,7 +122,7 @@ public @interface ArezComponent
    * Indicate whether a component requires that the {@link Object#hashCode()} and {@link Object#equals(Object)}
    * methods are implemented. These methods MUST be implemented if the {@link Repository} annotation is present
    * but may be implemented in other scenarios. {@link Feature#ENABLE} will force the generation of the methods,
-   * {@link Feature#DISABLE} will no generate these methods and {@link Feature#AUTODETECT} will generated these
+   * {@link Feature#DISABLE} will not generate these methods and {@link Feature#AUTODETECT} will generated these
    * methods if the {@link Repository} annotation is present.
    *
    * @return enum controlling whether the {@link Object#hashCode()} and {@link Object#equals(Object)} methods are implemented.
