@@ -108,6 +108,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.memoize.TypeParamMemoizeModel", false, false, false },
         new Object[]{ "com.example.observable.AbstractNonPrimitiveObservablesModel", false, false, false },
         new Object[]{ "com.example.observable.AbstractObservablesModel", false, false, false },
+        new Object[]{ "com.example.observable.GenericObservableModel", false, false, false },
         new Object[]{ "com.example.observable.ObservableWithNoSetter", false, false, false },
         new Object[]{ "com.example.observable_ref.DefaultRefNameModel", false, false, false },
         new Object[]{ "com.example.observable_ref.NonStandardNameModel", false, false, false },
