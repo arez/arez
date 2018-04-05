@@ -2,6 +2,8 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/gwt'
 
+GWT_EXAMPLES=%w(arez.idlestatus.example.IdleStatusExample)
+
 desc 'Arez-IdleStatus: Arez Browser component that tracks when the user is idle'
 define 'arez-idlestatus' do
   project.group = 'org.realityforge.arez.idlestatus'
@@ -47,6 +49,42 @@ define 'arez-idlestatus' do
     )
 
   iml.excluded_directories << project._('tmp')
+  ipr.extra_modules << 'example/example.iml'
 
   ipr.add_component_from_artifact(:idea_codestyle)
+
+  GWT_EXAMPLES.each do |gwt_module|
+    short_name = gwt_module.gsub(/.*\./, '')
+    ipr.add_gwt_configuration(project,
+                              :iml_name => 'example',
+                              :name => "GWT Example: #{short_name}",
+                              :gwt_module => gwt_module,
+                              :start_javascript_debugger => false,
+                              :vm_parameters => "-Xmx3G -Djava.io.tmpdir=#{_("tmp/gwt/#{short_name}")}",
+                              :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export', short_name)}/")
+  end
 end
+
+define 'example', :base_dir => "#{File.dirname(__FILE__)}/example" do
+  compile.options.source = '1.8'
+  compile.options.target = '1.8'
+
+  compile.with project('arez-idlestatus').package(:jar),
+               project('arez-idlestatus').compile.dependencies,
+               :gwt_user
+
+  gwt_enhance(project)
+
+  gwt_modules = {}
+  GWT_EXAMPLES.each do |gwt_module|
+    gwt_modules[gwt_module] = false
+  end
+  iml.add_gwt_facet(gwt_modules,
+                    :settings => { :compilerMaxHeapSize => '1024' },
+                    :gwt_dev_artifact => :gwt_dev)
+
+  project.no_ipr
+end
+
+task('idea' => 'example:idea')
+task('package' => 'example:package')
