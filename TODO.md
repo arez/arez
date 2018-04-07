@@ -18,7 +18,6 @@ complete as there is too much un-said.
 
 * Extract (browser-)extras as separate projects al:
   - `arez-browserlocation`
-  - `arez-promise`
   - `arez-ticker`
 
 * Add new browser based library:
