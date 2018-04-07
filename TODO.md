@@ -143,7 +143,7 @@ console.table(languages);
 * Change error message "Attempting to get current transaction but no transaction is active." to indicate why
   this typically happens.
 
-* Add documentation for browser-extras.
+* Add documentation for `arez-*` projects.
 
 * Document `Identifiable`
 
