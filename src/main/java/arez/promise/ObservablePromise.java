@@ -25,7 +25,7 @@ import static org.realityforge.braincheck.Guards.*;
  * import elemental2.dom.Response;
  * import elemental2.promise.Promise;
  * import arez.Arez;
- * import arez.browser.extras.ObservablePromise;
+ * import arez.promise.ObservablePromise;
  *
  * public class Example
  *   implements EntryPoint
