@@ -1,0 +1,5 @@
+<module>
+  <inherits name='arez.Arez'/>
+
+  <source path='' includes='*.java'/>
+</module>

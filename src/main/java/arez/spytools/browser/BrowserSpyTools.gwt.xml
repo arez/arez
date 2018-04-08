@@ -1,0 +1,6 @@
+<module>
+  <inherits name='arez.spytools.SpyTools'/>
+  <inherits name='elemental2.dom.Dom'/>
+
+  <source path=''/>
+</module>
