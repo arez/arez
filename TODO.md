@@ -16,8 +16,7 @@ complete as there is too much un-said.
   observable with abstract methods, otherwise `AUTODETECT` will be disabled. `ENABLE` is not valid on
   non-abstract observables.
 
-* Extract (browser-)extras as separate projects al:
-  - `arez-timeddisposer`
+* Extract browser-extras + extras into `arez-spytools` project
 
 * Add new browser based library:
   - `arez-localstorage`: stores a value under a key and updates store if changed. Will need a serializer
