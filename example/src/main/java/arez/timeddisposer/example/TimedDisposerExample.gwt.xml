@@ -1,0 +1,10 @@
+<module>
+  <inherits name='elemental2.dom.Dom'/>
+  <inherits name='arez.ArezDev'/>
+  <inherits name='arez.timeddisposer.TimedDisposer'/>
+  <inherits name='arez.ticker.IntervalTicker'/>
+
+  <source path=''/>
+
+  <entry-point class='arez.timeddisposer.example.TimedDisposerExample'/>
+</module>
