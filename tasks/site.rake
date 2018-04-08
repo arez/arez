@@ -47,7 +47,7 @@ task 'site:publish_if_tagged' do
   else
     puts "Current HEAD is a tag: #{tag}"
     if is_tag_on_candidate_branches?(tag, candidate_branches)
-      task('mcrt:publish').invoke
+      task('site:publish').invoke
     end
   end
 end
