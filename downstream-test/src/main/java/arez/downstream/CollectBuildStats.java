@@ -81,15 +81,18 @@ public final class CollectBuildStats
 
             final boolean isMaven = branch.endsWith( "_maven" );
 
-            Git.checkout( branch );
-            Git.clean();
             final String newBranch = branch + "-ArezUpgrade-" + version;
-
-            Git.checkout( newBranch, true );
             if ( Git.remoteTrackingBranches().contains( "origin/" + newBranch ) )
             {
-              Git.pull();
+              Git.checkout( newBranch );
             }
+            else
+            {
+              Git.checkout( branch );
+            }
+            Git.clean();
+
+            Git.checkout( newBranch, true );
             Git.clean();
 
             Gir.messenger().info( "Building branch " + branch + " prior to modifications." );
