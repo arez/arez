@@ -12,6 +12,6 @@ import static java.lang.annotation.ElementType.*;
 @Retention( RetentionPolicy.CLASS )
 @Target( { METHOD, FIELD, PARAMETER, LOCAL_VARIABLE, ANNOTATION_TYPE } )
 @Language( value = "CSS", prefix = ".a {", suffix = "}" )
-public @interface CssRules
+@interface CssRules
 {
 }
