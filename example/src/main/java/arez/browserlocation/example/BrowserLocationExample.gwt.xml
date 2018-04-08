@@ -1,0 +1,8 @@
+<module>
+  <inherits name='arez.ArezDev'/>
+  <inherits name='arez.browserlocation.BrowserLocation'/>
+
+  <source path=''/>
+
+  <entry-point class='arez.browserlocation.example.BrowserLocationExample'/>
+</module>
