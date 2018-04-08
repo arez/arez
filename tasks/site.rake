@@ -4,36 +4,33 @@ SITE_DIR = "#{WORKSPACE_DIR}/target/doc"
 
 desc 'Publish the website'
 task 'site:publish' => 'doc' do
-  # Only publish the site off the master branch if running out of Travis
-  if ENV['TRAVIS_BRANCH'].nil? || ENV['TRAVIS_BRANCH'] == 'master'
-    origin_url = 'https://github.com/arez/arez.github.io.git'
+  origin_url = 'https://github.com/arez/arez.github.io.git'
 
-    travis_build_number = ENV['TRAVIS_BUILD_NUMBER']
-    if travis_build_number
-      origin_url = origin_url.gsub('https://github.com/', 'git@github.com:')
-    end
+  travis_build_number = ENV['TRAVIS_BUILD_NUMBER']
+  if travis_build_number
+    origin_url = origin_url.gsub('https://github.com/', 'git@github.com:')
+  end
 
-    component_name = Buildr.projects[0].name.gsub('arez-', '')
+  component_name = Buildr.projects[0].name.gsub('arez-', '')
 
-    local_dir = "#{WORKSPACE_DIR}/target/remote_site"
-    rm_rf local_dir
+  local_dir = "#{WORKSPACE_DIR}/target/remote_site"
+  rm_rf local_dir
 
-    sh "git clone -b master --depth 1 #{origin_url} #{local_dir}"
+  sh "git clone -b master --depth 1 #{origin_url} #{local_dir}"
 
-    # This is the list of directories controlled by other processes that should be left alone
-    excludes = %w()
+  # This is the list of directories controlled by other processes that should be left alone
+  excludes = %w()
 
-    in_dir(local_dir) do
-      message =
-        "Publishing docs for component #{component_name}#{travis_build_number.nil? ? '' : " - Travis build: #{travis_build_number}"}"
+  in_dir(local_dir) do
+    message =
+      "Publishing docs for component #{component_name}#{travis_build_number.nil? ? '' : " - Travis build: #{travis_build_number}"}"
 
-      rm_rf "#{local_dir}/#{component_name}"
-      cp_r SITE_DIR, "#{local_dir}/#{component_name}"
-      sh 'git add . -f'
-      puts `git commit -m "#{message}"`
-      if 0 == $?.exitstatus
-        sh 'git push origin master'
-      end
+    rm_rf "#{local_dir}/#{component_name}"
+    cp_r SITE_DIR, "#{local_dir}/#{component_name}"
+    sh 'git add . -f'
+    puts `git commit -m "#{message}"`
+    if 0 == $?.exitstatus
+      sh 'git push origin master'
     end
   end
 end
