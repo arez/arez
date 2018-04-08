@@ -11,6 +11,8 @@
   to it's own top level project [arez/arez-browserlocation](https://github.com/arez/arez-browserlocation).
 * 💥 **\[browser-extras\]** The `IntervalTicker` class has been removed from the `arez` project and migrated
   to it's own top level project [arez/arez-ticker](https://github.com/arez/arez-ticker).
+* 💥 **\[browser-extras\]** The `TimedDisposer` class has been removed from the `arez` project and migrated
+  to it's own top level project [arez/arez-timeddisposer](https://github.com/arez/arez-timeddisposer).
 
 ### [v0.75](https://github.com/arez/arez/tree/v0.75) (2018-04-06)
 [Full Changelog](https://github.com/arez/arez/compare/v0.74...v0.75)

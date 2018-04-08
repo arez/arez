@@ -34,7 +34,6 @@ DAGGER_DEPS =
     :errorprone
   ]
 
-GWT_EXAMPLES=%w(BrowserLocationExample NetworkStatusExample ObservablePromiseExample TimedDisposerExample IntervalTickerExample).collect {|c| "arez.gwt.examples.#{c}"}
 DOC_EXAMPLES=%w().collect {|c| "arez.doc.examples.#{c}"}
 
 # JDK options passed to test environment. Essentially turns assertions on.
@@ -252,28 +251,6 @@ define 'arez' do
     iml.test_source_directories << _('generated/processors/test/java')
   end
 
-  desc 'Arez GWT Examples'
-  define 'gwt-example' do
-    pom.provided_dependencies.concat PROVIDED_DEPS
-
-    compile.with project('browser-extras').package(:jar),
-                 project('browser-extras').compile.dependencies,
-                 :gwt_user
-
-    test.options[:properties] = AREZ_TEST_OPTIONS
-    test.options[:java_args] = ['-ea']
-
-    test.using :testng
-    test.compile.with TEST_DEPS
-
-    gwt_modules = {}
-    GWT_EXAMPLES.each do |gwt_module|
-      gwt_modules[gwt_module] = false
-    end
-    iml.add_gwt_facet(gwt_modules, :settings => { :compilerMaxHeapSize => '1024' }, :gwt_dev_artifact => :gwt_dev)
-    project.jacoco.enabled = false
-  end
-
   desc 'Utilities to output of GWT when compiling Arez applications'
   define 'gwt-output-qa' do
     compile.with PROVIDED_DEPS,
@@ -409,15 +386,6 @@ define 'arez' do
   ipr.extra_modules << '../mobx-react-devtools/mobx-react-devtools.iml'
   ipr.extra_modules << '../andykog-mobx-devtools/andykog-mobx-devtools.iml'
 
-  GWT_EXAMPLES.each do |gwt_module|
-    short_name = gwt_module.gsub(/.*\./, '')
-    ipr.add_gwt_configuration(project('gwt-example'),
-                              :name => "GWT Example: #{short_name}",
-                              :gwt_module => gwt_module,
-                              :start_javascript_debugger => false,
-                              :vm_parameters => "-Xmx3G -Djava.io.tmpdir=#{_("tmp/gwt/#{short_name}")}",
-                              :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export', short_name)}/")
-  end
   DOC_EXAMPLES.each do |gwt_module|
     short_name = gwt_module.gsub(/.*\./, '')
     ipr.add_gwt_configuration(project('doc-examples'),
