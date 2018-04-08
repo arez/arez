@@ -54,7 +54,7 @@ public final class BuildDownstream
           Gir.messenger().error( "Failed to create working directory: " + workingDirectory );
         }
       }
-      Stream.of( "arez-browserlocation", "arez-promise", "arez-networkstatus", "arez-idlestatus" )
+      Stream.of( "arez-browserlocation", "arez-promise", "arez-networkstatus", "arez-idlestatus", "arez-ticker" )
         .forEach( project -> FileUtil.inDirectory( workingDirectory, () -> {
         Gir.messenger().info( "Cloning " + project + " into " + workingDirectory );
         Git.clone( "https://github.com/arez/" + project + ".git", project );
