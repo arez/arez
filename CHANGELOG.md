@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.76](https://github.com/arez/arez/tree/v0.76) (2018-04-08)
+[Full Changelog](https://github.com/arez/arez/compare/v0.75...v0.76)
 
 #### Changed
 * 💥 **\[browser-extras\]** The `ObservablePromise` class has been removed from the `arez` project and migrated
