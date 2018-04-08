@@ -17,6 +17,7 @@ complete as there is too much un-said.
   non-abstract observables.
 
 * Extract (browser-)extras as separate projects al:
+  - `arez-timeddisposer`
 
 * Add new browser based library:
   - `arez-localstorage`: stores a value under a key and updates store if changed. Will need a serializer
