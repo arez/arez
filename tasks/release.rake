@@ -121,6 +121,11 @@ HEADER
       # Artifacts have been pushed to staging repository by this time so they should build
       # even if it has not made it through the Maven release process
       sh 'cd target/arez_downstream-test/deploy_test/workdir/react4j-todomvc && git push --all'
+      %w(raw raw_maven arez arez_maven dagger dagger_maven).each do |branch|
+        full_branch = "#{branch}-ArezUpgrade-#{ENV['PRODUCT_VERSION']}"
+        `cd target/arez_downstream-test/deploy_test/workdir/react4j-todomvc && git push origin :#{full_branch}`
+        puts "Completed remote branch #{full_branch}. Removed." if 0 == $?.exitstatus
+      end
 
       # Release arez-idlestatus - need to extract the version from that project
       idlestatus_version = IO.read('target/arez_downstream-test/deploy_test/workdir/arez-idlestatus/CHANGELOG.md')[/^### \[v(\d+\.\d+)\]/, 1]
