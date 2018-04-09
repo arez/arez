@@ -249,7 +249,7 @@ define 'arez' do
       ensure
         repositories.release_to = old_release_to
       end
-    end
+    end unless ENV['TEST'] == 'no' # These artifacts only required when running tests..
 
     test.compile.enhance do
       cp = project.compile.dependencies.map(&:to_s) + [project.compile.target.to_s]
