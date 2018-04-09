@@ -107,8 +107,13 @@ console.table(languages);
   publish a release as it indicates that there was some code change required. The other trigger for a release may be
   when the major version of arez changes.
 
+* Incorporate elements of https://github.com/GoogleCloudPlatform/agones/blob/master/CONTRIBUTING.md
+
 * Incorporate notes from https://css-tricks.com/open-source-etiquette-guidebook/ into CONTRIBUTING.md and add
   something similar for issues/pull requests.
+
+* Add Issue template that asks for suggested solution:
+  https://raw.githubusercontent.com/kentcdodds/generator-kcd-oss/master/generators/app/templates/github/ISSUE_TEMPLATE.md
 
 * Generate links when the application crashes so that we can autofill issue details. Essentially involves
   crafting urls with parameters. Something like:
@@ -120,12 +125,7 @@ console.table(languages);
 
 ## Documentation
 
-* Add Issue template that asks for suggested solution:
-  https://raw.githubusercontent.com/kentcdodds/generator-kcd-oss/master/generators/app/templates/github/ISSUE_TEMPLATE.md
-
 * Performance testing and writeup?
-
-* Incorporate elements of https://github.com/GoogleCloudPlatform/agones/blob/master/CONTRIBUTING.md
 
 * Integrate documentation such as following which seem like good overviews
   - http://blog.danlew.net/2017/07/27/an-introduction-to-functional-reactive-programming/
