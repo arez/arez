@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Changed
+* 💥 **\[\core\]** Move the dependency on `arez-annotations` from `arez-core` to `arez-components` to accurately
+  reflect intent.
+
 ### [v0.77](https://github.com/arez/arez/tree/v0.77) (2018-04-09)
 [Full Changelog](https://github.com/arez/arez/compare/v0.76...v0.77)
 

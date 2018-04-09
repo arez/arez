@@ -69,9 +69,7 @@ define 'arez' do
 
   desc 'Arez Core'
   define 'core' do
-    pom.additional_dependencies << project('annotations').package(:jar)
-    pom.include_transitive_dependencies << project('annotations').package(:jar)
-    pom.dependency_filter = Proc.new {|dep| !project('annotations').compile.dependencies.include?(dep[:artifact]) && (dep[:group].to_s != 'com.google.jsinterop' || (dep[:id].to_s == 'jsinterop-annotations' && dep[:classifier].nil?))}
+    pom.dependency_filter = Proc.new {|dep| (dep[:group].to_s != 'com.google.jsinterop' || (dep[:id].to_s == 'jsinterop-annotations' && dep[:classifier].nil?))}
 
     compile.with PROVIDED_DEPS,
                  :braincheck,
@@ -92,8 +90,9 @@ define 'arez' do
 
   desc 'Arez Component Support'
   define 'component' do
+    pom.include_transitive_dependencies << project('annotations').package(:jar)
     pom.include_transitive_dependencies << project('core').package(:jar)
-    pom.dependency_filter = Proc.new {|dep| !project('core').compile.dependencies.include?(dep[:artifact]) && !project('annotations').compile.dependencies.include?(dep[:artifact]) && dep[:artifact] != project('annotations').package(:jar)}
+    pom.dependency_filter = Proc.new {|dep| !project('core').compile.dependencies.include?(dep[:artifact]) && !project('annotations').compile.dependencies.include?(dep[:artifact])}
 
     compile.with PROVIDED_DEPS,
                  project('annotations').package(:jar),
