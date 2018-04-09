@@ -1,6 +1,6 @@
 package arez.integration;
 
-import arez.extras.spy.AbstractSpyEventProcessor;
+import arez.SpyEventHandler;
 import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
 import arez.spy.ComponentCreateCompletedEvent;
@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
@@ -40,8 +41,9 @@ import javax.json.stream.JsonGenerator;
  * A recorder used to record results of test run.
  */
 public final class SpyEventRecorder
-  extends AbstractSpyEventProcessor
+  implements SpyEventHandler
 {
+  private final Map<Class<?>, Consumer<SerializableEvent>> _processors = new HashMap<>();
   private final JsonArrayBuilder _events = Json.createArrayBuilder();
   private final boolean _keepValue;
 
@@ -80,7 +82,7 @@ public final class SpyEventRecorder
 
   private <T extends SerializableEvent> void register( @Nonnull final Class<T> type )
   {
-    super.on( type, ( d, e ) -> log( e ) );
+    _processors.put( type, this::log );
   }
 
   private void log( @Nonnull final SerializableEvent event )
@@ -117,6 +119,16 @@ public final class SpyEventRecorder
       }
     }
     _events.add( Json.createObjectBuilder( output ) );
+  }
+
+  @Override
+  public final void onSpyEvent( @Nonnull final Object event )
+  {
+    final Consumer<SerializableEvent> processor = _processors.get( event.getClass() );
+    if ( null != processor )
+    {
+      processor.accept( (SerializableEvent) event );
+    }
   }
 
   @Nonnull
