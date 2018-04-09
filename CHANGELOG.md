@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+#### Changed
+* 💥 **\[\*extras\]** The spy utilities in the `arez-browser-extras` artifact and the `arez-extras` artifact
+  have been removed from the `arez` project and migrated a top level project [arez/arez-spytools](https://github.com/arez/arez-spytools).
+
 ### [v0.76](https://github.com/arez/arez/tree/v0.76) (2018-04-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.75...v0.76)
 

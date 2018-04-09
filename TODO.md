@@ -16,8 +16,6 @@ complete as there is too much un-said.
   observable with abstract methods, otherwise `AUTODETECT` will be disabled. `ENABLE` is not valid on
   non-abstract observables.
 
-* Extract browser-extras + extras into `arez-spytools` project
-
 * Add new browser based library:
   - `arez-localstorage`: stores a value under a key and updates store if changed. Will need a serializer
     to perform serialization to and from the string value in store
@@ -41,8 +39,6 @@ complete as there is too much un-said.
 * Consider an abstraction like https://github.com/danielearwicker/computed-async-mobx/
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
-
-* Enhance WhyRun and write tests for it.
 
 * Setup testing with browser. Headless Chrome via selenium? GWT test case?
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html

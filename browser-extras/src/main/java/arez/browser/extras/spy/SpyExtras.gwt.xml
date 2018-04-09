@@ -1,6 +1,0 @@
-<module>
-  <inherits name="arez.extras.spy.SpyExtras"/>
-  <inherits name="elemental2.dom.Dom"/>
-
-  <source path=""/>
-</module>

@@ -114,64 +114,6 @@ define 'arez' do
     test.compile.with TEST_DEPS
   end
 
-  desc 'Arez Extras and Addons'
-  define 'extras' do
-    project.enable_annotation_processor = true
-
-    pom.include_transitive_dependencies << project('component').package(:jar)
-    pom.dependency_filter = Proc.new {|dep| !project('component').compile.dependencies.include?(dep[:artifact]) && !project('processor').compile.dependencies.include?(dep[:artifact]) && dep[:artifact] != project('processor').package(:jar) }
-
-    compile.with project('annotations').package(:jar),
-                 project('annotations').compile.dependencies,
-                 project('core').package(:jar),
-                 project('core').compile.dependencies,
-                 project('component').package(:jar),
-                 project('component').compile.dependencies,
-                 project('processor').package(:jar),
-                 project('processor').compile.dependencies
-
-    test.options[:properties] = AREZ_TEST_OPTIONS
-    test.options[:java_args] = ['-ea']
-
-    gwt_enhance(project)
-
-    package(:jar)
-    package(:sources)
-    package(:javadoc)
-
-    test.using :testng
-    test.compile.with TEST_DEPS
-  end
-
-  desc 'Arez Browser based Extras and Addons'
-  define 'browser-extras' do
-    project.enable_annotation_processor = true
-
-    pom.provided_dependencies.concat [:jetbrains_annotations]
-    pom.include_transitive_dependencies << project('extras').package(:jar)
-    pom.include_transitive_dependencies << artifact(:elemental2_dom)
-    pom.dependency_filter = Proc.new {|dep| !project('extras').compile.dependencies.include?(dep[:artifact]) && dep[:group].to_s != 'com.google.jsinterop' && dep[:id].to_s != 'elemental2-promise' && dep[:id].to_s != 'elemental2-core'}
-
-    compile.with project('extras').package(:jar),
-                 project('extras').compile.dependencies,
-                 :jetbrains_annotations,
-                 GWT_DEPS
-
-    test.options[:properties] = AREZ_TEST_OPTIONS
-    test.options[:java_args] = ['-ea']
-
-    package(:jar)
-    package(:sources)
-    package(:javadoc)
-
-    test.using :testng
-    test.compile.with TEST_DEPS
-
-    gwt_enhance(project)
-
-    project.jacoco.enabled = false
-  end
-
   desc 'Arez Annotation processor'
   define 'processor' do
     pom.dependency_filter = Proc.new {|_| false }
@@ -236,14 +178,13 @@ define 'arez' do
                       :jsonassert,
                       :android_json,
                       DAGGER_DEPS,
+                      GWT_DEPS,
                       project('annotations').package(:jar),
                       project('annotations').compile.dependencies,
                       project('core').package(:jar),
                       project('core').compile.dependencies,
                       project('component').package(:jar),
                       project('component').compile.dependencies,
-                      project('extras').package(:jar),
-                      project('extras').compile.dependencies,
                       project('processor').package(:jar),
                       project('processor').compile.dependencies
 
@@ -281,7 +222,7 @@ define 'arez' do
 
     local_test_repository_url = URI.join('file:///', project._(:target, :local_test_repository)).to_s
     compile.enhance do
-      projects_to_upload = projects(%w(annotations core processor component extras browser-extras))
+      projects_to_upload = projects(%w(annotations core processor component))
       old_release_to = repositories.release_to
       begin
         # First we install them in a local repository so we don't have to access the network during local builds
@@ -341,10 +282,13 @@ define 'arez' do
     project.enable_annotation_processor = true
     pom.provided_dependencies.concat PROVIDED_DEPS
 
-    compile.with project('browser-extras').package(:jar),
-                 project('browser-extras').compile.dependencies,
+    compile.with project('processor').package(:jar),
+                 project('processor').compile.dependencies,
+                 project('component').package(:jar),
+                 project('component').compile.dependencies,
                  :gwt_user,
                  DAGGER_DEPS,
+                 GWT_DEPS,
                  GIN_DEPS
 
     test.options[:properties] = AREZ_TEST_OPTIONS
@@ -362,7 +306,7 @@ define 'arez' do
     project.jacoco.enabled = false
   end
 
-  doc.from(projects(%w(annotations core processor component extras browser-extras))).
+  doc.from(projects(%w(annotations core processor component))).
     using(:javadoc,
           :windowtitle => 'Arez API Documentation',
           :linksource => true,
@@ -371,9 +315,7 @@ define 'arez' do
           :group => {
             'Core Packages' => 'arez:arez.spy*',
             'Annotation Packages' => 'arez.annotations*:arez.processor*',
-            'Component Packages' => 'arez.component*',
-            'Extras Packages' => 'arez.extras*',
-            'Browser Extras Packages' => 'arez.browser*'
+            'Component Packages' => 'arez.component*'
           }
     )
 
