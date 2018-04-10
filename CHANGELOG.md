@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+#### Added
+* **\[docs\]** Begin the "Project Setup" section of docs.
+
 #### Changed
 * 💥 **\[\core\]** Move the dependency on `arez-annotations` from `arez-core` to `arez-components` to accurately
   reflect intent.
