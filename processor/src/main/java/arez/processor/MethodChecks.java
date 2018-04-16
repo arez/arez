@@ -94,8 +94,8 @@ final class MethodChecks
     }
   }
 
-  static void mustNotBePrivate( @Nonnull final String annotationName,
-                                @Nonnull final ExecutableElement method )
+  private static void mustNotBePrivate( @Nonnull final String annotationName,
+                                        @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.PRIVATE ) )

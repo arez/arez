@@ -1181,8 +1181,7 @@ final class ComponentDescriptor
   private DependencyDescriptor createDependencyDescriptor( @Nonnull final ExecutableElement method )
   {
     MethodChecks.mustNotHaveAnyParameters( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotBeStatic( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotBePrivate( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeSubclassCallable( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustReturnAValue( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
 
