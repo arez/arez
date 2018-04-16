@@ -85,7 +85,7 @@ Changes in this release:
 CONTENT
       setup_filename = 'docs/project_setup.md'
       IO.write(setup_filename, IO.read(setup_filename).
-        gsub("<version><#{ENV['PREVIOUS_PRODUCT_VERSION']}/version>", "<version><#{ENV['PRODUCT_VERSION']}/version>"))
+        gsub("<version>#{ENV['PREVIOUS_PRODUCT_VERSION']}</version>", "<version>#{ENV['PRODUCT_VERSION']}</version>"))
       sh 'git reset 2>&1 1> /dev/null'
       sh "git add #{filename}"
       sh "git add #{setup_filename}"
