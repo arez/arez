@@ -169,7 +169,8 @@ abstract class AbstractArezProcessorTest
         field.set( compilation, Compilation.Status.SUCCESS );
       }
 
-      final ImmutableList<JavaFileObject> fileObjects = compilation.generatedSourceFiles();for ( final JavaFileObject fileObject : fileObjects )
+      final ImmutableList<JavaFileObject> fileObjects = compilation.generatedSourceFiles();
+      for ( final JavaFileObject fileObject : fileObjects )
       {
         final Path target = fixtureDir().resolve( "expected/" + fileObject.getName().replace( "/SOURCE_OUTPUT/", "" ) );
         if ( Files.exists( target ) )
