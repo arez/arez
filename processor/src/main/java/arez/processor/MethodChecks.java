@@ -64,7 +64,7 @@ final class MethodChecks
     mustNotThrowAnyExceptions( annotationName, method );
   }
 
-  static void mustNotBeStatic( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
+  private static void mustNotBeStatic( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( method.getModifiers().contains( Modifier.STATIC ) )
