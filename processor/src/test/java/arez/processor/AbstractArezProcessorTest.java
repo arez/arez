@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.Compiler;
 import com.google.testing.compile.JavaFileObjects;
-import com.google.testing.compile.JavaSourceSubjectFactory;
 import com.google.testing.compile.JavaSourcesSubjectFactory;
 import java.io.File;
 import java.lang.reflect.Field;
@@ -230,9 +229,15 @@ abstract class AbstractArezProcessorTest
                                             @Nonnull final String errorMessageFragment )
     throws Exception
   {
-    final JavaFileObject source = fixture( inputResource );
-    assert_().about( JavaSourceSubjectFactory.javaSource() ).
-      that( source ).
+    assertFailedCompileResource( Collections.singletonList( fixture( inputResource ) ), errorMessageFragment );
+  }
+
+  void assertFailedCompileResource( @Nonnull final List<JavaFileObject> inputs,
+                                            @Nonnull final String errorMessageFragment )
+    throws Exception
+  {
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( inputs ).
       processedWith( new ArezProcessor() ).
       failsToCompile().
       withErrorContaining( errorMessageFragment );
