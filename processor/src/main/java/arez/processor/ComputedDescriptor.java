@@ -100,7 +100,9 @@ final class ComputedDescriptor
   {
     //The caller already verified that no duplicate computed have been defined
     assert null == _computed;
-    MethodChecks.mustBeWrappable( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
+    MethodChecks.mustBeWrappable( _componentDescriptor.getElement(),
+                                  Constants.COMPUTED_ANNOTATION_CLASSNAME,
+                                  computed );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
     MethodChecks.mustReturnAValue( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
@@ -112,7 +114,9 @@ final class ComputedDescriptor
   void setRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeSubclassCallable( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
+                                         Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME,
+                                         method );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
 
@@ -131,7 +135,9 @@ final class ComputedDescriptor
   void setOnActivate( @Nonnull final ExecutableElement onActivate )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, onActivate );
+    MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
+                                      Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME,
+                                      onActivate );
 
     if ( null != _onActivate )
     {
@@ -147,7 +153,9 @@ final class ComputedDescriptor
   void setOnDeactivate( @Nonnull final ExecutableElement onDeactivate )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME, onDeactivate );
+    MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
+                                      Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
+                                      onDeactivate );
     if ( null != _onDeactivate )
     {
       throw new ArezProcessorException( "@OnDeactivate target duplicates existing method named " +
@@ -163,7 +171,9 @@ final class ComputedDescriptor
   void setOnStale( @Nonnull final ExecutableElement onStale )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( Constants.ON_STALE_ANNOTATION_CLASSNAME, onStale );
+    MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
+                                      Constants.ON_STALE_ANNOTATION_CLASSNAME,
+                                      onStale );
     if ( null != _onStale )
     {
       throw new ArezProcessorException( "@OnStale target duplicates existing method named " +
@@ -179,7 +189,9 @@ final class ComputedDescriptor
   void setOnDispose( @Nonnull final ExecutableElement onDispose )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( Constants.ON_DISPOSE_ANNOTATION_CLASSNAME, onDispose );
+    MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
+                                      Constants.ON_DISPOSE_ANNOTATION_CLASSNAME,
+                                      onDispose );
 
     if ( null != _onDispose )
     {

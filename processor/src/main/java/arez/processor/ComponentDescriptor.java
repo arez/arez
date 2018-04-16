@@ -222,7 +222,7 @@ final class ComponentDescriptor
                               @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Constants.OBSERVABLE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeOverridable( getElement(), Constants.OBSERVABLE_ANNOTATION_CLASSNAME, method );
 
     final String declaredName = getAnnotationParameter( annotation, "name" );
     final boolean expectSetter = getAnnotationParameter( annotation, "expectSetter" );
@@ -323,7 +323,7 @@ final class ComponentDescriptor
                                  @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeOverridable( getElement(), Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustBeAbstract( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotHaveAnyParameters( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
@@ -391,7 +391,7 @@ final class ComponentDescriptor
                           @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeWrappable( Constants.ACTION_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeWrappable( getElement(), Constants.ACTION_ANNOTATION_CLASSNAME, method );
 
     final String name = deriveActionName( method, annotation );
     checkNameUnique( name, method, Constants.ACTION_ANNOTATION_CLASSNAME );
@@ -431,7 +431,7 @@ final class ComponentDescriptor
                            @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeWrappable( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeWrappable( getElement(), Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotHaveAnyParameters( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotReturnAnyValue( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
@@ -524,7 +524,7 @@ final class ComponentDescriptor
                                @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeOverridable( getElement(), Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustBeAbstract( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotHaveAnyParameters( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
@@ -591,7 +591,7 @@ final class ComponentDescriptor
                                     @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeOverridable( getElement(), Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustBeAbstract( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
@@ -769,7 +769,7 @@ final class ComponentDescriptor
   private void setContextRef( @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeOverridable( getElement(), Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustBeAbstract( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotHaveAnyParameters( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustReturnAValue( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
@@ -797,7 +797,7 @@ final class ComponentDescriptor
   private void setComponentRef( @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeOverridable( getElement(), Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustBeAbstract( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustReturnAValue( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
@@ -827,7 +827,7 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     MethodChecks.mustNotBeAbstract( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
-    MethodChecks.mustBeSubclassCallable( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
+    MethodChecks.mustBeSubclassCallable( getElement(), Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
     MethodChecks.mustBeFinal( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
     MethodChecks.mustReturnAValue( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
@@ -848,7 +848,7 @@ final class ComponentDescriptor
   private void setComponentTypeNameRef( @Nonnull final ExecutableElement componentTypeName )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
+    MethodChecks.mustBeOverridable( getElement(), Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
     MethodChecks.mustBeAbstract( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
     MethodChecks.mustReturnAValue( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
@@ -875,7 +875,7 @@ final class ComponentDescriptor
   private void setComponentNameRef( @Nonnull final ExecutableElement componentName )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
+    MethodChecks.mustBeOverridable( getElement(), Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
     MethodChecks.mustBeAbstract( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
     MethodChecks.mustReturnAValue( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
@@ -901,7 +901,7 @@ final class ComponentDescriptor
   void setPostConstruct( @Nonnull final ExecutableElement postConstruct )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME, postConstruct );
+    MethodChecks.mustBeLifecycleHook( getElement(), Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME, postConstruct );
 
     if ( null != _postConstruct )
     {
@@ -917,7 +917,7 @@ final class ComponentDescriptor
   private void setPreDispose( @Nonnull final ExecutableElement preDispose )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME, preDispose );
+    MethodChecks.mustBeLifecycleHook( getElement(), Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME, preDispose );
 
     if ( null != _preDispose )
     {
@@ -933,7 +933,7 @@ final class ComponentDescriptor
   private void setPostDispose( @Nonnull final ExecutableElement postDispose )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( Constants.POST_DISPOSE_ANNOTATION_CLASSNAME, postDispose );
+    MethodChecks.mustBeLifecycleHook( getElement(), Constants.POST_DISPOSE_ANNOTATION_CLASSNAME, postDispose );
 
     if ( null != _postDispose )
     {
@@ -1181,7 +1181,7 @@ final class ComponentDescriptor
   private DependencyDescriptor createDependencyDescriptor( @Nonnull final ExecutableElement method )
   {
     MethodChecks.mustNotHaveAnyParameters( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeSubclassCallable( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeSubclassCallable( getElement(), Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustReturnAValue( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
 

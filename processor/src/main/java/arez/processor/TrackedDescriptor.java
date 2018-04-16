@@ -86,7 +86,7 @@ final class TrackedDescriptor
                          @Nonnull final ExecutableElement method,
                          @Nonnull final ExecutableType trackedMethodType )
   {
-    MethodChecks.mustBeWrappable( Constants.TRACK_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeWrappable( _componentDescriptor.getElement(), Constants.TRACK_ANNOTATION_CLASSNAME, method );
     if ( null != _trackedMethod )
     {
       throw new ArezProcessorException( "@Track target duplicates existing method named " +
@@ -104,7 +104,9 @@ final class TrackedDescriptor
 
   void setOnDepsChangedMethod( @Nonnull final ExecutableElement method )
   {
-    MethodChecks.mustBeLifecycleHook( Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
+                                      Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME,
+                                      method );
     if ( null != _onDepsChangedMethod )
     {
       throw new ArezProcessorException( "@OnDepsChanged target duplicates existing method named " +

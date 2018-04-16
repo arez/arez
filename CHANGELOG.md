@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+##### Fixed
+* **\[processor\]** A package access method annotated with an Arez annotation, in a superclass
+  of the `@ArezComponent` that is in a different package would previously generate a compile error
+  but now the processor detects this scenario and emits an explicit error rather than generating
+  invalid code.
+
 #### Added
 * **\[docs\]** Begin the "Project Setup" section of docs.
 

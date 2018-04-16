@@ -840,4 +840,45 @@ public class ArezProcessorTest
   {
     assertFailedCompile( classname, errorMessageFragment );
   }
+
+  @DataProvider( name = "packageAccessElementInDifferentPackage" )
+  public Object[][] packageAccessElementInDifferentPackage()
+  {
+    return new Object[][]
+      {
+        new Object[]{ "Action" },
+        new Object[]{ "Autorun" },
+        new Object[]{ "ComponentId" },
+        new Object[]{ "ComponentNameRef" },
+        new Object[]{ "ComponentRef" },
+        new Object[]{ "Computed" },
+        new Object[]{ "OnActivate" },
+        new Object[]{ "OnDeactivate" },
+        new Object[]{ "OnStale" },
+        new Object[]{ "OnDispose" },
+        new Object[]{ "ComputedValueRef" },
+        new Object[]{ "ContextRef" },
+        new Object[]{ "Dependency" },
+        new Object[]{ "Observable" },
+        new Object[]{ "ObservableRef" },
+        new Object[]{ "ObserverRef" },
+        new Object[]{ "PostConstruct" },
+        new Object[]{ "Track" },
+        new Object[]{ "OnDepsChanged" }
+      };
+  }
+
+  @Test( dataProvider = "packageAccessElementInDifferentPackage" )
+  public void processFailedCompileInheritedPackageAccessInDifferentPackage( @Nonnull final String annotation )
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      JavaFileObjects.forResource( "bad_input/com/example/package_access/other/Base" + annotation + "Model.java" );
+    final JavaFileObject source2 =
+      JavaFileObjects.forResource( "bad_input/com/example/package_access/" + annotation + "Model.java" );
+    assertFailedCompileResource( Arrays.asList( source1, source2 ),
+                                 "@" + annotation + " target must not be package access if " +
+                                 "the method is in a different package from the @ArezComponent" );
+  }
+
 }

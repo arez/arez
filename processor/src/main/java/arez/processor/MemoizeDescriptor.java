@@ -58,7 +58,7 @@ final class MemoizeDescriptor
   {
     //The caller already verified that no duplicate computed have been defined
     assert null == _memoize;
-    MethodChecks.mustBeWrappable( Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
+    MethodChecks.mustBeWrappable( _componentDescriptor.getElement(), Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
     MethodChecks.mustHaveParameters( Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
     MethodChecks.mustReturnAValue( Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
     MethodChecks.mustNotThrowAnyExceptions( Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
