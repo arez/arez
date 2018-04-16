@@ -24,6 +24,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
@@ -40,6 +41,20 @@ final class ProcessorUtil
 
   private ProcessorUtil()
   {
+  }
+
+  @Nullable
+  static PackageElement getPackageElement( @Nonnull final TypeElement element )
+  {
+    Element enclosingElement = element.getEnclosingElement();
+    while ( null != enclosingElement )
+    {
+      if ( enclosingElement instanceof PackageElement )
+      {
+        return (PackageElement) enclosingElement;
+      }
+    }
+    return null;
   }
 
   @Nonnull
