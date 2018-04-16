@@ -15,8 +15,8 @@ complete as there is too much un-said.
 
 * Introduce `keepAlive` as an option for `computed` values. Sometimes we want to keep them uptodate
   so low cost to add observers to it or because only called from actions.
-  
-* Add per Observer `onError` parameter that can be used to replace the global reaction error handler. 
+
+* Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
 * Components that have observables defined by abstract methods should have some way of annotating these
   observables so that you can pass in initial values via generated constructor. Perhaps these variables
