@@ -101,7 +101,7 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
   }
 
   @Override
-  public void doStuff(final long time) {
+  void doStuff(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

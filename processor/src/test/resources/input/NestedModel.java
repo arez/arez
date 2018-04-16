@@ -7,7 +7,7 @@ public class NestedModel
   public static abstract class BasicActionModel
   {
     @Action
-    public void doStuff( final long time )
+    void doStuff( final long time )
     {
     }
   }

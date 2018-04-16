@@ -53,6 +53,7 @@ final class ProcessorUtil
       {
         return (PackageElement) enclosingElement;
       }
+      enclosingElement = enclosingElement.getEnclosingElement();
     }
     return null;
   }
