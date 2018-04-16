@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.78](https://github.com/arez/arez/tree/v0.78) (2018-04-16)
+[Full Changelog](https://github.com/arez/arez/compare/v0.77...v0.78)
 
 ##### Fixed
 * **\[processor\]** A package access method annotated with an Arez annotation, in a superclass
