@@ -8,6 +8,16 @@ complete as there is too much un-said.
 
 * Should generate `@Autorun` method that throws an exception as should never call it directly.
 
+* Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
+  it via `requestAnimationFrame`
+
+* Enhance autorun with delay parameter. This is the milliseconds used to debounce the tracked function.
+
+* Introduce `keepAlive` as an option for `computed` values. Sometimes we want to keep them uptodate
+  so low cost to add observers to it or because only called from actions.
+  
+* Add per Observer `onError` parameter that can be used to replace the global reaction error handler. 
+
 * Components that have observables defined by abstract methods should have some way of annotating these
   observables so that you can pass in initial values via generated constructor. Perhaps these variables
   occur at start of constructor parameter list or at end in the order that they are defined. It seems like
