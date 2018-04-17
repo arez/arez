@@ -108,7 +108,7 @@ final class GeneratorUtil
   }
 
   static void generateNotCompleteInvariant( @Nonnull final ComponentDescriptor descriptor,
-                                               @Nonnull final MethodSpec.Builder builder )
+                                            @Nonnull final MethodSpec.Builder builder )
   {
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
