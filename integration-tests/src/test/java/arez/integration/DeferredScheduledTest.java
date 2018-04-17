@@ -15,7 +15,7 @@ public class DeferredScheduledTest
     int _autorunCallCount;
 
     @Autorun
-    public void autorun()
+    void autorun()
     {
       _autorunCallCount++;
     }

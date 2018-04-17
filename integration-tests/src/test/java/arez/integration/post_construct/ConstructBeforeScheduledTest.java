@@ -24,7 +24,7 @@ public class ConstructBeforeScheduledTest
     }
 
     @Autorun
-    public void autorun()
+    void autorun()
     {
       _autorunCalled = true;
       if ( !_postConstructCalled )

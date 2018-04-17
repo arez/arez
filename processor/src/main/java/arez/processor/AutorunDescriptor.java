@@ -147,7 +147,7 @@ final class AutorunDescriptor
 
   /**
    * Generate the autorun wrapper.
-   * This is wrapped in case the user ever wants to explicitly call method
+   * This is wrapped to block user from directly invoking autorun method.
    */
   @Nonnull
   private MethodSpec buildAutorun()
@@ -163,27 +163,15 @@ final class AutorunDescriptor
     final TypeMirror returnType = _autorun.getReturnType();
     builder.returns( TypeName.get( returnType ) );
 
-    final StringBuilder statement = new StringBuilder();
-    final ArrayList<Object> parameterNames = new ArrayList<>();
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
+    block.addStatement( "$T.fail( () -> \"Autorun method named '$N' invoked but @Autorun annotated " +
+                        "methods should only be invoked by the runtime.\" )",
+                        GeneratorUtil.GUARDS_CLASSNAME,
+                        methodName );
+    block.endControlFlow();
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
-
-    statement.append( "$N()." );
-    parameterNames.add( _componentDescriptor.getContextMethodName() );
-
-    statement.append( "safeAction( $T.areNamesEnabled() ? " );
-    parameterNames.add( GeneratorUtil.AREZ_CLASSNAME );
-
-    statement.append( "$N() + $S" );
-    parameterNames.add( _componentDescriptor.getComponentNameMethodName() );
-    parameterNames.add( "." + getName() );
-    statement.append( " : null, " );
-    statement.append( _mutation );
-    statement.append( ", () -> super." );
-    statement.append( _autorun.getSimpleName() );
-    statement.append( "() )" );
-
-    builder.addStatement( statement.toString(), parameterNames.toArray() );
+    builder.addCode( block.build() );
 
     return builder.build();
   }

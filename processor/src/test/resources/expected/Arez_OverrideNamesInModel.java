@@ -151,9 +151,8 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   @Override
   protected void zapZap() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'zapZap' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.fail( () -> "Autorun method named 'zapZap' invoked but @Autorun annotated methods should only be invoked by the runtime." );
     }
-    $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".zzzzzz" : null, false, () -> super.zapZap() );
   }
 
   @Override

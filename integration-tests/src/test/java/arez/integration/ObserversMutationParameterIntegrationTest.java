@@ -134,7 +134,7 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @Autorun
-    public void myObserveReaction()
+    void myObserveReaction()
     {
       setName( "Changed" );
       _observerRunCount += 1;
@@ -166,7 +166,7 @@ public class ObserversMutationParameterIntegrationTest
 
     @SuppressWarnings( "ResultOfMethodCallIgnored" )
     @Autorun
-    public void myObserveReaction()
+    void myObserveReaction()
     {
       getName();
       _observerRunCount += 1;
@@ -197,7 +197,7 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @Autorun( mutation = true )
-    public void myObserveReaction()
+    void myObserveReaction()
     {
       setName( "Changed" );
       _observerRunCount += 1;
