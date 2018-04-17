@@ -3,7 +3,9 @@ package com.example.inheritance;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
+import arez.ComputedValue;
 import arez.Disposable;
+import arez.EqualityComparator;
 import arez.Observable;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
@@ -14,6 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@SuppressWarnings("unchecked")
 final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Long>, ComponentObservable {
   private static volatile long $$arezi$$_nextId;
 
@@ -28,6 +31,9 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Lon
 
   private final Observable<Boolean> $$arezi$$_disposedObservable;
 
+  @Nonnull
+  private final ComputedValue<Integer> $$arez$$_myComputed;
+
   Arez_MyModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
@@ -35,6 +41,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Lon
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "MyModel", $$arezi$$_id(), $$arezi$$_name(), null, null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
+    this.$$arez$$_myComputed = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myComputed" : null, super::myComputed, EqualityComparator.defaultComparator(), null, null, null, null );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
@@ -96,6 +103,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Lon
       } else {
         $$arezi$$_context().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
+          this.$$arez$$_myComputed.dispose();
         } } );
       }
       this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
@@ -128,6 +136,14 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Lon
     } catch( final Throwable $$arez_exception$$ ) {
       throw new IllegalStateException( $$arez_exception$$ );
     }
+  }
+
+  @Override
+  protected int myComputed() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    return this.$$arez$$_myComputed.get();
   }
 
   @Override
