@@ -435,6 +435,7 @@ final class ComponentDescriptor
     MethodChecks.mustNotHaveAnyParameters( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotReturnAnyValue( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotBePublic( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
 
     final String name = deriveAutorunName( method, annotation );
     checkNameUnique( name, method, Constants.AUTORUN_ANNOTATION_CLASSNAME );

@@ -9,7 +9,7 @@ import arez.annotations.ObserverRef;
 public abstract class DuplicateNameModel
 {
   @Autorun
-  public void doStuff()
+  protected void doStuff()
   {
   }
 

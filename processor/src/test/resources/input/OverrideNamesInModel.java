@@ -27,7 +27,7 @@ public abstract class OverrideNamesInModel
   }
 
   @Autorun( name = "zzzzzz" )
-  public void zapZap()
+  protected void zapZap()
   {
   }
 

@@ -24,7 +24,7 @@ public abstract class RefOnBothModel
   abstract Observer getRenderObserver();
 
   @Autorun
-  public void doStuff()
+  protected void doStuff()
   {
   }
 

@@ -11,6 +11,9 @@
 * **\[\processor\]** Enhanced the error message generated when a method is invoked on a generated
   Arez component and the component is in the wrong state. The error message now includes the name
   of the method being invoked.
+* 💥 **\[\processor\]** Generate an error if it is detected that a method annotated with `@Autorun`
+  has public access. It is expected that no `@Autorun` method should be invoked outside of the
+  Arez framework and thus making the method non-public encourages correct usage.
 
 ### [v0.78](https://github.com/arez/arez/tree/v0.78) (2018-04-16)
 [Full Changelog](https://github.com/arez/arez/compare/v0.77...v0.78)

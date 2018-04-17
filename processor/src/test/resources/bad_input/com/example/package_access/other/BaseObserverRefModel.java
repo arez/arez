@@ -7,7 +7,7 @@ import arez.annotations.ObserverRef;
 public abstract class BaseObserverRefModel
 {
   @Autorun
-  public void doStuff()
+  protected void doStuff()
   {
   }
 

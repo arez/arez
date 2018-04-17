@@ -149,7 +149,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   }
 
   @Override
-  public void zapZap() {
+  protected void zapZap() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'zapZap' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

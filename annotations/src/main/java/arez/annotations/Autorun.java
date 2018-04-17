@@ -7,11 +7,13 @@ import javax.annotation.Nonnull;
 
 /**
  * Methods marked with this annotation are converted to autoruns.
+ * Autorun methods are invoked by the Arez runtime and should never be invoked directly by user code.
  *
  * <p>The method that is annotated with @Autorun must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must not be private</li>
+ * <li>Must not be public</li>
  * <li>Must not be static</li>
  * <li>Must not be final</li>
  * <li>Must not be abstract</li>

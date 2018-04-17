@@ -7,7 +7,7 @@ import arez.annotations.Autorun;
 public abstract class BasicAutorunModel
 {
   @Autorun
-  public void doStuff()
+  protected void doStuff()
   {
   }
 }

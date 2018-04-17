@@ -112,7 +112,7 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
   }
 
   @Override
-  public void doStuff() {
+  protected void doStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

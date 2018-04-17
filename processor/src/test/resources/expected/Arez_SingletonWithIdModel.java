@@ -152,7 +152,7 @@ public final class Arez_SingletonWithIdModel extends SingletonWithIdModel implem
   }
 
   @Override
-  public void myAutorun() {
+  protected void myAutorun() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'myAutorun' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

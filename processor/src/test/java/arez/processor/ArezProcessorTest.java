@@ -367,6 +367,7 @@ public class ArezProcessorTest
                       "@Autorun specified name doStuff that duplicates @Autorun defined by method foo" },
         new Object[]{ "com.example.autorun.AutorunParametersModel", "@Autorun target must not have any parameters" },
         new Object[]{ "com.example.autorun.AutorunPrivateModel", "@Autorun target must not be private" },
+        new Object[]{ "com.example.autorun.AutorunPublicModel", "@Autorun target must not be public" },
         new Object[]{ "com.example.autorun.AutorunReturnsValueModel", "@Autorun target must not return a value" },
         new Object[]{ "com.example.autorun.AutorunStaticModel", "@Autorun target must not be static" },
         new Object[]{ "com.example.autorun.AutorunThrowsExceptionModel",

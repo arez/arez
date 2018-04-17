@@ -3,11 +3,11 @@ package com.example.autorun;
 import arez.annotations.ArezComponent;
 import arez.annotations.Autorun;
 
-@ArezComponent( deferSchedule = true )
-public abstract class ScheduleDeferredModel
+@ArezComponent
+public abstract class AutorunPublicModel
 {
   @Autorun
-  protected void doStuff()
+  public void doStuff()
   {
   }
 }

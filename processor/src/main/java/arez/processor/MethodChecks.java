@@ -75,6 +75,16 @@ final class MethodChecks
     mustNotThrowAnyExceptions( annotationName, method );
   }
 
+  static void mustNotBePublic( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    if ( method.getModifiers().contains( Modifier.PUBLIC ) )
+    {
+      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) +
+                                        " target must not be public", method );
+    }
+  }
+
   private static void mustNotBeStatic( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {

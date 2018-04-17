@@ -7,7 +7,7 @@ import arez.annotations.Autorun;
 public abstract class ReadWriteAutorunModel
 {
   @Autorun( mutation = true )
-  public void doStuff()
+  protected void doStuff()
   {
   }
 }

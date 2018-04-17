@@ -8,7 +8,7 @@ public abstract class DeprecatedAutorunModel
 {
   @Deprecated
   @Autorun
-  public void doStuff()
+  protected void doStuff()
   {
   }
 }

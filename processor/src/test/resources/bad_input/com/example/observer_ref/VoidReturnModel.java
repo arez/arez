@@ -8,7 +8,7 @@ import arez.annotations.ObserverRef;
 public abstract class VoidReturnModel
 {
   @Autorun
-  public void doStuff()
+  protected void doStuff()
   {
   }
 

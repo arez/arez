@@ -13,7 +13,7 @@ public abstract class ScheduleAfterConstructedModel
   }
 
   @Autorun
-  public void doStuff()
+  protected void doStuff()
   {
   }
 }

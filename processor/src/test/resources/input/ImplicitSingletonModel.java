@@ -44,7 +44,7 @@ public abstract class ImplicitSingletonModel
   }
 
   @Autorun
-  public void myAutorun()
+  protected void myAutorun()
   {
   }
 }

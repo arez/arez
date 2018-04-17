@@ -42,7 +42,7 @@ public abstract class SingletonModel
   }
 
   @Autorun
-  public void myAutorun()
+  protected void myAutorun()
   {
   }
 }

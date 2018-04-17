@@ -9,7 +9,7 @@ import arez.annotations.ObserverRef;
 public abstract class ParametersModel
 {
   @Autorun
-  public void doStuff()
+  protected void doStuff()
   {
   }
 
