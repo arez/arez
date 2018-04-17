@@ -26,6 +26,7 @@ import java.lang.annotation.Target;
  * <li>Must be abstract</li>
  * <li>Must not throw exceptions</li>
  * </ul>
+ *
  * @see ComponentId
  * @see ComponentTypeNameRef
  */

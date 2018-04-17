@@ -91,7 +91,8 @@ final class MemoizeDescriptor
     assert null != _memoizeType;
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = new $T<>( $N(), $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, args -> super.$N(" );
+    sb.append( "this.$N = new $T<>( $N(), $T.areNativeComponentsEnabled() ? this.$N : null, " +
+               "$T.areNamesEnabled() ? $N() + $S : null, args -> super.$N(" );
     parameters.add( getFieldName() );
     parameters.add( GeneratorUtil.MEMOIZE_CACHE_CLASSNAME );
     parameters.add( _componentDescriptor.getContextMethodName() );
