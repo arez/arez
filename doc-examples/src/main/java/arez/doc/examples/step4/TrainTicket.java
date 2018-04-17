@@ -38,7 +38,7 @@ public abstract class TrainTicket
   }
 
   @Autorun
-  public void notifyUserWhenTicketExpires()
+  void notifyUserWhenTicketExpires()
   {
     if ( 0 == getRemainingRides() )
     {

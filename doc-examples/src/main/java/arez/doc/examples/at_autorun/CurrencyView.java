@@ -11,7 +11,7 @@ public abstract class CurrencyView
   private final Currency bitcoin = new Arez_Currency();
 
   @Autorun
-  public void renderView()
+  void renderView()
   {
     final Element element = DomGlobal.document.getElementById( "currencyTracker" );
     element.innerHTML = "1 BTC = $" + bitcoin.getAmount() + "AUD";
