@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+##### Fixed
+* **\[processor\]** Fixed a bug where a `@Computed` annotated method on a superclass in a different
+  package would result in a compile error as a method reference was used to reference method rather
+  than a lambda.
+
 #### Changed
 * **\[\processor\]** Enhanced the error message generated when a method is invoked on a generated
   Arez component and the component is in the wrong state. The error message now includes the name

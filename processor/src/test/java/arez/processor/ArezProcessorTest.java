@@ -191,6 +191,18 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void processSuccessfulBaseClassInDifferentPackage()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      JavaFileObjects.forResource( "input/com/example/inheritance/CompleteModel.java" );
+    final JavaFileObject source2 =
+      JavaFileObjects.forResource( "input/com/example/inheritance/other/BaseCompleteModel.java" );
+    final String output = "expected/com/example/inheritance/Arez_CompleteModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
+  }
+
+  @Test
   public void processSuccessfulReactArezGenericsScenario()
     throws Exception
   {

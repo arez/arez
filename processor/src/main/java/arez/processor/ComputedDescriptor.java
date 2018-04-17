@@ -283,7 +283,7 @@ final class ComputedDescriptor
     sb.append( "this.$N = $N().createComputedValue( " +
                "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                "$T.areNamesEnabled() ? $N() + $S : null, " +
-               "super::$N, " +
+               "() -> super.$N(), " +
                "$T.defaultComparator(), " );
     parameters.add( getFieldName() );
     parameters.add( _componentDescriptor.getContextMethodName() );
