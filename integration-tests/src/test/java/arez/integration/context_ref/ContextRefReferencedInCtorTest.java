@@ -28,6 +28,7 @@ public class ContextRefReferencedInCtorTest
   {
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, ContextRefReferencedInCtorTest_Arez_TestComponent::new );
-    assertEquals( exception.getMessage(), "Method invoked on uninitialized component of type 'TestComponent'" );
+    assertEquals( exception.getMessage(),
+                  "Method named 'getContext' invoked on uninitialized component of type 'TestComponent'" );
   }
 }

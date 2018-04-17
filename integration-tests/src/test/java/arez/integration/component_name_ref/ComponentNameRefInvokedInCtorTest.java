@@ -27,6 +27,7 @@ public class ComponentNameRefInvokedInCtorTest
   {
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, ComponentNameRefInvokedInCtorTest_Arez_TestComponent::new );
-    assertEquals( exception.getMessage(), "Method invoked on uninitialized component of type 'TestComponent'" );
+    assertEquals( exception.getMessage(),
+                  "Method named 'getName' invoked on uninitialized component of type 'TestComponent'" );
   }
 }
