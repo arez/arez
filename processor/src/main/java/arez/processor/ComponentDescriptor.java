@@ -2745,7 +2745,7 @@ final class ComponentDescriptor
     return builder.build();
   }
 
-  private void addOriginatingTypes( final TypeElement element, final TypeSpec.Builder builder )
+  private void addOriginatingTypes( @Nonnull final TypeElement element, @Nonnull final TypeSpec.Builder builder )
   {
     builder.addOriginatingElement( element );
     ProcessorUtil.getSuperTypes( element ).forEach( builder::addOriginatingElement );
