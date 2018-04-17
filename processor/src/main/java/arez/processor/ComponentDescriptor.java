@@ -1606,6 +1606,7 @@ final class ComponentDescriptor
       superclass( TypeName.get( getElement().asType() ) ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) ).
       addModifiers( Modifier.FINAL );
+    addOriginatingTypes( getElement(), builder );
 
     builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
       addMember( "value", "$S", ArezProcessor.class.getName() ).
@@ -2597,6 +2598,7 @@ final class ComponentDescriptor
 
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getComponentDaggerModuleName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
+    addOriginatingTypes( getElement(), builder );
 
     builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
       addMember( "value", "$S", ArezProcessor.class.getName() ).
@@ -2678,6 +2680,7 @@ final class ComponentDescriptor
 
     final TypeSpec.Builder builder = TypeSpec.classBuilder( getRepositoryName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
+    addOriginatingTypes( element, builder );
 
     builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
       addMember( "value", "$S", ArezProcessor.class.getName() ).
@@ -2738,6 +2741,12 @@ final class ComponentDescriptor
     }
 
     return builder.build();
+  }
+
+  private void addOriginatingTypes( final TypeElement element, final TypeSpec.Builder builder )
+  {
+    builder.addOriginatingElement( element );
+    ProcessorUtil.getSuperTypes( element ).forEach( builder::addOriginatingElement );
   }
 
   @Nonnull
