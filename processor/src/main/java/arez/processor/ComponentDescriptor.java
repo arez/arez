@@ -849,7 +849,9 @@ final class ComponentDescriptor
   private void setComponentTypeNameRef( @Nonnull final ExecutableElement componentTypeName )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( getElement(), Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
+    MethodChecks.mustBeOverridable( getElement(),
+                                    Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME,
+                                    componentTypeName );
     MethodChecks.mustBeAbstract( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
     MethodChecks.mustReturnAValue( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
