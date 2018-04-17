@@ -45,7 +45,7 @@ task 'perform_release' do
     end
 
     stage('Build', 'Build the project to ensure that the tests pass') do
-      sh "bundle exec buildr clean package PRODUCT_VERSION=#{ENV['PRODUCT_VERSION']} STAGE_RELEASE=true"
+      sh "bundle exec buildr clean package PRODUCT_VERSION=#{ENV['PRODUCT_VERSION']} STAGE_RELEASE=true#{Buildr.application.options.trace ? ' --trace' : ''}"
     end
 
     stage('PatchChangelog', 'Patch the changelog to update from previous release') do
@@ -137,7 +137,7 @@ HEADER
       %w(arez-browserlocation arez-idlestatus arez-networkstatus arez-promise arez-ticker arez-timeddisposer).each do |downstream|
         # Need to extract the version from that project
         downstream_version = IO.read("target/arez_downstream-test/deploy_test/workdir/#{downstream}/CHANGELOG.md")[/^### \[v(\d+\.\d+)\]/, 1]
-        sh "cd target/arez_downstream-test/deploy_test/workdir/#{downstream} && bundle exec buildr perform_release STAGE=PushChanges PRODUCT_VERSION=#{downstream_version}"
+        sh "cd target/arez_downstream-test/deploy_test/workdir/#{downstream} && bundle exec buildr perform_release STAGE=PushChanges PRODUCT_VERSION=#{downstream_version}#{Buildr.application.options.trace ? ' --trace' : ''}"
       end
     end
 
