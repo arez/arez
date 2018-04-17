@@ -46,7 +46,7 @@ public final class Arez_MultiThrowAction extends MultiThrowAction implements Dis
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'MultiThrowAction'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'MultiThrowAction'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -66,7 +66,7 @@ public final class Arez_MultiThrowAction extends MultiThrowAction implements Dis
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'MultiThrowAction'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'MultiThrowAction'" );
     }
     return "MultiThrowAction." + $$arezi$$_id();
   }
@@ -107,7 +107,7 @@ public final class Arez_MultiThrowAction extends MultiThrowAction implements Dis
   @Override
   void myAction() throws ParseException, IOException {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'myAction' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
       $$arezi$$_context().action(Arez.areNamesEnabled() ? $$arezi$$_name() + ".myAction" : null, true, () -> super.myAction() );

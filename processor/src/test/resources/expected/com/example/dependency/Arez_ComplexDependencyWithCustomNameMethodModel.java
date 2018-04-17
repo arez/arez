@@ -69,7 +69,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'ComplexDependencyWithCustomNameMethodModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'ComplexDependencyWithCustomNameMethodModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -90,7 +90,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   @Nonnull
   final String getComponentName() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'ComplexDependencyWithCustomNameMethodModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getComponentName' invoked on uninitialized component of type 'ComplexDependencyWithCustomNameMethodModel'" );
     }
     return "ComplexDependencyWithCustomNameMethodModel." + $$arezi$$_id();
   }
@@ -146,7 +146,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   @Override
   Object getValue3() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getValue3' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
     this.$$arez$$_value3.reportObserved();
     return super.getValue3();
@@ -155,7 +155,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   @Override
   void setValue3(final Object value) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setValue3' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
     if ( !Objects.equals( value, super.getValue3() ) ) {
       this.$$arez$$_value3.preReportChanged();
@@ -167,7 +167,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   @Override
   public Object getValue2() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getValue2' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
     return this.$$arez$$_value2.get();
   }

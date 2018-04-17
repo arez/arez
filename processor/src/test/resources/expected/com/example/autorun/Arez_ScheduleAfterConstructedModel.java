@@ -52,7 +52,7 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'ScheduleAfterConstructedModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'ScheduleAfterConstructedModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -72,7 +72,7 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'ScheduleAfterConstructedModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'ScheduleAfterConstructedModel'" );
     }
     return "ScheduleAfterConstructedModel." + $$arezi$$_id();
   }
@@ -114,7 +114,7 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
   @Override
   public void doStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, false, () -> super.doStuff() );
   }

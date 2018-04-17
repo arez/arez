@@ -190,7 +190,8 @@ final class TrackedDescriptor
   {
     assert null != _refMethod;
     assert null != _refMethodType;
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _refMethod.getSimpleName().toString() );
+    final String methodName = _refMethod.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _refMethod, builder );
     ProcessorUtil.copyTypeParameters( _refMethodType, builder );
     ProcessorUtil.copyDocumentedAnnotations( _refMethod, builder );
@@ -198,7 +199,7 @@ final class TrackedDescriptor
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
     builder.addStatement( "return $N", getFieldName() );
 
@@ -216,7 +217,8 @@ final class TrackedDescriptor
     assert null != _trackedMethod;
     assert null != _trackedMethodType;
 
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _trackedMethod.getSimpleName().toString() );
+    final String methodName = _trackedMethod.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _trackedMethod, builder );
     ProcessorUtil.copyExceptions( _trackedMethodType, builder );
     ProcessorUtil.copyTypeParameters( _trackedMethodType, builder );
@@ -232,7 +234,7 @@ final class TrackedDescriptor
     final StringBuilder statement = new StringBuilder();
     final ArrayList<Object> parameterNames = new ArrayList<>();
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
     if ( !isProcedure )
     {
       statement.append( "return " );

@@ -46,7 +46,7 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
   @Nonnull
   public final ArezContext getContext() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'AnnotatedComponent'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getContext' invoked on uninitialized component of type 'AnnotatedComponent'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -66,7 +66,7 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'AnnotatedComponent'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'AnnotatedComponent'" );
     }
     return "AnnotatedComponent." + $$arezi$$_id();
   }

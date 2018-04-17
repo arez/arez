@@ -39,7 +39,7 @@ public final class Arez_BooleanComponentIdRequireEquals extends BooleanComponent
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'BooleanComponentIdRequireEquals'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'BooleanComponentIdRequireEquals'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -52,7 +52,7 @@ public final class Arez_BooleanComponentIdRequireEquals extends BooleanComponent
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'BooleanComponentIdRequireEquals'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'BooleanComponentIdRequireEquals'" );
     }
     return "BooleanComponentIdRequireEquals." + getId();
   }

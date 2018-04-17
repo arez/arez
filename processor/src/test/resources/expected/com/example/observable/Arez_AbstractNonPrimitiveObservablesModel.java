@@ -52,7 +52,7 @@ public final class Arez_AbstractNonPrimitiveObservablesModel extends AbstractNon
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'AbstractNonPrimitiveObservablesModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'AbstractNonPrimitiveObservablesModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -72,7 +72,7 @@ public final class Arez_AbstractNonPrimitiveObservablesModel extends AbstractNon
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'AbstractNonPrimitiveObservablesModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'AbstractNonPrimitiveObservablesModel'" );
     }
     return "AbstractNonPrimitiveObservablesModel." + $$arezi$$_id();
   }
@@ -114,7 +114,7 @@ public final class Arez_AbstractNonPrimitiveObservablesModel extends AbstractNon
   @Override
   public Date getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     this.$$arez$$_time.reportObserved();
     return this.$$arezd$$_time;
@@ -123,7 +123,7 @@ public final class Arez_AbstractNonPrimitiveObservablesModel extends AbstractNon
   @Override
   public void setTime(final Date value) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     if ( !Objects.equals( value, this.$$arezd$$_time ) ) {
       this.$$arez$$_time.preReportChanged();

@@ -45,7 +45,7 @@ final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent imple
   @Override
   protected final ArezContext getContext() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'ProtectedAccessComponent'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getContext' invoked on uninitialized component of type 'ProtectedAccessComponent'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -65,7 +65,7 @@ final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent imple
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'ProtectedAccessComponent'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'ProtectedAccessComponent'" );
     }
     return "ProtectedAccessComponent." + $$arezi$$_id();
   }

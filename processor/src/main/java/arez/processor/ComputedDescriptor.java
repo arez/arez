@@ -366,7 +366,8 @@ final class ComputedDescriptor
   {
     assert null != _computed;
     assert null != _computedType;
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _computed.getSimpleName().toString() );
+    final String methodName = _computed.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _computed, builder );
     ProcessorUtil.copyExceptions( _computedType, builder );
     ProcessorUtil.copyTypeParameters( _computedType, builder );
@@ -374,7 +375,7 @@ final class ComputedDescriptor
     builder.addAnnotation( Override.class );
     final TypeName returnType = TypeName.get( _computedType.getReturnType() );
     builder.returns( returnType );
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
     if ( _computed.getTypeParameters().isEmpty() )
     {
@@ -399,7 +400,8 @@ final class ComputedDescriptor
   {
     assert null != _refMethod;
     assert null != _refMethodType;
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _refMethod.getSimpleName().toString() );
+    final String methodName = _refMethod.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _refMethod, builder );
     ProcessorUtil.copyTypeParameters( _refMethodType, builder );
     ProcessorUtil.copyDocumentedAnnotations( _refMethod, builder );
@@ -407,7 +409,7 @@ final class ComputedDescriptor
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
     builder.addStatement( "return $N", getFieldName() );
 

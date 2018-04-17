@@ -83,7 +83,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'BasicModelWithDifferentAccessLevels'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'BasicModelWithDifferentAccessLevels'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -103,7 +103,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'BasicModelWithDifferentAccessLevels'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'BasicModelWithDifferentAccessLevels'" );
     }
     return "BasicModelWithDifferentAccessLevels." + $$arezi$$_id();
   }
@@ -146,7 +146,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   @Override
   protected long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     this.$$arez$$_time.reportObserved();
     return super.getTime();
@@ -155,7 +155,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   @Override
   public void setTime(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     if ( time != super.getTime() ) {
       this.$$arez$$_time.preReportChanged();
@@ -167,7 +167,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   @Override
   String getValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     this.$$arez$$_value.reportObserved();
     return super.getValue();
@@ -176,7 +176,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   @Override
   public void setValue(final String value) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     if ( !Objects.equals( value, super.getValue() ) ) {
       this.$$arez$$_value.preReportChanged();
@@ -188,7 +188,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   @Override
   public void doAction() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doAction' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
       $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doAction" : null, true, () -> super.doAction() );
@@ -202,7 +202,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   @Override
   protected void doAction2() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doAction2' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
       $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doAction2" : null, true, () -> super.doAction2() );
@@ -216,7 +216,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   @Override
   void doAction3() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doAction3' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
       $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doAction3" : null, true, () -> super.doAction3() );

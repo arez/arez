@@ -1929,11 +1929,12 @@ final class ComponentDescriptor
   private MethodSpec buildContextRefMethod()
     throws ArezProcessorException
   {
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( getContextMethodName() ).
+    final String methodName = getContextMethodName();
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.FINAL ).
       returns( GeneratorUtil.AREZ_CONTEXT_CLASSNAME );
 
-    GeneratorUtil.generateNotInitializedInvariant( this, method );
+    GeneratorUtil.generateNotInitializedInvariant( this, method, methodName );
 
     method.addStatement( "return $T.areZonesEnabled() ? this.$N : $T.context()",
                          GeneratorUtil.AREZ_CLASSNAME,
@@ -1960,14 +1961,15 @@ final class ComponentDescriptor
   {
     assert null != _componentRef;
 
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( _componentRef.getSimpleName().toString() ).
+    final String methodName = _componentRef.getSimpleName().toString();
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.FINAL ).
       returns( GeneratorUtil.COMPONENT_CLASSNAME );
 
-    GeneratorUtil.generateNotInitializedInvariant( this, method );
-    GeneratorUtil.generateNotConstructedInvariant( this, method );
-    GeneratorUtil.generateNotCompleteInvariant( this, method );
-    GeneratorUtil.generateNotDisposedInvariant( this, method );
+    GeneratorUtil.generateNotInitializedInvariant( this, method, methodName );
+    GeneratorUtil.generateNotConstructedInvariant( this, method, methodName );
+    GeneratorUtil.generateNotCompleteInvariant( this, method, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( this, method, methodName );
 
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
@@ -1975,7 +1977,7 @@ final class ComponentDescriptor
                         "method '$N' but Arez.areNativeComponentsEnabled() returned false.\" )",
                         GeneratorUtil.GUARDS_CLASSNAME,
                         GeneratorUtil.AREZ_CLASSNAME,
-                        _componentRef.getSimpleName().toString() );
+                        methodName );
     block.endControlFlow();
 
     method.addCode( block.build() );
@@ -2044,20 +2046,23 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     final MethodSpec.Builder builder;
+    final String methodName;
     if ( null == _componentNameRef )
     {
-      builder = MethodSpec.methodBuilder( GeneratorUtil.NAME_METHOD_NAME );
+      methodName = GeneratorUtil.NAME_METHOD_NAME;
+      builder = MethodSpec.methodBuilder( methodName );
     }
     else
     {
-      builder = MethodSpec.methodBuilder( _componentNameRef.getSimpleName().toString() );
+      methodName = _componentNameRef.getSimpleName().toString();
+      builder = MethodSpec.methodBuilder( methodName );
       ProcessorUtil.copyDocumentedAnnotations( _componentNameRef, builder );
       ProcessorUtil.copyAccessModifiers( _componentNameRef, builder );
       builder.addModifiers( Modifier.FINAL );
     }
 
     builder.returns( TypeName.get( String.class ) );
-    GeneratorUtil.generateNotInitializedInvariant( this, builder );
+    GeneratorUtil.generateNotInitializedInvariant( this, builder, methodName );
     if ( _nameIncludesId )
     {
       builder.addStatement( "return $S + $N()", _type.isEmpty() ? "" : _type + ".", getIdMethodName() );

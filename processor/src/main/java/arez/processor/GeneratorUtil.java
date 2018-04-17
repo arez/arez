@@ -76,15 +76,17 @@ final class GeneratorUtil
   }
 
   static void generateNotInitializedInvariant( @Nonnull final ComponentDescriptor descriptor,
-                                               @Nonnull final MethodSpec.Builder builder )
+                                               @Nonnull final MethodSpec.Builder builder,
+                                               @Nonnull final String methodName )
   {
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
     block.addStatement( "$T.apiInvariant( () -> $T.hasBeenInitialized( this.$N ), " +
-                        "() -> \"Method invoked on uninitialized component of type '$N'\" )",
+                        "() -> \"Method named '$N' invoked on uninitialized component of type '$N'\" )",
                         GUARDS_CLASSNAME,
                         COMPONENT_STATE_CLASSNAME,
                         STATE_FIELD_NAME,
+                        methodName,
                         descriptor.getType() );
     block.endControlFlow();
 
@@ -92,15 +94,17 @@ final class GeneratorUtil
   }
 
   static void generateNotConstructedInvariant( @Nonnull final ComponentDescriptor descriptor,
-                                               @Nonnull final MethodSpec.Builder builder )
+                                               @Nonnull final MethodSpec.Builder builder,
+                                               @Nonnull final String methodName )
   {
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
-    block.addStatement( "$T.apiInvariant( () -> $T.hasBeenConstructed( this.$N ), () -> \"Method invoked " +
+    block.addStatement( "$T.apiInvariant( () -> $T.hasBeenConstructed( this.$N ), () -> \"Method named '$N' invoked " +
                         "on un-constructed component named '\" + $N() + \"'\" )",
                         GUARDS_CLASSNAME,
                         COMPONENT_STATE_CLASSNAME,
                         STATE_FIELD_NAME,
+                        methodName,
                         descriptor.getComponentNameMethodName() );
     block.endControlFlow();
 
@@ -108,15 +112,17 @@ final class GeneratorUtil
   }
 
   static void generateNotCompleteInvariant( @Nonnull final ComponentDescriptor descriptor,
-                                            @Nonnull final MethodSpec.Builder builder )
+                                            @Nonnull final MethodSpec.Builder builder,
+                                            @Nonnull final String methodName )
   {
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
-    block.addStatement( "$T.apiInvariant( () -> $T.hasBeenCompleted( this.$N ), () -> \"Method invoked " +
+    block.addStatement( "$T.apiInvariant( () -> $T.hasBeenCompleted( this.$N ), () -> \"Method named '$N' invoked " +
                         "on incomplete component named '\" + $N() + \"'\" )",
                         GUARDS_CLASSNAME,
                         COMPONENT_STATE_CLASSNAME,
                         STATE_FIELD_NAME,
+                        methodName,
                         descriptor.getComponentNameMethodName() );
     block.endControlFlow();
 
@@ -124,15 +130,17 @@ final class GeneratorUtil
   }
 
   static void generateNotDisposedInvariant( @Nonnull final ComponentDescriptor descriptor,
-                                            @Nonnull final MethodSpec.Builder builder )
+                                            @Nonnull final MethodSpec.Builder builder,
+                                            @Nonnull final String methodName )
   {
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
-    block.addStatement( "$T.apiInvariant( () -> $T.isActive( this.$N ), () -> \"Method invoked " +
+    block.addStatement( "$T.apiInvariant( () -> $T.isActive( this.$N ), () -> \"Method named '$N' invoked " +
                         "on \" + $T.describe( this.$N ) + \" component named '\" + $N() + \"'\" )",
                         GUARDS_CLASSNAME,
                         COMPONENT_STATE_CLASSNAME,
                         STATE_FIELD_NAME,
+                        methodName,
                         COMPONENT_STATE_CLASSNAME,
                         STATE_FIELD_NAME,
                         descriptor.getComponentNameMethodName() );

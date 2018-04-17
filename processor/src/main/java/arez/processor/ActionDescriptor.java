@@ -72,7 +72,8 @@ final class ActionDescriptor
   private MethodSpec buildAction()
     throws ArezProcessorException
   {
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _action.getSimpleName().toString() );
+    final String methodName = _action.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _action, builder );
     ProcessorUtil.copyExceptions( _actionType, builder );
     ProcessorUtil.copyTypeParameters( _actionType, builder );
@@ -156,7 +157,7 @@ final class ActionDescriptor
     }
     statement.append( " )" );
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
     GeneratorUtil.generateTryBlock( builder,
                                     thrownTypes,

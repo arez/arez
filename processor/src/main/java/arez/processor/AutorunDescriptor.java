@@ -129,7 +129,8 @@ final class AutorunDescriptor
   {
     assert null != _refMethod;
     assert null != _refMethodType;
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _refMethod.getSimpleName().toString() );
+    final String methodName = _refMethod.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _refMethod, builder );
     ProcessorUtil.copyTypeParameters( _refMethodType, builder );
     ProcessorUtil.copyDocumentedAnnotations( _refMethod, builder );
@@ -137,7 +138,7 @@ final class AutorunDescriptor
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
     builder.addStatement( "return $N", getFieldName() );
 
@@ -152,7 +153,8 @@ final class AutorunDescriptor
   private MethodSpec buildAutorun()
     throws ArezProcessorException
   {
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _autorun.getSimpleName().toString() );
+    final String methodName = _autorun.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _autorun, builder );
     ProcessorUtil.copyExceptions( _autorunType, builder );
     ProcessorUtil.copyTypeParameters( _autorunType, builder );
@@ -164,7 +166,7 @@ final class AutorunDescriptor
     final StringBuilder statement = new StringBuilder();
     final ArrayList<Object> parameterNames = new ArrayList<>();
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
     statement.append( "$N()." );
     parameterNames.add( _componentDescriptor.getContextMethodName() );

@@ -142,7 +142,8 @@ final class MemoizeDescriptor
   {
     assert null != _memoize;
     assert null != _memoizeType;
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _memoize.getSimpleName().toString() );
+    final String methodName = _memoize.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _memoize, builder );
     ProcessorUtil.copyExceptions( _memoizeType, builder );
     ProcessorUtil.copyTypeParameters( _memoizeType, builder );
@@ -173,7 +174,7 @@ final class MemoizeDescriptor
       }
     }
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
     final StringBuilder sb = new StringBuilder();
     final ArrayList<Object> parameters = new ArrayList<>();

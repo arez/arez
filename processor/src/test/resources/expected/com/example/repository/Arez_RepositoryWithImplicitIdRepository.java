@@ -55,7 +55,7 @@ final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplic
   @Nonnull
   protected final ArezContext getContext() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'RepositoryWithImplicitIdRepository'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getContext' invoked on uninitialized component of type 'RepositoryWithImplicitIdRepository'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -63,16 +63,16 @@ final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplic
   @Nonnull
   protected final Component component() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'RepositoryWithImplicitIdRepository'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'component' invoked on uninitialized component of type 'RepositoryWithImplicitIdRepository'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenConstructed( this.$$arezi$$_state ), () -> "Method invoked on un-constructed component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenConstructed( this.$$arezi$$_state ), () -> "Method named 'component' invoked on un-constructed component named '" + getRepositoryName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenCompleted( this.$$arezi$$_state ), () -> "Method invoked on incomplete component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenCompleted( this.$$arezi$$_state ), () -> "Method named 'component' invoked on incomplete component named '" + getRepositoryName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'component' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
     }
     if ( Arez.shouldCheckInvariants() ) {
       Guards.invariant( () -> Arez.areNativeComponentsEnabled(), () -> "Invoked @ComponentRef method 'component' but Arez.areNativeComponentsEnabled() returned false." );
@@ -96,7 +96,7 @@ final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplic
   @Nonnull
   protected final String getRepositoryName() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'RepositoryWithImplicitIdRepository'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getRepositoryName' invoked on uninitialized component of type 'RepositoryWithImplicitIdRepository'" );
     }
     return "RepositoryWithImplicitIdRepository";
   }
@@ -140,7 +140,7 @@ final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplic
   @Override
   public Stream<RepositoryWithImplicitId> entities() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'entities' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
     }
     this.$$arez$$_entities.reportObserved();
     return super.entities();
@@ -150,7 +150,7 @@ final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplic
   @Override
   protected Observable getEntitiesObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getEntitiesObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
     }
     return $$arez$$_entities;
   }
@@ -158,7 +158,7 @@ final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplic
   @Override
   public void destroy(@Nonnull final RepositoryWithImplicitId arg0) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'destroy' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
     }
     try {
       getContext().safeAction(Arez.areNamesEnabled() ? getRepositoryName() + ".destroy" : null, true, () -> super.destroy(arg0), arg0 );
@@ -174,7 +174,7 @@ final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplic
   public RepositoryWithImplicitId create(@Nonnull final String packageName,
       @Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'create' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
     }
     try {
       return getContext().safeAction(Arez.areNamesEnabled() ? getRepositoryName() + ".create_packageName_name" : null, true, () -> super.create(packageName,name), packageName, name );

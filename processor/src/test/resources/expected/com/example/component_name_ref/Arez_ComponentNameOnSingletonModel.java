@@ -44,7 +44,7 @@ public final class Arez_ComponentNameOnSingletonModel extends ComponentNameOnSin
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'ComponentNameOnSingletonModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'ComponentNameOnSingletonModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -64,7 +64,7 @@ public final class Arez_ComponentNameOnSingletonModel extends ComponentNameOnSin
 
   final String getTypeName() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'ComponentNameOnSingletonModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getTypeName' invoked on uninitialized component of type 'ComponentNameOnSingletonModel'" );
     }
     return "ComponentNameOnSingletonModel";
   }
@@ -105,7 +105,7 @@ public final class Arez_ComponentNameOnSingletonModel extends ComponentNameOnSin
   @Override
   void myAction() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getTypeName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'myAction' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getTypeName() + "'" );
     }
     try {
       $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? getTypeName() + ".myAction" : null, true, () -> super.myAction() );

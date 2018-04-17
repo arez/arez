@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+#### Changed
+* **\[\processor\]** Enhanced the error message generated when a method is invoked on a generated
+  Arez component and the component is in the wrong state. The error message now includes the name
+  of the method being invoked.
+
 ### [v0.78](https://github.com/arez/arez/tree/v0.78) (2018-04-16)
 [Full Changelog](https://github.com/arez/arez/compare/v0.77...v0.78)
 

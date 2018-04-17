@@ -49,7 +49,7 @@ public final class Arez_LocalTypeParamMemoizeModel extends LocalTypeParamMemoize
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'LocalTypeParamMemoizeModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'LocalTypeParamMemoizeModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -69,7 +69,7 @@ public final class Arez_LocalTypeParamMemoizeModel extends LocalTypeParamMemoize
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method invoked on uninitialized component of type 'LocalTypeParamMemoizeModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'LocalTypeParamMemoizeModel'" );
     }
     return "LocalTypeParamMemoizeModel." + $$arezi$$_id();
   }
@@ -112,7 +112,7 @@ public final class Arez_LocalTypeParamMemoizeModel extends LocalTypeParamMemoize
   @SuppressWarnings("unchecked")
   public <T> T count(final String param) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'count' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     return (T) this.$$arez$$_count.get( param );
   }

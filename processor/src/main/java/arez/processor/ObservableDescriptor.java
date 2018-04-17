@@ -271,7 +271,8 @@ final class ObservableDescriptor
   {
     assert null != _refMethod;
     assert null != _refMethodType;
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _refMethod.getSimpleName().toString() );
+    final String methodName = _refMethod.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _refMethod, builder );
     ProcessorUtil.copyTypeParameters( _refMethodType, builder );
     ProcessorUtil.copyDocumentedAnnotations( _refMethod, builder );
@@ -279,7 +280,7 @@ final class ObservableDescriptor
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
     builder.addStatement( "return $N", getFieldName() );
 
@@ -296,7 +297,8 @@ final class ObservableDescriptor
     assert null != _setter;
     assert null != _setterType;
     assert null != _getter;
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _setter.getSimpleName().toString() );
+    final String methodName = _setter.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _setter, builder );
     ProcessorUtil.copyExceptions( _setterType, builder );
     ProcessorUtil.copyTypeParameters( _setterType, builder );
@@ -324,7 +326,7 @@ final class ObservableDescriptor
       ParameterSpec.builder( type, paramName, Modifier.FINAL );
     ProcessorUtil.copyDocumentedAnnotations( element, param );
     builder.addParameter( param.build() );
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     final boolean abstractObservables = getGetter().getModifiers().contains( Modifier.ABSTRACT );
@@ -385,7 +387,8 @@ final class ObservableDescriptor
   {
     assert null != _getter;
     assert null != _getterType;
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( _getter.getSimpleName().toString() );
+    final String methodName = _getter.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _getter, builder );
     ProcessorUtil.copyExceptions( _getterType, builder );
     ProcessorUtil.copyTypeParameters( _getterType, builder );
@@ -393,7 +396,7 @@ final class ObservableDescriptor
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _getterType.getReturnType() ) );
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder );
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
     builder.addStatement( "this.$N.reportObserved()", getFieldName() );
 
