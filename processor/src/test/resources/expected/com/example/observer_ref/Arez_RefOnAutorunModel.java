@@ -115,6 +115,7 @@ public final class Arez_RefOnAutorunModel extends RefOnAutorunModel implements D
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Autorun method named 'doStuff' invoked but @Autorun annotated methods should only be invoked by the runtime." );
     }
+    super.doStuff();
   }
 
   @Override

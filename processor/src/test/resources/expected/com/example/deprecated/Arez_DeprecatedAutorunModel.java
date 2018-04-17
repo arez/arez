@@ -117,6 +117,7 @@ public final class Arez_DeprecatedAutorunModel extends DeprecatedAutorunModel im
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Autorun method named 'doStuff' invoked but @Autorun annotated methods should only be invoked by the runtime." );
     }
+    super.doStuff();
   }
 
   @Override

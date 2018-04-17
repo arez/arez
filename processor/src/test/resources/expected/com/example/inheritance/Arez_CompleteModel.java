@@ -176,6 +176,7 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Autorun method named 'myAutorun' invoked but @Autorun annotated methods should only be invoked by the runtime." );
     }
+    super.myAutorun();
   }
 
   @Override

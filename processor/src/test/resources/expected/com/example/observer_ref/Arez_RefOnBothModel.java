@@ -120,6 +120,7 @@ public final class Arez_RefOnBothModel extends RefOnBothModel implements Disposa
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Autorun method named 'doStuff' invoked but @Autorun annotated methods should only be invoked by the runtime." );
     }
+    super.doStuff();
   }
 
   @Override

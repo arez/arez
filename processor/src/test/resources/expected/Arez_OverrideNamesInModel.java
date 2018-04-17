@@ -153,6 +153,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Autorun method named 'zapZap' invoked but @Autorun annotated methods should only be invoked by the runtime." );
     }
+    super.zapZap();
   }
 
   @Override

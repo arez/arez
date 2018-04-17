@@ -172,6 +172,11 @@ final class AutorunDescriptor
     block.endControlFlow();
 
     builder.addCode( block.build() );
+    // This super is generated so that the GWT compiler in production model will identify this as a method
+    // that only contains a super invocation and will thus inline it. If the body is left empty then the
+    // GWT compiler will be required to keep the empty method present because it can not determine that the
+    // empty method will never be invoked.
+    builder.addStatement( "super.$N()", _autorun.getSimpleName() );
 
     return builder.build();
   }
