@@ -3,7 +3,8 @@ package arez;
 import javax.annotation.Nonnull;
 
 /**
- * Interface implemented by code to react to changes for an observer.
+ * Interface that accepts an {@link Observer} that has been scheduled and
+ * performs the actions required to run observer.
  */
 @FunctionalInterface
 interface Reaction
