@@ -776,17 +776,13 @@ public final class ArezContext
                            final boolean highPriority,
                            final boolean runImmediately )
   {
-    final Observer observer =
-      createObserver( component,
-                      name,
-                      mutation,
-                      o -> action( Arez.areNamesEnabled() ? o.getName() : null,
-                                   Arez.shouldEnforceTransactionType() ? o.getMode() : null,
-                                   action,
-                                   true,
-                                   o ),
-                      highPriority,
-                      false );
+    final Reaction reaction =
+      o -> action( Arez.areNamesEnabled() ? o.getName() : null,
+                   Arez.shouldEnforceTransactionType() ? o.getMode() : null,
+                   action,
+                   true,
+                   o );
+    final Observer observer = createObserver( component, name, mutation, reaction, highPriority, false );
     if ( runImmediately )
     {
       observer.invokeReaction();
