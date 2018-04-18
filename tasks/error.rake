@@ -33,6 +33,17 @@ task 'error_codes:print' do
   puts load_error_codes.keys.sort.collect{|k| "Arez-#{k}: #{error_codes[k]}"}.join("\n")
 end
 
+desc 'Print out a list of all error codes unused used in codebase'
+task 'error_codes:print_unused' do
+  keys = load_error_codes.keys.sort
+  max_value = keys.last.to_i
+  1.upto(max_value).collect{|v| '%04d' % v }.each do |v|
+    unless keys.delete(v.to_s)
+      puts "Arez-#{v} unused"
+    end
+  end
+end
+
 desc 'Print out next error_code'
 task 'error_codes:print_next' do
   puts "Arez-#{sprintf('%04d',load_error_codes.keys.sort.last.to_i + 1)}"
