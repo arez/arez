@@ -40,4 +40,13 @@ public @interface Computed
    */
   @Nonnull
   String name() default "<default>";
+
+  /**
+   * A flag indicating whether the computed should be "kept alive". A computed that is kept alive
+   * is activated on creation and never deactivates. This is useful if the computed property is only
+   * accessed from within actions but should be kept up to date and not recomputed on each access.
+   *
+   * @return true to keep computed alive.
+   */
+  boolean keepAlive() default false;
 }

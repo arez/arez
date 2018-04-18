@@ -17,6 +17,7 @@ import javax.annotation.Nonnull;
  * <li>Must not be static</li>
  * <li>Must not be abstract</li>
  * <li>Must not throw exceptions</li>
+ * <li>Must not be for a computed property that has keepAlive parameter set to true</li>
  * </ul>
  */
 @Documented

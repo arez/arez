@@ -1,0 +1,184 @@
+
+[
+    {
+        "component": "PersonModel.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "PersonModel.0.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "PersonModel.0.firstName",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "PersonModel.0.lastName",
+        "type": "ObservableCreated"
+    },
+    {
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "observer": "PersonModel.0.fullName",
+        "type": "ReactionScheduled"
+    },
+    {
+        "component": "PersonModel.0",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "PersonModel.0.fullName",
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.fullName"
+    },
+    {
+        "observable": "PersonModel.0.fullName",
+        "type": "ObservableChanged",
+        "value": "Bill Smith"
+    },
+    {
+        "mutation": false,
+        "tracker": "PersonModel.0.fullName",
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.fullName"
+    },
+    {
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputeCompleted"
+    },
+    {
+        "action": "First Name Update",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "First Name Update"
+    },
+    {
+        "observable": "PersonModel.0.firstName",
+        "type": "ObservableChanged",
+        "value": "Fred"
+    },
+    {
+        "observer": "PersonModel.0.fullName",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "First Name Update"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "First Name Update",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "PersonModel.0.fullName",
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.fullName"
+    },
+    {
+        "observable": "PersonModel.0.fullName",
+        "type": "ObservableChanged",
+        "value": "Fred Smith"
+    },
+    {
+        "mutation": false,
+        "tracker": "PersonModel.0.fullName",
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.fullName"
+    },
+    {
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputeCompleted"
+    },
+    {
+        "action": "Last Name Update",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Last Name Update"
+    },
+    {
+        "observable": "PersonModel.0.lastName",
+        "type": "ObservableChanged",
+        "value": "Donaldo"
+    },
+    {
+        "observer": "PersonModel.0.fullName",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Last Name Update"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Last Name Update",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "PersonModel.0.fullName",
+        "type": "TransactionStarted",
+        "transaction": "PersonModel.0.fullName"
+    },
+    {
+        "observable": "PersonModel.0.fullName",
+        "type": "ObservableChanged",
+        "value": "Fred Donaldo"
+    },
+    {
+        "mutation": false,
+        "tracker": "PersonModel.0.fullName",
+        "type": "TransactionCompleted",
+        "transaction": "PersonModel.0.fullName"
+    },
+    {
+        "computedValue": "PersonModel.0.fullName",
+        "type": "ComputeCompleted"
+    }
+]

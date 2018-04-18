@@ -41,7 +41,7 @@ public final class Arez_PostConstructModel extends PostConstructModel implements
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "PostConstructModel", $$arezi$$_id(), $$arezi$$_name(), null, null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null, null );
-    this.$$arez$$_someValue = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".someValue" : null, () -> super.someValue(), EqualityComparator.defaultComparator(), null, null, null, null );
+    this.$$arez$$_someValue = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".someValue" : null, () -> super.someValue(), EqualityComparator.defaultComparator(), null, null, null, null, false, false, false );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     super.postConstruct();
     if ( Arez.areNativeComponentsEnabled() ) {

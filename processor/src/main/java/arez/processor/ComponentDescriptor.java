@@ -584,7 +584,8 @@ final class ComponentDescriptor
   {
     final String name = deriveComputedName( method, annotation );
     checkNameUnique( name, method, Constants.COMPUTED_ANNOTATION_CLASSNAME );
-    findOrCreateComputed( name ).setComputed( method, computedType );
+    final boolean keepAlive = getAnnotationParameter( annotation, "keepAlive" );
+    findOrCreateComputed( name ).setComputed( method, computedType, keepAlive );
   }
 
   private void addComputedValueRef( @Nonnull final AnnotationMirror annotation,
@@ -2539,7 +2540,10 @@ final class ComponentDescriptor
     componentEnabledBlock.endControlFlow();
     builder.addCode( componentEnabledBlock.build() );
 
-    if ( !_deferSchedule && ( !_roAutoruns.isEmpty() || !_roDependencies.isEmpty() ) )
+    if ( !_deferSchedule &&
+         ( !_roAutoruns.isEmpty() ||
+           !_roDependencies.isEmpty() ||
+           _computeds.values().stream().anyMatch( ComputedDescriptor::isKeepAlive ) ) )
     {
       builder.addStatement( "this.$N = $T.COMPONENT_COMPLETE",
                             GeneratorUtil.STATE_FIELD_NAME,

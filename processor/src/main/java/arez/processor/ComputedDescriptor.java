@@ -35,6 +35,7 @@ final class ComputedDescriptor
   private ExecutableElement _computed;
   @Nullable
   private ExecutableType _computedType;
+  private boolean _keepAlive;
   @Nullable
   private ExecutableElement _onActivate;
   @Nullable
@@ -63,6 +64,11 @@ final class ComputedDescriptor
   boolean hasComputed()
   {
     return null != _computed;
+  }
+
+  boolean isKeepAlive()
+  {
+    return _keepAlive;
   }
 
   @Nonnull
@@ -95,7 +101,9 @@ final class ComputedDescriptor
     return _onDispose;
   }
 
-  void setComputed( @Nonnull final ExecutableElement computed, @Nonnull final ExecutableType computedType )
+  void setComputed( @Nonnull final ExecutableElement computed,
+                    @Nonnull final ExecutableType computedType,
+                    final boolean keepAlive )
     throws ArezProcessorException
   {
     //The caller already verified that no duplicate computed have been defined
@@ -109,6 +117,7 @@ final class ComputedDescriptor
 
     _computed = Objects.requireNonNull( computed );
     _computedType = Objects.requireNonNull( computedType );
+    _keepAlive = keepAlive;
   }
 
   void setRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
@@ -236,6 +245,19 @@ final class ComputedDescriptor
         throw new ArezProcessorException( "@OnStale exists but there is no corresponding @Computed", onStale );
       }
     }
+    if ( _keepAlive )
+    {
+      if ( null != _onActivate )
+      {
+        throw new ArezProcessorException( "@OnActivate exists for @Computed property that specified parameter " +
+                                          "keepAlive as true.", _onActivate );
+      }
+      else if ( null != _onDeactivate )
+      {
+        throw new ArezProcessorException( "@OnDeactivate exists for @Computed property that specified parameter " +
+                                          "keepAlive as true.", _onDeactivate );
+      }
+    }
 
     if ( null != _refMethod )
     {
@@ -338,7 +360,9 @@ final class ComputedDescriptor
       sb.append( "null" );
     }
 
-    sb.append( " )" );
+    sb.append( ", false, " );
+    sb.append( _keepAlive );
+    sb.append( ", false )" );
     builder.addStatement( sb.toString(), parameters.toArray() );
   }
 
