@@ -911,7 +911,10 @@ final class Transaction
       }
     }
 
-    if ( !Disposable.isDisposed( _tracker ) && _tracker.isDerivation() && !_tracker.getDerivedValue().hasObservers() )
+    if ( !Disposable.isDisposed( _tracker ) &&
+         _tracker.isDerivation() &&
+         !_tracker.getDerivedValue().hasObservers() &&
+         !_tracker.getComputedValue().isKeepAlive() )
     {
       queueForDeactivation( _tracker.getDerivedValue() );
     }

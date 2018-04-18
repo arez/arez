@@ -3,6 +3,7 @@ package arez;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import java.util.ArrayList;
+import java.util.Objects;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -921,6 +922,87 @@ public class TransactionTest
 
     // Make sure the derivation observer has state updated
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+
+    observable.invariantLeastStaleObserverState();
+  }
+
+  @Test
+  public void completeTracking_calculatedObservable_noObservers_queuedForDeactivation()
+  {
+    final ArezContext context = Arez.context();
+    final Observer tracker = newDerivation( context );
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
+    Transaction.setTransaction( transaction );
+
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Observer derivation = newDerivation( context );
+    derivation.setState( ObserverState.STALE );
+    final Observable<?> observable = derivation.getDerivedValue();
+
+    tracker.getDependencies().add( observable );
+    observable.getObservers().add( tracker );
+
+    final ArrayList<Observable<?>> dependencies = tracker.getDependencies();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertTrue( tracker.getDependencies() != dependencies );
+    assertEquals( tracker.getDependencies().size(), 0 );
+    assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+
+    final ArrayList<Observable> pendingDeactivations = transaction.getPendingDeactivations();
+    assertNotNull( pendingDeactivations );
+    assertTrue( pendingDeactivations.contains( tracker.getDerivedValue() ) );
+
+    observable.invariantLeastStaleObserverState();
+  }
+
+  @Test
+  public void completeTracking_calculatedObservable_noObservers_keepAlive()
+  {
+    final ArezContext context = Arez.context();
+    final Observer tracker =
+      new ComputedValue<>( context,
+                           null,
+                           ValueUtil.randomString(),
+                           () -> "",
+                           Objects::equals,
+                           false,
+                           true ).getObserver();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
+    Transaction.setTransaction( transaction );
+
+    tracker.setState( ObserverState.UP_TO_DATE );
+
+    final Observer derivation = newDerivation( context );
+    derivation.setState( ObserverState.STALE );
+    final Observable<?> observable = derivation.getDerivedValue();
+
+    tracker.getDependencies().add( observable );
+    observable.getObservers().add( tracker );
+
+    final ArrayList<Observable<?>> dependencies = tracker.getDependencies();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertTrue( tracker.getDependencies() != dependencies );
+    assertEquals( tracker.getDependencies().size(), 0 );
+    assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+
+    final ArrayList<Observable> pendingDeactivations = transaction.getPendingDeactivations();
+    assertNotNull( pendingDeactivations );
+    assertFalse( pendingDeactivations.contains( tracker.getDerivedValue() ) );
 
     observable.invariantLeastStaleObserverState();
   }
