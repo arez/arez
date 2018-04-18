@@ -1641,6 +1641,56 @@ public class ArezContextTest
   }
 
   @Test
+  public void createComputedValue_withKeepAliveAndOnActivate()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Procedure action = () -> {
+    };
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> context.createComputedValue( null,
+                                                       ValueUtil.randomString(),
+                                                       () -> "",
+                                                       Objects::equals,
+                                                       action,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       false,
+                                                       true,
+                                                       true ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0039: ArezContext.createComputedValue() specified keepAlive = true and did not pass a null for onActivate." );
+  }
+
+  @Test
+  public void createComputedValue_withKeepAliveAndOnDeactivate()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Procedure action = () -> {
+    };
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> context.createComputedValue( null,
+                                                       ValueUtil.randomString(),
+                                                       () -> "",
+                                                       Objects::equals,
+                                                       null,
+                                                       action,
+                                                       null,
+                                                       null,
+                                                       false,
+                                                       true,
+                                                       true ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0045: ArezContext.createComputedValue() specified keepAlive = true and did not pass a null for onDeactivate." );
+  }
+
+  @Test
   public void autorun_minimumParameters()
     throws Exception
   {

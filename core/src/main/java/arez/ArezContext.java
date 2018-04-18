@@ -469,7 +469,7 @@ public final class ArezContext
    * @param onStale            the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDispose          the procedure to invoke when the ComputedValue id disposed.
    * @param highPriority       true if the associated observer is created as a high-priority observer.
-   * @param keepAlive          true if the ComputedValue should be activated when it is created and never deactivated.
+   * @param keepAlive          true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
    * @param runImmediately     ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
    * @return the ComputedValue instance.
    */
@@ -486,6 +486,14 @@ public final class ArezContext
                                                    final boolean keepAlive,
                                                    final boolean runImmediately )
   {
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !keepAlive || null == onActivate,
+                    () -> "Arez-0039: ArezContext.createComputedValue() specified keepAlive = true and did not pass a null for onActivate." );
+      apiInvariant( () -> !keepAlive || null == onDeactivate,
+                    () -> "Arez-0045: ArezContext.createComputedValue() specified keepAlive = true and did not pass a null for onDeactivate." );
+    }
+
     final ComputedValue<T> computedValue =
       new ComputedValue<>( Arez.areZonesEnabled() ? this : null,
                            component,
