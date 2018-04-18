@@ -1598,6 +1598,7 @@ public class ArezContextTest
     assertEquals( computedValue.getObserver().getOnActivate(), null );
     assertEquals( computedValue.getObserver().getOnDeactivate(), null );
     assertEquals( computedValue.getObserver().getOnStale(), null );
+    assertEquals( computedValue.getObserver().getOnDispose(), null );
     assertEquals( computedValue.getObserver().isHighPriority(), false );
   }
 
@@ -1619,6 +1620,7 @@ public class ArezContextTest
     assertEquals( computedValue.getObserver().getOnActivate(), null );
     assertEquals( computedValue.getObserver().getOnDeactivate(), null );
     assertEquals( computedValue.getObserver().getOnStale(), null );
+    assertEquals( computedValue.getObserver().getOnDeactivate(), null );
     assertEquals( computedValue.getObserver().isHighPriority(), false );
   }
 
