@@ -1402,6 +1402,7 @@ public class ArezContextTest
     assertThrowsWithMessage( () -> context.removeObserverErrorHandler( handler ),
                              "Arez-0181: ArezContext.removeObserverErrorHandler() invoked when Arez.areObserverErrorHandlersEnabled() returns false." );
   }
+
   @Test
   public void getSpy_whenSpiesDisabled()
     throws Exception
@@ -1509,6 +1510,7 @@ public class ArezContextTest
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
+    assertEquals( computedValue.isKeepAlive(), false );
     assertEquals( computedValue.getObserver().getName(), name );
     assertEquals( computedValue.getObservable().getName(), name );
     assertEquals( computedValue.getObserver().getOnActivate(), onActivate );
@@ -1533,6 +1535,50 @@ public class ArezContextTest
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getComponent(), component );
+  }
+
+  @Test
+  public void createComputedValue_withKeepAliveAndRunImmediately()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final AtomicInteger calls = new AtomicInteger();
+    final SafeFunction<String> action = () -> {
+      calls.incrementAndGet();
+      return "";
+    };
+    final ComputedValue<String> computedValue =
+      context.createComputedValue( null, name, action, Objects::equals, null, null, null, null, false, true, true );
+
+    assertEquals( computedValue.getName(), name );
+    assertEquals( computedValue.isKeepAlive(), true );
+    assertEquals( calls.get(), 1 );
+  }
+
+  @Test
+  public void createComputedValue_withKeepAliveAndNoRunImmediately()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final String name = ValueUtil.randomString();
+    final AtomicInteger calls = new AtomicInteger();
+    final SafeFunction<String> action = () -> {
+      calls.incrementAndGet();
+      return "";
+    };
+    final ComputedValue<String> computedValue =
+      context.createComputedValue( null, name, action, Objects::equals, null, null, null, null, false, true, false );
+
+    assertEquals( computedValue.getName(), name );
+    assertEquals( computedValue.isKeepAlive(), true );
+    assertEquals( calls.get(), 0 );
+
+    context.triggerScheduler();
+
+    assertEquals( calls.get(), 1 );
   }
 
   @Test

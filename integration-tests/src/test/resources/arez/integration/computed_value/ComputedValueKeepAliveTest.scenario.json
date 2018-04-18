@@ -1,0 +1,191 @@
+
+[
+    {
+        "computedValue": "TestComputed",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "computedValue": "TestComputed",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComputed",
+        "type": "TransactionStarted",
+        "transaction": "TestComputed"
+    },
+    {
+        "observable": "TestComputed",
+        "type": "ObservableChanged",
+        "value": ""
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComputed",
+        "type": "TransactionCompleted",
+        "transaction": "TestComputed"
+    },
+    {
+        "computedValue": "TestComputed",
+        "type": "ComputeCompleted"
+    },
+    {
+        "action": "Get 1",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Get 1"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Get 1"
+    },
+    {
+        "result": "",
+        "errorMessage": null,
+        "action": "Get 1",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Get 2",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Get 2"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Get 2"
+    },
+    {
+        "result": "",
+        "errorMessage": null,
+        "action": "Get 2",
+        "tracked": false,
+        "returnsResult": true,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "TestComputed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComputed.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComputed.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComputed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "TestComputed",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "TestComputed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComputed.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComputed.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComputed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "TestComputed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComputed.dispose"
+    },
+    {
+        "observable": "TestComputed",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComputed.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComputed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    }
+]

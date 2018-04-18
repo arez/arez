@@ -134,6 +134,7 @@ public abstract class AbstractArezTest
                                 ValueUtil.randomString(),
                                 () -> "",
                                 Objects::equals,
+                                false,
                                 false ).getObserver();
   }
 

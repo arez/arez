@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+##### Added
+* **\[core\]** Add the `keepAlive` parameter to the `ComputedValue`. If true the `ComputedValue`
+  instance activates when it is created and will not deactivate when there is no observers. This
+  feature adds the ability to keep a computed value up to date, even if it is only accessed through
+  actions and no observers.
+
 ### [v0.79](https://github.com/arez/arez/tree/v0.79) (2018-04-17)
 [Full Changelog](https://github.com/arez/arez/compare/v0.78...v0.79)
 

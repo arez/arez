@@ -280,7 +280,7 @@ public final class Observable<T>
    */
   boolean canDeactivate()
   {
-    return hasOwner();
+    return hasOwner() && !getOwner().getComputedValue().isKeepAlive();
   }
 
   /**
@@ -312,8 +312,10 @@ public final class Observable<T>
       invariant( () -> getContext().isTransactionActive(),
                  () -> "Arez-0060: Attempt to invoke deactivate on observable named '" + getName() +
                        "' when there is no active transaction." );
-      invariant( () -> null != _owner,
-                 () -> "Arez-0061: Invoked deactivate on observable named '" + getName() + "' when owner is null." );
+      invariant( this::canDeactivate,
+                 () -> "Arez-0061: Invoked deactivate on observable named '" + getName() + "' but observable " +
+                       "can not be deactivated. Either owner is null or the associated ComputedValue " +
+                       "has keepAlive enabled." );
     }
     assert null != _owner;
     if ( _owner.isActive() )

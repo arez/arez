@@ -39,6 +39,11 @@ public final class ComputedValue<T>
    */
   private final EqualityComparator<T> _equalityComparator;
   /**
+   * Flag indicating whether the ComputedValue should be "kept alive". This essentially means it is activated on
+   * creation and never deactivates.
+   */
+  private final boolean _keepAlive;
+  /**
    * The cached value of the computation.
    */
   private T _value;
@@ -65,7 +70,8 @@ public final class ComputedValue<T>
                  @Nullable final String name,
                  @Nonnull final SafeFunction<T> function,
                  @Nonnull final EqualityComparator<T> equalityComparator,
-                 final boolean highPriority )
+                 final boolean highPriority,
+                 final boolean keepAlive )
   {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
@@ -79,6 +85,7 @@ public final class ComputedValue<T>
     _equalityComparator = Objects.requireNonNull( equalityComparator );
     _value = null;
     _computing = false;
+    _keepAlive = keepAlive;
     _observer = new Observer( Arez.areZonesEnabled() ? context : null,
                               null,
                               Arez.areNamesEnabled() ? getName() : null,
@@ -285,6 +292,11 @@ public final class ComputedValue<T>
   T getValue()
   {
     return _value;
+  }
+
+  boolean isKeepAlive()
+  {
+    return _keepAlive;
   }
 
   @TestOnly

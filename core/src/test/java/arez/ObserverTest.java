@@ -1312,7 +1312,7 @@ public class ObserverTest
     Arez.context().getSpy().addSpyEventHandler( handler );
 
     final ComputedValue<Integer> computedValue =
-      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), () -> 1, Objects::equals, false );
+      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), () -> 1, Objects::equals, false, false );
 
     computedValue.getObserver().invokeReaction();
 
@@ -1466,7 +1466,7 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false, false );
 
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
@@ -1474,7 +1474,7 @@ public class ObserverTest
     observer.setState( ObserverState.POSSIBLY_STALE );
 
     final ComputedValue<String> computedValue2 =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false, false );
 
     observer.getDependencies().add( computedValue2.getObservable() );
     computedValue2.getObservable().addObserver( observer );
@@ -1496,7 +1496,13 @@ public class ObserverTest
 
     final ArezContext context = Arez.context();
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), ValueUtil::randomString, Objects::equals, false );
+      new ComputedValue<>( context,
+                           null,
+                           ValueUtil.randomString(),
+                           ValueUtil::randomString,
+                           Objects::equals,
+                           false,
+                           false );
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
 
@@ -1506,7 +1512,7 @@ public class ObserverTest
       throw new IllegalStateException();
     };
     final ComputedValue<String> computedValue2 =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), function, Objects::equals, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), function, Objects::equals, false, false );
 
     observer.getDependencies().add( computedValue2.getObservable() );
     computedValue2.getObservable().addObserver( observer );
@@ -1527,7 +1533,12 @@ public class ObserverTest
     setPrintObserverErrors( false );
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), ValueUtil::randomString, Objects::equals,
+      new ComputedValue<>( Arez.context(),
+                           null,
+                           ValueUtil.randomString(),
+                           ValueUtil::randomString,
+                           Objects::equals,
+                           false,
                            false );
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
@@ -1538,7 +1549,7 @@ public class ObserverTest
       throw new IllegalStateException();
     };
     final ComputedValue<String> computedValue2 =
-      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), function, Objects::equals, false );
+      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), function, Objects::equals, false, false );
 
     observer.getDependencies().add( computedValue2.getObservable() );
     computedValue2.getObservable().addObserver( observer );
@@ -1556,7 +1567,7 @@ public class ObserverTest
     throws Exception
   {
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), () -> "", Objects::equals, false );
+      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), () -> "", Objects::equals, false, false );
 
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
@@ -1564,7 +1575,7 @@ public class ObserverTest
     observer.setState( ObserverState.POSSIBLY_STALE );
 
     final ComputedValue<String> computedValue2 =
-      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), () -> "", Objects::equals, false );
+      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), () -> "", Objects::equals, false, false );
 
     observer.getDependencies().add( computedValue2.getObservable() );
     computedValue2.getObservable().addObserver( observer );
@@ -1582,7 +1593,7 @@ public class ObserverTest
     throws Exception
   {
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), () -> "", Objects::equals, false );
+      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), () -> "", Objects::equals, false, false );
 
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );

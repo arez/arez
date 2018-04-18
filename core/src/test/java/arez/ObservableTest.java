@@ -530,7 +530,13 @@ public class ObservableTest
     setCurrentTransaction( observer );
 
     final Observable<?> observable =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false ).getObservable();
+      new ComputedValue<>( context,
+                           null,
+                           ValueUtil.randomString(),
+                           () -> "",
+                           Objects::equals,
+                           false,
+                           false ).getObservable();
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final IllegalStateException exception =
@@ -1165,7 +1171,28 @@ public class ObservableTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0061: Invoked deactivate on observable named '" +
-                  observable.getName() + "' when owner is null." );
+                  observable.getName() + "' but observable can not be deactivated. Either owner is " +
+                  "null or the associated ComputedValue has keepAlive enabled." );
+  }
+
+  @Test
+  public void deactivate_onKeepAlive()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+    setupReadOnlyTransaction( context );
+
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false, true );
+    final Observable<?> observable = computedValue.getObservable();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, observable::deactivate );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0061: Invoked deactivate on observable named '" +
+                  observable.getName() + "' but observable can not be deactivated. Either owner is " +
+                  "null or the associated ComputedValue has keepAlive enabled." );
   }
 
   @Test
@@ -1606,7 +1633,13 @@ public class ObservableTest
 
     final String expectedValue = ValueUtil.randomString();
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> expectedValue, Objects::equals, false );
+      new ComputedValue<>( context,
+                           null,
+                           ValueUtil.randomString(),
+                           () -> expectedValue,
+                           Objects::equals,
+                           false,
+                           false );
     computedValue.setValue( expectedValue );
     final Observer derivation =
       computedValue.getObserver();
