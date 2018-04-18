@@ -56,7 +56,7 @@ public final class ComputedValue<T>
    */
   private boolean _computing;
   /**
-   * FLag indicating whether dispose() method has been invoked.
+   * Flag indicating whether dispose() method has been invoked.
    */
   private boolean _disposed;
 
