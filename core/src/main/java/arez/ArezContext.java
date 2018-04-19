@@ -776,12 +776,7 @@ public final class ArezContext
                            final boolean highPriority,
                            final boolean runImmediately )
   {
-    final Reaction reaction =
-      o -> action( Arez.areNamesEnabled() ? o.getName() : null,
-                   Arez.shouldEnforceTransactionType() ? o.getMode() : null,
-                   action,
-                   true,
-                   o );
+    final Reaction reaction = new RunProcedureAsActionReaction( action );
     final Observer observer = createObserver( component, name, mutation, reaction, highPriority, false );
     if ( runImmediately )
     {
@@ -880,7 +875,7 @@ public final class ArezContext
                            @Nonnull final Procedure action,
                            final boolean highPriority )
   {
-    return createObserver( component, name, mutation, o -> action.call(), highPriority, true );
+    return createObserver( component, name, mutation, new RunProcedureReaction( action ), highPriority, true );
   }
 
   /**
