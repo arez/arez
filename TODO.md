@@ -13,6 +13,8 @@ complete as there is too much un-said.
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
+* Consider allowing users to specify high priority Observers/ComputedValues?
+
 * Components that have observables defined by abstract methods should have some way of annotating these
   observables so that you can pass in initial values via generated constructor. Perhaps these variables
   occur at start of constructor parameter list or at end in the order that they are defined. It seems like
