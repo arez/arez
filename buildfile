@@ -323,7 +323,7 @@ define 'arez' do
   iml.excluded_directories << project._('tmp/gwt')
   iml.excluded_directories << project._('tmp')
 
-  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources')
+  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.version=X')
   ipr.add_component_from_artifact(:idea_codestyle)
   ipr.extra_modules << '../mobx-react-devtools/mobx-react-devtools.iml'
   ipr.extra_modules << '../andykog-mobx-devtools/andykog-mobx-devtools.iml'
