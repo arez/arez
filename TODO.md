@@ -6,6 +6,13 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Verify that methods defined on all components are not defined as part of the arez annotated methods. These
+  include:
+    - observe
+    - dispose
+    - isDisposed
+    - getArezId
+
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
   it via `requestAnimationFrame`
 
@@ -61,13 +68,6 @@ complete as there is too much un-said.
 
 * Enhance `BuildOutputTest` test to test multiple variants where we patch the build time constants for different
   build types.
-
-* Verify that methods defined on all components are not defined as part of the arez annotated methods. These
-  include:
-    - observe
-    - dispose
-    - isDisposed
-    - getArezId
 
 * When actions should not necessarily autodispose. Non-autodispose ones could be added to annotation API.
 
