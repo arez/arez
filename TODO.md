@@ -99,6 +99,10 @@ var languages = { csharp: { name: "C#", paradigm: "object-oriented" }, fsharp: {
 console.table(languages);
 ```
 
+* Probably the best way is define a browser extension:
+  - https://www.sitepoint.com/create-chrome-extension-10-minutes-flat/
+  - https://www.smashingmagazine.com/2017/04/browser-extension-edge-chrome-firefox-opera-brave-vivaldi/
+
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
