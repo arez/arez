@@ -20,6 +20,9 @@ public final class ArezBuildAsserts
    */
   public static void assertStandardOutputs( @Nonnull final SymbolEntryIndex index )
   {
+    // These are JsFunction instances and thus should be omitted
+    index.assertNoClassNameMatches( "arez\\.Reaction" );
+
     // This should never appear as it is not meant to be GWT compiled
     index.assertNoClassNameMatches( "arez\\.ArezTestUtil" );
     index.assertNoMemberMatches( "arez\\.ArezZoneHolder", "getDefaultZone" );
