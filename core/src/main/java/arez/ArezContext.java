@@ -162,7 +162,29 @@ public final class ArezContext
   @Nonnull
   public Component createComponent( @Nonnull final String type, @Nonnull final Object id, @Nullable final String name )
   {
-    return createComponent( type, id, name, null, null );
+    return createComponent( type, id, name, null );
+  }
+
+  /**
+   * Create a component with the specified parameters and return it.
+   * This method should only be invoked if {@link Arez#areNativeComponentsEnabled()} returns true.
+   * This method should not be invoked if {@link #isComponentPresent(String, Object)} returns true for
+   * the parameters. The caller should invoke {@link Component#complete()} on the returned component as
+   * soon as the component definition has completed.
+   *
+   * @param type       the component type.
+   * @param id         the component id.
+   * @param name       the name of the component. Should be null if {@link Arez#areNamesEnabled()} returns false.
+   * @param preDispose the hook action called just before the Component is disposed. The hook method is called from within the dispose transaction.
+   * @return true if component is defined in context.
+   */
+  @Nonnull
+  public Component createComponent( @Nonnull final String type,
+                                    @Nonnull final Object id,
+                                    @Nullable final String name,
+                                    @Nullable final SafeProcedure preDispose )
+  {
+    return createComponent( type, id, name, preDispose, null );
   }
 
   /**
@@ -330,7 +352,31 @@ public final class ArezContext
   public <T> ComputedValue<T> createComputedValue( @Nullable final String name,
                                                    @Nonnull final SafeFunction<T> function )
   {
-    return createComputedValue( name, function, EqualityComparator.defaultComparator() );
+    return createComputedValue( null, name, function );
+  }
+
+  /**
+   * Create a ComputedValue with specified parameters.
+   *
+   * @param <T>       the type of the computed value.
+   * @param component the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name      the name of the ComputedValue. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param function  the function that computes the value.
+   * @return the ComputedValue instance.
+   */
+  @Nonnull
+  public <T> ComputedValue<T> createComputedValue( @Nullable final Component component,
+                                                   @Nullable final String name,
+                                                   @Nonnull final SafeFunction<T> function )
+  {
+    return createComputedValue( component,
+                                name,
+                                function,
+                                EqualityComparator.defaultComparator(),
+                                null,
+                                null,
+                                null,
+                                null );
   }
 
   /**
@@ -760,6 +806,24 @@ public final class ArezContext
   /**
    * Create an autorun observer.
    *
+   * @param component the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name      the name of the observer.
+   * @param mutation  true if the action may modify state, false otherwise.
+   * @param action    the action defining the observer.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer autorun( @Nullable final Component component,
+                           @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure action )
+  {
+    return autorun( component, name, mutation, action, false, false );
+  }
+
+  /**
+   * Create an autorun observer.
+   *
    * @param component      the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name           the name of the observer.
    * @param mutation       true if the action may modify state, false otherwise.
@@ -953,6 +1017,38 @@ public final class ArezContext
                                              @Nullable final PropertyMutator<T> mutator )
   {
     return createObservable( null, name, accessor, mutator );
+  }
+
+  /**
+   * Create an Observable.
+   *
+   * @param <T>       The type of the value that is observable.
+   * @param component the component containing observable if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name      the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @return the new Observable.
+   */
+  @Nonnull
+  public <T> Observable<T> createObservable( @Nullable final Component component,
+                                             @Nullable final String name )
+  {
+    return createObservable( component, name, null );
+  }
+
+  /**
+   * Create an Observable.
+   *
+   * @param <T>       The type of the value that is observable.
+   * @param component the component containing observable if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name      the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param accessor  the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
+   * @return the new Observable.
+   */
+  @Nonnull
+  public <T> Observable<T> createObservable( @Nullable final Component component,
+                                             @Nullable final String name,
+                                             @Nullable final PropertyAccessor<T> accessor )
+  {
+    return createObservable( component, name, accessor, null );
   }
 
   /**

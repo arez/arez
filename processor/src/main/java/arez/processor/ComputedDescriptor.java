@@ -305,8 +305,7 @@ final class ComputedDescriptor
     sb.append( "this.$N = $N().createComputedValue( " +
                "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                "$T.areNamesEnabled() ? $N() + $S : null, " +
-               "() -> super.$N(), " +
-               "$T.defaultComparator(), " );
+               "() -> super.$N()" );
     parameters.add( getFieldName() );
     parameters.add( _componentDescriptor.getContextMethodName() );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
@@ -315,55 +314,74 @@ final class ComputedDescriptor
     parameters.add( _componentDescriptor.getComponentNameMethodName() );
     parameters.add( "." + getName() );
     parameters.add( _computed.getSimpleName().toString() );
-    parameters.add( GeneratorUtil.EQUALITY_COMPARATOR_CLASSNAME );
-
-    if ( null != _onActivate )
+    if ( hasHooks() || isKeepAlive() )
     {
-      sb.append( "this::$N" );
-      parameters.add( _onActivate.getSimpleName().toString() );
+      sb.append( ", $T.defaultComparator(), " );
+      parameters.add( GeneratorUtil.EQUALITY_COMPARATOR_CLASSNAME );
+
+      if ( null != _onActivate )
+      {
+        sb.append( "this::$N" );
+        parameters.add( _onActivate.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+      sb.append( ", " );
+
+      if ( null != _onDeactivate )
+      {
+        sb.append( "this::$N" );
+        parameters.add( _onDeactivate.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+      sb.append( ", " );
+
+      if ( null != _onStale )
+      {
+        sb.append( "this::$N" );
+        parameters.add( _onStale.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+      sb.append( ", " );
+
+      if ( null != _onDispose )
+      {
+        sb.append( "this::$N" );
+        parameters.add( _onDispose.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+      if ( isKeepAlive() )
+      {
+        sb.append( ", false, " );
+        sb.append( _keepAlive );
+        sb.append( ", false )" );
+      }
+      else
+      {
+        sb.append( " )" );
+      }
     }
     else
     {
-      sb.append( "null" );
+      sb.append( " )" );
     }
-    sb.append( ", " );
-
-    if ( null != _onDeactivate )
-    {
-      sb.append( "this::$N" );
-      parameters.add( _onDeactivate.getSimpleName().toString() );
-    }
-    else
-    {
-      sb.append( "null" );
-    }
-    sb.append( ", " );
-
-    if ( null != _onStale )
-    {
-      sb.append( "this::$N" );
-      parameters.add( _onStale.getSimpleName().toString() );
-    }
-    else
-    {
-      sb.append( "null" );
-    }
-    sb.append( ", " );
-
-    if ( null != _onDispose )
-    {
-      sb.append( "this::$N" );
-      parameters.add( _onDispose.getSimpleName().toString() );
-    }
-    else
-    {
-      sb.append( "null" );
-    }
-
-    sb.append( ", false, " );
-    sb.append( _keepAlive );
-    sb.append( ", false )" );
     builder.addStatement( sb.toString(), parameters.toArray() );
+  }
+
+  private boolean hasHooks()
+  {
+    return null != _onActivate || null != _onDeactivate || null != _onStale || null != _onDispose;
   }
 
   void buildDisposer( @Nonnull final CodeBlock.Builder codeBlock )

@@ -2448,39 +2448,36 @@ final class ComponentDescriptor
     {
       final StringBuilder sb = new StringBuilder();
       final ArrayList<Object> params = new ArrayList<>();
-      sb.append( "this.$N = $T.areNativeComponentsEnabled() ? $N().createComponent( $S, $N(), $N(), " );
+      sb.append( "this.$N = $T.areNativeComponentsEnabled() ? $N().createComponent( $S, $N(), $N()" );
       params.add( GeneratorUtil.COMPONENT_FIELD_NAME );
       params.add( GeneratorUtil.AREZ_CLASSNAME );
       params.add( getContextMethodName() );
       params.add( _type );
       params.add( getIdMethodName() );
       params.add( getComponentNameMethodName() );
-      if ( null != _preDispose )
+      if ( null != _preDispose || null != _postDispose )
       {
-        sb.append( "() -> super.$N(), " );
-        params.add( _preDispose.getSimpleName().toString() );
+        sb.append( ", " );
+        if ( null != _preDispose )
+        {
+          sb.append( "() -> super.$N()" );
+          params.add( _preDispose.getSimpleName().toString() );
+        }
+
+        if ( null != _postDispose )
+        {
+          sb.append( ",  () -> super.$N()" );
+          params.add( _postDispose.getSimpleName().toString() );
+        }
       }
-      else
-      {
-        sb.append( "null, " );
-      }
-      if ( null != _postDispose )
-      {
-        sb.append( "() -> super.$N() " );
-        params.add( _postDispose.getSimpleName().toString() );
-      }
-      else
-      {
-        sb.append( "null " );
-      }
-      sb.append( ") : null" );
+      sb.append( " ) : null" );
       builder.addStatement( sb.toString(), params.toArray() );
     }
     {
       builder.addStatement( "this.$N = $N().createObservable( " +
                             "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                             "$T.areNamesEnabled() ? $N() + $S : null, " +
-                            "$T.arePropertyIntrospectorsEnabled() ? () -> this.$N >= 0 : null, null )",
+                            "$T.arePropertyIntrospectorsEnabled() ? () -> this.$N >= 0 : null )",
                             GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME,
                             getContextMethodName(),
                             GeneratorUtil.AREZ_CLASSNAME,
@@ -2496,7 +2493,7 @@ final class ComponentDescriptor
       builder.addStatement( "this.$N = $N().createComputedValue( " +
                             "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                             "$T.areNamesEnabled() ? $N() + $S : null, " +
-                            "() -> $N(), $T.defaultComparator(), null, () -> dispose(), null, null, true )",
+                            "() -> $N(), $T.defaultComparator(), null, () -> dispose(), null, null )",
                             GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME,
                             getContextMethodName(),
                             GeneratorUtil.AREZ_CLASSNAME,

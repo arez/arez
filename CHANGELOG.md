@@ -9,6 +9,13 @@
   actions and no observers.
 * **\[annotations\]** Enhance the `@Computed` annotation to support the `keepAlive` parameter.
 
+#### Changed
+* **\[\processor\]** Simplified the code used to construct core Arez elements within the generated
+  component classes. If a constant value that matches the default value would be passed to the one
+  of the `ArezContext.create...` methods then the constant values can be omitted. This simplifies
+  the code for humans who need to read the generated code and can reduce the code size in large
+  applications while not increasing the code size in small applications.
+
 ### [v0.79](https://github.com/arez/arez/tree/v0.79) (2018-04-17)
 [Full Changelog](https://github.com/arez/arez/compare/v0.78...v0.79)
 

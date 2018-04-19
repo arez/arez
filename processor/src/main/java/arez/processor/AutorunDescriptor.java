@@ -99,7 +99,7 @@ final class AutorunDescriptor
     parameters.add( _componentDescriptor.getComponentNameMethodName() );
     parameters.add( "." + getName() );
     sb.append( _mutation );
-    sb.append( ", () -> super.$N(), false, false )" );
+    sb.append( ", () -> super.$N() )" );
     parameters.add( getAutorun().getSimpleName().toString() );
 
     builder.addStatement( sb.toString(), parameters.toArray() );

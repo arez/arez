@@ -1720,10 +1720,14 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
     final String name = ValueUtil.randomString();
-    final Observer observer = context.autorun( component, name, true, callCount::incrementAndGet, false, false );
+    final Observer observer = context.autorun( component, name, true, callCount::incrementAndGet );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
+    assertEquals( observer.isHighPriority(), false );
+
+    // Those created with components are not runImmediately
+    assertEquals( callCount.get(), 0 );
   }
 
   @Test
@@ -1967,7 +1971,7 @@ public class ArezContextTest
     final Component component =
       context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
-    final Observable<String> observable = context.createObservable( component, name, null, null );
+    final Observable<String> observable = context.createObservable( component, name );
 
     assertEquals( observable.getName(), name );
     assertEquals( observable.getComponent(), component );

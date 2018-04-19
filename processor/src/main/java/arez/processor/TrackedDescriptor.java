@@ -160,7 +160,7 @@ final class TrackedDescriptor
     parameters.add( _componentDescriptor.getComponentNameMethodName() );
     parameters.add( "." + getName() );
     sb.append( _mutation );
-    sb.append( ", () -> super.$N(), false )" );
+    sb.append( ", () -> super.$N() )" );
     parameters.add( _onDepsChangedMethod.getSimpleName().toString() );
 
     builder.addStatement( sb.toString(), parameters.toArray() );
