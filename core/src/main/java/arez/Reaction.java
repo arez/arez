@@ -1,17 +1,11 @@
 package arez;
 
 import javax.annotation.Nonnull;
-import jsinterop.annotations.JsFunction;
 
 /**
  * Interface that accepts an {@link Observer} that has been scheduled and
  * performs the actions required to run observer.
- *
- * <p>The interface is marked with the {@link JsFunction} annotation to communicate
- * to the GWT2 compiler that it is not necessary to generate class information
- * for the implementing methods which reduces code size somewhat.</p>
  */
-@JsFunction
 @FunctionalInterface
 interface Reaction
 {
