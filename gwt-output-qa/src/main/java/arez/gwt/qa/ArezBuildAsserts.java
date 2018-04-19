@@ -23,16 +23,60 @@ public final class ArezBuildAsserts
     // These are JsFunction instances and thus should be omitted
     index.assertNoClassNameMatches( "arez\\.Reaction" );
 
-    // This should never appear as it is not meant to be GWT compiled
-    index.assertNoClassNameMatches( "arez\\.ArezTestUtil" );
-    index.assertNoMemberMatches( "arez\\.ArezZoneHolder", "getDefaultZone" );
-    index.assertNoMemberMatches( "arez\\.ArezZoneHolder", "getZoneStack" );
+    assertNoTestOnlyElements( index );
 
     // This should be optimized out completely
     index.assertNoClassNameMatches( "arez\\.ArezConfig" );
 
     // This should be eliminated as it will improve the ability for GWT compiler to dead-code-eliminate
     index.assertNoMemberMatches( "arez\\.Arez", "$clinit" );
+  }
+
+  /**
+   * This assertion verifies that there is no elements that we have annotated as TestOnly.
+   *
+   * @param index the index that contains all symbols for output target.
+   */
+  private static void assertNoTestOnlyElements( @Nonnull final SymbolEntryIndex index )
+  {
+    // TestOnly annotated methods
+    index.assertNoMemberMatches( "arez\\.ArezContext", "getObserverErrorHandlerSupport" );
+    index.assertNoMemberMatches( "arez\\.ArezContext", "currentNextTransactionId" );
+    index.assertNoMemberMatches( "arez\\.ArezContext", "getScheduler" );
+    index.assertNoMemberMatches( "arez\\.ArezContext", "setNextNodeId" );
+    index.assertNoMemberMatches( "arez\\.ArezContext", "getNextNodeId" );
+    index.assertNoMemberMatches( "arez\\.ArezContext", "getSchedulerLockCount" );
+    index.assertNoMemberMatches( "arez\\.ArezContext", "setSchedulerLockCount" );
+    index.assertNoMemberMatches( "arez\\.ArezContextHolder", "reset" );
+    index.assertNoMemberMatches( "arez\\.ArezLogger", "getLogger" );
+    index.assertNoClassNameMatches( "arez\\.ArezTestUtil" );
+    index.assertNoMemberMatches( "arez\\.ArezZoneHolder", "getDefaultZone" );
+    index.assertNoMemberMatches( "arez\\.ArezZoneHolder", "getZoneStack" );
+    index.assertNoMemberMatches( "arez\\.ArezZoneHolder", "reset" );
+    index.assertNoMemberMatches( "arez\\.Component", "getPreDispose" );
+    index.assertNoMemberMatches( "arez\\.Component", "getPostDispose" );
+    index.assertNoMemberMatches( "arez\\.ComputedValue", "setValue" );
+    index.assertNoMemberMatches( "arez\\.ComputedValue", "getError" );
+    index.assertNoMemberMatches( "arez\\.ComputedValue", "setError" );
+    index.assertNoMemberMatches( "arez\\.ComputedValue", "setComputing" );
+    index.assertNoMemberMatches( "arez\\.Observable", "getWorkState" );
+    index.assertNoMemberMatches( "arez\\.Observer", "markAsScheduled" );
+    index.assertNoMemberMatches( "arez\\.ObserverErrorHandlerSupport", "getObserverErrorHandlers" );
+    index.assertNoMemberMatches( "arez\\.ReactionScheduler", "getPendingObservers" );
+    index.assertNoMemberMatches( "arez\\.ReactionScheduler", "getCurrentReactionRound" );
+    index.assertNoMemberMatches( "arez\\.ReactionScheduler", "getRemainingReactionsInCurrentRound" );
+    index.assertNoMemberMatches( "arez\\.ReactionScheduler", "setCurrentReactionRound" );
+    index.assertNoMemberMatches( "arez\\.SpyImpl", "getSpyEventHandlers" );
+    index.assertNoMemberMatches( "arez\\.Transaction", "getPendingDeactivations" );
+    index.assertNoMemberMatches( "arez\\.Transaction", "setTransaction" );
+    index.assertNoMemberMatches( "arez\\.Transaction", "isSuspended" );
+    index.assertNoMemberMatches( "arez\\.Transaction", "markAsSuspended" );
+    index.assertNoMemberMatches( "arez\\.Transaction", "resetSuspendedFlag" );
+    index.assertNoMemberMatches( "arez\\.Watcher", "isMutation" );
+    index.assertNoMemberMatches( "arez\\.Watcher", "getCondition" );
+    index.assertNoMemberMatches( "arez\\.Watcher", "getEffect" );
+    index.assertNoMemberMatches( "arez\\.component\\.MemoizeCache", "getCache" );
+    index.assertNoMemberMatches( "arez\\.component\\.MemoizeCache", "getNextIndex" );
   }
 
   /**
