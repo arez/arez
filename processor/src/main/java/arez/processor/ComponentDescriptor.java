@@ -56,6 +56,8 @@ final class ComponentDescriptor
   private static final Pattern ISSER_PATTERN = Pattern.compile( "^is([A-Z].*)$" );
   private static final List<String> OBJECT_METHODS =
     Arrays.asList( "hashCode", "equals", "clone", "toString", "finalize", "getClass", "wait", "notifyAll", "notify" );
+  private static final List<String> AREZ_SPECIAL_METHODS =
+    Arrays.asList( "observe", "dispose", "isDisposed", "getArezId" );
 
   @Nullable
   private List<TypeElement> _repositoryExtensions;
@@ -1063,6 +1065,22 @@ final class ComponentDescriptor
                                 @Nonnull final Types typeUtils )
     throws ArezProcessorException
   {
+    for ( final ExecutableElement method : methods )
+    {
+      final String methodName = method.getSimpleName().toString();
+      if ( AREZ_SPECIAL_METHODS.contains( methodName ) && method.getParameters().isEmpty() )
+      {
+        throw new ArezProcessorException( "Method defined on a class annotated by @ArezComponent uses a name " +
+                                          "reserved by Arez", method );
+      }
+      else if ( methodName.startsWith( GeneratorUtil.FIELD_PREFIX ) ||
+                methodName.startsWith( GeneratorUtil.OBSERVABLE_DATA_FIELD_PREFIX ) ||
+                methodName.startsWith( GeneratorUtil.FRAMEWORK_PREFIX ) )
+      {
+        throw new ArezProcessorException( "Method defined on a class annotated by @ArezComponent uses a name " +
+                                          "with a prefix reserved by Arez", method );
+      }
+    }
     final Map<String, CandidateMethod> getters = new HashMap<>();
     final Map<String, CandidateMethod> setters = new HashMap<>();
     final Map<String, CandidateMethod> trackeds = new HashMap<>();

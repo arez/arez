@@ -49,7 +49,7 @@ final class GeneratorUtil
   /**
    * For fields/elements used internally for component to manage lifecycle.
    */
-  private static final String FRAMEWORK_PREFIX = "$$arezi$$_";
+  static final String FRAMEWORK_PREFIX = "$$arezi$$_";
   /**
    * The name of exceptions when caught by Arez infrastructure.
    */

@@ -136,6 +136,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.repository.RepositoryWithMultipleCtors", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithProtectedConstructor", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithSingleton", false, true, true },
+        new Object[]{ "com.example.reserved_names.NonReservedNameModel", false, false, false },
         new Object[]{ "com.example.to_string.NoToStringPresent", false, false, false },
         new Object[]{ "com.example.to_string.ToStringPresent", false, false, false },
         new Object[]{ "com.example.tracked.BasicTrackedModel", false, false, false },
@@ -349,6 +350,21 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
+        new Object[]{ "com.example.reserved_names.DataPrefixReservedNameModel",
+                      "Method defined on a class annotated by @ArezComponent uses a name with a prefix reserved by Arez" },
+        new Object[]{ "com.example.reserved_names.DisposeReservedNameModel",
+                      "Method defined on a class annotated by @ArezComponent uses a name reserved by Arez" },
+        new Object[]{ "com.example.reserved_names.FieldPrefixReservedNameModel",
+                      "Method defined on a class annotated by @ArezComponent uses a name with a prefix reserved by Arez" },
+        new Object[]{ "com.example.reserved_names.FrameworkPrefixReservedNameModel",
+                      "Method defined on a class annotated by @ArezComponent uses a name with a prefix reserved by Arez" },
+        new Object[]{ "com.example.reserved_names.GetArezIdReservedNameModel",
+                      "Method defined on a class annotated by @ArezComponent uses a name reserved by Arez" },
+        new Object[]{ "com.example.reserved_names.IsDisposedReservedNameModel",
+                      "Method defined on a class annotated by @ArezComponent uses a name reserved by Arez" },
+        new Object[]{ "com.example.reserved_names.ObserveReservedNameModel",
+                      "Method defined on a class annotated by @ArezComponent uses a name reserved by Arez" },
+
         new Object[]{ "com.example.action.AbstractActionModel", "@Action target must not be abstract" },
         new Object[]{ "com.example.action.BadActionName2Model",
                       "@Action target specified an invalid name 'ace-'. The name must be a valid java identifier." },

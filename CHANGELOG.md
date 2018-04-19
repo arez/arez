@@ -15,6 +15,10 @@
   of the `ArezContext.create...` methods then the constant values can be omitted. This simplifies
   the code for humans who need to read the generated code and can reduce the code size in large
   applications while not increasing the code size in small applications.
+* **\[\processor\]** The process verifies that the `@ArezComponent` annotated class does not define
+  any methods that are reserved names within Arez or use prefixes that are reserved by the Arez
+  framework. Previously if a reserved word was used, the annotation processor would successfully
+  complete but generate code that would not compile.
 
 ### [v0.79](https://github.com/arez/arez/tree/v0.79) (2018-04-17)
 [Full Changelog](https://github.com/arez/arez/compare/v0.78...v0.79)

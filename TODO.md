@@ -6,13 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Verify that methods defined on all components are not defined as part of the arez annotated methods. These
-  include:
-    - observe
-    - dispose
-    - isDisposed
-    - getArezId
-
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
   it via `requestAnimationFrame`
 
