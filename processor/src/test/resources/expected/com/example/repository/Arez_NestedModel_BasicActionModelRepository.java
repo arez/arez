@@ -41,9 +41,9 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = Arez.areNativeComponentsEnabled() ? $$arezi$$_nextId++ : 0L;
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "NestedModel_BasicActionModelRepository", $$arezi$$_id(), getRepositoryName(), () -> super.preDispose() ) : null;
-    this.$$arezi$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getRepositoryName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
-    this.$$arez$$_entities = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getRepositoryName() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "NestedModel_BasicActionModelRepository", $$arezi$$_id(), getContainerName(), () -> super.preDispose() ) : null;
+    this.$$arezi$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getContainerName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
+    this.$$arez$$_entities = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getContainerName() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
@@ -66,13 +66,13 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
       Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'component' invoked on uninitialized component of type 'NestedModel_BasicActionModelRepository'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenConstructed( this.$$arezi$$_state ), () -> "Method named 'component' invoked on un-constructed component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenConstructed( this.$$arezi$$_state ), () -> "Method named 'component' invoked on un-constructed component named '" + getContainerName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenCompleted( this.$$arezi$$_state ), () -> "Method named 'component' invoked on incomplete component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenCompleted( this.$$arezi$$_state ), () -> "Method named 'component' invoked on incomplete component named '" + getContainerName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'component' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'component' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getContainerName() + "'" );
     }
     if ( Arez.shouldCheckInvariants() ) {
       Guards.invariant( () -> Arez.areNativeComponentsEnabled(), () -> "Invoked @ComponentRef method 'component' but Arez.areNativeComponentsEnabled() returned false." );
@@ -94,9 +94,9 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
   }
 
   @Nonnull
-  protected final String getRepositoryName() {
+  protected final String getContainerName() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getRepositoryName' invoked on uninitialized component of type 'NestedModel_BasicActionModelRepository'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getContainerName' invoked on uninitialized component of type 'NestedModel_BasicActionModelRepository'" );
     }
     return "NestedModel_BasicActionModelRepository";
   }
@@ -126,7 +126,7 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        getContext().dispose( Arez.areNamesEnabled() ? getRepositoryName() : null, () -> { {
+        getContext().dispose( Arez.areNamesEnabled() ? getContainerName() : null, () -> { {
           super.preDispose();
           this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_entities.dispose();
@@ -140,7 +140,7 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
   @Override
   public Stream<NestedModel.BasicActionModel> entities() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'entities' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'entities' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getContainerName() + "'" );
     }
     this.$$arez$$_entities.reportObserved();
     return super.entities();
@@ -150,7 +150,7 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
   @Override
   protected Observable getEntitiesObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getEntitiesObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getEntitiesObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getContainerName() + "'" );
     }
     return $$arez$$_entities;
   }
@@ -158,10 +158,10 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
   @Override
   public void destroy(@Nonnull final NestedModel.BasicActionModel arg0) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'destroy' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'destroy' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getContainerName() + "'" );
     }
     try {
-      getContext().safeAction(Arez.areNamesEnabled() ? getRepositoryName() + ".destroy" : null, true, () -> super.destroy(arg0), arg0 );
+      getContext().safeAction(Arez.areNamesEnabled() ? getContainerName() + ".destroy" : null, true, () -> super.destroy(arg0), arg0 );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -173,10 +173,10 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
   @Override
   public NestedModel.BasicActionModel create() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'create' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getRepositoryName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'create' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getContainerName() + "'" );
     }
     try {
-      return getContext().safeAction(Arez.areNamesEnabled() ? getRepositoryName() + ".create" : null, true, () -> super.create() );
+      return getContext().safeAction(Arez.areNamesEnabled() ? getContainerName() + ".create" : null, true, () -> super.create() );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -212,7 +212,7 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
   @Override
   public final String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + getRepositoryName() + "]";
+      return "ArezComponent[" + getContainerName() + "]";
     } else {
       return super.toString();
     }

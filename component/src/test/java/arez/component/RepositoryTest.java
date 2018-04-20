@@ -390,8 +390,7 @@ public class RepositoryTest
     }
 
     @Nonnull
-    @Override
-    protected String getRepositoryName()
+    protected String getContainerName()
     {
       return "MyRepository";
     }

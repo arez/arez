@@ -19,6 +19,9 @@
   any methods that are reserved names within Arez or use prefixes that are reserved by the Arez
   framework. Previously if a reserved word was used, the annotation processor would successfully
   complete but generate code that would not compile.
+* **\[\component\]** Extract out the abstract class `arez.component.AbstractContainer` from
+  `arez.component.AbstractRepository` that facilities easy authoring of reactive classes responsible
+  for containing a collection of Arez components.
 
 ### [v0.79](https://github.com/arez/arez/tree/v0.79) (2018-04-17)
 [Full Changelog](https://github.com/arez/arez/compare/v0.78...v0.79)
