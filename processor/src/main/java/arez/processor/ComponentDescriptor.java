@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
@@ -228,6 +229,7 @@ final class ComponentDescriptor
 
     final String declaredName = getAnnotationParameter( annotation, "name" );
     final boolean expectSetter = getAnnotationParameter( annotation, "expectSetter" );
+    final Boolean requireInitializer = isInitializerRequired( method );
 
     final TypeMirror returnType = method.getReturnType();
     final String methodName = method.getSimpleName().toString();
@@ -317,6 +319,24 @@ final class ComponentDescriptor
                                           "observable named " + name, method );
       }
       observable.setGetter( method, methodType );
+    }
+    if ( null != requireInitializer )
+    {
+      if ( !method.getModifiers().contains( Modifier.ABSTRACT ) )
+      {
+        throw new ArezProcessorException( "@Observable target set initializer parameter to ENABLED but " +
+                                          "method is not abstract.", method );
+      }
+      final Boolean existing = observable.getInitializer();
+      if ( null == existing )
+      {
+        observable.setInitializer( requireInitializer );
+      }
+      else if ( existing != requireInitializer )
+      {
+        throw new ArezProcessorException( "@Observable target set initializer parameter to value that differs from " +
+                                          "the paired observable method.", method );
+      }
     }
   }
 
@@ -1148,6 +1168,8 @@ final class ComponentDescriptor
 
     linkDependencies( getters.values() );
 
+    autodetectObservableInitializers();
+
     /*
      * ALl of the maps will have called remove() for all matching candidates.
      * Thus any left are the non-arez methods.
@@ -1157,6 +1179,28 @@ final class ComponentDescriptor
     ensureNoAbstractMethods( setters.values() );
     ensureNoAbstractMethods( trackeds.values() );
     ensureNoAbstractMethods( onDepsChangeds.values() );
+  }
+
+  private void autodetectObservableInitializers()
+  {
+    for ( final ObservableDescriptor observable : getObservables() )
+    {
+      if ( null == observable.getInitializer() && observable.hasGetter() )
+      {
+        if ( observable.hasSetter() )
+        {
+          final boolean initializer =
+            autodetectInitializer( observable.getGetter() ) && autodetectInitializer( observable.getSetter() );
+          observable.setInitializer( initializer );
+        }
+        else
+        {
+          final boolean initializer =
+            autodetectInitializer( observable.getGetter() );
+          observable.setInitializer( initializer );
+        }
+      }
+    }
   }
 
   private void linkDependencies( @Nonnull final Collection<CandidateMethod> candidates )
@@ -1527,6 +1571,48 @@ final class ComponentDescriptor
     {
       return false;
     }
+  }
+
+  @Nullable
+  private Boolean isInitializerRequired( @Nonnull final ExecutableElement element )
+  {
+    final AnnotationMirror annotation =
+      ProcessorUtil.findAnnotationByType( element, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
+    final AnnotationValue injectParameter =
+      null == annotation ?
+      null :
+      ProcessorUtil.findAnnotationValueNoDefaults( annotation, "initializer" );
+    final String value =
+      null == injectParameter ?
+      "AUTODETECT" :
+      ( (VariableElement) injectParameter.getValue() ).getSimpleName().toString();
+    switch ( value )
+    {
+      case "ENABLE":
+        return Boolean.TRUE;
+      case "DISABLE":
+        return Boolean.FALSE;
+      default:
+        return null;
+    }
+  }
+
+  private boolean autodetectInitializer( @Nonnull final ExecutableElement element )
+  {
+    return element.getModifiers().contains( Modifier.ABSTRACT ) &&
+           (
+             (
+               // Setter
+               element.getReturnType().getKind() != TypeKind.VOID &&
+               null != ProcessorUtil.findAnnotationByType( element, Constants.NONNULL_ANNOTATION_CLASSNAME )
+             ) ||
+             (
+               // Getter
+               1 == element.getParameters().size() &&
+               null != ProcessorUtil.findAnnotationByType( element.getParameters().get( 0 ),
+                                                           Constants.NONNULL_ANNOTATION_CLASSNAME )
+             )
+           );
   }
 
   private void verifyNoDuplicateAnnotations( @Nonnull final ExecutableElement method )
@@ -2425,6 +2511,19 @@ final class ComponentDescriptor
 
     superCall.append( ")" );
     builder.addStatement( superCall.toString(), parameterNames.toArray() );
+    final List<ObservableDescriptor> initializers =
+      getObservables()
+        .stream()
+        .filter( ObservableDescriptor::requireInitializer )
+        .collect( Collectors.toList() );
+    for ( final ObservableDescriptor observable : initializers )
+    {
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ), observable.getName(), Modifier.FINAL );
+      ProcessorUtil.copyDocumentedAnnotations( observable.getGetter(), param );
+      builder.addParameter( param.build() );
+      builder.addStatement( "this.$N = $N", observable.getDataFieldName(), observable.getName() );
+    }
 
     builder.addStatement( "this.$N = $T.areZonesEnabled() ? $T.context() : null",
                           GeneratorUtil.CONTEXT_FIELD_NAME,

@@ -29,6 +29,7 @@ final class ObservableDescriptor
   @Nonnull
   private final String _name;
   private boolean _expectSetter;
+  private Boolean _initializer;
   @Nullable
   private ExecutableElement _getter;
   @Nullable
@@ -54,6 +55,23 @@ final class ObservableDescriptor
   String getName()
   {
     return _name;
+  }
+
+  boolean requireInitializer()
+  {
+    assert null != _initializer;
+    return _initializer;
+  }
+
+  @Nullable
+  Boolean getInitializer()
+  {
+    return _initializer;
+  }
+
+  void setInitializer( @Nonnull final Boolean initializer )
+  {
+    _initializer = Objects.requireNonNull( initializer );
   }
 
   void setExpectSetter( final boolean expectSetter )
@@ -176,7 +194,7 @@ final class ObservableDescriptor
   }
 
   @Nonnull
-  private String getDataFieldName()
+  String getDataFieldName()
   {
     return GeneratorUtil.OBSERVABLE_DATA_FIELD_PREFIX + getName();
   }

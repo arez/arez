@@ -8,6 +8,12 @@
   feature adds the ability to keep a computed value up to date, even if it is only accessed through
   actions and no observers.
 * **\[annotations\]** Enhance the `@Computed` annotation to support the `keepAlive` parameter.
+* **\[annotations\]** Enhance the `@Observable` annotation to support the `initializer` parameter.
+  The parameter controls whether the generated component class should add a parameter to the constructor
+  to initialize the property. This is only possible if the observable property is defined by a pair
+  of abstract methods. The default value is `AUTODETECT` which will add the initializer parameter if
+  the observable property is defined by a pair of abstract methods *and* the parameter of the setter
+  *and* the return value of the getter are annotated with `@Nonnull`.
 
 #### Changed
 * **\[\processor\]** Simplified the code used to construct core Arez elements within the generated

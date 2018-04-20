@@ -55,4 +55,19 @@ public @interface Observable
    * @return true if there is expected to be a setter, false if there should be no setter.
    */
   boolean expectSetter() default true;
+
+  /**
+   * Indicate whether the generated component class should add a parameter to the constructor to initialize this property.
+   * This parameter should only be set to {@link Feature#ENABLE} when the observable property is defined by a
+   * pair of abstract methods. If set to {@link Feature#AUTODETECT} then an initializer will be added for an
+   * observable property if it is defined by a pair of abstract methods and the values is annotated with the
+   * {@link javax.annotation.Nonnull} annotation.
+   *
+   * <p>The initializer parameters will be added as additional parameters at the end of the parameter list in
+   * the generated classes constructors. The initializers will be defined in the order that the observable
+   * properties are declared. They properties be assigned after the parent constructor has been invoked.</p>
+   *
+   * @return flag controlling whether a parameter should be added to the constructor to initialize the property.
+   */
+  Feature initializer() default Feature.AUTODETECT;
 }
