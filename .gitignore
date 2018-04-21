@@ -1,6 +1,7 @@
 *.iml
 /*.ipr
 /*.iws
+/yarn-error.log
 /Gemfile.lock
 /_buildr.rb
 /reports
