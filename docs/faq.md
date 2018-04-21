@@ -125,10 +125,12 @@ dispose.
 ### Why does the annotation processor override equals() and hashCode() methods?
 
 The annotation processor overrides the `equals()` and `hashCode()` methods as these methods
-are used internally by Arez when storing instances of these classes. These methods are implemented with
+are used internally by Arez when storing instances of these classes in a repository is generated or the
+`Arez.areNativeComponentsEnabled()` method returns true. The methods are implemented with
 the assumption that the component id is unique. If the component id is supplied by the toolkit user via
 the {@api_url: annotations.ComponentId} annotation, the user must be careful to ensure that the component
-id is unique.
+id is unique. It should be noted that the user may more explicitly control the generation of these
+methods using the `requireEquals` parameter on the {@api_url: annotations.ArezComponent} annotation.
 
 ### Why does the annotation processor only sometimes generate a toString() method?
 
