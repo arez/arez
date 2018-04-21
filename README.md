@@ -4,7 +4,7 @@
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez.promise/arez-promise.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez.promise%22)
 
 This library provides an Arez browser component that wraps a Promise and exposes observable
-state that track the state of the promise.
+state that tracks the state of the promise.
 
 ## Quick Start
 
