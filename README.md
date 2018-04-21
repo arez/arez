@@ -3,7 +3,7 @@
 [![Build Status](https://secure.travis-ci.org/arez/arez-timeddisposer.png?branch=master)](http://travis-ci.org/arez/arez-timeddisposer)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez.timeddisposer/arez-timeddisposer.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez.timeddisposer%22)
 
-This library provides a utility class that will dispose specified target after a delay.
+This library provides a utility class that will dispose a target object after a time delay.
 
 ## Quick Start
 
