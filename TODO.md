@@ -151,6 +151,14 @@ console.table(languages);
   - See egghead training videos as well.
   - https://www.youtube.com/playlist?list=PLV5CVI1eNcJhc9Lxu83Zp4uyqP2yKV4xl&app=desktop
 
+* Reintegrate
+
+> Arez is a simple, efficient and scalable state management library for client-side applications. It is based
+on reactive programming model found in spreadsheets or the dataflow programming model. The application state
+is defined using some core or essential data elements and the remainder of the application state is defined
+by derivation from the these core data elements.
+
+
 ## Mobx State Tree
 
 * We could incorporate a mechanism like Mobx State Tree to serialize observable data of components as
