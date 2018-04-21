@@ -3,8 +3,7 @@
 [![Build Status](https://secure.travis-ci.org/arez/arez-spytools.png?branch=master)](http://travis-ci.org/arez/arez-spytools)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez.spytools/arez-spytools.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez.spytools%22)
 
-This library provides an Arez browser component that tracks when the user is idle.
-A user is considered idle if they have not interacted with the browser for a specified amount of time.
+This library provides additional utilities and introspection tools based on the core Arez spy infrastructure.
 
 ## Quick Start
 
