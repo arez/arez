@@ -202,6 +202,7 @@ public abstract class AbstractContainer<K, T>
   /**
    * Return true if entry is not disposed.
    *
+   * @param entry the entry to check.
    * @return true if entry is not disposed.
    */
   protected final boolean notDisposed( @Nonnull final RepositoryEntry<T> entry )
