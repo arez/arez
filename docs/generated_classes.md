@@ -18,7 +18,7 @@ Arez component class is `com.example.MyComponent` then the enhanced component cl
 `com.example.Arez_MyComponent`.
 
 If the [`@ArezComponent`](at_arez_component.md) annotated class is not a top-level type, the enhanced
-component class name will be include its enclosing types’ names, joined with an underscore. For example,
+component class name will be include its enclosing types names, joined with an underscore. For example,
 this code:
 
 {@file_content: file=arez/doc/examples/nested/MyContainer.java start_line=public include_start_line=true}
@@ -43,7 +43,7 @@ annotation processor detects dagger injection is required or if the user explici
 The name of the dagger module class is the same name as the Arez component suffixed with `DaggerModule`. i.e. If
 the name of the Arez component class is `com.example.MyComponent` then the dagger module class would be named
 `com.example.MyComponentDaggerModule`. If the [`@ArezComponent`](at_arez_component.md) annotated class is not a
-top-level type, the enhanced component class name will be include its enclosing types’ names, joined with an
+top-level type, the enhanced component class name will be include its enclosing types names, joined with an
 underscore similar to the way the [enhanced component class](#the-enhanced-component-class) is named. i.e. The
 inner class `com.example.MyContainer.MyComponent` would generate a dagger module class named
 `com.example.MyContainer_MyComponentDaggerModule`.
