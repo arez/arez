@@ -134,7 +134,7 @@ HEADER
         puts "Completed remote branch #{full_branch}. Removed." if 0 == $?.exitstatus
       end
 
-      %w(arez-browserlocation arez-idlestatus arez-networkstatus arez-promise arez-ticker arez-timeddisposer).each do |downstream|
+      %w(arez-browserlocation arez-idlestatus arez-networkstatus arez-promise arez-spytools arez-ticker arez-timeddisposer).each do |downstream|
         # Need to extract the version from that project
         downstream_version = IO.read("target/arez_downstream-test/deploy_test/workdir/#{downstream}/CHANGELOG.md")[/^### \[v(\d+\.\d+)\]/, 1]
         sh "cd target/arez_downstream-test/deploy_test/workdir/#{downstream} && bundle exec buildr perform_release STAGE=PushChanges PRODUCT_VERSION=#{downstream_version}#{Buildr.application.options.trace ? ' --trace' : ''}"
