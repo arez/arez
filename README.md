@@ -10,7 +10,6 @@ and updates the online state as appropriate. However if there is no observer for
 state, the model will not listen to to the browser events so as not to have any
 significant performance impact.
 
-
 ## Quick Start
 
 The simplest way to use component;
