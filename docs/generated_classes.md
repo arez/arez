@@ -29,7 +29,7 @@ The access level of the enhanced component class is package access **unless** th
 [`@ArezComponent`](at_arez_component.md) annotated class is public and has at least one public constructor.
 If the lifecycle of the enhanced component class is not managed by a [dependency injection](dependency_injection.md)
 framework such as [Dagger2](https://google.github.io/dagger) then it is suggested that one or more static
-factory methods such as in the following example:
+factory methods are defined such as in the following example:
 
 {@file_content: file=arez/doc/examples/access_level/MyComponent.java start_line=public include_start_line=true}
 
@@ -49,7 +49,7 @@ inner class `com.example.MyContainer.MyComponent` would generate a dagger module
 `com.example.MyContainer_MyComponentDaggerModule`.
 
 The dagger module class is public, regardless of the access level of the underlying
-[`@ArezComponent`](at_arez_component.md) annotated classes access modifier as it is required to integrate with
+[`@ArezComponent`](at_arez_component.md) annotated classes as public access is required to integrate with
 a Dagger2 component in a different package.
 
 It should be noted that the dagger annotation processor will also generate several other java classes during the
