@@ -2,6 +2,16 @@
 
 ### Unreleased
 
+### [v0.05](https://github.com/arez/arez-networkstatus/tree/v0.05) (2018-04-17)
+[Full Changelog](https://github.com/arez/arez-networkstatus/compare/v0.04...v0.05)
+
+Update the 'org.realityforge.arez' dependencies to version '0.79'
+
+### [v0.04](https://github.com/arez/arez-networkstatus/tree/v0.04) (2018-04-16)
+[Full Changelog](https://github.com/arez/arez-networkstatus/compare/v0.03...v0.04)
+
+Update the 'org.realityforge.arez' dependencies to version '0.78'
+
 ### [v0.03](https://github.com/arez/arez-networkstatus/tree/v0.03) (2018-04-09)
 [Full Changelog](https://github.com/arez/arez-networkstatus/compare/v0.02...v0.03)
 
