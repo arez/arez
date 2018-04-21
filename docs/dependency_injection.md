@@ -3,7 +3,7 @@ title: Dependency Injection
 ---
 
 Arez components provide several different mechanisms for integrating into dependency injection
-frameworks. The two dependency injection frameworks that have seen the most use testing are
+frameworks. The two dependency injection frameworks that have seen the most use are
 [Dagger2](https://google.github.io/dagger) and [GIN](https://code.google.com/archive/p/google-gin/).
 This is due to Arez being primarily used within a web browser context.
 
