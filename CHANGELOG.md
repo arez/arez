@@ -14,6 +14,7 @@
   of abstract methods. The default value is `AUTODETECT` which will add the initializer parameter if
   the observable property is defined by a pair of abstract methods *and* the parameter of the setter
   *and* the return value of the getter are annotated with `@Nonnull`.
+* **\[docs\]** Add documentation for "Related Projects" to website.
 
 #### Changed
 * **\[\processor\]** Simplified the code used to construct core Arez elements within the generated
