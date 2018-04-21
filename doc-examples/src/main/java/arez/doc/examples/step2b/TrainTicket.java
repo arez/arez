@@ -1,6 +1,5 @@
-package arez.doc.examples.step3;
+package arez.doc.examples.step2b;
 
-import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
@@ -17,10 +16,4 @@ public abstract class TrainTicket
   public abstract int getRemainingRides();
 
   public abstract void setRemainingRides( int remainingRides );
-
-  @Action
-  public void rideTrain()
-  {
-    setRemainingRides( getRemainingRides() - 1 );
-  }
 }

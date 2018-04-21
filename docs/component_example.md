@@ -39,6 +39,14 @@ easier to document the component in javadocs. For example:
 
 {@file_content: file=arez/doc/examples/step2/TrainTicket.java start_line=@ArezComponent end_line=@Observable include_end_line=false}
 
+An easier way to define observable properties is with a pair of abstract methods. The annotation processor
+wil define the field and method bodies appropriately and it will initialize the field to the normal java
+default value (i.e. `null`, `0` or `false` depending on the type of the field.) You can also get the annotation
+processor to initialize the value of the property with a value passed in through the constructor by
+specifying the `initializer` parameter on the `@Observable` annotation. For example:
+
+{@file_content: file=arez/doc/examples/step2b/TrainTicket.java start_line=@ArezComponent}
+
 ## Actions
 
 Observable properties in Arez should only be read within the scope of a transaction and should only be
