@@ -158,7 +158,6 @@ on reactive programming model found in spreadsheets or the dataflow programming 
 is defined using some core or essential data elements and the remainder of the application state is defined
 by derivation from the these core data elements.
 
-
 ## Mobx State Tree
 
 * We could incorporate a mechanism like Mobx State Tree to serialize observable data of components as
