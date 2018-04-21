@@ -3,7 +3,7 @@ title: Components Example
 sidebar_label: Example
 ---
 
-If you are here it is assumed that you understand the conceptual model of Arez and are ready to
+If you are here it is assumed that you understand the [conceptual model](concepts.md) of Arez and are ready to
 start building reactive components. A reactive component is annotated with the {@api_url: annotations.ArezComponent}
 annotation. Depending on the role the reactive component has in the system it may have one or more methods annotated
 with {@api_url: annotations.Observable}, {@api_url: annotations.Computed}, {@api_url: annotations.Action},
