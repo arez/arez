@@ -3,9 +3,9 @@ title: Motivation
 ---
 
 Arez is a simple, efficient and scalable state management library for client-side applications. It is based
-on the same dataflow programming model. The reactive programming model found in spreadsheets is a well known
-example of this style of development. A minimal set of data is used to describe the application state and then
-the rest of the application is derived from this minimal set of data.
+on reactive programming model found in spreadsheets or the dataflow programming model. The application state
+is defined using some core or essential data elements and the remainder of the application state is defined
+by derivation from the these core data elements.
 
 ## Managing State is Hard
 
