@@ -60,7 +60,15 @@ task 'site:link_check' do
 
   trap('INT') {webserver.shutdown}
   begin
-    sh "yarn blc --ordered --recursive --filter-level 3 http://#{address}:#{port} --exclude https://github.com/arez/arez/compare/ --exclude https://github.com/arez/arez.github.io/settings --exclude https://docs.oracle.com/javase/8/docs/api"
+    base_url = "http://#{address}:#{port}"
+    excludes = []
+    excludes << 'https://github.com/arez/arez/compare/'
+    excludes << 'https://github.com/arez/arez.github.io/settings'
+    excludes << 'https://docs.oracle.com/javase/8/docs/api'
+    DOWNSTREAM_PROJECTS.each do |project_name|
+      excludes << "#{base_url}/#{project_name.gsub(/^arez-/,'')}"
+    end
+    sh "yarn blc --ordered --recursive --filter-level 3 #{base_url} #{excludes.collect{|e|"--exclude #{e}"}.join(' ')}"
   ensure
     webserver.shutdown
   end
