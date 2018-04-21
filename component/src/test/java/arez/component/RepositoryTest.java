@@ -121,7 +121,7 @@ public class RepositoryTest
       expectThrows( IllegalStateException.class, () -> repository.destroy( entity1 ) );
 
     assertTrue( exception.getMessage().
-      startsWith( "Called destroy() passing an entity that was not in the repository. Entity: " ) );
+      startsWith( "Called destroy() passing an entity that was not in the container. Entity: " ) );
   }
 
   @Test
