@@ -66,9 +66,9 @@ task 'site:link_check' do
     excludes << 'https://github.com/arez/arez.github.io/settings'
     excludes << 'https://docs.oracle.com/javase/8/docs/api'
     DOWNSTREAM_PROJECTS.each do |project_name|
-      excludes << "#{base_url}/#{project_name.gsub(/^arez-/,'')}"
+      excludes << "#{base_url}/#{project_name.gsub(/^arez-/, '')}"
     end
-    sh "yarn blc --ordered --recursive --filter-level 3 #{base_url} #{excludes.collect{|e|"--exclude #{e}"}.join(' ')}"
+    sh "yarn blc --ordered --recursive --filter-level 3 #{base_url} #{excludes.collect {|e| "--exclude #{e}"}.join(' ')}"
   ensure
     webserver.shutdown
   end
@@ -99,7 +99,7 @@ task 'site:deploy' => ['site:build'] do
     sh "git clone -b master --depth 1 #{origin_url} #{local_dir}"
 
     # This is the list of directories controlled by other processes that should be left alone
-    excludes = DOWNSTREAM_PROJECTS.collect{|project_name| project_name.gsub(/^arez-/,'')}
+    excludes = DOWNSTREAM_PROJECTS.collect {|project_name| project_name.gsub(/^arez-/, '')}
 
     in_dir(local_dir) do
       message = "Publish website#{travis_build_number.nil? ? '' : " - Travis build: #{travis_build_number}"}"
