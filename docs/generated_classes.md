@@ -38,7 +38,7 @@ factory methods such as in the following example:
 The Dagger module class is used to enable integration with the [Dagger2](https://google.github.io/dagger)
 dependency injection framework to manage Arez components. The [dependency injection](dependency_injection.md)
 documentation describes the exact scenarios when this class is generated. In short this class is generated if the
-annotation processor detect dagger injection is required or if the user explicitly enables dagger support.
+annotation processor detects dagger injection is required or if the user explicitly enables dagger support.
 
 The name of the dagger module class is the same name as the Arez component suffixed with `DaggerModule`. i.e. If
 the name of the Arez component class is `com.example.MyComponent` then the dagger module class would be named
