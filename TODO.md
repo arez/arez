@@ -84,7 +84,7 @@ startup and then browse via tables?
 
 Once this is done remove the setting of dependencies in state as can trigger infinite state updates in some scenarios.
 
-* Maybe as simple as outputing tables ala
+* Maybe as simple as outputting tables ala
 
 ```javascript
 var languages = { csharp: { name: "C#", paradigm: "object-oriented" }, fsharp: { name: "F#", paradigm: "functional" } };
