@@ -33,6 +33,18 @@ factory methods are defined such as in the following example:
 
 {@file_content: file=arez/doc/examples/access_level/MyComponent.java start_line=public include_start_line=true}
 
+The enhanced component class also implements the following interfaces; {@api_url: component.Disposable},
+{@api_url: component.Identifiable} and {@api_url: component.ComponentObservable}.
+
+* The {@api_url: Disposable} interface provides a mechanism to decommission the arez component and release
+  any resources associated with the component.
+* The {@api_url: component.Identifiable} interface exposes the underlying identifier used by the Arez
+  system to uniquely identify the component instance of this particular type.
+* The {@api_url: component.ComponentObservable} allows observers to observe the component without
+  observing a particular property of the component. This is typically used in conjunction with the
+  {@api_url: @ArezComponent.disposeOnDeactivate::annotations.ArezComponent::disposeOnDeactivate()} parameter to ensure a component is kept
+  alive while it is in use.
+
 ## The Dagger Module Class
 
 The Dagger module class is used to enable integration with the [Dagger2](https://google.github.io/dagger)

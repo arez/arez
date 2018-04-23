@@ -8,6 +8,8 @@
   `javax.annotation.processing.Generated` annotation is added rather than the historic
   `javax.annotation.Generated` which can be difficult to support in Java 9 due to split modules.
 * **\[docs\]** Add some minimal documentation for `ArezContext.noTxAction(...)` to the website.
+* **\[docs\]** Add some minimal documentation for `Disposable`, `ComponentObservable`
+  and `Identifiable` to the website.
 
 ### [v0.80](https://github.com/arez/arez/tree/v0.80) (2018-04-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.79...v0.80)

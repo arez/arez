@@ -124,10 +124,6 @@ console.table(languages);
 * Change error message "Attempting to get current transaction but no transaction is active." to indicate why
   this typically happens.
 
-* Document `Identifiable`
-
-* Document `ComponentObservable`
-
 * Much of the documentation in VueGWT could be adapted or provide inspiration for Arez. See
   - https://github.com/Axellience/vue-gwt/tree/master/docs-source/book
 
