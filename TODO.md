@@ -129,10 +129,6 @@ console.table(languages);
 * Much of the documentation in VueGWT could be adapted or provide inspiration for Arez. See
   - https://github.com/Axellience/vue-gwt/tree/master/docs-source/book
 
-* Prepare a screencast for Arez.
-  - See egghead training videos as well.
-  - https://www.youtube.com/playlist?list=PLV5CVI1eNcJhc9Lxu83Zp4uyqP2yKV4xl&app=desktop
-
 * Reintegrate
 
 > Arez is a simple, efficient and scalable state management library for client-side applications. It is based
