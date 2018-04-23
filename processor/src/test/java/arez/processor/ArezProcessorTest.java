@@ -923,5 +923,4 @@ public class ArezProcessorTest
                                  "@" + annotation + " target must not be package access if " +
                                  "the method is in a different package from the @ArezComponent" );
   }
-
 }
