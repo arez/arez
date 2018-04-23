@@ -56,18 +56,6 @@ complete as there is too much un-said.
 
 * When actions should not necessarily autodispose. Non-autodispose ones could be added to annotation API.
 
-* On Java9 upgrade may need to do something like `isBeforeJava9() ? "javax.annotation.Generated" : "javax.annotation.processing.Generated";
-```java
- private static boolean isBeforeJava9() {
-    try {
-      Class.forName("java.lang.Module");
-      return false;
-    } catch (ClassNotFoundException e) {
-      return true;
-    }
-  }
-```
-
 #### DevTools
 
 Build the equivalent of Mobx DevTools. We already support a reasonable console logging but need

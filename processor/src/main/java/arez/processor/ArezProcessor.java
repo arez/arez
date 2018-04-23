@@ -198,7 +198,8 @@ public final class ArezProcessor
       null != processingEnv.getElementUtils().getTypeElement( Constants.INJECT_ANNOTATION_CLASSNAME );
 
     final ComponentDescriptor descriptor =
-      new ComponentDescriptor( processingEnv.getElementUtils(),
+      new ComponentDescriptor( processingEnv.getSourceVersion(),
+                               processingEnv.getElementUtils(),
                                type,
                                nameIncludesId,
                                allowEmpty,

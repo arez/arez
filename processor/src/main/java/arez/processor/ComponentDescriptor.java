@@ -22,7 +22,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.SourceVersion;
@@ -70,6 +69,8 @@ final class ComponentDescriptor
    * Flag controlling whether Inject annotation is added to repository constructor.
    */
   private String _repositoryInjectConfig = "AUTODETECT";
+  @Nonnull
+  private final SourceVersion _sourceVersion;
   @Nonnull
   private final Elements _elements;
   @Nonnull
@@ -135,7 +136,8 @@ final class ComponentDescriptor
   private final Collection<DependencyDescriptor> _roDependencies =
     Collections.unmodifiableCollection( _dependencies.values() );
 
-  ComponentDescriptor( @Nonnull final Elements elements,
+  ComponentDescriptor( @Nonnull final SourceVersion sourceVersion,
+                       @Nonnull final Elements elements,
                        @Nonnull final String type,
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
@@ -150,6 +152,7 @@ final class ComponentDescriptor
                        @Nonnull final PackageElement packageElement,
                        @Nonnull final TypeElement element )
   {
+    _sourceVersion = Objects.requireNonNull( sourceVersion );
     _elements = Objects.requireNonNull( elements );
     _type = Objects.requireNonNull( type );
     _nameIncludesId = nameIncludesId;
@@ -1715,9 +1718,7 @@ final class ComponentDescriptor
       addModifiers( Modifier.FINAL );
     addOriginatingTypes( getElement(), builder );
 
-    builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
-      addMember( "value", "$S", ArezProcessor.class.getName() ).
-      build() );
+    addGeneratedAnnotation( builder );
     if ( !_roComputeds.isEmpty() )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
@@ -2519,7 +2520,9 @@ final class ComponentDescriptor
     for ( final ObservableDescriptor observable : initializers )
     {
       final ParameterSpec.Builder param =
-        ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ), observable.getName(), Modifier.FINAL );
+        ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
+                               observable.getName(),
+                               Modifier.FINAL );
       ProcessorUtil.copyDocumentedAnnotations( observable.getGetter(), param );
       builder.addParameter( param.build() );
       builder.addStatement( "this.$N = $N", observable.getDataFieldName(), observable.getName() );
@@ -2720,9 +2723,7 @@ final class ComponentDescriptor
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
     addOriginatingTypes( getElement(), builder );
 
-    builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
-      addMember( "value", "$S", ArezProcessor.class.getName() ).
-      build() );
+    addGeneratedAnnotation( builder );
     builder.addAnnotation( GeneratorUtil.DAGGER_MODULE_CLASSNAME );
     builder.addModifiers( Modifier.PUBLIC );
 
@@ -2802,9 +2803,7 @@ final class ComponentDescriptor
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
     addOriginatingTypes( element, builder );
 
-    builder.addAnnotation( AnnotationSpec.builder( Generated.class ).
-      addMember( "value", "$S", ArezProcessor.class.getName() ).
-      build() );
+    addGeneratedAnnotation( builder );
 
     final boolean addSingletonAnnotation =
       "ENABLE".equals( _repositoryInjectConfig ) ||
@@ -3031,5 +3030,29 @@ final class ComponentDescriptor
     return (T) ProcessorUtil.getAnnotationValue( _elements,
                                                  annotation,
                                                  parameterName ).getValue();
+  }
+
+  private void addGeneratedAnnotation( @Nonnull final TypeSpec.Builder builder )
+  {
+    builder.addAnnotation( AnnotationSpec.builder( getGeneratedAnnotation() ).
+      addMember( "value", "$S", ArezProcessor.class.getName() ).
+      build() );
+  }
+
+  @Nonnull
+  private Class<?> getGeneratedAnnotation()
+  {
+    try
+    {
+      return Class.forName( SourceVersion.RELEASE_8.compareTo( _sourceVersion ) < 0 ?
+                            "javax.annotation.processing.Generated" :
+                            "javax.annotation.Generated"
+      );
+    }
+    catch ( final ClassNotFoundException e )
+    {
+      throw new ArezProcessorException( "@ArezComponent unable to determine correct @Generated annotation",
+                                        getElement() );
+    }
   }
 }
