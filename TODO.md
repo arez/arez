@@ -111,6 +111,8 @@ console.table(languages);
 
 * Performance testing and writeup?
 
+* Add graph reflecting size of TodoMVC over time
+
 * Integrate documentation such as following which seem like good overviews
   - http://blog.danlew.net/2017/07/27/an-introduction-to-functional-reactive-programming/
   - https://medium.com/@mweststrate/becoming-fully-reactive-an-in-depth-explanation-of-mobservable-55995262a254
