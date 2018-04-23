@@ -113,14 +113,6 @@ console.table(languages);
 
 * Add graph reflecting size of TodoMVC over time
 
-* Integrate documentation such as following which seem like good overviews
-  - http://blog.danlew.net/2017/07/27/an-introduction-to-functional-reactive-programming/
-  - https://medium.com/@mweststrate/becoming-fully-reactive-an-in-depth-explanation-of-mobservable-55995262a254
-  - "MobX - Like React, but for Data" - http://danielearwicker.github.io/MobX_Like_React_but_for_Data.html
-  - "What’s all this fuss about data-binding?" - https://medium.com/patientbank-engineering-blog/whats-all-this-fuss-about-data-binding-3d2f1f23b4c3
-    (This one is particularly interesting and explain a simple autorun "web framework")
-  - "Why MobX?" - https://medium.com/@eugenkiss/why-mobx-e0530aacd482
-
 * Enhance runtime so we link to website documentation for each numbered error. i.e. Arez-0022 could be linked
   to https://arez.github.io/errors.html#Arez-0022 For this we would need to enhanced the code that generates
   invariant failure and add documentation to the website.
