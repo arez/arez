@@ -24,3 +24,12 @@ transaction so that it can be re-scheduled if these dependencies are changed.
 While transactions are a core component of an Arez application but they are not directly exposed as part of the
 application API. Transactions are created by [actions](actions.md) and when [observers](observers.md) are
 scheduled. These concepts will be covered later in the guide.
+
+It should be noted that Arez does offer the capability to perform an action nested within a transaction
+that is outside a transaction. i.e. A block of code can be run outside a transaction even if a read-only
+or read-write transaction is active. This is achieved by invoking the
+{@api_url: ArezContext.noTxAction(*)::ArezContext::noTxAction(arez.Procedure)} methods. This is rarely needed
+and `99.5%` of code should never use this facility. This is only needed if the code invoked behaves differently
+depending on whether it is nested in a transaction or not. It should be noted that this code block should not
+attempt to create another transaction as this will violate the invariants of Arez and may result in
+indeterminate behaviour.
