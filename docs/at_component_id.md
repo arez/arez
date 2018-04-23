@@ -15,3 +15,6 @@ have the same id as the row in the database which the Arez component has been co
 For example:
 
 {@file_content: file=arez/doc/examples/component_id/Person.java start_line=@ArezComponent "end_line=^}"}
+
+It should be noted that even if the method annotated method is not publicly accessible, the value of the
+id can always be accessed using the {@api_url: component.Identifiable.getArezId(java.lang.Object)} method.
