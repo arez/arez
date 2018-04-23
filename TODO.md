@@ -56,6 +56,10 @@ complete as there is too much un-said.
 
 * When actions should not necessarily autodispose. Non-autodispose ones could be added to annotation API.
 
+* Seriously consider enabling a compile-time option that allows pooling of Arez elements such as Observable,
+  ComputedValues and Observers. This may reduce memory pressure, particularly when using CircularBuffer to
+  implement the recycling.
+
 #### DevTools
 
 Build the equivalent of Mobx DevTools. We already support a reasonable console logging but need
