@@ -50,7 +50,7 @@ public final class ArezProcessor
       processingEnv.getElementUtils().getTypeElement( Constants.COMPONENT_ANNOTATION_CLASSNAME );
     final Set<? extends Element> elements = env.getElementsAnnotatedWith( annotation );
     processElements( elements );
-    return false;
+    return true;
   }
 
   private void processElements( @Nonnull final Set<? extends Element> elements )

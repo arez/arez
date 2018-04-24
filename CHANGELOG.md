@@ -10,6 +10,9 @@
 * **\[docs\]** Add some minimal documentation for `ArezContext.noTxAction(...)` to the website.
 * **\[docs\]** Add some minimal documentation for `Disposable`, `ComponentObservable`
   and `Identifiable` to the website.
+* **\[processor\]** Claim the Arez annotations that are processed by the annotation processor.
+  Subsequent annotation processor will not be asked to process the annotation types which results
+  in a very slight performance improvement during compilation. 
 
 ### [v0.80](https://github.com/arez/arez/tree/v0.80) (2018-04-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.79...v0.80)
