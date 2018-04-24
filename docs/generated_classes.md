@@ -33,7 +33,7 @@ factory methods are defined such as in the following example:
 
 {@file_content: file=arez/doc/examples/access_level/MyComponent.java start_line=public include_start_line=true}
 
-The enhanced component class also implements the following interfaces; {@api_url: component.Disposable},
+The enhanced component class also implements the following interfaces; {@api_url: Disposable},
 {@api_url: component.Identifiable} and {@api_url: component.ComponentObservable}.
 
 * The {@api_url: Disposable} interface provides a mechanism to decommission the arez component and release
