@@ -43,4 +43,20 @@ public @interface Autorun
    * @return true if the autorun should run in a READ_WRITE transaction, false if it should run in a READ_ONLY transaction.
    */
   boolean mutation() default false;
+
+  /**
+   * Is the autorun scheduled at a high-priority.
+   * A high priority autorun is placed at the start of the scheduler queue when is scheduled, meaning it will
+   * react next unless another high priority Observer or ComputedValue needs rescheduling.
+   *
+   * <p>A user should be very careful when marking
+   * an autorun as a high priority as it is possible that the autorun will be scheduled part way through the process
+   * of disposing one-or-more components (in most environments dispose reactions are the only high priority observer
+   * and thus a partially disposed state is never exposed to user code). In most cases this may mean invoking
+   * <code>Disposable.isDisposed(component)</code> before accessing arez components. A high priority autorun
+   * should only access high priority {@link Computed} annotated methods to ensure consistency.</p>
+   *
+   * @return true if the autorun scheduled at a high-priority, false otherwise.
+   */
+  boolean highPriority() default false;
 }

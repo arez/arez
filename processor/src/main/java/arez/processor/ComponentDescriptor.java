@@ -465,7 +465,8 @@ final class ComponentDescriptor
     final String name = deriveAutorunName( method, annotation );
     checkNameUnique( name, method, Constants.AUTORUN_ANNOTATION_CLASSNAME );
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
-    final AutorunDescriptor autorun = new AutorunDescriptor( this, name, mutation, method, methodType );
+    final boolean highPriority = getAnnotationParameter( annotation, "highPriority" );
+    final AutorunDescriptor autorun = new AutorunDescriptor( this, name, mutation, highPriority, method, methodType );
     _autoruns.put( autorun.getName(), autorun );
   }
 
@@ -514,9 +515,10 @@ final class ComponentDescriptor
     final String name = deriveTrackedName( method, annotation );
     checkNameUnique( name, method, Constants.TRACK_ANNOTATION_CLASSNAME );
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
+    final boolean highPriority = getAnnotationParameter( annotation, "highPriority" );
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
     final TrackedDescriptor tracked = findOrCreateTracked( name );
-    tracked.setTrackedMethod( mutation, reportParameters, method, methodType );
+    tracked.setTrackedMethod( mutation, highPriority, reportParameters, method, methodType );
   }
 
   @Nonnull
@@ -610,7 +612,8 @@ final class ComponentDescriptor
     final String name = deriveComputedName( method, annotation );
     checkNameUnique( name, method, Constants.COMPUTED_ANNOTATION_CLASSNAME );
     final boolean keepAlive = getAnnotationParameter( annotation, "keepAlive" );
-    findOrCreateComputed( name ).setComputed( method, computedType, keepAlive );
+    final boolean highPriority = getAnnotationParameter( annotation, "highPriority" );
+    findOrCreateComputed( name ).setComputed( method, computedType, keepAlive, highPriority );
   }
 
   private void addComputedValueRef( @Nonnull final AnnotationMirror annotation,
@@ -1369,7 +1372,7 @@ final class ComponentDescriptor
         final CandidateMethod candidate = trackeds.remove( tracked.getName() );
         if ( null != candidate )
         {
-          tracked.setTrackedMethod( false, true, candidate.getMethod(), candidate.getMethodType() );
+          tracked.setTrackedMethod( false, false, true, candidate.getMethod(), candidate.getMethodType() );
         }
         else
         {

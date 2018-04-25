@@ -55,4 +55,20 @@ public @interface Track
    * @return true to report the parameters, false otherwise.
    */
   boolean reportParameters() default true;
+
+  /**
+   * Is the observer scheduled at a high-priority.
+   * A high priority observer is placed at the start of the scheduler queue when is scheduled, meaning it will
+   * react next unless another high priority observer or ComputedValue needs rescheduling.
+   *
+   * <p>A user should be very careful when marking a @Track as a high priority as it is possible that
+   * the method will be scheduled part way through the process of disposing one-or-more components (in
+   * most environments dispose reactions are the only high priority observer and thus a partially disposed
+   * state is never exposed to user code). In most cases this may mean invoking
+   * <code>Disposable.isDisposed(component)</code> before accessing arez components. A high priority @Track
+   * should only access high priority @Computed annotated methods to ensure consistency.</p>
+   *
+   * @return true if the observer is scheduled at a high-priority, false otherwise.
+   */
+  boolean highPriority() default false;
 }

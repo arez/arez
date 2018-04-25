@@ -25,6 +25,7 @@ final class AutorunDescriptor
   @Nonnull
   private final String _name;
   private final boolean _mutation;
+  private final boolean _highPriority;
   @Nonnull
   private final ExecutableElement _autorun;
   @Nonnull
@@ -37,12 +38,14 @@ final class AutorunDescriptor
   AutorunDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
                      @Nonnull final String name,
                      final boolean mutation,
+                     final boolean highPriority,
                      @Nonnull final ExecutableElement autorun,
                      @Nonnull final ExecutableType autorunType )
   {
     _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     _mutation = mutation;
+    _highPriority = highPriority;
     _autorun = Objects.requireNonNull( autorun );
     _autorunType = Objects.requireNonNull( autorunType );
   }
@@ -99,7 +102,12 @@ final class AutorunDescriptor
     parameters.add( _componentDescriptor.getComponentNameMethodName() );
     parameters.add( "." + getName() );
     sb.append( _mutation );
-    sb.append( ", () -> super.$N() )" );
+    sb.append( ", () -> super.$N()" );
+    if ( _highPriority )
+    {
+      sb.append( ", true, false" );
+    }
+    sb.append( " )" );
     parameters.add( getAutorun().getSimpleName().toString() );
 
     builder.addStatement( sb.toString(), parameters.toArray() );

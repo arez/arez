@@ -14,6 +14,9 @@
   Subsequent annotation processor will not be asked to process the annotation types which results
   in a very slight performance improvement during compilation.
 * **\[docs\]** Add some minimal "Getting Started" documentation to the website.
+* **\[annotations\]** Add support for the `highPriority` parameter to `@Computed`, `@Track`
+  and `@Autorun` observers. This enables the prioritized scheduling of these Arez elements
+  from the component model with all the risks and benefits that this entails.
 
 ### [v0.80](https://github.com/arez/arez/tree/v0.80) (2018-04-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.79...v0.80)

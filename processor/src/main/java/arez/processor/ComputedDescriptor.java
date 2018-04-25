@@ -36,6 +36,7 @@ final class ComputedDescriptor
   @Nullable
   private ExecutableType _computedType;
   private boolean _keepAlive;
+  private boolean _highPriority;
   @Nullable
   private ExecutableElement _onActivate;
   @Nullable
@@ -103,7 +104,8 @@ final class ComputedDescriptor
 
   void setComputed( @Nonnull final ExecutableElement computed,
                     @Nonnull final ExecutableType computedType,
-                    final boolean keepAlive )
+                    final boolean keepAlive,
+                    final boolean highPriority )
     throws ArezProcessorException
   {
     //The caller already verified that no duplicate computed have been defined
@@ -118,6 +120,7 @@ final class ComputedDescriptor
     _computed = Objects.requireNonNull( computed );
     _computedType = Objects.requireNonNull( computedType );
     _keepAlive = keepAlive;
+    _highPriority = highPriority;
   }
 
   void setRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
@@ -314,7 +317,8 @@ final class ComputedDescriptor
     parameters.add( _componentDescriptor.getComponentNameMethodName() );
     parameters.add( "." + getName() );
     parameters.add( _computed.getSimpleName().toString() );
-    if ( hasHooks() || isKeepAlive() )
+    final boolean keepAlive = isKeepAlive();
+    if ( hasHooks() || keepAlive || _highPriority )
     {
       sb.append( ", $T.defaultComparator(), " );
       parameters.add( GeneratorUtil.EQUALITY_COMPARATOR_CLASSNAME );
@@ -361,16 +365,23 @@ final class ComputedDescriptor
       {
         sb.append( "null" );
       }
-      if ( isKeepAlive() )
+      if ( _highPriority || keepAlive )
       {
-        sb.append( ", false, " );
-        sb.append( _keepAlive );
-        sb.append( ", false )" );
+        if ( keepAlive )
+        {
+          sb.append( ", " );
+          sb.append( _highPriority );
+          sb.append( ", " );
+          sb.append( _keepAlive );
+          sb.append( ", false" );
+        }
+        else
+        {
+          sb.append( ", " );
+          sb.append( _highPriority );
+        }
       }
-      else
-      {
-        sb.append( " )" );
-      }
+      sb.append( " )" );
     }
     else
     {

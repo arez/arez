@@ -13,8 +13,6 @@ complete as there is too much un-said.
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
-* Consider allowing users to specify high priority Observers/ComputedValues?
-
 * Add new browser based library:
   - `arez-localstorage`: stores a value under a key and updates store if changed. Will need a serializer
     to perform serialization to and from the string value in store
