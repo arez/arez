@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+##### Fixed
+* **\[component\]** Fixed a bug in `Abstract.preDispose()` that invoked an `@ObservableRef` method
+  during dispose of the container.
+
 #### Changed
 * **\[processor\]** Change the way that the annotation processor marks generated classes as
   generated. When the source version of input code is Java 9 or greater then the

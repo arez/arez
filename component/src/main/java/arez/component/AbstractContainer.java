@@ -75,10 +75,8 @@ public abstract class AbstractContainer<K, T>
   @PreDispose
   protected void preDispose()
   {
-    getEntitiesObservable().preReportChanged();
     _entities.values().forEach( e -> Disposable.dispose( e ) );
     _entities.clear();
-    getEntitiesObservable().reportChanged();
   }
 
   /**
