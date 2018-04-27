@@ -7,6 +7,7 @@
   during dispose of the container.
 
 ##### Added
+* **\[docs\]** Add some minimal "Getting Started" documentation to the website.
 * **\[docs\]** Add some documentation on how to configure IntelliJ IDEA to the website.
 
 #### Changed
@@ -20,7 +21,6 @@
 * **\[processor\]** Claim the Arez annotations that are processed by the annotation processor.
   Subsequent annotation processor will not be asked to process the annotation types which results
   in a very slight performance improvement during compilation.
-* **\[docs\]** Add some minimal "Getting Started" documentation to the website.
 * **\[annotations\]** Add support for the `highPriority` parameter to `@Computed`, `@Track`
   and `@Autorun` observers. This enables the prioritized scheduling of these Arez elements
   from the component model with all the risks and benefits that this entails.
