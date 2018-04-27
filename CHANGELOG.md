@@ -6,6 +6,9 @@
 * **\[component\]** Fixed a bug in `Abstract.preDispose()` that invoked an `@ObservableRef` method
   during dispose of the container.
 
+##### Added
+* **\[docs\]** Add some documentation on how to configure IntelliJ IDEA to the website.
+
 #### Changed
 * **\[processor\]** Change the way that the annotation processor marks generated classes as
   generated. When the source version of input code is Java 9 or greater then the

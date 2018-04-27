@@ -83,6 +83,12 @@ which case it is sufficient to add the following snippet into your `pom.xml`:
 </project>
 ```
 
+## Configure your IDE
+
+It is expected that most Arez applications are developed from within an IDE. The configuration of the IDE is
+can be done by importing the `pom.xml` into the IDE but further customizations will often need to be done by
+the user. In particular, there is some additional steps required when using [IntelliJ IDEA](intellij.md).
+
 ## Configure a GWT Application
 
 If you are using Arez within a GWT application you will also need to inherit the appropriate
