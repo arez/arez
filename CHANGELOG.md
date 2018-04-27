@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.81](https://github.com/arez/arez/tree/v0.81) (2018-04-27)
+[Full Changelog](https://github.com/arez/arez/compare/v0.80...v0.81)
 
 ##### Fixed
 * **\[component\]** Fixed a bug in `Abstract.preDispose()` that invoked an `@ObservableRef` method
