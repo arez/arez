@@ -167,7 +167,7 @@ public final class WhyRun
   {
     if ( computedValue.isActive() )
     {
-      return "Active (The value is used by" + computedValue.getObservers().size() + " observers)";
+      return "Active (The value is used by " + computedValue.getObservers().size() + " observers)";
     }
     else if ( computedValue.isDisposed() )
     {
