@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.Component;
 import arez.ComputedValue;
+import arez.Disposable;
 import arez.Observer;
 import arez.spy.ComponentInfo;
 import java.util.Map;
@@ -156,7 +157,12 @@ public class MemoizeCacheTest
     assertEquals( cache.isDisposed(), false );
     assertEquals( cache.getNextIndex(), 0 );
 
-    context.autorun( () -> assertEquals( cache.get( "a", "b" ), "a.b" ) );
+    context.autorun( () -> {
+      if ( !Disposable.isDisposed( cache ) )
+      {
+        assertEquals( cache.get( "a", "b" ), "a.b" );
+      }
+    } );
     assertEquals( callCount.get(), 1 );
     assertEquals( cache.getNextIndex(), 1 );
     assertEquals( cache.getCache().size(), 1 );
