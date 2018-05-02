@@ -2571,12 +2571,13 @@ final class ComponentDescriptor
     {
       final StringBuilder sb = new StringBuilder();
       final ArrayList<Object> params = new ArrayList<>();
-      sb.append( "this.$N = $T.areNativeComponentsEnabled() ? $N().createComponent( $S, $N(), $N()" );
+      sb.append( "this.$N = $T.areNativeComponentsEnabled() ? $N().createComponent( $S, $N(), $T.areNamesEnabled() ? $N() : null" );
       params.add( GeneratorUtil.COMPONENT_FIELD_NAME );
       params.add( GeneratorUtil.AREZ_CLASSNAME );
       params.add( getContextMethodName() );
       params.add( _type );
       params.add( getIdMethodName() );
+      params.add( GeneratorUtil.AREZ_CLASSNAME );
       params.add( getComponentNameMethodName() );
       if ( null != _preDispose || null != _postDispose )
       {

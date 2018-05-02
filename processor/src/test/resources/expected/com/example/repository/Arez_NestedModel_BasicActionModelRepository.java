@@ -41,7 +41,7 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = Arez.areNativeComponentsEnabled() ? $$arezi$$_nextId++ : 0L;
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "NestedModel_BasicActionModelRepository", $$arezi$$_id(), getContainerName(), () -> super.preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "NestedModel_BasicActionModelRepository", $$arezi$$_id(), Arez.areNamesEnabled() ? getContainerName() : null, () -> super.preDispose() ) : null;
     this.$$arezi$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getContainerName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arez$$_entities = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getContainerName() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
