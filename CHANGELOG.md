@@ -18,7 +18,7 @@
 [Full Changelog](https://github.com/arez/arez/compare/v0.80...v0.81)
 
 ##### Fixed
-* **\[component\]** Fixed a bug in `Abstract.preDispose()` that invoked an `@ObservableRef` method
+* **\[component\]** Fixed a bug in `AbstractContainer.preDispose()` that invoked an `@ObservableRef` method
   during dispose of the container.
 
 ##### Added
