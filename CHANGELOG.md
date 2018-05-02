@@ -10,7 +10,7 @@
   lead to significant memory leaks over enough time.
 
 #### Changed
-* **\[component\]** Change the name of the when observer that removes disposed entities from
+* **\[component\]** Change the name of the when observer that removes disposed entities from a
   repository to `[MyRepository].EntityWatcher.[MyEntityId]` from `[MyRepository].Watcher.[MyEntityId]`.
   The rename occurred to improve clarity during debugging.
 
