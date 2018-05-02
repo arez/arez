@@ -36,9 +36,9 @@ public abstract class AbstractContainer<K, T>
   private final HashMap<K, RepositoryEntry<T>> _entities = new HashMap<>();
 
   /**
-   * Return the component associated with component if native components enabled.
+   * Return the component associated with the container if native components enabled.
    *
-   * @return the component associated with component if native components enabled.
+   * @return the component associated with the container if native components enabled.
    */
   @ComponentRef
   @Nonnull
