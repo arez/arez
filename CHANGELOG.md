@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.82](https://github.com/arez/arez/tree/v0.82) (2018-05-02)
+[Full Changelog](https://github.com/arez/arez/compare/v0.81...v0.82)
 
 ##### Fixed
 * **\[component\]** Fixed a bug in `AbstractContainer` where the when observer that removes disposed entities
