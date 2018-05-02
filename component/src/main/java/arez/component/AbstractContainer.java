@@ -59,7 +59,7 @@ public abstract class AbstractContainer<K, T>
     _entities.put( arezId, entry );
     final Observer monitor =
       getContext().when( Arez.areNativeComponentsEnabled() ? component() : null,
-                         Arez.areNamesEnabled() ? getContainerName() + ".Watcher." + arezId : null,
+                         Arez.areNamesEnabled() ? getContainerName() + ".EntityWatcher." + arezId : null,
                          true,
                          () -> Disposable.isDisposed( entity ),
                          () -> destroy( entity ),

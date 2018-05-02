@@ -78,15 +78,15 @@
         "type": "ComponentCreateCompleted"
     },
     {
-        "computedValue": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.condition",
+        "computedValue": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.condition",
         "type": "ComputedValueCreated"
     },
     {
-        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.watcher",
+        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.watcher",
         "type": "ObserverCreated"
     },
     {
-        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.watcher",
+        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.watcher",
         "type": "ReactionScheduled"
     },
     {
@@ -100,11 +100,11 @@
         "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.create_id_value"
     },
     {
-        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.watcher",
+        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.watcher",
         "type": "ReactionStarted"
     },
     {
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.watcher",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.watcher",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -112,45 +112,45 @@
     },
     {
         "mutation": true,
-        "tracker": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.watcher",
+        "tracker": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.watcher",
         "type": "TransactionStarted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.watcher"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.watcher"
     },
     {
-        "computedValue": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.condition",
+        "computedValue": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.condition",
+        "tracker": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.condition",
         "type": "TransactionStarted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.condition"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.condition"
     },
     {
-        "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.condition",
+        "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.condition",
         "type": "ObservableChanged",
         "value": false
     },
     {
         "mutation": false,
-        "tracker": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.condition",
+        "tracker": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.condition",
         "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.condition"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.condition"
     },
     {
-        "computedValue": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.condition",
+        "computedValue": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.condition",
         "type": "ComputeCompleted"
     },
     {
         "mutation": true,
-        "tracker": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.watcher",
+        "tracker": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.watcher",
         "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.watcher"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.watcher"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.watcher",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.watcher",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -159,7 +159,7 @@
         ]
     },
     {
-        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.3.watcher",
+        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.3.watcher",
         "type": "ReactionCompleted"
     },
     {
@@ -246,7 +246,7 @@
         "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy"
     },
     {
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -256,18 +256,18 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition.dispose"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -276,11 +276,11 @@
         ]
     },
     {
-        "computedValue": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition",
+        "computedValue": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition",
         "type": "ComputedValueDisposed"
     },
     {
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -290,18 +290,18 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition.dispose"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -310,7 +310,7 @@
         ]
     },
     {
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -320,27 +320,27 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition.dispose"
     },
     {
-        "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition",
+        "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition",
         "type": "ObservableChanged",
         "value": null
     },
     {
-        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.watcher",
+        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.watcher",
         "type": "ReactionScheduled"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.condition.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -349,7 +349,7 @@
         ]
     },
     {
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.watcher.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.watcher.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -359,18 +359,18 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.watcher.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.watcher.dispose"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.watcher.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.watcher.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.watcher.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.watcher.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -379,7 +379,7 @@
         ]
     },
     {
-        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.1.watcher",
+        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.1.watcher",
         "type": "ObserverDisposed"
     },
     {
@@ -557,7 +557,7 @@
         "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy"
     },
     {
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -567,18 +567,18 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition.dispose"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -587,11 +587,11 @@
         ]
     },
     {
-        "computedValue": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition",
+        "computedValue": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition",
         "type": "ComputedValueDisposed"
     },
     {
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -601,18 +601,18 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition.dispose"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -621,7 +621,7 @@
         ]
     },
     {
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -631,27 +631,27 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition.dispose"
     },
     {
-        "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition",
+        "observable": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition",
         "type": "ObservableChanged",
         "value": null
     },
     {
-        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.watcher",
+        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.watcher",
         "type": "ReactionScheduled"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.condition.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -660,7 +660,7 @@
         ]
     },
     {
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.watcher.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.watcher.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -670,18 +670,18 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.watcher.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.watcher.dispose"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.watcher.dispose"
+        "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.watcher.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.watcher.dispose",
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.watcher.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -690,7 +690,7 @@
         ]
     },
     {
-        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.Watcher.2.watcher",
+        "observer": "BasicRepositoryIntegrationTest_TestComponentRepository.EntityWatcher.2.watcher",
         "type": "ObserverDisposed"
     },
     {

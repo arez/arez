@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+#### Changed
+* **\[component\]** Change the name of the when observer that removes disposed entities from
+  repository to `[MyRepository].EntityWatcher.[MyEntityId]` from `[MyRepository].Watcher.[MyEntityId]`.
+  The rename occurred to improve clarity during debugging.
+
 ### [v0.81](https://github.com/arez/arez/tree/v0.81) (2018-04-27)
 [Full Changelog](https://github.com/arez/arez/compare/v0.80...v0.81)
 
