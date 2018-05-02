@@ -2,6 +2,13 @@
 
 ### Unreleased
 
+##### Fixed
+* **\[component\]** Fixed a bug in `AbstractContainer` where the when observer that removes disposed entities
+  was not observing the entity and thus was never rescheduled. This resulted in the underlying map containing
+  many disposed entities that could not be garbage collected. They were not exposed to the application and
+  did not impact application behaviour as methods returning entities checked the disposable state but could
+  lead to significant memory leaks over enough time.
+
 #### Changed
 * **\[component\]** Change the name of the when observer that removes disposed entities from
   repository to `[MyRepository].EntityWatcher.[MyEntityId]` from `[MyRepository].Watcher.[MyEntityId]`.

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.realityforge.anodoc.TestOnly;
 import org.realityforge.braincheck.Guards;
 
 /**
@@ -61,7 +62,7 @@ public abstract class AbstractContainer<K, T>
       getContext().when( Arez.areNativeComponentsEnabled() ? component() : null,
                          Arez.areNamesEnabled() ? getContainerName() + ".EntityWatcher." + arezId : null,
                          true,
-                         () -> Disposable.isDisposed( entity ),
+                         () -> !ComponentObservable.observe( entity ),
                          () -> destroy( entity ),
                          true,
                          true );
@@ -206,5 +207,11 @@ public abstract class AbstractContainer<K, T>
   protected final boolean notDisposed( @Nonnull final RepositoryEntry<T> entry )
   {
     return !Disposable.isDisposed( entry );
+  }
+
+  @TestOnly
+  final HashMap<K, RepositoryEntry<T>> getEntities()
+  {
+    return _entities;
   }
 }

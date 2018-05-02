@@ -85,6 +85,44 @@ public class ContainerTest
   }
 
   @Test
+  public void disposedEntitiesAreRemovedFromContainer()
+  {
+    final ArezContext context = Arez.context();
+
+    final MyEntity entity1 = new MyEntity( 301 );
+    final MyEntity entity2 = new MyEntity( 302 );
+    final MyContainer repository = MyContainer.create();
+
+    assertFalse( context.safeAction( () -> repository.contains( entity1 ) ) );
+    assertFalse( context.safeAction( () -> repository.contains( entity2 ) ) );
+
+    context.safeAction( () -> repository.registerEntity( entity1 ) );
+
+    assertTrue( context.safeAction( () -> repository.contains( entity1 ) ) );
+    assertFalse( context.safeAction( () -> repository.contains( entity2 ) ) );
+
+    context.safeAction( () -> repository.registerEntity( entity2 ) );
+
+    assertTrue( context.safeAction( () -> repository.contains( entity1 ) ) );
+    assertTrue( context.safeAction( () -> repository.contains( entity2 ) ) );
+
+    assertFalse( Disposable.isDisposed( entity1 ) );
+    assertFalse( Disposable.isDisposed( entity2 ) );
+
+    assertEquals( repository.getEntities().size(), 2 );
+
+    Disposable.dispose( entity1 );
+
+    assertEquals( repository.getEntities().size(), 1 );
+
+    assertFalse( context.safeAction( () -> repository.contains( entity1 ) ) );
+    assertTrue( context.safeAction( () -> repository.contains( entity2 ) ) );
+
+    assertTrue( Disposable.isDisposed( entity1 ) );
+    assertFalse( Disposable.isDisposed( entity2 ) );
+  }
+
+  @Test
   public void preDispose()
   {
     final ArezContext context = Arez.context();
@@ -197,6 +235,7 @@ public class ContainerTest
   static class MyEntity
     implements Identifiable<Integer>, Disposable, ComponentObservable
   {
+    private final Observable<Object> _observable = Arez.context().createObservable();
     private int _arezId;
     private boolean _disposed;
 
@@ -208,13 +247,19 @@ public class ContainerTest
     @Override
     public boolean observe()
     {
-      return !isDisposed();
+      final boolean isDisposed = isDisposed();
+      if ( !isDisposed )
+      {
+        _observable.reportObserved();
+      }
+      return !isDisposed;
     }
 
     @Override
     public void dispose()
     {
       _disposed = true;
+      _observable.dispose();
     }
 
     @Override
