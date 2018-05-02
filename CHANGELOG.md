@@ -13,6 +13,8 @@
 * **\[component\]** Change the name of the when observer that removes disposed entities from a
   repository to `[MyRepository].EntityWatcher.[MyEntityId]` from `[MyRepository].Watcher.[MyEntityId]`.
   The rename occurred to improve clarity during debugging.
+* **\[component\]** Ensure that the `MemoizeCache` class disposes all created `ComputedValue` instances
+  within the scope of a single transaction.
 
 ### [v0.81](https://github.com/arez/arez/tree/v0.81) (2018-04-27)
 [Full Changelog](https://github.com/arez/arez/compare/v0.80...v0.81)

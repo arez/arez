@@ -2,6 +2,7 @@ package arez.integration;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.ArezTestUtil;
 import arez.Component;
 import arez.Disposable;
 import arez.Observer;
@@ -108,6 +109,51 @@ public class MemoizedIntegrationTest
 
     context.action( "Query 1", true, () -> person.doesSearchMatch( "ill" ) );
     context.action( "Query 2", true, () -> person.doesSearchMatch( "red" ) );
+
+    assertEqualsFixture( recorder.eventsAsString() );
+  }
+
+  @Test
+  public void scenario_disposeWithoutDeactivate()
+    throws Throwable
+  {
+    setIgnoreObserverErrors( true );
+    setPrintObserverErrors( false );
+
+    final ArezContext context = Arez.context();
+
+    final SpyEventRecorder recorder = new SpyEventRecorder();
+    context.getSpy().addSpyEventHandler( recorder );
+
+    final PersonModel person = PersonModel.create( "Bill", 15 );
+
+    context.autorun( "SearchResult - red - 20",
+                     () -> record( recorder, "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) ) );
+
+    Disposable.dispose( person );
+
+    assertEqualsFixture( recorder.eventsAsString() );
+  }
+
+  @Test
+  public void scenario_disposeNoNativeComponentsEnabled()
+    throws Throwable
+  {
+    ArezTestUtil.disableNativeComponents();
+    setIgnoreObserverErrors( true );
+    setPrintObserverErrors( false );
+
+    final ArezContext context = Arez.context();
+
+    final SpyEventRecorder recorder = new SpyEventRecorder();
+    context.getSpy().addSpyEventHandler( recorder );
+
+    final PersonModel person = PersonModel.create( "Bill", 15 );
+
+    context.autorun( "SearchResult - red - 20",
+                     () -> record( recorder, "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) ) );
+
+    Disposable.dispose( person );
 
     assertEqualsFixture( recorder.eventsAsString() );
   }

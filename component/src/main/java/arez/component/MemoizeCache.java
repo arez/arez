@@ -142,8 +142,10 @@ public final class MemoizeCache<T>
     if ( !_disposed )
     {
       _disposed = true;
-      disposeMap( _cache, _argCount );
-      _cache.clear();
+      _context.dispose( Arez.areNamesEnabled() ? _name : null, () -> {
+        disposeMap( _cache, _argCount );
+        _cache.clear();
+      } );
     }
   }
 
