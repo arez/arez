@@ -34,6 +34,27 @@ public class ZoneTest
   }
 
   @Test
+  public void zone_safeRun_Procedure()
+  {
+    ArezTestUtil.enableZones();
+
+    final Zone zone1 = Arez.createZone();
+
+    assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
+    assertEquals( zone1.isActive(), false );
+
+    zone1.safeRun( () -> {
+      assertEquals( zone1.getContext(), Arez.context() );
+      assertEquals( ArezZoneHolder.getZoneStack().size(), 1 );
+      assertEquals( zone1.isActive(), true );
+    } );
+
+    assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
+  }
+
+  @Test
   public void zone_run_Function_throwsException()
     throws Throwable
   {
