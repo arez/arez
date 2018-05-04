@@ -1337,6 +1337,9 @@ final class ComponentDescriptor
         final CandidateMethod candidate = setters.remove( observable.getName() );
         if ( null != candidate )
         {
+          MethodChecks.mustBeOverridable( getElement(),
+                                          Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
+                                          candidate.getMethod() );
           observable.setSetter( candidate.getMethod(), candidate.getMethodType() );
         }
         else if ( observable.hasGetter() )
@@ -1350,6 +1353,9 @@ final class ComponentDescriptor
         final CandidateMethod candidate = getters.remove( observable.getName() );
         if ( null != candidate )
         {
+          MethodChecks.mustBeOverridable( getElement(),
+                                          Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
+                                          candidate.getMethod() );
           observable.setGetter( candidate.getMethod(), candidate.getMethodType() );
         }
         else

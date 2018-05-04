@@ -926,4 +926,30 @@ public class ArezProcessorTest
                                  "@" + annotation + " target must not be package access if " +
                                  "the method is in a different package from the @ArezComponent" );
   }
+
+  @Test
+  public void processFailedCompileInheritedPackageAccessInDifferentPackageObservable_Setter()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      JavaFileObjects.forResource( "bad_input/com/example/package_access/other/BaseObservable2Model.java" );
+    final JavaFileObject source2 =
+      JavaFileObjects.forResource( "bad_input/com/example/package_access/Observable2Model.java" );
+    assertFailedCompileResource( Arrays.asList( source1, source2 ),
+                                 "@Observable target must not be package access if " +
+                                 "the method is in a different package from the @ArezComponent" );
+  }
+
+  @Test
+  public void processFailedCompileInheritedPackageAccessInDifferentPackageObservable_Getter()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      JavaFileObjects.forResource( "bad_input/com/example/package_access/other/BaseObservable3Model.java" );
+    final JavaFileObject source2 =
+      JavaFileObjects.forResource( "bad_input/com/example/package_access/Observable3Model.java" );
+    assertFailedCompileResource( Arrays.asList( source1, source2 ),
+                                 "@Observable target must not be package access if " +
+                                 "the method is in a different package from the @ArezComponent" );
+  }
 }

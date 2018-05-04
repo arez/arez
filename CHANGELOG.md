@@ -7,6 +7,9 @@
   `Arez.areNamesEnabled()` returns `false` and `Arez.areNativeComponentsEnabled()` returns `true`.
 * **\[core\]** Fixed invariant failure message that was missing `Arez-XXXX: ` prefix in the
   `ArezContext.isComponentPresent()` method.
+* **\[processor\]** The annotation processor would produce uncompilable code if the un-annotated method of
+  an `@Observable` property was package access and in a different package from the class annotated with the
+  `@ArezComponent` annotation. This now produces an error message from the annotation processor.
 
 ### [v0.82](https://github.com/arez/arez/tree/v0.82) (2018-05-02)
 [Full Changelog](https://github.com/arez/arez/compare/v0.81...v0.82)
