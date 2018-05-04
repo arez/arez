@@ -2186,7 +2186,7 @@ public class ArezContextTest
     final String id = ValueUtil.randomString();
 
     assertThrowsWithMessage( () -> context.isComponentPresent( type, id ),
-                             "ArezContext.isComponentPresent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+                             "Arez-0135: ArezContext.isComponentPresent() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test

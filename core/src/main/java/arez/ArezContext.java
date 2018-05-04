@@ -126,7 +126,7 @@ public final class ArezContext
   public boolean isComponentPresent( @Nonnull final String type, @Nonnull final Object id )
   {
     apiInvariant( Arez::areNativeComponentsEnabled,
-                  () -> "ArezContext.isComponentPresent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+                  () -> "Arez-0135: ArezContext.isComponentPresent() invoked when Arez.areNativeComponentsEnabled() returns false." );
     return getComponentByTypeMap( type ).containsKey( id );
   }
 
