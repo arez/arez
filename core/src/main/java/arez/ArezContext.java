@@ -51,7 +51,7 @@ public final class ArezContext
   private final ObserverErrorHandlerSupport _observerErrorHandlerSupport =
     Arez.areObserverErrorHandlersEnabled() ? new ObserverErrorHandlerSupport() : null;
   /**
-   * Support infrastructure for supporting spy events.
+   * Support infrastructure for spy events.
    */
   @Nullable
   private final SpyImpl _spy = Arez.areSpiesEnabled() ? new SpyImpl( this ) : null;
