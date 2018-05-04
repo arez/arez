@@ -119,9 +119,6 @@ console.table(languages);
   to https://arez.github.io/errors.html#Arez-0022 For this we would need to enhanced the code that generates
   invariant failure and add documentation to the website.
 
-* Change error message "Attempting to get current transaction but no transaction is active." to indicate why
-  this typically happens.
-
 ## Mobx State Tree
 
 * We could incorporate a mechanism like Mobx State Tree to serialize observable data of components as
