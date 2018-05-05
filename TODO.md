@@ -82,8 +82,13 @@ console.table(languages);
 ```
 
 * Probably the best way is define a browser extension:
-  - https://www.sitepoint.com/create-chrome-extension-10-minutes-flat/
+  - https://developer.chrome.com/extensions/overview
+  - https://developer.chrome.com/extensions/getstarted
+  - https://developer.chrome.com/extensions/devguide
+  - https://developer.chrome.com/extensions/devtools
   - https://www.smashingmagazine.com/2017/04/browser-extension-edge-chrome-firefox-opera-brave-vivaldi/
+  - https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/devtools.panels (Firefox Browser)
+  - https://docs.microsoft.com/en-us/microsoft-edge/extensions/api-support (Edge Browser)
 
 ## Process
 
