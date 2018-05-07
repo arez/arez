@@ -11,6 +11,11 @@
   an `@Observable` property was package access and in a different package from the class annotated with the
   `@ArezComponent` annotation. This now produces an error message from the annotation processor.
 
+#### Changed
+* **\[component\]** Changed the `AbstractContainer` class to add two hook methods `preEntryDispose(...)`
+  and `postEntryDispose(...)` that are invoked before and after an entry is disposed. This allows subclasses
+  to customize the behaviour if required.
+
 ### [v0.82](https://github.com/arez/arez/tree/v0.82) (2018-05-02)
 [Full Changelog](https://github.com/arez/arez/compare/v0.81...v0.82)
 

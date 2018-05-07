@@ -106,13 +106,36 @@ public abstract class AbstractContainer<K, T>
     if ( null != entry )
     {
       getEntitiesObservable().preReportChanged();
+      preEntryDispose( entity );
       Disposable.dispose( entry );
+      postEntryDispose( entity );
       getEntitiesObservable().reportChanged();
     }
     else
     {
       Guards.fail( () -> "Called destroy() passing an entity that was not in the container. Entity: " + entity );
     }
+  }
+
+  /**
+   * Hook method invoked just before the entry containing entity is disposed.
+   * The entity may already be disposed or may be about to be disposed.
+   * Subclasses can override this method to provide additional functionality.
+   *
+   * @param entity the entity.
+   */
+  protected void preEntryDispose( @Nonnull final T entity )
+  {
+  }
+
+  /**
+   * Hook method invoked just after the entry containing entity is disposed.
+   * Subclasses can override this method to provide additional functionality.
+   *
+   * @param entity the entity.
+   */
+  protected void postEntryDispose( @Nonnull final T entity )
+  {
   }
 
   /**
