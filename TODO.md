@@ -60,6 +60,8 @@ complete as there is too much un-said.
 
 * Completed the `arez-devtools` project.
 
+* Consider supporting `OnActivate`, `OnDeactivate` and `OnDispose` for `@Observable` properties.
+
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
