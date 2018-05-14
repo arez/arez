@@ -6,6 +6,10 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Change `Arez.areRepositoryResultsModifiable()` to be more like `Arez.areCollectionsPropertiesImmutable()`
+  that wraps any result returned from an `@Observable` or `@Computed` not specifically marked
+  as immutable. Rename `RepositoryUtil` to `ArezCollectionUtil` or similar.
+
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
   it via `requestAnimationFrame`
 
