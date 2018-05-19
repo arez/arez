@@ -33,4 +33,4 @@ artifacts:
   arez_component: org.realityforge.arez:arez-component:jar:0.83
   arez_ticker: org.realityforge.arez.ticker:arez-ticker:jar:0.01
 
-  braincheck: org.realityforge.braincheck:braincheck:jar:1.5.0
+  braincheck: org.realityforge.braincheck:braincheck:jar:1.6.0
