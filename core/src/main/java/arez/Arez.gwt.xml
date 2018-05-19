@@ -1,5 +1,4 @@
 <module>
-  <inherits name='com.google.gwt.core.Core'/>
   <inherits name='org.realityforge.braincheck.BrainCheck'/>
 
   <source path='' includes='*.java'/>

@@ -5,6 +5,8 @@
 #### Changed
 * **\[annotations\]** Removed unnecessary `com.google.gwt.core.Core` inherit from the
   `Component.gwt.xml` GWT module.
+* **\[annotations\]** Removed unnecessary `com.google.gwt.core.Core` inherit from the
+  `Arez.gwt.xml` GWT module.
 
 ### [v0.83](https://github.com/arez/arez/tree/v0.83) (2018-05-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.82...v0.83)
