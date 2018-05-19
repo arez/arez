@@ -7,6 +7,8 @@
   `Component.gwt.xml` GWT module.
 * **\[annotations\]** Removed unnecessary `com.google.gwt.core.Core` inherit from the
   `Arez.gwt.xml` GWT module.
+* Upgrade the `org.realityforge.braincheck:braincheck:jar` dependency to `1.6.0` as previous version was
+  incompatible with GWT 3.x.
 
 ### [v0.83](https://github.com/arez/arez/tree/v0.83) (2018-05-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.82...v0.83)
