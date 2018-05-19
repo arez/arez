@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.11](https://github.com/arez/arez-idlestatus/tree/v0.11) (2018-05-19)
 [Full Changelog](https://github.com/arez/arez-idlestatus/compare/v0.10...v0.11)
 
