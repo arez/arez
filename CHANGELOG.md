@@ -3,6 +3,8 @@
 ### Unreleased
 
 * Ensure `BrowserSpyUtil` works correctly when `Arez.areZonesEnabled()` returns true.
+* Bump `org.realityforge.braincheck:braincheck:jar` dependency to version `1.6.0` as
+  this version should be compatible with GWT 3.x.
 
 ### [v0.05](https://github.com/arez/arez-spytools/tree/v0.05) (2018-05-19)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.04...v0.05)
