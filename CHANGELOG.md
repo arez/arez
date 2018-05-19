@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.10](https://github.com/arez/arez-promise/tree/v0.10) (2018-05-19)
+[Full Changelog](https://github.com/arez/arez-promise/compare/v0.09...v0.10)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.84'
 
