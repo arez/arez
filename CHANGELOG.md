@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.84'
+
 * Ensure `BrowserSpyUtil` works correctly when `Arez.areZonesEnabled()` returns true.
 * Bump `org.realityforge.braincheck:braincheck:jar` dependency to version `1.6.0` as
   this version should be compatible with GWT 3.x.
