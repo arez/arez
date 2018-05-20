@@ -1,10 +1,12 @@
 package arez.spytools;
 
+import arez.Arez;
 import arez.Spy;
 import arez.spy.ComputedValueInfo;
 import arez.spy.ObservableInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.TransactionInfo;
+import elemental2.dom.DomGlobal;
 import java.util.List;
 import javax.annotation.Nonnull;
 import org.realityforge.anodoc.Unsupported;
@@ -17,6 +19,16 @@ public final class WhyRun
 {
   private WhyRun()
   {
+  }
+
+  public static void log()
+  {
+    DomGlobal.console.log( whyRun() );
+  }
+
+  public static String whyRun()
+  {
+    return whyRun( Arez.context().getSpy() );
   }
 
   /**
