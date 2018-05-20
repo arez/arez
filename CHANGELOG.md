@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.07](https://github.com/arez/arez-spytools/tree/v0.07) (2018-05-20)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.06...v0.07)
 
 * Ensure `BrowserSpyUtil` works correctly when `Arez.areZonesEnabled()` returns true.
 * Bump `org.realityforge.braincheck:braincheck:jar` dependency to version `1.6.0` as
