@@ -30,10 +30,6 @@ public class StringifyReplacer
     {
       return null;
     }
-    else if ( isJavaClass( value ) )
-    {
-      return String.valueOf( value );
-    }
     else if ( Js.typeof( value ).equals( "function" ) )
     {
       return Js.asPropertyMap( value ).get( "name" );
@@ -44,22 +40,30 @@ public class StringifyReplacer
     }
     else
     {
-      for ( int i = 0; i < _array.getLength(); i++ )
+      final String v = String.valueOf( value );
+      if ( !v.startsWith( "[object " ) )
       {
-        if ( Js.isTripleEqual( value, _array.getAnyAt( i ) ) )
+        return v;
+      }
+      else
+      {
+        for ( int i = 0; i < _array.getLength(); i++ )
         {
-          return "[Circular]";
+          if ( Js.isTripleEqual( value, _array.getAnyAt( i ) ) )
+          {
+            return "[Circular]";
+          }
         }
-      }
-      _array.setAt( _array.getLength(), value );
+        _array.setAt( _array.getLength(), value );
 
-      final String[] propertyNames = getPropertyNames( value );
-      final JsPropertyMap<Object> map = JsPropertyMap.of();
-      for ( final String propertyName : propertyNames )
-      {
-        map.set( propertyName, Js.asPropertyMap( value ).getAny( propertyName ) );
+        final String[] propertyNames = getPropertyNames( value );
+        final JsPropertyMap<Object> map = JsPropertyMap.of();
+        for ( final String propertyName : propertyNames )
+        {
+          map.set( propertyName, Js.asPropertyMap( value ).getAny( propertyName ) );
+        }
+        return map;
       }
-      return map;
     }
   }
 
@@ -74,11 +78,4 @@ public class StringifyReplacer
   {
     return JsObject.getOwnPropertyNames( Js.uncheckedCast( object ) );
   }
-
-  /**
-   * Return true if the specified object has an associated java class constant.
-   */
-  private native boolean isJavaClass( @Nonnull final Object object ) /*-{
-    return undefined !== object.__proto__ && undefined !== object.__proto__.@java.lang.Object::___clazz;
-  }-*/;
 }
