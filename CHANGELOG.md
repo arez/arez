@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.08](https://github.com/arez/arez-spytools/tree/v0.08) (2018-05-21)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.07...v0.08)
 
 * Fix bug that resulted in inclusion in the package of the gwt compile output.
 * Change the `org.jetbrains:annotations:jar` dependency to being provided rather than
