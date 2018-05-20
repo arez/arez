@@ -25,7 +25,6 @@
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.03...v0.04)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.82'
-
 * Fix the whitespace in messages output in `WhyRun` utility.
 
 ### [v0.03](https://github.com/arez/arez-spytools/tree/v0.03) (2018-04-27)
