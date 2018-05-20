@@ -48,6 +48,9 @@ CONTENT
     dependencies += [dir]
   end
 
+  # Duplicate the assets as the following gwt task will add compile output to asset path
+  # which we typically do NOT want to include in jar
+  assets = project.assets.paths.dup
   if ENV['GWT'].nil? || ENV['GWT'] == project.name
     modules = modules_complete ? gwt_modules : gwt_modules.collect {|gwt_module| "#{gwt_module}Test"}
     modules.each do |m|
@@ -63,7 +66,7 @@ CONTENT
       j.include("#{dep}/*")
     end
     j.include(project._(:generated, 'processors/main/java/arez')) if project.enable_annotation_processor?
-    project.assets.paths.each do |path|
+    assets.each do |path|
       j.include("#{path}/*")
     end
     j.include("#{project._(:source, :main, :java)}/*")
