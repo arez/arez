@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Fix bug that resulted in inclusion in the package of the gwt compile output.
 * Change the `org.jetbrains:annotations:jar` dependency to being provided rather than
   an `optional` `compile` scoped dependency. This is required by the GWT 3.x / J2JS as
   it compiles the code from source.
