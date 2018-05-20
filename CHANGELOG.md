@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Fix bug that resulted in inclusion in the package of the gwt compile output.
+
 ### [v0.10](https://github.com/arez/arez-timeddisposer/tree/v0.10) (2018-05-19)
 [Full Changelog](https://github.com/arez/arez-timeddisposer/compare/v0.09...v0.10)
 
