@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Fix bug that resulted in inclusion in the package of the gwt compile output.
+
 ### [v0.84](https://github.com/arez/arez/tree/v0.84) (2018-05-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.83...v0.84)
 
