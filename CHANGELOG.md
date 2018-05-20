@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+* Change the `org.jetbrains:annotations:jar` dependency to being provided rather than
+  an `optional` `compile` scoped dependency. This is required by the GWT 3.x / J2JS as
+  it compiles the code from source.
+
 ### [v0.07](https://github.com/arez/arez-spytools/tree/v0.07) (2018-05-20)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.06...v0.07)
 

@@ -11,7 +11,7 @@ define 'arez-spytools' do
 
   project.version = ENV['PRODUCT_VERSION'] if ENV['PRODUCT_VERSION']
 
-  pom.optional_dependencies.concat [:jetbrains_annotations]
+  pom.provided_dependencies.concat [:jetbrains_annotations]
   jetbrains_annotations_artifact = artifact(:jetbrains_annotations)
   core_artifact = artifact(:arez_core)
   dom_artifact = artifact(:elemental2_dom)
