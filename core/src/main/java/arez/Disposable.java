@@ -53,6 +53,17 @@ public interface Disposable
   }
 
   /**
+   * Return true if {@link #isDisposed(Object)} returns false for the same parameter.
+   *
+   * @param object the object to check state.
+   * @return true if the parameter is not Disposable or has not been disposed, else return false.
+   */
+  static boolean isNotDisposed( @Nonnull final Object object )
+  {
+    return !isDisposed( object );
+  }
+
+  /**
    * Cast specified object to instance of Disposable.
    * Invariant checks will verify that the cast is valid before proceeding.
    *

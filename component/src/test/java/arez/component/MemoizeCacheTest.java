@@ -158,7 +158,7 @@ public class MemoizeCacheTest
     assertEquals( cache.getNextIndex(), 0 );
 
     context.autorun( () -> {
-      if ( !Disposable.isDisposed( cache ) )
+      if ( Disposable.isNotDisposed( cache ) )
       {
         assertEquals( cache.get( "a", "b" ), "a.b" );
       }

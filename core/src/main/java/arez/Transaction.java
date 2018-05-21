@@ -911,7 +911,7 @@ final class Transaction
       }
     }
 
-    if ( !Disposable.isDisposed( _tracker ) &&
+    if ( Disposable.isNotDisposed( _tracker ) &&
          _tracker.isDerivation() &&
          !_tracker.getDerivedValue().hasObservers() &&
          !_tracker.getComputedValue().isKeepAlive() )

@@ -98,7 +98,7 @@ final class Watcher
    */
   private void checkCondition()
   {
-    if ( !Disposable.isDisposed( _condition ) && _condition.get() )
+    if ( Disposable.isNotDisposed( _condition ) && _condition.get() )
     {
       getContext().safeAction( Arez.areNamesEnabled() ? getName() : null, _mutation, _effect );
       Disposable.dispose( _watcher );

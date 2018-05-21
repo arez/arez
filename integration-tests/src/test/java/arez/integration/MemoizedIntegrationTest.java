@@ -39,7 +39,7 @@ public class MemoizedIntegrationTest
 
     context.autorun( "SearchResult - red",
                      () -> {
-                       if ( !Disposable.isDisposed( person ) )
+                       if ( Disposable.isNotDisposed( person ) )
                        {
                          record( recorder, "doesSearchMatch - red", person.doesSearchMatch( "red" ) );
                        }
@@ -53,7 +53,7 @@ public class MemoizedIntegrationTest
                        } );
     context.autorun( "SearchResult - red - 20",
                      () -> {
-                       if ( !Disposable.isDisposed( person ) )
+                       if ( Disposable.isNotDisposed( person ) )
                        {
                          record( recorder, "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
                        }
@@ -61,7 +61,7 @@ public class MemoizedIntegrationTest
                      } );
     context.autorun( "SearchResult - red - 5",
                      () -> {
-                       if ( !Disposable.isDisposed( person ) )
+                       if ( Disposable.isNotDisposed( person ) )
                        {
                          record( recorder, "doesSearchMatch - red", person.doesFullSearchMatch( "red", 5 ) );
                        }

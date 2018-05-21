@@ -31,8 +31,10 @@ public class DisposableTest
     //No exception but no action
     final Object object = new Object();
     assertEquals( Disposable.isDisposed( object ), false );
+    assertEquals( Disposable.isNotDisposed( object ), true );
     Disposable.dispose( object );
     assertEquals( Disposable.isDisposed( object ), false );
+    assertEquals( Disposable.isNotDisposed( object ), true );
   }
 
   @Test
@@ -42,9 +44,11 @@ public class DisposableTest
     final TestDisposable object = new TestDisposable();
     assertEquals( object.isDisposed(), false );
     assertEquals( Disposable.isDisposed( object ), false );
+    assertEquals( Disposable.isNotDisposed( object ), true );
     Disposable.dispose( object );
     assertEquals( object.isDisposed(), true );
     assertEquals( Disposable.isDisposed( object ), true );
+    assertEquals( Disposable.isNotDisposed( object ), false );
   }
 
   @Test

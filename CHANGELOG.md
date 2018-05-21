@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+* **\[core\]** Add utility method `Disposable.isNotDisposed(Object)` that is equivalent to
+  `!Disposable.isDisposed(Object)`. This simplifies code that uses stream apy by allowing
+  conversion of lambdas into method references.
 * Fix bug that resulted in inclusion in the package of the gwt compile output.
 
 ### [v0.84](https://github.com/arez/arez/tree/v0.84) (2018-05-19)
