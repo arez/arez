@@ -1414,8 +1414,8 @@ public class TransactionTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0153: Transaction named '" + transaction.getName() + "' attempted to change " +
-                  "observable named '" + observable2.getName() + "' and transaction is READ_WRITE_OWNED but the " +
-                  "observable has not been created by the transaction." );
+                  "observable named '" + observable2.getName() + "' and the transaction mode is READ_WRITE_OWNED " +
+                  "but the observable has not been created by the transaction." );
   }
 
   @Test
@@ -2062,8 +2062,8 @@ public class TransactionTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0153: Transaction named '" + transaction.getName() + "' attempted to change " +
-                  "observable named '" + observable.getName() + "' and transaction is READ_WRITE_OWNED but the " +
-                  "observable has not been created by the transaction." );
+                  "observable named '" + observable.getName() + "' and the transaction mode is READ_WRITE_OWNED " +
+                  "but the observable has not been created by the transaction." );
   }
 
   @Test

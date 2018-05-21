@@ -762,12 +762,12 @@ final class Transaction
       }
       else if ( TransactionMode.READ_WRITE_OWNED == _mode )
       {
-        if ( Arez.shouldCheckApiInvariants() )
+        if ( Arez.shouldCheckInvariants() )
         {
-          apiInvariant( () -> observable.hasOwner() && observable.getOwner() == _tracker,
-                        () -> "Arez-0153: Transaction named '" + getName() + "' attempted to change" +
-                              " observable named '" + observable.getName() + "' and transaction is " +
-                              "READ_WRITE_OWNED but the observable has not been created by the transaction." );
+          invariant( () -> observable.hasOwner() && observable.getOwner() == _tracker,
+                     () -> "Arez-0153: Transaction named '" + getName() + "' attempted to change" +
+                           " observable named '" + observable.getName() + "' and the transaction mode is " +
+                           "READ_WRITE_OWNED but the observable has not been created by the transaction." );
         }
       }
     }
