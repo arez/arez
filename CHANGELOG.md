@@ -7,6 +7,8 @@
   conversion of lambdas into method references.
 * Fix bug that resulted in inclusion in the package of the gwt compile output.
 * **\[core\]** Remove redundant compile-time check in `Observable.preReportChanged()`.
+* **\[core\]** The `DISPOSE` transaction that wraps Arez elements now enforces the constraint
+  that it is not possible to change `Observable` values from within the `dispose()` operation.
 
 ### [v0.84](https://github.com/arez/arez/tree/v0.84) (2018-05-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.83...v0.84)

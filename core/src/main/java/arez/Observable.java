@@ -185,7 +185,7 @@ public final class Observable<T>
   private void performDispose()
   {
     getContext().getTransaction().reportDispose( this );
-    reportChanged();
+    reportChanged( false );
     _workState = DISPOSED;
   }
 
@@ -498,11 +498,22 @@ public final class Observable<T>
    */
   public void reportChanged()
   {
+    reportChanged( true );
+  }
+
+  /**
+   * Method is called when the observable has definitely changed or when
+   * it disposing. When disposing the shouldVerifyWriteAllowed parameter will be false.
+   *
+   * @param shouldVerifyWriteAllowed flag indicating whether we need to verify whether transaction can write.
+   */
+  private void reportChanged( final boolean shouldVerifyWriteAllowed )
+  {
     if ( willPropagateSpyEvents() )
     {
       reportSpyEvent( new ObservableChangedEvent( new ObservableInfoImpl( getSpy(), this ), getObservableValue() ) );
     }
-    getContext().getTransaction().reportChanged( this );
+    getContext().getTransaction().reportChanged( this, shouldVerifyWriteAllowed );
   }
 
   void reportChangeConfirmed()

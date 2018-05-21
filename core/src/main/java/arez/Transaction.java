@@ -573,13 +573,21 @@ final class Transaction
    */
   void preReportChanged( @Nonnull final Observable<?> observable )
   {
+    preReportChanged( observable, true );
+  }
+
+  void preReportChanged( @Nonnull final Observable<?> observable, final boolean shouldVerifyWriteAllowed )
+  {
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> !observable.isDisposed(),
                  () -> "Arez-0144: Invoked reportChanged on transaction named '" + getName() + "' for observable " +
                        "named '" + observable.getName() + "' where the observable is disposed." );
     }
-    verifyWriteAllowed( observable );
+    if ( shouldVerifyWriteAllowed )
+    {
+      verifyWriteAllowed( observable );
+    }
   }
 
   /**
@@ -589,7 +597,12 @@ final class Transaction
    */
   void reportChanged( @Nonnull final Observable<?> observable )
   {
-    preReportChanged( observable );
+    reportChanged( observable, true );
+  }
+
+  void reportChanged( @Nonnull final Observable<?> observable, final boolean shouldVerifyWriteAllowed )
+  {
+    preReportChanged( observable, shouldVerifyWriteAllowed );
     if ( Arez.shouldCheckInvariants() )
     {
       observable.invariantLeastStaleObserverState();
