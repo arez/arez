@@ -1364,7 +1364,7 @@ public class ObservableTest
       expectThrows( IllegalStateException.class, observable::preReportChanged );
     assertEquals( exception.getMessage(), "Arez-0152: Transaction named '" + Transaction.current().getName() +
                                           "' attempted to change observable named '" + observable.getName() +
-                                          "' but transaction is READ_ONLY." );
+                                          "' but the transaction mode is READ_ONLY." );
   }
 
   @Test
