@@ -757,7 +757,7 @@ final class Transaction
         if ( Arez.shouldCheckInvariants() )
         {
           fail( () -> "Arez-0152: Transaction named '" + getName() + "' attempted to change observable named '" +
-                      observable.getName() + "' but transaction is READ_ONLY." );
+                      observable.getName() + "' but the transaction mode is READ_ONLY." );
         }
       }
       else if ( TransactionMode.READ_WRITE_OWNED == _mode )

@@ -1374,7 +1374,7 @@ public class TransactionTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0152: Transaction named '" + transaction.getName() + "' attempted to change " +
-                  "observable named '" + observable.getName() + "' but transaction is READ_ONLY." );
+                  "observable named '" + observable.getName() + "' but the transaction mode is READ_ONLY." );
   }
 
   @Test
@@ -1522,7 +1522,7 @@ public class TransactionTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0152: Transaction named '" + transaction.getName() + "' attempted to change " +
-                  "observable named '" + observable.getName() + "' but transaction is READ_ONLY." );
+                  "observable named '" + observable.getName() + "' but the transaction mode is READ_ONLY." );
   }
 
   @Test
@@ -2099,7 +2099,7 @@ public class TransactionTest
                   transaction.getName() +
                   "' attempted to change observable named '" +
                   observable.getName() +
-                  "' but transaction is READ_ONLY." );
+                  "' but the transaction mode is READ_ONLY." );
   }
 
   @Test
