@@ -770,6 +770,14 @@ final class Transaction
                            "READ_WRITE_OWNED but the observable has not been created by the transaction." );
         }
       }
+      else if ( TransactionMode.DISPOSE == _mode )
+      {
+        if ( Arez.shouldCheckInvariants() )
+        {
+          fail( () -> "Arez-0156: Transaction named '" + getName() + "' attempted to change observable named '" +
+                      observable.getName() + "' but transaction mode is DISPOSE." );
+        }
+      }
     }
   }
 

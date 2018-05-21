@@ -1378,6 +1378,24 @@ public class TransactionTest
   }
 
   @Test
+  public void verifyWriteAllowed_withDisposeTransaction()
+  {
+    final ArezContext context = Arez.context();
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.DISPOSE, null );
+
+    final Observable<?> observable = newObservable( context );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> transaction.verifyWriteAllowed( observable ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0156: Transaction named '" + transaction.getName() + "' attempted to change " +
+                  "observable named '" + observable.getName() + "' but transaction mode is DISPOSE." );
+  }
+
+  @Test
   public void verifyWriteAllowed_withReadWriteTransaction()
   {
     final ArezContext context = Arez.context();
