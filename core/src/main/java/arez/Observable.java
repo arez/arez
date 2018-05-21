@@ -12,7 +12,6 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
-import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -487,7 +486,7 @@ public final class Observable<T>
    */
   public void preReportChanged()
   {
-    if ( Arez.shouldCheckInvariants() && BrainCheckConfig.checkInvariants() )
+    if ( Arez.shouldCheckInvariants() )
     {
       getContext().getTransaction().preReportChanged( this );
     }

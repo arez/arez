@@ -6,6 +6,7 @@
   `!Disposable.isDisposed(Object)`. This simplifies code that uses stream apy by allowing
   conversion of lambdas into method references.
 * Fix bug that resulted in inclusion in the package of the gwt compile output.
+* **\[core\]** Remove redundant compile-time check in `Observable.preReportChanged()`.
 
 ### [v0.84](https://github.com/arez/arez/tree/v0.84) (2018-05-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.83...v0.84)
