@@ -218,18 +218,7 @@ public abstract class AbstractContainer<K, T>
   @Nonnull
   public Stream<T> entities()
   {
-    return _entities.values().stream().filter( this::notDisposed ).map( RepositoryEntry::getEntity );
-  }
-
-  /**
-   * Return true if entry is not disposed.
-   *
-   * @param entry the entry to check.
-   * @return true if entry is not disposed.
-   */
-  protected final boolean notDisposed( @Nonnull final RepositoryEntry<T> entry )
-  {
-    return Disposable.isNotDisposed( entry );
+    return _entities.values().stream().filter( Disposable::isNotDisposed ).map( RepositoryEntry::getEntity );
   }
 
   @TestOnly
