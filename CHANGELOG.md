@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.11](https://github.com/arez/arez-networkstatus/tree/v0.11) (2018-05-23)
+[Full Changelog](https://github.com/arez/arez-networkstatus/compare/v0.10...v0.11)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.85'
 * Fix bug that resulted in inclusion in the package of the gwt compile output.
