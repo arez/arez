@@ -6,12 +6,12 @@ this project (found in the CODE_OF_CONDUCT.md file).
 Please fill out this template with all the relevant information so we can
 understand what's going on and fix the issue.
 
-I may ask you to submit the fix (after giving some direction). 
+I may ask you to submit the fix (after giving some direction).
 -->
 
 Environment:
 
-<!-- 
+<!--
   Please provide the version of this project where the issue occurred as well as the
   versions of other environmental factors. This could be virtual machine version, os
   version, browser version etc.
