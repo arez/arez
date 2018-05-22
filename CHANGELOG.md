@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.85'
 * Fix bug that resulted in inclusion in the package of the gwt compile output.
 
 ### [v0.10](https://github.com/arez/arez-timeddisposer/tree/v0.10) (2018-05-19)
