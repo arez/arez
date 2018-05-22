@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.85](https://github.com/arez/arez/tree/v0.85) (2018-05-23)
+[Full Changelog](https://github.com/arez/arez/compare/v0.84...v0.85)
 
 * **\[core\]** Add utility method `Disposable.isNotDisposed(Object)` that is equivalent to
   `!Disposable.isDisposed(Object)`. This simplifies code that uses stream apy by allowing
