@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.85'
 * Fix bug that resulted in inclusion in the package of the gwt compile output.
 
 ### [v0.12](https://github.com/arez/arez-idlestatus/tree/v0.12) (2018-05-19)
