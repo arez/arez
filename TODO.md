@@ -86,9 +86,6 @@ complete as there is too much un-said.
   publish a release as it indicates that there was some code change required. The other trigger for a release may be
   when the major version of arez changes.
 
-* Add Issue template that asks for suggested solution:
-  https://raw.githubusercontent.com/kentcdodds/generator-kcd-oss/master/generators/app/templates/github/ISSUE_TEMPLATE.md
-
 * Generate links when the application crashes so that we can autofill issue details. Essentially involves
   crafting urls with parameters. Something like:
 
