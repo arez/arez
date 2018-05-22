@@ -86,11 +86,6 @@ complete as there is too much un-said.
   publish a release as it indicates that there was some code change required. The other trigger for a release may be
   when the major version of arez changes.
 
-* Generate links when the application crashes so that we can autofill issue details. Essentially involves
-  crafting urls with parameters. Something like:
-
-  https://github.com/arez/arez/issues/new?labels=bug&title=Problem%20X&milestone=v0.18&assignee=realityforge&body=This%20is%20a%20prefilled%20issue
-
 * Setup tool that does comparisons between different versions of the API via a tool such as:
   - https://github.com/siom79/japicmp
 
