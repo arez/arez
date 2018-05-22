@@ -6,6 +6,18 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* References handled specially ...? Is this only importing reference tools from Replicant?
+  - `Verifiable`: To verify that:
+    * the entity is not disposed.
+    * the `EntityLocator` when passed own `ComponentId` and type returns self.
+    * All relationships are verified.
+  - `Verifiable` should be completely optimized out in production builds.
+  - `EntityLocator` should be passed in constructor to any entity that has relationships defined. The entity
+    uses the `EntityLocator` to lookup any relationships. The lookup can occur on access or lazily (typically
+    used for cross system links ala `acal` -> `calendar`). The lookup can also occur when `Linkable.link()`
+    is invoked (for all non-lazy relationships). `link()` is typically after a message/transaction has updated
+    all the required entities within the system.
+
 * Change `Arez.areRepositoryResultsModifiable()` to be more like `Arez.areCollectionsPropertiesImmutable()`
   that wraps any result returned from an `@Observable` or `@Computed` not specifically marked
   as immutable. Rename `RepositoryUtil` to `ArezCollectionUtil` or similar.
