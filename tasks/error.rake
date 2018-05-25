@@ -5,6 +5,7 @@ def load_error_codes
 
   `cd #{WORKSPACE_DIR} && git ls-files`.split("\n").
     select {|f| f =~ /\.java$/}.
+    select {|f| File.exist?(f)}.
     select {|f| !(f =~ /[\/\\]src[\/\\]test[\/\\]/)}.
     each do |f|
     content = IO.read(f)
