@@ -14,8 +14,8 @@ import javax.annotation.Nullable;
  * This class is used by the annotation processor as a base class from which to derive the actual
  * repositories for each type.
  *
- * <p>When multiple results are returned as a list, they are passed through {@link RepositoryUtil#asList(Stream)} or
- * {@link RepositoryUtil#toResults(List)} and this will convert the result set to an unmodifiable variant if
+ * <p>When multiple results are returned as a list, they are passed through {@link CollectionsUtil#asList(Stream)} or
+ * {@link CollectionsUtil#wrap(List)} and this will convert the result set to an unmodifiable variant if
  * {@link Arez#areCollectionsPropertiesUnmodifiable()} returns true. Typically this means that in
  * development mode these will be made immutable but that the lists will be passed through as-is
  * in production mode for maximum performance.</p>
@@ -48,7 +48,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   @Nonnull
   public final List<T> findAll()
   {
-    return RepositoryUtil.asList( entities() );
+    return CollectionsUtil.asList( entities() );
   }
 
   /**
@@ -60,7 +60,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   @Nonnull
   public final List<T> findAll( @Nonnull final Comparator<T> sorter )
   {
-    return RepositoryUtil.asList( entities().sorted( sorter ) );
+    return CollectionsUtil.asList( entities().sorted( sorter ) );
   }
 
   /**
@@ -72,7 +72,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   @Nonnull
   public final List<T> findAllByQuery( @Nonnull final Predicate<T> query )
   {
-    return RepositoryUtil.asList( entities().filter( query ) );
+    return CollectionsUtil.asList( entities().filter( query ) );
   }
 
   /**
@@ -85,7 +85,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   @Nonnull
   public final List<T> findAllByQuery( @Nonnull final Predicate<T> query, @Nonnull final Comparator<T> sorter )
   {
-    return RepositoryUtil.asList( entities().filter( query ).sorted( sorter ) );
+    return CollectionsUtil.asList( entities().filter( query ).sorted( sorter ) );
   }
 
   /**

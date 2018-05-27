@@ -5,6 +5,10 @@
 * **\[core\]** Replace the compile time configuration property `arez.repositories_results_modifiable`
   with the inverse compile time configuration property `arez.collections_properties_unmodifiable`.
   Change `Arez.areRepositoryResultsModifiable()` to `Arez.areCollectionsPropertiesUnmodifiable()`.
+* **\[component\]** Rename `arez.component.RepositoryUtil` to `arez.component.CollectionsUtil`,
+  rename `toResults(List)` method to `wrap(List)` and add several additional methods (i.e
+  `wrap(Set)`, `wrap(Map)`, `wrap(Collection)`, `wrap(Map)` and `asSet(Strem)`). These enhancements
+  are designed to make it easier to wrap other collection types from within repository extensions.
 
 ### [v0.85](https://github.com/arez/arez/tree/v0.85) (2018-05-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.84...v0.85)
