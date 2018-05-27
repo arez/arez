@@ -39,7 +39,7 @@ public final class ArezTestUtil
       disablePropertyIntrospectors();
       noEnforceTransactionType();
       disableSpies();
-      makeRepositoryResultsModifiable();
+      makeCollectionPropertiesModifiable();
       disableNativeComponents();
       disableRegistries();
       noCheckInvariants();
@@ -51,7 +51,7 @@ public final class ArezTestUtil
       enablePropertyIntrospectors();
       enforceTransactionType();
       enableSpies();
-      makeRepositoryResultsUnmodifiable();
+      makeCollectionPropertiesUnmodifiable();
       enableNativeComponents();
       enableRegistries();
       checkInvariants();
@@ -225,29 +225,29 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.repositories_results_modifiable` setting to true.
+   * Set `arez.collections_properties_unmodifiable` setting to true.
    */
-  public static void makeRepositoryResultsModifiable()
+  public static void makeCollectionPropertiesModifiable()
   {
-    setRepositoriesResultsModifiable( true );
+    setCollectionPropertiesUnmodifiable( false );
   }
 
   /**
-   * Set `arez.repositories_results_modifiable` setting to false.
+   * Set `arez.collections_properties_unmodifiable` setting to false.
    */
-  public static void makeRepositoryResultsUnmodifiable()
+  public static void makeCollectionPropertiesUnmodifiable()
   {
-    setRepositoriesResultsModifiable( false );
+    setCollectionPropertiesUnmodifiable( true );
   }
 
   /**
-   * Configure the `arez.repositories_results_modifiable` setting.
+   * Configure the `arez.collections_properties_unmodifiable` setting.
    *
    * @param value the setting.
    */
-  private static void setRepositoriesResultsModifiable( final boolean value )
+  private static void setCollectionPropertiesUnmodifiable( final boolean value )
   {
-    setConstant( "REPOSITORIES_RESULTS_MODIFIABLE", value );
+    setConstant( "COLLECTION_PROPERTIES_UNMODIFIABLE", value );
   }
 
   /**

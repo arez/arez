@@ -63,9 +63,9 @@ public class ExternalApiTest
   @Test
   public void areRepositoryResultsUnmodifiable()
   {
-    assertFalse( Arez.areRepositoryResultsModifiable() );
-    ArezTestUtil.makeRepositoryResultsModifiable();
-    assertTrue( Arez.areRepositoryResultsModifiable() );
+    assertFalse( Arez.areCollectionsPropertiesUnmodifiable() );
+    ArezTestUtil.makeCollectionPropertiesModifiable();
+    assertTrue( Arez.areCollectionsPropertiesUnmodifiable() );
   }
 
   @Test

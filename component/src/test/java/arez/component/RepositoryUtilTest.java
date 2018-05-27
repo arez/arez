@@ -30,7 +30,7 @@ public class RepositoryUtilTest
   @Test
   public void wrap_when_areRepositoryResultsModifiable_isFalse()
   {
-    ArezTestUtil.makeRepositoryResultsModifiable();
+    ArezTestUtil.makeCollectionPropertiesModifiable();
 
     final ArrayList<MyEntity> input = new ArrayList<>();
     final MyEntity entity = new MyEntity();

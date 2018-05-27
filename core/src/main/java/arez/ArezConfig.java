@@ -21,8 +21,9 @@ final class ArezConfig
   private static boolean ENABLE_SPIES =
     "true".equals( System.getProperty( "arez.enable_spies", PRODUCTION_MODE ? "false" : "true" ) );
   private static boolean ENABLE_ZONES = "true".equals( System.getProperty( "arez.enable_zones", "false" ) );
-  private static boolean REPOSITORIES_RESULTS_MODIFIABLE =
-    "true".equals( System.getProperty( "arez.repositories_results_modifiable", PRODUCTION_MODE ? "true" : "false" ) );
+  private static boolean COLLECTION_PROPERTIES_UNMODIFIABLE =
+    "true".equals( System.getProperty( "arez.collections_properties_unmodifiable",
+                                       PRODUCTION_MODE ? "false" : "true" ) );
   private static boolean ENABLE_NATIVE_COMPONENTS =
     "true".equals( System.getProperty( "arez.enable_native_components", PRODUCTION_MODE ? "false" : "true" ) );
   private static boolean ENABLE_REGISTRIES =
@@ -83,9 +84,9 @@ final class ArezConfig
     return ENABLE_ZONES;
   }
 
-  static boolean areRepositoryResultsModifiable()
+  static boolean areCollectionsPropertiesUnmodifiable()
   {
-    return REPOSITORIES_RESULTS_MODIFIABLE;
+    return COLLECTION_PROPERTIES_UNMODIFIABLE;
   }
 
   static boolean areNativeComponentsEnabled()

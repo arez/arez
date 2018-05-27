@@ -94,16 +94,16 @@ public final class ArezBuildAsserts
   }
 
   /**
-   * This assertion verifies that the symbols that are conditional on the `arez.repositories_results_modifiable`
+   * This assertion verifies that the symbols that are conditional on the `arez.collections_properties_unmodifiable`
    * setting are present if enabled and not present if not enabled.
    *
    * @param index   the index that contains all symbols for output target.
    * @param enabled true if setting is enabled, false otherwise.
    */
-  public static void assertAreRepositoryResultsModifiableOutputs( @Nonnull final SymbolEntryIndex index,
-                                                                  final boolean enabled )
+  public static void assertCollectionPropertiesUnmodifiableOutputs( @Nonnull final SymbolEntryIndex index,
+                                                                    final boolean enabled )
   {
-    // Assert RepositoryUtil is eliminated once !Arez.areRepositoryResultsModifiable() in the build
+    // Assert RepositoryUtil is eliminated once !Arez.areCollectionsPropertiesUnmodifiable() in the build
     index.assertSymbol( "arez\\.component\\.RepositoryUtil", enabled );
   }
 
@@ -224,15 +224,15 @@ public final class ArezBuildAsserts
   /**
    * Assert normal arez outputs based on specified Arez compile time settings.
    *
-   * @param index                           the index that contains all symbols for output target.
-   * @param areNamesEnabled                 the value of the `arez.enable_names` setting.
-   * @param areSpiesEnabled                 the value of the `arez.enable_spies` setting.
-   * @param areNativeComponentsEnabled      the value of the `arez.enable_native_components` setting.
-   * @param areRegistriesEnabled            the value of the `arez.enable_registries` setting.
-   * @param areObserverErrorHandlersEnabled the value of the `arez.enable_observer_error_handlers` setting.
-   * @param areZonesEnabled                 the value of the `arez.enable_zones` setting.
-   * @param shouldEnforceTransactionType    the value of the `arez.enforce_transaction_type` setting.
-   * @param areRepositoryResultsModifiable  the value of the `arez.repositories_results_modifiable` setting.
+   * @param index                                the index that contains all symbols for output target.
+   * @param areNamesEnabled                      the value of the `arez.enable_names` setting.
+   * @param areSpiesEnabled                      the value of the `arez.enable_spies` setting.
+   * @param areNativeComponentsEnabled           the value of the `arez.enable_native_components` setting.
+   * @param areRegistriesEnabled                 the value of the `arez.enable_registries` setting.
+   * @param areObserverErrorHandlersEnabled      the value of the `arez.enable_observer_error_handlers` setting.
+   * @param areZonesEnabled                      the value of the `arez.enable_zones` setting.
+   * @param shouldEnforceTransactionType         the value of the `arez.enforce_transaction_type` setting.
+   * @param areCollectionsPropertiesUnmodifiable the value of the `arez.collections_properties_unmodifiable` setting.
    */
   public static void assertArezOutputs( @Nonnull final SymbolEntryIndex index,
                                         final boolean areNamesEnabled,
@@ -242,7 +242,7 @@ public final class ArezBuildAsserts
                                         final boolean areObserverErrorHandlersEnabled,
                                         final boolean areZonesEnabled,
                                         final boolean shouldEnforceTransactionType,
-                                        final boolean areRepositoryResultsModifiable )
+                                        final boolean areCollectionsPropertiesUnmodifiable )
   {
     assertStandardOutputs( index );
     assertAreNamesEnabled( index, areNamesEnabled );
@@ -252,6 +252,6 @@ public final class ArezBuildAsserts
     assertAreObserverErrorHandlersEnabledOutputs( index, areObserverErrorHandlersEnabled );
     assertZoneOutputs( index, areZonesEnabled );
     assertShouldEnforceTransactionTypeOutputs( index, shouldEnforceTransactionType );
-    assertAreRepositoryResultsModifiableOutputs( index, areRepositoryResultsModifiable );
+    assertCollectionPropertiesUnmodifiableOutputs( index, areCollectionsPropertiesUnmodifiable );
   }
 }

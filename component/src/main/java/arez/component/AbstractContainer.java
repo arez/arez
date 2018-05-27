@@ -24,8 +24,8 @@ import org.realityforge.braincheck.Guards;
  * Abstract base class for observable Arez components that contain other components.
  *
  * <p>When multiple results are returned as a list, they are passed through {@link RepositoryUtil#asList(Stream)} or
- * {@link RepositoryUtil#toResults(List)} and this will convert the result set to an unmodifiable list if
- * {@link Arez#areRepositoryResultsModifiable()} returns true. Typically this means that in
+ * {@link RepositoryUtil#toResults(List)} and this will convert the result set to an unmodifiable variant if
+ * {@link Arez#areCollectionsPropertiesUnmodifiable()} returns true. Typically this means that in
  * development mode these will be made immutable but that the lists will be passed through as-is
  * in production mode for maximum performance.</p>
  */

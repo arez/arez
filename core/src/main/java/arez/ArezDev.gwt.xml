@@ -8,6 +8,6 @@
 
   <set-property name='arez.enable_names' value='true'/>
   <set-property name='arez.enforce_transaction_type' value='true'/>
-  <set-property name='arez.repositories_results_modifiable' value='false'/>
+  <set-property name='arez.collections_properties_unmodifiable' value='true'/>
   <set-property name='arez.check_api_invariants' value='true'/>
 </module>

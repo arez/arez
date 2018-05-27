@@ -50,13 +50,13 @@ public final class Arez
   }
 
   /**
-   * Return false if collections returned by generated repositories are wrapped in unmodifiable prior to returning.
+   * Return true if observable properties, computed properties or query results that are of type collection are wrapped in unmodifiable variant prior to returning.
    *
-   * @return false if collections returned by generated repositories are wrapped in unmodifiable prior to returning, true otherwise.
+   * @return true if observable properties, computed properties or query results that are of type collection are wrapped in unmodifiable variant prior to returning.
    */
-  public static boolean areRepositoryResultsModifiable()
+  public static boolean areCollectionsPropertiesUnmodifiable()
   {
-    return ArezConfig.areRepositoryResultsModifiable();
+    return ArezConfig.areCollectionsPropertiesUnmodifiable();
   }
 
   /**

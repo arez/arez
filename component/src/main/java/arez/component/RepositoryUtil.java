@@ -18,7 +18,7 @@ public final class RepositoryUtil
 
   /**
    * Convert specified list to results to return from query.
-   * The result list will be wrapped in an unmodifiable list if {@link Arez#areRepositoryResultsModifiable()}
+   * The result list will be wrapped in an unmodifiable list if {@link Arez#areCollectionsPropertiesUnmodifiable()}
    * returns true, otherwise it will just return the supplied list.
    * This method should be called by repository extensions when returning list results
    * when not using {@link #asList(Stream)}.
@@ -30,7 +30,7 @@ public final class RepositoryUtil
   @Nonnull
   public static <T> List<T> toResults( @Nonnull final List<T> list )
   {
-    return Arez.areRepositoryResultsModifiable() ? list : Collections.unmodifiableList( list );
+    return Arez.areCollectionsPropertiesUnmodifiable() ? Collections.unmodifiableList( list ) : list;
   }
 
   /**

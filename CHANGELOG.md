@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+* **\[core\]** Replace the compile time configuration property `arez.repositories_results_modifiable`
+  with the inverse compile time configuration property `arez.collections_properties_unmodifiable`.
+  Change `Arez.areRepositoryResultsModifiable()` to `Arez.areCollectionsPropertiesUnmodifiable()`.
+
 ### [v0.85](https://github.com/arez/arez/tree/v0.85) (2018-05-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.84...v0.85)
 

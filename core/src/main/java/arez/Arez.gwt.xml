@@ -24,8 +24,8 @@
   <define-property name='arez.purge_reactions_when_runaway_detected' values='true,false'/>
   <set-property name='arez.purge_reactions_when_runaway_detected' value='true'/>
 
-  <define-property name='arez.repositories_results_modifiable' values='true,false'/>
-  <set-property name='arez.repositories_results_modifiable' value='true'/>
+  <define-property name='arez.collections_properties_unmodifiable' values='true,false'/>
+  <set-property name='arez.collections_properties_unmodifiable' value='false'/>
 
   <define-property name='arez.enable_zones' values='true,false'/>
   <set-property name='arez.enable_zones' value='false'/>
