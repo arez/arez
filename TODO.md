@@ -74,7 +74,7 @@ complete as there is too much un-said.
 
 * Completed the `arez-devtools` project.
 
-* Consider supporting `OnActivate`, `OnDeactivate` and `OnDispose` for `@Observable` properties.
+* Consider supporting `OnChanged`, `OnActivate`, `OnDeactivate` and `OnDispose` for `@Observable` properties.
 
 ## Process
 
