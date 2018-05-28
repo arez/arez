@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.86](https://github.com/arez/arez/tree/v0.86) (2018-05-28)
+[Full Changelog](https://github.com/arez/arez/compare/v0.85...v0.86)
 
 * **\[core\]** Replace the compile time configuration property `arez.repositories_results_modifiable`
   with the inverse compile time configuration property `arez.collections_properties_unmodifiable`.
