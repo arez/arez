@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.13](https://github.com/arez/arez-timeddisposer/tree/v0.13) (2018-05-28)
+[Full Changelog](https://github.com/arez/arez-timeddisposer/compare/v0.12...v0.13)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.87'
 
