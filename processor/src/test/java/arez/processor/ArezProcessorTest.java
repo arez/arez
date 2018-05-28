@@ -489,6 +489,8 @@ public class ArezProcessorTest
                       "@Computed target specified an invalid name 'public'. The name must not be a java keyword." },
         new Object[]{ "com.example.computed.BadComputedNameModel",
                       "@Computed target specified an invalid name '-ace'. The name must be a valid java identifier." },
+        new Object[]{ "com.example.computed.BadStreamTypeModel",
+                      "@Computed target must not return a value of type java.util.stream.Stream as the type is single use and thus does not make sense to cache as a computed value" },
         new Object[]{ "com.example.computed.ComputedThrowsExceptionModel",
                       "@Computed target must not throw any exceptions" },
         new Object[]{ "com.example.computed.DuplicateComputedModel",

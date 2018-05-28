@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
@@ -141,6 +142,13 @@ final class ComputedDescriptor
     _computedType = Objects.requireNonNull( computedType );
     _keepAlive = keepAlive;
     _highPriority = highPriority;
+
+    if ( isComputedReturnType( Stream.class ) )
+    {
+      throw new ArezProcessorException( "@Computed target must not return a value of type java.util.stream.Stream " +
+                                        "as the type is single use and thus does not make sense to cache as a " +
+                                        "computed value", computed );
+    }
   }
 
   void setRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
