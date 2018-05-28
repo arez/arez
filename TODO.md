@@ -18,10 +18,6 @@ complete as there is too much un-said.
     is invoked (for all non-lazy relationships). `link()` is typically after a message/transaction has updated
     all the required entities within the system.
 
-* Change `Arez.areRepositoryResultsModifiable()` to be more like `Arez.areCollectionsPropertiesImmutable()`
-  that wraps any result returned from an `@Observable` or `@Computed` not specifically marked
-  as immutable. Rename `RepositoryUtil` to `ArezCollectionUtil` or similar.
-
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
   it via `requestAnimationFrame`
 
