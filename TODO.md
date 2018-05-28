@@ -75,6 +75,9 @@ complete as there is too much un-said.
 * Completed the `arez-devtools` project.
 
 * Consider supporting `OnChanged`, `OnActivate`, `OnDeactivate` and `OnDispose` for `@Observable` properties.
+  Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
+  collections without a setter can potentially have an unmodified variant where the cache field is kept up to
+  date.
 
 ## Process
 

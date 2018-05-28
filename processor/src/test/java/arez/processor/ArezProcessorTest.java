@@ -60,6 +60,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.collections.ObservableNonnullListModel", false, false, false },
         new Object[]{ "com.example.collections.ObservableNonnullMapModel", false, false, false },
         new Object[]{ "com.example.collections.ObservableNonnullSetModel", false, false, false },
+        new Object[]{ "com.example.collections.ObservableNoSettersModel", false, false, false },
         new Object[]{ "com.example.collections.ObservableSetModel", false, false, false },
         new Object[]{ "com.example.component.DisposeOnDeactivateModel", false, false, false },
         new Object[]{ "com.example.component.NoRequireEqualsModel", false, false, false },

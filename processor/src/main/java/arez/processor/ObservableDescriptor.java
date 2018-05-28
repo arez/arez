@@ -198,7 +198,7 @@ final class ObservableDescriptor
                            Modifier.PRIVATE );
       builder.addField( dataField.build() );
     }
-    if ( isCollectionType() )
+    if ( shouldGenerateUnmodifiableCollectionVariant() )
     {
       final TypeName type = TypeName.get( _getterType.getReturnType() );
       final FieldSpec.Builder dataField =
@@ -403,7 +403,7 @@ final class ObservableDescriptor
       }
     }
     codeBlock.addStatement( "this.$N.preReportChanged()", getFieldName() );
-    if ( isCollectionType() )
+    if ( shouldGenerateUnmodifiableCollectionVariant() )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
@@ -451,7 +451,7 @@ final class ObservableDescriptor
 
     if ( getGetter().getModifiers().contains( Modifier.ABSTRACT ) )
     {
-      if ( isCollectionType() )
+      if ( shouldGenerateUnmodifiableCollectionVariant() )
       {
         if ( isGetterNonnull() )
         {
@@ -512,7 +512,7 @@ final class ObservableDescriptor
     }
     else
     {
-      if ( isCollectionType() )
+      if ( shouldGenerateUnmodifiableCollectionVariant() )
       {
         if ( isGetterNonnull() )
         {
@@ -572,6 +572,11 @@ final class ObservableDescriptor
       }
     }
     return builder.build();
+  }
+
+  private boolean shouldGenerateUnmodifiableCollectionVariant()
+  {
+    return hasSetter() && isCollectionType();
   }
 
   private boolean isCollectionType()
