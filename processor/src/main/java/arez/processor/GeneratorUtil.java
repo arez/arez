@@ -37,6 +37,7 @@ final class GeneratorUtil
   static final ClassName MEMOIZE_CACHE_CLASSNAME = ClassName.get( "arez.component", "MemoizeCache" );
   static final ClassName COMPONENT_STATE_CLASSNAME = ClassName.get( "arez.component", "ComponentState" );
   static final ClassName COMPONENT_OBSERVABLE_CLASSNAME = ClassName.get( "arez.component", "ComponentObservable" );
+  static final ClassName COLLECTIONS_UTIL_CLASSNAME = ClassName.get( "arez.component", "CollectionsUtil" );
 
   /**
    * Prefix for fields that are used to generate Arez elements.

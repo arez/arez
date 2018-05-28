@@ -9,13 +9,20 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
+import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
 /**
@@ -191,12 +198,27 @@ final class ObservableDescriptor
                            Modifier.PRIVATE );
       builder.addField( dataField.build() );
     }
+    if ( isCollectionType() )
+    {
+      final TypeName type = TypeName.get( _getterType.getReturnType() );
+      final FieldSpec.Builder dataField =
+        FieldSpec.builder( type,
+                           getCollectionCacheDataFieldName(),
+                           Modifier.PRIVATE );
+      builder.addField( dataField.build() );
+    }
   }
 
   @Nonnull
   String getDataFieldName()
   {
     return GeneratorUtil.OBSERVABLE_DATA_FIELD_PREFIX + getName();
+  }
+
+  @Nonnull
+  private String getCollectionCacheDataFieldName()
+  {
+    return GeneratorUtil.OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + getName();
   }
 
   @Nonnull
@@ -381,6 +403,15 @@ final class ObservableDescriptor
       }
     }
     codeBlock.addStatement( "this.$N.preReportChanged()", getFieldName() );
+    if ( isCollectionType() )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+      block.addStatement( "this.$N = null", getCollectionCacheDataFieldName() );
+      block.endControlFlow();
+
+      builder.addCode( block.build() );
+    }
     if ( abstractObservables )
     {
       codeBlock.addStatement( "this.$N = $N", getDataFieldName(), paramName );
@@ -420,13 +451,156 @@ final class ObservableDescriptor
 
     if ( getGetter().getModifiers().contains( Modifier.ABSTRACT ) )
     {
-      builder.addStatement( "return this.$N", getDataFieldName() );
+      if ( isCollectionType() )
+      {
+        if ( isGetterNonnull() )
+        {
+          final CodeBlock.Builder block = CodeBlock.builder();
+          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+
+          final CodeBlock.Builder guard = CodeBlock.builder();
+          guard.beginControlFlow( "if ( null == this.$N )", getCollectionCacheDataFieldName() );
+          guard.addStatement( "this.$N = $T.wrap( this.$N )",
+                              getCollectionCacheDataFieldName(),
+                              GeneratorUtil.COLLECTIONS_UTIL_CLASSNAME,
+                              getDataFieldName() );
+          guard.endControlFlow();
+          block.add( guard.build() );
+          block.addStatement( "return $N", getCollectionCacheDataFieldName() );
+
+          block.nextControlFlow( "else" );
+
+          block.addStatement( "return this.$N", getDataFieldName() );
+          block.endControlFlow();
+
+          builder.addCode( block.build() );
+        }
+        else
+        {
+          final CodeBlock.Builder block = CodeBlock.builder();
+          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+
+          final String result = "$$ar$$_result";
+          block.addStatement( "final $T $N = this.$N",
+                              TypeName.get( getGetterType().getReturnType() ),
+                              result,
+                              getDataFieldName() );
+          final CodeBlock.Builder guard = CodeBlock.builder();
+          guard.beginControlFlow( "if ( null == this.$N && null != $N )",
+                                  getCollectionCacheDataFieldName(),
+                                  result );
+          guard.addStatement( "this.$N = $T.wrap( $N )",
+                              getCollectionCacheDataFieldName(),
+                              GeneratorUtil.COLLECTIONS_UTIL_CLASSNAME,
+                              result );
+          guard.endControlFlow();
+          block.add( guard.build() );
+          block.addStatement( "return $N", getCollectionCacheDataFieldName() );
+
+          block.nextControlFlow( "else" );
+
+          block.addStatement( "return this.$N", getDataFieldName() );
+          block.endControlFlow();
+
+          builder.addCode( block.build() );
+        }
+      }
+      else
+      {
+        builder.addStatement( "return this.$N", getDataFieldName() );
+      }
     }
     else
     {
-      builder.addStatement( "return super.$N()", _getter.getSimpleName() );
+      if ( isCollectionType() )
+      {
+        if ( isGetterNonnull() )
+        {
+          final CodeBlock.Builder block = CodeBlock.builder();
+          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+
+          final CodeBlock.Builder guard = CodeBlock.builder();
+          guard.beginControlFlow( "if ( null == this.$N )", getCollectionCacheDataFieldName() );
+          guard.addStatement( "this.$N = $T.wrap( super.$N() )",
+                              getCollectionCacheDataFieldName(),
+                              GeneratorUtil.COLLECTIONS_UTIL_CLASSNAME,
+                              _getter.getSimpleName() );
+          guard.endControlFlow();
+          block.add( guard.build() );
+          block.addStatement( "return $N", getCollectionCacheDataFieldName() );
+
+          block.nextControlFlow( "else" );
+
+          block.addStatement( "return super.$N()", _getter.getSimpleName() );
+          block.endControlFlow();
+
+          builder.addCode( block.build() );
+        }
+        else
+        {
+          final CodeBlock.Builder block = CodeBlock.builder();
+          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+
+          final String result = "$$ar$$_result";
+          block.addStatement( "final $T $N = super.$N()",
+                              TypeName.get( getGetterType().getReturnType() ),
+                              result,
+                              _getter.getSimpleName() );
+          final CodeBlock.Builder guard = CodeBlock.builder();
+          guard.beginControlFlow( "if ( null == this.$N && null != $N )",
+                                  getCollectionCacheDataFieldName(),
+                                  result );
+          guard.addStatement( "this.$N = $T.wrap( $N )",
+                              getCollectionCacheDataFieldName(),
+                              GeneratorUtil.COLLECTIONS_UTIL_CLASSNAME,
+                              result );
+          guard.endControlFlow();
+          block.add( guard.build() );
+          block.addStatement( "return $N", getCollectionCacheDataFieldName() );
+
+          block.nextControlFlow( "else" );
+
+          block.addStatement( "return super.$N()", _getter.getSimpleName() );
+          block.endControlFlow();
+
+          builder.addCode( block.build() );
+        }
+      }
+      else
+      {
+        builder.addStatement( "return super.$N()", _getter.getSimpleName() );
+      }
     }
     return builder.build();
+  }
+
+  private boolean isCollectionType()
+  {
+    return isGetterUnparameterizedReturnType( Collection.class ) ||
+           isGetterUnparameterizedReturnType( Set.class ) ||
+           isGetterUnparameterizedReturnType( List.class ) ||
+           isGetterUnparameterizedReturnType( Map.class );
+  }
+
+  private boolean isGetterUnparameterizedReturnType( @Nonnull final Class<?> type )
+  {
+    final TypeMirror returnType = getGetterType().getReturnType();
+    final TypeKind kind = returnType.getKind();
+    if ( TypeKind.DECLARED != kind )
+    {
+      return false;
+    }
+    else
+    {
+      final DeclaredType declaredType = (DeclaredType) returnType;
+      final TypeElement element = (TypeElement) declaredType.asElement();
+      return element.getQualifiedName().toString().equals( type.getName() );
+    }
+  }
+
+  private boolean isGetterNonnull()
+  {
+    return null != ProcessorUtil.findAnnotationByType( getGetter(), Constants.NONNULL_ANNOTATION_CLASSNAME );
   }
 
   void validate()

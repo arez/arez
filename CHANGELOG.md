@@ -9,6 +9,11 @@
   rename `toResults(List)` method to `wrap(List)` and add several additional methods (i.e
   `wrap(Set)`, `wrap(Map)`, `wrap(Collection)`, `wrap(Map)` and `asSet(Strem)`). These enhancements
   are designed to make it easier to wrap other collection types from within repository extensions.
+* **\[processor\]** Change `@Observable` getters and `@Computed` methods that return one of the common
+  java collection types (i.e. `java.util.Collection`, `java.util.Set`, `java.util.List` and `java.util.Map`)
+  so that the values are wrapped as unmodifiable variants if `Arez.areCollectionsPropertiesUnmodifiable()`
+  returns true. The goal is to disallow the scenario where an observer accesses and accidentally or
+  deliberately modifies the collection as changes will not be propagated to other observers of the property.
 
 ### [v0.85](https://github.com/arez/arez/tree/v0.85) (2018-05-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.84...v0.85)

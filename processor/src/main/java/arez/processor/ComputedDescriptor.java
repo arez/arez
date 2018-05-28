@@ -8,13 +8,21 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.WildcardTypeName;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
+import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
 
 /**
  * The class that represents the parsed state of @Computed methods on a @ArezComponent annotated class.
@@ -60,6 +68,18 @@ final class ComputedDescriptor
   String getName()
   {
     return _name;
+  }
+
+  @Nonnull
+  private String getCollectionCacheDataActiveFieldName()
+  {
+    return GeneratorUtil.OBSERVABLE_DATA_FIELD_PREFIX + "$$cache_active$$_" + getName();
+  }
+
+  @Nonnull
+  private String getCollectionCacheDataFieldName()
+  {
+    return GeneratorUtil.OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + getName();
   }
 
   boolean hasComputed()
@@ -292,6 +312,15 @@ final class ComputedDescriptor
       FieldSpec.builder( typeName, getFieldName(), Modifier.FINAL, Modifier.PRIVATE ).
         addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     builder.addField( field.build() );
+    if ( isCollectionType() )
+    {
+      builder.addField( FieldSpec.builder( TypeName.get( _computedType.getReturnType() ),
+                                           getCollectionCacheDataFieldName(),
+                                           Modifier.PRIVATE ).build() );
+      builder.addField( FieldSpec.builder( TypeName.BOOLEAN,
+                                           getCollectionCacheDataActiveFieldName(),
+                                           Modifier.PRIVATE ).build() );
+    }
   }
 
   @Nonnull
@@ -305,89 +334,171 @@ final class ComputedDescriptor
     assert null != _computed;
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = $N().createComputedValue( " +
-               "$T.areNativeComponentsEnabled() ? this.$N : null, " +
-               "$T.areNamesEnabled() ? $N() + $S : null, " +
-               "() -> super.$N()" );
-    parameters.add( getFieldName() );
-    parameters.add( _componentDescriptor.getContextMethodName() );
-    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
-    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( _componentDescriptor.getComponentNameMethodName() );
-    parameters.add( "." + getName() );
-    parameters.add( _computed.getSimpleName().toString() );
-    final boolean keepAlive = isKeepAlive();
-    if ( hasHooks() || keepAlive || _highPriority )
+
+    if ( isCollectionType() && !hasHooks() )
     {
-      sb.append( ", $T.defaultComparator(), " );
-      parameters.add( GeneratorUtil.EQUALITY_COMPARATOR_CLASSNAME );
+      sb.append( "this.$N = $T.areCollectionsPropertiesUnmodifiable() ? " +
+                 "$N().createComputedValue( " +
+                 "$T.areNativeComponentsEnabled() ? this.$N : null, " +
+                 "$T.areNamesEnabled() ? $N() + $S : null, " +
+                 "() -> super.$N()" );
+      parameters.add( getFieldName() );
+      parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+      parameters.add( _componentDescriptor.getContextMethodName() );
+      parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+      parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+      parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+      parameters.add( _componentDescriptor.getComponentNameMethodName() );
+      parameters.add( "." + getName() );
+      parameters.add( _computed.getSimpleName().toString() );
+      appendInitializerSuffix( parameters, sb );
 
-      if ( null != _onActivate )
+      // Else part of ternary
+      sb.append( " : $N().createComputedValue( " +
+                 "$T.areNativeComponentsEnabled() ? this.$N : null, " +
+                 "$T.areNamesEnabled() ? $N() + $S : null, " +
+                 "() -> super.$N()" );
+      parameters.add( _componentDescriptor.getContextMethodName() );
+      parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+      parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+      parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+      parameters.add( _componentDescriptor.getComponentNameMethodName() );
+      parameters.add( "." + getName() );
+      parameters.add( _computed.getSimpleName().toString() );
+      if ( hasHooks() || _keepAlive || _highPriority )
       {
-        sb.append( "this::$N" );
-        parameters.add( _onActivate.getSimpleName().toString() );
+        appendInitializerSuffix( parameters, sb );
       }
       else
       {
-        sb.append( "null" );
+        sb.append( " )" );
       }
-      sb.append( ", " );
-
-      if ( null != _onDeactivate )
+    }
+    else // hasHooks()
+    {
+      sb.append( "this.$N = $N().createComputedValue( " +
+                 "$T.areNativeComponentsEnabled() ? this.$N : null, " +
+                 "$T.areNamesEnabled() ? $N() + $S : null, " +
+                 "() -> super.$N()" );
+      parameters.add( getFieldName() );
+      parameters.add( _componentDescriptor.getContextMethodName() );
+      parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+      parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+      parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+      parameters.add( _componentDescriptor.getComponentNameMethodName() );
+      parameters.add( "." + getName() );
+      parameters.add( _computed.getSimpleName().toString() );
+      if ( hasHooks() || _keepAlive || _highPriority )
       {
-        sb.append( "this::$N" );
-        parameters.add( _onDeactivate.getSimpleName().toString() );
+        appendInitializerSuffix( parameters, sb );
       }
       else
       {
-        sb.append( "null" );
+        sb.append( " )" );
       }
-      sb.append( ", " );
+    }
+    builder.addStatement( sb.toString(), parameters.toArray() );
+  }
 
-      if ( null != _onStale )
-      {
-        sb.append( "this::$N" );
-        parameters.add( _onStale.getSimpleName().toString() );
-      }
-      else
-      {
-        sb.append( "null" );
-      }
-      sb.append( ", " );
+  private void appendInitializerSuffix( @Nonnull final ArrayList<Object> parameters,
+                                        @Nonnull final StringBuilder sb )
+  {
+    sb.append( ", $T.defaultComparator(), " );
+    parameters.add( GeneratorUtil.EQUALITY_COMPARATOR_CLASSNAME );
 
-      if ( null != _onDispose )
-      {
-        sb.append( "this::$N" );
-        parameters.add( _onDispose.getSimpleName().toString() );
-      }
-      else
-      {
-        sb.append( "null" );
-      }
-      if ( _highPriority || keepAlive )
-      {
-        if ( keepAlive )
-        {
-          sb.append( ", " );
-          sb.append( _highPriority );
-          sb.append( ", " );
-          sb.append( _keepAlive );
-          sb.append( ", false" );
-        }
-        else
-        {
-          sb.append( ", " );
-          sb.append( _highPriority );
-        }
-      }
-      sb.append( " )" );
+    if ( isCollectionType() )
+    {
+      sb.append( "this::$N" );
+      parameters.add( getOnActivateHookMethodName() );
+    }
+    else if ( null != _onActivate )
+    {
+      sb.append( "this::$N" );
+      parameters.add( _onActivate.getSimpleName().toString() );
     }
     else
     {
-      sb.append( " )" );
+      sb.append( "null" );
     }
-    builder.addStatement( sb.toString(), parameters.toArray() );
+    sb.append( ", " );
+
+    if ( isCollectionType() )
+    {
+      sb.append( "this::$N" );
+      parameters.add( getOnDeactivateHookMethodName() );
+    }
+    else if ( null != _onDeactivate )
+    {
+      sb.append( "this::$N" );
+      parameters.add( _onDeactivate.getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "null" );
+    }
+    sb.append( ", " );
+
+    if ( isCollectionType() )
+    {
+      sb.append( "this::$N" );
+      parameters.add( getOnStaleHookMethodName() );
+    }
+    else if ( null != _onStale )
+    {
+      sb.append( "this::$N" );
+      parameters.add( _onStale.getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "null" );
+    }
+
+    sb.append( ", " );
+
+    if ( null != _onDispose )
+    {
+      sb.append( "this::$N" );
+      parameters.add( _onDispose.getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "null" );
+    }
+    if ( _highPriority || _keepAlive )
+    {
+      if ( _keepAlive )
+      {
+        sb.append( ", " );
+        sb.append( _highPriority );
+        sb.append( ", " );
+        sb.append( _keepAlive );
+        sb.append( ", false" );
+      }
+      else
+      {
+        sb.append( ", " );
+        sb.append( _highPriority );
+      }
+    }
+    sb.append( " )" );
+  }
+
+  @Nonnull
+  private String getOnActivateHookMethodName()
+  {
+    return GeneratorUtil.FRAMEWORK_PREFIX + "onActivate_" + getName();
+  }
+
+  @Nonnull
+  private String getOnDeactivateHookMethodName()
+  {
+    return GeneratorUtil.FRAMEWORK_PREFIX + "onDeactivate_" + getName();
+  }
+
+  @Nonnull
+  private String getOnStaleHookMethodName()
+  {
+    return GeneratorUtil.FRAMEWORK_PREFIX + "onStale_" + getName();
   }
 
   private boolean hasHooks()
@@ -404,10 +515,83 @@ final class ComputedDescriptor
     throws ArezProcessorException
   {
     builder.addMethod( buildComputed() );
+    if ( isCollectionType() )
+    {
+      builder.addMethod( buildOnActivateHook() );
+      builder.addMethod( buildOnDeactivateHook() );
+      builder.addMethod( buildOnStaleHook() );
+    }
     if ( null != _refMethod )
     {
       builder.addMethod( buildRefMethod() );
     }
+  }
+
+  @Nonnull
+  private MethodSpec buildOnActivateHook()
+    throws ArezProcessorException
+  {
+    assert isCollectionType();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnActivateHookMethodName() );
+    builder.addModifiers( Modifier.PRIVATE );
+
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+    block.addStatement( "this.$N = true", getCollectionCacheDataActiveFieldName() );
+    block.addStatement( "this.$N = null", getCollectionCacheDataFieldName() );
+    block.endControlFlow();
+    builder.addCode( block.build() );
+
+    if ( null != _onActivate )
+    {
+      builder.addStatement( "$N()", _onActivate.getSimpleName().toString() );
+    }
+    return builder.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildOnDeactivateHook()
+    throws ArezProcessorException
+  {
+    assert isCollectionType();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnDeactivateHookMethodName() );
+    builder.addModifiers( Modifier.PRIVATE );
+
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+    block.addStatement( "this.$N = false", getCollectionCacheDataActiveFieldName() );
+    block.addStatement( "this.$N = null", getCollectionCacheDataFieldName() );
+    block.endControlFlow();
+    builder.addCode( block.build() );
+
+    if ( null != _onDeactivate )
+    {
+      builder.addStatement( "$N()", _onDeactivate.getSimpleName().toString() );
+    }
+    return builder.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildOnStaleHook()
+    throws ArezProcessorException
+  {
+    assert isCollectionType();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnStaleHookMethodName() );
+    builder.addModifiers( Modifier.PRIVATE );
+
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() && this.$N )",
+                            GeneratorUtil.AREZ_CLASSNAME,
+                            getCollectionCacheDataActiveFieldName() );
+    block.addStatement( "this.$N = null", getCollectionCacheDataFieldName() );
+    block.endControlFlow();
+    builder.addCode( block.build() );
+
+    if ( null != _onStale )
+    {
+      builder.addStatement( "$N()", _onStale.getSimpleName().toString() );
+    }
+    return builder.build();
   }
 
   /**
@@ -430,17 +614,66 @@ final class ComputedDescriptor
     builder.returns( returnType );
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
-    if ( _computed.getTypeParameters().isEmpty() )
+    if ( isCollectionType() )
+    {
+      if ( isComputedNonnull() )
+      {
+        final CodeBlock.Builder block = CodeBlock.builder();
+        block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+
+        final CodeBlock.Builder guard = CodeBlock.builder();
+        guard.beginControlFlow( "if ( null == this.$N )", getCollectionCacheDataFieldName() );
+        guard.addStatement( "this.$N = $T.wrap( ($T) this.$N.get() )",
+                            getCollectionCacheDataFieldName(),
+                            GeneratorUtil.COLLECTIONS_UTIL_CLASSNAME,
+                            returnType.box(),
+                            getFieldName() );
+        guard.endControlFlow();
+        block.add( guard.build() );
+        block.addStatement( "return $N", getCollectionCacheDataFieldName() );
+
+        block.nextControlFlow( "else" );
+
+        block.addStatement( "return ($T) this.$N.get()", returnType.box(), getFieldName() );
+        block.endControlFlow();
+
+        builder.addCode( block.build() );
+      }
+      else
+      {
+        final CodeBlock.Builder block = CodeBlock.builder();
+        block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+
+        final String result = "$$ar$$_result";
+        block.addStatement( "final $T $N = ($T) this.$N.get()", returnType, result, returnType.box(), getFieldName() );
+        final CodeBlock.Builder guard = CodeBlock.builder();
+        guard.beginControlFlow( "if ( null == this.$N && null != $N )",
+                                getCollectionCacheDataFieldName(),
+                                result );
+        guard.addStatement( "this.$N = $T.wrap( $N )",
+                            getCollectionCacheDataFieldName(),
+                            GeneratorUtil.COLLECTIONS_UTIL_CLASSNAME,
+                            result );
+        guard.endControlFlow();
+        block.add( guard.build() );
+        block.addStatement( "return $N", getCollectionCacheDataFieldName() );
+
+        block.nextControlFlow( "else" );
+
+        block.addStatement( "return ($T) this.$N.get()", returnType.box(), getFieldName() );
+        block.endControlFlow();
+
+        builder.addCode( block.build() );
+      }
+    }
+    else if ( _computed.getTypeParameters().isEmpty() )
     {
       builder.addStatement( "return this.$N.get()", getFieldName() );
     }
     else
     {
-      builder.addStatement( "return ($T) this.$N.get()",
-                            returnType.box(),
-                            getFieldName() );
+      builder.addStatement( "return ($T) this.$N.get()", returnType.box(), getFieldName() );
     }
-
     return builder.build();
   }
 
@@ -467,5 +700,34 @@ final class ComputedDescriptor
     builder.addStatement( "return $N", getFieldName() );
 
     return builder.build();
+  }
+
+  private boolean isComputedNonnull()
+  {
+    return null != ProcessorUtil.findAnnotationByType( getComputed(), Constants.NONNULL_ANNOTATION_CLASSNAME );
+  }
+
+  private boolean isCollectionType()
+  {
+    return isComputedReturnType( Collection.class ) ||
+           isComputedReturnType( Set.class ) ||
+           isComputedReturnType( List.class ) ||
+           isComputedReturnType( Map.class );
+  }
+
+  private boolean isComputedReturnType( @Nonnull final Class<?> type )
+  {
+    final TypeMirror returnType = getComputed().getReturnType();
+    final TypeKind kind = returnType.getKind();
+    if ( TypeKind.DECLARED != kind )
+    {
+      return false;
+    }
+    else
+    {
+      final DeclaredType declaredType = (DeclaredType) returnType;
+      final TypeElement element = (TypeElement) declaredType.asElement();
+      return element.getQualifiedName().toString().equals( type.getName() );
+    }
   }
 }
