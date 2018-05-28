@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.87](https://github.com/arez/arez/tree/v0.87) (2018-05-28)
+[Full Changelog](https://github.com/arez/arez/compare/v0.86...v0.87)
 
 * **\[processor\]** `@Observable` properties that return a collection but have no setter were not having
   the cache of the unmodifiable variant cleared. This can not be fixed until it is possible to have an
