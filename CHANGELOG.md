@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.12](https://github.com/arez/arez-networkstatus/tree/v0.12) (2018-05-28)
+[Full Changelog](https://github.com/arez/arez-networkstatus/compare/v0.11...v0.12)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.86'
 
