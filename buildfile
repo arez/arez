@@ -115,7 +115,7 @@ define 'arez' do
 
   desc 'Arez Annotation processor'
   define 'processor' do
-    pom.dependency_filter = Proc.new {|_| false }
+    pom.dependency_filter = Proc.new {|_| false}
 
     compile.with :javax_jsr305,
                  :autoservice,
