@@ -1614,12 +1614,12 @@ final class ComponentDescriptor
     return element.getModifiers().contains( Modifier.ABSTRACT ) &&
            (
              (
-               // Setter
+               // Getter
                element.getReturnType().getKind() != TypeKind.VOID &&
                null != ProcessorUtil.findAnnotationByType( element, Constants.NONNULL_ANNOTATION_CLASSNAME )
              ) ||
              (
-               // Getter
+               // Setter
                1 == element.getParameters().size() &&
                null != ProcessorUtil.findAnnotationByType( element.getParameters().get( 0 ),
                                                            Constants.NONNULL_ANNOTATION_CLASSNAME )
