@@ -387,6 +387,11 @@ final class ObservableDescriptor
     }
     else
     {
+      // We have a nonnull setter so lets enforce it
+      if ( isSetterNonnull() )
+      {
+        builder.addStatement( "assert null != $N", paramName );
+      }
       if ( abstractObservables )
       {
         codeBlock.beginControlFlow( "if ( !$T.equals( $N, this.$N ) )",
@@ -606,6 +611,13 @@ final class ObservableDescriptor
   private boolean isGetterNonnull()
   {
     return null != ProcessorUtil.findAnnotationByType( getGetter(), Constants.NONNULL_ANNOTATION_CLASSNAME );
+  }
+
+  private boolean isSetterNonnull()
+  {
+    return hasSetter() &&
+           null != ProcessorUtil.findAnnotationByType( getSetter().getParameters().get( 0 ),
+                                                       Constants.NONNULL_ANNOTATION_CLASSNAME );
   }
 
   void validate()

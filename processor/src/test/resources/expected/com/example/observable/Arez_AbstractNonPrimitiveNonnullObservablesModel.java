@@ -37,7 +37,7 @@ public final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends Abst
 
   public Arez_AbstractNonPrimitiveNonnullObservablesModel(@Nonnull final Date time) {
     super();
-    this.$$arezd$$_time = time;
+    this.$$arezd$$_time = Objects.requireNonNull( time );
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNativeComponentsEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0L;
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
@@ -127,6 +127,7 @@ public final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends Abst
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    assert null != value;
     if ( !Objects.equals( value, this.$$arezd$$_time ) ) {
       this.$$arez$$_time.preReportChanged();
       this.$$arezd$$_time = value;

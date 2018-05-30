@@ -2534,7 +2534,18 @@ final class ComponentDescriptor
                                Modifier.FINAL );
       ProcessorUtil.copyDocumentedAnnotations( observable.getGetter(), param );
       builder.addParameter( param.build() );
-      builder.addStatement( "this.$N = $N", observable.getDataFieldName(), observable.getName() );
+      final boolean isPrimitive = TypeName.get( observable.getGetterType().getReturnType() ).isPrimitive();
+      if ( isPrimitive )
+      {
+        builder.addStatement( "this.$N = $N", observable.getDataFieldName(), observable.getName() );
+      }
+      else
+      {
+        builder.addStatement( "this.$N = $T.requireNonNull( $N )",
+                              observable.getDataFieldName(),
+                              Objects.class,
+                              observable.getName() );
+      }
     }
 
     builder.addStatement( "this.$N = $T.areZonesEnabled() ? $T.context() : null",

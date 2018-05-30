@@ -335,6 +335,36 @@ define 'arez' do
                               :vm_parameters => "-Xmx3G -Djava.io.tmpdir=#{_("tmp/gwt/#{short_name}")}",
                               :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export', short_name)}/")
   end
+
+
+  ipr.nonnull_assertions = false
+
+  ipr.add_component('NullableNotNullManager') do |component|
+    component.option :name => 'myDefaultNullable', :value => 'javax.annotation.Nullable'
+    component.option :name => 'myDefaultNotNull', :value => 'javax.annotation.Nonnull'
+    component.option :name => 'myNullables' do |option|
+      option.value do |value|
+        value.list :size => '6' do |list|
+          list.item :index => '0', :class => 'java.lang.String', :itemvalue => 'org.jetbrains.annotations.Nullable'
+          list.item :index => '1', :class => 'java.lang.String', :itemvalue => 'javax.annotation.Nullable'
+          list.item :index => '2', :class => 'java.lang.String', :itemvalue => 'javax.annotation.CheckForNull'
+          list.item :index => '3', :class => 'java.lang.String', :itemvalue => 'org.springframework.lang.Nullable'
+          list.item :index => '4', :class => 'java.lang.String', :itemvalue => 'edu.umd.cs.findbugs.annotations.Nullable'
+          list.item :index => '5', :class => 'java.lang.String', :itemvalue => 'android.support.annotation.Nullable'
+        end
+      end
+    end
+    component.option :name => 'myNotNulls' do |option|
+      option.value do |value|
+        value.list :size => '4' do |list|
+          list.item :index => '0', :class => 'java.lang.String', :itemvalue => 'org.jetbrains.annotations.NotNull'
+          list.item :index => '1', :class => 'java.lang.String', :itemvalue => 'javax.annotation.Nonnull'
+          list.item :index => '2', :class => 'java.lang.String', :itemvalue => 'edu.umd.cs.findbugs.annotations.NonNull'
+          list.item :index => '3', :class => 'java.lang.String', :itemvalue => 'android.support.annotation.NonNull'
+        end
+      end
+    end
+  end
 end
 
 Buildr.projects.each do |project|

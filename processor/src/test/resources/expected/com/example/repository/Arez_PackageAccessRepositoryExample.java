@@ -129,6 +129,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setName' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    assert null != name;
     if ( !Objects.equals( name, super.getName() ) ) {
       this.$$arez$$_name.preReportChanged();
       super.setName(name);
@@ -151,6 +152,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setPackageName' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    assert null != packageName;
     if ( !Objects.equals( packageName, super.getPackageName() ) ) {
       this.$$arez$$_packageName.preReportChanged();
       super.setPackageName(packageName);

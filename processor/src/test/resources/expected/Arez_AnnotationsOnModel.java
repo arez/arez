@@ -128,6 +128,7 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    assert null != time;
     if ( !Objects.equals( time, super.getTime() ) ) {
       this.$$arez$$_time.preReportChanged();
       super.setTime(time);

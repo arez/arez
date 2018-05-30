@@ -48,6 +48,7 @@ module Buildr
 
         if project.ipr?
           project.ipr.add_component('CompilerConfiguration') do |component|
+            component.addNotNullAssertions :enabled => 'false' unless project.ipr.nonnull_assertions?
             component.annotationProcessing do |xml|
               xml.profile(:default => true, :name => 'Default', :enabled => true) do
                 xml.sourceOutputDir :name => 'generated/processors/main/java'
@@ -91,4 +92,17 @@ end
 
 class Buildr::Project
   include Buildr::ProcessorPath::ProjectExtension
+end
+
+
+module Buildr #:nodoc:
+  module IntellijIdea
+    class IdeaProject < IdeaFile
+      def nonnull_assertions?
+        @nonnull_assertions.nil? ? true : !!@nonnull_assertions
+      end
+
+      attr_writer :nonnull_assertions
+    end
+  end
 end
