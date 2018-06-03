@@ -6,7 +6,7 @@
   enforce non-nullness by generating an assertion in the setter and the initializer (if present).
 * **\[processor\]** Update the error generated for scenario `"@ArezComponent target has an abstract method not implemented by framework"`
   so that the error is attached to the `@ArezComponent` target class rather than the abstract method
-  that has failed to be implemented.
+  that has failed to be implemented. Also include the abstract method name in the error message.
 * **\[processor\]** Improve the error reporting when an error occurs due to code that is not being
   compiled in the compilation that triggered the annotation processor. Tooling such as Intellij IDEA
   will not correctly report the location of the error in these scenarios. To address this limitation,

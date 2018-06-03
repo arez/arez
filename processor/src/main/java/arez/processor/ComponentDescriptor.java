@@ -1289,8 +1289,8 @@ final class ComponentDescriptor
       .map( CandidateMethod::getMethod )
       .filter( m -> m.getModifiers().contains( Modifier.ABSTRACT ) )
       .forEach( m -> {
-        throw new ArezProcessorException( "@ArezComponent target has an abstract method not implemented by framework",
-                                          getElement() );
+        throw new ArezProcessorException( "@ArezComponent target has an abstract method not implemented by " +
+                                          "framework. The method is named " + m.getSimpleName(), getElement() );
       } );
   }
 

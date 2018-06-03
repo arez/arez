@@ -425,7 +425,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component.ConcreteComponent",
                       "@ArezComponent target must be abstract unless the allowConcrete parameter is set to true" },
         new Object[]{ "com.example.component.ModelWithAbstractMethod",
-                      "@ArezComponent target has an abstract method not implemented by framework" },
+                      "@ArezComponent target has an abstract method not implemented by framework. The method is named someMethod" },
         new Object[]{ "com.example.component.BadTypeComponent",
                       "@ArezComponent target specified an invalid type ''. The type must be a valid java identifier." },
         new Object[]{ "com.example.component.BadTypeComponent2",
@@ -545,7 +545,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.context_ref.ParametersModel", "@ContextRef target must not have any parameters" },
 
         new Object[]{ "com.example.dependency.AbstractDependency",
-                      "@ArezComponent target has an abstract method not implemented by framework" },
+                      "@ArezComponent target has an abstract method not implemented by framework. The method is named getTime" },
         new Object[]{ "com.example.dependency.ParametersDependency",
                       "@Dependency target must not have any parameters" },
         new Object[]{ "com.example.dependency.PrimitiveReturnDependency",
