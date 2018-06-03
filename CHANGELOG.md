@@ -7,6 +7,11 @@
 * **\[processor\]** Update the error generated for scenario `"@ArezComponent target has an abstract method not implemented by framework"`
   so that the error is attached to the `@ArezComponent` target class rather than the abstract method
   that has failed to be implemented.
+* **\[processor\]** Improve the error reporting when an error occurs due to code that is not being
+  compiled in the compilation that triggered the annotation processor. Tooling such as Intellij IDEA
+  will not correctly report the location of the error in these scenarios. To address this limitation,
+  a duplicate error is reported targeting the class that triggered the failure and an additional
+  message is reported describing the element that caused the error.
 
 ### [v0.87](https://github.com/arez/arez/tree/v0.87) (2018-05-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.86...v0.87)

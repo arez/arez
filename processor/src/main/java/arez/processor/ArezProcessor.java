@@ -49,11 +49,12 @@ public final class ArezProcessor
     final TypeElement annotation =
       processingEnv.getElementUtils().getTypeElement( Constants.COMPONENT_ANNOTATION_CLASSNAME );
     final Set<? extends Element> elements = env.getElementsAnnotatedWith( annotation );
-    processElements( elements );
+    processElements( elements, env );
     return true;
   }
 
-  private void processElements( @Nonnull final Set<? extends Element> elements )
+  private void processElements( @Nonnull final Set<? extends Element> elements,
+                                @Nonnull final RoundEnvironment env )
   {
     for ( final Element element : elements )
     {
@@ -67,6 +68,37 @@ public final class ArezProcessor
       }
       catch ( final ArezProcessorException e )
       {
+        final Element errorLocation = e.getElement();
+        final Element outerElement = getOuterElement( errorLocation );
+        if ( !env.getRootElements().contains( outerElement ) )
+        {
+          final String location;
+          if ( errorLocation instanceof ExecutableElement )
+          {
+            final ExecutableElement executableElement = (ExecutableElement) errorLocation;
+            final TypeElement typeElement = (TypeElement) executableElement.getEnclosingElement();
+            location = typeElement.getQualifiedName() + "." + executableElement.getSimpleName();
+          }
+          else
+          {
+            assert errorLocation instanceof TypeElement;
+            final TypeElement typeElement = (TypeElement) errorLocation;
+            location = typeElement.getQualifiedName().toString();
+          }
+
+          final StringWriter sw = new StringWriter();
+          processingEnv.getElementUtils().printElements( sw, errorLocation );
+          sw.flush();
+
+          final String message =
+            "An error was generated processing the element " + element.getSimpleName() +
+            " but the error was triggered by code not currently being compiled but inherited or " +
+            "implemented by the element and may not be highlighted by your tooling or IDE. The " +
+            "error occurred at " + location + " and may look like:\n" + sw.toString();
+
+          processingEnv.getMessager().printMessage( ERROR, e.getMessage(), element );
+          processingEnv.getMessager().printMessage( ERROR, message );
+        }
         processingEnv.getMessager().printMessage( ERROR, e.getMessage(), e.getElement() );
       }
       catch ( final Throwable e )
@@ -85,6 +117,22 @@ public final class ArezProcessor
         processingEnv.getMessager().printMessage( ERROR, message, element );
       }
     }
+  }
+
+  /**
+   * Return the outer enclosing element.
+   * This is either the top-level class, interface, enum, etc within a package.
+   * This helps identify the top level compilation units.
+   */
+  @Nonnull
+  private Element getOuterElement( @Nonnull final Element element )
+  {
+    Element result = element;
+    while ( !( result.getEnclosingElement() instanceof PackageElement ) )
+    {
+      result = result.getEnclosingElement();
+    }
+    return result;
   }
 
   private void process( @Nonnull final Element element )
