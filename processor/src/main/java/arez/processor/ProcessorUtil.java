@@ -332,7 +332,7 @@ final class ProcessorUtil
   @SuppressWarnings( { "unchecked", "SameParameterValue" } )
   @Nonnull
   static List<TypeMirror> getTypeMirrorsAnnotationParameter( @Nonnull final Elements elements,
-                                                             @Nonnull final Element typeElement,
+                                                             @Nonnull final TypeElement typeElement,
                                                              @Nonnull final String annotationClassName,
                                                              @Nonnull final String parameterName )
   {
