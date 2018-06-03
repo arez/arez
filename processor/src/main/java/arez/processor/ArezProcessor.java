@@ -106,7 +106,8 @@ public final class ArezProcessor
 
   @SuppressWarnings( "unchecked" )
   @Nonnull
-  private ComponentDescriptor parse( final PackageElement packageElement, final TypeElement typeElement )
+  private ComponentDescriptor parse( @Nonnull final PackageElement packageElement,
+                                     @Nonnull final TypeElement typeElement )
     throws ArezProcessorException
   {
     if ( ElementKind.CLASS != typeElement.getKind() )
