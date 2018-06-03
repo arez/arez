@@ -77,6 +77,10 @@ complete as there is too much un-said.
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
 
+* Consider adopting [Auto Common Utilities](https://github.com/google/auto/tree/master/common). Primarily so
+  that invalid elements can be deferred till later in the process. This will need to be shaded in to avoid
+  version conflicts. 
+
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
