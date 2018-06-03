@@ -1290,7 +1290,7 @@ final class ComponentDescriptor
       .filter( m -> m.getModifiers().contains( Modifier.ABSTRACT ) )
       .forEach( m -> {
         throw new ArezProcessorException( "@ArezComponent target has an abstract method not implemented by framework",
-                                          m );
+                                          getElement() );
       } );
   }
 

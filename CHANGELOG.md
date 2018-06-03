@@ -4,6 +4,9 @@
 
 * **\[processor\]** Setters for `@Observable` properties where the parameter is annotated with `@Nonnull` now
   enforce non-nullness by generating an assertion in the setter and the initializer (if present).
+* **\[processor\]** Update the error generated for scenario `"@ArezComponent target has an abstract method not implemented by framework"`
+  so that the error is attached to the `@ArezComponent` target class rather than the abstract method
+  that has failed to be implemented.
 
 ### [v0.87](https://github.com/arez/arez/tree/v0.87) (2018-05-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.86...v0.87)
