@@ -33,10 +33,10 @@
 ### [v0.86](https://github.com/arez/arez/tree/v0.86) (2018-05-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.85...v0.86)
 
-* **\[core\]** Replace the compile time configuration property `arez.repositories_results_modifiable`
+* 💥 **\[core\]** Replace the compile time configuration property `arez.repositories_results_modifiable`
   with the inverse compile time configuration property `arez.collections_properties_unmodifiable`.
   Change `Arez.areRepositoryResultsModifiable()` to `Arez.areCollectionsPropertiesUnmodifiable()`.
-* **\[component\]** Rename `arez.component.RepositoryUtil` to `arez.component.CollectionsUtil`,
+* 💥 **\[component\]** Rename `arez.component.RepositoryUtil` to `arez.component.CollectionsUtil`,
   rename `toResults(List)` method to `wrap(List)` and add several additional methods (i.e
   `wrap(Set)`, `wrap(Map)`, `wrap(Collection)`, `wrap(Map)` and `asSet(Strem)`). These enhancements
   are designed to make it easier to wrap other collection types from within repository extensions.
@@ -56,7 +56,7 @@
   conversion of lambdas into method references.
 * Fix bug that resulted in inclusion in the package of the gwt compile output.
 * **\[core\]** Remove redundant compile-time check in `Observable.preReportChanged()`.
-* **\[core\]** The `DISPOSE` transaction that wraps Arez elements now enforces the constraint
+* 💥 **\[core\]** The `DISPOSE` transaction that wraps Arez elements now enforces the constraint
   that it is not possible to change `Observable` values from within the `dispose()` operation.
 
 ### [v0.84](https://github.com/arez/arez/tree/v0.84) (2018-05-19)
@@ -86,7 +86,7 @@
 * **\[component\]** Changed the `AbstractContainer` class to add two hook methods `preEntryDispose(...)`
   and `postEntryDispose(...)` that are invoked before and after an entry is disposed. This allows subclasses
   to customize the behaviour if required.
-* **\[annotations\]** Removed unnecessary `com.google.gwt.core.Core` inherit from the
+* 💥 **\[annotations\]** Removed unnecessary `com.google.gwt.core.Core` inherit from the
   `Annotations.gwt.xml` GWT module.
 
 ### [v0.82](https://github.com/arez/arez/tree/v0.82) (2018-05-02)
@@ -118,7 +118,7 @@
 * **\[docs\]** Add some documentation on how to configure IntelliJ IDEA to the website.
 
 #### Changed
-* **\[processor\]** Change the way that the annotation processor marks generated classes as
+* 💥 **\[processor\]** Change the way that the annotation processor marks generated classes as
   generated. When the source version of input code is Java 9 or greater then the
   `javax.annotation.processing.Generated` annotation is added rather than the historic
   `javax.annotation.Generated` which can be difficult to support in Java 9 due to split modules.
@@ -155,7 +155,7 @@
   of the `ArezContext.create...` methods then the constant values can be omitted. This simplifies
   the code for humans who need to read the generated code and can reduce the code size in large
   applications while not increasing the code size in small applications.
-* **\[\processor\]** The process verifies that the `@ArezComponent` annotated class does not define
+* 💥 **\[\processor\]** The process verifies that the `@ArezComponent` annotated class does not define
   any methods that are reserved names within Arez or use prefixes that are reserved by the Arez
   framework. Previously if a reserved word was used, the annotation processor would successfully
   complete but generate code that would not compile.
