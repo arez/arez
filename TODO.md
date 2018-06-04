@@ -6,6 +6,12 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Update arez to emit symbol diffs as part of test fails? Maybe move this to symbolmap library?
+  If changing symbol map library then directly expose diff function? or at least way to get entries
+
+* Consider loading in soyc and outputting diffs for each symbol? Maybe do this in separate library.
+  Possibly merge it into symbolmap library
+
 * References handled specially ...? Is this only importing reference tools from Replicant?
   - `Verifiable`: To verify that:
     * the entity is not disposed.
