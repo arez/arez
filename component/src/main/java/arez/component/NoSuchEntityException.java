@@ -1,5 +1,6 @@
 package arez.component;
 
+import arez.Arez;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 
@@ -37,6 +38,13 @@ public class NoSuchEntityException
   @Override
   public String toString()
   {
-    return "NoSuchEntityException[id=" + _id + ']';
+    if ( Arez.areNamesEnabled() )
+    {
+      return "NoSuchEntityException[id=" + _id + ']';
+    }
+    else
+    {
+      return super.toString();
+    }
   }
 }

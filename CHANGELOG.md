@@ -12,6 +12,8 @@
   will not correctly report the location of the error in these scenarios. To address this limitation,
   a duplicate error is reported targeting the class that triggered the failure and an additional
   message is reported describing the element that caused the error.
+* **\[component\]** Effectively remove custom `arez.component.NoSuchEntityException.toString()` when
+  `Arez.areNamesEnabled()` returns false. This eliminates a small amount code in production applications.
 
 ### [v0.87](https://github.com/arez/arez/tree/v0.87) (2018-05-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.86...v0.87)
