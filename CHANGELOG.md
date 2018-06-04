@@ -3,6 +3,10 @@
 ### Unreleased
 
 * **\[processor\]** Ensure that repositories work with components that contain initializers.
+* **\[component\]** Remove the `preEntryDispose()` and `postEntryDispose()` methods from the
+  `arez.component.AbstractContainer` class as they were never used, mis-named and would be
+  invoked in an inconsistent order based on whether the contained entity was disposed by the
+  `AbstractContainer` subclass or outside the container.
 
 ### [v0.88](https://github.com/arez/arez/tree/v0.88) (2018-06-04)
 [Full Changelog](https://github.com/arez/arez/compare/v0.87...v0.88)
