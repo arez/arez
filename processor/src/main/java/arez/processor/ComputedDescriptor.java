@@ -636,6 +636,9 @@ final class ComputedDescriptor
                             GeneratorUtil.COLLECTIONS_UTIL_CLASSNAME,
                             returnType.box(),
                             getFieldName() );
+        guard.nextControlFlow( "else" );
+        guard.add( "// Make sure that we are observing computed\n" );
+        guard.addStatement( "this.$N.get()", getFieldName() );
         guard.endControlFlow();
         block.add( guard.build() );
         block.addStatement( "return $N", getCollectionCacheDataFieldName() );

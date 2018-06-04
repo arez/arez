@@ -14,6 +14,8 @@
   message is reported describing the element that caused the error.
 * **\[component\]** Effectively remove custom `arez.component.NoSuchEntityException.toString()` when
   `Arez.areNamesEnabled()` returns false. This eliminates a small amount code in production applications.
+* **\[processor\]** Fix bug that resulted in `@Computed` annoated methods being un-observed and deactivated
+  if the result is a collection and `Arez.areCollectionsPropertiesUnmodifiable()` returns `true`.
 
 ### [v0.87](https://github.com/arez/arez/tree/v0.87) (2018-05-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.86...v0.87)

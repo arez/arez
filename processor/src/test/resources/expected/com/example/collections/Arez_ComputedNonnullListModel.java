@@ -125,6 +125,9 @@ public final class Arez_ComputedNonnullListModel extends ComputedNonnullListMode
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       if ( null == this.$$arezd$$_$$cache$$_myValue ) {
         this.$$arezd$$_$$cache$$_myValue = CollectionsUtil.wrap( (List<String>) this.$$arez$$_myValue.get() );
+      } else {
+        // Make sure that we are observing computed
+        this.$$arez$$_myValue.get();
       }
       return $$arezd$$_$$cache$$_myValue;
     } else {
