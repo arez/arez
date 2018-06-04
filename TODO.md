@@ -79,7 +79,7 @@ complete as there is too much un-said.
 
 * Consider adopting [Auto Common Utilities](https://github.com/google/auto/tree/master/common). Primarily so
   that invalid elements can be deferred till later in the process. This will need to be shaded in to avoid
-  version conflicts. 
+  version conflicts.
 
 ## Process
 
