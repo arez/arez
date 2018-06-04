@@ -10,6 +10,7 @@ import arez.integration.SpyEventRecorder;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
+@SuppressWarnings( "Duplicates" )
 public class ComputedValueIntegrationTest
   extends AbstractIntegrationTest
 {
