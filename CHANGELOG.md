@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.88](https://github.com/arez/arez/tree/v0.88) (2018-06-04)
+[Full Changelog](https://github.com/arez/arez/compare/v0.87...v0.88)
 
 * **\[processor\]** Setters for `@Observable` properties where the parameter is annotated with `@Nonnull` now
   enforce non-nullness by generating an assertion in the setter and the initializer (if present).
