@@ -164,6 +164,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.repository.RepositoryWithExplicitId", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithExplicitNonStandardId", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithImplicitId", false, true, true },
+        new Object[]{ "com.example.repository.RepositoryWithInitializerModel", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithMultipleCtors", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithProtectedConstructor", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithSingleton", false, true, true },

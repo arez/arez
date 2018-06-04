@@ -2999,6 +2999,28 @@ final class ComponentDescriptor
       newCall.append( "$N" );
     }
 
+    final List<ObservableDescriptor> initializers =
+      getObservables()
+        .stream()
+        .filter( ObservableDescriptor::requireInitializer )
+        .collect( Collectors.toList() );
+    for ( final ObservableDescriptor observable : initializers )
+    {
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
+                               observable.getName(),
+                               Modifier.FINAL );
+      ProcessorUtil.copyDocumentedAnnotations( observable.getGetter(), param );
+      builder.addParameter( param.build() );
+      parameters.add( observable.getName() );
+      if ( !firstParam )
+      {
+        newCall.append( "," );
+      }
+      firstParam = false;
+      newCall.append( "$N" );
+    }
+
     newCall.append( ")" );
     builder.addStatement( newCall.toString(), parameters.toArray() );
     builder.addStatement( "registerEntity( entity )" );
