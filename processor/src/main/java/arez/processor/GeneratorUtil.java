@@ -32,6 +32,7 @@ final class GeneratorUtil
   static final ClassName COMPONENT_CLASSNAME = ClassName.get( "arez", "Component" );
   static final ClassName SAFE_FUNCTION_CLASSNAME = ClassName.get( "arez", "SafeFunction" );
   static final ClassName INJECTIBLE_CLASSNAME = ClassName.get( "arez.annotations", "Feature" );
+  static final ClassName ACTION_CLASSNAME = ClassName.get( "arez.annotations", "Action" );
   static final ClassName ABSTRACT_REPOSITORY_CLASSNAME = ClassName.get( "arez.component", "AbstractRepository" );
   static final ClassName IDENTIFIABLE_CLASSNAME = ClassName.get( "arez.component", "Identifiable" );
   static final ClassName MEMOIZE_CACHE_CLASSNAME = ClassName.get( "arez.component", "MemoizeCache" );

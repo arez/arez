@@ -29,4 +29,11 @@ public abstract class RepositoryWithImplicitIdRepository extends AbstractReposit
     registerEntity( entity );
     return entity;
   }
+
+  @Action(
+      reportParameters = false
+  )
+  public void destroy(@Nonnull final RepositoryWithImplicitId entity) {
+    super.destroy( entity );
+  }
 }

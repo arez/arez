@@ -28,4 +28,11 @@ public abstract class RepositoryWithProtectedConstructorRepository extends Abstr
     registerEntity( entity );
     return entity;
   }
+
+  @Action(
+      reportParameters = false
+  )
+  public void destroy(@Nonnull final RepositoryWithProtectedConstructor entity) {
+    super.destroy( entity );
+  }
 }

@@ -28,4 +28,11 @@ public abstract class NestedModel_BasicActionModelRepository extends AbstractRep
     registerEntity( entity );
     return entity;
   }
+
+  @Action(
+      reportParameters = false
+  )
+  public void destroy(@Nonnull final NestedModel.BasicActionModel entity) {
+    super.destroy( entity );
+  }
 }

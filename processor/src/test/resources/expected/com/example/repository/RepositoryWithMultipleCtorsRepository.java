@@ -49,4 +49,11 @@ public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepo
     registerEntity( entity );
     return entity;
   }
+
+  @Action(
+      reportParameters = false
+  )
+  public void destroy(@Nonnull final RepositoryWithMultipleCtors entity) {
+    super.destroy( entity );
+  }
 }

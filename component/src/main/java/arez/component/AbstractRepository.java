@@ -1,7 +1,6 @@
 package arez.component;
 
 import arez.Arez;
-import arez.annotations.Action;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -29,15 +28,6 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   public boolean contains( @Nonnull final T entity )
   {
     return super.contains( entity );
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Action
-  public void destroy( @Nonnull final T entity )
-  {
-    super.destroy( entity );
   }
 
   /**

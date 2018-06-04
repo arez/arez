@@ -18,6 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -2882,6 +2883,7 @@ final class ComponentDescriptor
       builder.addMethod( buildGetByIdMethod() );
     }
 
+    builder.addMethod( buildRepositoryDestroy() );
     return builder.build();
   }
 
@@ -2913,6 +2915,31 @@ final class ComponentDescriptor
   private String getRepositoryName()
   {
     return getNestedClassPrefix() + getElement().getSimpleName() + "Repository";
+  }
+
+  @Nonnull
+  private MethodSpec buildRepositoryDestroy()
+  {
+    final TypeName entityType = TypeName.get( getElement().asType() );
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( "destroy" ).
+      addAnnotation( AnnotationSpec.builder( GeneratorUtil.ACTION_CLASSNAME )
+                       .addMember( "reportParameters", "false" )
+                       .build() ).
+      addParameter( ParameterSpec.builder( entityType, "entity", Modifier.FINAL )
+                      .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
+                      .build() ).
+      addStatement( "super.destroy( entity )" );
+    ProcessorUtil.copyAccessModifiers( getElement(), method );
+    final Set<Modifier> modifiers = getElement().getModifiers();
+    if ( !modifiers.contains( Modifier.PUBLIC ) && !modifiers.contains( Modifier.PROTECTED ) )
+    {
+      /*
+       * The destroy method inherited from AbstractContainer is protected and the override
+       * must be at least the same access level.
+       */
+      method.addModifiers( Modifier.PROTECTED );
+    }
+    return method.build();
   }
 
   @Nonnull

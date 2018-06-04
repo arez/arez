@@ -156,12 +156,12 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
   }
 
   @Override
-  public void destroy(@Nonnull final PackageAccessRepositoryExample arg0) {
+  protected void destroy(@Nonnull final PackageAccessRepositoryExample entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'destroy' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getContainerName() + "'" );
     }
     try {
-      getContext().safeAction(Arez.areNamesEnabled() ? getContainerName() + ".destroy" : null, true, () -> super.destroy(arg0), arg0 );
+      getContext().safeAction(Arez.areNamesEnabled() ? getContainerName() + ".destroy" : null, true, () -> super.destroy(entity) );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

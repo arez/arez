@@ -31,4 +31,11 @@ public abstract class InjectEnabledRepositoryRepository extends AbstractReposito
     registerEntity( entity );
     return entity;
   }
+
+  @Action(
+      reportParameters = false
+  )
+  public void destroy(@Nonnull final InjectEnabledRepository entity) {
+    super.destroy( entity );
+  }
 }

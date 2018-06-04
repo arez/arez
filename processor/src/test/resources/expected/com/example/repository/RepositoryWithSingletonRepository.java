@@ -28,4 +28,11 @@ public abstract class RepositoryWithSingletonRepository extends AbstractReposito
     registerEntity( entity );
     return entity;
   }
+
+  @Action(
+      reportParameters = false
+  )
+  public void destroy(@Nonnull final RepositoryWithSingleton entity) {
+    super.destroy( entity );
+  }
 }

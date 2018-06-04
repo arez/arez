@@ -40,4 +40,11 @@ public abstract class RepositoryWithExplicitNonStandardIdRepository extends Abst
   public final RepositoryWithExplicitNonStandardId getById(final int id) {
     return getByArezId( id );
   }
+
+  @Action(
+      reportParameters = false
+  )
+  public void destroy(@Nonnull final RepositoryWithExplicitNonStandardId entity) {
+    super.destroy( entity );
+  }
 }

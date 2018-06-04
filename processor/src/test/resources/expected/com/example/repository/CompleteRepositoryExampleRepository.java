@@ -40,4 +40,11 @@ public abstract class CompleteRepositoryExampleRepository extends AbstractReposi
   public final CompleteRepositoryExample getById(final int id) {
     return getByArezId( id );
   }
+
+  @Action(
+      reportParameters = false
+  )
+  public void destroy(@Nonnull final CompleteRepositoryExample entity) {
+    super.destroy( entity );
+  }
 }

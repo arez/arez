@@ -40,4 +40,11 @@ abstract class PackageAccessRepositoryExampleRepository extends AbstractReposito
   final PackageAccessRepositoryExample getById(final int id) {
     return getByArezId( id );
   }
+
+  @Action(
+      reportParameters = false
+  )
+  protected void destroy(@Nonnull final PackageAccessRepositoryExample entity) {
+    super.destroy( entity );
+  }
 }

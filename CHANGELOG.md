@@ -7,6 +7,10 @@
   `arez.component.AbstractContainer` class as they were never used, mis-named and would be
   invoked in an inconsistent order based on whether the contained entity was disposed by the
   `AbstractContainer` subclass or outside the container.
+* **\[component\]** Remove the `AbstractRepository.destroy(...)` method and have each repository
+  implementation implement destroy method as required. The result is that the destroy method on
+  the repository will have a `public` access modifier if the entity type has a public modifier,
+  otherwise it will have a `protected` modifier.
 
 ### [v0.88](https://github.com/arez/arez/tree/v0.88) (2018-06-04)
 [Full Changelog](https://github.com/arez/arez/compare/v0.87...v0.88)

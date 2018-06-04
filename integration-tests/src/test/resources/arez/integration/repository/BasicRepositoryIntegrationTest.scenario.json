@@ -240,6 +240,13 @@
         ]
     },
     {
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
@@ -509,6 +516,17 @@
         "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy"
     },
     {
+        "result": null,
+        "errorMessage": null,
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "observer": "ComponentCount",
         "type": "ReactionStarted"
     },
@@ -549,6 +567,13 @@
     {
         "observer": "ComponentCount",
         "type": "ReactionCompleted"
+    },
+    {
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
     },
     {
         "mutation": true,
@@ -818,6 +843,17 @@
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
     },
     {
         "observer": "ComponentCount",

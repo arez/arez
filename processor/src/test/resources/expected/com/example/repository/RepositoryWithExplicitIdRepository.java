@@ -40,4 +40,11 @@ public abstract class RepositoryWithExplicitIdRepository extends AbstractReposit
   public final RepositoryWithExplicitId getById(final int id) {
     return getByArezId( id );
   }
+
+  @Action(
+      reportParameters = false
+  )
+  public void destroy(@Nonnull final RepositoryWithExplicitId entity) {
+    super.destroy( entity );
+  }
 }

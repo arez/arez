@@ -28,4 +28,11 @@ public abstract class RepositoryPreDisposeHookRepository extends AbstractReposit
     registerEntity( entity );
     return entity;
   }
+
+  @Action(
+      reportParameters = false
+  )
+  public void destroy(@Nonnull final RepositoryPreDisposeHook entity) {
+    super.destroy( entity );
+  }
 }

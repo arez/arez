@@ -28,4 +28,11 @@ public abstract class RepositoryWithInitializerModelRepository extends AbstractR
     registerEntity( entity );
     return entity;
   }
+
+  @Action(
+      reportParameters = false
+  )
+  public void destroy(@Nonnull final RepositoryWithInitializerModel entity) {
+    super.destroy( entity );
+  }
 }

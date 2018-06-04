@@ -31,4 +31,11 @@ public abstract class DaggerDisabledRepositoryRepository extends AbstractReposit
     registerEntity( entity );
     return entity;
   }
+
+  @Action(
+      reportParameters = false
+  )
+  public void destroy(@Nonnull final DaggerDisabledRepository entity) {
+    super.destroy( entity );
+  }
 }
