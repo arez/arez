@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.12](https://github.com/arez/arez-spytools/tree/v0.12) (2018-06-04)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.11...v0.12)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.88'
 
