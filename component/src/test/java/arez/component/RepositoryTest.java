@@ -112,19 +112,6 @@ public class RepositoryTest
   }
 
   @Test
-  public void destroyOnDisposed()
-  {
-    final MyEntity entity1 = new MyEntity( 301 );
-    final MyRepository repository = MyRepository.create();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> repository.destroy( entity1 ) );
-
-    assertTrue( exception.getMessage().
-      startsWith( "Called destroy() passing an entity that was not in the container. Entity: " ) );
-  }
-
-  @Test
   public void findAll()
   {
     final ArezContext context = Arez.context();
