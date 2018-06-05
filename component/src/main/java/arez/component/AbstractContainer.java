@@ -36,15 +36,6 @@ public abstract class AbstractContainer<K, T>
   private final HashMap<K, RepositoryEntry<T>> _entities = new HashMap<>();
 
   /**
-   * Return the component associated with the container if native components enabled.
-   *
-   * @return the component associated with the container if native components enabled.
-   */
-  @ComponentRef
-  @Nonnull
-  protected abstract Component component();
-
-  /**
    * Attach specified entity to the set of entities managed by the container.
    * This should not be invoked if the entity is already attached to the repository.
    *
@@ -107,7 +98,9 @@ public abstract class AbstractContainer<K, T>
     }
     else
     {
-      Guards.fail( () -> "Arez-0136: Called destroy() passing an entity that was not attached to the container. Entity: " + entity );
+      Guards.fail( () ->
+                     "Arez-0136: Called destroy() passing an entity that was not attached to the container. Entity: " +
+                     entity );
     }
   }
 
@@ -132,7 +125,8 @@ public abstract class AbstractContainer<K, T>
     }
     else
     {
-      Guards.fail( () -> "Arez-0157: Called detach() passing an entity that was not attached to the container. Entity: " + entity );
+      Guards.fail( () -> "Arez-0157: Called detach() passing an entity that was not attached to the container. Entity: " +
+                         entity );
     }
   }
 
@@ -177,6 +171,15 @@ public abstract class AbstractContainer<K, T>
     }
     return entity;
   }
+
+  /**
+   * Return the component associated with the container if native components enabled.
+   *
+   * @return the component associated with the container if native components enabled.
+   */
+  @ComponentRef
+  @Nonnull
+  protected abstract Component component();
 
   /**
    * Return the context associated with the container.
