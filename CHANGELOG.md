@@ -13,7 +13,7 @@
   otherwise it will have a `protected` modifier.
 * **\[component\]** Remove the `@Action` annotation on `AbstractContainer.destroy(...)` as it is
   always redefined by repositories if destroy is supported.
-* **\[core\]** Fixed invariant failure message that was missing `Arez-XXXX: ` prefix in the
+* **\[component\]** Fixed invariant failure message that was missing `Arez-XXXX: ` prefix in the
   `AbstractContainer.destroy(...)` method.
 
 ### [v0.88](https://github.com/arez/arez/tree/v0.88) (2018-06-04)
