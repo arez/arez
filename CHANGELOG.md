@@ -3,7 +3,7 @@
 ### Unreleased
 
 * **\[processor\]** Ensure that repositories work with components that contain initializers.
-* **\[component\]** Remove the `preEntryDispose()` and `postEntryDispose()` methods from the
+* 💥 **\[component\]** Remove the `preEntryDispose()` and `postEntryDispose()` methods from the
   `arez.component.AbstractContainer` class as they were never used, mis-named and would be
   invoked in an inconsistent order based on whether the contained entity was disposed by the
   `AbstractContainer` subclass or outside the container.
@@ -11,7 +11,7 @@
   implementation implement destroy method as required. The result is that the destroy method on
   the repository will have a `public` access modifier if the entity type has a public modifier,
   otherwise it will have a `protected` modifier.
-* **\[component\]** Remove the `@Action` annotation on `AbstractContainer.destroy(...)` as it is
+* 💥 **\[component\]** Remove the `@Action` annotation on `AbstractContainer.destroy(...)` as it is
   always redefined by repositories if destroy is supported.
 * **\[component\]** Fixed invariant failure message that was missing `Arez-XXXX: ` prefix in the
   `AbstractContainer.destroy(...)` method.
