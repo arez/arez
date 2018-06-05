@@ -2975,7 +2975,7 @@ final class ComponentDescriptor
     if ( !modifiers.contains( Modifier.PUBLIC ) && !modifiers.contains( Modifier.PROTECTED ) )
     {
       /*
-       * The unbind method inherited from AbstractContainer is protected and the override
+       * The detach method inherited from AbstractContainer is protected and the override
        * must be at least the same access level.
        */
       method.addModifiers( Modifier.PROTECTED );
