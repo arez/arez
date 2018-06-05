@@ -41,6 +41,7 @@ public abstract class CompleteRepositoryExampleRepository extends AbstractReposi
     return getByArezId( id );
   }
 
+  @Override
   @Action(
       reportParameters = false
   )

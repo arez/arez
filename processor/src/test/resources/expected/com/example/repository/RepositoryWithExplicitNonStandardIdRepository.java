@@ -41,6 +41,7 @@ public abstract class RepositoryWithExplicitNonStandardIdRepository extends Abst
     return getByArezId( id );
   }
 
+  @Override
   @Action(
       reportParameters = false
   )

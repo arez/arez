@@ -32,6 +32,7 @@ public abstract class InjectEnabledRepositoryRepository extends AbstractReposito
     return entity;
   }
 
+  @Override
   @Action(
       reportParameters = false
   )

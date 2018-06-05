@@ -29,6 +29,7 @@ public abstract class RepositoryPreDisposeHookRepository extends AbstractReposit
     return entity;
   }
 
+  @Override
   @Action(
       reportParameters = false
   )

@@ -41,6 +41,7 @@ public abstract class RepositoryWithExplicitIdRepository extends AbstractReposit
     return getByArezId( id );
   }
 
+  @Override
   @Action(
       reportParameters = false
   )

@@ -2922,6 +2922,7 @@ final class ComponentDescriptor
   {
     final TypeName entityType = TypeName.get( getElement().asType() );
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "destroy" ).
+      addAnnotation( Override.class ).
       addAnnotation( AnnotationSpec.builder( GeneratorUtil.ACTION_CLASSNAME )
                        .addMember( "reportParameters", "false" )
                        .build() ).

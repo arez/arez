@@ -29,6 +29,7 @@ public abstract class RepositoryWithInitializerModelRepository extends AbstractR
     return entity;
   }
 
+  @Override
   @Action(
       reportParameters = false
   )

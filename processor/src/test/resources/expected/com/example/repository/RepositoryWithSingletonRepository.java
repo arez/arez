@@ -29,6 +29,7 @@ public abstract class RepositoryWithSingletonRepository extends AbstractReposito
     return entity;
   }
 
+  @Override
   @Action(
       reportParameters = false
   )

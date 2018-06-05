@@ -41,6 +41,7 @@ abstract class PackageAccessRepositoryExampleRepository extends AbstractReposito
     return getByArezId( id );
   }
 
+  @Override
   @Action(
       reportParameters = false
   )

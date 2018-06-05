@@ -50,6 +50,7 @@ public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepo
     return entity;
   }
 
+  @Override
   @Action(
       reportParameters = false
   )

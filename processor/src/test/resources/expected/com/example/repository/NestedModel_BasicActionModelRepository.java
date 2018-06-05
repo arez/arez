@@ -29,6 +29,7 @@ public abstract class NestedModel_BasicActionModelRepository extends AbstractRep
     return entity;
   }
 
+  @Override
   @Action(
       reportParameters = false
   )

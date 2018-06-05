@@ -29,6 +29,7 @@ public abstract class RepositoryWithProtectedConstructorRepository extends Abstr
     return entity;
   }
 
+  @Override
   @Action(
       reportParameters = false
   )

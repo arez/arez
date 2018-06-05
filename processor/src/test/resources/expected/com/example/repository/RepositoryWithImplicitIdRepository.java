@@ -30,6 +30,7 @@ public abstract class RepositoryWithImplicitIdRepository extends AbstractReposit
     return entity;
   }
 
+  @Override
   @Action(
       reportParameters = false
   )

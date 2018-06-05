@@ -32,6 +32,7 @@ public abstract class DaggerEnabledRepositoryRepository extends AbstractReposito
     return entity;
   }
 
+  @Override
   @Action(
       reportParameters = false
   )
