@@ -4,11 +4,14 @@ import gir.sys.SystemProperty;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import org.realityforge.gwt.symbolmap.SoycSizeMaps;
+import org.realityforge.gwt.symbolmap.SymbolEntryIndex;
 
 public abstract class AbstractDownstreamTest
 {
@@ -52,5 +55,47 @@ public abstract class AbstractDownstreamTest
       .get( SystemProperty.get( "arez.deploy_test.work_dir" ) )
       .toAbsolutePath()
       .normalize();
+  }
+
+  @Nonnull
+  final SoycSizeMaps getSoycSizeMaps( @Nonnull final Path archiveDir, @Nonnull final String build )
+    throws Exception
+  {
+    return SoycSizeMaps.readFromGzFile( getStoriesPath( archiveDir, build ) );
+  }
+
+  @Nonnull
+  private Path getStoriesPath( @Nonnull final Path archiveDir, @Nonnull final String build )
+    throws IOException
+  {
+    return archiveDir
+      .resolve( build )
+      .resolve( "compileReports" )
+      .resolve( "todomvc" )
+      .resolve( "soycReport" )
+      .resolve( "stories0.xml.gz" );
+  }
+
+  @Nonnull
+  final SymbolEntryIndex getSymbolMapIndex( @Nonnull final Path archiveDir, @Nonnull final String build )
+    throws Exception
+  {
+    return SymbolEntryIndex.readSymbolMapIntoIndex( getSymbolMapPath( archiveDir, build ) );
+  }
+
+  @Nonnull
+  private Path getSymbolMapPath( @Nonnull final Path archiveDir, @Nonnull final String build )
+    throws IOException
+  {
+    final Path symbolMapsDir =
+      archiveDir
+        .resolve( build )
+        .resolve( "assets" )
+        .resolve( "WEB-INF" )
+        .resolve( "deploy" )
+        .resolve( "todomvc" )
+        .resolve( "symbolMaps" );
+
+    return Files.list( symbolMapsDir ).findFirst().orElseThrow( AssertionError::new );
   }
 }

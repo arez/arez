@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Properties;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import org.realityforge.gwt.symbolmap.SoycSizeMapsDiff;
+import org.realityforge.gwt.symbolmap.SymbolEntryIndexDiff;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -25,15 +27,17 @@ public class BuildStatsTest
   }
 
   private void compareSizesForBranch( @Nonnull final String branch )
-    throws IOException
+    throws Exception
   {
     final Properties buildStatistics = loadBuildStatistics();
     final Properties fixtureStatistics = loadFixtureStatistics();
 
     final long fixtureSize =
       extractSize( fixtureStatistics, getArezVersion() + "." + branch );
-    final long beforeSize = extractSize( buildStatistics, branch + "." + "before" );
-    final long afterSize = extractSize( buildStatistics, branch + "." + "after" );
+    final String beforeBuild = branch + "." + "before";
+    final String afterBuild = branch + "." + "after";
+    final long beforeSize = extractSize( buildStatistics, beforeBuild );
+    final long afterSize = extractSize( buildStatistics, afterBuild );
 
     if ( 0 != fixtureSize )
     {
@@ -49,11 +53,35 @@ public class BuildStatsTest
     {
       if ( beforeSize != afterSize )
       {
+        reportSymbolDifferences( beforeBuild, afterBuild );
         fail( "Build size changed after upgrading arez in branch '" + branch +
               "' from " + beforeSize + " to " + afterSize + ". If this is " +
               "acceptable then re-run the build passing PRODUCT_VERSION=... " +
               "and STORE_BUILD_STATISTICS=true to update the fixture file." );
       }
+    }
+  }
+
+  private void reportSymbolDifferences( @Nonnull final String beforeBuild, @Nonnull final String afterBuild )
+    throws Exception
+  {
+    final SymbolEntryIndexDiff diff =
+      SymbolEntryIndexDiff.diff( getSymbolMapIndex( getArchiveDir(), beforeBuild ),
+                                 getSymbolMapIndex( getArchiveDir(), afterBuild ) );
+    if ( diff.hasDifferences() )
+    {
+      System.out.println( "Differences detected in symbols compiled between the " +
+                          "two variants " + beforeBuild + " and " + afterBuild );
+      System.out.println( diff.printToString() );
+    }
+    final SoycSizeMapsDiff soycDiff =
+      SoycSizeMapsDiff.diff( getSoycSizeMaps( getArchiveDir(), beforeBuild ),
+                             getSoycSizeMaps( getArchiveDir(), afterBuild ) );
+    if ( soycDiff.hasDifferences() )
+    {
+      System.out.println( "Differences detected in sizes compiled between the " +
+                          "two variants " + beforeBuild + " and " + afterBuild );
+      System.out.println( soycDiff.printToString() );
     }
   }
 
