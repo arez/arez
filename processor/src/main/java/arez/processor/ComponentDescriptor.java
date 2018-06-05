@@ -2870,11 +2870,18 @@ final class ComponentDescriptor
     // Add the factory method
     builder.addMethod( buildFactoryMethod() );
 
-    for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( element ) )
+    if ( shouldRepositoryDefineCreate() )
     {
-      final ExecutableType methodType =
-        (ExecutableType) typeUtils.asMemberOf( (DeclaredType) _element.asType(), constructor );
-      builder.addMethod( buildRepositoryCreate( constructor, methodType, arezType ) );
+      for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( element ) )
+      {
+        final ExecutableType methodType =
+          (ExecutableType) typeUtils.asMemberOf( (DeclaredType) _element.asType(), constructor );
+        builder.addMethod( buildRepositoryCreate( constructor, methodType, arezType ) );
+      }
+    }
+    if ( shouldRepositoryDefineAttach() )
+    {
+      builder.addMethod( buildRepositoryAttach() );
     }
 
     if ( null != _componentId )
@@ -2922,6 +2929,32 @@ final class ComponentDescriptor
   private String getRepositoryName()
   {
     return getNestedClassPrefix() + getElement().getSimpleName() + "Repository";
+  }
+
+  @Nonnull
+  private MethodSpec buildRepositoryAttach()
+  {
+    final TypeName entityType = TypeName.get( getElement().asType() );
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( "attach" ).
+      addAnnotation( Override.class ).
+      addAnnotation( AnnotationSpec.builder( GeneratorUtil.ACTION_CLASSNAME )
+                       .addMember( "reportParameters", "false" )
+                       .build() ).
+      addParameter( ParameterSpec.builder( entityType, "entity", Modifier.FINAL )
+                      .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
+                      .build() ).
+      addStatement( "super.attach( entity )" );
+    ProcessorUtil.copyAccessModifiers( getElement(), method );
+    final Set<Modifier> modifiers = getElement().getModifiers();
+    if ( !modifiers.contains( Modifier.PUBLIC ) && !modifiers.contains( Modifier.PROTECTED ) )
+    {
+      /*
+       * The attach method inherited from AbstractContainer is protected and the override
+       * must be at least the same access level.
+       */
+      method.addModifiers( Modifier.PROTECTED );
+    }
+    return method.build();
   }
 
   @Nonnull
@@ -3159,6 +3192,40 @@ final class ComponentDescriptor
     {
       throw new ArezProcessorException( "@ArezComponent unable to determine correct @Generated annotation",
                                         getElement() );
+    }
+  }
+
+  private boolean shouldRepositoryDefineCreate()
+  {
+    final VariableElement injectParameter = (VariableElement)
+      ProcessorUtil.getAnnotationValue( _elements,
+                                        getElement(),
+                                        Constants.REPOSITORY_ANNOTATION_CLASSNAME,
+                                        "attach" ).getValue();
+    switch ( injectParameter.getSimpleName().toString() )
+    {
+      case "CREATE_ONLY":
+      case "CREATE_OR_ATTACH":
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  private boolean shouldRepositoryDefineAttach()
+  {
+    final VariableElement injectParameter = (VariableElement)
+      ProcessorUtil.getAnnotationValue( _elements,
+                                        getElement(),
+                                        Constants.REPOSITORY_ANNOTATION_CLASSNAME,
+                                        "attach" ).getValue();
+    switch ( injectParameter.getSimpleName().toString() )
+    {
+      case "ATTACH_ONLY":
+      case "CREATE_OR_ATTACH":
+        return true;
+      default:
+        return false;
     }
   }
 

@@ -26,6 +26,10 @@
   use method references and integrate into java streaming API.
 * 💥 **\[component\]** Rename `AbstractContainer.registerEntity(...)` method to `AbstractContainer.attach(...)`
   to more accurately reflect intent.
+* **\[annotations\]** Add an `attach` parameter to the `@Repository` annotation that defines the
+  strategies for attaching an entity to a repository. The strategies include a `create(...)`
+  method that creates entity and attaches entity to the repository and/or an `attach(...)` method
+  that manually attaches the entity created outside repository.
 
 ### [v0.88](https://github.com/arez/arez/tree/v0.88) (2018-06-04)
 [Full Changelog](https://github.com/arez/arez/compare/v0.87...v0.88)

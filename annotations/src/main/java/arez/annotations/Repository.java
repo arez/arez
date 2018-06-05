@@ -91,11 +91,38 @@ public @interface Repository
   Feature inject() default Feature.AUTODETECT;
 
   /**
+   * Indicate the strategy for attaching entities to the repository.
+   *
+   * @return the strategy for attaching entities to the repository.
+   */
+  AttachType attach() default AttachType.CREATE_ONLY;
+
+  /**
    * Indicate the strategy for detaching entities from the repository.
    *
    * @return the strategy for detaching entities from the repository.
    */
   DetachType detach() default DetachType.DESTROY_ONLY;
+
+  /**
+   * Enum to control how entities can be attached to the repository.
+   */
+  enum AttachType
+  {
+    /**
+     * Entities are created by create methods on the repository.
+     * The create methods accept the same parameters as the constructors on the entities.
+     */
+    CREATE_ONLY,
+    /**
+     * Entities are created outside repository but can be manually attached to the repository.
+     */
+    ATTACH_ONLY,
+    /**
+     * Entities can be created or manually attached as required.
+     */
+    CREATE_OR_ATTACH
+  }
 
   /**
    * Enum to control how entities can be detached from the repository.
