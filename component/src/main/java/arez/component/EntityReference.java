@@ -7,11 +7,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Entity to contain reference to entity and a monitor.
+ * Element that contains a reference to an entity and a monitor.
  * The monitor is Disposable representing a "when" observer that triggers removal of
- * entity from repository
+ * entity from a container
  */
-final class RepositoryEntry<E>
+final class EntityReference<E>
   implements Disposable
 {
   /**
@@ -20,7 +20,7 @@ final class RepositoryEntry<E>
   @Nonnull
   private final E _entity;
   /**
-   * The monitor observer that will remove entity from repository if it is independent disposed.
+   * The monitor observer that will remove entity from the container when the entity is disposed.
    */
   @Nullable
   private Observer _monitor;
@@ -28,9 +28,9 @@ final class RepositoryEntry<E>
   /**
    * Create entry for entity.
    *
-   * @param entity the entity placed into repository.
+   * @param entity the entity placed into the container.
    */
-  RepositoryEntry( @Nonnull final E entity )
+  EntityReference( @Nonnull final E entity )
   {
     _entity = Objects.requireNonNull( entity );
   }
@@ -47,9 +47,9 @@ final class RepositoryEntry<E>
   }
 
   /**
-   * Set the monitor that will remove entity from repository when entity is disposed.
+   * Set the monitor that will remove entity from the container when entity is disposed.
    *
-   * @param monitor the monitor that will remove entity from repository when entity is disposed.
+   * @param monitor the monitor that will remove entity from the container when entity is disposed.
    */
   void setMonitor( @Nonnull final Observer monitor )
   {

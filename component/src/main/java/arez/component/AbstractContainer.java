@@ -33,7 +33,7 @@ public abstract class AbstractContainer<K, T>
   /**
    * A map of all the entities ArezId to entity.
    */
-  private final HashMap<K, RepositoryEntry<T>> _entities = new HashMap<>();
+  private final HashMap<K, EntityReference<T>> _entities = new HashMap<>();
 
   /**
    * Attach specified entity to the set of entities managed by the container.
@@ -44,7 +44,7 @@ public abstract class AbstractContainer<K, T>
   protected void attach( @Nonnull final T entity )
   {
     getEntitiesObservable().preReportChanged();
-    final RepositoryEntry<T> entry = new RepositoryEntry<>( entity );
+    final EntityReference<T> entry = new EntityReference<>( entity );
     final K arezId = Identifiable.getArezId( entity );
     _entities.put( arezId, entry );
     final Observer monitor =
@@ -89,7 +89,7 @@ public abstract class AbstractContainer<K, T>
    */
   protected void destroy( @Nonnull final T entity )
   {
-    final RepositoryEntry<T> entry = _entities.remove( Identifiable.<K>getArezId( entity ) );
+    final EntityReference<T> entry = _entities.remove( Identifiable.<K>getArezId( entity ) );
     if ( null != entry )
     {
       getEntitiesObservable().preReportChanged();
@@ -112,7 +112,7 @@ public abstract class AbstractContainer<K, T>
    */
   protected void detach( @Nonnull final T entity )
   {
-    final RepositoryEntry<T> entry = _entities.remove( Identifiable.<K>getArezId( entity ) );
+    final EntityReference<T> entry = _entities.remove( Identifiable.<K>getArezId( entity ) );
     if ( null != entry )
     {
       getEntitiesObservable().preReportChanged();
@@ -139,7 +139,7 @@ public abstract class AbstractContainer<K, T>
   @Nullable
   protected T findByArezId( @Nonnull final K arezId )
   {
-    final RepositoryEntry<T> entry = _entities.get( arezId );
+    final EntityReference<T> entry = _entities.get( arezId );
     if ( null != entry && Disposable.isNotDisposed( entry ) )
     {
       final T entity = entry.getEntity();
@@ -219,11 +219,11 @@ public abstract class AbstractContainer<K, T>
   @Nonnull
   public Stream<T> entities()
   {
-    return _entities.values().stream().filter( Disposable::isNotDisposed ).map( RepositoryEntry::getEntity );
+    return _entities.values().stream().filter( Disposable::isNotDisposed ).map( EntityReference::getEntity );
   }
 
   @TestOnly
-  final HashMap<K, RepositoryEntry<T>> getEntities()
+  final HashMap<K, EntityReference<T>> getEntities()
   {
     return _entities;
   }
