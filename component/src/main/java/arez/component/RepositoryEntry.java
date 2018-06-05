@@ -59,7 +59,6 @@ final class RepositoryEntry<E>
   /**
    * {@inheritDoc}
    */
-
   @Override
   public void dispose()
   {
