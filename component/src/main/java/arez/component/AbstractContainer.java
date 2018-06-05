@@ -62,7 +62,7 @@ public abstract class AbstractContainer<K, T>
                          Arez.areNamesEnabled() ? getContainerName() + ".EntityWatcher." + arezId : null,
                          true,
                          () -> !ComponentObservable.observe( entity ),
-                         () -> destroy( entity ),
+                         () -> detach( entity ),
                          true,
                          true );
     entry.setMonitor( monitor );
@@ -92,9 +92,8 @@ public abstract class AbstractContainer<K, T>
   }
 
   /**
-   * Remove the supplied entity from the container and dispose the entity.
-   * The entity must have been associated with this container either via {@link #registerEntity(Object)}
-   * and must not have been removed from container.
+   * Detach the entity from the container and dispose the entity.
+   * The entity must be attached to the container.
    *
    * @param entity the entity to destroy.
    */
@@ -109,18 +108,17 @@ public abstract class AbstractContainer<K, T>
     }
     else
     {
-      Guards.fail( () -> "Arez-0136: Called destroy() passing an entity that was not in the container. Entity: " + entity );
+      Guards.fail( () -> "Arez-0136: Called destroy() passing an entity that was not attached to the container. Entity: " + entity );
     }
   }
 
   /**
-   * Remove entity from container without disposing entity.
-   * The entity must have been associated with this container either via {@link #registerEntity(Object)}
-   * and must not have been removed from container.
+   * Detach entity from container without disposing entity.
+   * The entity must be attached to the container.
    *
-   * @param entity the entity to unbind.
+   * @param entity the entity to detach.
    */
-  protected void unbind( @Nonnull final T entity )
+  protected void detach( @Nonnull final T entity )
   {
     final RepositoryEntry<T> entry = _entities.remove( Identifiable.<K>getArezId( entity ) );
     if ( null != entry )
@@ -135,7 +133,7 @@ public abstract class AbstractContainer<K, T>
     }
     else
     {
-      Guards.fail( () -> "Arez-0157: Called unbind() passing an entity that was not in the container. Entity: " + entity );
+      Guards.fail( () -> "Arez-0157: Called detach() passing an entity that was not attached to the container. Entity: " + entity );
     }
   }
 

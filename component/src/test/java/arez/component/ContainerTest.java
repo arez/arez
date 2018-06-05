@@ -124,7 +124,7 @@ public class ContainerTest
   }
 
   @Test
-  public void unbindRemovesEntityFromContainerWithoutDisposing()
+  public void detachRemovesEntityFromContainerWithoutDisposing()
   {
     final ArezContext context = Arez.context();
 
@@ -149,7 +149,7 @@ public class ContainerTest
 
     assertEquals( callCount.get(), 2 );
 
-    context.safeAction( () -> repository.unbind( entity1 ) );
+    context.safeAction( () -> repository.detach( entity1 ) );
 
     assertFalse( context.safeAction( () -> repository.contains( entity1 ) ) );
 
@@ -192,20 +192,22 @@ public class ContainerTest
       expectThrows( IllegalStateException.class, () -> repository.destroy( entity1 ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0136: Called destroy() passing an entity that was not in the container. Entity: " + entity1 );
+                  "Arez-0136: Called destroy() passing an entity that was not attached to the container. Entity: " +
+                  entity1 );
   }
 
   @Test
-  public void unbindWhenNotPresent()
+  public void detachWhenNotPresent()
   {
     final MyEntity entity1 = new MyEntity( 301 );
     final MyContainer repository = MyContainer.create();
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> repository.unbind( entity1 ) );
+      expectThrows( IllegalStateException.class, () -> repository.detach( entity1 ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0157: Called unbind() passing an entity that was not in the container. Entity: " + entity1 );
+                  "Arez-0157: Called detach() passing an entity that was not attached to the container. Entity: " +
+                  entity1 );
   }
 
   @Test

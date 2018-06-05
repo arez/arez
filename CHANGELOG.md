@@ -15,7 +15,7 @@
   always redefined by repositories if destroy is supported.
 * **\[component\]** Fixed invariant failure message that was missing `Arez-XXXX: ` prefix in the
   `AbstractContainer.destroy(...)` method.
-* **\[component\]** Add `AbstractContainer.unbind(...)` method to support removing an entity from
+* **\[component\]** Add `AbstractContainer.detach(...)` method to support removing an entity from
   a repository without disposing the entity.
 
 ### [v0.88](https://github.com/arez/arez/tree/v0.88) (2018-06-04)
