@@ -22,6 +22,8 @@
   method that disposes entity and detaches entity from the repository, (2) a `detach(...)` method that
   detaches entity, and (3) monitoring the entity and only detaching the entity from the repository if
   the entity is disposed.
+* **\[component\]** Introduce `ComponentObservable.notObserved(...)` helper method to make it easy to
+  use method references and integrate into java streaming API.
 
 ### [v0.88](https://github.com/arez/arez/tree/v0.88) (2018-06-04)
 [Full Changelog](https://github.com/arez/arez/compare/v0.87...v0.88)

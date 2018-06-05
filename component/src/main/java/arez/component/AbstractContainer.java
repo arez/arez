@@ -61,7 +61,7 @@ public abstract class AbstractContainer<K, T>
       getContext().when( Arez.areNativeComponentsEnabled() ? component() : null,
                          Arez.areNamesEnabled() ? getContainerName() + ".EntityWatcher." + arezId : null,
                          true,
-                         () -> !ComponentObservable.observe( entity ),
+                         () -> ComponentObservable.notObserved( entity ),
                          () -> detach( entity ),
                          true,
                          true );

@@ -35,6 +35,17 @@ public interface ComponentObservable
   }
 
   /**
+   * Return true if {@link #observe(Object)} returns false for the same parameter.
+   *
+   * @param object the object to observe if any.
+   * @return true if {@link #observe(Object)} returns false for the same parameter, false otherwise.
+   */
+  static boolean notObserved( @Nullable final Object object )
+  {
+    return !observe( object );
+  }
+
+  /**
    * Cast specified object to an instance of ComponentObservable.
    * Invariant checks will verify that the cast is valid before proceeding.
    *

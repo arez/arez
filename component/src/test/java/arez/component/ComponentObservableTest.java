@@ -33,6 +33,15 @@ public class ComponentObservableTest
   }
 
   @Test
+  public void notObserved()
+  {
+    assertEquals( ComponentObservable.notObserved( new TestElement( true ) ), false );
+    assertEquals( ComponentObservable.notObserved( new TestElement( false ) ), true );
+    assertEquals( ComponentObservable.notObserved( new Object() ), false );
+    assertEquals( ComponentObservable.notObserved( null ), false );
+  }
+
+  @Test
   public void asComponentObservable()
   {
     final TestElement element = new TestElement( true );
