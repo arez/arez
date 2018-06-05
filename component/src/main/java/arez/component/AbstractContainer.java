@@ -92,9 +92,9 @@ public abstract class AbstractContainer<K, T>
   }
 
   /**
-   * Destroy the supplied entity.
-   * The entity must have been created in this container and must not have already been destroyed.
-   * The entity will be removed from the map and will be disposed.
+   * Remove the supplied entity from the container and dispose the entity.
+   * The entity must have been associated with this container either via {@link #registerEntity(Object)}
+   * and must not have been removed from container.
    *
    * @param entity the entity to destroy.
    */
