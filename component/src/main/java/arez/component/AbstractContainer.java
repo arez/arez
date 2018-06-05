@@ -6,7 +6,6 @@ import arez.Component;
 import arez.Disposable;
 import arez.Observable;
 import arez.Observer;
-import arez.annotations.Action;
 import arez.annotations.ComponentNameRef;
 import arez.annotations.ComponentRef;
 import arez.annotations.ContextRef;
@@ -99,7 +98,6 @@ public abstract class AbstractContainer<K, T>
    *
    * @param entity the entity to destroy.
    */
-  @Action
   protected void destroy( @Nonnull final T entity )
   {
     final RepositoryEntry<T> entry = _entities.remove( Identifiable.<K>getArezId( entity ) );

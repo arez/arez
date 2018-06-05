@@ -11,6 +11,8 @@
   implementation implement destroy method as required. The result is that the destroy method on
   the repository will have a `public` access modifier if the entity type has a public modifier,
   otherwise it will have a `protected` modifier.
+* **\[component\]** Remove the `@Action` annotation on `AbstractContainer.destroy(...)` as it is
+  always redefined by repositories if destroy is supported.
 
 ### [v0.88](https://github.com/arez/arez/tree/v0.88) (2018-06-04)
 [Full Changelog](https://github.com/arez/arez/compare/v0.87...v0.88)
