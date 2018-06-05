@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -123,6 +124,41 @@ public class ContainerTest
   }
 
   @Test
+  public void unbindRemovesEntityFromContainerWithoutDisposing()
+  {
+    final ArezContext context = Arez.context();
+
+    final MyEntity entity1 = new MyEntity( 301 );
+    final MyContainer repository = MyContainer.create();
+
+    final AtomicInteger callCount = new AtomicInteger();
+    Arez.context().autorun( () -> {
+      repository.getEntitiesObservable().reportObserved();
+      callCount.incrementAndGet();
+    } );
+
+    assertEquals( callCount.get(), 1 );
+
+    context.safeAction( () -> repository.registerEntity( entity1 ) );
+
+    assertEquals( callCount.get(), 2 );
+
+    assertTrue( context.safeAction( () -> repository.contains( entity1 ) ) );
+
+    assertFalse( Disposable.isDisposed( entity1 ) );
+
+    assertEquals( callCount.get(), 2 );
+
+    context.safeAction( () -> repository.unbind( entity1 ) );
+
+    assertFalse( context.safeAction( () -> repository.contains( entity1 ) ) );
+
+    assertFalse( Disposable.isDisposed( entity1 ) );
+
+    assertEquals( callCount.get(), 3 );
+  }
+
+  @Test
   public void preDispose()
   {
     final ArezContext context = Arez.context();
@@ -157,6 +193,19 @@ public class ContainerTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0136: Called destroy() passing an entity that was not in the container. Entity: " + entity1 );
+  }
+
+  @Test
+  public void unbindWhenNotPresent()
+  {
+    final MyEntity entity1 = new MyEntity( 301 );
+    final MyContainer repository = MyContainer.create();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> repository.unbind( entity1 ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0157: Called unbind() passing an entity that was not in the container. Entity: " + entity1 );
   }
 
   @Test

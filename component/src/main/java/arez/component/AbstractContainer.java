@@ -114,6 +114,32 @@ public abstract class AbstractContainer<K, T>
   }
 
   /**
+   * Remove entity from container without disposing entity.
+   * The entity must have been associated with this container either via {@link #registerEntity(Object)}
+   * and must not have been removed from container.
+   *
+   * @param entity the entity to unbind.
+   */
+  protected void unbind( @Nonnull final T entity )
+  {
+    final RepositoryEntry<T> entry = _entities.remove( Identifiable.<K>getArezId( entity ) );
+    if ( null != entry )
+    {
+      getEntitiesObservable().preReportChanged();
+      final Observer monitor = entry.getMonitor();
+      if ( null != monitor )
+      {
+        Disposable.dispose( monitor );
+      }
+      getEntitiesObservable().reportChanged();
+    }
+    else
+    {
+      Guards.fail( () -> "Arez-0157: Called unbind() passing an entity that was not in the container. Entity: " + entity );
+    }
+  }
+
+  /**
    * Return the entity with the specified ArezId or null if no such entity.
    *
    * @param arezId the id of entity.

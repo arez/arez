@@ -57,6 +57,17 @@ final class RepositoryEntry<E>
   }
 
   /**
+   * Return the monitor associated with the entry.
+   *
+   * @return the monitor associated with the entry.
+   */
+  @Nullable
+  Observer getMonitor()
+  {
+    return _monitor;
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override
