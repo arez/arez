@@ -2883,7 +2883,14 @@ final class ComponentDescriptor
       builder.addMethod( buildGetByIdMethod() );
     }
 
-    builder.addMethod( buildRepositoryDestroy() );
+    if ( shouldRepositoryDefineDestroy() )
+    {
+      builder.addMethod( buildRepositoryDestroy() );
+    }
+    if ( shouldRepositoryDefineDetach() )
+    {
+      builder.addMethod( buildRepositoryDetach() );
+    }
     return builder.build();
   }
 
@@ -2915,6 +2922,32 @@ final class ComponentDescriptor
   private String getRepositoryName()
   {
     return getNestedClassPrefix() + getElement().getSimpleName() + "Repository";
+  }
+
+  @Nonnull
+  private MethodSpec buildRepositoryDetach()
+  {
+    final TypeName entityType = TypeName.get( getElement().asType() );
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( "detach" ).
+      addAnnotation( Override.class ).
+      addAnnotation( AnnotationSpec.builder( GeneratorUtil.ACTION_CLASSNAME )
+                       .addMember( "reportParameters", "false" )
+                       .build() ).
+      addParameter( ParameterSpec.builder( entityType, "entity", Modifier.FINAL )
+                      .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
+                      .build() ).
+      addStatement( "super.detach( entity )" );
+    ProcessorUtil.copyAccessModifiers( getElement(), method );
+    final Set<Modifier> modifiers = getElement().getModifiers();
+    if ( !modifiers.contains( Modifier.PUBLIC ) && !modifiers.contains( Modifier.PROTECTED ) )
+    {
+      /*
+       * The unbind method inherited from AbstractContainer is protected and the override
+       * must be at least the same access level.
+       */
+      method.addModifiers( Modifier.PROTECTED );
+    }
+    return method.build();
   }
 
   @Nonnull
@@ -3126,6 +3159,40 @@ final class ComponentDescriptor
     {
       throw new ArezProcessorException( "@ArezComponent unable to determine correct @Generated annotation",
                                         getElement() );
+    }
+  }
+
+  private boolean shouldRepositoryDefineDestroy()
+  {
+    final VariableElement injectParameter = (VariableElement)
+      ProcessorUtil.getAnnotationValue( _elements,
+                                        getElement(),
+                                        Constants.REPOSITORY_ANNOTATION_CLASSNAME,
+                                        "detach" ).getValue();
+    switch ( injectParameter.getSimpleName().toString() )
+    {
+      case "DESTROY_ONLY":
+      case "DESTROY_OR_DETACH":
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  private boolean shouldRepositoryDefineDetach()
+  {
+    final VariableElement injectParameter = (VariableElement)
+      ProcessorUtil.getAnnotationValue( _elements,
+                                        getElement(),
+                                        Constants.REPOSITORY_ANNOTATION_CLASSNAME,
+                                        "detach" ).getValue();
+    switch ( injectParameter.getSimpleName().toString() )
+    {
+      case "DETACH_ONLY":
+      case "DESTROY_OR_DETACH":
+        return true;
+      default:
+        return false;
     }
   }
 }

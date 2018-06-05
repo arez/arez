@@ -89,4 +89,34 @@ public @interface Repository
    * @return enum controlling present of Inject annotation on constructor of repository.
    */
   Feature inject() default Feature.AUTODETECT;
+
+  /**
+   * Indicate the strategy for detaching entities from the repository.
+   *
+   * @return the strategy for detaching entities from the repository.
+   */
+  DetachType detach() default DetachType.DESTROY_ONLY;
+
+  /**
+   * Enum to control how entities can be detached from the repository.
+   */
+  enum DetachType
+  {
+    /**
+     * Entities are disposed by detach methods on repository.
+     */
+    DESTROY_ONLY,
+    /**
+     * Entities can be detached from the repository manually and the lifecycle of the entity managed externally.
+     */
+    DETACH_ONLY,
+    /**
+     * Entities can be destroyed or manually detached as required.
+     */
+    DESTROY_OR_DETACH,
+    /**
+     * Entities can only be detached from the repository by directly disposing entity.
+     */
+    NONE
+  }
 }

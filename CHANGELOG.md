@@ -17,6 +17,11 @@
   `AbstractContainer.destroy(...)` method.
 * **\[component\]** Add `AbstractContainer.detach(...)` method to support removing an entity from
   a repository without disposing the entity.
+* **\[annotations\]** Add a `detach` parameter to the `@Repository` annotation that defines the
+  strategies for detaching an entity from a repository. The strategies include; (1) a `destroy(...)`
+  method that disposes entity and detaches entity from the repository, (2) a `detach(...)` method that
+  detaches entity, and (3) monitoring the entity and only detaching the entity from the repository if
+  the entity is disposed.
 
 ### [v0.88](https://github.com/arez/arez/tree/v0.88) (2018-06-04)
 [Full Changelog](https://github.com/arez/arez/compare/v0.87...v0.88)
