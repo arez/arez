@@ -25,7 +25,7 @@ public abstract class RepositoryPreDisposeHookRepository extends AbstractReposit
   @Nonnull
   public RepositoryPreDisposeHook create(@Nonnull final String name) {
     final Arez_RepositoryPreDisposeHook entity = new Arez_RepositoryPreDisposeHook(name);
-    registerEntity( entity );
+    attach( entity );
     return entity;
   }
 

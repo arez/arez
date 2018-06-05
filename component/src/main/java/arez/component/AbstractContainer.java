@@ -45,13 +45,12 @@ public abstract class AbstractContainer<K, T>
   protected abstract Component component();
 
   /**
-   * Register specified entity in list of entities managed by the container.
-   * The expectation that this is invoked after the entity has been created but before it is returned
-   * to the container user.
+   * Attach specified entity to the set of entities managed by the container.
+   * This should not be invoked if the entity is already attached to the repository.
    *
    * @param entity the entity to register.
    */
-  protected final void registerEntity( @Nonnull final T entity )
+  protected void attach( @Nonnull final T entity )
   {
     getEntitiesObservable().preReportChanged();
     final RepositoryEntry<T> entry = new RepositoryEntry<>( entity );

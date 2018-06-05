@@ -25,7 +25,7 @@ public abstract class NestedModel_BasicActionModelRepository extends AbstractRep
   @Nonnull
   public NestedModel.BasicActionModel create() {
     final NestedModel_Arez_BasicActionModel entity = new NestedModel_Arez_BasicActionModel();
-    registerEntity( entity );
+    attach( entity );
     return entity;
   }
 

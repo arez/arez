@@ -25,7 +25,7 @@ public abstract class RepositoryWithDestroyAndDetachRepository extends AbstractR
   @Nonnull
   public RepositoryWithDestroyAndDetach create(@Nonnull final String name) {
     final Arez_RepositoryWithDestroyAndDetach entity = new Arez_RepositoryWithDestroyAndDetach(name);
-    registerEntity( entity );
+    attach( entity );
     return entity;
   }
 

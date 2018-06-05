@@ -25,7 +25,7 @@ public abstract class RepositoryWithDetachOnlyRepository extends AbstractReposit
   @Nonnull
   public RepositoryWithDetachOnly create(@Nonnull final String name) {
     final Arez_RepositoryWithDetachOnly entity = new Arez_RepositoryWithDetachOnly(name);
-    registerEntity( entity );
+    attach( entity );
     return entity;
   }
 

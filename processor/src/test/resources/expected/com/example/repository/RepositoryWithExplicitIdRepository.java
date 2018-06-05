@@ -27,7 +27,7 @@ public abstract class RepositoryWithExplicitIdRepository extends AbstractReposit
   public RepositoryWithExplicitId create(@Nonnull final String packageName,
       @Nonnull final String name) {
     final Arez_RepositoryWithExplicitId entity = new Arez_RepositoryWithExplicitId(packageName,name);
-    registerEntity( entity );
+    attach( entity );
     return entity;
   }
 

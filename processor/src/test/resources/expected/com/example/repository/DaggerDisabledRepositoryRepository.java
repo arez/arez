@@ -28,7 +28,7 @@ public abstract class DaggerDisabledRepositoryRepository extends AbstractReposit
   @Nonnull
   public DaggerDisabledRepository create(@Nonnull final String name) {
     final Arez_DaggerDisabledRepository entity = new Arez_DaggerDisabledRepository(name);
-    registerEntity( entity );
+    attach( entity );
     return entity;
   }
 

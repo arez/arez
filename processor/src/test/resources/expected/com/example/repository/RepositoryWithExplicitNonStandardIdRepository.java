@@ -27,7 +27,7 @@ public abstract class RepositoryWithExplicitNonStandardIdRepository extends Abst
   public RepositoryWithExplicitNonStandardId create(@Nonnull final String packageName,
       @Nonnull final String name) {
     final Arez_RepositoryWithExplicitNonStandardId entity = new Arez_RepositoryWithExplicitNonStandardId(packageName,name);
-    registerEntity( entity );
+    attach( entity );
     return entity;
   }
 

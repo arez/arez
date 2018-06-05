@@ -27,7 +27,7 @@ public abstract class InjectDisabledRepositoryRepository extends AbstractReposit
   @Nonnull
   public InjectDisabledRepository create(@Nonnull final String name) {
     final Arez_InjectDisabledRepository entity = new Arez_InjectDisabledRepository(name);
-    registerEntity( entity );
+    attach( entity );
     return entity;
   }
 

@@ -31,15 +31,15 @@ public class ContainerTest
     assertFalse( context.safeAction( () -> repository.contains( entity4 ) ) );
     assertFalse( context.safeAction( () -> repository.contains( entity5 ) ) );
 
-    context.safeAction( () -> repository.registerEntity( entity1 ) );
+    context.safeAction( () -> repository.attach( entity1 ) );
 
     assertTrue( context.safeAction( () -> repository.contains( entity1 ) ) );
     assertFalse( context.safeAction( () -> repository.contains( entity2 ) ) );
 
-    context.safeAction( () -> repository.registerEntity( entity2 ) );
-    context.safeAction( () -> repository.registerEntity( entity3 ) );
-    context.safeAction( () -> repository.registerEntity( entity4 ) );
-    context.safeAction( () -> repository.registerEntity( entity5 ) );
+    context.safeAction( () -> repository.attach( entity2 ) );
+    context.safeAction( () -> repository.attach( entity3 ) );
+    context.safeAction( () -> repository.attach( entity4 ) );
+    context.safeAction( () -> repository.attach( entity5 ) );
 
     assertTrue( context.safeAction( () -> repository.contains( entity1 ) ) );
     assertTrue( context.safeAction( () -> repository.contains( entity2 ) ) );
@@ -97,12 +97,12 @@ public class ContainerTest
     assertFalse( context.safeAction( () -> repository.contains( entity1 ) ) );
     assertFalse( context.safeAction( () -> repository.contains( entity2 ) ) );
 
-    context.safeAction( () -> repository.registerEntity( entity1 ) );
+    context.safeAction( () -> repository.attach( entity1 ) );
 
     assertTrue( context.safeAction( () -> repository.contains( entity1 ) ) );
     assertFalse( context.safeAction( () -> repository.contains( entity2 ) ) );
 
-    context.safeAction( () -> repository.registerEntity( entity2 ) );
+    context.safeAction( () -> repository.attach( entity2 ) );
 
     assertTrue( context.safeAction( () -> repository.contains( entity1 ) ) );
     assertTrue( context.safeAction( () -> repository.contains( entity2 ) ) );
@@ -139,7 +139,7 @@ public class ContainerTest
 
     assertEquals( callCount.get(), 1 );
 
-    context.safeAction( () -> repository.registerEntity( entity1 ) );
+    context.safeAction( () -> repository.attach( entity1 ) );
 
     assertEquals( callCount.get(), 2 );
 
@@ -167,8 +167,8 @@ public class ContainerTest
     final MyEntity entity2 = new MyEntity( 302 );
     final MyContainer repository = MyContainer.create();
 
-    context.safeAction( () -> repository.registerEntity( entity1 ) );
-    context.safeAction( () -> repository.registerEntity( entity2 ) );
+    context.safeAction( () -> repository.attach( entity1 ) );
+    context.safeAction( () -> repository.attach( entity2 ) );
 
     assertTrue( context.safeAction( () -> repository.contains( entity1 ) ) );
     assertTrue( context.safeAction( () -> repository.contains( entity2 ) ) );
@@ -216,8 +216,8 @@ public class ContainerTest
     final ArezContext context = Arez.context();
 
     final MyContainer repository = MyContainer.create();
-    context.safeAction( () -> repository.registerEntity( new MyEntity( 302 ) ) );
-    context.safeAction( () -> repository.registerEntity( new MyEntity( 303 ) ) );
+    context.safeAction( () -> repository.attach( new MyEntity( 302 ) ) );
+    context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
 
     final MyEntity entity = context.safeAction( () -> repository.findByArezId( 302 ) );
     assertNotNull( entity );
@@ -236,8 +236,8 @@ public class ContainerTest
     final ArezContext context = Arez.context();
 
     final MyContainer repository = MyContainer.create();
-    context.safeAction( () -> repository.registerEntity( new MyEntity( 302 ) ) );
-    context.safeAction( () -> repository.registerEntity( new MyEntity( 303 ) ) );
+    context.safeAction( () -> repository.attach( new MyEntity( 302 ) ) );
+    context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
 
     final MyEntity entity = context.safeAction( () -> repository.getByArezId( 302 ) );
     assertNotNull( entity );
@@ -258,8 +258,8 @@ public class ContainerTest
     final ArezContext context = Arez.context();
 
     final MyContainer repository = MyContainer.create();
-    context.safeAction( () -> repository.registerEntity( new MyEntity( 302 ) ) );
-    context.safeAction( () -> repository.registerEntity( new MyEntity( 303 ) ) );
+    context.safeAction( () -> repository.attach( new MyEntity( 302 ) ) );
+    context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
 
     final int[] ids = context.safeAction( () -> repository.entities().mapToInt( e -> e.getArezId() ).toArray() );
     assertEquals( ids.length, 2 );
@@ -275,8 +275,8 @@ public class ContainerTest
     final MyContainer repository = MyContainer.create();
     final MyEntity entity = new MyEntity( 302 );
     Disposable.dispose( entity );
-    context.safeAction( () -> repository.registerEntity( entity ) );
-    context.safeAction( () -> repository.registerEntity( new MyEntity( 303 ) ) );
+    context.safeAction( () -> repository.attach( entity ) );
+    context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
 
     final int[] ids = context.safeAction( () -> repository.entities().mapToInt( e -> e.getArezId() ).toArray() );
     assertEquals( ids.length, 1 );

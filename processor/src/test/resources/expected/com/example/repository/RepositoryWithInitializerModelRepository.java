@@ -25,7 +25,7 @@ public abstract class RepositoryWithInitializerModelRepository extends AbstractR
   @Nonnull
   public RepositoryWithInitializerModel create(final long time) {
     final Arez_RepositoryWithInitializerModel entity = new Arez_RepositoryWithInitializerModel(time);
-    registerEntity( entity );
+    attach( entity );
     return entity;
   }
 

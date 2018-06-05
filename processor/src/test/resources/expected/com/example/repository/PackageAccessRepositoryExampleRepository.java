@@ -27,7 +27,7 @@ abstract class PackageAccessRepositoryExampleRepository extends AbstractReposito
   PackageAccessRepositoryExample create(@Nonnull final String packageName,
       @Nonnull final String name) {
     final Arez_PackageAccessRepositoryExample entity = new Arez_PackageAccessRepositoryExample(packageName,name);
-    registerEntity( entity );
+    attach( entity );
     return entity;
   }
 

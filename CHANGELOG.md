@@ -24,6 +24,8 @@
   the entity is disposed.
 * **\[component\]** Introduce `ComponentObservable.notObserved(...)` helper method to make it easy to
   use method references and integrate into java streaming API.
+* 💥 **\[component\]** Rename `AbstractContainer.registerEntity(...)` method to `AbstractContainer.attach(...)`
+  to more accurately reflect intent.
 
 ### [v0.88](https://github.com/arez/arez/tree/v0.88) (2018-06-04)
 [Full Changelog](https://github.com/arez/arez/compare/v0.87...v0.88)

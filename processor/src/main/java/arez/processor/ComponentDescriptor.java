@@ -3084,7 +3084,7 @@ final class ComponentDescriptor
 
     newCall.append( ")" );
     builder.addStatement( newCall.toString(), parameters.toArray() );
-    builder.addStatement( "registerEntity( entity )" );
+    builder.addStatement( "attach( entity )" );
     builder.addStatement( "return entity" );
     return builder.build();
   }
