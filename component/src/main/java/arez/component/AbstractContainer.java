@@ -109,7 +109,7 @@ public abstract class AbstractContainer<K, T>
     }
     else
     {
-      Guards.fail( () -> "Called destroy() passing an entity that was not in the container. Entity: " + entity );
+      Guards.fail( () -> "Arez-0136: Called destroy() passing an entity that was not in the container. Entity: " + entity );
     }
   }
 

@@ -155,8 +155,8 @@ public class ContainerTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> repository.destroy( entity1 ) );
 
-    assertTrue( exception.getMessage().
-      startsWith( "Called destroy() passing an entity that was not in the container. Entity: " ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0136: Called destroy() passing an entity that was not in the container. Entity: " + entity1 );
   }
 
   @Test
