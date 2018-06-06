@@ -79,7 +79,9 @@ complete as there is too much un-said.
 
 * Consider adopting [Auto Common Utilities](https://github.com/google/auto/tree/master/common). Primarily so
   that invalid elements can be deferred till later in the process. This will need to be shaded in to avoid
-  version conflicts.
+  version conflicts. It will also allow us to remove the additional error checking in
+  `ProcessorUtil.getTypeMirrorsAnnotationParameter(...)` and probably allow us to re-add in type checking in
+  for extensions to ensure that they do not define any non-default methods except `self()`.
 
 ## Process
 
