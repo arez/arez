@@ -2566,7 +2566,7 @@ final class ComponentDescriptor
         else
         {
           builder.addStatement(
-            "this.$N = ( $T.areNativeComponentsEnabled() || $T.areNativeComponentsEnabled() ) ? $N++ : 0L",
+            "this.$N = ( $T.areNamesEnabled() || $T.areNativeComponentsEnabled() ) ? $N++ : 0L",
             GeneratorUtil.ID_FIELD_NAME,
             GeneratorUtil.AREZ_CLASSNAME,
             GeneratorUtil.AREZ_CLASSNAME,
