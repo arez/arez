@@ -116,17 +116,22 @@ public abstract class AbstractContainer<K, T>
     if ( null != entry )
     {
       getEntitiesObservable().preReportChanged();
-      final Observer monitor = entry.getMonitor();
-      if ( null != monitor )
-      {
-        Disposable.dispose( monitor );
-      }
+      detachEntry( entry );
       getEntitiesObservable().reportChanged();
     }
     else
     {
       Guards.fail( () -> "Arez-0157: Called detach() passing an entity that was not attached to the container. Entity: " +
                          entity );
+    }
+  }
+
+  private void detachEntry( @Nonnull final EntityReference<T> entry )
+  {
+    final Observer monitor = entry.getMonitor();
+    if ( null != monitor )
+    {
+      Disposable.dispose( monitor );
     }
   }
 
