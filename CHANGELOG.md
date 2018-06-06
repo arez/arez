@@ -33,6 +33,9 @@
 * **\[processor\]** Fix bug in generated components where id was not set if native components are disabled,
   names are enabled and there is no custom `@ComponentId`. The impact is that the names for these components
   would all include the name with `0` as id.
+* **\[annotations\]** Add `observable` parameter to `@ArezComponent` that makes it possible to remove
+  the per-component observable that enables `arez.component.ComponentObservable` possible. When this
+  functionality is not required, it can be removed to reduce overheads.
 
 ### [v0.88](https://github.com/arez/arez/tree/v0.88) (2018-06-04)
 [Full Changelog](https://github.com/arez/arez/compare/v0.87...v0.88)

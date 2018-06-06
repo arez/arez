@@ -78,6 +78,7 @@ final class ComponentDescriptor
   private final String _type;
   private final boolean _nameIncludesId;
   private final boolean _allowEmpty;
+  private final boolean _observable;
   private final boolean _disposeOnDeactivate;
   private final boolean _injectClassesPresent;
   private final boolean _inject;
@@ -142,6 +143,7 @@ final class ComponentDescriptor
                        @Nonnull final String type,
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
+                       final boolean observable,
                        final boolean disposeOnDeactivate,
                        final boolean injectClassesPresent,
                        final boolean inject,
@@ -158,6 +160,7 @@ final class ComponentDescriptor
     _type = Objects.requireNonNull( type );
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
+    _observable = observable;
     _disposeOnDeactivate = disposeOnDeactivate;
     _injectClassesPresent = injectClassesPresent;
     _inject = inject;
@@ -1753,7 +1756,10 @@ final class ComponentDescriptor
 
     builder.addSuperinterface( GeneratorUtil.DISPOSABLE_CLASSNAME );
     builder.addSuperinterface( ParameterizedTypeName.get( GeneratorUtil.IDENTIFIABLE_CLASSNAME, getIdType().box() ) );
-    builder.addSuperinterface( GeneratorUtil.COMPONENT_OBSERVABLE_CLASSNAME );
+    if ( _observable )
+    {
+      builder.addSuperinterface( GeneratorUtil.COMPONENT_OBSERVABLE_CLASSNAME );
+    }
 
     buildFields( builder );
 
@@ -1785,8 +1791,11 @@ final class ComponentDescriptor
       builder.addMethod( buildSetNullOnDisposeDepsMethod() );
     }
 
-    builder.addMethod( buildInternalObserve() );
-    builder.addMethod( buildObserve() );
+    if ( _observable )
+    {
+      builder.addMethod( buildInternalObserve() );
+      builder.addMethod( buildObserve() );
+    }
     builder.addMethod( buildIsDisposed() );
     builder.addMethod( buildDispose() );
 
@@ -2248,7 +2257,10 @@ final class ComponentDescriptor
     {
       actionBlock.addStatement( "super.$N()", _preDispose.getSimpleName() );
     }
-    actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
+    if ( _observable )
+    {
+      actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
+    }
     if ( !getCascadeOnDisposeDependencies().isEmpty() )
     {
       actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME );
@@ -2400,6 +2412,7 @@ final class ComponentDescriptor
       builder.addField( field.build() );
 
     }
+    if ( _observable )
     {
       final ParameterizedTypeName typeName =
         ParameterizedTypeName.get( GeneratorUtil.OBSERVABLE_CLASSNAME, TypeName.BOOLEAN.box() );
@@ -2617,6 +2630,7 @@ final class ComponentDescriptor
       sb.append( " ) : null" );
       builder.addStatement( sb.toString(), params.toArray() );
     }
+    if ( _observable )
     {
       builder.addStatement( "this.$N = $N().createObservable( " +
                             "$T.areNativeComponentsEnabled() ? this.$N : null, " +

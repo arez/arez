@@ -64,6 +64,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.collections.ObservableSetModel", false, false, false },
         new Object[]{ "com.example.component.DisposeOnDeactivateModel", false, false, false },
         new Object[]{ "com.example.component.NoRequireEqualsModel", false, false, false },
+        new Object[]{ "com.example.component.NotObservableModel", false, false, false },
         new Object[]{ "com.example.component_id.BooleanComponentId", false, false, false },
         new Object[]{ "com.example.component_id.BooleanComponentIdRequireEquals", false, false, false },
         new Object[]{ "com.example.component_id.ByteComponentId", false, false, false },
@@ -444,6 +445,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component.EnumModel", "@ArezComponent target must be a class" },
         new Object[]{ "com.example.component.FinalModel", "@ArezComponent target must not be final" },
         new Object[]{ "com.example.component.InterfaceModel", "@ArezComponent target must be a class" },
+        new Object[]{ "com.example.component.NonObservableWithDisposeOnDeactivateModel",
+                      "@ArezComponent target has specified observable = false and disposeOnDeactivate = true which is not possible" },
         new Object[]{ "com.example.component.NonStaticNestedModel",
                       "@ArezComponent target must not be a non-static nested class" },
 

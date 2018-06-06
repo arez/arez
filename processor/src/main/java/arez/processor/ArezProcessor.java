@@ -181,6 +181,7 @@ public final class ArezProcessor
     final boolean nameIncludesIdDefault = null == singletonAnnotation;
     final boolean nameIncludesId =
       null == nameIncludesIdValue ? nameIncludesIdDefault : (boolean) nameIncludesIdValue.getValue();
+    final boolean observableFlag = getAnnotationParameter( arezComponent, "observable" );
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
     final boolean allowConcrete = getAnnotationParameter( arezComponent, "allowConcrete" );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
@@ -233,6 +234,11 @@ public final class ArezProcessor
       throw new ArezProcessorException( "@ArezComponent target has specified multiple scope annotations: " + scopes,
                                         typeElement );
     }
+    if ( !observableFlag && disposeOnDeactivate )
+    {
+      throw new ArezProcessorException( "@ArezComponent target has specified observable = false and " +
+                                        "disposeOnDeactivate = true which is not possible", typeElement );
+    }
 
     final List<ExecutableElement> methods =
       ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
@@ -252,6 +258,7 @@ public final class ArezProcessor
                                type,
                                nameIncludesId,
                                allowEmpty,
+                               observableFlag,
                                disposeOnDeactivate,
                                injectClassesPresent,
                                dagger || inject,

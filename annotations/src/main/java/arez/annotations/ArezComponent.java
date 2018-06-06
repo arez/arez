@@ -80,9 +80,17 @@ public @interface ArezComponent
   boolean allowConcrete() default false;
 
   /**
+   * Return true if the component should support being "observed" by
+   * {@link arez.component.ComponentObservable#observe(Object)}.
+   *
+   * @return true if the component should support being "observed".
+   */
+  boolean observable() default true;
+
+  /**
    * Return true if the component should dispose itself once it is no longer "observed".
    * By "observed" it means that the component will have {@link arez.component.ComponentObservable#observe(Object)}
-   * called on it.
+   * called on it. This MUST be false if {@link #observable()} is false.
    *
    * @return true if the component should dispose itself once it is no longer "observed".
    */
