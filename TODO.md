@@ -79,9 +79,6 @@ complete as there is too much un-said.
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
 
-* Re-add in type checking of repository extensions to ensure that they do not define any non-default methods
-  except `self()`.
-
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
