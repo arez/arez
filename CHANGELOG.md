@@ -11,6 +11,10 @@
   other utilities that need to have references to entities removed when the entity is disposed.
 * **\[component\]** Introduce `AbstractEntityReference` to make it easy to have references that are
   cleared when the component referenced is disposed.
+* **\[processor\]** Update the processor so it does not generate classes that require the
+  `javax.annotation.Generated` be present on the class path. The classes will only be annotated with
+  this annotation if it is present on the classpath at the time of generation and the source version
+  is `8`.
 
 ### [v0.89](https://github.com/arez/arez/tree/v0.89) (2018-06-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.88...v0.89)

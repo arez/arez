@@ -1,5 +1,6 @@
 package arez.processor;
 
+import com.google.auto.common.GeneratedAnnotations;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
@@ -3187,25 +3188,13 @@ final class ComponentDescriptor
 
   private void addGeneratedAnnotation( @Nonnull final TypeSpec.Builder builder )
   {
-    builder.addAnnotation( AnnotationSpec.builder( getGeneratedAnnotation() ).
-      addMember( "value", "$S", ArezProcessor.class.getName() ).
-      build() );
-  }
-
-  @Nonnull
-  private Class<?> getGeneratedAnnotation()
-  {
-    try
+    if ( GeneratedAnnotations.generatedAnnotation( _elements, _sourceVersion ).isPresent() )
     {
-      return Class.forName( SourceVersion.RELEASE_8.compareTo( _sourceVersion ) < 0 ?
-                            "javax.annotation.processing.Generated" :
-                            "javax.annotation.Generated"
-      );
-    }
-    catch ( final ClassNotFoundException e )
-    {
-      throw new ArezProcessorException( "@ArezComponent unable to determine correct @Generated annotation",
-                                        getElement() );
+      final ClassName className =
+        ClassName.get( GeneratedAnnotations.generatedAnnotation( _elements, _sourceVersion ).get() );
+      builder.addAnnotation( AnnotationSpec.builder( className ).
+        addMember( "value", "$S", ArezProcessor.class.getName() ).
+        build() );
     }
   }
 
