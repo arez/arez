@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.89](https://github.com/arez/arez/tree/v0.89) (2018-06-07)
+[Full Changelog](https://github.com/arez/arez/compare/v0.88...v0.89)
 
 * **\[processor\]** Ensure that repositories work with components that contain initializers.
 * 💥 **\[component\]** Remove the `preEntryDispose()` and `postEntryDispose()` methods from the
