@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.89'
+
 ### [v0.14](https://github.com/arez/arez-ticker/tree/v0.14) (2018-06-04)
 [Full Changelog](https://github.com/arez/arez-ticker/compare/v0.13...v0.14)
 
