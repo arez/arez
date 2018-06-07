@@ -32,7 +32,6 @@ public abstract class AbstractEntityReference<T>
    *
    * @return the associated entity.
    */
-  @Observable
   @Nullable
   protected T getEntity()
   {
@@ -44,6 +43,7 @@ public abstract class AbstractEntityReference<T>
    *
    * @param entity the associated entity.
    */
+  @Observable
   protected void setEntity( @Nullable final T entity )
   {
     if ( null != _entry )
