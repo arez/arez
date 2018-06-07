@@ -29,7 +29,7 @@ public abstract class AbstractContainer<K, T>
   /**
    * A map of all the entities ArezId to entity.
    */
-  private final HashMap<K, EntityReference<T>> _entities = new HashMap<>();
+  private final HashMap<K, EntityEntry<T>> _entities = new HashMap<>();
 
   /**
    * Attach specified entity to the set of entities managed by the container.
@@ -47,7 +47,7 @@ public abstract class AbstractContainer<K, T>
                           "to the container. Entity: " + entity );
     }
     getEntitiesObservable().preReportChanged();
-    final EntityReference<T> entry = createEntityReference( entity, reference -> detach( reference.getEntity() ) );
+    final EntityEntry<T> entry = createEntityEntry( entity, reference -> detach( reference.getEntity() ) );
     _entities.put( Identifiable.getArezId( entity ), entry );
     getEntitiesObservable().reportChanged();
   }
@@ -112,7 +112,7 @@ public abstract class AbstractContainer<K, T>
   private void detach( @Nonnull final T entity, final boolean disposeEntity )
   {
     // This method has been extracted to try and avoid GWT inlining into invoker
-    final EntityReference<T> entry = _entities.remove( Identifiable.<K>getArezId( entity ) );
+    final EntityEntry<T> entry = _entities.remove( Identifiable.<K>getArezId( entity ) );
     if ( null != entry )
     {
       getEntitiesObservable().preReportChanged();
@@ -135,7 +135,7 @@ public abstract class AbstractContainer<K, T>
   @Nullable
   protected T findByArezId( @Nonnull final K arezId )
   {
-    final EntityReference<T> entry = _entities.get( arezId );
+    final EntityEntry<T> entry = _entities.get( arezId );
     if ( null != entry && Disposable.isNotDisposed( entry ) )
     {
       final T entity = entry.getEntity();
@@ -188,11 +188,11 @@ public abstract class AbstractContainer<K, T>
   @Nonnull
   public Stream<T> entities()
   {
-    return _entities.values().stream().filter( Disposable::isNotDisposed ).map( EntityReference::getEntity );
+    return _entities.values().stream().filter( Disposable::isNotDisposed ).map( EntityEntry::getEntity );
   }
 
   @TestOnly
-  final HashMap<K, EntityReference<T>> getEntities()
+  final HashMap<K, EntityEntry<T>> getEntities()
   {
     return _entities;
   }

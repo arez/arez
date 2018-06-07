@@ -28,10 +28,10 @@ abstract class AbstractEntryContainer<T>
    * @return the reference.
    */
   @Nonnull
-  final EntityReference<T> createEntityReference( @Nonnull final T entity,
-                                                  @Nonnull final Consumer<EntityReference<T>> onDisposeAction )
+  final EntityEntry<T> createEntityEntry( @Nonnull final T entity,
+                                          @Nonnull final Consumer<EntityEntry<T>> onDisposeAction )
   {
-    final EntityReference<T> entry = new EntityReference<>( entity );
+    final EntityEntry<T> entry = new EntityEntry<>( entity );
     final String name =
       Arez.areNamesEnabled() ? getName() + ".EntityWatcher." + Identifiable.getArezId( entity ) : null;
     final Observer monitor =
@@ -49,10 +49,10 @@ abstract class AbstractEntryContainer<T>
   /**
    * Dispose the entry and the associated monitor and if shouldDisposeEntity is true, dispose the entity.
    *
-   * @param entry the entry to detach.
+   * @param entry               the entry to detach.
    * @param shouldDisposeEntity true to also dispose the entity, false otherwise.
    */
-  final void detachEntry( @Nonnull final EntityReference<T> entry, final boolean shouldDisposeEntity )
+  final void detachEntry( @Nonnull final EntityEntry<T> entry, final boolean shouldDisposeEntity )
   {
     if ( shouldDisposeEntity )
     {

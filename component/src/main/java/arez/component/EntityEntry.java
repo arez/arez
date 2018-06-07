@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
  * The monitor is Disposable representing a "when" observer that triggers removal of
  * entity from a container
  */
-final class EntityReference<E>
+final class EntityEntry<E>
   implements Disposable
 {
   /**
@@ -30,7 +30,7 @@ final class EntityReference<E>
    *
    * @param entity the entity placed into the container.
    */
-  EntityReference( @Nonnull final E entity )
+  EntityEntry( @Nonnull final E entity )
   {
     _entity = Objects.requireNonNull( entity );
   }
