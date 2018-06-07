@@ -3,7 +3,6 @@ package arez.component;
 import arez.Arez;
 import arez.Disposable;
 import arez.Observable;
-import arez.annotations.ComponentNameRef;
 import arez.annotations.ObservableRef;
 import arez.annotations.PreDispose;
 import java.util.HashMap;
@@ -168,15 +167,6 @@ public abstract class AbstractContainer<K, T>
     }
     return entity;
   }
-
-  /**
-   * Return the name associated with the container.
-   *
-   * @return the name associated with the container.
-   */
-  @ComponentNameRef
-  @Nonnull
-  protected abstract String getName();
 
   /**
    * Return the observable associated with entities.
