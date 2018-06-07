@@ -8,20 +8,10 @@ import arez.annotations.Repository;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-@Repository( extensions = { PackageAccessRepositoryExample.FooEx.class } )
+@Repository( extensions = { PackageAccessRepositoryExampleRepositoryExtension.class } )
 @ArezComponent
 abstract class PackageAccessRepositoryExample
 {
-  public interface FooEx
-  {
-    default PackageAccessRepositoryExample findByName( @Nonnull final String name )
-    {
-      return self().findByQuery( f -> f.getName().equals( name ) );
-    }
-
-    PackageAccessRepositoryExampleRepository self();
-  }
-
   private final int _id;
   @Nonnull
   private String _name;

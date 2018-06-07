@@ -158,7 +158,6 @@ public class ArezProcessorTest
         new Object[]{ "com.example.repository.DaggerEnabledRepository", false, true, true },
         new Object[]{ "com.example.repository.InjectEnabledRepository", false, true, true },
         new Object[]{ "com.example.repository.InjectDisabledRepository", false, false, false },
-        new Object[]{ "com.example.repository.PackageAccessRepositoryExample", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithAttachOnly", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithCreateOnly", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithCreateOrAttach", false, true, true },
@@ -229,6 +228,21 @@ public class ArezProcessorTest
     final String output2 = "expected/com/example/repository/Arez_CompleteRepositoryExampleRepository.java";
     final String output3 = "expected/com/example/repository/CompleteRepositoryExampleRepository.java";
     final String output4 = "expected/com/example/repository/CompleteRepositoryExampleRepositoryDaggerModule.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ),
+                             Arrays.asList( output1, output2, output3, output4 ) );
+  }
+
+  @Test
+  public void processSuccessfulPackageAccessRepositoryIncludingExtension()
+    throws Exception
+  {
+    final JavaFileObject source1 = fixture( "input/com/example/repository/PackageAccessRepositoryExample.java" );
+    final JavaFileObject source2 =
+      fixture( "input/com/example/repository/PackageAccessRepositoryExampleRepositoryExtension.java" );
+    final String output1 = "expected/com/example/repository/Arez_PackageAccessRepositoryExample.java";
+    final String output2 = "expected/com/example/repository/Arez_PackageAccessRepositoryExampleRepository.java";
+    final String output3 = "expected/com/example/repository/PackageAccessRepositoryExampleRepository.java";
+    final String output4 = "expected/com/example/repository/PackageAccessRepositoryExampleRepositoryDaggerModule.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2 ),
                              Arrays.asList( output1, output2, output3, output4 ) );
   }
