@@ -1,6 +1,5 @@
 package arez.processor;
 
-import com.google.testing.compile.JavaFileObjects;
 import java.util.Arrays;
 import java.util.Collections;
 import javax.annotation.Nonnull;
@@ -225,9 +224,9 @@ public class ArezProcessorTest
     throws Exception
   {
     final JavaFileObject source1 =
-      JavaFileObjects.forResource( "input/com/example/tracked/InheritProtectedAccessTrackedModel.java" );
+      fixture( "input/com/example/tracked/InheritProtectedAccessTrackedModel.java" );
     final JavaFileObject source2 =
-      JavaFileObjects.forResource( "input/com/example/tracked/other/BaseModelProtectedAccess.java" );
+      fixture( "input/com/example/tracked/other/BaseModelProtectedAccess.java" );
     final String output = "expected/com/example/tracked/Arez_InheritProtectedAccessTrackedModel.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
   }
@@ -237,9 +236,9 @@ public class ArezProcessorTest
     throws Exception
   {
     final JavaFileObject source1 =
-      JavaFileObjects.forResource( "input/com/example/inheritance/CompleteModel.java" );
+      fixture( "input/com/example/inheritance/CompleteModel.java" );
     final JavaFileObject source2 =
-      JavaFileObjects.forResource( "input/com/example/inheritance/other/BaseCompleteModel.java" );
+      fixture( "input/com/example/inheritance/other/BaseCompleteModel.java" );
     final String output = "expected/com/example/inheritance/Arez_CompleteModel.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
   }
@@ -249,13 +248,13 @@ public class ArezProcessorTest
     throws Exception
   {
     final JavaFileObject source1 =
-      JavaFileObjects.forResource( "input/com/example/override_generics/BaseReactComponent.java" );
+      fixture( "input/com/example/override_generics/BaseReactComponent.java" );
     final JavaFileObject source2 =
-      JavaFileObjects.forResource( "input/com/example/override_generics/ArezReactComponent.java" );
+      fixture( "input/com/example/override_generics/ArezReactComponent.java" );
     final JavaFileObject source3 =
-      JavaFileObjects.forResource( "input/com/example/override_generics/MyArezReactComponent.java" );
+      fixture( "input/com/example/override_generics/MyArezReactComponent.java" );
     final JavaFileObject source4 =
-      JavaFileObjects.forResource( "input/com/example/override_generics/MyArezReactComponent_.java" );
+      fixture( "input/com/example/override_generics/MyArezReactComponent_.java" );
     final String output = "expected/com/example/override_generics/Arez_MyArezReactComponent_.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2, source3, source4 ), Collections.singletonList( output ) );
   }
@@ -265,11 +264,11 @@ public class ArezProcessorTest
     throws Exception
   {
     final JavaFileObject source1 =
-      JavaFileObjects.forResource( "input/com/example/override_generics/BaseModel.java" );
+      fixture( "input/com/example/override_generics/BaseModel.java" );
     final JavaFileObject source2 =
-      JavaFileObjects.forResource( "input/com/example/override_generics/MiddleModel.java" );
+      fixture( "input/com/example/override_generics/MiddleModel.java" );
     final JavaFileObject source3 =
-      JavaFileObjects.forResource( "input/com/example/override_generics/LeafModel.java" );
+      fixture( "input/com/example/override_generics/LeafModel.java" );
     final String output = "expected/com/example/override_generics/Arez_LeafModel.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output ) );
   }
@@ -290,8 +289,8 @@ public class ArezProcessorTest
     throws Exception
   {
     final JavaFileObject source1 =
-      JavaFileObjects.forResource( "input/com/example/to_string/ToStringPresentInParent.java" );
-    final JavaFileObject source2 = JavaFileObjects.forResource( "input/com/example/to_string/ParentType.java" );
+      fixture( "input/com/example/to_string/ToStringPresentInParent.java" );
+    final JavaFileObject source2 = fixture( "input/com/example/to_string/ParentType.java" );
     final String output = "expected/com/example/to_string/Arez_ToStringPresentInParent.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
   }
@@ -315,8 +314,8 @@ public class ArezProcessorTest
   public void processSuccessfulWhereAnnotationsSourcedFromInterface()
     throws Exception
   {
-    final JavaFileObject source1 = JavaFileObjects.forResource( "input/DefaultMethodsModel.java" );
-    final JavaFileObject source2 = JavaFileObjects.forResource( "input/MyAnnotatedInterface.java" );
+    final JavaFileObject source1 = fixture( "input/DefaultMethodsModel.java" );
+    final JavaFileObject source2 = fixture( "input/MyAnnotatedInterface.java" );
     final String output1 = "expected/Arez_DefaultMethodsModel.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2 ),
                              Collections.singletonList( output1 ) );
@@ -326,9 +325,9 @@ public class ArezProcessorTest
   public void processSuccessfulWhereTypeResolvedInInheritanceHierarchy()
     throws Exception
   {
-    final JavaFileObject source1 = JavaFileObjects.forResource( "input/com/example/type_params/AbstractModel.java" );
-    final JavaFileObject source2 = JavaFileObjects.forResource( "input/com/example/type_params/MiddleModel.java" );
-    final JavaFileObject source3 = JavaFileObjects.forResource( "input/com/example/type_params/ConcreteModel.java" );
+    final JavaFileObject source1 = fixture( "input/com/example/type_params/AbstractModel.java" );
+    final JavaFileObject source2 = fixture( "input/com/example/type_params/MiddleModel.java" );
+    final JavaFileObject source3 = fixture( "input/com/example/type_params/ConcreteModel.java" );
     final String output1 = "expected/com/example/type_params/Arez_ConcreteModel.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output1 ) );
   }
@@ -338,9 +337,9 @@ public class ArezProcessorTest
     throws Exception
   {
     final JavaFileObject source1 =
-      JavaFileObjects.forResource( "input/com/example/parameterized_type/ParentModel.java" );
+      fixture( "input/com/example/parameterized_type/ParentModel.java" );
     final JavaFileObject source2 =
-      JavaFileObjects.forResource( "input/com/example/parameterized_type/ResolvedModel.java" );
+      fixture( "input/com/example/parameterized_type/ResolvedModel.java" );
     final String output1 = "expected/com/example/parameterized_type/Arez_ResolvedModel.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output1 ) );
   }
@@ -350,9 +349,9 @@ public class ArezProcessorTest
     throws Exception
   {
     final JavaFileObject source1 =
-      JavaFileObjects.forResource( "input/com/example/parameterized_type/ParentModel.java" );
+      fixture( "input/com/example/parameterized_type/ParentModel.java" );
     final JavaFileObject source2 =
-      JavaFileObjects.forResource( "input/com/example/parameterized_type/UnresolvedModel.java" );
+      fixture( "input/com/example/parameterized_type/UnresolvedModel.java" );
     final String output1 = "expected/com/example/parameterized_type/Arez_UnresolvedModel.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output1 ) );
   }
@@ -362,11 +361,11 @@ public class ArezProcessorTest
     throws Exception
   {
     final JavaFileObject source1 =
-      JavaFileObjects.forResource( "input/com/example/override_generics/GenericsBaseModel.java" );
+      fixture( "input/com/example/override_generics/GenericsBaseModel.java" );
     final JavaFileObject source2 =
-      JavaFileObjects.forResource( "input/com/example/override_generics/GenericsMiddleModel.java" );
+      fixture( "input/com/example/override_generics/GenericsMiddleModel.java" );
     final JavaFileObject source3 =
-      JavaFileObjects.forResource( "input/com/example/override_generics/GenericsModel.java" );
+      fixture( "input/com/example/override_generics/GenericsModel.java" );
     final String output1 = "expected/com/example/override_generics/Arez_GenericsModel.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output1 ) );
   }
@@ -375,11 +374,11 @@ public class ArezProcessorTest
   public void processSuccessfulWhereTraceInheritanceChain()
     throws Exception
   {
-    final JavaFileObject source1 = JavaFileObjects.forResource( "input/com/example/inheritance/BaseModel.java" );
-    final JavaFileObject source2 = JavaFileObjects.forResource( "input/com/example/inheritance/ParentModel.java" );
-    final JavaFileObject source3 = JavaFileObjects.forResource( "input/com/example/inheritance/MyModel.java" );
-    final JavaFileObject source4 = JavaFileObjects.forResource( "input/com/example/inheritance/MyInterface1.java" );
-    final JavaFileObject source5 = JavaFileObjects.forResource( "input/com/example/inheritance/MyInterface2.java" );
+    final JavaFileObject source1 = fixture( "input/com/example/inheritance/BaseModel.java" );
+    final JavaFileObject source2 = fixture( "input/com/example/inheritance/ParentModel.java" );
+    final JavaFileObject source3 = fixture( "input/com/example/inheritance/MyModel.java" );
+    final JavaFileObject source4 = fixture( "input/com/example/inheritance/MyInterface1.java" );
+    final JavaFileObject source5 = fixture( "input/com/example/inheritance/MyInterface2.java" );
     final String output1 = "expected/com/example/inheritance/Arez_MyModel.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2, source3, source4, source5 ),
                              Collections.singletonList( output1 ) );
@@ -957,9 +956,9 @@ public class ArezProcessorTest
     throws Exception
   {
     final JavaFileObject source1 =
-      JavaFileObjects.forResource( "bad_input/com/example/package_access/other/Base" + annotation + "Model.java" );
+      fixture( "bad_input/com/example/package_access/other/Base" + annotation + "Model.java" );
     final JavaFileObject source2 =
-      JavaFileObjects.forResource( "bad_input/com/example/package_access/" + annotation + "Model.java" );
+      fixture( "bad_input/com/example/package_access/" + annotation + "Model.java" );
     assertFailedCompileResource( Arrays.asList( source1, source2 ),
                                  "@" + annotation + " target must not be package access if " +
                                  "the method is in a different package from the @ArezComponent" );
@@ -970,9 +969,9 @@ public class ArezProcessorTest
     throws Exception
   {
     final JavaFileObject source1 =
-      JavaFileObjects.forResource( "bad_input/com/example/package_access/other/BaseObservable2Model.java" );
+      fixture( "bad_input/com/example/package_access/other/BaseObservable2Model.java" );
     final JavaFileObject source2 =
-      JavaFileObjects.forResource( "bad_input/com/example/package_access/Observable2Model.java" );
+      fixture( "bad_input/com/example/package_access/Observable2Model.java" );
     assertFailedCompileResource( Arrays.asList( source1, source2 ),
                                  "@Observable target must not be package access if " +
                                  "the method is in a different package from the @ArezComponent" );
@@ -983,9 +982,9 @@ public class ArezProcessorTest
     throws Exception
   {
     final JavaFileObject source1 =
-      JavaFileObjects.forResource( "bad_input/com/example/package_access/other/BaseObservable3Model.java" );
+      fixture( "bad_input/com/example/package_access/other/BaseObservable3Model.java" );
     final JavaFileObject source2 =
-      JavaFileObjects.forResource( "bad_input/com/example/package_access/Observable3Model.java" );
+      fixture( "bad_input/com/example/package_access/Observable3Model.java" );
     assertFailedCompileResource( Arrays.asList( source1, source2 ),
                                  "@Observable target must not be package access if " +
                                  "the method is in a different package from the @ArezComponent" );

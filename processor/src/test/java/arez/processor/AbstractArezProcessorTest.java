@@ -244,7 +244,7 @@ abstract class AbstractArezProcessorTest
   }
 
   @Nonnull
-  private JavaFileObject fixture( @Nonnull final String path )
+  final JavaFileObject fixture( @Nonnull final String path )
   {
     final Path outputFile = fixtureDir().resolve( path );
     if ( !Files.exists( outputFile ) )
