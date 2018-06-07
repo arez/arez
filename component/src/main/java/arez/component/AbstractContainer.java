@@ -89,19 +89,7 @@ public abstract class AbstractContainer<K, T>
    */
   protected void destroy( @Nonnull final T entity )
   {
-    final EntityReference<T> entry = _entities.remove( Identifiable.<K>getArezId( entity ) );
-    if ( null != entry )
-    {
-      getEntitiesObservable().preReportChanged();
-      Disposable.dispose( entry );
-      getEntitiesObservable().reportChanged();
-    }
-    else
-    {
-      Guards.fail( () ->
-                     "Arez-0136: Called destroy() passing an entity that was not attached to the container. Entity: " +
-                     entity );
-    }
+    detach( entity, true );
   }
 
   /**
@@ -112,26 +100,40 @@ public abstract class AbstractContainer<K, T>
    */
   protected void detach( @Nonnull final T entity )
   {
+    detach( entity, false );
+  }
+
+  /**
+   * Detach entity from container without disposing entity.
+   * The entity must be attached to the container.
+   *
+   * @param entity the entity to detach.
+   */
+  private void detach( @Nonnull final T entity, final boolean disposeEntity )
+  {
+    // This method has been extracted to try and avoid GWT inlining into invoker
     final EntityReference<T> entry = _entities.remove( Identifiable.<K>getArezId( entity ) );
     if ( null != entry )
     {
       getEntitiesObservable().preReportChanged();
-      detachEntry( entry );
+      if ( disposeEntity )
+      {
+        Disposable.dispose( entry );
+      }
+      else
+      {
+        final Observer monitor = entry.getMonitor();
+        if ( null != monitor )
+        {
+          Disposable.dispose( monitor );
+        }
+      }
       getEntitiesObservable().reportChanged();
     }
     else
     {
       Guards.fail( () -> "Arez-0157: Called detach() passing an entity that was not attached to the container. Entity: " +
                          entity );
-    }
-  }
-
-  private void detachEntry( @Nonnull final EntityReference<T> entry )
-  {
-    final Observer monitor = entry.getMonitor();
-    if ( null != monitor )
-    {
-      Disposable.dispose( monitor );
     }
   }
 

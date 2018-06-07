@@ -192,7 +192,7 @@ public class ContainerTest
       expectThrows( IllegalStateException.class, () -> repository.destroy( entity1 ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0136: Called destroy() passing an entity that was not attached to the container. Entity: " +
+                  "Arez-0157: Called detach() passing an entity that was not attached to the container. Entity: " +
                   entity1 );
   }
 
