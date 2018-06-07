@@ -60,12 +60,19 @@ public abstract class AbstractContainer<K, T>
   }
 
   /**
+   * Return true if disposing the container should result in disposing contained entities or just detaching the entities.
+   *
+   * @return true to dispose entities on container dispose, false to detach entities on container disposed.
+   */
+  protected abstract boolean shouldDisposeEntryOnDispose();
+
+  /**
    * Dispose all the entities associated with the container.
    */
   @PreDispose
   protected void preDispose()
   {
-    _entities.values().forEach( e -> Disposable.dispose( e ) );
+    _entities.values().forEach( entry -> detachEntry( entry, shouldDisposeEntryOnDispose() ) );
     _entities.clear();
   }
 
@@ -116,24 +123,29 @@ public abstract class AbstractContainer<K, T>
     if ( null != entry )
     {
       getEntitiesObservable().preReportChanged();
-      if ( disposeEntity )
-      {
-        Disposable.dispose( entry );
-      }
-      else
-      {
-        final Observer monitor = entry.getMonitor();
-        if ( null != monitor )
-        {
-          Disposable.dispose( monitor );
-        }
-      }
+      detachEntry( entry, disposeEntity );
       getEntitiesObservable().reportChanged();
     }
     else
     {
       Guards.fail( () -> "Arez-0157: Called detach() passing an entity that was not attached to the container. Entity: " +
                          entity );
+    }
+  }
+
+  private void detachEntry( @Nonnull final EntityReference<T> entry, final boolean shouldDisposeEntity )
+  {
+    if ( shouldDisposeEntity )
+    {
+      Disposable.dispose( entry );
+    }
+    else
+    {
+      final Observer monitor = entry.getMonitor();
+      if ( null != monitor )
+      {
+        Disposable.dispose( monitor );
+      }
     }
   }
 

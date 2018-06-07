@@ -25,6 +25,15 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   /**
    * {@inheritDoc}
    */
+  @Override
+  protected final boolean shouldDisposeEntryOnDispose()
+  {
+    return true;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public boolean contains( @Nonnull final T entity )
   {
     return super.contains( entity );
