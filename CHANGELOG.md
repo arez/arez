@@ -9,6 +9,8 @@
 * **\[component\]** Rename `AbstractContainer.getComponentName()` to `AbstractContainer.getName()`.
 * **\[component\]** Extract `AbstractEntryContainer` from `AbstractContainer` to simplify creating
   other utilities that need to have references to entities removed when the entity is disposed.
+* **\[component\]** Introduce `AbstractEntityReference` to make it easy to have references that are
+  cleared when the component referenced is disposed.
 
 ### [v0.89](https://github.com/arez/arez/tree/v0.89) (2018-06-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.88...v0.89)
