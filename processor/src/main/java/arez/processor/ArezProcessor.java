@@ -1,12 +1,16 @@
 package arez.processor;
 
+import com.google.auto.common.SuperficialValidation;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
@@ -15,6 +19,7 @@ import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedOptions;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
@@ -37,9 +42,13 @@ import static javax.tools.Diagnostic.Kind.*;
 @AutoService( Processor.class )
 @SupportedAnnotationTypes( { "arez.annotations.*" } )
 @SupportedSourceVersion( SourceVersion.RELEASE_8 )
+@SupportedOptions( "arez.defer.unresolved" )
 public final class ArezProcessor
   extends AbstractProcessor
 {
+  @Nonnull
+  private HashSet<TypeElement> _deferred = new HashSet<>();
+
   /**
    * {@inheritDoc}
    */
@@ -49,11 +58,40 @@ public final class ArezProcessor
     final TypeElement annotation =
       processingEnv.getElementUtils().getTypeElement( Constants.COMPONENT_ANNOTATION_CLASSNAME );
     final Set<? extends Element> elements = env.getElementsAnnotatedWith( annotation );
-    processElements( elements, env );
+
+    final Map<String, String> options = processingEnv.getOptions();
+    final String deferUnresolvedValue = options.get( "arez.defer.unresolved" );
+    final boolean deferUnresolved = null == deferUnresolvedValue || "true".equals( deferUnresolvedValue );
+
+    if ( deferUnresolved )
+    {
+      final ArrayList<Element> elementsToProcess = getElementsToProcess( elements );
+      processElements( elementsToProcess, env );
+      if ( env.getRootElements().isEmpty() && !_deferred.isEmpty() )
+      {
+        _deferred.forEach( this::processingErrorMessage );
+        _deferred.clear();
+      }
+    }
+    else
+    {
+      processElements( new ArrayList<>( elements ), env );
+    }
     return true;
   }
 
-  private void processElements( @Nonnull final Set<? extends Element> elements,
+  private void processingErrorMessage( @Nonnull final TypeElement target )
+  {
+    processingEnv
+      .getMessager()
+      .printMessage( ERROR,
+                     "ArezProcessor unable to process " + target.getQualifiedName() +
+                     " because not all of its dependencies could be resolved. Check for " +
+                     "compilation errors or a circular dependency with generated code.",
+                     target );
+  }
+
+  private void processElements( @Nonnull final ArrayList<Element> elements,
                                 @Nonnull final RoundEnvironment env )
   {
     for ( final Element element : elements )
@@ -115,6 +153,33 @@ public final class ArezProcessor
           "\n\n" +
           sw.toString();
         processingEnv.getMessager().printMessage( ERROR, message, element );
+      }
+    }
+  }
+
+  @Nonnull
+  private ArrayList<Element> getElementsToProcess( final @Nonnull Set<? extends Element> elements )
+  {
+    final ArrayList<Element> elementsToProcess = new ArrayList<>();
+    final HashSet<TypeElement> deferred = _deferred;
+    _deferred = new HashSet<>();
+    collectElementsToProcess( elements, elementsToProcess );
+    collectElementsToProcess( deferred, elementsToProcess );
+    return elementsToProcess;
+  }
+
+  private void collectElementsToProcess( @Nonnull final Set<? extends Element> elements,
+                                         @Nonnull final ArrayList<Element> elementsToProcess )
+  {
+    for ( final Element element : elements )
+    {
+      if ( SuperficialValidation.validateElement( element ) )
+      {
+        elementsToProcess.add( element );
+      }
+      else
+      {
+        _deferred.add( (TypeElement) element );
       }
     }
   }

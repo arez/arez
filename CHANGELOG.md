@@ -15,6 +15,13 @@
   `javax.annotation.Generated` be present on the class path. The classes will only be annotated with
   this annotation if it is present on the classpath at the time of generation and the source version
   is `8`.
+* **\[processor\]** Enhance the annotation processor so that it will not attempt to process classes
+  until they are completely resolved. If an Arez component contains a dependency on code with compilation
+  errors or has a circular dependency with generated code then it will not able to be processed
+  by the new annotation processor. To restore the previous behaviour which could handle circular
+  dependencies if the the dependency used a fully qualified name in the source code, the annotation
+  processor must be passed the configuration property `arez.defer.unresolved` set to `false`. This
+  is typically done by passing `-Aarez.defer.unresolved=false` to the javac command.
 
 ### [v0.89](https://github.com/arez/arez/tree/v0.89) (2018-06-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.88...v0.89)
