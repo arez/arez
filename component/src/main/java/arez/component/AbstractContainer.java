@@ -18,6 +18,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.anodoc.TestOnly;
 import org.realityforge.braincheck.Guards;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * Abstract base class for observable Arez components that contain other components.
@@ -41,8 +42,15 @@ public abstract class AbstractContainer<K, T>
    *
    * @param entity the entity to register.
    */
+  @SuppressWarnings( "SuspiciousMethodCalls" )
   protected void attach( @Nonnull final T entity )
   {
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !_entities.containsKey( Identifiable.getArezId( entity ) ),
+                    () -> "Arez-0136: Called attach() passing an entity that ia already attached " +
+                          "to the container. Entity: " + entity );
+    }
     getEntitiesObservable().preReportChanged();
     final EntityReference<T> entry = new EntityReference<>( entity );
     final K arezId = Identifiable.getArezId( entity );

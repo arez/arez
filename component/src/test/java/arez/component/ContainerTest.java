@@ -197,6 +197,23 @@ public class ContainerTest
   }
 
   @Test
+  public void attachWhenPresent()
+  {
+    final MyEntity entity1 = new MyEntity( 301 );
+    final MyContainer repository = MyContainer.create();
+
+    Arez.context().safeAction( () -> repository.attach( entity1 ) );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Arez.context().safeAction( () -> repository.attach( entity1 ) ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0136: Called attach() passing an entity that ia already attached to the container. Entity: " +
+                  entity1 );
+  }
+
+  @Test
   public void detachWhenNotPresent()
   {
     final MyEntity entity1 = new MyEntity( 301 );
@@ -336,6 +353,12 @@ public class ContainerTest
     static MyContainer create()
     {
       return new MyContainer();
+    }
+
+    @Override
+    protected final boolean shouldDisposeEntryOnDispose()
+    {
+      return true;
     }
 
     @Override
