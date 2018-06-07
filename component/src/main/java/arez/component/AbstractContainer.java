@@ -54,7 +54,6 @@ public abstract class AbstractContainer<K, T>
     getEntitiesObservable().preReportChanged();
     final EntityReference<T> entry = new EntityReference<>( entity );
     final K arezId = Identifiable.getArezId( entity );
-    _entities.put( arezId, entry );
     final Observer monitor =
       getContext().when( Arez.areNativeComponentsEnabled() ? component() : null,
                          Arez.areNamesEnabled() ? getContainerName() + ".EntityWatcher." + arezId : null,
@@ -64,6 +63,7 @@ public abstract class AbstractContainer<K, T>
                          true,
                          true );
     entry.setMonitor( monitor );
+    _entities.put( arezId, entry );
     getEntitiesObservable().reportChanged();
   }
 
