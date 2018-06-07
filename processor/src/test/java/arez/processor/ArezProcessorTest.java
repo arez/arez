@@ -154,7 +154,6 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observer_ref.RefOnTrackedModel", false, false, false },
         new Object[]{ "com.example.overloaded_names.OverloadedActions", false, false, false },
         new Object[]{ "com.example.post_construct.PostConstructModel", false, false, false },
-        new Object[]{ "com.example.repository.CompleteRepositoryExample", false, true, true },
         new Object[]{ "com.example.repository.DaggerDisabledRepository", false, true, false },
         new Object[]{ "com.example.repository.DaggerEnabledRepository", false, true, true },
         new Object[]{ "com.example.repository.InjectEnabledRepository", false, true, true },
@@ -217,6 +216,21 @@ public class ArezProcessorTest
     throws Exception
   {
     assertSuccessfulCompile( classname, componentDaggerEnabled, repositoryEnabled, repositoryDaggerEnabled );
+  }
+
+  @Test
+  public void processSuccessfulRepositoryIncludingExtension()
+    throws Exception
+  {
+    final JavaFileObject source1 = fixture( "input/com/example/repository/CompleteRepositoryExample.java" );
+    final JavaFileObject source2 =
+      fixture( "input/com/example/repository/CompleteRepositoryExampleRepositoryExtension.java" );
+    final String output1 = "expected/com/example/repository/Arez_CompleteRepositoryExample.java";
+    final String output2 = "expected/com/example/repository/Arez_CompleteRepositoryExampleRepository.java";
+    final String output3 = "expected/com/example/repository/CompleteRepositoryExampleRepository.java";
+    final String output4 = "expected/com/example/repository/CompleteRepositoryExampleRepositoryDaggerModule.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ),
+                             Arrays.asList( output1, output2, output3, output4 ) );
   }
 
   @Test
