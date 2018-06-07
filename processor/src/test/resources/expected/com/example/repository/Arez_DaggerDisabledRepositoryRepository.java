@@ -41,9 +41,9 @@ final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledReposi
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = Arez.areNativeComponentsEnabled() ? $$arezi$$_nextId++ : 0L;
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "DaggerDisabledRepositoryRepository", $$arezi$$_id(), Arez.areNamesEnabled() ? getContainerName() : null, () -> super.preDispose() ) : null;
-    this.$$arezi$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getContainerName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
-    this.$$arez$$_entities = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getContainerName() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "DaggerDisabledRepositoryRepository", $$arezi$$_id(), Arez.areNamesEnabled() ? getName() : null, () -> super.preDispose() ) : null;
+    this.$$arezi$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
+    this.$$arez$$_entities = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getName() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
     this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
@@ -66,13 +66,13 @@ final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledReposi
       Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'component' invoked on uninitialized component of type 'DaggerDisabledRepositoryRepository'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenConstructed( this.$$arezi$$_state ), () -> "Method named 'component' invoked on un-constructed component named '" + getContainerName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenConstructed( this.$$arezi$$_state ), () -> "Method named 'component' invoked on un-constructed component named '" + getName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenCompleted( this.$$arezi$$_state ), () -> "Method named 'component' invoked on incomplete component named '" + getContainerName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenCompleted( this.$$arezi$$_state ), () -> "Method named 'component' invoked on incomplete component named '" + getName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'component' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getContainerName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'component' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getName() + "'" );
     }
     if ( Arez.shouldCheckInvariants() ) {
       Guards.invariant( () -> Arez.areNativeComponentsEnabled(), () -> "Invoked @ComponentRef method 'component' but Arez.areNativeComponentsEnabled() returned false." );
@@ -94,9 +94,9 @@ final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledReposi
   }
 
   @Nonnull
-  protected final String getContainerName() {
+  protected final String getName() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getContainerName' invoked on uninitialized component of type 'DaggerDisabledRepositoryRepository'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getName' invoked on uninitialized component of type 'DaggerDisabledRepositoryRepository'" );
     }
     return "DaggerDisabledRepositoryRepository";
   }
@@ -126,7 +126,7 @@ final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledReposi
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        getContext().dispose( Arez.areNamesEnabled() ? getContainerName() : null, () -> { {
+        getContext().dispose( Arez.areNamesEnabled() ? getName() : null, () -> { {
           super.preDispose();
           this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_entities.dispose();
@@ -140,7 +140,7 @@ final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledReposi
   @Override
   public Stream<DaggerDisabledRepository> entities() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'entities' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getContainerName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'entities' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getName() + "'" );
     }
     this.$$arez$$_entities.reportObserved();
     return super.entities();
@@ -150,7 +150,7 @@ final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledReposi
   @Override
   protected Observable getEntitiesObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getEntitiesObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getContainerName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getEntitiesObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getName() + "'" );
     }
     return $$arez$$_entities;
   }
@@ -158,10 +158,10 @@ final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledReposi
   @Override
   public void destroy(@Nonnull final DaggerDisabledRepository entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'destroy' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getContainerName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'destroy' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getName() + "'" );
     }
     try {
-      getContext().safeAction(Arez.areNamesEnabled() ? getContainerName() + ".destroy" : null, true, () -> super.destroy(entity) );
+      getContext().safeAction(Arez.areNamesEnabled() ? getName() + ".destroy" : null, true, () -> super.destroy(entity) );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -173,10 +173,10 @@ final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledReposi
   @Override
   public DaggerDisabledRepository create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'create' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getContainerName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'create' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getName() + "'" );
     }
     try {
-      return getContext().safeAction(Arez.areNamesEnabled() ? getContainerName() + ".create_name" : null, true, () -> super.create(name), name );
+      return getContext().safeAction(Arez.areNamesEnabled() ? getName() + ".create_name" : null, true, () -> super.create(name), name );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -212,7 +212,7 @@ final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledReposi
   @Override
   public final String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + getContainerName() + "]";
+      return "ArezComponent[" + getName() + "]";
     } else {
       return super.toString();
     }

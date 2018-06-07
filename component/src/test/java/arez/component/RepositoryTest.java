@@ -377,7 +377,7 @@ public class RepositoryTest
     }
 
     @Nonnull
-    protected String getContainerName()
+    protected String getName()
     {
       return "MyRepository";
     }

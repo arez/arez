@@ -1,14 +1,9 @@
 package arez.component;
 
 import arez.Arez;
-import arez.ArezContext;
-import arez.Component;
 import arez.Disposable;
 import arez.Observable;
-import arez.Observer;
 import arez.annotations.ComponentNameRef;
-import arez.annotations.ComponentRef;
-import arez.annotations.ContextRef;
 import arez.annotations.ObservableRef;
 import arez.annotations.PreDispose;
 import java.util.HashMap;
@@ -30,6 +25,7 @@ import static org.realityforge.braincheck.Guards.*;
  * in production mode for maximum performance.</p>
  */
 public abstract class AbstractContainer<K, T>
+  extends AbstractEntryContainer<T>
 {
   /**
    * A map of all the entities ArezId to entity.
@@ -52,18 +48,8 @@ public abstract class AbstractContainer<K, T>
                           "to the container. Entity: " + entity );
     }
     getEntitiesObservable().preReportChanged();
-    final EntityReference<T> entry = new EntityReference<>( entity );
-    final K arezId = Identifiable.getArezId( entity );
-    final Observer monitor =
-      getContext().when( Arez.areNativeComponentsEnabled() ? component() : null,
-                         Arez.areNamesEnabled() ? getContainerName() + ".EntityWatcher." + arezId : null,
-                         true,
-                         () -> ComponentObservable.notObserved( entity ),
-                         () -> detach( entity ),
-                         true,
-                         true );
-    entry.setMonitor( monitor );
-    _entities.put( arezId, entry );
+    final EntityReference<T> entry = createEntityReference( entity, reference -> detach( reference.getEntity() ) );
+    _entities.put( Identifiable.getArezId( entity ), entry );
     getEntitiesObservable().reportChanged();
   }
 
@@ -141,22 +127,6 @@ public abstract class AbstractContainer<K, T>
     }
   }
 
-  private void detachEntry( @Nonnull final EntityReference<T> entry, final boolean shouldDisposeEntity )
-  {
-    if ( shouldDisposeEntity )
-    {
-      Disposable.dispose( entry );
-    }
-    else
-    {
-      final Observer monitor = entry.getMonitor();
-      if ( null != monitor )
-      {
-        Disposable.dispose( monitor );
-      }
-    }
-  }
-
   /**
    * Return the entity with the specified ArezId or null if no such entity.
    *
@@ -200,31 +170,13 @@ public abstract class AbstractContainer<K, T>
   }
 
   /**
-   * Return the component associated with the container if native components enabled.
-   *
-   * @return the component associated with the container if native components enabled.
-   */
-  @ComponentRef
-  @Nonnull
-  protected abstract Component component();
-
-  /**
-   * Return the context associated with the container.
-   *
-   * @return the context associated with the container.
-   */
-  @ContextRef
-  @Nonnull
-  protected abstract ArezContext getContext();
-
-  /**
    * Return the name associated with the container.
    *
    * @return the name associated with the container.
    */
   @ComponentNameRef
   @Nonnull
-  protected abstract String getContainerName();
+  protected abstract String getName();
 
   /**
    * Return the observable associated with entities.
