@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +66,7 @@ public final class ArezProcessor
 
     if ( deferUnresolved )
     {
-      final ArrayList<Element> elementsToProcess = getElementsToProcess( elements );
+      final Collection<Element> elementsToProcess = getElementsToProcess( elements );
       processElements( elementsToProcess, env );
       if ( env.getRootElements().isEmpty() && !_deferred.isEmpty() )
       {
@@ -91,7 +92,7 @@ public final class ArezProcessor
                      target );
   }
 
-  private void processElements( @Nonnull final ArrayList<Element> elements,
+  private void processElements( @Nonnull final Collection<Element> elements,
                                 @Nonnull final RoundEnvironment env )
   {
     for ( final Element element : elements )
@@ -158,7 +159,7 @@ public final class ArezProcessor
   }
 
   @Nonnull
-  private ArrayList<Element> getElementsToProcess( @Nonnull final Set<? extends Element> elements )
+  private Collection<Element> getElementsToProcess( @Nonnull final Set<? extends Element> elements )
   {
     final ArrayList<Element> elementsToProcess = new ArrayList<>();
     final HashSet<TypeElement> deferred = _deferred;
