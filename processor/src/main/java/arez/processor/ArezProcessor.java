@@ -158,7 +158,7 @@ public final class ArezProcessor
   }
 
   @Nonnull
-  private ArrayList<Element> getElementsToProcess( final @Nonnull Set<? extends Element> elements )
+  private ArrayList<Element> getElementsToProcess( @Nonnull final Set<? extends Element> elements )
   {
     final ArrayList<Element> elementsToProcess = new ArrayList<>();
     final HashSet<TypeElement> deferred = _deferred;
