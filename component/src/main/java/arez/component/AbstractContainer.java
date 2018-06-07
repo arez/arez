@@ -61,7 +61,7 @@ public abstract class AbstractContainer<K, T>
   protected abstract boolean shouldDisposeEntryOnDispose();
 
   /**
-   * Dispose all the entities associated with the container.
+   * Dispose or detach all the entities associated with the container.
    */
   @PreDispose
   protected void preDispose()
