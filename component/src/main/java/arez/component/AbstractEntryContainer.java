@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
  * Abstract base class for classes that are expected to clear references to components when the
  * component is disposed.
  */
-abstract class AbstractEntryContainer<T>
+public abstract class AbstractEntryContainer<T>
 {
   /**
    * Create an EntityReference for specified entity.
