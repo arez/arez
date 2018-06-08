@@ -80,12 +80,15 @@ public class EntityReferenceTest
     @Override
     public boolean observe()
     {
-      final boolean isDisposed = isDisposed();
-      if ( !isDisposed )
+      if ( isDisposed() )
+      {
+        return false;
+      }
+      else
       {
         _observable.reportObserved();
+        return true;
       }
-      return !isDisposed;
     }
 
     @Override
