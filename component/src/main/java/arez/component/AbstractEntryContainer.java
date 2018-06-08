@@ -54,17 +54,14 @@ public abstract class AbstractEntryContainer<T>
    */
   final void detachEntry( @Nonnull final EntityEntry<T> entry, final boolean shouldDisposeEntity )
   {
+    final Observer monitor = entry.getMonitor();
+    if ( null != monitor )
+    {
+      Disposable.dispose( monitor );
+    }
     if ( shouldDisposeEntity )
     {
-      Disposable.dispose( entry );
-    }
-    else
-    {
-      final Observer monitor = entry.getMonitor();
-      if ( null != monitor )
-      {
-        Disposable.dispose( monitor );
-      }
+      Disposable.dispose( entry.getEntity() );
     }
   }
 

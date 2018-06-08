@@ -136,17 +136,17 @@ public abstract class AbstractContainer<K, T>
   protected T findByArezId( @Nonnull final K arezId )
   {
     final EntityEntry<T> entry = _entities.get( arezId );
-    if ( null != entry && Disposable.isNotDisposed( entry ) )
+    if ( null != entry )
     {
       final T entity = entry.getEntity();
-      ComponentObservable.observe( entity );
-      return entity;
+      if ( Disposable.isNotDisposed( entity ) )
+      {
+        ComponentObservable.observe( entity );
+        return entity;
+      }
     }
-    else
-    {
-      getEntitiesObservable().reportObserved();
-      return null;
-    }
+    getEntitiesObservable().reportObserved();
+    return null;
   }
 
   /**
@@ -188,7 +188,7 @@ public abstract class AbstractContainer<K, T>
   @Nonnull
   public Stream<T> entities()
   {
-    return _entities.values().stream().filter( Disposable::isNotDisposed ).map( EntityEntry::getEntity );
+    return _entities.values().stream().map( EntityEntry::getEntity ).filter( Disposable::isNotDisposed );
   }
 
   @TestOnly

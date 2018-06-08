@@ -20,11 +20,7 @@ public abstract class AbstractEntityReference<T>
   @PreDispose
   protected void preDispose()
   {
-    if ( null != _entry )
-    {
-      detachEntry( _entry, false );
-      _entry = null;
-    }
+    setEntity( null );
   }
 
   /**
@@ -56,7 +52,9 @@ public abstract class AbstractEntityReference<T>
   @Nullable
   private T getEntityUnlessDisposed()
   {
-    return null != _entry && Disposable.isNotDisposed( _entry ) ? _entry.getEntity() : null;
+    return null == _entry ?
+           null :
+           Disposable.isNotDisposed( _entry.getEntity() ) ? _entry.getEntity() : null;
   }
 
   /**

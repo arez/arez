@@ -1,6 +1,5 @@
 package arez.component;
 
-import arez.Disposable;
 import arez.Observer;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -12,7 +11,6 @@ import javax.annotation.Nullable;
  * entity from a container
  */
 final class EntityEntry<E>
-  implements Disposable
 {
   /**
    * The underlying entity.
@@ -65,28 +63,5 @@ final class EntityEntry<E>
   Observer getMonitor()
   {
     return _monitor;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void dispose()
-  {
-    if ( null != _monitor )
-    {
-      _monitor.dispose();
-      _monitor = null;
-    }
-    Disposable.dispose( _entity );
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public boolean isDisposed()
-  {
-    return Disposable.isDisposed( _entity );
   }
 }
