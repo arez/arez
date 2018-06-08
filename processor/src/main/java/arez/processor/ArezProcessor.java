@@ -161,9 +161,13 @@ public final class ArezProcessor
   @Nonnull
   private Collection<Element> getElementsToProcess( @Nonnull final Set<? extends Element> elements )
   {
-    final ArrayList<Element> elementsToProcess = new ArrayList<>();
-    final HashSet<TypeElement> deferred = _deferred;
+    final List<TypeElement> deferred = _deferred
+      .stream()
+      .map( e -> processingEnv.getElementUtils().getTypeElement( e.getQualifiedName() ) )
+      .collect( Collectors.toList() );
     _deferred = new HashSet<>();
+
+    final ArrayList<Element> elementsToProcess = new ArrayList<>();
     collectElementsToProcess( elements, elementsToProcess );
     collectElementsToProcess( deferred, elementsToProcess );
     return elementsToProcess;
