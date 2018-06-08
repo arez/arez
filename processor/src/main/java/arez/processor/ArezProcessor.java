@@ -169,7 +169,7 @@ public final class ArezProcessor
     return elementsToProcess;
   }
 
-  private void collectElementsToProcess( @Nonnull final Set<? extends Element> elements,
+  private void collectElementsToProcess( @Nonnull final Collection<? extends Element> elements,
                                          @Nonnull final ArrayList<Element> elementsToProcess )
   {
     for ( final Element element : elements )
