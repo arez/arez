@@ -3,7 +3,7 @@
 ### Unreleased
 
 * **\[component\]** Add the method `AbstractContainer.shouldDisposeEntryOnDispose()` that controls
-  whether an entity is detached or disposed when the container is disposed. 
+  whether an entity is detached or disposed when the container is disposed.
 * **\[component\]** Add invariant check to `AbstractContainer.attach(entity)` to ensure that entity
   is not already attached.
 * **\[component\]** Rename `AbstractContainer.getComponentName()` to `AbstractContainer.getName()`.
