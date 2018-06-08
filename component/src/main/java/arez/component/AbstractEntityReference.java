@@ -35,6 +35,27 @@ public abstract class AbstractEntityReference<T>
   @Nullable
   protected T getEntity()
   {
+    return getEntityUnlessDisposed();
+  }
+
+  /**
+   * Return true if reference for entity exists.
+   *
+   * @return true if reference for entity exists.
+   */
+  protected boolean hasEntity()
+  {
+    return null != getEntityUnlessDisposed();
+  }
+
+  /**
+   * Return the entity if reference exists and entity is not disposed.
+   *
+   * @return the entity if it is not disposed.
+   */
+  @Nullable
+  private T getEntityUnlessDisposed()
+  {
     return null != _entry && Disposable.isNotDisposed( _entry ) ? _entry.getEntity() : null;
   }
 

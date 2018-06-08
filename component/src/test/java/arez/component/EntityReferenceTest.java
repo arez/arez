@@ -37,22 +37,26 @@ public class EntityReferenceTest
     assertEquals( callCount.get(), 1 );
 
     assertNull( context.safeAction( reference::getEntity ) );
+    assertEquals( context.safeAction( reference::hasEntity ), Boolean.FALSE );
 
     context.safeAction( () -> reference.setEntity( entity1 ) );
 
     assertEquals( callCount.get(), 2 );
 
     assertEquals( context.safeAction( reference::getEntity ), entity1 );
+    assertEquals( context.safeAction( reference::hasEntity ), Boolean.TRUE );
     assertEquals( Disposable.isDisposed( entity1 ), false );
 
     context.safeAction( () -> reference.setEntity( null ) );
 
     assertEquals( callCount.get(), 3 );
+    assertEquals( context.safeAction( reference::hasEntity ), Boolean.FALSE );
     assertEquals( Disposable.isDisposed( entity1 ), false );
 
     context.safeAction( () -> reference.setEntity( entity2 ) );
 
     assertEquals( callCount.get(), 4 );
+    assertEquals( context.safeAction( reference::hasEntity ), Boolean.TRUE );
     assertEquals( Disposable.isDisposed( entity1 ), false );
 
     Disposable.dispose( reference );
