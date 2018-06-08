@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.90](https://github.com/arez/arez/tree/v0.90) (2018-06-08)
+[Full Changelog](https://github.com/arez/arez/compare/v0.89...v0.90)
 
 * **\[component\]** Add the method `AbstractContainer.shouldDisposeEntryOnDispose()` that controls
   whether an entity is detached or disposed when the container is disposed.
