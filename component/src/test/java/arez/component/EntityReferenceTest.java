@@ -65,6 +65,45 @@ public class EntityReferenceTest
     assertEquals( Disposable.isDisposed( entity1 ), false );
   }
 
+  @Test
+  public void disposeEntityRemovesReference()
+  {
+    final ArezContext context = Arez.context();
+
+    final MyEntity entity1 = new MyEntity( 301 );
+
+    final MyEntityReference reference = MyEntityReference.create();
+
+    final AtomicInteger callCount = new AtomicInteger();
+    context.autorun( () -> {
+      if ( Disposable.isNotDisposed( reference ) )
+      {
+        // Observe entity
+        reference.getEntity();
+      }
+      callCount.incrementAndGet();
+    } );
+
+    assertEquals( callCount.get(), 1 );
+
+    assertNull( context.safeAction( reference::getEntity ) );
+    assertEquals( context.safeAction( reference::hasEntity ), Boolean.FALSE );
+
+    context.safeAction( () -> reference.setEntity( entity1 ) );
+
+    assertEquals( callCount.get(), 2 );
+
+    assertEquals( context.safeAction( reference::getEntity ), entity1 );
+    assertEquals( context.safeAction( reference::hasEntity ), Boolean.TRUE );
+    assertEquals( Disposable.isDisposed( entity1 ), false );
+
+    Disposable.dispose( entity1 );
+
+    assertEquals( callCount.get(), 3 );
+    assertEquals( context.safeAction( reference::getEntity ), null );
+    assertEquals( context.safeAction( reference::hasEntity ), Boolean.FALSE );
+  }
+
   static class MyEntity
     implements Identifiable<Integer>, Disposable, ComponentObservable
   {

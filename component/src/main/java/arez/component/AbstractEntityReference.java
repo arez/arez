@@ -77,7 +77,7 @@ public abstract class AbstractEntityReference<T>
     }
     else
     {
-      _entry = createEntityEntry( entity, reference -> detachEntry( reference, false ) );
+      _entry = createEntityEntry( entity, reference -> setEntity( null ) );
     }
   }
 }
