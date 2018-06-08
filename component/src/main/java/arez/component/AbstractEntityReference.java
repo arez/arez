@@ -20,7 +20,7 @@ public abstract class AbstractEntityReference<T>
   @PreDispose
   protected void preDispose()
   {
-    setEntity( null );
+    doSetEntity( null );
   }
 
   /**
@@ -64,6 +64,11 @@ public abstract class AbstractEntityReference<T>
    */
   @Observable
   protected void setEntity( @Nullable final T entity )
+  {
+    doSetEntity( entity );
+  }
+
+  private void doSetEntity( @Nullable final T entity )
   {
     if ( null != _entry )
     {
