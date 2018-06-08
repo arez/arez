@@ -10,7 +10,7 @@ import javax.inject.Singleton;
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent
 @Singleton
-public abstract class NestedModel_BasicActionModelRepository extends AbstractRepository<Long, NestedModel.BasicActionModel, NestedModel_BasicActionModelRepository> {
+public abstract class NestedModel_BasicActionModelRepository extends AbstractRepository<Integer, NestedModel.BasicActionModel, NestedModel_BasicActionModelRepository> {
   NestedModel_BasicActionModelRepository() {
   }
 

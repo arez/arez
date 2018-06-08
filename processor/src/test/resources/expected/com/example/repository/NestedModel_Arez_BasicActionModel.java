@@ -14,10 +14,10 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicActionModel implements Disposable, Identifiable<Long>, ComponentObservable {
-  private static volatile long $$arezi$$_nextId;
+public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicActionModel implements Disposable, Identifiable<Integer>, ComponentObservable {
+  private static volatile int $$arezi$$_nextId;
 
-  private final long $$arezi$$_id;
+  private final int $$arezi$$_id;
 
   private byte $$arezi$$_state;
 
@@ -49,13 +49,13 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
 
-  final long $$arezi$$_id() {
+  final int $$arezi$$_id() {
     return this.$$arezi$$_id;
   }
 
   @Override
   @Nonnull
-  public final Long getArezId() {
+  public final Integer getArezId() {
     return $$arezi$$_id();
   }
 
@@ -115,7 +115,7 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
 
   @Override
   public final int hashCode() {
-    return Long.hashCode( $$arezi$$_id() );
+    return Double.hashCode( $$arezi$$_id() );
   }
 
   @Override

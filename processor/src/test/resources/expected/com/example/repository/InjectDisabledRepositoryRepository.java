@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
     nameIncludesId = false,
     inject = Feature.DISABLE
 )
-public abstract class InjectDisabledRepositoryRepository extends AbstractRepository<Long, InjectDisabledRepository, InjectDisabledRepositoryRepository> {
+public abstract class InjectDisabledRepositoryRepository extends AbstractRepository<Integer, InjectDisabledRepository, InjectDisabledRepositoryRepository> {
   InjectDisabledRepositoryRepository() {
   }
 

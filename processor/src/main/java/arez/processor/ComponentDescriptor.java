@@ -1911,7 +1911,7 @@ final class ComponentDescriptor
     codeBlock.addStatement( "return false" );
     codeBlock.nextControlFlow( "else" );
     codeBlock.addStatement( "final $T that = ($T) o;", generatedClass, generatedClass );
-    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : TypeKind.LONG;
+    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : TypeKind.DOUBLE;
     if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
     {
       codeBlock.addStatement( "return null != $N() && $N().equals( that.$N() )", idMethod, idMethod, idMethod );
@@ -1950,7 +1950,7 @@ final class ComponentDescriptor
         addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
         addAnnotation( Override.class ).
         returns( TypeName.INT );
-    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : TypeKind.LONG;
+    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : TypeKind.DOUBLE;
     if ( _requireEquals )
     {
       if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
@@ -2139,7 +2139,7 @@ final class ComponentDescriptor
 
     final MethodSpec.Builder method = MethodSpec.methodBuilder( GeneratorUtil.ID_FIELD_NAME ).
       addModifiers( Modifier.FINAL ).
-      returns( TypeName.LONG );
+      returns( GeneratorUtil.DEFAULT_ID_TYPE );
 
     if ( !hasRepository() )
     {
@@ -2376,7 +2376,7 @@ final class ComponentDescriptor
     if ( null == _componentId )
     {
       final FieldSpec.Builder nextIdField =
-        FieldSpec.builder( TypeName.LONG,
+        FieldSpec.builder( GeneratorUtil.DEFAULT_ID_TYPE,
                            GeneratorUtil.NEXT_ID_FIELD_NAME,
                            Modifier.VOLATILE,
                            Modifier.STATIC,
@@ -2384,7 +2384,10 @@ final class ComponentDescriptor
       builder.addField( nextIdField.build() );
 
       final FieldSpec.Builder idField =
-        FieldSpec.builder( TypeName.LONG, GeneratorUtil.ID_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE );
+        FieldSpec.builder( GeneratorUtil.DEFAULT_ID_TYPE,
+                           GeneratorUtil.ID_FIELD_NAME,
+                           Modifier.FINAL,
+                           Modifier.PRIVATE );
       builder.addField( idField.build() );
     }
 
@@ -2580,7 +2583,7 @@ final class ComponentDescriptor
         else
         {
           builder.addStatement(
-            "this.$N = ( $T.areNamesEnabled() || $T.areNativeComponentsEnabled() ) ? $N++ : 0L",
+            "this.$N = ( $T.areNamesEnabled() || $T.areNativeComponentsEnabled() ) ? $N++ : 0",
             GeneratorUtil.ID_FIELD_NAME,
             GeneratorUtil.AREZ_CLASSNAME,
             GeneratorUtil.AREZ_CLASSNAME,
@@ -2589,7 +2592,7 @@ final class ComponentDescriptor
       }
       else
       {
-        builder.addStatement( "this.$N = $T.areNativeComponentsEnabled() ? $N++ : 0L",
+        builder.addStatement( "this.$N = $T.areNativeComponentsEnabled() ? $N++ : 0",
                               GeneratorUtil.ID_FIELD_NAME,
                               GeneratorUtil.AREZ_CLASSNAME,
                               GeneratorUtil.NEXT_ID_FIELD_NAME );
@@ -3173,7 +3176,7 @@ final class ComponentDescriptor
   private TypeName getIdType()
   {
     return null == _componentIdMethodType ?
-           TypeName.LONG :
+           GeneratorUtil.DEFAULT_ID_TYPE :
            TypeName.get( _componentIdMethodType.getReturnType() );
   }
 

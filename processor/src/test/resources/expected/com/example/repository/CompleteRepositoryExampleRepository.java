@@ -11,8 +11,7 @@ import javax.inject.Singleton;
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent
 @Singleton
-public abstract class CompleteRepositoryExampleRepository extends AbstractRepository<Integer, CompleteRepositoryExample, CompleteRepositoryExampleRepository> implements CompleteRepositoryExampleRepositoryExtension
-{
+public abstract class CompleteRepositoryExampleRepository extends AbstractRepository<Integer, CompleteRepositoryExample, CompleteRepositoryExampleRepository> implements CompleteRepositoryExampleRepositoryExtension {
   CompleteRepositoryExampleRepository() {
   }
 

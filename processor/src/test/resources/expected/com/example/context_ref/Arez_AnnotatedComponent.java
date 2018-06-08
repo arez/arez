@@ -14,10 +14,10 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_AnnotatedComponent extends AnnotatedComponent implements Disposable, Identifiable<Long>, ComponentObservable {
-  private static volatile long $$arezi$$_nextId;
+final class Arez_AnnotatedComponent extends AnnotatedComponent implements Disposable, Identifiable<Integer>, ComponentObservable {
+  private static volatile int $$arezi$$_nextId;
 
-  private final long $$arezi$$_id;
+  private final int $$arezi$$_id;
 
   private byte $$arezi$$_state;
 
@@ -31,7 +31,7 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
   Arez_AnnotatedComponent() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
-    this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0L;
+    this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "AnnotatedComponent", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     this.$$arezi$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
@@ -51,7 +51,7 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
 
-  final long $$arezi$$_id() {
+  final int $$arezi$$_id() {
     if ( Arez.shouldCheckInvariants() && !Arez.areNamesEnabled() && !Arez.areNativeComponentsEnabled() ) {
       Guards.fail( () -> "Method invoked to access id when id not expected." );
     }
@@ -60,7 +60,7 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
 
   @Override
   @Nonnull
-  public final Long getArezId() {
+  public final Integer getArezId() {
     return $$arezi$$_id();
   }
 
@@ -107,7 +107,7 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
   @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
-      return Long.hashCode( $$arezi$$_id() );
+      return Double.hashCode( $$arezi$$_id() );
     } else {
       return super.hashCode();
     }

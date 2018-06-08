@@ -15,10 +15,10 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_RepositoryWithSingleton extends RepositoryWithSingleton implements Disposable, Identifiable<Long>, ComponentObservable {
-  private static volatile long $$arezi$$_nextId;
+final class Arez_RepositoryWithSingleton extends RepositoryWithSingleton implements Disposable, Identifiable<Integer>, ComponentObservable {
+  private static volatile int $$arezi$$_nextId;
 
-  private final long $$arezi$$_id;
+  private final int $$arezi$$_id;
 
   private byte $$arezi$$_state;
 
@@ -35,7 +35,7 @@ final class Arez_RepositoryWithSingleton extends RepositoryWithSingleton impleme
   Arez_RepositoryWithSingleton(@Nonnull final String name) {
     super(name);
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
-    this.$$arezi$$_id = Arez.areNativeComponentsEnabled() ? $$arezi$$_nextId++ : 0L;
+    this.$$arezi$$_id = Arez.areNativeComponentsEnabled() ? $$arezi$$_nextId++ : 0;
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "RepositoryWithSingleton", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
@@ -54,13 +54,13 @@ final class Arez_RepositoryWithSingleton extends RepositoryWithSingleton impleme
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
 
-  final long $$arezi$$_id() {
+  final int $$arezi$$_id() {
     return this.$$arezi$$_id;
   }
 
   @Override
   @Nonnull
-  public final Long getArezId() {
+  public final Integer getArezId() {
     return $$arezi$$_id();
   }
 
@@ -130,7 +130,7 @@ final class Arez_RepositoryWithSingleton extends RepositoryWithSingleton impleme
 
   @Override
   public final int hashCode() {
-    return Long.hashCode( $$arezi$$_id() );
+    return Double.hashCode( $$arezi$$_id() );
   }
 
   @Override

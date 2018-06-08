@@ -10,7 +10,7 @@ import javax.inject.Singleton;
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent
 @Singleton
-public abstract class RepositoryWithImplicitIdRepository extends AbstractRepository<Long, RepositoryWithImplicitId, RepositoryWithImplicitIdRepository> {
+public abstract class RepositoryWithImplicitIdRepository extends AbstractRepository<Integer, RepositoryWithImplicitId, RepositoryWithImplicitIdRepository> {
   RepositoryWithImplicitIdRepository() {
   }
 

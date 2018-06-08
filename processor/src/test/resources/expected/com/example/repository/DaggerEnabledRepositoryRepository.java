@@ -13,7 +13,7 @@ import javax.inject.Singleton;
     dagger = Feature.ENABLE
 )
 @Singleton
-public abstract class DaggerEnabledRepositoryRepository extends AbstractRepository<Long, DaggerEnabledRepository, DaggerEnabledRepositoryRepository> {
+public abstract class DaggerEnabledRepositoryRepository extends AbstractRepository<Integer, DaggerEnabledRepository, DaggerEnabledRepositoryRepository> {
   DaggerEnabledRepositoryRepository() {
   }
 

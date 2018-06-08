@@ -22,6 +22,8 @@
   dependencies if the the dependency used a fully qualified name in the source code, the annotation
   processor must be passed the configuration property `arez.defer.unresolved` set to `false`. This
   is typically done by passing `-Aarez.defer.unresolved=false` to the javac command.
+* 💥 **\[processor\]** Change the type of the synthetic id created for components to an `int` rather
+  than a `long` to avoid the overhead of the long emulation code within GWT.
 
 ### [v0.89](https://github.com/arez/arez/tree/v0.89) (2018-06-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.88...v0.89)

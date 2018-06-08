@@ -13,7 +13,7 @@ import javax.inject.Singleton;
     inject = Feature.ENABLE
 )
 @Singleton
-public abstract class InjectEnabledRepositoryRepository extends AbstractRepository<Long, InjectEnabledRepository, InjectEnabledRepositoryRepository> {
+public abstract class InjectEnabledRepositoryRepository extends AbstractRepository<Integer, InjectEnabledRepository, InjectEnabledRepositoryRepository> {
   InjectEnabledRepositoryRepository() {
   }
 

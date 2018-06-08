@@ -73,6 +73,8 @@ final class GeneratorUtil
   static final String SET_NULL_ON_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "setNullOnDispose";
   static final String INTERNAL_OBSERVE_METHOD_NAME = FRAMEWORK_PREFIX + "observe";
 
+  static final TypeName DEFAULT_ID_TYPE = TypeName.INT;
+
   private GeneratorUtil()
   {
   }

@@ -18,10 +18,10 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @Singleton
-final class Arez_RepositoryWithAttachOnlyRepository extends RepositoryWithAttachOnlyRepository implements Disposable, Identifiable<Long>, ComponentObservable {
-  private static volatile long $$arezi$$_nextId;
+final class Arez_RepositoryWithAttachOnlyRepository extends RepositoryWithAttachOnlyRepository implements Disposable, Identifiable<Integer>, ComponentObservable {
+  private static volatile int $$arezi$$_nextId;
 
-  private final long $$arezi$$_id;
+  private final int $$arezi$$_id;
 
   private byte $$arezi$$_state;
 
@@ -39,7 +39,7 @@ final class Arez_RepositoryWithAttachOnlyRepository extends RepositoryWithAttach
   Arez_RepositoryWithAttachOnlyRepository() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
-    this.$$arezi$$_id = Arez.areNativeComponentsEnabled() ? $$arezi$$_nextId++ : 0L;
+    this.$$arezi$$_id = Arez.areNativeComponentsEnabled() ? $$arezi$$_nextId++ : 0;
     this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "RepositoryWithAttachOnlyRepository", $$arezi$$_id(), Arez.areNamesEnabled() ? getName() : null, () -> super.preDispose() ) : null;
     this.$$arezi$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
@@ -80,7 +80,7 @@ final class Arez_RepositoryWithAttachOnlyRepository extends RepositoryWithAttach
     return this.$$arezi$$_component;
   }
 
-  final long $$arezi$$_id() {
+  final int $$arezi$$_id() {
     if ( Arez.shouldCheckInvariants() && !Arez.areNativeComponentsEnabled() ) {
       Guards.fail( () -> "Method invoked to access id when id not expected." );
     }
@@ -89,7 +89,7 @@ final class Arez_RepositoryWithAttachOnlyRepository extends RepositoryWithAttach
 
   @Override
   @Nonnull
-  public final Long getArezId() {
+  public final Integer getArezId() {
     return $$arezi$$_id();
   }
 
@@ -186,7 +186,7 @@ final class Arez_RepositoryWithAttachOnlyRepository extends RepositoryWithAttach
   @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
-      return Long.hashCode( $$arezi$$_id() );
+      return Double.hashCode( $$arezi$$_id() );
     } else {
       return super.hashCode();
     }

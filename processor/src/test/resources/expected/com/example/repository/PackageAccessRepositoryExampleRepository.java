@@ -11,8 +11,7 @@ import javax.inject.Singleton;
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent
 @Singleton
-abstract class PackageAccessRepositoryExampleRepository extends AbstractRepository<Integer, PackageAccessRepositoryExample, PackageAccessRepositoryExampleRepository> implements PackageAccessRepositoryExampleRepositoryExtension
-{
+abstract class PackageAccessRepositoryExampleRepository extends AbstractRepository<Integer, PackageAccessRepositoryExample, PackageAccessRepositoryExampleRepository> implements PackageAccessRepositoryExampleRepositoryExtension {
   PackageAccessRepositoryExampleRepository() {
   }
 
