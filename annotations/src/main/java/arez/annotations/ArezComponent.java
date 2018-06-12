@@ -90,7 +90,7 @@ public @interface ArezComponent
   /**
    * Return true if the component should dispose itself once it is no longer "observed".
    * By "observed" it means that the component will have {@link arez.component.ComponentObservable#observe(Object)}
-   * called on it. This MUST be false if {@link #observable()} is false.
+   * called on it. This parameter MUST be false if {@link #observable()} is false.
    *
    * @return true if the component should dispose itself once it is no longer "observed".
    */
