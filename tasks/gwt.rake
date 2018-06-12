@@ -27,7 +27,7 @@ def gwt_enhance(project, options = {})
     Dir["#{base_dir}/**/*.gwt.xml"].each do |filename|
       gwt_modules << filename.gsub("#{base_dir}/", '').gsub('.gwt.xml', '').gsub('/', '.')
     end
-  end
+  end if gwt_modules.empty?
 
   unless modules_complete
     base_synthetic_module_dir = project._(:generated, :synthetic_gwt_module, :main, :resources)
