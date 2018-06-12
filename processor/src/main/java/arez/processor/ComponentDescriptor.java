@@ -1008,6 +1008,13 @@ final class ComponentDescriptor
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
                                         "@Computed, @Memoize, @Observable, @Track or @Autorun", _element );
     }
+
+    if ( _deferSchedule && _roAutoruns.isEmpty() )
+    {
+      throw new ArezProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
+                                        "annotation parameter but has no methods annotated with @Autorun",
+                                        _element );
+    }
   }
 
   private void checkNameUnique( @Nonnull final String name,

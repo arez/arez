@@ -121,6 +121,7 @@ public @interface ArezComponent
   /**
    * Return true if an the generated component should NOT schedule autorun actions at the end of the
    * constructor. This is useful if the component creator will trigger schedules manually at a later time.
+   * This MUST be false if there is no autorun methods annotated on the component.
    *
    * @return Return true if an the generated component should NOT schedule autorun actions at the end of the constructor.
    */

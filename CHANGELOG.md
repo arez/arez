@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+* 💥 **\[processor\]** Make the annotation processor generate an error if the `deferSchedule`
+  parameter is set to true on the `@ArezComponent` annotation but the class has is no methods
+  annotated with the `@Autorun` annotation.
+
 ### [v0.90](https://github.com/arez/arez/tree/v0.90) (2018-06-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.89...v0.90)
 

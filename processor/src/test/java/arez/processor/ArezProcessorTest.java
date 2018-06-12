@@ -459,6 +459,8 @@ public class ArezProcessorTest
 
         new Object[]{ "com.example.component.ConcreteComponent",
                       "@ArezComponent target must be abstract unless the allowConcrete parameter is set to true" },
+        new Object[]{ "com.example.component.DeferredButNoAutorunModel",
+                      "@ArezComponent target has specified the deferSchedule = true annotation parameter but has no methods annotated with @Autorun" },
         new Object[]{ "com.example.component.ModelWithAbstractMethod",
                       "@ArezComponent target has an abstract method not implemented by framework. The method is named someMethod" },
         new Object[]{ "com.example.component.BadTypeComponent",
