@@ -1009,12 +1009,19 @@ final class ComponentDescriptor
                                         "@Computed, @Memoize, @Observable, @Track or @Autorun", _element );
     }
 
-    if ( _deferSchedule && _roAutoruns.isEmpty() )
+    if ( _deferSchedule && !requiresSchedule() )
     {
       throw new ArezProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
-                                        "annotation parameter but has no methods annotated with @Autorun",
-                                        _element );
+                                        "annotation parameter but has no methods annotated with @Autorun, " +
+                                        "@Dependency or @Computed(keepAlive=true)", _element );
     }
+  }
+
+  private boolean requiresSchedule()
+  {
+    return !_roAutoruns.isEmpty() ||
+           !_roDependencies.isEmpty() ||
+           _computeds.values().stream().anyMatch( ComputedDescriptor::isKeepAlive );
   }
 
   private void checkNameUnique( @Nonnull final String name,
@@ -2698,10 +2705,7 @@ final class ComponentDescriptor
     componentEnabledBlock.endControlFlow();
     builder.addCode( componentEnabledBlock.build() );
 
-    if ( !_deferSchedule &&
-         ( !_roAutoruns.isEmpty() ||
-           !_roDependencies.isEmpty() ||
-           _computeds.values().stream().anyMatch( ComputedDescriptor::isKeepAlive ) ) )
+    if ( !_deferSchedule && requiresSchedule() )
     {
       GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_COMPLETE" );
 

@@ -4,7 +4,8 @@
 
 * 💥 **\[processor\]** Make the annotation processor generate an error if the `deferSchedule`
   parameter is set to true on the `@ArezComponent` annotation but the class has is no methods
-  annotated with the `@Autorun` annotation.
+  annotated with the `@Autorun` annotation, the `@Dependency` annotation or the 
+  `@Computed(keepAlive=true)` annotation.
 * **\[processor\]** The state field in generated components is used to enforce invariants and to
   determine whether a component is disposed. The annotation processor can avoid updating the state
   field when invariant checking is disabled if the change is only used to check invariants. This
