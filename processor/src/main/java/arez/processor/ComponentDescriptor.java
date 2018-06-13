@@ -2291,9 +2291,7 @@ final class ComponentDescriptor
     nativeComponentBlock.add( actionBlock.build() );
     nativeComponentBlock.endControlFlow();
     codeBlock.add( nativeComponentBlock.build() );
-    codeBlock.addStatement( "this.$N = $T.COMPONENT_DISPOSED",
-                            GeneratorUtil.STATE_FIELD_NAME,
-                            GeneratorUtil.COMPONENT_STATE_CLASSNAME );
+    GeneratorUtil.setStateForInvariantChecking( codeBlock, "COMPONENT_DISPOSED" );
     codeBlock.endControlFlow();
 
     builder.addCode( codeBlock.build() );
@@ -2339,9 +2337,7 @@ final class ComponentDescriptor
     block.addStatement( "this.$N.reportObserved()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     block.endControlFlow();
     builder.addCode( block.build() );
-    builder.addStatement( "return !isDisposed",
-                          GeneratorUtil.COMPONENT_STATE_CLASSNAME,
-                          GeneratorUtil.STATE_FIELD_NAME );
+    builder.addStatement( "return !isDisposed" );
     return builder.build();
   }
 
@@ -2605,9 +2601,7 @@ final class ComponentDescriptor
                               GeneratorUtil.NEXT_ID_FIELD_NAME );
       }
     }
-    builder.addStatement( "this.$N = $T.COMPONENT_INITIALIZED",
-                          GeneratorUtil.STATE_FIELD_NAME,
-                          GeneratorUtil.COMPONENT_STATE_CLASSNAME );
+    GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_INITIALIZED" );
 
     // Create component representation if required
     {
@@ -2689,9 +2683,7 @@ final class ComponentDescriptor
       buildSetNullOnDisposeInitializer( builder );
     }
 
-    builder.addStatement( "this.$N = $T.COMPONENT_CONSTRUCTED",
-                          GeneratorUtil.STATE_FIELD_NAME,
-                          GeneratorUtil.COMPONENT_STATE_CLASSNAME );
+    GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_CONSTRUCTED" );
 
     final ExecutableElement postConstruct = getPostConstruct();
     if ( null != postConstruct )
@@ -2711,17 +2703,12 @@ final class ComponentDescriptor
            !_roDependencies.isEmpty() ||
            _computeds.values().stream().anyMatch( ComputedDescriptor::isKeepAlive ) ) )
     {
-      builder.addStatement( "this.$N = $T.COMPONENT_COMPLETE",
-                            GeneratorUtil.STATE_FIELD_NAME,
-                            GeneratorUtil.COMPONENT_STATE_CLASSNAME );
+      GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_COMPLETE" );
 
       builder.addStatement( "$N().triggerScheduler()", getContextMethodName() );
     }
 
-    builder.addStatement( "this.$N = $T.COMPONENT_READY",
-                          GeneratorUtil.STATE_FIELD_NAME,
-                          GeneratorUtil.COMPONENT_STATE_CLASSNAME );
-
+    GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_READY" );
     return builder.build();
   }
 

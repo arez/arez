@@ -153,6 +153,35 @@ final class GeneratorUtil
     builder.addCode( block.build() );
   }
 
+  static void setStateForInvariantChecking( @Nonnull final MethodSpec.Builder builder, @Nonnull final String stateName )
+  {
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", AREZ_CLASSNAME );
+
+    block.addStatement( "this.$N = $T.$N",
+                        GeneratorUtil.STATE_FIELD_NAME,
+                        GeneratorUtil.COMPONENT_STATE_CLASSNAME,
+                        stateName );
+    block.endControlFlow();
+
+    builder.addCode( block.build() );
+  }
+
+  @SuppressWarnings( "SameParameterValue" )
+  static void setStateForInvariantChecking( @Nonnull final CodeBlock.Builder builder, @Nonnull final String stateName )
+  {
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", AREZ_CLASSNAME );
+
+    block.addStatement( "this.$N = $T.$N",
+                        GeneratorUtil.STATE_FIELD_NAME,
+                        GeneratorUtil.COMPONENT_STATE_CLASSNAME,
+                        stateName );
+    block.endControlFlow();
+
+    builder.add( block.build() );
+  }
+
   static void generateTryBlock( @Nonnull final MethodSpec.Builder builder,
                                 @Nonnull final List<? extends TypeMirror> expectedThrowTypes,
                                 @Nonnull final Consumer<CodeBlock.Builder> action )

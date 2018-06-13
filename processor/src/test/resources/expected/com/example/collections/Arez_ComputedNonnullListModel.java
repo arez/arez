@@ -44,15 +44,21 @@ public final class Arez_ComputedNonnullListModel extends ComputedNonnullListMode
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
-    this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
+    if ( Arez.shouldCheckInvariants() ) {
+      this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
+    }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ComputedNonnullListModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arez$$_myValue = Arez.areCollectionsPropertiesUnmodifiable() ? $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myValue" : null, () -> super.getMyValue(), EqualityComparator.defaultComparator(), this::$$arezi$$_onActivate_myValue, this::$$arezi$$_onDeactivate_myValue, this::$$arezi$$_onStale_myValue, null ) : $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myValue" : null, () -> super.getMyValue() );
-    this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
+    if ( Arez.shouldCheckInvariants() ) {
+      this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
+    }
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
-    this.$$arezi$$_state = ComponentState.COMPONENT_READY;
+    if ( Arez.shouldCheckInvariants() ) {
+      this.$$arezi$$_state = ComponentState.COMPONENT_READY;
+    }
   }
 
   final ArezContext $$arezi$$_context() {
@@ -112,7 +118,9 @@ public final class Arez_ComputedNonnullListModel extends ComputedNonnullListMode
           this.$$arez$$_myValue.dispose();
         } } );
       }
-      this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
+      if ( Arez.shouldCheckInvariants() ) {
+        this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
+      }
     }
   }
 

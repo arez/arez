@@ -58,7 +58,9 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
-    this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
+    if ( Arez.shouldCheckInvariants() ) {
+      this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
+    }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "DifferentObservableTypesModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arez$$_v1 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v1" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.isV1() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV1( v ) : null );
@@ -70,11 +72,15 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     this.$$arez$$_v7 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v7" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV7() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV7( v ) : null );
     this.$$arez$$_v8 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v8" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV8() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV8( v ) : null );
     this.$$arez$$_v9 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v9" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV9() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV9( v ) : null );
-    this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
+    if ( Arez.shouldCheckInvariants() ) {
+      this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
+    }
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
-    this.$$arezi$$_state = ComponentState.COMPONENT_READY;
+    if ( Arez.shouldCheckInvariants() ) {
+      this.$$arezi$$_state = ComponentState.COMPONENT_READY;
+    }
   }
 
   final ArezContext $$arezi$$_context() {
@@ -142,7 +148,9 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
           this.$$arez$$_v9.dispose();
         } } );
       }
-      this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
+      if ( Arez.shouldCheckInvariants() ) {
+        this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
+      }
     }
   }
 

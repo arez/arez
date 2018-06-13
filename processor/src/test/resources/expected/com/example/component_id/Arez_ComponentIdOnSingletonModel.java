@@ -30,15 +30,21 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
   public Arez_ComponentIdOnSingletonModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
-    this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
+    if ( Arez.shouldCheckInvariants() ) {
+      this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
+    }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ComponentIdOnSingletonModel", getId(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arez$$_field = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".field" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getField() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setField( v ) : null );
-    this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
+    if ( Arez.shouldCheckInvariants() ) {
+      this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
+    }
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
-    this.$$arezi$$_state = ComponentState.COMPONENT_READY;
+    if ( Arez.shouldCheckInvariants() ) {
+      this.$$arezi$$_state = ComponentState.COMPONENT_READY;
+    }
   }
 
   final ArezContext $$arezi$$_context() {
@@ -91,7 +97,9 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
           this.$$arez$$_field.dispose();
         } } );
       }
-      this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
+      if ( Arez.shouldCheckInvariants() ) {
+        this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
+      }
     }
   }
 

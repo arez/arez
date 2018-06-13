@@ -46,21 +46,29 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
   Arez_CompleteModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
-    this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
+    if ( Arez.shouldCheckInvariants() ) {
+      this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
+    }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "CompleteModel", getId(), Arez.areNamesEnabled() ? getComponentName() : null ) : null;
     this.$$arezi$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arez$$_myValue = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_myValue : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myValue = v : null );
     this.$$arez$$_time = getContext().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".time" : null, () -> super.getTime(), EqualityComparator.defaultComparator(), this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, this::onTimeDispose );
     this.$$arez$$_myAutorun = getContext().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".myAutorun" : null, false, () -> super.myAutorun() );
     this.$$arez$$_render = getContext().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".render" : null, false, () -> super.onRenderDepsChanged() );
-    this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
+    if ( Arez.shouldCheckInvariants() ) {
+      this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
+    }
     super.postConstruct();
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
-    this.$$arezi$$_state = ComponentState.COMPONENT_COMPLETE;
+    if ( Arez.shouldCheckInvariants() ) {
+      this.$$arezi$$_state = ComponentState.COMPONENT_COMPLETE;
+    }
     getContext().triggerScheduler();
-    this.$$arezi$$_state = ComponentState.COMPONENT_READY;
+    if ( Arez.shouldCheckInvariants() ) {
+      this.$$arezi$$_state = ComponentState.COMPONENT_READY;
+    }
   }
 
   @Override
@@ -137,7 +145,9 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
           this.$$arez$$_myValue.dispose();
         } } );
       }
-      this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
+      if ( Arez.shouldCheckInvariants() ) {
+        this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
+      }
     }
   }
 
