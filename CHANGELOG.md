@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.91](https://github.com/arez/arez/tree/v0.91) (2018-06-13)
+[Full Changelog](https://github.com/arez/arez/compare/v0.90...v0.91)
 
 * 💥 **\[processor\]** Make the annotation processor generate an error if the `deferSchedule`
   parameter is set to true on the `@ArezComponent` annotation but the class has is no methods
