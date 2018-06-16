@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Nonnull;
-import org.realityforge.anodoc.Unsupported;
 
 /**
  * An observable model that declares state that tracks when the user is "idle".
@@ -55,7 +54,6 @@ import org.realityforge.anodoc.Unsupported;
  * }
  * }</pre>
  */
-@Unsupported( "This is still considered experimental and will likely evolve over time" )
 @ArezComponent( nameIncludesId = false )
 public abstract class IdleStatus
 {

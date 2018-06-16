@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Remove usage of the `org.realityforge.anodoc` dependency.
+
 ### [v0.19](https://github.com/arez/arez-idlestatus/tree/v0.19) (2018-06-13)
 [Full Changelog](https://github.com/arez/arez-idlestatus/compare/v0.18...v0.19)
 
