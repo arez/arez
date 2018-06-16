@@ -11,7 +11,6 @@ import elemental2.dom.EventListener;
 import java.util.Date;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.Unsupported;
 
 /**
  * An observable model that declares state that tracks when the user is "online".
@@ -46,7 +45,6 @@ import org.realityforge.anodoc.Unsupported;
  * }
  * }</pre>
  */
-@Unsupported( "This is still considered experimental and will likely evolve over time" )
 @ArezComponent( nameIncludesId = false )
 public abstract class NetworkStatus
 {
