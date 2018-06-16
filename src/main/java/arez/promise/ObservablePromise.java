@@ -9,7 +9,6 @@ import elemental2.promise.Promise;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import jsinterop.base.Js;
-import org.realityforge.anodoc.Unsupported;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -45,7 +44,6 @@ import static org.realityforge.braincheck.Guards.*;
  * @param <T> the type of the value that the promise will resolve to.
  * @param <E> the type of the error if the promise is rejected.
  */
-@Unsupported( "This is still considered experimental and will likely evolve over time" )
 @ArezComponent
 public abstract class ObservablePromise<T, E>
 {
