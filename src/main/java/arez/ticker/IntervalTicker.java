@@ -8,7 +8,6 @@ import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import elemental2.dom.DomGlobal;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -41,7 +40,6 @@ public abstract class IntervalTicker
   /**
    * The duration between ticks. Must be a postivive value.
    */
-  @Nonnegative
   private long _interval;
   /**
    * Id of interval returned from setInterval.
@@ -61,12 +59,12 @@ public abstract class IntervalTicker
    * @return the IntervalTicker.
    */
   @Nonnull
-  public static IntervalTicker create( @Nonnegative final long interval )
+  public static IntervalTicker create( final long interval )
   {
     return new Arez_IntervalTicker( interval );
   }
 
-  IntervalTicker( @Nonnegative final long interval )
+  IntervalTicker( final long interval )
   {
     _interval = interval;
     _intervalId = 0;
