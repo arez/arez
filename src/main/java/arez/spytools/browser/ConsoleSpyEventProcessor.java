@@ -29,14 +29,12 @@ import arez.spytools.SpyUtil;
 import elemental2.core.Global;
 import elemental2.dom.DomGlobal;
 import javax.annotation.Nonnull;
-import org.realityforge.anodoc.Unsupported;
 
 /**
  * A SpyEventHandler that prints spy events to the browser console.
  * The events are grouped according to their nesting levels and are colored to make them easy
  * to digest. This class is designed to be easy to sub-class.
  */
-@Unsupported( "This class relies on unstable spy API and will likely evolve as the api evolves" )
 public class ConsoleSpyEventProcessor
   extends AbstractSpyEventProcessor
 {

@@ -9,12 +9,10 @@ import arez.spy.TransactionInfo;
 import elemental2.dom.DomGlobal;
 import java.util.List;
 import javax.annotation.Nonnull;
-import org.realityforge.anodoc.Unsupported;
 
 /**
  * A very simple utility that describes why an observer or computed value runs.
  */
-@Unsupported( "This class relies on unsupported Spy API and will co-evolve with Spy capabilities." )
 public final class WhyRun
 {
   private WhyRun()
@@ -38,7 +36,6 @@ public final class WhyRun
    * @param spy the spy to introspect.
    * @return a human readable explanation why the current transaction is running.
    */
-  @Unsupported( "Expect the output format to change and evolve over time as Spy capabilities improve." )
   @Nonnull
   public static String whyRun( @Nonnull final Spy spy )
   {
@@ -67,7 +64,6 @@ public final class WhyRun
    * @param observer the observer that we want to investigate.
    * @return a human readable explanation why the node is/will run.
    */
-  @Unsupported( "Expect the output format to change and evolve over time as Spy capabilities improve." )
   @Nonnull
   public static String whyRun( @Nonnull final Spy spy, @Nonnull final ObserverInfo observer )
   {
