@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.92'
 * Remove usage of the `org.realityforge.anodoc` dependency.
 
 ### [v0.17](https://github.com/arez/arez-browserlocation/tree/v0.17) (2018-06-13)
