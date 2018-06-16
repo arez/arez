@@ -4,7 +4,6 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
-import org.realityforge.anodoc.Unsupported;
 
 /**
  * Marks a template method that returns the {@link arez.Observer} instance for
@@ -23,7 +22,6 @@ import org.realityforge.anodoc.Unsupported;
  */
 @Documented
 @Target( ElementType.METHOD )
-@Unsupported( "This is largely experimental and intended for framework users rather than casual users of the framework" )
 public @interface ObserverRef
 {
   /**

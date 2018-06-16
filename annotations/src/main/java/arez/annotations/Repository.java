@@ -4,7 +4,6 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
-import org.realityforge.anodoc.Unsupported;
 
 /**
  * Annotation that indicates that a repository must be generated for component.
@@ -47,7 +46,6 @@ import org.realityforge.anodoc.Unsupported;
  */
 @Documented
 @Target( ElementType.TYPE )
-@Unsupported( "This may change in the future as it is incorporated with replicant and the wider ecosystem" )
 public @interface Repository
 {
   /**
