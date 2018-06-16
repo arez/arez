@@ -4,7 +4,7 @@ require 'buildr/single_intermediate_layout'
 require 'buildr/gwt'
 require 'buildr/jacoco'
 
-PROVIDED_DEPS = [:javax_jsr305, :anodoc]
+PROVIDED_DEPS = [:javax_jsr305]
 TEST_DEPS = [:guiceyloops]
 JSINTEROP_ANNOTATION_DEPS = [:jsinterop_annotations, :jsinterop_annotations_sources]
 GWT_DEPS =

@@ -15,7 +15,6 @@ import java.util.Stack;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -265,13 +264,11 @@ public final class MemoizeCache<T>
     }
   }
 
-  @TestOnly
   Map<Object, Object> getCache()
   {
     return _cache;
   }
 
-  @TestOnly
   int getNextIndex()
   {
     return _nextIndex;

@@ -2,7 +2,6 @@ package arez;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
 
 /**
  * A utility class that contains reference to singleton context when zones are disabled.
@@ -34,7 +33,6 @@ final class ArezContextHolder
    * cleanup context.
    * This is dangerous as it may leave dangling references and should only be done in tests.
    */
-  @TestOnly
   static void reset()
   {
     c_context = new ArezContext();

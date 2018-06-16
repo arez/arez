@@ -3,7 +3,6 @@ package arez;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
 
 /**
  * This class is used to wait until a condition is true, then run effect and remove watch.
@@ -123,20 +122,17 @@ final class Watcher
     return Disposable.isDisposed( _watcher );
   }
 
-  @TestOnly
   boolean isMutation()
   {
     return _mutation;
   }
 
-  @TestOnly
   @Nonnull
   ComputedValue<Boolean> getCondition()
   {
     return _condition;
   }
 
-  @TestOnly
   SafeProcedure getEffect()
   {
     return _effect;

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -360,14 +359,12 @@ public final class Component
     _computedValues.remove( computedValue );
   }
 
-  @TestOnly
   @Nullable
   SafeProcedure getPreDispose()
   {
     return _preDispose;
   }
 
-  @TestOnly
   @Nullable
   SafeProcedure getPostDispose()
   {

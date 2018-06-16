@@ -7,6 +7,9 @@
   going forward.
 * **\[core\]** Remove the `@Unsupported` annotation from the `arez.spy` package and the `arez.Spy`
   interface as the spy infrastructure has started to stabilize.
+* **\[core\]** Remove the `org.realityforge.anodoc.TestOnly` annotation from the codebase as it is
+  only documentation and not enforced by any tooling and it is also the only remaining dependency
+  upon the `org.realityforge.anodoc` dependency which was also removed.
 
 ### [v0.91](https://github.com/arez/arez/tree/v0.91) (2018-06-13)
 [Full Changelog](https://github.com/arez/arez/compare/v0.90...v0.91)

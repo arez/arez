@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
-import org.realityforge.anodoc.TestOnly;
 
 /**
  * Log abstraction for framework.
@@ -32,7 +31,6 @@ final class ArezLogger
     c_logger.log( message, throwable );
   }
 
-  @TestOnly
   @Nonnull
   static Logger getLogger()
   {

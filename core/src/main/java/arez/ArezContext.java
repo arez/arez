@@ -16,7 +16,6 @@ import java.util.HashMap;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -2316,7 +2315,6 @@ public final class ArezContext
     return _computedValues;
   }
 
-  @TestOnly
   @Nonnull
   ObserverErrorHandlerSupport getObserverErrorHandlerSupport()
   {
@@ -2324,39 +2322,33 @@ public final class ArezContext
     return _observerErrorHandlerSupport;
   }
 
-  @TestOnly
   int currentNextTransactionId()
   {
     return _nextTransactionId;
   }
 
-  @TestOnly
   @Nonnull
   ReactionScheduler getScheduler()
   {
     return _scheduler;
   }
 
-  @TestOnly
   void setNextNodeId( final int nextNodeId )
   {
     _nextNodeId = nextNodeId;
   }
 
-  @TestOnly
   int getNextNodeId()
   {
     return _nextNodeId;
   }
 
-  @TestOnly
   int getSchedulerLockCount()
   {
     return _schedulerLockCount;
   }
 
   @SuppressWarnings( "SameParameterValue" )
-  @TestOnly
   void setSchedulerLockCount( final int schedulerLockCount )
   {
     _schedulerLockCount = schedulerLockCount;

@@ -4,7 +4,6 @@ import arez.spy.ComputedValueDisposedEvent;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -299,25 +298,21 @@ public final class ComputedValue<T>
     return _keepAlive;
   }
 
-  @TestOnly
   void setValue( final T value )
   {
     _value = value;
   }
 
-  @TestOnly
   Throwable getError()
   {
     return _error;
   }
 
-  @TestOnly
   void setError( final Throwable error )
   {
     _error = error;
   }
 
-  @TestOnly
   void setComputing( final boolean computing )
   {
     _computing = computing;

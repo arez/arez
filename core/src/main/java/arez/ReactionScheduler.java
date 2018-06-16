@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import org.realityforge.anodoc.TestOnly;
 import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -254,26 +253,22 @@ final class ReactionScheduler
     return _context;
   }
 
-  @TestOnly
   @Nonnull
   CircularBuffer<Observer> getPendingObservers()
   {
     return _pendingObservers;
   }
 
-  @TestOnly
   int getCurrentReactionRound()
   {
     return _currentReactionRound;
   }
 
-  @TestOnly
   int getRemainingReactionsInCurrentRound()
   {
     return _remainingReactionsInCurrentRound;
   }
 
-  @TestOnly
   void setCurrentReactionRound( final int currentReactionRound )
   {
     _currentReactionRound = currentReactionRound;

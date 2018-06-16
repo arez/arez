@@ -2,13 +2,11 @@ package arez;
 
 import java.lang.reflect.Field;
 import javax.annotation.Nonnull;
-import org.realityforge.anodoc.TestOnly;
 
 /**
  * Utility class for interacting with Arez config settings in tests.
  */
 @SuppressWarnings( "WeakerAccess" )
-@TestOnly
 @GwtIncompatible
 public final class ArezTestUtil
 {

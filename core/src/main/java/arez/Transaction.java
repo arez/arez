@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
-import org.realityforge.anodoc.VisibleForTesting;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -416,7 +414,6 @@ final class Transaction
     return _previous;
   }
 
-  @VisibleForTesting
   @Nullable
   Transaction getPreviousInSameContext()
   {
@@ -1008,32 +1005,27 @@ final class Transaction
     return _tracker;
   }
 
-  @TestOnly
   @Nullable
   ArrayList<Observable> getPendingDeactivations()
   {
     return _pendingDeactivations;
   }
 
-  @TestOnly
   static void setTransaction( @Nullable final Transaction transaction )
   {
     c_transaction = transaction;
   }
 
-  @TestOnly
   static boolean isSuspended()
   {
     return c_suspended;
   }
 
-  @TestOnly
   static void markAsSuspended()
   {
     c_suspended = true;
   }
 
-  @TestOnly
   static void resetSuspendedFlag()
   {
     c_suspended = false;

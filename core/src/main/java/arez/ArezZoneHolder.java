@@ -3,7 +3,6 @@ package arez;
 import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -102,7 +101,6 @@ final class ArezZoneHolder
    * Clear the state to cleanup .
    * This is dangerous as it may leave dangling references and should only be done in tests.
    */
-  @TestOnly
   static void reset()
   {
     c_defaultZone = new Zone();
@@ -110,7 +108,6 @@ final class ArezZoneHolder
     c_zoneStack = new ArrayList<>();
   }
 
-  @TestOnly
   @Nonnull
   static Zone getDefaultZone()
   {
@@ -118,7 +115,6 @@ final class ArezZoneHolder
     return c_defaultZone;
   }
 
-  @TestOnly
   @Nonnull
   static ArrayList<Zone> getZoneStack()
   {

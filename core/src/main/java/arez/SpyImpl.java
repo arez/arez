@@ -15,7 +15,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -570,7 +569,6 @@ final class SpyImpl
     return new ComputedValueInfoImpl( this, computedValue );
   }
 
-  @TestOnly
   @Nonnull
   ArrayList<SpyEventHandler> getSpyEventHandlers()
   {

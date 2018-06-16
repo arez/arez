@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
 import org.realityforge.braincheck.Guards;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -191,7 +190,6 @@ public abstract class AbstractContainer<K, T>
     return _entities.values().stream().map( EntityEntry::getEntity ).filter( Disposable::isNotDisposed );
   }
 
-  @TestOnly
   final HashMap<K, EntityEntry<T>> getEntities()
   {
     return _entities;

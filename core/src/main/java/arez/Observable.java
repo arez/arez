@@ -11,7 +11,6 @@ import java.util.Comparator;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -592,7 +591,6 @@ public final class Observable<T>
     return _component;
   }
 
-  @TestOnly
   int getWorkState()
   {
     return _workState;

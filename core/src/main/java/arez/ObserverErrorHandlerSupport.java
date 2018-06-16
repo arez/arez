@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.TestOnly;
 import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -84,7 +83,6 @@ final class ObserverErrorHandlerSupport
     }
   }
 
-  @TestOnly
   @Nonnull
   ArrayList<ObserverErrorHandler> getObserverErrorHandlers()
   {
