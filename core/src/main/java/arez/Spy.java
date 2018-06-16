@@ -9,12 +9,10 @@ import java.util.Collection;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.anodoc.Unsupported;
 
 /**
  * Interface for interacting with spy system.
  */
-@Unsupported( "This services is primary here to support DevTools and will evolve as requirements dictate" )
 public interface Spy
 {
   /**
