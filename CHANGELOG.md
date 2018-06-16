@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.92'
 * Remove usage of the `org.realityforge.anodoc` dependency.
 
 ### [v0.15](https://github.com/arez/arez-spytools/tree/v0.15) (2018-06-13)
