@@ -5,6 +5,8 @@
 * **\[annotations\]** Remove the `@Unsupported` annotation from all the annotations within the
   `arez.annotations` package as all of the annotations are sufficient stable to be supported
   going forward.
+* **\[core\]** Remove the `@Unsupported` annotation from the `arez.spy` package as the spy
+  infrastructure has started to stabilize.
 
 ### [v0.91](https://github.com/arez/arez/tree/v0.91) (2018-06-13)
 [Full Changelog](https://github.com/arez/arez/compare/v0.90...v0.91)
