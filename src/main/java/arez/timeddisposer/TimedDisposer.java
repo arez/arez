@@ -4,7 +4,6 @@ import arez.Arez;
 import arez.Disposable;
 import elemental2.dom.DomGlobal;
 import java.util.Objects;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -28,13 +27,13 @@ public final class TimedDisposer
    */
   @Nonnull
   public static TimedDisposer create( @Nonnull final Disposable target,
-                                      @Nonnegative final long timeout )
+                                      final long timeout )
   {
     return new TimedDisposer( target, timeout );
   }
 
   private TimedDisposer( @Nonnull final Disposable target,
-                         @Nonnegative final long timeout )
+                         final long timeout )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {

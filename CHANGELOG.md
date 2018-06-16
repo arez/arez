@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Remove unused `org.realityforge.anodoc` dependency.
+* Remove un-enforced `@Nonnegative` annotation.
 
 ### [v0.17](https://github.com/arez/arez-timeddisposer/tree/v0.17) (2018-06-13)
 [Full Changelog](https://github.com/arez/arez-timeddisposer/compare/v0.16...v0.17)
