@@ -10,7 +10,6 @@ import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import org.realityforge.anodoc.Unsupported;
 
 /**
  * This is a simple abstraction over browser location as a hash.
@@ -27,7 +26,6 @@ import org.realityforge.anodoc.Unsupported;
  * route should be updated.</p>
  */
 @ArezComponent( nameIncludesId = false )
-@Unsupported( "This is still considered experimental and will likely evolve over time" )
 public abstract class BrowserLocation
 {
   private final EventListener _listener = this::onHashChangeEvent;

@@ -20,7 +20,6 @@ define 'arez-browserlocation' do
   project.processorpath << :arez_processor
 
   compile.with :javax_jsr305,
-               :anodoc,
                :jsinterop_base,
                :jsinterop_base_sources,
                :jsinterop_annotations,
