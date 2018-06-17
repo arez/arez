@@ -167,8 +167,6 @@ define 'arez' do
 
   desc 'Arez Integration Tests'
   define 'integration-tests' do
-    pom.provided_dependencies.concat PROVIDED_DEPS
-
     test.options[:properties] = AREZ_TEST_OPTIONS.merge('arez.integration_fixture_dir' => _('src/test/resources'))
     test.options[:java_args] = ['-ea']
 
@@ -281,7 +279,6 @@ define 'arez' do
   desc 'Arez Examples used in documentation'
   define 'doc-examples' do
     project.enable_annotation_processor = true
-    pom.provided_dependencies.concat PROVIDED_DEPS
 
     compile.with project('processor').package(:jar),
                  project('processor').compile.dependencies,
