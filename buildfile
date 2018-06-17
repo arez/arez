@@ -94,8 +94,7 @@ define 'arez' do
     pom.include_transitive_dependencies << project('core').package(:jar)
     pom.dependency_filter = Proc.new {|dep| !project('core').compile.dependencies.include?(dep[:artifact]) && !project('annotations').compile.dependencies.include?(dep[:artifact])}
 
-    compile.with PROVIDED_DEPS,
-                 project('annotations').package(:jar),
+    compile.with project('annotations').package(:jar),
                  project('annotations').compile.dependencies,
                  project('core').package(:jar),
                  project('core').compile.dependencies
