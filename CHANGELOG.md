@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.92'
 * Remove usage of the `org.realityforge.anodoc` dependency.
 * Remove usage of un-enforced `javax.annotation.Nonnegative` annotation.
 
