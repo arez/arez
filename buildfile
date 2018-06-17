@@ -4,7 +4,6 @@ require 'buildr/single_intermediate_layout'
 require 'buildr/gwt'
 require 'buildr/jacoco'
 
-PROVIDED_DEPS = [:javax_annotation]
 TEST_DEPS = [:guiceyloops]
 JSINTEROP_ANNOTATION_DEPS = [:jsinterop_annotations, :jsinterop_annotations_sources]
 GWT_DEPS =
@@ -72,7 +71,7 @@ define 'arez' do
   define 'core' do
     pom.dependency_filter = Proc.new {|dep| (dep[:group].to_s != 'com.google.jsinterop' || (dep[:id].to_s == 'jsinterop-annotations' && dep[:classifier].nil?))}
 
-    compile.with PROVIDED_DEPS,
+    compile.with :javax_annotation,
                  :braincheck,
                  JSINTEROP_ANNOTATION_DEPS
 
@@ -192,7 +191,7 @@ define 'arez' do
 
   desc 'Utilities to output of GWT when compiling Arez applications'
   define 'gwt-output-qa' do
-    compile.with PROVIDED_DEPS,
+    compile.with :javax_annotation,
                  :javacsv,
                  :jetbrains_annotations,
                  :gwt_symbolmap,
@@ -207,7 +206,8 @@ define 'arez' do
 
   desc 'Test Arez in downstream projects'
   define 'downstream-test' do
-    compile.with :gir, PROVIDED_DEPS
+    compile.with :gir,
+                 :javax_annotation
 
     test.options[:properties] =
       AREZ_TEST_OPTIONS.merge(
