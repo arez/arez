@@ -26,7 +26,7 @@
   from the build as the main jar includes the sources required for the GWT compiler.
 * Remove the `test` scoped dependencies from the generated POMs. The POMs are only intended for
   consumption and do not need to contain dependency details about how the project was built.
-* Upgrade the `org.realityforge.braincheck:braincheck:jar` dependency to `1.8.0` for compatibility
+* Upgrade the `org.realityforge.braincheck:braincheck:jar` dependency to `1.9.0` for compatibility
   with J2CL.
 * Make the dependency upon `org.realityforge.braincheck:braincheck:jar` transitive.
 
