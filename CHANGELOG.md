@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.92'
 * Remove unused `org.realityforge.anodoc` dependency.
 * Remove un-enforced `@Nonnegative` annotation.
 
