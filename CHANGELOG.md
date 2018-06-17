@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.18](https://github.com/arez/arez-networkstatus/tree/v0.18) (2018-06-17)
+[Full Changelog](https://github.com/arez/arez-networkstatus/compare/v0.17...v0.18)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.92'
 * Remove usage of the `org.realityforge.anodoc` dependency.
