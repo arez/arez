@@ -18,8 +18,7 @@
 * Replace usage of the `com.google.code.findbugs:jsr305:jar` dependency with the
   `org.realityforge.javax.annotation:javax.annotation:jar` dependency as the former includes code that
   is incompatible with J2CL compiler.
-* **\[annotations\]** Make sure the dependency upon `org.realityforge.javax.annotation:javax.annotation:jar`
-  allows transitive dependencies in case a transitive dependency is added in the future.
+* Make sure the dependency upon `org.realityforge.javax.annotation:javax.annotation:jar` is transitive.
 * Remove the `com.google.jsinterop:base:jar` artifact with the `sources` classifier from the build as
   the main jar includes the sources required for the GWT compiler.
 * Remove the `com.google.jsinterop:jsinterop-annotations:jar` artifact with the `sources` classifier

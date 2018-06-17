@@ -68,7 +68,7 @@ define 'arez' do
 
   desc 'Arez Core'
   define 'core' do
-    pom.dependency_filter = Proc.new {|dep| (dep[:group].to_s != 'com.google.jsinterop' || (dep[:id].to_s == 'jsinterop-annotations' && dep[:classifier].nil?))}
+    pom.include_transitive_dependencies << artifact(:javax_annotation)
     pom.dependency_filter = Proc.new {|dep| dep[:scope].to_s != 'test'}
 
     compile.with :javax_annotation,
@@ -191,6 +191,8 @@ define 'arez' do
 
   desc 'Utilities to output of GWT when compiling Arez applications'
   define 'gwt-output-qa' do
+    pom.include_transitive_dependencies << artifact(:javax_annotation)
+
     compile.with :javax_annotation,
                  :javacsv,
                  :jetbrains_annotations,
