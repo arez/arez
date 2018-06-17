@@ -20,6 +20,8 @@
   is incompatible with J2CL compiler.
 * **\[annotations\]** Make sure the dependency upon `org.realityforge.javax.annotation:javax.annotation:jar`
   allows transitive dependencies in case a transitive dependency is added in the future.
+* Remove the `com.google.jsinterop:base:jar` artifact with the `sources` classifier from the build as
+  the main jar includes the sources required for the GWT compiler.
 
 ### [v0.91](https://github.com/arez/arez/tree/v0.91) (2018-06-13)
 [Full Changelog](https://github.com/arez/arez/compare/v0.90...v0.91)

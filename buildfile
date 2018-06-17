@@ -12,7 +12,6 @@ GWT_DEPS =
     :elemental2_dom,
     :elemental2_promise,
     :jsinterop_base,
-    :jsinterop_base_sources
   ] + JSINTEROP_ANNOTATION_DEPS
 GIN_DEPS =
   [
