@@ -28,6 +28,7 @@
   consumption and do not need to contain dependency details about how the project was built.
 * Upgrade the `org.realityforge.braincheck:braincheck:jar` dependency to `1.8.0` for compatibility
   with J2CL.
+* Make the dependency upon `org.realityforge.braincheck:braincheck:jar` transitive.
 
 ### [v0.91](https://github.com/arez/arez/tree/v0.91) (2018-06-13)
 [Full Changelog](https://github.com/arez/arez/compare/v0.90...v0.91)
