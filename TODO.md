@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Fix up dependencies in gwt-symbolmap project so that they have transitive deps where applicable.
+
 * Consider allowing users to dynamically specify name in components via `@ComponentTypeName`
 
 * References handled specially ...? Is this only importing reference tools from Replicant?
