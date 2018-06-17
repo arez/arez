@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.92](https://github.com/arez/arez/tree/v0.92) (2018-06-17)
+[Full Changelog](https://github.com/arez/arez/compare/v0.91...v0.92)
 
 * **\[annotations\]** Remove the `@Unsupported` annotation from all the annotations within the
   `arez.annotations` package as all of the annotations are sufficient stable to be supported
