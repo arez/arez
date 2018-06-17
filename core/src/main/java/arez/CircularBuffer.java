@@ -2,7 +2,6 @@ package arez;
 
 import java.util.Objects;
 import java.util.stream.Stream;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -115,7 +114,7 @@ final class CircularBuffer<T>
     return result;
   }
 
-  void truncate( @Nonnegative final int size )
+  void truncate( final int size )
   {
     if ( _elements.length > size )
     {
@@ -161,7 +160,7 @@ final class CircularBuffer<T>
   /**
    * Increase the size of the buffer.
    */
-  private void grow( @Nonnegative final int minCapacity )
+  private void grow( final int minCapacity )
   {
     int newSize = _elements.length;
     while ( newSize < minCapacity )
@@ -191,7 +190,7 @@ final class CircularBuffer<T>
   /**
    * Decrease the size of the buffer.
    */
-  private void shrink( @Nonnegative final int maxCapacity )
+  private void shrink( final int maxCapacity )
   {
     @SuppressWarnings( "unchecked" )
     final T[] elements = (T[]) new Object[ maxCapacity ];

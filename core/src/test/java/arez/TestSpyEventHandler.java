@@ -2,7 +2,6 @@ package arez;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import static org.testng.Assert.*;
 
@@ -42,7 +41,7 @@ final class TestSpyEventHandler
    * Assert Event at index is of specific type and return it.
    */
   @Nonnull
-  <T> T assertEvent( @Nonnull final Class<T> type, @Nonnegative final int index )
+  <T> T assertEvent( @Nonnull final Class<T> type, final int index )
   {
     assertTrue( eventCount() > index );
     final Object event = _events.get( index );

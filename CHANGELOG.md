@@ -13,6 +13,8 @@
 * Update build process so that the generated poms do not include dependencies on GWT. The GWT
   dependencies are not required by react4j but are only required to GWT compile the project. This
   dependency needs to be broken for GWT3.x/j2cl support.
+* Remove the usage of `javax.annotation.Nonnegative` as it is not enforced by tooling and adds an
+  additional dependency on the codebase.
 
 ### [v0.91](https://github.com/arez/arez/tree/v0.91) (2018-06-13)
 [Full Changelog](https://github.com/arez/arez/compare/v0.90...v0.91)

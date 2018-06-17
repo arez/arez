@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Stack;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
@@ -93,7 +92,7 @@ public final class MemoizeCache<T>
                        @Nullable final Component component,
                        @Nullable final String name,
                        @Nonnull final Function<T> function,
-                       @Nonnegative final int argCount )
+                       final int argCount )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {

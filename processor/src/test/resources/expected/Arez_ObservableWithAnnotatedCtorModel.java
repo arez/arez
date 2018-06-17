@@ -7,7 +7,6 @@ import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.Identifiable;
 import javax.annotation.Generated;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
@@ -30,7 +29,7 @@ public final class Arez_ObservableWithAnnotatedCtorModel extends ObservableWithA
   @Nonnull
   private final Observable<Long> $$arez$$_time;
 
-  public Arez_ObservableWithAnnotatedCtorModel(@Nonnegative final long time, final long other,
+  public Arez_ObservableWithAnnotatedCtorModel(final long time, final long other,
       @Nonnull final String foo) {
     super(time,other,foo);
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;

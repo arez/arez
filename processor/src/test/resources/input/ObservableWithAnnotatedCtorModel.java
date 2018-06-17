@@ -1,13 +1,12 @@
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 @SuppressWarnings( "WeakerAccess" )
 @ArezComponent
 public abstract class ObservableWithAnnotatedCtorModel
 {
-  public ObservableWithAnnotatedCtorModel( @Nonnegative final long time,
+  public ObservableWithAnnotatedCtorModel( final long time,
                                            @SuppressWarnings( "" ) final long other,
                                            @Nonnull final String foo )
   {

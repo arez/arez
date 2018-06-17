@@ -2,7 +2,6 @@ package arez.spy;
 
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -19,13 +18,12 @@ public final class TransactionCompletedEvent
   private final boolean _mutation;
   @Nullable
   private final ObserverInfo _tracker;
-  @Nonnegative
   private final long _duration;
 
   public TransactionCompletedEvent( @Nonnull final String name,
                                     final boolean mutation,
                                     @Nullable final ObserverInfo tracker,
-                                    @Nonnegative final long duration )
+                                    final long duration )
   {
     assert duration >= 0;
     _name = Objects.requireNonNull( name );
@@ -51,7 +49,6 @@ public final class TransactionCompletedEvent
     return _tracker;
   }
 
-  @Nonnegative
   public long getDuration()
   {
     return _duration;

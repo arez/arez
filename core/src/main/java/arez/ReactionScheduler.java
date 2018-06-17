@@ -3,7 +3,6 @@ package arez;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
@@ -33,18 +32,15 @@ final class ReactionScheduler
   /**
    * The current reaction round.
    */
-  @Nonnegative
   private int _currentReactionRound;
   /**
    * The number of reactions left in the current round.
    */
-  @Nonnegative
   private int _remainingReactionsInCurrentRound;
   /**
    * The maximum number of iterations that can be triggered in sequence without triggering an error. Set this
    * to 0 to disable check, otherwise trigger
    */
-  @Nonnegative
   private int _maxReactionRounds = DEFAULT_MAX_REACTION_ROUNDS;
 
   ReactionScheduler( @Nonnull final ArezContext context )
@@ -57,7 +53,6 @@ final class ReactionScheduler
    *
    * @return the maximum number of rounds.
    */
-  @Nonnegative
   int getMaxReactionRounds()
   {
     return _maxReactionRounds;
@@ -68,7 +63,7 @@ final class ReactionScheduler
    *
    * @param maxReactionRounds the maximum number of rounds.
    */
-  void setMaxReactionRounds( @Nonnegative final int maxReactionRounds )
+  void setMaxReactionRounds( final int maxReactionRounds )
   {
     if ( Arez.shouldCheckInvariants() )
     {

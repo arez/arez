@@ -2,7 +2,6 @@ package arez.spy;
 
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 /**
@@ -15,10 +14,9 @@ public final class ReactionCompletedEvent
 
   @Nonnull
   private final ObserverInfo _observer;
-  @Nonnegative
   private final long _duration;
 
-  public ReactionCompletedEvent( @Nonnull final ObserverInfo observer, @Nonnegative final long duration )
+  public ReactionCompletedEvent( @Nonnull final ObserverInfo observer, final long duration )
   {
     assert duration >= 0;
     _observer = Objects.requireNonNull( observer );
@@ -31,7 +29,6 @@ public final class ReactionCompletedEvent
     return _observer;
   }
 
-  @Nonnegative
   public long getDuration()
   {
     return _duration;

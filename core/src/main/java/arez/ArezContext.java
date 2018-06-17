@@ -13,7 +13,6 @@ import arez.spy.ReactionScheduledEvent;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
@@ -87,7 +86,6 @@ public final class ArezContext
   /**
    * The number of un-released locks on the scheduler.
    */
-  @Nonnegative
   private int _schedulerLockCount;
   /**
    * Optional environment in which reactions are executed.

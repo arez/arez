@@ -2,7 +2,6 @@ package arez.spy;
 
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -30,7 +29,6 @@ public final class ActionCompletedEvent
   private final Object _result;
   @Nullable
   private final Throwable _throwable;
-  @Nonnegative
   private final long _duration;
 
   public ActionCompletedEvent( @Nonnull final String name,
@@ -39,7 +37,7 @@ public final class ActionCompletedEvent
                                final boolean returnsResult,
                                @Nullable final Object result,
                                @Nullable final Throwable throwable,
-                               @Nonnegative final long duration )
+                               final long duration )
   {
     assert duration >= 0;
     assert null == throwable || null == result;
@@ -86,7 +84,6 @@ public final class ActionCompletedEvent
     return _throwable;
   }
 
-  @Nonnegative
   public long getDuration()
   {
     return _duration;
