@@ -33,6 +33,6 @@ artifacts:
   arez_processor: org.realityforge.arez:arez-processor:jar:0.92
   arez_component: org.realityforge.arez:arez-component:jar:0.92
 
-  braincheck: org.realityforge.braincheck:braincheck:jar:1.6.0
+  braincheck: org.realityforge.braincheck:braincheck:jar:1.9.0
 
   testng: org.testng:testng:jar:6.11
