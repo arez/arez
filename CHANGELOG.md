@@ -29,6 +29,7 @@
 * Upgrade the `org.realityforge.braincheck:braincheck:jar` dependency to `1.9.0` for compatibility
   with J2CL.
 * Make the dependency upon `org.realityforge.braincheck:braincheck:jar` transitive.
+* Cleanup the POM for `gwt-output-qa` module and use transitive dependencies where possible.
 
 ### [v0.91](https://github.com/arez/arez/tree/v0.91) (2018-06-13)
 [Full Changelog](https://github.com/arez/arez/compare/v0.90...v0.91)
