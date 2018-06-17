@@ -58,7 +58,8 @@ define 'arez' do
 
   desc 'Arez Annotations'
   define 'annotations' do
-    compile.with PROVIDED_DEPS
+    pom.include_transitive_dependencies << artifact(:javax_annotation)
+    compile.with :javax_annotation
 
     gwt_enhance(project)
 
