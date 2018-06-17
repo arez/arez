@@ -24,6 +24,8 @@
   the main jar includes the sources required for the GWT compiler.
 * Remove the `com.google.jsinterop:jsinterop-annotations:jar` artifact with the `sources` classifier
   from the build as the main jar includes the sources required for the GWT compiler.
+* Remove the `test` scoped dependencies from the generated POMs. The POMs are only intended for
+  consumption and do not need to contain dependency details about how the project was built.
 
 ### [v0.91](https://github.com/arez/arez/tree/v0.91) (2018-06-13)
 [Full Changelog](https://github.com/arez/arez/compare/v0.90...v0.91)
