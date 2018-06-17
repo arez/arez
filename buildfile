@@ -4,7 +4,7 @@ require 'buildr/single_intermediate_layout'
 require 'buildr/gwt'
 require 'buildr/jacoco'
 
-PROVIDED_DEPS = [:javax_jsr305]
+PROVIDED_DEPS = [:javax_annotation]
 TEST_DEPS = [:guiceyloops]
 JSINTEROP_ANNOTATION_DEPS = [:jsinterop_annotations, :jsinterop_annotations_sources]
 GWT_DEPS =
@@ -117,7 +117,7 @@ define 'arez' do
   define 'processor' do
     pom.dependency_filter = Proc.new {|_| false}
 
-    compile.with :javax_jsr305,
+    compile.with :javax_annotation,
                  :autoservice,
                  :autocommon,
                  :javapoet,
