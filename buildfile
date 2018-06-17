@@ -5,14 +5,14 @@ require 'buildr/gwt'
 require 'buildr/jacoco'
 
 TEST_DEPS = [:guiceyloops]
-JSINTEROP_ANNOTATION_DEPS = [:jsinterop_annotations, :jsinterop_annotations_sources]
 GWT_DEPS =
   [
     :elemental2_core,
     :elemental2_dom,
     :elemental2_promise,
     :jsinterop_base,
-  ] + JSINTEROP_ANNOTATION_DEPS
+    :jsinterop_annotations
+  ]
 GIN_DEPS =
   [
     :javax_inject,
@@ -72,7 +72,7 @@ define 'arez' do
 
     compile.with :javax_annotation,
                  :braincheck,
-                 JSINTEROP_ANNOTATION_DEPS
+                 :jsinterop_annotations
 
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']
