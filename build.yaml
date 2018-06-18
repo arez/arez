@@ -7,7 +7,7 @@ repositories:
    - https://stocksoftware.jfrog.io/stocksoftware/thirdparty-local
 
 artifacts:
-  idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.12
+  idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.13
 
   javax_annotation: org.realityforge.javax.annotation:javax.annotation:jar:1.0.0
 
