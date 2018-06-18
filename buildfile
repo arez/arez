@@ -32,7 +32,6 @@ define 'arez-timeddisposer' do
                :arez_core,
                :arez_component
 
-
   gwt_enhance(project)
 
   package(:jar)
