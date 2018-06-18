@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+* **\[gwt-output-qa\]** Upgrade the version of `gwt-symbolmap` to `0.08`.
+* **\[gwt-output-qa\]** Cleanup dependency tree in `gwt-output-qa` to use transitive dependencies
+  where applicable.
+
 ### [v0.92](https://github.com/arez/arez/tree/v0.92) (2018-06-17)
 [Full Changelog](https://github.com/arez/arez/compare/v0.91...v0.92)
 

@@ -193,9 +193,7 @@ define 'arez' do
   desc 'Utilities to output of GWT when compiling Arez applications'
   define 'gwt-output-qa' do
     pom.include_transitive_dependencies << artifact(:gwt_symbolmap)
-    pom.include_transitive_dependencies << artifact(:javax_annotation)
-    pom.include_transitive_dependencies << artifact(:jetbrains_annotations)
-    pom.dependency_filter = Proc.new {|dep| %w(org.realityforge.gwt.symbolmap org.realityforge.javax.annotation org.jetbrains).include?(dep[:group].to_s)}
+    pom.dependency_filter = Proc.new {|dep| %w(org.realityforge.gwt.symbolmap).include?(dep[:group].to_s)}
 
     compile.with :javax_annotation,
                  :javacsv,
