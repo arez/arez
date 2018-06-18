@@ -21,9 +21,7 @@ define 'arez-browserlocation' do
 
   compile.with :javax_jsr305,
                :jsinterop_base,
-               :jsinterop_base_sources,
                :jsinterop_annotations,
-               :jsinterop_annotations_sources,
                :elemental2_core,
                :elemental2_promise,
                :elemental2_dom,
