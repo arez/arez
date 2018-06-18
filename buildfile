@@ -19,7 +19,7 @@ define 'arez-ticker' do
 
   project.processorpath << :arez_processor
 
-  compile.with :javax_jsr305,
+  compile.with :javax_annotation,
                :jsinterop_base,
                :jsinterop_annotations,
                :elemental2_core,
