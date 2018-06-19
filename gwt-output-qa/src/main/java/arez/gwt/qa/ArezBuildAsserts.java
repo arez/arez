@@ -27,6 +27,7 @@ public final class ArezBuildAsserts
 
     // This should be optimized out completely
     index.assertNoClassNameMatches( "arez\\.ArezConfig" );
+    index.assertNoClassNameMatches( "arez\\.component\\.ComponentState" );
 
     // This should be eliminated as it will improve the ability for GWT compiler to dead-code-eliminate
     index.assertNoMemberMatches( "arez\\.Arez", "$clinit" );

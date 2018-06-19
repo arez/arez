@@ -14,6 +14,8 @@
 * **\[annotations\]** Replace the `highPriority` parameter with a `priority` enum parameter in the
   `@Autorun`, `@Computed` and `@Track` annotations. This allows the usage of different priorities
   within the annotation driven component model.
+* **\[gwt-output-qa\]** Upgrade the asserts to verify that the class `arez.component.ComponentState`
+  is optimized out in production builds.
 
 ### [v0.92](https://github.com/arez/arez/tree/v0.92) (2018-06-17)
 [Full Changelog](https://github.com/arez/arez/compare/v0.91...v0.92)
