@@ -89,7 +89,6 @@ final class ArezLogger
   private static final class BasicJsLogger
     implements Logger
   {
-
     @Override
     public void log( @Nonnull final String message, @Nullable final Throwable throwable )
     {
