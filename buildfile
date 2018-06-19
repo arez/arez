@@ -316,8 +316,7 @@ define 'arez' do
           :link => %w(https://docs.oracle.com/javase/8/docs/api http://www.gwtproject.org/javadoc/latest/),
           :group => {
             'Core Packages' => 'arez:arez.spy*',
-            'Annotation Packages' => 'arez.annotations*:arez.processor*',
-            'Component Packages' => 'arez.component*'
+            'Component Packages' => 'arez.annotations*:arez.component*:arez.processor*'
           }
     )
 
