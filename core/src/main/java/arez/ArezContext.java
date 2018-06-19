@@ -41,7 +41,7 @@ public final class ArezContext
    * Reaction Scheduler.
    * Currently hard-coded, in the future potentially configurable.
    */
-  private final ReactionScheduler _scheduler = new ReactionScheduler( this );
+  private final ReactionScheduler _scheduler = new ReactionScheduler( Arez.areZonesEnabled() ? this : null );
   /**
    * Support infrastructure for propagating observer errors.
    */

@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Make _context optional in ReactionScheduler
-
 * Consider allowing users to dynamically specify name in components via `@ComponentTypeName`
 
 * References handled specially ...? Is this only importing reference tools from Replicant?

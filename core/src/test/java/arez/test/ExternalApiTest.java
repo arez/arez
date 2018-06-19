@@ -82,6 +82,7 @@ public class ExternalApiTest
     ArezTestUtil.disableZones();
     assertFalse( Arez.areZonesEnabled() );
     ArezTestUtil.enableZones();
+    ArezTestUtil.resetState();
     assertTrue( Arez.areZonesEnabled() );
   }
 

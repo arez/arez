@@ -12,6 +12,7 @@ public class ZoneTest
   public void zone_safeRun_Function()
   {
     ArezTestUtil.enableZones();
+    ArezTestUtil.resetState();
 
     final Zone zone1 = Arez.createZone();
 
@@ -37,6 +38,7 @@ public class ZoneTest
   public void zone_safeRun_Procedure()
   {
     ArezTestUtil.enableZones();
+    ArezTestUtil.resetState();
 
     final Zone zone1 = Arez.createZone();
 
@@ -59,6 +61,7 @@ public class ZoneTest
     throws Throwable
   {
     ArezTestUtil.enableZones();
+    ArezTestUtil.resetState();
 
     final Zone zone1 = Arez.createZone();
 
@@ -82,6 +85,7 @@ public class ZoneTest
     throws Throwable
   {
     ArezTestUtil.enableZones();
+    ArezTestUtil.resetState();
 
     final Zone zone1 = Arez.createZone();
 
@@ -106,6 +110,7 @@ public class ZoneTest
     throws Throwable
   {
     ArezTestUtil.enableZones();
+    ArezTestUtil.resetState();
 
     final Zone zone1 = Arez.createZone();
 

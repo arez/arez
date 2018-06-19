@@ -21,6 +21,7 @@ public class ArezTest
   public void zone_basicOperation()
   {
     ArezTestUtil.enableZones();
+    ArezTestUtil.resetState();
 
     assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
     assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
@@ -45,6 +46,7 @@ public class ArezTest
   public void zone_multipleZones()
   {
     ArezTestUtil.enableZones();
+    ArezTestUtil.resetState();
 
     assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
     assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
@@ -181,6 +183,7 @@ public class ArezTest
   public void deactivateZone_whenNotActive()
   {
     ArezTestUtil.enableZones();
+    ArezTestUtil.resetState();
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> Arez.deactivateZone( new Zone() ) );
     assertEquals( exception.getMessage(), "Arez-0004: Attempted to deactivate zone that is not active." );

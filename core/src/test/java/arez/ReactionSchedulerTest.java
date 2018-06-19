@@ -29,6 +29,20 @@ public class ReactionSchedulerTest
   }
 
   @Test
+  public void construction_Zones_Disabled()
+    throws Exception
+  {
+    ArezTestUtil.disableZones();
+    ArezTestUtil.resetState();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> new ReactionScheduler( Arez.context() ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0164: ReactionScheduler passed a context but Arez.areZonesEnabled() is false" );
+  }
+
+  @Test
   public void setMaxReactionRounds()
     throws Exception
   {

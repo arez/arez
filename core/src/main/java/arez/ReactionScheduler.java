@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -23,7 +24,7 @@ import static org.realityforge.braincheck.Guards.*;
 final class ReactionScheduler
 {
   static final int DEFAULT_MAX_REACTION_ROUNDS = 100;
-  @Nonnull
+  @Nullable
   private final ArezContext _context;
   /**
    * Observers that have been scheduled but are not yet running.
@@ -45,9 +46,14 @@ final class ReactionScheduler
   private int _maxReactionRounds = DEFAULT_MAX_REACTION_ROUNDS;
 
   @SuppressWarnings( "unchecked" )
-  ReactionScheduler( @Nonnull final ArezContext context )
+  ReactionScheduler( @Nullable final ArezContext context )
   {
-    _context = Objects.requireNonNull( context );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      apiInvariant( () -> Arez.areZonesEnabled() || null == context,
+                    () -> "Arez-0164: ReactionScheduler passed a context but Arez.areZonesEnabled() is false" );
+    }
+    _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
     _pendingObservers = (CircularBuffer<Observer>[]) new CircularBuffer[ 4 ];
     _pendingObservers[ 0 ] = new CircularBuffer<>( 100 );
     _pendingObservers[ 1 ] = new CircularBuffer<>( 100 );
@@ -267,7 +273,7 @@ final class ReactionScheduler
   @Nonnull
   ArezContext getContext()
   {
-    return _context;
+    return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
 
   @Nonnull

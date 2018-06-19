@@ -187,6 +187,7 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.Arez", "currentZone", enabled );
     index.assertSymbol( ".*\\.Arez_.*", "$$arezi$$_context", enabled );
     index.assertSymbol( "arez\\.Node", "_context", enabled );
+    index.assertSymbol( "arez\\.ReactionScheduler", "_context", enabled );
   }
 
   /**

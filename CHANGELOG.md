@@ -18,6 +18,8 @@
   is optimized out in production builds.
 * **\[core\]** Introduce a helper method `arez.ArezTestUtil.resetState()` responsible for resetting
   context and zone state. This is occasionally required in tests.
+* **\[core\]** Optimize out the field `arez.ReactionScheduler._context` in production builds
+  unless zones are enabled.
 
 ### [v0.92](https://github.com/arez/arez/tree/v0.92) (2018-06-17)
 [Full Changelog](https://github.com/arez/arez/compare/v0.91...v0.92)
