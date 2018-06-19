@@ -12,7 +12,6 @@ public final class ComponentDisposeStartedEvent
   implements SerializableEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ComponentDisposeStartedEvent.class );
-
   @Nonnull
   private final Component _component;
 

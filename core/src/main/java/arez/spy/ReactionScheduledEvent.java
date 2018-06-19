@@ -11,7 +11,6 @@ public final class ReactionScheduledEvent
   implements SerializableEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ReactionScheduledEvent.class );
-
   @Nonnull
   private final ObserverInfo _observer;
 

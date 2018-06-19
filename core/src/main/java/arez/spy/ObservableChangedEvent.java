@@ -13,7 +13,6 @@ public final class ObservableChangedEvent
   implements SerializableEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ObservableChangedEvent.class );
-
   @Nonnull
   private final ObservableInfo _observable;
   @Nullable

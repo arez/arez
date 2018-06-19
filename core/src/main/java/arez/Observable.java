@@ -33,7 +33,6 @@ public final class Observable<T>
    * to derivation.
    */
   static final int NOT_IN_CURRENT_TRACKING = 0;
-
   private final ArrayList<Observer> _observers = new ArrayList<>();
   /**
    * True if deactivation has been requested.

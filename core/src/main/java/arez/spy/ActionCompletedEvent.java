@@ -12,7 +12,6 @@ public final class ActionCompletedEvent
   implements SerializableEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ActionCompletedEvent.class );
-
   @Nonnull
   private final String _name;
   /**

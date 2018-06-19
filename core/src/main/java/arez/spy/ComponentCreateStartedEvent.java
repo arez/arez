@@ -12,7 +12,6 @@ public final class ComponentCreateStartedEvent
   implements SerializableEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ComponentCreateStartedEvent.class );
-
   @Nonnull
   private final Component _component;
 

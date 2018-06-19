@@ -11,7 +11,6 @@ public final class ComputeStartedEvent
   implements SerializableEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ComputeStartedEvent.class );
-
   @Nonnull
   private final ComputedValueInfo _computedValue;
 

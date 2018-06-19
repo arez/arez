@@ -12,7 +12,6 @@ public final class TransactionStartedEvent
   implements SerializableEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( TransactionStartedEvent.class );
-
   @Nonnull
   private final String _name;
   private final boolean _mutation;

@@ -27,7 +27,6 @@ final class Watcher
    * The effect/action to run when condition is true.
    */
   private final SafeProcedure _effect;
-
   /**
    * The observer responsible for watching the condition and running the effect reaction when condition triggered.
    */

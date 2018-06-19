@@ -11,7 +11,6 @@ public final class ObservableDisposedEvent
   implements SerializableEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ObservableDisposedEvent.class );
-
   @Nonnull
   private final ObservableInfo _observable;
 

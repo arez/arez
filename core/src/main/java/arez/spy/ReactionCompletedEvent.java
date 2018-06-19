@@ -11,7 +11,6 @@ public final class ReactionCompletedEvent
   implements SerializableEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ReactionCompletedEvent.class );
-
   @Nonnull
   private final ObserverInfo _observer;
   private final long _duration;

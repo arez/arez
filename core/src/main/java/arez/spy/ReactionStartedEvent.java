@@ -11,7 +11,6 @@ public final class ReactionStartedEvent
   implements SerializableEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ReactionStartedEvent.class );
-
   @Nonnull
   private final ObserverInfo _observer;
 

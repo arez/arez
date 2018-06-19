@@ -11,7 +11,6 @@ public final class ObserverCreatedEvent
   implements SerializableEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ObserverCreatedEvent.class );
-
   @Nonnull
   private final ObserverInfo _observer;
 

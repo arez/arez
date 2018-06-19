@@ -13,7 +13,6 @@ public final class ObserverErrorEvent
   implements SerializableEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ObserverErrorEvent.class );
-
   @Nonnull
   private final ObserverInfo _observer;
   @Nonnull
