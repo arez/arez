@@ -545,7 +545,7 @@ public final class Observer
   {
     getDependencies().forEach( dependency -> {
       dependency.removeObserver( this );
-      if( !dependency.hasObservers() )
+      if ( !dependency.hasObservers() )
       {
         dependency.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
       }
