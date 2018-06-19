@@ -59,6 +59,15 @@ public final class ArezTestUtil
     purgeReactionsWhenRunawayDetected();
     disableZones();
 
+    resetState();
+  }
+
+  /**
+   * Reset the state of Arez.
+   * This occasionally needs to be invoked after changing configuraiton settings in tests.
+   */
+  public static void resetState()
+  {
     ( (ArezLogger.ProxyLogger) ArezLogger.getLogger() ).setLogger( null );
     Transaction.setTransaction( null );
     Transaction.resetSuspendedFlag();
