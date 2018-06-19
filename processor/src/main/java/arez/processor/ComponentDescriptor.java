@@ -470,8 +470,9 @@ final class ComponentDescriptor
     final String name = deriveAutorunName( method, annotation );
     checkNameUnique( name, method, Constants.AUTORUN_ANNOTATION_CLASSNAME );
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
-    final boolean highPriority = getAnnotationParameter( annotation, "highPriority" );
-    final AutorunDescriptor autorun = new AutorunDescriptor( this, name, mutation, highPriority, method, methodType );
+    final VariableElement priority = getAnnotationParameter( annotation, "priority" );
+    final AutorunDescriptor autorun =
+      new AutorunDescriptor( this, name, mutation, priority.getSimpleName().toString(), method, methodType );
     _autoruns.put( autorun.getName(), autorun );
   }
 
@@ -520,10 +521,10 @@ final class ComponentDescriptor
     final String name = deriveTrackedName( method, annotation );
     checkNameUnique( name, method, Constants.TRACK_ANNOTATION_CLASSNAME );
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
-    final boolean highPriority = getAnnotationParameter( annotation, "highPriority" );
+    final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
     final TrackedDescriptor tracked = findOrCreateTracked( name );
-    tracked.setTrackedMethod( mutation, highPriority, reportParameters, method, methodType );
+    tracked.setTrackedMethod( mutation, priority.getSimpleName().toString(), reportParameters, method, methodType );
   }
 
   @Nonnull
@@ -617,8 +618,8 @@ final class ComponentDescriptor
     final String name = deriveComputedName( method, annotation );
     checkNameUnique( name, method, Constants.COMPUTED_ANNOTATION_CLASSNAME );
     final boolean keepAlive = getAnnotationParameter( annotation, "keepAlive" );
-    final boolean highPriority = getAnnotationParameter( annotation, "highPriority" );
-    findOrCreateComputed( name ).setComputed( method, computedType, keepAlive, highPriority );
+    final VariableElement priority = getAnnotationParameter( annotation, "priority" );
+    findOrCreateComputed( name ).setComputed( method, computedType, keepAlive, priority.getSimpleName().toString() );
   }
 
   private void addComputedValueRef( @Nonnull final AnnotationMirror annotation,
@@ -1397,7 +1398,7 @@ final class ComponentDescriptor
         final CandidateMethod candidate = trackeds.remove( tracked.getName() );
         if ( null != candidate )
         {
-          tracked.setTrackedMethod( false, false, true, candidate.getMethod(), candidate.getMethodType() );
+          tracked.setTrackedMethod( false, "NORMAL", true, candidate.getMethod(), candidate.getMethodType() );
         }
         else
         {
@@ -2719,7 +2720,7 @@ final class ComponentDescriptor
   private void buildCascadeOnDisposeInitializer( @Nonnull final MethodSpec.Builder builder )
   {
     builder.addStatement(
-      "this.$N = $N().when( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, false, () -> $N().map( $T::call ).peek( $T::observe ).anyMatch( $T::isDisposed ), () -> $T.dispose( this ), true, false )",
+      "this.$N = $N().when( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, false, () -> $N().map( $T::call ).peek( $T::observe ).anyMatch( $T::isDisposed ), () -> $T.dispose( this ), $T.HIGHEST, false )",
       GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME,
       getContextMethodName(),
       GeneratorUtil.AREZ_CLASSNAME,
@@ -2731,13 +2732,14 @@ final class ComponentDescriptor
       GeneratorUtil.SAFE_FUNCTION_CLASSNAME,
       GeneratorUtil.COMPONENT_OBSERVABLE_CLASSNAME,
       GeneratorUtil.DISPOSABLE_CLASSNAME,
-      GeneratorUtil.DISPOSABLE_CLASSNAME );
+      GeneratorUtil.DISPOSABLE_CLASSNAME,
+      GeneratorUtil.PRIORITY_CLASSNAME );
   }
 
   private void buildSetNullOnDisposeInitializer( @Nonnull final MethodSpec.Builder builder )
   {
     builder.addStatement(
-      "this.$N = $N().autorun( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, true, () -> $N(), true, false )",
+      "this.$N = $N().autorun( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, true, () -> $N(), $T.HIGHEST, false )",
       GeneratorUtil.SET_NULL_ON_DISPOSE_FIELD_NAME,
       getContextMethodName(),
       GeneratorUtil.AREZ_CLASSNAME,
@@ -2745,7 +2747,8 @@ final class ComponentDescriptor
       GeneratorUtil.AREZ_CLASSNAME,
       getComponentNameMethodName(),
       ".setNullOnDispose",
-      GeneratorUtil.SET_NULL_ON_DISPOSE_METHOD_NAME );
+      GeneratorUtil.SET_NULL_ON_DISPOSE_METHOD_NAME,
+      GeneratorUtil.PRIORITY_CLASSNAME );
   }
 
   boolean shouldGenerateComponentDaggerModule()

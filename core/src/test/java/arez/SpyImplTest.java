@@ -661,7 +661,7 @@ public class SpyImplTest
                        true,
                        () -> {
                        },
-                       false,
+                       Priority.NORMAL,
                        true );
     final Observer observer2 = context.autorun( () -> {
     } );

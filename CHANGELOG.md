@@ -5,6 +5,15 @@
 * **\[gwt-output-qa\]** Upgrade the version of `gwt-symbolmap` to `0.08`.
 * **\[gwt-output-qa\]** Cleanup dependency tree in `gwt-output-qa` to use transitive dependencies
   where applicable.
+* 💥 **\[core\]** Add `arez.Priority` enum that makes it possible to schedule "autorun"
+  observers, "when" observers and computed values with more priorities that just high and low
+  priority. The enum introduces the priorities `HIGHEST`, `HIGH`, `NORMAL` and `LOW`. Observers
+  are placed in different queues based on priorities and processed in priority order in a
+  first-in, first-out order within a priority. This differs from the previous design where high
+  priority observers were processed in a last-in, first-out order.
+* **\[annotations\]** Replace the `highPriority` parameter with a `priority` enum parameter in the
+  `@Autorun`, `@Computed` and `@Track` annotations. This allows the usage of different priorities
+  within the annotation driven component model.
 
 ### [v0.92](https://github.com/arez/arez/tree/v0.92) (2018-06-17)
 [Full Changelog](https://github.com/arez/arez/compare/v0.91...v0.92)

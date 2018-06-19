@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observer;
+import arez.Priority;
 import arez.annotations.ComponentNameRef;
 import arez.annotations.ComponentRef;
 import arez.annotations.ContextRef;
@@ -40,7 +41,7 @@ public abstract class AbstractEntryContainer<T>
                          true,
                          () -> ComponentObservable.notObserved( entity ),
                          () -> onDisposeAction.accept( entry ),
-                         true,
+                         Priority.HIGH,
                          true );
     entry.setMonitor( monitor );
     return entry;

@@ -1,0 +1,1542 @@
+
+[
+    {
+        "component": "TestComponent.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "TestComponent.0.isDisposed",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "TestComponent.0.value1",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "TestComponent.0.value2",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "TestComponent.0.value3",
+        "type": "ObservableCreated"
+    },
+    {
+        "computedValue": "TestComponent.0.computed1",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "computedValue": "TestComponent.0.computed2",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "computedValue": "TestComponent.0.computed3",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "observer": "TestComponent.0.autorun1a",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "TestComponent.0.autorun1a",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TestComponent.0.autorun1b",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "TestComponent.0.autorun1b",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TestComponent.0.autorun2a",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "TestComponent.0.autorun2a",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TestComponent.0.autorun2b",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "TestComponent.0.autorun2b",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TestComponent.0.autorun3b",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "TestComponent.0.autorun3b",
+        "type": "ReactionScheduled"
+    },
+    {
+        "component": "TestComponent.0",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "observer": "TestComponent.0.autorun1a",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun1a",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun1a",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun1a"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun1a",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun1a"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun1a",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun1a",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "TestComponent.0.autorun1b",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun1b",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun1b",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun1b"
+    },
+    {
+        "computedValue": "TestComponent.0.computed1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.computed1",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.computed1"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.computed1",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.computed1"
+    },
+    {
+        "computedValue": "TestComponent.0.computed1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun1b",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun1b"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun1b",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun1b",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "TestComponent.0.autorun2a",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun2a",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun2a",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun2a"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun2a",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun2a"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun2a",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun2a",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "TestComponent.0.autorun2b",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun2b",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun2b",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun2b"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun2b",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun2b"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun2b",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun2b",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun3a",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun3a",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun3a"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun3a",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun3a"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun3a",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "TestComponent.0.autorun3b",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun3b",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun3b",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun3b"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun3b",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun3b"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun3b",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun3b",
+        "type": "ReactionCompleted"
+    },
+    {
+        "action": "Transaction@1",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@1"
+    },
+    {
+        "observable": "TestComponent.0.value1",
+        "type": "ObservableChanged",
+        "value": "1"
+    },
+    {
+        "observer": "TestComponent.0.autorun1a",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TestComponent.0.computed1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TestComponent.0.autorun2a",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@1"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@1",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun1a",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun1a",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun1a",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun1a"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun1a",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun1a"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun1a",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun1a",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "TestComponent.0.computed1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.computed1",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.computed1"
+    },
+    {
+        "observable": "TestComponent.0.computed1",
+        "type": "ObservableChanged",
+        "value": "1"
+    },
+    {
+        "observer": "TestComponent.0.autorun1b",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TestComponent.0.autorun2b",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TestComponent.0.autorun3b",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.computed1",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.computed1"
+    },
+    {
+        "computedValue": "TestComponent.0.computed1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "TestComponent.0.autorun1b",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun1b",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun1b",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun1b"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun1b",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun1b"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun1b",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun1b",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "TestComponent.0.autorun2a",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun2a",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun2a",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun2a"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun2a",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun2a"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun2a",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun2a",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "TestComponent.0.autorun2b",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun2b",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun2b",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun2b"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun2b",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun2b"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun2b",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun2b",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun3a",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun3a",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun3a"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun3a",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun3a"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun3a",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "TestComponent.0.autorun3b",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun3b",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun3b",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun3b"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun3b",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun3b"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun3b",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun3b",
+        "type": "ReactionCompleted"
+    },
+    {
+        "action": "Transaction@2",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@2"
+    },
+    {
+        "observable": "TestComponent.0.value2",
+        "type": "ObservableChanged",
+        "value": "2"
+    },
+    {
+        "observer": "TestComponent.0.autorun2a",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@2"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@2",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun2a",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun2a",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun2a",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun2a"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun2a",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun2a"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun2a",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun2a",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun3a",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun3a",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun3a"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun3a",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun3a"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun3a",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ReactionCompleted"
+    },
+    {
+        "action": "Transaction@3",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@3"
+    },
+    {
+        "observable": "TestComponent.0.value3",
+        "type": "ObservableChanged",
+        "value": "3"
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@3"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@3",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "TestComponent.0.autorun3a",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun3a",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun3a"
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent.0.autorun3a",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun3a"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun3a",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ReactionCompleted"
+    },
+    {
+        "component": "TestComponent.0",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "TestComponent.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.dispose"
+    },
+    {
+        "action": "TestComponent.0.autorun1a.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun1a.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun1a.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun1a.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun1a",
+        "type": "ObserverDisposed"
+    },
+    {
+        "action": "TestComponent.0.autorun1b.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun1b.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun1b.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun1b.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun1b",
+        "type": "ObserverDisposed"
+    },
+    {
+        "action": "TestComponent.0.autorun2a.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun2a.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun2a.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun2a.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun2a",
+        "type": "ObserverDisposed"
+    },
+    {
+        "action": "TestComponent.0.autorun2b.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun2b.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun2b.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun2b.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun2b",
+        "type": "ObserverDisposed"
+    },
+    {
+        "action": "TestComponent.0.autorun3a.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun3a.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun3a.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun3a.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun3a",
+        "type": "ObserverDisposed"
+    },
+    {
+        "action": "TestComponent.0.autorun3b.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.autorun3b.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.autorun3b.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.autorun3b.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent.0.autorun3b",
+        "type": "ObserverDisposed"
+    },
+    {
+        "action": "TestComponent.0.computed1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.computed1.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.computed1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.computed1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "TestComponent.0.computed1",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "TestComponent.0.computed1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.computed1.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.computed1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.computed1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "TestComponent.0.computed1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.computed1.dispose"
+    },
+    {
+        "observable": "TestComponent.0.computed1",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.computed1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.computed1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "TestComponent.0.computed2.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.computed2.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.computed2.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.computed2.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "TestComponent.0.computed2",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "TestComponent.0.computed2.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.computed2.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.computed2.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.computed2.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "TestComponent.0.computed2.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.computed2.dispose"
+    },
+    {
+        "observable": "TestComponent.0.computed2",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.computed2.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.computed2.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "TestComponent.0.computed3.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.computed3.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.computed3.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.computed3.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "TestComponent.0.computed3",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "TestComponent.0.computed3.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.computed3.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.computed3.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.computed3.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "TestComponent.0.computed3.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.computed3.dispose"
+    },
+    {
+        "observable": "TestComponent.0.computed3",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.computed3.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.computed3.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "TestComponent.0.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.isDisposed.dispose"
+    },
+    {
+        "observable": "TestComponent.0.isDisposed",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.isDisposed.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.isDisposed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "TestComponent.0.isDisposed",
+        "type": "ObservableDisposed"
+    },
+    {
+        "action": "TestComponent.0.value1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.value1.dispose"
+    },
+    {
+        "observable": "TestComponent.0.value1",
+        "type": "ObservableChanged",
+        "value": "1"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.value1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.value1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "TestComponent.0.value1",
+        "type": "ObservableDisposed"
+    },
+    {
+        "action": "TestComponent.0.value2.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.value2.dispose"
+    },
+    {
+        "observable": "TestComponent.0.value2",
+        "type": "ObservableChanged",
+        "value": "2"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.value2.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.value2.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "TestComponent.0.value2",
+        "type": "ObservableDisposed"
+    },
+    {
+        "action": "TestComponent.0.value3.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.value3.dispose"
+    },
+    {
+        "observable": "TestComponent.0.value3",
+        "type": "ObservableChanged",
+        "value": "3"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.value3.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.value3.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "TestComponent.0.value3",
+        "type": "ObservableDisposed"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "TestComponent.0",
+        "type": "ComponentDisposeCompleted"
+    }
+]

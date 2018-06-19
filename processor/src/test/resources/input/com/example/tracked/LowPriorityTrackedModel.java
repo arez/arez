@@ -6,9 +6,9 @@ import arez.annotations.Priority;
 import arez.annotations.Track;
 
 @ArezComponent
-public abstract class HighPriorityTrackedModel
+public abstract class LowPriorityTrackedModel
 {
-  @Track( priority = Priority.HIGH )
+  @Track( priority = Priority.LOW )
   public void render( final long time, float someOtherParameter )
   {
   }

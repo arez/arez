@@ -1,12 +1,11 @@
-package com.example.tracked;
+package com.example.computed;
 
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
+import arez.ComputedValue;
 import arez.Disposable;
 import arez.Observable;
-import arez.Observer;
-import arez.Priority;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.Identifiable;
@@ -16,7 +15,8 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_HighPriorityTrackedModel extends HighPriorityTrackedModel implements Disposable, Identifiable<Integer>, ComponentObservable {
+@SuppressWarnings("unchecked")
+public final class Arez_NormalPriorityComputedModel extends NormalPriorityComputedModel implements Disposable, Identifiable<Integer>, ComponentObservable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -31,18 +31,18 @@ public final class Arez_HighPriorityTrackedModel extends HighPriorityTrackedMode
   private final Observable<Boolean> $$arezi$$_disposedObservable;
 
   @Nonnull
-  private final Observer $$arez$$_render;
+  private final ComputedValue<Long> $$arez$$_time;
 
-  public Arez_HighPriorityTrackedModel() {
+  public Arez_NormalPriorityComputedModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "HighPriorityTrackedModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "NormalPriorityComputedModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
-    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, false, () -> super.onRenderDepsChanged(), Priority.HIGH );
+    this.$$arez$$_time = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime() );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -56,7 +56,7 @@ public final class Arez_HighPriorityTrackedModel extends HighPriorityTrackedMode
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'HighPriorityTrackedModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'NormalPriorityComputedModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -76,9 +76,9 @@ public final class Arez_HighPriorityTrackedModel extends HighPriorityTrackedMode
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'HighPriorityTrackedModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'NormalPriorityComputedModel'" );
     }
-    return "HighPriorityTrackedModel." + $$arezi$$_id();
+    return "NormalPriorityComputedModel." + $$arezi$$_id();
   }
 
   private boolean $$arezi$$_observe() {
@@ -108,7 +108,7 @@ public final class Arez_HighPriorityTrackedModel extends HighPriorityTrackedMode
       } else {
         $$arezi$$_context().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
-          this.$$arez$$_render.dispose();
+          this.$$arez$$_time.dispose();
         } } );
       }
       if ( Arez.shouldCheckInvariants() ) {
@@ -118,17 +118,11 @@ public final class Arez_HighPriorityTrackedModel extends HighPriorityTrackedMode
   }
 
   @Override
-  public void render(final long time, final float someOtherParameter) {
+  public long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    try {
-      $$arezi$$_context().safeTrack( this.$$arez$$_render, () -> super.render(time,someOtherParameter), time, someOtherParameter );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
+    return this.$$arez$$_time.get();
   }
 
   @Override
@@ -145,10 +139,10 @@ public final class Arez_HighPriorityTrackedModel extends HighPriorityTrackedMode
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_HighPriorityTrackedModel) ) {
+      } else if ( null == o || !(o instanceof Arez_NormalPriorityComputedModel) ) {
         return false;
       } else {
-        final Arez_HighPriorityTrackedModel that = (Arez_HighPriorityTrackedModel) o;;
+        final Arez_NormalPriorityComputedModel that = (Arez_NormalPriorityComputedModel) o;;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

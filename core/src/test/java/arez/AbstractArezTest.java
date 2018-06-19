@@ -116,7 +116,7 @@ public abstract class AbstractArezTest
                          null,
                          TransactionMode.READ_WRITE,
                          new TestReaction(),
-                         false,
+                         Priority.NORMAL,
                          false );
   }
 
@@ -134,7 +134,7 @@ public abstract class AbstractArezTest
                                 ValueUtil.randomString(),
                                 () -> "",
                                 Objects::equals,
-                                false,
+                                Priority.NORMAL,
                                 false ).getObserver();
   }
 
@@ -159,7 +159,7 @@ public abstract class AbstractArezTest
                          null,
                          TransactionMode.READ_ONLY,
                          new TestReaction(),
-                         false,
+                         Priority.NORMAL,
                          false );
   }
 

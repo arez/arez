@@ -49,7 +49,7 @@ final class Watcher
            final boolean mutation,
            @Nonnull final SafeFunction<Boolean> condition,
            @Nonnull final SafeProcedure effect,
-           final boolean highPriority,
+           @Nonnull final Priority priority,
            final boolean runImmediately )
   {
     super( context, name );
@@ -65,13 +65,13 @@ final class Watcher
                                         this::dispose,
                                         null,
                                         null,
-                                        highPriority );
+                                        priority );
     _watcher =
       getContext().autorun( Arez.areNativeComponentsEnabled() ? component : null,
                             Arez.areNamesEnabled() ? getName() + ".watcher" : null,
                             true,
                             this::checkCondition,
-                            highPriority,
+                            priority,
                             false );
     _watcher.setOnDispose( () -> Disposable.dispose( _condition ) );
     /*

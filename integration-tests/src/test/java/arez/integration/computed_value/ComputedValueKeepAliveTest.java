@@ -4,6 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.ComputedValue;
 import arez.EqualityComparator;
+import arez.Priority;
 import arez.SafeFunction;
 import arez.integration.AbstractIntegrationTest;
 import arez.integration.SpyEventRecorder;
@@ -37,7 +38,7 @@ public class ComputedValueKeepAliveTest
                                    null,
                                    null,
                                    null,
-                                   false,
+                                   Priority.NORMAL,
                                    true,
                                    true );
 

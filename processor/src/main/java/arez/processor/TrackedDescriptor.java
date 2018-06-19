@@ -32,7 +32,7 @@ final class TrackedDescriptor
   @Nonnull
   private final String _name;
   private boolean _mutation;
-  private boolean _highPriority;
+  private String _priority;
   private boolean _reportParameters;
   @Nullable
   private ExecutableElement _trackedMethod;
@@ -83,7 +83,7 @@ final class TrackedDescriptor
   }
 
   void setTrackedMethod( final boolean mutation,
-                         final boolean highPriority,
+                         @Nonnull final String priority,
                          final boolean reportParameters,
                          @Nonnull final ExecutableElement method,
                          @Nonnull final ExecutableType trackedMethodType )
@@ -98,7 +98,7 @@ final class TrackedDescriptor
     else
     {
       _mutation = mutation;
-      _highPriority = highPriority;
+      _priority = Objects.requireNonNull( priority );
       _reportParameters = reportParameters;
       _trackedMethod = Objects.requireNonNull( method );
       _trackedMethodType = Objects.requireNonNull( trackedMethodType );
@@ -164,13 +164,16 @@ final class TrackedDescriptor
     parameters.add( "." + getName() );
     sb.append( _mutation );
     sb.append( ", () -> super.$N()" );
-    if ( _highPriority )
-    {
-      sb.append( "," );
-      sb.append( _highPriority );
-    }
-    sb.append( " )" );
     parameters.add( _onDepsChangedMethod.getSimpleName().toString() );
+
+    if ( !"NORMAL".equals( _priority ) )
+    {
+      sb.append( ", $T.$N" );
+      parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
+      parameters.add( _priority );
+    }
+
+    sb.append( " )" );
 
     builder.addStatement( sb.toString(), parameters.toArray() );
   }

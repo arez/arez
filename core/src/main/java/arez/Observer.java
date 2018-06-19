@@ -87,12 +87,10 @@ public final class Observer
   @Nullable
   private final Observable<?> _derivedValue;
   /**
-   * Flag set to true if Observer should be scheduled at a higher priority than other observers.
-   * This means that the scheduler is added to the start of the list of pending observers.
-   * This is typically used for observers that will cause a dispose or perform other actions that
-   * are likely to reduce load for subsequent reactions.
+   * The priority of the observer.
    */
-  private final boolean _highPriority;
+  @Nonnull
+  private final Priority _priority;
   /**
    * Flag set to true if Observer can be passed as tracker into one of the transaction methods.
    */
@@ -112,7 +110,7 @@ public final class Observer
             @Nullable final ComputedValue<?> computedValue,
             @Nullable final TransactionMode mode,
             @Nonnull final Reaction reaction,
-            final boolean highPriority,
+            @Nonnull final Priority priority,
             final boolean canTrackExplicitly )
   {
     super( context, name );
@@ -157,7 +155,7 @@ public final class Observer
     _computedValue = computedValue;
     _mode = Arez.shouldEnforceTransactionType() ? Objects.requireNonNull( mode ) : null;
     _reaction = Objects.requireNonNull( reaction );
-    _highPriority = highPriority;
+    _priority = Objects.requireNonNull( priority );
     _canTrackExplicitly = canTrackExplicitly;
     if ( null != _computedValue )
     {
@@ -199,9 +197,10 @@ public final class Observer
     return _derivedValue;
   }
 
-  boolean isHighPriority()
+  @Nonnull
+  Priority getPriority()
   {
-    return _highPriority;
+    return _priority;
   }
 
   boolean canTrackExplicitly()

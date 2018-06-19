@@ -51,18 +51,9 @@ public @interface Computed
   boolean keepAlive() default false;
 
   /**
-   * Is the ComputedValue scheduled at a high-priority.
-   * A high priority ComputedValue is placed at the start of the scheduler queue when is scheduled, meaning it will
-   * react next unless another high priority observer or ComputedValue needs rescheduling.
+   * The priority of the underlying ComputedValue observer
    *
-   * <p>A user should be very careful when marking a @Computed as a high priority as it is possible that
-   * the method will be scheduled part way through the process of disposing one-or-more components (in
-   * most environments dispose reactions are the only high priority observer and thus a partially disposed
-   * state is never exposed to user code). In most cases this may mean invoking
-   * <code>Disposable.isDisposed(component)</code> before accessing arez components. A high priority @Computed
-   * should only access high priority @Computed annotated methods to ensure consistency.</p>
-   *
-   * @return true if the ComputedValue scheduled at a high-priority, false otherwise.
+   * @return the priority of the ComputedValue observer.
    */
-  boolean highPriority() default false;
+  Priority priority() default Priority.NORMAL;
 }

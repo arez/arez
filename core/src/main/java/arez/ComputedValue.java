@@ -69,7 +69,7 @@ public final class ComputedValue<T>
                  @Nullable final String name,
                  @Nonnull final SafeFunction<T> function,
                  @Nonnull final EqualityComparator<T> equalityComparator,
-                 final boolean highPriority,
+                 @Nonnull final Priority priority,
                  final boolean keepAlive )
   {
     super( context, name );
@@ -95,7 +95,7 @@ public final class ComputedValue<T>
                                                           this::compute,
                                                           false,
                                                           o ),
-                              highPriority,
+                              priority,
                               false );
     if ( null != _component )
     {

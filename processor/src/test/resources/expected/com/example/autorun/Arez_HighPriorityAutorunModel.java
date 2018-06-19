@@ -6,6 +6,7 @@ import arez.Component;
 import arez.Disposable;
 import arez.Observable;
 import arez.Observer;
+import arez.Priority;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.Identifiable;
@@ -41,7 +42,7 @@ public final class Arez_HighPriorityAutorunModel extends HighPriorityAutorunMode
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "HighPriorityAutorunModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
-    this.$$arez$$_doStuff = $$arezi$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, false, () -> super.doStuff(), true, false );
+    this.$$arez$$_doStuff = $$arezi$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, false, () -> super.doStuff(), Priority.HIGH, false );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

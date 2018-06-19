@@ -1282,6 +1282,35 @@
         ]
     },
     {
+        "computedValue": "Model1.1.cascadeOnDispose.condition",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model1.1.cascadeOnDispose.condition",
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.cascadeOnDispose.condition"
+    },
+    {
+        "observable": "Model1.1.cascadeOnDispose.condition",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "observer": "Model1.1.cascadeOnDispose.watcher",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model1.1.cascadeOnDispose.condition",
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.cascadeOnDispose.condition"
+    },
+    {
+        "computedValue": "Model1.1.cascadeOnDispose.condition",
+        "type": "ComputeCompleted"
+    },
+    {
         "computedValue": "Model2.1.cascadeOnDispose.condition",
         "type": "ComputeStarted"
     },
@@ -1311,6 +1340,365 @@
         "type": "ComputeCompleted"
     },
     {
+        "observer": "Model1.1.cascadeOnDispose.watcher",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Model1.1.cascadeOnDispose.watcher",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": "Model1.1.cascadeOnDispose.watcher",
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.cascadeOnDispose.watcher"
+    },
+    {
+        "action": "Model1.1.cascadeOnDispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.cascadeOnDispose"
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model1.1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.dispose"
+    },
+    {
+        "action": "Model1.1.cascadeOnDispose.condition.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.cascadeOnDispose.condition.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "Model1.1.cascadeOnDispose.condition",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "Model1.1.cascadeOnDispose.condition.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.cascadeOnDispose.condition.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Model1.1.cascadeOnDispose.condition.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
+    },
+    {
+        "observable": "Model1.1.cascadeOnDispose.condition",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "observer": "Model1.1.cascadeOnDispose.watcher",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.cascadeOnDispose.condition.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Model1.1.cascadeOnDispose.watcher.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.cascadeOnDispose.watcher.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.cascadeOnDispose.watcher.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.cascadeOnDispose.watcher.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Model1.1.cascadeOnDispose.watcher",
+        "type": "ObserverDisposed"
+    },
+    {
+        "action": "Model1.1.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.isDisposed.dispose"
+    },
+    {
+        "observable": "Model1.1.isDisposed",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "observer": "Model2.1.cascadeOnDispose.condition",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.isDisposed.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.isDisposed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.1.isDisposed",
+        "type": "ObservableDisposed"
+    },
+    {
+        "action": "Model1.1.leaf.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.leaf.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.leaf.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.leaf.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.1.leaf",
+        "type": "ObservableDisposed"
+    },
+    {
+        "action": "Model1.1.name.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.name.dispose"
+    },
+    {
+        "observable": "Model1.1.name",
+        "type": "ObservableChanged",
+        "value": "Model1B"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.name.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.name.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.1.name",
+        "type": "ObservableDisposed"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.cascadeOnDispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.cascadeOnDispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": "Model1.1.cascadeOnDispose.watcher",
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.cascadeOnDispose.watcher"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.cascadeOnDispose.watcher",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Model1.1.cascadeOnDispose.watcher",
+        "type": "ReactionCompleted"
+    },
+    {
         "observer": "Model2.1.cascadeOnDispose.watcher",
         "type": "ReactionStarted"
     },
@@ -1326,6 +1714,26 @@
         "tracker": "Model2.1.cascadeOnDispose.watcher",
         "type": "TransactionStarted",
         "transaction": "Model2.1.cascadeOnDispose.watcher"
+    },
+    {
+        "computedValue": "Model2.1.cascadeOnDispose.condition",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model2.1.cascadeOnDispose.condition",
+        "type": "TransactionStarted",
+        "transaction": "Model2.1.cascadeOnDispose.condition"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model2.1.cascadeOnDispose.condition",
+        "type": "TransactionCompleted",
+        "transaction": "Model2.1.cascadeOnDispose.condition"
+    },
+    {
+        "computedValue": "Model2.1.cascadeOnDispose.condition",
+        "type": "ComputeCompleted"
     },
     {
         "action": "Model2.1.cascadeOnDispose",
@@ -1629,390 +2037,6 @@
     },
     {
         "observer": "Model2.1.cascadeOnDispose.watcher",
-        "type": "ReactionCompleted"
-    },
-    {
-        "computedValue": "Model1.1.cascadeOnDispose.condition",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "Model1.1.cascadeOnDispose.condition",
-        "type": "TransactionStarted",
-        "transaction": "Model1.1.cascadeOnDispose.condition"
-    },
-    {
-        "observable": "Model1.1.cascadeOnDispose.condition",
-        "type": "ObservableChanged",
-        "value": true
-    },
-    {
-        "observer": "Model1.1.cascadeOnDispose.watcher",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "Model1.1.cascadeOnDispose.condition",
-        "type": "TransactionCompleted",
-        "transaction": "Model1.1.cascadeOnDispose.condition"
-    },
-    {
-        "computedValue": "Model1.1.cascadeOnDispose.condition",
-        "type": "ComputeCompleted"
-    },
-    {
-        "observer": "Model1.1.cascadeOnDispose.watcher",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "Model1.1.cascadeOnDispose.watcher",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": "Model1.1.cascadeOnDispose.watcher",
-        "type": "TransactionStarted",
-        "transaction": "Model1.1.cascadeOnDispose.watcher"
-    },
-    {
-        "action": "Model1.1.cascadeOnDispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.1.cascadeOnDispose"
-    },
-    {
-        "component": "Model1.1",
-        "type": "ComponentDisposeStarted"
-    },
-    {
-        "action": "Model1.1.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.1.dispose"
-    },
-    {
-        "action": "Model1.1.cascadeOnDispose.condition.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model1.1.cascadeOnDispose.condition.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "computedValue": "Model1.1.cascadeOnDispose.condition",
-        "type": "ComputedValueDisposed"
-    },
-    {
-        "action": "Model1.1.cascadeOnDispose.condition.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model1.1.cascadeOnDispose.condition.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "action": "Model1.1.cascadeOnDispose.condition.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
-    },
-    {
-        "observable": "Model1.1.cascadeOnDispose.condition",
-        "type": "ObservableChanged",
-        "value": null
-    },
-    {
-        "observer": "Model1.1.cascadeOnDispose.watcher",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model1.1.cascadeOnDispose.condition.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "action": "Model1.1.cascadeOnDispose.watcher.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.1.cascadeOnDispose.watcher.dispose"
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.1.cascadeOnDispose.watcher.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model1.1.cascadeOnDispose.watcher.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "Model1.1.cascadeOnDispose.watcher",
-        "type": "ObserverDisposed"
-    },
-    {
-        "action": "Model1.1.isDisposed.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.1.isDisposed.dispose"
-    },
-    {
-        "observable": "Model1.1.isDisposed",
-        "type": "ObservableChanged",
-        "value": false
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.1.isDisposed.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model1.1.isDisposed.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "Model1.1.isDisposed",
-        "type": "ObservableDisposed"
-    },
-    {
-        "action": "Model1.1.leaf.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.1.leaf.dispose"
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.1.leaf.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model1.1.leaf.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "Model1.1.leaf",
-        "type": "ObservableDisposed"
-    },
-    {
-        "action": "Model1.1.name.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.1.name.dispose"
-    },
-    {
-        "observable": "Model1.1.name",
-        "type": "ObservableChanged",
-        "value": "Model1B"
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.1.name.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model1.1.name.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "Model1.1.name",
-        "type": "ObservableDisposed"
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.1.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model1.1.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "component": "Model1.1",
-        "type": "ComponentDisposeCompleted"
-    },
-    {
-        "mutation": false,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.1.cascadeOnDispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model1.1.cascadeOnDispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": "Model1.1.cascadeOnDispose.watcher",
-        "type": "TransactionCompleted",
-        "transaction": "Model1.1.cascadeOnDispose.watcher"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model1.1.cascadeOnDispose.watcher",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "Model1.1.cascadeOnDispose.watcher",
         "type": "ReactionCompleted"
     },
     {

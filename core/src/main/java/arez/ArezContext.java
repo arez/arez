@@ -457,7 +457,7 @@ public final class ArezContext
                                 onDeactivate,
                                 onStale,
                                 onDispose,
-                                false );
+                                Priority.NORMAL );
   }
 
   /**
@@ -472,7 +472,7 @@ public final class ArezContext
    * @param onDeactivate       the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale            the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDispose          the procedure to invoke when the ComputedValue id disposed.
-   * @param highPriority       true if the associated observer is created as a high-priority observer.
+   * @param priority           the priority of the associated observer.
    * @return the ComputedValue instance.
    */
   @Nonnull
@@ -484,7 +484,7 @@ public final class ArezContext
                                                    @Nullable final Procedure onDeactivate,
                                                    @Nullable final Procedure onStale,
                                                    @Nullable final Procedure onDispose,
-                                                   final boolean highPriority )
+                                                   @Nonnull final Priority priority )
   {
     return createComputedValue( component,
                                 name,
@@ -494,7 +494,7 @@ public final class ArezContext
                                 onDeactivate,
                                 onStale,
                                 onDispose,
-                                highPriority,
+                                priority,
                                 false,
                                 false );
   }
@@ -511,7 +511,7 @@ public final class ArezContext
    * @param onDeactivate       the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale            the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDispose          the procedure to invoke when the ComputedValue id disposed.
-   * @param highPriority       true if the associated observer is created as a high-priority observer.
+   * @param priority           the priority of the associated observer.
    * @param keepAlive          true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
    * @param runImmediately     ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
    * @return the ComputedValue instance.
@@ -525,7 +525,7 @@ public final class ArezContext
                                                    @Nullable final Procedure onDeactivate,
                                                    @Nullable final Procedure onStale,
                                                    @Nullable final Procedure onDispose,
-                                                   final boolean highPriority,
+                                                   @Nonnull final Priority priority,
                                                    final boolean keepAlive,
                                                    final boolean runImmediately )
   {
@@ -543,7 +543,7 @@ public final class ArezContext
                            generateNodeName( "ComputedValue", name ),
                            function,
                            equalityComparator,
-                           highPriority,
+                           priority,
                            keepAlive );
     final Observer observer = computedValue.getObserver();
     observer.setOnActivate( onActivate );
@@ -617,7 +617,7 @@ public final class ArezContext
 
   /**
    * Wait until a condition is true, then run effect.
-   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, boolean, boolean)} for further details.
+   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, Priority, boolean)} for further details.
    *
    * @param name      the debug name (if any) used when naming the underlying Arez resources.
    * @param mutation  true if the effect can mutate state, false otherwise.
@@ -635,7 +635,7 @@ public final class ArezContext
 
   /**
    * Wait until a condition is true, then run effect.
-   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, boolean, boolean)} for further details.
+   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, Priority, boolean)} for further details.
    *
    * @param name           the debug name (if any) used when naming the underlying Arez resources.
    * @param mutation       true if the effect can mutate state, false otherwise.
@@ -650,18 +650,18 @@ public final class ArezContext
                         @Nonnull final SafeProcedure effect,
                         final boolean runImmediately )
   {
-    return when( name, mutation, condition, effect, false, runImmediately );
+    return when( name, mutation, condition, effect, Priority.NORMAL, runImmediately );
   }
 
   /**
    * Wait until a condition is true, then run effect.
-   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, boolean, boolean)} for further details.
+   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, Priority, boolean)} for further details.
    *
    * @param name           the debug name (if any) used when naming the underlying Arez resources.
    * @param mutation       true if the effect can mutate state, false otherwise.
    * @param condition      The function that determines when the effect is run.
    * @param effect         The procedure that is executed when the condition is true.
-   * @param highPriority   true if the observer is a high priority observer.
+   * @param priority       the priority of the observer.
    * @param runImmediately true to invoke condition immediately, false to schedule reaction for next reaction cycle.
    * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
    */
@@ -669,10 +669,10 @@ public final class ArezContext
                         final boolean mutation,
                         @Nonnull final SafeFunction<Boolean> condition,
                         @Nonnull final SafeProcedure effect,
-                        final boolean highPriority,
+                        @Nonnull final Priority priority,
                         final boolean runImmediately )
   {
-    return when( null, name, mutation, condition, effect, highPriority, runImmediately );
+    return when( null, name, mutation, condition, effect, priority, runImmediately );
   }
 
   /**
@@ -686,7 +686,7 @@ public final class ArezContext
    * @param mutation       true if the effect can mutate state, false otherwise.
    * @param condition      The function that determines when the effect is run.
    * @param effect         The procedure that is executed when the condition is true.
-   * @param highPriority   true if the observer is a high priority observer.
+   * @param priority       the priority of the observer.
    * @param runImmediately true to invoke condition immediately, false to schedule reaction for next reaction cycle.
    * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
    */
@@ -695,7 +695,7 @@ public final class ArezContext
                         final boolean mutation,
                         @Nonnull final SafeFunction<Boolean> condition,
                         @Nonnull final SafeProcedure effect,
-                        final boolean highPriority,
+                        @Nonnull final Priority priority,
                         final boolean runImmediately )
   {
     return new Watcher( Arez.areZonesEnabled() ? this : null,
@@ -704,7 +704,7 @@ public final class ArezContext
                         mutation,
                         condition,
                         effect,
-                        highPriority,
+                        priority,
                         runImmediately ).getWatcher();
   }
 
@@ -777,7 +777,7 @@ public final class ArezContext
                            @Nonnull final Procedure action,
                            final boolean runImmediately )
   {
-    return autorun( name, mutation, action, false, runImmediately );
+    return autorun( name, mutation, action, Priority.NORMAL, runImmediately );
   }
 
   /**
@@ -786,7 +786,7 @@ public final class ArezContext
    * @param name           the name of the observer.
    * @param mutation       true if the action may modify state, false otherwise.
    * @param action         the action defining the observer.
-   * @param highPriority   true if the observer is a high priority observer.
+   * @param priority       the priority of the observer.
    * @param runImmediately true to invoke action immediately, false to schedule reaction for next reaction cycle.
    * @return the new Observer.
    */
@@ -794,10 +794,10 @@ public final class ArezContext
   public Observer autorun( @Nullable final String name,
                            final boolean mutation,
                            @Nonnull final Procedure action,
-                           final boolean highPriority,
+                           @Nonnull final Priority priority,
                            final boolean runImmediately )
   {
-    return autorun( null, name, mutation, action, highPriority, runImmediately );
+    return autorun( null, name, mutation, action, priority, runImmediately );
   }
 
   /**
@@ -815,7 +815,7 @@ public final class ArezContext
                            final boolean mutation,
                            @Nonnull final Procedure action )
   {
-    return autorun( component, name, mutation, action, false, false );
+    return autorun( component, name, mutation, action, Priority.NORMAL, false );
   }
 
   /**
@@ -825,7 +825,7 @@ public final class ArezContext
    * @param name           the name of the observer.
    * @param mutation       true if the action may modify state, false otherwise.
    * @param action         the action defining the observer.
-   * @param highPriority   true if the observer is a high priority observer.
+   * @param priority       the priority of the observer.
    * @param runImmediately true to invoke action immediately, false to schedule reaction for next reaction cycle.
    * @return the new Observer.
    */
@@ -834,11 +834,11 @@ public final class ArezContext
                            @Nullable final String name,
                            final boolean mutation,
                            @Nonnull final Procedure action,
-                           final boolean highPriority,
+                           @Nonnull final Priority priority,
                            final boolean runImmediately )
   {
     final Reaction reaction = new RunProcedureAsActionReaction( action );
-    final Observer observer = createObserver( component, name, mutation, reaction, highPriority, false );
+    final Observer observer = createObserver( component, name, mutation, reaction, priority, false );
     if ( runImmediately )
     {
       observer.invokeReaction();
@@ -914,7 +914,7 @@ public final class ArezContext
                            final boolean mutation,
                            @Nonnull final Procedure action )
   {
-    return tracker( component, name, mutation, action, false );
+    return tracker( component, name, mutation, action, Priority.NORMAL );
   }
 
   /**
@@ -922,11 +922,11 @@ public final class ArezContext
    * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
    * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
    *
-   * @param component    the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name         the name of the observer.
-   * @param mutation     true if the observer may modify state during tracking, false otherwise.
-   * @param highPriority true if the observer is a high priority observer.
-   * @param action       the action invoked as the reaction.
+   * @param component the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name      the name of the observer.
+   * @param mutation  true if the observer may modify state during tracking, false otherwise.
+   * @param priority  the priority of the observer.
+   * @param action    the action invoked as the reaction.
    * @return the new Observer.
    */
   @Nonnull
@@ -934,19 +934,24 @@ public final class ArezContext
                            @Nullable final String name,
                            final boolean mutation,
                            @Nonnull final Procedure action,
-                           final boolean highPriority )
+                           @Nonnull final Priority priority )
   {
-    return createObserver( component, name, mutation, new RunProcedureReaction( action ), highPriority, true );
+    return createObserver( component,
+                           name,
+                           mutation,
+                           new RunProcedureReaction( action ),
+                           priority,
+                           true );
   }
 
   /**
    * Create an observer with specified parameters.
    *
-   * @param component    the component containing observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name         the name of the observer.
-   * @param mutation     true if the reaction may modify state, false otherwise.
-   * @param reaction     the reaction defining observer.
-   * @param highPriority true if the observer is a high priority observer.
+   * @param component the component containing observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name      the name of the observer.
+   * @param mutation  true if the reaction may modify state, false otherwise.
+   * @param reaction  the reaction defining observer.
+   * @param priority  the priority of the observer.
    * @return the new Observer.
    */
   @Nonnull
@@ -954,7 +959,7 @@ public final class ArezContext
                            @Nullable final String name,
                            final boolean mutation,
                            @Nonnull final Reaction reaction,
-                           final boolean highPriority,
+                           @Nonnull final Priority priority,
                            final boolean canTrackExplicitly )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
@@ -965,7 +970,7 @@ public final class ArezContext
                     null,
                     mode,
                     reaction,
-                    highPriority,
+                    priority,
                     canTrackExplicitly );
     if ( willPropagateSpyEvents() )
     {

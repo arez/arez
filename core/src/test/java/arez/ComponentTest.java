@@ -450,10 +450,12 @@ public class ComponentTest
                                                                       null,
                                                                       null,
                                                                       null );
-    final Observer observer1 = context.autorun( component, ValueUtil.randomString(), true, () -> {
-    }, false, false );
-    final Observer observer2 = context.autorun( component, ValueUtil.randomString(), true, () -> {
-    }, false, false );
+    final Procedure action = () -> {
+    };
+    final Observer observer1 =
+      context.autorun( component, ValueUtil.randomString(), true, action, Priority.NORMAL, false );
+    final Observer observer2 =
+      context.autorun( component, ValueUtil.randomString(), true, action, Priority.NORMAL, false );
 
     assertEquals( component.getObservables().size(), 2 );
     assertEquals( component.getComputedValues().size(), 2 );

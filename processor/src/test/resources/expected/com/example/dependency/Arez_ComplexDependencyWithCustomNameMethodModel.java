@@ -7,6 +7,7 @@ import arez.ComputedValue;
 import arez.Disposable;
 import arez.Observable;
 import arez.Observer;
+import arez.Priority;
 import arez.SafeFunction;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
@@ -57,8 +58,8 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arez$$_value3 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".value3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue3() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue3( v ) : null );
     this.$$arez$$_value2 = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".value2" : null, () -> super.getValue2() );
-    this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".cascadeOnDispose" : null, false, () -> $$arezi$$_getCascadeOnDisposeDependencies().map( SafeFunction::call ).peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), true, false );
-    this.$$arezi$$_setNullOnDispose = $$arezi$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".setNullOnDispose" : null, true, () -> $$arezi$$_setNullOnDispose(), true, false );
+    this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".cascadeOnDispose" : null, false, () -> $$arezi$$_getCascadeOnDisposeDependencies().map( SafeFunction::call ).peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), Priority.HIGHEST, false );
+    this.$$arezi$$_setNullOnDispose = $$arezi$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".setNullOnDispose" : null, true, () -> $$arezi$$_setNullOnDispose(), Priority.HIGHEST, false );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

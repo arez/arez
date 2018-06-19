@@ -514,7 +514,7 @@ public class ObservableTest
   }
 
   @Test
-  public void addObserver_highPriorityObserver_lowPriorityCOmputed()
+  public void addObserver_highPriorityObserver_normalPriorityComputed()
     throws Exception
   {
     final ArezContext context = new ArezContext();
@@ -525,7 +525,7 @@ public class ObservableTest
                     null,
                     TransactionMode.READ_ONLY,
                     new TestReaction(),
-                    true,
+                    Priority.HIGH,
                     false );
     setCurrentTransaction( observer );
 
@@ -535,7 +535,7 @@ public class ObservableTest
                            ValueUtil.randomString(),
                            () -> "",
                            Objects::equals,
-                           false,
+                           Priority.NORMAL,
                            false ).getObservable();
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
@@ -544,8 +544,8 @@ public class ObservableTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0183: Attempting to add observer named '" + observer.getName() + "' to observable " +
-                  "named '" + observable.getName() + "' where the observer is scheduled at a high priority but " +
-                  "the observables owner is scheduled at a normal priority." );
+                  "named '" + observable.getName() + "' where the observer is scheduled at a HIGH priority but " +
+                  "the observables owner is scheduled at a NORMAL priority." );
   }
 
   @Test
@@ -1183,7 +1183,7 @@ public class ObservableTest
     setupReadOnlyTransaction( context );
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false, true );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, Priority.NORMAL, true );
     final Observable<?> observable = computedValue.getObservable();
 
     final IllegalStateException exception =
@@ -1638,7 +1638,7 @@ public class ObservableTest
                            ValueUtil.randomString(),
                            () -> expectedValue,
                            Objects::equals,
-                           false,
+                           Priority.NORMAL,
                            false );
     computedValue.setValue( expectedValue );
     final Observer derivation =

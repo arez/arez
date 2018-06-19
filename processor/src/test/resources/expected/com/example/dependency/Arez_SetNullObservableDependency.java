@@ -6,6 +6,7 @@ import arez.Component;
 import arez.Disposable;
 import arez.Observable;
 import arez.Observer;
+import arez.Priority;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.Identifiable;
@@ -48,7 +49,7 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "SetNullObservableDependency", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arez$$_value = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_value : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_value = v : null );
-    this.$$arezi$$_setNullOnDispose = $$arezi$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".setNullOnDispose" : null, true, () -> $$arezi$$_setNullOnDispose(), true, false );
+    this.$$arezi$$_setNullOnDispose = $$arezi$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".setNullOnDispose" : null, true, () -> $$arezi$$_setNullOnDispose(), Priority.HIGHEST, false );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

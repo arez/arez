@@ -140,7 +140,7 @@ public class ReactionSchedulerTest
                                              null,
                                              TransactionMode.READ_ONLY,
                                              new TestReaction(),
-                                             true,
+                                             Priority.HIGH,
                                              false );
     final Observer observer3 = newReadOnlyObserver();
     final Observer observer4 = new Observer( Arez.context(),
@@ -149,7 +149,7 @@ public class ReactionSchedulerTest
                                              null,
                                              TransactionMode.READ_ONLY,
                                              new TestReaction(),
-                                             true,
+                                             Priority.HIGH,
                                              false );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
@@ -159,12 +159,112 @@ public class ReactionSchedulerTest
     scheduler.scheduleReaction( observer3 );
     scheduler.scheduleReaction( observer4 );
 
-    assertEquals( scheduler.getPendingObservers().size(), 4 );
-    // 2 was a high priority and thus moved to front, 4 was high priority so it also added to front
-    assertEquals( scheduler.getPendingObservers().get( 0 ), observer4 );
-    assertEquals( scheduler.getPendingObservers().get( 1 ), observer2 );
-    assertEquals( scheduler.getPendingObservers().get( 2 ), observer1 );
-    assertEquals( scheduler.getPendingObservers().get( 3 ), observer3 );
+    assertEquals( scheduler.getPendingObservers( Priority.HIGHEST ).size(), 0 );
+    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Priority.LOW ).size(), 0 );
+
+    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).get( 0 ), observer2 );
+    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).get( 1 ), observer4 );
+    assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).get( 0 ), observer1 );
+    assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).get( 1 ), observer3 );
+  }
+
+  @Test
+  public void scheduleReaction_multipleObserverPriorities()
+    throws Exception
+  {
+    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+
+    final Observer observer1 = new Observer( Arez.context(),
+                                             null,
+                                             ValueUtil.randomString(),
+                                             null,
+                                             TransactionMode.READ_ONLY,
+                                             new TestReaction(),
+                                             Priority.HIGHEST,
+                                             false );
+    final Observer observer2 = new Observer( Arez.context(),
+                                             null,
+                                             ValueUtil.randomString(),
+                                             null,
+                                             TransactionMode.READ_ONLY,
+                                             new TestReaction(),
+                                             Priority.HIGH,
+                                             false );
+    final Observer observer3 = new Observer( Arez.context(),
+                                             null,
+                                             ValueUtil.randomString(),
+                                             null,
+                                             TransactionMode.READ_ONLY,
+                                             new TestReaction(),
+                                             Priority.NORMAL,
+                                             false );
+    final Observer observer4 = new Observer( Arez.context(),
+                                             null,
+                                             ValueUtil.randomString(),
+                                             null,
+                                             TransactionMode.READ_ONLY,
+                                             new TestReaction(),
+                                             Priority.LOW,
+                                             false );
+    final Observer observer5 = new Observer( Arez.context(),
+                                             null,
+                                             ValueUtil.randomString(),
+                                             null,
+                                             TransactionMode.READ_ONLY,
+                                             new TestReaction(),
+                                             Priority.HIGHEST,
+                                             false );
+    final Observer observer6 = new Observer( Arez.context(),
+                                             null,
+                                             ValueUtil.randomString(),
+                                             null,
+                                             TransactionMode.READ_ONLY,
+                                             new TestReaction(),
+                                             Priority.HIGH,
+                                             false );
+    final Observer observer7 = new Observer( Arez.context(),
+                                             null,
+                                             ValueUtil.randomString(),
+                                             null,
+                                             TransactionMode.READ_ONLY,
+                                             new TestReaction(),
+                                             Priority.NORMAL,
+                                             false );
+    final Observer observer8 = new Observer( Arez.context(),
+                                             null,
+                                             ValueUtil.randomString(),
+                                             null,
+                                             TransactionMode.READ_ONLY,
+                                             new TestReaction(),
+                                             Priority.LOW,
+                                             false );
+
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+
+    scheduler.scheduleReaction( observer1 );
+    scheduler.scheduleReaction( observer2 );
+    scheduler.scheduleReaction( observer3 );
+    scheduler.scheduleReaction( observer4 );
+    scheduler.scheduleReaction( observer5 );
+    scheduler.scheduleReaction( observer6 );
+    scheduler.scheduleReaction( observer7 );
+    scheduler.scheduleReaction( observer8 );
+
+    assertEquals( scheduler.getPendingObservers( Priority.HIGHEST ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Priority.LOW ).size(), 2 );
+
+    assertEquals( scheduler.getPendingObservers( Priority.HIGHEST ).get( 0 ), observer1 );
+    assertEquals( scheduler.getPendingObservers( Priority.HIGHEST ).get( 1 ), observer5 );
+    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).get( 0 ), observer2 );
+    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).get( 1 ), observer6 );
+    assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).get( 0 ), observer3 );
+    assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).get( 1 ), observer7 );
+    assertEquals( scheduler.getPendingObservers( Priority.LOW ).get( 0 ), observer4 );
+    assertEquals( scheduler.getPendingObservers( Priority.LOW ).get( 1 ), observer8 );
   }
 
   @Test
@@ -301,7 +401,7 @@ public class ReactionSchedulerTest
                       null,
                       TransactionMode.READ_WRITE,
                       reactions[ i ],
-                      false,
+                      Priority.NORMAL,
                       false );
       observables[ i ] = newObservable();
 
@@ -401,7 +501,7 @@ public class ReactionSchedulerTest
                     null,
                     TransactionMode.READ_WRITE,
                     reaction,
-                    false,
+                    Priority.NORMAL,
                     false );
     final Observable<?> observable = newObservable();
 
@@ -467,7 +567,7 @@ public class ReactionSchedulerTest
                     null,
                     TransactionMode.READ_ONLY,
                     reaction,
-                    false,
+                    Priority.NORMAL,
                     false );
     final Observable<?> observable = newObservable();
 
@@ -537,7 +637,7 @@ public class ReactionSchedulerTest
                       null,
                       TransactionMode.READ_WRITE,
                       reactions[ i ],
-                      false,
+                      Priority.NORMAL,
                       false );
       observables[ i ] = newObservable();
 

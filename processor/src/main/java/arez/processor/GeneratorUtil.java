@@ -23,6 +23,7 @@ final class GeneratorUtil
   static final ClassName DAGGER_PROVIDES_CLASSNAME = ClassName.get( "dagger", "Provides" );
   static final ClassName GUARDS_CLASSNAME = ClassName.get( "org.realityforge.braincheck", "Guards" );
   static final ClassName AREZ_CLASSNAME = ClassName.get( "arez", "Arez" );
+  static final ClassName PRIORITY_CLASSNAME = ClassName.get( "arez", "Priority" );
   static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "arez", "ArezContext" );
   static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "arez", "Observable" );
   static final ClassName OBSERVER_CLASSNAME = ClassName.get( "arez", "Observer" );

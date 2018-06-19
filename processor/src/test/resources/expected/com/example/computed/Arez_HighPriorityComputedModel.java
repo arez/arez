@@ -7,6 +7,7 @@ import arez.ComputedValue;
 import arez.Disposable;
 import arez.EqualityComparator;
 import arez.Observable;
+import arez.Priority;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.Identifiable;
@@ -43,7 +44,7 @@ public final class Arez_HighPriorityComputedModel extends HighPriorityComputedMo
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "HighPriorityComputedModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
-    this.$$arez$$_time = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime(), EqualityComparator.defaultComparator(), null, null, null, null, true );
+    this.$$arez$$_time = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime(), EqualityComparator.defaultComparator(), null, null, null, null, Priority.HIGH );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

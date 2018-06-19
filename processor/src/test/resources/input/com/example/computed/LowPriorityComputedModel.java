@@ -5,9 +5,9 @@ import arez.annotations.Computed;
 import arez.annotations.Priority;
 
 @ArezComponent
-public abstract class HighPriorityComputedModel
+public abstract class LowPriorityComputedModel
 {
-  @Computed( priority = Priority.HIGH )
+  @Computed( priority = Priority.LOW )
   public long getTime()
   {
     return 0;

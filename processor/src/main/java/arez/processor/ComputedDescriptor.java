@@ -45,7 +45,7 @@ final class ComputedDescriptor
   @Nullable
   private ExecutableType _computedType;
   private boolean _keepAlive;
-  private boolean _highPriority;
+  private String _priority;
   @Nullable
   private ExecutableElement _onActivate;
   @Nullable
@@ -126,7 +126,7 @@ final class ComputedDescriptor
   void setComputed( @Nonnull final ExecutableElement computed,
                     @Nonnull final ExecutableType computedType,
                     final boolean keepAlive,
-                    final boolean highPriority )
+                    @Nonnull final String priority )
     throws ArezProcessorException
   {
     //The caller already verified that no duplicate computed have been defined
@@ -141,7 +141,7 @@ final class ComputedDescriptor
     _computed = Objects.requireNonNull( computed );
     _computedType = Objects.requireNonNull( computedType );
     _keepAlive = keepAlive;
-    _highPriority = highPriority;
+    _priority = Objects.requireNonNull( priority );
 
     if ( isComputedReturnType( Stream.class ) )
     {
@@ -373,7 +373,7 @@ final class ComputedDescriptor
       parameters.add( _componentDescriptor.getComponentNameMethodName() );
       parameters.add( "." + getName() );
       parameters.add( _computed.getSimpleName().toString() );
-      if ( hasHooks() || _keepAlive || _highPriority )
+      if ( hasHooks() || _keepAlive || hasNonNormalPriority() )
       {
         appendInitializerSuffix( parameters, sb );
       }
@@ -396,7 +396,7 @@ final class ComputedDescriptor
       parameters.add( _componentDescriptor.getComponentNameMethodName() );
       parameters.add( "." + getName() );
       parameters.add( _computed.getSimpleName().toString() );
-      if ( hasHooks() || _keepAlive || _highPriority )
+      if ( hasHooks() || _keepAlive || hasNonNormalPriority() )
       {
         appendInitializerSuffix( parameters, sb );
       }
@@ -406,6 +406,11 @@ final class ComputedDescriptor
       }
     }
     builder.addStatement( sb.toString(), parameters.toArray() );
+  }
+
+  private boolean hasNonNormalPriority()
+  {
+    return !"NORMAL".equals( _priority );
   }
 
   private void appendInitializerSuffix( @Nonnull final ArrayList<Object> parameters,
@@ -472,20 +477,21 @@ final class ComputedDescriptor
     {
       sb.append( "null" );
     }
-    if ( _highPriority || _keepAlive )
+    if ( hasNonNormalPriority() || _keepAlive )
     {
       if ( _keepAlive )
       {
-        sb.append( ", " );
-        sb.append( _highPriority );
-        sb.append( ", " );
+        sb.append( ", $T.$N, " );
+        parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
+        parameters.add( _priority );
         sb.append( _keepAlive );
         sb.append( ", false" );
       }
       else
       {
-        sb.append( ", " );
-        sb.append( _highPriority );
+        sb.append( ", $T.$N" );
+        parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
+        parameters.add( _priority );
       }
     }
     sb.append( " )" );

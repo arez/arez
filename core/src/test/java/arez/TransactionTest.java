@@ -973,7 +973,7 @@ public class TransactionTest
                            ValueUtil.randomString(),
                            () -> "",
                            Objects::equals,
-                           false,
+                           Priority.NORMAL,
                            true ).getObserver();
 
     final Transaction transaction =

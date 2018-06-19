@@ -6,6 +6,7 @@ import arez.Component;
 import arez.Disposable;
 import arez.Observable;
 import arez.Observer;
+import arez.Priority;
 import arez.SafeFunction;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
@@ -48,7 +49,7 @@ public final class Arez_ObservableDependency extends ObservableDependency implem
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ObservableDependency", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arez$$_value = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
-    this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".cascadeOnDispose" : null, false, () -> $$arezi$$_getCascadeOnDisposeDependencies().map( SafeFunction::call ).peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), true, false );
+    this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".cascadeOnDispose" : null, false, () -> $$arezi$$_getCascadeOnDisposeDependencies().map( SafeFunction::call ).peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), Priority.HIGHEST, false );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

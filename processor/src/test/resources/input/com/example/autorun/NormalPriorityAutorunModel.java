@@ -5,9 +5,9 @@ import arez.annotations.Autorun;
 import arez.annotations.Priority;
 
 @ArezComponent
-public abstract class HighPriorityAutorunModel
+public abstract class NormalPriorityAutorunModel
 {
-  @Autorun( priority = Priority.HIGH )
+  @Autorun( priority = Priority.NORMAL )
   protected void doStuff()
   {
   }

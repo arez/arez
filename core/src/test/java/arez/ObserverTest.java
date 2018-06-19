@@ -32,7 +32,7 @@ public class ObserverTest
     final String name = ValueUtil.randomString();
     final Reaction reaction = new TestReaction();
     final Observer observer =
-      new Observer( context, null, name, null, TransactionMode.READ_ONLY, reaction, false, false );
+      new Observer( context, null, name, null, TransactionMode.READ_ONLY, reaction, Priority.NORMAL, false );
 
     // Verify all "Node" behaviour
     assertEquals( observer.getContext(), context );
@@ -52,7 +52,7 @@ public class ObserverTest
 
     assertEquals( observer.isDerivation(), false );
 
-    assertEquals( observer.isHighPriority(), false );
+    assertEquals( observer.getPriority(), Priority.NORMAL );
 
     // All the hooks start out null
     assertEquals( observer.getOnActivate(), null );
@@ -106,7 +106,7 @@ public class ObserverTest
                                         null,
                                         TransactionMode.READ_WRITE_OWNED,
                                         new TestReaction(),
-                                        false,
+                                        Priority.NORMAL,
                                         false ) );
 
     assertEquals( exception.getMessage(),
@@ -128,7 +128,7 @@ public class ObserverTest
                                         null,
                                         TransactionMode.DISPOSE,
                                         new TestReaction(),
-                                        false,
+                                        Priority.NORMAL,
                                         false ) );
 
     assertEquals( exception.getMessage(),
@@ -152,7 +152,7 @@ public class ObserverTest
                                         null,
                                         TransactionMode.READ_ONLY,
                                         new TestReaction(),
-                                        false,
+                                        Priority.NORMAL,
                                         false ) );
 
     assertEquals( exception.getMessage(),
@@ -170,7 +170,7 @@ public class ObserverTest
     final String name = ValueUtil.randomString();
 
     final Observer observer =
-      new Observer( Arez.context(), null, name, null, null, new TestReaction(), false, false );
+      new Observer( Arez.context(), null, name, null, null, new TestReaction(), Priority.NORMAL, false );
     assertThrows( observer::getMode );
   }
 
@@ -189,7 +189,7 @@ public class ObserverTest
                                         computedValue,
                                         TransactionMode.READ_ONLY,
                                         new TestReaction(),
-                                        false,
+                                        Priority.NORMAL,
                                         false ) );
 
     assertEquals( exception.getMessage(),
@@ -210,7 +210,7 @@ public class ObserverTest
                                         computedValue,
                                         TransactionMode.READ_WRITE_OWNED,
                                         new TestReaction(),
-                                        false,
+                                        Priority.NORMAL,
                                         true ) );
 
     assertEquals( exception.getMessage(),
@@ -241,7 +241,7 @@ public class ObserverTest
                                         null,
                                         TransactionMode.READ_ONLY,
                                         new TestReaction(),
-                                        false,
+                                        Priority.NORMAL,
                                         false ) );
     assertEquals( exception.getMessage(),
                   "Arez-0083: Observer named '" + name + "' has component specified but " +
@@ -268,7 +268,7 @@ public class ObserverTest
                     null,
                     TransactionMode.READ_ONLY,
                     new TestReaction(),
-                    false,
+                    Priority.NORMAL,
                     false );
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
@@ -1263,7 +1263,7 @@ public class ObserverTest
       assertEquals( observer.getName(), name );
     };
 
-    final Observer observer = new Observer( context, null, name, null, mode, reaction, false, false );
+    final Observer observer = new Observer( context, null, name, null, mode, reaction, Priority.NORMAL, false );
 
     observer.invokeReaction();
 
@@ -1285,7 +1285,7 @@ public class ObserverTest
                     null,
                     TransactionMode.READ_ONLY,
                     o -> Thread.sleep( 1 ),
-                    false,
+                    Priority.NORMAL,
                     false );
 
     observer.invokeReaction();
@@ -1312,7 +1312,13 @@ public class ObserverTest
     Arez.context().getSpy().addSpyEventHandler( handler );
 
     final ComputedValue<Integer> computedValue =
-      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), () -> 1, Objects::equals, false, false );
+      new ComputedValue<>( Arez.context(),
+                           null,
+                           ValueUtil.randomString(),
+                           () -> 1,
+                           Objects::equals,
+                           Priority.NORMAL,
+                           false );
 
     computedValue.getObserver().invokeReaction();
 
@@ -1348,7 +1354,7 @@ public class ObserverTest
                     null,
                     TransactionMode.READ_ONLY,
                     reaction,
-                    false,
+                    Priority.NORMAL,
                     false );
 
     observer.setDisposed( true );
@@ -1376,7 +1382,7 @@ public class ObserverTest
                     null,
                     TransactionMode.READ_ONLY,
                     reaction,
-                    false,
+                    Priority.NORMAL,
                     false );
 
     setupReadWriteTransaction();
@@ -1415,7 +1421,7 @@ public class ObserverTest
       throw exception;
     };
 
-    final Observer observer = new Observer( Arez.context(), null, name, null, mode, reaction, false, false );
+    final Observer observer = new Observer( Arez.context(), null, name, null, mode, reaction, Priority.NORMAL, false );
 
     observer.invokeReaction();
 
@@ -1466,7 +1472,7 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, Priority.NORMAL, false );
 
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
@@ -1474,7 +1480,7 @@ public class ObserverTest
     observer.setState( ObserverState.POSSIBLY_STALE );
 
     final ComputedValue<String> computedValue2 =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, false, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, Priority.NORMAL, false );
 
     observer.getDependencies().add( computedValue2.getObservable() );
     computedValue2.getObservable().addObserver( observer );
@@ -1501,7 +1507,7 @@ public class ObserverTest
                            ValueUtil.randomString(),
                            ValueUtil::randomString,
                            Objects::equals,
-                           false,
+                           Priority.NORMAL,
                            false );
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
@@ -1512,7 +1518,7 @@ public class ObserverTest
       throw new IllegalStateException();
     };
     final ComputedValue<String> computedValue2 =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), function, Objects::equals, false, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), function, Objects::equals, Priority.NORMAL, false );
 
     observer.getDependencies().add( computedValue2.getObservable() );
     computedValue2.getObservable().addObserver( observer );
@@ -1538,7 +1544,7 @@ public class ObserverTest
                            ValueUtil.randomString(),
                            ValueUtil::randomString,
                            Objects::equals,
-                           false,
+                           Priority.NORMAL,
                            false );
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
@@ -1549,7 +1555,13 @@ public class ObserverTest
       throw new IllegalStateException();
     };
     final ComputedValue<String> computedValue2 =
-      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), function, Objects::equals, false, false );
+      new ComputedValue<>( Arez.context(),
+                           null,
+                           ValueUtil.randomString(),
+                           function,
+                           Objects::equals,
+                           Priority.NORMAL,
+                           false );
 
     observer.getDependencies().add( computedValue2.getObservable() );
     computedValue2.getObservable().addObserver( observer );
@@ -1567,7 +1579,13 @@ public class ObserverTest
     throws Exception
   {
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), () -> "", Objects::equals, false, false );
+      new ComputedValue<>( Arez.context(),
+                           null,
+                           ValueUtil.randomString(),
+                           () -> "",
+                           Objects::equals,
+                           Priority.NORMAL,
+                           false );
 
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
@@ -1575,7 +1593,13 @@ public class ObserverTest
     observer.setState( ObserverState.POSSIBLY_STALE );
 
     final ComputedValue<String> computedValue2 =
-      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), () -> "", Objects::equals, false, false );
+      new ComputedValue<>( Arez.context(),
+                           null,
+                           ValueUtil.randomString(),
+                           () -> "",
+                           Objects::equals,
+                           Priority.NORMAL,
+                           false );
 
     observer.getDependencies().add( computedValue2.getObservable() );
     computedValue2.getObservable().addObserver( observer );
@@ -1593,7 +1617,13 @@ public class ObserverTest
     throws Exception
   {
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), () -> "", Objects::equals, false, false );
+      new ComputedValue<>( Arez.context(),
+                           null,
+                           ValueUtil.randomString(),
+                           () -> "",
+                           Objects::equals,
+                           Priority.NORMAL,
+                           false );
 
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
