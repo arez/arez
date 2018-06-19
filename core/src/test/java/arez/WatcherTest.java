@@ -33,7 +33,8 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Watcher watcher = new Watcher( context, component, name, mutation, condition, procedure, Priority.NORMAL, true );
+    final Watcher watcher =
+      new Watcher( context, component, name, mutation, condition, procedure, Priority.NORMAL, true );
 
     assertEquals( watcher.getName(), name );
     assertEquals( watcher.isMutation(), mutation );
@@ -137,9 +138,9 @@ public class WatcherTest
       new Watcher( context, null, ValueUtil.randomString(), true, condition1, procedure, Priority.HIGHEST, false );
 
     assertEquals( watcher1.getWatcher().getPriority(), Priority.HIGHEST );
-    assertEquals( watcher1.getCondition().getObserver().getPriority(), Priority.HIGHEST  );
-    assertEquals( watcher2.getWatcher().getPriority(), Priority.HIGHEST  );
-    assertEquals( watcher2.getCondition().getObserver().getPriority(), Priority.HIGHEST  );
+    assertEquals( watcher1.getCondition().getObserver().getPriority(), Priority.HIGHEST );
+    assertEquals( watcher2.getWatcher().getPriority(), Priority.HIGHEST );
+    assertEquals( watcher2.getCondition().getObserver().getPriority(), Priority.HIGHEST );
     assertEquals( watcher3.getWatcher().getPriority(), Priority.NORMAL );
     assertEquals( watcher3.getCondition().getObserver().getPriority(), Priority.NORMAL );
 
