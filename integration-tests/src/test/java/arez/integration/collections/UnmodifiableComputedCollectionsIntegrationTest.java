@@ -140,7 +140,6 @@ public class UnmodifiableComputedCollectionsIntegrationTest
     private List<String> _list = new ArrayList<>();
     @Nonnull
     private Map<String, String> _map = new HashMap<>();
-
     @Nullable
     private Collection<String> _collection2;
     @Nullable
@@ -149,7 +148,6 @@ public class UnmodifiableComputedCollectionsIntegrationTest
     private List<String> _list2;
     @Nullable
     private Map<String, String> _map2;
-
 
     @Computed
     @Nonnull
