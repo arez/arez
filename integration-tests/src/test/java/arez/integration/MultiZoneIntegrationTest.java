@@ -40,14 +40,14 @@ public class MultiZoneIntegrationTest
     } );
 
     context1.autorun( "FirstNamePrinter1",
-                      () -> record( recorder, "firstName1", person.get().getFirstName() ) );
+                      () -> recorder.mark( "firstName1", person.get().getFirstName() ) );
     context2.autorun( "FirstNamePrinter2",
-                      () -> record( recorder, "firstName2", person2.get().getFirstName() ) );
+                      () -> recorder.mark( "firstName2", person2.get().getFirstName() ) );
 
     context1.autorun( "FullNamePrinter1",
-                      () -> record( recorder, "fullname1", person.get().getFullName() ) );
+                      () -> recorder.mark( "fullname1", person.get().getFullName() ) );
     context2.autorun( "FullNamePrinter2",
-                      () -> record( recorder, "fullname2", person2.get().getFullName() ) );
+                      () -> recorder.mark( "fullname2", person2.get().getFullName() ) );
 
     context1.action( "First Name Update1", true, () -> person.get().setFirstName( "Fred" ) );
     context1.action( "Last Name Update1", true, () -> person.get().setLastName( "Donaldo" ) );

@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 import javax.json.stream.JsonGenerator;
 
 /**
@@ -39,6 +40,13 @@ public final class SpyEventRecorder
     {
       log( (SerializableEvent) event );
     }
+  }
+
+  public void mark( @Nonnull final String key, @Nonnull final Object value )
+  {
+    final JsonObject mark =
+      Json.createObjectBuilder().add( "type", "usermark" ).add( key, String.valueOf( value ) ).build();
+    _events.add( mark );
   }
 
   @Nonnull

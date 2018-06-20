@@ -65,13 +65,13 @@ public class ObservableRefTest
 
     context.autorun( "TransportType",
                      () -> {
-                       record( recorder, "TransportType", component.getOtherID() );
+                       recorder.mark( "TransportType", component.getOtherID() );
                        ttCount.incrementAndGet();
                      } );
     // This is verifying that the explict reportObserved occurs
     context.autorun( "ResolvedType",
                      () -> {
-                       record( recorder, "ResolvedType", component.getOther() );
+                       recorder.mark( "ResolvedType", component.getOther() );
                        rtCount.incrementAndGet();
                      } );
 

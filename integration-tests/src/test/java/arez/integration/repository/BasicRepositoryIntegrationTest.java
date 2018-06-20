@@ -69,7 +69,7 @@ public class BasicRepositoryIntegrationTest
 
     context.autorun( "ComponentCount",
                      () -> {
-                       record( recorder, "ComponentCount", repository.findAll().size() );
+                       recorder.mark( "ComponentCount", repository.findAll().size() );
                        callCount.incrementAndGet();
                      } );
 

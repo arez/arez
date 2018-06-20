@@ -28,14 +28,14 @@ public class WhenIntegrationTest
     timeModel.updateTime();
 
     context.when( () -> 0 == timeModel.getTime(),
-                  () -> record( recorder, "timeReset", "true" ) );
+                  () -> recorder.mark( "timeReset", "true" ) );
     context.autorun( "TimePrinter", () -> {
       // Observe time so we get callback
       @SuppressWarnings( "unused" )
       final long ignored = timeModel.getTime();
       // Can not record actual time here as it will change run to run and
       // our test infra is not up to skipping fields atm
-      record( recorder, "timeReset", "true" );
+      recorder.mark( "timeReset", "true" );
     } );
 
     timeModel.updateTime();

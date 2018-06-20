@@ -26,9 +26,9 @@ public class ObservableInitializerIntegrationTest
     final PersonModel person = PersonModel.create( "Bill", "Smith" );
 
     context.autorun( "FirstNamePrinter",
-                     () -> record( recorder, "firstName", person.getFirstName() ) );
+                     () -> recorder.mark( "firstName", person.getFirstName() ) );
     context.autorun( "FullNamePrinter",
-                     () -> record( recorder, "fullname", person.getFullName() ) );
+                     () -> recorder.mark( "fullname", person.getFullName() ) );
 
     context.action( "First Name Update", true, () -> person.setFirstName( "Fred" ) );
     context.action( "Last Name Update", true, () -> person.setLastName( "Donaldo" ) );

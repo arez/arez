@@ -41,21 +41,21 @@ public class MemoizedIntegrationTest
                      () -> {
                        if ( Disposable.isNotDisposed( person ) )
                        {
-                         record( recorder, "doesSearchMatch - red", person.doesSearchMatch( "red" ) );
+                         recorder.mark( "doesSearchMatch - red", person.doesSearchMatch( "red" ) );
                        }
                        searchCounts[ 0 ].incrementAndGet();
                      } );
     final Observer observer3 =
       context.autorun( "SearchResult - ill",
                        () -> {
-                         record( recorder, "doesSearchMatch - ill", person.doesSearchMatch( "ill" ) );
+                         recorder.mark( "doesSearchMatch - ill", person.doesSearchMatch( "ill" ) );
                          searchCounts[ 1 ].incrementAndGet();
                        } );
     context.autorun( "SearchResult - red - 20",
                      () -> {
                        if ( Disposable.isNotDisposed( person ) )
                        {
-                         record( recorder, "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
+                         recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
                        }
                        searchCounts[ 2 ].incrementAndGet();
                      } );
@@ -63,7 +63,7 @@ public class MemoizedIntegrationTest
                      () -> {
                        if ( Disposable.isNotDisposed( person ) )
                        {
-                         record( recorder, "doesSearchMatch - red", person.doesFullSearchMatch( "red", 5 ) );
+                         recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 5 ) );
                        }
                        searchCounts[ 3 ].incrementAndGet();
                      } );
@@ -128,7 +128,7 @@ public class MemoizedIntegrationTest
     final PersonModel person = PersonModel.create( "Bill", 15 );
 
     context.autorun( "SearchResult - red - 20",
-                     () -> record( recorder, "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) ) );
+                     () -> recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) ) );
 
     Disposable.dispose( person );
 
@@ -151,7 +151,7 @@ public class MemoizedIntegrationTest
     final PersonModel person = PersonModel.create( "Bill", 15 );
 
     context.autorun( "SearchResult - red - 20",
-                     () -> record( recorder, "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) ) );
+                     () -> recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) ) );
 
     Disposable.dispose( person );
 

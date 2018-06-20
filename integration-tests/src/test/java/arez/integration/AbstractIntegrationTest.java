@@ -7,8 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
-import javax.json.Json;
-import javax.json.JsonObject;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
@@ -69,15 +67,6 @@ public abstract class AbstractIntegrationTest
       }
       Files.write( file, ( contents + "\n" ).getBytes() );
     }
-  }
-
-  protected final void record( @Nonnull final SpyEventRecorder recorder,
-                               @Nonnull final String key,
-                               @Nonnull final Object value )
-  {
-    final JsonObject mark =
-      Json.createObjectBuilder().add( "type", "usermark" ).add( key, String.valueOf( value ) ).build();
-    recorder.getEvents().add( mark );
   }
 
   @Nonnull

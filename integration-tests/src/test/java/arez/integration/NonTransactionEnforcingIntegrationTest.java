@@ -32,9 +32,9 @@ public class NonTransactionEnforcingIntegrationTest
     final PersonModel person = PersonModel.create( "Bill", "Smith" );
 
     context.autorun( "FirstNamePrinter",
-                     () -> record( recorder, "firstName", person.getFirstName() ) );
+                     () -> recorder.mark( "firstName", person.getFirstName() ) );
     context.autorun( "FullNamePrinter",
-                     () -> record( recorder, "fullname", person.getFullName() ) );
+                     () -> recorder.mark( "fullname", person.getFullName() ) );
 
     final AtomicBoolean action1ReadOnly = new AtomicBoolean( true );
     final AtomicBoolean action2ReadOnly = new AtomicBoolean( true );
