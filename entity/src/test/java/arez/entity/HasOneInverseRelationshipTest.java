@@ -81,7 +81,7 @@ public class HasOneInverseRelationshipTest
 
   @Test
   public void disposedEntityUnlinks()
-    throws IOException, JSONException
+    throws Exception
   {
     final HasOneInverseRelationship<TestComponent> relationship = HasOneInverseRelationship.create();
 
