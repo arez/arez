@@ -54,7 +54,7 @@ public class MultiZoneIntegrationTest
 
     context2.action( "Last Name Update2", true, () -> person2.get().setLastName( "Donaldo" ) );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 
   @Test

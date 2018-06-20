@@ -20,8 +20,7 @@ public class ComplexDependencyIntegrationTest
   {
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final Model1 model1a1 = Model1.create( "Model1A1" );
     final Model1 model1a2 = Model1.create( "Model1A2" );
@@ -53,7 +52,7 @@ public class ComplexDependencyIntegrationTest
     assertEquals( Disposable.isDisposed( model1a4 ), false );
     assertEquals( Disposable.isDisposed( model2a ), true );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 
   @ArezComponent

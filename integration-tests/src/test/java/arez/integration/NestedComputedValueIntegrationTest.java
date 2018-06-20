@@ -21,8 +21,7 @@ public class NestedComputedValueIntegrationTest
   {
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final FilterContext filterContext = FilterContext.create();
 
@@ -204,7 +203,7 @@ public class NestedComputedValueIntegrationTest
     assertFalse( node19.getIsVisibleResult() );
     assertFalse( node20.getIsVisibleResult() );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 
   @Test
@@ -213,8 +212,7 @@ public class NestedComputedValueIntegrationTest
   {
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final FilterContext filterContext = FilterContext.create();
 
@@ -256,7 +254,7 @@ public class NestedComputedValueIntegrationTest
     assertTrue( context.action( false, node2::isVisible ) );
     assertTrue( context.action( false, node1::isVisible ) );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 
   @SuppressWarnings( "WeakerAccess" )

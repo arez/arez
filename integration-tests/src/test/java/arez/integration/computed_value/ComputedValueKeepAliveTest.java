@@ -21,8 +21,7 @@ public class ComputedValueKeepAliveTest
   {
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final AtomicInteger calls = new AtomicInteger();
     final SafeFunction<String> action = () -> {
@@ -54,6 +53,6 @@ public class ComputedValueKeepAliveTest
 
     computedValue.dispose();
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 }

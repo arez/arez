@@ -23,8 +23,7 @@ public class DisposeIntegrationTest
   {
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording( context );
 
     final CodeModel codeModel = CodeModel.create( "com.example", "MyType" );
 
@@ -39,7 +38,7 @@ public class DisposeIntegrationTest
     observer.dispose();
     context.action( "Dispose Model", true, () -> Disposable.dispose( codeModel ) );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 
   @SuppressWarnings( "WeakerAccess" )

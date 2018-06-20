@@ -1,18 +1,30 @@
 package arez.integration;
 
+import arez.Arez;
+import arez.ArezContext;
 import arez.SpyEventHandler;
 import arez.spy.SerializableEvent;
+import java.io.File;
+import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.Array;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.stream.JsonGenerator;
+import org.json.JSONException;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.comparator.DefaultComparator;
+import static org.testng.Assert.*;
 
 /**
  * A recorder used to record results of test run.
@@ -22,6 +34,20 @@ public final class SpyEventRecorder
 {
   private final JsonArrayBuilder _events = Json.createArrayBuilder();
   private final boolean _keepValue;
+
+  @Nonnull
+  public static SpyEventRecorder beginRecording()
+  {
+    return beginRecording( Arez.context() );
+  }
+
+  @Nonnull
+  public static SpyEventRecorder beginRecording( @Nonnull final ArezContext context )
+  {
+    final SpyEventRecorder recorder = new SpyEventRecorder();
+    context.getSpy().addSpyEventHandler( recorder );
+    return recorder;
+  }
 
   public SpyEventRecorder()
   {
@@ -49,19 +75,30 @@ public final class SpyEventRecorder
     _events.add( mark );
   }
 
-  @Nonnull
-  public JsonArrayBuilder getEvents()
+  public void assertMatchesFixture( @Nonnull final Path file, final boolean updateFixture )
+    throws IOException, JSONException
   {
-    return _events;
+    final String json = eventsAsString();
+    if ( updateFixture )
+    {
+      final File dir = file.getParent().toFile();
+      if ( !dir.exists() )
+      {
+        assertTrue( dir.mkdirs() );
+      }
+      Files.write( file, ( json + "\n" ).getBytes() );
+    }
+    final String expected = Files.readAllLines( file ).stream().collect( Collectors.joining( "\n" ) );
+    JSONAssert.assertEquals( expected, json, new DefaultComparator( JSONCompareMode.STRICT ) );
   }
 
   @Nonnull
-  public String eventsAsString()
+  private String eventsAsString()
   {
     final Map<String, Object> properties = new HashMap<>( 1 );
     properties.put( JsonGenerator.PRETTY_PRINTING, true );
     final StringWriter writer = new StringWriter();
-    Json.createWriterFactory( properties ).createWriter( writer ).write( getEvents().build() );
+    Json.createWriterFactory( properties ).createWriter( writer ).write( _events.build() );
     writer.flush();
     return writer.toString();
   }

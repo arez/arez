@@ -21,8 +21,7 @@ public class NativeComponentsIntegrationTest
   {
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final String type = "MyType";
     final String id = "1";
@@ -78,6 +77,6 @@ public class NativeComponentsIntegrationTest
     assertEquals( context.getSpy().findAllComponentsByType( type ).size(), 0 );
     assertEquals( context.getSpy().findAllComponentTypes().size(), 0 );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 }

@@ -21,8 +21,7 @@ public class CascadeOnDisposeIntegrationTest
   {
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final Model1 model1a = Model1.create( "Model1A" );
     final Model1 model1b = Model1.create( "Model1B" );
@@ -55,7 +54,7 @@ public class CascadeOnDisposeIntegrationTest
     assertEquals( Disposable.isDisposed( model2a ), true );
     assertEquals( Disposable.isDisposed( model2b ), true );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 
   @ArezComponent

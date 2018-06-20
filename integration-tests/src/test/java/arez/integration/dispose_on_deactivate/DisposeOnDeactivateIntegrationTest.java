@@ -20,8 +20,7 @@ public class DisposeOnDeactivateIntegrationTest
   {
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final Model1 model = Model1.create();
 
@@ -36,7 +35,7 @@ public class DisposeOnDeactivateIntegrationTest
     assertEquals( Disposable.isDisposed( model ), true );
     assertEquals( Disposable.isDisposed( observer ), true );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 
   @ArezComponent( disposeOnDeactivate = true, allowEmpty = true )

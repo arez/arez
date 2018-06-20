@@ -3,7 +3,6 @@ package arez.integration;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ArezTestUtil;
-import arez.Spy;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
@@ -25,9 +24,7 @@ public class NonTransactionEnforcingIntegrationTest
     ArezTestUtil.noEnforceTransactionType();
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    final Spy spy = context.getSpy();
-    spy.addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final PersonModel person = PersonModel.create( "Bill", "Smith" );
 
@@ -45,20 +42,20 @@ public class NonTransactionEnforcingIntegrationTest
                     false,
                     () -> {
                       person.setFirstName( "Fred" );
-                      action1ReadOnly.set( spy.getTransaction().isReadOnly() );
+                      action1ReadOnly.set( context.getSpy().getTransaction().isReadOnly() );
                     } );
     context.action( "Last Name Update",
                     false,
                     () -> {
                       person.setLastName( "Donaldo" );
-                      action2ReadOnly.set( spy.getTransaction().isReadOnly() );
+                      action2ReadOnly.set( context.getSpy().getTransaction().isReadOnly() );
                     } );
 
     // When transactions are not enforced, everything is effectively a write transaction!!!
     assertEquals( action1ReadOnly.get(), false );
     assertEquals( action2ReadOnly.get(), false );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
 
   }
 

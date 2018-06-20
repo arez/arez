@@ -21,8 +21,7 @@ public class DualDisposedDependenciesIntegrationTest
   {
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final Model0 model0a = Model0.create( "Model1A" );
     final Model0 model0b = Model0.create( "Model1B" );
@@ -65,7 +64,7 @@ public class DualDisposedDependenciesIntegrationTest
     assertEquals( Disposable.isDisposed( model2a ), true );
     assertEquals( Disposable.isDisposed( model2b ), true );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 
   @ArezComponent

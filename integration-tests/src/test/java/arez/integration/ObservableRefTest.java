@@ -57,8 +57,7 @@ public class ObservableRefTest
     final TestComponent component = new ObservableRefTest_Arez_TestComponent();
     context.action( () -> component.setOtherID( 1 ) );
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final AtomicInteger ttCount = new AtomicInteger();
     final AtomicInteger rtCount = new AtomicInteger();
@@ -80,7 +79,7 @@ public class ObservableRefTest
 
     context.action( "ID Update", true, () -> component.setOtherID( 22 ) );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
 
     assertEquals( ttCount.get(), 2 );
     assertEquals( rtCount.get(), 2 );

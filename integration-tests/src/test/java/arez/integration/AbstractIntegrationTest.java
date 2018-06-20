@@ -3,14 +3,9 @@ package arez.integration;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import org.json.JSONException;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.comparator.DefaultComparator;
 import org.testng.annotations.BeforeMethod;
 import static org.testng.Assert.*;
 
@@ -27,39 +22,16 @@ public abstract class AbstractIntegrationTest
     beforeTest();
   }
 
-  protected final void assertEqualsFixture( @Nonnull final String json )
+  protected final void assertMatchesFixture( @Nonnull final SpyEventRecorder recorder )
     throws IOException, JSONException
   {
-    final Path file = fixtureDir().resolve( getFixtureFilename() );
-    saveIfOutputEnabled( file, json );
-    JSONAssert.assertEquals( loadFile( file ), json, new DefaultComparator( JSONCompareMode.STRICT ) );
+    recorder.assertMatchesFixture( fixtureDir().resolve( getFixtureFilename() ), outputFiles() );
   }
 
   @Nonnull
   private String getFixtureFilename()
   {
     return getClass().getName().replace( ".", "/" ) + "." + _currentMethod + ".json";
-  }
-
-  @Nonnull
-  private String loadFile( @Nonnull final Path file )
-    throws IOException
-  {
-    return Files.readAllLines( file ).stream().collect( Collectors.joining( "\n" ) );
-  }
-
-  private void saveIfOutputEnabled( @Nonnull final Path file, @Nonnull final String contents )
-    throws IOException
-  {
-    if ( outputFiles() )
-    {
-      final File dir = file.getParent().toFile();
-      if ( !dir.exists() )
-      {
-        assertTrue( dir.mkdirs() );
-      }
-      Files.write( file, ( contents + "\n" ).getBytes() );
-    }
   }
 
   @Nonnull

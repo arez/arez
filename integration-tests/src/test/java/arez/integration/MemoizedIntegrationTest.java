@@ -32,8 +32,7 @@ public class MemoizedIntegrationTest
         new AtomicInteger()
       };
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final PersonModel person = PersonModel.create( "Bill", 15 );
 
@@ -89,7 +88,7 @@ public class MemoizedIntegrationTest
 
     Disposable.dispose( person );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
     assertEquals( searchCounts[ 0 ].get(), 5 );
     assertEquals( searchCounts[ 1 ].get(), 1 );
     assertEquals( searchCounts[ 2 ].get(), 1 );
@@ -102,15 +101,14 @@ public class MemoizedIntegrationTest
   {
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final PersonModel person = PersonModel.create( "Bill", 15 );
 
     context.action( "Query 1", true, () -> person.doesSearchMatch( "ill" ) );
     context.action( "Query 2", true, () -> person.doesSearchMatch( "red" ) );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 
   @Test
@@ -122,8 +120,7 @@ public class MemoizedIntegrationTest
 
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final PersonModel person = PersonModel.create( "Bill", 15 );
 
@@ -132,7 +129,7 @@ public class MemoizedIntegrationTest
 
     Disposable.dispose( person );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 
   @Test
@@ -145,8 +142,7 @@ public class MemoizedIntegrationTest
 
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final PersonModel person = PersonModel.create( "Bill", 15 );
 
@@ -155,7 +151,7 @@ public class MemoizedIntegrationTest
 
     Disposable.dispose( person );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 
   @SuppressWarnings( "WeakerAccess" )

@@ -108,8 +108,7 @@ public class PrioritizedSchedulerTest
   public void scenario()
     throws Exception
   {
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    Arez.context().getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final TestComponent component = new PrioritizedSchedulerTest_Arez_TestComponent();
 
@@ -141,6 +140,6 @@ public class PrioritizedSchedulerTest
 
     Disposable.dispose( component );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 }

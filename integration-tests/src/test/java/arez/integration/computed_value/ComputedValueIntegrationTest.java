@@ -23,8 +23,7 @@ public class ComputedValueIntegrationTest
   {
     final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final PersonModel person = PersonModel.create( "Bill", "Smith" );
 
@@ -36,7 +35,7 @@ public class ComputedValueIntegrationTest
     context.action( "First Name Update", true, () -> person.setFirstName( "Fred" ) );
     context.action( "Last Name Update", true, () -> person.setLastName( "Donaldo" ) );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 
   @SuppressWarnings( "WeakerAccess" )

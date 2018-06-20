@@ -46,7 +46,7 @@ public class WhenIntegrationTest
     timeModel.updateTime();
     Thread.sleep( 2 );
     timeModel.updateTime();
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
   }
 
   @ArezComponent( name = "Time", nameIncludesId = false )

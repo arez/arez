@@ -57,12 +57,11 @@ public class DisposeRepositoryIntegrationTest
     final TestComponent component1 = repository.create( 1, "S1" );
     final TestComponent component2 = repository.create( 2, "S2" );
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     Disposable.dispose( repository );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
 
     assertTrue( Disposable.isDisposed( repository ) );
     assertTrue( Disposable.isDisposed( component1 ) );

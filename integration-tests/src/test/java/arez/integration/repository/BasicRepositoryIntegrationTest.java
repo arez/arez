@@ -62,8 +62,7 @@ public class BasicRepositoryIntegrationTest
     final TestComponent component1 = repository.create( 1, "S1" );
     final TestComponent component2 = repository.create( 2, "S2" );
 
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final AtomicInteger callCount = new AtomicInteger();
 
@@ -91,7 +90,7 @@ public class BasicRepositoryIntegrationTest
 
     assertEquals( callCount.get(), 4 );
 
-    assertEqualsFixture( recorder.eventsAsString() );
+    assertMatchesFixture( recorder );
 
     final TestComponent component4 = repository.create( 4, "S4" );
 
