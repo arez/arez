@@ -1,6 +1,5 @@
 package arez.entity;
 
-import arez.Arez;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.component.Identifiable;
@@ -47,7 +46,7 @@ public class HasManyInverseRelationshipTest
     final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final AtomicInteger callCount = new AtomicInteger();
-    Arez.context().autorun( () -> {
+    autorun( () -> {
       callCount.incrementAndGet();
       if ( Disposable.isNotDisposed( relationship ) )
       {
@@ -59,13 +58,13 @@ public class HasManyInverseRelationshipTest
 
     expected.add( componentId1 );
 
-    Arez.context().safeAction( () -> relationship.link( component1 ) );
+    safeAction( () -> relationship.link( component1 ) );
 
     assertEquals( callCount.get(), 2 );
 
     expected.clear();
 
-    Arez.context().safeAction( () -> relationship.delink( component1 ) );
+    safeAction( () -> relationship.delink( component1 ) );
 
     assertEquals( callCount.get(), 3 );
 
@@ -73,7 +72,7 @@ public class HasManyInverseRelationshipTest
     expected.add( componentId2 );
     expected.add( componentId3 );
 
-    Arez.context().safeAction( () -> {
+    safeAction( () -> {
       relationship.link( component1 );
       relationship.link( component2 );
       relationship.link( component3 );
