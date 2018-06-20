@@ -1,0 +1,395 @@
+
+[
+    {
+        "component": "TestComponent.0",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "TestComponent.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.dispose"
+    },
+    {
+        "action": "TestComponent.0.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "TestComponent.0.isDisposed.dispose"
+    },
+    {
+        "observable": "TestComponent.0.isDisposed",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "observer": "HasOneInverseRelationship.0.EntityWatcher.0.condition",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.isDisposed.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.isDisposed.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "TestComponent.0.isDisposed",
+        "type": "ObservableDisposed"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "HasOneInverseRelationship.0.EntityWatcher.0.condition",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "HasOneInverseRelationship.0.EntityWatcher.0.condition",
+        "type": "TransactionStarted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0.condition"
+    },
+    {
+        "observable": "HasOneInverseRelationship.0.EntityWatcher.0.condition",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "observer": "HasOneInverseRelationship.0.EntityWatcher.0.watcher",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "HasOneInverseRelationship.0.EntityWatcher.0.condition",
+        "type": "TransactionCompleted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0.condition"
+    },
+    {
+        "computedValue": "HasOneInverseRelationship.0.EntityWatcher.0.condition",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "HasOneInverseRelationship.0.EntityWatcher.0.watcher",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "HasOneInverseRelationship.0.EntityWatcher.0.watcher",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": "HasOneInverseRelationship.0.EntityWatcher.0.watcher",
+        "type": "TransactionStarted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0.watcher"
+    },
+    {
+        "action": "HasOneInverseRelationship.0.EntityWatcher.0",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0"
+    },
+    {
+        "action": "HasOneInverseRelationship.0.EntityWatcher.0.condition.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0.condition.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0.condition.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "HasOneInverseRelationship.0.EntityWatcher.0.condition.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "HasOneInverseRelationship.0.EntityWatcher.0.condition",
+        "type": "ComputedValueDisposed"
+    },
+    {
+        "action": "HasOneInverseRelationship.0.EntityWatcher.0.condition.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0.condition.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0.condition.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "HasOneInverseRelationship.0.EntityWatcher.0.condition.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "HasOneInverseRelationship.0.EntityWatcher.0.condition.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0.condition.dispose"
+    },
+    {
+        "observable": "HasOneInverseRelationship.0.EntityWatcher.0.condition",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "observer": "HasOneInverseRelationship.0.EntityWatcher.0.watcher",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0.condition.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "HasOneInverseRelationship.0.EntityWatcher.0.condition.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "HasOneInverseRelationship.0.EntityWatcher.0.watcher.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0.watcher.dispose"
+    },
+    {
+        "mutation": false,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0.watcher.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "HasOneInverseRelationship.0.EntityWatcher.0.watcher.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "HasOneInverseRelationship.0.EntityWatcher.0.watcher",
+        "type": "ObserverDisposed"
+    },
+    {
+        "observable": "HasOneInverseRelationship.0.entity",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "observer": "Observer@2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "HasOneInverseRelationship.0.EntityWatcher.0",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": "HasOneInverseRelationship.0.EntityWatcher.0.watcher",
+        "type": "TransactionCompleted",
+        "transaction": "HasOneInverseRelationship.0.EntityWatcher.0.watcher"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "HasOneInverseRelationship.0.EntityWatcher.0.watcher",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "HasOneInverseRelationship.0.EntityWatcher.0.watcher",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "Observer@2",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@2",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@2",
+        "type": "TransactionStarted",
+        "transaction": "Observer@2"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@2",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@2"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@2",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@2",
+        "type": "ReactionCompleted"
+    },
+    {
+        "component": "TestComponent.0",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "action": "Transaction@5",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@5"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@5"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@5",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    }
+]
