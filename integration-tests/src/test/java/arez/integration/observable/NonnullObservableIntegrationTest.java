@@ -3,14 +3,14 @@ package arez.integration.observable;
 import arez.Arez;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class NonnullObservableIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @SuppressWarnings( "ConstantConditions" )
   @Test

@@ -14,7 +14,7 @@ import static org.testng.Assert.*;
 
 @SuppressWarnings( "Duplicates" )
 public class NestedComputedValueIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @Test
   public void scenario()

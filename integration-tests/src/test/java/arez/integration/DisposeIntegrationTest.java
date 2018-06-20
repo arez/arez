@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 import org.testng.annotations.Test;
 
 public class DisposeIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   /**
    * Another example that incorporates actions, computed and disposes.

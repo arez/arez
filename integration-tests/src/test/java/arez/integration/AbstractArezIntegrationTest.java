@@ -4,10 +4,16 @@ import arez.Arez;
 import arez.ArezTestUtil;
 import arez.Observer;
 import arez.ObserverError;
+import arez.integration.util.SpyEventRecorder;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.json.JSONException;
 import org.realityforge.braincheck.BrainCheckTestUtil;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -19,6 +25,7 @@ public abstract class AbstractArezIntegrationTest
   private final ArrayList<String> _observerErrors = new ArrayList<>();
   private boolean _ignoreObserverErrors;
   private boolean _printObserverErrors;
+  private String _currentMethod;
 
   final void setIgnoreObserverErrors( final boolean ignoreObserverErrors )
   {
@@ -31,9 +38,10 @@ public abstract class AbstractArezIntegrationTest
   }
 
   @BeforeMethod
-  protected void beforeTest()
+  public void handleTestMethodName( Method method )
     throws Exception
   {
+    _currentMethod = method.getName();
     BrainCheckTestUtil.resetConfig( false );
     ArezTestUtil.resetConfig( false );
     _ignoreObserverErrors = false;
@@ -70,5 +78,32 @@ public abstract class AbstractArezIntegrationTest
   final ArrayList<String> getObserverErrors()
   {
     return _observerErrors;
+  }
+
+  protected final void assertMatchesFixture( @Nonnull final SpyEventRecorder recorder )
+    throws IOException, JSONException
+  {
+    recorder.assertMatchesFixture( fixtureDir().resolve( getFixtureFilename() ), outputFiles() );
+  }
+
+  @Nonnull
+  private String getFixtureFilename()
+  {
+    return getClass().getName().replace( ".", "/" ) + "." + _currentMethod + ".json";
+  }
+
+  @Nonnull
+  private Path fixtureDir()
+  {
+    final String fixtureDir = System.getProperty( "arez.integration_fixture_dir" );
+    assertNotNull( fixtureDir,
+                   "Expected System.getProperty( \"arez.integration_fixture_dir\" ) to return fixture directory if arez.output_fixture_data=true" );
+
+    return new File( fixtureDir ).toPath();
+  }
+
+  private boolean outputFiles()
+  {
+    return System.getProperty( "arez.output_fixture_data", "false" ).equals( "true" );
   }
 }

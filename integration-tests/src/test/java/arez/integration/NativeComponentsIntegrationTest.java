@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class NativeComponentsIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @Test
   public void inspectComponentViaSpy()

@@ -7,14 +7,14 @@ import arez.annotations.Autorun;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
 import arez.annotations.Priority;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.ArrayList;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class PrioritizedSchedulerTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @SuppressWarnings( "SameParameterValue" )
   @ArezComponent

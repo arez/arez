@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class DeferredScheduledTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @ArezComponent( deferSchedule = true )
   public static abstract class TestComponent

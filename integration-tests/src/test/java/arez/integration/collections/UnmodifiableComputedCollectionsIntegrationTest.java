@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,7 +23,7 @@ import static org.testng.Assert.*;
 
 @SuppressWarnings( "Duplicates" )
 public class UnmodifiableComputedCollectionsIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @SuppressWarnings( "ConstantConditions" )
   @Test

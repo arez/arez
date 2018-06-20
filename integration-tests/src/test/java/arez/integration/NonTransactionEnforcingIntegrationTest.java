@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class NonTransactionEnforcingIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   /**
    * Tests integration between autorun and actions and sequencing of operations.

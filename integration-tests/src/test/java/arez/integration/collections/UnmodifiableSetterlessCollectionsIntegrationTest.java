@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -17,7 +17,7 @@ import static org.testng.Assert.*;
 
 @SuppressWarnings( "Duplicates" )
 public class UnmodifiableSetterlessCollectionsIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @Test
   public void scenario()

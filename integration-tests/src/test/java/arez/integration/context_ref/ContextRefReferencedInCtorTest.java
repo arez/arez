@@ -3,12 +3,12 @@ package arez.integration.context_ref;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ContextRefReferencedInCtorTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @ArezComponent( allowEmpty = true )
   static abstract class TestComponent

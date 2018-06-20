@@ -6,7 +6,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import dagger.Component;
 import dagger.Module;
 import dagger.Provides;
@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class RepositoryInjectIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @ArezComponent
   @Repository( inject = Feature.ENABLE )

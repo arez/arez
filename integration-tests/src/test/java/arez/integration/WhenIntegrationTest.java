@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
 public class WhenIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   /**
    * a basic scenario that uses an extension interface with default methods.

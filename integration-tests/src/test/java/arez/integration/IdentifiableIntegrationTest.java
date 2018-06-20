@@ -8,7 +8,7 @@ import static org.testng.Assert.*;
 
 @SuppressWarnings( "ConstantConditions" )
 public class IdentifiableIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @Test
   public void arezManagerdArezId()

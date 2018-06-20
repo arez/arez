@@ -5,13 +5,13 @@ import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
 public class ComputedKeepAliveTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @Test
   public void scenario()

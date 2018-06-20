@@ -4,12 +4,12 @@ import arez.Component;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
 import arez.annotations.PostConstruct;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ComponentRefCalledInPostConstructTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @ArezComponent( allowEmpty = true )
   static abstract class TestComponent

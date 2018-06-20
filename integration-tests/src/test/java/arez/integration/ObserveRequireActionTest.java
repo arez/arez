@@ -7,7 +7,7 @@ import static org.testng.Assert.*;
 
 @SuppressWarnings( "ResultOfMethodCallIgnored" )
 public class ObserveRequireActionTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @Test
   public void accessingObservableOutsideTransactionShouldThrowException()

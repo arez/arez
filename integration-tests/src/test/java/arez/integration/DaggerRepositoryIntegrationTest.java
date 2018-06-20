@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class DaggerRepositoryIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @ArezComponent
   @Repository( dagger = Feature.ENABLE )

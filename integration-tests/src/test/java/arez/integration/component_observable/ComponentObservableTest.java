@@ -4,14 +4,14 @@ import arez.Arez;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.component.ComponentObservable;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import arez.spy.ObservableInfo;
 import java.util.List;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ComponentObservableTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @ArezComponent( allowEmpty = true )
   static abstract class TestComponent

@@ -6,13 +6,13 @@ import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Dependency;
 import arez.annotations.Observable;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class SetNullOnDisposeIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @Test
   public void scenario()

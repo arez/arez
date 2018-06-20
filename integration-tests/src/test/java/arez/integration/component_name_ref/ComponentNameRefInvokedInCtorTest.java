@@ -2,12 +2,12 @@ package arez.integration.component_name_ref;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentNameRef;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ComponentNameRefInvokedInCtorTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @ArezComponent( allowEmpty = true )
   static abstract class TestComponent

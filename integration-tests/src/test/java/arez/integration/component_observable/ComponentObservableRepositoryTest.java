@@ -8,14 +8,14 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import arez.spy.ObservableInfo;
 import java.util.List;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ComponentObservableRepositoryTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @Repository
   @ArezComponent

@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 @SuppressWarnings( "Duplicates" )
 public class NoIdInNameIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   /**
    * Runs through the same scenario as some of the other tests except with

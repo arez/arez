@@ -4,14 +4,14 @@ import arez.Arez;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.component.ComponentObservable;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ObservableComponentIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @Test
   public void disposeNotifiesComponentObservable()

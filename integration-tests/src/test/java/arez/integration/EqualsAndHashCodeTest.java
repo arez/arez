@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class EqualsAndHashCodeTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @SuppressWarnings( "WeakerAccess" )
   @ArezComponent

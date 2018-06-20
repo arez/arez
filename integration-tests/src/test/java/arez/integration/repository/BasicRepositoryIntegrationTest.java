@@ -10,7 +10,7 @@ import arez.annotations.Repository;
 import arez.component.ComponentObservable;
 import arez.component.NoResultException;
 import arez.component.NoSuchEntityException;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class BasicRepositoryIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @ArezComponent
   @Repository

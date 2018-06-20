@@ -5,14 +5,14 @@ import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
 @SuppressWarnings( "Duplicates" )
 public class ComputedValueIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   /**
    * Tests integration between autorun and actions and sequencing of operations.

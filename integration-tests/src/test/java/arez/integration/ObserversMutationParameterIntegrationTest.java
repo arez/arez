@@ -11,7 +11,7 @@ import static org.testng.Assert.*;
 
 @SuppressWarnings( { "WeakerAccess", "Duplicates" } )
 public class ObserversMutationParameterIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @Test
   public void readOnlyAutorunAttemptsMutationScenario()

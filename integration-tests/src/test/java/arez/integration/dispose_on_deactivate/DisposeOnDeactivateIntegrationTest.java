@@ -6,13 +6,13 @@ import arez.Disposable;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.component.ComponentObservable;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class DisposeOnDeactivateIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @Test
   public void scenario()

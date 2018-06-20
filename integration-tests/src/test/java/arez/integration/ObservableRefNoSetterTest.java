@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ObservableRefNoSetterTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @ArezComponent
   static abstract class TestComponent

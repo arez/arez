@@ -4,14 +4,14 @@ import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.PreDispose;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class NoWriteInDisposeIntegrationTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   @Test
   public void scenario()

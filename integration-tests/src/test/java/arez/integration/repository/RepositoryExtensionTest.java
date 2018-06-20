@@ -5,14 +5,14 @@ import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
-import arez.integration.AbstractIntegrationTest;
+import arez.integration.AbstractArezIntegrationTest;
 import java.util.List;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class RepositoryExtensionTest
-  extends AbstractIntegrationTest
+  extends AbstractArezIntegrationTest
 {
   interface TestComponentRepositoryExtension
   {
