@@ -177,6 +177,35 @@ define 'arez' do
     package(:javadoc)
   end
 
+  desc 'Arez Entity Support'
+  define 'entity' do
+    pom.include_transitive_dependencies << project('component').package(:jar)
+    pom.dependency_filter = Proc.new {|dep| dep[:scope].to_s != 'test' && !project('component').compile.dependencies.include?(dep[:artifact]) && !project('processor').compile.dependencies.include?(dep[:artifact])}
+
+    compile.with project('component').package(:jar),
+                 project('component').compile.dependencies,
+                 project('processor').package(:jar),
+                 project('processor').compile.dependencies
+
+    test.options[:properties] = AREZ_TEST_OPTIONS.merge('arez.entity_fixture_dir' => _('src/test/resources'))
+    test.options[:java_args] = ['-ea']
+
+    gwt_enhance(project)
+
+    package(:jar)
+    package(:sources)
+    package(:javadoc)
+
+    test.using :testng
+    test.compile.with TEST_DEPS,
+                      project('integration-qa-support').package(:jar),
+                      project('integration-qa-support').compile.dependencies
+
+    # The generators are configured to generate to here.
+    iml.main_source_directories << _('generated/processors/main/java')
+    iml.test_source_directories << _('generated/processors/test/java')
+  end
+
   desc 'Arez Integration Tests'
   define 'integration-tests' do
     test.options[:properties] = AREZ_TEST_OPTIONS.merge('arez.integration_fixture_dir' => _('src/test/resources'))
@@ -331,7 +360,7 @@ define 'arez' do
   iml.excluded_directories << project._('tmp/gwt')
   iml.excluded_directories << project._('tmp')
 
-  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.version=X')
+  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.entity_fixture_dir=entity/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.version=X')
   ipr.add_component_from_artifact(:idea_codestyle)
 
   DOC_EXAMPLES.each do |gwt_module|

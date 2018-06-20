@@ -20,6 +20,10 @@
   context and zone state. This is occasionally required in tests.
 * **\[core\]** Optimize out the field `arez.ReactionScheduler._context` in production builds
   unless zones are enabled.
+* **\[entity\]** Introduce the `entity` module that will contain utilities for defining Arez entities.
+  An Arez entity is an Arez component that has references to other Arez components or entities and
+  these references and more importantly the inverse relationships are managed by Arez. These utilities
+  were initially extracted from downstream libraries.
 
 ### [v0.92](https://github.com/arez/arez/tree/v0.92) (2018-06-17)
 [Full Changelog](https://github.com/arez/arez/compare/v0.91...v0.92)
