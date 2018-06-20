@@ -11,7 +11,6 @@ import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.comparator.DefaultComparator;
-import org.skyscreamer.jsonassert.comparator.JSONComparator;
 import org.testng.annotations.BeforeMethod;
 import static org.testng.Assert.*;
 
@@ -31,15 +30,9 @@ public abstract class AbstractIntegrationTest
   protected final void assertEqualsFixture( @Nonnull final String json )
     throws IOException, JSONException
   {
-    assertEqualsFixture( json, new DefaultComparator( JSONCompareMode.STRICT ) );
-  }
-
-  protected final void assertEqualsFixture( @Nonnull final String json, @Nonnull final JSONComparator comparator )
-    throws IOException, JSONException
-  {
     final Path file = fixtureDir().resolve( getFixtureFilename() );
     saveIfOutputEnabled( file, json );
-    JSONAssert.assertEquals( loadFile( file ), json, comparator );
+    JSONAssert.assertEquals( loadFile( file ), json, new DefaultComparator( JSONCompareMode.STRICT ) );
   }
 
   @Nonnull
