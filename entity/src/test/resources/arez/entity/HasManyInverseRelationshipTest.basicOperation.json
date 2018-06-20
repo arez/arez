@@ -22,28 +22,28 @@
         "transaction": "Observer@1"
     },
     {
-        "computedValue": "HasManyRelationship.0.relationship",
+        "computedValue": "HasManyInverseRelationship.0.relationship",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.relationship",
+        "tracker": "HasManyInverseRelationship.0.relationship",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.relationship"
+        "transaction": "HasManyInverseRelationship.0.relationship"
     },
     {
-        "observable": "HasManyRelationship.0.relationship",
+        "observable": "HasManyInverseRelationship.0.relationship",
         "type": "ObservableChanged",
         "value": "0 items"
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.relationship",
+        "tracker": "HasManyInverseRelationship.0.relationship",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.relationship"
+        "transaction": "HasManyInverseRelationship.0.relationship"
     },
     {
-        "computedValue": "HasManyRelationship.0.relationship",
+        "computedValue": "HasManyInverseRelationship.0.relationship",
         "type": "ComputeCompleted"
     },
     {
@@ -81,19 +81,19 @@
         "transaction": "Transaction@2"
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "ComputedValueCreated"
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "ObserverCreated"
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "HasManyRelationship.0.relationship",
+        "observer": "HasManyInverseRelationship.0.relationship",
         "type": "ReactionScheduled"
     },
     {
@@ -114,11 +114,11 @@
         ]
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "ReactionStarted"
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -126,45 +126,45 @@
     },
     {
         "mutation": true,
-        "tracker": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.watcher"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.watcher"
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.condition"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.condition"
     },
     {
-        "observable": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "observable": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "ObservableChanged",
         "value": false
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.condition"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.condition"
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "ComputeCompleted"
     },
     {
         "mutation": true,
-        "tracker": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.watcher"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.watcher"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -173,21 +173,21 @@
         ]
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "ReactionCompleted"
     },
     {
-        "computedValue": "HasManyRelationship.0.relationship",
+        "computedValue": "HasManyInverseRelationship.0.relationship",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.relationship",
+        "tracker": "HasManyInverseRelationship.0.relationship",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.relationship"
+        "transaction": "HasManyInverseRelationship.0.relationship"
     },
     {
-        "observable": "HasManyRelationship.0.relationship",
+        "observable": "HasManyInverseRelationship.0.relationship",
         "type": "ObservableChanged",
         "value": "1 items"
     },
@@ -197,12 +197,12 @@
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.relationship",
+        "tracker": "HasManyInverseRelationship.0.relationship",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.relationship"
+        "transaction": "HasManyInverseRelationship.0.relationship"
     },
     {
-        "computedValue": "HasManyRelationship.0.relationship",
+        "computedValue": "HasManyInverseRelationship.0.relationship",
         "type": "ComputeCompleted"
     },
     {
@@ -257,7 +257,7 @@
         "transaction": "Transaction@3"
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.0.condition.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.0.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -267,18 +267,18 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.condition.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.condition.dispose"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.condition.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.0.condition.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.0.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -287,11 +287,11 @@
         ]
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "ComputedValueDisposed"
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.0.condition.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.0.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -301,18 +301,18 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.condition.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.condition.dispose"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.condition.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.0.condition.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.0.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -321,7 +321,7 @@
         ]
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.0.condition.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.0.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -331,27 +331,27 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.condition.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.condition.dispose"
     },
     {
-        "observable": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "observable": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "ObservableChanged",
         "value": null
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "ReactionScheduled"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.condition.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.0.condition.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.0.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -360,7 +360,7 @@
         ]
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.0.watcher.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.0.watcher.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -370,18 +370,18 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.watcher.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.watcher.dispose"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.watcher.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.watcher.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.0.watcher.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.0.watcher.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -390,11 +390,11 @@
         ]
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "ObserverDisposed"
     },
     {
-        "observer": "HasManyRelationship.0.relationship",
+        "observer": "HasManyInverseRelationship.0.relationship",
         "type": "ReactionScheduled"
     },
     {
@@ -415,17 +415,17 @@
         ]
     },
     {
-        "computedValue": "HasManyRelationship.0.relationship",
+        "computedValue": "HasManyInverseRelationship.0.relationship",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.relationship",
+        "tracker": "HasManyInverseRelationship.0.relationship",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.relationship"
+        "transaction": "HasManyInverseRelationship.0.relationship"
     },
     {
-        "observable": "HasManyRelationship.0.relationship",
+        "observable": "HasManyInverseRelationship.0.relationship",
         "type": "ObservableChanged",
         "value": "0 items"
     },
@@ -435,12 +435,12 @@
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.relationship",
+        "tracker": "HasManyInverseRelationship.0.relationship",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.relationship"
+        "transaction": "HasManyInverseRelationship.0.relationship"
     },
     {
-        "computedValue": "HasManyRelationship.0.relationship",
+        "computedValue": "HasManyInverseRelationship.0.relationship",
         "type": "ComputeCompleted"
     },
     {
@@ -495,43 +495,43 @@
         "transaction": "Transaction@4"
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "ComputedValueCreated"
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "ObserverCreated"
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "HasManyRelationship.0.relationship",
+        "observer": "HasManyInverseRelationship.0.relationship",
         "type": "ReactionScheduled"
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "ComputedValueCreated"
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "type": "ObserverCreated"
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "type": "ReactionScheduled"
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.2.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.2.condition",
         "type": "ComputedValueCreated"
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.2.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.2.watcher",
         "type": "ObserverCreated"
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.2.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.2.watcher",
         "type": "ReactionScheduled"
     },
     {
@@ -552,11 +552,11 @@
         ]
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "ReactionStarted"
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -564,45 +564,45 @@
     },
     {
         "mutation": true,
-        "tracker": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.watcher"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.watcher"
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.condition"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.condition"
     },
     {
-        "observable": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "observable": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "ObservableChanged",
         "value": false
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.condition"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.condition"
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.0.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.0.condition",
         "type": "ComputeCompleted"
     },
     {
         "mutation": true,
-        "tracker": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.0.watcher"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.0.watcher"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -611,15 +611,15 @@
         ]
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.0.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.0.watcher",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "type": "ReactionStarted"
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -627,45 +627,45 @@
     },
     {
         "mutation": true,
-        "tracker": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.watcher"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.watcher"
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.condition"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.condition"
     },
     {
-        "observable": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "observable": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "ObservableChanged",
         "value": false
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.condition"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.condition"
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "ComputeCompleted"
     },
     {
         "mutation": true,
-        "tracker": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.watcher"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.watcher"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -674,15 +674,15 @@
         ]
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.2.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.2.watcher",
         "type": "ReactionStarted"
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.2.watcher",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.2.watcher",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -690,45 +690,45 @@
     },
     {
         "mutation": true,
-        "tracker": "HasManyRelationship.0.EntityWatcher.2.watcher",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.2.watcher",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.2.watcher"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.2.watcher"
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.2.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.2.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.EntityWatcher.2.condition",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.2.condition",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.2.condition"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.2.condition"
     },
     {
-        "observable": "HasManyRelationship.0.EntityWatcher.2.condition",
+        "observable": "HasManyInverseRelationship.0.EntityWatcher.2.condition",
         "type": "ObservableChanged",
         "value": false
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.EntityWatcher.2.condition",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.2.condition",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.2.condition"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.2.condition"
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.2.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.2.condition",
         "type": "ComputeCompleted"
     },
     {
         "mutation": true,
-        "tracker": "HasManyRelationship.0.EntityWatcher.2.watcher",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.2.watcher",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.2.watcher"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.2.watcher"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.2.watcher",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.2.watcher",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -737,21 +737,21 @@
         ]
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.2.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.2.watcher",
         "type": "ReactionCompleted"
     },
     {
-        "computedValue": "HasManyRelationship.0.relationship",
+        "computedValue": "HasManyInverseRelationship.0.relationship",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.relationship",
+        "tracker": "HasManyInverseRelationship.0.relationship",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.relationship"
+        "transaction": "HasManyInverseRelationship.0.relationship"
     },
     {
-        "observable": "HasManyRelationship.0.relationship",
+        "observable": "HasManyInverseRelationship.0.relationship",
         "type": "ObservableChanged",
         "value": "3 items"
     },
@@ -761,12 +761,12 @@
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.relationship",
+        "tracker": "HasManyInverseRelationship.0.relationship",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.relationship"
+        "transaction": "HasManyInverseRelationship.0.relationship"
     },
     {
-        "computedValue": "HasManyRelationship.0.relationship",
+        "computedValue": "HasManyInverseRelationship.0.relationship",
         "type": "ComputeCompleted"
     },
     {
@@ -843,7 +843,7 @@
         "value": false
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "ReactionScheduled"
     },
     {
@@ -885,40 +885,40 @@
         ]
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.condition"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.condition"
     },
     {
-        "observable": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "observable": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "ObservableChanged",
         "value": true
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "type": "ReactionScheduled"
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.condition"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.condition"
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "ComputeCompleted"
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "type": "ReactionStarted"
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -926,12 +926,12 @@
     },
     {
         "mutation": true,
-        "tracker": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.watcher"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.watcher"
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.1",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -941,10 +941,10 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1"
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.1.condition.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -954,18 +954,18 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.condition.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.condition.dispose"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.condition.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.1.condition.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -974,11 +974,11 @@
         ]
     },
     {
-        "computedValue": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "computedValue": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "ComputedValueDisposed"
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.1.condition.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -988,18 +988,18 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.condition.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.condition.dispose"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.condition.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.1.condition.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1008,7 +1008,7 @@
         ]
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.1.condition.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -1018,27 +1018,27 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.condition.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.condition.dispose"
     },
     {
-        "observable": "HasManyRelationship.0.EntityWatcher.1.condition",
+        "observable": "HasManyInverseRelationship.0.EntityWatcher.1.condition",
         "type": "ObservableChanged",
         "value": null
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "type": "ReactionScheduled"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.condition.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.1.condition.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1047,7 +1047,7 @@
         ]
     },
     {
-        "action": "HasManyRelationship.0.EntityWatcher.1.watcher.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1.watcher.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -1057,18 +1057,18 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.watcher.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.watcher.dispose"
     },
     {
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.watcher.dispose"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.watcher.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.1.watcher.dispose",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1.watcher.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1077,23 +1077,23 @@
         ]
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "type": "ObserverDisposed"
     },
     {
-        "observer": "HasManyRelationship.0.relationship",
+        "observer": "HasManyInverseRelationship.0.relationship",
         "type": "ReactionScheduled"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.1",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1103,14 +1103,14 @@
     },
     {
         "mutation": true,
-        "tracker": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "tracker": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.EntityWatcher.1.watcher"
+        "transaction": "HasManyInverseRelationship.0.EntityWatcher.1.watcher"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "action": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1119,21 +1119,21 @@
         ]
     },
     {
-        "observer": "HasManyRelationship.0.EntityWatcher.1.watcher",
+        "observer": "HasManyInverseRelationship.0.EntityWatcher.1.watcher",
         "type": "ReactionCompleted"
     },
     {
-        "computedValue": "HasManyRelationship.0.relationship",
+        "computedValue": "HasManyInverseRelationship.0.relationship",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.relationship",
+        "tracker": "HasManyInverseRelationship.0.relationship",
         "type": "TransactionStarted",
-        "transaction": "HasManyRelationship.0.relationship"
+        "transaction": "HasManyInverseRelationship.0.relationship"
     },
     {
-        "observable": "HasManyRelationship.0.relationship",
+        "observable": "HasManyInverseRelationship.0.relationship",
         "type": "ObservableChanged",
         "value": "2 items"
     },
@@ -1143,12 +1143,12 @@
     },
     {
         "mutation": false,
-        "tracker": "HasManyRelationship.0.relationship",
+        "tracker": "HasManyInverseRelationship.0.relationship",
         "type": "TransactionCompleted",
-        "transaction": "HasManyRelationship.0.relationship"
+        "transaction": "HasManyInverseRelationship.0.relationship"
     },
     {
-        "computedValue": "HasManyRelationship.0.relationship",
+        "computedValue": "HasManyInverseRelationship.0.relationship",
         "type": "ComputeCompleted"
     },
     {

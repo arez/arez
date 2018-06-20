@@ -16,7 +16,7 @@ import org.json.JSONException;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class HasManyRelationshipTest
+public class HasManyInverseRelationshipTest
   extends AbstractArezEntityTest
 {
   @ArezComponent( allowEmpty = true )
@@ -24,7 +24,7 @@ public class HasManyRelationshipTest
   {
     static TestComponent create()
     {
-      return new HasManyRelationshipTest_Arez_TestComponent();
+      return new HasManyInverseRelationshipTest_Arez_TestComponent();
     }
   }
 
@@ -32,7 +32,7 @@ public class HasManyRelationshipTest
   public void basicOperation()
     throws IOException, JSONException
   {
-    final HasManyRelationship<TestComponent> relationship = HasManyRelationship.create();
+    final HasManyInverseRelationship<TestComponent> relationship = HasManyInverseRelationship.create();
 
     final TestComponent component1 = TestComponent.create();
     final TestComponent component2 = TestComponent.create();
@@ -88,7 +88,7 @@ public class HasManyRelationshipTest
   }
 
   @Nonnull
-  private Set<Integer> extractEntityIds( @Nonnull final HasManyRelationship<TestComponent> relationship )
+  private Set<Integer> extractEntityIds( @Nonnull final HasManyInverseRelationship<TestComponent> relationship )
   {
     return relationship
       .getEntities()
