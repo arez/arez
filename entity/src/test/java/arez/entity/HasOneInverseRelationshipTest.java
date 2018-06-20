@@ -79,13 +79,22 @@ public class HasOneInverseRelationshipTest
     assertMatchesFixture( recorder );
   }
 
+  @ArezComponent( allowEmpty = true )
+  static abstract class TestComponent2
+  {
+    static TestComponent2 create()
+    {
+      return new HasOneInverseRelationshipTest_Arez_TestComponent2();
+    }
+  }
+
   @Test
   public void disposedEntityUnlinks()
     throws Exception
   {
-    final HasOneInverseRelationship<TestComponent> relationship = HasOneInverseRelationship.create();
+    final HasOneInverseRelationship<TestComponent2> relationship = HasOneInverseRelationship.create();
 
-    final TestComponent component1 = TestComponent.create();
+    final TestComponent2 component1 = TestComponent2.create();
 
     final AtomicReference<Integer> expectedId = new AtomicReference<>();
     expectedId.set( Objects.requireNonNull( Identifiable.getArezId( component1 ) ) );
