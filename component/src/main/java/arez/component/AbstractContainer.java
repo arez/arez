@@ -190,7 +190,7 @@ public abstract class AbstractContainer<K, T>
     return _entities.values().stream().map( EntityEntry::getEntity ).filter( Disposable::isNotDisposed );
   }
 
-  final HashMap<K, EntityEntry<T>> getEntities()
+  final HashMap<K, EntityEntry<T>> entityMap()
   {
     return _entities;
   }

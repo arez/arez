@@ -110,11 +110,11 @@ public class ContainerTest
     assertFalse( Disposable.isDisposed( entity1 ) );
     assertFalse( Disposable.isDisposed( entity2 ) );
 
-    assertEquals( repository.getEntities().size(), 2 );
+    assertEquals( repository.entityMap().size(), 2 );
 
     Disposable.dispose( entity1 );
 
-    assertEquals( repository.getEntities().size(), 1 );
+    assertEquals( repository.entityMap().size(), 1 );
 
     assertFalse( context.safeAction( () -> repository.contains( entity1 ) ) );
     assertTrue( context.safeAction( () -> repository.contains( entity2 ) ) );
