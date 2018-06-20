@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.93](https://github.com/arez/arez/tree/v0.93) (2018-06-20)
+[Full Changelog](https://github.com/arez/arez/compare/v0.92...v0.93)
 
 * **\[gwt-output-qa\]** Upgrade the version of `gwt-symbolmap` to `0.08`.
 * **\[gwt-output-qa\]** Cleanup dependency tree in `gwt-output-qa` to use transitive dependencies
