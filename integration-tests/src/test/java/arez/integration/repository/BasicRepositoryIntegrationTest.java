@@ -11,7 +11,7 @@ import arez.component.ComponentObservable;
 import arez.component.NoResultException;
 import arez.component.NoSuchEntityException;
 import arez.integration.AbstractIntegrationTest;
-import arez.integration.SpyEventRecorder;
+import arez.integration.util.SpyEventRecorder;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;

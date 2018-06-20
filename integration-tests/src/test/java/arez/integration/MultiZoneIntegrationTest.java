@@ -7,6 +7,7 @@ import arez.Zone;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
+import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;

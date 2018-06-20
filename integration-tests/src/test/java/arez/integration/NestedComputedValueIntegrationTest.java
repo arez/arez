@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
+import arez.integration.util.SpyEventRecorder;
 import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

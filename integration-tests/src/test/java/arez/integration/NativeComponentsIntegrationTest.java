@@ -7,6 +7,7 @@ import arez.ComputedValue;
 import arez.Disposable;
 import arez.Observable;
 import arez.Observer;
+import arez.integration.util.SpyEventRecorder;
 import arez.spy.ComponentInfo;
 import java.util.Objects;
 import org.testng.annotations.Test;

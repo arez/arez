@@ -7,7 +7,7 @@ import arez.EqualityComparator;
 import arez.Priority;
 import arez.SafeFunction;
 import arez.integration.AbstractIntegrationTest;
-import arez.integration.SpyEventRecorder;
+import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;

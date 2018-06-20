@@ -7,7 +7,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Dependency;
 import arez.annotations.Observable;
 import arez.integration.AbstractIntegrationTest;
-import arez.integration.SpyEventRecorder;
+import arez.integration.util.SpyEventRecorder;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 

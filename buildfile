@@ -165,6 +165,18 @@ define 'arez' do
     iml.test_source_directories << _('src/test/resources/bad_input')
   end
 
+  desc 'Arez Integration Test Support'
+  define 'integration-qa-support' do
+    compile.with :javax_json,
+                 :jsonassert,
+                 :android_json,
+                 project('core').package(:jar),
+                 project('core').compile.dependencies
+    package(:jar)
+    package(:sources)
+    package(:javadoc)
+  end
+
   desc 'Arez Integration Tests'
   define 'integration-tests' do
     test.options[:properties] = AREZ_TEST_OPTIONS.merge('arez.integration_fixture_dir' => _('src/test/resources'))
@@ -172,9 +184,6 @@ define 'arez' do
 
     test.using :testng
     test.compile.with TEST_DEPS,
-                      :javax_json,
-                      :jsonassert,
-                      :android_json,
                       DAGGER_DEPS,
                       GWT_DEPS,
                       project('annotations').package(:jar),
@@ -183,6 +192,8 @@ define 'arez' do
                       project('core').compile.dependencies,
                       project('component').package(:jar),
                       project('component').compile.dependencies,
+                      project('integration-qa-support').package(:jar),
+                      project('integration-qa-support').compile.dependencies,
                       project('processor').package(:jar),
                       project('processor').compile.dependencies
 
@@ -366,6 +377,9 @@ define 'arez' do
       end
     end
   end
+
+  project('integration-qa-support').task('install').actions.clear
+  project('integration-qa-support').task('upload').actions.clear
 end
 
 Buildr.projects.each do |project|
