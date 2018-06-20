@@ -179,6 +179,13 @@ public class EntityReferenceTest
       } );
     }
 
+    @Nonnull
+    @Override
+    protected Observable getEntityObservable()
+    {
+      return _observable;
+    }
+
     @Nullable
     @Override
     protected MyEntity getEntity()

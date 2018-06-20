@@ -2,7 +2,9 @@ package arez.component;
 
 import arez.Disposable;
 import arez.annotations.Observable;
+import arez.annotations.ObservableRef;
 import arez.annotations.PreDispose;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -52,10 +54,20 @@ public abstract class AbstractEntityReference<T>
   @Nullable
   private T getEntityUnlessDisposed()
   {
+    getEntityObservable().reportObserved();
     return null == _entry ?
            null :
            Disposable.isNotDisposed( _entry.getEntity() ) ? _entry.getEntity() : null;
   }
+
+  /**
+   * Return the observable associated with entity.
+   *
+   * @return the Arez observable associated with entities observable property.
+   */
+  @ObservableRef
+  @Nonnull
+  protected abstract arez.Observable getEntityObservable();
 
   /**
    * Set the entity that this reference points to.
@@ -80,7 +92,16 @@ public abstract class AbstractEntityReference<T>
     }
     else
     {
-      _entry = createEntityEntry( entity, reference -> setEntity( null ) );
+      _entry = createEntityEntry( entity, reference -> {
+        /*
+         * Can not use setEntity( null ) here as the generated method will check equality
+         * prior to mutating. getEntity will return null as entity has been disposed so
+         * setter will not actually run.
+         */
+        getEntityObservable().preReportChanged();
+        detachEntry( _entry, false );
+        getEntityObservable().reportChanged();
+      } );
     }
   }
 }

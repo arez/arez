@@ -24,6 +24,8 @@
   An Arez entity is an Arez component that has references to other Arez components or entities and
   these references and more importantly the inverse relationships are managed by Arez. These utilities
   were initially extracted from downstream libraries.
+* **\[component\]** Fix a bug in `arez.component.AbstractEntityReference` where a change would not be
+  generated for the reference when the referenced value was disposed.
 
 ### [v0.92](https://github.com/arez/arez/tree/v0.92) (2018-06-17)
 [Full Changelog](https://github.com/arez/arez/compare/v0.91...v0.92)
