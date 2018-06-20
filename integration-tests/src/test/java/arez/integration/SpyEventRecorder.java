@@ -32,6 +32,32 @@ public final class SpyEventRecorder
     _keepValue = keepValue;
   }
 
+  @Override
+  public final void onSpyEvent( @Nonnull final Object event )
+  {
+    if ( event instanceof SerializableEvent )
+    {
+      log( (SerializableEvent) event );
+    }
+  }
+
+  @Nonnull
+  public JsonArrayBuilder getEvents()
+  {
+    return _events;
+  }
+
+  @Nonnull
+  public String eventsAsString()
+  {
+    final Map<String, Object> properties = new HashMap<>( 1 );
+    properties.put( JsonGenerator.PRETTY_PRINTING, true );
+    final StringWriter writer = new StringWriter();
+    Json.createWriterFactory( properties ).createWriter( writer ).write( getEvents().build() );
+    writer.flush();
+    return writer.toString();
+  }
+
   private void log( @Nonnull final SerializableEvent event )
   {
     final HashMap<String, Object> map = new HashMap<>();
@@ -66,31 +92,5 @@ public final class SpyEventRecorder
       }
     }
     _events.add( Json.createObjectBuilder( output ) );
-  }
-
-  @Override
-  public final void onSpyEvent( @Nonnull final Object event )
-  {
-    if ( event instanceof SerializableEvent )
-    {
-      log( (SerializableEvent) event );
-    }
-  }
-
-  @Nonnull
-  public JsonArrayBuilder getEvents()
-  {
-    return _events;
-  }
-
-  @Nonnull
-  public String eventsAsString()
-  {
-    final Map<String, Object> properties = new HashMap<>( 1 );
-    properties.put( JsonGenerator.PRETTY_PRINTING, true );
-    final StringWriter writer = new StringWriter();
-    Json.createWriterFactory( properties ).createWriter( writer ).write( getEvents().build() );
-    writer.flush();
-    return writer.toString();
   }
 }
