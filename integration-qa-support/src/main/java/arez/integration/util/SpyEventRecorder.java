@@ -1,4 +1,4 @@
-package arez.integration;
+package arez.integration.util;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -24,10 +24,9 @@ import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.comparator.DefaultComparator;
-import static org.testng.Assert.*;
 
 /**
- * A recorder used to record results of test run.
+ * A recorder used to record collect spy events and compare against a fixture file.
  */
 public final class SpyEventRecorder
   implements SpyEventHandler
@@ -84,7 +83,10 @@ public final class SpyEventRecorder
       final File dir = file.getParent().toFile();
       if ( !dir.exists() )
       {
-        assertTrue( dir.mkdirs() );
+        if( !dir.mkdirs() )
+        {
+          throw new AssertionError( "Unable to create fixtures parent directory: " + dir );
+        }
       }
       Files.write( file, ( json + "\n" ).getBytes() );
     }
