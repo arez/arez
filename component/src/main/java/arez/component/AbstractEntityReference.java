@@ -43,6 +43,7 @@ public abstract class AbstractEntityReference<T>
    */
   protected boolean hasEntity()
   {
+    getEntityObservable().reportObserved();
     return null != getEntityUnlessDisposed();
   }
 
@@ -54,7 +55,6 @@ public abstract class AbstractEntityReference<T>
   @Nullable
   private T getEntityUnlessDisposed()
   {
-    getEntityObservable().reportObserved();
     return null == _entry ?
            null :
            Disposable.isNotDisposed( _entry.getEntity() ) ? _entry.getEntity() : null;
