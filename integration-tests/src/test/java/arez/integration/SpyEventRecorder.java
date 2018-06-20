@@ -1,37 +1,13 @@
 package arez.integration;
 
 import arez.SpyEventHandler;
-import arez.spy.ActionCompletedEvent;
-import arez.spy.ActionStartedEvent;
-import arez.spy.ComponentCreateCompletedEvent;
-import arez.spy.ComponentCreateStartedEvent;
-import arez.spy.ComponentDisposeCompletedEvent;
-import arez.spy.ComponentDisposeStartedEvent;
-import arez.spy.ComputeCompletedEvent;
-import arez.spy.ComputeStartedEvent;
-import arez.spy.ComputedValueActivatedEvent;
-import arez.spy.ComputedValueCreatedEvent;
-import arez.spy.ComputedValueDeactivatedEvent;
-import arez.spy.ComputedValueDisposedEvent;
-import arez.spy.ObservableChangedEvent;
-import arez.spy.ObservableCreatedEvent;
-import arez.spy.ObservableDisposedEvent;
-import arez.spy.ObserverCreatedEvent;
-import arez.spy.ObserverDisposedEvent;
-import arez.spy.ObserverErrorEvent;
-import arez.spy.ReactionCompletedEvent;
-import arez.spy.ReactionScheduledEvent;
-import arez.spy.ReactionStartedEvent;
 import arez.spy.SerializableEvent;
-import arez.spy.TransactionCompletedEvent;
-import arez.spy.TransactionStartedEvent;
 import java.io.StringWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
@@ -43,7 +19,6 @@ import javax.json.stream.JsonGenerator;
 public final class SpyEventRecorder
   implements SpyEventHandler
 {
-  private final Map<Class<?>, Consumer<SerializableEvent>> _processors = new HashMap<>();
   private final JsonArrayBuilder _events = Json.createArrayBuilder();
   private final boolean _keepValue;
 
@@ -55,34 +30,6 @@ public final class SpyEventRecorder
   public SpyEventRecorder( final boolean keepValue )
   {
     _keepValue = keepValue;
-    register( ComponentCreateStartedEvent.class );
-    register( ComponentCreateCompletedEvent.class );
-    register( ComponentDisposeStartedEvent.class );
-    register( ComponentDisposeCompletedEvent.class );
-    register( ObserverCreatedEvent.class );
-    register( ObserverDisposedEvent.class );
-    register( ObserverErrorEvent.class );
-    register( ObservableCreatedEvent.class );
-    register( ObservableDisposedEvent.class );
-    register( ObservableChangedEvent.class );
-    register( ComputedValueActivatedEvent.class );
-    register( ComputedValueDeactivatedEvent.class );
-    register( ComputedValueCreatedEvent.class );
-    register( ComputedValueDisposedEvent.class );
-    register( ReactionStartedEvent.class );
-    register( ReactionScheduledEvent.class );
-    register( ReactionCompletedEvent.class );
-    register( TransactionStartedEvent.class );
-    register( TransactionCompletedEvent.class );
-    register( ComputeStartedEvent.class );
-    register( ComputeCompletedEvent.class );
-    register( ActionStartedEvent.class );
-    register( ActionCompletedEvent.class );
-  }
-
-  private <T extends SerializableEvent> void register( @Nonnull final Class<T> type )
-  {
-    _processors.put( type, this::log );
   }
 
   private void log( @Nonnull final SerializableEvent event )
@@ -124,10 +71,9 @@ public final class SpyEventRecorder
   @Override
   public final void onSpyEvent( @Nonnull final Object event )
   {
-    final Consumer<SerializableEvent> processor = _processors.get( event.getClass() );
-    if ( null != processor )
+    if ( event instanceof SerializableEvent )
     {
-      processor.accept( (SerializableEvent) event );
+      log( (SerializableEvent) event );
     }
   }
 
