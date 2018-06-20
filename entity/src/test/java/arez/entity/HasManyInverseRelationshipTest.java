@@ -49,7 +49,10 @@ public class HasManyInverseRelationshipTest
     final AtomicInteger callCount = new AtomicInteger();
     Arez.context().autorun( () -> {
       callCount.incrementAndGet();
-      assertEquals( extractEntityIds( relationship ), expected );
+      if ( Disposable.isNotDisposed( relationship ) )
+      {
+        assertEquals( extractEntityIds( relationship ), expected );
+      }
     } );
 
     assertEquals( callCount.get(), 1 );
@@ -83,6 +86,14 @@ public class HasManyInverseRelationshipTest
     Disposable.dispose( component2 );
 
     assertEquals( callCount.get(), 5 );
+
+    Disposable.dispose( relationship );
+
+    assertEquals( callCount.get(), 6 );
+
+    assertEquals( Disposable.isDisposed( component1 ), false );
+    assertEquals( Disposable.isDisposed( component2 ), true );
+    assertEquals( Disposable.isDisposed( component3 ), false );
 
     assertMatchesFixture( recorder );
   }
