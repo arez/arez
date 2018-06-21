@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Remove equality comparator as it is never used ????
+
 * Consider allowing users to dynamically specify name in components via `@ComponentTypeName`
 
 * References handled specially ...? Is this only importing reference tools from Replicant?
