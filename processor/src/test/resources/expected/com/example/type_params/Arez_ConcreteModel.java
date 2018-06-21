@@ -242,6 +242,8 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
         return true;
       } else if ( null == o || !(o instanceof Arez_ConcreteModel) ) {
         return false;
+      } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
+        return false;
       } else {
         final Arez_ConcreteModel that = (Arez_ConcreteModel) o;;
         return null != getComponentId() && getComponentId().equals( that.getComponentId() );

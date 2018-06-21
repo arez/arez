@@ -4,6 +4,10 @@
 
 * **\[core\]** Clear the cached value in `arez.ComputedValue` when it is deactivated. This reduces
   the memory pressure when there is many deactivated instances without having any performance impact.
+* **\[processor\]** Arez components that specify a custom id via `@ComponentId` will no longer
+  `equal(...)` another component of the same type with the same id if the disposed status of the two
+  components does not match. This can occur in systems that allow unloading and subsequent reloading
+  of components with the same id.
 
 ### [v0.93](https://github.com/arez/arez/tree/v0.93) (2018-06-20)
 [Full Changelog](https://github.com/arez/arez/compare/v0.92...v0.93)

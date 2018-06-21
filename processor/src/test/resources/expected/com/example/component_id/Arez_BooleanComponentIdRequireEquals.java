@@ -109,6 +109,8 @@ public final class Arez_BooleanComponentIdRequireEquals extends BooleanComponent
       return true;
     } else if ( null == o || !(o instanceof Arez_BooleanComponentIdRequireEquals) ) {
       return false;
+    } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
+      return false;
     } else {
       final Arez_BooleanComponentIdRequireEquals that = (Arez_BooleanComponentIdRequireEquals) o;;
       return getId() == that.getId();

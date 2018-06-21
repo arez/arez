@@ -209,6 +209,8 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
       return true;
     } else if ( null == o || !(o instanceof Arez_CompleteRepositoryExample) ) {
       return false;
+    } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
+      return false;
     } else {
       final Arez_CompleteRepositoryExample that = (Arez_CompleteRepositoryExample) o;;
       return getId() == that.getId();

@@ -109,6 +109,8 @@ public final class Arez_ByteComponentIdRequireEquals extends ByteComponentIdRequ
       return true;
     } else if ( null == o || !(o instanceof Arez_ByteComponentIdRequireEquals) ) {
       return false;
+    } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
+      return false;
     } else {
       final Arez_ByteComponentIdRequireEquals that = (Arez_ByteComponentIdRequireEquals) o;;
       return getId() == that.getId();

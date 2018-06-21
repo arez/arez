@@ -258,6 +258,8 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
         return true;
       } else if ( null == o || !(o instanceof Arez_CompleteModel) ) {
         return false;
+      } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
+        return false;
       } else {
         final Arez_CompleteModel that = (Arez_CompleteModel) o;;
         return getId() == that.getId();

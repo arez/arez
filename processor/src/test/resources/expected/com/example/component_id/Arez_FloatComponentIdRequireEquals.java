@@ -109,6 +109,8 @@ public final class Arez_FloatComponentIdRequireEquals extends FloatComponentIdRe
       return true;
     } else if ( null == o || !(o instanceof Arez_FloatComponentIdRequireEquals) ) {
       return false;
+    } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
+      return false;
     } else {
       final Arez_FloatComponentIdRequireEquals that = (Arez_FloatComponentIdRequireEquals) o;;
       return getId() == that.getId();

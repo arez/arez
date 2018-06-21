@@ -109,6 +109,8 @@ public final class Arez_DoubleComponentIdRequireEquals extends DoubleComponentId
       return true;
     } else if ( null == o || !(o instanceof Arez_DoubleComponentIdRequireEquals) ) {
       return false;
+    } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
+      return false;
     } else {
       final Arez_DoubleComponentIdRequireEquals that = (Arez_DoubleComponentIdRequireEquals) o;;
       return getId() == that.getId();

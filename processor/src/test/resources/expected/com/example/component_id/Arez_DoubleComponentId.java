@@ -114,6 +114,8 @@ public final class Arez_DoubleComponentId extends DoubleComponentId implements D
         return true;
       } else if ( null == o || !(o instanceof Arez_DoubleComponentId) ) {
         return false;
+      } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
+        return false;
       } else {
         final Arez_DoubleComponentId that = (Arez_DoubleComponentId) o;;
         return getId() == that.getId();

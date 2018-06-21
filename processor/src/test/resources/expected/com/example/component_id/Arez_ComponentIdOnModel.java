@@ -140,6 +140,8 @@ public final class Arez_ComponentIdOnModel extends ComponentIdOnModel implements
         return true;
       } else if ( null == o || !(o instanceof Arez_ComponentIdOnModel) ) {
         return false;
+      } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
+        return false;
       } else {
         final Arez_ComponentIdOnModel that = (Arez_ComponentIdOnModel) o;;
         return getId() == that.getId();

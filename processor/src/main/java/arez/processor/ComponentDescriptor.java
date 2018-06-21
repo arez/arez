@@ -60,7 +60,6 @@ final class ComponentDescriptor
     Arrays.asList( "hashCode", "equals", "clone", "toString", "finalize", "getClass", "wait", "notifyAll", "notify" );
   private static final List<String> AREZ_SPECIAL_METHODS =
     Arrays.asList( "observe", "dispose", "isDisposed", "getArezId" );
-
   @Nullable
   private List<TypeElement> _repositoryExtensions;
   /**
@@ -1924,6 +1923,13 @@ final class ComponentDescriptor
     codeBlock.addStatement( "return true" );
     codeBlock.nextControlFlow( "else if ( null == o || !(o instanceof $T) )", generatedClass );
     codeBlock.addStatement( "return false" );
+    if ( null != _componentId )
+    {
+      codeBlock.nextControlFlow( "else if ( $T.isDisposed( this ) != $T.isDisposed( o ) )",
+                                 GeneratorUtil.DISPOSABLE_CLASSNAME,
+                                 GeneratorUtil.DISPOSABLE_CLASSNAME );
+      codeBlock.addStatement( "return false" );
+    }
     codeBlock.nextControlFlow( "else" );
     codeBlock.addStatement( "final $T that = ($T) o;", generatedClass, generatedClass );
     final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : TypeKind.DOUBLE;

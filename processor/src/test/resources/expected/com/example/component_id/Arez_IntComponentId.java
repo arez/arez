@@ -114,6 +114,8 @@ public final class Arez_IntComponentId extends IntComponentId implements Disposa
         return true;
       } else if ( null == o || !(o instanceof Arez_IntComponentId) ) {
         return false;
+      } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
+        return false;
       } else {
         final Arez_IntComponentId that = (Arez_IntComponentId) o;;
         return getId() == that.getId();
