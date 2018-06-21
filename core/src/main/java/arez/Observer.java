@@ -416,6 +416,10 @@ public final class Observer
       else if ( ObserverState.INACTIVE == _state )
       {
         runHook( getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR );
+        if ( isDerivation() )
+        {
+          getComputedValue().setValue( null );
+        }
         clearDependencies();
       }
       else if ( ObserverState.INACTIVE == originalState )

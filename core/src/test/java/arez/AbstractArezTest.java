@@ -130,13 +130,25 @@ public abstract class AbstractArezTest
   @Nonnull
   final Observer newDerivation( @Nonnull final ArezContext context )
   {
+    return newComputedValue( context ).getObserver();
+  }
+
+  @Nonnull
+  final ComputedValue<String> newComputedValue()
+  {
+    return newComputedValue( Arez.context() );
+  }
+
+  @Nonnull
+  private ComputedValue<String> newComputedValue( @Nonnull final ArezContext context )
+  {
     return new ComputedValue<>( context,
                                 null,
                                 ValueUtil.randomString(),
                                 () -> "",
                                 Objects::equals,
                                 Priority.NORMAL,
-                                false ).getObserver();
+                                false );
   }
 
   @Nonnull

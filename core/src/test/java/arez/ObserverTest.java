@@ -771,14 +771,19 @@ public class ObserverTest
   {
     setupReadWriteTransaction();
 
-    final Observer observer = newDerivation();
-    final Observable<?> derivedValue = observer.getDerivedValue();
+    final ComputedValue<String> computedValue = newComputedValue();
+    final Observable<String> derivedValue = computedValue.getObservable();
+    final Observer observer = computedValue.getObserver();
 
     final Observer watcher = ensureDerivationHasObserver( observer );
     watcher.setState( ObserverState.UP_TO_DATE );
 
+    final TestProcedure onActivate = new TestProcedure();
+    final TestProcedure onDeactivate = new TestProcedure();
     final TestProcedure onStale = new TestProcedure();
 
+    observer.setOnActivate( onActivate );
+    observer.setOnDeactivate( onDeactivate );
     observer.setOnStale( onStale );
 
     assertEquals( observer.getState(), ObserverState.INACTIVE );
@@ -787,21 +792,30 @@ public class ObserverTest
 
     assertEquals( observer.getState(), ObserverState.INACTIVE );
     assertEquals( observer.isScheduled(), false );
+    assertEquals( onActivate.getCalls(), 0 );
+    assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 0 );
 
+    computedValue.setValue( ValueUtil.randomString() );
     observer.setState( ObserverState.UP_TO_DATE );
 
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 0 );
+    assertNotNull( computedValue.getValue() );
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 
     assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
     assertEquals( observer.isScheduled(), true );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 1 );
     assertEquals( watcher.getState(), ObserverState.POSSIBLY_STALE );
     assertEquals( derivedValue.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
+    assertNotNull( computedValue.getValue() );
 
     observer.clearScheduledFlag();
     Arez.context().getScheduler().getPendingObservers().truncate( 0 );
@@ -810,7 +824,10 @@ public class ObserverTest
     observer.setState( ObserverState.UP_TO_DATE );
 
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 1 );
+    assertNotNull( computedValue.getValue() );
 
     watcher.setState( ObserverState.UP_TO_DATE );
     derivedValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
@@ -819,10 +836,20 @@ public class ObserverTest
 
     assertEquals( observer.getState(), ObserverState.STALE );
     assertEquals( observer.isScheduled(), true );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 2 );
 
     assertEquals( watcher.getState(), ObserverState.POSSIBLY_STALE );
     assertEquals( derivedValue.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
+
+    observer.setState( ObserverState.INACTIVE );
+
+    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onDeactivate.getCalls(), 1 );
+    assertEquals( onStale.getCalls(), 2 );
+    assertNull( computedValue.getValue() );
   }
 
   @Test

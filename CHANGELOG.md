@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+* **\[core\]** Clear the cached value in `arez.ComputedValue` when it is deactivated. This reduces
+  the memory pressure when there is many deactivated instances without having any performance impact.
+
 ### [v0.93](https://github.com/arez/arez/tree/v0.93) (2018-06-20)
 [Full Changelog](https://github.com/arez/arez/compare/v0.92...v0.93)
 
