@@ -169,6 +169,11 @@
         "transaction": "Node.22.visible"
     },
     {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
         "mutation": false,
         "tracker": "Node.22.visible",
         "type": "TransactionCompleted",
@@ -262,6 +267,11 @@
         "transaction": "Node.22.visible"
     },
     {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
         "mutation": false,
         "tracker": "Node.22.visible",
         "type": "TransactionCompleted",
@@ -270,6 +280,11 @@
     {
         "computedValue": "Node.22.visible",
         "type": "ComputeCompleted"
+    },
+    {
+        "observable": "Node.21.visible",
+        "type": "ObservableChanged",
+        "value": true
     },
     {
         "mutation": false,
@@ -384,6 +399,11 @@
         "transaction": "Node.22.visible"
     },
     {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
         "mutation": false,
         "tracker": "Node.22.visible",
         "type": "TransactionCompleted",
@@ -448,6 +468,11 @@
         "transaction": "Node.22.visible"
     },
     {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
         "mutation": false,
         "tracker": "Node.22.visible",
         "type": "TransactionCompleted",
@@ -456,6 +481,11 @@
     {
         "computedValue": "Node.22.visible",
         "type": "ComputeCompleted"
+    },
+    {
+        "observable": "Node.21.visible",
+        "type": "ObservableChanged",
+        "value": true
     },
     {
         "mutation": false,
@@ -536,6 +566,11 @@
         "transaction": "Node.22.visible"
     },
     {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
         "mutation": false,
         "tracker": "Node.22.visible",
         "type": "TransactionCompleted",
@@ -546,6 +581,11 @@
         "type": "ComputeCompleted"
     },
     {
+        "observable": "Node.21.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
         "mutation": false,
         "tracker": "Node.21.visible",
         "type": "TransactionCompleted",
@@ -554,6 +594,11 @@
     {
         "computedValue": "Node.21.visible",
         "type": "ComputeCompleted"
+    },
+    {
+        "observable": "Node.20.visible",
+        "type": "ObservableChanged",
+        "value": true
     },
     {
         "mutation": false,
@@ -653,6 +698,11 @@
         "transaction": "Node.22.visible"
     },
     {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
         "mutation": false,
         "tracker": "Node.22.visible",
         "type": "TransactionCompleted",
@@ -717,6 +767,11 @@
         "transaction": "Node.22.visible"
     },
     {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
         "mutation": false,
         "tracker": "Node.22.visible",
         "type": "TransactionCompleted",
@@ -725,6 +780,11 @@
     {
         "computedValue": "Node.22.visible",
         "type": "ComputeCompleted"
+    },
+    {
+        "observable": "Node.21.visible",
+        "type": "ObservableChanged",
+        "value": true
     },
     {
         "mutation": false,
@@ -805,6 +865,11 @@
         "transaction": "Node.22.visible"
     },
     {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
         "mutation": false,
         "tracker": "Node.22.visible",
         "type": "TransactionCompleted",
@@ -815,6 +880,11 @@
         "type": "ComputeCompleted"
     },
     {
+        "observable": "Node.21.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
         "mutation": false,
         "tracker": "Node.21.visible",
         "type": "TransactionCompleted",
@@ -823,6 +893,11 @@
     {
         "computedValue": "Node.21.visible",
         "type": "ComputeCompleted"
+    },
+    {
+        "observable": "Node.20.visible",
+        "type": "ObservableChanged",
+        "value": true
     },
     {
         "mutation": false,
@@ -991,6 +1066,11 @@
         "transaction": "Node.22.visible"
     },
     {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
         "mutation": false,
         "tracker": "Node.22.visible",
         "type": "TransactionCompleted",
@@ -1084,6 +1164,11 @@
         "transaction": "Node.22.visible"
     },
     {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
         "mutation": false,
         "tracker": "Node.22.visible",
         "type": "TransactionCompleted",
@@ -1092,6 +1177,11 @@
     {
         "computedValue": "Node.22.visible",
         "type": "ComputeCompleted"
+    },
+    {
+        "observable": "Node.21.visible",
+        "type": "ObservableChanged",
+        "value": false
     },
     {
         "mutation": false,
@@ -1275,6 +1365,11 @@
         "transaction": "Node.22.visible"
     },
     {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
         "mutation": false,
         "tracker": "Node.22.visible",
         "type": "TransactionCompleted",
@@ -1368,6 +1463,11 @@
         "transaction": "Node.22.visible"
     },
     {
+        "observable": "Node.22.visible",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
         "mutation": false,
         "tracker": "Node.22.visible",
         "type": "TransactionCompleted",
@@ -1376,6 +1476,11 @@
     {
         "computedValue": "Node.22.visible",
         "type": "ComputeCompleted"
+    },
+    {
+        "observable": "Node.21.visible",
+        "type": "ObservableChanged",
+        "value": true
     },
     {
         "mutation": false,
