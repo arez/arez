@@ -1244,11 +1244,11 @@ public final class ArezContext
     {
       if ( null != _environment )
       {
-        _environment.run( _scheduler::runPendingObservers );
+        _environment.run( _scheduler::runPendingTasks );
       }
       else
       {
-        _scheduler.runPendingObservers();
+        _scheduler.runPendingTasks();
       }
     }
   }

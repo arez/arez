@@ -612,7 +612,7 @@ public class ReactionSchedulerTest
   }
 
   @Test
-  public void runPendingObservers()
+  public void runPendingTasks()
     throws Exception
   {
     final ReactionScheduler scheduler = Arez.context().getScheduler();
@@ -665,7 +665,7 @@ public class ReactionSchedulerTest
 
     Transaction.setTransaction( null );
 
-    scheduler.runPendingObservers();
+    scheduler.runPendingTasks();
 
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 0 );
@@ -674,7 +674,7 @@ public class ReactionSchedulerTest
   }
 
   @Test
-  public void runPendingObservers_avoidRunningIfAlreadyRunning()
+  public void runPendingTasks_avoidRunningIfAlreadyRunning()
     throws Exception
   {
     final ReactionScheduler scheduler = Arez.context().getScheduler();
@@ -698,13 +698,13 @@ public class ReactionSchedulerTest
     scheduler.setCurrentReactionRound( 1 );
 
     assertEquals( scheduler.getPendingObservers().size(), 1 );
-    scheduler.runPendingObservers();
+    scheduler.runPendingTasks();
     assertEquals( scheduler.getPendingObservers().size(), 1 );
 
     // Make t he scheduler think it is no longer running
     scheduler.setCurrentReactionRound( 0 );
 
-    scheduler.runPendingObservers();
+    scheduler.runPendingTasks();
     assertEquals( scheduler.getPendingObservers().size(), 0 );
   }
 }

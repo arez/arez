@@ -130,10 +130,10 @@ final class ReactionScheduler
   }
 
   /**
-   * If the schedule is not already running pending observers then run pending observers until
+   * If the schedule is not already running pending tasks then run pending observers until
    * complete or runaway reaction detected.
    */
-  void runPendingObservers()
+  void runPendingTasks()
   {
     // Each reaction creates a top level transaction that attempts to run call
     // this method when it completes. Rather than allow this if it is detected
