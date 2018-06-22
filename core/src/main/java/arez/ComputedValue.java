@@ -118,7 +118,7 @@ public final class ComputedValue<T>
     {
       apiInvariant( () -> !_computing,
                     () -> "Arez-0049: Detected a cycle deriving ComputedValue named '" + getName() + "'." );
-      apiInvariant( _observer::isLive,
+      apiInvariant( _observer::isNotDisposed,
                     () -> "Arez-0050: ComputedValue named '" + getName() + "' accessed after it has been disposed." );
     }
     getObservable().reportObserved();
@@ -152,7 +152,7 @@ public final class ComputedValue<T>
   @Override
   public void dispose()
   {
-    if ( !isDisposed() )
+    if ( isNotDisposed() )
     {
       if ( Arez.shouldCheckInvariants() )
       {

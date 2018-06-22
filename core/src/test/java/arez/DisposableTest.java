@@ -43,10 +43,12 @@ public class DisposableTest
   {
     final TestDisposable object = new TestDisposable();
     assertEquals( object.isDisposed(), false );
+    assertEquals( object.isNotDisposed(), true );
     assertEquals( Disposable.isDisposed( object ), false );
     assertEquals( Disposable.isNotDisposed( object ), true );
     Disposable.dispose( object );
     assertEquals( object.isDisposed(), true );
+    assertEquals( object.isNotDisposed(), false );
     assertEquals( Disposable.isDisposed( object ), true );
     assertEquals( Disposable.isNotDisposed( object ), false );
   }

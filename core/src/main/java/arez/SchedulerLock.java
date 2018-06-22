@@ -27,7 +27,7 @@ final class SchedulerLock
   @Override
   public void dispose()
   {
-    if ( !isDisposed() )
+    if ( isNotDisposed() )
     {
       _released = true;
       _context.releaseSchedulerLock();

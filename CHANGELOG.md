@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+* **\[core\]** Add a `Disposable.isNotDisposed()` default method that is equivalent to the
+  `!Disposable.isDisposed()` method. This makes it possible to use the method as a method
+  reference rather than creating a lambda.
+
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)
 

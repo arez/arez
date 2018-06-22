@@ -145,7 +145,7 @@ public final class Observable<T>
   @Override
   public void dispose()
   {
-    if ( !isDisposed() )
+    if ( isNotDisposed() )
     {
       getContext().dispose( Arez.areNamesEnabled() ? getName() : null, this::performDispose );
       // All dependencies should have been released by the time it comes to deactivate phase.
@@ -384,10 +384,10 @@ public final class Observable<T>
       invariant( () -> !hasObserver( observer ),
                  () -> "Arez-0066: Attempting to add observer named '" + observer.getName() + "' to " +
                        "observable named '" + getName() + "' when observer is already observing observable." );
-      invariant( () -> !isDisposed(),
+      invariant( this::isNotDisposed,
                  () -> "Arez-0067: Attempting to add observer named '" + observer.getName() + "' to " +
                        "observable named '" + getName() + "' when observable is disposed." );
-      invariant( observer::isLive,
+      invariant( observer::isNotDisposed,
                  () -> "Arez-0068: Attempting to add observer named '" + observer.getName() + "' to observable " +
                        "named '" + getName() + "' when observer is disposed." );
       invariant( () -> !hasOwner() || observer.getPriority().ordinal() >= getOwner().getPriority().ordinal(),

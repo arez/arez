@@ -335,7 +335,7 @@ public class RepositoryTest
     @Override
     public boolean observe()
     {
-      return !isDisposed();
+      return isNotDisposed();
     }
 
     @Override

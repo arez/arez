@@ -2344,14 +2344,14 @@ final class ComponentDescriptor
         addModifiers( Modifier.PRIVATE ).
         returns( TypeName.BOOLEAN );
 
-    builder.addStatement( "final boolean isDisposed = isDisposed()" );
+    builder.addStatement( "final boolean isNotDisposed = isNotDisposed()" );
 
     final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( !isDisposed ) ", getContextMethodName() );
+    block.beginControlFlow( "if ( isNotDisposed ) ", getContextMethodName() );
     block.addStatement( "this.$N.reportObserved()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     block.endControlFlow();
     builder.addCode( block.build() );
-    builder.addStatement( "return !isDisposed" );
+    builder.addStatement( "return isNotDisposed" );
     return builder.build();
   }
 

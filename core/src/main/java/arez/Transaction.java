@@ -508,7 +508,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> !observable.isDisposed(),
+      invariant( observable::isNotDisposed,
                  () -> "Arez-0142: Invoked observe on transaction named '" + getName() + "' for observable named '" +
                        observable.getName() + "' where the observable is disposed." );
       invariant( () -> !Arez.shouldEnforceTransactionType() || TransactionMode.DISPOSE != getMode(),
@@ -554,7 +554,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> !disposable.isDisposed(),
+      invariant( disposable::isNotDisposed,
                  () -> "Arez-0176: Invoked reportDispose on transaction named '" + getName() +
                        "' where the element is disposed." );
       invariant( () -> !Arez.shouldEnforceTransactionType() || TransactionMode.DISPOSE == getMode(),
@@ -577,7 +577,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> !observable.isDisposed(),
+      invariant( observable::isNotDisposed,
                  () -> "Arez-0144: Invoked reportChanged on transaction named '" + getName() + "' for observable " +
                        "named '" + observable.getName() + "' where the observable is disposed." );
     }
@@ -641,7 +641,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> !observable.isDisposed(),
+      invariant( observable::isNotDisposed,
                  () -> "Arez-0146: Invoked reportPossiblyChanged on transaction named '" + getName() + "' for " +
                        "observable named '" + observable.getName() + "' where the observable is disposed." );
       invariant( observable::hasOwner,
@@ -684,7 +684,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> !observable.isDisposed(),
+      invariant( observable::isNotDisposed,
                  () -> "Arez-0149: Invoked reportChangeConfirmed on transaction named '" +
                        getName() + "' for observable named '" +
                        observable.getName() + "' where the observable is disposed." );
@@ -830,7 +830,7 @@ final class Transaction
       for ( int i = 0; i < size; i++ )
       {
         final Observable observable = _observables.get( i );
-        if ( !observable.isInCurrentTracking() && !observable.isDisposed() )
+        if ( !observable.isInCurrentTracking() && observable.isNotDisposed() )
         {
           observable.putInCurrentTracking();
           if ( i != currentIndex )

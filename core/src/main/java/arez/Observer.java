@@ -186,7 +186,7 @@ public final class Observer
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( this::isLive,
+      invariant( this::isNotDisposed,
                  () -> "Arez-0084: Attempted to invoke getDerivedValue on disposed observer " +
                        "named '" + getName() + "'." );
       invariant( this::isDerivation,
@@ -288,16 +288,6 @@ public final class Observer
   boolean isDisposing()
   {
     return _disposing;
-  }
-
-  /**
-   * Return true before dispose() method has been invoked.
-   *
-   * @return true if observer has not been disposed.
-   */
-  boolean isLive()
-  {
-    return !isDisposed();
   }
 
   /**
@@ -426,7 +416,7 @@ public final class Observer
       {
         if ( Arez.shouldCheckInvariants() )
         {
-          invariant( this::isLive,
+          invariant( this::isNotDisposed,
                      () -> "Arez-0087: Attempted to activate disposed observer named '" + getName() + "'." );
         }
         runHook( getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
@@ -588,7 +578,7 @@ public final class Observer
    */
   void schedule()
   {
-    if ( isLive() )
+    if ( isNotDisposed() )
     {
       if ( Arez.shouldCheckInvariants() )
       {
@@ -610,7 +600,7 @@ public final class Observer
    */
   void invokeReaction()
   {
-    if ( isLive() )
+    if ( isNotDisposed() )
     {
       final long start;
       if ( willPropagateSpyEvents() )
@@ -800,7 +790,7 @@ public final class Observer
     if ( Arez.shouldCheckInvariants() )
     {
       getDependencies().forEach( observable ->
-                                   invariant( () -> !observable.isDisposed(),
+                                   invariant( observable::isNotDisposed,
                                               () -> "Arez-0091: Observer named '" + getName() + "' has dependency " +
                                                     "observable named '" + observable.getName() +
                                                     "' which is disposed." ) );
@@ -821,7 +811,7 @@ public final class Observer
                    () -> "Arez-0092: Observer named '" + getName() + "' is inactive but still has dependencies: " +
                          getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ) + "." );
       }
-      if ( isDerivation() && isLive() )
+      if ( isDerivation() && isNotDisposed() )
       {
         invariant( () -> Objects.equals( getDerivedValue().hasOwner() ? getDerivedValue().getOwner() : null, this ),
                    () -> "Arez-0093: Observer named '" + getName() + "' has a derived value that does not " +
@@ -834,7 +824,7 @@ public final class Observer
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      if ( isDerivation() && isActive() && !isDisposed() )
+      if ( isDerivation() && isActive() && isNotDisposed() )
       {
         invariant( () -> !getDerivedValue().getObservers().isEmpty() ||
                          Objects.equals( getContext().getTransaction().getTracker(), this ),

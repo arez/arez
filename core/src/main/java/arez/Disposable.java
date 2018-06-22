@@ -29,6 +29,16 @@ public interface Disposable
   boolean isDisposed();
 
   /**
+   * Return true if {@link #isDisposed()} returns false.
+   *
+   * @return true if {@link #isDisposed()} returns false.
+   */
+  default boolean isNotDisposed()
+  {
+    return !isDisposed();
+  }
+
+  /**
    * Dispose the supplied object if it is Disposable, else do nothing.
    *
    * @param object the object to dispose.

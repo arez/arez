@@ -966,13 +966,13 @@ public class ObserverTest
     Transaction.setTransaction( null );
 
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.isLive(), true );
+    assertEquals( observer.isNotDisposed(), true );
     assertEquals( observer.isDisposed(), false );
 
     observer.dispose();
 
     assertEquals( observer.getState(), ObserverState.INACTIVE );
-    assertEquals( observer.isLive(), false );
+    assertEquals( observer.isNotDisposed(), false );
     assertEquals( observer.isDisposed(), true );
 
     final ArezContext context = Arez.context();
@@ -1001,14 +1001,14 @@ public class ObserverTest
     Transaction.setTransaction( null );
 
     assertEquals( observer.getState(), ObserverState.STALE );
-    assertEquals( observer.isLive(), true );
+    assertEquals( observer.isNotDisposed(), true );
     assertEquals( observer.isDisposed(), false );
     assertEquals( observable.getObservers().size(), 1 );
 
     observer.dispose();
 
     assertEquals( observer.getState(), ObserverState.INACTIVE );
-    assertEquals( observer.isLive(), false );
+    assertEquals( observer.isNotDisposed(), false );
     assertEquals( observer.isDisposed(), true );
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );

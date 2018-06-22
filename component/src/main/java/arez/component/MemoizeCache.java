@@ -119,7 +119,7 @@ public final class MemoizeCache<T>
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> !isDisposed(),
+      apiInvariant( this::isNotDisposed,
                     () -> "Arez-0161: MemoizeCache named '" + _name + "' had get() invoked when disposed." );
     }
     return getComputedValue( args ).get();

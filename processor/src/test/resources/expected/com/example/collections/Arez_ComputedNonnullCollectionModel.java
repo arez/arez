@@ -89,11 +89,11 @@ public final class Arez_ComputedNonnullCollectionModel extends ComputedNonnullCo
   }
 
   private boolean $$arezi$$_observe() {
-    final boolean isDisposed = isDisposed();
-    if ( !isDisposed )  {
+    final boolean isNotDisposed = isNotDisposed();
+    if ( isNotDisposed )  {
       this.$$arezi$$_disposedObservable.reportObserved();
     }
-    return !isDisposed;
+    return isNotDisposed;
   }
 
   @Override

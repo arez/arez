@@ -19,7 +19,7 @@ class TestReaction
 
   void performReact( @Nonnull final Observer observer )
   {
-    observer.getDependencies().stream().filter( o -> !o.isDisposed() ).forEach( Observable::reportObserved );
+    observer.getDependencies().stream().filter( o -> o.isNotDisposed() ).forEach( Observable::reportObserved );
     _observers.add( observer );
   }
 
