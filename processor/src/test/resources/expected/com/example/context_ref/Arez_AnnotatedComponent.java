@@ -102,7 +102,7 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        getContext().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {
+        getContext().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
         } } );
       }

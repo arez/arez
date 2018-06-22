@@ -128,11 +128,6 @@ public final class Observer
                      () -> "Arez-0080: Attempted to construct an ComputedValue '" + getName() + "' that could " +
                            "track explicitly." );
         }
-        else if ( TransactionMode.DISPOSE == mode )
-        {
-          fail( () -> "Arez-0173: Attempted to construct an observer named '" + getName() + "' with DISPOSE " +
-                      "transaction mode. Observers must not specify this mode." );
-        }
         else if ( null != computedValue )
         {
           fail( () -> "Arez-0081: Attempted to construct an observer named '" + getName() + "' with " + mode +
@@ -229,7 +224,7 @@ public final class Observer
     {
       _disposing = true;
       runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
-      getContext().dispose( Arez.areNamesEnabled() ? getName() : null, this::performDispose );
+      getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, this::performDispose );
       if ( !isDerivation() )
       {
         if ( willPropagateSpyEvents() )

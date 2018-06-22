@@ -143,9 +143,6 @@ final class Transaction
                       () -> "Arez-0119: Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
                             "nested in transaction named '" + c_transaction.getName() + "' with mode " +
                             c_transaction.getMode().name() + " which is not equal to READ_WRITE." );
-        apiInvariant( () -> TransactionMode.DISPOSE != c_transaction.getMode() || TransactionMode.DISPOSE == mode,
-                      () -> "Arez-0175: Attempting to create transaction named '" + name + "' but it is " +
-                            "nested inside a DISPOSE transaction named '" + c_transaction.getName() + "'." );
       }
     }
     if ( Arez.shouldCheckInvariants() )
@@ -295,9 +292,6 @@ final class Transaction
       invariant( () -> TransactionMode.READ_WRITE_OWNED != mode || null != tracker,
                  () -> "Arez-0132: Attempted to create transaction named '" + getName() +
                        "' with mode READ_WRITE_OWNED but no tracker specified." );
-      invariant( () -> TransactionMode.DISPOSE != mode || null == tracker,
-                 () -> "Arez-0178: Attempted to create transaction named '" + getName() +
-                       "' with mode DISPOSE and incorrectly specified tracker." );
     }
   }
 
@@ -511,9 +505,6 @@ final class Transaction
       invariant( observable::isNotDisposed,
                  () -> "Arez-0142: Invoked observe on transaction named '" + getName() + "' for observable named '" +
                        observable.getName() + "' where the observable is disposed." );
-      invariant( () -> !Arez.shouldEnforceTransactionType() || TransactionMode.DISPOSE != getMode(),
-                 () -> "Arez-0174: Transaction named '" + getName() + "' attempted to call observe in dispose " +
-                       "transaction." );
     }
     if ( null != _tracker )
     {
@@ -557,9 +548,9 @@ final class Transaction
       invariant( disposable::isNotDisposed,
                  () -> "Arez-0176: Invoked reportDispose on transaction named '" + getName() +
                        "' where the element is disposed." );
-      invariant( () -> !Arez.shouldEnforceTransactionType() || TransactionMode.DISPOSE == getMode(),
+      invariant( () -> !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == getMode(),
                  () -> "Arez-0177: Invoked reportDispose on transaction named '" + getName() +
-                       "' but the transaction mode is not DISPOSING but is " + getMode() + "." );
+                       "' but the transaction mode is not READ_WRITE but is " + getMode() + "." );
     }
   }
 
@@ -570,21 +561,13 @@ final class Transaction
    */
   void preReportChanged( @Nonnull final Observable<?> observable )
   {
-    preReportChanged( observable, true );
-  }
-
-  void preReportChanged( @Nonnull final Observable<?> observable, final boolean shouldVerifyWriteAllowed )
-  {
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( observable::isNotDisposed,
                  () -> "Arez-0144: Invoked reportChanged on transaction named '" + getName() + "' for observable " +
                        "named '" + observable.getName() + "' where the observable is disposed." );
     }
-    if ( shouldVerifyWriteAllowed )
-    {
-      verifyWriteAllowed( observable );
-    }
+    verifyWriteAllowed( observable );
   }
 
   /**
@@ -594,12 +577,7 @@ final class Transaction
    */
   void reportChanged( @Nonnull final Observable<?> observable )
   {
-    reportChanged( observable, true );
-  }
-
-  void reportChanged( @Nonnull final Observable<?> observable, final boolean shouldVerifyWriteAllowed )
-  {
-    preReportChanged( observable, shouldVerifyWriteAllowed );
+    preReportChanged( observable );
     if ( Arez.shouldCheckInvariants() )
     {
       observable.invariantLeastStaleObserverState();
@@ -778,14 +756,6 @@ final class Transaction
                      () -> "Arez-0153: Transaction named '" + getName() + "' attempted to change" +
                            " observable named '" + observable.getName() + "' and the transaction mode is " +
                            "READ_WRITE_OWNED but the observable has not been created by the transaction." );
-        }
-      }
-      else if ( TransactionMode.DISPOSE == _mode )
-      {
-        if ( Arez.shouldCheckInvariants() )
-        {
-          fail( () -> "Arez-0156: Transaction named '" + getName() + "' attempted to change observable named '" +
-                      observable.getName() + "' but transaction mode is DISPOSE." );
         }
       }
     }

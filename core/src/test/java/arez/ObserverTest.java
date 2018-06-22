@@ -115,28 +115,6 @@ public class ObserverTest
   }
 
   @Test
-  public void construct_with_DISPOSE_transactionMode()
-    throws Exception
-  {
-    final String name = ValueUtil.randomString();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        null,
-                                        name,
-                                        null,
-                                        TransactionMode.DISPOSE,
-                                        new TestReaction(),
-                                        Priority.NORMAL,
-                                        false ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0173: Attempted to construct an observer named '" + name + "' with DISPOSE " +
-                  "transaction mode. Observers must not specify this mode." );
-  }
-
-  @Test
   public void construct_with_mode_but_checking_DIsabled()
     throws Exception
   {

@@ -399,18 +399,14 @@ public class ComputedValueTest
   {
     final ArezContext context = new ArezContext();
 
-    final Observer observer = newDerivation( context );
-    final ComputedValue<?> computedValue = observer.getComputedValue();
+    final Observable<Object> observable = context.createObservable( "Y" );
 
-    context.action( false, () -> {
-      observer.setState( ObserverState.UP_TO_DATE );
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> context.action( "X", false, (Procedure) observable::dispose ) );
 
-      assertEquals( observer.isDisposed(), false );
-
-      computedValue.dispose();
-
-      assertEquals( observer.isDisposed(), true );
-    } );
+    assertEquals( exception.getMessage(),
+                  "Arez-0119: Attempting to create READ_WRITE transaction named 'Y.dispose' but it is nested in transaction named 'X' with mode READ_ONLY which is not equal to READ_WRITE." );
   }
 
   @Test

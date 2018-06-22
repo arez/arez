@@ -6,11 +6,6 @@ package arez;
 enum TransactionMode
 {
   /**
-   * This transaction mode is ONLY used to dispose resources.
-   * It should not be possible for an {@link Observer} to have this value as a mode.
-   */
-  DISPOSE,
-  /**
    * Can read state within the system.
    */
   READ_ONLY,

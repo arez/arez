@@ -82,7 +82,7 @@ public final class Arez_NotObservableModel extends NotObservableModel implements
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        $$arezi$$_context().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {
+        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
         } } );
       }
       if ( Arez.shouldCheckInvariants() ) {

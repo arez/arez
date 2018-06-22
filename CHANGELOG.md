@@ -5,6 +5,11 @@
 * **\[core\]** Add a `Disposable.isNotDisposed()` default method that is equivalent to the
   `!Disposable.isDisposed()` method. This makes it possible to use the method as a method
   reference rather than creating a lambda.
+* 💥 **\[core\]** Remove the `DISPOSE` transaction mode and removed the associated
+  `ArezContext.dispose(...)` methods. The dispose actions now occur in a `READ_WRITE` transaction
+  mode. This does mean that dispose actions can no longer occur within a read-only action or observer,
+  nor can they occur within a computed value evaluation but these scenarios do not make a lot of sense
+  and should have been considered bugs.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

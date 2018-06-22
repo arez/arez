@@ -147,7 +147,7 @@ public final class Observable<T>
   {
     if ( isNotDisposed() )
     {
-      getContext().dispose( Arez.areNamesEnabled() ? getName() : null, this::performDispose );
+      getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, this::performDispose );
       // All dependencies should have been released by the time it comes to deactivate phase.
       // The Observable has been marked as changed, forcing all observers to re-evaluate and
       // ultimately this will result in their removal of this Observable as a dependency as
@@ -183,7 +183,7 @@ public final class Observable<T>
   private void performDispose()
   {
     getContext().getTransaction().reportDispose( this );
-    reportChanged( false );
+    reportChanged();
     _workState = DISPOSED;
   }
 
@@ -497,22 +497,11 @@ public final class Observable<T>
    */
   public void reportChanged()
   {
-    reportChanged( true );
-  }
-
-  /**
-   * Method is called when the observable has definitely changed or when
-   * it disposing. When disposing the shouldVerifyWriteAllowed parameter will be false.
-   *
-   * @param shouldVerifyWriteAllowed flag indicating whether we need to verify whether transaction can write.
-   */
-  private void reportChanged( final boolean shouldVerifyWriteAllowed )
-  {
     if ( willPropagateSpyEvents() )
     {
       reportSpyEvent( new ObservableChangedEvent( new ObservableInfoImpl( getSpy(), this ), getObservableValue() ) );
     }
-    getContext().getTransaction().reportChanged( this, shouldVerifyWriteAllowed );
+    getContext().getTransaction().reportChanged( this );
   }
 
   void reportChangeConfirmed()

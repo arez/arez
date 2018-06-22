@@ -107,7 +107,7 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        $$arezi$$_context().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {
+        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_qualifiedName.dispose();
           this.$$arez$$_name.dispose();

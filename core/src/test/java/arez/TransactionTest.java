@@ -63,23 +63,6 @@ public class TransactionTest
   }
 
   @Test
-  public void construct_withTrackerAnd_DISPOSE_Mode()
-  {
-    final String name = ValueUtil.randomString();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Transaction( Arez.context(),
-                                           null,
-                                           name,
-                                           TransactionMode.DISPOSE,
-                                           newReadOnlyObserver() ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0178: Attempted to create transaction named '" + name +
-                  "' with mode DISPOSE and incorrectly specified tracker." );
-  }
-
-  @Test
   public void construction_whenSpyDisabled()
   {
     ArezTestUtil.disableSpies();
@@ -298,32 +281,6 @@ public class TransactionTest
 
     assertTrue( transaction.getObservables().contains( observable ) );
     assertEquals( transaction.getObservables().size(), 1 );
-  }
-
-  @Test
-  public void observe_in_DISPOSE_transaction()
-  {
-    final ArezContext context = Arez.context();
-    final Observer tracker = newDerivation( context );
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.DISPOSE, null );
-    Transaction.setTransaction( transaction );
-
-    transaction.beginTracking();
-
-    final Observable<?> observable = newObservable( context );
-
-    assertEquals( tracker.getDependencies().size(), 0 );
-    assertEquals( observable.getObservers().size(), 0 );
-    assertNull( transaction.getObservables() );
-    assertNotEquals( transaction.getId(), observable.getLastTrackerTransactionId() );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> transaction.observe( observable ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0174: Transaction named '" + transaction.getName() + "' attempted to call " +
-                  "observe in dispose transaction." );
   }
 
   @Test
@@ -1375,24 +1332,6 @@ public class TransactionTest
     assertEquals( exception.getMessage(),
                   "Arez-0152: Transaction named '" + transaction.getName() + "' attempted to change " +
                   "observable named '" + observable.getName() + "' but the transaction mode is READ_ONLY." );
-  }
-
-  @Test
-  public void verifyWriteAllowed_withDisposeTransaction()
-  {
-    final ArezContext context = Arez.context();
-
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.DISPOSE, null );
-
-    final Observable<?> observable = newObservable( context );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> transaction.verifyWriteAllowed( observable ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0156: Transaction named '" + transaction.getName() + "' attempted to change " +
-                  "observable named '" + observable.getName() + "' but transaction mode is DISPOSE." );
   }
 
   @Test
@@ -2460,29 +2399,6 @@ public class TransactionTest
   }
 
   @Test
-  public void beginTransaction_attemptToNest_in_DISPOSE_mode_transaction()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    Transaction.setTransaction( new Transaction( context,
-                                                 null,
-                                                 ValueUtil.randomString(),
-                                                 TransactionMode.DISPOSE,
-                                                 null ) );
-    final Transaction transaction = context.getTransaction();
-
-    final String name = ValueUtil.randomString();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> Transaction.begin( context, name, TransactionMode.READ_ONLY, null ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0175: Attempting to create transaction named '" + name +
-                  "' but it is nested inside a DISPOSE transaction named '" + transaction.getName() + "'." );
-  }
-
-  @Test
   public void beginTransaction_nest_in_suspended_transaction()
     throws Exception
   {
@@ -2980,7 +2896,7 @@ public class TransactionTest
   public void reportDispose()
   {
     final Transaction transaction =
-      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.DISPOSE, null );
+      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
 
     final MyDisposable node = new MyDisposable();
 
@@ -3007,6 +2923,6 @@ public class TransactionTest
       expectThrows( IllegalStateException.class, () -> transaction.reportDispose( node ) );
     assertEquals( exception.getMessage(),
                   "Arez-0177: Invoked reportDispose on transaction named '" +
-                  transaction.getName() + "' but the transaction mode is not DISPOSING but is READ_ONLY." );
+                  transaction.getName() + "' but the transaction mode is not READ_WRITE but is READ_ONLY." );
   }
 }

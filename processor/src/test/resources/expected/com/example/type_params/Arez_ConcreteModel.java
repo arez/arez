@@ -142,7 +142,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        $$arezi$$_context().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {
+        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_compWriter.dispose();
           this.$$arez$$_compError.dispose();

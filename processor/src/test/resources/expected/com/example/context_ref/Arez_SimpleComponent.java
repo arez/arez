@@ -101,7 +101,7 @@ final class Arez_SimpleComponent extends SimpleComponent implements Disposable, 
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        getContext().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {
+        getContext().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
         } } );
       }

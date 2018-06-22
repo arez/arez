@@ -416,7 +416,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.0.dispose"
@@ -429,13 +429,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
@@ -463,13 +463,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
@@ -493,7 +493,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
@@ -508,7 +508,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.0.cascadeOnDispose.condition.dispose"
@@ -532,13 +532,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.0.cascadeOnDispose.watcher.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.0.cascadeOnDispose.watcher.dispose"
@@ -566,7 +566,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.0.isDisposed.dispose"
@@ -577,7 +577,7 @@
         "value": false
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.0.isDisposed.dispose"
@@ -605,7 +605,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.0.name.dispose"
@@ -616,7 +616,7 @@
         "value": "Model2A"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.0.name.dispose"
@@ -637,7 +637,7 @@
         "type": "ObservableDisposed"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.0.dispose"
@@ -669,7 +669,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model0.0.dispose"
@@ -682,7 +682,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model0.0.isDisposed.dispose"
@@ -697,7 +697,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model0.0.isDisposed.dispose"
@@ -725,7 +725,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model0.0.name.dispose"
@@ -736,7 +736,7 @@
         "value": "Model1A"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model0.0.name.dispose"
@@ -757,7 +757,7 @@
         "type": "ObservableDisposed"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model0.0.dispose"
@@ -827,7 +827,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.0.cascadeOnDispose"
@@ -844,7 +844,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.0.dispose"
@@ -857,13 +857,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.0.cascadeOnDispose.condition.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.0.cascadeOnDispose.condition.dispose"
@@ -891,13 +891,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.0.cascadeOnDispose.condition.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.0.cascadeOnDispose.condition.dispose"
@@ -921,7 +921,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.0.cascadeOnDispose.condition.dispose"
@@ -936,7 +936,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.0.cascadeOnDispose.condition.dispose"
@@ -960,13 +960,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.0.cascadeOnDispose.watcher.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.0.cascadeOnDispose.watcher.dispose"
@@ -994,7 +994,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.0.isDisposed.dispose"
@@ -1005,7 +1005,7 @@
         "value": false
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.0.isDisposed.dispose"
@@ -1033,13 +1033,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.0.leaf.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.0.leaf.dispose"
@@ -1067,7 +1067,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.0.name.dispose"
@@ -1078,7 +1078,7 @@
         "value": "Model1A"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.0.name.dispose"
@@ -1099,7 +1099,7 @@
         "type": "ObservableDisposed"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.0.dispose"
@@ -1120,7 +1120,7 @@
         "type": "ComponentDisposeCompleted"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.0.cascadeOnDispose"
@@ -1173,7 +1173,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model0.1.dispose"
@@ -1186,7 +1186,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model0.1.isDisposed.dispose"
@@ -1205,7 +1205,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model0.1.isDisposed.dispose"
@@ -1233,7 +1233,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model0.1.name.dispose"
@@ -1244,7 +1244,7 @@
         "value": "Model1B"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model0.1.name.dispose"
@@ -1265,7 +1265,7 @@
         "type": "ObservableDisposed"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model0.1.dispose"
@@ -1364,7 +1364,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.1.cascadeOnDispose"
@@ -1381,7 +1381,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.1.dispose"
@@ -1394,13 +1394,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
@@ -1428,13 +1428,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
@@ -1458,7 +1458,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
@@ -1473,7 +1473,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.1.cascadeOnDispose.condition.dispose"
@@ -1497,13 +1497,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.1.cascadeOnDispose.watcher.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.1.cascadeOnDispose.watcher.dispose"
@@ -1531,7 +1531,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.1.isDisposed.dispose"
@@ -1546,7 +1546,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.1.isDisposed.dispose"
@@ -1574,13 +1574,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.1.leaf.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.1.leaf.dispose"
@@ -1608,7 +1608,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.1.name.dispose"
@@ -1619,7 +1619,7 @@
         "value": "Model1B"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.1.name.dispose"
@@ -1640,7 +1640,7 @@
         "type": "ObservableDisposed"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.1.dispose"
@@ -1661,7 +1661,7 @@
         "type": "ComponentDisposeCompleted"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model1.1.cascadeOnDispose"
@@ -1743,7 +1743,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.1.cascadeOnDispose"
@@ -1760,7 +1760,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.1.dispose"
@@ -1773,13 +1773,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.1.cascadeOnDispose.condition.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.1.cascadeOnDispose.condition.dispose"
@@ -1807,13 +1807,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.1.cascadeOnDispose.condition.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.1.cascadeOnDispose.condition.dispose"
@@ -1837,7 +1837,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.1.cascadeOnDispose.condition.dispose"
@@ -1852,7 +1852,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.1.cascadeOnDispose.condition.dispose"
@@ -1876,13 +1876,13 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.1.cascadeOnDispose.watcher.dispose"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.1.cascadeOnDispose.watcher.dispose"
@@ -1910,7 +1910,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.1.isDisposed.dispose"
@@ -1921,7 +1921,7 @@
         "value": false
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.1.isDisposed.dispose"
@@ -1949,7 +1949,7 @@
         ]
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.1.name.dispose"
@@ -1960,7 +1960,7 @@
         "value": "Model2B"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.1.name.dispose"
@@ -1981,7 +1981,7 @@
         "type": "ObservableDisposed"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.1.dispose"
@@ -2002,7 +2002,7 @@
         "type": "ComponentDisposeCompleted"
     },
     {
-        "mutation": false,
+        "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
         "transaction": "Model2.1.cascadeOnDispose"

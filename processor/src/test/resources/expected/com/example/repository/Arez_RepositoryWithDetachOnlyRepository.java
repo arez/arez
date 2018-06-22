@@ -132,7 +132,7 @@ final class Arez_RepositoryWithDetachOnlyRepository extends RepositoryWithDetach
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        getContext().dispose( Arez.areNamesEnabled() ? getName() : null, () -> { {
+        getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, () -> { {
           super.preDispose();
           this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_entities.dispose();

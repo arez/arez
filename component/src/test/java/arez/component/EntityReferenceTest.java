@@ -172,7 +172,7 @@ public class EntityReferenceTest
     @Override
     public void dispose()
     {
-      Arez.context().dispose( () -> {
+      Arez.context().safeAction( () -> {
         preDispose();
         _component.dispose();
         _observable.dispose();

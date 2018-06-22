@@ -49,7 +49,7 @@ public final class Arez_ObservableDependency extends ObservableDependency implem
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ObservableDependency", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arez$$_value = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
-    this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".cascadeOnDispose" : null, false, () -> $$arezi$$_getCascadeOnDisposeDependencies().map( SafeFunction::call ).peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), Priority.HIGHEST, false );
+    this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".cascadeOnDispose" : null, true, () -> $$arezi$$_getCascadeOnDisposeDependencies().map( SafeFunction::call ).peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), Priority.HIGHEST, false );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -121,7 +121,7 @@ public final class Arez_ObservableDependency extends ObservableDependency implem
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        $$arezi$$_context().dispose( Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> { {
+        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
           this.$$arezi$$_cascadeOnDispose.dispose();
           this.$$arez$$_value.dispose();

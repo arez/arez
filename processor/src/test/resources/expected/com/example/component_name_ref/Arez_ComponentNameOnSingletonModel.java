@@ -100,7 +100,7 @@ public final class Arez_ComponentNameOnSingletonModel extends ComponentNameOnSin
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        $$arezi$$_context().dispose( Arez.areNamesEnabled() ? getTypeName() : null, () -> { {
+        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? getTypeName() + ".dispose" : null, () -> { {
           this.$$arezi$$_disposedObservable.dispose();
         } } );
       }

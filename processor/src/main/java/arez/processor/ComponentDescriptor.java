@@ -2270,10 +2270,12 @@ final class ComponentDescriptor
     nativeComponentBlock.nextControlFlow( "else" );
 
     final CodeBlock.Builder actionBlock = CodeBlock.builder();
-    actionBlock.beginControlFlow( "$N().dispose( $T.areNamesEnabled() ? $N() : null, () -> {",
+
+    actionBlock.beginControlFlow( "$N().safeAction( $T.areNamesEnabled() ? $N() + $S : null, () -> {",
                                   getContextMethodName(),
                                   GeneratorUtil.AREZ_CLASSNAME,
-                                  getComponentNameMethodName() );
+                                  getComponentNameMethodName(),
+                                  ".dispose" );
 
     if ( null != _preDispose )
     {
@@ -2726,7 +2728,7 @@ final class ComponentDescriptor
   private void buildCascadeOnDisposeInitializer( @Nonnull final MethodSpec.Builder builder )
   {
     builder.addStatement(
-      "this.$N = $N().when( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, false, () -> $N().map( $T::call ).peek( $T::observe ).anyMatch( $T::isDisposed ), () -> $T.dispose( this ), $T.HIGHEST, false )",
+      "this.$N = $N().when( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, true, () -> $N().map( $T::call ).peek( $T::observe ).anyMatch( $T::isDisposed ), () -> $T.dispose( this ), $T.HIGHEST, false )",
       GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME,
       getContextMethodName(),
       GeneratorUtil.AREZ_CLASSNAME,

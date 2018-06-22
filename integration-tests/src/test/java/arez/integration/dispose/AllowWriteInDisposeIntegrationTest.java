@@ -1,29 +1,42 @@
 package arez.integration.dispose;
 
+import arez.Arez;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.PreDispose;
 import arez.integration.AbstractArezIntegrationTest;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class NoWriteInDisposeIntegrationTest
+public class AllowWriteInDisposeIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test
   public void scenario()
     throws Throwable
   {
-    final Model1 model1 = Model1.create( ValueUtil.randomString() );
+    final String name = ValueUtil.randomString();
+    final Model1 model1 = Model1.create( name );
     final Model2 model2 = Model2.create( model1 );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> Disposable.dispose( model2 ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0156: Transaction named 'Model2.0.dispose' attempted to change observable named 'Model1.0.name' but transaction mode is DISPOSE." );
+    final AtomicInteger callCount = new AtomicInteger();
+    Arez.context().autorun( () -> {
+      // Perform observation
+      model1.getName();
+      callCount.incrementAndGet();
+    } );
+
+    Arez.context().safeAction( () -> assertEquals( model1.getName(), name ) );
+    assertEquals( callCount.get(), 1 );
+
+    Disposable.dispose( model2 );
+
+    Arez.context().safeAction( () -> assertEquals( model1.getName(), "X" ) );
+    assertEquals( callCount.get(), 2 );
   }
 
   @ArezComponent
@@ -32,7 +45,7 @@ public class NoWriteInDisposeIntegrationTest
     @Nonnull
     static Model1 create( @Nonnull final String name )
     {
-      return new NoWriteInDisposeIntegrationTest_Arez_Model1( name );
+      return new AllowWriteInDisposeIntegrationTest_Arez_Model1( name );
     }
 
     @Observable
@@ -51,7 +64,7 @@ public class NoWriteInDisposeIntegrationTest
     @Nonnull
     static Model2 create( @Nonnull final Model1 other )
     {
-      return new NoWriteInDisposeIntegrationTest_Arez_Model2( other );
+      return new AllowWriteInDisposeIntegrationTest_Arez_Model2( other );
     }
 
     Model2( @Nonnull final Model1 other )

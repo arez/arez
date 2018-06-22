@@ -2592,65 +2592,6 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
   }
 
-  @Test
-  public void dispose()
-  {
-    final ArezContext context = Arez.context();
-
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
-
-    final String name = ValueUtil.randomString();
-    context.dispose( name, () -> {
-      assertTrue( context.isTransactionActive() );
-      assertEquals( context.getTransaction().getName(), name + ".dispose" );
-      assertEquals( context.getTransaction().getMode(), TransactionMode.DISPOSE );
-    } );
-
-    handler.assertEventCount( 4 );
-    handler.assertNextEvent( ActionStartedEvent.class );
-    handler.assertNextEvent( TransactionStartedEvent.class );
-    handler.assertNextEvent( TransactionCompletedEvent.class );
-    handler.assertNextEvent( ActionCompletedEvent.class );
-  }
-
-  @Test
-  public void disposeDeriveName()
-  {
-    final ArezContext context = Arez.context();
-
-    context.dispose( () -> {
-      assertTrue( context.isTransactionActive() );
-      assertEquals( context.getTransaction().getName(), "Dispose@1" );
-      assertEquals( context.getTransaction().getMode(), TransactionMode.DISPOSE );
-    } );
-  }
-
-  @Test
-  public void disposeThrowsException()
-  {
-    final ArezContext context = Arez.context();
-
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
-
-    final IllegalStateException re = new IllegalStateException( "Some Message" );
-
-    final String name = ValueUtil.randomString();
-    assertThrowsWithMessage( () -> context.dispose( name, () -> {
-      assertTrue( context.isTransactionActive() );
-      assertEquals( context.getTransaction().getName(), name + ".dispose" );
-      assertEquals( context.getTransaction().getMode(), TransactionMode.DISPOSE );
-      throw re;
-    } ), "Some Message" );
-
-    handler.assertEventCount( 4 );
-    handler.assertNextEvent( ActionStartedEvent.class );
-    handler.assertNextEvent( TransactionStartedEvent.class );
-    handler.assertNextEvent( TransactionCompletedEvent.class );
-    handler.assertNextEvent( ActionCompletedEvent.class );
-  }
-
   private void assertThrowsWithMessage( @Nonnull final ThrowingRunnable runnable, @Nonnull final String message )
   {
     assertEquals( expectThrows( IllegalStateException.class, runnable ).getMessage(), message );

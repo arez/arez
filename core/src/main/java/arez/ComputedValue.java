@@ -158,8 +158,8 @@ public final class ComputedValue<T>
       {
         // reportDispose only checks invariant and as we don't perform any other activity within it
         // we can elide this transaction if invariants are disabled
-        getContext().dispose( Arez.areNamesEnabled() ? getName() : null,
-                              () -> getContext().getTransaction().reportDispose( this ) );
+        getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
+                                 () -> getContext().getTransaction().reportDispose( this ) );
       }
       _disposed = true;
       _value = null;
