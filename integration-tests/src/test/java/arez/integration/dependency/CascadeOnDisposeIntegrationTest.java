@@ -1,7 +1,5 @@
 package arez.integration.dependency;
 
-import arez.Arez;
-import arez.ArezContext;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Dependency;
@@ -19,8 +17,6 @@ public class CascadeOnDisposeIntegrationTest
   public void scenario()
     throws Throwable
   {
-    final ArezContext context = Arez.context();
-
     final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final Model1 model1a = Model1.create( "Model1A" );
