@@ -88,16 +88,6 @@ final class ReactionScheduler
   }
 
   /**
-   * Return true if we are currently running reactions.
-   *
-   * @return true if we are currently running reactions.
-   */
-  boolean isRunningReactions()
-  {
-    return 0 != _currentReactionRound;
-  }
-
-  /**
    * Add the specified observer to the list of pending observers.
    * The observer must have a reaction and must not already be in
    * the list of pending observers.

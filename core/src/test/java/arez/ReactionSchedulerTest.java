@@ -22,7 +22,7 @@ public class ReactionSchedulerTest
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
 
-    assertEquals( scheduler.isRunningReactions(), false );
+    assertEquals( scheduler.isReactionsRunning(), false );
     assertEquals( scheduler.getCurrentReactionRound(), 0 );
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
     assertEquals( scheduler.getMaxReactionRounds(), ReactionScheduler.DEFAULT_MAX_REACTION_ROUNDS );
