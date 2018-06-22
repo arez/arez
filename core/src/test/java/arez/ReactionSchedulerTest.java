@@ -21,8 +21,10 @@ public class ReactionSchedulerTest
     assertEquals( scheduler.getContext(), context );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
+    assertEquals( scheduler.getPendingDisposes().size(), 0 );
 
     assertEquals( scheduler.isReactionsRunning(), false );
+    assertEquals( scheduler.areDisposesRunning(), false );
     assertEquals( scheduler.getCurrentReactionRound(), 0 );
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
     assertEquals( scheduler.getMaxReactionRounds(), ReactionScheduler.DEFAULT_MAX_REACTION_ROUNDS );
@@ -123,6 +125,81 @@ public class ReactionSchedulerTest
     scheduler.getPendingObservers().add( observer );
 
     scheduler.onRunawayReactionsDetected();
+  }
+
+  @Test
+  public void scheduleDispose()
+    throws Exception
+  {
+    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+
+    final Observer observer = newReadOnlyObserver();
+
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+
+    scheduler.scheduleDispose( observer );
+
+    assertEquals( scheduler.getPendingDisposes().size(), 1 );
+    assertEquals( scheduler.getPendingDisposes().contains( observer ), true );
+  }
+
+  @Test
+  public void scheduleDispose_alreadyScheduled()
+    throws Exception
+  {
+    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+
+    final Observer observer = newReadOnlyObserver();
+
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+
+    scheduler.scheduleDispose( observer );
+
+    scheduler.getPendingDisposes().add( observer );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> scheduler.scheduleDispose( observer ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0156: Attempting to schedule disposable '" + observer.getName() +
+                  "' when disposable is already pending." );
+  }
+
+  @Test
+  public void runDispose()
+    throws Exception
+  {
+    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+
+    final Disposable disposable = newObservable();
+
+    scheduler.scheduleDispose( disposable );
+
+    assertEquals( disposable.isDisposed(), false );
+
+    assertTrue( scheduler.runDispose() );
+
+    assertEquals( disposable.isDisposed(), true );
+
+    assertFalse( scheduler.runDispose() );
+  }
+
+  @Test
+  public void runDisposeInsideTransaction()
+    throws Exception
+  {
+    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+
+    scheduler.scheduleDispose( newObservable() );
+
+    setCurrentTransaction( newReadWriteObserver() );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, scheduler::runDispose );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0156: Invoked runDispose when transaction named '" +
+                  Arez.context().getTransaction().getName() + "' is active." );
   }
 
   @Test
@@ -619,6 +696,13 @@ public class ReactionSchedulerTest
 
     setupReadWriteTransaction();
 
+    final Disposable[] disposables = new Disposable[ 3 ];
+    for ( int i = 0; i < disposables.length; i++ )
+    {
+      disposables[ i ] = newObservable();
+      scheduler.scheduleDispose( disposables[ i ] );
+    }
+
     final Observer[] observers = new Observer[ 10 ];
     final Observable[] observables = new Observable[ observers.length ];
     final TestReaction[] reactions = new TestReaction[ observers.length ];
@@ -665,12 +749,113 @@ public class ReactionSchedulerTest
 
     Transaction.setTransaction( null );
 
+    assertEquals( scheduler.getPendingObservers().size(), observers.length );
+    assertEquals( scheduler.getPendingDisposes().size(), disposables.length );
+
     scheduler.runPendingTasks();
 
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 0 );
     assertEquals( scheduler.isReactionsRunning(), false );
     assertEquals( scheduler.getPendingObservers().size(), 0 );
+    assertEquals( scheduler.getPendingDisposes().size(), 0 );
+
+    for ( final Disposable disposable : disposables )
+    {
+      assertTrue( Disposable.isDisposed( disposable ) );
+    }
+  }
+
+  @Test
+  public void runPendingTasks_onlyReactions()
+    throws Exception
+  {
+    final ReactionScheduler scheduler = Arez.context().getScheduler();
+
+    setupReadWriteTransaction();
+
+    final Observer[] observers = new Observer[ 10 ];
+    final Observable[] observables = new Observable[ observers.length ];
+    final TestReaction[] reactions = new TestReaction[ observers.length ];
+    for ( int i = 0; i < observers.length; i++ )
+    {
+      final int currentIndex = i;
+      if ( i != 0 && 0 == i % 2 )
+      {
+        reactions[ i ] = new TestReaction()
+        {
+          @Override
+          protected void performReact( @Nonnull final Observer observer )
+          {
+            super.performReact( observer );
+            if ( ( currentIndex == 8 && getCallCount() <= 2 ) || getCallCount() <= 1 )
+            {
+              observers[ currentIndex ].setState( ObserverState.STALE );
+            }
+          }
+        };
+      }
+      else
+      {
+        reactions[ i ] = new TestReaction();
+      }
+      observers[ i ] =
+        new Observer( Arez.context(),
+                      null,
+                      ValueUtil.randomString(),
+                      null,
+                      TransactionMode.READ_WRITE,
+                      reactions[ i ],
+                      Priority.NORMAL,
+                      false );
+      observables[ i ] = newObservable();
+
+      observers[ i ].setState( ObserverState.UP_TO_DATE );
+      observables[ i ].addObserver( observers[ i ] );
+      observers[ i ].getDependencies().add( observables[ i ] );
+
+      //observer has reaction so setStale should result in reschedule
+      observers[ i ].setState( ObserverState.STALE );
+    }
+
+    Transaction.setTransaction( null );
+
+    assertEquals( scheduler.getPendingObservers().size(), observers.length );
+
+    scheduler.runPendingTasks();
+
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getCurrentReactionRound(), 0 );
+    assertEquals( scheduler.isReactionsRunning(), false );
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+  }
+
+  @Test
+  public void runPendingTasks_onlyDisposables()
+    throws Exception
+  {
+    final ReactionScheduler scheduler = Arez.context().getScheduler();
+
+    final Disposable[] disposables = new Disposable[ 3 ];
+    for ( int i = 0; i < disposables.length; i++ )
+    {
+      disposables[ i ] = newObservable();
+      scheduler.scheduleDispose( disposables[ i ] );
+    }
+
+    assertEquals( scheduler.getPendingDisposes().size(), disposables.length );
+
+    scheduler.runPendingTasks();
+
+    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getCurrentReactionRound(), 0 );
+    assertEquals( scheduler.isReactionsRunning(), false );
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+
+    for ( final Disposable disposable : disposables )
+    {
+      assertTrue( Disposable.isDisposed( disposable ) );
+    }
   }
 
   @Test

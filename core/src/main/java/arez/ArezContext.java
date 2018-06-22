@@ -1254,6 +1254,18 @@ public final class ArezContext
   }
 
   /**
+   * Add the specified disposable to the list of pending disposables.
+   * The disposable must not already be in the list of pending observers.
+   * The disposable will be processed before the next top-level reaction.
+   *
+   * @param disposable the disposable.
+   */
+  public void scheduleDispose( @Nonnull final Disposable disposable )
+  {
+    _scheduler.scheduleDispose( disposable );
+  }
+
+  /**
    * Execute the supplied action in a read-write transaction.
    * The name is synthesized if {@link Arez#areNamesEnabled()} returns true.
    * The action may throw an exception.

@@ -97,6 +97,27 @@
         "transaction": "Observer@1.dispose"
     },
     {
+        "computedValue": "Model1.0.disposeOnDeactivate",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Observer@1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "component": "Model1.0",
         "type": "ComponentDisposeStarted"
     },
@@ -271,27 +292,6 @@
     {
         "component": "Model1.0",
         "type": "ComponentDisposeCompleted"
-    },
-    {
-        "computedValue": "Model1.0.disposeOnDeactivate",
-        "type": "ComputedValueDeactivated"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Observer@1.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Observer@1.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
     },
     {
         "observer": "Observer@1",

@@ -2592,6 +2592,22 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
   }
 
+  @Test
+  public void scheduleDispose()
+  {
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
+
+    final Observer observer = newReadOnlyObserver();
+
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
+
+    context.scheduleDispose( observer );
+
+    assertEquals( scheduler.getPendingDisposes().size(), 1 );
+    assertEquals( scheduler.getPendingDisposes().contains( observer ), true );
+  }
+
   private void assertThrowsWithMessage( @Nonnull final ThrowingRunnable runnable, @Nonnull final String message )
   {
     assertEquals( expectThrows( IllegalStateException.class, runnable ).getMessage(), message );

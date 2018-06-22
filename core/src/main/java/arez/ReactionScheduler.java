@@ -32,6 +32,15 @@ final class ReactionScheduler
   @Nonnull
   private final CircularBuffer<Observer>[] _pendingObservers;
   /**
+   * Elements that should be disposed prior to next reaction being invoked.
+   * Disposes are often scheduled when they can not happen immediately as the transaction is not READ_WRITE.
+   * i.e. A disposeOnDeactivate component may no longer have any observers when a ComputedValue no longer
+   * references it but can not dispose from within the ComputedValue's transaction as it is in a READ_WRITE_OWNED
+   * transactions.
+   */
+  @Nonnull
+  private final CircularBuffer<Disposable> _pendingDisposes = new CircularBuffer<>( 100 );
+  /**
    * The current reaction round.
    */
   private int _currentReactionRound;
@@ -44,6 +53,10 @@ final class ReactionScheduler
    * to 0 to disable check, otherwise trigger
    */
   private int _maxReactionRounds = DEFAULT_MAX_REACTION_ROUNDS;
+  /**
+   * Flag set when processing disposes.
+   */
+  private boolean _disposesRunning;
 
   @SuppressWarnings( "unchecked" )
   ReactionScheduler( @Nullable final ArezContext context )
@@ -110,6 +123,33 @@ final class ReactionScheduler
   }
 
   /**
+   * Add the specified disposable to the list of pending disposables.
+   * The disposable must not already be in the list of pending observers.
+   *
+   * @param disposable the disposable.
+   */
+  void scheduleDispose( @Nonnull final Disposable disposable )
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> !_pendingDisposes.contains( disposable ),
+                 () -> "Arez-0156: Attempting to schedule disposable '" + disposable +
+                       "' when disposable is already pending." );
+    }
+    _pendingDisposes.add( Objects.requireNonNull( disposable ) );
+  }
+
+  /**
+   * Return true if disposes are currently being disposed, false otherwise.
+   *
+   * @return true if disposes are currently being disposed, false otherwise.
+   */
+  boolean areDisposesRunning()
+  {
+    return _disposesRunning;
+  }
+
+  /**
    * Return true if reactions are currently running, false otherwise.
    *
    * @return true if reactions are currently running, false otherwise.
@@ -128,13 +168,48 @@ final class ReactionScheduler
     // Each reaction creates a top level transaction that attempts to run call
     // this method when it completes. Rather than allow this if it is detected
     // that we are running reactions already then just abort and assume the top
-    // most invocation of runPendingObservers will handle scheduling
-    if ( !isReactionsRunning() )
+    // most invocation of runPendingTasks will handle scheduling
+    if ( !areDisposesRunning() && !isReactionsRunning() )
     {
-      //noinspection StatementWithEmptyBody
-      while ( runObserver() )
+      while ( true )
       {
+        if ( !runDispose() && !runObserver() )
+        {
+          break;
+        }
       }
+    }
+  }
+
+  /**
+   * Dispose next pending disposable if any.
+   *
+   * @return true if a dispose occurred, false otherwise.
+   */
+  boolean runDispose()
+  {
+    /*
+     * All disposes expect to run as top level transactions so
+     * there should be no transaction active.
+     */
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> !getContext().isTransactionActive(),
+                 () -> "Arez-0156: Invoked runDispose when transaction named '" +
+                       getContext().getTransaction().getName() + "' is active." );
+    }
+    if ( 0 == _pendingDisposes.size() )
+    {
+      _disposesRunning = false;
+      return false;
+    }
+    else
+    {
+      _disposesRunning = true;
+      final Disposable disposable = _pendingDisposes.pop();
+      assert null != disposable;
+      Disposable.dispose( disposable );
+      return true;
     }
   }
 
@@ -268,6 +343,12 @@ final class ReactionScheduler
   CircularBuffer<Observer> getPendingObservers( @Nonnull final Priority priority )
   {
     return _pendingObservers[ priority.ordinal() ];
+  }
+
+  @Nonnull
+  CircularBuffer<Disposable> getPendingDisposes()
+  {
+    return _pendingDisposes;
   }
 
   int getCurrentReactionRound()

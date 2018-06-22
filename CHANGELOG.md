@@ -10,6 +10,8 @@
   mode. This does mean that dispose actions can no longer occur within a read-only action or observer,
   nor can they occur within a computed value evaluation but these scenarios do not make a lot of sense
   and should have been considered bugs.
+* **\[core\]** Add the `ArezContext.scheduleDispose(Disposable)` method that will schedule the
+  disposable of an element. The disposable will be processed before the next top-level reaction.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)
