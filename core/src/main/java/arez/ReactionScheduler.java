@@ -132,10 +132,8 @@ final class ReactionScheduler
   /**
    * If the schedule is not already running pending observers then run pending observers until
    * complete or runaway reaction detected.
-   *
-   * @return the number of reactions executed
    */
-  int runPendingObservers()
+  void runPendingObservers()
   {
     // Each reaction creates a top level transaction that attempts to run call
     // this method when it completes. Rather than allow this if it is detected
@@ -143,16 +141,10 @@ final class ReactionScheduler
     // most invocation of runPendingObservers will handle scheduling
     if ( !isReactionsRunning() )
     {
-      int observersScheduled = 0;
+      //noinspection StatementWithEmptyBody
       while ( runObserver() )
       {
-        observersScheduled++;
       }
-      return observersScheduled;
-    }
-    else
-    {
-      return 0;
     }
   }
 

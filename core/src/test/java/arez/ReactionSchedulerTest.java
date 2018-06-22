@@ -665,7 +665,7 @@ public class ReactionSchedulerTest
 
     Transaction.setTransaction( null );
 
-    assertEquals( scheduler.runPendingObservers(), 15 );
+    scheduler.runPendingObservers();
 
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 0 );
@@ -697,11 +697,14 @@ public class ReactionSchedulerTest
     // Trick the schedule into thinking that it is currently running
     scheduler.setCurrentReactionRound( 1 );
 
-    assertEquals( scheduler.runPendingObservers(), 0 );
+    assertEquals( scheduler.getPendingObservers().size(), 1 );
+    scheduler.runPendingObservers();
+    assertEquals( scheduler.getPendingObservers().size(), 1 );
 
     // Make t he scheduler think it is no longer running
     scheduler.setCurrentReactionRound( 0 );
 
-    assertEquals( scheduler.runPendingObservers(), 1 );
+    scheduler.runPendingObservers();
+    assertEquals( scheduler.getPendingObservers().size(), 0 );
   }
 }
