@@ -11,8 +11,6 @@ complete as there is too much un-said.
   The hooks can mutate state. CascadeOnDispose and SetNullOnDispose are reimplemented using these
   mechanisms.
 
-* Consider allowing users to dynamically specify name in components via `@ComponentTypeName`
-
 * References handled specially ...? Is this only importing reference tools from Replicant?
   - `Verifiable`: To verify that:
     * the entity is not disposed.
