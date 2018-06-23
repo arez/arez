@@ -416,9 +416,7 @@ final class ComputedDescriptor
   private void appendInitializerSuffix( @Nonnull final ArrayList<Object> parameters,
                                         @Nonnull final StringBuilder sb )
   {
-    sb.append( ", $T.defaultComparator(), " );
-    parameters.add( GeneratorUtil.EQUALITY_COMPARATOR_CLASSNAME );
-
+    sb.append( ", " );
     if ( isCollectionType() )
     {
       sb.append( "this::$N" );

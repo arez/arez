@@ -59,7 +59,6 @@ final class Watcher
       getContext().createComputedValue( Arez.areNativeComponentsEnabled() ? component : null,
                                         Arez.areNamesEnabled() ? getName() + ".condition" : null,
                                         condition,
-                                        Objects::equals,
                                         null,
                                         this::dispose,
                                         null,

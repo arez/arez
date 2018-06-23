@@ -13,7 +13,6 @@ import arez.spy.ReactionScheduledEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -534,7 +533,6 @@ public class ObservableTest
                            null,
                            ValueUtil.randomString(),
                            () -> "",
-                           Objects::equals,
                            Priority.NORMAL,
                            false ).getObservable();
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
@@ -1183,7 +1181,7 @@ public class ObservableTest
     setupReadOnlyTransaction( context );
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, Priority.NORMAL, true );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, true );
     final Observable<?> observable = computedValue.getObservable();
 
     final IllegalStateException exception =
@@ -1637,7 +1635,6 @@ public class ObservableTest
                            null,
                            ValueUtil.randomString(),
                            () -> expectedValue,
-                           Objects::equals,
                            Priority.NORMAL,
                            false );
     computedValue.setValue( expectedValue );

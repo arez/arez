@@ -28,7 +28,6 @@ final class GeneratorUtil
   static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "arez", "Observable" );
   static final ClassName OBSERVER_CLASSNAME = ClassName.get( "arez", "Observer" );
   static final ClassName COMPUTED_VALUE_CLASSNAME = ClassName.get( "arez", "ComputedValue" );
-  static final ClassName EQUALITY_COMPARATOR_CLASSNAME = ClassName.get( "arez", "EqualityComparator" );
   static final ClassName DISPOSABLE_CLASSNAME = ClassName.get( "arez", "Disposable" );
   static final ClassName COMPONENT_CLASSNAME = ClassName.get( "arez", "Component" );
   static final ClassName SAFE_FUNCTION_CLASSNAME = ClassName.get( "arez", "SafeFunction" );

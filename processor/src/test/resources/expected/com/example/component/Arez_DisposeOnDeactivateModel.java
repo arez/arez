@@ -5,7 +5,6 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.EqualityComparator;
 import arez.Observable;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
@@ -42,7 +41,7 @@ public final class Arez_DisposeOnDeactivateModel extends DisposeOnDeactivateMode
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "DisposeOnDeactivateModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
-    this.$$arezi$$_disposeOnDeactivate = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".disposeOnDeactivate" : null, () -> $$arezi$$_observe(), EqualityComparator.defaultComparator(), null, () -> $$arezi$$_context().scheduleDispose( this ), null, null );
+    this.$$arezi$$_disposeOnDeactivate = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".disposeOnDeactivate" : null, () -> $$arezi$$_observe(), null, () -> $$arezi$$_context().scheduleDispose( this ), null, null );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

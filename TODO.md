@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Remove equality comparator as it is never used ????
-
 * Dispose chain - linked list containing OnDispose hooks - the OnDispose hook chain is evaluated
   after PreDispose. These hooks remove entity from inverse relationships and from containers.
   The hooks can mutate state. CascadeOnDispose and SetNullOnDispose are reimplemented using these

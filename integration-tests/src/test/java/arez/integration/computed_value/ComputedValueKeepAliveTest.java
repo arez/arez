@@ -3,7 +3,6 @@ package arez.integration.computed_value;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ComputedValue;
-import arez.EqualityComparator;
 import arez.Priority;
 import arez.SafeFunction;
 import arez.integration.AbstractArezIntegrationTest;
@@ -32,7 +31,6 @@ public class ComputedValueKeepAliveTest
       context.createComputedValue( null,
                                    "TestComputed",
                                    action,
-                                   EqualityComparator.defaultComparator(),
                                    null,
                                    null,
                                    null,

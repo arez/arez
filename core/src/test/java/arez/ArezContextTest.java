@@ -18,7 +18,6 @@ import arez.spy.TransactionStartedEvent;
 import java.io.IOException;
 import java.security.AccessControlException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -1500,7 +1499,6 @@ public class ArezContextTest
       context.createComputedValue( null,
                                    name,
                                    function,
-                                   Objects::equals,
                                    onActivate,
                                    onDeactivate,
                                    onStale,
@@ -1530,7 +1528,7 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue =
-      context.createComputedValue( component, name, () -> "", Objects::equals, null, null, null, null );
+      context.createComputedValue( component, name, () -> "", null, null, null, null );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getComponent(), component );
@@ -1552,7 +1550,6 @@ public class ArezContextTest
       context.createComputedValue( null,
                                    name,
                                    action,
-                                   Objects::equals,
                                    null,
                                    null,
                                    null,
@@ -1582,7 +1579,6 @@ public class ArezContextTest
       context.createComputedValue( null,
                                    name,
                                    action,
-                                   Objects::equals,
                                    null,
                                    null,
                                    null,
@@ -1608,7 +1604,7 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> "";
-    final ComputedValue<String> computedValue = context.createComputedValue( name, function, Objects::equals );
+    final ComputedValue<String> computedValue = context.createComputedValue( name, function );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
@@ -1653,7 +1649,7 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final ComputedValue<String> computedValue =
-      context.createComputedValue( ValueUtil.randomString(), () -> "", Objects::equals );
+      context.createComputedValue( ValueUtil.randomString(), () -> "" );
 
     handler.assertEventCount( 1 );
 
@@ -1674,7 +1670,6 @@ public class ArezContextTest
                     () -> context.createComputedValue( null,
                                                        ValueUtil.randomString(),
                                                        () -> "",
-                                                       Objects::equals,
                                                        action,
                                                        null,
                                                        null,
@@ -1699,7 +1694,6 @@ public class ArezContextTest
                     () -> context.createComputedValue( null,
                                                        ValueUtil.randomString(),
                                                        () -> "",
-                                                       Objects::equals,
                                                        null,
                                                        action,
                                                        null,

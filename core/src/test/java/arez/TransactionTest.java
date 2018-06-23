@@ -3,7 +3,6 @@ package arez;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import java.util.ArrayList;
-import java.util.Objects;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -929,7 +928,6 @@ public class TransactionTest
                            null,
                            ValueUtil.randomString(),
                            () -> "",
-                           Objects::equals,
                            Priority.NORMAL,
                            true ).getObserver();
 

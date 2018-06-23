@@ -5,7 +5,6 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.EqualityComparator;
 import arez.Observable;
 import arez.Observer;
 import arez.component.ComponentObservable;
@@ -52,7 +51,7 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "CompleteModel", getId(), Arez.areNamesEnabled() ? getComponentName() : null ) : null;
     this.$$arezi$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arez$$_myValue = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_myValue : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myValue = v : null );
-    this.$$arez$$_time = getContext().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".time" : null, () -> super.getTime(), EqualityComparator.defaultComparator(), this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, this::onTimeDispose );
+    this.$$arez$$_time = getContext().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".time" : null, () -> super.getTime(), this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, this::onTimeDispose );
     this.$$arez$$_myAutorun = getContext().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".myAutorun" : null, false, () -> super.myAutorun() );
     this.$$arez$$_render = getContext().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".render" : null, false, () -> super.onRenderDepsChanged() );
     if ( Arez.shouldCheckInvariants() ) {

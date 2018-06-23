@@ -2,7 +2,6 @@ package arez;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -146,7 +145,6 @@ public abstract class AbstractArezTest
                                 null,
                                 ValueUtil.randomString(),
                                 () -> "",
-                                Objects::equals,
                                 Priority.NORMAL,
                                 false );
   }

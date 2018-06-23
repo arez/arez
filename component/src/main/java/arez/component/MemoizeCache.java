@@ -5,7 +5,6 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.EqualityComparator;
 import arez.Procedure;
 import arez.SafeFunction;
 import java.util.HashMap;
@@ -214,7 +213,6 @@ public final class MemoizeCache<T>
     return _context.createComputedValue( component,
                                          name,
                                          function,
-                                         EqualityComparator.defaultComparator(),
                                          null,
                                          onDeactivate,
                                          null,

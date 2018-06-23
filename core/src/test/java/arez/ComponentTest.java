@@ -7,7 +7,6 @@ import arez.spy.ComponentDisposeCompletedEvent;
 import arez.spy.ComponentDisposeStartedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -437,7 +436,6 @@ public class ComponentTest
     final ComputedValue computedValue1 = context.createComputedValue( component,
                                                                       ValueUtil.randomString(),
                                                                       () -> "",
-                                                                      Objects::equals,
                                                                       null,
                                                                       null,
                                                                       null,
@@ -445,7 +443,6 @@ public class ComponentTest
     final ComputedValue computedValue2 = context.createComputedValue( component,
                                                                       ValueUtil.randomString(),
                                                                       () -> "",
-                                                                      Objects::equals,
                                                                       null,
                                                                       null,
                                                                       null,

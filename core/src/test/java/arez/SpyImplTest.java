@@ -8,7 +8,6 @@ import arez.spy.ObserverInfo;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -618,7 +617,6 @@ public class SpyImplTest
       context.createComputedValue( component,
                                    ValueUtil.randomString(),
                                    () -> "",
-                                   Objects::equals,
                                    null,
                                    null,
                                    null,

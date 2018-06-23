@@ -9,7 +9,6 @@ import arez.Observable;
 import arez.Observer;
 import arez.integration.util.SpyEventRecorder;
 import arez.spy.ComponentInfo;
-import java.util.Objects;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -37,7 +36,7 @@ public class NativeComponentsIntegrationTest
     final Observable<String> observable2 = context.createObservable( component, "Attr2", null, null );
 
     final ComputedValue<String> computedValue1 =
-      context.createComputedValue( component, "Attr3", () -> "", Objects::equals, null, null, null, null );
+      context.createComputedValue( component, "Attr3", () -> "", null, null, null, null );
 
     final Observer observer1 = context.tracker( component, "Render", true, () -> {
     } );

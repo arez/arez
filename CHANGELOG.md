@@ -12,6 +12,9 @@
   and should have been considered bugs.
 * **\[core\]** Add the `ArezContext.scheduleDispose(Disposable)` method that will schedule the
   disposable of an element. The disposable will be processed before the next top-level reaction.
+* **\[core\]** Remove the `arez.EqualityComparator` interface as no non-default value was used in
+  any application and the annotation processor offered no mechanism to configure functionality. As
+  a result it can be removed to reduce complexity and code size.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

@@ -13,7 +13,6 @@ import arez.spy.ReactionStartedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -1321,7 +1320,6 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            () -> 1,
-                           Objects::equals,
                            Priority.NORMAL,
                            false );
 
@@ -1477,7 +1475,7 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, Priority.NORMAL, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false );
 
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
@@ -1485,7 +1483,7 @@ public class ObserverTest
     observer.setState( ObserverState.POSSIBLY_STALE );
 
     final ComputedValue<String> computedValue2 =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Objects::equals, Priority.NORMAL, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false );
 
     observer.getDependencies().add( computedValue2.getObservable() );
     computedValue2.getObservable().addObserver( observer );
@@ -1511,7 +1509,6 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            ValueUtil::randomString,
-                           Objects::equals,
                            Priority.NORMAL,
                            false );
     final Observer observer = computedValue.getObserver();
@@ -1523,7 +1520,7 @@ public class ObserverTest
       throw new IllegalStateException();
     };
     final ComputedValue<String> computedValue2 =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), function, Objects::equals, Priority.NORMAL, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), function, Priority.NORMAL, false );
 
     observer.getDependencies().add( computedValue2.getObservable() );
     computedValue2.getObservable().addObserver( observer );
@@ -1548,7 +1545,6 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            ValueUtil::randomString,
-                           Objects::equals,
                            Priority.NORMAL,
                            false );
     final Observer observer = computedValue.getObserver();
@@ -1564,7 +1560,6 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            function,
-                           Objects::equals,
                            Priority.NORMAL,
                            false );
 
@@ -1588,7 +1583,6 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            () -> "",
-                           Objects::equals,
                            Priority.NORMAL,
                            false );
 
@@ -1602,7 +1596,6 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            () -> "",
-                           Objects::equals,
                            Priority.NORMAL,
                            false );
 
@@ -1626,7 +1619,6 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            () -> "",
-                           Objects::equals,
                            Priority.NORMAL,
                            false );
 

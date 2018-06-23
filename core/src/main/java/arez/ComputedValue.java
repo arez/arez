@@ -34,10 +34,6 @@ public final class ComputedValue<T>
    */
   private final SafeFunction<T> _function;
   /**
-   * The comparator that determines if two values are equal and thus whether the new value is a change or not.
-   */
-  private final EqualityComparator<T> _equalityComparator;
-  /**
    * Flag indicating whether the ComputedValue should be "kept alive". This essentially means it is activated on
    * creation and never deactivates.
    */
@@ -68,7 +64,6 @@ public final class ComputedValue<T>
                  @Nullable final Component component,
                  @Nullable final String name,
                  @Nonnull final SafeFunction<T> function,
-                 @Nonnull final EqualityComparator<T> equalityComparator,
                  @Nonnull final Priority priority,
                  final boolean keepAlive )
   {
@@ -81,7 +76,6 @@ public final class ComputedValue<T>
     }
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _function = Objects.requireNonNull( function );
-    _equalityComparator = Objects.requireNonNull( equalityComparator );
     _value = null;
     _computing = false;
     _keepAlive = keepAlive;
@@ -235,7 +229,7 @@ public final class ComputedValue<T>
     try
     {
       final T newValue = computeValue();
-      if ( !_equalityComparator.equals( oldValue, newValue ) )
+      if ( !Objects.equals( oldValue, newValue ) )
       {
         _value = newValue;
         _error = null;

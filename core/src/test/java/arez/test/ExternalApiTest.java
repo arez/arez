@@ -13,7 +13,6 @@ import arez.ObserverErrorHandler;
 import arez.Procedure;
 import arez.SpyEventHandler;
 import arez.Zone;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -109,7 +108,7 @@ public class ExternalApiTest
     final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
-    final ComputedValue<String> computedValue = context.createComputedValue( name, () -> "", Objects::equals );
+    final ComputedValue<String> computedValue = context.createComputedValue( name, () -> "" );
 
     context.action( ValueUtil.randomString(), true, () -> {
       assertEquals( computedValue.getName(), name );
