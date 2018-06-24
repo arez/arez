@@ -161,7 +161,7 @@ public class ReactionSchedulerTest
       expectThrows( IllegalStateException.class, () -> scheduler.scheduleDispose( observer ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0156: Attempting to schedule disposable '" + observer.getName() +
+                  "Arez-0165: Attempting to schedule disposable '" + observer.getName() +
                   "' when disposable is already pending." );
   }
 

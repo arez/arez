@@ -133,7 +133,7 @@ final class ReactionScheduler
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> !_pendingDisposes.contains( disposable ),
-                 () -> "Arez-0156: Attempting to schedule disposable '" + disposable +
+                 () -> "Arez-0165: Attempting to schedule disposable '" + disposable +
                        "' when disposable is already pending." );
     }
     _pendingDisposes.add( Objects.requireNonNull( disposable ) );
