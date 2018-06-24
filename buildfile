@@ -3,6 +3,7 @@ require 'buildr/gpg'
 require 'buildr/single_intermediate_layout'
 require 'buildr/gwt'
 require 'buildr/jacoco'
+require 'buildr/top_level_generate_dir'
 
 TEST_DEPS = [:guiceyloops]
 GWT_DEPS =
