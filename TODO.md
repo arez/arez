@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Re-implement CascadeOnDispose and SetNullOnDispose using `DisposeTrackable`. This may result in
-  further restrictions on the `@Dependency` annotation.
 
 * `disposeTrackable` should be a `Feature` that defaults to using it when needed.
 

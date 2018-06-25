@@ -20,10 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.SourceVersion;
@@ -1830,15 +1828,6 @@ final class ComponentDescriptor
       builder.addMethod( method );
     }
 
-    if ( !getCascadeOnDisposeDependencies().isEmpty() )
-    {
-      builder.addMethod( buildCascadeOnDisposeDepsMethod() );
-    }
-    if ( !getSetNullOnDisposeDependencies().isEmpty() )
-    {
-      builder.addMethod( buildSetNullOnDisposeDepsMethod() );
-    }
-
     if ( _observable )
     {
       builder.addMethod( buildInternalObserve() );
@@ -1866,55 +1855,6 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildToStringMethod() );
     }
-
-    return builder.build();
-  }
-
-  @Nonnull
-  private MethodSpec buildSetNullOnDisposeDepsMethod()
-    throws ArezProcessorException
-  {
-    final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( GeneratorUtil.SET_NULL_ON_DISPOSE_METHOD_NAME );
-    builder.addModifiers( Modifier.PRIVATE, Modifier.FINAL );
-
-    final AtomicInteger count = new AtomicInteger( 1 );
-    getSetNullOnDisposeDependencies().forEach( d -> {
-      final String varName = "dependency" + count.get();
-      count.incrementAndGet();
-      builder.addStatement( "final $T $N = $N()",
-                            d.getMethod().getReturnType(),
-                            varName,
-                            d.getMethod().getSimpleName().toString() );
-      final CodeBlock.Builder codeBlock = CodeBlock.builder();
-      codeBlock.beginControlFlow( "if ( !$T.observe( $N ) ) ", GeneratorUtil.COMPONENT_OBSERVABLE_CLASSNAME, varName );
-      codeBlock.addStatement( "$N( null )", d.getObservable().getSetter().getSimpleName().toString() );
-      codeBlock.endControlFlow( "" );
-      builder.addCode( codeBlock.build() );
-    } );
-    return builder.build();
-  }
-
-  @Nonnull
-  private MethodSpec buildCascadeOnDisposeDepsMethod()
-    throws ArezProcessorException
-  {
-    final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( GeneratorUtil.GET_CASCADE_ON_DISPOSE_DEPS_METHOD_NAME );
-    builder.addModifiers( Modifier.PRIVATE, Modifier.FINAL );
-    builder.returns( ParameterizedTypeName.get( ClassName.get( Stream.class ),
-                                                ParameterizedTypeName.get( GeneratorUtil.SAFE_FUNCTION_CLASSNAME,
-                                                                           ClassName.OBJECT ) ) );
-
-    final ArrayList<Object> params = new ArrayList<>();
-    params.add( Stream.class );
-    getCascadeOnDisposeDependencies().forEach( d -> params.add( d.getMethod().getSimpleName().toString() ) );
-    builder.addStatement( "return $T.of(" +
-                          getCascadeOnDisposeDependencies().stream()
-                            .map( d -> "() -> $N()" )
-                            .collect( Collectors.joining( ", " ) ) +
-                          ")",
-                          params.toArray() );
 
     return builder.build();
   }
@@ -2327,15 +2267,6 @@ final class ComponentDescriptor
     {
       actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     }
-    if ( !getCascadeOnDisposeDependencies().isEmpty() )
-    {
-      actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME );
-    }
-    if ( !getSetNullOnDisposeDependencies().isEmpty() )
-    {
-      actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.SET_NULL_ON_DISPOSE_FIELD_NAME );
-    }
-
     _roAutoruns.forEach( autorun -> autorun.buildDisposer( actionBlock ) );
     _roTrackeds.forEach( tracked -> tracked.buildDisposer( actionBlock ) );
     _roComputeds.forEach( computed -> computed.buildDisposer( actionBlock ) );
@@ -2426,7 +2357,7 @@ final class ComponentDescriptor
   @Nonnull
   private String getPreDisposeMethodName()
   {
-    return _disposeTrackable ?
+    return _disposeTrackable || !_dependencies.isEmpty() ?
            GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME :
            Objects.requireNonNull( _preDispose ).getSimpleName().toString();
   }
@@ -2447,6 +2378,43 @@ final class ComponentDescriptor
       builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
     }
     builder.addStatement( "$N.dispose()", GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME );
+    for ( final DependencyDescriptor dependency : _roDependencies )
+    {
+      final ExecutableElement method = dependency.getMethod();
+      final String methodName = method.getSimpleName().toString();
+      final boolean isNonnull =
+        null != ProcessorUtil.findAnnotationByType( method, Constants.NONNULL_ANNOTATION_CLASSNAME );
+      if ( isNonnull )
+      {
+        builder.addStatement( "$T.asDisposeTrackable( $N() ).getNotifier().removeOnDisposeListener( this )",
+                              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                              methodName );
+      }
+      else
+      {
+        final String varName = GeneratorUtil.VARIABLE_PREFIX + methodName + "_dependency";
+        final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
+        if ( abstractObservables )
+        {
+          builder.addStatement( "final $T $N = this.$N",
+                                method.getReturnType(),
+                                varName,
+                                dependency.getObservable().getDataFieldName() );
+        }
+        else
+        {
+          builder.addStatement( "final $T $N = super.$N()", method.getReturnType(), varName, methodName );
+        }
+        final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+        listenerBlock.beginControlFlow( "if ( null != $N )", varName );
+        listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
+                                    GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                    varName );
+        listenerBlock.endControlFlow();
+        builder.addCode( listenerBlock.build() );
+      }
+    }
+
     return builder.build();
   }
 
@@ -2548,26 +2516,6 @@ final class ComponentDescriptor
     _roMemoizes.forEach( e -> e.buildFields( builder ) );
     _roAutoruns.forEach( autorun -> autorun.buildFields( builder ) );
     _roTrackeds.forEach( tracked -> tracked.buildFields( builder ) );
-    if ( !getCascadeOnDisposeDependencies().isEmpty() )
-    {
-      final FieldSpec.Builder field =
-        FieldSpec.builder( GeneratorUtil.OBSERVER_CLASSNAME,
-                           GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME,
-                           Modifier.FINAL,
-                           Modifier.PRIVATE ).
-          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
-      builder.addField( field.build() );
-    }
-    if ( !getSetNullOnDisposeDependencies().isEmpty() )
-    {
-      final FieldSpec.Builder field =
-        FieldSpec.builder( GeneratorUtil.OBSERVER_CLASSNAME,
-                           GeneratorUtil.SET_NULL_ON_DISPOSE_FIELD_NAME,
-                           Modifier.FINAL,
-                           Modifier.PRIVATE ).
-          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
-      builder.addField( field.build() );
-    }
     if ( _disposeOnDeactivate )
     {
       final FieldSpec.Builder field =
@@ -2578,16 +2526,6 @@ final class ComponentDescriptor
           addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
       builder.addField( field.build() );
     }
-  }
-
-  private List<DependencyDescriptor> getCascadeOnDisposeDependencies()
-  {
-    return _roDependencies.stream().filter( DependencyDescriptor::shouldCascadeDispose ).collect( Collectors.toList() );
-  }
-
-  private List<DependencyDescriptor> getSetNullOnDisposeDependencies()
-  {
-    return _roDependencies.stream().filter( d -> !d.shouldCascadeDispose() ).collect( Collectors.toList() );
   }
 
   /**
@@ -2797,13 +2735,45 @@ final class ComponentDescriptor
     _roAutoruns.forEach( autorun -> autorun.buildInitializer( builder ) );
     _roTrackeds.forEach( tracked -> tracked.buildInitializer( builder ) );
 
-    if ( !getCascadeOnDisposeDependencies().isEmpty() )
+    for ( final DependencyDescriptor dep : _roDependencies )
     {
-      buildCascadeOnDisposeInitializer( builder );
-    }
-    if ( !getSetNullOnDisposeDependencies().isEmpty() )
-    {
-      buildSetNullOnDisposeInitializer( builder );
+      final boolean abstractObservables = dep.getMethod().getModifiers().contains( Modifier.ABSTRACT );
+      if ( abstractObservables )
+      {
+        if ( dep.shouldCascadeDispose() )
+        {
+          builder.addStatement(
+            "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
+            GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+            dep.getObservable().getDataFieldName() );
+        }
+        else
+        {
+          builder.addStatement(
+            "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
+            GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+            dep.getObservable().getDataFieldName(),
+            dep.getObservable().getSetter().getSimpleName().toString() );
+        }
+      }
+      else
+      {
+        if ( dep.shouldCascadeDispose() )
+        {
+          builder.addStatement(
+            "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, this::dispose )",
+            GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+            dep.getMethod().getSimpleName() );
+        }
+        else
+        {
+          builder.addStatement(
+            "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
+            GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+            dep.getMethod().getSimpleName(),
+            dep.getObservable().getSetter().getSimpleName().toString() );
+        }
+      }
     }
 
     GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_CONSTRUCTED" );
@@ -2830,40 +2800,6 @@ final class ComponentDescriptor
 
     GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_READY" );
     return builder.build();
-  }
-
-  private void buildCascadeOnDisposeInitializer( @Nonnull final MethodSpec.Builder builder )
-  {
-    builder.addStatement(
-      "this.$N = $N().when( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, true, () -> $N().map( $T::call ).peek( $T::observe ).anyMatch( $T::isDisposed ), () -> $T.dispose( this ), $T.HIGHEST, false )",
-      GeneratorUtil.CASCADE_ON_DISPOSE_FIELD_NAME,
-      getContextMethodName(),
-      GeneratorUtil.AREZ_CLASSNAME,
-      GeneratorUtil.COMPONENT_FIELD_NAME,
-      GeneratorUtil.AREZ_CLASSNAME,
-      getComponentNameMethodName(),
-      ".cascadeOnDispose",
-      GeneratorUtil.GET_CASCADE_ON_DISPOSE_DEPS_METHOD_NAME,
-      GeneratorUtil.SAFE_FUNCTION_CLASSNAME,
-      GeneratorUtil.COMPONENT_OBSERVABLE_CLASSNAME,
-      GeneratorUtil.DISPOSABLE_CLASSNAME,
-      GeneratorUtil.DISPOSABLE_CLASSNAME,
-      GeneratorUtil.PRIORITY_CLASSNAME );
-  }
-
-  private void buildSetNullOnDisposeInitializer( @Nonnull final MethodSpec.Builder builder )
-  {
-    builder.addStatement(
-      "this.$N = $N().autorun( $T.areNativeComponentsEnabled() ? this.$N : null, $T.areNamesEnabled() ? $N() + $S : null, true, () -> $N(), $T.HIGHEST, false )",
-      GeneratorUtil.SET_NULL_ON_DISPOSE_FIELD_NAME,
-      getContextMethodName(),
-      GeneratorUtil.AREZ_CLASSNAME,
-      GeneratorUtil.COMPONENT_FIELD_NAME,
-      GeneratorUtil.AREZ_CLASSNAME,
-      getComponentNameMethodName(),
-      ".setNullOnDispose",
-      GeneratorUtil.SET_NULL_ON_DISPOSE_METHOD_NAME,
-      GeneratorUtil.PRIORITY_CLASSNAME );
   }
 
   boolean shouldGenerateComponentDaggerModule()

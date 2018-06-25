@@ -5,15 +5,11 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
-import arez.Observer;
-import arez.Priority;
-import arez.SafeFunction;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
-import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,9 +32,6 @@ public final class Arez_TransitivelyDisposeTrackableDependencyModel extends Tran
 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
-  @Nonnull
-  private final Observer $$arezi$$_cascadeOnDispose;
-
   public Arez_TransitivelyDisposeTrackableDependencyModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
@@ -49,7 +42,7 @@ public final class Arez_TransitivelyDisposeTrackableDependencyModel extends Tran
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "TransitivelyDisposeTrackableDependencyModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".cascadeOnDispose" : null, true, () -> $$arezi$$_getCascadeOnDisposeDependencies().map( SafeFunction::call ).peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), Priority.HIGHEST, false );
+    DisposeTrackable.asDisposeTrackable( super.getTime() ).getNotifier().addOnDisposeListener( this, this::dispose );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -92,10 +85,6 @@ public final class Arez_TransitivelyDisposeTrackableDependencyModel extends Tran
     return "TransitivelyDisposeTrackableDependencyModel." + $$arezi$$_id();
   }
 
-  private final Stream<SafeFunction<Object>> $$arezi$$_getCascadeOnDisposeDependencies() {
-    return Stream.of(() -> getTime());
-  }
-
   private boolean $$arezi$$_observe() {
     final boolean isNotDisposed = isNotDisposed();
     if ( isNotDisposed )  {
@@ -111,6 +100,10 @@ public final class Arez_TransitivelyDisposeTrackableDependencyModel extends Tran
 
   private void $$arezi$$_preDispose() {
     $$arezi$$_disposeNotifier.dispose();
+    final MyDependentValue $$arezv$$_getTime_dependency = super.getTime();
+    if ( null != $$arezv$$_getTime_dependency ) {
+      DisposeTrackable.asDisposeTrackable( $$arezv$$_getTime_dependency ).getNotifier().removeOnDisposeListener( this );
+    }
   }
 
   @Override
@@ -134,7 +127,6 @@ public final class Arez_TransitivelyDisposeTrackableDependencyModel extends Tran
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
           this.$$arezi$$_disposedObservable.dispose();
-          this.$$arezi$$_cascadeOnDispose.dispose();
         } } );
       }
       if ( Arez.shouldCheckInvariants() ) {

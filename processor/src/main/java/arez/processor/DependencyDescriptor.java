@@ -37,6 +37,7 @@ final class DependencyDescriptor
   void setObservable( @Nonnull final ObservableDescriptor observable )
   {
     _observable = Objects.requireNonNull( observable );
+    _observable.setDependencyDescriptor( this );
   }
 
   @Nonnull

@@ -5,16 +5,12 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
-import arez.Observer;
-import arez.Priority;
-import arez.SafeFunction;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import java.util.Objects;
-import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,12 +36,6 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   @Nonnull
   private final Observable<DisposeTrackable> $$arez$$_value3;
 
-  @Nonnull
-  private final Observer $$arezi$$_cascadeOnDispose;
-
-  @Nonnull
-  private final Observer $$arezi$$_setNullOnDispose;
-
   public Arez_ComplexDependencyWithCustomNameMethodModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
@@ -57,8 +47,8 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_value3 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".value3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue3() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue3( v ) : null );
-    this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".cascadeOnDispose" : null, true, () -> $$arezi$$_getCascadeOnDisposeDependencies().map( SafeFunction::call ).peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), Priority.HIGHEST, false );
-    this.$$arezi$$_setNullOnDispose = $$arezi$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".setNullOnDispose" : null, true, () -> $$arezi$$_setNullOnDispose(), Priority.HIGHEST, false );
+    DisposeTrackable.asDisposeTrackable( super.getValue1() ).getNotifier().addOnDisposeListener( this, this::dispose );
+    DisposeTrackable.asDisposeTrackable( super.getValue3() ).getNotifier().addOnDisposeListener( this, () -> setValue3( null ) );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -102,17 +92,6 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
     return "ComplexDependencyWithCustomNameMethodModel." + $$arezi$$_id();
   }
 
-  private final Stream<SafeFunction<Object>> $$arezi$$_getCascadeOnDisposeDependencies() {
-    return Stream.of(() -> getValue1());
-  }
-
-  private final void $$arezi$$_setNullOnDispose() {
-    final DisposeTrackable dependency1 = getValue3();
-    if ( !ComponentObservable.observe( dependency1 ) )  {
-      setValue3( null );
-    } ;
-  }
-
   private boolean $$arezi$$_observe() {
     final boolean isNotDisposed = isNotDisposed();
     if ( isNotDisposed )  {
@@ -128,6 +107,14 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
 
   private void $$arezi$$_preDispose() {
     $$arezi$$_disposeNotifier.dispose();
+    final DisposeTrackable $$arezv$$_getValue1_dependency = super.getValue1();
+    if ( null != $$arezv$$_getValue1_dependency ) {
+      DisposeTrackable.asDisposeTrackable( $$arezv$$_getValue1_dependency ).getNotifier().removeOnDisposeListener( this );
+    }
+    final DisposeTrackable $$arezv$$_getValue3_dependency = super.getValue3();
+    if ( null != $$arezv$$_getValue3_dependency ) {
+      DisposeTrackable.asDisposeTrackable( $$arezv$$_getValue3_dependency ).getNotifier().removeOnDisposeListener( this );
+    }
   }
 
   @Override
@@ -151,8 +138,6 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? getComponentName() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
           this.$$arezi$$_disposedObservable.dispose();
-          this.$$arezi$$_cascadeOnDispose.dispose();
-          this.$$arezi$$_setNullOnDispose.dispose();
           this.$$arez$$_value3.dispose();
         } } );
       }
@@ -179,7 +164,13 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
     final DisposeTrackable $$arezv$$_currentValue = super.getValue3();
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       this.$$arez$$_value3.preReportChanged();
+      if ( null != $$arezv$$_currentValue ) {
+        DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).getNotifier().removeOnDisposeListener( this );
+      }
       super.setValue3( value );
+      if ( null != value ) {
+        DisposeTrackable.asDisposeTrackable( value ).getNotifier().addOnDisposeListener( this, () -> setValue3( null ) );
+      }
       this.$$arez$$_value3.reportChanged();
     }
   }

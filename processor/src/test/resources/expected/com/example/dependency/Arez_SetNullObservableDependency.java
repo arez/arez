@@ -5,8 +5,6 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
-import arez.Observer;
-import arez.Priority;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -40,9 +38,6 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
 
   private DisposeTrackable $$arezd$$_value;
 
-  @Nonnull
-  private final Observer $$arezi$$_setNullOnDispose;
-
   public Arez_SetNullObservableDependency() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
@@ -54,7 +49,7 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_value = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_value : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_value = v : null );
-    this.$$arezi$$_setNullOnDispose = $$arezi$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".setNullOnDispose" : null, true, () -> $$arezi$$_setNullOnDispose(), Priority.HIGHEST, false );
+    DisposeTrackable.asDisposeTrackable( $$arezd$$_value ).getNotifier().addOnDisposeListener( this, () -> setValue( null ) );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -97,13 +92,6 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
     return "SetNullObservableDependency." + $$arezi$$_id();
   }
 
-  private final void $$arezi$$_setNullOnDispose() {
-    final DisposeTrackable dependency1 = getValue();
-    if ( !ComponentObservable.observe( dependency1 ) )  {
-      setValue( null );
-    } ;
-  }
-
   private boolean $$arezi$$_observe() {
     final boolean isNotDisposed = isNotDisposed();
     if ( isNotDisposed )  {
@@ -119,6 +107,10 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
 
   private void $$arezi$$_preDispose() {
     $$arezi$$_disposeNotifier.dispose();
+    final DisposeTrackable $$arezv$$_getValue_dependency = this.$$arezd$$_value;
+    if ( null != $$arezv$$_getValue_dependency ) {
+      DisposeTrackable.asDisposeTrackable( $$arezv$$_getValue_dependency ).getNotifier().removeOnDisposeListener( this );
+    }
   }
 
   @Override
@@ -142,7 +134,6 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
           this.$$arezi$$_disposedObservable.dispose();
-          this.$$arezi$$_setNullOnDispose.dispose();
           this.$$arez$$_value.dispose();
         } } );
       }
@@ -169,7 +160,13 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
     final DisposeTrackable $$arezv$$_currentValue = this.$$arezd$$_value;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       this.$$arez$$_value.preReportChanged();
+      if ( null != $$arezv$$_currentValue ) {
+        DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).getNotifier().removeOnDisposeListener( this );
+      }
       this.$$arezd$$_value = value;
+      if ( null != value ) {
+        DisposeTrackable.asDisposeTrackable( value ).getNotifier().addOnDisposeListener( this, () -> setValue( null ) );
+      }
       this.$$arez$$_value.reportChanged();
     }
   }

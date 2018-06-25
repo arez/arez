@@ -30,7 +30,6 @@ final class GeneratorUtil
   static final ClassName COMPUTED_VALUE_CLASSNAME = ClassName.get( "arez", "ComputedValue" );
   static final ClassName DISPOSABLE_CLASSNAME = ClassName.get( "arez", "Disposable" );
   static final ClassName COMPONENT_CLASSNAME = ClassName.get( "arez", "Component" );
-  static final ClassName SAFE_FUNCTION_CLASSNAME = ClassName.get( "arez", "SafeFunction" );
   static final ClassName INJECTIBLE_CLASSNAME = ClassName.get( "arez.annotations", "Feature" );
   static final ClassName ACTION_CLASSNAME = ClassName.get( "arez.annotations", "Action" );
   static final ClassName ABSTRACT_REPOSITORY_CLASSNAME = ClassName.get( "arez.component", "AbstractRepository" );
@@ -73,10 +72,6 @@ final class GeneratorUtil
   static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
   static final String CONTEXT_FIELD_NAME = FRAMEWORK_PREFIX + "context";
   static final String COMPONENT_FIELD_NAME = FRAMEWORK_PREFIX + "component";
-  static final String CASCADE_ON_DISPOSE_FIELD_NAME = FRAMEWORK_PREFIX + "cascadeOnDispose";
-  static final String GET_CASCADE_ON_DISPOSE_DEPS_METHOD_NAME = FRAMEWORK_PREFIX + "getCascadeOnDisposeDependencies";
-  static final String SET_NULL_ON_DISPOSE_FIELD_NAME = FRAMEWORK_PREFIX + "setNullOnDispose";
-  static final String SET_NULL_ON_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "setNullOnDispose";
   static final String INTERNAL_OBSERVE_METHOD_NAME = FRAMEWORK_PREFIX + "observe";
   static final String INTERNAL_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "preDispose";
   static final TypeName DEFAULT_ID_TYPE = TypeName.INT;

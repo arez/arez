@@ -114,6 +114,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.dependency.ComplexDependencyModel", false, false, false },
         new Object[]{ "com.example.dependency.ComplexDependencyWithCustomNameMethodModel", false, false, false },
         new Object[]{ "com.example.dependency.ComponentDependencyModel", false, false, false },
+        new Object[]{ "com.example.dependency.NonnullAbstractObservableDependency", false, false, false },
+        new Object[]{ "com.example.dependency.NonnullObservableDependency", false, false, false },
         new Object[]{ "com.example.dependency.ObservableDependency", false, false, false },
         new Object[]{ "com.example.dependency.ObservablePairAnnotatedDependency", false, false, false },
         new Object[]{ "com.example.dependency.ScheduleDeferredDependencyModel", false, false, false },
