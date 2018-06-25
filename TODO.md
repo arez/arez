@@ -11,6 +11,9 @@ complete as there is too much un-said.
   The hooks can mutate state. CascadeOnDispose and SetNullOnDispose are reimplemented using these
   mechanisms.
 
+* `ComponentObservable` should be optional ... and maybe off by default. If no use case is found
+  it could ultimately be removed.
+
 * References handled specially ...? Is this only importing reference tools from Replicant?
   - `Verifiable`: To verify that:
     * the entity is not disposed.
