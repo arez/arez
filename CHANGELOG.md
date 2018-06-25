@@ -18,6 +18,9 @@
 * **\[component\]** Introduce `arez.component.DisposeTrackable` interface that can be implemented by
   components that need to notify listeners when the component has been disposed. The `arez.component.DisposeNotifier`
   class is used to perform the actual notification.
+* **\[annotations\]** Add a `disposeTrackable` parameter to the `@ArezComponent` that defaults to `true`.
+  If the parameter is true, the enhanced/generated component class will implement the `DisposeTrackable`
+  interface.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

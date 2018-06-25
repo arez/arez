@@ -8,6 +8,8 @@ import arez.Disposable;
 import arez.Observable;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
+import arez.component.DisposeNotifier;
+import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import java.util.Objects;
 import javax.annotation.Generated;
@@ -17,7 +19,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryExample implements Disposable, Identifiable<Integer>, ComponentObservable {
+final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryExample implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeTrackable {
   private byte $$arezi$$_state;
 
   @Nullable
@@ -26,6 +28,8 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
   private final Component $$arezi$$_component;
 
   private final Observable<Boolean> $$arezi$$_disposedObservable;
+
+  private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
   private final Observable<String> $$arez$$_name;
@@ -46,8 +50,9 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "PackageAccessRepositoryExample", getId(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "PackageAccessRepositoryExample", getId(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
+    this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_name = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setName( v ) : null );
     this.$$arez$$_packageName = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".packageName" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getPackageName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setPackageName( v ) : null );
     this.$$arez$$_rawQualifiedName = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".rawQualifiedName" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getRawQualifiedName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setQualifiedName( v ) : null );
@@ -96,6 +101,16 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
     return $$arezi$$_observe();
   }
 
+  private void $$arezi$$_preDispose() {
+    $$arezi$$_disposeNotifier.dispose();
+  }
+
+  @Override
+  @Nonnull
+  public DisposeNotifier getNotifier() {
+    return $$arezi$$_disposeNotifier;
+  }
+
   @Override
   public boolean isDisposed() {
     return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
@@ -109,6 +124,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
         this.$$arezi$$_component.dispose();
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
+          this.$$arezi$$_preDispose();
           this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_qualifiedName.dispose();
           this.$$arez$$_name.dispose();

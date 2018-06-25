@@ -7,6 +7,8 @@ import arez.Disposable;
 import arez.Observable;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
+import arez.component.DisposeNotifier;
+import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import java.util.stream.Stream;
 import javax.annotation.Generated;
@@ -18,7 +20,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @Singleton
-final class Arez_RepositoryWithInitializerModelRepository extends RepositoryWithInitializerModelRepository implements Disposable, Identifiable<Integer>, ComponentObservable {
+final class Arez_RepositoryWithInitializerModelRepository extends RepositoryWithInitializerModelRepository implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -32,6 +34,8 @@ final class Arez_RepositoryWithInitializerModelRepository extends RepositoryWith
 
   private final Observable<Boolean> $$arezi$$_disposedObservable;
 
+  private final DisposeNotifier $$arezi$$_disposeNotifier;
+
   @Nonnull
   private final Observable<Stream<RepositoryWithInitializerModel>> $$arez$$_entities;
 
@@ -43,8 +47,9 @@ final class Arez_RepositoryWithInitializerModelRepository extends RepositoryWith
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "RepositoryWithInitializerModelRepository", $$arezi$$_id(), Arez.areNamesEnabled() ? getName() : null, () -> super.preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "RepositoryWithInitializerModelRepository", $$arezi$$_id(), Arez.areNamesEnabled() ? getName() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
+    this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_entities = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getName() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
@@ -120,6 +125,17 @@ final class Arez_RepositoryWithInitializerModelRepository extends RepositoryWith
     return $$arezi$$_observe();
   }
 
+  private void $$arezi$$_preDispose() {
+    super.preDispose();
+    $$arezi$$_disposeNotifier.dispose();
+  }
+
+  @Override
+  @Nonnull
+  public DisposeNotifier getNotifier() {
+    return $$arezi$$_disposeNotifier;
+  }
+
   @Override
   public boolean isDisposed() {
     return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
@@ -133,7 +149,7 @@ final class Arez_RepositoryWithInitializerModelRepository extends RepositoryWith
         this.$$arezi$$_component.dispose();
       } else {
         getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, () -> { {
-          super.preDispose();
+          this.$$arezi$$_preDispose();
           this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_entities.dispose();
         } } );

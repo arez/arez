@@ -11,6 +11,8 @@ import arez.Priority;
 import arez.SafeFunction;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
+import arez.component.DisposeNotifier;
+import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -21,7 +23,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDependencyWithCustomNameMethodModel implements Disposable, Identifiable<Integer>, ComponentObservable {
+public final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDependencyWithCustomNameMethodModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -34,6 +36,8 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   private final Component $$arezi$$_component;
 
   private final Observable<Boolean> $$arezi$$_disposedObservable;
+
+  private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
   private final Observable<Object> $$arez$$_value3;
@@ -54,8 +58,9 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ComplexDependencyWithCustomNameMethodModel", $$arezi$$_id(), Arez.areNamesEnabled() ? getComponentName() : null ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ComplexDependencyWithCustomNameMethodModel", $$arezi$$_id(), Arez.areNamesEnabled() ? getComponentName() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
+    this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_value3 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".value3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue3() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue3( v ) : null );
     this.$$arez$$_value2 = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".value2" : null, () -> super.getValue2() );
     this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".cascadeOnDispose" : null, true, () -> $$arezi$$_getCascadeOnDisposeDependencies().map( SafeFunction::call ).peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), Priority.HIGHEST, false );
@@ -127,6 +132,16 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
     return $$arezi$$_observe();
   }
 
+  private void $$arezi$$_preDispose() {
+    $$arezi$$_disposeNotifier.dispose();
+  }
+
+  @Override
+  @Nonnull
+  public DisposeNotifier getNotifier() {
+    return $$arezi$$_disposeNotifier;
+  }
+
   @Override
   public boolean isDisposed() {
     return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
@@ -140,6 +155,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
         this.$$arezi$$_component.dispose();
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? getComponentName() + ".dispose" : null, () -> { {
+          this.$$arezi$$_preDispose();
           this.$$arezi$$_disposedObservable.dispose();
           this.$$arezi$$_cascadeOnDispose.dispose();
           this.$$arezi$$_setNullOnDispose.dispose();

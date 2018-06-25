@@ -9,6 +9,8 @@ import arez.Observable;
 import arez.Observer;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
+import arez.component.DisposeNotifier;
+import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import java.util.Objects;
 import javax.annotation.Generated;
@@ -18,7 +20,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-final class Arez_CompleteModel extends CompleteModel implements Disposable, Identifiable<Byte>, ComponentObservable {
+final class Arez_CompleteModel extends CompleteModel implements Disposable, Identifiable<Byte>, ComponentObservable, DisposeTrackable {
   private byte $$arezi$$_state;
 
   @Nullable
@@ -27,6 +29,8 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
   private final Component $$arezi$$_component;
 
   private final Observable<Boolean> $$arezi$$_disposedObservable;
+
+  private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
   private final Observable<String> $$arez$$_myValue;
@@ -48,8 +52,9 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "CompleteModel", getId(), Arez.areNamesEnabled() ? getComponentName() : null ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().createComponent( "CompleteModel", getId(), Arez.areNamesEnabled() ? getComponentName() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposedObservable = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
+    this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_myValue = getContext().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_myValue : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myValue = v : null );
     this.$$arez$$_time = getContext().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".time" : null, () -> super.getTime(), this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, this::onTimeDispose );
     this.$$arez$$_myAutorun = getContext().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".myAutorun" : null, false, () -> super.myAutorun() );
@@ -124,6 +129,16 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
     return $$arezi$$_observe();
   }
 
+  private void $$arezi$$_preDispose() {
+    $$arezi$$_disposeNotifier.dispose();
+  }
+
+  @Override
+  @Nonnull
+  public DisposeNotifier getNotifier() {
+    return $$arezi$$_disposeNotifier;
+  }
+
   @Override
   public boolean isDisposed() {
     return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
@@ -137,6 +152,7 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
         this.$$arezi$$_component.dispose();
       } else {
         getContext().safeAction( Arez.areNamesEnabled() ? getComponentName() + ".dispose" : null, () -> { {
+          this.$$arezi$$_preDispose();
           this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_myAutorun.dispose();
           this.$$arez$$_render.dispose();

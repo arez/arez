@@ -252,6 +252,7 @@ public final class ArezProcessor
     final boolean nameIncludesId =
       null == nameIncludesIdValue ? nameIncludesIdDefault : (boolean) nameIncludesIdValue.getValue();
     final boolean observableFlag = getAnnotationParameter( arezComponent, "observable" );
+    final boolean disposeTrackableFlag = getAnnotationParameter( arezComponent, "disposeTrackable" );
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
     final boolean allowConcrete = getAnnotationParameter( arezComponent, "allowConcrete" );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
@@ -329,6 +330,7 @@ public final class ArezProcessor
                                nameIncludesId,
                                allowEmpty,
                                observableFlag,
+                               disposeTrackableFlag,
                                disposeOnDeactivate,
                                injectClassesPresent,
                                dagger || inject,

@@ -79,6 +79,7 @@ final class ComponentDescriptor
   private final boolean _nameIncludesId;
   private final boolean _allowEmpty;
   private final boolean _observable;
+  private final boolean _disposeTrackable;
   private final boolean _disposeOnDeactivate;
   private final boolean _injectClassesPresent;
   private final boolean _inject;
@@ -144,6 +145,7 @@ final class ComponentDescriptor
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
                        final boolean observable,
+                       final boolean disposeTrackable,
                        final boolean disposeOnDeactivate,
                        final boolean injectClassesPresent,
                        final boolean inject,
@@ -161,6 +163,7 @@ final class ComponentDescriptor
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
     _observable = observable;
+    _disposeTrackable = disposeTrackable;
     _disposeOnDeactivate = disposeOnDeactivate;
     _injectClassesPresent = injectClassesPresent;
     _inject = inject;
@@ -1775,6 +1778,10 @@ final class ComponentDescriptor
     {
       builder.addSuperinterface( GeneratorUtil.COMPONENT_OBSERVABLE_CLASSNAME );
     }
+    if ( _disposeTrackable )
+    {
+      builder.addSuperinterface( GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME );
+    }
 
     buildFields( builder );
 
@@ -1810,6 +1817,11 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildInternalObserve() );
       builder.addMethod( buildObserve() );
+    }
+    if ( _disposeTrackable )
+    {
+      builder.addMethod( buildInternalPreDispose() );
+      builder.addMethod( buildNotifierAccessor() );
     }
     builder.addMethod( buildIsDisposed() );
     builder.addMethod( buildDispose() );
@@ -2277,7 +2289,11 @@ final class ComponentDescriptor
                                   getComponentNameMethodName(),
                                   ".dispose" );
 
-    if ( null != _preDispose )
+    if ( _disposeTrackable )
+    {
+      actionBlock.addStatement( "this.$N()", getPreDisposeMethodName() );
+    }
+    else if ( null != _preDispose )
     {
       actionBlock.addStatement( "super.$N()", _preDispose.getSimpleName() );
     }
@@ -2381,6 +2397,50 @@ final class ComponentDescriptor
     return builder.build();
   }
 
+  @Nonnull
+  private String getPreDisposeMethodName()
+  {
+    return _disposeTrackable ?
+           GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME :
+           Objects.requireNonNull( _preDispose ).getSimpleName().toString();
+  }
+
+  /**
+   * Generate the observe method.
+   */
+  @Nonnull
+  private MethodSpec buildInternalPreDispose()
+    throws ArezProcessorException
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME ).
+        addModifiers( Modifier.PRIVATE );
+
+    if ( null != _preDispose )
+    {
+      builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
+    }
+    builder.addStatement( "$N.dispose()", GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME );
+    return builder.build();
+  }
+  /**
+   * Generate the observe method.
+   */
+  @Nonnull
+  private MethodSpec buildNotifierAccessor()
+    throws ArezProcessorException
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "getNotifier" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
+        returns( GeneratorUtil.DISPOSE_NOTIFIER_CLASSNAME );
+
+    builder.addStatement( "return $N", GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME );
+    return builder.build();
+  }
+
   /**
    * Build the fields required to make class Observable. This involves;
    * <ul>
@@ -2446,6 +2506,15 @@ final class ComponentDescriptor
                            Modifier.PRIVATE );
       builder.addField( field.build() );
 
+    }
+    if ( _disposeTrackable )
+    {
+      final FieldSpec.Builder field =
+        FieldSpec.builder( GeneratorUtil.DISPOSE_NOTIFIER_CLASSNAME,
+                           GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME,
+                           Modifier.FINAL,
+                           Modifier.PRIVATE );
+      builder.addField( field.build() );
     }
     _roObservables.forEach( observable -> observable.buildFields( builder ) );
     _roComputeds.forEach( computed -> computed.buildFields( builder ) );
@@ -2633,10 +2702,15 @@ final class ComponentDescriptor
       params.add( getIdMethodName() );
       params.add( GeneratorUtil.AREZ_CLASSNAME );
       params.add( getComponentNameMethodName() );
-      if ( null != _preDispose || null != _postDispose )
+      if ( _disposeTrackable || null != _preDispose || null != _postDispose )
       {
         sb.append( ", " );
-        if ( null != _preDispose )
+        if ( _disposeTrackable )
+        {
+          sb.append( "() -> $N()" );
+          params.add( getPreDisposeMethodName() );
+        }
+        else if ( null != _preDispose )
         {
           sb.append( "() -> super.$N()" );
           params.add( _preDispose.getSimpleName().toString() );
@@ -2666,6 +2740,13 @@ final class ComponentDescriptor
                             ".isDisposed",
                             GeneratorUtil.AREZ_CLASSNAME,
                             GeneratorUtil.STATE_FIELD_NAME );
+    }
+    if ( _disposeTrackable )
+    {
+      builder.addStatement( "this.$N = new $T()",
+                            GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME,
+                            GeneratorUtil.DISPOSE_NOTIFIER_CLASSNAME );
+
     }
     if ( _disposeOnDeactivate )
     {

@@ -133,6 +133,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.deprecated.DeprecatedTrackedModel2", false, false, false },
         new Object[]{ "com.example.deprecated.DeprecatedTrackedModel3", false, false, false },
         new Object[]{ "com.example.deprecated.DeprecatedTrackedModel4", false, false, false },
+        new Object[]{ "com.example.dispose_trackable.DisposeTrackableModel", false, false, false },
+        new Object[]{ "com.example.dispose_trackable.NoDisposeTrackableModel", false, false, false },
         new Object[]{ "com.example.inject.BasicInjectModel", false, false, false },
         new Object[]{ "com.example.inject.DefaultCtorModel", false, false, false },
         new Object[]{ "com.example.inject.MultipleArgsModel", false, false, false },

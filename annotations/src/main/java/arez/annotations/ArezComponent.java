@@ -88,6 +88,15 @@ public @interface ArezComponent
   boolean observable() default true;
 
   /**
+   * Return true if the component should support implement {@link arez.component.DisposeTrackable}.
+   * This will result in the component invoking dispose listener callbacks during dispose operation
+   * within the scope of the disposing transaction.
+   *
+   * @return true if the component should support dispose callbacks.
+   */
+  boolean disposeTrackable() default true;
+
+  /**
    * Return true if the component should dispose itself once it is no longer "observed".
    * By "observed" it means that the component will have {@link arez.component.ComponentObservable#observe(Object)}
    * called on it. This parameter MUST be false if {@link #observable()} is false.

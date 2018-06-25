@@ -38,6 +38,8 @@ final class GeneratorUtil
   static final ClassName MEMOIZE_CACHE_CLASSNAME = ClassName.get( "arez.component", "MemoizeCache" );
   static final ClassName COMPONENT_STATE_CLASSNAME = ClassName.get( "arez.component", "ComponentState" );
   static final ClassName COMPONENT_OBSERVABLE_CLASSNAME = ClassName.get( "arez.component", "ComponentObservable" );
+  static final ClassName DISPOSE_TRACKABLE_CLASSNAME = ClassName.get( "arez.component", "DisposeTrackable" );
+  static final ClassName DISPOSE_NOTIFIER_CLASSNAME = ClassName.get( "arez.component", "DisposeNotifier" );
   static final ClassName COLLECTIONS_UTIL_CLASSNAME = ClassName.get( "arez.component", "CollectionsUtil" );
 
   /**
@@ -61,6 +63,7 @@ final class GeneratorUtil
    */
   static final String STATE_FIELD_NAME = FRAMEWORK_PREFIX + "state";
   static final String DISPOSED_OBSERVABLE_FIELD_NAME = FRAMEWORK_PREFIX + "disposedObservable";
+  static final String DISPOSE_NOTIFIER_FIELD_NAME = FRAMEWORK_PREFIX + "disposeNotifier";
   static final String DISPOSE_ON_DEACTIVATE_FIELD_NAME = FRAMEWORK_PREFIX + "disposeOnDeactivate";
   static final String ID_FIELD_NAME = FRAMEWORK_PREFIX + "id";
   static final String NAME_METHOD_NAME = FRAMEWORK_PREFIX + "name";
@@ -72,6 +75,7 @@ final class GeneratorUtil
   static final String SET_NULL_ON_DISPOSE_FIELD_NAME = FRAMEWORK_PREFIX + "setNullOnDispose";
   static final String SET_NULL_ON_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "setNullOnDispose";
   static final String INTERNAL_OBSERVE_METHOD_NAME = FRAMEWORK_PREFIX + "observe";
+  static final String INTERNAL_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "preDispose";
 
   static final TypeName DEFAULT_ID_TYPE = TypeName.INT;
 

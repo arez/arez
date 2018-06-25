@@ -5,6 +5,8 @@ import arez.Disposable;
 import arez.Observable;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
+import arez.component.DisposeNotifier;
+import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import java.util.Objects;
 import javax.annotation.Generated;
@@ -13,7 +15,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesModel implements Disposable, Identifiable<Integer>, ComponentObservable {
+public final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -26,6 +28,8 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   private final Component $$arezi$$_component;
 
   private final Observable<Boolean> $$arezi$$_disposedObservable;
+
+  private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
   private final Observable<Boolean> $$arez$$_v1;
@@ -61,8 +65,9 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "DifferentObservableTypesModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "DifferentObservableTypesModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
+    this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_v1 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v1" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.isV1() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV1( v ) : null );
     this.$$arez$$_v2 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v2" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV2() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV2( v ) : null );
     this.$$arez$$_v3 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV3() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV3( v ) : null );
@@ -123,6 +128,16 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     return $$arezi$$_observe();
   }
 
+  private void $$arezi$$_preDispose() {
+    $$arezi$$_disposeNotifier.dispose();
+  }
+
+  @Override
+  @Nonnull
+  public DisposeNotifier getNotifier() {
+    return $$arezi$$_disposeNotifier;
+  }
+
   @Override
   public boolean isDisposed() {
     return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
@@ -136,6 +151,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
         this.$$arezi$$_component.dispose();
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
+          this.$$arezi$$_preDispose();
           this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_v1.dispose();
           this.$$arez$$_v2.dispose();
