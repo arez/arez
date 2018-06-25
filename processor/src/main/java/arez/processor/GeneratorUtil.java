@@ -41,7 +41,6 @@ final class GeneratorUtil
   static final ClassName DISPOSE_TRACKABLE_CLASSNAME = ClassName.get( "arez.component", "DisposeTrackable" );
   static final ClassName DISPOSE_NOTIFIER_CLASSNAME = ClassName.get( "arez.component", "DisposeNotifier" );
   static final ClassName COLLECTIONS_UTIL_CLASSNAME = ClassName.get( "arez.component", "CollectionsUtil" );
-
   /**
    * Prefix for fields that are used to generate Arez elements.
    */
@@ -76,7 +75,6 @@ final class GeneratorUtil
   static final String SET_NULL_ON_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "setNullOnDispose";
   static final String INTERNAL_OBSERVE_METHOD_NAME = FRAMEWORK_PREFIX + "observe";
   static final String INTERNAL_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "preDispose";
-
   static final TypeName DEFAULT_ID_TYPE = TypeName.INT;
 
   private GeneratorUtil()
