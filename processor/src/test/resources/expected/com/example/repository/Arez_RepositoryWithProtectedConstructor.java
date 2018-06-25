@@ -144,10 +144,11 @@ final class Arez_RepositoryWithProtectedConstructor extends RepositoryWithProtec
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setName' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    final String $$arezv$$_currentValue = super.getName();
     assert null != name;
-    if ( !Objects.equals( name, super.getName() ) ) {
+    if ( !Objects.equals( name, $$arezv$$_currentValue ) ) {
       this.$$arez$$_name.preReportChanged();
-      super.setName(name);
+      super.setName( name );
       this.$$arez$$_name.reportChanged();
     }
   }

@@ -146,9 +146,10 @@ public final class Arez_GenericObservableRefModel extends GenericObservableRefMo
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setMyValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( !Objects.equals( time, super.getMyValue() ) ) {
+    final GenericObservableRefModel.MyValue<String> $$arezv$$_currentValue = super.getMyValue();
+    if ( !Objects.equals( time, $$arezv$$_currentValue ) ) {
       this.$$arez$$_myValue.preReportChanged();
-      super.setMyValue(time);
+      super.setMyValue( time );
       this.$$arez$$_myValue.reportChanged();
     }
   }

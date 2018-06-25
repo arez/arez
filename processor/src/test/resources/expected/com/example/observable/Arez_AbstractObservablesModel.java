@@ -147,7 +147,8 @@ public final class Arez_AbstractObservablesModel extends AbstractObservablesMode
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( value != this.$$arezd$$_time ) {
+    final long $$arezv$$_currentValue = this.$$arezd$$_time;
+    if ( value != $$arezv$$_currentValue ) {
       this.$$arez$$_time.preReportChanged();
       this.$$arezd$$_time = value;
       this.$$arez$$_time.reportChanged();

@@ -133,9 +133,10 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setField' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( field != super.getField() ) {
+    final long $$arezv$$_currentValue = super.getField();
+    if ( field != $$arezv$$_currentValue ) {
       this.$$arez$$_field.preReportChanged();
-      super.setField(field);
+      super.setField( field );
       this.$$arez$$_field.reportChanged();
     }
   }

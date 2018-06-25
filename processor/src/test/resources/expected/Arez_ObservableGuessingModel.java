@@ -154,9 +154,10 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( time != super.getTime() ) {
+    final long $$arezv$$_currentValue = super.getTime();
+    if ( time != $$arezv$$_currentValue ) {
       this.$$arez$$_time.preReportChanged();
-      super.setTime(time);
+      super.setTime( time );
       this.$$arez$$_time.reportChanged();
     }
   }
@@ -175,9 +176,10 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setFoo' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( x != super.isFoo() ) {
+    final boolean $$arezv$$_currentValue = super.isFoo();
+    if ( x != $$arezv$$_currentValue ) {
       this.$$arez$$_foo.preReportChanged();
-      super.setFoo(x);
+      super.setFoo( x );
       this.$$arez$$_foo.reportChanged();
     }
   }
@@ -196,9 +198,10 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setString' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( !Objects.equals( v, super.getString() ) ) {
+    final String $$arezv$$_currentValue = super.getString();
+    if ( !Objects.equals( v, $$arezv$$_currentValue ) ) {
       this.$$arez$$_string.preReportChanged();
-      super.setString(v);
+      super.setString( v );
       this.$$arez$$_string.reportChanged();
     }
   }

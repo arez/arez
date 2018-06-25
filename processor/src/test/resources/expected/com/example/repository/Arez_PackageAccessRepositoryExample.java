@@ -153,10 +153,11 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setName' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    final String $$arezv$$_currentValue = super.getName();
     assert null != name;
-    if ( !Objects.equals( name, super.getName() ) ) {
+    if ( !Objects.equals( name, $$arezv$$_currentValue ) ) {
       this.$$arez$$_name.preReportChanged();
-      super.setName(name);
+      super.setName( name );
       this.$$arez$$_name.reportChanged();
     }
   }
@@ -176,10 +177,11 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setPackageName' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    final String $$arezv$$_currentValue = super.getPackageName();
     assert null != packageName;
-    if ( !Objects.equals( packageName, super.getPackageName() ) ) {
+    if ( !Objects.equals( packageName, $$arezv$$_currentValue ) ) {
       this.$$arez$$_packageName.preReportChanged();
-      super.setPackageName(packageName);
+      super.setPackageName( packageName );
       this.$$arez$$_packageName.reportChanged();
     }
   }
@@ -199,9 +201,10 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setQualifiedName' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( !Objects.equals( qualifiedName, super.getRawQualifiedName() ) ) {
+    final String $$arezv$$_currentValue = super.getRawQualifiedName();
+    if ( !Objects.equals( qualifiedName, $$arezv$$_currentValue ) ) {
       this.$$arez$$_rawQualifiedName.preReportChanged();
-      super.setQualifiedName(qualifiedName);
+      super.setQualifiedName( qualifiedName );
       this.$$arez$$_rawQualifiedName.reportChanged();
     }
   }

@@ -54,6 +54,10 @@ final class GeneratorUtil
    */
   static final String FRAMEWORK_PREFIX = "$$arezi$$_";
   /**
+   * For variables used within generated methods that need a unique name.
+   */
+  static final String VARIABLE_PREFIX = "$$arezv$$_";
+  /**
    * The name of exceptions when caught by Arez infrastructure.
    */
   private static final String CAUGHT_THROWABLE_NAME = "$$arez_exception$$";

@@ -368,22 +368,21 @@ final class ObservableDescriptor
     builder.addParameter( param.build() );
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
+    final String varName = GeneratorUtil.VARIABLE_PREFIX + "currentValue";
+
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     final boolean abstractObservables = getGetter().getModifiers().contains( Modifier.ABSTRACT );
+    if ( abstractObservables )
+    {
+      builder.addStatement( "final $T $N = this.$N", type, varName, getDataFieldName() );
+    }
+    else
+    {
+      builder.addStatement( "final $T $N = super.$N()", type, varName, _getter.getSimpleName() );
+    }
     if ( type.isPrimitive() )
     {
-      if ( abstractObservables )
-      {
-        codeBlock.beginControlFlow( "if ( $N != this.$N )",
-                                    paramName,
-                                    getDataFieldName() );
-      }
-      else
-      {
-        codeBlock.beginControlFlow( "if ( $N != super.$N() )",
-                                    paramName,
-                                    _getter.getSimpleName() );
-      }
+      codeBlock.beginControlFlow( "if ( $N != $N )", paramName, varName );
     }
     else
     {
@@ -392,20 +391,7 @@ final class ObservableDescriptor
       {
         builder.addStatement( "assert null != $N", paramName );
       }
-      if ( abstractObservables )
-      {
-        codeBlock.beginControlFlow( "if ( !$T.equals( $N, this.$N ) )",
-                                    Objects.class,
-                                    paramName,
-                                    getDataFieldName() );
-      }
-      else
-      {
-        codeBlock.beginControlFlow( "if ( !$T.equals( $N, super.$N() ) )",
-                                    Objects.class,
-                                    paramName,
-                                    _getter.getSimpleName() );
-      }
+      codeBlock.beginControlFlow( "if ( !$T.equals( $N, $N ) )", Objects.class, paramName, varName );
     }
     codeBlock.addStatement( "this.$N.preReportChanged()", getFieldName() );
     if ( shouldGenerateUnmodifiableCollectionVariant() )
@@ -423,7 +409,7 @@ final class ObservableDescriptor
     }
     else
     {
-      codeBlock.addStatement( "super.$N($N)", _setter.getSimpleName(), paramName );
+      codeBlock.addStatement( "super.$N( $N )", _setter.getSimpleName(), paramName );
     }
     codeBlock.addStatement( "this.$N.reportChanged()", getFieldName() );
     codeBlock.endControlFlow();

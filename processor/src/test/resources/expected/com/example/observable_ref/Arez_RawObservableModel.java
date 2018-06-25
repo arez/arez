@@ -145,9 +145,10 @@ public final class Arez_RawObservableModel extends RawObservableModel implements
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( time != super.getTime() ) {
+    final long $$arezv$$_currentValue = super.getTime();
+    if ( time != $$arezv$$_currentValue ) {
       this.$$arez$$_time.preReportChanged();
-      super.setTime(time);
+      super.setTime( time );
       this.$$arez$$_time.reportChanged();
     }
   }

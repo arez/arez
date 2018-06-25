@@ -143,9 +143,10 @@ public final class Arez_ObservableModelWithUnconventionalNames extends Observabl
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'time' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( time != super.time() ) {
+    final long $$arezv$$_currentValue = super.time();
+    if ( time != $$arezv$$_currentValue ) {
       this.$$arez$$_time.preReportChanged();
-      super.time(time);
+      super.time( time );
       this.$$arez$$_time.reportChanged();
     }
   }

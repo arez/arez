@@ -144,9 +144,10 @@ public final class Arez_ObservableTypeParametersModel<T extends Integer> extends
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( !Objects.equals( time, super.getTime() ) ) {
+    final T $$arezv$$_currentValue = super.getTime();
+    if ( !Objects.equals( time, $$arezv$$_currentValue ) ) {
       this.$$arez$$_time.preReportChanged();
-      super.setTime(time);
+      super.setTime( time );
       this.$$arez$$_time.reportChanged();
     }
   }
