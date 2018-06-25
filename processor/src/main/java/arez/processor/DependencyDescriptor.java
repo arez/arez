@@ -17,8 +17,7 @@ final class DependencyDescriptor
   @Nullable
   private ObservableDescriptor _observable;
 
-  DependencyDescriptor( @Nonnull final ExecutableElement method,
-                        final boolean cascade )
+  DependencyDescriptor( @Nonnull final ExecutableElement method, final boolean cascade )
   {
     _method = Objects.requireNonNull( method );
     _cascade = cascade;
