@@ -1,7 +1,5 @@
 package arez.integration.repository;
 
-import arez.Arez;
-import arez.ArezContext;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
@@ -50,8 +48,6 @@ public class DisposeRepositoryIntegrationTest
   public void scenario()
     throws Throwable
   {
-    final ArezContext context = Arez.context();
-
     final DisposeRepositoryIntegrationTest_TestComponentRepository repository =
       DisposeRepositoryIntegrationTest_TestComponentRepository.newRepository();
     final TestComponent component1 = repository.create( 1, "S1" );
