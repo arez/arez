@@ -14,7 +14,7 @@ public class DisposeNotifierTest
     final DisposeNotifier notifier = new DisposeNotifier();
 
     assertEquals( notifier.getListeners().size(), 0 );
-    assertEquals( notifier.hasNotified(), false );
+    assertEquals( notifier.isDisposed(), false );
   }
 
   @Test
@@ -40,11 +40,11 @@ public class DisposeNotifierTest
   }
 
   @Test
-  public void addOnDisposeListener_afterNotify()
+  public void addOnDisposeListener_afterDispose()
   {
     final DisposeNotifier notifier = new DisposeNotifier();
 
-    notifier.notifyDisposeListeners();
+    notifier.dispose();
 
     final String key = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
@@ -96,7 +96,7 @@ public class DisposeNotifierTest
   }
 
   @Test
-  public void removeOnDisposeListener_after_notify()
+  public void removeOnDisposeListener_after_dispose()
   {
     final DisposeNotifier notifier = new DisposeNotifier();
 
@@ -107,7 +107,7 @@ public class DisposeNotifierTest
 
     assertEquals( notifier.getListeners().size(), 1 );
 
-    notifier.notifyDisposeListeners();
+    notifier.dispose();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> notifier.removeOnDisposeListener( key ) );
@@ -131,7 +131,7 @@ public class DisposeNotifierTest
   }
 
   @Test
-  public void notifyDisposeListeners()
+  public void dispose()
   {
     final DisposeNotifier notifier = new DisposeNotifier();
 
@@ -144,7 +144,7 @@ public class DisposeNotifierTest
 
     assertEquals( callCount.get(), 0 );
 
-    notifier.notifyDisposeListeners();
+    notifier.dispose();
 
     assertEquals( callCount.get(), 1 );
   }
@@ -173,22 +173,14 @@ public class DisposeNotifierTest
     assertEquals( callCount1.get(), 0 );
     assertEquals( callCount2.get(), 0 );
 
-    notifier.notifyDisposeListeners();
+    assertEquals( notifier.isDisposed(), false );
+    notifier.dispose();
+    assertEquals( notifier.isDisposed(), true );
 
     assertEquals( callCount1.get(), 1 );
     assertEquals( callCount2.get(), 0 );
-  }
 
-  @Test
-  public void notifyDisposeListeners_duplicate()
-  {
-    final DisposeNotifier notifier = new DisposeNotifier();
-
-    notifier.notifyDisposeListeners();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, notifier::notifyDisposeListeners );
-    assertEquals( exception.getMessage(),
-                  "Arez-0168: Attempting to notify dispose listeners but listeners have already been notified." );
+    // No-op
+    notifier.dispose();
   }
 }
