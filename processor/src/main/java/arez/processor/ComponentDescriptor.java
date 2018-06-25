@@ -75,6 +75,8 @@ final class ComponentDescriptor
   @Nonnull
   private final Elements _elements;
   @Nonnull
+  private final Types _typeUtils;
+  @Nonnull
   private final String _type;
   private final boolean _nameIncludesId;
   private final boolean _allowEmpty;
@@ -141,6 +143,7 @@ final class ComponentDescriptor
 
   ComponentDescriptor( @Nonnull final SourceVersion sourceVersion,
                        @Nonnull final Elements elements,
+                       @Nonnull final Types typeUtils,
                        @Nonnull final String type,
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
@@ -159,6 +162,7 @@ final class ComponentDescriptor
   {
     _sourceVersion = Objects.requireNonNull( sourceVersion );
     _elements = Objects.requireNonNull( elements );
+    _typeUtils = Objects.requireNonNull( typeUtils );
     _type = Objects.requireNonNull( type );
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;

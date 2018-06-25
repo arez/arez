@@ -34,6 +34,7 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Types;
 import static javax.tools.Diagnostic.Kind.*;
 
 /**
@@ -326,6 +327,7 @@ public final class ArezProcessor
     final ComponentDescriptor descriptor =
       new ComponentDescriptor( processingEnv.getSourceVersion(),
                                processingEnv.getElementUtils(),
+                               processingEnv.getTypeUtils(),
                                type,
                                nameIncludesId,
                                allowEmpty,
