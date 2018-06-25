@@ -15,6 +15,9 @@
 * 💥 **\[core\]** Remove the `arez.EqualityComparator` interface as no non-default value was used in
   any application and the annotation processor offered no mechanism to configure functionality. As
   a result it can be removed to reduce complexity and code size.
+* **\[component\]** Introduce `arez.component.DisposeTrackable` interface that can be implemented by
+  components that need to notify listeners when the component has been disposed. The `arez.component.DisposeNotifier`
+  class is used to perform the actual notification.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)
