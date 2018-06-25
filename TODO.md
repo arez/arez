@@ -9,8 +9,6 @@ complete as there is too much un-said.
 * Re-implement CascadeOnDispose and SetNullOnDispose using `DisposeTrackable`. This may result in
   further restrictions on the `@Dependency` annotation.
 
-* Repositories should not use "when" but should use `disposeTrackable`
-
 * `disposeTrackable` should be a `Feature` that defaults to using it when needed.
 
 * `ComponentObservable` should be optional ... and maybe off by default. If no use case is found
