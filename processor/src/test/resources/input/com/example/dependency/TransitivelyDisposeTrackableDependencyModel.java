@@ -2,15 +2,12 @@ package com.example.dependency;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Dependency;
-import arez.component.DisposeTrackable;
-import java.io.IOException;
 
 @ArezComponent( allowEmpty = true )
-public abstract class ThrowsDependency
+public abstract class TransitivelyDisposeTrackableDependencyModel
 {
   @Dependency
-  DisposeTrackable getTime()
-    throws IOException
+  MyDependentValue getTime()
   {
     return null;
   }

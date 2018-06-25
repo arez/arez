@@ -113,6 +113,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.dependency.CascadeDependencyModel", false, false, false },
         new Object[]{ "com.example.dependency.ComplexDependencyModel", false, false, false },
         new Object[]{ "com.example.dependency.ComplexDependencyWithCustomNameMethodModel", false, false, false },
+        new Object[]{ "com.example.dependency.ComponentDependencyModel", false, false, false },
         new Object[]{ "com.example.dependency.ObservableDependency", false, false, false },
         new Object[]{ "com.example.dependency.ObservablePairAnnotatedDependency", false, false, false },
         new Object[]{ "com.example.dependency.ScheduleDeferredDependencyModel", false, false, false },
@@ -265,6 +266,18 @@ public class ArezProcessorTest
     final JavaFileObject source2 =
       fixture( "input/com/example/tracked/other/BaseModelProtectedAccess.java" );
     final String output = "expected/com/example/tracked/Arez_InheritProtectedAccessTrackedModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void processSuccessfulDependencyThatIsTransitivelyDisposeTrackable()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      fixture( "input/com/example/dependency/TransitivelyDisposeTrackableDependencyModel.java" );
+    final JavaFileObject source2 =
+      fixture( "input/com/example/dependency/MyDependentValue.java" );
+    final String output = "expected/com/example/dependency/Arez_TransitivelyDisposeTrackableDependencyModel.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
   }
 

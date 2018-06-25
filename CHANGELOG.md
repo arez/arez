@@ -32,6 +32,9 @@
   This had not been used in practice and resulted in several unintended consequences (i.e. `@Computed`
   methods all became the equivalent of `@Computed(keepAlive=true)`) when it was adopted. It also made it
   difficult to use `DisposeTrackable` to manage dependencies.
+* **\[annotations\]** Enforce the constraint that the return value of methods annotated with `@Dependency`
+  must either be annotated with `@ArezComponent(disposeTrackable=true)` or must be a type that extends
+  `DisposeTrackable`.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

@@ -1292,6 +1292,24 @@ final class ComponentDescriptor
     {
       throw new ArezProcessorException( "@Dependency target must return a non-primitive value", method );
     }
+    final TypeElement disposeTrackable = _elements.getTypeElement( Constants.DISPOSE_TRACKABLE_CLASSNAME );
+    assert null != disposeTrackable;
+    if ( !_typeUtils.isAssignable( method.getReturnType(), disposeTrackable.asType() ) )
+    {
+      final TypeElement typeElement = (TypeElement) _typeUtils.asElement( method.getReturnType() );
+      final AnnotationValue value =
+        ProcessorUtil.findAnnotationValue( _elements,
+                                           typeElement,
+                                           Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                                           "disposeTrackable" );
+      if ( null == value || Boolean.FALSE.equals( value.getValue() ) )
+      {
+        throw new ArezProcessorException( "@Dependency target must return an instance compatible with " +
+                                          Constants.DISPOSE_TRACKABLE_CLASSNAME + " or a type annotated " +
+                                          "with @ArezComponent(disposeTrackable=true)", method );
+      }
+    }
+
     final boolean cascade = isActionCascade( method );
     return new DependencyDescriptor( method, cascade );
   }

@@ -7,14 +7,15 @@ import javax.annotation.Nonnull;
 
 /**
  * Methods marked with this annotation are dependencies of the component.
- * THe component observes the dependency and if the dependency is disposed takes
- * an action to cascade the dispose or null the property referencing dependency.
+ * If the dependency is disposed then the component takes an action to cascade the dispose
+ * or null the property referencing dependency. The dependency MUST implement the
+ * {@link arez.component.DisposeTrackable} interface.
  *
  * <p>The method that is annotated with @Dependency must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation except {@link Observable}</li>
  * <li>Must have 0 parameters</li>
- * <li>Must return a value</li>
+ * <li>Must return a value that implements {@link arez.component.DisposeTrackable} or is annotated with {@link ArezComponent}</li>
  * <li>Must not be private</li>
  * <li>Must not be static</li>
  * <li>Must not be abstract</li>

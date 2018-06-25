@@ -355,13 +355,13 @@ final class ProcessorUtil
   }
 
   @Nullable
-  private static AnnotationValue findAnnotationValue( @Nonnull final Elements elements,
-                                                      @Nonnull final Element typeElement,
-                                                      @Nonnull final String annotationClassName,
-                                                      @Nonnull final String parameterName )
+  static AnnotationValue findAnnotationValue( @Nonnull final Elements elements,
+                                              @Nonnull final Element typeElement,
+                                              @Nonnull final String annotationClassName,
+                                              @Nonnull final String parameterName )
   {
-    final AnnotationMirror mirror = getAnnotationByType( typeElement, annotationClassName );
-    return findAnnotationValue( elements, mirror, parameterName );
+    final AnnotationMirror mirror = findAnnotationByType( typeElement, annotationClassName );
+    return null == mirror ? null : findAnnotationValue( elements, mirror, parameterName );
   }
 
   @Nullable

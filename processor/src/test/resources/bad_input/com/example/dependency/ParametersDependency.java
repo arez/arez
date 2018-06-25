@@ -2,12 +2,13 @@ package com.example.dependency;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Dependency;
+import arez.component.DisposeTrackable;
 
 @ArezComponent( allowEmpty = true )
 public abstract class ParametersDependency
 {
   @Dependency
-  Object getTime( int i )
+  DisposeTrackable getTime( int i )
   {
     return null;
   }

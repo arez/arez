@@ -36,9 +36,9 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Object> $$arez$$_value;
+  private final Observable<DisposeTrackable> $$arez$$_value;
 
-  private Object $$arezd$$_value;
+  private DisposeTrackable $$arezd$$_value;
 
   @Nonnull
   private final Observer $$arezi$$_setNullOnDispose;
@@ -98,7 +98,7 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
   }
 
   private final void $$arezi$$_setNullOnDispose() {
-    final Object dependency1 = getValue();
+    final DisposeTrackable dependency1 = getValue();
     if ( !ComponentObservable.observe( dependency1 ) )  {
       setValue( null );
     } ;
@@ -153,7 +153,7 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
   }
 
   @Override
-  Object getValue() {
+  DisposeTrackable getValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
@@ -162,7 +162,7 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
   }
 
   @Override
-  void setValue(final Object value) {
+  void setValue(final DisposeTrackable value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

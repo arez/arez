@@ -38,7 +38,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Object> $$arez$$_value3;
+  private final Observable<DisposeTrackable> $$arez$$_value3;
 
   @Nonnull
   private final Observer $$arezi$$_cascadeOnDispose;
@@ -107,7 +107,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   }
 
   private final void $$arezi$$_setNullOnDispose() {
-    final Object dependency1 = getValue3();
+    final DisposeTrackable dependency1 = getValue3();
     if ( !ComponentObservable.observe( dependency1 ) )  {
       setValue3( null );
     } ;
@@ -163,7 +163,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   }
 
   @Override
-  Object getValue3() {
+  DisposeTrackable getValue3() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getValue3' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
@@ -172,7 +172,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   }
 
   @Override
-  void setValue3(final Object value) {
+  void setValue3(final DisposeTrackable value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setValue3' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
