@@ -37,6 +37,10 @@
   `DisposeTrackable`.
 * **\[annotations\]** Enforce the constraint that the methods annotated with `@Dependency` that are not
   also annotated with `@Observable` must be final.
+* 💥 **\[processor\]** Remove the usage of `when()` observers to implement the `@Dependency` capability in
+  the generated/enhanced component classes. The new implementation uses the `DisposeTrackable` interface to
+  track when the dependency is disposed and responds appropriately (i.e. to cascade the dispose or set the
+  local field to null).
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)
