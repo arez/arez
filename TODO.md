@@ -6,10 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Dispose chain - linked list containing OnDispose hooks - the OnDispose hook chain is evaluated
-  after PreDispose. These hooks remove entity from inverse relationships and from containers.
-  The hooks can mutate state. CascadeOnDispose and SetNullOnDispose are reimplemented using these
-  mechanisms.
+* Re-implement CascadeOnDispose and SetNullOnDispose using `DisposeTrackable`. This may result in
+  further restrictions on the `@Dependency` annotation.
 
 * Repositories should not use "when" but should use `disposeTrackable`
 
