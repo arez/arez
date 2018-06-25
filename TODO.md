@@ -7,8 +7,7 @@ complete as there is too much un-said.
 ## Enhancements
 
 
-* `ComponentObservable` should be optional ... and maybe off by default. If no use case is found
-  it could ultimately be removed.
+* `ComponentObservable` should be removed in the future. A better way to track it is via DisposeTrackabe
 
 * `AbstractContainer.attach()` and `AbstractEntityReference.setEntity(...)` should verify that supplied
   entities are not already disposed.
