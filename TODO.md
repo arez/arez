@@ -11,10 +11,16 @@ complete as there is too much un-said.
   The hooks can mutate state. CascadeOnDispose and SetNullOnDispose are reimplemented using these
   mechanisms.
 
+* Repositories should not use "when" but should use `disposeTrackable`
+
+* `disposeTrackable` should be a `Feature` that defaults to using it when needed.
+
 * `ComponentObservable` should be optional ... and maybe off by default. If no use case is found
   it could ultimately be removed.
 
 * Add assertion - if autorun has no dependencies on commit it should be an error.
+
+* Consider moving annotations into core and verifying that packages do not not interact via jdepends or similar.
 
 * References handled specially ...? Is this only importing reference tools from Replicant?
   - `Verifiable`: To verify that:
