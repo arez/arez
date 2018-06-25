@@ -2,7 +2,6 @@ package arez.component;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.Component;
 import arez.Disposable;
 import arez.Observable;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -291,8 +290,8 @@ public class ContainerTest
 
     final MyContainer repository = MyContainer.create();
     final MyEntity entity = new MyEntity( 302 );
-    Disposable.dispose( entity );
     context.safeAction( () -> repository.attach( entity ) );
+    Disposable.dispose( entity );
     context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
 
     final int[] ids = context.safeAction( () -> repository.entities().mapToInt( e -> e.getArezId() ).toArray() );
@@ -301,15 +300,23 @@ public class ContainerTest
   }
 
   static class MyEntity
-    implements Identifiable<Integer>, Disposable, ComponentObservable
+    implements Identifiable<Integer>, Disposable, ComponentObservable, DisposeTrackable
   {
     private final Observable<Object> _observable = Arez.context().createObservable();
     private int _arezId;
     private boolean _disposed;
+    private final DisposeNotifier _notifier = new DisposeNotifier();
 
     MyEntity( final int arezId )
     {
       _arezId = arezId;
+    }
+
+    @Nonnull
+    @Override
+    public DisposeNotifier getNotifier()
+    {
+      return _notifier;
     }
 
     @Override
@@ -326,8 +333,11 @@ public class ContainerTest
     @Override
     public void dispose()
     {
-      _disposed = true;
-      _observable.dispose();
+      Arez.context().safeAction( () -> {
+        _disposed = true;
+        _notifier.dispose();
+        _observable.dispose();
+      } );
     }
 
     @Override
@@ -347,7 +357,6 @@ public class ContainerTest
   static class MyContainer
     extends AbstractContainer<Integer, MyEntity>
   {
-    private final Component _component = Arez.context().createComponent( "MyRepository", "1" );
     private final Observable<Object> _observable = Arez.context().createObservable();
 
     static MyContainer create()
@@ -359,26 +368,6 @@ public class ContainerTest
     protected final boolean shouldDisposeEntryOnDispose()
     {
       return true;
-    }
-
-    @Override
-    @Nonnull
-    protected Component component()
-    {
-      return _component;
-    }
-
-    @Nonnull
-    protected String getName()
-    {
-      return "MyRepository";
-    }
-
-    @Nonnull
-    @Override
-    protected ArezContext getContext()
-    {
-      return Arez.context();
     }
 
     @Nonnull

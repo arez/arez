@@ -2,7 +2,6 @@ package arez.component;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.Component;
 import arez.Disposable;
 import arez.Observable;
 import java.util.Comparator;
@@ -121,8 +120,8 @@ public class RepositoryTest
     context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
     context.safeAction( () -> repository.attach( new MyEntity( 304 ) ) );
     final MyEntity entity = new MyEntity( 305 );
-    entity.dispose();
     context.safeAction( () -> repository.attach( entity ) );
+    entity.dispose();
 
     final Set<Integer> ids =
       context.safeAction( () -> repository.findAll().stream().map( e -> e.getArezId() ).collect( Collectors.toSet() ) );
@@ -142,8 +141,8 @@ public class RepositoryTest
     context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
     context.safeAction( () -> repository.attach( new MyEntity( 304 ) ) );
     final MyEntity entity = new MyEntity( 305 );
-    entity.dispose();
     context.safeAction( () -> repository.attach( entity ) );
+    entity.dispose();
 
     final int[] ids =
       context.safeAction( () -> repository.findAll( Comparator.comparing( e -> -e.getArezId() ) )
@@ -164,8 +163,8 @@ public class RepositoryTest
     context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
     context.safeAction( () -> repository.attach( new MyEntity( 304 ) ) );
     final MyEntity entity = new MyEntity( 305 );
-    entity.dispose();
     context.safeAction( () -> repository.attach( entity ) );
+    entity.dispose();
 
     final Set<Integer> ids =
       context.safeAction( () -> repository.findAllByQuery( e -> e.getArezId() <= 303 )
@@ -187,8 +186,8 @@ public class RepositoryTest
     context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
     context.safeAction( () -> repository.attach( new MyEntity( 304 ) ) );
     final MyEntity entity = new MyEntity( 305 );
-    entity.dispose();
     context.safeAction( () -> repository.attach( entity ) );
+    entity.dispose();
 
     final int[] ids =
       context.safeAction( () -> repository.findAllByQuery( e -> e.getArezId() <= 303,
@@ -312,9 +311,11 @@ public class RepositoryTest
 
     final MyRepository repository = MyRepository.create();
     final MyEntity entity = new MyEntity( 302 );
-    Disposable.dispose( entity );
+
     context.safeAction( () -> repository.attach( entity ) );
     context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
+
+    Disposable.dispose( entity );
 
     final int[] ids = context.safeAction( () -> repository.entities().mapToInt( e -> e.getArezId() ).toArray() );
     assertEquals( ids.length, 1 );
@@ -322,14 +323,22 @@ public class RepositoryTest
   }
 
   static class MyEntity
-    implements Identifiable<Integer>, Disposable, ComponentObservable
+    implements Identifiable<Integer>, Disposable, ComponentObservable, DisposeTrackable
   {
     private int _arezId;
     private boolean _disposed;
+    private final DisposeNotifier _notifier = new DisposeNotifier();
 
     MyEntity( final int arezId )
     {
       _arezId = arezId;
+    }
+
+    @Nonnull
+    @Override
+    public DisposeNotifier getNotifier()
+    {
+      return _notifier;
     }
 
     @Override
@@ -341,7 +350,10 @@ public class RepositoryTest
     @Override
     public void dispose()
     {
-      _disposed = true;
+      Arez.context().safeAction( () -> {
+        _disposed = true;
+        _notifier.dispose();
+      } );
     }
 
     @Override
@@ -361,32 +373,11 @@ public class RepositoryTest
   static class MyRepository
     extends AbstractRepository<Integer, MyEntity, MyRepository>
   {
-    private final Component _component = Arez.context().createComponent( "MyRepository", "1" );
     private final Observable<Object> _observable = Arez.context().createObservable();
 
     static MyRepository create()
     {
       return new MyRepository();
-    }
-
-    @Override
-    @Nonnull
-    protected Component component()
-    {
-      return _component;
-    }
-
-    @Nonnull
-    protected String getName()
-    {
-      return "MyRepository";
-    }
-
-    @Nonnull
-    @Override
-    protected ArezContext getContext()
-    {
-      return Arez.context();
     }
 
     @Nonnull

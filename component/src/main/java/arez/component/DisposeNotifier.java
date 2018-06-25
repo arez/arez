@@ -28,11 +28,11 @@ public final class DisposeNotifier
   {
     if ( isNotDisposed() )
     {
-      _disposed = true;
       for ( final SafeProcedure procedure : _listeners.values() )
       {
         procedure.call();
       }
+      _disposed = true;
     }
   }
 
@@ -58,7 +58,7 @@ public final class DisposeNotifier
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      invariant( () -> !_disposed,
+      invariant( this::isNotDisposed,
                  () -> "Arez-0170: Attempting to remove add listener but listeners have already been notified." );
       invariant( () -> !_listeners.containsKey( key ),
                  () -> "Arez-0166: Attempting to add dispose listener with key '" + key +
@@ -80,7 +80,7 @@ public final class DisposeNotifier
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      invariant( () -> !_disposed,
+      invariant( this::isNotDisposed,
                  () -> "Arez-0169: Attempting to remove dispose listener but listeners have already been notified." );
     }
     final SafeProcedure removed = _listeners.remove( key );

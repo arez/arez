@@ -21,6 +21,13 @@
 * **\[annotations\]** Add a `disposeTrackable` parameter to the `@ArezComponent` that defaults to `true`.
   If the parameter is true, the enhanced/generated component class will implement the `DisposeTrackable`
   interface.
+* 💥 **\[component\]** Remove the usage of the `when()` observer from the implementation of repositories.
+  The repositories now require that the components contained within the repository implement `DisposeTrackable`
+  interface and the repository adds listeners to the `DisposeNotifier` associated with each component and
+  detaches the component from the repository from within the dispose transaction of the entity. This has
+  resulted in significant less code and complexity as it is no longer possible for the repository to contain
+  disposed entities. This resulted in the removal of the `arez.component.EntityEntry` class and the
+  `arez.component.AbstractEntryContainer` class.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

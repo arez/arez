@@ -105,15 +105,23 @@ public class EntityReferenceTest
   }
 
   static class MyEntity
-    implements Identifiable<Integer>, Disposable, ComponentObservable
+    implements Identifiable<Integer>, Disposable, ComponentObservable, DisposeTrackable
   {
     private final Observable<Object> _observable = Arez.context().createObservable();
     private int _arezId;
     private boolean _disposed;
+    private final DisposeNotifier _notifier = new DisposeNotifier();
 
     MyEntity( final int arezId )
     {
       _arezId = arezId;
+    }
+
+    @Nonnull
+    @Override
+    public DisposeNotifier getNotifier()
+    {
+      return _notifier;
     }
 
     @Override
@@ -133,8 +141,11 @@ public class EntityReferenceTest
     @Override
     public void dispose()
     {
-      _disposed = true;
-      _observable.dispose();
+      Arez.context().safeAction( () -> {
+        _disposed = true;
+        _notifier.dispose();
+        _observable.dispose();
+      } );
     }
 
     @Override
@@ -200,26 +211,6 @@ public class EntityReferenceTest
       _observable.preReportChanged();
       super.setEntity( entity );
       _observable.reportChanged();
-    }
-
-    @Override
-    @Nonnull
-    protected Component component()
-    {
-      return _component;
-    }
-
-    @Nonnull
-    protected String getName()
-    {
-      return "MyRepository";
-    }
-
-    @Nonnull
-    @Override
-    protected ArezContext getContext()
-    {
-      return Arez.context();
     }
   }
 }

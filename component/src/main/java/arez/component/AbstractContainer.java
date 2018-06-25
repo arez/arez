@@ -23,12 +23,11 @@ import static org.realityforge.braincheck.Guards.*;
  * in production mode for maximum performance.</p>
  */
 public abstract class AbstractContainer<K, T>
-  extends AbstractEntryContainer<T>
 {
   /**
    * A map of all the entities ArezId to entity.
    */
-  private final HashMap<K, EntityEntry<T>> _entities = new HashMap<>();
+  private final HashMap<K, T> _entities = new HashMap<>();
 
   /**
    * Attach specified entity to the set of entities managed by the container.
@@ -46,8 +45,8 @@ public abstract class AbstractContainer<K, T>
                           "to the container. Entity: " + entity );
     }
     getEntitiesObservable().preReportChanged();
-    final EntityEntry<T> entry = createEntityEntry( entity, reference -> detach( reference.getEntity() ) );
-    _entities.put( Identifiable.getArezId( entity ), entry );
+    attachEntity( entity );
+    _entities.put( Identifiable.getArezId( entity ), entity );
     getEntitiesObservable().reportChanged();
   }
 
@@ -64,7 +63,7 @@ public abstract class AbstractContainer<K, T>
   @PreDispose
   protected void preDispose()
   {
-    _entities.values().forEach( entry -> detachEntry( entry, shouldDisposeEntryOnDispose() ) );
+    _entities.values().forEach( entry -> detachEntity( entry, shouldDisposeEntryOnDispose() ) );
     _entities.clear();
   }
 
@@ -111,11 +110,11 @@ public abstract class AbstractContainer<K, T>
   private void detach( @Nonnull final T entity, final boolean disposeEntity )
   {
     // This method has been extracted to try and avoid GWT inlining into invoker
-    final EntityEntry<T> entry = _entities.remove( Identifiable.<K>getArezId( entity ) );
-    if ( null != entry )
+    final T removed = _entities.remove( Identifiable.<K>getArezId( entity ) );
+    if ( null != removed )
     {
       getEntitiesObservable().preReportChanged();
-      detachEntry( entry, disposeEntity );
+      detachEntity( entity, disposeEntity );
       getEntitiesObservable().reportChanged();
     }
     else
@@ -134,10 +133,9 @@ public abstract class AbstractContainer<K, T>
   @Nullable
   protected T findByArezId( @Nonnull final K arezId )
   {
-    final EntityEntry<T> entry = _entities.get( arezId );
-    if ( null != entry )
+    final T entity = _entities.get( arezId );
+    if ( null != entity )
     {
-      final T entity = entry.getEntity();
       if ( Disposable.isNotDisposed( entity ) )
       {
         ComponentObservable.observe( entity );
@@ -187,10 +185,39 @@ public abstract class AbstractContainer<K, T>
   @Nonnull
   public Stream<T> entities()
   {
-    return _entities.values().stream().map( EntityEntry::getEntity ).filter( Disposable::isNotDisposed );
+    return _entities.values().stream().filter( Disposable::isNotDisposed );
   }
 
-  final HashMap<K, EntityEntry<T>> entityMap()
+  private void attachEntity( @Nonnull final T entity )
+  {
+    DisposeTrackable
+      .asDisposeTrackable( entity )
+      .getNotifier()
+      .addOnDisposeListener( this, () -> {
+        getEntitiesObservable().preReportChanged();
+        detach( entity, false );
+        getEntitiesObservable().reportChanged();
+      } );
+  }
+
+  private void detachEntity( @Nonnull final T entity, final boolean disposeOnDetach )
+  {
+    detachEntity( entity );
+    if ( disposeOnDetach )
+    {
+      Disposable.dispose( entity );
+    }
+  }
+
+  private void detachEntity( @Nonnull final T entity )
+  {
+    DisposeTrackable
+      .asDisposeTrackable( entity )
+      .getNotifier()
+      .removeOnDisposeListener( this );
+  }
+
+  final HashMap<K, T> entityMap()
   {
     return _entities;
   }
