@@ -27,8 +27,8 @@ public class DualDisposedDependenciesIntegrationTest
     final Model0 model0b = Model0.create( "Model1B" );
     final Model1 model1a = Model1.create( "Model1A", model0a );
     final Model1 model1b = Model1.create( "Model1B", model0b );
-    final Model2 model2a = Model2.create( model1a, "Model2A" );
-    final Model2 model2b = Model2.create( model1b, "Model2B" );
+    final Model2 model2a = Model2.create( model1a, "Model2A", model0a );
+    final Model2 model2b = Model2.create( model1b, "Model2B", model0b );
 
     assertEquals( Disposable.isDisposed( model0a ), false );
     assertEquals( Disposable.isDisposed( model0b ), false );
@@ -139,30 +139,32 @@ public class DualDisposedDependenciesIntegrationTest
   @ArezComponent
   static abstract class Model2
   {
+    private final Model0 _leaf;
     private final Model1 _reference;
     private String _name;
 
-    static Model2 create( final Model1 reference, final String name )
+    static Model2 create( final Model1 reference, final String name, final Model0 leaf )
     {
-      return new DualDisposedDependenciesIntegrationTest_Arez_Model2( reference, name );
+      return new DualDisposedDependenciesIntegrationTest_Arez_Model2( reference, name, leaf );
     }
 
-    Model2( final Model1 reference, final String name )
+    Model2( final Model1 reference, final String name, final Model0 leaf )
     {
       _reference = reference;
       _name = name;
+      _leaf = leaf;
     }
 
     @Dependency
-    Model1 getReference()
+    final Model1 getReference()
     {
       return _reference;
     }
 
     @Dependency
-    Model0 getLeaf()
+    final Model0 getLeaf()
     {
-      return getReference().getLeaf();
+      return _leaf;
     }
 
     @Observable
