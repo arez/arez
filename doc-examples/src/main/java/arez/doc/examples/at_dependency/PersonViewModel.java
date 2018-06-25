@@ -26,7 +26,7 @@ public abstract class PersonViewModel
 
   @Dependency
   @Nonnull
-  public Person getPerson()
+  public final Person getPerson()
   {
     // This reference is immutable and the network replication
     // layer is responsible for managing the lifecycle of person
