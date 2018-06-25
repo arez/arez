@@ -113,7 +113,6 @@ public class ArezProcessorTest
         new Object[]{ "com.example.dependency.CascadeDependencyModel", false, false, false },
         new Object[]{ "com.example.dependency.ComplexDependencyModel", false, false, false },
         new Object[]{ "com.example.dependency.ComplexDependencyWithCustomNameMethodModel", false, false, false },
-        new Object[]{ "com.example.dependency.ComputedDependency", false, false, false },
         new Object[]{ "com.example.dependency.ObservableDependency", false, false, false },
         new Object[]{ "com.example.dependency.ObservablePairAnnotatedDependency", false, false, false },
         new Object[]{ "com.example.dependency.ScheduleDeferredDependencyModel", false, false, false },
@@ -595,6 +594,8 @@ public class ArezProcessorTest
 
         new Object[]{ "com.example.dependency.AbstractDependency",
                       "@ArezComponent target has an abstract method not implemented by framework. The method is named getTime" },
+        new Object[]{ "com.example.dependency.ComputedDependency",
+                      "Method can not be annotated with both @Computed and @Dependency" },
         new Object[]{ "com.example.dependency.ParametersDependency",
                       "@Dependency target must not have any parameters" },
         new Object[]{ "com.example.dependency.PrimitiveReturnDependency",
@@ -610,7 +611,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.dependency.ThrowsDependency", "@Dependency target must not throw any exceptions" },
         new Object[]{ "com.example.dependency.VoidReturnDependency", "@Dependency target must return a value" },
 
-        new Object[]{ "com.example.dispose_trackable.NoDisposeTrackableWithRepositoryModel", "@ArezComponent target has specified the disposeTrackable = false annotation parameter but is also annotated with @Repository that requires disposeTrackable = true." },
+        new Object[]{ "com.example.dispose_trackable.NoDisposeTrackableWithRepositoryModel",
+                      "@ArezComponent target has specified the disposeTrackable = false annotation parameter but is also annotated with @Repository that requires disposeTrackable = true." },
 
         new Object[]{ "com.example.inject.MultipleConstructorsModel",
                       "@ArezComponent specified inject parameter but has more than one constructor" },

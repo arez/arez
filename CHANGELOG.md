@@ -28,6 +28,10 @@
   resulted in significant less code and complexity as it is no longer possible for the repository to contain
   disposed entities. This resulted in the removal of the `arez.component.EntityEntry` class and the
   `arez.component.AbstractEntryContainer` class.
+* **\[annotations\]** Stop supporting the `@Dependency` annotation on methods annotated with `@Computed`.
+  This had not been used in practice and resulted in several unintended consequences (i.e. `@Computed`
+  methods all became the equivalent of `@Computed(keepAlive=true)`) when it was adopted. It also made it
+  difficult to use `DisposeTrackable` to manage dependencies.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

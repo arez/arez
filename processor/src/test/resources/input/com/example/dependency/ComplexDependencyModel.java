@@ -1,7 +1,6 @@
 package com.example.dependency;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
 import arez.annotations.Dependency;
 import arez.annotations.Observable;
 
@@ -9,14 +8,7 @@ import arez.annotations.Observable;
 public abstract class ComplexDependencyModel
 {
   @Dependency
-  public Object getValue1()
-  {
-    return null;
-  }
-
-  @Computed
-  @Dependency
-  public Object getValue2()
+  final Object getValue1()
   {
     return null;
   }

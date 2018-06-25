@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  *
  * <p>The method that is annotated with @Dependency must comply with the additional constraints:</p>
  * <ul>
- * <li>Must not be annotated with any other arez annotation except {@link Observable} or {@link Computed}</li>
+ * <li>Must not be annotated with any other arez annotation except {@link Observable}</li>
  * <li>Must have 0 parameters</li>
  * <li>Must return a value</li>
  * <li>Must not be private</li>

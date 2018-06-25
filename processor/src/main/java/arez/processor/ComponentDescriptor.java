@@ -1691,8 +1691,7 @@ final class ComponentDescriptor
         {
           final String type2 = annotationTypes[ j ];
           if ( !type2.equals( Constants.DEPENDENCY_ANNOTATION_CLASSNAME ) ||
-               !type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
-               !type1.equals( Constants.COMPUTED_ANNOTATION_CLASSNAME ) )
+               !type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) )
           {
             final Object annotation2 = ProcessorUtil.findAnnotationByType( method, type2 );
             if ( null != annotation2 )

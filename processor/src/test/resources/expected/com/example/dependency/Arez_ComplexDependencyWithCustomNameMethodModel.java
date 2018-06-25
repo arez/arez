@@ -3,7 +3,6 @@ package com.example.dependency;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
 import arez.Disposable;
 import arez.Observable;
 import arez.Observer;
@@ -22,7 +21,6 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-@SuppressWarnings("unchecked")
 public final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDependencyWithCustomNameMethodModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
@@ -43,9 +41,6 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   private final Observable<Object> $$arez$$_value3;
 
   @Nonnull
-  private final ComputedValue<Object> $$arez$$_value2;
-
-  @Nonnull
   private final Observer $$arezi$$_cascadeOnDispose;
 
   @Nonnull
@@ -62,7 +57,6 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_value3 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".value3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue3() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue3( v ) : null );
-    this.$$arez$$_value2 = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".value2" : null, () -> super.getValue2() );
     this.$$arezi$$_cascadeOnDispose = $$arezi$$_context().when( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".cascadeOnDispose" : null, true, () -> $$arezi$$_getCascadeOnDisposeDependencies().map( SafeFunction::call ).peek( ComponentObservable::observe ).anyMatch( Disposable::isDisposed ), () -> Disposable.dispose( this ), Priority.HIGHEST, false );
     this.$$arezi$$_setNullOnDispose = $$arezi$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".setNullOnDispose" : null, true, () -> $$arezi$$_setNullOnDispose(), Priority.HIGHEST, false );
     if ( Arez.shouldCheckInvariants() ) {
@@ -109,7 +103,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   }
 
   private final Stream<SafeFunction<Object>> $$arezi$$_getCascadeOnDisposeDependencies() {
-    return Stream.of(() -> getValue1(), () -> getValue2());
+    return Stream.of(() -> getValue1());
   }
 
   private final void $$arezi$$_setNullOnDispose() {
@@ -159,7 +153,6 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
           this.$$arezi$$_disposedObservable.dispose();
           this.$$arezi$$_cascadeOnDispose.dispose();
           this.$$arezi$$_setNullOnDispose.dispose();
-          this.$$arez$$_value2.dispose();
           this.$$arez$$_value3.dispose();
         } } );
       }
@@ -188,14 +181,6 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
       super.setValue3(value);
       this.$$arez$$_value3.reportChanged();
     }
-  }
-
-  @Override
-  public Object getValue2() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getValue2' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
-    }
-    return this.$$arez$$_value2.get();
   }
 
   @Override
