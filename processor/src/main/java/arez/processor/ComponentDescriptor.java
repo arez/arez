@@ -2428,6 +2428,7 @@ final class ComponentDescriptor
     builder.addStatement( "$N.dispose()", GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME );
     return builder.build();
   }
+
   /**
    * Generate the observe method.
    */
@@ -2535,7 +2536,6 @@ final class ComponentDescriptor
                            Modifier.PRIVATE ).
           addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
       builder.addField( field.build() );
-
     }
     if ( !getSetNullOnDisposeDependencies().isEmpty() )
     {
