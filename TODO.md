@@ -14,6 +14,8 @@ complete as there is too much un-said.
 * `ComponentObservable` should be optional ... and maybe off by default. If no use case is found
   it could ultimately be removed.
 
+* Add assertion - if autorun has no dependencies on commit it should be an error.
+
 * References handled specially ...? Is this only importing reference tools from Replicant?
   - `Verifiable`: To verify that:
     * the entity is not disposed.
