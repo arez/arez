@@ -35,6 +35,8 @@
 * **\[annotations\]** Enforce the constraint that the return value of methods annotated with `@Dependency`
   must either be annotated with `@ArezComponent(disposeTrackable=true)` or must be a type that extends
   `DisposeTrackable`.
+* **\[annotations\]** Enforce the constraint that the methods annotated with `@Dependency` that are not
+  also annotated with `@Observable` must be final.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

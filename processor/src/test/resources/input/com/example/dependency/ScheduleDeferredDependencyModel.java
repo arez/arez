@@ -8,7 +8,7 @@ import arez.component.DisposeTrackable;
 public abstract class ScheduleDeferredDependencyModel
 {
   @Dependency
-  public DisposeTrackable getTime()
+  final DisposeTrackable getTime()
   {
     return null;
   }

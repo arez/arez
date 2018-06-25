@@ -8,7 +8,7 @@ import arez.component.DisposeTrackable;
 public abstract class PrimitiveReturnDependency
 {
   @Dependency
-  int getTime()
+  final int getTime()
   {
     return 0;
   }

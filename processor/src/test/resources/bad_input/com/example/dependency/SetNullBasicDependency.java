@@ -8,7 +8,7 @@ import arez.component.DisposeTrackable;
 public abstract class SetNullBasicDependency
 {
   @Dependency( action = Dependency.Action.SET_NULL )
-  DisposeTrackable getTime()
+  final DisposeTrackable getTime()
   {
     return null;
   }

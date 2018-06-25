@@ -9,7 +9,7 @@ import java.io.IOException;
 public abstract class ThrowsDependency
 {
   @Dependency
-  DisposeTrackable getTime()
+  final DisposeTrackable getTime()
     throws IOException
   {
     return null;

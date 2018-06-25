@@ -14,6 +14,7 @@ import javax.annotation.Nonnull;
  * <p>The method that is annotated with @Dependency must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation except {@link Observable}</li>
+ * <li>If not annotated with {@link Observable} then must be final</li>
  * <li>Must have 0 parameters</li>
  * <li>Must return a value that implements {@link arez.component.DisposeTrackable} or is annotated with {@link ArezComponent}</li>
  * <li>Must not be private</li>

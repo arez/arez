@@ -48,6 +48,10 @@ final class DependencyDescriptor
 
   void validate()
   {
+    if ( null == _observable )
+    {
+      MethodChecks.mustBeFinal( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, _method );
+    }
     if ( !shouldCascadeDispose() )
     {
       if ( null == _observable )

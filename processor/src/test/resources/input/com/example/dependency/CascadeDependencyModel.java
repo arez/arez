@@ -8,7 +8,7 @@ import arez.component.DisposeTrackable;
 public abstract class CascadeDependencyModel
 {
   @Dependency( action = Dependency.Action.CASCADE )
-  public DisposeTrackable getTime()
+  public final DisposeTrackable getTime()
   {
     return null;
   }

@@ -609,6 +609,7 @@ public class ArezProcessorTest
                       "@ArezComponent target has an abstract method not implemented by framework. The method is named getTime" },
         new Object[]{ "com.example.dependency.ComputedDependency",
                       "Method can not be annotated with both @Computed and @Dependency" },
+        new Object[]{ "com.example.dependency.NonFinalDependency", "@Dependency target must be final" },
         new Object[]{ "com.example.dependency.ParametersDependency",
                       "@Dependency target must not have any parameters" },
         new Object[]{ "com.example.dependency.PrimitiveReturnDependency",

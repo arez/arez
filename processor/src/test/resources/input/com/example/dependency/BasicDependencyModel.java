@@ -8,7 +8,7 @@ import arez.component.DisposeTrackable;
 public abstract class BasicDependencyModel
 {
   @Dependency
-  public DisposeTrackable getTime()
+  public final DisposeTrackable getTime()
   {
     return null;
   }

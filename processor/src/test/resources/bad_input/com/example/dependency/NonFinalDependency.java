@@ -2,17 +2,13 @@ package com.example.dependency;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Dependency;
+import arez.component.DisposeTrackable;
 
 @ArezComponent( allowEmpty = true )
-public abstract class ComponentDependencyModel
+public abstract class NonFinalDependency
 {
-  @ArezComponent( allowEmpty = true )
-  static abstract class Foo
-  {
-  }
-
   @Dependency
-  final Foo getFoo()
+  DisposeTrackable getTime()
   {
     return null;
   }
