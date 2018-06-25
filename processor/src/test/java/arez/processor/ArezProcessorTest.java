@@ -610,6 +610,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.dependency.ThrowsDependency", "@Dependency target must not throw any exceptions" },
         new Object[]{ "com.example.dependency.VoidReturnDependency", "@Dependency target must return a value" },
 
+        new Object[]{ "com.example.dispose_trackable.NoDisposeTrackableWithRepositoryModel", "@ArezComponent target has specified the disposeTrackable = false annotation parameter but is also annotated with @Repository that requires disposeTrackable = true." },
+
         new Object[]{ "com.example.inject.MultipleConstructorsModel",
                       "@ArezComponent specified inject parameter but has more than one constructor" },
         new Object[]{ "com.example.inject.MultipleConstructorsScopedModel",

@@ -195,6 +195,11 @@ final class ComponentDescriptor
 
   }
 
+  boolean isDisposeTrackable()
+  {
+    return _disposeTrackable;
+  }
+
   private boolean isDeprecated( @Nullable final ExecutableElement element )
   {
     return null != element && null != element.getAnnotation( Deprecated.class );

@@ -377,6 +377,12 @@ public final class ArezProcessor
       final String repositoryDaggerConfig = getRepositoryDaggerConfig( typeElement );
       descriptor.configureRepository( name, extensions, repositoryInjectConfig, repositoryDaggerConfig );
     }
+    if ( !descriptor.isDisposeTrackable() && descriptor.hasRepository() )
+    {
+      throw new ArezProcessorException( "@ArezComponent target has specified the disposeTrackable = false " +
+                                        "annotation parameter but is also annotated with @Repository that " +
+                                        "requires disposeTrackable = true.", typeElement );
+    }
 
     return descriptor;
   }
