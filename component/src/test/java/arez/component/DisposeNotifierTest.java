@@ -154,24 +154,35 @@ public class DisposeNotifierTest
   {
     final DisposeNotifier notifier = new DisposeNotifier();
 
+    /*
+     * Three listeners required in test. Two that are disposed
+     * concurrently and one that is disposed ahead of time
+     */
+
     final String key1 = ValueUtil.randomString();
     final String key2 = ValueUtil.randomString();
+    final String key3 = ValueUtil.randomString();
     final AtomicInteger callCount1 = new AtomicInteger();
     final AtomicInteger callCount2 = new AtomicInteger();
+    final AtomicInteger callCount3 = new AtomicInteger();
 
     assertEquals( callCount1.get(), 0 );
     assertEquals( callCount2.get(), 0 );
+    assertEquals( callCount3.get(), 0 );
 
     notifier.addOnDisposeListener( key1, callCount1::incrementAndGet );
     notifier.addOnDisposeListener( key2, callCount2::incrementAndGet );
+    notifier.addOnDisposeListener( key3, callCount3::incrementAndGet );
 
     assertEquals( callCount1.get(), 0 );
     assertEquals( callCount2.get(), 0 );
+    assertEquals( callCount3.get(), 0 );
 
     notifier.removeOnDisposeListener( key2 );
 
     assertEquals( callCount1.get(), 0 );
     assertEquals( callCount2.get(), 0 );
+    assertEquals( callCount3.get(), 0 );
 
     assertEquals( notifier.isDisposed(), false );
     notifier.dispose();
@@ -179,6 +190,7 @@ public class DisposeNotifierTest
 
     assertEquals( callCount1.get(), 1 );
     assertEquals( callCount2.get(), 0 );
+    assertEquals( callCount3.get(), 1 );
 
     // No-op
     notifier.dispose();

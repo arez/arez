@@ -3,6 +3,7 @@ package arez.component;
 import arez.Arez;
 import arez.Disposable;
 import arez.SafeProcedure;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.annotation.Nonnull;
 import static org.realityforge.braincheck.Guards.*;
@@ -28,7 +29,7 @@ public final class DisposeNotifier
   {
     if ( isNotDisposed() )
     {
-      for ( final SafeProcedure procedure : _listeners.values() )
+      for ( final SafeProcedure procedure : new ArrayList<>( _listeners.values() ) )
       {
         procedure.call();
       }
