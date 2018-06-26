@@ -20,7 +20,11 @@ public abstract class AbstractEntityReference<T>
   @PreDispose
   protected void preDispose()
   {
-    setEntity( null );
+    if ( null != _entity )
+    {
+      detachEntity( _entity );
+      _entity = null;
+    }
   }
 
   /**

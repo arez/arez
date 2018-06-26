@@ -43,6 +43,9 @@
   local field to null).
 *  **\[processor\]** Correct the default kind of ids so that the code to implement the `hashCode()` method
   in generated classes uses the simpler integer variant.
+*  **\[component\]** Fix bug in `arez.component.AbstractEntityReference` where an attempt was made to mutate
+  an observable during `@PreDispose` which would generate an invariant failure in development mode. Instead
+  the underlying state is directly modified and the associated entity if present is detached as required.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)
