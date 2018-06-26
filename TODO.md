@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Dependency implementations needs to support multiple @Dependency that return the same type.
+  Probably done by turning the key into string via appending a ".myDepMethod()".
 
 * `ComponentObservable` should be removed in the future. A better way to track it is via DisposeTrackabe
 
