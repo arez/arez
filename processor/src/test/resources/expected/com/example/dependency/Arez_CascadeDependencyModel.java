@@ -42,7 +42,10 @@ public final class Arez_CascadeDependencyModel extends CascadeDependencyModel im
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "CascadeDependencyModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    DisposeTrackable.asDisposeTrackable( super.getTime() ).getNotifier().addOnDisposeListener( this, this::dispose );
+    final DisposeTrackable $$arezv$$_getTime_dependency = super.getTime();
+    if ( null != $$arezv$$_getTime_dependency ) {
+      DisposeTrackable.asDisposeTrackable( super.getTime() ).getNotifier().addOnDisposeListener( this, this::dispose );
+    }
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

@@ -47,7 +47,10 @@ public final class Arez_ObservableDependency extends ObservableDependency implem
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_value = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
-    DisposeTrackable.asDisposeTrackable( super.getValue() ).getNotifier().addOnDisposeListener( this, this::dispose );
+    final DisposeTrackable $$arezv$$_getValue_dependency = super.getValue();
+    if ( null != $$arezv$$_getValue_dependency ) {
+      DisposeTrackable.asDisposeTrackable( super.getValue() ).getNotifier().addOnDisposeListener( this, this::dispose );
+    }
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

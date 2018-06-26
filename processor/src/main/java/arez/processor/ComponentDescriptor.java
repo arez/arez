@@ -2737,41 +2737,105 @@ final class ComponentDescriptor
 
     for ( final DependencyDescriptor dep : _roDependencies )
     {
-      final boolean abstractObservables = dep.getMethod().getModifiers().contains( Modifier.ABSTRACT );
+      final ExecutableElement method = dep.getMethod();
+      final String methodName = method.getSimpleName().toString();
+      final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
+      final boolean isNonnull =
+        null != ProcessorUtil.findAnnotationByType( method, Constants.NONNULL_ANNOTATION_CLASSNAME );
       if ( abstractObservables )
       {
-        if ( dep.shouldCascadeDispose() )
+        if ( isNonnull )
         {
-          builder.addStatement(
-            "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
-            GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-            dep.getObservable().getDataFieldName() );
+          if ( dep.shouldCascadeDispose() )
+          {
+            builder.addStatement(
+              "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
+              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+              dep.getObservable().getDataFieldName() );
+          }
+          else
+          {
+            builder.addStatement(
+              "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
+              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+              dep.getObservable().getDataFieldName(),
+              dep.getObservable().getSetter().getSimpleName().toString() );
+          }
         }
         else
         {
-          builder.addStatement(
-            "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
-            GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-            dep.getObservable().getDataFieldName(),
-            dep.getObservable().getSetter().getSimpleName().toString() );
+          final String varName = GeneratorUtil.VARIABLE_PREFIX + methodName + "_dependency";
+          builder.addStatement( "final $T $N = this.$N",
+                                dep.getMethod().getReturnType(),
+                                varName,
+                                dep.getObservable().getDataFieldName() );
+          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+          listenerBlock.beginControlFlow( "if ( null != $N )", varName );
+          if ( dep.shouldCascadeDispose() )
+          {
+            listenerBlock.addStatement(
+              "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
+              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+              dep.getObservable().getDataFieldName() );
+          }
+          else
+          {
+            listenerBlock.addStatement(
+              "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
+              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+              dep.getObservable().getDataFieldName(),
+              dep.getObservable().getSetter().getSimpleName().toString() );
+          }
+          listenerBlock.endControlFlow();
+          builder.addCode( listenerBlock.build() );
         }
       }
       else
       {
-        if ( dep.shouldCascadeDispose() )
+        if ( isNonnull )
         {
-          builder.addStatement(
-            "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, this::dispose )",
-            GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-            dep.getMethod().getSimpleName() );
+          if ( dep.shouldCascadeDispose() )
+          {
+            builder.addStatement(
+              "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, this::dispose )",
+              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+              method.getSimpleName().toString() );
+          }
+          else
+          {
+            builder.addStatement(
+              "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
+              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+              method.getSimpleName(),
+              dep.getObservable().getSetter().getSimpleName().toString() );
+          }
         }
         else
         {
-          builder.addStatement(
-            "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
-            GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-            dep.getMethod().getSimpleName(),
-            dep.getObservable().getSetter().getSimpleName().toString() );
+          final String varName = GeneratorUtil.VARIABLE_PREFIX + methodName + "_dependency";
+          builder.addStatement( "final $T $N = super.$N()",
+                                dep.getMethod().getReturnType(),
+                                varName,
+                                method.getSimpleName().toString() );
+          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+          listenerBlock.beginControlFlow( "if ( null != $N )", varName );
+          if ( dep.shouldCascadeDispose() )
+          {
+            listenerBlock.addStatement(
+              "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, this::dispose )",
+              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+              method.getSimpleName() );
+          }
+          else
+          {
+            listenerBlock.addStatement(
+              "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
+              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+              method.getSimpleName(),
+              dep.getObservable().getSetter().getSimpleName().toString() );
+          }
+          listenerBlock.endControlFlow();
+          builder.addCode( listenerBlock.build() );
         }
       }
     }

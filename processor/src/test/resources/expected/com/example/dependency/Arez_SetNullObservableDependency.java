@@ -49,7 +49,10 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
     this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_value = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_value : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_value = v : null );
-    DisposeTrackable.asDisposeTrackable( $$arezd$$_value ).getNotifier().addOnDisposeListener( this, () -> setValue( null ) );
+    final DisposeTrackable $$arezv$$_getValue_dependency = this.$$arezd$$_value;
+    if ( null != $$arezv$$_getValue_dependency ) {
+      DisposeTrackable.asDisposeTrackable( $$arezd$$_value ).getNotifier().addOnDisposeListener( this, () -> setValue( null ) );
+    }
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
