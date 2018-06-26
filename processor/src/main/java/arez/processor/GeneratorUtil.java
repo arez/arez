@@ -10,6 +10,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
+import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
 @SuppressWarnings( "Duplicates" )
@@ -74,6 +75,7 @@ final class GeneratorUtil
   static final String COMPONENT_FIELD_NAME = FRAMEWORK_PREFIX + "component";
   static final String INTERNAL_OBSERVE_METHOD_NAME = FRAMEWORK_PREFIX + "observe";
   static final String INTERNAL_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "preDispose";
+  static final TypeKind DEFAULT_ID_KIND = TypeKind.INT;
   static final TypeName DEFAULT_ID_TYPE = TypeName.INT;
 
   private GeneratorUtil()

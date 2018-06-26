@@ -158,7 +158,7 @@ public final class Arez_DeprecatedObservableModel2 extends DeprecatedObservableM
   @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
-      return Double.hashCode( $$arezi$$_id() );
+      return Integer.hashCode( $$arezi$$_id() );
     } else {
       return super.hashCode();
     }

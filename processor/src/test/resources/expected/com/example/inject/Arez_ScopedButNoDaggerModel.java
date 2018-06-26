@@ -147,7 +147,7 @@ public final class Arez_ScopedButNoDaggerModel extends ScopedButNoDaggerModel im
   @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
-      return Double.hashCode( $$arezi$$_id() );
+      return Integer.hashCode( $$arezi$$_id() );
     } else {
       return super.hashCode();
     }

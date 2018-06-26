@@ -1910,7 +1910,7 @@ final class ComponentDescriptor
     }
     codeBlock.nextControlFlow( "else" );
     codeBlock.addStatement( "final $T that = ($T) o;", generatedClass, generatedClass );
-    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : TypeKind.DOUBLE;
+    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : GeneratorUtil.DEFAULT_ID_KIND;
     if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
     {
       codeBlock.addStatement( "return null != $N() && $N().equals( that.$N() )", idMethod, idMethod, idMethod );
@@ -1949,7 +1949,7 @@ final class ComponentDescriptor
         addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
         addAnnotation( Override.class ).
         returns( TypeName.INT );
-    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : TypeKind.DOUBLE;
+    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : GeneratorUtil.DEFAULT_ID_KIND;
     if ( _requireEquals )
     {
       if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )

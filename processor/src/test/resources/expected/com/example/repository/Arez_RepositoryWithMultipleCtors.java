@@ -199,7 +199,7 @@ final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultipleCtors
 
   @Override
   public final int hashCode() {
-    return Double.hashCode( $$arezi$$_id() );
+    return Integer.hashCode( $$arezi$$_id() );
   }
 
   @Override

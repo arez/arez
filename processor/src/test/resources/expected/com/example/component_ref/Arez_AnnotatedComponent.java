@@ -149,7 +149,7 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
   @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
-      return Double.hashCode( $$arezi$$_id() );
+      return Integer.hashCode( $$arezi$$_id() );
     } else {
       return super.hashCode();
     }

@@ -155,7 +155,7 @@ public final class Arez_RepositoryWithInitializerModel extends RepositoryWithIni
 
   @Override
   public final int hashCode() {
-    return Double.hashCode( $$arezi$$_id() );
+    return Integer.hashCode( $$arezi$$_id() );
   }
 
   @Override

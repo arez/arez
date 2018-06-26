@@ -129,7 +129,7 @@ final class ComponentDependencyModel_Arez_Foo extends ComponentDependencyModel.F
   @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
-      return Double.hashCode( $$arezi$$_id() );
+      return Integer.hashCode( $$arezi$$_id() );
     } else {
       return super.hashCode();
     }

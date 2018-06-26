@@ -155,7 +155,7 @@ final class Arez_DaggerEnabledRepository extends DaggerEnabledRepository impleme
 
   @Override
   public final int hashCode() {
-    return Double.hashCode( $$arezi$$_id() );
+    return Integer.hashCode( $$arezi$$_id() );
   }
 
   @Override

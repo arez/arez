@@ -145,7 +145,7 @@ public final class Arez_HighPriorityComputedModel extends HighPriorityComputedMo
   @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
-      return Double.hashCode( $$arezi$$_id() );
+      return Integer.hashCode( $$arezi$$_id() );
     } else {
       return super.hashCode();
     }

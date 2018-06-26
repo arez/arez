@@ -41,6 +41,8 @@
   the generated/enhanced component classes. The new implementation uses the `DisposeTrackable` interface to
   track when the dependency is disposed and responds appropriately (i.e. to cascade the dispose or set the
   local field to null).
+*  **\[processor\]** Correct the default kind of ids so that the code to implement the `hashCode()` method
+  in generated classes uses the simpler integer variant.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)
