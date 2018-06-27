@@ -6,9 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Dependency implementations needs to support multiple @Dependency that return the same type.
-  Probably done by turning the key into string via appending a ".myDepMethod()".
-
 * Add assertion - if autorun has no dependencies on commit it should be an error.
 
 * Consider moving annotations into core and verifying that packages do not not interact via jdepends or similar.
