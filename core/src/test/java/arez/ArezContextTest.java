@@ -1382,12 +1382,10 @@ public class ArezContextTest
   {
     ArezTestUtil.disableObserverErrorHandlers();
 
-    final ArezContext context = Arez.context();
-
     final ObserverErrorHandler handler = ( o, e, t ) -> {
     };
 
-    assertThrowsWithMessage( () -> context.addObserverErrorHandler( handler ),
+    assertThrowsWithMessage( () -> Arez.context().addObserverErrorHandler( handler ),
                              "Arez-0182: ArezContext.addObserverErrorHandler() invoked when Arez.areObserverErrorHandlersEnabled() returns false." );
   }
 
