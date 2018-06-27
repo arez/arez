@@ -24,6 +24,7 @@ public class ComputedValueKeepAliveTest
 
     final AtomicInteger calls = new AtomicInteger();
     final SafeFunction<String> action = () -> {
+      observeADependency();
       calls.incrementAndGet();
       return "";
     };

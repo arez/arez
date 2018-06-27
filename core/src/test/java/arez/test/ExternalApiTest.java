@@ -11,6 +11,7 @@ import arez.Observable;
 import arez.Observer;
 import arez.ObserverErrorHandler;
 import arez.Procedure;
+import arez.SafeFunction;
 import arez.SpyEventHandler;
 import arez.Zone;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -112,7 +113,11 @@ public class ExternalApiTest
     final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
-    final ComputedValue<String> computedValue = context.createComputedValue( name, () -> "" );
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
+    final ComputedValue<String> computedValue = context.createComputedValue( name, function );
 
     context.action( ValueUtil.randomString(), true, () -> {
       assertEquals( computedValue.getName(), name );

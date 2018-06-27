@@ -1039,7 +1039,11 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final ComputedValue<String> computedValue1 = context.createComputedValue( () -> "42" );
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "42";
+    };
+    final ComputedValue<String> computedValue1 = context.createComputedValue( function );
     context.autorun( computedValue1::get );
 
     assertEquals( context.action( () -> spy.getValue( computedValue1 ) ), "42" );

@@ -113,16 +113,19 @@ public class WatcherTest
     final ArrayList<String> results = new ArrayList<>();
 
     final SafeFunction<Boolean> condition1 = () -> {
+      observeADependency();
       conditionRun1.incrementAndGet();
       results.add( "1" );
       return false;
     };
     final SafeFunction<Boolean> condition2 = () -> {
+      observeADependency();
       conditionRun2.incrementAndGet();
       results.add( "2" );
       return false;
     };
     final SafeFunction<Boolean> condition3 = () -> {
+      observeADependency();
       conditionRun3.incrementAndGet();
       results.add( "3" );
       return false;
@@ -330,7 +333,11 @@ public class WatcherTest
       observable.reportChanged();
     };
 
-    new Watcher( context, null, ValueUtil.randomString(), false, () -> true, effect, Priority.NORMAL, true );
+    final SafeFunction<Boolean> function = () -> {
+      observeADependency();
+      return true;
+    };
+    new Watcher( context, null, ValueUtil.randomString(), false, function, effect, Priority.NORMAL, true );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 1 );
@@ -357,7 +364,11 @@ public class WatcherTest
       observable.reportChanged();
     };
 
-    new Watcher( context, null, ValueUtil.randomString(), true, () -> true, effect, Priority.NORMAL, true );
+    final SafeFunction<Boolean> function = () -> {
+      observeADependency();
+      return true;
+    };
+    new Watcher( context, null, ValueUtil.randomString(), true, function, effect, Priority.NORMAL, true );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 0 );

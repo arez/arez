@@ -15,6 +15,10 @@
         "transaction": "TestComputed"
     },
     {
+        "observable": "Observable@1",
+        "type": "ObservableCreated"
+    },
+    {
         "observable": "TestComputed",
         "type": "ObservableChanged",
         "value": ""

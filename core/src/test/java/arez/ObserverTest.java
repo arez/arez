@@ -1312,14 +1312,19 @@ public class ObserverTest
   public void invokeReaction_ComputedValue_SpyEventHandlerPresent()
     throws Exception
   {
+    final Observable<Object> observable = Arez.context().createObservable();
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     Arez.context().getSpy().addSpyEventHandler( handler );
 
+    final SafeFunction<Integer> function = () -> {
+      observable.reportObserved();
+      return 1;
+    };
     final ComputedValue<Integer> computedValue =
       new ComputedValue<>( Arez.context(),
                            null,
                            ValueUtil.randomString(),
-                           () -> 1,
+                           function,
                            Priority.NORMAL,
                            false );
 
@@ -1474,16 +1479,24 @@ public class ObserverTest
     throws Exception
   {
     final ArezContext context = Arez.context();
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), function, Priority.NORMAL, false );
 
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 
+    final SafeFunction<String> function2 = () -> {
+      observeADependency();
+      return "";
+    };
     final ComputedValue<String> computedValue2 =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), function2, Priority.NORMAL, false );
 
     observer.getDependencies().add( computedValue2.getObservable() );
     computedValue2.getObservable().addObserver( observer );
@@ -1504,11 +1517,15 @@ public class ObserverTest
     setPrintObserverErrors( false );
 
     final ArezContext context = Arez.context();
+    final SafeFunction<String> function1 = () -> {
+      observeADependency();
+      return ValueUtil.randomString();
+    };
     final ComputedValue<String> computedValue =
       new ComputedValue<>( context,
                            null,
                            ValueUtil.randomString(),
-                           ValueUtil::randomString,
+                           function1,
                            Priority.NORMAL,
                            false );
     final Observer observer = computedValue.getObserver();
@@ -1517,6 +1534,7 @@ public class ObserverTest
     observer.setState( ObserverState.POSSIBLY_STALE );
 
     final SafeFunction<String> function = () -> {
+      observeADependency();
       throw new IllegalStateException();
     };
     final ComputedValue<String> computedValue2 =
@@ -1540,11 +1558,15 @@ public class ObserverTest
     setIgnoreObserverErrors( true );
     setPrintObserverErrors( false );
 
+    final SafeFunction<String> function1 = () -> {
+      observeADependency();
+      return ValueUtil.randomString();
+    };
     final ComputedValue<String> computedValue =
       new ComputedValue<>( Arez.context(),
                            null,
                            ValueUtil.randomString(),
-                           ValueUtil::randomString,
+                           function1,
                            Priority.NORMAL,
                            false );
     final Observer observer = computedValue.getObserver();
@@ -1553,6 +1575,7 @@ public class ObserverTest
     observer.setState( ObserverState.POSSIBLY_STALE );
 
     final SafeFunction<String> function = () -> {
+      observeADependency();
       throw new IllegalStateException();
     };
     final ComputedValue<String> computedValue2 =
@@ -1578,11 +1601,15 @@ public class ObserverTest
   public void shouldCompute_POSSIBLY_STALE_whereDependencyRecomputesButDoesNotChange()
     throws Exception
   {
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
     final ComputedValue<String> computedValue =
       new ComputedValue<>( Arez.context(),
                            null,
                            ValueUtil.randomString(),
-                           () -> "",
+                           function,
                            Priority.NORMAL,
                            false );
 
@@ -1595,7 +1622,7 @@ public class ObserverTest
       new ComputedValue<>( Arez.context(),
                            null,
                            ValueUtil.randomString(),
-                           () -> "",
+                           function,
                            Priority.NORMAL,
                            false );
 
@@ -1614,11 +1641,15 @@ public class ObserverTest
   public void shouldCompute_POSSIBLY_STALE_ignoresNonComputedDependencies()
     throws Exception
   {
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
     final ComputedValue<String> computedValue =
       new ComputedValue<>( Arez.context(),
                            null,
                            ValueUtil.randomString(),
-                           () -> "",
+                           function,
                            Priority.NORMAL,
                            false );
 

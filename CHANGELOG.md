@@ -61,6 +61,9 @@
 * 💥 **\[core\]** Generate an invariant failure if an autorun observer completes a reaction without adding a
   dependency on any observable. In this scenario, the autorun will never be rescheduled and has been no interaction
   with the rest of the Arez system. Thus the element should not be defined as an autorun.
+* 💥 **\[core\]** Generate an invariant failure if a `ComputedValue` completes a compute without adding a
+  dependency on any observable. In this scenario, the `ComputedValue` will never be rescheduled and has been
+  no interaction with the rest of the Arez system. Thus the element should not be defined as a `ComputedValue`.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

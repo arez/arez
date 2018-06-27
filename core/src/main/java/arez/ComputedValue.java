@@ -1,6 +1,7 @@
 package arez;
 
 import arez.spy.ComputedValueDisposedEvent;
+import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -234,6 +235,14 @@ public final class ComputedValue<T>
         _value = newValue;
         _error = null;
         getObservable().reportChangeConfirmed();
+      }
+      if ( Arez.shouldCheckInvariants() )
+      {
+        final ArrayList<Observable<?>> observables = Transaction.current().getObservables();
+        invariant( () -> null != observables && !observables.isEmpty(),
+                   () -> "Arez-0173: ComputedValue named '" + getName() + "' completed compute but is not " +
+                         "observing any observables and thus will never be rescheduled. " +
+                         "This is not be a ComputedValue candidate." );
       }
     }
     catch ( final Exception e )

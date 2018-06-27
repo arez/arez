@@ -28,6 +28,7 @@ public class ComputedValueRefTest
     @Computed
     int getOtherID()
     {
+      observeADependency();
       return _otherID;
     }
 

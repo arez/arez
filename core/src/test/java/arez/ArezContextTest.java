@@ -1492,7 +1492,10 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
-    final SafeFunction<String> function = () -> "";
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
     final Procedure onActivate = ValueUtil::randomString;
     final Procedure onDeactivate = ValueUtil::randomString;
     final Procedure onStale = ValueUtil::randomString;
@@ -1545,6 +1548,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
     final AtomicInteger calls = new AtomicInteger();
     final SafeFunction<String> action = () -> {
+      observeADependency();
       calls.incrementAndGet();
       return "";
     };
@@ -1574,6 +1578,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
     final AtomicInteger calls = new AtomicInteger();
     final SafeFunction<String> action = () -> {
+      observeADependency();
       calls.incrementAndGet();
       return "";
     };
@@ -1605,7 +1610,10 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
-    final SafeFunction<String> function = () -> "";
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
     final ComputedValue<String> computedValue = context.createComputedValue( name, function );
 
     assertEquals( computedValue.getName(), name );
@@ -1626,7 +1634,10 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     context.setNextNodeId( 22 );
-    final SafeFunction<String> function = () -> "";
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
     final ComputedValue<String> computedValue = context.createComputedValue( function );
 
     final String name = "ComputedValue@22";
@@ -1651,7 +1662,10 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final ComputedValue<String> computedValue =
-      context.createComputedValue( ValueUtil.randomString(), () -> "" );
+      context.createComputedValue( ValueUtil.randomString(), () -> {
+        observeADependency();
+        return "";
+      } );
 
     handler.assertEventCount( 1 );
 
@@ -1667,18 +1681,25 @@ public class ArezContextTest
 
     final Procedure action = () -> {
     };
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
+
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> context.createComputedValue( null,
-                                                       ValueUtil.randomString(),
-                                                       () -> "",
-                                                       action,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       Priority.NORMAL,
-                                                       true,
-                                                       true ) );
+                    () -> {
+                      context.createComputedValue( null,
+                                                   ValueUtil.randomString(),
+                                                   function,
+                                                   action,
+                                                   null,
+                                                   null,
+                                                   null,
+                                                   Priority.NORMAL,
+                                                   true,
+                                                   true );
+                    } );
     assertEquals( exception.getMessage(),
                   "Arez-0039: ArezContext.createComputedValue() specified keepAlive = true and did not pass a null for onActivate." );
   }
@@ -2501,6 +2522,7 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final SafeFunction<Boolean> condition = () -> {
+      observeADependency();
       conditionRun.incrementAndGet();
       return false;
     };

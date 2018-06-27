@@ -23,6 +23,7 @@ public class MemoizeCacheTest
   {
     final AtomicInteger callCount = new AtomicInteger();
     final MemoizeCache.Function<String> function = args -> {
+      observeADependency();
       callCount.incrementAndGet();
       return args[ 0 ] + "." + args[ 1 ];
     };
@@ -96,6 +97,7 @@ public class MemoizeCacheTest
   {
     final AtomicInteger callCount = new AtomicInteger();
     final MemoizeCache.Function<String> function = args -> {
+      observeADependency();
       callCount.incrementAndGet();
       return args[ 0 ] + "." + args[ 1 ];
     };
@@ -127,6 +129,7 @@ public class MemoizeCacheTest
   {
     final AtomicInteger callCount = new AtomicInteger();
     final MemoizeCache.Function<String> function = args -> {
+      observeADependency();
       callCount.incrementAndGet();
       return args[ 0 ] + "." + args[ 1 ];
     };
@@ -155,6 +158,7 @@ public class MemoizeCacheTest
   {
     final AtomicInteger callCount = new AtomicInteger();
     final MemoizeCache.Function<String> function = args -> {
+      observeADependency();
       callCount.incrementAndGet();
       return args[ 0 ] + "." + args[ 1 ];
     };
@@ -196,6 +200,7 @@ public class MemoizeCacheTest
   {
     final AtomicInteger callCount = new AtomicInteger();
     final MemoizeCache.Function<String> function = args -> {
+      observeADependency();
       callCount.incrementAndGet();
       return args[ 0 ] + "." + args[ 1 ];
     };
