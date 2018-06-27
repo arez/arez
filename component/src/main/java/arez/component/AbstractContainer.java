@@ -43,7 +43,7 @@ public abstract class AbstractContainer<K, T>
       apiInvariant( () -> Disposable.isNotDisposed( entity ),
                     () -> "Arez-0168: Called attach() passing an entity that is disposed. Entity: " + entity );
       apiInvariant( () -> !_entities.containsKey( Identifiable.getArezId( entity ) ),
-                    () -> "Arez-0136: Called attach() passing an entity that ia already attached " +
+                    () -> "Arez-0136: Called attach() passing an entity that is already attached " +
                           "to the container. Entity: " + entity );
     }
     getEntitiesObservable().preReportChanged();

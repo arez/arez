@@ -224,7 +224,7 @@ public class ContainerTest
                     () -> Arez.context().safeAction( () -> repository.attach( entity1 ) ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0136: Called attach() passing an entity that ia already attached to the container. Entity: " +
+                  "Arez-0136: Called attach() passing an entity that is already attached to the container. Entity: " +
                   entity1 );
   }
 
