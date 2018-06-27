@@ -9,9 +9,6 @@ complete as there is too much un-said.
 * Dependency implementations needs to support multiple @Dependency that return the same type.
   Probably done by turning the key into string via appending a ".myDepMethod()".
 
-* `AbstractContainer.attach()` and `AbstractEntityReference.setEntity(...)` should verify that supplied
-  entities are not already disposed.
-
 * Add assertion - if autorun has no dependencies on commit it should be an error.
 
 * Consider moving annotations into core and verifying that packages do not not interact via jdepends or similar.
