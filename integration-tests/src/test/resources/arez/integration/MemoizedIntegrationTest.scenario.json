@@ -5,10 +5,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "PersonModel.0.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "PersonModel.0.name",
         "type": "ObservableCreated"
     },
@@ -1848,45 +1844,6 @@
         "type": "ActionCompleted",
         "parameters": [
         ]
-    },
-    {
-        "action": "PersonModel.0.isDisposed.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "PersonModel.0.isDisposed.dispose"
-    },
-    {
-        "observable": "PersonModel.0.isDisposed",
-        "type": "ObservableChanged",
-        "value": false
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "PersonModel.0.isDisposed.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "PersonModel.0.isDisposed.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "PersonModel.0.isDisposed",
-        "type": "ObservableDisposed"
     },
     {
         "action": "PersonModel.0.name.dispose",

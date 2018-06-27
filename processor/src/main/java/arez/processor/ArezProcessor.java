@@ -34,7 +34,6 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.Types;
 import static javax.tools.Diagnostic.Kind.*;
 
 /**
@@ -252,9 +251,9 @@ public final class ArezProcessor
     final boolean nameIncludesIdDefault = null == singletonAnnotation;
     final boolean nameIncludesId =
       null == nameIncludesIdValue ? nameIncludesIdDefault : (boolean) nameIncludesIdValue.getValue();
-    final boolean observableFlag = getAnnotationParameter( arezComponent, "observable" );
-    final boolean disposeTrackableFlag = getAnnotationParameter( arezComponent, "disposeTrackable" );
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
+    final boolean observableFlag = isComponentObservableRequired( typeElement, disposeOnDeactivate );
+    final boolean disposeTrackableFlag = getAnnotationParameter( arezComponent, "disposeTrackable" );
     final boolean allowConcrete = getAnnotationParameter( arezComponent, "allowConcrete" );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
     final List<AnnotationMirror> scopeAnnotations =
@@ -308,8 +307,8 @@ public final class ArezProcessor
     }
     if ( !observableFlag && disposeOnDeactivate )
     {
-      throw new ArezProcessorException( "@ArezComponent target has specified observable = false and " +
-                                        "disposeOnDeactivate = true which is not possible", typeElement );
+      throw new ArezProcessorException( "@ArezComponent target has specified observable = DISABLE and " +
+                                        "disposeOnDeactivate = true which is not a valid combination", typeElement );
     }
 
     final List<ExecutableElement> methods =
@@ -379,6 +378,12 @@ public final class ArezProcessor
       final String repositoryDaggerConfig = getRepositoryDaggerConfig( typeElement );
       descriptor.configureRepository( name, extensions, repositoryInjectConfig, repositoryDaggerConfig );
     }
+    if ( !observableFlag && descriptor.hasRepository() )
+    {
+      throw new ArezProcessorException( "@ArezComponent target has specified observable = DISABLE and " +
+                                        "but is also annotated with the @Repository annotation which requires " +
+                                        "that the observable != DISABLE.", typeElement );
+    }
     if ( !descriptor.isDisposeTrackable() && descriptor.hasRepository() )
     {
       throw new ArezProcessorException( "@ArezComponent target has specified the disposeTrackable = false " +
@@ -393,6 +398,26 @@ public final class ArezProcessor
   {
     final Element element = processingEnv.getTypeUtils().asElement( a.getAnnotationType() );
     return null != ProcessorUtil.findAnnotationByType( element, Constants.SCOPE_ANNOTATION_CLASSNAME );
+  }
+
+  private boolean isComponentObservableRequired( @Nonnull final TypeElement typeElement,
+                                                 final boolean disposeOnDeactivate )
+  {
+    final VariableElement variableElement = (VariableElement)
+      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
+                                        typeElement,
+                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                                        "observable" ).getValue();
+    switch ( variableElement.getSimpleName().toString() )
+    {
+      case "ENABLE":
+        return true;
+      case "DISABLE":
+        return false;
+      default:
+        return disposeOnDeactivate ||
+               null != ProcessorUtil.findAnnotationByType( typeElement, Constants.REPOSITORY_ANNOTATION_CLASSNAME );
+    }
   }
 
   private boolean isInjectionRequired( @Nonnull final TypeElement typeElement,

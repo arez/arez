@@ -4,9 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
 import arez.Observer;
-import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -17,7 +15,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_NormalPriorityTrackedModel extends NormalPriorityTrackedModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeTrackable {
+public final class Arez_NormalPriorityTrackedModel extends NormalPriorityTrackedModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -28,8 +26,6 @@ public final class Arez_NormalPriorityTrackedModel extends NormalPriorityTracked
   private final ArezContext $$arezi$$_context;
 
   private final Component $$arezi$$_component;
-
-  private final Observable<Boolean> $$arezi$$_disposedObservable;
 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
@@ -44,7 +40,6 @@ public final class Arez_NormalPriorityTrackedModel extends NormalPriorityTracked
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "NormalPriorityTrackedModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, false, () -> super.onRenderDepsChanged() );
     if ( Arez.shouldCheckInvariants() ) {
@@ -85,19 +80,6 @@ public final class Arez_NormalPriorityTrackedModel extends NormalPriorityTracked
     return "NormalPriorityTrackedModel." + $$arezi$$_id();
   }
 
-  private boolean $$arezi$$_observe() {
-    final boolean isNotDisposed = isNotDisposed();
-    if ( isNotDisposed )  {
-      this.$$arezi$$_disposedObservable.reportObserved();
-    }
-    return isNotDisposed;
-  }
-
-  @Override
-  public boolean observe() {
-    return $$arezi$$_observe();
-  }
-
   private void $$arezi$$_preDispose() {
     $$arezi$$_disposeNotifier.dispose();
   }
@@ -122,7 +104,6 @@ public final class Arez_NormalPriorityTrackedModel extends NormalPriorityTracked
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
-          this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_render.dispose();
         } } );
       }

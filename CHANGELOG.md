@@ -46,6 +46,14 @@
 *  **\[component\]** Fix bug in `arez.component.AbstractEntityReference` where an attempt was made to mutate
   an observable during `@PreDispose` which would generate an invariant failure in development mode. Instead
   the underlying state is directly modified and the associated entity if present is detached as required.
+* 💥 **\[annotations\]** Change the type of the `observable` parameter to `arez.annotations.Feature` enum so
+  that the annotation processor can automatically detect when it is needed and omit generation if it is not
+  required.
+* 💥 **\[processor\]** Enforce the requirement that the `observable` parameter must not have the value
+  `DISABLE` if the `@Repository` annotation is present. Previously the generated repository would have just
+  failed to observe the entity in `findByArezId` which would have resulted in the failure to reschedule the
+  containing observer if the component was disposed and the observer had not observed any other property of
+  the component.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

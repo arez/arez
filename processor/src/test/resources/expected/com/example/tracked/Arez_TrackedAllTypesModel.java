@@ -4,9 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
 import arez.Observer;
-import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -18,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeTrackable {
+public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -29,8 +27,6 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
   private final ArezContext $$arezi$$_context;
 
   private final Component $$arezi$$_component;
-
-  private final Observable<Boolean> $$arezi$$_disposedObservable;
 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
@@ -54,7 +50,6 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "TrackedAllTypesModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_render1 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render1" : null, false, () -> super.onRender1DepsChanged() );
     this.$$arez$$_render2 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render2" : null, false, () -> super.onRender2DepsChanged() );
@@ -98,19 +93,6 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     return "TrackedAllTypesModel." + $$arezi$$_id();
   }
 
-  private boolean $$arezi$$_observe() {
-    final boolean isNotDisposed = isNotDisposed();
-    if ( isNotDisposed )  {
-      this.$$arezi$$_disposedObservable.reportObserved();
-    }
-    return isNotDisposed;
-  }
-
-  @Override
-  public boolean observe() {
-    return $$arezi$$_observe();
-  }
-
   private void $$arezi$$_preDispose() {
     $$arezi$$_disposeNotifier.dispose();
   }
@@ -135,7 +117,6 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
-          this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_render1.dispose();
           this.$$arez$$_render2.dispose();
           this.$$arez$$_render3.dispose();

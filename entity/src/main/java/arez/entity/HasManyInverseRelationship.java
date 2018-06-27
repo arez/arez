@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  *
  * @param <T> the type of the entity.
  */
-@ArezComponent( observable = false )
+@ArezComponent
 public abstract class HasManyInverseRelationship<T>
   extends AbstractContainer<Object, T>
 {

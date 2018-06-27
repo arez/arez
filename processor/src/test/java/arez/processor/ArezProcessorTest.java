@@ -499,7 +499,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component.FinalModel", "@ArezComponent target must not be final" },
         new Object[]{ "com.example.component.InterfaceModel", "@ArezComponent target must be a class" },
         new Object[]{ "com.example.component.NonObservableWithDisposeOnDeactivateModel",
-                      "@ArezComponent target has specified observable = false and disposeOnDeactivate = true which is not possible" },
+                      "@ArezComponent target has specified observable = DISABLE and disposeOnDeactivate = true which is not a valid combination" },
         new Object[]{ "com.example.component.NonStaticNestedModel",
                       "@ArezComponent target must not be a non-static nested class" },
 
@@ -973,7 +973,9 @@ public class ArezProcessorTest
         new Object[]{ "com.example.repository.RepositoryExtensionHasBadSelf",
                       "Class annotated with @Repository defined an extension that has a non default method. Extension: com.example.repository.RepositoryExtensionHasBadSelf.Foo Method: self(int)" },
         new Object[]{ "com.example.repository.RepositoryExtensionHasAbstractMethod",
-                      "Class annotated with @Repository defined an extension that has a non default method. Extension: com.example.repository.RepositoryExtensionHasAbstractMethod.Foo Method: other(int)" }
+                      "Class annotated with @Repository defined an extension that has a non default method. Extension: com.example.repository.RepositoryExtensionHasAbstractMethod.Foo Method: other(int)" },
+        new Object[]{ "com.example.repository.RepositoryNotObservable",
+                      "@ArezComponent target has specified observable = DISABLE and but is also annotated with the @Repository annotation which requires that the observable != DISABLE." }
       };
   }
 

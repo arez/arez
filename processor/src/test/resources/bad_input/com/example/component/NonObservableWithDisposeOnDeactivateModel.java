@@ -1,9 +1,10 @@
 package com.example.component;
 
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 
-@ArezComponent( observable = false, disposeOnDeactivate = true )
+@ArezComponent( observable = Feature.DISABLE, disposeOnDeactivate = true )
 public abstract class NonObservableWithDisposeOnDeactivateModel
 {
   private long _field;

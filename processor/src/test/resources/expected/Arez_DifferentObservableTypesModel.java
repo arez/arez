@@ -3,7 +3,6 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
-import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -15,7 +14,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeTrackable {
+public final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -26,8 +25,6 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   private final ArezContext $$arezi$$_context;
 
   private final Component $$arezi$$_component;
-
-  private final Observable<Boolean> $$arezi$$_disposedObservable;
 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
@@ -66,7 +63,6 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "DifferentObservableTypesModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_v1 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v1" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.isV1() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV1( v ) : null );
     this.$$arez$$_v2 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".v2" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getV2() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV2( v ) : null );
@@ -115,19 +111,6 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     return "DifferentObservableTypesModel." + $$arezi$$_id();
   }
 
-  private boolean $$arezi$$_observe() {
-    final boolean isNotDisposed = isNotDisposed();
-    if ( isNotDisposed )  {
-      this.$$arezi$$_disposedObservable.reportObserved();
-    }
-    return isNotDisposed;
-  }
-
-  @Override
-  public boolean observe() {
-    return $$arezi$$_observe();
-  }
-
   private void $$arezi$$_preDispose() {
     $$arezi$$_disposeNotifier.dispose();
   }
@@ -152,7 +135,6 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
-          this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_v1.dispose();
           this.$$arez$$_v2.dispose();
           this.$$arez$$_v3.dispose();

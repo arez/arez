@@ -250,45 +250,6 @@
         "type": "ComponentDisposeCompleted"
     },
     {
-        "action": "DisposeRepositoryIntegrationTest_TestComponentRepository.isDisposed.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "DisposeRepositoryIntegrationTest_TestComponentRepository.isDisposed.dispose"
-    },
-    {
-        "observable": "DisposeRepositoryIntegrationTest_TestComponentRepository.isDisposed",
-        "type": "ObservableChanged",
-        "value": false
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "DisposeRepositoryIntegrationTest_TestComponentRepository.isDisposed.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "DisposeRepositoryIntegrationTest_TestComponentRepository.isDisposed.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "DisposeRepositoryIntegrationTest_TestComponentRepository.isDisposed",
-        "type": "ObservableDisposed"
-    },
-    {
         "action": "DisposeRepositoryIntegrationTest_TestComponentRepository.entities.dispose",
         "tracked": false,
         "type": "ActionStarted",

@@ -80,12 +80,17 @@ public @interface ArezComponent
   boolean allowConcrete() default false;
 
   /**
-   * Return true if the component should support being "observed" by
+   * Return the enum to control whether the component should support being "observed" by
    * {@link arez.component.ComponentObservable#observe(Object)}.
+   * {@link Feature#ENABLE} will force the implementation of the ComponentObservable interface,
+   * {@link Feature#DISABLE} will result in not implementing the ComponentObservable interface and
+   * {@link Feature#AUTODETECT} will cause the component to implement the interface if the component
+   * is also annotated with the {@link Repository} annotation or if the {@link #disposeOnDeactivate()}
+   * parameter is true.
    *
-   * @return true if the component should support being "observed".
+   * @return enum to control whether the component should support being "observed".
    */
-  boolean observable() default true;
+  Feature observable() default Feature.AUTODETECT;
 
   /**
    * Return true if the component should support implement {@link arez.component.DisposeTrackable}.
@@ -99,7 +104,7 @@ public @interface ArezComponent
   /**
    * Return true if the component should dispose itself once it is no longer "observed".
    * By "observed" it means that the component will have {@link arez.component.ComponentObservable#observe(Object)}
-   * called on it. This parameter MUST be false if {@link #observable()} is false.
+   * called on it. This parameter MUST be false if {@link #observable()} has the value {@link Feature#DISABLE}.
    *
    * @return true if the component should dispose itself once it is no longer "observed".
    */

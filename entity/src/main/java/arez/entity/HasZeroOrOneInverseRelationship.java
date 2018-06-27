@@ -5,7 +5,7 @@ import arez.component.AbstractEntityReference;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-@ArezComponent( observable = false )
+@ArezComponent
 public abstract class HasZeroOrOneInverseRelationship<T>
   extends AbstractEntityReference<T>
 {

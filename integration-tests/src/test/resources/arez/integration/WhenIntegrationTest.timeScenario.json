@@ -5,10 +5,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Time.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Time.time",
         "type": "ObservableCreated"
     },

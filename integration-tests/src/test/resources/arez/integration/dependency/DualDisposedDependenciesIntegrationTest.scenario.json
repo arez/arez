@@ -5,10 +5,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Model0.0.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Model0.0.name",
         "type": "ObservableCreated"
     },
@@ -21,10 +17,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Model0.1.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Model0.1.name",
         "type": "ObservableCreated"
     },
@@ -35,10 +27,6 @@
     {
         "component": "Model1.0",
         "type": "ComponentCreateStarted"
-    },
-    {
-        "observable": "Model1.0.isDisposed",
-        "type": "ObservableCreated"
     },
     {
         "observable": "Model1.0.leaf",
@@ -57,10 +45,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Model1.1.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Model1.1.leaf",
         "type": "ObservableCreated"
     },
@@ -77,10 +61,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Model2.0.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Model2.0.name",
         "type": "ObservableCreated"
     },
@@ -91,10 +71,6 @@
     {
         "component": "Model2.1",
         "type": "ComponentCreateStarted"
-    },
-    {
-        "observable": "Model2.1.isDisposed",
-        "type": "ObservableCreated"
     },
     {
         "observable": "Model2.1.name",
@@ -120,45 +96,6 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.0.dispose"
-    },
-    {
-        "action": "Model2.0.isDisposed.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.isDisposed.dispose"
-    },
-    {
-        "observable": "Model2.0.isDisposed",
-        "type": "ObservableChanged",
-        "value": false
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.isDisposed.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model2.0.isDisposed.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "Model2.0.isDisposed",
-        "type": "ObservableDisposed"
     },
     {
         "action": "Model2.0.name.dispose",
@@ -255,45 +192,6 @@
         "transaction": "Model1.0.dispose"
     },
     {
-        "action": "Model1.0.isDisposed.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.0.isDisposed.dispose"
-    },
-    {
-        "observable": "Model1.0.isDisposed",
-        "type": "ObservableChanged",
-        "value": false
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.0.isDisposed.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model1.0.isDisposed.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "Model1.0.isDisposed",
-        "type": "ObservableDisposed"
-    },
-    {
         "action": "Model1.0.leaf.dispose",
         "tracked": false,
         "type": "ActionStarted",
@@ -386,45 +284,6 @@
     {
         "component": "Model1.0",
         "type": "ComponentDisposeCompleted"
-    },
-    {
-        "action": "Model0.0.isDisposed.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model0.0.isDisposed.dispose"
-    },
-    {
-        "observable": "Model0.0.isDisposed",
-        "type": "ObservableChanged",
-        "value": false
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model0.0.isDisposed.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model0.0.isDisposed.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "Model0.0.isDisposed",
-        "type": "ObservableDisposed"
     },
     {
         "action": "Model0.0.name.dispose",
@@ -538,45 +397,6 @@
         "transaction": "Model2.1.dispose"
     },
     {
-        "action": "Model2.1.isDisposed.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.1.isDisposed.dispose"
-    },
-    {
-        "observable": "Model2.1.isDisposed",
-        "type": "ObservableChanged",
-        "value": false
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.1.isDisposed.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model2.1.isDisposed.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "Model2.1.isDisposed",
-        "type": "ObservableDisposed"
-    },
-    {
         "action": "Model2.1.name.dispose",
         "tracked": false,
         "type": "ActionStarted",
@@ -635,45 +455,6 @@
     {
         "component": "Model2.1",
         "type": "ComponentDisposeCompleted"
-    },
-    {
-        "action": "Model1.1.isDisposed.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.1.isDisposed.dispose"
-    },
-    {
-        "observable": "Model1.1.isDisposed",
-        "type": "ObservableChanged",
-        "value": false
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.1.isDisposed.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model1.1.isDisposed.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "Model1.1.isDisposed",
-        "type": "ObservableDisposed"
     },
     {
         "action": "Model1.1.leaf.dispose",
@@ -768,45 +549,6 @@
     {
         "component": "Model1.1",
         "type": "ComponentDisposeCompleted"
-    },
-    {
-        "action": "Model0.1.isDisposed.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model0.1.isDisposed.dispose"
-    },
-    {
-        "observable": "Model0.1.isDisposed",
-        "type": "ObservableChanged",
-        "value": false
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model0.1.isDisposed.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Model0.1.isDisposed.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "Model0.1.isDisposed",
-        "type": "ObservableDisposed"
     },
     {
         "action": "Model0.1.name.dispose",

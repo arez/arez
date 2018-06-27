@@ -5,7 +5,6 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observable;
-import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -17,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDependencyWithCustomNameMethodModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeTrackable {
+public final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDependencyWithCustomNameMethodModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -28,8 +27,6 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   private final ArezContext $$arezi$$_context;
 
   private final Component $$arezi$$_component;
-
-  private final Observable<Boolean> $$arezi$$_disposedObservable;
 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
@@ -44,7 +41,6 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ComplexDependencyWithCustomNameMethodModel", $$arezi$$_id(), Arez.areNamesEnabled() ? getComponentName() : null, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_disposedObservable = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezi$$_state >= 0 : null );
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_value3 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".value3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue3() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue3( v ) : null );
     final DisposeTrackable $$arezv$$_getValue1_dependency = super.getValue1();
@@ -98,19 +94,6 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
     return "ComplexDependencyWithCustomNameMethodModel." + $$arezi$$_id();
   }
 
-  private boolean $$arezi$$_observe() {
-    final boolean isNotDisposed = isNotDisposed();
-    if ( isNotDisposed )  {
-      this.$$arezi$$_disposedObservable.reportObserved();
-    }
-    return isNotDisposed;
-  }
-
-  @Override
-  public boolean observe() {
-    return $$arezi$$_observe();
-  }
-
   private void $$arezi$$_preDispose() {
     $$arezi$$_disposeNotifier.dispose();
     final DisposeTrackable $$arezv$$_getValue1_dependency = super.getValue1();
@@ -143,7 +126,6 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? getComponentName() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
-          this.$$arezi$$_disposedObservable.dispose();
           this.$$arez$$_value3.dispose();
         } } );
       }

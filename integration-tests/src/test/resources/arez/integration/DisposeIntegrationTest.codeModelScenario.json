@@ -5,10 +5,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "CodeModel.0.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "CodeModel.0.name",
         "type": "ObservableCreated"
     },
@@ -595,45 +591,6 @@
         "type": "ActionCompleted",
         "parameters": [
         ]
-    },
-    {
-        "action": "CodeModel.0.isDisposed.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "CodeModel.0.isDisposed.dispose"
-    },
-    {
-        "observable": "CodeModel.0.isDisposed",
-        "type": "ObservableChanged",
-        "value": false
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "CodeModel.0.isDisposed.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "CodeModel.0.isDisposed.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "CodeModel.0.isDisposed",
-        "type": "ObservableDisposed"
     },
     {
         "action": "CodeModel.0.name.dispose",

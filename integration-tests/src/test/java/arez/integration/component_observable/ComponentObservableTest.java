@@ -3,6 +3,7 @@ package arez.integration.component_observable;
 import arez.Arez;
 import arez.Observer;
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.spy.ObservableInfo;
@@ -13,12 +14,12 @@ import static org.testng.Assert.*;
 public class ComponentObservableTest
   extends AbstractArezIntegrationTest
 {
-  @ArezComponent( allowEmpty = true )
+  @ArezComponent( allowEmpty = true, observable = Feature.ENABLE )
   static abstract class TestComponent
   {
   }
 
-  @ArezComponent( allowEmpty = true )
+  @ArezComponent( allowEmpty = true, observable = Feature.ENABLE )
   static abstract class TestComponent2
   {
   }

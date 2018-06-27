@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 /**
  * A representation of a HasOne inverse relationship.
  */
-@ArezComponent( observable = false )
+@ArezComponent
 public abstract class HasOneInverseRelationship<T>
   extends AbstractEntityReference<T>
 {

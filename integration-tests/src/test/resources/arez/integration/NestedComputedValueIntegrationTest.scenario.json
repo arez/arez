@@ -5,10 +5,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "FilterContext.0.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "FilterContext.0.filter",
         "type": "ObservableCreated"
     },
@@ -19,10 +15,6 @@
     {
         "component": "Node.0",
         "type": "ComponentCreateStarted"
-    },
-    {
-        "observable": "Node.0.isDisposed",
-        "type": "ObservableCreated"
     },
     {
         "observable": "Node.0.name",
@@ -41,10 +33,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Node.1.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Node.1.name",
         "type": "ObservableCreated"
     },
@@ -59,10 +47,6 @@
     {
         "component": "Node.2",
         "type": "ComponentCreateStarted"
-    },
-    {
-        "observable": "Node.2.isDisposed",
-        "type": "ObservableCreated"
     },
     {
         "observable": "Node.2.name",
@@ -81,10 +65,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Node.3.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Node.3.name",
         "type": "ObservableCreated"
     },
@@ -99,10 +79,6 @@
     {
         "component": "Node.4",
         "type": "ComponentCreateStarted"
-    },
-    {
-        "observable": "Node.4.isDisposed",
-        "type": "ObservableCreated"
     },
     {
         "observable": "Node.4.name",
@@ -121,10 +97,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Node.5.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Node.5.name",
         "type": "ObservableCreated"
     },
@@ -139,10 +111,6 @@
     {
         "component": "Node.6",
         "type": "ComponentCreateStarted"
-    },
-    {
-        "observable": "Node.6.isDisposed",
-        "type": "ObservableCreated"
     },
     {
         "observable": "Node.6.name",
@@ -161,10 +129,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Node.7.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Node.7.name",
         "type": "ObservableCreated"
     },
@@ -179,10 +143,6 @@
     {
         "component": "Node.8",
         "type": "ComponentCreateStarted"
-    },
-    {
-        "observable": "Node.8.isDisposed",
-        "type": "ObservableCreated"
     },
     {
         "observable": "Node.8.name",
@@ -201,10 +161,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Node.9.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Node.9.name",
         "type": "ObservableCreated"
     },
@@ -219,10 +175,6 @@
     {
         "component": "Node.10",
         "type": "ComponentCreateStarted"
-    },
-    {
-        "observable": "Node.10.isDisposed",
-        "type": "ObservableCreated"
     },
     {
         "observable": "Node.10.name",
@@ -241,10 +193,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Node.11.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Node.11.name",
         "type": "ObservableCreated"
     },
@@ -259,10 +207,6 @@
     {
         "component": "Node.12",
         "type": "ComponentCreateStarted"
-    },
-    {
-        "observable": "Node.12.isDisposed",
-        "type": "ObservableCreated"
     },
     {
         "observable": "Node.12.name",
@@ -281,10 +225,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Node.13.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Node.13.name",
         "type": "ObservableCreated"
     },
@@ -299,10 +239,6 @@
     {
         "component": "Node.14",
         "type": "ComponentCreateStarted"
-    },
-    {
-        "observable": "Node.14.isDisposed",
-        "type": "ObservableCreated"
     },
     {
         "observable": "Node.14.name",
@@ -321,10 +257,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Node.15.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Node.15.name",
         "type": "ObservableCreated"
     },
@@ -339,10 +271,6 @@
     {
         "component": "Node.16",
         "type": "ComponentCreateStarted"
-    },
-    {
-        "observable": "Node.16.isDisposed",
-        "type": "ObservableCreated"
     },
     {
         "observable": "Node.16.name",
@@ -361,10 +289,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Node.17.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Node.17.name",
         "type": "ObservableCreated"
     },
@@ -381,10 +305,6 @@
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Node.18.isDisposed",
-        "type": "ObservableCreated"
-    },
-    {
         "observable": "Node.18.name",
         "type": "ObservableCreated"
     },
@@ -399,10 +319,6 @@
     {
         "component": "Node.19",
         "type": "ComponentCreateStarted"
-    },
-    {
-        "observable": "Node.19.isDisposed",
-        "type": "ObservableCreated"
     },
     {
         "observable": "Node.19.name",

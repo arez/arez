@@ -3,6 +3,7 @@ package arez.integration.observable_component;
 import arez.Arez;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -47,7 +48,7 @@ public class ObservableComponentIntegrationTest
     assertEquals( callCount.get(), 1 );
   }
 
-  @ArezComponent( allowEmpty = true )
+  @ArezComponent( allowEmpty = true, observable = Feature.ENABLE )
   static abstract class Model
   {
     @Nonnull
@@ -57,7 +58,7 @@ public class ObservableComponentIntegrationTest
     }
   }
 
-  @ArezComponent( allowEmpty = true, observable = false )
+  @ArezComponent( allowEmpty = true, observable = Feature.DISABLE )
   static abstract class Model2
   {
     @Nonnull
