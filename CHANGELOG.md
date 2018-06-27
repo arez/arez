@@ -54,6 +54,8 @@
   failed to observe the entity in `findByArezId` which would have resulted in the failure to reschedule the
   containing observer if the component was disposed and the observer had not observed any other property of
   the component.
+* **\[component\]** Added invariant check to `AbstractContainer.attach(...)` to ensure that the entity passed
+  is not disposed.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

@@ -40,6 +40,8 @@ public abstract class AbstractContainer<K, T>
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
+      apiInvariant( () -> Disposable.isNotDisposed( entity ),
+                    () -> "Arez-0168: Called attach() passing an entity that is disposed. Entity: " + entity );
       apiInvariant( () -> !_entities.containsKey( Identifiable.getArezId( entity ) ),
                     () -> "Arez-0136: Called attach() passing an entity that ia already attached " +
                           "to the container. Entity: " + entity );

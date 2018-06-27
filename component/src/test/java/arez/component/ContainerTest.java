@@ -196,6 +196,22 @@ public class ContainerTest
   }
 
   @Test
+  public void attachWhenDisposed()
+  {
+    final MyEntity entity1 = new MyEntity( 301 );
+    final MyContainer repository = MyContainer.create();
+
+    entity1.dispose();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Arez.context().safeAction( () -> repository.attach( entity1 ) ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0168: Called attach() passing an entity that is disposed. Entity: " + entity1 );
+  }
+
+  @Test
   public void attachWhenPresent()
   {
     final MyEntity entity1 = new MyEntity( 301 );
