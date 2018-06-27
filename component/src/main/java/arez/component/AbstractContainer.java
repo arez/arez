@@ -78,7 +78,7 @@ public abstract class AbstractContainer<K, T>
   protected boolean contains( @Nonnull final T entity )
   {
     getEntitiesObservable().reportObserved();
-    return Disposable.isNotDisposed( entity ) && _entities.containsKey( Identifiable.<K>getArezId( entity ) );
+    return _entities.containsKey( Identifiable.<K>getArezId( entity ) );
   }
 
   /**
@@ -138,11 +138,8 @@ public abstract class AbstractContainer<K, T>
     final T entity = _entities.get( arezId );
     if ( null != entity )
     {
-      if ( Disposable.isNotDisposed( entity ) )
-      {
-        ComponentObservable.observe( entity );
-        return entity;
-      }
+      ComponentObservable.observe( entity );
+      return entity;
     }
     getEntitiesObservable().reportObserved();
     return null;
@@ -187,7 +184,7 @@ public abstract class AbstractContainer<K, T>
   @Nonnull
   public Stream<T> entities()
   {
-    return _entities.values().stream().filter( Disposable::isNotDisposed );
+    return _entities.values().stream();
   }
 
   private void attachEntity( @Nonnull final T entity )
