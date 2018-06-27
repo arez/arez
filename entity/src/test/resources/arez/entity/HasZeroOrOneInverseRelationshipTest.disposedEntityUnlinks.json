@@ -27,45 +27,6 @@
         "type": "ReactionScheduled"
     },
     {
-        "action": "TestComponent2.0.isDisposed.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent2.0.isDisposed.dispose"
-    },
-    {
-        "observable": "TestComponent2.0.isDisposed",
-        "type": "ObservableChanged",
-        "value": false
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent2.0.isDisposed.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "TestComponent2.0.isDisposed.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "TestComponent2.0.isDisposed",
-        "type": "ObservableDisposed"
-    },
-    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",

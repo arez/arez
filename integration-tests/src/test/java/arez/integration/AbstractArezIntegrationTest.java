@@ -2,6 +2,7 @@ package arez.integration;
 
 import arez.Arez;
 import arez.ArezTestUtil;
+import arez.Observable;
 import arez.Observer;
 import arez.ObserverError;
 import arez.integration.util.SpyEventRecorder;
@@ -84,6 +85,11 @@ public abstract class AbstractArezIntegrationTest
     throws IOException, JSONException
   {
     recorder.assertMatchesFixture( fixtureDir().resolve( getFixtureFilename() ), outputFiles() );
+  }
+
+  protected static void observeADependency()
+  {
+    Arez.context().createObservable().reportObserved();
   }
 
   @Nonnull

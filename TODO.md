@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Add assertion - if autorun has no dependencies on commit it should be an error.
-
 * Consider moving annotations into core and verifying that packages do not not interact via jdepends or similar.
 
 * References handled specially ...? Is this only importing reference tools from Replicant?

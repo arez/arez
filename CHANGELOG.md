@@ -58,6 +58,9 @@
   is not disposed.
 * **\[component\]** Added invariant check to `AbstractEntityReference.setEntity(...)` to ensure that the entity
   passed is not disposed.
+* 💥 **\[core\]** Generate an invariant failure if an autorun observer completes a reaction without adding a
+  dependency on any observable. In this scenario, the autorun will never be rescheduled and has no interaction
+  with the rest of the Arez system and thus should not be defined as an autorun.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

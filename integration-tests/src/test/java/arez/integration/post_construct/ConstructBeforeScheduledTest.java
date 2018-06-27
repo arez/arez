@@ -26,6 +26,9 @@ public class ConstructBeforeScheduledTest
     @Autorun
     void autorun()
     {
+      // Observe something so it is valid autorun
+      observeADependency();
+
       _autorunCalled = true;
       if ( !_postConstructCalled )
       {

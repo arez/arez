@@ -38,6 +38,10 @@
         "transaction": "Observer@1"
     },
     {
+        "observable": "Observable@2",
+        "type": "ObservableCreated"
+    },
+    {
         "computedValue": "Model1.0.disposeOnDeactivate",
         "type": "ComputeStarted"
     },

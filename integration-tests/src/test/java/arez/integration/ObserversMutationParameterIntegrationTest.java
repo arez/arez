@@ -136,6 +136,7 @@ public class ObserversMutationParameterIntegrationTest
     @Autorun
     void myObserveReaction()
     {
+      observeADependency();
       setName( "Changed" );
       _observerRunCount += 1;
     }
@@ -199,6 +200,7 @@ public class ObserversMutationParameterIntegrationTest
     @Autorun( mutation = true )
     void myObserveReaction()
     {
+      observeADependency();
       setName( "Changed" );
       _observerRunCount += 1;
     }

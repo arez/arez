@@ -657,12 +657,10 @@ public class SpyImplTest
       context.autorun( component,
                        ValueUtil.randomString(),
                        true,
-                       () -> {
-                       },
+                       AbstractArezTest::observeADependency,
                        Priority.NORMAL,
                        true );
-    final Observer observer2 = context.autorun( () -> {
-    } );
+    final Observer observer2 = context.autorun( AbstractArezTest::observeADependency );
 
     final ComponentInfo info = spy.getComponent( observer1 );
     assertNotNull( info );
@@ -678,8 +676,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observer value = context.autorun( () -> {
-    } );
+    final Observer value = context.autorun( AbstractArezTest::observeADependency );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
@@ -853,8 +850,7 @@ public class SpyImplTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = context.autorun( () -> {
-    } );
+    final Observer observer = context.autorun( AbstractArezTest::observeADependency );
 
     final Spy spy = context.getSpy();
 
@@ -1080,8 +1076,7 @@ public class SpyImplTest
   public void asObserverInfo()
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( () -> {
-    } );
+    final Observer observer = context.autorun( AbstractArezTest::observeADependency );
     final ObserverInfo info = context.getSpy().asObserverInfo( observer );
 
     assertEquals( info.getName(), observer.getName() );

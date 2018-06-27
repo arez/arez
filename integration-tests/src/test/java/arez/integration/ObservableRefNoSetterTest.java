@@ -68,12 +68,14 @@ public class ObservableRefNoSetterTest
 
     context.autorun( "TransportType",
                      () -> {
+      observeADependency();
                        recorder.mark( "TransportType", component.getOtherID() );
                        ttCount.incrementAndGet();
                      } );
     // This is verifying that the explicit reportObserved occurs
     context.autorun( "ResolvedType",
                      () -> {
+      observeADependency();
                        recorder.mark( "ResolvedType", component.getOther() );
                        rtCount.incrementAndGet();
                      } );

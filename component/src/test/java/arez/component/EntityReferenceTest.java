@@ -26,6 +26,7 @@ public class EntityReferenceTest
 
     final AtomicInteger callCount = new AtomicInteger();
     context.autorun( () -> {
+      observeADependency();
       if ( Disposable.isNotDisposed( reference ) )
       {
         // Observe entity
@@ -94,6 +95,7 @@ public class EntityReferenceTest
 
     final AtomicInteger callCount = new AtomicInteger();
     context.autorun( () -> {
+      observeADependency();
       if ( Disposable.isNotDisposed( reference ) )
       {
         // Observe entity

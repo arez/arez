@@ -62,10 +62,6 @@
         "transaction": "FirstNamePrinter1"
     },
     {
-        "type": "usermark",
-        "firstName1": "Bill"
-    },
-    {
         "mutation": false,
         "tracker": "FirstNamePrinter1",
         "type": "TransactionCompleted",
@@ -73,14 +69,20 @@
     },
     {
         "result": null,
-        "errorMessage": null,
+        "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
         "action": "FirstNamePrinter1",
         "tracked": true,
         "returnsResult": false,
-        "normalCompletion": true,
+        "normalCompletion": false,
         "type": "ActionCompleted",
         "parameters": [
         ]
+    },
+    {
+        "observer": "FirstNamePrinter1",
+        "errorType": "REACTION_ERROR",
+        "type": "ObserverError",
+        "message": "Arez-0015: Attempting to get current transaction but current transaction is for different context."
     },
     {
         "observer": "FirstNamePrinter1",
@@ -108,10 +110,6 @@
         "transaction": "FirstNamePrinter2"
     },
     {
-        "type": "usermark",
-        "firstName2": "Bill"
-    },
-    {
         "mutation": false,
         "tracker": "FirstNamePrinter2",
         "type": "TransactionCompleted",
@@ -119,14 +117,20 @@
     },
     {
         "result": null,
-        "errorMessage": null,
+        "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
         "action": "FirstNamePrinter2",
         "tracked": true,
         "returnsResult": false,
-        "normalCompletion": true,
+        "normalCompletion": false,
         "type": "ActionCompleted",
         "parameters": [
         ]
+    },
+    {
+        "observer": "FirstNamePrinter2",
+        "errorType": "REACTION_ERROR",
+        "type": "ObserverError",
+        "message": "Arez-0015: Attempting to get current transaction but current transaction is for different context."
     },
     {
         "observer": "FirstNamePrinter2",
@@ -154,35 +158,6 @@
         "transaction": "FullNamePrinter1"
     },
     {
-        "computedValue": "PersonModel.0.fullName",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "PersonModel.0.fullName",
-        "type": "TransactionStarted",
-        "transaction": "PersonModel.0.fullName"
-    },
-    {
-        "observable": "PersonModel.0.fullName",
-        "type": "ObservableChanged",
-        "value": "Bill Smith"
-    },
-    {
-        "mutation": false,
-        "tracker": "PersonModel.0.fullName",
-        "type": "TransactionCompleted",
-        "transaction": "PersonModel.0.fullName"
-    },
-    {
-        "computedValue": "PersonModel.0.fullName",
-        "type": "ComputeCompleted"
-    },
-    {
-        "type": "usermark",
-        "fullname1": "Bill Smith"
-    },
-    {
         "mutation": false,
         "tracker": "FullNamePrinter1",
         "type": "TransactionCompleted",
@@ -190,14 +165,20 @@
     },
     {
         "result": null,
-        "errorMessage": null,
+        "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
         "action": "FullNamePrinter1",
         "tracked": true,
         "returnsResult": false,
-        "normalCompletion": true,
+        "normalCompletion": false,
         "type": "ActionCompleted",
         "parameters": [
         ]
+    },
+    {
+        "observer": "FullNamePrinter1",
+        "errorType": "REACTION_ERROR",
+        "type": "ObserverError",
+        "message": "Arez-0015: Attempting to get current transaction but current transaction is for different context."
     },
     {
         "observer": "FullNamePrinter1",
@@ -225,35 +206,6 @@
         "transaction": "FullNamePrinter2"
     },
     {
-        "computedValue": "PersonModel.1.fullName",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "PersonModel.1.fullName",
-        "type": "TransactionStarted",
-        "transaction": "PersonModel.1.fullName"
-    },
-    {
-        "observable": "PersonModel.1.fullName",
-        "type": "ObservableChanged",
-        "value": "Bill Smith"
-    },
-    {
-        "mutation": false,
-        "tracker": "PersonModel.1.fullName",
-        "type": "TransactionCompleted",
-        "transaction": "PersonModel.1.fullName"
-    },
-    {
-        "computedValue": "PersonModel.1.fullName",
-        "type": "ComputeCompleted"
-    },
-    {
-        "type": "usermark",
-        "fullname2": "Bill Smith"
-    },
-    {
         "mutation": false,
         "tracker": "FullNamePrinter2",
         "type": "TransactionCompleted",
@@ -261,14 +213,20 @@
     },
     {
         "result": null,
-        "errorMessage": null,
+        "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
         "action": "FullNamePrinter2",
         "tracked": true,
         "returnsResult": false,
-        "normalCompletion": true,
+        "normalCompletion": false,
         "type": "ActionCompleted",
         "parameters": [
         ]
+    },
+    {
+        "observer": "FullNamePrinter2",
+        "errorType": "REACTION_ERROR",
+        "type": "ObserverError",
+        "message": "Arez-0015: Attempting to get current transaction but current transaction is for different context."
     },
     {
         "observer": "FullNamePrinter2",
@@ -293,14 +251,6 @@
         "value": "Fred"
     },
     {
-        "observer": "FirstNamePrinter1",
-        "type": "ReactionScheduled"
-    },
-    {
-        "observer": "PersonModel.0.fullName",
-        "type": "ReactionScheduled"
-    },
-    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -316,119 +266,6 @@
         "type": "ActionCompleted",
         "parameters": [
         ]
-    },
-    {
-        "observer": "FirstNamePrinter1",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "FirstNamePrinter1",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "FirstNamePrinter1",
-        "type": "TransactionStarted",
-        "transaction": "FirstNamePrinter1"
-    },
-    {
-        "type": "usermark",
-        "firstName1": "Fred"
-    },
-    {
-        "mutation": false,
-        "tracker": "FirstNamePrinter1",
-        "type": "TransactionCompleted",
-        "transaction": "FirstNamePrinter1"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "FirstNamePrinter1",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "FirstNamePrinter1",
-        "type": "ReactionCompleted"
-    },
-    {
-        "computedValue": "PersonModel.0.fullName",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "PersonModel.0.fullName",
-        "type": "TransactionStarted",
-        "transaction": "PersonModel.0.fullName"
-    },
-    {
-        "observable": "PersonModel.0.fullName",
-        "type": "ObservableChanged",
-        "value": "Fred Smith"
-    },
-    {
-        "observer": "FullNamePrinter1",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "PersonModel.0.fullName",
-        "type": "TransactionCompleted",
-        "transaction": "PersonModel.0.fullName"
-    },
-    {
-        "computedValue": "PersonModel.0.fullName",
-        "type": "ComputeCompleted"
-    },
-    {
-        "observer": "FullNamePrinter1",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "FullNamePrinter1",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "FullNamePrinter1",
-        "type": "TransactionStarted",
-        "transaction": "FullNamePrinter1"
-    },
-    {
-        "type": "usermark",
-        "fullname1": "Fred Smith"
-    },
-    {
-        "mutation": false,
-        "tracker": "FullNamePrinter1",
-        "type": "TransactionCompleted",
-        "transaction": "FullNamePrinter1"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "FullNamePrinter1",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "FullNamePrinter1",
-        "type": "ReactionCompleted"
     },
     {
         "action": "Last Name Update1",
@@ -449,10 +286,6 @@
         "value": "Donaldo"
     },
     {
-        "observer": "PersonModel.0.fullName",
-        "type": "ReactionScheduled"
-    },
-    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -468,77 +301,6 @@
         "type": "ActionCompleted",
         "parameters": [
         ]
-    },
-    {
-        "computedValue": "PersonModel.0.fullName",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "PersonModel.0.fullName",
-        "type": "TransactionStarted",
-        "transaction": "PersonModel.0.fullName"
-    },
-    {
-        "observable": "PersonModel.0.fullName",
-        "type": "ObservableChanged",
-        "value": "Fred Donaldo"
-    },
-    {
-        "observer": "FullNamePrinter1",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "PersonModel.0.fullName",
-        "type": "TransactionCompleted",
-        "transaction": "PersonModel.0.fullName"
-    },
-    {
-        "computedValue": "PersonModel.0.fullName",
-        "type": "ComputeCompleted"
-    },
-    {
-        "observer": "FullNamePrinter1",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "FullNamePrinter1",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "FullNamePrinter1",
-        "type": "TransactionStarted",
-        "transaction": "FullNamePrinter1"
-    },
-    {
-        "type": "usermark",
-        "fullname1": "Fred Donaldo"
-    },
-    {
-        "mutation": false,
-        "tracker": "FullNamePrinter1",
-        "type": "TransactionCompleted",
-        "transaction": "FullNamePrinter1"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "FullNamePrinter1",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "FullNamePrinter1",
-        "type": "ReactionCompleted"
     },
     {
         "action": "Last Name Update2",
@@ -559,10 +321,6 @@
         "value": "Donaldo"
     },
     {
-        "observer": "PersonModel.1.fullName",
-        "type": "ReactionScheduled"
-    },
-    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -578,76 +336,5 @@
         "type": "ActionCompleted",
         "parameters": [
         ]
-    },
-    {
-        "computedValue": "PersonModel.1.fullName",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "tracker": "PersonModel.1.fullName",
-        "type": "TransactionStarted",
-        "transaction": "PersonModel.1.fullName"
-    },
-    {
-        "observable": "PersonModel.1.fullName",
-        "type": "ObservableChanged",
-        "value": "Bill Donaldo"
-    },
-    {
-        "observer": "FullNamePrinter2",
-        "type": "ReactionScheduled"
-    },
-    {
-        "mutation": false,
-        "tracker": "PersonModel.1.fullName",
-        "type": "TransactionCompleted",
-        "transaction": "PersonModel.1.fullName"
-    },
-    {
-        "computedValue": "PersonModel.1.fullName",
-        "type": "ComputeCompleted"
-    },
-    {
-        "observer": "FullNamePrinter2",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "FullNamePrinter2",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "FullNamePrinter2",
-        "type": "TransactionStarted",
-        "transaction": "FullNamePrinter2"
-    },
-    {
-        "type": "usermark",
-        "fullname2": "Bill Donaldo"
-    },
-    {
-        "mutation": false,
-        "tracker": "FullNamePrinter2",
-        "type": "TransactionCompleted",
-        "transaction": "FullNamePrinter2"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "FullNamePrinter2",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "FullNamePrinter2",
-        "type": "ReactionCompleted"
     }
 ]

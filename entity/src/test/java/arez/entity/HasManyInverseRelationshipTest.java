@@ -47,6 +47,7 @@ public class HasManyInverseRelationshipTest
 
     final AtomicInteger callCount = new AtomicInteger();
     autorun( () -> {
+      observeADependency();
       callCount.incrementAndGet();
       if ( Disposable.isNotDisposed( relationship ) )
       {

@@ -46,6 +46,10 @@
         "transaction": "Printer"
     },
     {
+        "observable": "Observable@1",
+        "type": "ObservableCreated"
+    },
+    {
         "computedValue": "CodeModel.0.qualifiedName",
         "type": "ComputeStarted"
     },
@@ -179,6 +183,10 @@
         "tracker": "Printer",
         "type": "TransactionStarted",
         "transaction": "Printer"
+    },
+    {
+        "observable": "Observable@2",
+        "type": "ObservableCreated"
     },
     {
         "type": "usermark",
@@ -291,6 +299,10 @@
         "transaction": "Printer"
     },
     {
+        "observable": "Observable@3",
+        "type": "ObservableCreated"
+    },
+    {
         "type": "usermark",
         "qualifiedName": "com.example.MyType"
     },
@@ -399,6 +411,10 @@
         "tracker": "Printer",
         "type": "TransactionStarted",
         "transaction": "Printer"
+    },
+    {
+        "observable": "Observable@4",
+        "type": "ObservableCreated"
     },
     {
         "type": "usermark",

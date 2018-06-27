@@ -226,6 +226,11 @@ public abstract class AbstractArezTest
     _printObserverErrors = printObserverErrors;
   }
 
+  protected static void observeADependency()
+  {
+    Arez.context().createObservable().reportObserved();
+  }
+
   private void onObserverError( @Nonnull final Observer observer,
                                 @Nonnull final ObserverError error,
                                 @Nullable final Throwable throwable )

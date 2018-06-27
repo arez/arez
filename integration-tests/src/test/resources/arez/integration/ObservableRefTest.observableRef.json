@@ -22,6 +22,10 @@
         "transaction": "TransportType"
     },
     {
+        "observable": "Observable@2",
+        "type": "ObservableCreated"
+    },
+    {
         "type": "usermark",
         "TransportType": "1"
     },
@@ -66,6 +70,10 @@
         "tracker": "ResolvedType",
         "type": "TransactionStarted",
         "transaction": "ResolvedType"
+    },
+    {
+        "observable": "Observable@3",
+        "type": "ObservableCreated"
     },
     {
         "type": "usermark",
@@ -153,6 +161,10 @@
         "transaction": "TransportType"
     },
     {
+        "observable": "Observable@4",
+        "type": "ObservableCreated"
+    },
+    {
         "type": "usermark",
         "TransportType": "22"
     },
@@ -193,6 +205,10 @@
         "tracker": "ResolvedType",
         "type": "TransactionStarted",
         "transaction": "ResolvedType"
+    },
+    {
+        "observable": "Observable@5",
+        "type": "ObservableCreated"
     },
     {
         "type": "usermark",

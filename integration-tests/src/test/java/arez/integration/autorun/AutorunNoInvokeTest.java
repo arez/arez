@@ -17,6 +17,8 @@ public class AutorunNoInvokeTest
     @Autorun
     void autorun()
     {
+      // Observe something so it is valid autorun
+      observeADependency();
       _autorunCallCount++;
     }
   }

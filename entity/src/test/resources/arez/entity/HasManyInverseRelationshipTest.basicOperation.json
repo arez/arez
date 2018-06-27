@@ -22,6 +22,10 @@
         "transaction": "Observer@1"
     },
     {
+        "observable": "Observable@2",
+        "type": "ObservableCreated"
+    },
+    {
         "computedValue": "HasManyInverseRelationship.0.relationship",
         "type": "ComputeStarted"
     },
@@ -68,7 +72,7 @@
         "type": "ReactionCompleted"
     },
     {
-        "action": "Transaction@2",
+        "action": "Transaction@3",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -78,7 +82,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@2"
+        "transaction": "Transaction@3"
     },
     {
         "observer": "HasManyInverseRelationship.0.relationship",
@@ -88,12 +92,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@2"
+        "transaction": "Transaction@3"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@2",
+        "action": "Transaction@3",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -148,6 +152,10 @@
         "transaction": "Observer@1"
     },
     {
+        "observable": "Observable@4",
+        "type": "ObservableCreated"
+    },
+    {
         "mutation": false,
         "tracker": "Observer@1",
         "type": "TransactionCompleted",
@@ -169,7 +177,7 @@
         "type": "ReactionCompleted"
     },
     {
-        "action": "Transaction@3",
+        "action": "Transaction@5",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -179,7 +187,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@3"
+        "transaction": "Transaction@5"
     },
     {
         "observer": "HasManyInverseRelationship.0.relationship",
@@ -189,12 +197,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@3"
+        "transaction": "Transaction@5"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@3",
+        "action": "Transaction@5",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -249,6 +257,10 @@
         "transaction": "Observer@1"
     },
     {
+        "observable": "Observable@6",
+        "type": "ObservableCreated"
+    },
+    {
         "mutation": false,
         "tracker": "Observer@1",
         "type": "TransactionCompleted",
@@ -270,7 +282,7 @@
         "type": "ReactionCompleted"
     },
     {
-        "action": "Transaction@4",
+        "action": "Transaction@7",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -280,7 +292,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@4"
+        "transaction": "Transaction@7"
     },
     {
         "observer": "HasManyInverseRelationship.0.relationship",
@@ -290,12 +302,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@4"
+        "transaction": "Transaction@7"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@4",
+        "action": "Transaction@7",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -350,6 +362,10 @@
         "transaction": "Observer@1"
     },
     {
+        "observable": "Observable@8",
+        "type": "ObservableCreated"
+    },
+    {
         "mutation": false,
         "tracker": "Observer@1",
         "type": "TransactionCompleted",
@@ -390,45 +406,6 @@
     {
         "observer": "HasManyInverseRelationship.0.relationship",
         "type": "ReactionScheduled"
-    },
-    {
-        "action": "TestComponent.1.isDisposed.dispose",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.1.isDisposed.dispose"
-    },
-    {
-        "observable": "TestComponent.1.isDisposed",
-        "type": "ObservableChanged",
-        "value": false
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.1.isDisposed.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "TestComponent.1.isDisposed.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observable": "TestComponent.1.isDisposed",
-        "type": "ObservableDisposed"
     },
     {
         "mutation": true,
@@ -492,6 +469,10 @@
         "tracker": "Observer@1",
         "type": "TransactionStarted",
         "transaction": "Observer@1"
+    },
+    {
+        "observable": "Observable@9",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
@@ -705,6 +686,10 @@
         "tracker": "Observer@1",
         "type": "TransactionStarted",
         "transaction": "Observer@1"
+    },
+    {
+        "observable": "Observable@10",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,

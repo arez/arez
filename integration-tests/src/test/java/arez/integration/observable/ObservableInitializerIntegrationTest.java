@@ -25,9 +25,15 @@ public class ObservableInitializerIntegrationTest
     final PersonModel person = PersonModel.create( "Bill", "Smith" );
 
     context.autorun( "FirstNamePrinter",
-                     () -> recorder.mark( "firstName", person.getFirstName() ) );
+                     () -> {
+                       observeADependency();
+                       recorder.mark( "firstName", person.getFirstName() );
+                     } );
     context.autorun( "FullNamePrinter",
-                     () -> recorder.mark( "fullname", person.getFullName() ) );
+                     () -> {
+                       observeADependency();
+                       recorder.mark( "fullname", person.getFullName() );
+                     } );
 
     context.action( "First Name Update", true, () -> person.setFirstName( "Fred" ) );
     context.action( "Last Name Update", true, () -> person.setLastName( "Donaldo" ) );

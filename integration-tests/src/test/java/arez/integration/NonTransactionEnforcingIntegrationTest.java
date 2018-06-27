@@ -30,9 +30,15 @@ public class NonTransactionEnforcingIntegrationTest
     final PersonModel person = PersonModel.create( "Bill", "Smith" );
 
     context.autorun( "FirstNamePrinter",
-                     () -> recorder.mark( "firstName", person.getFirstName() ) );
+                     () -> {
+                       observeADependency();
+                       recorder.mark( "firstName", person.getFirstName() );
+                     } );
     context.autorun( "FullNamePrinter",
-                     () -> recorder.mark( "fullname", person.getFullName() ) );
+                     () -> {
+                       observeADependency();
+                       recorder.mark( "fullname", person.getFullName() );
+                     } );
 
     final AtomicBoolean action1ReadOnly = new AtomicBoolean( true );
     final AtomicBoolean action2ReadOnly = new AtomicBoolean( true );

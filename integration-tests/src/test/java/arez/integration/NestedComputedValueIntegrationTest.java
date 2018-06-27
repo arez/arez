@@ -358,6 +358,7 @@ public class NestedComputedValueIntegrationTest
 
     public void cacheIsVisibleResult()
     {
+      observeADependency();
       _isVisibleResult = isVisible();
     }
   }

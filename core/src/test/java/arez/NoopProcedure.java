@@ -7,5 +7,6 @@ final class NoopProcedure
   public void call()
     throws Exception
   {
+    AbstractArezTest.observeADependency();
   }
 }

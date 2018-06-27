@@ -33,7 +33,11 @@ public class ExternalApiTest
     final ArezContext context = Arez.context();
     final AtomicInteger callCount = new AtomicInteger();
 
-    context.autorun( ValueUtil.randomString(), false, callCount::incrementAndGet, false );
+    final Procedure action = () -> {
+      observeADependency();
+      callCount.incrementAndGet();
+    };
+    context.autorun( ValueUtil.randomString(), false, action, false );
 
     assertEquals( callCount.get(), 0 );
 
@@ -130,7 +134,10 @@ public class ExternalApiTest
     final AtomicInteger callCount = new AtomicInteger();
 
     final String name = ValueUtil.randomString();
-    final Observer observer = context.autorun( name, false, callCount::incrementAndGet, true );
+    final Observer observer = context.autorun( name, false, () -> {
+      observeADependency();
+      callCount.incrementAndGet();
+    }, true );
 
     assertEquals( observer.getName(), name );
     assertEquals( ArezObserverTestUtil.isActive( observer ), true );
@@ -519,7 +526,10 @@ public class ExternalApiTest
     final AtomicInteger callCount = new AtomicInteger();
 
     // This would normally be scheduled and run now but scheduler should be paused
-    context.autorun( ValueUtil.randomString(), false, callCount::incrementAndGet, false );
+    context.autorun( ValueUtil.randomString(), false, () -> {
+      observeADependency();
+      callCount.incrementAndGet();
+    }, false );
     context.triggerScheduler();
 
     assertEquals( callCount.get(), 0 );

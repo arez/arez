@@ -93,8 +93,7 @@ public class ComponentTest
 
     final Observable observable1 = context.createObservable();
     final ComputedValue computedValue1 = context.createComputedValue( () -> "" );
-    final Observer observer1 = context.autorun( () -> {
-    } );
+    final Observer observer1 = context.autorun( AbstractArezTest::observeADependency );
 
     component.addObservable( observable1 );
     component.addComputedValue( computedValue1 );
@@ -143,10 +142,8 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final Observer observer1 = context.autorun( () -> {
-    } );
-    final Observer observer2 = context.autorun( () -> {
-    } );
+    final Observer observer1 = context.autorun( AbstractArezTest::observeADependency );
+    final Observer observer2 = context.autorun( AbstractArezTest::observeADependency );
 
     assertEquals( component.getObservers().size(), 0 );
 
@@ -181,8 +178,7 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final Observer observer1 = context.autorun( () -> {
-    } );
+    final Observer observer1 = context.autorun( AbstractArezTest::observeADependency );
 
     component.addObserver( observer1 );
 
@@ -208,8 +204,7 @@ public class ComponentTest
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
     component.complete();
 
-    final Observer observer1 = context.autorun( () -> {
-    } );
+    final Observer observer1 = context.autorun( AbstractArezTest::observeADependency );
 
     assertEquals( component.getObservers().size(), 0 );
 
@@ -232,8 +227,7 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final Observer observer1 = context.autorun( () -> {
-    } );
+    final Observer observer1 = context.autorun( AbstractArezTest::observeADependency );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> component.removeObserver( observer1 ) );
@@ -447,8 +441,7 @@ public class ComponentTest
                                                                       null,
                                                                       null,
                                                                       null );
-    final Procedure action = () -> {
-    };
+    final Procedure action = AbstractArezTest::observeADependency;
     final Observer observer1 =
       context.autorun( component, ValueUtil.randomString(), true, action, Priority.NORMAL, false );
     final Observer observer2 =

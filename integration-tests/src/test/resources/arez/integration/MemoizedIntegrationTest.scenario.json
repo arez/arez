@@ -38,6 +38,10 @@
         "transaction": "SearchResult - red"
     },
     {
+        "observable": "Observable@1",
+        "type": "ObservableCreated"
+    },
+    {
         "computedValue": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputedValueCreated"
     },
@@ -111,6 +115,10 @@
         "tracker": "SearchResult - ill",
         "type": "TransactionStarted",
         "transaction": "SearchResult - ill"
+    },
+    {
+        "observable": "Observable@2",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "PersonModel.0.doesSearchMatch.1",
@@ -188,6 +196,10 @@
         "transaction": "SearchResult - red - 20"
     },
     {
+        "observable": "Observable@3",
+        "type": "ObservableCreated"
+    },
+    {
         "computedValue": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputedValueCreated"
     },
@@ -261,6 +273,10 @@
         "tracker": "SearchResult - red - 5",
         "type": "TransactionStarted",
         "transaction": "SearchResult - red - 5"
+    },
+    {
+        "observable": "Observable@4",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "PersonModel.0.doesFullSearchMatch.1",
@@ -623,6 +639,10 @@
         "transaction": "SearchResult - red"
     },
     {
+        "observable": "Observable@5",
+        "type": "ObservableCreated"
+    },
+    {
         "type": "usermark",
         "doesSearchMatch - red": "true"
     },
@@ -665,6 +685,10 @@
         "transaction": "SearchResult - ill"
     },
     {
+        "observable": "Observable@6",
+        "type": "ObservableCreated"
+    },
+    {
         "type": "usermark",
         "doesSearchMatch - ill": "false"
     },
@@ -705,6 +729,10 @@
         "tracker": "SearchResult - red - 5",
         "type": "TransactionStarted",
         "transaction": "SearchResult - red - 5"
+    },
+    {
+        "observable": "Observable@7",
+        "type": "ObservableCreated"
     },
     {
         "type": "usermark",
@@ -898,6 +926,10 @@
         "transaction": "SearchResult - red"
     },
     {
+        "observable": "Observable@8",
+        "type": "ObservableCreated"
+    },
+    {
         "type": "usermark",
         "doesSearchMatch - red": "false"
     },
@@ -938,6 +970,10 @@
         "tracker": "SearchResult - red - 5",
         "type": "TransactionStarted",
         "transaction": "SearchResult - red - 5"
+    },
+    {
+        "observable": "Observable@9",
+        "type": "ObservableCreated"
     },
     {
         "type": "usermark",
@@ -1244,6 +1280,10 @@
         "transaction": "SearchResult - red"
     },
     {
+        "observable": "Observable@10",
+        "type": "ObservableCreated"
+    },
+    {
         "type": "usermark",
         "doesSearchMatch - red": "true"
     },
@@ -1284,6 +1324,10 @@
         "tracker": "SearchResult - red - 5",
         "type": "TransactionStarted",
         "transaction": "SearchResult - red - 5"
+    },
+    {
+        "observable": "Observable@11",
+        "type": "ObservableCreated"
     },
     {
         "type": "usermark",
@@ -1453,6 +1497,10 @@
         "transaction": "SearchResult - red"
     },
     {
+        "observable": "Observable@12",
+        "type": "ObservableCreated"
+    },
+    {
         "type": "usermark",
         "doesSearchMatch - red": "false"
     },
@@ -1493,6 +1541,10 @@
         "tracker": "SearchResult - red - 5",
         "type": "TransactionStarted",
         "transaction": "SearchResult - red - 5"
+    },
+    {
+        "observable": "Observable@13",
+        "type": "ObservableCreated"
     },
     {
         "type": "usermark",
@@ -1958,6 +2010,10 @@
         "transaction": "SearchResult - red"
     },
     {
+        "observable": "Observable@14",
+        "type": "ObservableCreated"
+    },
+    {
         "mutation": false,
         "tracker": "SearchResult - red",
         "type": "TransactionCompleted",
@@ -1996,6 +2052,10 @@
         "transaction": "SearchResult - red - 20"
     },
     {
+        "observable": "Observable@15",
+        "type": "ObservableCreated"
+    },
+    {
         "mutation": false,
         "tracker": "SearchResult - red - 20",
         "type": "TransactionCompleted",
@@ -2032,6 +2092,10 @@
         "tracker": "SearchResult - red - 5",
         "type": "TransactionStarted",
         "transaction": "SearchResult - red - 5"
+    },
+    {
+        "observable": "Observable@16",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,

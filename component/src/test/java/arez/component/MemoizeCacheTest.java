@@ -34,7 +34,10 @@ public class MemoizeCacheTest
     assertEquals( cache.isDisposed(), false );
     assertEquals( cache.getNextIndex(), 0 );
 
-    final Observer observer1 = context.autorun( () -> assertEquals( cache.get( "a", "b" ), "a.b" ) );
+    final Observer observer1 = context.autorun( () -> {
+      observeADependency();
+      assertEquals( cache.get( "a", "b" ), "a.b" );
+    } );
     assertEquals( callCount.get(), 1 );
     assertEquals( cache.getNextIndex(), 1 );
     assertEquals( cache.getCache().size(), 1 );
@@ -43,12 +46,18 @@ public class MemoizeCacheTest
       (ComputedValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "b" );
     assertNotNull( computedValue1 );
     assertEquals( context.safeAction( computedValue1::get ), "a.b" );
-    final Observer observer2 = context.autorun( () -> assertEquals( cache.get( "a", "b" ), "a.b" ) );
+    final Observer observer2 = context.autorun( () -> {
+      observeADependency();
+      assertEquals( cache.get( "a", "b" ), "a.b" );
+    } );
     assertEquals( callCount.get(), 1 );
     assertEquals( cache.getNextIndex(), 1 );
     assertEquals( cache.getCache().size(), 1 );
     assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 1 );
-    final Observer observer3 = context.autorun( () -> assertEquals( cache.get( "a", "c" ), "a.c" ) );
+    final Observer observer3 = context.autorun( () -> {
+      observeADependency();
+      assertEquals( cache.get( "a", "c" ), "a.c" );
+    } );
     assertEquals( callCount.get(), 2 );
     assertEquals( cache.getNextIndex(), 2 );
     assertEquals( cache.getCache().size(), 1 );
@@ -158,6 +167,7 @@ public class MemoizeCacheTest
     assertEquals( cache.getNextIndex(), 0 );
 
     context.autorun( () -> {
+      observeADependency();
       if ( Disposable.isNotDisposed( cache ) )
       {
         assertEquals( cache.get( "a", "b" ), "a.b" );

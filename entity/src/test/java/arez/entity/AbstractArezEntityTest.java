@@ -104,6 +104,11 @@ public abstract class AbstractArezEntityTest
     recorder.assertMatchesFixture( fixtureDir().resolve( getFixtureFilename() ), outputFiles() );
   }
 
+  protected static void observeADependency()
+  {
+    Arez.context().createObservable().reportObserved();
+  }
+
   @Nonnull
   private String getFixtureFilename()
   {

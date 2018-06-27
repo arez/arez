@@ -354,6 +354,10 @@
         "transaction": "Observer@1"
     },
     {
+        "observable": "Observable@2",
+        "type": "ObservableCreated"
+    },
+    {
         "computedValue": "Node.0.visible",
         "type": "ComputeStarted"
     },
@@ -450,48 +454,6 @@
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@2",
-        "type": "ObserverCreated"
-    },
-    {
-        "observer": "Observer@2",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "Observer@2",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@2",
-        "type": "TransactionStarted",
-        "transaction": "Observer@2"
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@2",
-        "type": "TransactionCompleted",
-        "transaction": "Observer@2"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Observer@2",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "Observer@2",
-        "type": "ReactionCompleted"
-    },
-    {
         "observer": "Observer@3",
         "type": "ObserverCreated"
     },
@@ -511,6 +473,10 @@
         "tracker": "Observer@3",
         "type": "TransactionStarted",
         "transaction": "Observer@3"
+    },
+    {
+        "observable": "Observable@4",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
@@ -534,15 +500,15 @@
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@4",
+        "observer": "Observer@5",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@4",
+        "observer": "Observer@5",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@4",
+        "action": "Observer@5",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -550,9 +516,59 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@4",
+        "tracker": "Observer@5",
         "type": "TransactionStarted",
-        "transaction": "Observer@4"
+        "transaction": "Observer@5"
+    },
+    {
+        "observable": "Observable@6",
+        "type": "ObservableCreated"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@5",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@5"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@5",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@5",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "Observer@7",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "Observer@7",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@7",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@7",
+        "type": "TransactionStarted",
+        "transaction": "Observer@7"
+    },
+    {
+        "observable": "Observable@8",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "Node.3.visible",
@@ -581,14 +597,14 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@4",
+        "tracker": "Observer@7",
         "type": "TransactionCompleted",
-        "transaction": "Observer@4"
+        "transaction": "Observer@7"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@4",
+        "action": "Observer@7",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -597,19 +613,19 @@
         ]
     },
     {
-        "observer": "Observer@4",
+        "observer": "Observer@7",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@5",
+        "observer": "Observer@9",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@5",
+        "observer": "Observer@9",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@5",
+        "action": "Observer@9",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -617,9 +633,13 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@5",
+        "tracker": "Observer@9",
         "type": "TransactionStarted",
-        "transaction": "Observer@5"
+        "transaction": "Observer@9"
+    },
+    {
+        "observable": "Observable@10",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "Node.4.visible",
@@ -648,14 +668,14 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@5",
+        "tracker": "Observer@9",
         "type": "TransactionCompleted",
-        "transaction": "Observer@5"
+        "transaction": "Observer@9"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@5",
+        "action": "Observer@9",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -664,19 +684,19 @@
         ]
     },
     {
-        "observer": "Observer@5",
+        "observer": "Observer@9",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@6",
+        "observer": "Observer@11",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@6",
+        "observer": "Observer@11",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@6",
+        "action": "Observer@11",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -684,9 +704,13 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@6",
+        "tracker": "Observer@11",
         "type": "TransactionStarted",
-        "transaction": "Observer@6"
+        "transaction": "Observer@11"
+    },
+    {
+        "observable": "Observable@12",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "Node.5.visible",
@@ -715,14 +739,14 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@6",
+        "tracker": "Observer@11",
         "type": "TransactionCompleted",
-        "transaction": "Observer@6"
+        "transaction": "Observer@11"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@6",
+        "action": "Observer@11",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -731,19 +755,19 @@
         ]
     },
     {
-        "observer": "Observer@6",
+        "observer": "Observer@11",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@7",
+        "observer": "Observer@13",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@7",
+        "observer": "Observer@13",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@7",
+        "action": "Observer@13",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -751,9 +775,13 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@7",
+        "tracker": "Observer@13",
         "type": "TransactionStarted",
-        "transaction": "Observer@7"
+        "transaction": "Observer@13"
+    },
+    {
+        "observable": "Observable@14",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "Node.6.visible",
@@ -857,14 +885,14 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@7",
+        "tracker": "Observer@13",
         "type": "TransactionCompleted",
-        "transaction": "Observer@7"
+        "transaction": "Observer@13"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@7",
+        "action": "Observer@13",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -873,19 +901,19 @@
         ]
     },
     {
-        "observer": "Observer@7",
+        "observer": "Observer@13",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@8",
+        "observer": "Observer@15",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@8",
+        "observer": "Observer@15",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@8",
+        "action": "Observer@15",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -893,20 +921,24 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@8",
+        "tracker": "Observer@15",
         "type": "TransactionStarted",
-        "transaction": "Observer@8"
+        "transaction": "Observer@15"
+    },
+    {
+        "observable": "Observable@16",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
-        "tracker": "Observer@8",
+        "tracker": "Observer@15",
         "type": "TransactionCompleted",
-        "transaction": "Observer@8"
+        "transaction": "Observer@15"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@8",
+        "action": "Observer@15",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -915,19 +947,19 @@
         ]
     },
     {
-        "observer": "Observer@8",
+        "observer": "Observer@15",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@9",
+        "observer": "Observer@17",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@9",
+        "observer": "Observer@17",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@9",
+        "action": "Observer@17",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -935,20 +967,24 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@9",
+        "tracker": "Observer@17",
         "type": "TransactionStarted",
-        "transaction": "Observer@9"
+        "transaction": "Observer@17"
+    },
+    {
+        "observable": "Observable@18",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
-        "tracker": "Observer@9",
+        "tracker": "Observer@17",
         "type": "TransactionCompleted",
-        "transaction": "Observer@9"
+        "transaction": "Observer@17"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@9",
+        "action": "Observer@17",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -957,19 +993,19 @@
         ]
     },
     {
-        "observer": "Observer@9",
+        "observer": "Observer@17",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@10",
+        "observer": "Observer@19",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@10",
+        "observer": "Observer@19",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@10",
+        "action": "Observer@19",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -977,20 +1013,24 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@10",
+        "tracker": "Observer@19",
         "type": "TransactionStarted",
-        "transaction": "Observer@10"
+        "transaction": "Observer@19"
+    },
+    {
+        "observable": "Observable@20",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
-        "tracker": "Observer@10",
+        "tracker": "Observer@19",
         "type": "TransactionCompleted",
-        "transaction": "Observer@10"
+        "transaction": "Observer@19"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@10",
+        "action": "Observer@19",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -999,19 +1039,19 @@
         ]
     },
     {
-        "observer": "Observer@10",
+        "observer": "Observer@19",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@11",
+        "observer": "Observer@21",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@11",
+        "observer": "Observer@21",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@11",
+        "action": "Observer@21",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -1019,9 +1059,13 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@11",
+        "tracker": "Observer@21",
         "type": "TransactionStarted",
-        "transaction": "Observer@11"
+        "transaction": "Observer@21"
+    },
+    {
+        "observable": "Observable@22",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "Node.10.visible",
@@ -1050,14 +1094,14 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@11",
+        "tracker": "Observer@21",
         "type": "TransactionCompleted",
-        "transaction": "Observer@11"
+        "transaction": "Observer@21"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@11",
+        "action": "Observer@21",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1066,19 +1110,19 @@
         ]
     },
     {
-        "observer": "Observer@11",
+        "observer": "Observer@21",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@12",
+        "observer": "Observer@23",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@12",
+        "observer": "Observer@23",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@12",
+        "action": "Observer@23",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -1086,9 +1130,13 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@12",
+        "tracker": "Observer@23",
         "type": "TransactionStarted",
-        "transaction": "Observer@12"
+        "transaction": "Observer@23"
+    },
+    {
+        "observable": "Observable@24",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "Node.11.visible",
@@ -1117,14 +1165,14 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@12",
+        "tracker": "Observer@23",
         "type": "TransactionCompleted",
-        "transaction": "Observer@12"
+        "transaction": "Observer@23"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@12",
+        "action": "Observer@23",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1133,19 +1181,19 @@
         ]
     },
     {
-        "observer": "Observer@12",
+        "observer": "Observer@23",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@13",
+        "observer": "Observer@25",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@13",
+        "observer": "Observer@25",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@13",
+        "action": "Observer@25",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -1153,9 +1201,13 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@13",
+        "tracker": "Observer@25",
         "type": "TransactionStarted",
-        "transaction": "Observer@13"
+        "transaction": "Observer@25"
+    },
+    {
+        "observable": "Observable@26",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "Node.12.visible",
@@ -1234,14 +1286,14 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@13",
+        "tracker": "Observer@25",
         "type": "TransactionCompleted",
-        "transaction": "Observer@13"
+        "transaction": "Observer@25"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@13",
+        "action": "Observer@25",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1250,19 +1302,19 @@
         ]
     },
     {
-        "observer": "Observer@13",
+        "observer": "Observer@25",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@14",
+        "observer": "Observer@27",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@14",
+        "observer": "Observer@27",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@14",
+        "action": "Observer@27",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -1270,20 +1322,24 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@14",
+        "tracker": "Observer@27",
         "type": "TransactionStarted",
-        "transaction": "Observer@14"
+        "transaction": "Observer@27"
+    },
+    {
+        "observable": "Observable@28",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
-        "tracker": "Observer@14",
+        "tracker": "Observer@27",
         "type": "TransactionCompleted",
-        "transaction": "Observer@14"
+        "transaction": "Observer@27"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@14",
+        "action": "Observer@27",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1292,19 +1348,19 @@
         ]
     },
     {
-        "observer": "Observer@14",
+        "observer": "Observer@27",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@15",
+        "observer": "Observer@29",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@15",
+        "observer": "Observer@29",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@15",
+        "action": "Observer@29",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -1312,20 +1368,24 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@15",
+        "tracker": "Observer@29",
         "type": "TransactionStarted",
-        "transaction": "Observer@15"
+        "transaction": "Observer@29"
+    },
+    {
+        "observable": "Observable@30",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
-        "tracker": "Observer@15",
+        "tracker": "Observer@29",
         "type": "TransactionCompleted",
-        "transaction": "Observer@15"
+        "transaction": "Observer@29"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@15",
+        "action": "Observer@29",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1334,19 +1394,19 @@
         ]
     },
     {
-        "observer": "Observer@15",
+        "observer": "Observer@29",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@16",
+        "observer": "Observer@31",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@16",
+        "observer": "Observer@31",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@16",
+        "action": "Observer@31",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -1354,9 +1414,13 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@16",
+        "tracker": "Observer@31",
         "type": "TransactionStarted",
-        "transaction": "Observer@16"
+        "transaction": "Observer@31"
+    },
+    {
+        "observable": "Observable@32",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "Node.15.visible",
@@ -1385,14 +1449,14 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@16",
+        "tracker": "Observer@31",
         "type": "TransactionCompleted",
-        "transaction": "Observer@16"
+        "transaction": "Observer@31"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@16",
+        "action": "Observer@31",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1401,19 +1465,19 @@
         ]
     },
     {
-        "observer": "Observer@16",
+        "observer": "Observer@31",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@17",
+        "observer": "Observer@33",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@17",
+        "observer": "Observer@33",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@17",
+        "action": "Observer@33",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -1421,9 +1485,13 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@17",
+        "tracker": "Observer@33",
         "type": "TransactionStarted",
-        "transaction": "Observer@17"
+        "transaction": "Observer@33"
+    },
+    {
+        "observable": "Observable@34",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "Node.16.visible",
@@ -1452,14 +1520,14 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@17",
+        "tracker": "Observer@33",
         "type": "TransactionCompleted",
-        "transaction": "Observer@17"
+        "transaction": "Observer@33"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@17",
+        "action": "Observer@33",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1468,19 +1536,19 @@
         ]
     },
     {
-        "observer": "Observer@17",
+        "observer": "Observer@33",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@18",
+        "observer": "Observer@35",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@18",
+        "observer": "Observer@35",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@18",
+        "action": "Observer@35",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -1488,9 +1556,13 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@18",
+        "tracker": "Observer@35",
         "type": "TransactionStarted",
-        "transaction": "Observer@18"
+        "transaction": "Observer@35"
+    },
+    {
+        "observable": "Observable@36",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "Node.17.visible",
@@ -1544,14 +1616,14 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@18",
+        "tracker": "Observer@35",
         "type": "TransactionCompleted",
-        "transaction": "Observer@18"
+        "transaction": "Observer@35"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@18",
+        "action": "Observer@35",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1560,19 +1632,19 @@
         ]
     },
     {
-        "observer": "Observer@18",
+        "observer": "Observer@35",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@19",
+        "observer": "Observer@37",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@19",
+        "observer": "Observer@37",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@19",
+        "action": "Observer@37",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -1580,20 +1652,24 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@19",
+        "tracker": "Observer@37",
         "type": "TransactionStarted",
-        "transaction": "Observer@19"
+        "transaction": "Observer@37"
+    },
+    {
+        "observable": "Observable@38",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
-        "tracker": "Observer@19",
+        "tracker": "Observer@37",
         "type": "TransactionCompleted",
-        "transaction": "Observer@19"
+        "transaction": "Observer@37"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@19",
+        "action": "Observer@37",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1602,19 +1678,19 @@
         ]
     },
     {
-        "observer": "Observer@19",
+        "observer": "Observer@37",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@20",
+        "observer": "Observer@39",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@20",
+        "observer": "Observer@39",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@20",
+        "action": "Observer@39",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -1622,9 +1698,13 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@20",
+        "tracker": "Observer@39",
         "type": "TransactionStarted",
-        "transaction": "Observer@20"
+        "transaction": "Observer@39"
+    },
+    {
+        "observable": "Observable@40",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "Node.19.visible",
@@ -1653,14 +1733,14 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@20",
+        "tracker": "Observer@39",
         "type": "TransactionCompleted",
-        "transaction": "Observer@20"
+        "transaction": "Observer@39"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@20",
+        "action": "Observer@39",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1669,11 +1749,11 @@
         ]
     },
     {
-        "observer": "Observer@20",
+        "observer": "Observer@39",
         "type": "ReactionCompleted"
     },
     {
-        "action": "Transaction@21",
+        "action": "Transaction@41",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -1683,7 +1763,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@21"
+        "transaction": "Transaction@41"
     },
     {
         "observable": "FilterContext.0.filter",
@@ -1774,12 +1854,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@21"
+        "transaction": "Transaction@41"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@21",
+        "action": "Transaction@41",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1871,7 +1951,7 @@
         "value": false
     },
     {
-        "observer": "Observer@4",
+        "observer": "Observer@7",
         "type": "ReactionScheduled"
     },
     {
@@ -1900,7 +1980,7 @@
         "value": false
     },
     {
-        "observer": "Observer@5",
+        "observer": "Observer@9",
         "type": "ReactionScheduled"
     },
     {
@@ -1929,7 +2009,7 @@
         "value": false
     },
     {
-        "observer": "Observer@6",
+        "observer": "Observer@11",
         "type": "ReactionScheduled"
     },
     {
@@ -1968,7 +2048,7 @@
         "value": false
     },
     {
-        "observer": "Observer@10",
+        "observer": "Observer@19",
         "type": "ReactionScheduled"
     },
     {
@@ -2007,7 +2087,7 @@
         "value": false
     },
     {
-        "observer": "Observer@11",
+        "observer": "Observer@21",
         "type": "ReactionScheduled"
     },
     {
@@ -2036,7 +2116,7 @@
         "value": false
     },
     {
-        "observer": "Observer@12",
+        "observer": "Observer@23",
         "type": "ReactionScheduled"
     },
     {
@@ -2055,7 +2135,7 @@
         "value": false
     },
     {
-        "observer": "Observer@9",
+        "observer": "Observer@17",
         "type": "ReactionScheduled"
     },
     {
@@ -2272,7 +2352,7 @@
         "value": false
     },
     {
-        "observer": "Observer@19",
+        "observer": "Observer@37",
         "type": "ReactionScheduled"
     },
     {
@@ -2301,7 +2381,7 @@
         "value": false
     },
     {
-        "observer": "Observer@20",
+        "observer": "Observer@39",
         "type": "ReactionScheduled"
     },
     {
@@ -2320,7 +2400,7 @@
         "value": false
     },
     {
-        "observer": "Observer@18",
+        "observer": "Observer@35",
         "type": "ReactionScheduled"
     },
     {
@@ -2350,11 +2430,11 @@
         "type": "ComputeCompleted"
     },
     {
-        "observer": "Observer@4",
+        "observer": "Observer@7",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@4",
+        "action": "Observer@7",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -2362,20 +2442,24 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@4",
+        "tracker": "Observer@7",
         "type": "TransactionStarted",
-        "transaction": "Observer@4"
+        "transaction": "Observer@7"
+    },
+    {
+        "observable": "Observable@42",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
-        "tracker": "Observer@4",
+        "tracker": "Observer@7",
         "type": "TransactionCompleted",
-        "transaction": "Observer@4"
+        "transaction": "Observer@7"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@4",
+        "action": "Observer@7",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -2384,197 +2468,7 @@
         ]
     },
     {
-        "observer": "Observer@4",
-        "type": "ReactionCompleted"
-    },
-    {
-        "observer": "Observer@5",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "Observer@5",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@5",
-        "type": "TransactionStarted",
-        "transaction": "Observer@5"
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@5",
-        "type": "TransactionCompleted",
-        "transaction": "Observer@5"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Observer@5",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "Observer@5",
-        "type": "ReactionCompleted"
-    },
-    {
-        "observer": "Observer@6",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "Observer@6",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@6",
-        "type": "TransactionStarted",
-        "transaction": "Observer@6"
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@6",
-        "type": "TransactionCompleted",
-        "transaction": "Observer@6"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Observer@6",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "Observer@6",
-        "type": "ReactionCompleted"
-    },
-    {
-        "observer": "Observer@10",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "Observer@10",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@10",
-        "type": "TransactionStarted",
-        "transaction": "Observer@10"
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@10",
-        "type": "TransactionCompleted",
-        "transaction": "Observer@10"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Observer@10",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "Observer@10",
-        "type": "ReactionCompleted"
-    },
-    {
-        "observer": "Observer@11",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "Observer@11",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@11",
-        "type": "TransactionStarted",
-        "transaction": "Observer@11"
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@11",
-        "type": "TransactionCompleted",
-        "transaction": "Observer@11"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Observer@11",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "Observer@11",
-        "type": "ReactionCompleted"
-    },
-    {
-        "observer": "Observer@12",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "Observer@12",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@12",
-        "type": "TransactionStarted",
-        "transaction": "Observer@12"
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@12",
-        "type": "TransactionCompleted",
-        "transaction": "Observer@12"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Observer@12",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "Observer@12",
+        "observer": "Observer@7",
         "type": "ReactionCompleted"
     },
     {
@@ -2593,6 +2487,10 @@
         "tracker": "Observer@9",
         "type": "TransactionStarted",
         "transaction": "Observer@9"
+    },
+    {
+        "observable": "Observable@43",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
@@ -2616,6 +2514,48 @@
         "type": "ReactionCompleted"
     },
     {
+        "observer": "Observer@11",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@11",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@11",
+        "type": "TransactionStarted",
+        "transaction": "Observer@11"
+    },
+    {
+        "observable": "Observable@44",
+        "type": "ObservableCreated"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@11",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@11"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@11",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@11",
+        "type": "ReactionCompleted"
+    },
+    {
         "observer": "Observer@19",
         "type": "ReactionStarted"
     },
@@ -2633,6 +2573,10 @@
         "transaction": "Observer@19"
     },
     {
+        "observable": "Observable@45",
+        "type": "ObservableCreated"
+    },
+    {
         "mutation": false,
         "tracker": "Observer@19",
         "type": "TransactionCompleted",
@@ -2654,11 +2598,11 @@
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@20",
+        "observer": "Observer@21",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@20",
+        "action": "Observer@21",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -2666,20 +2610,24 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@20",
+        "tracker": "Observer@21",
         "type": "TransactionStarted",
-        "transaction": "Observer@20"
+        "transaction": "Observer@21"
+    },
+    {
+        "observable": "Observable@46",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
-        "tracker": "Observer@20",
+        "tracker": "Observer@21",
         "type": "TransactionCompleted",
-        "transaction": "Observer@20"
+        "transaction": "Observer@21"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@20",
+        "action": "Observer@21",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -2688,15 +2636,15 @@
         ]
     },
     {
-        "observer": "Observer@20",
+        "observer": "Observer@21",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@18",
+        "observer": "Observer@23",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@18",
+        "action": "Observer@23",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -2704,20 +2652,24 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@18",
+        "tracker": "Observer@23",
         "type": "TransactionStarted",
-        "transaction": "Observer@18"
+        "transaction": "Observer@23"
+    },
+    {
+        "observable": "Observable@47",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
-        "tracker": "Observer@18",
+        "tracker": "Observer@23",
         "type": "TransactionCompleted",
-        "transaction": "Observer@18"
+        "transaction": "Observer@23"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@18",
+        "action": "Observer@23",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -2726,11 +2678,179 @@
         ]
     },
     {
-        "observer": "Observer@18",
+        "observer": "Observer@23",
         "type": "ReactionCompleted"
     },
     {
-        "action": "Transaction@22",
+        "observer": "Observer@17",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@17",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@17",
+        "type": "TransactionStarted",
+        "transaction": "Observer@17"
+    },
+    {
+        "observable": "Observable@48",
+        "type": "ObservableCreated"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@17",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@17"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@17",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@17",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "Observer@37",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@37",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@37",
+        "type": "TransactionStarted",
+        "transaction": "Observer@37"
+    },
+    {
+        "observable": "Observable@49",
+        "type": "ObservableCreated"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@37",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@37"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@37",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@37",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "Observer@39",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@39",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@39",
+        "type": "TransactionStarted",
+        "transaction": "Observer@39"
+    },
+    {
+        "observable": "Observable@50",
+        "type": "ObservableCreated"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@39",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@39"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@39",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@39",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "Observer@35",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@35",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@35",
+        "type": "TransactionStarted",
+        "transaction": "Observer@35"
+    },
+    {
+        "observable": "Observable@51",
+        "type": "ObservableCreated"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@35",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@35"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@35",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@35",
+        "type": "ReactionCompleted"
+    },
+    {
+        "action": "Transaction@52",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -2740,7 +2860,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@22"
+        "transaction": "Transaction@52"
     },
     {
         "observable": "FilterContext.0.filter",
@@ -2831,12 +2951,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@22"
+        "transaction": "Transaction@52"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@22",
+        "action": "Transaction@52",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -3058,7 +3178,7 @@
         "value": false
     },
     {
-        "observer": "Observer@15",
+        "observer": "Observer@29",
         "type": "ReactionScheduled"
     },
     {
@@ -3097,7 +3217,7 @@
         "value": false
     },
     {
-        "observer": "Observer@16",
+        "observer": "Observer@31",
         "type": "ReactionScheduled"
     },
     {
@@ -3126,7 +3246,7 @@
         "value": false
     },
     {
-        "observer": "Observer@17",
+        "observer": "Observer@33",
         "type": "ReactionScheduled"
     },
     {
@@ -3145,7 +3265,7 @@
         "value": false
     },
     {
-        "observer": "Observer@14",
+        "observer": "Observer@27",
         "type": "ReactionScheduled"
     },
     {
@@ -3214,7 +3334,7 @@
         "value": false
     },
     {
-        "observer": "Observer@13",
+        "observer": "Observer@25",
         "type": "ReactionScheduled"
     },
     {
@@ -3243,7 +3363,7 @@
         "value": false
     },
     {
-        "observer": "Observer@8",
+        "observer": "Observer@15",
         "type": "ReactionScheduled"
     },
     {
@@ -3262,7 +3382,7 @@
         "value": false
     },
     {
-        "observer": "Observer@7",
+        "observer": "Observer@13",
         "type": "ReactionScheduled"
     },
     {
@@ -3404,6 +3524,216 @@
         "type": "ComputeCompleted"
     },
     {
+        "observer": "Observer@29",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@29",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@29",
+        "type": "TransactionStarted",
+        "transaction": "Observer@29"
+    },
+    {
+        "observable": "Observable@53",
+        "type": "ObservableCreated"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@29",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@29"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@29",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@29",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "Observer@31",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@31",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@31",
+        "type": "TransactionStarted",
+        "transaction": "Observer@31"
+    },
+    {
+        "observable": "Observable@54",
+        "type": "ObservableCreated"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@31",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@31"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@31",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@31",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "Observer@33",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@33",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@33",
+        "type": "TransactionStarted",
+        "transaction": "Observer@33"
+    },
+    {
+        "observable": "Observable@55",
+        "type": "ObservableCreated"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@33",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@33"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@33",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@33",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "Observer@27",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@27",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@27",
+        "type": "TransactionStarted",
+        "transaction": "Observer@27"
+    },
+    {
+        "observable": "Observable@56",
+        "type": "ObservableCreated"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@27",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@27"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@27",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@27",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "Observer@25",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@25",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@25",
+        "type": "TransactionStarted",
+        "transaction": "Observer@25"
+    },
+    {
+        "observable": "Observable@57",
+        "type": "ObservableCreated"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@25",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@25"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@25",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@25",
+        "type": "ReactionCompleted"
+    },
+    {
         "observer": "Observer@15",
         "type": "ReactionStarted"
     },
@@ -3421,6 +3751,10 @@
         "transaction": "Observer@15"
     },
     {
+        "observable": "Observable@58",
+        "type": "ObservableCreated"
+    },
+    {
         "mutation": false,
         "tracker": "Observer@15",
         "type": "TransactionCompleted",
@@ -3439,120 +3773,6 @@
     },
     {
         "observer": "Observer@15",
-        "type": "ReactionCompleted"
-    },
-    {
-        "observer": "Observer@16",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "Observer@16",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@16",
-        "type": "TransactionStarted",
-        "transaction": "Observer@16"
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@16",
-        "type": "TransactionCompleted",
-        "transaction": "Observer@16"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Observer@16",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "Observer@16",
-        "type": "ReactionCompleted"
-    },
-    {
-        "observer": "Observer@17",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "Observer@17",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@17",
-        "type": "TransactionStarted",
-        "transaction": "Observer@17"
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@17",
-        "type": "TransactionCompleted",
-        "transaction": "Observer@17"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Observer@17",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "Observer@17",
-        "type": "ReactionCompleted"
-    },
-    {
-        "observer": "Observer@14",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "Observer@14",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@14",
-        "type": "TransactionStarted",
-        "transaction": "Observer@14"
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@14",
-        "type": "TransactionCompleted",
-        "transaction": "Observer@14"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Observer@14",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "Observer@14",
         "type": "ReactionCompleted"
     },
     {
@@ -3573,6 +3793,10 @@
         "transaction": "Observer@13"
     },
     {
+        "observable": "Observable@59",
+        "type": "ObservableCreated"
+    },
+    {
         "mutation": false,
         "tracker": "Observer@13",
         "type": "TransactionCompleted",
@@ -3594,83 +3818,7 @@
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@8",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "Observer@8",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@8",
-        "type": "TransactionStarted",
-        "transaction": "Observer@8"
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@8",
-        "type": "TransactionCompleted",
-        "transaction": "Observer@8"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Observer@8",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "Observer@8",
-        "type": "ReactionCompleted"
-    },
-    {
-        "observer": "Observer@7",
-        "type": "ReactionStarted"
-    },
-    {
-        "action": "Observer@7",
-        "tracked": true,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@7",
-        "type": "TransactionStarted",
-        "transaction": "Observer@7"
-    },
-    {
-        "mutation": false,
-        "tracker": "Observer@7",
-        "type": "TransactionCompleted",
-        "transaction": "Observer@7"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Observer@7",
-        "tracked": true,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "observer": "Observer@7",
-        "type": "ReactionCompleted"
-    },
-    {
-        "action": "Transaction@23",
+        "action": "Transaction@60",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -3680,7 +3828,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@23"
+        "transaction": "Transaction@60"
     },
     {
         "observable": "FilterContext.0.filter",
@@ -3771,12 +3919,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@23"
+        "transaction": "Transaction@60"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@23",
+        "action": "Transaction@60",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -3810,7 +3958,7 @@
         "value": false
     },
     {
-        "observer": "Observer@3",
+        "observer": "Observer@5",
         "type": "ReactionScheduled"
     },
     {
@@ -3899,7 +4047,7 @@
         "value": false
     },
     {
-        "observer": "Observer@2",
+        "observer": "Observer@3",
         "type": "ReactionScheduled"
     },
     {
@@ -4316,11 +4464,11 @@
         "type": "ComputeCompleted"
     },
     {
-        "observer": "Observer@3",
+        "observer": "Observer@5",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@3",
+        "action": "Observer@5",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -4328,20 +4476,24 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@3",
+        "tracker": "Observer@5",
         "type": "TransactionStarted",
-        "transaction": "Observer@3"
+        "transaction": "Observer@5"
+    },
+    {
+        "observable": "Observable@61",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
-        "tracker": "Observer@3",
+        "tracker": "Observer@5",
         "type": "TransactionCompleted",
-        "transaction": "Observer@3"
+        "transaction": "Observer@5"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@3",
+        "action": "Observer@5",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -4350,15 +4502,15 @@
         ]
     },
     {
-        "observer": "Observer@3",
+        "observer": "Observer@5",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@2",
+        "observer": "Observer@3",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@2",
+        "action": "Observer@3",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -4366,20 +4518,24 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@2",
+        "tracker": "Observer@3",
         "type": "TransactionStarted",
-        "transaction": "Observer@2"
+        "transaction": "Observer@3"
+    },
+    {
+        "observable": "Observable@62",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
-        "tracker": "Observer@2",
+        "tracker": "Observer@3",
         "type": "TransactionCompleted",
-        "transaction": "Observer@2"
+        "transaction": "Observer@3"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@2",
+        "action": "Observer@3",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -4388,7 +4544,7 @@
         ]
     },
     {
-        "observer": "Observer@2",
+        "observer": "Observer@3",
         "type": "ReactionCompleted"
     },
     {
@@ -4409,6 +4565,10 @@
         "transaction": "Observer@1"
     },
     {
+        "observable": "Observable@63",
+        "type": "ObservableCreated"
+    },
+    {
         "mutation": false,
         "tracker": "Observer@1",
         "type": "TransactionCompleted",
@@ -4430,7 +4590,7 @@
         "type": "ReactionCompleted"
     },
     {
-        "action": "Transaction@24",
+        "action": "Transaction@64",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -4440,7 +4600,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@24"
+        "transaction": "Transaction@64"
     },
     {
         "observable": "FilterContext.0.filter",
@@ -4531,12 +4691,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@24"
+        "transaction": "Transaction@64"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@24",
+        "action": "Transaction@64",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -4570,7 +4730,7 @@
         "value": true
     },
     {
-        "observer": "Observer@3",
+        "observer": "Observer@5",
         "type": "ReactionScheduled"
     },
     {
@@ -4599,7 +4759,7 @@
         "value": true
     },
     {
-        "observer": "Observer@2",
+        "observer": "Observer@3",
         "type": "ReactionScheduled"
     },
     {
@@ -5052,11 +5212,11 @@
         "type": "ComputeCompleted"
     },
     {
-        "observer": "Observer@3",
+        "observer": "Observer@5",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@3",
+        "action": "Observer@5",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -5064,20 +5224,24 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@3",
+        "tracker": "Observer@5",
         "type": "TransactionStarted",
-        "transaction": "Observer@3"
+        "transaction": "Observer@5"
+    },
+    {
+        "observable": "Observable@65",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
-        "tracker": "Observer@3",
+        "tracker": "Observer@5",
         "type": "TransactionCompleted",
-        "transaction": "Observer@3"
+        "transaction": "Observer@5"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@3",
+        "action": "Observer@5",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -5086,15 +5250,15 @@
         ]
     },
     {
-        "observer": "Observer@3",
+        "observer": "Observer@5",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "Observer@2",
+        "observer": "Observer@3",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@2",
+        "action": "Observer@3",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -5102,20 +5266,24 @@
     },
     {
         "mutation": false,
-        "tracker": "Observer@2",
+        "tracker": "Observer@3",
         "type": "TransactionStarted",
-        "transaction": "Observer@2"
+        "transaction": "Observer@3"
+    },
+    {
+        "observable": "Observable@66",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
-        "tracker": "Observer@2",
+        "tracker": "Observer@3",
         "type": "TransactionCompleted",
-        "transaction": "Observer@2"
+        "transaction": "Observer@3"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Observer@2",
+        "action": "Observer@3",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -5124,7 +5292,7 @@
         ]
     },
     {
-        "observer": "Observer@2",
+        "observer": "Observer@3",
         "type": "ReactionCompleted"
     },
     {
@@ -5143,6 +5311,10 @@
         "tracker": "Observer@1",
         "type": "TransactionStarted",
         "transaction": "Observer@1"
+    },
+    {
+        "observable": "Observable@67",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,

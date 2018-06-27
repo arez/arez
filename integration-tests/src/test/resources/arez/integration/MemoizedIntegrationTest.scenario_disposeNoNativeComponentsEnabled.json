@@ -30,6 +30,10 @@
         "transaction": "SearchResult - red - 20"
     },
     {
+        "observable": "Observable@1",
+        "type": "ObservableCreated"
+    },
+    {
         "computedValue": "PersonModel.2.doesFullSearchMatch.0",
         "type": "ComputedValueCreated"
     },
@@ -370,6 +374,10 @@
         "tracker": "SearchResult - red - 20",
         "type": "TransactionStarted",
         "transaction": "SearchResult - red - 20"
+    },
+    {
+        "observable": "Observable@2",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,

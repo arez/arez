@@ -42,6 +42,10 @@
         "transaction": "FirstNamePrinter"
     },
     {
+        "observable": "Observable@1",
+        "type": "ObservableCreated"
+    },
+    {
         "type": "usermark",
         "firstName": "Bill"
     },
@@ -86,6 +90,10 @@
         "tracker": "FullNamePrinter",
         "type": "TransactionStarted",
         "transaction": "FullNamePrinter"
+    },
+    {
+        "observable": "Observable@2",
+        "type": "ObservableCreated"
     },
     {
         "computedValue": "PersonModel.0.fullName",
@@ -198,6 +206,10 @@
         "transaction": "FirstNamePrinter"
     },
     {
+        "observable": "Observable@3",
+        "type": "ObservableCreated"
+    },
+    {
         "type": "usermark",
         "firstName": "Fred"
     },
@@ -267,6 +279,10 @@
         "tracker": "FullNamePrinter",
         "type": "TransactionStarted",
         "transaction": "FullNamePrinter"
+    },
+    {
+        "observable": "Observable@4",
+        "type": "ObservableCreated"
     },
     {
         "type": "usermark",
@@ -377,6 +393,10 @@
         "tracker": "FullNamePrinter",
         "type": "TransactionStarted",
         "transaction": "FullNamePrinter"
+    },
+    {
+        "observable": "Observable@5",
+        "type": "ObservableCreated"
     },
     {
         "type": "usermark",

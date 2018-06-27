@@ -33,7 +33,7 @@ public class ArezContextTest
   @Test
   public void toName()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     // Use passed in name
     assertEquals( context.generateNodeName( "ComputedValue", "MyName" ), "MyName" );
@@ -55,10 +55,13 @@ public class ArezContextTest
   @Test
   public void triggerScheduler()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final AtomicInteger callCount = new AtomicInteger();
 
-    context.autorun( ValueUtil.randomString(), false, callCount::incrementAndGet, false );
+    context.autorun( ValueUtil.randomString(), false, () -> {
+      observeADependency();
+      callCount.incrementAndGet();
+    }, false );
 
     assertEquals( callCount.get(), 0 );
 
@@ -70,7 +73,7 @@ public class ArezContextTest
   @Test
   public void triggerScheduler_inEnvironment()
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final AtomicInteger callCount = new AtomicInteger();
     final AtomicReference<String> environment = new AtomicReference<>();
 
@@ -81,6 +84,7 @@ public class ArezContextTest
     } );
 
     context.autorun( ValueUtil.randomString(), false, () -> {
+      observeADependency();
       callCount.incrementAndGet();
       assertEquals( environment.get(), "RED" );
 
@@ -99,7 +103,7 @@ public class ArezContextTest
   public void action_function()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -195,7 +199,7 @@ public class ArezContextTest
   public void action_function_throwsException()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -264,7 +268,7 @@ public class ArezContextTest
   public void action_function_NameButNoMutationVariant()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
     context.action( name, () -> {
@@ -278,7 +282,7 @@ public class ArezContextTest
   public void action_function_minimalParameters()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -336,7 +340,7 @@ public class ArezContextTest
   public void track_function()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -441,7 +445,7 @@ public class ArezContextTest
   public void track_function_passingNonTracker()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final AtomicInteger callCount = new AtomicInteger();
 
@@ -458,7 +462,7 @@ public class ArezContextTest
   public void action_safeFunction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -554,7 +558,7 @@ public class ArezContextTest
   public void action_safeFunction_throws_Exception()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -624,7 +628,7 @@ public class ArezContextTest
   public void action_safeFunction_minimalParameters()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -650,7 +654,7 @@ public class ArezContextTest
   public void action_safeFunction_NameButNoMutationVariant()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
     context.safeAction( name, () -> {
@@ -664,7 +668,7 @@ public class ArezContextTest
   public void track_safeFunction()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -723,7 +727,7 @@ public class ArezContextTest
   public void track_safeFunction_passingNonTracker()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final AtomicInteger callCount = new AtomicInteger();
 
@@ -740,7 +744,7 @@ public class ArezContextTest
   public void safeAction_safeProcedure_minimalParameters()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -758,7 +762,7 @@ public class ArezContextTest
   public void safeAction_safeProcedure_NameButNoMutationVariant()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
     context.safeAction( name, () -> {
@@ -771,7 +775,7 @@ public class ArezContextTest
   public void action_safeProcedure_throws_Exception()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -842,7 +846,7 @@ public class ArezContextTest
   public void track_safeProcedure()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -894,7 +898,7 @@ public class ArezContextTest
   public void track_safeProcedure_passingNonTracker()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final AtomicInteger callCount = new AtomicInteger();
 
@@ -912,7 +916,7 @@ public class ArezContextTest
   public void action_procedure_NameButNoMutationVariant()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
     context.action( name, () -> {
@@ -925,7 +929,7 @@ public class ArezContextTest
   public void action_procedure_minimalParameters()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -943,7 +947,7 @@ public class ArezContextTest
   public void track_procedure_passingNonTracker()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final AtomicInteger callCount = new AtomicInteger();
 
@@ -961,7 +965,7 @@ public class ArezContextTest
   public void track_procedure()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -1013,7 +1017,7 @@ public class ArezContextTest
   public void nonTrackingSafeProcedureObservingSingleObservable()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
     assertThrowsWithMessage( context::getTransaction,
@@ -1100,7 +1104,7 @@ public class ArezContextTest
   public void action_procedure()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
     assertThrowsWithMessage( context::getTransaction,
@@ -1187,7 +1191,7 @@ public class ArezContextTest
   public void action_procedure_throwsException()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
     assertThrowsWithMessage( context::getTransaction,
@@ -1254,7 +1258,7 @@ public class ArezContextTest
   public void nestedProceduresAccessingSameObservable()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
     assertThrows( context::getTransaction );
@@ -1299,7 +1303,7 @@ public class ArezContextTest
   public void nextNodeId()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertEquals( context.currentNextTransactionId(), 1 );
     assertEquals( context.nextTransactionId(), 1 );
@@ -1378,7 +1382,7 @@ public class ArezContextTest
   {
     ArezTestUtil.disableObserverErrorHandlers();
 
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final ObserverErrorHandler handler = ( o, e, t ) -> {
     };
@@ -1393,7 +1397,7 @@ public class ArezContextTest
   {
     ArezTestUtil.disableObserverErrorHandlers();
 
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final ObserverErrorHandler handler = ( o, e, t ) -> {
     };
@@ -1408,7 +1412,7 @@ public class ArezContextTest
   {
     ArezTestUtil.disableSpies();
 
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertThrowsWithMessage( context::getSpy, "Arez-0021: Attempting to get Spy but spies are not enabled." );
   }
@@ -1417,7 +1421,7 @@ public class ArezContextTest
   public void scheduleReaction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer observer = newReadOnlyObserver( context );
 
@@ -1433,7 +1437,7 @@ public class ArezContextTest
   public void scheduleReaction_shouldAbortInReadOnlyTransaction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer observer = newReadOnlyObserver( context );
 
@@ -1466,7 +1470,7 @@ public class ArezContextTest
   public void scheduleReaction_generates_spyEvent()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer observer = newReadOnlyObserver( context );
 
@@ -1487,7 +1491,7 @@ public class ArezContextTest
   public void createComputedValue()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> "";
@@ -1521,7 +1525,7 @@ public class ArezContextTest
   public void createComputedValue_withComponent()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Component component =
       context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
@@ -1538,7 +1542,7 @@ public class ArezContextTest
   public void createComputedValue_withKeepAliveAndRunImmediately()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
     final AtomicInteger calls = new AtomicInteger();
@@ -1567,7 +1571,7 @@ public class ArezContextTest
   public void createComputedValue_withKeepAliveAndNoRunImmediately()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
     final AtomicInteger calls = new AtomicInteger();
@@ -1600,7 +1604,7 @@ public class ArezContextTest
   public void createComputedValue_pass_no_hooks()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> "";
@@ -1621,7 +1625,7 @@ public class ArezContextTest
   public void createComputedValue_minimumParameters()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     context.setNextNodeId( 22 );
     final SafeFunction<String> function = () -> "";
@@ -1643,7 +1647,7 @@ public class ArezContextTest
   public void createComputedValue_generates_spyEvent()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -1661,7 +1665,7 @@ public class ArezContextTest
   public void createComputedValue_withKeepAliveAndOnActivate()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Procedure action = () -> {
     };
@@ -1685,10 +1689,9 @@ public class ArezContextTest
   public void createComputedValue_withKeepAliveAndOnDeactivate()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final Procedure action = () -> {
-    };
+    final Procedure action = AbstractArezTest::observeADependency;
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
                     () -> context.createComputedValue( null,
@@ -1706,14 +1709,39 @@ public class ArezContextTest
   }
 
   @Test
+  public void autorun_noObservers()
+    throws Exception
+  {
+    setPrintObserverErrors( false );
+    setIgnoreObserverErrors( true );
+
+    Arez.context().setNextNodeId( 22 );
+    final AtomicInteger callCount = new AtomicInteger();
+    final Observer observer = Arez.context().autorun( callCount::incrementAndGet );
+
+    assertEquals( observer.getName(), "Observer@22" );
+    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( callCount.get(), 1 );
+
+    assertEquals( getObserverErrors().size(), 1 );
+    assertEquals( getObserverErrors().get( 0 ),
+                  "Observer: Observer@22 Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0172: Autorun observer named 'Observer@22' completed reaction but is not observing any observables and thus will never be rescheduled. This may not be an autorun candidate." );
+  }
+
+  @Test
   public void autorun_minimumParameters()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     context.setNextNodeId( 22 );
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = context.autorun( callCount::incrementAndGet );
+    final Observer observer = context.autorun( () -> {
+      observeADependency();
+      callCount.incrementAndGet();
+    } );
 
     assertEquals( observer.getName(), "Observer@22" );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
@@ -1726,14 +1754,17 @@ public class ArezContextTest
   public void autorun_withComponent()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Component component =
       context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
     final AtomicInteger callCount = new AtomicInteger();
     final String name = ValueUtil.randomString();
-    final Observer observer = context.autorun( component, name, true, callCount::incrementAndGet );
+    final Observer observer = context.autorun( component, name, true, () -> {
+      observeADependency();
+      callCount.incrementAndGet();
+    } );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
@@ -1747,11 +1778,14 @@ public class ArezContextTest
   public void autorun_minimumParametersForMutation()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     context.setNextNodeId( 22 );
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = context.autorun( true, callCount::incrementAndGet );
+    final Observer observer = context.autorun( true, () -> {
+      observeADependency();
+      callCount.incrementAndGet();
+    } );
 
     assertEquals( observer.getName(), "Observer@22" );
     assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
@@ -1765,14 +1799,18 @@ public class ArezContextTest
   public void autorun_runImmediately()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
+    final Observable<Object> observable = Arez.context().createObservable();
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = context.autorun( name, true, callCount::incrementAndGet, true );
+    final Observer observer = context.autorun( name, true, () -> {
+      observable.reportObserved();
+      callCount.incrementAndGet();
+    }, true );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
@@ -1795,11 +1833,14 @@ public class ArezContextTest
   public void autorun_highPriority()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final AtomicInteger callCount = new AtomicInteger();
     final Observer observer =
-      context.autorun( null, ValueUtil.randomString(), true, callCount::incrementAndGet, Priority.HIGH, false );
+      context.autorun( null, ValueUtil.randomString(), true, () -> {
+        observeADependency();
+        callCount.incrementAndGet();
+      }, Priority.HIGH, false );
 
     assertEquals( observer.getPriority(), Priority.HIGH );
   }
@@ -1808,14 +1849,17 @@ public class ArezContextTest
   public void autorun_notRunImmediately()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = context.autorun( name, false, callCount::incrementAndGet, false );
+    final Observer observer = context.autorun( name, false, () -> {
+      observeADependency();
+      callCount.incrementAndGet();
+    }, false );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
@@ -1834,7 +1878,7 @@ public class ArezContextTest
   public void tracker()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -1860,7 +1904,7 @@ public class ArezContextTest
   public void tracker_withComponent()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
@@ -1877,7 +1921,7 @@ public class ArezContextTest
   public void tracker_minimalParameters()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -1902,7 +1946,7 @@ public class ArezContextTest
   public void createObserver_generates_spyEvent()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -1919,7 +1963,7 @@ public class ArezContextTest
   public void createObserver_canTrackExplicitly()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer observer =
       context.createObserver( null, ValueUtil.randomString(), false, new TestReaction(), Priority.NORMAL, true );
@@ -1931,7 +1975,7 @@ public class ArezContextTest
   public void createObservable_no_parameters()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     context.setNextNodeId( 22 );
     final Observable<?> observable = context.createObservable();
@@ -1946,7 +1990,7 @@ public class ArezContextTest
   public void createObservable()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
     final Observable<?> observable = context.createObservable( name );
@@ -1960,7 +2004,7 @@ public class ArezContextTest
   public void createObservable_withIntrospectors()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
     final PropertyAccessor<String> accessor = () -> "";
@@ -1977,7 +2021,7 @@ public class ArezContextTest
   public void createObservable_withComponent()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
 
@@ -1994,7 +2038,7 @@ public class ArezContextTest
   public void createObservable_spyEventHandlerPresent()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -2014,7 +2058,7 @@ public class ArezContextTest
   {
     ArezTestUtil.disableNames();
 
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observable<?> observable = context.createObservable( null );
 
@@ -2037,7 +2081,10 @@ public class ArezContextTest
     final AtomicInteger callCount = new AtomicInteger();
 
     // This would normally be scheduled and run now but scheduler should be paused
-    context.autorun( ValueUtil.randomString(), false, callCount::incrementAndGet, false );
+    context.autorun( ValueUtil.randomString(), false, () -> {
+      observeADependency();
+      callCount.incrementAndGet();
+    }, false );
     context.triggerScheduler();
 
     assertEquals( callCount.get(), 0 );
@@ -2143,7 +2190,7 @@ public class ArezContextTest
   public void createComponent_spyEventHandlerPresent()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -2353,8 +2400,7 @@ public class ArezContextTest
 
     final Observable<Object> observable = context.createObservable();
     final ComputedValue<String> computedValue = context.createComputedValue( () -> "" );
-    final Observer observer = context.autorun( () -> {
-    } );
+    final Observer observer = context.autorun( AbstractArezTest::observeADependency );
 
     assertThrowsWithMessage( () -> context.registerObservable( observable ),
                              "Arez-0022: ArezContext.registerObservable invoked when Arez.areRegistriesEnabled() returns false." );
@@ -2405,8 +2451,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = context.autorun( () -> {
-    } );
+    final Observer observer = context.autorun( AbstractArezTest::observeADependency );
 
     assertEquals( context.getTopLevelObservers().size(), 1 );
     assertEquals( context.getTopLevelObservers().get( observer.getName() ), observer );
@@ -2504,7 +2549,7 @@ public class ArezContextTest
   public void noTxAction_function()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -2528,7 +2573,7 @@ public class ArezContextTest
   public void noTxAction_safeFunction()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -2552,7 +2597,7 @@ public class ArezContextTest
   public void noTxAction_procedure()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
@@ -2571,7 +2616,7 @@ public class ArezContextTest
   public void noTxAction_safeProcedure()
     throws Throwable
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
 
