@@ -1,10 +1,13 @@
 package arez.component;
 
+import arez.Arez;
+import arez.Disposable;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
 import arez.annotations.PreDispose;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * Abstract base class for reference to a component where reference should be cleared when the component is disposed.
@@ -66,6 +69,11 @@ public abstract class AbstractEntityReference<T>
   @Observable
   protected void setEntity( @Nullable final T entity )
   {
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> null == entity || Disposable.isNotDisposed( entity ),
+                    () -> "Arez-0171: Called setEntity() passing an entity that is disposed. Entity: " + entity );
+    }
     if ( null != _entity )
     {
       detachEntity( _entity );

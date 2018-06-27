@@ -66,6 +66,24 @@ public class EntityReferenceTest
   }
 
   @Test
+  public void setEntityPassesDisposed()
+  {
+    final ArezContext context = Arez.context();
+
+    final MyEntity entity1 = new MyEntity( 301 );
+    entity1.dispose();
+
+    final MyEntityReference reference = MyEntityReference.create();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> context.safeAction( () -> reference.setEntity( entity1 ) ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0171: Called setEntity() passing an entity that is disposed. Entity: " + entity1 );
+  }
+
+  @Test
   public void disposeEntityRemovesReference()
   {
     final ArezContext context = Arez.context();

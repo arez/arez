@@ -56,6 +56,8 @@
   the component.
 * **\[component\]** Added invariant check to `AbstractContainer.attach(...)` to ensure that the entity passed
   is not disposed.
+* **\[component\]** Added invariant check to `AbstractEntityReference.setEntity(...)` to ensure that the entity
+  passed is not disposed.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)
