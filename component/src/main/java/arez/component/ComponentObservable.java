@@ -29,9 +29,9 @@ public interface ComponentObservable
    * @param object the object to observe if any.
    * @return false if the component is not disposing or disposed, true otherwise.
    */
-  static boolean observe( @Nullable final Object object )
+  static boolean observe( @Nonnull final Object object )
   {
-    return !( object instanceof ComponentObservable ) || asComponentObservable( object ).observe();
+    return asComponentObservable( object ).observe();
   }
 
   /**
@@ -40,7 +40,7 @@ public interface ComponentObservable
    * @param object the object to observe if any.
    * @return true if {@link #observe(Object)} returns false for the same parameter, false otherwise.
    */
-  static boolean notObserved( @Nullable final Object object )
+  static boolean notObserved( @Nonnull final Object object )
   {
     return !observe( object );
   }

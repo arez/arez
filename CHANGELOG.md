@@ -64,6 +64,9 @@
 * 💥 **\[core\]** Generate an invariant failure if a `ComputedValue` completes a compute without adding a
   dependency on any observable. In this scenario, the `ComputedValue` will never be rescheduled and has been
   no interaction with the rest of the Arez system. Thus the element should not be defined as a `ComputedValue`.
+* 💥 **\[component\]** The methods `ComponentObservable.observe(...)` and `ComponentObservable.notObserved(...)`
+  now expect that the parameter is an instance of `ComponentObservable` and will generate an invariant failure
+  in development mode if this is not the case.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

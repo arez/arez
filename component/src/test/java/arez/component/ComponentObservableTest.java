@@ -28,8 +28,17 @@ public class ComponentObservableTest
   {
     assertEquals( ComponentObservable.observe( new TestElement( true ) ), true );
     assertEquals( ComponentObservable.observe( new TestElement( false ) ), false );
-    assertEquals( ComponentObservable.observe( new Object() ), true );
-    assertEquals( ComponentObservable.observe( null ), true );
+  }
+
+  @Test
+  public void observe_notComponentObservable()
+  {
+    final Object element = new Object();
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> ComponentObservable.observe( element ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0179: Object passed to asComponentObservable does not implement " +
+                  "ComponentObservable. Object: " + element );
   }
 
   @Test
@@ -37,8 +46,17 @@ public class ComponentObservableTest
   {
     assertEquals( ComponentObservable.notObserved( new TestElement( true ) ), false );
     assertEquals( ComponentObservable.notObserved( new TestElement( false ) ), true );
-    assertEquals( ComponentObservable.notObserved( new Object() ), false );
-    assertEquals( ComponentObservable.notObserved( null ), false );
+  }
+
+  @Test
+  public void notObserved_notComponentObservable()
+  {
+    final Object element = new Object();
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> ComponentObservable.notObserved( element ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0179: Object passed to asComponentObservable does not implement " +
+                  "ComponentObservable. Object: " + element );
   }
 
   @Test
