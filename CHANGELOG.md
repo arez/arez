@@ -76,6 +76,8 @@
     - `arez.Transaction`
     - `arez.SchedulerLock`
     - `arez.SpyImpl`
+* **\[processor\]** Generate an error if a component is annotated with both `@arez.annotaitons.Repository` and
+  `javax.inject.Singleton`.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

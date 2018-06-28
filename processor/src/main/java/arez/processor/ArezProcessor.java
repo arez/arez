@@ -384,11 +384,19 @@ public final class ArezProcessor
                                         "but is also annotated with the @Repository annotation which requires " +
                                         "that the observable != DISABLE.", typeElement );
     }
+    if ( descriptor.hasRepository() &&
+         null != ProcessorUtil.findAnnotationByType( typeElement, Constants.SINGLETON_ANNOTATION_CLASSNAME ) )
+    {
+      throw new ArezProcessorException( "@ArezComponent target is annotated with both the " +
+                                        "@arez.annotations.Repository annotation and the " +
+                                        "javax.inject.Singleton annotation which is an invalid " +
+                                        "combination.", typeElement );
+    }
     if ( !descriptor.isDisposeTrackable() && descriptor.hasRepository() )
     {
-      throw new ArezProcessorException( "@ArezComponent target has specified the disposeTrackable = false " +
+      throw new ArezProcessorException( "@ArezComponent target has specified the disposeTrackable = DISABLE " +
                                         "annotation parameter but is also annotated with @Repository that " +
-                                        "requires disposeTrackable = true.", typeElement );
+                                        "requires disposeTrackable = ENABLE.", typeElement );
     }
 
     return descriptor;

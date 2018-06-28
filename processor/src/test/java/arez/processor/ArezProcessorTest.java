@@ -628,7 +628,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.dependency.VoidReturnDependency", "@Dependency target must return a value" },
 
         new Object[]{ "com.example.dispose_trackable.NoDisposeTrackableWithRepositoryModel",
-                      "@ArezComponent target has specified the disposeTrackable = false annotation parameter but is also annotated with @Repository that requires disposeTrackable = true." },
+                      "@ArezComponent target has specified the disposeTrackable = DISABLE annotation parameter but is also annotated with @Repository that requires disposeTrackable = ENABLE." },
 
         new Object[]{ "com.example.inject.MultipleConstructorsModel",
                       "@ArezComponent specified inject parameter but has more than one constructor" },
@@ -975,7 +975,9 @@ public class ArezProcessorTest
         new Object[]{ "com.example.repository.RepositoryExtensionHasAbstractMethod",
                       "Class annotated with @Repository defined an extension that has a non default method. Extension: com.example.repository.RepositoryExtensionHasAbstractMethod.Foo Method: other(int)" },
         new Object[]{ "com.example.repository.RepositoryNotObservable",
-                      "@ArezComponent target has specified observable = DISABLE and but is also annotated with the @Repository annotation which requires that the observable != DISABLE." }
+                      "@ArezComponent target has specified observable = DISABLE and but is also annotated with the @Repository annotation which requires that the observable != DISABLE." },
+        new Object[]{ "com.example.repository.SingletonAndRepository",
+                      "@ArezComponent target is annotated with both the @arez.annotations.Repository annotation and the javax.inject.Singleton annotation which is an invalid combination." }
       };
   }
 
