@@ -1014,6 +1014,27 @@
         "transaction": "SearchResult - ill.dispose"
     },
     {
+        "computedValue": "PersonModel.0.doesSearchMatch.1",
+        "type": "ComputedValueDeactivated"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "SearchResult - ill.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "SearchResult - ill.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
         "action": "PersonModel.0.doesSearchMatch.1.dispose",
         "tracked": false,
         "type": "ActionStarted",
@@ -1105,27 +1126,6 @@
         "result": null,
         "errorMessage": null,
         "action": "PersonModel.0.doesSearchMatch.1.dispose",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
-        "computedValue": "PersonModel.0.doesSearchMatch.1",
-        "type": "ComputedValueDeactivated"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "SearchResult - ill.dispose"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "SearchResult - ill.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
