@@ -246,7 +246,7 @@ public final class MemoizeCache<T>
     {
       stack.push( (Map) stack.peek().get( args[ i ] ) );
     }
-    ( (ComputedValue<T>) stack.peek().remove( args[ size ] ) ).dispose();
+    _context.scheduleDispose( ( (ComputedValue<T>) stack.peek().remove( args[ size ] ) ) );
     while ( stack.size() > 1 )
     {
       final Map map = stack.pop();
