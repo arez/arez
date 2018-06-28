@@ -60,7 +60,7 @@ public class TransactionTest
                                            null ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0172: Transaction passed a context but Arez.areZonesEnabled() is false" );
+                  "Arez-184: Transaction passed a context but Arez.areZonesEnabled() is false" );
   }
 
   @Test

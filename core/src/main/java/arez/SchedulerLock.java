@@ -24,7 +24,7 @@ final class SchedulerLock
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> Arez.areZonesEnabled() || null == context,
-                 () -> "Arez-0171: SchedulerLock passed a context but Arez.areZonesEnabled() is false" );
+                 () -> "Arez-0174: SchedulerLock passed a context but Arez.areZonesEnabled() is false" );
     }
     _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
   }

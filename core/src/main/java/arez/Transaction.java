@@ -278,7 +278,7 @@ final class Transaction
       invariant( () -> Arez.areNamesEnabled() || null == name,
                  () -> "Arez-0131: Transaction passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
       invariant( () -> Arez.areZonesEnabled() || null == context,
-                 () -> "Arez-0172: Transaction passed a context but Arez.areZonesEnabled() is false" );
+                 () -> "Arez-184: Transaction passed a context but Arez.areZonesEnabled() is false" );
     }
     _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;

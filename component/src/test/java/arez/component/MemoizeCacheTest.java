@@ -304,6 +304,6 @@ public class MemoizeCacheTest
                     () -> new MemoizeCache<>( Arez.context(), null, null, args -> args[ 0 ], 1 ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0168: MemoizeCache passed a context but Arez.areZonesEnabled() is false" );
+                  "Arez-174: MemoizeCache passed a context but Arez.areZonesEnabled() is false" );
   }
 }

@@ -38,7 +38,7 @@ final class SpyImpl
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> Arez.areZonesEnabled() || null == context,
-                 () -> "Arez-0173: SpyImpl passed a context but Arez.areZonesEnabled() is false" );
+                 () -> "Arez-185: SpyImpl passed a context but Arez.areZonesEnabled() is false" );
     }
     _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
   }

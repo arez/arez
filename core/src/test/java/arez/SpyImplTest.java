@@ -29,7 +29,7 @@ public class SpyImplTest
       expectThrows( IllegalStateException.class, () -> new SpyImpl( Arez.context() ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0173: SpyImpl passed a context but Arez.areZonesEnabled() is false" );
+                  "Arez-185: SpyImpl passed a context but Arez.areZonesEnabled() is false" );
   }
 
   @Test

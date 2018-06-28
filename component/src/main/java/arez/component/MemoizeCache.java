@@ -96,7 +96,7 @@ public final class MemoizeCache<T>
     if ( Arez.shouldCheckInvariants() )
     {
       apiInvariant( () -> Arez.areZonesEnabled() || null == context,
-                    () -> "Arez-0168: MemoizeCache passed a context but Arez.areZonesEnabled() is false" );
+                    () -> "Arez-174: MemoizeCache passed a context but Arez.areZonesEnabled() is false" );
       apiInvariant( () -> Arez.areNamesEnabled() || null == name,
                     () -> "Arez-0159: MemoizeCache passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
       apiInvariant( () -> argCount > 0,
