@@ -73,6 +73,7 @@
     - `arez.component.MemoizeCache`
     - `arez.Transaction`
     - `arez.SchedulerLock`
+    - `arez.SpyImpl`
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

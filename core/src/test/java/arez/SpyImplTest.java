@@ -20,6 +20,19 @@ public class SpyImplTest
   extends AbstractArezTest
 {
   @Test
+  public void constructorPassedContext_whenZonesDisabled()
+  {
+    ArezTestUtil.disableZones();
+    ArezTestUtil.resetState();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> new SpyImpl( Arez.context() ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0173: SpyImpl passed a context but Arez.areZonesEnabled() is false" );
+  }
+
+  @Test
   public void basicOperation()
     throws Exception
   {

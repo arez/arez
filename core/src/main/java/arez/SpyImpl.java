@@ -26,15 +26,21 @@ final class SpyImpl
   /**
    * The containing context.
    */
+  @Nullable
   private final ArezContext _context;
   /**
    * The list of spy handlers to call when an event is received.
    */
   private final ArrayList<SpyEventHandler> _spyEventHandlers = new ArrayList<>();
 
-  SpyImpl( @Nonnull final ArezContext context )
+  SpyImpl( @Nullable final ArezContext context )
   {
-    _context = Objects.requireNonNull( context );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> Arez.areZonesEnabled() || null == context,
+                 () -> "Arez-0173: SpyImpl passed a context but Arez.areZonesEnabled() is false" );
+    }
+    _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
   }
 
   /**
@@ -107,7 +113,7 @@ final class SpyImpl
   @Nonnull
   ArezContext getContext()
   {
-    return _context;
+    return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
 
   /**
@@ -378,7 +384,7 @@ final class SpyImpl
   @Override
   public ComponentInfo findComponent( @Nonnull final String type, @Nonnull final Object id )
   {
-    final Component component = _context.findComponent( type, id );
+    final Component component = getContext().findComponent( type, id );
     return null != component ? new ComponentInfoImpl( this, component ) : null;
   }
 
@@ -390,7 +396,7 @@ final class SpyImpl
   public Collection<ComponentInfo> findAllComponentsByType( @Nonnull final String type )
   {
     final List<ComponentInfoImpl> infos =
-      _context.findAllComponentsByType( type ).stream().
+      getContext().findAllComponentsByType( type ).stream().
         map( component -> new ComponentInfoImpl( this, component ) ).
         collect( Collectors.toList() );
     return Collections.unmodifiableCollection( infos );
@@ -403,7 +409,7 @@ final class SpyImpl
   @Override
   public Collection<String> findAllComponentTypes()
   {
-    return Collections.unmodifiableCollection( _context.findAllComponentTypes() );
+    return Collections.unmodifiableCollection( getContext().findAllComponentTypes() );
   }
 
   /**
@@ -413,7 +419,7 @@ final class SpyImpl
   @Override
   public Collection<ObservableInfo> findAllTopLevelObservables()
   {
-    return ObservableInfoImpl.asUnmodifiableInfos( this, _context.getTopLevelObservables().values() );
+    return ObservableInfoImpl.asUnmodifiableInfos( this, getContext().getTopLevelObservables().values() );
   }
 
   /**
@@ -423,7 +429,7 @@ final class SpyImpl
   @Override
   public Collection<ObserverInfo> findAllTopLevelObservers()
   {
-    return ObserverInfoImpl.asUnmodifiableInfos( this, _context.getTopLevelObservers().values() );
+    return ObserverInfoImpl.asUnmodifiableInfos( this, getContext().getTopLevelObservers().values() );
   }
 
   /**
@@ -433,7 +439,7 @@ final class SpyImpl
   @Override
   public Collection<ComputedValueInfo> findAllTopLevelComputedValues()
   {
-    return ComputedValueInfoImpl.asUnmodifiableInfos( this, _context.getTopLevelComputedValues().values() );
+    return ComputedValueInfoImpl.asUnmodifiableInfos( this, getContext().getTopLevelComputedValues().values() );
   }
 
   /**

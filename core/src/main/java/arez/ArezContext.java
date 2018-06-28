@@ -52,7 +52,7 @@ public final class ArezContext
    * Support infrastructure for spy events.
    */
   @Nullable
-  private final SpyImpl _spy = Arez.areSpiesEnabled() ? new SpyImpl( this ) : null;
+  private final SpyImpl _spy = Arez.areSpiesEnabled() ? new SpyImpl( Arez.areZonesEnabled() ? this : null ) : null;
   /**
    * Support infrastructure for components.
    */
