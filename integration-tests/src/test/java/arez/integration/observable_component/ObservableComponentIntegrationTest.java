@@ -32,24 +32,6 @@ public class ObservableComponentIntegrationTest
     assertEquals( callCount.get(), 2 );
   }
 
-  @Test
-  public void disposeNoNotifiesWhenNotComponentObservable()
-    throws Throwable
-  {
-    final Model2 model = Model2.create();
-    final AtomicInteger callCount = new AtomicInteger();
-    Arez.context().autorun( () -> {
-      observeADependency();
-      ComponentObservable.observe( model );
-      callCount.incrementAndGet();
-    } );
-    assertEquals( callCount.get(), 1 );
-
-    Disposable.dispose( model );
-
-    assertEquals( callCount.get(), 1 );
-  }
-
   @ArezComponent( allowEmpty = true, observable = Feature.ENABLE )
   static abstract class Model
   {
@@ -57,16 +39,6 @@ public class ObservableComponentIntegrationTest
     static Model create()
     {
       return new ObservableComponentIntegrationTest_Arez_Model();
-    }
-  }
-
-  @ArezComponent( allowEmpty = true, observable = Feature.DISABLE )
-  static abstract class Model2
-  {
-    @Nonnull
-    static Model2 create()
-    {
-      return new ObservableComponentIntegrationTest_Arez_Model2();
     }
   }
 }
