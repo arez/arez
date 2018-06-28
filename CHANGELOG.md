@@ -71,6 +71,7 @@
   This makes it possible for the GWT optimizer to omit the field in production mode. This optimization was applied
   to the following classes;
     - `arez.component.MemoizeCache`
+    - `arez.Component`
     - `arez.Transaction`
     - `arez.SchedulerLock`
     - `arez.SpyImpl`

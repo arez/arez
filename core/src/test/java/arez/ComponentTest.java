@@ -16,6 +16,25 @@ public class ComponentTest
   extends AbstractArezTest
 {
   @Test
+  public void constructorPassedContext_whenZonesDisabled()
+  {
+    ArezTestUtil.disableZones();
+    ArezTestUtil.resetState();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Component( Arez.context(),
+                                         ValueUtil.randomString(),
+                                         ValueUtil.randomString(),
+                                         ValueUtil.randomString(),
+                                         null,
+                                         null ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0175: Component passed a context but Arez.areZonesEnabled() is false" );
+  }
+
+  @Test
   public void basicOperation()
     throws Exception
   {

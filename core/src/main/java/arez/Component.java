@@ -20,7 +20,7 @@ public final class Component
   /**
    * Reference to the system to which this node belongs.
    */
-  @Nonnull
+  @Nullable
   private final ArezContext _context;
   /**
    * A opaque string describing the type of the component.
@@ -56,7 +56,7 @@ public final class Component
   private boolean _complete;
   private boolean _disposed;
 
-  Component( @Nonnull final ArezContext context,
+  Component( @Nullable final ArezContext context,
              @Nonnull final String type,
              @Nonnull final Object id,
              @Nullable final String name,
@@ -67,8 +67,10 @@ public final class Component
     {
       apiInvariant( () -> Arez.areNamesEnabled() || null == name,
                     () -> "Arez-0037: Component passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
+      invariant( () -> Arez.areZonesEnabled() || null == context,
+                 () -> "Arez-0175: Component passed a context but Arez.areZonesEnabled() is false" );
     }
-    _context = context;
+    _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
     _type = Objects.requireNonNull( type );
     _id = Objects.requireNonNull( id );
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
@@ -118,9 +120,9 @@ public final class Component
   }
 
   @Nonnull
-  final ArezContext getContext()
+  ArezContext getContext()
   {
-    return _context;
+    return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
 
   /**
@@ -132,16 +134,16 @@ public final class Component
     if ( !_disposed )
     {
       _disposed = true;
-      if ( Arez.areSpiesEnabled() && _context.getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && getContext().getSpy().willPropagateSpyEvents() )
       {
-        _context.getSpy().reportSpyEvent( new ComponentDisposeStartedEvent( this ) );
+        getContext().getSpy().reportSpyEvent( new ComponentDisposeStartedEvent( this ) );
       }
-      _context.safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, () -> {
+      getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, () -> {
         if ( null != _preDispose )
         {
           _preDispose.call();
         }
-        _context.deregisterComponent( this );
+        getContext().deregisterComponent( this );
         /*
          * Create a new list and perform dispose on each list to avoid concurrent mutation exceptions.
          * This can probably be significantly optimized when translated to javascript. However native
@@ -156,9 +158,9 @@ public final class Component
           _postDispose.call();
         }
       } );
-      if ( Arez.areSpiesEnabled() && _context.getSpy().willPropagateSpyEvents() )
+      if ( Arez.areSpiesEnabled() && getContext().getSpy().willPropagateSpyEvents() )
       {
-        _context.getSpy().reportSpyEvent( new ComponentDisposeCompletedEvent( this ) );
+        getContext().getSpy().reportSpyEvent( new ComponentDisposeCompletedEvent( this ) );
       }
     }
   }

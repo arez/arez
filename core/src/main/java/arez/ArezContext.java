@@ -217,7 +217,8 @@ public final class ArezContext
                     () -> "Arez-0009: ArezContext.createComponent() invoked for type '" + type + "' and id '" +
                           id + "' but a component already exists for specified type+id." );
     }
-    final Component component = new Component( this, type, id, name, preDispose, postDispose );
+    final Component component =
+      new Component( Arez.areZonesEnabled() ? this : null, type, id, name, preDispose, postDispose );
     map.put( id, component );
     if ( willPropagateSpyEvents() )
     {
