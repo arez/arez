@@ -29,7 +29,7 @@ final class Transaction
   /**
    * Reference to the system to which this transaction belongs.
    */
-  @Nonnull
+  @Nullable
   private final ArezContext _context;
   /**
    * A human consumable name for transaction. It should be non-null if {@link Arez#areNamesEnabled()} returns
@@ -158,7 +158,7 @@ final class Transaction
                  () -> "Arez-0121: Attempted to create transaction named '" + name + "' while " +
                        "nested in a suspended transaction named '" + c_transaction.getName() + "'." );
     }
-    c_transaction = new Transaction( context, c_transaction, name, mode, tracker );
+    c_transaction = new Transaction( Arez.areZonesEnabled() ? context : null, c_transaction, name, mode, tracker );
     context.disableScheduler();
     c_transaction.begin();
     if ( context.willPropagateSpyEvents() )
@@ -267,7 +267,7 @@ final class Transaction
     c_suspended = false;
   }
 
-  Transaction( @Nonnull final ArezContext context,
+  Transaction( @Nullable final ArezContext context,
                @Nullable final Transaction previous,
                @Nullable final String name,
                @Nullable final TransactionMode mode,
@@ -277,10 +277,12 @@ final class Transaction
     {
       invariant( () -> Arez.areNamesEnabled() || null == name,
                  () -> "Arez-0131: Transaction passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
+      invariant( () -> Arez.areZonesEnabled() || null == context,
+                 () -> "Arez-0172: Transaction passed a context but Arez.areZonesEnabled() is false" );
     }
-    _context = Objects.requireNonNull( context );
+    _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
-    _id = context.nextTransactionId();
+    _id = getContext().nextTransactionId();
     _previous = previous;
     _previousInSameContext = Arez.areZonesEnabled() ? findPreviousTransactionInSameContext() : null;
     _mode = Arez.shouldEnforceTransactionType() ? Objects.requireNonNull( mode ) : null;
@@ -304,7 +306,7 @@ final class Transaction
     Transaction t = _previous;
     while ( null != t )
     {
-      if ( t.getContext() == _context )
+      if ( t.getContext() == getContext() )
       {
         return t;
       }
@@ -335,7 +337,7 @@ final class Transaction
   @Nonnull
   ArezContext getContext()
   {
-    return _context;
+    return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
 
   long getStartedAt()

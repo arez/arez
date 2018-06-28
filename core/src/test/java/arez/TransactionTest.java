@@ -46,6 +46,24 @@ public class TransactionTest
   }
 
   @Test
+  public void constructorPassedContext_whenZonesDisabled()
+  {
+    ArezTestUtil.disableZones();
+    ArezTestUtil.resetState();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Transaction( Arez.context(),
+                                           null,
+                                           ValueUtil.randomString(),
+                                           TransactionMode.READ_ONLY,
+                                           null ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0172: Transaction passed a context but Arez.areZonesEnabled() is false" );
+  }
+
+  @Test
   public void construct_withNameWhenNamesDisabled()
   {
     ArezTestUtil.disableNames();
@@ -111,12 +129,11 @@ public class TransactionTest
   public void rootTransaction_zonesDisabled()
   {
     ArezTestUtil.disableZones();
-    final ArezContext context = Arez.context();
 
     final Transaction transaction1 =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      new Transaction( null, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
     final Transaction transaction2 =
-      new Transaction( context, transaction1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      new Transaction( null, transaction1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
     assertEquals( transaction1.isRootTransaction(), true );
     assertEquals( transaction1.getRootTransaction(), transaction1 );
@@ -2335,6 +2352,7 @@ public class TransactionTest
     throws Exception
   {
     ArezTestUtil.disableZones();
+    ArezTestUtil.resetState();
 
     final ArezContext context1 = new ArezContext();
     final ArezContext context2 = new ArezContext();
@@ -2647,7 +2665,7 @@ public class TransactionTest
     ArezTestUtil.disableZones();
 
     final Transaction transaction =
-      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      new Transaction( null, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, transaction::getPreviousInSameContext );
