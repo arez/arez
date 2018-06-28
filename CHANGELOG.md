@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.95](https://github.com/arez/arez/tree/v0.95) (2018-06-28)
+[Full Changelog](https://github.com/arez/arez/compare/v0.94...v0.95)
 
 * **\[core\]** Add a `Disposable.isNotDisposed()` default method that is equivalent to the
   `!Disposable.isDisposed()` method. This makes it possible to use the method as a method
