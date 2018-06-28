@@ -16,7 +16,7 @@ The simplest way to use component;
 <dependency>
    <groupId>org.realityforge.arez.idlestatus</groupId>
    <artifactId>arez-idlestatus</artifactId>
-   <version>0.22</version>
+   <version>0.23</version>
 </dependency>
 ```
 
