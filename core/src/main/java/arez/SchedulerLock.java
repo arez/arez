@@ -2,6 +2,8 @@ package arez;
 
 import java.util.Objects;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * A lock that stop the scheduler from reacting to any changes until the lock is released.
@@ -10,15 +12,21 @@ import javax.annotation.Nonnull;
 final class SchedulerLock
   implements Disposable
 {
+  @Nullable
   private final ArezContext _context;
   /**
    * True if already released.
    */
   private boolean _released;
 
-  SchedulerLock( @Nonnull final ArezContext context )
+  SchedulerLock( @Nullable final ArezContext context )
   {
-    _context = Objects.requireNonNull( context );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> Arez.areZonesEnabled() || null == context,
+                 () -> "Arez-0171: SchedulerLock passed a context but Arez.areZonesEnabled() is false" );
+    }
+    _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
   }
 
   /**
@@ -30,7 +38,7 @@ final class SchedulerLock
     if ( isNotDisposed() )
     {
       _released = true;
-      _context.releaseSchedulerLock();
+      getContext().releaseSchedulerLock();
     }
   }
 
@@ -41,5 +49,11 @@ final class SchedulerLock
   public boolean isDisposed()
   {
     return _released;
+  }
+
+  @Nonnull
+  final ArezContext getContext()
+  {
+    return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
 }

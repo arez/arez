@@ -1187,7 +1187,7 @@ public final class ArezContext
   public Disposable pauseScheduler()
   {
     _schedulerLockCount++;
-    return new SchedulerLock( this );
+    return new SchedulerLock( Arez.areZonesEnabled() ? this : null );
   }
 
   /**

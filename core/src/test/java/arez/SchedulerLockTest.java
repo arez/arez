@@ -27,4 +27,16 @@ public class SchedulerLockTest
     assertEquals( lock.isDisposed(), true );
     assertEquals( context.getSchedulerLockCount(), 1 );
   }
+
+  @Test
+  public void constructorPassedContext_whenZonesDisabled()
+  {
+    ArezTestUtil.disableZones();
+    ArezTestUtil.resetState();
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> new SchedulerLock( Arez.context() ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0171: SchedulerLock passed a context but Arez.areZonesEnabled() is false" );
+  }
 }
