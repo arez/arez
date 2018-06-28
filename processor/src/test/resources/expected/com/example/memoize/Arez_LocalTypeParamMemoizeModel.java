@@ -41,7 +41,7 @@ public final class Arez_LocalTypeParamMemoizeModel extends LocalTypeParamMemoize
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "LocalTypeParamMemoizeModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_count = new MemoizeCache<>( $$arezi$$_context(), Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".count" : null, args -> super.count((String) args[ 0 ]), 1);
+    this.$$arez$$_count = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezi$$_context() : null, Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".count" : null, args -> super.count((String) args[ 0 ]), 1);
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

@@ -67,6 +67,8 @@
 * 💥 **\[component\]** The methods `ComponentObservable.observe(...)` and `ComponentObservable.notObserved(...)`
   now expect that the parameter is an instance of `ComponentObservable` and will generate an invariant failure
   in development mode if this is not the case.
+* 💥 **\[component\]** Changed `MemoizeCache._context` to be null unless `Arez.areZonesEnabled()` returns true.
+  This makes it possible for the GWT optimizer to omit the field in production mode.
 
 ### [v0.94](https://github.com/arez/arez/tree/v0.94) (2018-06-22)
 [Full Changelog](https://github.com/arez/arez/compare/v0.93...v0.94)

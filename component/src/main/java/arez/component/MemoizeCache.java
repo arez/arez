@@ -41,7 +41,7 @@ public final class MemoizeCache<T>
   /**
    * Reference to the system to which this node belongs.
    */
-  @Nonnull
+  @Nullable
   private final ArezContext _context;
   /**
    * A human consumable prefix for computed values. It should be non-null if {@link Arez#areNamesEnabled()} returns
@@ -87,21 +87,23 @@ public final class MemoizeCache<T>
    * @param function  the memoized function.
    * @param argCount  the number of arguments expected to be passed to memoized function.
    */
-  public MemoizeCache( @Nonnull final ArezContext context,
+  public MemoizeCache( @Nullable final ArezContext context,
                        @Nullable final Component component,
                        @Nullable final String name,
                        @Nonnull final Function<T> function,
                        final int argCount )
   {
-    if ( Arez.shouldCheckApiInvariants() )
+    if ( Arez.shouldCheckInvariants() )
     {
+      apiInvariant( () -> Arez.areZonesEnabled() || null == context,
+                    () -> "Arez-0168: MemoizeCache passed a context but Arez.areZonesEnabled() is false" );
       apiInvariant( () -> Arez.areNamesEnabled() || null == name,
                     () -> "Arez-0159: MemoizeCache passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
       apiInvariant( () -> argCount > 0,
                     () -> "Arez-0160: MemoizeCache constructed with invalid argCount: " + argCount +
                           ". Expected positive value." );
     }
-    _context = Objects.requireNonNull( context );
+    _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
     _function = Objects.requireNonNull( function );
@@ -139,11 +141,16 @@ public final class MemoizeCache<T>
     if ( !_disposed )
     {
       _disposed = true;
-      _context.safeAction( Arez.areNamesEnabled() ? _name : null, () -> {
+      getContext().safeAction( Arez.areNamesEnabled() ? _name : null, () -> {
         disposeMap( _cache, _argCount );
         _cache.clear();
       } );
     }
+  }
+  @Nonnull
+  final ArezContext getContext()
+  {
+    return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
 
   /**
@@ -210,7 +217,7 @@ public final class MemoizeCache<T>
     final String name = Arez.areNamesEnabled() ? _name + "." + _nextIndex++ : null;
     final Procedure onDeactivate = () -> disposeComputedValue( args );
     final SafeFunction<T> function = () -> _function.call( args );
-    return _context.createComputedValue( component,
+    return getContext().createComputedValue( component,
                                          name,
                                          function,
                                          null,
@@ -246,7 +253,7 @@ public final class MemoizeCache<T>
     {
       stack.push( (Map) stack.peek().get( args[ i ] ) );
     }
-    _context.scheduleDispose( ( (ComputedValue<T>) stack.peek().remove( args[ size ] ) ) );
+    getContext().scheduleDispose( ( (ComputedValue<T>) stack.peek().remove( args[ size ] ) ) );
     while ( stack.size() > 1 )
     {
       final Map map = stack.pop();
