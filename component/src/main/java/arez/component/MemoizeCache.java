@@ -147,6 +147,7 @@ public final class MemoizeCache<T>
       } );
     }
   }
+
   @Nonnull
   final ArezContext getContext()
   {
@@ -218,12 +219,12 @@ public final class MemoizeCache<T>
     final Procedure onDeactivate = () -> disposeComputedValue( args );
     final SafeFunction<T> function = () -> _function.call( args );
     return getContext().createComputedValue( component,
-                                         name,
-                                         function,
-                                         null,
-                                         onDeactivate,
-                                         null,
-                                         null );
+                                             name,
+                                             function,
+                                             null,
+                                             onDeactivate,
+                                             null,
+                                             null );
   }
 
   /**
