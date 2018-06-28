@@ -6,8 +6,6 @@ import arez.Disposable;
 import arez.Observable;
 import arez.Observer;
 import arez.component.ComponentState;
-import arez.component.DisposeNotifier;
-import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -19,7 +17,7 @@ import org.realityforge.braincheck.Guards;
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
 @Singleton
-public final class Arez_ImplicitSingletonModel extends ImplicitSingletonModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_ImplicitSingletonModel extends ImplicitSingletonModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -30,8 +28,6 @@ public final class Arez_ImplicitSingletonModel extends ImplicitSingletonModel im
   private final ArezContext $$arezi$$_context;
 
   private final Component $$arezi$$_component;
-
-  private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
   private final Observable<Long> $$arez$$_time;
@@ -53,8 +49,7 @@ public final class Arez_ImplicitSingletonModel extends ImplicitSingletonModel im
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ImplicitSingletonModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_disposeNotifier = new DisposeNotifier();
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ImplicitSingletonModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     this.$$arez$$_time = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     this.$$arez$$_someValue = $$arezi$$_context().createComputedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".someValue" : null, () -> super.someValue() );
     this.$$arez$$_myAutorun = $$arezi$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myAutorun" : null, false, () -> super.myAutorun() );
@@ -101,16 +96,6 @@ public final class Arez_ImplicitSingletonModel extends ImplicitSingletonModel im
     return "ImplicitSingletonModel";
   }
 
-  private void $$arezi$$_preDispose() {
-    $$arezi$$_disposeNotifier.dispose();
-  }
-
-  @Override
-  @Nonnull
-  public DisposeNotifier getNotifier() {
-    return $$arezi$$_disposeNotifier;
-  }
-
   @Override
   public boolean isDisposed() {
     return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
@@ -124,7 +109,6 @@ public final class Arez_ImplicitSingletonModel extends ImplicitSingletonModel im
         this.$$arezi$$_component.dispose();
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
-          this.$$arezi$$_preDispose();
           this.$$arez$$_myAutorun.dispose();
           this.$$arez$$_render.dispose();
           this.$$arez$$_someValue.dispose();

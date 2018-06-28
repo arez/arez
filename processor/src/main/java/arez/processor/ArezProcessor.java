@@ -253,7 +253,7 @@ public final class ArezProcessor
       null == nameIncludesIdValue ? nameIncludesIdDefault : (boolean) nameIncludesIdValue.getValue();
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
     final boolean observableFlag = isComponentObservableRequired( typeElement, disposeOnDeactivate );
-    final boolean disposeTrackableFlag = getAnnotationParameter( arezComponent, "disposeTrackable" );
+    final boolean disposeTrackableFlag = isDisposableTrackableRequired( typeElement );
     final boolean allowConcrete = getAnnotationParameter( arezComponent, "allowConcrete" );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
     final List<AnnotationMirror> scopeAnnotations =
@@ -398,6 +398,24 @@ public final class ArezProcessor
   {
     final Element element = processingEnv.getTypeUtils().asElement( a.getAnnotationType() );
     return null != ProcessorUtil.findAnnotationByType( element, Constants.SCOPE_ANNOTATION_CLASSNAME );
+  }
+
+  private boolean isDisposableTrackableRequired( @Nonnull final TypeElement typeElement )
+  {
+    final VariableElement variableElement = (VariableElement)
+      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
+                                        typeElement,
+                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                                        "disposeTrackable" ).getValue();
+    switch ( variableElement.getSimpleName().toString() )
+    {
+      case "ENABLE":
+        return true;
+      case "DISABLE":
+        return false;
+      default:
+        return null == ProcessorUtil.findAnnotationByType( typeElement, Constants.SINGLETON_ANNOTATION_CLASSNAME );
+    }
   }
 
   private boolean isComponentObservableRequired( @Nonnull final TypeElement typeElement,

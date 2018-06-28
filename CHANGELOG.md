@@ -18,9 +18,10 @@
 * **\[component\]** Introduce `arez.component.DisposeTrackable` interface that can be implemented by
   components that need to notify listeners when the component has been disposed. The `arez.component.DisposeNotifier`
   class is used to perform the actual notification.
-* **\[annotations\]** Add a `disposeTrackable` parameter to the `@ArezComponent` that defaults to `true`.
-  If the parameter is true, the enhanced/generated component class will implement the `DisposeTrackable`
-  interface.
+* **\[annotations\]** Add a `disposeTrackable` parameter to the `@ArezComponent` that defaults to `ENABLE`.
+  If the parameter is `ENABLE`, the enhanced/generated component class will implement the `DisposeTrackable`
+  interface. If the parameter is `AUTODETECT` then it will disable the feature if the `javax.inject.Singleton`
+  annotation is present on the component.
 * 💥 **\[component\]** Remove the usage of the `when()` observer from the implementation of repositories.
   The repositories now require that the components contained within the repository implement `DisposeTrackable`
   interface and the repository adds listeners to the `DisposeNotifier` associated with each component and

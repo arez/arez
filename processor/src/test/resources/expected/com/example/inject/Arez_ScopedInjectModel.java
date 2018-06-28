@@ -5,8 +5,6 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.component.ComponentState;
-import arez.component.DisposeNotifier;
-import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -17,7 +15,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @Singleton
-public final class Arez_ScopedInjectModel extends ScopedInjectModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_ScopedInjectModel extends ScopedInjectModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -29,8 +27,6 @@ public final class Arez_ScopedInjectModel extends ScopedInjectModel implements D
 
   private final Component $$arezi$$_component;
 
-  private final DisposeNotifier $$arezi$$_disposeNotifier;
-
   @Inject
   public Arez_ScopedInjectModel() {
     super();
@@ -39,8 +35,7 @@ public final class Arez_ScopedInjectModel extends ScopedInjectModel implements D
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ScopedInjectModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_disposeNotifier = new DisposeNotifier();
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "ScopedInjectModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null ) : null;
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -79,16 +74,6 @@ public final class Arez_ScopedInjectModel extends ScopedInjectModel implements D
     return "ScopedInjectModel";
   }
 
-  private void $$arezi$$_preDispose() {
-    $$arezi$$_disposeNotifier.dispose();
-  }
-
-  @Override
-  @Nonnull
-  public DisposeNotifier getNotifier() {
-    return $$arezi$$_disposeNotifier;
-  }
-
   @Override
   public boolean isDisposed() {
     return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
@@ -102,7 +87,6 @@ public final class Arez_ScopedInjectModel extends ScopedInjectModel implements D
         this.$$arezi$$_component.dispose();
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
-          this.$$arezi$$_preDispose();
         } } );
       }
       if ( Arez.shouldCheckInvariants() ) {
