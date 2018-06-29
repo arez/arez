@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+* **\[core\]** Improve the invariant failure message when a `ComputedValue` completes without accessing
+  any observables.
+
 ### [v0.95](https://github.com/arez/arez/tree/v0.95) (2018-06-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.94...v0.95)
 

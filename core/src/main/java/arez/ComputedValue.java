@@ -242,7 +242,7 @@ public final class ComputedValue<T>
         invariant( () -> null != observables && !observables.isEmpty(),
                    () -> "Arez-0173: ComputedValue named '" + getName() + "' completed compute but is not " +
                          "observing any observables and thus will never be rescheduled. " +
-                         "This is not be a ComputedValue candidate." );
+                         "This is not a ComputedValue candidate." );
       }
     }
     catch ( final Exception e )

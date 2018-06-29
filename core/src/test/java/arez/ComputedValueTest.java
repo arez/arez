@@ -353,9 +353,9 @@ public class ComputedValueTest
 
     assertEquals( getObserverErrors().size(), 1 );
     assertEquals( getObserverErrors().get( 0 ),
-                  "Observer: XYZ Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0173: ComputedValue named 'XYZ' completed compute but is not observing any observables and thus will never be rescheduled. This is not be a ComputedValue candidate." );
+                  "Observer: XYZ Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0173: ComputedValue named 'XYZ' completed compute but is not observing any observables and thus will never be rescheduled. This is not a ComputedValue candidate." );
     assertEquals( exception.getMessage(),
-                  "Arez-0173: ComputedValue named 'XYZ' completed compute but is not observing any observables and thus will never be rescheduled. This is not be a ComputedValue candidate." );
+                  "Arez-0173: ComputedValue named 'XYZ' completed compute but is not observing any observables and thus will never be rescheduled. This is not a ComputedValue candidate." );
   }
 
   @Test
