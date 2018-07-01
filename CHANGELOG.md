@@ -4,7 +4,7 @@
 
 * **\[core\]** Improve the invariant failure message when a `ComputedValue` completes without accessing
   any observables.
-* Upgrade the `org.realityforge.braincheck:braincheck:jar` dependency to `1.10.0` for improved
+* Upgrade the `org.realityforge.braincheck:braincheck:jar` dependency to `1.11.0` for improved
   compatibility with J2CL with respect to compile-time constants.
 
 ### [v0.95](https://github.com/arez/arez/tree/v0.95) (2018-06-28)
