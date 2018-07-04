@@ -2735,21 +2735,10 @@ final class ComponentDescriptor
       {
         if ( isNonnull )
         {
-          if ( dep.shouldCascadeDispose() )
-          {
-            builder.addStatement(
-              "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
-              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-              dep.getObservable().getDataFieldName() );
-          }
-          else
-          {
-            builder.addStatement(
-              "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
-              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-              dep.getObservable().getDataFieldName(),
-              dep.getObservable().getSetter().getSimpleName().toString() );
-          }
+          assert dep.shouldCascadeDispose();
+          builder.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
+                                GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                dep.getObservable().getDataFieldName() );
         }
         else
         {
@@ -2783,21 +2772,11 @@ final class ComponentDescriptor
       {
         if ( isNonnull )
         {
-          if ( dep.shouldCascadeDispose() )
-          {
-            builder.addStatement(
-              "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, this::dispose )",
-              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-              method.getSimpleName().toString() );
-          }
-          else
-          {
-            builder.addStatement(
-              "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
-              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-              method.getSimpleName(),
-              dep.getObservable().getSetter().getSimpleName().toString() );
-          }
+          assert dep.shouldCascadeDispose();
+          builder.addStatement(
+            "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, this::dispose )",
+            GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+            method.getSimpleName().toString() );
         }
         else
         {
