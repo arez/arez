@@ -1295,16 +1295,13 @@ final class ComponentDescriptor
     if ( !_typeUtils.isAssignable( method.getReturnType(), disposeTrackable.asType() ) )
     {
       final TypeElement typeElement = (TypeElement) _typeUtils.asElement( method.getReturnType() );
-      final AnnotationValue value =
-        ProcessorUtil.findAnnotationValue( _elements,
-                                           typeElement,
-                                           Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                           "disposeTrackable" );
-      if ( null == value || Boolean.FALSE.equals( value.getValue() ) )
+      final AnnotationMirror value =
+        ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
+      if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
       {
         throw new ArezProcessorException( "@Dependency target must return an instance compatible with " +
                                           Constants.DISPOSE_TRACKABLE_CLASSNAME + " or a type annotated " +
-                                          "with @ArezComponent(disposeTrackable=true)", method );
+                                          "with @ArezComponent(disposeTrackable=ENABLE)", method );
       }
     }
 

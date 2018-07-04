@@ -609,6 +609,8 @@ public class ArezProcessorTest
 
         new Object[]{ "com.example.dependency.AbstractDependency",
                       "@ArezComponent target has an abstract method not implemented by framework. The method is named getTime" },
+        new Object[]{ "com.example.dependency.BadTypeDependency",
+                      "@Dependency target must return an instance compatible with arez.component.DisposeTrackable or a type annotated with @ArezComponent(disposeTrackable=ENABLE)" },
         new Object[]{ "com.example.dependency.ComputedDependency",
                       "Method can not be annotated with both @Computed and @Dependency" },
         new Object[]{ "com.example.dependency.NonFinalDependency", "@Dependency target must be final" },
