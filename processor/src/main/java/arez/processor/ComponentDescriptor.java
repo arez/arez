@@ -3093,15 +3093,6 @@ final class ComponentDescriptor
                       .build() ).
       addStatement( "super.detach( entity )" );
     ProcessorUtil.copyAccessModifiers( getElement(), method );
-    final Set<Modifier> modifiers = getElement().getModifiers();
-    if ( !modifiers.contains( Modifier.PUBLIC ) && !modifiers.contains( Modifier.PROTECTED ) )
-    {
-      /*
-       * The detach method inherited from AbstractContainer is protected and the override
-       * must be at least the same access level.
-       */
-      method.addModifiers( Modifier.PROTECTED );
-    }
     return method.build();
   }
 
