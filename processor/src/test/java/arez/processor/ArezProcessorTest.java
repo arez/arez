@@ -1029,6 +1029,19 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void processFailedCompileInheritedPackageAccessInDifferentPackageWhenInRoot()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      fixture( "bad_input/com/example/package_access/other/BaseActionModel.java" );
+    final JavaFileObject source2 =
+      fixture( "bad_input/PackageAccessActionModel.java" );
+    assertFailedCompileResource( Arrays.asList( source1, source2 ),
+                                 "@Action target must not be package access if " +
+                                 "the method is in a different package from the @ArezComponent" );
+  }
+
+  @Test
   public void processFailedCompileInheritedPackageAccessInDifferentPackageObservable_Setter()
     throws Exception
   {

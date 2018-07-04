@@ -68,7 +68,7 @@ final class ProcessorUtil
     }
   }
 
-  @Nullable
+  @Nonnull
   static PackageElement getPackageElement( @Nonnull final TypeElement element )
   {
     Element enclosingElement = element.getEnclosingElement();
@@ -80,6 +80,7 @@ final class ProcessorUtil
       }
       enclosingElement = enclosingElement.getEnclosingElement();
     }
+    assert false;
     return null;
   }
 

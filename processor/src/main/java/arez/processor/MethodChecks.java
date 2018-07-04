@@ -141,8 +141,8 @@ final class MethodChecks
     {
       final PackageElement packageElement = getPackageElement( component );
       final PackageElement methodPackageElement = getPackageElement( (TypeElement) method.getEnclosingElement() );
-      final Name componentPackageName = null == packageElement ? null : packageElement.getQualifiedName();
-      final Name methodPackageName = null == methodPackageElement ? null : methodPackageElement.getQualifiedName();
+      final Name componentPackageName = packageElement.getQualifiedName();
+      final Name methodPackageName = methodPackageElement.getQualifiedName();
       if ( !Objects.equals( componentPackageName, methodPackageName ) )
       {
         throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must " +
