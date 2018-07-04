@@ -373,7 +373,7 @@ final class ComputedDescriptor
       parameters.add( _componentDescriptor.getComponentNameMethodName() );
       parameters.add( "." + getName() );
       parameters.add( _computed.getSimpleName().toString() );
-      if ( hasHooks() || _keepAlive || hasNonNormalPriority() )
+      if ( _keepAlive || hasNonNormalPriority() )
       {
         appendInitializerSuffix( parameters, sb );
       }
