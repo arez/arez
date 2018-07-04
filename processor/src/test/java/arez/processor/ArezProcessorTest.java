@@ -47,6 +47,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.collections.AbstractSetObservableModel", false, false, false },
         new Object[]{ "com.example.collections.ComputedCollectionModel", false, false, false },
         new Object[]{ "com.example.collections.ComputedCollectionWithHooksModel", false, false, false },
+        new Object[]{ "com.example.collections.ComputedKeepAliveListModel", false, false, false },
         new Object[]{ "com.example.collections.ComputedListModel", false, false, false },
         new Object[]{ "com.example.collections.ComputedMapModel", false, false, false },
         new Object[]{ "com.example.collections.ComputedNonnullCollectionModel", false, false, false },
