@@ -419,4 +419,22 @@ final class ProcessorUtil
   {
     return annotationName.replaceAll( ".*\\.", "" );
   }
+
+  static boolean isDisposableTrackableRequired( @Nonnull final Elements elementUtils, @Nonnull final TypeElement typeElement )
+  {
+    final VariableElement variableElement = (VariableElement)
+      getAnnotationValue( elementUtils,
+                          typeElement,
+                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                          "disposeTrackable" ).getValue();
+    switch ( variableElement.getSimpleName().toString() )
+    {
+      case "ENABLE":
+        return true;
+      case "DISABLE":
+        return false;
+      default:
+        return null == findAnnotationByType( typeElement, Constants.SINGLETON_ANNOTATION_CLASSNAME );
+    }
+  }
 }
