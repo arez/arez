@@ -2254,7 +2254,7 @@ final class ComponentDescriptor
 
     if ( _disposeTrackable )
     {
-      actionBlock.addStatement( "this.$N()", getPreDisposeMethodName() );
+      actionBlock.addStatement( "this.$N()", GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
     }
     else if ( null != _preDispose )
     {
@@ -2349,14 +2349,6 @@ final class ComponentDescriptor
       builder.addStatement( "return $N()", GeneratorUtil.INTERNAL_OBSERVE_METHOD_NAME );
     }
     return builder.build();
-  }
-
-  @Nonnull
-  private String getPreDisposeMethodName()
-  {
-    return _disposeTrackable || !_dependencies.isEmpty() ?
-           GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME :
-           Objects.requireNonNull( _preDispose ).getSimpleName().toString();
   }
 
   /**
@@ -2669,7 +2661,7 @@ final class ComponentDescriptor
         if ( _disposeTrackable )
         {
           sb.append( "() -> $N()" );
-          params.add( getPreDisposeMethodName() );
+          params.add( GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
         }
         else if ( null != _preDispose )
         {
