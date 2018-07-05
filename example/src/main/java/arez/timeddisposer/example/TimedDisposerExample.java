@@ -22,9 +22,6 @@ public class TimedDisposerExample
   @Override
   public void onModuleLoad()
   {
-    ArezContext context = Arez.context();
-    DomGlobal.console.log( context );
-    Js.debugger();
     final IntervalTicker ticker = IntervalTicker.create();
     final Observer observer = Arez.context().autorun( () -> {
       if ( !Disposable.isDisposed( ticker ) )
