@@ -120,39 +120,32 @@ public final class BuildDownstream
               };
               Patch.patchAndAddFile( appDirectory, appDirectory.resolve( "CHANGELOG.md" ), patchFunction );
               Git.commit( message );
-
-              Gir.messenger().info( "Building branch master after modifications." );
-              customizeBuildr( appDirectory, localRepositoryUrl );
-
-              try
-              {
-                Ruby.buildr( "perform_release",
-                             "LAST_STAGE=PatchChangelogPostRelease",
-                             "PRODUCT_VERSION=",
-                             "PREVIOUS_PRODUCT_VERSION=" );
-                Git.checkout( "master" );
-                Exec.system( "git", "merge", newBranch );
-                Git.deleteBranch( newBranch );
-              }
-              catch ( final GirException e )
-              {
-                if ( !initialBuildSuccess )
-                {
-                  Gir.messenger().error( "Failed to build branch 'master' before modifications " +
-                                         "but branch also failed prior to modifications.", e );
-                }
-                else
-                {
-                  Gir.messenger().error( "Failed to build branch 'master' after modifications.", e );
-                }
-                throw e;
-              }
             }
-            else
+            Gir.messenger().info( "Building branch master after modifications." );
+            customizeBuildr( appDirectory, localRepositoryUrl );
+
+            try
             {
-              Gir.messenger().info( "Branch master not rebuilt as no modifications made." );
+              Ruby.buildr( "perform_release",
+                           "LAST_STAGE=PatchChangelogPostRelease",
+                           "PRODUCT_VERSION=",
+                           "PREVIOUS_PRODUCT_VERSION=" );
               Git.checkout( "master" );
+              Exec.system( "git", "merge", newBranch );
               Git.deleteBranch( newBranch );
+            }
+            catch ( final GirException e )
+            {
+              if ( !initialBuildSuccess )
+              {
+                Gir.messenger().error( "Failed to build branch 'master' before modifications " +
+                                       "but branch also failed prior to modifications.", e );
+              }
+              else
+              {
+                Gir.messenger().error( "Failed to build branch 'master' after modifications.", e );
+              }
+              throw e;
             }
           } );
         } ) );
