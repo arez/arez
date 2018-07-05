@@ -87,7 +87,7 @@ public class ComputedValueTest
   }
 
   @Test
-  public void highestPriorityComputedValue()
+  public void highPriorityComputedValue()
     throws Exception
   {
     final ComputedValue<String> computedValue =
@@ -95,9 +95,9 @@ public class ComputedValueTest
                            null,
                            ValueUtil.randomString(),
                            () -> "",
-                           Priority.HIGHEST,
+                           Priority.HIGH,
                            false );
-    assertEquals( computedValue.getObserver().getPriority(), Priority.HIGHEST );
+    assertEquals( computedValue.getObserver().getPriority(), Priority.HIGH );
   }
 
   @Test

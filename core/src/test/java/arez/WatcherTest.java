@@ -136,14 +136,14 @@ public class WatcherTest
     final Watcher watcher3 =
       new Watcher( context, null, ValueUtil.randomString(), true, condition3, procedure, Priority.NORMAL, false );
     final Watcher watcher2 =
-      new Watcher( context, null, ValueUtil.randomString(), true, condition2, procedure, Priority.HIGHEST, false );
+      new Watcher( context, null, ValueUtil.randomString(), true, condition2, procedure, Priority.HIGH, false );
     final Watcher watcher1 =
-      new Watcher( context, null, ValueUtil.randomString(), true, condition1, procedure, Priority.HIGHEST, false );
+      new Watcher( context, null, ValueUtil.randomString(), true, condition1, procedure, Priority.HIGH, false );
 
-    assertEquals( watcher1.getWatcher().getPriority(), Priority.HIGHEST );
-    assertEquals( watcher1.getCondition().getObserver().getPriority(), Priority.HIGHEST );
-    assertEquals( watcher2.getWatcher().getPriority(), Priority.HIGHEST );
-    assertEquals( watcher2.getCondition().getObserver().getPriority(), Priority.HIGHEST );
+    assertEquals( watcher1.getWatcher().getPriority(), Priority.HIGH );
+    assertEquals( watcher1.getCondition().getObserver().getPriority(), Priority.HIGH );
+    assertEquals( watcher2.getWatcher().getPriority(), Priority.HIGH );
+    assertEquals( watcher2.getCondition().getObserver().getPriority(), Priority.HIGH );
     assertEquals( watcher3.getWatcher().getPriority(), Priority.NORMAL );
     assertEquals( watcher3.getCondition().getObserver().getPriority(), Priority.NORMAL );
 

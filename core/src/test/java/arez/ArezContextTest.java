@@ -1508,7 +1508,7 @@ public class ArezContextTest
                                    onDeactivate,
                                    onStale,
                                    onDispose,
-                                   Priority.HIGHEST );
+                                   Priority.HIGH );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
@@ -1519,7 +1519,7 @@ public class ArezContextTest
     assertEquals( computedValue.getObserver().getOnDeactivate(), onDeactivate );
     assertEquals( computedValue.getObserver().getOnStale(), onStale );
     assertEquals( computedValue.getObserver().getOnDispose(), onDispose );
-    assertEquals( computedValue.getObserver().getPriority(), Priority.HIGHEST );
+    assertEquals( computedValue.getObserver().getPriority(), Priority.HIGH );
   }
 
   @Test
@@ -1904,13 +1904,13 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = context.tracker( null, name, false, callCount::incrementAndGet, Priority.HIGHEST );
+    final Observer observer = context.tracker( null, name, false, callCount::incrementAndGet, Priority.HIGH );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
     assertEquals( observer.getComponent(), null );
-    assertEquals( observer.getPriority(), Priority.HIGHEST );
+    assertEquals( observer.getPriority(), Priority.HIGH );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
