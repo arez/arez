@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * The Name of the annotation is all that matters.
  */
 @Retention( RetentionPolicy.CLASS )
-@Target( ElementType.TYPE )
+@Target( { ElementType.TYPE, ElementType.METHOD } )
 @Documented
 @interface GwtIncompatible
 {

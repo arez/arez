@@ -31,6 +31,12 @@
   Rename `ArezContext.createComponent(...)` methods to `ArezContext.component(...)`. Rename
   `ArezContext.createObservable(...)` methods to `ArezContext.observable(...)`. These renames are aimed at
   providing a more consistent API.
+* Compile-time constants work differently between the JRE, J2CL and GWT2.x environments. Adopt an
+  approach that has the same effective outcome across all environments. This involves using instance
+  comparisons for results returned from `System.getProperty(...)` in GWT2.x and J2CL environments and
+  using normal `equals()` method in JRE. It should be noted that for this to work correctly in the J2CL
+  environment, the properties still need to defined via code such as:
+  `/** @define {string} */ goog.define('arez.environment', 'production');`
 
 ### [v0.95](https://github.com/arez/arez/tree/v0.95) (2018-06-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.94...v0.95)
