@@ -15,7 +15,7 @@
 * 💥 **\[core\]** Introduce the `LOWEST` enum value for priority exposed to applications using the component
   model as well as applications using only core features. This means that applications that required 4
   separate priority levels continue to be supported by Arez.
-* 💥 **\[core\]** Introduce the `canObserveLowerPriorityDependencies` parameter that can be passed when
+* 💥 **\[core\]** Introduce the `observeLowerPriorityDependencies` parameter that can be passed when
   creating an autorun observer via `ArezContext.autorun(...)`, a tracker observer via `ArezContext.tracker(...)`
   or a computed value via `ArezContext.createComputedValue(...)`. This parameter defaults to `false` but
   if passed as `true` will allow the underlying observer instance to observe `ComputedValue` instances with
