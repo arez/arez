@@ -77,7 +77,7 @@ define 'arez' do
                  :braincheck,
                  :jsinterop_annotations
 
-    test.options[:properties] = AREZ_TEST_OPTIONS
+    test.options[:properties] = AREZ_TEST_OPTIONS.merge('arez.core.compile_target' => compile.target.to_s)
     test.options[:java_args] = ['-ea']
 
     gwt_enhance(project)
@@ -87,7 +87,7 @@ define 'arez' do
     package(:javadoc)
 
     test.using :testng
-    test.compile.with TEST_DEPS
+    test.compile.with TEST_DEPS, :jdepend
   end
 
   desc 'Arez Component Support'
@@ -361,7 +361,7 @@ define 'arez' do
   iml.excluded_directories << project._('tmp/gwt')
   iml.excluded_directories << project._('tmp')
 
-  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.entity_fixture_dir=entity/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.version=X')
+  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.entity_fixture_dir=entity/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.version=X -Darez.core.compile_target=target/arez_core/idea/classes')
   ipr.add_component_from_artifact(:idea_codestyle)
 
   DOC_EXAMPLES.each do |gwt_module|

@@ -37,6 +37,8 @@
   using normal `equals()` method in JRE. It should be noted that for this to work correctly in the J2CL
   environment, the properties still need to defined via code such as:
   `/** @define {string} */ goog.define('arez.environment', 'production');`
+* **\[core\]** Introduce JDepend based test that verifies that no unexpected dependencies between packages
+  occur.
 
 ### [v0.95](https://github.com/arez/arez/tree/v0.95) (2018-06-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.94...v0.95)
