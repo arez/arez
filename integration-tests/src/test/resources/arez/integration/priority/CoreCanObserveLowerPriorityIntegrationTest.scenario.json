@@ -1,19 +1,19 @@
 
 [
     {
-        "computedValue": "5a028535-658e-4189-b314-2334f59001eb",
+        "computedValue": "ComputedValue@1",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "ee303e47-e867-49b8-93c5-eaea2610c821",
+        "computedValue": "ComputedValue@2",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348",
+        "computedValue": "ComputedValue@3",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb",
+        "computedValue": "ComputedValue@4",
         "type": "ComputedValueCreated"
     },
     {
@@ -38,32 +38,32 @@
         "transaction": "AR1"
     },
     {
-        "computedValue": "5a028535-658e-4189-b314-2334f59001eb",
+        "computedValue": "ComputedValue@1",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "5a028535-658e-4189-b314-2334f59001eb",
+        "tracker": "ComputedValue@1",
         "type": "TransactionStarted",
-        "transaction": "5a028535-658e-4189-b314-2334f59001eb"
+        "transaction": "ComputedValue@1"
     },
     {
-        "observable": "Observable@1",
+        "observable": "Observable@5",
         "type": "ObservableCreated"
     },
     {
-        "observable": "5a028535-658e-4189-b314-2334f59001eb",
+        "observable": "ComputedValue@1",
         "type": "ObservableChanged",
         "value": 42
     },
     {
         "mutation": false,
-        "tracker": "5a028535-658e-4189-b314-2334f59001eb",
+        "tracker": "ComputedValue@1",
         "type": "TransactionCompleted",
-        "transaction": "5a028535-658e-4189-b314-2334f59001eb"
+        "transaction": "ComputedValue@1"
     },
     {
-        "computedValue": "5a028535-658e-4189-b314-2334f59001eb",
+        "computedValue": "ComputedValue@1",
         "type": "ComputeCompleted"
     },
     {
@@ -109,78 +109,78 @@
         "transaction": "AR4"
     },
     {
-        "computedValue": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb",
+        "computedValue": "ComputedValue@4",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb",
+        "tracker": "ComputedValue@4",
         "type": "TransactionStarted",
-        "transaction": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb"
+        "transaction": "ComputedValue@4"
     },
     {
-        "computedValue": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348",
+        "computedValue": "ComputedValue@3",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348",
+        "tracker": "ComputedValue@3",
         "type": "TransactionStarted",
-        "transaction": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348"
+        "transaction": "ComputedValue@3"
     },
     {
-        "computedValue": "ee303e47-e867-49b8-93c5-eaea2610c821",
+        "computedValue": "ComputedValue@2",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "ee303e47-e867-49b8-93c5-eaea2610c821",
+        "tracker": "ComputedValue@2",
         "type": "TransactionStarted",
-        "transaction": "ee303e47-e867-49b8-93c5-eaea2610c821"
+        "transaction": "ComputedValue@2"
     },
     {
-        "observable": "ee303e47-e867-49b8-93c5-eaea2610c821",
+        "observable": "ComputedValue@2",
         "type": "ObservableChanged",
         "value": 84
     },
     {
         "mutation": false,
-        "tracker": "ee303e47-e867-49b8-93c5-eaea2610c821",
+        "tracker": "ComputedValue@2",
         "type": "TransactionCompleted",
-        "transaction": "ee303e47-e867-49b8-93c5-eaea2610c821"
+        "transaction": "ComputedValue@2"
     },
     {
-        "computedValue": "ee303e47-e867-49b8-93c5-eaea2610c821",
+        "computedValue": "ComputedValue@2",
         "type": "ComputeCompleted"
     },
     {
-        "observable": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348",
+        "observable": "ComputedValue@3",
         "type": "ObservableChanged",
         "value": 126
     },
     {
         "mutation": false,
-        "tracker": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348",
+        "tracker": "ComputedValue@3",
         "type": "TransactionCompleted",
-        "transaction": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348"
+        "transaction": "ComputedValue@3"
     },
     {
-        "computedValue": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348",
+        "computedValue": "ComputedValue@3",
         "type": "ComputeCompleted"
     },
     {
-        "observable": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb",
+        "observable": "ComputedValue@4",
         "type": "ObservableChanged",
         "value": 168
     },
     {
         "mutation": false,
-        "tracker": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb",
+        "tracker": "ComputedValue@4",
         "type": "TransactionCompleted",
-        "transaction": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb"
+        "transaction": "ComputedValue@4"
     },
     {
-        "computedValue": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb",
+        "computedValue": "ComputedValue@4",
         "type": "ComputeCompleted"
     },
     {

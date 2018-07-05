@@ -28,7 +28,7 @@ public class CoreCanObserveLowerPriorityIntegrationTest
     };
     final ComputedValue<Integer> computedValue1 =
       context.createComputedValue( null,
-                                   ValueUtil.randomString(),
+                                   null,
                                    f1,
                                    null,
                                    null,
@@ -42,7 +42,7 @@ public class CoreCanObserveLowerPriorityIntegrationTest
     final SafeFunction<Integer> f2 = () -> computedValue1.get() + 42;
     final ComputedValue<Integer> computedValue2 =
       context.createComputedValue( null,
-                                   ValueUtil.randomString(),
+                                   null,
                                    f2,
                                    null,
                                    null,
@@ -56,7 +56,7 @@ public class CoreCanObserveLowerPriorityIntegrationTest
     final SafeFunction<Integer> f3 = () -> computedValue2.get() + 42;
     final ComputedValue<Integer> computedValue3 =
       context.createComputedValue( null,
-                                   ValueUtil.randomString(),
+                                   null,
                                    f3,
                                    null,
                                    null,
@@ -71,7 +71,7 @@ public class CoreCanObserveLowerPriorityIntegrationTest
     final SafeFunction<Integer> f4 = () -> computedValue3.get() + 42;
     final ComputedValue<Integer> computedValue4 =
       context.createComputedValue( null,
-                                   ValueUtil.randomString(),
+                                   null,
                                    f4,
                                    null,
                                    null,
