@@ -25,7 +25,7 @@ public class JDependTest
 
     final JavaPackage arez = constraint.addPackage( "arez" );
     final JavaPackage spy = constraint.addPackage( "arez.spy" );
-    final JavaPackage annotations = constraint.addPackage( "arez.annotations" );
+    constraint.addPackage( "arez.annotations" );
     final JavaPackage component = constraint.addPackage( "arez.component" );
     final JavaPackage braincheck = constraint.addPackage( "org.realityforge.braincheck" );
     final JavaPackage jsinterop = constraint.addPackage( "jsinterop.annotations" );
