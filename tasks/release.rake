@@ -81,6 +81,12 @@ HEADER
       sh "git tag v#{ENV['PRODUCT_VERSION']}"
     end
 
+    stage('StageRelease', 'Stage the release') do
+      IO.write('_buildr.rb', "repositories.release_to = { :url => 'https://stocksoftware.jfrog.io/stocksoftware/staging' }")
+      sh 'bundle exec buildr clean upload TEST=no GWT=no'
+      sh 'rm -f _buildr.rb'
+    end
+
     stage('PatchChangelogPostRelease', 'Patch the changelog post release to prepare for next development iteration') do
       changelog = IO.read('CHANGELOG.md')
       changelog = changelog.gsub("# Change Log\n", <<HEADER)
