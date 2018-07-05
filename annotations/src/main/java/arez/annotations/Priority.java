@@ -25,7 +25,19 @@ public enum Priority
    */
   NORMAL,
   /**
-   * Lowest priority.
+   * Low priority.
+   * Usually used to schedule observers that reflect state onto non-reactive
+   * application components. i.e. Observers that are used to build html views,
+   * perform network operations etc. These reactions are often at low priority
+   * to avoid recalculation of dependencies (i.e. {@link Computed}s) triggering
+   * this reaction multiple times within a single reaction round.
    */
-  LOW
+  LOW,
+  /**
+   * Lowest priority.
+   * This is low-priority reactions that reflect onto non-reactive applications. It is
+   * also used for (i.e. {@link Computed}s) that may be unobserved when a {@link #LOW}
+   * priority reaction runs.
+   */
+  LOWEST
 }

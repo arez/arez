@@ -12,6 +12,9 @@
   transactions but is no longer used for that use-case. This enum value is not exposed to the component
   framework thus there is limited if any usage of this priority within the framework users and it can be
   removed.
+* 💥 **\[core\]** Introduce the `LOWEST` enum value for priority exposed to applications using the component
+  model as well as applications using only core features. This means that applications that required 4
+  separate priority levels continue to be supported by Arez.
 
 ### [v0.95](https://github.com/arez/arez/tree/v0.95) (2018-06-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.94...v0.95)
