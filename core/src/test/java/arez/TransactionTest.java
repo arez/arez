@@ -941,12 +941,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
     final Observer tracker =
-      new ComputedValue<>( context,
-                           null,
-                           ValueUtil.randomString(),
-                           () -> "",
-                           Priority.NORMAL,
-                           true ).getObserver();
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, true, false ).getObserver();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );

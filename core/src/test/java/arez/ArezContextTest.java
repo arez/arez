@@ -1540,6 +1540,26 @@ public class ArezContextTest
   }
 
   @Test
+  public void createComputedValue_canObserveLowerPriorityDependencies()
+    throws Exception
+  {
+    final ComputedValue<String> computedValue =
+      Arez.context().createComputedValue( null,
+                                          ValueUtil.randomString(),
+                                          () -> "",
+                                          null,
+                                          null,
+                                          null,
+                                          null,
+                                          Priority.NORMAL,
+                                          false,
+                                          false,
+                                          true );
+
+    assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), true );
+  }
+
+  @Test
   public void createComputedValue_withKeepAliveAndRunImmediately()
     throws Exception
   {
@@ -1650,6 +1670,7 @@ public class ArezContextTest
     assertEquals( computedValue.getObserver().getOnStale(), null );
     assertEquals( computedValue.getObserver().getOnDeactivate(), null );
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
+    assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), false );
   }
 
   @Test
@@ -1766,6 +1787,7 @@ public class ArezContextTest
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.canObserveLowerPriorityDependencies(), false );
     assertEquals( callCount.get(), 1 );
   }
 
@@ -1865,6 +1887,22 @@ public class ArezContextTest
   }
 
   @Test
+  public void autorun_canObserveLowerPriorityDependencies()
+    throws Exception
+  {
+    final Observer observer =
+      Arez.context().autorun( null,
+                              ValueUtil.randomString(),
+                              true,
+                              AbstractArezTest::observeADependency,
+                              Priority.HIGH,
+                              false,
+                              true );
+
+    assertEquals( observer.canObserveLowerPriorityDependencies(), true );
+  }
+
+  @Test
   public void autorun_notRunImmediately()
     throws Exception
   {
@@ -1934,6 +1972,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
     assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.canObserveLowerPriorityDependencies(), false );
   }
 
   @Test
@@ -1971,7 +2010,7 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final Observer observer =
-      context.createObserver( null, ValueUtil.randomString(), true, new TestReaction(), Priority.NORMAL, false );
+      context.createObserver( null, ValueUtil.randomString(), true, new TestReaction(), Priority.NORMAL, false, false );
 
     handler.assertEventCount( 1 );
 
@@ -1985,9 +2024,21 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final Observer observer =
-      context.createObserver( null, ValueUtil.randomString(), false, new TestReaction(), Priority.NORMAL, true );
+      context.createObserver( null, ValueUtil.randomString(), false, new TestReaction(), Priority.NORMAL, true, false );
 
     assertEquals( observer.canTrackExplicitly(), true );
+  }
+
+  @Test
+  public void createObserver_canObserveLowerPriorityDependencies()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Observer observer =
+      context.createObserver( null, ValueUtil.randomString(), false, new TestReaction(), Priority.NORMAL, true, true );
+
+    assertEquals( observer.canObserveLowerPriorityDependencies(), true );
   }
 
   @Test

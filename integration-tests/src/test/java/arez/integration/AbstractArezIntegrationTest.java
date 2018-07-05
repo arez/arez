@@ -28,12 +28,12 @@ public abstract class AbstractArezIntegrationTest
   private boolean _printObserverErrors;
   private String _currentMethod;
 
-  final void setIgnoreObserverErrors( final boolean ignoreObserverErrors )
+  protected final void setIgnoreObserverErrors( final boolean ignoreObserverErrors )
   {
     _ignoreObserverErrors = ignoreObserverErrors;
   }
 
-  final void setPrintObserverErrors( final boolean printObserverErrors )
+  protected final void setPrintObserverErrors( final boolean printObserverErrors )
   {
     _printObserverErrors = printObserverErrors;
   }
@@ -76,7 +76,7 @@ public abstract class AbstractArezIntegrationTest
   }
 
   @Nonnull
-  final ArrayList<String> getObserverErrors()
+  protected final ArrayList<String> getObserverErrors()
   {
     return _observerErrors;
   }

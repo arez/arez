@@ -1,0 +1,249 @@
+
+[
+    {
+        "computedValue": "5a028535-658e-4189-b314-2334f59001eb",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "computedValue": "ee303e47-e867-49b8-93c5-eaea2610c821",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "computedValue": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "computedValue": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb",
+        "type": "ComputedValueCreated"
+    },
+    {
+        "observer": "AR1",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "AR1",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "AR1",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "AR1",
+        "type": "TransactionStarted",
+        "transaction": "AR1"
+    },
+    {
+        "computedValue": "5a028535-658e-4189-b314-2334f59001eb",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "5a028535-658e-4189-b314-2334f59001eb",
+        "type": "TransactionStarted",
+        "transaction": "5a028535-658e-4189-b314-2334f59001eb"
+    },
+    {
+        "observable": "Observable@1",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "5a028535-658e-4189-b314-2334f59001eb",
+        "type": "ObservableChanged",
+        "value": 42
+    },
+    {
+        "mutation": false,
+        "tracker": "5a028535-658e-4189-b314-2334f59001eb",
+        "type": "TransactionCompleted",
+        "transaction": "5a028535-658e-4189-b314-2334f59001eb"
+    },
+    {
+        "computedValue": "5a028535-658e-4189-b314-2334f59001eb",
+        "type": "ComputeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": "AR1",
+        "type": "TransactionCompleted",
+        "transaction": "AR1"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "AR1",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "AR1",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "AR4",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "AR4",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "AR4",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "AR4",
+        "type": "TransactionStarted",
+        "transaction": "AR4"
+    },
+    {
+        "computedValue": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb",
+        "type": "TransactionStarted",
+        "transaction": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb"
+    },
+    {
+        "computedValue": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348",
+        "type": "TransactionStarted",
+        "transaction": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348"
+    },
+    {
+        "computedValue": "ee303e47-e867-49b8-93c5-eaea2610c821",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "ee303e47-e867-49b8-93c5-eaea2610c821",
+        "type": "TransactionStarted",
+        "transaction": "ee303e47-e867-49b8-93c5-eaea2610c821"
+    },
+    {
+        "observable": "ee303e47-e867-49b8-93c5-eaea2610c821",
+        "type": "ObservableChanged",
+        "value": 84
+    },
+    {
+        "mutation": false,
+        "tracker": "ee303e47-e867-49b8-93c5-eaea2610c821",
+        "type": "TransactionCompleted",
+        "transaction": "ee303e47-e867-49b8-93c5-eaea2610c821"
+    },
+    {
+        "computedValue": "ee303e47-e867-49b8-93c5-eaea2610c821",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observable": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348",
+        "type": "ObservableChanged",
+        "value": 126
+    },
+    {
+        "mutation": false,
+        "tracker": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348",
+        "type": "TransactionCompleted",
+        "transaction": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348"
+    },
+    {
+        "computedValue": "c5d0f9d4-fe9a-4a34-b02a-fb2509cce348",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observable": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb",
+        "type": "ObservableChanged",
+        "value": 168
+    },
+    {
+        "mutation": false,
+        "tracker": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb",
+        "type": "TransactionCompleted",
+        "transaction": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb"
+    },
+    {
+        "computedValue": "bc4b98a7-b722-43a8-bbc2-a398e3d512cb",
+        "type": "ComputeCompleted"
+    },
+    {
+        "mutation": false,
+        "tracker": "AR4",
+        "type": "TransactionCompleted",
+        "transaction": "AR4"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "AR4",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "AR4",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "AR3",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "AR3",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "AR3",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "AR3",
+        "type": "TransactionStarted",
+        "transaction": "AR3"
+    },
+    {
+        "mutation": false,
+        "tracker": "AR3",
+        "type": "TransactionCompleted",
+        "transaction": "AR3"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "AR3",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "AR3",
+        "type": "ReactionCompleted"
+    }
+]

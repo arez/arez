@@ -390,7 +390,9 @@ public final class Observable<T>
       invariant( observer::isNotDisposed,
                  () -> "Arez-0068: Attempting to add observer named '" + observer.getName() + "' to observable " +
                        "named '" + getName() + "' when observer is disposed." );
-      invariant( () -> !hasOwner() || observer.getPriority().ordinal() >= getOwner().getPriority().ordinal(),
+      invariant( () -> !hasOwner() ||
+                       observer.canObserveLowerPriorityDependencies() ||
+                       observer.getPriority().ordinal() >= getOwner().getPriority().ordinal(),
                  () -> "Arez-0183: Attempting to add observer named '" + observer.getName() + "' to observable " +
                        "named '" + getName() + "' where the observer is scheduled at a " + observer.getPriority() +
                        " priority but the observables owner is scheduled at a " +

@@ -197,26 +197,34 @@ final class Transaction
                        "' transaction is suspended." );
     }
     assert null != c_transaction;
-    c_transaction.commit();
-    if ( c_transaction.getContext().willPropagateSpyEvents() )
+    try
     {
-      final String name = c_transaction.getName();
-      final boolean mutation =
-        !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
-      final Observer tracker = c_transaction.getTracker();
-      final ObserverInfoImpl trackerInfo =
-        null != tracker ? new ObserverInfoImpl( c_transaction.getContext().getSpy(), tracker ) : null;
-      final long duration = System.currentTimeMillis() - c_transaction.getStartedAt();
-      c_transaction.getContext().getSpy().
-        reportSpyEvent( new TransactionCompletedEvent( name, mutation, trackerInfo, duration ) );
+      c_transaction.commit();
+      if ( c_transaction.getContext().willPropagateSpyEvents() )
+      {
+        final String name = c_transaction.getName();
+        final boolean mutation =
+          !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
+        final Observer tracker = c_transaction.getTracker();
+        final ObserverInfoImpl trackerInfo =
+          null != tracker ? new ObserverInfoImpl( c_transaction.getContext().getSpy(), tracker ) : null;
+        final long duration = System.currentTimeMillis() - c_transaction.getStartedAt();
+        c_transaction.getContext().getSpy().
+          reportSpyEvent( new TransactionCompletedEvent( name, mutation, trackerInfo, duration ) );
+      }
     }
-    final Transaction previousInSameContext =
-      Arez.areZonesEnabled() ? c_transaction.getPreviousInSameContext() : c_transaction.getPrevious();
-    if ( null == previousInSameContext )
+    finally
     {
-      c_transaction.getContext().enableScheduler();
+      // Finally block is required because if an exception occurs during transaction cleanup Arez
+      // will be unable to recover as the transaction field will be wrong
+      final Transaction previousInSameContext =
+        Arez.areZonesEnabled() ? c_transaction.getPreviousInSameContext() : c_transaction.getPrevious();
+      if ( null == previousInSameContext )
+      {
+        c_transaction.getContext().enableScheduler();
+      }
+      c_transaction = c_transaction.getPrevious();
     }
-    c_transaction = c_transaction.getPrevious();
   }
 
   /**

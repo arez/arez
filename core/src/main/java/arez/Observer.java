@@ -96,6 +96,10 @@ public final class Observer
    */
   private final boolean _canTrackExplicitly;
   /**
+   * Flag set to true if the Observer is allowed to observe {@link ComputedValue} instances with a lower priority.
+   */
+  private final boolean _canObserveLowerPriorityDependencies;
+  /**
    * Flag set to true after Observer has been disposed.
    */
   private boolean _disposed;
@@ -111,7 +115,8 @@ public final class Observer
             @Nullable final TransactionMode mode,
             @Nonnull final Reaction reaction,
             @Nonnull final Priority priority,
-            final boolean canTrackExplicitly )
+            final boolean canTrackExplicitly,
+            final boolean canObserveLowerPriorityDependencies )
   {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
@@ -144,6 +149,9 @@ public final class Observer
       invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
                  () -> "Arez-0083: Observer named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
+      invariant( () -> Priority.LOWEST != priority || !canObserveLowerPriorityDependencies,
+                 () -> "Arez-0184: Observer named '" + getName() + "' has LOWEST priority but has passed " +
+                       "canObserveLowerPriorityDependencies = true which should be false as no lower priority." );
     }
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
     _component = Arez.areNativeComponentsEnabled() ? component : null;
@@ -152,6 +160,7 @@ public final class Observer
     _reaction = Objects.requireNonNull( reaction );
     _priority = Objects.requireNonNull( priority );
     _canTrackExplicitly = canTrackExplicitly;
+    _canObserveLowerPriorityDependencies = Arez.shouldCheckInvariants() && canObserveLowerPriorityDependencies;
     if ( null != _computedValue )
     {
       _derivedValue =
@@ -201,6 +210,11 @@ public final class Observer
   boolean canTrackExplicitly()
   {
     return _canTrackExplicitly;
+  }
+
+  boolean canObserveLowerPriorityDependencies()
+  {
+    return _canObserveLowerPriorityDependencies;
   }
 
   boolean isDerivation()

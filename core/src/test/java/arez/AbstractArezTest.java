@@ -117,6 +117,7 @@ public abstract class AbstractArezTest
                          TransactionMode.READ_WRITE,
                          new TestReaction(),
                          Priority.NORMAL,
+                         false,
                          false );
   }
 
@@ -141,12 +142,7 @@ public abstract class AbstractArezTest
   @Nonnull
   private ComputedValue<String> newComputedValue( @Nonnull final ArezContext context )
   {
-    return new ComputedValue<>( context,
-                                null,
-                                ValueUtil.randomString(),
-                                () -> "",
-                                Priority.NORMAL,
-                                false );
+    return new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false );
   }
 
   @Nonnull
@@ -171,6 +167,7 @@ public abstract class AbstractArezTest
                          TransactionMode.READ_ONLY,
                          new TestReaction(),
                          Priority.NORMAL,
+                         false,
                          false );
   }
 

@@ -172,7 +172,15 @@ public class ObserverErrorHandlerSupportTest
 
     final ArezContext context = new ArezContext();
     final Observer observer =
-      new Observer( context, null, null, null, TransactionMode.READ_ONLY, new TestReaction(), Priority.NORMAL, false );
+      new Observer( context,
+                    null,
+                    null,
+                    null,
+                    TransactionMode.READ_ONLY,
+                    new TestReaction(),
+                    Priority.NORMAL,
+                    false,
+                    false );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
 
