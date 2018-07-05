@@ -29,7 +29,6 @@ define 'arez-spytools' do
                :elemental2_dom,
                :elemental2_promise,
                :braincheck,
-               :arez_annotations,
                :arez_core
 
   gwt_enhance(project)
