@@ -83,7 +83,7 @@ HEADER
 
     stage('StageRelease', 'Stage the release') do
       IO.write('_buildr.rb', "repositories.release_to = { :url => 'https://stocksoftware.jfrog.io/stocksoftware/staging', :username => '#{ENV['STAGING_USERNAME']}', :password => '#{ENV['STAGING_PASSWORD']}' }")
-      sh 'bundle exec buildr clean upload'
+      sh 'bundle exec buildr clean upload TEST=no GWT=no'
       sh 'rm -f _buildr.rb'
     end
 
