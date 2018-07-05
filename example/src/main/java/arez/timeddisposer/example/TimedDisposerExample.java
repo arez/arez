@@ -22,8 +22,10 @@ public class TimedDisposerExample
   @Override
   public void onModuleLoad()
   {
+    final ArezContext context = Arez.context();
     final IntervalTicker ticker = IntervalTicker.create();
-    final Observer observer = Arez.context().autorun( () -> {
+    final arez.Observable<Object> observable = context.observable();
+    final Observer observer = context.autorun( () -> {
       if ( !Disposable.isDisposed( ticker ) )
       {
         DomGlobal.console.log( "Tick: " + ticker.getTickTime() );
@@ -32,6 +34,8 @@ public class TimedDisposerExample
       {
         DomGlobal.console.log( "Ticker disposed!" );
       }
+      // Next line required as autorun must be observing something.
+      observable.reportObserved();
     } );
     TimedDisposer.create( Disposable.asDisposable( ticker ), 5500 );
     TimedDisposer.create( Disposable.asDisposable( observer ), 7000 );
