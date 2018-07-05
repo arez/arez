@@ -1874,14 +1874,9 @@ public class ArezContextTest
   public void autorun_highPriority()
     throws Exception
   {
-    final ArezContext context = Arez.context();
-
-    final AtomicInteger callCount = new AtomicInteger();
     final Observer observer =
-      context.autorun( null, ValueUtil.randomString(), true, () -> {
-        observeADependency();
-        callCount.incrementAndGet();
-      }, Priority.HIGH, false );
+      Arez.context()
+        .autorun( null, ValueUtil.randomString(), true, AbstractArezTest::observeADependency, Priority.HIGH, false );
 
     assertEquals( observer.getPriority(), Priority.HIGH );
   }
