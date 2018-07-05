@@ -592,7 +592,7 @@ public class SpyImplTest
     final Spy spy = context.getSpy();
 
     final Component component =
-      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
     final Observable<Object> observable1 = context.createObservable( component, ValueUtil.randomString(), null, null );
     final Observable<Object> observable2 = context.createObservable();
 
@@ -625,7 +625,7 @@ public class SpyImplTest
     final Spy spy = context.getSpy();
 
     final Component component =
-      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
     final ComputedValue<Object> computedValue1 =
       context.computedValue( component,
                              ValueUtil.randomString(),
@@ -665,7 +665,7 @@ public class SpyImplTest
     final Spy spy = context.getSpy();
 
     final Component component =
-      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
     final Observer observer1 =
       context.autorun( component,
                        ValueUtil.randomString(),
@@ -710,7 +710,7 @@ public class SpyImplTest
     assertEquals( spy.findAllComponentTypes().size(), 0 );
     assertEquals( spy.findAllComponentsByType( type ).size(), 0 );
 
-    final Component component = context.createComponent( type, id1, ValueUtil.randomString() );
+    final Component component = context.component( type, id1, ValueUtil.randomString() );
 
     assertEquals( spy.findAllComponentTypes().size(), 1 );
     assertEquals( spy.findAllComponentTypes().contains( type ), true );
@@ -721,7 +721,7 @@ public class SpyImplTest
     assertEquals( componentsByType1.size(), 1 );
     assertEquals( componentsByType1.stream().anyMatch( c -> c.getName().equals( component.getName() ) ), true );
 
-    final Component component2 = context.createComponent( type, id2, ValueUtil.randomString() );
+    final Component component2 = context.component( type, id2, ValueUtil.randomString() );
 
     assertEquals( spy.findAllComponentTypes().size(), 1 );
     assertEquals( spy.findAllComponentTypes().contains( type ), true );
@@ -1083,7 +1083,7 @@ public class SpyImplTest
   public void asComponentInfo()
   {
     final ArezContext context = Arez.context();
-    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
+    final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
     final ComponentInfo info = context.getSpy().asComponentInfo( component );
 
     assertEquals( info.getName(), component.getName() );

@@ -144,7 +144,7 @@ public class MemoizeCacheTest
       return args[ 0 ] + "." + args[ 1 ];
     };
     final ArezContext context = Arez.context();
-    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
+    final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
 
     final String name = ValueUtil.randomString();
     final MemoizeCache<String> cache =

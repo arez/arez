@@ -21,7 +21,7 @@ public class ComponentInfoImplTest
     final Observable observable = context.createObservable();
     final ComputedValue computedValue = context.computedValue( () -> "" );
 
-    final Component component = context.createComponent( type, id, name );
+    final Component component = context.component( type, id, name );
     component.addObserver( observer );
     component.addObservable( observable );
     component.addComputedValue( computedValue );
@@ -57,8 +57,8 @@ public class ComponentInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final Component component1 = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
-    final Component component2 = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
+    final Component component1 = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
+    final Component component2 = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
 
     final ComponentInfoImpl info1a = new ComponentInfoImpl( context.getSpy(), component1 );
     final ComponentInfoImpl info1b = new ComponentInfoImpl( context.getSpy(), component1 );

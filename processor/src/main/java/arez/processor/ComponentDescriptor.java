@@ -2646,7 +2646,7 @@ final class ComponentDescriptor
       final StringBuilder sb = new StringBuilder();
       final ArrayList<Object> params = new ArrayList<>();
       sb.append( "this.$N = $T.areNativeComponentsEnabled() ? " +
-                 "$N().createComponent( $S, $N(), $T.areNamesEnabled() ? $N() :" +
+                 "$N().component( $S, $N(), $T.areNamesEnabled() ? $N() :" +
                  " null" );
       params.add( GeneratorUtil.COMPONENT_FIELD_NAME );
       params.add( GeneratorUtil.AREZ_CLASSNAME );

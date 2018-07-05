@@ -35,7 +35,7 @@ public final class Arez_TransitivelyDisposeTrackableDependencyModel extends Tran
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "TransitivelyDisposeTrackableDependencyModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "TransitivelyDisposeTrackableDependencyModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     final MyDependentValue $$arezv$$_getTime_dependency = super.getTime();
     if ( null != $$arezv$$_getTime_dependency ) {

@@ -17,7 +17,7 @@ public class WatcherTest
     final ArezContext context = Arez.context();
 
     final Observable observable = context.createObservable();
-    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
+    final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
 
     final AtomicBoolean result = new AtomicBoolean();
 

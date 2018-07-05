@@ -50,7 +50,7 @@ public class ObservableInfoImplTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
+    final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
     final AtomicReference<String> value = new AtomicReference<>();
     String initialValue = ValueUtil.randomString();
     value.set( initialValue );

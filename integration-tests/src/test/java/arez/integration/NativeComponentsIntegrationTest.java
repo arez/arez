@@ -28,7 +28,7 @@ public class NativeComponentsIntegrationTest
 
     assertFalse( context.isComponentPresent( type, id ) );
 
-    final Component component = context.createComponent( type, id );
+    final Component component = context.component( type, id );
 
     assertTrue( context.isComponentPresent( type, id ) );
 

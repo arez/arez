@@ -1529,7 +1529,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final Component component =
-      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue =
@@ -1796,7 +1796,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final Component component =
-      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
     final AtomicInteger callCount = new AtomicInteger();
     final String name = ValueUtil.randomString();
@@ -1959,7 +1959,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
     final Component component =
-      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
     final Observer observer = context.tracker( component, name, false, callCount::incrementAndGet );
 
     assertEquals( observer.getName(), name );
@@ -2089,7 +2089,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
 
     final Component component =
-      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
     final Observable<String> observable = context.createObservable( component, name );
 
@@ -2193,7 +2193,7 @@ public class ArezContextTest
 
     assertFalse( context.isComponentPresent( type, id ) );
 
-    final Component component = context.createComponent( type, id, name );
+    final Component component = context.component( type, id, name );
 
     assertTrue( context.isComponentPresent( type, id ) );
 
@@ -2219,7 +2219,7 @@ public class ArezContextTest
     };
     final SafeProcedure postDispose = () -> {
     };
-    final Component component = context.createComponent( type, id, name, preDispose, postDispose );
+    final Component component = context.component( type, id, name, preDispose, postDispose );
 
     assertTrue( context.isComponentPresent( type, id ) );
 
@@ -2240,7 +2240,7 @@ public class ArezContextTest
 
     assertFalse( context.isComponentPresent( type, id ) );
 
-    final Component component = context.createComponent( type, id );
+    final Component component = context.component( type, id );
 
     assertTrue( context.isComponentPresent( type, id ) );
 
@@ -2259,7 +2259,7 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final Component component =
-      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
     handler.assertEventCount( 1 );
     final ComponentCreateStartedEvent event = handler.assertEvent( ComponentCreateStartedEvent.class, 0 );
@@ -2277,8 +2277,8 @@ public class ArezContextTest
     final String id = ValueUtil.randomString();
     final String name = ValueUtil.randomString();
 
-    assertThrowsWithMessage( () -> context.createComponent( type, id, name ),
-                             "Arez-0008: ArezContext.createComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+    assertThrowsWithMessage( () -> context.component( type, id, name ),
+                             "Arez-0008: ArezContext.component() invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -2289,12 +2289,12 @@ public class ArezContextTest
     final String type = ValueUtil.randomString();
     final String id = ValueUtil.randomString();
 
-    context.createComponent( type, id, ValueUtil.randomString() );
+    context.component( type, id, ValueUtil.randomString() );
 
     assertTrue( context.isComponentPresent( type, id ) );
 
-    assertThrowsWithMessage( () -> context.createComponent( type, id, ValueUtil.randomString() ),
-                             "Arez-0009: ArezContext.createComponent() invoked for type '" + type + "' and id '" + id +
+    assertThrowsWithMessage( () -> context.component( type, id, ValueUtil.randomString() ),
+                             "Arez-0009: ArezContext.component() invoked for type '" + type + "' and id '" + id +
                              "' but a component already exists for specified type+id." );
   }
 
@@ -2345,7 +2345,7 @@ public class ArezContextTest
                      null );
 
     final Component component2 =
-      context.createComponent( component.getType(), component.getId(), ValueUtil.randomString() );
+      context.component( component.getType(), component.getId(), ValueUtil.randomString() );
 
     assertThrowsWithMessage( () -> context.deregisterComponent( component ),
                              "Arez-0007: ArezContext.deregisterComponent() invoked for '" +
@@ -2360,9 +2360,9 @@ public class ArezContextTest
 
     final String type = ValueUtil.randomString();
     final Component component =
-      context.createComponent( type, ValueUtil.randomString(), ValueUtil.randomString() );
+      context.component( type, ValueUtil.randomString(), ValueUtil.randomString() );
     final Component component2 =
-      context.createComponent( type, ValueUtil.randomString(), ValueUtil.randomString() );
+      context.component( type, ValueUtil.randomString(), ValueUtil.randomString() );
 
     assertEquals( context.findAllComponentTypes().size(), 1 );
     assertEquals( context.findAllComponentTypes().contains( type ), true );
@@ -2389,7 +2389,7 @@ public class ArezContextTest
     assertEquals( context.findAllComponentTypes().size(), 0 );
     assertEquals( context.findAllComponentsByType( type ).size(), 0 );
 
-    final Component component = context.createComponent( type, id1, ValueUtil.randomString() );
+    final Component component = context.component( type, id1, ValueUtil.randomString() );
 
     assertEquals( context.findAllComponentTypes().size(), 1 );
     assertEquals( context.findAllComponentTypes().contains( type ), true );
@@ -2399,7 +2399,7 @@ public class ArezContextTest
     assertEquals( context.findAllComponentsByType( type ).size(), 1 );
     assertEquals( context.findAllComponentsByType( type ).contains( component ), true );
 
-    final Component component2 = context.createComponent( type, id2, ValueUtil.randomString() );
+    final Component component2 = context.component( type, id2, ValueUtil.randomString() );
 
     assertEquals( context.findAllComponentTypes().size(), 1 );
     assertEquals( context.findAllComponentTypes().contains( type ), true );
@@ -2573,7 +2573,7 @@ public class ArezContextTest
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
     final ArezContext context = Arez.context();
-    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString() );
+    final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
     final Observer node = context.when( component, name, true, condition, procedure, Priority.NORMAL, true );
 
     assertEquals( node.getName(), name + ".watcher" );

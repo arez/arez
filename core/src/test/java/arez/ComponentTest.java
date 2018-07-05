@@ -108,7 +108,7 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), name );
+    final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
     final Observable observable1 = context.createObservable();
     final ComputedValue computedValue1 = context.computedValue( () -> "" );
@@ -136,7 +136,7 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), name );
+    final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
     assertEquals( component.isComplete(), false );
 
@@ -442,7 +442,7 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final Component component = context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), name );
+    final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
     final Observable observable1 = context.createObservable( component, ValueUtil.randomString(), null, null );
     final Observable observable2 = context.createObservable( component, ValueUtil.randomString(), null, null );
@@ -509,7 +509,7 @@ public class ComponentTest
     final SafeProcedure preDispose = () -> assertFalse( Disposable.isDisposed( observable.get() ) );
     final SafeProcedure postDispose = () -> assertTrue( Disposable.isDisposed( observable.get() ) );
     final Component component =
-      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), name, preDispose, postDispose );
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), name, preDispose, postDispose );
 
     final Observable observable1 = context.createObservable( component, ValueUtil.randomString(), null, null );
 
@@ -540,7 +540,7 @@ public class ComponentTest
     final ArezContext context = Arez.context();
 
     final Component component =
-      context.createComponent( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );

@@ -139,9 +139,9 @@ public final class ArezContext
    * @return true if component is defined in context.
    */
   @Nonnull
-  public Component createComponent( @Nonnull final String type, @Nonnull final Object id )
+  public Component component( @Nonnull final String type, @Nonnull final Object id )
   {
-    return createComponent( type, id, Arez.areNamesEnabled() ? type + "@" + id : null );
+    return component( type, id, Arez.areNamesEnabled() ? type + "@" + id : null );
   }
 
   /**
@@ -157,9 +157,9 @@ public final class ArezContext
    * @return true if component is defined in context.
    */
   @Nonnull
-  public Component createComponent( @Nonnull final String type, @Nonnull final Object id, @Nullable final String name )
+  public Component component( @Nonnull final String type, @Nonnull final Object id, @Nullable final String name )
   {
-    return createComponent( type, id, name, null );
+    return component( type, id, name, null );
   }
 
   /**
@@ -176,12 +176,12 @@ public final class ArezContext
    * @return true if component is defined in context.
    */
   @Nonnull
-  public Component createComponent( @Nonnull final String type,
-                                    @Nonnull final Object id,
-                                    @Nullable final String name,
-                                    @Nullable final SafeProcedure preDispose )
+  public Component component( @Nonnull final String type,
+                              @Nonnull final Object id,
+                              @Nullable final String name,
+                              @Nullable final SafeProcedure preDispose )
   {
-    return createComponent( type, id, name, preDispose, null );
+    return component( type, id, name, preDispose, null );
   }
 
   /**
@@ -199,22 +199,22 @@ public final class ArezContext
    * @return true if component is defined in context.
    */
   @Nonnull
-  public Component createComponent( @Nonnull final String type,
-                                    @Nonnull final Object id,
-                                    @Nullable final String name,
-                                    @Nullable final SafeProcedure preDispose,
-                                    @Nullable final SafeProcedure postDispose )
+  public Component component( @Nonnull final String type,
+                              @Nonnull final Object id,
+                              @Nullable final String name,
+                              @Nullable final SafeProcedure preDispose,
+                              @Nullable final SafeProcedure postDispose )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( Arez::areNativeComponentsEnabled,
-                    () -> "Arez-0008: ArezContext.createComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
+                    () -> "Arez-0008: ArezContext.component() invoked when Arez.areNativeComponentsEnabled() returns false." );
     }
     final HashMap<Object, Component> map = getComponentByTypeMap( type );
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> !map.containsKey( id ),
-                    () -> "Arez-0009: ArezContext.createComponent() invoked for type '" + type + "' and id '" +
+                    () -> "Arez-0009: ArezContext.component() invoked for type '" + type + "' and id '" +
                           id + "' but a component already exists for specified type+id." );
     }
     final Component component =

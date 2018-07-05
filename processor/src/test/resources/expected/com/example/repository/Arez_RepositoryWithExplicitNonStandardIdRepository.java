@@ -40,7 +40,7 @@ final class Arez_RepositoryWithExplicitNonStandardIdRepository extends Repositor
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().createComponent( "RepositoryWithExplicitNonStandardIdRepository", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> super.preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "RepositoryWithExplicitNonStandardIdRepository", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> super.preDispose() ) : null;
     this.$$arez$$_entities = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".entities" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.entities() : null, null );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;

@@ -186,7 +186,7 @@ public class EntityReferenceTest
     extends AbstractEntityReference<MyEntity>
     implements Disposable
   {
-    private final Component _component = Arez.context().createComponent( "MyEntityReference", "1" );
+    private final Component _component = Arez.context().component( "MyEntityReference", "1" );
     private final Observable _observable = Arez.context().createObservable();
 
     static MyEntityReference create()
