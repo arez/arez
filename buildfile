@@ -371,6 +371,6 @@ end
 
 Buildr.projects.each do |project|
   unless project.name == 'arez'
-    project.doc.options.merge!('Xdoclint:all,-reference' => true)
+    project.doc.options.merge!('Xdoclint:all,-reference' => true, 'sourcepath' => project.compile.sources.join(File::PATH_SEPARATOR))
   end
 end
