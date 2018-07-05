@@ -8,6 +8,10 @@
   compatibility with J2CL with respect to compile-time constants.
 * **\[processor\]** Generate the correct error message when a `@Dependency` annotation is on a method
   that returns an incompatible type.
+* 💥 **\[core\]** Remove the `arez.Priority.HIGHEST` enum value. It was originally used to schedule dispose
+  transactions but is no longer used for that use-case. This enum value is not exposed to the component
+  framework thus there is limited if any usage of this priority within the framework users and it can be
+  removed.
 
 ### [v0.95](https://github.com/arez/arez/tree/v0.95) (2018-06-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.94...v0.95)
