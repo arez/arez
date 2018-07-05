@@ -39,10 +39,11 @@
   `/** @define {string} */ goog.define('arez.environment', 'production');`
 * **\[core\]** Introduce JDepend based test that verifies that no unexpected dependencies between packages
   occur.
-* 💥💥💥💥 **\[core\]** The `arez-annotations` module has been merged into `arez-core`. The `arez-annotations`
-  module never had a direct code dependency on the `arez-core` module but utilization of `arez-annotations`
-  mandated the presence of `arez-core`. Most (all?) applications to date used `arez-annotations` so it was
-  felt that merging the modules simplified usage in downstream projects.
+* 💥💥💥💥 **\[core\]** The `arez-annotations` and `arez-component` modules have been merged into `arez-core`.
+  Both `arez-annotations` and `arez-component` were necessary to use the component model. Most if not all
+  Arez applications make use of the component model so it was felt merging the modules simplified usage in
+  downstream projects. JDepend is used to ensure that no undesired dependencies between packages are added
+  now that the code is in a single module.
 
 ### [v0.95](https://github.com/arez/arez/tree/v0.95) (2018-06-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.94...v0.95)

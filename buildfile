@@ -78,27 +78,6 @@ define 'arez' do
     test.compile.with TEST_DEPS, :jdepend
   end
 
-  desc 'Arez Component Support'
-  define 'component' do
-    pom.include_transitive_dependencies << project('core').package(:jar)
-    pom.dependency_filter = Proc.new {|dep| dep[:scope].to_s != 'test' && !project('core').compile.dependencies.include?(dep[:artifact])}
-
-    compile.with project('core').package(:jar),
-                 project('core').compile.dependencies
-
-    test.options[:properties] = AREZ_TEST_OPTIONS
-    test.options[:java_args] = ['-ea']
-
-    gwt_enhance(project)
-
-    package(:jar)
-    package(:sources)
-    package(:javadoc)
-
-    test.using :testng
-    test.compile.with TEST_DEPS
-  end
-
   desc 'Arez Annotation processor'
   define 'processor' do
     pom.dependency_filter = Proc.new {|_| false}
@@ -114,9 +93,7 @@ define 'arez' do
               :truth,
               DAGGER_DEPS,
               project('core').package(:jar),
-              project('core').compile.dependencies,
-              project('component').package(:jar),
-              project('component').compile.dependencies
+              project('core').compile.dependencies
 
     package(:jar)
     package(:sources)
@@ -164,11 +141,11 @@ define 'arez' do
 
   desc 'Arez Entity Support'
   define 'entity' do
-    pom.include_transitive_dependencies << project('component').package(:jar)
-    pom.dependency_filter = Proc.new {|dep| dep[:scope].to_s != 'test' && !project('component').compile.dependencies.include?(dep[:artifact]) && !project('processor').compile.dependencies.include?(dep[:artifact])}
+    pom.include_transitive_dependencies << project('core').package(:jar)
+    pom.dependency_filter = Proc.new {|dep| dep[:scope].to_s != 'test' && !project('core').compile.dependencies.include?(dep[:artifact]) && !project('processor').compile.dependencies.include?(dep[:artifact])}
 
-    compile.with project('component').package(:jar),
-                 project('component').compile.dependencies,
+    compile.with project('core').package(:jar),
+                 project('core').compile.dependencies,
                  project('processor').package(:jar),
                  project('processor').compile.dependencies
 
@@ -200,8 +177,8 @@ define 'arez' do
     test.compile.with TEST_DEPS,
                       DAGGER_DEPS,
                       GWT_DEPS,
-                      project('component').package(:jar),
-                      project('component').compile.dependencies,
+                      project('core').package(:jar),
+                      project('core').compile.dependencies,
                       project('integration-qa-support').package(:jar),
                       project('integration-qa-support').compile.dependencies,
                       project('processor').package(:jar),
@@ -245,7 +222,7 @@ define 'arez' do
 
     local_test_repository_url = URI.join('file:///', project._(:target, :local_test_repository)).to_s
     compile.enhance do
-      projects_to_upload = projects(%w(core processor component))
+      projects_to_upload = projects(%w(core processor))
       old_release_to = repositories.release_to
       begin
         # First we install them in a local repository so we don't have to access the network during local builds
@@ -307,8 +284,8 @@ define 'arez' do
 
     compile.with project('processor').package(:jar),
                  project('processor').compile.dependencies,
-                 project('component').package(:jar),
-                 project('component').compile.dependencies,
+                 project('core').package(:jar),
+                 project('core').compile.dependencies,
                  :gwt_user,
                  DAGGER_DEPS,
                  GWT_DEPS,
@@ -329,7 +306,7 @@ define 'arez' do
     project.jacoco.enabled = false
   end
 
-  doc.from(projects(%w(core processor component))).
+  doc.from(projects(%w(core processor))).
     using(:javadoc,
           :windowtitle => 'Arez API Documentation',
           :linksource => true,
