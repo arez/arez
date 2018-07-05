@@ -1709,18 +1709,16 @@ public class ArezContextTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> {
-                      context.createComputedValue( null,
-                                                   ValueUtil.randomString(),
-                                                   function,
-                                                   action,
-                                                   null,
-                                                   null,
-                                                   null,
-                                                   Priority.NORMAL,
-                                                   true,
-                                                   true );
-                    } );
+                    () -> context.createComputedValue( null,
+                                                       ValueUtil.randomString(),
+                                                       function,
+                                                       action,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       Priority.NORMAL,
+                                                       true,
+                                                       true ) );
     assertEquals( exception.getMessage(),
                   "Arez-0039: ArezContext.createComputedValue() specified keepAlive = true and did not pass a null for onActivate." );
   }
