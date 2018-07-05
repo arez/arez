@@ -318,7 +318,7 @@ public class ContainerTest
   static class MyEntity
     implements Identifiable<Integer>, Disposable, ComponentObservable, DisposeTrackable
   {
-    private final Observable<Object> _observable = Arez.context().createObservable();
+    private final Observable<Object> _observable = Arez.context().observable();
     private int _arezId;
     private boolean _disposed;
     private final DisposeNotifier _notifier = new DisposeNotifier();
@@ -373,7 +373,7 @@ public class ContainerTest
   static class MyContainer
     extends AbstractContainer<Integer, MyEntity>
   {
-    private final Observable<Object> _observable = Arez.context().createObservable();
+    private final Observable<Object> _observable = Arez.context().observable();
 
     static MyContainer create()
     {

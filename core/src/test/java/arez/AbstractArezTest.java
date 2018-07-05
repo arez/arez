@@ -225,7 +225,7 @@ public abstract class AbstractArezTest
 
   protected static void observeADependency()
   {
-    Arez.context().createObservable().reportObserved();
+    Arez.context().observable().reportObserved();
   }
 
   private void onObserverError( @Nonnull final Observer observer,

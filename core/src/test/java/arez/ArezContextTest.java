@@ -1840,7 +1840,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable<Object> observable = Arez.context().createObservable();
+    final Observable<Object> observable = Arez.context().observable();
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
@@ -2041,7 +2041,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     context.setNextNodeId( 22 );
-    final Observable<?> observable = context.createObservable();
+    final Observable<?> observable = context.observable();
 
     assertNotNull( observable.getName() );
     assertEquals( observable.getName(), "Observable@22" );
@@ -2056,7 +2056,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
-    final Observable<?> observable = context.createObservable( name );
+    final Observable<?> observable = context.observable( name );
 
     assertEquals( observable.getName(), name );
     assertEquals( observable.getAccessor(), null );
@@ -2073,7 +2073,7 @@ public class ArezContextTest
     final PropertyAccessor<String> accessor = () -> "";
     final PropertyMutator<String> mutator = v -> {
     };
-    final Observable<?> observable = context.createObservable( name, accessor, mutator );
+    final Observable<?> observable = context.observable( name, accessor, mutator );
 
     assertEquals( observable.getName(), name );
     assertEquals( observable.getAccessor(), accessor );
@@ -2091,7 +2091,7 @@ public class ArezContextTest
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
-    final Observable<String> observable = context.createObservable( component, name );
+    final Observable<String> observable = context.observable( component, name );
 
     assertEquals( observable.getName(), name );
     assertEquals( observable.getComponent(), component );
@@ -2107,7 +2107,7 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
-    final Observable<?> observable = context.createObservable( name );
+    final Observable<?> observable = context.observable( name );
 
     assertEquals( observable.getName(), name );
     handler.assertEventCount( 1 );
@@ -2123,7 +2123,7 @@ public class ArezContextTest
 
     final ArezContext context = Arez.context();
 
-    final Observable<?> observable = context.createObservable( null );
+    final Observable<?> observable = context.observable( null );
 
     assertNotNull( observable );
   }
@@ -2461,7 +2461,7 @@ public class ArezContextTest
 
     final ArezContext context = Arez.context();
 
-    final Observable<Object> observable = context.createObservable();
+    final Observable<Object> observable = context.observable();
     final ComputedValue<String> computedValue = context.computedValue( () -> "" );
     final Observer observer = context.autorun( AbstractArezTest::observeADependency );
 
@@ -2490,7 +2490,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable<Object> observable = context.createObservable();
+    final Observable<Object> observable = context.observable();
 
     assertEquals( context.getTopLevelObservables().size(), 1 );
     assertEquals( context.getTopLevelObservables().get( observable.getName() ), observable );
@@ -2587,7 +2587,7 @@ public class ArezContextTest
     throws Throwable
   {
     final ArezContext context = Arez.context();
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
 
     final AtomicBoolean result = new AtomicBoolean();
 

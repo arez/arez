@@ -54,10 +54,10 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "ObservableNoSettersModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_collection = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".collection" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getCollection() : null, null );
-    this.$$arez$$_set = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".set" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getSet() : null, null );
-    this.$$arez$$_list = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".list" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getList() : null, null );
-    this.$$arez$$_map = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".map" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getMap() : null, null );
+    this.$$arez$$_collection = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".collection" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getCollection() : null, null );
+    this.$$arez$$_set = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".set" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getSet() : null, null );
+    this.$$arez$$_list = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".list" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getList() : null, null );
+    this.$$arez$$_map = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".map" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getMap() : null, null );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

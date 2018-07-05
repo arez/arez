@@ -15,7 +15,7 @@ public class ObserverInfoImplTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final Observable<Object> observable = context.createObservable();
+    final Observable<Object> observable = context.observable();
     final Observer observer = context.autorun( name, false, observable::reportObserved );
 
     final ObserverInfoImpl info = new ObserverInfoImpl( context.getSpy(), observer );
@@ -63,7 +63,7 @@ public class ObserverInfoImplTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observable<Object> observable = context.createObservable();
+    final Observable<Object> observable = context.observable();
     final Observer observer1 = context.autorun( ValueUtil.randomString(), false, observable::reportObserved );
     final Observer observer2 = context.autorun( ValueUtil.randomString(), false, observable::reportObserved );
 

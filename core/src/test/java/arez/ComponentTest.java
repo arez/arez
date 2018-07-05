@@ -110,7 +110,7 @@ public class ComponentTest
 
     final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
-    final Observable observable1 = context.createObservable();
+    final Observable observable1 = context.observable();
     final ComputedValue computedValue1 = context.computedValue( () -> "" );
     final Observer observer1 = context.autorun( AbstractArezTest::observeADependency );
 
@@ -265,8 +265,8 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final Observable observable1 = context.createObservable();
-    final Observable observable2 = context.createObservable();
+    final Observable observable1 = context.observable();
+    final Observable observable2 = context.observable();
 
     assertEquals( component.getObservables().size(), 0 );
 
@@ -301,7 +301,7 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final Observable observable1 = context.createObservable();
+    final Observable observable1 = context.observable();
 
     component.addObservable( observable1 );
 
@@ -327,7 +327,7 @@ public class ComponentTest
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
     component.complete();
 
-    final Observable observable1 = context.createObservable();
+    final Observable observable1 = context.observable();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> component.addObservable( observable1 ) );
@@ -346,7 +346,7 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final Observable observable1 = context.createObservable();
+    final Observable observable1 = context.observable();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> component.removeObservable( observable1 ) );
@@ -444,8 +444,8 @@ public class ComponentTest
 
     final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
-    final Observable observable1 = context.createObservable( component, ValueUtil.randomString(), null, null );
-    final Observable observable2 = context.createObservable( component, ValueUtil.randomString(), null, null );
+    final Observable observable1 = context.observable( component, ValueUtil.randomString(), null, null );
+    final Observable observable2 = context.observable( component, ValueUtil.randomString(), null, null );
     final ComputedValue computedValue1 = context.computedValue( component,
                                                                 ValueUtil.randomString(),
                                                                 () -> "",
@@ -511,7 +511,7 @@ public class ComponentTest
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), name, preDispose, postDispose );
 
-    final Observable observable1 = context.createObservable( component, ValueUtil.randomString(), null, null );
+    final Observable observable1 = context.observable( component, ValueUtil.randomString(), null, null );
 
     observable.set( observable1 );
 

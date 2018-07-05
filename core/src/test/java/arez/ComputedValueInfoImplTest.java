@@ -16,7 +16,7 @@ public class ComputedValueInfoImplTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final Observable<Object> observable = context.createObservable();
+    final Observable<Object> observable = context.observable();
 
     final AtomicReference<String> value = new AtomicReference<>();
     final String initialValue = ValueUtil.randomString();

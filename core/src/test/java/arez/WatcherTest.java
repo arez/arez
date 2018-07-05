@@ -16,7 +16,7 @@ public class WatcherTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
     final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
 
     final AtomicBoolean result = new AtomicBoolean();
@@ -75,7 +75,7 @@ public class WatcherTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
 
     final AtomicBoolean result = new AtomicBoolean();
 
@@ -170,7 +170,7 @@ public class WatcherTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
 
     final AtomicBoolean result = new AtomicBoolean();
 
@@ -213,7 +213,7 @@ public class WatcherTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
 
     final AtomicBoolean result = new AtomicBoolean();
 
@@ -268,7 +268,7 @@ public class WatcherTest
     };
     context.addObserverErrorHandler( handler );
 
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
 
     final AtomicBoolean result = new AtomicBoolean();
 
@@ -323,7 +323,7 @@ public class WatcherTest
     final ObserverErrorHandler handler = ( observer, error, throwable ) -> errorCount.incrementAndGet();
     context.addObserverErrorHandler( handler );
 
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
 
     final AtomicInteger effectRun = new AtomicInteger();
 
@@ -354,7 +354,7 @@ public class WatcherTest
     final ObserverErrorHandler handler = ( observer, error, throwable ) -> errorCount.incrementAndGet();
     context.addObserverErrorHandler( handler );
 
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
 
     final AtomicInteger effectRun = new AtomicInteger();
 

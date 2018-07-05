@@ -48,7 +48,7 @@ public abstract class AbstractArezComponentTest
 
   protected static void observeADependency()
   {
-    Arez.context().createObservable().reportObserved();
+    Arez.context().observable().reportObserved();
   }
 
   protected final void setIgnoreObserverErrors( final boolean ignoreObserverErrors )

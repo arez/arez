@@ -2680,7 +2680,7 @@ final class ComponentDescriptor
     }
     if ( _observable )
     {
-      builder.addStatement( "this.$N = $N().createObservable( " +
+      builder.addStatement( "this.$N = $N().observable( " +
                             "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                             "$T.areNamesEnabled() ? $N() + $S : null, " +
                             "$T.arePropertyIntrospectorsEnabled() ? () -> this.$N >= 0 : null )",

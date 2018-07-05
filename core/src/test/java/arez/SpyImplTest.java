@@ -593,8 +593,8 @@ public class SpyImplTest
 
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
-    final Observable<Object> observable1 = context.createObservable( component, ValueUtil.randomString(), null, null );
-    final Observable<Object> observable2 = context.createObservable();
+    final Observable<Object> observable1 = context.observable( component, ValueUtil.randomString(), null, null );
+    final Observable<Object> observable2 = context.observable();
 
     final ComponentInfo info = spy.getComponent( observable1 );
     assertNotNull( info );
@@ -610,7 +610,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Object> value = context.createObservable();
+    final Observable<Object> value = context.observable();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
@@ -800,7 +800,7 @@ public class SpyImplTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable<String> observable = context.createObservable();
+    final Observable<String> observable = context.observable();
 
     final Spy spy = context.getSpy();
 
@@ -901,9 +901,9 @@ public class SpyImplTest
     value2.set( "42" );
 
     final Observable<String> observable1 =
-      context.createObservable( ValueUtil.randomString(), value1::get, value1::set );
-    final Observable<String> observable2 = context.createObservable( ValueUtil.randomString(), value2::get, null );
-    final Observable<String> observable3 = context.createObservable( ValueUtil.randomString(), null, null );
+      context.observable( ValueUtil.randomString(), value1::get, value1::set );
+    final Observable<String> observable2 = context.observable( ValueUtil.randomString(), value2::get, null );
+    final Observable<String> observable3 = context.observable( ValueUtil.randomString(), null, null );
 
     assertTrue( spy.hasAccessor( observable1 ) );
     assertTrue( spy.hasAccessor( observable2 ) );
@@ -942,7 +942,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Integer> computedValue1 = context.createObservable();
+    final Observable<Integer> computedValue1 = context.observable();
 
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.getValue( computedValue1 ) ) );
@@ -959,7 +959,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Integer> observable = context.createObservable();
+    final Observable<Integer> observable = context.observable();
 
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.hasAccessor( observable ) ) );
@@ -976,7 +976,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Integer> observable = context.createObservable();
+    final Observable<Integer> observable = context.observable();
 
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.hasMutator( observable ) ) );
@@ -991,7 +991,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Integer> observable = context.createObservable();
+    final Observable<Integer> observable = context.observable();
 
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.getValue( observable ) ) );
@@ -1009,7 +1009,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Integer> computedValue1 = context.createObservable();
+    final Observable<Integer> computedValue1 = context.observable();
 
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.setValue( computedValue1, 44 ) ) );
@@ -1024,7 +1024,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Integer> observable = context.createObservable();
+    final Observable<Integer> observable = context.observable();
 
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.setValue( observable, 44 ) ) );
@@ -1103,7 +1103,7 @@ public class SpyImplTest
   public void asObservableInfo()
   {
     final ArezContext context = Arez.context();
-    final Observable<Object> observable = context.createObservable( ValueUtil.randomString() );
+    final Observable<Object> observable = context.observable( ValueUtil.randomString() );
     final ObservableInfo info = context.getSpy().asObservableInfo( observable );
 
     assertEquals( info.getName(), observable.getName() );

@@ -46,7 +46,7 @@ public final class Arez_ObservableNonnullCollectionModel extends ObservableNonnu
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "ObservableNonnullCollectionModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_myValue = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getMyValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setMyValue( v ) : null );
+    this.$$arez$$_myValue = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getMyValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setMyValue( v ) : null );
     if ( Arez.shouldCheckInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

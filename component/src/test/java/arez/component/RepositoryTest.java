@@ -373,7 +373,7 @@ public class RepositoryTest
   static class MyRepository
     extends AbstractRepository<Integer, MyEntity, MyRepository>
   {
-    private final Observable<Object> _observable = Arez.context().createObservable();
+    private final Observable<Object> _observable = Arez.context().observable();
 
     static MyRepository create()
     {

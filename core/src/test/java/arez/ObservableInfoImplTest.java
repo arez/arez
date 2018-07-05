@@ -17,7 +17,7 @@ public class ObservableInfoImplTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final Observable<Object> observable = context.createObservable( name );
+    final Observable<Object> observable = context.observable( name );
     final Observer observer = context.autorun( observable::reportObserved );
 
     final ObservableInfoImpl info = new ObservableInfoImpl( context.getSpy(), observable );
@@ -54,7 +54,7 @@ public class ObservableInfoImplTest
     final AtomicReference<String> value = new AtomicReference<>();
     String initialValue = ValueUtil.randomString();
     value.set( initialValue );
-    final Observable<String> observable = context.createObservable( component, name, value::get, value::set );
+    final Observable<String> observable = context.observable( component, name, value::get, value::set );
     final Observer observer = context.autorun( observable::reportObserved );
 
     final ObservableInfoImpl info = new ObservableInfoImpl( context.getSpy(), observable );
@@ -113,8 +113,8 @@ public class ObservableInfoImplTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observable<Object> observable1 = context.createObservable();
-    final Observable<Object> observable2 = context.createObservable();
+    final Observable<Object> observable1 = context.observable();
+    final Observable<Object> observable2 = context.observable();
 
     final ObservableInfoImpl info1a = new ObservableInfoImpl( context.getSpy(), observable1 );
     final ObservableInfoImpl info1b = new ObservableInfoImpl( context.getSpy(), observable1 );

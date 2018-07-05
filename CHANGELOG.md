@@ -26,7 +26,8 @@
   allows the user to eliminate the invariant failure when desired. In production mode, this parameter
   has no effect.
 * 💥 **\[core\]** Rename `ArezContext.createComputedValue(...)` methods to `ArezContext.computedValue(...)`.
-  Rename `ArezContext.createComponent(...)` methods to `ArezContext.component(...)`.
+  Rename `ArezContext.createComponent(...)` methods to `ArezContext.component(...)`. Rename
+  `ArezContext.createObservable(...)` methods to `ArezContext.observable(...)`.
 
 ### [v0.95](https://github.com/arez/arez/tree/v0.95) (2018-06-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.94...v0.95)

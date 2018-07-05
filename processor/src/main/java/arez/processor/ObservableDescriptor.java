@@ -238,7 +238,7 @@ final class ObservableDescriptor
   {
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = $N().createObservable( " +
+    sb.append( "this.$N = $N().observable( " +
                "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                "$T.areNamesEnabled() ? $N() + $S : null, " +
                "$T.arePropertyIntrospectorsEnabled() ? () -> " );

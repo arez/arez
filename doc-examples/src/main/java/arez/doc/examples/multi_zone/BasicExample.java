@@ -14,7 +14,7 @@ public class BasicExample
     // Activate the newly created zone and suspend the current zone if any
     zone.run( () -> {
       // Create new observable and ensure it is bound to the current zone
-      final Observable<Object> observable = Arez.context().createObservable();
+      final Observable<Object> observable = Arez.context().observable();
 
       // Zone is deactivated when it leaves this block
     } );

@@ -53,7 +53,7 @@ public class ComputedValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observable<Object> observable = Arez.context().createObservable();
+    final Observable<Object> observable = Arez.context().observable();
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> {
       observable.reportObserved();
@@ -427,7 +427,7 @@ public class ComputedValueTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable<Object> observable = context.createObservable( "Y" );
+    final Observable<Object> observable = context.observable( "Y" );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,

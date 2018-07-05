@@ -42,7 +42,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "ComplexDependencyWithCustomNameMethodModel", $$arezi$$_id(), Arez.areNamesEnabled() ? getComponentName() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_value3 = $$arezi$$_context().createObservable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".value3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue3() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue3( v ) : null );
+    this.$$arez$$_value3 = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".value3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue3() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue3( v ) : null );
     final DisposeTrackable $$arezv$$_getValue1_dependency = super.getValue1();
     if ( null != $$arezv$$_getValue1_dependency ) {
       DisposeTrackable.asDisposeTrackable( super.getValue1() ).getNotifier().addOnDisposeListener( this, this::dispose );

@@ -32,8 +32,8 @@ public class NativeComponentsIntegrationTest
 
     assertTrue( context.isComponentPresent( type, id ) );
 
-    final Observable<String> observable1 = context.createObservable( component, "Attr1", null, null );
-    final Observable<String> observable2 = context.createObservable( component, "Attr2", null, null );
+    final Observable<String> observable1 = context.observable( component, "Attr1", null, null );
+    final Observable<String> observable2 = context.observable( component, "Attr2", null, null );
 
     final ComputedValue<String> computedValue1 =
       context.computedValue( component, "Attr3", () -> "", null, null, null, null );

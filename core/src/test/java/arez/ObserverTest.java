@@ -1343,7 +1343,7 @@ public class ObserverTest
   public void invokeReaction_ComputedValue_SpyEventHandlerPresent()
     throws Exception
   {
-    final Observable<Object> observable = Arez.context().createObservable();
+    final Observable<Object> observable = Arez.context().observable();
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     Arez.context().getSpy().addSpyEventHandler( handler );
 

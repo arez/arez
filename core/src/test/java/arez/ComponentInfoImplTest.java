@@ -18,7 +18,7 @@ public class ComponentInfoImplTest
     final String id = ValueUtil.randomString();
     final String name = ValueUtil.randomString();
     final Observer observer = context.autorun( AbstractArezTest::observeADependency );
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
     final ComputedValue computedValue = context.computedValue( () -> "" );
 
     final Component component = context.component( type, id, name );

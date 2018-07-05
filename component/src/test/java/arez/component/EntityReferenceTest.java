@@ -127,7 +127,7 @@ public class EntityReferenceTest
   static class MyEntity
     implements Identifiable<Integer>, Disposable, ComponentObservable, DisposeTrackable
   {
-    private final Observable<Object> _observable = Arez.context().createObservable();
+    private final Observable<Object> _observable = Arez.context().observable();
     private int _arezId;
     private boolean _disposed;
     private final DisposeNotifier _notifier = new DisposeNotifier();
@@ -187,7 +187,7 @@ public class EntityReferenceTest
     implements Disposable
   {
     private final Component _component = Arez.context().component( "MyEntityReference", "1" );
-    private final Observable _observable = Arez.context().createObservable();
+    private final Observable _observable = Arez.context().observable();
 
     static MyEntityReference create()
     {

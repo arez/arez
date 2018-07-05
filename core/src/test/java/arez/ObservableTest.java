@@ -1486,7 +1486,7 @@ public class ObservableTest
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 
-    final Observable<?> observable = context.createObservable( name, accessor, null );
+    final Observable<?> observable = context.observable( name, accessor, null );
     observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
     observable.addObserver( observer );

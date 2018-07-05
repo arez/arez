@@ -194,14 +194,14 @@ public class ExternalApiTest
     context.getSpy().addSpyEventHandler( handler );
 
     // Generate an event
-    context.createObservable();
+    context.observable();
 
     assertEquals( callCount.get(), 1 );
 
     context.getSpy().removeSpyEventHandler( handler );
 
     // Generate an event
-    context.createObservable();
+    context.observable();
 
     assertEquals( callCount.get(), 1 );
   }
@@ -212,7 +212,7 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
 
     final AtomicInteger reactionCount = new AtomicInteger();
 
@@ -240,7 +240,7 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
 
     final AtomicInteger reactionCount = new AtomicInteger();
 
@@ -269,10 +269,10 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable1 = context.createObservable();
-    final Observable observable2 = context.createObservable();
-    final Observable observable3 = context.createObservable();
-    final Observable observable4 = context.createObservable();
+    final Observable observable1 = context.observable();
+    final Observable observable2 = context.observable();
+    final Observable observable3 = context.observable();
+    final Observable observable4 = context.observable();
 
     final AtomicInteger reactionCount = new AtomicInteger();
 
@@ -330,7 +330,7 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
 
     assertNotInTransaction( context, observable );
 
@@ -353,7 +353,7 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
 
     assertNotInTransaction( context, observable );
 
@@ -375,7 +375,7 @@ public class ExternalApiTest
     throws Throwable
   {
     final ArezContext context = Arez.context();
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
 
     assertNotInTransaction( context, observable );
 
@@ -404,7 +404,7 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.createObservable();
+    final Observable observable = context.observable();
 
     assertNotInTransaction( context, observable );
 
@@ -449,8 +449,8 @@ public class ExternalApiTest
 
     final ArezContext context1 = zone1.getContext();
     final ArezContext context2 = zone2.getContext();
-    final Observable observable1 = context1.createObservable();
-    final Observable observable2 = context2.createObservable();
+    final Observable observable1 = context1.observable();
+    final Observable observable2 = context2.observable();
 
     final AtomicInteger autorunCallCount1 = new AtomicInteger();
     final AtomicInteger autorunCallCount2 = new AtomicInteger();
