@@ -7,7 +7,6 @@ import arez.Priority;
 import arez.SafeFunction;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
-import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
 @SuppressWarnings( "Duplicates" )
@@ -27,60 +26,60 @@ public class CoreCanObserveLowerPriorityIntegrationTest
       return 42;
     };
     final ComputedValue<Integer> computedValue1 =
-      context.createComputedValue( null,
-                                   null,
-                                   f1,
-                                   null,
-                                   null,
-                                   null,
-                                   null,
-                                   Priority.LOWEST,
-                                   false,
-                                   true,
-                                   false );
+      context.computedValue( null,
+                             null,
+                             f1,
+                             null,
+                             null,
+                             null,
+                             null,
+                             Priority.LOWEST,
+                             false,
+                             true,
+                             false );
     // f3 observes lower priority
     final SafeFunction<Integer> f2 = () -> computedValue1.get() + 42;
     final ComputedValue<Integer> computedValue2 =
-      context.createComputedValue( null,
-                                   null,
-                                   f2,
-                                   null,
-                                   null,
-                                   null,
-                                   null,
-                                   Priority.NORMAL,
-                                   false,
-                                   true,
-                                   true );
+      context.computedValue( null,
+                             null,
+                             f2,
+                             null,
+                             null,
+                             null,
+                             null,
+                             Priority.NORMAL,
+                             false,
+                             true,
+                             true );
     // f3 observes same priority
     final SafeFunction<Integer> f3 = () -> computedValue2.get() + 42;
     final ComputedValue<Integer> computedValue3 =
-      context.createComputedValue( null,
-                                   null,
-                                   f3,
-                                   null,
-                                   null,
-                                   null,
-                                   null,
-                                   Priority.NORMAL,
-                                   false,
-                                   true,
-                                   true );
+      context.computedValue( null,
+                             null,
+                             f3,
+                             null,
+                             null,
+                             null,
+                             null,
+                             Priority.NORMAL,
+                             false,
+                             true,
+                             true );
 
     // f4 observes higher priority
     final SafeFunction<Integer> f4 = () -> computedValue3.get() + 42;
     final ComputedValue<Integer> computedValue4 =
-      context.createComputedValue( null,
-                                   null,
-                                   f4,
-                                   null,
-                                   null,
-                                   null,
-                                   null,
-                                   Priority.LOWEST,
-                                   false,
-                                   true,
-                                   false );
+      context.computedValue( null,
+                             null,
+                             f4,
+                             null,
+                             null,
+                             null,
+                             null,
+                             Priority.LOWEST,
+                             false,
+                             true,
+                             false );
 
     // Observes same priority
     context.autorun( null, "AR1", false, computedValue1::get, Priority.LOWEST, true, false );

@@ -23,7 +23,7 @@ public class ComputedValueInfoImplTest
     value.set( initialValue );
 
     final ComputedValue<Object> computedValue =
-      context.createComputedValue( name, () -> {
+      context.computedValue( name, () -> {
         observable.reportObserved();
         return value.get();
       } );
@@ -64,8 +64,8 @@ public class ComputedValueInfoImplTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final ComputedValue<Object> computedValue1 = context.createComputedValue( () -> "1" );
-    final ComputedValue<Object> computedValue2 = context.createComputedValue( () -> "2" );
+    final ComputedValue<Object> computedValue1 = context.computedValue( () -> "1" );
+    final ComputedValue<Object> computedValue2 = context.computedValue( () -> "2" );
 
     final ComputedValueInfoImpl info1a = new ComputedValueInfoImpl( context.getSpy(), computedValue1 );
     final ComputedValueInfoImpl info1b = new ComputedValueInfoImpl( context.getSpy(), computedValue1 );

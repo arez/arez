@@ -1486,7 +1486,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void createComputedValue()
+  public void computedValue()
     throws Exception
   {
     final ArezContext context = Arez.context();
@@ -1501,14 +1501,14 @@ public class ArezContextTest
     final Procedure onStale = ValueUtil::randomString;
     final Procedure onDispose = ValueUtil::randomString;
     final ComputedValue<String> computedValue =
-      context.createComputedValue( null,
-                                   name,
-                                   function,
-                                   onActivate,
-                                   onDeactivate,
-                                   onStale,
-                                   onDispose,
-                                   Priority.HIGH );
+      context.computedValue( null,
+                             name,
+                             function,
+                             onActivate,
+                             onDeactivate,
+                             onStale,
+                             onDispose,
+                             Priority.HIGH );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
@@ -1523,7 +1523,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void createComputedValue_withComponent()
+  public void computedValue_withComponent()
     throws Exception
   {
     final ArezContext context = Arez.context();
@@ -1533,34 +1533,34 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue =
-      context.createComputedValue( component, name, () -> "", null, null, null, null );
+      context.computedValue( component, name, () -> "", null, null, null, null );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getComponent(), component );
   }
 
   @Test
-  public void createComputedValue_canObserveLowerPriorityDependencies()
+  public void computedValue_canObserveLowerPriorityDependencies()
     throws Exception
   {
     final ComputedValue<String> computedValue =
-      Arez.context().createComputedValue( null,
-                                          ValueUtil.randomString(),
-                                          () -> "",
-                                          null,
-                                          null,
-                                          null,
-                                          null,
-                                          Priority.NORMAL,
-                                          false,
-                                          false,
-                                          true );
+      Arez.context().computedValue( null,
+                                    ValueUtil.randomString(),
+                                    () -> "",
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    Priority.NORMAL,
+                                    false,
+                                    false,
+                                    true );
 
     assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), true );
   }
 
   @Test
-  public void createComputedValue_withKeepAliveAndRunImmediately()
+  public void computedValue_withKeepAliveAndRunImmediately()
     throws Exception
   {
     final ArezContext context = Arez.context();
@@ -1573,16 +1573,16 @@ public class ArezContextTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      context.createComputedValue( null,
-                                   name,
-                                   action,
-                                   null,
-                                   null,
-                                   null,
-                                   null,
-                                   Priority.NORMAL,
-                                   true,
-                                   true );
+      context.computedValue( null,
+                             name,
+                             action,
+                             null,
+                             null,
+                             null,
+                             null,
+                             Priority.NORMAL,
+                             true,
+                             true );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.isKeepAlive(), true );
@@ -1590,7 +1590,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void createComputedValue_withKeepAliveAndNoRunImmediately()
+  public void computedValue_withKeepAliveAndNoRunImmediately()
     throws Exception
   {
     final ArezContext context = Arez.context();
@@ -1603,16 +1603,16 @@ public class ArezContextTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      context.createComputedValue( null,
-                                   name,
-                                   action,
-                                   null,
-                                   null,
-                                   null,
-                                   null,
-                                   Priority.NORMAL,
-                                   true,
-                                   false );
+      context.computedValue( null,
+                             name,
+                             action,
+                             null,
+                             null,
+                             null,
+                             null,
+                             Priority.NORMAL,
+                             true,
+                             false );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.isKeepAlive(), true );
@@ -1624,7 +1624,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void createComputedValue_pass_no_hooks()
+  public void computedValue_pass_no_hooks()
     throws Exception
   {
     final ArezContext context = Arez.context();
@@ -1634,7 +1634,7 @@ public class ArezContextTest
       observeADependency();
       return "";
     };
-    final ComputedValue<String> computedValue = context.createComputedValue( name, function );
+    final ComputedValue<String> computedValue = context.computedValue( name, function );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
@@ -1648,7 +1648,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void createComputedValue_minimumParameters()
+  public void computedValue_minimumParameters()
     throws Exception
   {
     final ArezContext context = Arez.context();
@@ -1658,7 +1658,7 @@ public class ArezContextTest
       observeADependency();
       return "";
     };
-    final ComputedValue<String> computedValue = context.createComputedValue( function );
+    final ComputedValue<String> computedValue = context.computedValue( function );
 
     final String name = "ComputedValue@22";
     assertEquals( computedValue.getName(), name );
@@ -1674,7 +1674,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void createComputedValue_generates_spyEvent()
+  public void computedValue_generates_spyEvent()
     throws Exception
   {
     final ArezContext context = Arez.context();
@@ -1683,7 +1683,7 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final ComputedValue<String> computedValue =
-      context.createComputedValue( ValueUtil.randomString(), () -> {
+      context.computedValue( ValueUtil.randomString(), () -> {
         observeADependency();
         return "";
       } );
@@ -1695,7 +1695,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void createComputedValue_withKeepAliveAndOnActivate()
+  public void computedValue_withKeepAliveAndOnActivate()
     throws Exception
   {
     final ArezContext context = Arez.context();
@@ -1709,22 +1709,22 @@ public class ArezContextTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> context.createComputedValue( null,
-                                                       ValueUtil.randomString(),
-                                                       function,
-                                                       action,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       Priority.NORMAL,
-                                                       true,
-                                                       true ) );
+                    () -> context.computedValue( null,
+                                                 ValueUtil.randomString(),
+                                                 function,
+                                                 action,
+                                                 null,
+                                                 null,
+                                                 null,
+                                                 Priority.NORMAL,
+                                                 true,
+                                                 true ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0039: ArezContext.createComputedValue() specified keepAlive = true and did not pass a null for onActivate." );
+                  "Arez-0039: ArezContext.computedValue() specified keepAlive = true and did not pass a null for onActivate." );
   }
 
   @Test
-  public void createComputedValue_withKeepAliveAndOnDeactivate()
+  public void computedValue_withKeepAliveAndOnDeactivate()
     throws Exception
   {
     final ArezContext context = Arez.context();
@@ -1732,18 +1732,18 @@ public class ArezContextTest
     final Procedure action = AbstractArezTest::observeADependency;
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> context.createComputedValue( null,
-                                                       ValueUtil.randomString(),
-                                                       () -> "",
-                                                       null,
-                                                       action,
-                                                       null,
-                                                       null,
-                                                       Priority.NORMAL,
-                                                       true,
-                                                       true ) );
+                    () -> context.computedValue( null,
+                                                 ValueUtil.randomString(),
+                                                 () -> "",
+                                                 null,
+                                                 action,
+                                                 null,
+                                                 null,
+                                                 Priority.NORMAL,
+                                                 true,
+                                                 true ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0045: ArezContext.createComputedValue() specified keepAlive = true and did not pass a null for onDeactivate." );
+                  "Arez-0045: ArezContext.computedValue() specified keepAlive = true and did not pass a null for onDeactivate." );
   }
 
   @Test
@@ -2462,7 +2462,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final Observable<Object> observable = context.createObservable();
-    final ComputedValue<String> computedValue = context.createComputedValue( () -> "" );
+    final ComputedValue<String> computedValue = context.computedValue( () -> "" );
     final Observer observer = context.autorun( AbstractArezTest::observeADependency );
 
     assertThrowsWithMessage( () -> context.registerObservable( observable ),
@@ -2538,7 +2538,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue computedValue = context.createComputedValue( () -> "" );
+    final ComputedValue computedValue = context.computedValue( () -> "" );
 
     assertEquals( context.getTopLevelComputedValues().size(), 1 );
     assertEquals( context.getTopLevelComputedValues().get( computedValue.getName() ), computedValue );

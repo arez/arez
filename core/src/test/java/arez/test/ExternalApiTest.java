@@ -117,7 +117,7 @@ public class ExternalApiTest
       observeADependency();
       return "";
     };
-    final ComputedValue<String> computedValue = context.createComputedValue( name, function );
+    final ComputedValue<String> computedValue = context.computedValue( name, function );
 
     context.action( ValueUtil.randomString(), true, () -> {
       assertEquals( computedValue.getName(), name );

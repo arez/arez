@@ -45,7 +45,7 @@ public class ObserverInfoImplTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final ComputedValue<String> computedValue = context.createComputedValue( name, () -> "" );
+    final ComputedValue<String> computedValue = context.computedValue( name, () -> "" );
 
     final Observer observer = computedValue.getObserver();
 

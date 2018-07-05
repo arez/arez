@@ -95,7 +95,7 @@ public class ObservableInfoImplTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final ComputedValue<String> computedValue = context.createComputedValue( name, () -> "" );
+    final ComputedValue<String> computedValue = context.computedValue( name, () -> "" );
 
     final Observable<String> observable = computedValue.getObservable();
 

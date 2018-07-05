@@ -2703,7 +2703,7 @@ final class ComponentDescriptor
     }
     if ( _disposeOnDeactivate )
     {
-      builder.addStatement( "this.$N = $N().createComputedValue( " +
+      builder.addStatement( "this.$N = $N().computedValue( " +
                             "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                             "$T.areNamesEnabled() ? $N() + $S : null, " +
                             "() -> $N(), null, () -> $N().scheduleDispose( this ), null, null )",

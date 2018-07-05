@@ -29,16 +29,16 @@ public class ComputedValueKeepAliveTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      context.createComputedValue( null,
-                                   "TestComputed",
-                                   action,
-                                   null,
-                                   null,
-                                   null,
-                                   null,
-                                   Priority.NORMAL,
-                                   true,
-                                   true );
+      context.computedValue( null,
+                             "TestComputed",
+                             action,
+                             null,
+                             null,
+                             null,
+                             null,
+                             Priority.NORMAL,
+                             true,
+                             true );
 
     assertEquals( calls.get(), 1 );
 

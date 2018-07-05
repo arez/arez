@@ -218,13 +218,13 @@ public final class MemoizeCache<T>
     final String name = Arez.areNamesEnabled() ? _name + "." + _nextIndex++ : null;
     final Procedure onDeactivate = () -> disposeComputedValue( args );
     final SafeFunction<T> function = () -> _function.call( args );
-    return getContext().createComputedValue( component,
-                                             name,
-                                             function,
-                                             null,
-                                             onDeactivate,
-                                             null,
-                                             null );
+    return getContext().computedValue( component,
+                                       name,
+                                       function,
+                                       null,
+                                       onDeactivate,
+                                       null,
+                                       null );
   }
 
   /**

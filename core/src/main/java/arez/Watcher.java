@@ -56,14 +56,14 @@ final class Watcher
     _mutation = mutation;
     _effect = Objects.requireNonNull( effect );
     _condition =
-      getContext().createComputedValue( Arez.areNativeComponentsEnabled() ? component : null,
+      getContext().computedValue( Arez.areNativeComponentsEnabled() ? component : null,
                                         Arez.areNamesEnabled() ? getName() + ".condition" : null,
-                                        condition,
-                                        null,
-                                        this::dispose,
-                                        null,
-                                        null,
-                                        priority );
+                                  condition,
+                                  null,
+                                  this::dispose,
+                                  null,
+                                  null,
+                                  priority );
     _watcher =
       getContext().autorun( Arez.areNativeComponentsEnabled() ? component : null,
                             Arez.areNamesEnabled() ? getName() + ".watcher" : null,

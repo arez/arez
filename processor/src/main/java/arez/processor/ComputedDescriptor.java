@@ -346,7 +346,7 @@ final class ComputedDescriptor
     if ( isCollectionType() && !hasHooks() )
     {
       sb.append( "this.$N = $T.areCollectionsPropertiesUnmodifiable() ? " +
-                 "$N().createComputedValue( " +
+                 "$N().computedValue( " +
                  "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                  "$T.areNamesEnabled() ? $N() + $S : null, " +
                  "() -> super.$N()" );
@@ -362,7 +362,7 @@ final class ComputedDescriptor
       appendInitializerSuffix( parameters, sb );
 
       // Else part of ternary
-      sb.append( " : $N().createComputedValue( " +
+      sb.append( " : $N().computedValue( " +
                  "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                  "$T.areNamesEnabled() ? $N() + $S : null, " +
                  "() -> super.$N()" );
@@ -384,7 +384,7 @@ final class ComputedDescriptor
     }
     else // hasHooks()
     {
-      sb.append( "this.$N = $N().createComputedValue( " +
+      sb.append( "this.$N = $N().computedValue( " +
                  "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                  "$T.areNamesEnabled() ? $N() + $S : null, " +
                  "() -> super.$N()" );

@@ -25,6 +25,7 @@
   can introduce significant confusion. Sometimes this priority inversion is acceptable and the new parameter
   allows the user to eliminate the invariant failure when desired. In production mode, this parameter
   has no effect.
+* 💥 **\[core\]** Rename `ArezContext.createComputedValue(...)` methods to `ArezContext.computedValue(...)`.
 
 ### [v0.95](https://github.com/arez/arez/tree/v0.95) (2018-06-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.94...v0.95)
