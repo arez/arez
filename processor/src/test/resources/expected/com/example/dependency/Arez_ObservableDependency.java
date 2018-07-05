@@ -37,7 +37,7 @@ public final class Arez_ObservableDependency extends ObservableDependency implem
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
-    if ( Arez.shouldCheckInvariants() ) {
+    if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "ObservableDependency", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
@@ -47,17 +47,17 @@ public final class Arez_ObservableDependency extends ObservableDependency implem
     if ( null != $$arezv$$_getValue_dependency ) {
       DisposeTrackable.asDisposeTrackable( super.getValue() ).getNotifier().addOnDisposeListener( this, this::dispose );
     }
-    if ( Arez.shouldCheckInvariants() ) {
+    if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
-    if ( Arez.shouldCheckInvariants() ) {
+    if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_COMPLETE;
     }
     $$arezi$$_context().triggerScheduler();
-    if ( Arez.shouldCheckInvariants() ) {
+    if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_READY;
     }
   }
@@ -120,7 +120,7 @@ public final class Arez_ObservableDependency extends ObservableDependency implem
           this.$$arez$$_value.dispose();
         } } );
       }
-      if ( Arez.shouldCheckInvariants() ) {
+      if ( Arez.shouldCheckApiInvariants() ) {
         this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
       }
     }

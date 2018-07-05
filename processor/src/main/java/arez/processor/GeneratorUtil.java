@@ -159,7 +159,7 @@ final class GeneratorUtil
   static void setStateForInvariantChecking( @Nonnull final MethodSpec.Builder builder, @Nonnull final String stateName )
   {
     final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", AREZ_CLASSNAME );
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
 
     block.addStatement( "this.$N = $T.$N",
                         GeneratorUtil.STATE_FIELD_NAME,
@@ -174,7 +174,7 @@ final class GeneratorUtil
   static void setStateForInvariantChecking( @Nonnull final CodeBlock.Builder builder, @Nonnull final String stateName )
   {
     final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", AREZ_CLASSNAME );
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
 
     block.addStatement( "this.$N = $T.$N",
                         GeneratorUtil.STATE_FIELD_NAME,

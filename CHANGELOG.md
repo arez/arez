@@ -44,6 +44,10 @@
   Arez applications make use of the component model so it was felt merging the modules simplified usage in
   downstream projects. JDepend is used to ensure that no undesired dependencies between packages are added
   now that the code is in a single module.
+* **\[processor\]** Fix bug where the code to set the component state is guarded by `Arez.shouldCheckInvariants()`
+  while the code to check the state was guarded by `Arez.shouldCheckApiInvariants()` which meant that the
+  component would generate invariant failures if `Arez.shouldCheckApiInvariants()` returned true and
+  `Arez.shouldCheckInvariants()` returned false.
 
 ### [v0.95](https://github.com/arez/arez/tree/v0.95) (2018-06-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.94...v0.95)
