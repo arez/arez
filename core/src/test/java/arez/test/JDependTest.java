@@ -31,6 +31,12 @@ public class JDependTest
 
     arez.dependsUpon( jsinterop );
     arez.dependsUpon( braincheck );
+    /*
+     * The arez.spy and arez packages form a loop but rather than squashing spy into arez
+     * it was decided to keep them separate as everything in arez.spy should be optimized out
+     * during production builds and keeping them in separate packages makes it easy to verify
+     * this constraint.
+     */
     spy.dependsUpon( arez );
     arez.dependsUpon( spy );
 
