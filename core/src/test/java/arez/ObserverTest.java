@@ -135,7 +135,7 @@ public class ObserverTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0184: Observer named '" + name + "' has LOWEST priority but has passed " +
-                  "canObserveLowerPriorityDependencies = true which should be false as no lower priority." );
+                  "observeLowerPriorityDependencies = true which should be false as no lower priority." );
   }
 
   @Test

@@ -528,7 +528,7 @@ public final class ArezContext
    * @param priority                            the priority of the associated observer.
    * @param keepAlive                           true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
    * @param runImmediately                      ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
-   * @param canObserveLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
+   * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
    * @return the ComputedValue instance.
    */
   @Nonnull
@@ -542,7 +542,7 @@ public final class ArezContext
                                              @Nonnull final Priority priority,
                                              final boolean keepAlive,
                                              final boolean runImmediately,
-                                             final boolean canObserveLowerPriorityDependencies )
+                                             final boolean observeLowerPriorityDependencies )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -559,7 +559,7 @@ public final class ArezContext
                            function,
                            priority,
                            keepAlive,
-                           canObserveLowerPriorityDependencies );
+                           observeLowerPriorityDependencies );
     final Observer observer = computedValue.getObserver();
     observer.setOnActivate( onActivate );
     observer.setOnDeactivate( onDeactivate );
@@ -864,7 +864,7 @@ public final class ArezContext
    * @param action                              the action defining the observer.
    * @param priority                            the priority of the observer.
    * @param runImmediately                      true to invoke action immediately, false to schedule reaction for next reaction cycle.
-   * @param canObserveLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
+   * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
    * @return the new Observer.
    */
   @Nonnull
@@ -874,11 +874,11 @@ public final class ArezContext
                            @Nonnull final Procedure action,
                            @Nonnull final Priority priority,
                            final boolean runImmediately,
-                           final boolean canObserveLowerPriorityDependencies )
+                           final boolean observeLowerPriorityDependencies )
   {
     final Reaction reaction = new RunProcedureAsActionReaction( action );
     final Observer observer =
-      observer( component, name, mutation, reaction, priority, false, canObserveLowerPriorityDependencies );
+      observer( component, name, mutation, reaction, priority, false, observeLowerPriorityDependencies );
     if ( runImmediately )
     {
       observer.invokeReaction();
@@ -989,7 +989,7 @@ public final class ArezContext
    * @param mutation                            true if the observer may modify state during tracking, false otherwise.
    * @param priority                            the priority of the observer.
    * @param action                              the action invoked as the reaction.
-   * @param canObserveLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
+   * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
    * @return the new Observer.
    */
   @Nonnull
@@ -998,7 +998,7 @@ public final class ArezContext
                            final boolean mutation,
                            @Nonnull final Procedure action,
                            @Nonnull final Priority priority,
-                           final boolean canObserveLowerPriorityDependencies )
+                           final boolean observeLowerPriorityDependencies )
   {
     return observer( component,
                      name,
@@ -1006,7 +1006,7 @@ public final class ArezContext
                      new RunProcedureReaction( action ),
                      priority,
                      true,
-                     canObserveLowerPriorityDependencies );
+                     observeLowerPriorityDependencies );
   }
 
   /**
@@ -1026,7 +1026,7 @@ public final class ArezContext
                      @Nonnull final Reaction reaction,
                      @Nonnull final Priority priority,
                      final boolean canTrackExplicitly,
-                     final boolean canObserveLowerPriorityDependencies )
+                     final boolean observeLowerPriorityDependencies )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =
@@ -1038,7 +1038,7 @@ public final class ArezContext
                     reaction,
                     priority,
                     canTrackExplicitly,
-                    canObserveLowerPriorityDependencies );
+                    observeLowerPriorityDependencies );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObserverCreatedEvent( new ObserverInfoImpl( getSpy(), observer ) ) );

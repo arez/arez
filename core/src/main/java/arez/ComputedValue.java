@@ -67,7 +67,7 @@ public final class ComputedValue<T>
                  @Nonnull final SafeFunction<T> function,
                  @Nonnull final Priority priority,
                  final boolean keepAlive,
-                 final boolean canObserveLowerPriorityDependencies )
+                 final boolean observeLowerPriorityDependencies )
   {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
@@ -93,7 +93,7 @@ public final class ComputedValue<T>
                                                           o ),
                               priority,
                               false,
-                              canObserveLowerPriorityDependencies );
+                              observeLowerPriorityDependencies );
     if ( null != _component )
     {
       _component.addComputedValue( this );
