@@ -63,9 +63,10 @@ define 'example', :base_dir => "#{File.dirname(__FILE__)}/example" do
   compile.options.source = '1.8'
   compile.options.target = '1.8'
 
+  project.processorpath << :arez_processor
+
   compile.with project('arez-timeddisposer').package(:jar),
                project('arez-timeddisposer').compile.dependencies,
-               :arez_ticker,
                :gwt_user
 
   gwt_enhance(project)
