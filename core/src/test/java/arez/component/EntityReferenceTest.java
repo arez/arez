@@ -1,5 +1,6 @@
 package arez.component;
 
+import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
@@ -12,7 +13,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class EntityReferenceTest
-  extends AbstractArezComponentTest
+  extends AbstractArezTest
 {
   @Test
   public void basicLifecycle()

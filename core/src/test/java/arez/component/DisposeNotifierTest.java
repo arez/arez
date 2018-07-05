@@ -1,12 +1,13 @@
 package arez.component;
 
+import arez.AbstractArezTest;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class DisposeNotifierTest
-  extends AbstractArezComponentTest
+  extends AbstractArezTest
 {
   @Test
   public void construct()

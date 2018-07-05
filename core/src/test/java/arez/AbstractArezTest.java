@@ -241,7 +241,7 @@ public abstract class AbstractArezTest
   }
 
   @Nonnull
-  final ArrayList<String> getObserverErrors()
+  protected final ArrayList<String> getObserverErrors()
   {
     return _observerErrors;
   }

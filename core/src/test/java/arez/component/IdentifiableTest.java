@@ -1,11 +1,12 @@
 package arez.component;
 
+import arez.AbstractArezTest;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class IdentifiableTest
-  extends AbstractArezComponentTest
+  extends AbstractArezTest
 {
   static class TestElement
     implements Identifiable<String>
