@@ -13,7 +13,7 @@ define 'arez-promise' do
 
   project.version = ENV['PRODUCT_VERSION'] if ENV['PRODUCT_VERSION']
 
-  dom_artifact = artifact(:arez_component)
+  dom_artifact = artifact(:arez_core)
   pom.include_transitive_dependencies << dom_artifact
   pom.dependency_filter = Proc.new {|dep| dom_artifact == dep[:artifact]}
 
@@ -25,9 +25,7 @@ define 'arez-promise' do
                :elemental2_core,
                :elemental2_promise,
                :braincheck,
-               :arez_annotations,
-               :arez_core,
-               :arez_component
+               :arez_core
 
   gwt_enhance(project)
 
