@@ -54,18 +54,6 @@ define 'arez' do
   pom.add_github_project('arez/arez')
   pom.add_developer('realityforge', 'Peter Donald')
 
-  desc 'Arez Annotations'
-  define 'annotations' do
-    pom.include_transitive_dependencies << artifact(:javax_annotation)
-    compile.with :javax_annotation
-
-    gwt_enhance(project)
-
-    package(:jar)
-    package(:sources)
-    package(:javadoc)
-  end
-
   desc 'Arez Core'
   define 'core' do
     pom.include_transitive_dependencies << artifact(:javax_annotation)
@@ -92,13 +80,10 @@ define 'arez' do
 
   desc 'Arez Component Support'
   define 'component' do
-    pom.include_transitive_dependencies << project('annotations').package(:jar)
     pom.include_transitive_dependencies << project('core').package(:jar)
-    pom.dependency_filter = Proc.new {|dep| dep[:scope].to_s != 'test' && !project('core').compile.dependencies.include?(dep[:artifact]) && !project('annotations').compile.dependencies.include?(dep[:artifact])}
+    pom.dependency_filter = Proc.new {|dep| dep[:scope].to_s != 'test' && !project('core').compile.dependencies.include?(dep[:artifact])}
 
-    compile.with project('annotations').package(:jar),
-                 project('annotations').compile.dependencies,
-                 project('core').package(:jar),
+    compile.with project('core').package(:jar),
                  project('core').compile.dependencies
 
     test.options[:properties] = AREZ_TEST_OPTIONS
@@ -128,7 +113,6 @@ define 'arez' do
               Java.tools_jar,
               :truth,
               DAGGER_DEPS,
-              project('annotations'),
               project('core').package(:jar),
               project('core').compile.dependencies,
               project('component').package(:jar),
@@ -261,7 +245,7 @@ define 'arez' do
 
     local_test_repository_url = URI.join('file:///', project._(:target, :local_test_repository)).to_s
     compile.enhance do
-      projects_to_upload = projects(%w(annotations core processor component))
+      projects_to_upload = projects(%w(core processor component))
       old_release_to = repositories.release_to
       begin
         # First we install them in a local repository so we don't have to access the network during local builds
@@ -345,7 +329,7 @@ define 'arez' do
     project.jacoco.enabled = false
   end
 
-  doc.from(projects(%w(annotations core processor component))).
+  doc.from(projects(%w(core processor component))).
     using(:javadoc,
           :windowtitle => 'Arez API Documentation',
           :linksource => true,
