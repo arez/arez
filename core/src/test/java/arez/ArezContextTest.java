@@ -2003,7 +2003,7 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final Observer observer =
-      context.createObserver( null, ValueUtil.randomString(), true, new TestReaction(), Priority.NORMAL, false, false );
+      context.observer( null, ValueUtil.randomString(), true, new TestReaction(), Priority.NORMAL, false, false );
 
     handler.assertEventCount( 1 );
 
@@ -2017,7 +2017,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final Observer observer =
-      context.createObserver( null, ValueUtil.randomString(), false, new TestReaction(), Priority.NORMAL, true, false );
+      context.observer( null, ValueUtil.randomString(), false, new TestReaction(), Priority.NORMAL, true, false );
 
     assertEquals( observer.canTrackExplicitly(), true );
   }
@@ -2029,7 +2029,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final Observer observer =
-      context.createObserver( null, ValueUtil.randomString(), false, new TestReaction(), Priority.NORMAL, true, true );
+      context.observer( null, ValueUtil.randomString(), false, new TestReaction(), Priority.NORMAL, true, true );
 
     assertEquals( observer.canObserveLowerPriorityDependencies(), true );
   }

@@ -878,7 +878,7 @@ public final class ArezContext
   {
     final Reaction reaction = new RunProcedureAsActionReaction( action );
     final Observer observer =
-      createObserver( component, name, mutation, reaction, priority, false, canObserveLowerPriorityDependencies );
+      observer( component, name, mutation, reaction, priority, false, canObserveLowerPriorityDependencies );
     if ( runImmediately )
     {
       observer.invokeReaction();
@@ -1000,13 +1000,13 @@ public final class ArezContext
                            @Nonnull final Priority priority,
                            final boolean canObserveLowerPriorityDependencies )
   {
-    return createObserver( component,
-                           name,
-                           mutation,
-                           new RunProcedureReaction( action ),
-                           priority,
-                           true,
-                           canObserveLowerPriorityDependencies );
+    return observer( component,
+                     name,
+                     mutation,
+                     new RunProcedureReaction( action ),
+                     priority,
+                     true,
+                     canObserveLowerPriorityDependencies );
   }
 
   /**
@@ -1020,13 +1020,13 @@ public final class ArezContext
    * @return the new Observer.
    */
   @Nonnull
-  Observer createObserver( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Reaction reaction,
-                           @Nonnull final Priority priority,
-                           final boolean canTrackExplicitly,
-                           final boolean canObserveLowerPriorityDependencies )
+  Observer observer( @Nullable final Component component,
+                     @Nullable final String name,
+                     final boolean mutation,
+                     @Nonnull final Reaction reaction,
+                     @Nonnull final Priority priority,
+                     final boolean canTrackExplicitly,
+                     final boolean canObserveLowerPriorityDependencies )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =
