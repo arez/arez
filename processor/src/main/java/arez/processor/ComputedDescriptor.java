@@ -35,7 +35,6 @@ final class ComputedDescriptor
   static final Pattern ON_DEACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Deactivate$" );
   static final Pattern ON_STALE_PATTERN = Pattern.compile( "^on([A-Z].*)Stale$" );
   static final Pattern ON_DISPOSE_PATTERN = Pattern.compile( "^on([A-Z].*)Dispose$" );
-
   @Nonnull
   private final ComponentDescriptor _componentDescriptor;
   @Nonnull
@@ -46,6 +45,7 @@ final class ComputedDescriptor
   private ExecutableType _computedType;
   private boolean _keepAlive;
   private String _priority;
+  private boolean _observeLowerPriorityDependencies;
   @Nullable
   private ExecutableElement _onActivate;
   @Nullable
@@ -126,7 +126,8 @@ final class ComputedDescriptor
   void setComputed( @Nonnull final ExecutableElement computed,
                     @Nonnull final ExecutableType computedType,
                     final boolean keepAlive,
-                    @Nonnull final String priority )
+                    @Nonnull final String priority,
+                    final boolean observeLowerPriorityDependencies )
     throws ArezProcessorException
   {
     //The caller already verified that no duplicate computed have been defined
@@ -142,6 +143,7 @@ final class ComputedDescriptor
     _computedType = Objects.requireNonNull( computedType );
     _keepAlive = keepAlive;
     _priority = Objects.requireNonNull( priority );
+    _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
 
     if ( isComputedReturnType( Stream.class ) )
     {
@@ -373,7 +375,7 @@ final class ComputedDescriptor
       parameters.add( _componentDescriptor.getComponentNameMethodName() );
       parameters.add( "." + getName() );
       parameters.add( _computed.getSimpleName().toString() );
-      if ( _keepAlive || hasNonNormalPriority() )
+      if ( _keepAlive || hasNonNormalPriority() || _observeLowerPriorityDependencies )
       {
         appendInitializerSuffix( parameters, sb );
       }
@@ -396,7 +398,7 @@ final class ComputedDescriptor
       parameters.add( _componentDescriptor.getComponentNameMethodName() );
       parameters.add( "." + getName() );
       parameters.add( _computed.getSimpleName().toString() );
-      if ( hasHooks() || _keepAlive || hasNonNormalPriority() )
+      if ( hasHooks() || _keepAlive || hasNonNormalPriority() || _observeLowerPriorityDependencies )
       {
         appendInitializerSuffix( parameters, sb );
       }
@@ -475,15 +477,19 @@ final class ComputedDescriptor
     {
       sb.append( "null" );
     }
-    if ( hasNonNormalPriority() || _keepAlive )
+    if ( hasNonNormalPriority() || _keepAlive || _observeLowerPriorityDependencies )
     {
-      if ( _keepAlive )
+      if ( _keepAlive || _observeLowerPriorityDependencies )
       {
         sb.append( ", $T.$N, " );
         parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
         parameters.add( _priority );
         sb.append( _keepAlive );
         sb.append( ", false" );
+        if ( _observeLowerPriorityDependencies )
+        {
+          sb.append( ", true" );
+        }
       }
       else
       {

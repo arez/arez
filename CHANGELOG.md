@@ -25,6 +25,8 @@
   can introduce significant confusion. Sometimes this priority inversion is acceptable and the new parameter
   allows the user to eliminate the invariant failure when desired. In production mode, this parameter
   has no effect.
+* 💥 **\[annotations\]** Add the `observeLowerPriorityDependencies` parameter to the `@Autorun`, `@Computed`
+  and `@Tracked` annotations that integrates the underlying capability with the component model.
 * 💥 **\[core\]** Rename `ArezContext.createComputedValue(...)` methods to `ArezContext.computedValue(...)`.
   Rename `ArezContext.createComponent(...)` methods to `ArezContext.component(...)`. Rename
   `ArezContext.createObservable(...)` methods to `ArezContext.observable(...)`. These renames are aimed at

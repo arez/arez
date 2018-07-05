@@ -26,7 +26,6 @@ import javax.lang.model.type.TypeMirror;
 final class TrackedDescriptor
 {
   static final Pattern ON_DEPS_CHANGED_PATTERN = Pattern.compile( "^on([A-Z].*)DepsChanged" );
-
   @Nonnull
   private final ComponentDescriptor _componentDescriptor;
   @Nonnull
@@ -34,6 +33,7 @@ final class TrackedDescriptor
   private boolean _mutation;
   private String _priority;
   private boolean _reportParameters;
+  private boolean _observeLowerPriorityDependencies;
   @Nullable
   private ExecutableElement _trackedMethod;
   @Nullable
@@ -85,6 +85,7 @@ final class TrackedDescriptor
   void setTrackedMethod( final boolean mutation,
                          @Nonnull final String priority,
                          final boolean reportParameters,
+                         final boolean observeLowerPriorityDependencies,
                          @Nonnull final ExecutableElement method,
                          @Nonnull final ExecutableType trackedMethodType )
   {
@@ -100,6 +101,7 @@ final class TrackedDescriptor
       _mutation = mutation;
       _priority = Objects.requireNonNull( priority );
       _reportParameters = reportParameters;
+      _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
       _trackedMethod = Objects.requireNonNull( method );
       _trackedMethodType = Objects.requireNonNull( trackedMethodType );
     }
@@ -166,11 +168,15 @@ final class TrackedDescriptor
     sb.append( ", () -> super.$N()" );
     parameters.add( _onDepsChangedMethod.getSimpleName().toString() );
 
-    if ( !"NORMAL".equals( _priority ) )
+    if ( !"NORMAL".equals( _priority ) || _observeLowerPriorityDependencies )
     {
       sb.append( ", $T.$N" );
       parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
       parameters.add( _priority );
+      if ( _observeLowerPriorityDependencies )
+      {
+        sb.append( ", true" );
+      }
     }
 
     sb.append( " )" );

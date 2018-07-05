@@ -27,6 +27,7 @@ final class AutorunDescriptor
   private final boolean _mutation;
   @Nonnull
   private final String _priority;
+  private final boolean _observeLowerPriorityDependencies;
   @Nonnull
   private final ExecutableElement _autorun;
   @Nonnull
@@ -40,6 +41,7 @@ final class AutorunDescriptor
                      @Nonnull final String name,
                      final boolean mutation,
                      final String priority,
+                     final boolean observeLowerPriorityDependencies,
                      @Nonnull final ExecutableElement autorun,
                      @Nonnull final ExecutableType autorunType )
   {
@@ -47,6 +49,7 @@ final class AutorunDescriptor
     _name = Objects.requireNonNull( name );
     _mutation = mutation;
     _priority = Objects.requireNonNull( priority );
+    _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
     _autorun = Objects.requireNonNull( autorun );
     _autorunType = Objects.requireNonNull( autorunType );
   }
@@ -105,11 +108,16 @@ final class AutorunDescriptor
     sb.append( _mutation );
     sb.append( ", () -> super.$N()" );
     parameters.add( getAutorun().getSimpleName().toString() );
-    if ( !"NORMAL".equals( _priority ) )
+    if ( !"NORMAL".equals( _priority ) || _observeLowerPriorityDependencies )
     {
       sb.append( ", $T.$N, false" );
       parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
       parameters.add( _priority );
+
+      if ( _observeLowerPriorityDependencies )
+      {
+        sb.append( ", true" );
+      }
     }
     sb.append( " )" );
 

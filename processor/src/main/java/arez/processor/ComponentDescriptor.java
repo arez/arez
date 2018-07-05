@@ -479,9 +479,17 @@ final class ComponentDescriptor
     final String name = deriveAutorunName( method, annotation );
     checkNameUnique( name, method, Constants.AUTORUN_ANNOTATION_CLASSNAME );
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
+    final boolean observeLowerPriorityDependencies =
+      getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final AutorunDescriptor autorun =
-      new AutorunDescriptor( this, name, mutation, priority.getSimpleName().toString(), method, methodType );
+      new AutorunDescriptor( this,
+                             name,
+                             mutation,
+                             priority.getSimpleName().toString(),
+                             observeLowerPriorityDependencies,
+                             method,
+                             methodType );
     _autoruns.put( autorun.getName(), autorun );
   }
 
@@ -530,10 +538,17 @@ final class ComponentDescriptor
     final String name = deriveTrackedName( method, annotation );
     checkNameUnique( name, method, Constants.TRACK_ANNOTATION_CLASSNAME );
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
+    final boolean observeLowerPriorityDependencies =
+      getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
     final TrackedDescriptor tracked = findOrCreateTracked( name );
-    tracked.setTrackedMethod( mutation, priority.getSimpleName().toString(), reportParameters, method, methodType );
+    tracked.setTrackedMethod( mutation,
+                              priority.getSimpleName().toString(),
+                              reportParameters,
+                              observeLowerPriorityDependencies,
+                              method,
+                              methodType );
   }
 
   @Nonnull
@@ -627,8 +642,14 @@ final class ComponentDescriptor
     final String name = deriveComputedName( method, annotation );
     checkNameUnique( name, method, Constants.COMPUTED_ANNOTATION_CLASSNAME );
     final boolean keepAlive = getAnnotationParameter( annotation, "keepAlive" );
+    final boolean observeLowerPriorityDependencies =
+      getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
-    findOrCreateComputed( name ).setComputed( method, computedType, keepAlive, priority.getSimpleName().toString() );
+    findOrCreateComputed( name ).setComputed( method,
+                                              computedType,
+                                              keepAlive,
+                                              priority.getSimpleName().toString(),
+                                              observeLowerPriorityDependencies );
   }
 
   private void addComputedValueRef( @Nonnull final AnnotationMirror annotation,
@@ -1422,7 +1443,7 @@ final class ComponentDescriptor
         final CandidateMethod candidate = trackeds.remove( tracked.getName() );
         if ( null != candidate )
         {
-          tracked.setTrackedMethod( false, "NORMAL", true, candidate.getMethod(), candidate.getMethodType() );
+          tracked.setTrackedMethod( false, "NORMAL", true, false, candidate.getMethod(), candidate.getMethodType() );
         }
         else
         {
