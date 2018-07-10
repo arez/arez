@@ -288,7 +288,7 @@ public class ArezContextTest
 
     final String expectedValue = ValueUtil.randomString();
 
-    final int nextNodeId = context.currentNextTransactionId();
+    final int nextNodeId = context.getNextNodeId();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -748,7 +748,7 @@ public class ArezContextTest
 
     assertFalse( context.isTransactionActive() );
 
-    final int nextNodeId = context.currentNextTransactionId();
+    final int nextNodeId = context.getNextNodeId();
     context.safeAction( () -> {
       assertTrue( context.isTransactionActive() );
       assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
