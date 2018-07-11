@@ -8,6 +8,8 @@
   If no reads or writes occur then there is typically no need to wrap the code in an action and thus an
   invariant failure will help eliminate this code. The invariant check can omitted for code where it
   is not possible to verify ahead of time whether an action is required or not.
+* **\[core\]** Add the `verifyRequired` parameter to the `Action` annotation that will support configuration
+  of the `verifyActionRequired` parameter passed to the underlying action.
 
 ### [v0.96](https://github.com/arez/arez/tree/v0.96) (2018-07-05)
 [Full Changelog](https://github.com/arez/arez/compare/v0.95...v0.96)

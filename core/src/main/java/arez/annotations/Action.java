@@ -47,4 +47,12 @@ public @interface Action
    * @return true to report the parameters, false otherwise.
    */
   boolean reportParameters() default true;
+
+  /**
+   * Flag indicating whether the code should verify that at least one read or write occurs within
+   * the scope of the action.
+   *
+   * @return true to verify action reads or writes observable data.
+   */
+  boolean verifyRequired() default true;
 }

@@ -26,6 +26,7 @@ final class ActionDescriptor
   @Nonnull
   private final String _name;
   private final boolean _mutation;
+  private final boolean _verifyRequired;
   private final boolean _reportParameters;
   @Nonnull
   private final ExecutableElement _action;
@@ -35,6 +36,7 @@ final class ActionDescriptor
   ActionDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
                     @Nonnull final String name,
                     final boolean mutation,
+                    final boolean verifyRequired,
                     final boolean reportParameters,
                     @Nonnull final ExecutableElement action,
                     @Nonnull final ExecutableType actionType )
@@ -42,6 +44,7 @@ final class ActionDescriptor
     _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     _mutation = mutation;
+    _verifyRequired = verifyRequired;
     _reportParameters = reportParameters;
     _action = Objects.requireNonNull( action );
     _actionType = Objects.requireNonNull( actionType );
@@ -122,6 +125,10 @@ final class ActionDescriptor
 
     statement.append( ", " );
     statement.append( _mutation );
+    if ( !_verifyRequired )
+    {
+      statement.append( ", false" );
+    }
     statement.append( ", () -> super." );
     statement.append( _action.getSimpleName() );
     statement.append( "(" );
@@ -158,6 +165,32 @@ final class ActionDescriptor
     statement.append( " )" );
 
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+
+    //TypeSpec.anonymousClassBuilder(  )
+
+/*
+if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> null != getTracker() || hasReadOrWriteOccurred(),
+                 () -> "Arez-0185: Transaction named '" + getName() + "' committed but no reads, writes or " +
+                       "queued disposes occurred within the scope of the transaction." );
+    }
+
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
+    block.addStatement( "$T.apiInvariant( () -> $T.isActive( this.$N ), () -> \"Method named '$N' invoked " +
+                        "on \" + $T.describe( this.$N ) + \" component named '\" + $N() + \"'\" )",
+                        GUARDS_CLASSNAME,
+                        COMPONENT_STATE_CLASSNAME,
+                        STATE_FIELD_NAME,
+                        methodName,
+                        COMPONENT_STATE_CLASSNAME,
+                        STATE_FIELD_NAME,
+                        descriptor.getComponentNameMethodName() );
+    block.endControlFlow();
+
+    builder.addCode( block.build() );
+*/
 
     GeneratorUtil.generateTryBlock( builder,
                                     thrownTypes,
