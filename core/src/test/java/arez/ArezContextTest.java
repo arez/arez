@@ -272,6 +272,7 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     context.action( name, () -> {
+      observeADependency();
       assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
       assertEquals( context.getTransaction().getName(), name );
       return ValueUtil.randomString();
@@ -288,6 +289,7 @@ public class ArezContextTest
 
     final String expectedValue = ValueUtil.randomString();
 
+    final Observable<Object> observable = context.observable();
     final int nextNodeId = context.getNextNodeId();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
@@ -295,6 +297,7 @@ public class ArezContextTest
 
     final String v0 =
       context.action( () -> {
+        observable.reportObserved();
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), "Transaction@" + nextNodeId );
@@ -2620,6 +2623,7 @@ public class ArezContextTest
     final String expectedValue = ValueUtil.randomString();
     final String v0 =
       context.action( () -> {
+        observeADependency();
         assertTrue( context.isTransactionActive() );
 
         return context.noTxAction( () -> {
@@ -2644,6 +2648,7 @@ public class ArezContextTest
     final String expectedValue = ValueUtil.randomString();
     final String v0 =
       context.action( () -> {
+        observeADependency();
         assertTrue( context.isTransactionActive() );
 
         return context.safeNoTxAction( () -> {
