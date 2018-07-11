@@ -447,7 +447,7 @@ final class Transaction
 
   boolean hasReadOrWriteOccurred()
   {
-    return _readOrWriteOccurred;
+    return Arez.shouldCheckInvariants() && _readOrWriteOccurred;
   }
 
   int processPendingDeactivations()
