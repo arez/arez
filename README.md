@@ -10,17 +10,16 @@ Arez is a simple, efficient and scalable state management library for client-sid
 by the reactive programming model found in spreadsheets, a dataflow programming model. Arez tracks usage of
 observable data and notifies observers when the observable data changes. The library scales from simple, flat
 domain models to complex, highly inter-connected graph-like domain models. Arez trades a higher memory usage
-for a faster execution speed and better developer experience. Arez's optimizes for developer happiness by
-eliminating the need to monitor or even think about when state changes and instead react to those changes on
-demand.
+for a faster execution speed and better developer experience. Arez is optimized for developer happiness by
+eliminating the need to monitor state changes. Instead, applications react to state changes on demand.
 
-Arez is under heavy development and sometimes the documentation does not keep up to date. However the goal of
-the toolkit is to be easy to use and this includes clear and concise documentation. If something is unclear
+Arez is under heavy development, and sometimes the documentation does not keep up to date. However the goal of
+the toolkit is to be easy to use, and this includes clear and concise documentation. If something is unclear
 please [report it as a bug](https://github.com/arez/arez/issues) because it *is* a bug. If a new user
-has a bad time then then we need to fix the problem.
+has a hard time, then we need to fix the problem.
 
 For more information about Arez, please see the [Website](https://arez.github.io/). For the source code
-and project support please visit the [GitHub project](https://github.com/arez/arez).
+and project support, please visit the [GitHub project](https://github.com/arez/arez).
 
 # Contributing
 
