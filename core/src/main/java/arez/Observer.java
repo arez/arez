@@ -238,7 +238,10 @@ public final class Observer
     {
       _disposing = true;
       runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
-      getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, this::performDispose );
+      getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
+                               true,
+                               false,
+                               this::performDispose );
       if ( !isDerivation() )
       {
         if ( willPropagateSpyEvents() )
