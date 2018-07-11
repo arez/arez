@@ -57,7 +57,7 @@ final class Watcher
     _effect = Objects.requireNonNull( effect );
     _condition =
       getContext().computedValue( Arez.areNativeComponentsEnabled() ? component : null,
-                                        Arez.areNamesEnabled() ? getName() + ".condition" : null,
+                                  Arez.areNamesEnabled() ? getName() + ".condition" : null,
                                   condition,
                                   null,
                                   this::dispose,
