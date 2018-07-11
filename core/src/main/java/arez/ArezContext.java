@@ -517,17 +517,17 @@ public final class ArezContext
   /**
    * Create a ComputedValue with specified parameters.
    *
-   * @param <T>                                 the type of the computed value.
-   * @param component                           the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name                                the name of the ComputedValue.
-   * @param function                            the function that computes the value.
-   * @param onActivate                          the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate                        the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale                             the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose                           the procedure to invoke when the ComputedValue id disposed.
-   * @param priority                            the priority of the associated observer.
-   * @param keepAlive                           true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
-   * @param runImmediately                      ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
+   * @param <T>                              the type of the computed value.
+   * @param component                        the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name                             the name of the ComputedValue.
+   * @param function                         the function that computes the value.
+   * @param onActivate                       the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDeactivate                     the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onStale                          the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDispose                        the procedure to invoke when the ComputedValue id disposed.
+   * @param priority                         the priority of the associated observer.
+   * @param keepAlive                        true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
+   * @param runImmediately                   ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
    * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
    * @return the ComputedValue instance.
    */
@@ -858,12 +858,12 @@ public final class ArezContext
   /**
    * Create an autorun observer.
    *
-   * @param component                           the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                                the name of the observer.
-   * @param mutation                            true if the action may modify state, false otherwise.
-   * @param action                              the action defining the observer.
-   * @param priority                            the priority of the observer.
-   * @param runImmediately                      true to invoke action immediately, false to schedule reaction for next reaction cycle.
+   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name                             the name of the observer.
+   * @param mutation                         true if the action may modify state, false otherwise.
+   * @param action                           the action defining the observer.
+   * @param priority                         the priority of the observer.
+   * @param runImmediately                   true to invoke action immediately, false to schedule reaction for next reaction cycle.
    * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
    * @return the new Observer.
    */
@@ -984,11 +984,11 @@ public final class ArezContext
    * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
    * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
    *
-   * @param component                           the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                                the name of the observer.
-   * @param mutation                            true if the observer may modify state during tracking, false otherwise.
-   * @param priority                            the priority of the observer.
-   * @param action                              the action invoked as the reaction.
+   * @param component                        the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name                             the name of the observer.
+   * @param mutation                         true if the observer may modify state during tracking, false otherwise.
+   * @param priority                         the priority of the observer.
+   * @param action                           the action invoked as the reaction.
    * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
    * @return the new Observer.
    */
