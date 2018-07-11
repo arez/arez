@@ -88,6 +88,7 @@ public final class ComputedValue<T>
                               Arez.shouldEnforceTransactionType() ? TransactionMode.READ_WRITE_OWNED : null,
                               o -> o.getContext().action( Arez.areNamesEnabled() ? o.getName() : null,
                                                           Arez.shouldEnforceTransactionType() ? o.getMode() : null,
+                                                          false,
                                                           this::compute,
                                                           false,
                                                           o ),

@@ -141,7 +141,7 @@ public final class MemoizeCache<T>
     if ( !_disposed )
     {
       _disposed = true;
-      getContext().safeAction( Arez.areNamesEnabled() ? _name : null, () -> {
+      getContext().safeAction( Arez.areNamesEnabled() ? _name : null, true, false, () -> {
         disposeMap( _cache, _argCount );
         _cache.clear();
       } );

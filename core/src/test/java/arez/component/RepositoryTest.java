@@ -8,6 +8,7 @@ import arez.Observable;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -102,7 +103,7 @@ public class RepositoryTest
     assertTrue( context.safeAction( () -> repository.contains( entity1 ) ) );
     assertTrue( context.safeAction( () -> repository.contains( entity2 ) ) );
 
-    context.safeAction( repository::preDispose );
+    repository.preDispose();
 
     assertFalse( context.safeAction( () -> repository.contains( entity1 ) ) );
     assertFalse( context.safeAction( () -> repository.contains( entity2 ) ) );
@@ -329,6 +330,7 @@ public class RepositoryTest
     private int _arezId;
     private boolean _disposed;
     private final DisposeNotifier _notifier = new DisposeNotifier();
+    private final Observable<Object> _observable = Arez.context().observable();
 
     MyEntity( final int arezId )
     {
@@ -345,13 +347,14 @@ public class RepositoryTest
     @Override
     public boolean observe()
     {
+      _observable.reportObserved();
       return isNotDisposed();
     }
 
     @Override
     public void dispose()
     {
-      Arez.context().safeAction( () -> {
+      Arez.context().safeAction( null, true, false, () -> {
         _disposed = true;
         _notifier.dispose();
       } );
@@ -386,6 +389,14 @@ public class RepositoryTest
     protected Observable getEntitiesObservable()
     {
       return _observable;
+    }
+
+    @Nonnull
+    @Override
+    public Stream<MyEntity> entities()
+    {
+      _observable.reportObserved();
+      return super.entities();
     }
   }
 }

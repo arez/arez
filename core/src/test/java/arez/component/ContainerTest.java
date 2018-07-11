@@ -173,7 +173,7 @@ public class ContainerTest
     assertTrue( context.safeAction( () -> repository.contains( entity1 ) ) );
     assertTrue( context.safeAction( () -> repository.contains( entity2 ) ) );
 
-    context.safeAction( repository::preDispose );
+    repository.preDispose();
 
     assertFalse( context.safeAction( () -> repository.contains( entity1 ) ) );
     assertFalse( context.safeAction( () -> repository.contains( entity2 ) ) );
@@ -294,7 +294,7 @@ public class ContainerTest
     context.safeAction( () -> repository.attach( new MyEntity( 302 ) ) );
     context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
 
-    final int[] ids = context.safeAction( () -> repository.entities().mapToInt( e -> e.getArezId() ).toArray() );
+    final int[] ids = repository.entities().mapToInt( e -> e.getArezId() ).toArray();
     assertEquals( ids.length, 2 );
     assertEquals( ids[ 0 ], 302 );
     assertEquals( ids[ 1 ], 303 );
@@ -311,7 +311,7 @@ public class ContainerTest
     Disposable.dispose( entity );
     context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
 
-    final int[] ids = context.safeAction( () -> repository.entities().mapToInt( e -> e.getArezId() ).toArray() );
+    final int[] ids = repository.entities().mapToInt( e -> e.getArezId() ).toArray();
     assertEquals( ids.length, 1 );
     assertEquals( ids[ 0 ], 303 );
   }
@@ -350,7 +350,7 @@ public class ContainerTest
     @Override
     public void dispose()
     {
-      Arez.context().safeAction( () -> {
+      Arez.context().safeAction( null, true, false, () -> {
         _disposed = true;
         _notifier.dispose();
         _observable.dispose();

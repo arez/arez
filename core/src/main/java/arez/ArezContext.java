@@ -1404,12 +1404,7 @@ public final class ArezContext
                        @Nonnull final Object... parameters )
     throws Throwable
   {
-    return action( generateNodeName( "Transaction", name ),
-                   mutationToTransactionMode( mutation ),
-                   true,
-                   action,
-                   null,
-                   parameters );
+    return action( name, mutation, true, action, parameters );
   }
 
   /**
@@ -1434,7 +1429,12 @@ public final class ArezContext
                        @Nonnull final Object... parameters )
     throws Throwable
   {
-    return action( name, mutationToTransactionMode( mutation ), verifyActionRequired, action, null, parameters );
+    return action( generateNodeName( "Transaction", name ),
+                   mutationToTransactionMode( mutation ),
+                   verifyActionRequired,
+                   action,
+                   null,
+                   parameters );
   }
 
   /**
@@ -1592,8 +1592,32 @@ public final class ArezContext
                            @Nonnull final SafeFunction<T> action,
                            @Nonnull final Object... parameters )
   {
+    return safeAction( name, mutation, true, action, parameters );
+  }
+
+  /**
+   * Execute the supplied action.
+   * The action is expected to not throw an exception.
+   *
+   * @param <T>                  the type of return value.
+   * @param name                 the name of the transaction.
+   * @param mutation             true if the action may modify state, false otherwise.
+   * @param verifyActionRequired true if the action will add invariant checks to ensure reads or writes occur within
+   *                             the scope of the action. If no reads or writes occur, the action need not be an
+   *                             action.
+   * @param action               the action to execute.
+   * @param parameters           the action parameters if any.
+   * @return the value returned from the action.
+   */
+  public <T> T safeAction( @Nullable final String name,
+                           final boolean mutation,
+                           final boolean verifyActionRequired,
+                           @Nonnull final SafeFunction<T> action,
+                           @Nonnull final Object... parameters )
+  {
     return safeAction( generateNodeName( "Transaction", name ),
                        mutationToTransactionMode( mutation ),
+                       verifyActionRequired,
                        action,
                        null,
                        parameters );
@@ -1622,6 +1646,7 @@ public final class ArezContext
     }
     return safeAction( generateNodeName( tracker ),
                        Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
+                       false,
                        action,
                        tracker,
                        parameters );
@@ -1629,6 +1654,7 @@ public final class ArezContext
 
   private <T> T safeAction( @Nullable final String name,
                             @Nullable final TransactionMode mode,
+                            final boolean verifyActionRequired,
                             @Nonnull final SafeFunction<T> action,
                             @Nullable final Observer tracker,
                             @Nonnull final Object... parameters )
@@ -1650,6 +1676,7 @@ public final class ArezContext
       try
       {
         result = action.call();
+        verifyActionRequired( transaction, name, verifyActionRequired );
       }
       finally
       {
@@ -1746,8 +1773,32 @@ public final class ArezContext
                       @Nonnull final Object... parameters )
     throws Throwable
   {
+    action( name, mutation, true, action, parameters );
+  }
+
+  /**
+   * Execute the supplied action in a transaction.
+   * The action may throw an exception.
+   *
+   * @param name                 the name of the transaction.
+   * @param mutation             true if the action may modify state, false otherwise.
+   * @param verifyActionRequired true if the action will add invariant checks to ensure reads or writes occur within
+   *                             the scope of the action. If no reads or writes occur, the action need not be an
+   *                             action.
+   * @param action               the action to execute.
+   * @param parameters           the action parameters if any.
+   * @throws Throwable if the procedure throws an an exception.
+   */
+  public void action( @Nullable final String name,
+                      final boolean mutation,
+                      final boolean verifyActionRequired,
+                      @Nonnull final Procedure action,
+                      @Nonnull final Object... parameters )
+    throws Throwable
+  {
     action( generateNodeName( "Transaction", name ),
             mutationToTransactionMode( mutation ),
+            verifyActionRequired,
             action,
             true,
             null,
@@ -1777,6 +1828,7 @@ public final class ArezContext
     }
     action( generateNodeName( tracker ),
             Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
+            false,
             action,
             true,
             tracker,
@@ -1791,6 +1843,7 @@ public final class ArezContext
 
   void action( @Nullable final String name,
                @Nullable final TransactionMode mode,
+               final boolean verifyActionRequired,
                @Nonnull final Procedure action,
                final boolean reportAction,
                @Nullable final Observer tracker,
@@ -1813,6 +1866,7 @@ public final class ArezContext
       try
       {
         action.call();
+        verifyActionRequired( transaction, name, verifyActionRequired );
       }
       finally
       {
@@ -1902,8 +1956,30 @@ public final class ArezContext
                           @Nonnull final SafeProcedure action,
                           @Nonnull final Object... parameters )
   {
+    safeAction( name, mutation, true, action, parameters );
+  }
+
+  /**
+   * Execute the supplied action in a transaction.
+   * The action is expected to not throw an exception.
+   *
+   * @param name                 the name of the transaction.
+   * @param mutation             true if the action may modify state, false otherwise.
+   * @param verifyActionRequired true if the action will add invariant checks to ensure reads or writes occur within
+   *                             the scope of the action. If no reads or writes occur, the action need not be an
+   *                             action.
+   * @param action               the action to execute.
+   * @param parameters           the action parameters if any.
+   */
+  public void safeAction( @Nullable final String name,
+                          final boolean mutation,
+                          final boolean verifyActionRequired,
+                          @Nonnull final SafeProcedure action,
+                          @Nonnull final Object... parameters )
+  {
     safeAction( generateNodeName( "Transaction", name ),
                 mutationToTransactionMode( mutation ),
+                verifyActionRequired,
                 action,
                 null,
                 parameters );
@@ -1930,6 +2006,7 @@ public final class ArezContext
     }
     safeAction( generateNodeName( tracker ),
                 Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
+                false,
                 action,
                 tracker,
                 parameters );
@@ -1937,6 +2014,7 @@ public final class ArezContext
 
   void safeAction( @Nullable final String name,
                    @Nullable final TransactionMode mode,
+                   final boolean verifyActionRequired,
                    @Nonnull final SafeProcedure action,
                    @Nullable final Observer tracker,
                    @Nonnull final Object... parameters )
@@ -1957,6 +2035,7 @@ public final class ArezContext
       try
       {
         action.call();
+        verifyActionRequired( transaction, name, verifyActionRequired );
       }
       finally
       {
@@ -2185,8 +2264,8 @@ public final class ArezContext
    * Verify the action reads or writes to observables occur within scope of
    * action if the verifyActionRequired parameter is true.
    *
-   * @param transaction the associated transaction.
-   * @param name the action name.
+   * @param transaction          the associated transaction.
+   * @param name                 the action name.
    * @param verifyActionRequired if true then attempt validation.
    */
   private void verifyActionRequired( @Nonnull final Transaction transaction,

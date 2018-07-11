@@ -17,6 +17,7 @@ public class WatcherTest
     final ArezContext context = Arez.context();
 
     final Observable observable = context.observable();
+    final Observable observable2 = context.observable();
     final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
 
     final AtomicBoolean result = new AtomicBoolean();
@@ -31,7 +32,10 @@ public class WatcherTest
       observable.reportObserved();
       return result.get();
     };
-    final SafeProcedure procedure = effectRun::incrementAndGet;
+    final SafeProcedure procedure = () -> {
+      observable2.reportObserved();
+      effectRun.incrementAndGet();
+    };
 
     final Watcher watcher =
       new Watcher( context, component, name, mutation, condition, procedure, Priority.NORMAL, true );

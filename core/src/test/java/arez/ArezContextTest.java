@@ -280,41 +280,162 @@ public class ArezContextTest
   }
 
   @Test
-  public void action_verifyActionRequired_false()
+  public void action_procedure_verifyActionRequired_false()
     throws Throwable
   {
-    Arez.context().action( ValueUtil.randomString(), false, false, ValueUtil::randomString );
+    Arez.context().action( ValueUtil.randomString(), false, false, (Procedure) ValueUtil::randomString );
     // If we get to here then we performed an action where no read or write occurred
   }
 
   @Test
-  public void action_verifyActionRequired_true_butInvariantsDisabled()
+  public void action_procedure_verifyActionRequired_true_butInvariantsDisabled()
     throws Throwable
   {
     ArezTestUtil.noCheckInvariants();
 
-    Arez.context().action( ValueUtil.randomString(), false, true, ValueUtil::randomString );
+    Arez.context().action( ValueUtil.randomString(), false, true, (Procedure) ValueUtil::randomString );
     // If we get to here then we performed an action where no read or write occurred
   }
 
   @Test
-  public void action_verifyActionRequired_true()
+  public void action_procedure_verifyActionRequired_true()
     throws Throwable
   {
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> Arez.context().action( "X", false, true, ValueUtil::randomString ) );
+                    () -> Arez.context().action( "X", false, true, (Procedure) ValueUtil::randomString ) );
     assertEquals( exception.getMessage(),
                   "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
   }
 
   @Test
-  public void action_verifyActionRequired_true_is_default()
+  public void action_procedure_verifyActionRequired_true_is_default()
+    throws Throwable
+  {
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Arez.context().action( "X", (Procedure) ValueUtil::randomString ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+  }
+
+  @Test
+  public void action_function_verifyActionRequired_false()
+    throws Throwable
+  {
+    Arez.context().action( ValueUtil.randomString(), false, false, (Function<String>) ValueUtil::randomString );
+    // If we get to here then we performed an action where no read or write occurred
+  }
+
+  @Test
+  public void action_function_verifyActionRequired_true_butInvariantsDisabled()
+    throws Throwable
+  {
+    ArezTestUtil.noCheckInvariants();
+
+    Arez.context().action( ValueUtil.randomString(), false, true, (Function<String>) ValueUtil::randomString );
+    // If we get to here then we performed an action where no read or write occurred
+  }
+
+  @Test
+  public void action_function_verifyActionRequired_true()
+    throws Throwable
+  {
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Arez.context().action( "X", false, true, (Function<String>) ValueUtil::randomString ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+  }
+
+  @Test
+  public void action_function_verifyActionRequired_true_is_default()
     throws Throwable
   {
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
                     () -> Arez.context().action( "X", (Function<String>) ValueUtil::randomString ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+  }
+
+  @Test
+  public void safeAction_procedure_verifyActionRequired_false()
+    throws Throwable
+  {
+    Arez.context().safeAction( ValueUtil.randomString(), false, false, (SafeProcedure) ValueUtil::randomString );
+    // If we get to here then we performed an action where no read or write occurred
+  }
+
+  @Test
+  public void safeAction_procedure_verifyActionRequired_true_butInvariantsDisabled()
+    throws Throwable
+  {
+    ArezTestUtil.noCheckInvariants();
+
+    Arez.context().safeAction( ValueUtil.randomString(), false, true, (SafeProcedure) ValueUtil::randomString );
+    // If we get to here then we performed an action where no read or write occurred
+  }
+
+  @Test
+  public void safeAction_procedure_verifyActionRequired_true()
+    throws Throwable
+  {
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Arez.context().safeAction( "X", false, true, (SafeProcedure) ValueUtil::randomString ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+  }
+
+  @Test
+  public void safeAction_procedure_verifyActionRequired_true_is_default()
+    throws Throwable
+  {
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Arez.context().safeAction( "X", (SafeProcedure) ValueUtil::randomString ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+  }
+
+  @Test
+  public void safeAction_function_verifyActionRequired_false()
+    throws Throwable
+  {
+    Arez.context().safeAction( ValueUtil.randomString(), false, false, (SafeFunction<String>) ValueUtil::randomString );
+    // If we get to here then we performed an action where no read or write occurred
+  }
+
+  @Test
+  public void safeAction_function_verifyActionRequired_true_butInvariantsDisabled()
+    throws Throwable
+  {
+    ArezTestUtil.noCheckInvariants();
+
+    Arez.context().safeAction( ValueUtil.randomString(), false, true, (SafeFunction<String>) ValueUtil::randomString );
+    // If we get to here then we performed an action where no read or write occurred
+  }
+
+  @Test
+  public void safeAction_function_verifyActionRequired_true()
+    throws Throwable
+  {
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Arez.context()
+                      .safeAction( "X", false, true, (SafeFunction<String>) ValueUtil::randomString ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+  }
+
+  @Test
+  public void safeAction_function_verifyActionRequired_true_is_default()
+    throws Throwable
+  {
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Arez.context().safeAction( "X", (SafeFunction<String>) ValueUtil::randomString ) );
     assertEquals( exception.getMessage(),
                   "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
   }
@@ -681,6 +802,7 @@ public class ArezContextTest
 
     final String v0 =
       context.safeAction( () -> {
+        observeADependency();
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), "Transaction@" + nextNodeId );
@@ -701,6 +823,7 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     context.safeAction( name, () -> {
+      observeADependency();
       assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
       assertEquals( context.getTransaction().getName(), name );
       return ValueUtil.randomString();
@@ -793,6 +916,7 @@ public class ArezContextTest
 
     final int nextNodeId = context.getNextNodeId();
     context.safeAction( () -> {
+      observeADependency();
       assertTrue( context.isTransactionActive() );
       assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
       assertEquals( context.getTransaction().getName(), "Transaction@" + nextNodeId );
@@ -809,6 +933,7 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     context.safeAction( name, () -> {
+      observeADependency();
       assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
       assertEquals( context.getTransaction().getName(), name );
     } );
@@ -963,6 +1088,7 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     context.action( name, () -> {
+      observeADependency();
       assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
       assertEquals( context.getTransaction().getName(), name );
     } );
@@ -978,6 +1104,7 @@ public class ArezContextTest
 
     final int nextNodeId = context.currentNextTransactionId();
     context.action( () -> {
+      observeADependency();
       assertTrue( context.isTransactionActive() );
       assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
       assertEquals( context.getTransaction().getName(), "Transaction@" + nextNodeId );
@@ -1163,11 +1290,14 @@ public class ArezContextTest
     final Object param2 = null;
     final int param3 = 3;
 
+    final Observable<Object> observable1 = Arez.context().observable();
+
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
     final boolean mutation = false;
     context.action( name, mutation, () -> {
+      observable1.reportObserved();
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
       assertEquals( transaction.getName(), name );
@@ -1247,11 +1377,14 @@ public class ArezContextTest
     final Object param2 = null;
     final int param3 = 3;
 
+    final Observable observable = Arez.context().observable();
+
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
     final boolean mutation = false;
     final Procedure procedure = () -> {
+      observable.reportObserved();
       throw ioException;
     };
     assertThrows( IOException.class, () -> context.action( name, mutation, procedure, param1, param2, param3 ) );
@@ -1310,6 +1443,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
     final String name2 = ValueUtil.randomString();
     context.action( name, false, () -> {
+      observeADependency();
       assertTrue( context.isTransactionActive() );
       final Transaction transaction1 = context.getTransaction();
       assertEquals( transaction1.getName(), name );
@@ -1320,6 +1454,7 @@ public class ArezContextTest
       assertEquals( transaction1.getRootTransaction(), transaction1 );
 
       context.action( name2, false, () -> {
+        observeADependency();
         assertTrue( context.isTransactionActive() );
         final Transaction transaction2 = context.getTransaction();
         assertEquals( transaction2.getName(), name2 );
@@ -2712,6 +2847,7 @@ public class ArezContextTest
 
     context.action( () -> {
       assertTrue( context.isTransactionActive() );
+      observeADependency();
 
       context.noTxAction( () -> assertFalse( context.isTransactionActive() ) );
 
@@ -2731,6 +2867,7 @@ public class ArezContextTest
 
     context.action( () -> {
       assertTrue( context.isTransactionActive() );
+      observeADependency();
 
       context.safeNoTxAction( () -> assertFalse( context.isTransactionActive() ) );
 
