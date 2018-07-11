@@ -1434,12 +1434,7 @@ public final class ArezContext
                        @Nonnull final Object... parameters )
     throws Throwable
   {
-    return action( generateNodeName( "Transaction", name ),
-                   mutationToTransactionMode( mutation ),
-                   verifyActionRequired,
-                   action,
-                   null,
-                   parameters );
+    return action( name, mutationToTransactionMode( mutation ), verifyActionRequired, action, null, parameters );
   }
 
   /**
