@@ -11,6 +11,13 @@
   is not possible to verify ahead of time whether an action is required or not.
 * **\[core\]** Add the `verifyRequired` parameter to the `Action` annotation that will support configuration
   of the `verifyActionRequired` parameter passed to the underlying action.
+* **\[processor\]** Modify the `@Observable` setter in the generated component class to invoke
+  `Observable.preReportChanged()` prior to checking whether the new value is equal to the old value. This
+  will result in the potential write operation being verified and registered even if the value is the same
+  as the existing value and thus no modify action actually occurs. The purpose of this is so that `@Action`
+  annotated methods that either specify or default the value of the `verifyRequired` annotation parameter
+  to `true` will still register the write and will not generate an invariant failure if that is the only
+  arez activity within the scope of the action method.
 
 ### [v0.96](https://github.com/arez/arez/tree/v0.96) (2018-07-05)
 [Full Changelog](https://github.com/arez/arez/compare/v0.95...v0.96)

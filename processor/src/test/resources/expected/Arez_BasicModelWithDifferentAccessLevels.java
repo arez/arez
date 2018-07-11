@@ -175,9 +175,9 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_time.preReportChanged();
     final long $$arezv$$_currentValue = super.getTime();
     if ( time != $$arezv$$_currentValue ) {
-      this.$$arez$$_time.preReportChanged();
       super.setTime( time );
       this.$$arez$$_time.reportChanged();
     }
@@ -197,9 +197,9 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_value.preReportChanged();
     final String $$arezv$$_currentValue = super.getValue();
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
-      this.$$arez$$_value.preReportChanged();
       super.setValue( value );
       this.$$arez$$_value.reportChanged();
     }

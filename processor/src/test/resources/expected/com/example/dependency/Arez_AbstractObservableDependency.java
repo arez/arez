@@ -142,9 +142,9 @@ public final class Arez_AbstractObservableDependency extends AbstractObservableD
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_value.preReportChanged();
     final DisposeTrackable $$arezv$$_currentValue = this.$$arezd$$_value;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
-      this.$$arez$$_value.preReportChanged();
       if ( null != $$arezv$$_currentValue ) {
         DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).getNotifier().removeOnDisposeListener( this );
       }

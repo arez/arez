@@ -135,9 +135,9 @@ public final class Arez_SingletonWithIdModel extends SingletonWithIdModel implem
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_time.preReportChanged();
     final long $$arezv$$_currentValue = super.getTime();
     if ( time != $$arezv$$_currentValue ) {
-      this.$$arez$$_time.preReportChanged();
       super.setTime( time );
       this.$$arez$$_time.reportChanged();
     }

@@ -166,9 +166,9 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setV1' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_v1.preReportChanged();
     final boolean $$arezv$$_currentValue = super.isV1();
     if ( v1 != $$arezv$$_currentValue ) {
-      this.$$arez$$_v1.preReportChanged();
       super.setV1( v1 );
       this.$$arez$$_v1.reportChanged();
     }
@@ -188,9 +188,9 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setV2' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_v2.preReportChanged();
     final byte $$arezv$$_currentValue = super.getV2();
     if ( v2 != $$arezv$$_currentValue ) {
-      this.$$arez$$_v2.preReportChanged();
       super.setV2( v2 );
       this.$$arez$$_v2.reportChanged();
     }
@@ -210,9 +210,9 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setV3' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_v3.preReportChanged();
     final char $$arezv$$_currentValue = super.getV3();
     if ( v3 != $$arezv$$_currentValue ) {
-      this.$$arez$$_v3.preReportChanged();
       super.setV3( v3 );
       this.$$arez$$_v3.reportChanged();
     }
@@ -232,9 +232,9 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setV4' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_v4.preReportChanged();
     final short $$arezv$$_currentValue = super.getV4();
     if ( v4 != $$arezv$$_currentValue ) {
-      this.$$arez$$_v4.preReportChanged();
       super.setV4( v4 );
       this.$$arez$$_v4.reportChanged();
     }
@@ -254,9 +254,9 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setV5' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_v5.preReportChanged();
     final int $$arezv$$_currentValue = super.getV5();
     if ( v5 != $$arezv$$_currentValue ) {
-      this.$$arez$$_v5.preReportChanged();
       super.setV5( v5 );
       this.$$arez$$_v5.reportChanged();
     }
@@ -276,9 +276,9 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setV6' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_v6.preReportChanged();
     final long $$arezv$$_currentValue = super.getV6();
     if ( v6 != $$arezv$$_currentValue ) {
-      this.$$arez$$_v6.preReportChanged();
       super.setV6( v6 );
       this.$$arez$$_v6.reportChanged();
     }
@@ -298,9 +298,9 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setV7' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_v7.preReportChanged();
     final float $$arezv$$_currentValue = super.getV7();
     if ( v7 != $$arezv$$_currentValue ) {
-      this.$$arez$$_v7.preReportChanged();
       super.setV7( v7 );
       this.$$arez$$_v7.reportChanged();
     }
@@ -320,9 +320,9 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setV8' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_v8.preReportChanged();
     final double $$arezv$$_currentValue = super.getV8();
     if ( v8 != $$arezv$$_currentValue ) {
-      this.$$arez$$_v8.preReportChanged();
       super.setV8( v8 );
       this.$$arez$$_v8.reportChanged();
     }
@@ -342,9 +342,9 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setV9' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_v9.preReportChanged();
     final Object $$arezv$$_currentValue = super.getV9();
     if ( !Objects.equals( v9, $$arezv$$_currentValue ) ) {
-      this.$$arez$$_v9.preReportChanged();
       super.setV9( v9 );
       this.$$arez$$_v9.reportChanged();
     }

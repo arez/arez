@@ -142,12 +142,12 @@ public final class Arez_AbstractNonnullCollectionObservableModel extends Abstrac
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setMyValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_myValue.preReportChanged();
     final Collection<String> $$arezv$$_currentValue = this.$$arezd$$_myValue;
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache$$_myValue = null;
     }
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
-      this.$$arez$$_myValue.preReportChanged();
       this.$$arezd$$_myValue = value;
       this.$$arez$$_myValue.reportChanged();
     }

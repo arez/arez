@@ -148,9 +148,9 @@ public final class Arez_ComplexDependencyModel extends ComplexDependencyModel im
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setValue3' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_value3.preReportChanged();
     final DisposeTrackable $$arezv$$_currentValue = super.getValue3();
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
-      this.$$arez$$_value3.preReportChanged();
       if ( null != $$arezv$$_currentValue ) {
         DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).getNotifier().removeOnDisposeListener( this );
       }

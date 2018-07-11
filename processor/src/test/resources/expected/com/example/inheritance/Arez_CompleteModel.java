@@ -162,9 +162,9 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setMyValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
+    this.$$arez$$_myValue.preReportChanged();
     final String $$arezv$$_currentValue = this.$$arezd$$_myValue;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
-      this.$$arez$$_myValue.preReportChanged();
       this.$$arezd$$_myValue = value;
       this.$$arez$$_myValue.reportChanged();
     }

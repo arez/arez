@@ -374,6 +374,7 @@ final class ObservableDescriptor
     ProcessorUtil.copyDocumentedAnnotations( element, param );
     builder.addParameter( param.build() );
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    builder.addStatement( "this.$N.preReportChanged()", getFieldName() );
 
     final String varName = GeneratorUtil.VARIABLE_PREFIX + "currentValue";
 
@@ -400,7 +401,6 @@ final class ObservableDescriptor
       }
       codeBlock.beginControlFlow( "if ( !$T.equals( $N, $N ) )", Objects.class, paramName, varName );
     }
-    codeBlock.addStatement( "this.$N.preReportChanged()", getFieldName() );
     if ( shouldGenerateUnmodifiableCollectionVariant() )
     {
       final CodeBlock.Builder block = CodeBlock.builder();

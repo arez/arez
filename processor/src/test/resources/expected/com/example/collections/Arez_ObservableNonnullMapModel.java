@@ -140,12 +140,12 @@ public final class Arez_ObservableNonnullMapModel extends ObservableNonnullMapMo
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setMyValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_myValue.preReportChanged();
     final Map<String, String> $$arezv$$_currentValue = super.getMyValue();
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache$$_myValue = null;
     }
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
-      this.$$arez$$_myValue.preReportChanged();
       super.setMyValue( value );
       this.$$arez$$_myValue.reportChanged();
     }

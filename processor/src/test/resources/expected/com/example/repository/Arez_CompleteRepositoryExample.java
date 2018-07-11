@@ -152,10 +152,10 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setName' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_name.preReportChanged();
     final String $$arezv$$_currentValue = super.getName();
     assert null != name;
     if ( !Objects.equals( name, $$arezv$$_currentValue ) ) {
-      this.$$arez$$_name.preReportChanged();
       super.setName( name );
       this.$$arez$$_name.reportChanged();
     }
@@ -176,10 +176,10 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setPackageName' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_packageName.preReportChanged();
     final String $$arezv$$_currentValue = super.getPackageName();
     assert null != packageName;
     if ( !Objects.equals( packageName, $$arezv$$_currentValue ) ) {
-      this.$$arez$$_packageName.preReportChanged();
       super.setPackageName( packageName );
       this.$$arez$$_packageName.reportChanged();
     }
@@ -200,9 +200,9 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setQualifiedName' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_rawQualifiedName.preReportChanged();
     final String $$arezv$$_currentValue = super.getRawQualifiedName();
     if ( !Objects.equals( qualifiedName, $$arezv$$_currentValue ) ) {
-      this.$$arez$$_rawQualifiedName.preReportChanged();
       super.setQualifiedName( qualifiedName );
       this.$$arez$$_rawQualifiedName.reportChanged();
     }

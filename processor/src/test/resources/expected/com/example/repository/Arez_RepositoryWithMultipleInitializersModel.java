@@ -153,9 +153,9 @@ public final class Arez_RepositoryWithMultipleInitializersModel extends Reposito
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_time.preReportChanged();
     final long $$arezv$$_currentValue = this.$$arezd$$_time;
     if ( value != $$arezv$$_currentValue ) {
-      this.$$arez$$_time.preReportChanged();
       this.$$arezd$$_time = value;
       this.$$arez$$_time.reportChanged();
     }
@@ -175,9 +175,9 @@ public final class Arez_RepositoryWithMultipleInitializersModel extends Reposito
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_value.preReportChanged();
     final long $$arezv$$_currentValue = this.$$arezd$$_value;
     if ( value != $$arezv$$_currentValue ) {
-      this.$$arez$$_value.preReportChanged();
       this.$$arezd$$_value = value;
       this.$$arez$$_value.reportChanged();
     }

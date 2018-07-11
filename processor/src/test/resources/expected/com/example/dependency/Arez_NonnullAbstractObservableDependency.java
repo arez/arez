@@ -138,10 +138,10 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    this.$$arez$$_value.preReportChanged();
     final DisposeTrackable $$arezv$$_currentValue = this.$$arezd$$_value;
     assert null != value;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
-      this.$$arez$$_value.preReportChanged();
       DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).getNotifier().removeOnDisposeListener( this );
       this.$$arezd$$_value = value;
       DisposeTrackable.asDisposeTrackable( value ).getNotifier().addOnDisposeListener( this, this::dispose );
