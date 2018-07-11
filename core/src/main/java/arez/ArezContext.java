@@ -1493,12 +1493,7 @@ public final class ArezContext
       try
       {
         result = action.call();
-        if ( Arez.shouldCheckInvariants() && verifyActionRequired )
-        {
-          invariant( transaction::hasReadOrWriteOccurred,
-                     () -> "Arez-0185: Action named '" + name + "' completed but no reads or writes " +
-                           "occurred within the scope of the action." );
-        }
+        verifyActionRequired( transaction, name, verifyActionRequired );
       }
       finally
       {
@@ -2184,6 +2179,26 @@ public final class ArezContext
     }
     assert null != _spy;
     return _spy;
+  }
+
+  /**
+   * Verify the action reads or writes to observables occur within scope of
+   * action if the verifyActionRequired parameter is true.
+   *
+   * @param transaction the associated transaction.
+   * @param name the action name.
+   * @param verifyActionRequired if true then attempt validation.
+   */
+  private void verifyActionRequired( @Nonnull final Transaction transaction,
+                                     @Nullable final String name,
+                                     final boolean verifyActionRequired )
+  {
+    if ( Arez.shouldCheckInvariants() && verifyActionRequired )
+    {
+      invariant( transaction::hasReadOrWriteOccurred,
+                 () -> "Arez-0185: Action named '" + name + "' completed but no reads or writes " +
+                       "occurred within the scope of the action." );
+    }
   }
 
   /**
