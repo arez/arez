@@ -21,6 +21,8 @@ public class WhenIntegrationTest
   {
     final ArezContext context = Arez.context();
 
+    final arez.Observable<Object> observable = context.observable();
+
     final SpyEventRecorder recorder = new SpyEventRecorder( false );
     context.getSpy().addSpyEventHandler( recorder );
 
@@ -29,7 +31,10 @@ public class WhenIntegrationTest
     timeModel.updateTime();
 
     context.when( () -> 0 == timeModel.getTime(),
-                  () -> recorder.mark( "timeReset", "true" ) );
+                  () -> {
+                    observable.reportObserved();
+                    recorder.mark( "timeReset", "true" );
+                  } );
     context.autorun( "TimePrinter", () -> {
       // Observe time so we get callback
       @SuppressWarnings( "unused" )

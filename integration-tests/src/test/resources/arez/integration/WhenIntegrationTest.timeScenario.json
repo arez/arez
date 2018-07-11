@@ -47,23 +47,23 @@
         ]
     },
     {
-        "computedValue": "When@1.condition",
+        "computedValue": "When@2.condition",
         "type": "ComputedValueCreated"
     },
     {
-        "observer": "When@1.watcher",
+        "observer": "When@2.watcher",
         "type": "ObserverCreated"
     },
     {
-        "observer": "When@1.watcher",
+        "observer": "When@2.watcher",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "When@1.watcher",
+        "observer": "When@2.watcher",
         "type": "ReactionStarted"
     },
     {
-        "action": "When@1.watcher",
+        "action": "When@2.watcher",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -71,44 +71,44 @@
     },
     {
         "mutation": true,
-        "tracker": "When@1.watcher",
+        "tracker": "When@2.watcher",
         "type": "TransactionStarted",
-        "transaction": "When@1.watcher"
+        "transaction": "When@2.watcher"
     },
     {
-        "computedValue": "When@1.condition",
+        "computedValue": "When@2.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "When@1.condition",
+        "tracker": "When@2.condition",
         "type": "TransactionStarted",
-        "transaction": "When@1.condition"
+        "transaction": "When@2.condition"
     },
     {
-        "observable": "When@1.condition",
+        "observable": "When@2.condition",
         "type": "ObservableChanged"
     },
     {
         "mutation": false,
-        "tracker": "When@1.condition",
+        "tracker": "When@2.condition",
         "type": "TransactionCompleted",
-        "transaction": "When@1.condition"
+        "transaction": "When@2.condition"
     },
     {
-        "computedValue": "When@1.condition",
+        "computedValue": "When@2.condition",
         "type": "ComputeCompleted"
     },
     {
         "mutation": true,
-        "tracker": "When@1.watcher",
+        "tracker": "When@2.watcher",
         "type": "TransactionCompleted",
-        "transaction": "When@1.watcher"
+        "transaction": "When@2.watcher"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "When@1.watcher",
+        "action": "When@2.watcher",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -117,7 +117,7 @@
         ]
     },
     {
-        "observer": "When@1.watcher",
+        "observer": "When@2.watcher",
         "type": "ReactionCompleted"
     },
     {
@@ -184,7 +184,7 @@
         "type": "ObservableChanged"
     },
     {
-        "observer": "When@1.condition",
+        "observer": "When@2.condition",
         "type": "ReactionScheduled"
     },
     {
@@ -209,23 +209,23 @@
         ]
     },
     {
-        "computedValue": "When@1.condition",
+        "computedValue": "When@2.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "When@1.condition",
+        "tracker": "When@2.condition",
         "type": "TransactionStarted",
-        "transaction": "When@1.condition"
+        "transaction": "When@2.condition"
     },
     {
         "mutation": false,
-        "tracker": "When@1.condition",
+        "tracker": "When@2.condition",
         "type": "TransactionCompleted",
-        "transaction": "When@1.condition"
+        "transaction": "When@2.condition"
     },
     {
-        "computedValue": "When@1.condition",
+        "computedValue": "When@2.condition",
         "type": "ComputeCompleted"
     },
     {
@@ -288,7 +288,7 @@
         "type": "ObservableChanged"
     },
     {
-        "observer": "When@1.condition",
+        "observer": "When@2.condition",
         "type": "ReactionScheduled"
     },
     {
@@ -313,23 +313,23 @@
         ]
     },
     {
-        "computedValue": "When@1.condition",
+        "computedValue": "When@2.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "When@1.condition",
+        "tracker": "When@2.condition",
         "type": "TransactionStarted",
-        "transaction": "When@1.condition"
+        "transaction": "When@2.condition"
     },
     {
         "mutation": false,
-        "tracker": "When@1.condition",
+        "tracker": "When@2.condition",
         "type": "TransactionCompleted",
-        "transaction": "When@1.condition"
+        "transaction": "When@2.condition"
     },
     {
-        "computedValue": "When@1.condition",
+        "computedValue": "When@2.condition",
         "type": "ComputeCompleted"
     },
     {
@@ -392,7 +392,7 @@
         "type": "ObservableChanged"
     },
     {
-        "observer": "When@1.condition",
+        "observer": "When@2.condition",
         "type": "ReactionScheduled"
     },
     {
@@ -417,31 +417,31 @@
         ]
     },
     {
-        "computedValue": "When@1.condition",
+        "computedValue": "When@2.condition",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "tracker": "When@1.condition",
+        "tracker": "When@2.condition",
         "type": "TransactionStarted",
-        "transaction": "When@1.condition"
+        "transaction": "When@2.condition"
     },
     {
-        "observable": "When@1.condition",
+        "observable": "When@2.condition",
         "type": "ObservableChanged"
     },
     {
-        "observer": "When@1.watcher",
+        "observer": "When@2.watcher",
         "type": "ReactionScheduled"
     },
     {
         "mutation": false,
-        "tracker": "When@1.condition",
+        "tracker": "When@2.condition",
         "type": "TransactionCompleted",
-        "transaction": "When@1.condition"
+        "transaction": "When@2.condition"
     },
     {
-        "computedValue": "When@1.condition",
+        "computedValue": "When@2.condition",
         "type": "ComputeCompleted"
     },
     {
@@ -487,11 +487,11 @@
         "type": "ReactionCompleted"
     },
     {
-        "observer": "When@1.watcher",
+        "observer": "When@2.watcher",
         "type": "ReactionStarted"
     },
     {
-        "action": "When@1.watcher",
+        "action": "When@2.watcher",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -499,12 +499,12 @@
     },
     {
         "mutation": true,
-        "tracker": "When@1.watcher",
+        "tracker": "When@2.watcher",
         "type": "TransactionStarted",
-        "transaction": "When@1.watcher"
+        "transaction": "When@2.watcher"
     },
     {
-        "action": "When@1",
+        "action": "When@2",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -514,7 +514,7 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "When@1"
+        "transaction": "When@2"
     },
     {
         "type": "usermark",
@@ -524,12 +524,12 @@
         "mutation": false,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "When@1"
+        "transaction": "When@2"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "When@1",
+        "action": "When@2",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -538,7 +538,7 @@
         ]
     },
     {
-        "action": "When@1.condition.dispose",
+        "action": "When@2.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -548,18 +548,18 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "When@1.condition.dispose"
+        "transaction": "When@2.condition.dispose"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "When@1.condition.dispose"
+        "transaction": "When@2.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "When@1.condition.dispose",
+        "action": "When@2.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -568,11 +568,11 @@
         ]
     },
     {
-        "computedValue": "When@1.condition",
+        "computedValue": "When@2.condition",
         "type": "ComputedValueDisposed"
     },
     {
-        "action": "When@1.condition.dispose",
+        "action": "When@2.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -582,18 +582,18 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "When@1.condition.dispose"
+        "transaction": "When@2.condition.dispose"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "When@1.condition.dispose"
+        "transaction": "When@2.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "When@1.condition.dispose",
+        "action": "When@2.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -602,7 +602,7 @@
         ]
     },
     {
-        "action": "When@1.condition.dispose",
+        "action": "When@2.condition.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -612,26 +612,26 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "When@1.condition.dispose"
+        "transaction": "When@2.condition.dispose"
     },
     {
-        "observable": "When@1.condition",
+        "observable": "When@2.condition",
         "type": "ObservableChanged"
     },
     {
-        "observer": "When@1.watcher",
+        "observer": "When@2.watcher",
         "type": "ReactionScheduled"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "When@1.condition.dispose"
+        "transaction": "When@2.condition.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "When@1.condition.dispose",
+        "action": "When@2.condition.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -640,7 +640,7 @@
         ]
     },
     {
-        "action": "When@1.watcher.dispose",
+        "action": "When@2.watcher.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -650,18 +650,18 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "When@1.watcher.dispose"
+        "transaction": "When@2.watcher.dispose"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "When@1.watcher.dispose"
+        "transaction": "When@2.watcher.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "When@1.watcher.dispose",
+        "action": "When@2.watcher.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -670,19 +670,19 @@
         ]
     },
     {
-        "observer": "When@1.watcher",
+        "observer": "When@2.watcher",
         "type": "ObserverDisposed"
     },
     {
         "mutation": true,
-        "tracker": "When@1.watcher",
+        "tracker": "When@2.watcher",
         "type": "TransactionCompleted",
-        "transaction": "When@1.watcher"
+        "transaction": "When@2.watcher"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "When@1.watcher",
+        "action": "When@2.watcher",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -691,7 +691,7 @@
         ]
     },
     {
-        "observer": "When@1.watcher",
+        "observer": "When@2.watcher",
         "type": "ReactionCompleted"
     },
     {
