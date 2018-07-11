@@ -165,33 +165,6 @@ final class ActionDescriptor
     statement.append( " )" );
 
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
-
-    //TypeSpec.anonymousClassBuilder(  )
-
-/*
-if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( () -> null != getTracker() || hasReadOrWriteOccurred(),
-                 () -> "Arez-0185: Transaction named '" + getName() + "' committed but no reads, writes or " +
-                       "queued disposes occurred within the scope of the transaction." );
-    }
-
-    final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
-    block.addStatement( "$T.apiInvariant( () -> $T.isActive( this.$N ), () -> \"Method named '$N' invoked " +
-                        "on \" + $T.describe( this.$N ) + \" component named '\" + $N() + \"'\" )",
-                        GUARDS_CLASSNAME,
-                        COMPONENT_STATE_CLASSNAME,
-                        STATE_FIELD_NAME,
-                        methodName,
-                        COMPONENT_STATE_CLASSNAME,
-                        STATE_FIELD_NAME,
-                        descriptor.getComponentNameMethodName() );
-    block.endControlFlow();
-
-    builder.addCode( block.build() );
-*/
-
     GeneratorUtil.generateTryBlock( builder,
                                     thrownTypes,
                                     b -> b.addStatement( statement.toString(), parameterNames.toArray() ) );
