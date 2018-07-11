@@ -50,7 +50,7 @@ public class ComputedValueInfoImplTest
 
     assertEquals( info.isDisposed(), false );
 
-    // DIspose observer so it does not access computedValue after it is disposed
+    // Dispose observer so it does not access computedValue after it is disposed
     observer.dispose();
 
     computedValue.dispose();
