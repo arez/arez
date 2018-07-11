@@ -22,7 +22,7 @@
         "transaction": "TransportType"
     },
     {
-        "observable": "Observable@2",
+        "observable": "Observable@1",
         "type": "ObservableCreated"
     },
     {
@@ -72,7 +72,7 @@
         "transaction": "ResolvedType"
     },
     {
-        "observable": "Observable@3",
+        "observable": "Observable@2",
         "type": "ObservableCreated"
     },
     {
@@ -99,19 +99,6 @@
     {
         "observer": "ResolvedType",
         "type": "ReactionCompleted"
-    },
-    {
-        "action": "ID Update",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "ID Update"
     },
     {
         "action": "TestComponent.0.setOtherID",
@@ -159,23 +146,6 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "ID Update"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "ID Update",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
-    },
-    {
         "observer": "TransportType",
         "type": "ReactionStarted"
     },
@@ -193,7 +163,7 @@
         "transaction": "TransportType"
     },
     {
-        "observable": "Observable@4",
+        "observable": "Observable@3",
         "type": "ObservableCreated"
     },
     {
@@ -239,7 +209,7 @@
         "transaction": "ResolvedType"
     },
     {
-        "observable": "Observable@5",
+        "observable": "Observable@4",
         "type": "ObservableCreated"
     },
     {

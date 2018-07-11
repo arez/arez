@@ -1,5 +1,6 @@
 package arez.integration;
 
+import arez.Arez;
 import arez.Disposable;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -17,6 +18,7 @@ public class AccessingDisposedTest
     @Action
     void myAction()
     {
+      Arez.context().observable().reportObserved();
       invokeCount++;
     }
   }
@@ -29,6 +31,7 @@ public class AccessingDisposedTest
     @Action
     void myAction()
     {
+      Arez.context().observable().reportObserved();
       invokeCount++;
     }
   }

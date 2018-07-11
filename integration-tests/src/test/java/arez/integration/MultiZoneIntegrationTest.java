@@ -92,8 +92,8 @@ public class MultiZoneIntegrationTest
     } );
 
     context1.action( () -> assertInTransaction( person1.get() ) );
-    context1.action( () -> assertNotInTransaction( person2.get() ) );
-    context2.action( () -> assertNotInTransaction( person1.get() ) );
+    assertNotInTransaction( person2.get() );
+    assertNotInTransaction( person1.get() );
     context2.action( () -> assertInTransaction( person2.get() ) );
   }
 

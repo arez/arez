@@ -18,7 +18,7 @@ public class NonnullObservableIntegrationTest
     throws Throwable
   {
     final Model model = Model.create( ValueUtil.randomString() );
-    Arez.context().safeAction( () -> assertThrows( AssertionError.class, () -> model.setLastName( null ) ) );
+    assertThrows( AssertionError.class, () -> model.setLastName( null ) );
   }
 
   @SuppressWarnings( "ConstantConditions" )
@@ -26,7 +26,7 @@ public class NonnullObservableIntegrationTest
   public void disallowNullInInitializer()
     throws Throwable
   {
-    Arez.context().safeAction( () -> assertThrows( NullPointerException.class, () -> Model.create( null ) ) );
+    assertThrows( NullPointerException.class, () -> Model.create( null ) );
   }
 
   @ArezComponent

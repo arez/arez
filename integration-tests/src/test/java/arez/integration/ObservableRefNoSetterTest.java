@@ -59,7 +59,7 @@ public class ObservableRefNoSetterTest
     final ArezContext context = Arez.context();
 
     final TestComponent component = new ObservableRefNoSetterTest_Arez_TestComponent();
-    context.action( () -> component.setOtherID( 1 ) );
+    component.setOtherID( 1 );
 
     final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
@@ -68,14 +68,14 @@ public class ObservableRefNoSetterTest
 
     context.autorun( "TransportType",
                      () -> {
-      observeADependency();
+                       observeADependency();
                        recorder.mark( "TransportType", component.getOtherID() );
                        ttCount.incrementAndGet();
                      } );
     // This is verifying that the explicit reportObserved occurs
     context.autorun( "ResolvedType",
                      () -> {
-      observeADependency();
+                       observeADependency();
                        recorder.mark( "ResolvedType", component.getOther() );
                        rtCount.incrementAndGet();
                      } );
@@ -84,7 +84,7 @@ public class ObservableRefNoSetterTest
     assertEquals( rtCount.get(), 1 );
 
     // This is verifying that the explicit reportChanged occurs
-    context.action( "ID Update", true, () -> component.setOtherID( 22 ) );
+    component.setOtherID( 22 );
 
     assertMatchesFixture( recorder );
 

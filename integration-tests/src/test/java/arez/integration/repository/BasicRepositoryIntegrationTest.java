@@ -188,7 +188,7 @@ public class BasicRepositoryIntegrationTest
 
     assertEquals( callCount.get(), 2 );
 
-    context.action( true, () -> repository.destroy( component2 ) );
+    repository.destroy( component2 );
 
     // Destroy recreated the list - huzzah
     assertEquals( callCount.get(), 3 );

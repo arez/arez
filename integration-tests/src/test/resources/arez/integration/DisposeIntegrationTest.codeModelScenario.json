@@ -480,19 +480,6 @@
         "type": "ObserverDisposed"
     },
     {
-        "action": "Dispose Model",
-        "tracked": false,
-        "type": "ActionStarted",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Dispose Model"
-    },
-    {
         "component": "CodeModel.0",
         "type": "ComponentDisposeStarted"
     },
@@ -745,22 +732,5 @@
     {
         "component": "CodeModel.0",
         "type": "ComponentDisposeCompleted"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Dispose Model"
-    },
-    {
-        "result": null,
-        "errorMessage": null,
-        "action": "Dispose Model",
-        "tracked": false,
-        "returnsResult": false,
-        "normalCompletion": true,
-        "type": "ActionCompleted",
-        "parameters": [
-        ]
     }
 ]

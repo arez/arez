@@ -40,7 +40,7 @@ public class DisposeIntegrationTest
     context.action( "Change Local Name", true, () -> codeModel.setName( "MyType2" ) );
 
     observer.dispose();
-    context.action( "Dispose Model", true, () -> Disposable.dispose( codeModel ) );
+    Disposable.dispose( codeModel );
 
     assertMatchesFixture( recorder );
   }
