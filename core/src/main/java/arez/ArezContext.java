@@ -713,10 +713,38 @@ public final class ArezContext
                         @Nonnull final Priority priority,
                         final boolean runImmediately )
   {
+    return when( component, name, mutation, true, condition, effect, priority, runImmediately );
+  }
+
+  /**
+   * Wait until a condition is true, then run effect.
+   * The condition function is run in a read-only, tracking transaction and will be re-evaluated
+   * any time any of the observed elements are updated. The effect procedure is run in either a
+   * read-only or read-write, non-tracking transaction.
+   *
+   * @param component      the component containing when observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name           the debug name (if any) used when naming the underlying Arez resources.
+   * @param mutation       true if the effect can mutate state, false otherwise.
+   * @param condition      The function that determines when the effect is run.
+   * @param effect         The procedure that is executed when the condition is true.
+   * @param priority       the priority of the observer.
+   * @param runImmediately true to invoke condition immediately, false to schedule reaction for next reaction cycle.
+   * @return the Node representing the reactive component. The user can dispose the node if it is no longer required.
+   */
+  public Observer when( @Nullable final Component component,
+                        @Nullable final String name,
+                        final boolean mutation,
+                        final boolean verifyActionRequired,
+                        @Nonnull final SafeFunction<Boolean> condition,
+                        @Nonnull final SafeProcedure effect,
+                        @Nonnull final Priority priority,
+                        final boolean runImmediately )
+  {
     return new Watcher( Arez.areZonesEnabled() ? this : null,
                         component,
                         generateNodeName( "When", name ),
                         mutation,
+                        verifyActionRequired,
                         condition,
                         effect,
                         priority,

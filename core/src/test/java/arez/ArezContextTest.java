@@ -2761,6 +2761,66 @@ public class ArezContextTest
   }
 
   @Test
+  public void when_effectNoVerifyAction()
+    throws Throwable
+  {
+    final AtomicInteger effectRun = new AtomicInteger();
+
+    final String name = ValueUtil.randomString();
+
+    final SafeFunction<Boolean> condition = () -> {
+      observeADependency();
+      return true;
+    };
+    final ArezContext context = Arez.context();
+    context.when( context.component( ValueUtil.randomString(), ValueUtil.randomString() ),
+                  name,
+                  true,
+                  false,
+                  condition,
+                  effectRun::incrementAndGet,
+                  Priority.NORMAL,
+                  true );
+
+    assertEquals( effectRun.get(), 1 );
+  }
+
+  @Test
+  public void when_effectVerifyActionButNoReadsOrWrites()
+    throws Throwable
+  {
+    setIgnoreObserverErrors( true );
+    setPrintObserverErrors( false );
+
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger effectRun = new AtomicInteger();
+
+    final AtomicInteger errorCount = new AtomicInteger();
+    context.addObserverErrorHandler( ( observer, error, throwable ) -> {
+      errorCount.incrementAndGet();
+      assertNotNull( throwable );
+      assertEquals( throwable.getMessage(),
+                    "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+    } );
+
+    final SafeFunction<Boolean> condition = () -> {
+      observeADependency();
+      return true;
+    };
+    context.when( context.component( ValueUtil.randomString(), ValueUtil.randomString() ),
+                  "X",
+                  true,
+                  true,
+                  condition,
+                  effectRun::incrementAndGet,
+                  Priority.NORMAL,
+                  true );
+    assertEquals( effectRun.get(), 1 );
+    assertEquals( errorCount.get(), 1 );
+  }
+
+  @Test
   public void when_minimalParameters()
     throws Throwable
   {

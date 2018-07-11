@@ -19,6 +19,10 @@ final class Watcher
    */
   private final boolean _mutation;
   /**
+   * True if the effect should verify action is required.
+   */
+  private final boolean _verifyActionRequired;
+  /**
    * The condition to test.
    */
   @Nonnull
@@ -46,6 +50,7 @@ final class Watcher
            @Nullable final Component component,
            @Nullable final String name,
            final boolean mutation,
+           final boolean verifyActionRequired,
            @Nonnull final SafeFunction<Boolean> condition,
            @Nonnull final SafeProcedure effect,
            @Nonnull final Priority priority,
@@ -54,6 +59,7 @@ final class Watcher
     super( context, name );
     Objects.requireNonNull( condition );
     _mutation = mutation;
+    _verifyActionRequired = verifyActionRequired;
     _effect = Objects.requireNonNull( effect );
     _condition =
       getContext().computedValue( Arez.areNativeComponentsEnabled() ? component : null,
@@ -97,7 +103,7 @@ final class Watcher
   {
     if ( Disposable.isNotDisposed( _condition ) && _condition.get() )
     {
-      getContext().safeAction( Arez.areNamesEnabled() ? getName() : null, _mutation, _effect );
+      getContext().safeAction( Arez.areNamesEnabled() ? getName() : null, _mutation, _verifyActionRequired, _effect );
       Disposable.dispose( _watcher );
     }
   }

@@ -2,8 +2,8 @@
 
 ### Unreleased
 
-* **\[core\]** Add the `verifyActionRequired` parameter to the `ArezContext.action(...)` methods
-  and the `ArezContext.safeAction(...)` methods. Setting this parameter to true will
+* **\[core\]** Add the `verifyActionRequired` parameter to the `action(...)`, `safeAction(...)` and
+  `when(...)` methods on the `ArezContext`class . Setting this parameter to true will
   generate in invariant failure in development mode if an action has been declared that does not read
   an `observable` or `computed` value or write to an `observable` value within the scope of the action.
   If no reads or writes occur then there is typically no need to wrap the code in an action and thus an

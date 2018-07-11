@@ -27,6 +27,7 @@ public class WatcherTest
 
     final String name = ValueUtil.randomString();
     final boolean mutation = true;
+    final boolean verifyActionRequired = true;
     final SafeFunction<Boolean> condition = () -> {
       conditionRun.incrementAndGet();
       observable.reportObserved();
@@ -38,7 +39,15 @@ public class WatcherTest
     };
 
     final Watcher watcher =
-      new Watcher( context, component, name, mutation, condition, procedure, Priority.NORMAL, true );
+      new Watcher( context,
+                   component,
+                   name,
+                   mutation,
+                   verifyActionRequired,
+                   condition,
+                   procedure,
+                   Priority.NORMAL,
+                   true );
 
     assertEquals( watcher.getName(), name );
     assertEquals( watcher.isMutation(), mutation );
@@ -86,7 +95,6 @@ public class WatcherTest
     final AtomicInteger conditionRun = new AtomicInteger();
     final AtomicInteger effectRun = new AtomicInteger();
 
-    final boolean mutation = true;
     final SafeFunction<Boolean> condition = () -> {
       conditionRun.incrementAndGet();
       observable.reportObserved();
@@ -94,7 +102,7 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    new Watcher( context, null, ValueUtil.randomString(), mutation, condition, procedure, Priority.NORMAL, false );
+    new Watcher( context, null, ValueUtil.randomString(), true, true, condition, procedure, Priority.NORMAL, false );
 
     assertEquals( conditionRun.get(), 0 );
     assertEquals( effectRun.get(), 0 );
@@ -138,11 +146,11 @@ public class WatcherTest
     };
 
     final Watcher watcher3 =
-      new Watcher( context, null, ValueUtil.randomString(), true, condition3, procedure, Priority.NORMAL, false );
+      new Watcher( context, null, ValueUtil.randomString(), true, true, condition3, procedure, Priority.NORMAL, false );
     final Watcher watcher2 =
-      new Watcher( context, null, ValueUtil.randomString(), true, condition2, procedure, Priority.HIGH, false );
+      new Watcher( context, null, ValueUtil.randomString(), true, true, condition2, procedure, Priority.HIGH, false );
     final Watcher watcher1 =
-      new Watcher( context, null, ValueUtil.randomString(), true, condition1, procedure, Priority.HIGH, false );
+      new Watcher( context, null, ValueUtil.randomString(), true, true, condition1, procedure, Priority.HIGH, false );
 
     assertEquals( watcher1.getWatcher().getPriority(), Priority.HIGH );
     assertEquals( watcher1.getCondition().getObserver().getPriority(), Priority.HIGH );
@@ -182,7 +190,6 @@ public class WatcherTest
     final AtomicInteger effectRun = new AtomicInteger();
 
     final String name = ValueUtil.randomString();
-    final boolean mutation = true;
     final SafeFunction<Boolean> condition = () -> {
       conditionRun.incrementAndGet();
       observable.reportObserved();
@@ -190,7 +197,7 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Watcher watcher = new Watcher( context, null, name, mutation, condition, procedure, Priority.NORMAL, true );
+    final Watcher watcher = new Watcher( context, null, name, true, true, condition, procedure, Priority.NORMAL, true );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
@@ -225,7 +232,6 @@ public class WatcherTest
     final AtomicInteger effectRun = new AtomicInteger();
 
     final String name = ValueUtil.randomString();
-    final boolean mutation = true;
     final SafeFunction<Boolean> condition = () -> {
       conditionRun.incrementAndGet();
       observable.reportObserved();
@@ -233,7 +239,7 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    final Watcher watcher = new Watcher( context, null, name, mutation, condition, procedure, Priority.NORMAL, true );
+    final Watcher watcher = new Watcher( context, null, name, true, true, condition, procedure, Priority.NORMAL, true );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
@@ -280,7 +286,6 @@ public class WatcherTest
     final AtomicInteger effectRun = new AtomicInteger();
 
     final String name = ValueUtil.randomString();
-    final boolean mutation = true;
     final SafeFunction<Boolean> condition = () -> {
       conditionRun.incrementAndGet();
       observable.reportObserved();
@@ -289,7 +294,7 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    new Watcher( context, null, name, mutation, condition, procedure, Priority.NORMAL, true );
+    new Watcher( context, null, name, true, true, condition, procedure, Priority.NORMAL, true );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
@@ -341,7 +346,7 @@ public class WatcherTest
       observeADependency();
       return true;
     };
-    new Watcher( context, null, ValueUtil.randomString(), false, function, effect, Priority.NORMAL, true );
+    new Watcher( context, null, ValueUtil.randomString(), false, true, function, effect, Priority.NORMAL, true );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 1 );
@@ -372,9 +377,60 @@ public class WatcherTest
       observeADependency();
       return true;
     };
-    new Watcher( context, null, ValueUtil.randomString(), true, function, effect, Priority.NORMAL, true );
+    new Watcher( context, null, ValueUtil.randomString(), true, true, function, effect, Priority.NORMAL, true );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 0 );
+  }
+
+  @Test
+  public void verifyEffectWhenNoReadWriteOccursAndAllowed()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger errorCount = new AtomicInteger();
+
+    context.addObserverErrorHandler( ( observer, error, throwable ) -> errorCount.incrementAndGet() );
+
+    final AtomicInteger effectRun = new AtomicInteger();
+
+    final SafeProcedure effect = effectRun::incrementAndGet;
+
+    final SafeFunction<Boolean> function = () -> {
+      observeADependency();
+      return true;
+    };
+    new Watcher( context, null, ValueUtil.randomString(), true, false, function, effect, Priority.NORMAL, true );
+
+    assertEquals( effectRun.get(), 1 );
+    assertEquals( errorCount.get(), 0 );
+  }
+
+  @Test
+  public void verifyEffectWhenNoReadWriteOccursAndDisallowed()
+    throws Exception
+  {
+    setIgnoreObserverErrors( true );
+    setPrintObserverErrors( false );
+
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger errorCount = new AtomicInteger();
+
+    context.addObserverErrorHandler( ( observer, error, throwable ) -> errorCount.incrementAndGet() );
+
+    final AtomicInteger effectRun = new AtomicInteger();
+
+    final SafeProcedure effect = effectRun::incrementAndGet;
+
+    final SafeFunction<Boolean> function = () -> {
+      observeADependency();
+      return true;
+    };
+    new Watcher( context, null, ValueUtil.randomString(), true, true, function, effect, Priority.NORMAL, true );
+
+    assertEquals( effectRun.get(), 1 );
+    assertEquals( errorCount.get(), 1 );
   }
 }
