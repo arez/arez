@@ -30,7 +30,7 @@ public abstract class HasOneInverseRelationship<T>
   @Nonnull
   public final T getReference()
   {
-    final T entity = super.getEntity();
+    final T entity = getEntity();
     assert null != entity;
     return entity;
   }
