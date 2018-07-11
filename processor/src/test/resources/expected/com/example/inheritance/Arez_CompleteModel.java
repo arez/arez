@@ -134,7 +134,7 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        getContext().safeAction( Arez.areNamesEnabled() ? getComponentName() + ".dispose" : null, () -> { {
+        getContext().safeAction( Arez.areNamesEnabled() ? getComponentName() + ".dispose" : null, true, false, () -> { {
           this.$$arezi$$_preDispose();
           this.$$arez$$_myAutorun.dispose();
           this.$$arez$$_render.dispose();

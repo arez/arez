@@ -92,7 +92,7 @@ final class Arez_RepositoryWithDestroyAndDetachRepository extends RepositoryWith
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
+        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, true, false, () -> { {
           super.preDispose();
           this.$$arez$$_entities.dispose();
         } } );

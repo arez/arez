@@ -115,7 +115,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
+        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, true, false, () -> { {
           this.$$arezi$$_preDispose();
           this.$$arez$$_render1.dispose();
           this.$$arez$$_render2.dispose();

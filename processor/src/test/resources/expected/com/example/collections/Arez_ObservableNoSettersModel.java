@@ -118,7 +118,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
+        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, true, false, () -> { {
           this.$$arezi$$_preDispose();
           this.$$arez$$_collection.dispose();
           this.$$arez$$_set.dispose();

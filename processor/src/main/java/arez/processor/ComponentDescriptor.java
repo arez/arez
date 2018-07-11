@@ -2269,7 +2269,7 @@ final class ComponentDescriptor
 
     final CodeBlock.Builder actionBlock = CodeBlock.builder();
 
-    actionBlock.beginControlFlow( "$N().safeAction( $T.areNamesEnabled() ? $N() + $S : null, () -> {",
+    actionBlock.beginControlFlow( "$N().safeAction( $T.areNamesEnabled() ? $N() + $S : null, true, false, () -> {",
                                   getContextMethodName(),
                                   GeneratorUtil.AREZ_CLASSNAME,
                                   getComponentNameMethodName(),
