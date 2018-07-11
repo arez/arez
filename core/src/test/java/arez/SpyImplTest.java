@@ -1042,7 +1042,7 @@ public class SpyImplTest
 
     final ComputedValue<String> computedValue1 = context.computedValue( () -> "42" );
 
-    assertEquals( context.action( () -> spy.getValue( computedValue1 ) ), null );
+    assertEquals( spy.getValue( computedValue1 ), null );
   }
 
   @Test
@@ -1059,7 +1059,7 @@ public class SpyImplTest
     final ComputedValue<String> computedValue1 = context.computedValue( function );
     context.autorun( computedValue1::get );
 
-    assertEquals( context.action( () -> spy.getValue( computedValue1 ) ), "42" );
+    assertEquals( spy.getValue( computedValue1 ), "42" );
   }
 
   @Test
