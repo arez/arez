@@ -287,6 +287,7 @@ public class TransactionTest
     assertEquals( observable.getObservers().size(), 0 );
     assertNull( transaction.getObservables() );
     assertNotEquals( transaction.getId(), observable.getLastTrackerTransactionId() );
+    assertEquals( transaction.hasReadOrWriteOccurred(), false );
 
     transaction.observe( observable );
 
@@ -297,6 +298,7 @@ public class TransactionTest
 
     assertTrue( transaction.getObservables().contains( observable ) );
     assertEquals( transaction.getObservables().size(), 1 );
+    assertEquals( transaction.hasReadOrWriteOccurred(), true );
   }
 
   @Test
@@ -1397,10 +1399,12 @@ public class TransactionTest
     final Observable<?> observable = newObservable( context );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( transaction.hasReadOrWriteOccurred(), false );
 
     transaction.reportChanged( observable );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( transaction.hasReadOrWriteOccurred(), true );
   }
 
   @Test
@@ -1422,12 +1426,14 @@ public class TransactionTest
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( transaction.hasReadOrWriteOccurred(), false );
 
     Transaction.setTransaction( transaction );
     transaction.reportChanged( observable );
 
     assertEquals( observable.getLeastStaleObserverState(), ObserverState.STALE );
     assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( transaction.hasReadOrWriteOccurred(), true );
   }
 
   @Test

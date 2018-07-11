@@ -2,6 +2,13 @@
 
 ### Unreleased
 
+* **\[core\]** Add the `verifyActionRequired` parameter to the `ArezContext.action(...)` method that will
+  generate in invariant failure in development mode if an action has been declared that does not read
+  an `observable` or `computed` value or write to an `observable` value within the scope of the action.
+  If no reads or writes occur then there is typically no need to wrap the code in an action and thus an
+  invariant failure will help eliminate this code. The invariant check can omitted for code where it
+  is not possible to verify ahead of time whether an action is required or not.
+
 ### [v0.96](https://github.com/arez/arez/tree/v0.96) (2018-07-05)
 [Full Changelog](https://github.com/arez/arez/compare/v0.95...v0.96)
 

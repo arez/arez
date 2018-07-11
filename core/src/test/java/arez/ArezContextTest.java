@@ -280,6 +280,46 @@ public class ArezContextTest
   }
 
   @Test
+  public void action_verifyActionRequired_false()
+    throws Throwable
+  {
+    Arez.context().action( ValueUtil.randomString(), false, false, ValueUtil::randomString );
+    // If we get to here then we performed an action where no read or write occurred
+  }
+
+  @Test
+  public void action_verifyActionRequired_true_butInvariantsDisabled()
+    throws Throwable
+  {
+    ArezTestUtil.noCheckInvariants();
+
+    Arez.context().action( ValueUtil.randomString(), false, true, ValueUtil::randomString );
+    // If we get to here then we performed an action where no read or write occurred
+  }
+
+  @Test
+  public void action_verifyActionRequired_true()
+    throws Throwable
+  {
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Arez.context().action( "X", false, true, ValueUtil::randomString ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+  }
+
+  @Test
+  public void action_verifyActionRequired_true_is_default()
+    throws Throwable
+  {
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Arez.context().action( "X", (Function<String>) ValueUtil::randomString ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+  }
+
+  @Test
   public void action_function_minimalParameters()
     throws Throwable
   {

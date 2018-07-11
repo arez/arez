@@ -87,6 +87,11 @@ final class Transaction
    */
   @Nullable
   private ArrayList<Observable<?>> _observables;
+  /**
+   * The flag set if transaction interacts with Arez resources.
+   * This should only be accessed when {@link Arez#shouldCheckInvariants()} returns true.
+   */
+  private boolean _readOrWriteOccurred;
 
   /**
    * Return true if there is a transaction for speciffied context in progress.
@@ -440,6 +445,11 @@ final class Transaction
     }
   }
 
+  boolean hasReadOrWriteOccurred()
+  {
+    return _readOrWriteOccurred;
+  }
+
   int processPendingDeactivations()
   {
     if ( Arez.shouldCheckInvariants() )
@@ -512,6 +522,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
+      _readOrWriteOccurred = true;
       invariant( observable::isNotDisposed,
                  () -> "Arez-0142: Invoked observe on transaction named '" + getName() + "' for observable named '" +
                        observable.getName() + "' where the observable is disposed." );
@@ -590,6 +601,7 @@ final class Transaction
     preReportChanged( observable );
     if ( Arez.shouldCheckInvariants() )
     {
+      _readOrWriteOccurred = true;
       observable.invariantLeastStaleObserverState();
     }
 

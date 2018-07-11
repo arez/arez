@@ -1406,6 +1406,37 @@ public final class ArezContext
   {
     return action( generateNodeName( "Transaction", name ),
                    mutationToTransactionMode( mutation ),
+                   true,
+                   action,
+                   null,
+                   parameters );
+  }
+
+  /**
+   * Execute the supplied action in a transaction.
+   * The action may throw an exception.
+   *
+   * @param <T>                  the type of return value.
+   * @param name                 the name of the transaction.
+   * @param mutation             true if the action may modify state, false otherwise.
+   * @param verifyActionRequired true if the action will add invariant checks to ensure reads or writes occur within
+   *                             the scope of the action. If no reads or writes occur, the action need not be an
+   *                             action.
+   * @param action               the action to execute.
+   * @param parameters           the action parameters if any.
+   * @return the value returned from the action.
+   * @throws Exception if the action throws an an exception.
+   */
+  public <T> T action( @Nullable final String name,
+                       final boolean mutation,
+                       final boolean verifyActionRequired,
+                       @Nonnull final Function<T> action,
+                       @Nonnull final Object... parameters )
+    throws Throwable
+  {
+    return action( generateNodeName( "Transaction", name ),
+                   mutationToTransactionMode( mutation ),
+                   verifyActionRequired,
                    action,
                    null,
                    parameters );
@@ -1436,6 +1467,7 @@ public final class ArezContext
     }
     return action( generateNodeName( tracker ),
                    Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
+                   false,
                    action,
                    tracker,
                    parameters );
@@ -1443,6 +1475,7 @@ public final class ArezContext
 
   private <T> T action( @Nullable final String name,
                         @Nullable final TransactionMode mode,
+                        final boolean verifyActionRequired,
                         @Nonnull final Function<T> action,
                         @Nullable final Observer tracker,
                         @Nonnull final Object... parameters )
@@ -1465,6 +1498,12 @@ public final class ArezContext
       try
       {
         result = action.call();
+        if ( Arez.shouldCheckInvariants() && verifyActionRequired )
+        {
+          invariant( transaction::hasReadOrWriteOccurred,
+                     () -> "Arez-0185: Action named '" + name + "' completed but no reads or writes " +
+                           "occurred within the scope of the action." );
+        }
       }
       finally
       {
