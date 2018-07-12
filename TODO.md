@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Add ObservableIfInTransaction for reads that will allow you to optionally read some values outside transactions
+
 * Make sure javadoc patch applied to upstream buildr
 
 * References handled specially ...? Is this only importing reference tools from Replicant?
