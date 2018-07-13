@@ -775,7 +775,7 @@ public class ObservableTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0070: Attempting to remove observer named '" + observer.getName() +
-                  "' from observable named '" + observable.getName() + "' when observer is already " +
+                  "' from observable named '" + observable.getName() + "' when observer is not " +
                   "observing observable." );
   }
 

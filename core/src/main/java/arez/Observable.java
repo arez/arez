@@ -418,7 +418,7 @@ public final class Observable<T>
       invariantObserversLinked();
       invariant( () -> hasObserver( observer ),
                  () -> "Arez-0070: Attempting to remove observer named '" + observer.getName() + "' from observable " +
-                       "named '" + getName() + "' when observer is already observing observable." );
+                       "named '" + getName() + "' when observer is not observing observable." );
     }
     final ArrayList<Observer> observers = getObservers();
     observers.remove( observer );

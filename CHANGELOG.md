@@ -6,6 +6,8 @@
   observer (such as an an autorun), triggers a change that will result in rescheduling itself by
   adding a new observable that has `STALE` observers that are waiting to react. The invariant
   failure would be optimized out in production mode and there would be no impact of this bug.
+* **\[core\]** Fix message in invariant failure when attempted to remove an `Observer` from
+  an `Observable` when the `Observer` was not observing the `Observable`.
 
 ### [v0.97](https://github.com/arez/arez/tree/v0.97) (2018-07-12)
 [Full Changelog](https://github.com/arez/arez/compare/v0.96...v0.97)
