@@ -8,6 +8,7 @@
   failure would be optimized out in production mode and there would be no impact of this bug.
 * **\[core\]** Fix message in invariant failure when attempted to remove an `Observer` from
   an `Observable` when the `Observer` was not observing the `Observable`.
+* Move to a J2CL compatible variant of the jetbrains annotations.
 
 ### [v0.97](https://github.com/arez/arez/tree/v0.97) (2018-07-12)
 [Full Changelog](https://github.com/arez/arez/compare/v0.96...v0.97)
