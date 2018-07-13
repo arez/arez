@@ -810,7 +810,11 @@ final class Transaction
                        "of INACTIVE is not expected when tracker has not been disposed." );
     }
 
-    ObserverState newDerivationState = ObserverState.UP_TO_DATE;
+    // the newDerivation state should be ObserverState.UP_TO_DATE in most cases
+    // as that is what it was set to in beginTracking. However if an observer adds a
+    // new observable, the tracker itself is stale and the observable has a LeastStaleObserverState
+    // of STALE due to another observer, the newDerivationState value can be incorrect
+    ObserverState newDerivationState = _tracker.getState();
 
     boolean dependenciesChanged = false;
     int currentIndex = 0;

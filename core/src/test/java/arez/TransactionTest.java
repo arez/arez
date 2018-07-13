@@ -541,6 +541,45 @@ public class TransactionTest
   }
 
   @Test
+  public void completeTracking_addingNewObservableWhenTrackerIsAlreadyStaleAndObservableHasAnotherStaleObserver()
+  {
+    /*
+     * This scenario very was a long standing but infrequently triggered bug. It has been fixed but this
+     * somewhat specific test exists to avoid it ever returning.
+     */
+    final ArezContext context = Arez.context();
+    final Observer tracker = newReadWriteObserver( context );
+    final Observer observer2 = newReadWriteObserver( context );
+
+    final Transaction transaction =
+      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, tracker );
+    Transaction.setTransaction( transaction );
+
+    tracker.setState( ObserverState.STALE );
+    observer2.setState( ObserverState.STALE );
+
+    // Setup existing observable dependency
+    final Observable<?> observable = newObservable( context );
+
+    observer2.getDependencies().add( observable );
+    observable.getObservers().add( observer2 );
+    observable.setLeastStaleObserverState( observer2.getState() );
+
+    final ArrayList<Observable<?>> dependencies = tracker.getDependencies();
+
+    transaction.observe( observable );
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getState(), ObserverState.STALE );
+    assertTrue( tracker.getDependencies() != dependencies );
+    assertEquals( tracker.getDependencies().size(), 1 );
+    assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
+    assertEquals( observable.getObservers().size(), 2 );
+    assertEquals( observable.getLeastStaleObserverState(), ObserverState.STALE );
+  }
+
+  @Test
   public void completeTracking_noNewObservablesButExistingObservables()
   {
     final ArezContext context = Arez.context();
