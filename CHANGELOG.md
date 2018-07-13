@@ -3,6 +3,8 @@
 ### Unreleased
 
 * Replace the jetbrains annotation library with a J2CL compatible replacement.
+* Add the jetbrains annotation library to the pom as a compile dependency. This
+  is required for compatibility with the current J2CL maven plugin.
 
 ### [v0.20](https://github.com/arez/arez-spytools/tree/v0.20) (2018-07-05)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.19...v0.20)
