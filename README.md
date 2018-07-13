@@ -2,6 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/arez/arez-spytools.png?branch=master)](http://travis-ci.org/arez/arez-spytools)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez.spytools/arez-spytools.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez.spytools%22)
+![GWT3/J2CL compatible](https://img.shields.io/badge/GWT3/J2CL-compatible-brightgreen.svg)
 
 This library provides additional utilities and introspection tools based on the core Arez spy infrastructure.
 
