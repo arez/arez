@@ -1,12 +1,14 @@
 package arez;
 
 import javax.annotation.Nonnull;
+import jsinterop.annotations.JsFunction;
 
 /**
  * Interface that accepts an {@link Observer} that has been scheduled and
  * performs the actions required to run observer.
  */
 @FunctionalInterface
+@JsFunction
 interface Reaction
 {
   /**
@@ -15,6 +17,6 @@ interface Reaction
    * @param observer the observer of changes.
    * @throws Throwable if there is an error reacting to changes.
    */
-  void react( @Nonnull Observer observer )
+  void react( @SuppressWarnings( "unusable-by-js" ) @Nonnull Observer observer )
     throws Throwable;
 }
