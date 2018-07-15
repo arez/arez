@@ -2,7 +2,6 @@
 
 [![Build Status](https://secure.travis-ci.org/arez/arez-promise.png?branch=master)](http://travis-ci.org/arez/arez-promise)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez.promise/arez-promise.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez.promise%22)
-![GWT3/J2CL compatible](https://img.shields.io/badge/GWT3/J2CL-compatible-brightgreen.svg)
 
 This library provides an Arez browser component that wraps a Promise and exposes observable
 state that tracks the state of the promise.
