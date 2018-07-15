@@ -112,3 +112,31 @@ complete as there is too much un-said.
     containership.
   - deserialization strategies to various mediums (i.e. json etc) and how dow we resolve references. How
     do we do it late? Is this extracting a part of replicant into core Arez?
+
+## Incremental
+
+* An Ocaml framework that is very similar conceptually to Arez's core (Observable = variable,
+  incremental = computed, observer = observer). They manually trigger scheduling (via stabilize call)
+  and assume a DAG rather than a graph that will eventually stabilize.
+
+* Interestingly it also supports persistent data structures from functional programming paradigms. This
+  feels very similar to the `CachedRelationship` from Rose.
+  
+* It also allows better control over which dependencies fire. i.e. Imagine you have a flag that indicates
+  UI component that is selected. Each time it changes, all UI components need to refire to calculate boolean
+  (probably `@Computed`) variable `"isSelected"`. Incremental can control dependencies that will fire and
+  will only fire the two that need changing (i.e. the one going from selected to not selected and the one
+  going from non selected to selected). It seems they do this by getting before and after values and and
+  potentially dependency list and then writing custom change code. This approach is common when interacting
+  with imperative API. VirtualDOM is like this. Compute the desired state, then perform diff against last
+  state and perform patching against actual DOM to align. So get two variables (before VDOM, after VDOM)
+  and use diff and patch operations to apply effects.
+
+* It suggests that Arez should support some intelligent propagation of changes from Observables. Translating
+  the concepts into Arez there seems to be two strategies for doing this. Allowing the observer to receive
+  change messages that include the old state and the new state and writing the observer so that it can
+  incrementally apply changes. It may also mean adding hooks to `Observable` and `ComputedValue` instances
+  such that they can determine which dependencies that they will update on changes.
+
+* https://github.com/janestreet/incremental
+* https://www.youtube.com/watch?v=HNiFiLVg20k
