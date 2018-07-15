@@ -2,7 +2,6 @@
 
 [![Build Status](https://secure.travis-ci.org/arez/arez-ticker.png?branch=master)](http://travis-ci.org/arez/arez-ticker)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez.ticker/arez-ticker.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez.ticker%22)
-![GWT3/J2CL compatible](https://img.shields.io/badge/GWT3/J2CL-compatible-brightgreen.svg)
 
 This library provides an Observable model that "ticks" at a specified interval. The tick is actually
 updating the "tickTime" observable property. The ticks are only generated when there is an observer
