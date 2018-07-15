@@ -7,6 +7,8 @@ complete as there is too much un-said.
 ## Enhancements
 
 * Add ObservableIfInTransaction for reads that will allow you to optionally read some values outside transactions
+  i.e. Read `props()` in react4j from callbacks that are not arez-enabled and no need to be. Or should this be done
+  in react4j generator?
 
 * Make sure javadoc patch applied to upstream buildr
 
