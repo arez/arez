@@ -13,9 +13,9 @@ develop Arez applications using an IDE and this is the recommended approach.
 To configure Maven to support Arez you need to add a dependency on the library as well as
 configure the compiler to use the Arez annotation processor.
 
-Most Arez applications make use of the annotation driven [component model](components.md) and
-will thus use of the `arez-component` artifact. To add this library to your Maven project, simply
-add the following to your `pom.xml`:
+The core elements of Arez as well as the annotations and infrastructure for the annotation driven
+[component model](components.md) are included in the `arez-core` artifact. To add this library to
+your Maven project, simply add the following to your `pom.xml`:
 
 ```xml
 <project>
@@ -24,7 +24,7 @@ add the following to your `pom.xml`:
     ...
     <dependency>
       <groupId>org.realityforge.arez</groupId>
-      <artifactId>arez-component</artifactId>
+      <artifactId>arez-core</artifactId>
       <version>0.97</version>
     </dependency>
     ...
@@ -60,26 +60,6 @@ snippet to configure the maven compiler plugin from within the `pom.xml`:
       ...
     </plugins>
   </build>
-</project>
-```
-
-
-Note: Some projects will not use the component model and will thus not need to depend on
-the `arez-components` artifact, nor will they need to enable the annotation processor, in
-which case it is sufficient to add the following snippet into your `pom.xml`:
-
-```xml
-<project>
-  ...
-  <dependencies>
-    ...
-    <dependency>
-      <groupId>org.realityforge.arez</groupId>
-      <artifactId>arez-core</artifactId>
-      <version>0.97</version>
-    </dependency>
-    ...
-  </dependencies>
 </project>
 ```
 
