@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.98](https://github.com/arez/arez/tree/v0.98) (2018-07-16)
+[Full Changelog](https://github.com/arez/arez/compare/v0.97...v0.98)
 
 * **\[core\]** Fix a long-standing bug that could result in invariant failure when a `READ_WRITE`
   observer (such as an an autorun), triggers a change that will result in rescheduling itself by
