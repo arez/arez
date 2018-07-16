@@ -126,7 +126,7 @@ complete as there is too much un-said.
 
 * Interestingly it also supports persistent data structures from functional programming paradigms. This
   feels very similar to the `CachedRelationship` from Rose.
-  
+
 * It also allows better control over which dependencies fire. i.e. Imagine you have a flag that indicates
   UI component that is selected. Each time it changes, all UI components need to refire to calculate boolean
   (probably `@Computed`) variable `"isSelected"`. Incremental can control dependencies that will fire and
