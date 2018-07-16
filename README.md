@@ -20,7 +20,7 @@ The simplest way to use component;
 <dependency>
    <groupId>org.realityforge.arez.networkstatus</groupId>
    <artifactId>arez-networkstatus</artifactId>
-   <version>0.23</version>
+   <version>0.24</version>
 </dependency>
 ```
 
