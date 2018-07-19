@@ -3,6 +3,8 @@
 ### Unreleased
 
 * Update the `org.realityforge.guiceyloops:guiceyloops:jar` dependency to version `0.95`.
+* Upgrade the `org.realityforge.braincheck:braincheck:jar` dependency to `1.12.0` to include
+  closure defines for braincheck compile-time constants.
 
 ### [v0.98](https://github.com/arez/arez/tree/v0.98) (2018-07-16)
 [Full Changelog](https://github.com/arez/arez/compare/v0.97...v0.98)
