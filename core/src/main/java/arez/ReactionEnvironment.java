@@ -1,12 +1,14 @@
 package arez;
 
 import javax.annotation.Nonnull;
+import jsinterop.annotations.JsFunction;
 
 /**
  * Interface that used to setup environment in which to run reactions.
  * Typically this is used to flag other systems to enable change batching etc.
  */
 @FunctionalInterface
+@JsFunction
 public interface ReactionEnvironment
 {
   /**

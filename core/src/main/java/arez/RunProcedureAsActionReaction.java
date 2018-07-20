@@ -19,7 +19,7 @@ final class RunProcedureAsActionReaction
    * {@inheritDoc}
    */
   @Override
-  public void react( @Nonnull final Observer observer )
+  public void react( @SuppressWarnings("unusable-by-js")  @Nonnull final Observer observer )
     throws Throwable
   {
     final Procedure action;

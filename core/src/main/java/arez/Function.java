@@ -1,11 +1,14 @@
 package arez;
 
+import jsinterop.annotations.JsFunction;
+
 /**
  * Functional interface for returning a value.
  *
  * @param <T> The type of the returned value.
  */
 @FunctionalInterface
+@JsFunction
 public interface Function<T>
 {
   /**
