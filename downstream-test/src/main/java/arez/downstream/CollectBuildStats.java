@@ -43,7 +43,7 @@ public final class CollectBuildStats
     Gir.go( () -> {
       final boolean storeStatistics =
         System.getProperty( "arez.deploy_test.store_statistics", "false" ).equals( "true" );
-      final String version = SystemProperty.get( "arez.version" );
+      final String version = SystemProperty.get( "arez.next.version" );
       final OrderedProperties overallStatistics = new OrderedProperties();
       final Path workingDirectory =
         Paths.get( SystemProperty.get( "arez.deploy_test.work_dir" ) ).toAbsolutePath().normalize();

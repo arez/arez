@@ -213,8 +213,8 @@ define 'arez' do
 
     test.options[:properties] =
       AREZ_TEST_OPTIONS.merge(
-        # Take the version that we are releasing else fallback to project version
-        'arez.version' => ENV['PRODUCT_VERSION'] || project.version,
+        'arez.current.version' => ENV['PREVIOUS_PRODUCT_VERSION'] || project.version,
+        'arez.next.version' => ENV['PRODUCT_VERSION'] || project.version,
         'arez.deploy_test.fixture_dir' => _('src/test/resources/fixtures').to_s,
         'arez.deploy_test.work_dir' => _(:target, 'deploy_test/workdir').to_s
       )
@@ -256,7 +256,8 @@ define 'arez' do
 
       properties = {}
       # Take the version that we are releasing else fallback to project version
-      properties['arez.version'] = ENV['PRODUCT_VERSION'] || project.version
+      properties['arez.current.version'] = ENV['PREVIOUS_PRODUCT_VERSION'] || project.version
+      properties['arez.next.version'] = ENV['PRODUCT_VERSION'] || project.version
       properties['arez.deploy_test.work_dir'] = _(:target, 'deploy_test/workdir').to_s
       properties['arez.deploy_test.fixture_dir'] = _('src/test/resources/fixtures').to_s
       properties['arez.deploy_test.local_repository_url'] = local_test_repository_url
@@ -322,7 +323,7 @@ define 'arez' do
   iml.excluded_directories << project._('tmp/gwt')
   iml.excluded_directories << project._('tmp')
 
-  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.entity_fixture_dir=entity/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.version=X -Darez.core.compile_target=target/arez_core/idea/classes')
+  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.entity_fixture_dir=entity/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.current.version=X -Darez.next.version=X -Darez.core.compile_target=target/arez_core/idea/classes')
   ipr.add_component_from_artifact(:idea_codestyle)
 
   DOC_EXAMPLES.each do |gwt_module|

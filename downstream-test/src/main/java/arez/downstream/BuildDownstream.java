@@ -39,7 +39,7 @@ public final class BuildDownstream
     throws Exception
   {
     Gir.go( () -> {
-      final String version = SystemProperty.get( "arez.version" );
+      final String version = SystemProperty.get( "arez.next.version" );
       final Path workingDirectory =
         Paths.get( SystemProperty.get( "arez.deploy_test.work_dir" ) ).toAbsolutePath().normalize();
 
