@@ -85,15 +85,14 @@ public final class CollectBuildStats
               if ( Git.remoteTrackingBranches().contains( "origin/" + newBranch ) )
               {
                 Git.checkout( newBranch );
+                Git.resetBranch( "origin/" + newBranch );
               }
               else
               {
                 Git.checkout( branch );
+                Git.clean();
+                Git.checkout( newBranch, true );
               }
-              Git.clean();
-
-              Git.checkout( newBranch, true );
-              Git.clean();
 
               Gir.messenger().info( "Building branch " + branch + " prior to modifications." );
               boolean initialBuildSuccess = false;
