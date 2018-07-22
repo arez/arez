@@ -76,64 +76,37 @@ public final class CollectBuildStats
           Git.checkout();
           Git.pull();
           Git.deleteLocalBranches();
-          Stream.of( "raw", "arez", "dagger", "raw_maven", "arez_maven", "dagger_maven" ).forEach( branch -> {
-              Gir.messenger().info( "Processing branch " + branch + "." );
+          Stream.of( "raw",
+                     "arez",
+                     "dagger",
+                     "raw_maven",
+                     "arez_maven",
+                     "dagger_maven",
+                     "raw_maven_j2cl",
+                     "arez_maven_j2cl",
+                     "dagger_maven_j2cl" ).forEach( branch -> {
+            Gir.messenger().info( "Processing branch " + branch + "." );
 
-              final boolean isMaven = branch.endsWith( "_maven" );
+            final boolean isMaven = branch.contains( "_maven" );
+            final boolean isj2cl = branch.contains( "_j2cl" );
 
-              final String newBranch = branch + "-ArezUpgrade-" + version;
-              if ( Git.remoteTrackingBranches().contains( "origin/" + newBranch ) )
-              {
-                Git.checkout( newBranch );
-                Git.resetBranch( "origin/" + newBranch );
-              }
-              else
-              {
-                Git.checkout( branch );
-                Git.clean();
-                Git.checkout( newBranch, true );
-              }
-
-              Gir.messenger().info( "Building branch " + branch + " prior to modifications." );
-              boolean initialBuildSuccess = false;
-              try
-              {
-                if ( isMaven )
-                {
-                  customizeMaven( appDirectory, localRepositoryUrl );
-                }
-                else
-                {
-                  customizeBuildr( appDirectory, localRepositoryUrl );
-                }
-
-                final String prefix = branch + ".before";
-                final Path archiveDir = getArchiveDir( workingDirectory, prefix );
-                buildAndRecordStatistics( archiveDir, !isMaven );
-                loadStatistics( overallStatistics, archiveDir, prefix );
-                initialBuildSuccess = true;
-              }
-              catch ( final GirException | IOException e )
-              {
-                Gir.messenger().info( "Failed to build branch '" + branch + "' before modifications.", e );
-              }
-
-              Git.resetBranch();
+            final String newBranch = branch + "-ArezUpgrade-" + version;
+            if ( Git.remoteTrackingBranches().contains( "origin/" + newBranch ) )
+            {
+              Git.checkout( newBranch );
+              Git.resetBranch( "origin/" + newBranch );
+            }
+            else
+            {
+              Git.checkout( branch );
               Git.clean();
+              Git.checkout( newBranch, true );
+            }
 
-              if ( isMaven )
-              {
-                Maven.patchPomProperty( appDirectory,
-                                        () -> "Update the 'arez' dependencies to version '" + version + "'",
-                                        "arez.version",
-                                        version );
-              }
-              else
-              {
-                Buildr.patchBuildYmlDependency( appDirectory, "org.realityforge.arez", version );
-              }
-
-              Gir.messenger().info( "Building branch " + branch + " after modifications." );
+            Gir.messenger().info( "Building branch " + branch + " prior to modifications." );
+            boolean initialBuildSuccess = false;
+            try
+            {
               if ( isMaven )
               {
                 customizeMaven( appDirectory, localRepositoryUrl );
@@ -143,51 +116,87 @@ public final class CollectBuildStats
                 customizeBuildr( appDirectory, localRepositoryUrl );
               }
 
-              final String prefix = branch + ".after";
+              final String prefix = branch + ".before";
               final Path archiveDir = getArchiveDir( workingDirectory, prefix );
-              try
+              buildAndRecordStatistics( archiveDir, !isMaven, isj2cl );
+              loadStatistics( overallStatistics, archiveDir, prefix );
+              initialBuildSuccess = true;
+            }
+            catch ( final GirException | IOException e )
+            {
+              Gir.messenger().info( "Failed to build branch '" + branch + "' before modifications.", e );
+            }
+
+            Git.resetBranch();
+            Git.clean();
+
+            if ( isMaven )
+            {
+              Maven.patchPomProperty( appDirectory,
+                                      () -> "Update the 'arez' dependencies to version '" + version + "'",
+                                      "arez.version",
+                                      version );
+            }
+            else
+            {
+              Buildr.patchBuildYmlDependency( appDirectory, "org.realityforge.arez", version );
+            }
+
+            Gir.messenger().info( "Building branch " + branch + " after modifications." );
+            if ( isMaven )
+            {
+              customizeMaven( appDirectory, localRepositoryUrl );
+            }
+            else
+            {
+              customizeBuildr( appDirectory, localRepositoryUrl );
+            }
+
+            final String prefix = branch + ".after";
+            final Path archiveDir = getArchiveDir( workingDirectory, prefix );
+            try
+            {
+              buildAndRecordStatistics( archiveDir, !isMaven, isj2cl );
+              loadStatistics( overallStatistics, archiveDir, prefix );
+              if ( !isMaven || isj2cl )
               {
-                buildAndRecordStatistics( archiveDir, !isMaven );
-                loadStatistics( overallStatistics, archiveDir, prefix );
-                if ( !isMaven )
-                {
-                  loadStatistics( fixtureStatistics, archiveDir, version + "." + branch );
-                }
-                if ( isMaven )
-                {
-                  // Reset is required to remove changes that were made to the pom to add local repository
-                  Git.resetBranch();
-                }
-                Git.checkout( branch );
-                Exec.system( "git", "merge", newBranch );
-                Git.deleteBranch( newBranch );
+                loadStatistics( fixtureStatistics, archiveDir, version + "." + branch );
               }
-              catch ( final GirException | IOException e )
+              if ( isMaven )
               {
-                if ( !initialBuildSuccess )
-                {
-                  Gir.messenger().error( "Failed to build branch '" + branch + "' before modifications " +
-                                         "but branch also failed prior to modifications.", e );
-                }
-                else
-                {
-                  Gir.messenger().error( "Failed to build branch '" + branch + "' after modifications.", e );
-                }
-                FileUtil.deleteDir( archiveDir );
+                // Reset is required to remove changes that were made to the pom to add local repository
+                Git.resetBranch();
+              }
+              Git.checkout( branch );
+              Exec.system( "git", "merge", newBranch );
+              Git.deleteBranch( newBranch );
+            }
+            catch ( final GirException | IOException e )
+            {
+              if ( !initialBuildSuccess )
+              {
+                Gir.messenger().error( "Failed to build branch '" + branch + "' before modifications " +
+                                       "but branch also failed prior to modifications.", e );
+              }
+              else
+              {
+                Gir.messenger().error( "Failed to build branch '" + branch + "' after modifications.", e );
+              }
+              FileUtil.deleteDir( archiveDir );
                 /*
                  * If the build has failed for one of the downstream projects then make sure the command fails.
                  */
-                if ( e instanceof GirException )
-                {
-                  //noinspection RedundantCast
-                  throw (GirException) e;
-                }
-                else
-                {
-                  throw new GirException( e );
-                }
+              if ( e instanceof GirException )
+              {
+                //noinspection RedundantCast
+                throw (GirException) e;
               }
-            } );
+              else
+              {
+                throw new GirException( e );
+              }
+            }
+          } );
         } );
       } );
 
@@ -262,7 +271,9 @@ public final class CollectBuildStats
     }
   }
 
-  private static void buildAndRecordStatistics( @Nonnull final Path archiveDir, final boolean useBuildr )
+  private static void buildAndRecordStatistics( @Nonnull final Path archiveDir,
+                                                final boolean useBuildr,
+                                                final boolean isj2cl )
   {
     if ( !archiveDir.toFile().mkdirs() )
     {
@@ -276,6 +287,13 @@ public final class CollectBuildStats
       Ruby.buildr( "clean", "package", "EXCLUDE_GWT_DEV_MODULE=true", "GWT=react4j-todomvc" );
 
       archiveBuildrOutput( archiveDir );
+    }
+    else if ( isj2cl )
+    {
+      // Assume maven
+      Exec.system( "mvn", "clean", "package", "-Pdevmode" );
+
+      archivej2clOutput( archiveDir );
     }
     else
     {
@@ -291,7 +309,12 @@ public final class CollectBuildStats
   {
     final OrderedProperties properties = new OrderedProperties();
     properties.setProperty( "todomvc.size", String.valueOf( getTodoMvcSize( archiveDir ) ) );
-    properties.setProperty( "todomvc.gz.size", String.valueOf( getTodoMvcGzSize( archiveDir ) ) );
+    final long todoMvcGzSize = getTodoMvcGzSize( archiveDir );
+    if ( 0 != todoMvcGzSize )
+    {
+      //j2cl does not produce a gzipped version so no need to include 0 all the time
+      properties.setProperty( "todomvc.gz.size", String.valueOf( todoMvcGzSize ) );
+    }
 
     final Path statisticsFile = archiveDir.resolve( "statistics.properties" );
     Gir.messenger().info( "Archiving statistics to " + statisticsFile + "." );
@@ -306,12 +329,43 @@ public final class CollectBuildStats
                       archiveDir.resolve( "compileReports" ) );
   }
 
+  private static void archivej2clOutput( @Nonnull final Path archiveDir )
+  {
+    archiveDirectory( FileUtil.getCurrentDirectory().resolve( "out/sources" ), archiveDir.resolve( "sources" ) );
+    archiveFile( FileUtil.getCurrentDirectory().resolve( "out/app.js" ),
+                 archiveDir.resolve( "assets/todomvc/todomvc.nocache.js" ) );
+    archiveFile( FileUtil.getCurrentDirectory().resolve( "out/app.map" ),
+                 archiveDir.resolve( "assets/todomvc/todomvc.nocache.map" ) );
+  }
+
   private static void archiveMavenOutput( @Nonnull final Path archiveDir )
   {
     archiveDirectory( FileUtil.getCurrentDirectory().resolve( "target/react4j-todomvc-1.0.0-SNAPSHOT" ),
                       archiveDir.resolve( "assets" ) );
     archiveDirectory( FileUtil.getCurrentDirectory().resolve( "target/extras" ),
                       archiveDir.resolve( "compileReports" ) );
+  }
+
+  private static void archiveFile( @Nonnull final Path sourceFilename, @Nonnull final Path targetFilename )
+  {
+    Gir.messenger().info( "Archiving output file " + sourceFilename + " to " + targetFilename );
+    try
+    {
+      final Path dir = targetFilename.getParent();
+      if ( !dir.toFile().exists() )
+      {
+        if ( !dir.toFile().mkdirs() )
+        {
+          Gir.messenger().error( "Failed to create archive directory: " + dir );
+        }
+      }
+      Files.copy( sourceFilename, targetFilename );
+    }
+    catch ( final IOException e )
+    {
+      final String message = "Failed to archive file: " + sourceFilename;
+      Gir.messenger().error( message, e );
+    }
   }
 
   private static void archiveDirectory( @Nonnull final Path assetsDir, @Nonnull final Path targetDir )

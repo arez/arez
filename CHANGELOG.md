@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* **\[downstream-test\]** Test against output of J2CL over time to ensure that no size regressions occur.
+
 ### [v0.99](https://github.com/arez/arez/tree/v0.99) (2018-07-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.98...v0.99)
 
