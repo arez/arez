@@ -4,6 +4,10 @@
 
 * **\[downstream-test\]** Test against output of J2CL over time to ensure that no size regressions occur.
 * Update the release process to artifacts staged in previous releases.
+* **\[processor\]** Change the mechanisms via which `@ArezComponent( disposeOnDeactivate = true )` is
+  implemented so that the reaction scheduling the dispose is at a `HIGH` priority. This will avoid the
+  scenario where `@Autorun` and `@Computed` methods react on a component that will be disposed because it
+  is no longer being observed.
 
 ### [v0.99](https://github.com/arez/arez/tree/v0.99) (2018-07-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.98...v0.99)
