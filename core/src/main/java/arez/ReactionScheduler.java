@@ -362,9 +362,4 @@ final class ReactionScheduler
   {
     return _remainingReactionsInCurrentRound;
   }
-
-  void setCurrentReactionRound( final int currentReactionRound )
-  {
-    _currentReactionRound = currentReactionRound;
-  }
 }
