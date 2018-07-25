@@ -8,6 +8,9 @@
   implemented so that the reaction scheduling the dispose is at a `HIGH` priority. This will avoid the
   scenario where `@Autorun` and `@Computed` methods react on a component that will be disposed because it
   is no longer being observed.
+* **\[processor\]** Fix a bug that would result in an invariant failure when creating top-level arez elements
+  (i.e. those without an associated native component) when `Arez.areNativeComponentsEnabled()` returns false
+  but `Arez.areRegistriesEnabled()` returns true.
 
 ### [v0.99](https://github.com/arez/arez/tree/v0.99) (2018-07-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.98...v0.99)

@@ -2166,16 +2166,19 @@ final class ComponentDescriptor
       if ( _nameIncludesId )
       {
         block.beginControlFlow(
-          "if ( $T.shouldCheckInvariants() && !$T.areNamesEnabled() && !$T.areNativeComponentsEnabled() )",
+          "if ( $T.shouldCheckInvariants() && !$T.areNamesEnabled() && !$T.areRegistriesEnabled() && !$T.areNativeComponentsEnabled() )",
+          GeneratorUtil.AREZ_CLASSNAME,
           GeneratorUtil.AREZ_CLASSNAME,
           GeneratorUtil.AREZ_CLASSNAME,
           GeneratorUtil.AREZ_CLASSNAME );
       }
       else
       {
-        block.beginControlFlow( "if ( $T.shouldCheckInvariants() && !$T.areNativeComponentsEnabled() )",
-                                GeneratorUtil.AREZ_CLASSNAME,
-                                GeneratorUtil.AREZ_CLASSNAME );
+        block.beginControlFlow(
+          "if ( $T.shouldCheckInvariants() && !$T.areRegistriesEnabled() && !$T.areNativeComponentsEnabled() )",
+          GeneratorUtil.AREZ_CLASSNAME,
+          GeneratorUtil.AREZ_CLASSNAME,
+          GeneratorUtil.AREZ_CLASSNAME );
       }
       block.addStatement( "$T.fail( () -> \"Method invoked to access id when id not expected.\" )",
                           GeneratorUtil.GUARDS_CLASSNAME );

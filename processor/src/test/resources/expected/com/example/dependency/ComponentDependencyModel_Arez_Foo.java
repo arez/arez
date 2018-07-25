@@ -56,7 +56,7 @@ final class ComponentDependencyModel_Arez_Foo extends ComponentDependencyModel.F
   }
 
   final int $$arezi$$_id() {
-    if ( Arez.shouldCheckInvariants() && !Arez.areNamesEnabled() && !Arez.areNativeComponentsEnabled() ) {
+    if ( Arez.shouldCheckInvariants() && !Arez.areNamesEnabled() && !Arez.areRegistriesEnabled() && !Arez.areNativeComponentsEnabled() ) {
       Guards.fail( () -> "Method invoked to access id when id not expected." );
     }
     return this.$$arezi$$_id;
