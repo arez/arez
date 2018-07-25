@@ -10,6 +10,8 @@ complete as there is too much un-said.
   i.e. Read `props()` in react4j from callbacks that are not arez-enabled and no need to be. Or should this be done
   in react4j generator?
 
+* Actions should be disallowed from Computed by default as they break the derivation model.
+
 * Should actions be disallowed from observer by default? Only observers that specifically allow actions
   should support this?
 
