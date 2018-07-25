@@ -190,7 +190,11 @@ public class ReactionSchedulerTest
   {
     final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
 
+    assertEquals( scheduler.hasTasksToSchedule(), false );
+
     scheduler.scheduleDispose( newObservable() );
+
+    assertEquals( scheduler.hasTasksToSchedule(), true );
 
     setCurrentTransaction( newReadWriteObserver() );
 
@@ -211,11 +215,13 @@ public class ReactionSchedulerTest
     final Observer observer = newReadOnlyObserver();
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
+    assertEquals( scheduler.hasTasksToSchedule(), false );
 
     scheduler.scheduleReaction( observer );
 
     assertEquals( scheduler.getPendingObservers().size(), 1 );
     assertEquals( scheduler.getPendingObservers().contains( observer ), true );
+    assertEquals( scheduler.hasTasksToSchedule(), true );
   }
 
   @Test
@@ -246,11 +252,14 @@ public class ReactionSchedulerTest
                                              false );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
+    assertEquals( scheduler.hasTasksToSchedule(), false );
 
     scheduler.scheduleReaction( observer1 );
     scheduler.scheduleReaction( observer2 );
     scheduler.scheduleReaction( observer3 );
     scheduler.scheduleReaction( observer4 );
+
+    assertEquals( scheduler.hasTasksToSchedule(), true );
 
     assertEquals( scheduler.getPendingObservers( Priority.HIGH ).size(), 2 );
     assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).size(), 2 );
@@ -343,6 +352,7 @@ public class ReactionSchedulerTest
                                              false );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
+    assertEquals( scheduler.hasTasksToSchedule(), false );
 
     scheduler.scheduleReaction( observer1 );
     scheduler.scheduleReaction( observer2 );
@@ -353,6 +363,7 @@ public class ReactionSchedulerTest
     scheduler.scheduleReaction( observer7 );
     scheduler.scheduleReaction( observer8 );
 
+    assertEquals( scheduler.hasTasksToSchedule(), true );
     assertEquals( scheduler.getPendingObservers( Priority.HIGH ).size(), 2 );
     assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).size(), 2 );
     assertEquals( scheduler.getPendingObservers( Priority.LOW ).size(), 2 );
@@ -390,6 +401,7 @@ public class ReactionSchedulerTest
   public void runObserver_singlePendingObserver()
     throws Exception
   {
+    Arez.context().markSchedulerAsActive();
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
     final Observer observer = newReadWriteObserver();
@@ -463,6 +475,7 @@ public class ReactionSchedulerTest
   public void runObserver_multiplePendingObservers()
     throws Exception
   {
+    Arez.context().markSchedulerAsActive();
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
     setupReadWriteTransaction();
@@ -575,11 +588,13 @@ public class ReactionSchedulerTest
     assertEquals( reactions[ 9 ].getCallCount(), 1 );
   }
 
-  @Test( timeOut = 5000L )
+  @Test//( timeOut = 5000L )
   public void runObserver_RunawayReactionsDetected()
     throws Exception
   {
     ArezTestUtil.purgeReactionsWhenRunawayDetected();
+    setIgnoreObserverErrors( true );
+    setPrintObserverErrors( false );
 
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
@@ -599,7 +614,7 @@ public class ReactionSchedulerTest
     final Observer toSchedule =
       new Observer( Arez.context(),
                     null,
-                    ValueUtil.randomString(),
+                    "MyObserver",
                     null,
                     TransactionMode.READ_WRITE,
                     reaction,
@@ -619,6 +634,8 @@ public class ReactionSchedulerTest
     Transaction.setTransaction( null );
 
     scheduler.setMaxReactionRounds( 20 );
+
+    Arez.context().markSchedulerAsActive();
 
     final AtomicInteger reactionCount = new AtomicInteger();
     final IllegalStateException exception =
@@ -686,6 +703,8 @@ public class ReactionSchedulerTest
     Transaction.setTransaction( null );
 
     scheduler.setMaxReactionRounds( 20 );
+
+    Arez.context().markSchedulerAsActive();
 
     final AtomicInteger reactionCount = new AtomicInteger();
     while ( scheduler.runObserver() )
@@ -871,40 +890,5 @@ public class ReactionSchedulerTest
     {
       assertTrue( Disposable.isDisposed( disposable ) );
     }
-  }
-
-  @Test
-  public void runPendingTasks_avoidRunningIfAlreadyRunning()
-    throws Exception
-  {
-    final ReactionScheduler scheduler = Arez.context().getScheduler();
-
-    final Observer observer = newReadWriteObserver();
-
-    setCurrentTransaction( observer );
-
-    observer.setState( ObserverState.UP_TO_DATE );
-    //observer has reaction so setStale should result in reschedule
-    observer.setState( ObserverState.STALE );
-
-    Transaction.setTransaction( null );
-
-    assertEquals( observer.isScheduled(), true );
-    assertEquals( scheduler.getPendingObservers().size(), 1 );
-    assertEquals( scheduler.getCurrentReactionRound(), 0 );
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
-
-    // Trick the schedule into thinking that it is currently running
-    scheduler.setCurrentReactionRound( 1 );
-
-    assertEquals( scheduler.getPendingObservers().size(), 1 );
-    scheduler.runPendingTasks();
-    assertEquals( scheduler.getPendingObservers().size(), 1 );
-
-    // Make t he scheduler think it is no longer running
-    scheduler.setCurrentReactionRound( 0 );
-
-    scheduler.runPendingTasks();
-    assertEquals( scheduler.getPendingObservers().size(), 0 );
   }
 }

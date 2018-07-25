@@ -71,6 +71,26 @@ public class ArezContextTest
   }
 
   @Test
+  public void triggerScheduler_alreadyActive()
+  {
+    final ArezContext context = Arez.context();
+    final AtomicInteger callCount = new AtomicInteger();
+
+    context.autorun( ValueUtil.randomString(), false, () -> {
+      observeADependency();
+      callCount.incrementAndGet();
+    }, false );
+
+    assertEquals( callCount.get(), 0 );
+
+    context.markSchedulerAsActive();
+
+    context.triggerScheduler();
+
+    assertEquals( callCount.get(), 0 );
+  }
+
+  @Test
   public void triggerScheduler_inEnvironment()
   {
     final ArezContext context = Arez.context();
@@ -96,6 +116,50 @@ public class ArezContextTest
     context.triggerScheduler();
 
     assertEquals( callCount.get(), 1 );
+    assertEquals( environment.get(), null );
+  }
+
+  @Test
+  public void triggerScheduler_inEnvironment_whereEnvironmentSchedulesActions()
+  {
+    final ArezContext context = Arez.context();
+    final AtomicInteger callCount = new AtomicInteger();
+    final AtomicReference<String> environment = new AtomicReference<>();
+
+    final AtomicInteger count = new AtomicInteger( 3 );
+    final AtomicReference<Observer> observerReference = new AtomicReference<>();
+    context.setEnvironment( a -> {
+      environment.set( "RED" );
+      a.call();
+      /*
+       * This simulates the scenario where something like react4j has only scheduler that will
+       * react to changes in arez and potentially re-schedule arez events.
+       */
+      if ( count.decrementAndGet() > 0 )
+      {
+        context.safeAction( null, true, false, () -> observerReference.get().setState( ObserverState.STALE ) );
+      }
+      environment.set( null );
+    } );
+
+    final Observer observer =
+      context.autorun( ValueUtil.randomString(), false, () -> {
+        final Observable<Object> observable = Arez.context().observable();
+        observable.reportObserved();
+        callCount.incrementAndGet();
+        assertEquals( environment.get(), "RED" );
+
+      }, false );
+
+    observerReference.set( observer );
+
+    assertEquals( callCount.get(), 0 );
+    assertEquals( environment.get(), null );
+
+    context.triggerScheduler();
+
+    assertEquals( callCount.get(), 3 );
+    assertEquals( count.get(), 0 );
     assertEquals( environment.get(), null );
   }
 

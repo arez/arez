@@ -92,6 +92,10 @@ public final class ArezContext
    */
   @Nullable
   private ReactionEnvironment _environment;
+  /**
+   * Flag indicating whether the scheduler is currently active.
+   */
+  private boolean _schedulerActive;
 
   /**
    * Arez context should not be created directly but only accessed via Arez.
@@ -1339,13 +1343,38 @@ public final class ArezContext
   {
     if ( isSchedulerEnabled() && !isSchedulerPaused() )
     {
-      if ( null != _environment )
+      // Each reaction creates a top level transaction that attempts to run call
+      // this method when it completes. Rather than allow this if it is detected
+      // that we are running reactions already then just abort and assume the top
+      // most invocation of runPendingTasks will handle scheduling
+      if ( !_schedulerActive )
       {
-        _environment.run( _scheduler::runPendingTasks );
-      }
-      else
-      {
-        _scheduler.runPendingTasks();
+        _schedulerActive = true;
+        try
+        {
+          if ( null != _environment )
+          {
+            // The environment wrapper can perform actions that trigger the need for the Arez
+            // scheduler to re-run so we keep checking until there is no more work to be done.
+            // This is typically used when the environment reacts to changes that Arez triggered
+            // (i.e. via @Track callbacks) which in turn reschedules Arez changes. This happens
+            // in frameworks like react4j which have only scheduler that responds to changes and
+            // feeds back into Arez.
+            do
+            {
+              _environment.run( _scheduler::runPendingTasks );
+            }
+            while ( _scheduler.hasTasksToSchedule() );
+          }
+          else
+          {
+            _scheduler.runPendingTasks();
+          }
+        }
+        finally
+        {
+          _schedulerActive = false;
+        }
       }
     }
   }
@@ -2493,5 +2522,10 @@ public final class ArezContext
   void setSchedulerLockCount( final int schedulerLockCount )
   {
     _schedulerLockCount = schedulerLockCount;
+  }
+
+  void markSchedulerAsActive()
+  {
+    _schedulerActive = true;
   }
 }

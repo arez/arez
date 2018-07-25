@@ -165,18 +165,11 @@ final class ReactionScheduler
    */
   void runPendingTasks()
   {
-    // Each reaction creates a top level transaction that attempts to run call
-    // this method when it completes. Rather than allow this if it is detected
-    // that we are running reactions already then just abort and assume the top
-    // most invocation of runPendingTasks will handle scheduling
-    if ( !areDisposesRunning() && !isReactionsRunning() )
+    while ( true )
     {
-      while ( true )
+      if ( !runDispose() && !runObserver() )
       {
-        if ( !runDispose() && !runObserver() )
-        {
-          break;
-        }
+        break;
       }
     }
   }
@@ -296,6 +289,15 @@ final class ReactionScheduler
     observer.clearScheduledFlag();
     observer.invokeReaction();
     return true;
+  }
+
+  boolean hasTasksToSchedule()
+  {
+    return 0 != _pendingDisposes.size() ||
+           0 != _pendingObservers[ 0 ].size() ||
+           0 != _pendingObservers[ 1 ].size() ||
+           0 != _pendingObservers[ 2 ].size() ||
+           0 != _pendingObservers[ 3 ].size();
   }
 
   /**

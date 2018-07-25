@@ -16,6 +16,10 @@
   is particularly useful when building custom repository-like classes.
 * **\[processor\]** Improve the invariant message to include the component name when the component id is
   accessed when it is not expected to be accessed.
+* **\[core\]** If an `ArezContext` has a `ReactionEnvironment` configured and the environment schedules
+  reactions after the call to the action that runs the scheduler, the runtime will now detect that the
+  scheduler has tasks that need to be scheduled and immediately invoke the scheduler again until there are
+  no tasks that need scheduling.
 
 ### [v0.99](https://github.com/arez/arez/tree/v0.99) (2018-07-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.98...v0.99)
