@@ -3,7 +3,7 @@
 ### Unreleased
 
 * **\[downstream-test\]** Test against output of J2CL over time to ensure that no size regressions occur.
-* Update the release process to artifacts staged in previous releases.
+* Update the release process to remove artifacts staged in previous releases.
 * **\[processor\]** Change the mechanisms via which `@ArezComponent( disposeOnDeactivate = true )` is
   implemented so that the reaction scheduling the dispose is at a `HIGH` priority. This will avoid the
   scenario where `@Autorun` and `@Computed` methods react on a component that will be disposed because it
