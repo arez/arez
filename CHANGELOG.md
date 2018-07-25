@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.26](https://github.com/arez/arez-ticker/tree/v0.26) (2018-07-25)
 [Full Changelog](https://github.com/arez/arez-ticker/compare/v0.25...v0.26)
 
