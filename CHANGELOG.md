@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.100'
+
 ### [v0.27](https://github.com/arez/arez-idlestatus/tree/v0.27) (2018-07-19)
 [Full Changelog](https://github.com/arez/arez-idlestatus/compare/v0.26...v0.27)
 
