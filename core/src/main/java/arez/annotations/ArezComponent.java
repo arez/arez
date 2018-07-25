@@ -1,5 +1,6 @@
 package arez.annotations;
 
+import arez.Arez;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -156,4 +157,19 @@ public @interface ArezComponent
    * @return enum controlling whether the {@link Object#hashCode()} and {@link Object#equals(Object)} methods are implemented.
    */
   Feature requireEquals() default Feature.AUTODETECT;
+
+  /**
+   * Indicates whether the component should support access of the id via {@link arez.component.Identifiable#getArezId(Object)}.
+   * This must be supported if the {@link Repository} annotation is present but may be supported in other scenarios.
+   * This feature is present on all components if {@link Arez#areNativeComponentsEnabled()} is true,
+   * {@link Arez#areRegistriesEnabled()} is true or {@link Arez#areNamesEnabled()} is true and {@link #nameIncludesId()}
+   * is true. In other scenarios it can be disabled. This is usually done to decrease code-size.
+   * {@link Feature#ENABLE} will require support, {@link Feature#DISABLE} will remove support and {@link Feature#AUTODETECT}
+   * will add support if the {@link Repository} annotation is present or a method annotated with {@link ComponentId}
+   * is present. If the {@link Repository} annotation is present or a method annotated with {@link ComponentId}
+   * is present then it is an error to set the value to {@link Feature#DISABLE}.
+   *
+   * @return enum controlling whether a unique if of the component can be accessed via {@link arez.component.Identifiable#getArezId(Object)}.
+   */
+  Feature requireId() default Feature.AUTODETECT;
 }

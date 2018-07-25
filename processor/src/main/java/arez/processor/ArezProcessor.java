@@ -400,6 +400,21 @@ public final class ArezProcessor
                                         "requires disposeTrackable = ENABLE.", typeElement );
     }
 
+    final boolean idRequired = isIdRequired( descriptor );
+    descriptor.setIdRequired( idRequired );
+    if ( !idRequired && descriptor.hasRepository() )
+    {
+      throw new ArezProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
+                                        "annotation parameter but is also annotated with @Repository that " +
+                                        "requires idRequired = ENABLE.", typeElement );
+    }
+    if ( !idRequired && descriptor.hasComponentIdMethod() )
+    {
+      throw new ArezProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
+                                        "annotation parameter but also has annotated a method with @ComponentId " +
+                                        "that requires idRequired = ENABLE.", typeElement );
+    }
+
     return descriptor;
   }
 
@@ -486,6 +501,24 @@ public final class ArezProcessor
         return false;
       default:
         return null != ProcessorUtil.findAnnotationByType( typeElement, Constants.REPOSITORY_ANNOTATION_CLASSNAME );
+    }
+  }
+
+  private boolean isIdRequired( @Nonnull final ComponentDescriptor descriptor )
+  {
+    final VariableElement injectParameter = (VariableElement)
+      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
+                                        descriptor.getElement(),
+                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                                        "requireId" ).getValue();
+    switch ( injectParameter.getSimpleName().toString() )
+    {
+      case "ENABLE":
+        return true;
+      case "DISABLE":
+        return false;
+      default:
+        return descriptor.hasRepository() || descriptor.hasComponentIdMethod();
     }
   }
 

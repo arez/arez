@@ -11,6 +11,9 @@
 * **\[processor\]** Fix a bug that would result in an invariant failure when creating top-level arez elements
   (i.e. those without an associated native component) when `Arez.areNativeComponentsEnabled()` returns false
   but `Arez.areRegistriesEnabled()` returns true.
+* **\[core\]** Add support for the `requireId` parameter on the `@ArezComponent` annotation. The default value
+  is `AUTODETECT` which is equivalent to existing behaviour. It is also possible to explicitly enable ids which
+  is particularly useful when building custom repository-like classes.
 
 ### [v0.99](https://github.com/arez/arez/tree/v0.99) (2018-07-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.98...v0.99)

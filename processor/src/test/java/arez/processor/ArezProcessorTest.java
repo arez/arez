@@ -143,6 +143,10 @@ public class ArezProcessorTest
         new Object[]{ "com.example.deprecated.DeprecatedTrackedModel4", false, false, false },
         new Object[]{ "com.example.dispose_trackable.DisposeTrackableModel", false, false, false },
         new Object[]{ "com.example.dispose_trackable.NoDisposeTrackableModel", false, false, false },
+        new Object[]{ "com.example.id.ComponentIdExample", false, false, false },
+        new Object[]{ "com.example.id.RepositoryExample", false, true, true },
+        new Object[]{ "com.example.id.RequireIdDisable", false, false, false },
+        new Object[]{ "com.example.id.RequireIdEnable", false, false, false },
         new Object[]{ "com.example.inject.BasicInjectModel", false, false, false },
         new Object[]{ "com.example.inject.DefaultCtorModel", false, false, false },
         new Object[]{ "com.example.inject.MultipleArgsModel", false, false, false },
@@ -640,6 +644,11 @@ public class ArezProcessorTest
 
         new Object[]{ "com.example.dispose_trackable.NoDisposeTrackableWithRepositoryModel",
                       "@ArezComponent target has specified the disposeTrackable = DISABLE annotation parameter but is also annotated with @Repository that requires disposeTrackable = ENABLE." },
+
+        new Object[]{ "com.example.id.DisableIdAndComponentId",
+                      "@ArezComponent target has specified the idRequired = DISABLE annotation parameter but also has annotated a method with @ComponentId that requires idRequired = ENABLE." },
+        new Object[]{ "com.example.id.DisableIdAndRepository",
+                      "@ArezComponent target has specified the idRequired = DISABLE annotation parameter but is also annotated with @Repository that requires idRequired = ENABLE." },
 
         new Object[]{ "com.example.inject.MultipleConstructorsModel",
                       "@ArezComponent specified inject parameter but has more than one constructor" },

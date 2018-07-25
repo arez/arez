@@ -94,6 +94,7 @@ final class ComponentDescriptor
   private final AnnotationMirror _scopeAnnotation;
   private final boolean _deferSchedule;
   private final boolean _generateToString;
+  private boolean _idRequired;
   @Nonnull
   private final PackageElement _packageElement;
   @Nonnull
@@ -195,6 +196,16 @@ final class ComponentDescriptor
                                                ( e.hasOnDepsChangedMethod() &&
                                                  isDeprecated( e.getOnDepsChangedMethod() ) ) );
 
+  }
+
+  void setIdRequired( final boolean idRequired )
+  {
+    _idRequired = idRequired;
+  }
+
+  boolean isIdRequired()
+  {
+    return _idRequired;
   }
 
   boolean isDisposeTrackable()
@@ -888,6 +899,11 @@ final class ComponentDescriptor
     {
       _componentRef = Objects.requireNonNull( method );
     }
+  }
+
+  boolean hasComponentIdMethod()
+  {
+    return null != _componentId;
   }
 
   private void setComponentId( @Nonnull final ExecutableElement componentId,
@@ -2160,7 +2176,7 @@ final class ComponentDescriptor
       addModifiers( Modifier.FINAL ).
       returns( GeneratorUtil.DEFAULT_ID_TYPE );
 
-    if ( !hasRepository() )
+    if ( !isIdRequired() )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
       if ( _nameIncludesId )
@@ -2643,15 +2659,16 @@ final class ComponentDescriptor
     {
       if ( _nameIncludesId )
       {
-        if ( hasRepository() )
+        if ( isIdRequired() )
         {
           builder.addStatement( "this.$N = $N++", GeneratorUtil.ID_FIELD_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
         }
         else
         {
           builder.addStatement(
-            "this.$N = ( $T.areNamesEnabled() || $T.areNativeComponentsEnabled() ) ? $N++ : 0",
+            "this.$N = ( $T.areNamesEnabled() || $T.areRegistriesEnabled() || $T.areNativeComponentsEnabled() ) ? $N++ : 0",
             GeneratorUtil.ID_FIELD_NAME,
+            GeneratorUtil.AREZ_CLASSNAME,
             GeneratorUtil.AREZ_CLASSNAME,
             GeneratorUtil.AREZ_CLASSNAME,
             GeneratorUtil.NEXT_ID_FIELD_NAME );
@@ -2659,8 +2676,9 @@ final class ComponentDescriptor
       }
       else
       {
-        builder.addStatement( "this.$N = $T.areNativeComponentsEnabled() ? $N++ : 0",
+        builder.addStatement( "this.$N = ( $T.areRegistriesEnabled() || $T.areNativeComponentsEnabled() ) ? $N++ : 0",
                               GeneratorUtil.ID_FIELD_NAME,
+                              GeneratorUtil.AREZ_CLASSNAME,
                               GeneratorUtil.AREZ_CLASSNAME,
                               GeneratorUtil.NEXT_ID_FIELD_NAME );
       }
