@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+### [v0.101](https://github.com/arez/arez/tree/v0.101) (2018-07-26)
+[Full Changelog](https://github.com/arez/arez/compare/v0.100...v0.101)
+
+* Release to fix deployment process.
+
 ### [v0.100](https://github.com/arez/arez/tree/v0.100) (2018-07-25)
 [Full Changelog](https://github.com/arez/arez/compare/v0.99...v0.100)
 
