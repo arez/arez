@@ -10,8 +10,6 @@ complete as there is too much un-said.
   i.e. Read `props()` in react4j from callbacks that are not arez-enabled and no need to be. Or should this be done
   in react4j generator?
 
-* Make sure javadoc patch applied to upstream buildr
-
 * Should actions be disallowed from observer by default? Only observers that specifically allow actions
   should support this?
 
