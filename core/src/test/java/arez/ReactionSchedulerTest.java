@@ -230,6 +230,15 @@ public class ReactionSchedulerTest
   {
     final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
 
+    final Observer observer0 = new Observer( Arez.context(),
+                                             null,
+                                             ValueUtil.randomString(),
+                                             null,
+                                             TransactionMode.READ_ONLY,
+                                             new TestReaction(),
+                                             Priority.HIGHEST,
+                                             false,
+                                             false );
     final Observer observer1 = newReadOnlyObserver();
     final Observer observer2 = new Observer( Arez.context(),
                                              null,
@@ -254,6 +263,7 @@ public class ReactionSchedulerTest
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.hasTasksToSchedule(), false );
 
+    scheduler.scheduleReaction( observer0 );
     scheduler.scheduleReaction( observer1 );
     scheduler.scheduleReaction( observer2 );
     scheduler.scheduleReaction( observer3 );
@@ -261,11 +271,13 @@ public class ReactionSchedulerTest
 
     assertEquals( scheduler.hasTasksToSchedule(), true );
 
+    assertEquals( scheduler.getPendingObservers( Priority.HIGHEST ).size(), 1 );
     assertEquals( scheduler.getPendingObservers( Priority.HIGH ).size(), 2 );
     assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).size(), 2 );
     assertEquals( scheduler.getPendingObservers( Priority.LOW ).size(), 0 );
     assertEquals( scheduler.getPendingObservers( Priority.LOWEST ).size(), 0 );
 
+    assertEquals( scheduler.getPendingObservers( Priority.HIGHEST ).get( 0 ), observer0 );
     assertEquals( scheduler.getPendingObservers( Priority.HIGH ).get( 0 ), observer2 );
     assertEquals( scheduler.getPendingObservers( Priority.HIGH ).get( 1 ), observer4 );
     assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).get( 0 ), observer1 );
@@ -278,6 +290,15 @@ public class ReactionSchedulerTest
   {
     final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
 
+    final Observer observer0 = new Observer( Arez.context(),
+                                             null,
+                                             ValueUtil.randomString(),
+                                             null,
+                                             TransactionMode.READ_ONLY,
+                                             new TestReaction(),
+                                             Priority.HIGHEST,
+                                             false,
+                                             false );
     final Observer observer1 = new Observer( Arez.context(),
                                              null,
                                              ValueUtil.randomString(),
@@ -354,6 +375,7 @@ public class ReactionSchedulerTest
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.hasTasksToSchedule(), false );
 
+    scheduler.scheduleReaction( observer0 );
     scheduler.scheduleReaction( observer1 );
     scheduler.scheduleReaction( observer2 );
     scheduler.scheduleReaction( observer3 );
@@ -364,12 +386,14 @@ public class ReactionSchedulerTest
     scheduler.scheduleReaction( observer8 );
 
     assertEquals( scheduler.hasTasksToSchedule(), true );
+    assertEquals( scheduler.getPendingObservers( Priority.HIGHEST ).size(), 1 );
     assertEquals( scheduler.getPendingObservers( Priority.HIGH ).size(), 2 );
     assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).size(), 2 );
     assertEquals( scheduler.getPendingObservers( Priority.LOW ).size(), 2 );
     assertEquals( scheduler.getPendingObservers( Priority.LOWEST ).size(), 2 );
 
-    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).get( 0 ), observer2 );
+    assertEquals( scheduler.getPendingObservers( Priority.HIGHEST ).get( 0 ), observer0 );
+    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).get( 1 ), observer6 );
     assertEquals( scheduler.getPendingObservers( Priority.HIGH ).get( 1 ), observer6 );
     assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).get( 0 ), observer3 );
     assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).get( 1 ), observer7 );

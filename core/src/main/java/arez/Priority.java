@@ -9,9 +9,14 @@ package arez;
 public enum Priority
 {
   /**
-   * High priority.
+   * Highest priority.
    * This priority should be used when the reaction will dispose other reactive elements (and thus they
-   * need not be scheduled) or if the reaction will trigger many downstream reactions.
+   * need not be scheduled).
+   */
+  HIGHEST,
+  /**
+   * High priority.
+   * This priority should be used when the reaction will trigger many downstream reactions.
    */
   HIGH,
   /**

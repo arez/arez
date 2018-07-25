@@ -20,6 +20,8 @@
   reactions after the call to the action that runs the scheduler, the runtime will now detect that the
   scheduler has tasks that need to be scheduled and immediately invoke the scheduler again until there are
   no tasks that need scheduling.
+* **\[core\]** Introduce a `HIGHEST` priority so that reactions that schedule the de-allocation of resources
+  can be scheduled at a higher priority than `HIGH` priority reactions.
 
 ### [v0.99](https://github.com/arez/arez/tree/v0.99) (2018-07-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.98...v0.99)

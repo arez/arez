@@ -67,11 +67,12 @@ final class ReactionScheduler
                     () -> "Arez-0164: ReactionScheduler passed a context but Arez.areZonesEnabled() is false" );
     }
     _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
-    _pendingObservers = (CircularBuffer<Observer>[]) new CircularBuffer[ 4 ];
+    _pendingObservers = (CircularBuffer<Observer>[]) new CircularBuffer[ 5 ];
     _pendingObservers[ 0 ] = new CircularBuffer<>( 100 );
     _pendingObservers[ 1 ] = new CircularBuffer<>( 100 );
     _pendingObservers[ 2 ] = new CircularBuffer<>( 100 );
     _pendingObservers[ 3 ] = new CircularBuffer<>( 100 );
+    _pendingObservers[ 4 ] = new CircularBuffer<>( 100 );
   }
 
   /**
@@ -114,7 +115,8 @@ final class ReactionScheduler
       invariant( () -> !_pendingObservers[ 0 ].contains( observer ) &&
                        !_pendingObservers[ 1 ].contains( observer ) &&
                        !_pendingObservers[ 2 ].contains( observer ) &&
-                       !_pendingObservers[ 3 ].contains( observer ),
+                       !_pendingObservers[ 3 ].contains( observer ) &&
+                       !_pendingObservers[ 4 ].contains( observer ),
                  () -> "Arez-0099: Attempting to schedule observer named '" + observer.getName() +
                        "' when observer is already pending." );
     }
@@ -241,7 +243,9 @@ final class ReactionScheduler
     final int highPriorityCount = _pendingObservers[ 1 ].size();
     final int normalPriorityCount = _pendingObservers[ 2 ].size();
     final int lowPriorityCount = _pendingObservers[ 3 ].size();
-    final int pendingObserverCount = highestPriorityCount + highPriorityCount + normalPriorityCount + lowPriorityCount;
+    final int lowestPriorityCount = _pendingObservers[ 4 ].size();
+    final int pendingObserverCount =
+      highestPriorityCount + highPriorityCount + normalPriorityCount + lowPriorityCount + lowestPriorityCount;
     // If we have reached the last observer in this round then
     // determine if we need any more rounds and if we do ensure
     if ( 0 == _remainingReactionsInCurrentRound )
@@ -282,7 +286,8 @@ final class ReactionScheduler
       highestPriorityCount > 0 ? _pendingObservers[ 0 ] :
       highPriorityCount > 0 ? _pendingObservers[ 1 ] :
       normalPriorityCount > 0 ? _pendingObservers[ 2 ] :
-      _pendingObservers[ 3 ];
+      lowPriorityCount > 0 ? _pendingObservers[ 3 ] :
+      _pendingObservers[ 4 ];
 
     final Observer observer = buffer.pop();
     assert null != observer;
@@ -297,7 +302,8 @@ final class ReactionScheduler
            0 != _pendingObservers[ 0 ].size() ||
            0 != _pendingObservers[ 1 ].size() ||
            0 != _pendingObservers[ 2 ].size() ||
-           0 != _pendingObservers[ 3 ].size();
+           0 != _pendingObservers[ 3 ].size() ||
+           0 != _pendingObservers[ 4 ].size();
   }
 
   /**
@@ -309,9 +315,13 @@ final class ReactionScheduler
   {
     final List<String> observerNames =
       Arez.shouldCheckInvariants() && BrainCheckConfig.verboseErrorMessages() ?
-      Stream.concat( Stream.concat( _pendingObservers[ 0 ].stream(), _pendingObservers[ 1 ].stream() ),
-                     Stream.concat( _pendingObservers[ 2 ].stream(), _pendingObservers[ 3 ].stream() ) )
-        .map( Node::getName ).collect( Collectors.toList() ) :
+      Stream.concat(
+        Stream.concat(
+          Stream.concat( _pendingObservers[ 0 ].stream(), _pendingObservers[ 1 ].stream() ),
+          Stream.concat( _pendingObservers[ 2 ].stream(), _pendingObservers[ 3 ].stream() ) ),
+        _pendingObservers[ 4 ].stream() )
+        .map( Node::getName )
+        .collect( Collectors.toList() ) :
       null;
 
     if ( ArezConfig.purgeReactionsWhenRunawayDetected() )
@@ -320,6 +330,7 @@ final class ReactionScheduler
       _pendingObservers[ 1 ].clear();
       _pendingObservers[ 2 ].clear();
       _pendingObservers[ 3 ].clear();
+      _pendingObservers[ 4 ].clear();
     }
 
     if ( Arez.shouldCheckInvariants() )

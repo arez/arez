@@ -1,0 +1,360 @@
+
+[
+    {
+        "observer": "AR1",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "AR1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "AR2",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "AR2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "AR3",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "AR3",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "AR4",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "AR4",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "AR5",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "AR5",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "AR6",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "AR6",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "AR7",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "AR7",
+        "type": "ReactionScheduled"
+    },
+    {
+        "action": "Transaction@2",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@2"
+    },
+    {
+        "observable": "Observable@1",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@2"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@2",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "AR6",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "AR6",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "AR6",
+        "type": "TransactionStarted",
+        "transaction": "AR6"
+    },
+    {
+        "mutation": false,
+        "tracker": "AR6",
+        "type": "TransactionCompleted",
+        "transaction": "AR6"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "AR6",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "AR6",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "AR2",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "AR2",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "AR2",
+        "type": "TransactionStarted",
+        "transaction": "AR2"
+    },
+    {
+        "mutation": false,
+        "tracker": "AR2",
+        "type": "TransactionCompleted",
+        "transaction": "AR2"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "AR2",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "AR2",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "AR7",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "AR7",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "AR7",
+        "type": "TransactionStarted",
+        "transaction": "AR7"
+    },
+    {
+        "mutation": false,
+        "tracker": "AR7",
+        "type": "TransactionCompleted",
+        "transaction": "AR7"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "AR7",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "AR7",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "AR4",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "AR4",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "AR4",
+        "type": "TransactionStarted",
+        "transaction": "AR4"
+    },
+    {
+        "mutation": false,
+        "tracker": "AR4",
+        "type": "TransactionCompleted",
+        "transaction": "AR4"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "AR4",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "AR4",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "AR5",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "AR5",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "AR5",
+        "type": "TransactionStarted",
+        "transaction": "AR5"
+    },
+    {
+        "mutation": false,
+        "tracker": "AR5",
+        "type": "TransactionCompleted",
+        "transaction": "AR5"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "AR5",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "AR5",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "AR3",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "AR3",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "AR3",
+        "type": "TransactionStarted",
+        "transaction": "AR3"
+    },
+    {
+        "mutation": false,
+        "tracker": "AR3",
+        "type": "TransactionCompleted",
+        "transaction": "AR3"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "AR3",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "AR3",
+        "type": "ReactionCompleted"
+    },
+    {
+        "observer": "AR1",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "AR1",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "AR1",
+        "type": "TransactionStarted",
+        "transaction": "AR1"
+    },
+    {
+        "mutation": false,
+        "tracker": "AR1",
+        "type": "TransactionCompleted",
+        "transaction": "AR1"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "AR1",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "AR1",
+        "type": "ReactionCompleted"
+    }
+]
