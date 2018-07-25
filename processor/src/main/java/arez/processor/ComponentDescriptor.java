@@ -2196,8 +2196,10 @@ final class ComponentDescriptor
           GeneratorUtil.AREZ_CLASSNAME,
           GeneratorUtil.AREZ_CLASSNAME );
       }
-      block.addStatement( "$T.fail( () -> \"Method invoked to access id when id not expected.\" )",
-                          GeneratorUtil.GUARDS_CLASSNAME );
+      block.addStatement(
+        "$T.fail( () -> \"Method invoked to access id when id not expected on component named '\" + $N() + \"'.\" )",
+        GeneratorUtil.GUARDS_CLASSNAME,
+        getComponentNameMethodName() );
       block.endControlFlow();
 
       method.addCode( block.build() );

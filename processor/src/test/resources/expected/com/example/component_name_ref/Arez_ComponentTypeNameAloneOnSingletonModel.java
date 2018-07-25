@@ -57,7 +57,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
 
   final int $$arezi$$_id() {
     if ( Arez.shouldCheckInvariants() && !Arez.areRegistriesEnabled() && !Arez.areNativeComponentsEnabled() ) {
-      Guards.fail( () -> "Method invoked to access id when id not expected." );
+      Guards.fail( () -> "Method invoked to access id when id not expected on component named '" + $$arezi$$_name() + "'." );
     }
     return this.$$arezi$$_id;
   }

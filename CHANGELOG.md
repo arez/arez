@@ -14,6 +14,8 @@
 * **\[core\]** Add support for the `requireId` parameter on the `@ArezComponent` annotation. The default value
   is `AUTODETECT` which is equivalent to existing behaviour. It is also possible to explicitly enable ids which
   is particularly useful when building custom repository-like classes.
+* **\[processor\]** Improve the invariant message to include the component name when the component id is
+  accessed when it is not expected to be accessed.
 
 ### [v0.99](https://github.com/arez/arez/tree/v0.99) (2018-07-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.98...v0.99)

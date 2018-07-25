@@ -57,7 +57,7 @@ public final class Arez_ComponentTypeNameModel extends ComponentTypeNameModel im
 
   final int $$arezi$$_id() {
     if ( Arez.shouldCheckInvariants() && !Arez.areNamesEnabled() && !Arez.areRegistriesEnabled() && !Arez.areNativeComponentsEnabled() ) {
-      Guards.fail( () -> "Method invoked to access id when id not expected." );
+      Guards.fail( () -> "Method invoked to access id when id not expected on component named '" + getComponentName() + "'." );
     }
     return this.$$arezi$$_id;
   }
