@@ -10,6 +10,7 @@
 * **\[core\]** Add the `requireNewTransaction` parameter to the `@Action` annotation. If set to `true` then
   an action always creates a new transaction to wrap the action. If set to false then the action will use the
   current transaction if a transaction is active and create a new transaction if no transaction is active.
+  Add the same parameter to the `ArezContext.action(...)` and `ArezContext.safeAction(...)` methods.
 
 ### [v0.101](https://github.com/arez/arez/tree/v0.101) (2018-07-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.100...v0.101)

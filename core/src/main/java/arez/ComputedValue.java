@@ -89,6 +89,7 @@ public final class ComputedValue<T>
                               o -> o.getContext().action( Arez.areNamesEnabled() ? o.getName() : null,
                                                           Arez.shouldEnforceTransactionType() ? o.getMode() : null,
                                                           false,
+                                                          true,
                                                           this::compute,
                                                           false,
                                                           o ),

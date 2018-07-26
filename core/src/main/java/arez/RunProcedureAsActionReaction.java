@@ -44,6 +44,7 @@ final class RunProcedureAsActionReaction
     observer.getContext().action( Arez.areNamesEnabled() ? observer.getName() : null,
                                   Arez.shouldEnforceTransactionType() ? observer.getMode() : null,
                                   false,
+                                  true,
                                   action,
                                   true,
                                   observer );
