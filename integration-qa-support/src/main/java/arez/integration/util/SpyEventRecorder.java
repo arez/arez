@@ -31,6 +31,8 @@ import org.skyscreamer.jsonassert.comparator.DefaultComparator;
 public final class SpyEventRecorder
   implements SpyEventHandler
 {
+  @Nonnull
+  private final ArezContext _context;
   private final JsonArrayBuilder _events = Json.createArrayBuilder();
   private final boolean _keepValue;
 
@@ -43,18 +45,29 @@ public final class SpyEventRecorder
   @Nonnull
   public static SpyEventRecorder beginRecording( @Nonnull final ArezContext context )
   {
-    final SpyEventRecorder recorder = new SpyEventRecorder();
-    context.getSpy().addSpyEventHandler( recorder );
+    final SpyEventRecorder recorder = new SpyEventRecorder( context );
+    recorder.start();
     return recorder;
   }
 
-  public SpyEventRecorder()
+  public void start()
   {
-    this( true );
+    _context.getSpy().addSpyEventHandler( this );
   }
 
-  public SpyEventRecorder( final boolean keepValue )
+  public void stop()
   {
+    _context.getSpy().removeSpyEventHandler( this );
+  }
+
+  public SpyEventRecorder( @Nonnull final ArezContext context )
+  {
+    this( context, true );
+  }
+
+  public SpyEventRecorder( @Nonnull final ArezContext context, final boolean keepValue )
+  {
+    _context = context;
     _keepValue = keepValue;
   }
 
@@ -83,7 +96,7 @@ public final class SpyEventRecorder
       final File dir = file.getParent().toFile();
       if ( !dir.exists() )
       {
-        if( !dir.mkdirs() )
+        if ( !dir.mkdirs() )
         {
           throw new AssertionError( "Unable to create fixtures parent directory: " + dir );
         }
