@@ -203,11 +203,6 @@ final class ComponentDescriptor
     _idRequired = idRequired;
   }
 
-  boolean isIdRequired()
-  {
-    return _idRequired;
-  }
-
   boolean isDisposeTrackable()
   {
     return _disposeTrackable;
@@ -2181,7 +2176,7 @@ final class ComponentDescriptor
       addModifiers( Modifier.FINAL ).
       returns( GeneratorUtil.DEFAULT_ID_TYPE );
 
-    if ( !isIdRequired() )
+    if ( !_idRequired )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
       if ( _nameIncludesId )
@@ -2666,7 +2661,7 @@ final class ComponentDescriptor
     {
       if ( _nameIncludesId )
       {
-        if ( isIdRequired() )
+        if ( _idRequired )
         {
           builder.addStatement( "this.$N = $N++", GeneratorUtil.ID_FIELD_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
         }
