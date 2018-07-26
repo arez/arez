@@ -11,6 +11,8 @@
   an action always creates a new transaction to wrap the action. If set to false then the action will use the
   current transaction if a transaction is active and create a new transaction if no transaction is active.
   Add the same parameter to the `ArezContext.action(...)` and `ArezContext.safeAction(...)` methods.
+* **\[core\]** Change the default value of the `requireNewTransaction` parameter on the `@Action` annotation
+  from `false` to `true`.
 
 ### [v0.101](https://github.com/arez/arez/tree/v0.101) (2018-07-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.100...v0.101)

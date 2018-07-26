@@ -112,16 +112,12 @@ public final class Arez_RequiresTxTypeActionModel extends RequiresTxTypeActionMo
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( this.$$arezi$$_context().isWriteTransactionActive() ) {
-      super.doStuff(time, someOtherParameter);
-    } else {
-      try {
-        $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, true, () -> super.doStuff(time,someOtherParameter), time, someOtherParameter );
-      } catch( final RuntimeException | Error $$arez_exception$$ ) {
-        throw $$arez_exception$$;
-      } catch( final Throwable $$arez_exception$$ ) {
-        throw new IllegalStateException( $$arez_exception$$ );
-      }
+    try {
+      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, true, false, false, () -> super.doStuff(time,someOtherParameter), time, someOtherParameter );
+    } catch( final RuntimeException | Error $$arez_exception$$ ) {
+      throw $$arez_exception$$;
+    } catch( final Throwable $$arez_exception$$ ) {
+      throw new IllegalStateException( $$arez_exception$$ );
     }
   }
 

@@ -113,7 +113,7 @@ public final class Arez_NoVerifyActionModel extends NoVerifyActionModel implemen
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff1' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff1" : null, true, false, () -> super.doStuff1() );
+      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff1" : null, true, false, false, () -> super.doStuff1() );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -127,7 +127,7 @@ public final class Arez_NoVerifyActionModel extends NoVerifyActionModel implemen
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff2' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().action(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff2" : null, true, false, () -> super.doStuff2() );
+      $$arezi$$_context().action(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff2" : null, true, false, false, () -> super.doStuff2() );
     } catch( final Throwable $$arez_exception$$ ) {
       throw $$arez_exception$$;
     }
@@ -139,7 +139,7 @@ public final class Arez_NoVerifyActionModel extends NoVerifyActionModel implemen
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff3' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      return $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff3" : null, true, false, () -> super.doStuff3() );
+      return $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff3" : null, true, false, false, () -> super.doStuff3() );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -153,7 +153,7 @@ public final class Arez_NoVerifyActionModel extends NoVerifyActionModel implemen
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff4' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      return $$arezi$$_context().action(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff4" : null, true, false, () -> super.doStuff4() );
+      return $$arezi$$_context().action(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff4" : null, true, false, false, () -> super.doStuff4() );
     } catch( final Throwable $$arez_exception$$ ) {
       throw $$arez_exception$$;
     }

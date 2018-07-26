@@ -114,7 +114,7 @@ public final class Arez_UnsafeSpecificProcedureActionModel extends UnsafeSpecifi
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().action(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
+      $$arezi$$_context().action(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, true, false, false, () -> super.doStuff(time), time );
     } catch( final ParseException | RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

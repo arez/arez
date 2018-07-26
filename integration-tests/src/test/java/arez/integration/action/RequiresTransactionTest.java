@@ -88,11 +88,13 @@ public class RequiresTransactionTest
 
     context.safeAction( "MyWrapperAction", true, false, component::myAction );
 
-    recorder.assertEventCount( 5 );
+    recorder.assertEventCount( 7 );
     recorder.assertNextEvent( ActionStartedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
     recorder.assertNextEvent( TransactionStartedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
+    recorder.assertNextEvent( ActionStartedEvent.class, a -> assertEquals( a.getName(), "MyComponent2.0.myAction" ) );
     recorder.assertNextEvent( ObservableChangedEvent.class,
                               a -> assertEquals( a.getObservable().getName(), "MyComponent2.0.time" ) );
+    recorder.assertNextEvent( ActionCompletedEvent.class, a -> assertEquals( a.getName(), "MyComponent2.0.myAction" ) );
     recorder.assertNextEvent( TransactionCompletedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
     recorder.assertNextEvent( ActionCompletedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
   }

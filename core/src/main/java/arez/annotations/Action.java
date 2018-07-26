@@ -54,7 +54,7 @@ public @interface Action
    *
    * @return true if the action will create a new transaction, false if it will use the existing transaction if present.
    */
-  boolean requireNewTransaction() default true;
+  boolean requireNewTransaction() default false;
 
   /**
    * Flag indicating whether the code should verify that at least one read or write occurs within

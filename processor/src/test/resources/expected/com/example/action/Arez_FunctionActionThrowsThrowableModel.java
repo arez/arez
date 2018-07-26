@@ -113,7 +113,7 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      return $$arezi$$_context().action(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, true, () -> super.doStuff(time), time );
+      return $$arezi$$_context().action(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, true, false, false, () -> super.doStuff(time), time );
     } catch( final Throwable $$arez_exception$$ ) {
       throw $$arez_exception$$;
     }
