@@ -172,8 +172,6 @@ public class ArezContextTest
     assertFalse( context.isTransactionActive() );
     assertFalse( context.isWriteTransactionActive() );
 
-    final String expectedValue = ValueUtil.randomString();
-
     context.action( true, () -> {
       assertTrue( context.isTransactionActive() );
       assertTrue( context.isWriteTransactionActive() );
