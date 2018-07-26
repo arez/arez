@@ -1,5 +1,6 @@
 package arez.processor;
 
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
@@ -25,6 +26,7 @@ final class ActionDescriptor
   private final ComponentDescriptor _componentDescriptor;
   @Nonnull
   private final String _name;
+  private final boolean _requireNewTransaction;
   private final boolean _mutation;
   private final boolean _verifyRequired;
   private final boolean _reportParameters;
@@ -35,6 +37,7 @@ final class ActionDescriptor
 
   ActionDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
                     @Nonnull final String name,
+                    final boolean requireNewTransaction,
                     final boolean mutation,
                     final boolean verifyRequired,
                     final boolean reportParameters,
@@ -43,6 +46,7 @@ final class ActionDescriptor
   {
     _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
+    _requireNewTransaction = requireNewTransaction;
     _mutation = mutation;
     _verifyRequired = verifyRequired;
     _reportParameters = reportParameters;
@@ -90,11 +94,17 @@ final class ActionDescriptor
     final boolean isSafe = thrownTypes.isEmpty();
 
     final StringBuilder statement = new StringBuilder();
+    final StringBuilder directStatement = _requireNewTransaction ? null : new StringBuilder();
     final ArrayList<Object> parameterNames = new ArrayList<>();
+    final ArrayList<Object> directParameterNames = _requireNewTransaction ? null : new ArrayList<>();
 
     if ( !isProcedure )
     {
       statement.append( "return " );
+      if ( !_requireNewTransaction )
+      {
+        directStatement.append( "return " );
+      }
     }
     statement.append( "$N()." );
     parameterNames.add( _componentDescriptor.getContextMethodName() );
@@ -133,6 +143,13 @@ final class ActionDescriptor
     statement.append( _action.getSimpleName() );
     statement.append( "(" );
 
+    if ( !_requireNewTransaction )
+    {
+      directStatement.append( "super." );
+      directStatement.append( _action.getSimpleName() );
+      directStatement.append( "(" );
+    }
+
     boolean firstParam = true;
     final List<? extends VariableElement> parameters = _action.getParameters();
     final int paramCount = parameters.size();
@@ -145,15 +162,31 @@ final class ActionDescriptor
       ProcessorUtil.copyDocumentedAnnotations( element, param );
       builder.addParameter( param.build() );
       parameterNames.add( element.getSimpleName().toString() );
+      if ( !_requireNewTransaction )
+      {
+        directParameterNames.add( element.getSimpleName().toString() );
+      }
       if ( !firstParam )
       {
         statement.append( "," );
+        if ( !_requireNewTransaction )
+        {
+          directStatement.append( ", " );
+        }
       }
       firstParam = false;
       statement.append( "$N" );
+      if ( !_requireNewTransaction )
+      {
+        directStatement.append( "$N" );
+      }
     }
 
     statement.append( ")" );
+    if ( !_requireNewTransaction )
+    {
+      directStatement.append( ")" );
+    }
     if ( _reportParameters )
     {
       for ( final VariableElement parameter : parameters )
@@ -165,9 +198,26 @@ final class ActionDescriptor
     statement.append( " )" );
 
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
-    GeneratorUtil.generateTryBlock( builder,
-                                    thrownTypes,
-                                    b -> b.addStatement( statement.toString(), parameterNames.toArray() ) );
+    if ( _requireNewTransaction )
+    {
+      GeneratorUtil.generateTryBlock( builder,
+                                      thrownTypes,
+                                      b -> b.addStatement( statement.toString(), parameterNames.toArray() ) );
+    }
+    else
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( this.$N().$N() )",
+                              _componentDescriptor.getContextMethodName(),
+                              _mutation ? "isWriteTransactionActive" : "isTransactionActive" );
+      block.addStatement( directStatement.toString(), directParameterNames.toArray() );
+      block.nextControlFlow( "else" );
+      GeneratorUtil.generateTryBlock( block,
+                                      thrownTypes,
+                                      b -> b.addStatement( statement.toString(), parameterNames.toArray() ) );
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
 
     return builder.build();
   }

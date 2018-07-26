@@ -49,6 +49,14 @@ public @interface Action
   boolean reportParameters() default true;
 
   /**
+   * True if the action should always start a new transaction. A false value indicates that the action will
+   * use the invoking transaction if present, otherwise will create a new transaction to invoke action.
+   *
+   * @return true if the action will create a new transaction, false if it will use the existing transaction if present.
+   */
+  boolean requireNewTransaction() default true;
+
+  /**
    * Flag indicating whether the code should verify that at least one read or write occurs within
    * the scope of the action.
    *

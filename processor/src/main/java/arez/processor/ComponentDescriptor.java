@@ -446,10 +446,11 @@ final class ComponentDescriptor
     final String name = deriveActionName( method, annotation );
     checkNameUnique( name, method, Constants.ACTION_ANNOTATION_CLASSNAME );
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
+    final boolean requireNewTransaction = getAnnotationParameter( annotation, "requireNewTransaction" );
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
     final boolean verifyRequired = getAnnotationParameter( annotation, "verifyRequired" );
     final ActionDescriptor action =
-      new ActionDescriptor( this, name, mutation, verifyRequired, reportParameters, method, methodType );
+      new ActionDescriptor( this, name, requireNewTransaction, mutation, verifyRequired, reportParameters, method, methodType );
     _actions.put( action.getName(), action );
   }
 

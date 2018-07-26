@@ -11,8 +11,6 @@ complete as there is too much un-said.
 * Should actions be disallowed from observer by default? Only observers that specifically allow actions
   should support this?
 
-* Should we be able to define some actions as action only if not already in transaction?
-
 * References handled specially ...? Is this only importing reference tools from Replicant?
   - `Verifiable`: To verify that:
     * the entity is not disposed.

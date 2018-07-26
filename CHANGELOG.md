@@ -7,6 +7,9 @@
   `@Computed` method, a `@Autorun` method, a `@Track` method or an `@Action` method. The read of an observable
   within a tracking transaction will continue to record the access as a dependency on the tracker.
 * **\[core\]** Add the utility method `ArezContext.isWriteTransactionActive()`.
+* **\[core\]** Add the `requireNewTransaction` parameter to the `@Action` annotation. If set to `true` then
+  an action always creates a new transaction to wrap the action. If set to false then the action will use the
+  current transaction if a transaction is active and create a new transaction if no transaction is active.
 
 ### [v0.101](https://github.com/arez/arez/tree/v0.101) (2018-07-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.100...v0.101)
