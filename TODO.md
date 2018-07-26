@@ -24,6 +24,8 @@ complete as there is too much un-said.
 * Replace `arez-entity` with next iteration and merge functionality into annotation processor. One package
   is removed then merge `integration-qa-support` into `integration-tests`
 
+* Move when observer out into a top-level project
+
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
   it via `requestAnimationFrame`
 
