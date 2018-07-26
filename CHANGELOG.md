@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.27](https://github.com/arez/arez-networkstatus/tree/v0.27) (2018-07-26)
 [Full Changelog](https://github.com/arez/arez-networkstatus/compare/v0.26...v0.27)
 
