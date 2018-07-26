@@ -21,6 +21,12 @@ complete as there is too much un-said.
     is invoked (for all non-lazy relationships). `link()` is typically after a message/transaction has updated
     all the required entities within the system.
 
+* Rename the "action" parameter to tracker and autorun as "reaction" or something similar to clearly
+  differentiate from other actions.
+
+* Replace `arez-entity` with next iteration and merge functionality into annotation processor. One package
+  is removed then merge `integration-qa-support` into `integration-tests`
+
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
   it via `requestAnimationFrame`
 
