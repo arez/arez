@@ -164,6 +164,32 @@ public class ArezContextTest
   }
 
   @Test
+  public void isWriteTransactionActive()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    assertFalse( context.isTransactionActive() );
+    assertFalse( context.isWriteTransactionActive() );
+
+    final String expectedValue = ValueUtil.randomString();
+
+    context.action( true, () -> {
+      assertTrue( context.isTransactionActive() );
+      assertTrue( context.isWriteTransactionActive() );
+      observeADependency();
+      context.action( false, () -> {
+        assertTrue( context.isTransactionActive() );
+        assertFalse( context.isWriteTransactionActive() );
+        observeADependency();
+      } );
+    } );
+
+    assertFalse( context.isTransactionActive() );
+    assertFalse( context.isWriteTransactionActive() );
+  }
+
+  @Test
   public void action_function()
     throws Throwable
   {

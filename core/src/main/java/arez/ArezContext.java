@@ -1222,6 +1222,17 @@ public final class ArezContext
   }
 
   /**
+   * Return true if there is a read-write transaction in progress.
+   *
+   * @return true if there is a read-write transaction in progress.
+   */
+  public boolean isWriteTransactionActive()
+  {
+    return Transaction.isTransactionActive( this ) &&
+           ( !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == Transaction.current().getMode() );
+  }
+
+  /**
    * Return the current transaction.
    * This method should not be invoked unless a transaction active and will throw an
    * exception if invariant checks are enabled.
