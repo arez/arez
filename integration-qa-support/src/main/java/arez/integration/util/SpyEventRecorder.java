@@ -31,8 +31,6 @@ import org.skyscreamer.jsonassert.comparator.DefaultComparator;
 public final class SpyEventRecorder
   implements SpyEventHandler
 {
-  @Nonnull
-  private final ArezContext _context;
   private final JsonArrayBuilder _events = Json.createArrayBuilder();
   private final boolean _keepValue;
 
@@ -45,29 +43,18 @@ public final class SpyEventRecorder
   @Nonnull
   public static SpyEventRecorder beginRecording( @Nonnull final ArezContext context )
   {
-    final SpyEventRecorder recorder = new SpyEventRecorder( context );
-    recorder.start();
+    final SpyEventRecorder recorder = new SpyEventRecorder();
+    context.getSpy().addSpyEventHandler( recorder );
     return recorder;
   }
 
-  public void start()
+  public SpyEventRecorder()
   {
-    _context.getSpy().addSpyEventHandler( this );
+    this( true );
   }
 
-  public void stop()
+  public SpyEventRecorder( final boolean keepValue )
   {
-    _context.getSpy().removeSpyEventHandler( this );
-  }
-
-  public SpyEventRecorder( @Nonnull final ArezContext context )
-  {
-    this( context, true );
-  }
-
-  public SpyEventRecorder( @Nonnull final ArezContext context, final boolean keepValue )
-  {
-    _context = context;
     _keepValue = keepValue;
   }
 
