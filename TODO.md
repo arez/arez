@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Actions should be disallowed from Computed by default as they break the derivation model.
-
 * Should actions be disallowed from observer by default? Only observers that specifically allow actions
   should support this?
 

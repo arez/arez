@@ -13,6 +13,9 @@
   Add the same parameter to the `ArezContext.action(...)` and `ArezContext.safeAction(...)` methods.
 * **\[core\]** Change the default value of the `requireNewTransaction` parameter on the `@Action` annotation
   from `false` to `true`.
+* **\[core\]** Add an additional invariant check to ensure that `ComputedValue` actions do not attempt to
+  invoke actions or track functions. The intent of `ComputedValue` is to derive values from observable and
+  computed properties and not to drive change (i.e. actions) or react to change (i.e. track methods).
 
 ### [v0.101](https://github.com/arez/arez/tree/v0.101) (2018-07-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.100...v0.101)

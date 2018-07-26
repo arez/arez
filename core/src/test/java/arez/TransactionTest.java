@@ -2495,9 +2495,31 @@ public class TransactionTest
       expectThrows( IllegalStateException.class,
                     () -> Transaction.begin( context, name, TransactionMode.READ_WRITE, null ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0119: Attempting to create READ_WRITE transaction named '" + name +
-                  "' but it is nested in transaction named '" + transaction.getName() + "' with " +
-                  "mode READ_WRITE_OWNED which is not equal to READ_WRITE." );
+                  "Arez-0186: Attempting to create READ_WRITE transaction named '" + name +
+                  "' nested in transaction named '" + transaction.getName() + "' with mode READ_WRITE_OWNED. " +
+                  "ComputedValues must not invoke actions or track methods as they should derive values from " +
+                  "other computeds and observables." );
+  }
+
+  @Test
+  public void beginTransaction_attemptToNest_READ_ONLY_in_READ_WRITE_OWNED()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    setCurrentTransaction( newDerivation( context ) );
+    final Transaction transaction = context.getTransaction();
+
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Transaction.begin( context, name, TransactionMode.READ_ONLY, null ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0186: Attempting to create READ_ONLY transaction named '" + name +
+                  "' nested in transaction named '" + transaction.getName() + "' with mode READ_WRITE_OWNED. " +
+                  "ComputedValues must not invoke actions or track methods as they should derive values from " +
+                  "other computeds and observables." );
   }
 
   @Test

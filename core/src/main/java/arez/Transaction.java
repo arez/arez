@@ -144,6 +144,12 @@ final class Transaction
     {
       if ( Arez.shouldEnforceTransactionType() && null != c_transaction )
       {
+        apiInvariant( () -> TransactionMode.READ_WRITE_OWNED != c_transaction.getMode() ||
+                            TransactionMode.READ_WRITE_OWNED == mode,
+                      () -> "Arez-0186: Attempting to create " + mode + " transaction named '" + name + "' " +
+                            "nested in transaction named '" + c_transaction.getName() + "' with mode " +
+                            "READ_WRITE_OWNED. ComputedValues must not invoke actions or track methods as " +
+                            "they should derive values from other computeds and observables." );
         apiInvariant( () -> TransactionMode.READ_WRITE != mode || TransactionMode.READ_WRITE == c_transaction.getMode(),
                       () -> "Arez-0119: Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
                             "nested in transaction named '" + c_transaction.getName() + "' with mode " +
