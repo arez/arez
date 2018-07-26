@@ -257,6 +257,7 @@ final class ComponentDescriptor
 
     final String declaredName = getAnnotationParameter( annotation, "name" );
     final boolean expectSetter = getAnnotationParameter( annotation, "expectSetter" );
+    final boolean readOutsideTransaction = getAnnotationParameter( annotation, "readOutsideTransaction" );
     final Boolean requireInitializer = isInitializerRequired( method );
 
     final TypeMirror returnType = method.getReturnType();
@@ -312,6 +313,10 @@ final class ComponentDescriptor
     }
 
     final ObservableDescriptor observable = findOrCreateObservable( name );
+    if ( readOutsideTransaction )
+    {
+      observable.setReadOutsideTransaction( true );
+    }
     if ( !expectSetter )
     {
       observable.setExpectSetter( false );

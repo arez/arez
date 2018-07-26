@@ -1,0 +1,211 @@
+
+[
+    {
+        "component": "MyComponent.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "MyComponent.0.time",
+        "type": "ObservableCreated"
+    },
+    {
+        "component": "MyComponent.0",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "observer": "Observer@1",
+        "type": "ObserverCreated"
+    },
+    {
+        "observer": "Observer@1",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@1",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@1",
+        "type": "TransactionStarted",
+        "transaction": "Observer@1"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@1",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@1"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@1",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@1",
+        "type": "ReactionCompleted"
+    },
+    {
+        "action": "Transaction@2",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@2"
+    },
+    {
+        "observable": "MyComponent.0.time",
+        "type": "ObservableChanged",
+        "value": 37
+    },
+    {
+        "observer": "Observer@1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@2"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@2",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@1",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@1",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@1",
+        "type": "TransactionStarted",
+        "transaction": "Observer@1"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@1",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@1"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@1",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@1",
+        "type": "ReactionCompleted"
+    },
+    {
+        "action": "Transaction@3",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@3"
+    },
+    {
+        "observable": "MyComponent.0.time",
+        "type": "ObservableChanged",
+        "value": 42
+    },
+    {
+        "observer": "Observer@1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@3"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@3",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@1",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "Observer@1",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@1",
+        "type": "TransactionStarted",
+        "transaction": "Observer@1"
+    },
+    {
+        "mutation": false,
+        "tracker": "Observer@1",
+        "type": "TransactionCompleted",
+        "transaction": "Observer@1"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Observer@1",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "Observer@1",
+        "type": "ReactionCompleted"
+    }
+]

@@ -70,4 +70,11 @@ public @interface Observable
    * @return flag controlling whether a parameter should be added to the constructor to initialize the property.
    */
   Feature initializer() default Feature.AUTODETECT;
+
+  /**
+   * Can True if the observable be read outside a transaction.
+   *
+   * @return true to allow reads outside a transaction, false to require a transaction to read observable.
+   */
+  boolean readOutsideTransaction() default false;
 }

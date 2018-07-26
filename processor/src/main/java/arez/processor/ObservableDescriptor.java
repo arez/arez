@@ -36,6 +36,7 @@ final class ObservableDescriptor
   @Nonnull
   private final String _name;
   private boolean _expectSetter;
+  private boolean _readOutsideTransaction;
   private Boolean _initializer;
   @Nullable
   private ExecutableElement _getter;
@@ -58,6 +59,7 @@ final class ObservableDescriptor
     _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     setExpectSetter( true );
+    setReadOutsideTransaction( false );
   }
 
   @Nonnull
@@ -81,6 +83,11 @@ final class ObservableDescriptor
   void setInitializer( @Nonnull final Boolean initializer )
   {
     _initializer = Objects.requireNonNull( initializer );
+  }
+
+  void setReadOutsideTransaction( final boolean readOutsideTransaction )
+  {
+    _readOutsideTransaction = readOutsideTransaction;
   }
 
   void setExpectSetter( final boolean expectSetter )
@@ -555,7 +562,18 @@ final class ObservableDescriptor
     builder.returns( TypeName.get( _getterType.getReturnType() ) );
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
-    builder.addStatement( "this.$N.reportObserved()", getFieldName() );
+    if ( _readOutsideTransaction )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( this.$N().isTransactionActive() )", _componentDescriptor.getContextMethodName() );
+      block.addStatement( "this.$N.reportObserved()", getFieldName() );
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
+    else
+    {
+      builder.addStatement( "this.$N.reportObserved()", getFieldName() );
+    }
 
     if ( getGetter().getModifiers().contains( Modifier.ABSTRACT ) )
     {

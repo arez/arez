@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+* **\[core\]** Add the `readOutsideTransaction` parameter to the `@Observable` annotation. If set to `true`
+  the observable can be read outside a transaction. i.e. The observable can be read without be wrapping in a
+  `@Computed` method, a `@Autorun` method, a `@Track` method or an `@Action` method. The read of an observable
+  within a tracking transaction will continue to record the access as a dependency on the tracker.
+
 ### [v0.101](https://github.com/arez/arez/tree/v0.101) (2018-07-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.100...v0.101)
 

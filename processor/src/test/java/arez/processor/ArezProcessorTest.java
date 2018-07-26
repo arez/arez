@@ -162,6 +162,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observable.AbstractObservablesModel", false, false, false },
         new Object[]{ "com.example.observable.GenericObservableModel", false, false, false },
         new Object[]{ "com.example.observable.ObservableWithNoSetter", false, false, false },
+        new Object[]{ "com.example.observable.ReadOutsideTransactionObservableModel", false, false, false },
         new Object[]{ "com.example.observable.WildcardGenericObservableModel", false, false, false },
         new Object[]{ "com.example.observable.AbstractNonPrimitiveNonnullObservablesModel", false, false, false },
         new Object[]{ "com.example.observable.AbstractPrimitiveObservablesWithInitializerModel", false, false, false },
