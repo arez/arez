@@ -197,9 +197,11 @@ public class ArezContextTest
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
 
-      context.action( ValueUtil.randomString(), true, false, true, () -> {
-        assertNotEquals( context.getTransaction(), transaction );
-      } );
+      context.action( ValueUtil.randomString(),
+                      true,
+                      false,
+                      true,
+                      () -> assertNotEquals( context.getTransaction(), transaction ) );
 
       final int result1 =
         context.action( ValueUtil.randomString(), true, false, true, () -> {
@@ -207,9 +209,11 @@ public class ArezContextTest
           return 0;
         } );
 
-      context.safeAction( ValueUtil.randomString(), true, false, true, () -> {
-        assertNotEquals( context.getTransaction(), transaction );
-      } );
+      context.safeAction( ValueUtil.randomString(),
+                          true,
+                          false,
+                          true,
+                          () -> assertNotEquals( context.getTransaction(), transaction ) );
 
       final int result2 =
         context.safeAction( ValueUtil.randomString(), true, false, true, () -> {
@@ -217,9 +221,11 @@ public class ArezContextTest
           return 0;
         } );
 
-      context.action( ValueUtil.randomString(), true, false, false, () -> {
-        assertEquals( context.getTransaction(), transaction );
-      } );
+      context.action( ValueUtil.randomString(),
+                      true,
+                      false,
+                      false,
+                      () -> assertEquals( context.getTransaction(), transaction ) );
 
       final int result3 =
         context.action( ValueUtil.randomString(), true, false, false, () -> {
@@ -227,9 +233,11 @@ public class ArezContextTest
           return 0;
         } );
 
-      context.safeAction( ValueUtil.randomString(), true, false, false, () -> {
-        assertEquals( context.getTransaction(), transaction );
-      } );
+      context.safeAction( ValueUtil.randomString(),
+                          true,
+                          false,
+                          false,
+                          () -> assertEquals( context.getTransaction(), transaction ) );
 
       final int result4 =
         context.safeAction( ValueUtil.randomString(), true, false, false, () -> {
