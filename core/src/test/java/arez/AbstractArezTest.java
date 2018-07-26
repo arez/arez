@@ -118,7 +118,8 @@ public abstract class AbstractArezTest
                          new TestReaction(),
                          Priority.NORMAL,
                          false,
-                         false );
+                         false,
+                         true );
   }
 
   @Nonnull
@@ -168,7 +169,8 @@ public abstract class AbstractArezTest
                          new TestReaction(),
                          Priority.NORMAL,
                          false,
-                         false );
+                         false,
+                         true );
   }
 
   @Nonnull

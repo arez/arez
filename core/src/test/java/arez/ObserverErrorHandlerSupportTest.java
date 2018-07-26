@@ -180,7 +180,8 @@ public class ObserverErrorHandlerSupportTest
                     new TestReaction(),
                     Priority.NORMAL,
                     false,
-                    false );
+                    false,
+                    true );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
 

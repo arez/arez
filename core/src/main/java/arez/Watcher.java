@@ -76,7 +76,9 @@ final class Watcher
                             true,
                             this::checkCondition,
                             priority,
-                            false );
+                            false,
+                            true,
+                            true );
     _watcher.setOnDispose( () -> Disposable.dispose( _condition ) );
     /*
      * Can not pass this as flag when constructing watcher, otherwise this class could attempt

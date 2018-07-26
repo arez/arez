@@ -1,0 +1,118 @@
+
+[
+    {
+        "component": "TestComponent1.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "TestComponent1.0.time",
+        "type": "ObservableCreated"
+    },
+    {
+        "observable": "TestComponent1.0.time2",
+        "type": "ObservableCreated"
+    },
+    {
+        "observer": "TestComponent1.0.render",
+        "type": "ObserverCreated"
+    },
+    {
+        "component": "TestComponent1.0",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "action": "TestComponent1.0.render",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent1.0.render",
+        "type": "TransactionStarted",
+        "transaction": "TestComponent1.0.render"
+    },
+    {
+        "action": "TestComponent1.0.myAction",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent1.0.myAction",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "TestComponent1.0.render",
+        "type": "TransactionCompleted",
+        "transaction": "TestComponent1.0.render"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "TestComponent1.0.render",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Transaction@1",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@1"
+    },
+    {
+        "observable": "TestComponent1.0.time",
+        "type": "ObservableChanged",
+        "value": 33
+    },
+    {
+        "observer": "TestComponent1.0.render",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@1"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@1",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "TestComponent1.0.render",
+        "type": "ReactionStarted"
+    },
+    {
+        "observer": "TestComponent1.0.render",
+        "type": "ReactionCompleted"
+    }
+]

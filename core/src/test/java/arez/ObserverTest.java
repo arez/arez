@@ -31,7 +31,16 @@ public class ObserverTest
     final String name = ValueUtil.randomString();
     final Reaction reaction = new TestReaction();
     final Observer observer =
-      new Observer( context, null, name, null, TransactionMode.READ_ONLY, reaction, Priority.NORMAL, false, false );
+      new Observer( context,
+                    null,
+                    name,
+                    null,
+                    TransactionMode.READ_ONLY,
+                    reaction,
+                    Priority.NORMAL,
+                    false,
+                    false,
+                    true );
 
     // Verify all "Node" behaviour
     assertEquals( observer.getContext(), context );
@@ -108,7 +117,8 @@ public class ObserverTest
                                         new TestReaction(),
                                         Priority.NORMAL,
                                         false,
-                                        false ) );
+                                        false,
+                                        true ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0079: Attempted to construct an observer named '" + name + "' with READ_WRITE_OWNED " +
@@ -131,6 +141,7 @@ public class ObserverTest
                                         new TestReaction(),
                                         Priority.LOWEST,
                                         false,
+                                        true,
                                         true ) );
 
     assertEquals( exception.getMessage(),
@@ -156,7 +167,8 @@ public class ObserverTest
                                         new TestReaction(),
                                         Priority.NORMAL,
                                         false,
-                                        false ) );
+                                        false,
+                                        true ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0082: Observer named '" + name + "' specified mode 'READ_ONLY' " +
@@ -173,7 +185,7 @@ public class ObserverTest
     final String name = ValueUtil.randomString();
 
     final Observer observer =
-      new Observer( Arez.context(), null, name, null, null, new TestReaction(), Priority.NORMAL, false, false );
+      new Observer( Arez.context(), null, name, null, null, new TestReaction(), Priority.NORMAL, false, false, true );
     assertThrows( observer::getMode );
   }
 
@@ -194,7 +206,8 @@ public class ObserverTest
                                         new TestReaction(),
                                         Priority.NORMAL,
                                         false,
-                                        false ) );
+                                        false,
+                                        true ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0081: Attempted to construct an observer named '" + name + "' with READ_ONLY " +
@@ -216,7 +229,8 @@ public class ObserverTest
                                         new TestReaction(),
                                         Priority.NORMAL,
                                         true,
-                                        false ) );
+                                        false,
+                                        true ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0080: Attempted to construct an ComputedValue '" + computedValue.getName() +
@@ -248,7 +262,8 @@ public class ObserverTest
                                         new TestReaction(),
                                         Priority.NORMAL,
                                         false,
-                                        false ) );
+                                        false,
+                                        true ) );
     assertEquals( exception.getMessage(),
                   "Arez-0083: Observer named '" + name + "' has component specified but " +
                   "Arez.areNativeComponentsEnabled() is false." );
@@ -276,7 +291,8 @@ public class ObserverTest
                     new TestReaction(),
                     Priority.NORMAL,
                     false,
-                    false );
+                    false,
+                    true );
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
 
@@ -1297,7 +1313,8 @@ public class ObserverTest
       assertEquals( observer.getName(), name );
     };
 
-    final Observer observer = new Observer( context, null, name, null, mode, reaction, Priority.NORMAL, false, false );
+    final Observer observer =
+      new Observer( context, null, name, null, mode, reaction, Priority.NORMAL, false, false, true );
 
     observer.invokeReaction();
 
@@ -1321,7 +1338,8 @@ public class ObserverTest
                     o -> Thread.sleep( 1 ),
                     Priority.NORMAL,
                     false,
-                    false );
+                    false,
+                    true );
 
     observer.invokeReaction();
 
@@ -1390,7 +1408,8 @@ public class ObserverTest
                     reaction,
                     Priority.NORMAL,
                     false,
-                    false );
+                    false,
+                    true );
 
     observer.setDisposed( true );
 
@@ -1419,7 +1438,8 @@ public class ObserverTest
                     reaction,
                     Priority.NORMAL,
                     false,
-                    false );
+                    false,
+                    true );
 
     setupReadWriteTransaction();
     observer.setState( ObserverState.UP_TO_DATE );
@@ -1466,7 +1486,8 @@ public class ObserverTest
                     reaction,
                     Priority.NORMAL,
                     false,
-                    false );
+                    false,
+                    true );
 
     observer.invokeReaction();
 

@@ -74,4 +74,18 @@ public @interface Track
    * @return false if observing lower priority dependencies should result in invariant failure in development mode.
    */
   boolean observeLowerPriorityDependencies() default false;
+
+  /**
+   * Flag controlling whether the observer can invoke actions.
+   * An action that specifies {@link Action#requireNewTransaction()} as true will start a new transaction
+   * and any observables accessed within the action will not be dependencies of the observer. Sometimes this
+   * behaviour is desired. Sometimes an action that specifies {@link Action#requireNewTransaction()} as false
+   * will be used instead and any observable accessed within the scope of the action will be a dependency of
+   * the observer and thus changes in the observable will reschedule the observer. Sometimes this
+   * behaviour is desired. Either way the developer must be conscious of these decisions and thus must explicitly
+   * set this flag to true to invoke any actions within the scope of the observers reaction.
+   *
+   * @return true if the observer can invoke actions, false otherwise.
+   */
+  boolean canNestActions() default false;
 }

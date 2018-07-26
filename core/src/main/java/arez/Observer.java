@@ -100,6 +100,10 @@ public final class Observer
    */
   private final boolean _observeLowerPriorityDependencies;
   /**
+   * Flag set to true if the Observer allows nested actions.
+   */
+  private final boolean _canNestActions;
+  /**
    * Flag set to true after Observer has been disposed.
    */
   private boolean _disposed;
@@ -116,7 +120,8 @@ public final class Observer
             @Nonnull final Reaction reaction,
             @Nonnull final Priority priority,
             final boolean canTrackExplicitly,
-            final boolean observeLowerPriorityDependencies )
+            final boolean observeLowerPriorityDependencies,
+            final boolean canNestActions )
   {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
@@ -161,6 +166,7 @@ public final class Observer
     _priority = Objects.requireNonNull( priority );
     _canTrackExplicitly = canTrackExplicitly;
     _observeLowerPriorityDependencies = Arez.shouldCheckInvariants() && observeLowerPriorityDependencies;
+    _canNestActions = Arez.shouldCheckApiInvariants() && canNestActions;
     if ( null != _computedValue )
     {
       _derivedValue =
@@ -210,6 +216,11 @@ public final class Observer
   boolean canTrackExplicitly()
   {
     return _canTrackExplicitly;
+  }
+
+  boolean canNestActions()
+  {
+    return _canNestActions;
   }
 
   boolean canObserveLowerPriorityDependencies()

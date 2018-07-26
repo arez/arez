@@ -6,9 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Should actions be disallowed from observer by default? Only observers that specifically allow actions
-  should support this?
-
 * References handled specially ...? Is this only importing reference tools from Replicant?
   - `Verifiable`: To verify that:
     * the entity is not disposed.

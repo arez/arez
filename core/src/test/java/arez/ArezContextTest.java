@@ -247,6 +247,119 @@ public class ArezContextTest
     } );
   }
 
+  @SuppressWarnings( "unused" )
+  @Test
+  public void nestedAction_allowed()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger updateCalled = new AtomicInteger();
+
+    final Observer tracker =
+      context.tracker( null, null, true, updateCalled::incrementAndGet, Priority.NORMAL, false, true );
+
+    context.track( tracker, () -> {
+      assertTrue( context.isTransactionActive() );
+      final Transaction transaction = context.getTransaction();
+
+      context.action( ValueUtil.randomString(),
+                      true,
+                      false,
+                      true,
+                      () -> assertNotEquals( context.getTransaction(), transaction ) );
+
+      final int result1 =
+        context.action( ValueUtil.randomString(), true, false, true, () -> {
+          assertNotEquals( context.getTransaction(), transaction );
+          return 0;
+        } );
+
+      context.safeAction( ValueUtil.randomString(),
+                          true,
+                          false,
+                          true,
+                          () -> assertNotEquals( context.getTransaction(), transaction ) );
+
+      final int result2 =
+        context.safeAction( ValueUtil.randomString(), true, false, true, () -> {
+          assertNotEquals( context.getTransaction(), transaction );
+          return 0;
+        } );
+
+      context.action( ValueUtil.randomString(),
+                      true,
+                      false,
+                      false,
+                      () -> assertEquals( context.getTransaction(), transaction ) );
+    } );
+/*
+    context.action( ValueUtil.randomString(), true, false, true, () -> {
+
+      final int result3 =
+        context.action( ValueUtil.randomString(), true, false, false, () -> {
+          assertEquals( context.getTransaction(), transaction );
+          return 0;
+        } );
+
+      context.safeAction( ValueUtil.randomString(),
+                          true,
+                          false,
+                          false,
+                          () -> assertEquals( context.getTransaction(), transaction ) );
+
+      final int result4 =
+        context.safeAction( ValueUtil.randomString(), true, false, false, () -> {
+          assertEquals( context.getTransaction(), transaction );
+          return 0;
+        } );
+    } );*/
+  }
+
+  @SuppressWarnings( "unused" )
+  @Test
+  public void nestedAction_notAllowed()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger updateCalled = new AtomicInteger();
+
+    final Observer tracker =
+      context.tracker( null, null, true, updateCalled::incrementAndGet, Priority.NORMAL, false, false );
+
+    context.track( tracker, () -> {
+
+      final IllegalStateException exception1 =
+        expectThrows( IllegalStateException.class,
+                      () -> context.action( "A1", true, false, true, AbstractArezTest::observeADependency ) );
+
+      assertEquals( exception1.getMessage(),
+                    "Arez-0187: Attempting to nest READ_WRITE action named 'A1' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
+
+      final IllegalStateException exception2 =
+        expectThrows( IllegalStateException.class,
+                      () -> context.action( "A2", true, false, true, () -> 1 ) );
+
+      assertEquals( exception2.getMessage(),
+                    "Arez-0187: Attempting to nest READ_WRITE action named 'A2' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
+
+      final IllegalStateException exception3 =
+        expectThrows( IllegalStateException.class,
+                      () -> context.safeAction( "A3", true, false, true, AbstractArezTest::observeADependency ) );
+
+      assertEquals( exception3.getMessage(),
+                    "Arez-0187: Attempting to nest READ_WRITE action named 'A3' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
+
+      final IllegalStateException exception4 =
+        expectThrows( IllegalStateException.class,
+                      () -> context.safeAction( "A4", true, false, true, () -> 1 ) );
+
+      assertEquals( exception4.getMessage(),
+                    "Arez-0187: Attempting to nest READ_WRITE action named 'A4' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
+    } );
+  }
+
   @Test
   public void action_function()
     throws Throwable
@@ -2329,7 +2442,14 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final Observer observer =
-      context.observer( null, ValueUtil.randomString(), true, new TestReaction(), Priority.NORMAL, false, false );
+      context.observer( null,
+                        ValueUtil.randomString(),
+                        true,
+                        new TestReaction(),
+                        Priority.NORMAL,
+                        false,
+                        false,
+                        false );
 
     handler.assertEventCount( 1 );
 
@@ -2343,7 +2463,14 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final Observer observer =
-      context.observer( null, ValueUtil.randomString(), false, new TestReaction(), Priority.NORMAL, true, false );
+      context.observer( null,
+                        ValueUtil.randomString(),
+                        false,
+                        new TestReaction(),
+                        Priority.NORMAL,
+                        true,
+                        false,
+                        false );
 
     assertEquals( observer.canTrackExplicitly(), true );
   }
@@ -2355,7 +2482,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final Observer observer =
-      context.observer( null, ValueUtil.randomString(), false, new TestReaction(), Priority.NORMAL, true, true );
+      context.observer( null, ValueUtil.randomString(), false, new TestReaction(), Priority.NORMAL, true, true, false );
 
     assertEquals( observer.canObserveLowerPriorityDependencies(), true );
   }

@@ -34,6 +34,7 @@ final class TrackedDescriptor
   private String _priority;
   private boolean _reportParameters;
   private boolean _observeLowerPriorityDependencies;
+  private boolean _canNestActions;
   @Nullable
   private ExecutableElement _trackedMethod;
   @Nullable
@@ -86,6 +87,7 @@ final class TrackedDescriptor
                          @Nonnull final String priority,
                          final boolean reportParameters,
                          final boolean observeLowerPriorityDependencies,
+                         final boolean canNestActions,
                          @Nonnull final ExecutableElement method,
                          @Nonnull final ExecutableType trackedMethodType )
   {
@@ -102,6 +104,7 @@ final class TrackedDescriptor
       _priority = Objects.requireNonNull( priority );
       _reportParameters = reportParameters;
       _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
+      _canNestActions = canNestActions;
       _trackedMethod = Objects.requireNonNull( method );
       _trackedMethodType = Objects.requireNonNull( trackedMethodType );
     }
@@ -168,14 +171,19 @@ final class TrackedDescriptor
     sb.append( ", () -> super.$N()" );
     parameters.add( _onDepsChangedMethod.getSimpleName().toString() );
 
-    if ( !"NORMAL".equals( _priority ) || _observeLowerPriorityDependencies )
+    if ( !"NORMAL".equals( _priority ) || _observeLowerPriorityDependencies || _canNestActions )
     {
       sb.append( ", $T.$N" );
       parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
       parameters.add( _priority );
-      if ( _observeLowerPriorityDependencies )
+      if ( _observeLowerPriorityDependencies || _canNestActions )
       {
-        sb.append( ", true" );
+        sb.append( ", " );
+        sb.append( _observeLowerPriorityDependencies );
+        if ( _canNestActions )
+        {
+          sb.append( ", true" );
+        }
       }
     }
 

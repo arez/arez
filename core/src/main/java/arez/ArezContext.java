@@ -910,9 +910,49 @@ public final class ArezContext
                            final boolean runImmediately,
                            final boolean observeLowerPriorityDependencies )
   {
+    return autorun( component,
+                    name,
+                    mutation,
+                    action,
+                    priority,
+                    runImmediately,
+                    observeLowerPriorityDependencies,
+                    false );
+  }
+
+  /**
+   * Create an autorun observer.
+   *
+   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name                             the name of the observer.
+   * @param mutation                         true if the action may modify state, false otherwise.
+   * @param action                           the action defining the observer.
+   * @param priority                         the priority of the observer.
+   * @param runImmediately                   true to invoke action immediately, false to schedule reaction for next reaction cycle.
+   * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
+   * @param canNestActions                   true if the tracker can start actions from tracker action.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer autorun( @Nullable final Component component,
+                           @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure action,
+                           @Nonnull final Priority priority,
+                           final boolean runImmediately,
+                           final boolean observeLowerPriorityDependencies,
+                           final boolean canNestActions )
+  {
     final Reaction reaction = new RunProcedureAsActionReaction( action );
     final Observer observer =
-      observer( component, name, mutation, reaction, priority, false, observeLowerPriorityDependencies );
+      observer( component,
+                name,
+                mutation,
+                reaction,
+                priority,
+                false,
+                observeLowerPriorityDependencies,
+                canNestActions );
     if ( runImmediately )
     {
       observer.invokeReaction();
@@ -1034,13 +1074,40 @@ public final class ArezContext
                            @Nonnull final Priority priority,
                            final boolean observeLowerPriorityDependencies )
   {
+    return tracker( component, name, mutation, action, priority, observeLowerPriorityDependencies, false );
+  }
+
+  /**
+   * Create a "tracker" observer.
+   * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
+   *
+   * @param component                        the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name                             the name of the observer.
+   * @param mutation                         true if the observer may modify state during tracking, false otherwise.
+   * @param priority                         the priority of the observer.
+   * @param action                           the action invoked as the reaction.
+   * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
+   * @param canNestActions                   true if the tracker can start actions from tracker action.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer tracker( @Nullable final Component component,
+                           @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure action,
+                           @Nonnull final Priority priority,
+                           final boolean observeLowerPriorityDependencies,
+                           final boolean canNestActions )
+  {
     return observer( component,
                      name,
                      mutation,
                      new RunProcedureReaction( action ),
                      priority,
                      true,
-                     observeLowerPriorityDependencies );
+                     observeLowerPriorityDependencies,
+                     canNestActions );
   }
 
   /**
@@ -1060,7 +1127,8 @@ public final class ArezContext
                      @Nonnull final Reaction reaction,
                      @Nonnull final Priority priority,
                      final boolean canTrackExplicitly,
-                     final boolean observeLowerPriorityDependencies )
+                     final boolean observeLowerPriorityDependencies,
+                     final boolean canNestActions )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =
@@ -1072,7 +1140,8 @@ public final class ArezContext
                     reaction,
                     priority,
                     canTrackExplicitly,
-                    observeLowerPriorityDependencies );
+                    observeLowerPriorityDependencies,
+                    canNestActions );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObserverCreatedEvent( new ObserverInfoImpl( getSpy(), observer ) ) );
@@ -1589,6 +1658,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
+      verifyActionNestingAllowed( name, mode );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
         result = action.call();
@@ -1808,6 +1878,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
+      verifyActionNestingAllowed( name, mode );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
         result = action.call();
@@ -2034,6 +2105,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
+      verifyActionNestingAllowed( name, mode );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
         action.call();
@@ -2237,6 +2309,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
+      verifyActionNestingAllowed( name, mode );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
         action.call();
@@ -2280,6 +2353,22 @@ public final class ArezContext
         }
       }
       triggerScheduler();
+    }
+  }
+
+  private void verifyActionNestingAllowed( @Nullable final String name, @Nullable final TransactionMode mode )
+  {
+    if ( Arez.shouldEnforceTransactionType() )
+    {
+      final Transaction parentTransaction = Transaction.isTransactionActive( this ) ? Transaction.current() : null;
+      if ( null != parentTransaction )
+      {
+        final Observer parent = parentTransaction.getTracker();
+        apiInvariant( () -> null == parent || parent.canNestActions() || TransactionMode.READ_WRITE_OWNED == mode,
+                      () -> "Arez-0187: Attempting to nest " + mode + " action named '" + name + "' " +
+                            "inside transaction named '" + parentTransaction.getName() + "' created by an " +
+                            "observer that does not allow nested actions." );
+      }
     }
   }
 

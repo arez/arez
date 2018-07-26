@@ -526,7 +526,8 @@ public class ObservableTest
                     new TestReaction(),
                     Priority.HIGH,
                     false,
-                    false );
+                    false,
+                    true );
     setCurrentTransaction( observer );
 
     final Observable<?> observable =
@@ -556,6 +557,7 @@ public class ObservableTest
                     new TestReaction(),
                     Priority.HIGH,
                     false,
+                    true,
                     true );
     setCurrentTransaction( observer );
 

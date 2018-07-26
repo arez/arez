@@ -95,7 +95,8 @@ public final class ComputedValue<T>
                                                           o ),
                               priority,
                               false,
-                              observeLowerPriorityDependencies );
+                              observeLowerPriorityDependencies,
+                              false );
     if ( null != _component )
     {
       _component.addComputedValue( this );

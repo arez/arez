@@ -450,7 +450,14 @@ final class ComponentDescriptor
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
     final boolean verifyRequired = getAnnotationParameter( annotation, "verifyRequired" );
     final ActionDescriptor action =
-      new ActionDescriptor( this, name, requireNewTransaction, mutation, verifyRequired, reportParameters, method, methodType );
+      new ActionDescriptor( this,
+                            name,
+                            requireNewTransaction,
+                            mutation,
+                            verifyRequired,
+                            reportParameters,
+                            method,
+                            methodType );
     _actions.put( action.getName(), action );
   }
 
@@ -495,6 +502,7 @@ final class ComponentDescriptor
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
     final boolean observeLowerPriorityDependencies =
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
+    final boolean canNestActions = getAnnotationParameter( annotation, "canNestActions" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final AutorunDescriptor autorun =
       new AutorunDescriptor( this,
@@ -502,6 +510,7 @@ final class ComponentDescriptor
                              mutation,
                              priority.getSimpleName().toString(),
                              observeLowerPriorityDependencies,
+                             canNestActions,
                              method,
                              methodType );
     _autoruns.put( autorun.getName(), autorun );
@@ -554,6 +563,7 @@ final class ComponentDescriptor
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
     final boolean observeLowerPriorityDependencies =
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
+    final boolean canNestActions = getAnnotationParameter( annotation, "canNestActions" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
     final TrackedDescriptor tracked = findOrCreateTracked( name );
@@ -561,6 +571,7 @@ final class ComponentDescriptor
                               priority.getSimpleName().toString(),
                               reportParameters,
                               observeLowerPriorityDependencies,
+                              canNestActions,
                               method,
                               methodType );
   }
@@ -1462,7 +1473,13 @@ final class ComponentDescriptor
         final CandidateMethod candidate = trackeds.remove( tracked.getName() );
         if ( null != candidate )
         {
-          tracked.setTrackedMethod( false, "NORMAL", true, false, candidate.getMethod(), candidate.getMethodType() );
+          tracked.setTrackedMethod( false,
+                                    "NORMAL",
+                                    true,
+                                    false,
+                                    false,
+                                    candidate.getMethod(),
+                                    candidate.getMethodType() );
         }
         else
         {

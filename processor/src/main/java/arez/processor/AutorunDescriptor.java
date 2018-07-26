@@ -28,6 +28,7 @@ final class AutorunDescriptor
   @Nonnull
   private final String _priority;
   private final boolean _observeLowerPriorityDependencies;
+  private final boolean _canNestActions;
   @Nonnull
   private final ExecutableElement _autorun;
   @Nonnull
@@ -42,6 +43,7 @@ final class AutorunDescriptor
                      final boolean mutation,
                      final String priority,
                      final boolean observeLowerPriorityDependencies,
+                     final boolean canNestActions,
                      @Nonnull final ExecutableElement autorun,
                      @Nonnull final ExecutableType autorunType )
   {
@@ -50,6 +52,7 @@ final class AutorunDescriptor
     _mutation = mutation;
     _priority = Objects.requireNonNull( priority );
     _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
+    _canNestActions = canNestActions;
     _autorun = Objects.requireNonNull( autorun );
     _autorunType = Objects.requireNonNull( autorunType );
   }
@@ -108,15 +111,20 @@ final class AutorunDescriptor
     sb.append( _mutation );
     sb.append( ", () -> super.$N()" );
     parameters.add( getAutorun().getSimpleName().toString() );
-    if ( !"NORMAL".equals( _priority ) || _observeLowerPriorityDependencies )
+    if ( !"NORMAL".equals( _priority ) || _observeLowerPriorityDependencies || _canNestActions )
     {
       sb.append( ", $T.$N, false" );
       parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
       parameters.add( _priority );
 
-      if ( _observeLowerPriorityDependencies )
+      if ( _observeLowerPriorityDependencies || _canNestActions )
       {
-        sb.append( ", true" );
+        sb.append( ", " );
+        sb.append( _observeLowerPriorityDependencies );
+        if ( _canNestActions )
+        {
+          sb.append( ", true" );
+        }
       }
     }
     sb.append( " )" );

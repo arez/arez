@@ -16,6 +16,10 @@
 * **\[core\]** Add an additional invariant check to ensure that `ComputedValue` actions do not attempt to
   invoke actions or track functions. The intent of `ComputedValue` is to derive values from observable and
   computed properties and not to drive change (i.e. actions) or react to change (i.e. track methods).
+* **\[core\]** Add the `canNestActions` parameter to the `@Track` and `@Autorun` annotations. If the parameter
+  is false, then an invariant failure will occur if the track or autorun observers attempt to invoke an action.
+  The intent is to force the developer to explicitly allow this scenario as nested actions can impact the
+  dependencies of the containing observer.
 
 ### [v0.101](https://github.com/arez/arez/tree/v0.101) (2018-07-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.100...v0.101)
