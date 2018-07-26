@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.102](https://github.com/arez/arez/tree/v0.102) (2018-07-26)
+[Full Changelog](https://github.com/arez/arez/compare/v0.101...v0.102)
 
 * **\[core\]** Add the `readOutsideTransaction` parameter to the `@Observable` annotation. If set to `true`
   the observable can be read outside a transaction. i.e. The observable can be read without be wrapping in a
