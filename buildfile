@@ -132,6 +132,7 @@ define 'arez' do
     compile.with :javax_json,
                  :jsonassert,
                  :android_json,
+                 :testng,
                  project('core').package(:jar),
                  project('core').compile.dependencies
     package(:jar)
