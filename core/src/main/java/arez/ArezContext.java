@@ -1291,6 +1291,18 @@ public final class ArezContext
   }
 
   /**
+   * Return true if there is a tracking transaction in progress.
+   * A tracking transaction is one created by an {@link Observer} via the {@link #autorun(Procedure)}
+   * or {@link #tracker(Procedure)} methods.
+   *
+   * @return true if there is a tracking transaction in progress.
+   */
+  public boolean isTrackingTransactionActive()
+  {
+    return Transaction.isTransactionActive( this ) && null != Transaction.current().getTracker();
+  }
+
+  /**
    * Return true if there is a read-write transaction in progress.
    *
    * @return true if there is a read-write transaction in progress.

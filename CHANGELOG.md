@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* **\[core\]** Add the utility method `ArezContext.isTrackingTransactionActive()`.
+
 ### [v0.102](https://github.com/arez/arez/tree/v0.102) (2018-07-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.101...v0.102)
 

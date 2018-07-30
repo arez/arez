@@ -187,6 +187,35 @@ public class ArezContextTest
     assertFalse( context.isWriteTransactionActive() );
   }
 
+  @Test
+  public void isTrackingTransactionActive()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    assertFalse( context.isTransactionActive() );
+    assertFalse( context.isWriteTransactionActive() );
+    assertFalse( context.isTrackingTransactionActive() );
+
+    context.action( true, () -> {
+      assertTrue( context.isTransactionActive() );
+      assertTrue( context.isWriteTransactionActive() );
+      observeADependency();
+    } );
+
+    final Observer tracker = context.tracker( () -> assertFalse( context.isTrackingTransactionActive() ) );
+
+    final Procedure action = () -> {
+      assertTrue( context.isTransactionActive() );
+      assertTrue( context.isTrackingTransactionActive() );
+    };
+    context.track( tracker, action );
+
+    assertFalse( context.isTransactionActive() );
+    assertFalse( context.isWriteTransactionActive() );
+    assertFalse( context.isTrackingTransactionActive() );
+  }
+
   @SuppressWarnings( "unused" )
   @Test
   public void requireNewTransaction_false()
