@@ -3,6 +3,11 @@
 ### Unreleased
 
 * **\[core\]** Add the utility method `ArezContext.isTrackingTransactionActive()`.
+* **\[core\]** Change the implementation of `readOutsideTransaction` parameter on the `@Observable`
+  annotation so that `arez.Observable.reportObserved()` will only be invoked in a tracking transaction
+  (i.e. when an `arez.Observer` created the transaction). Thus `@Action` annotated methods that only
+  access observables that set the `readOutsideTransaction` parameter to `true` and and neither access
+  nor modify other arez elements no longer need to be annotated with `@Action` annotations.
 
 ### [v0.102](https://github.com/arez/arez/tree/v0.102) (2018-07-26)
 [Full Changelog](https://github.com/arez/arez/compare/v0.101...v0.102)

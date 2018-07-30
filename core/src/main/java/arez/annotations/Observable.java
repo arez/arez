@@ -73,6 +73,11 @@ public @interface Observable
 
   /**
    * Return true if the observable be read outside a transaction.
+   * If the observable can be read outside a transaction then {@link arez.Observable#reportObserved()} will
+   * only be invoked in a tracking transaction (i.e. when an {@link arez.Observer} created the transaction).
+   * Thus {@link Action} annotated methods that only access observables that set the readOutsideTransaction
+   * parameter to true and neither access nor modify other arez elements no longer need to be annotated with
+   * {@link Action} annotations.
    *
    * @return true to allow reads outside a transaction, false to require a transaction to read observable.
    */

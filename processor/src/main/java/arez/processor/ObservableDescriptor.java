@@ -565,7 +565,7 @@ final class ObservableDescriptor
     if ( _readOutsideTransaction )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
-      block.beginControlFlow( "if ( this.$N().isTransactionActive() )", _componentDescriptor.getContextMethodName() );
+      block.beginControlFlow( "if ( this.$N().isTrackingTransactionActive() )", _componentDescriptor.getContextMethodName() );
       block.addStatement( "this.$N.reportObserved()", getFieldName() );
       block.endControlFlow();
       builder.addCode( block.build() );

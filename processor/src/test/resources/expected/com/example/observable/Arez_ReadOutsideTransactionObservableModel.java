@@ -124,7 +124,7 @@ public final class Arez_ReadOutsideTransactionObservableModel extends ReadOutsid
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( this.$$arezi$$_context().isTransactionActive() ) {
+    if ( this.$$arezi$$_context().isTrackingTransactionActive() ) {
       this.$$arez$$_time.reportObserved();
     }
     return this.$$arezd$$_time;
