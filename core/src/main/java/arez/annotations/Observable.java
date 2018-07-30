@@ -72,7 +72,7 @@ public @interface Observable
   Feature initializer() default Feature.AUTODETECT;
 
   /**
-   * Can True if the observable be read outside a transaction.
+   * Return true if the observable be read outside a transaction.
    *
    * @return true to allow reads outside a transaction, false to require a transaction to read observable.
    */
