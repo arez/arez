@@ -17,7 +17,7 @@ The simplest way to use component;
 <dependency>
    <groupId>org.realityforge.arez.ticker</groupId>
    <artifactId>arez-ticker</artifactId>
-   <version>0.27</version>
+   <version>0.28</version>
 </dependency>
 ```
 
