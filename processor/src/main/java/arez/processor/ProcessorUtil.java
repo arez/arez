@@ -6,7 +6,6 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
-import java.lang.annotation.Documented;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -255,32 +254,35 @@ final class ProcessorUtil
     }
   }
 
-  static void copyDocumentedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                         @Nonnull final MethodSpec.Builder builder )
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final MethodSpec.Builder builder )
   {
     for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
     {
-      final DeclaredType annotationType = annotation.getAnnotationType();
-      if ( !annotationType.toString().startsWith( "arez.annotations." ) &&
-           null != annotationType.asElement().getAnnotation( Documented.class ) )
+      if ( shouldCopyAnnotation( annotation.getAnnotationType().toString() ) )
       {
         builder.addAnnotation( AnnotationSpec.get( annotation ) );
       }
     }
   }
 
-  static void copyDocumentedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                         @Nonnull final ParameterSpec.Builder builder )
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final ParameterSpec.Builder builder )
   {
     for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
     {
-      final DeclaredType annotationType = annotation.getAnnotationType();
-      if ( !annotationType.toString().startsWith( "arez.annotations." ) &&
-           null != annotationType.asElement().getAnnotation( Documented.class ) )
+      if ( shouldCopyAnnotation( annotation.getAnnotationType().toString() ) )
       {
         builder.addAnnotation( AnnotationSpec.get( annotation ) );
       }
     }
+  }
+
+  private static boolean shouldCopyAnnotation( @Nonnull final String classname )
+  {
+    return Constants.NONNULL_ANNOTATION_CLASSNAME.equals( classname ) ||
+           Constants.NULLABLE_ANNOTATION_CLASSNAME.equals( classname ) ||
+           Constants.DEPRECATED_ANNOTATION_CLASSNAME.equals( classname );
   }
 
   static void copyExceptions( @Nonnull final ExecutableType method, @Nonnull final MethodSpec.Builder builder )
@@ -421,7 +423,8 @@ final class ProcessorUtil
     return annotationName.replaceAll( ".*\\.", "" );
   }
 
-  static boolean isDisposableTrackableRequired( @Nonnull final Elements elementUtils, @Nonnull final TypeElement typeElement )
+  static boolean isDisposableTrackableRequired( @Nonnull final Elements elementUtils,
+                                                @Nonnull final TypeElement typeElement )
   {
     final VariableElement variableElement = (VariableElement)
       getAnnotationValue( elementUtils,

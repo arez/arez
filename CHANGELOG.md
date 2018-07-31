@@ -5,6 +5,9 @@
 * **\[core\]** Add the `priority` and `observeLowerPriorityDependencies` parameters to the `@Memoize`
   annotation. These parameters control the same named parameters on the `ComputedValue` instances created
   by the `MemoizeCache`.
+* **\[processor\]** Change the annotation processor so that only whitelisted annotations are copied to
+  subclasses and overridden methods. The whitelisted annotations include `javax.annotations.Nonnull`,
+  `javax.annotations.Nullable` and `java.lang.Deprecated`.
 
 ### [v0.103](https://github.com/arez/arez/tree/v0.103) (2018-07-30)
 [Full Changelog](https://github.com/arez/arez/compare/v0.102...v0.103)

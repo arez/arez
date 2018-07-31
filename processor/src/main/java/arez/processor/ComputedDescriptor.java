@@ -626,7 +626,7 @@ final class ComputedDescriptor
     ProcessorUtil.copyAccessModifiers( _computed, builder );
     ProcessorUtil.copyExceptions( _computedType, builder );
     ProcessorUtil.copyTypeParameters( _computedType, builder );
-    ProcessorUtil.copyDocumentedAnnotations( _computed, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _computed, builder );
     builder.addAnnotation( Override.class );
     final TypeName returnType = TypeName.get( _computedType.getReturnType() );
     builder.returns( returnType );
@@ -711,7 +711,7 @@ final class ComputedDescriptor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _refMethod, builder );
     ProcessorUtil.copyTypeParameters( _refMethodType, builder );
-    ProcessorUtil.copyDocumentedAnnotations( _refMethod, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );

@@ -161,7 +161,7 @@ final class MemoizeDescriptor
     ProcessorUtil.copyAccessModifiers( _memoize, builder );
     ProcessorUtil.copyExceptions( _memoizeType, builder );
     ProcessorUtil.copyTypeParameters( _memoizeType, builder );
-    ProcessorUtil.copyDocumentedAnnotations( _memoize, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _memoize, builder );
     builder.addAnnotation( Override.class );
     final TypeName returnType = TypeName.get( _memoizeType.getReturnType() );
     builder.returns( returnType );
@@ -183,7 +183,7 @@ final class MemoizeDescriptor
         final TypeName parameterType = TypeName.get( _memoizeType.getParameterTypes().get( i ) );
         final ParameterSpec.Builder param =
           ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-        ProcessorUtil.copyDocumentedAnnotations( element, param );
+        ProcessorUtil.copyWhitelistedAnnotations( element, param );
         builder.addParameter( param.build() );
       }
     }

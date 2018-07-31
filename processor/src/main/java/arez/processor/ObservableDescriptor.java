@@ -329,7 +329,7 @@ final class ObservableDescriptor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _refMethod, builder );
     ProcessorUtil.copyTypeParameters( _refMethodType, builder );
-    ProcessorUtil.copyDocumentedAnnotations( _refMethod, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
@@ -356,7 +356,7 @@ final class ObservableDescriptor
     ProcessorUtil.copyAccessModifiers( _setter, builder );
     ProcessorUtil.copyExceptions( _setterType, builder );
     ProcessorUtil.copyTypeParameters( _setterType, builder );
-    ProcessorUtil.copyDocumentedAnnotations( _setter, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _setter, builder );
 
     builder.addAnnotation( Override.class );
 
@@ -378,7 +378,7 @@ final class ObservableDescriptor
     final TypeName type = TypeName.get( parameterType );
     final ParameterSpec.Builder param =
       ParameterSpec.builder( type, paramName, Modifier.FINAL );
-    ProcessorUtil.copyDocumentedAnnotations( element, param );
+    ProcessorUtil.copyWhitelistedAnnotations( element, param );
     builder.addParameter( param.build() );
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
     builder.addStatement( "this.$N.preReportChanged()", getFieldName() );
@@ -556,7 +556,7 @@ final class ObservableDescriptor
     ProcessorUtil.copyAccessModifiers( _getter, builder );
     ProcessorUtil.copyExceptions( _getterType, builder );
     ProcessorUtil.copyTypeParameters( _getterType, builder );
-    ProcessorUtil.copyDocumentedAnnotations( _getter, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _getter, builder );
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _getterType.getReturnType() ) );

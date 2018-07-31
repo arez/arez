@@ -220,7 +220,7 @@ final class TrackedDescriptor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _refMethod, builder );
     ProcessorUtil.copyTypeParameters( _refMethodType, builder );
-    ProcessorUtil.copyDocumentedAnnotations( _refMethod, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
@@ -248,7 +248,7 @@ final class TrackedDescriptor
     ProcessorUtil.copyAccessModifiers( _trackedMethod, builder );
     ProcessorUtil.copyExceptions( _trackedMethodType, builder );
     ProcessorUtil.copyTypeParameters( _trackedMethodType, builder );
-    ProcessorUtil.copyDocumentedAnnotations( _trackedMethod, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _trackedMethod, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = _trackedMethodType.getReturnType();
     builder.returns( TypeName.get( returnType ) );
@@ -301,7 +301,7 @@ final class TrackedDescriptor
       final TypeName parameterType = TypeName.get( _trackedMethodType.getParameterTypes().get( i ) );
       final ParameterSpec.Builder param =
         ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-      ProcessorUtil.copyDocumentedAnnotations( element, param );
+      ProcessorUtil.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
       parameterNames.add( element.getSimpleName().toString() );
       if ( !firstParam )

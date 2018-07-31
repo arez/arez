@@ -160,7 +160,7 @@ final class AutorunDescriptor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _refMethod, builder );
     ProcessorUtil.copyTypeParameters( _refMethodType, builder );
-    ProcessorUtil.copyDocumentedAnnotations( _refMethod, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
@@ -185,7 +185,7 @@ final class AutorunDescriptor
     ProcessorUtil.copyAccessModifiers( _autorun, builder );
     ProcessorUtil.copyExceptions( _autorunType, builder );
     ProcessorUtil.copyTypeParameters( _autorunType, builder );
-    ProcessorUtil.copyDocumentedAnnotations( _autorun, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _autorun, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = _autorun.getReturnType();
     builder.returns( TypeName.get( returnType ) );

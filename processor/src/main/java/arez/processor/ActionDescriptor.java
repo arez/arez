@@ -83,7 +83,7 @@ final class ActionDescriptor
     ProcessorUtil.copyAccessModifiers( _action, builder );
     ProcessorUtil.copyExceptions( _actionType, builder );
     ProcessorUtil.copyTypeParameters( _actionType, builder );
-    ProcessorUtil.copyDocumentedAnnotations( _action, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _action, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = _actionType.getReturnType();
     builder.returns( TypeName.get( returnType ) );
@@ -149,7 +149,7 @@ final class ActionDescriptor
       final TypeName parameterType = TypeName.get( _actionType.getParameterTypes().get( i ) );
       final ParameterSpec.Builder param =
         ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-      ProcessorUtil.copyDocumentedAnnotations( element, param );
+      ProcessorUtil.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
       parameterNames.add( element.getSimpleName().toString() );
       if ( !firstParam )

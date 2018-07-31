@@ -2136,7 +2136,7 @@ final class ComponentDescriptor
     if ( null != _contextRef )
     {
       method.addAnnotation( Override.class );
-      ProcessorUtil.copyDocumentedAnnotations( _contextRef, method );
+      ProcessorUtil.copyWhitelistedAnnotations( _contextRef, method );
       ProcessorUtil.copyAccessModifiers( _contextRef, method );
     }
     return method.build();
@@ -2176,7 +2176,7 @@ final class ComponentDescriptor
     method.addCode( block.build() );
 
     method.addStatement( "return this.$N", GeneratorUtil.COMPONENT_FIELD_NAME );
-    ProcessorUtil.copyDocumentedAnnotations( _componentRef, method );
+    ProcessorUtil.copyWhitelistedAnnotations( _componentRef, method );
     ProcessorUtil.copyAccessModifiers( _componentRef, method );
     return method.build();
   }
@@ -2254,7 +2254,7 @@ final class ComponentDescriptor
     {
       methodName = _componentNameRef.getSimpleName().toString();
       builder = MethodSpec.methodBuilder( methodName );
-      ProcessorUtil.copyDocumentedAnnotations( _componentNameRef, builder );
+      ProcessorUtil.copyWhitelistedAnnotations( _componentNameRef, builder );
       ProcessorUtil.copyAccessModifiers( _componentNameRef, builder );
       builder.addModifiers( Modifier.FINAL );
     }
@@ -2639,7 +2639,7 @@ final class ComponentDescriptor
     {
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
-      ProcessorUtil.copyDocumentedAnnotations( element, param );
+      ProcessorUtil.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
       parameterNames.add( element.getSimpleName().toString() );
       if ( !firstParam )
@@ -2663,7 +2663,7 @@ final class ComponentDescriptor
         ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
                                observable.getName(),
                                Modifier.FINAL );
-      ProcessorUtil.copyDocumentedAnnotations( observable.getGetter(), param );
+      ProcessorUtil.copyWhitelistedAnnotations( observable.getGetter(), param );
       builder.addParameter( param.build() );
       final boolean isPrimitive = TypeName.get( observable.getGetterType().getReturnType() ).isPrimitive();
       if ( isPrimitive )
@@ -3241,7 +3241,7 @@ final class ComponentDescriptor
     {
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
-      ProcessorUtil.copyDocumentedAnnotations( element, param );
+      ProcessorUtil.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
       parameters.add( element.getSimpleName().toString() );
       if ( !firstParam )
@@ -3263,7 +3263,7 @@ final class ComponentDescriptor
         ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
                                observable.getName(),
                                Modifier.FINAL );
-      ProcessorUtil.copyDocumentedAnnotations( observable.getGetter(), param );
+      ProcessorUtil.copyWhitelistedAnnotations( observable.getGetter(), param );
       builder.addParameter( param.build() );
       parameters.add( observable.getName() );
       if ( !firstParam )
