@@ -761,7 +761,13 @@ final class ComponentDescriptor
     final VariableElement priorityElement = getAnnotationParameter( annotation, "priority" );
     final String priority = priorityElement.getSimpleName().toString();
     checkNameUnique( name, method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
-    _memoizes.computeIfAbsent( name, n -> new MemoizeDescriptor( this, n, priority, observeLowerPriorityDependencies ) ).setMemoize( method, methodType );
+    _memoizes.put( name,
+                   new MemoizeDescriptor( this,
+                                          name,
+                                          priority,
+                                          observeLowerPriorityDependencies,
+                                          method,
+                                          methodType ) );
   }
 
   @Nonnull

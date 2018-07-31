@@ -34,19 +34,30 @@ final class MemoizeDescriptor
   private final String _priority;
   private final boolean _observeLowerPriorityDependencies;
   @Nullable
-  private ExecutableElement _memoize;
+  private final ExecutableElement _memoize;
   @Nullable
-  private ExecutableType _memoizeType;
+  private final ExecutableType _memoizeType;
 
   MemoizeDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
                      @Nonnull final String name,
                      @Nonnull final String priority,
-                     final boolean observeLowerPriorityDependencies )
+                     final boolean observeLowerPriorityDependencies,
+                     @Nonnull final ExecutableElement memoize,
+                     @Nonnull final ExecutableType memoizeType )
   {
     _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     _priority = Objects.requireNonNull( priority );
     _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
+    //The caller already verified that no duplicate computed have been defined
+
+    MethodChecks.mustBeWrappable( _componentDescriptor.getElement(), Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
+    MethodChecks.mustHaveParameters( Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
+    MethodChecks.mustReturnAValue( Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
+
+    _memoize = Objects.requireNonNull( memoize );
+    _memoizeType = Objects.requireNonNull( memoizeType );
   }
 
   @Nonnull
@@ -59,20 +70,6 @@ final class MemoizeDescriptor
   ExecutableElement getMemoize()
   {
     return Objects.requireNonNull( _memoize );
-  }
-
-  void setMemoize( @Nonnull final ExecutableElement memoize, @Nonnull final ExecutableType memoizeType )
-    throws ArezProcessorException
-  {
-    //The caller already verified that no duplicate computed have been defined
-    assert null == _memoize;
-    MethodChecks.mustBeWrappable( _componentDescriptor.getElement(), Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
-    MethodChecks.mustHaveParameters( Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
-    MethodChecks.mustReturnAValue( Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
-
-    _memoize = Objects.requireNonNull( memoize );
-    _memoizeType = Objects.requireNonNull( memoizeType );
   }
 
   void buildFields( @Nonnull final TypeSpec.Builder builder )
