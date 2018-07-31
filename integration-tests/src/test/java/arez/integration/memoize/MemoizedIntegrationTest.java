@@ -1,4 +1,4 @@
-package arez.integration;
+package arez.integration.memoize;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -10,6 +10,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
+import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
