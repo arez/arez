@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Add `priority` and `observeLowerPriorityDependencies` parameters to `@Memoize`
+
 * References handled specially ...? Is this only importing reference tools from Replicant?
   - `Verifiable`: To verify that:
     * the entity is not disposed.
@@ -32,6 +34,8 @@ complete as there is too much un-said.
 * Enhance autorun with delay parameter. This is the milliseconds used to debounce the tracked function.
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
+
+* Move all these Arez component ideas into arez/arez issue tracker and label them as good first issue. 
 
 * Add new browser based library:
   - `arez-localstorage`: stores a value under a key and updates store if changed. Will need a serializer
