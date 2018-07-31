@@ -1,4 +1,4 @@
-package com.example.deprecated;
+package com.example.memoize;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_DeprecatedMemoizeModel extends DeprecatedMemoizeModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_CustomPriorityMemoizeModel extends CustomPriorityMemoizeModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -33,17 +33,16 @@ public final class Arez_DeprecatedMemoizeModel extends DeprecatedMemoizeModel im
   @Nonnull
   private final MemoizeCache<Long> $$arez$$_count;
 
-  @SuppressWarnings("deprecation")
-  public Arez_DeprecatedMemoizeModel() {
+  public Arez_CustomPriorityMemoizeModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "DeprecatedMemoizeModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "CustomPriorityMemoizeModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_count = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezi$$_context() : null, Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".count" : null, args -> super.count((long) args[ 0 ], (float) args[ 1 ]), 2, Priority.NORMAL );
+    this.$$arez$$_count = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezi$$_context() : null, Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".count" : null, args -> super.count((long) args[ 0 ], (float) args[ 1 ]), 2, Priority.LOWEST );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -57,7 +56,7 @@ public final class Arez_DeprecatedMemoizeModel extends DeprecatedMemoizeModel im
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'DeprecatedMemoizeModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'CustomPriorityMemoizeModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -77,9 +76,9 @@ public final class Arez_DeprecatedMemoizeModel extends DeprecatedMemoizeModel im
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'DeprecatedMemoizeModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'CustomPriorityMemoizeModel'" );
     }
-    return "DeprecatedMemoizeModel." + $$arezi$$_id();
+    return "CustomPriorityMemoizeModel." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -115,7 +114,6 @@ public final class Arez_DeprecatedMemoizeModel extends DeprecatedMemoizeModel im
     }
   }
 
-  @Deprecated
   @Override
   public long count(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -138,10 +136,10 @@ public final class Arez_DeprecatedMemoizeModel extends DeprecatedMemoizeModel im
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_DeprecatedMemoizeModel) ) {
+      } else if ( null == o || !(o instanceof Arez_CustomPriorityMemoizeModel) ) {
         return false;
       } else {
-        final Arez_DeprecatedMemoizeModel that = (Arez_DeprecatedMemoizeModel) o;;
+        final Arez_CustomPriorityMemoizeModel that = (Arez_CustomPriorityMemoizeModel) o;;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

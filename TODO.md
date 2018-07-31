@@ -6,7 +6,7 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Add `priority` and `observeLowerPriorityDependencies` parameters to `@Memoize`
+* Add `observeLowerPriorityDependencies` parameters to `@Memoize`
 
 * References handled specially ...? Is this only importing reference tools from Replicant?
   - `Verifiable`: To verify that:

@@ -159,6 +159,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inject.ScopedButNoDaggerModel", false, false, false },
         new Object[]{ "com.example.inject.ScopedInjectModel", true, false, false },
         new Object[]{ "com.example.memoize.BasicMemoizeModel", false, false, false },
+        new Object[]{ "com.example.memoize.CustomPriorityMemoizeModel", false, false, false },
         new Object[]{ "com.example.memoize.LocalTypeParamMemoizeModel", false, false, false },
         new Object[]{ "com.example.memoize.TypeParamMemoizeModel", false, false, false },
         new Object[]{ "com.example.observable.AbstractNonPrimitiveObservablesModel", false, false, false },

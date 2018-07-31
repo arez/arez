@@ -30,15 +30,20 @@ final class MemoizeDescriptor
   private final ComponentDescriptor _componentDescriptor;
   @Nonnull
   private final String _name;
+  @Nonnull
+  private final String _priority;
   @Nullable
   private ExecutableElement _memoize;
   @Nullable
   private ExecutableType _memoizeType;
 
-  MemoizeDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
+  MemoizeDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
+                     @Nonnull final String name,
+                     @Nonnull final String priority )
   {
     _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
+    _priority = Objects.requireNonNull( priority );
   }
 
   @Nonnull
@@ -91,8 +96,9 @@ final class MemoizeDescriptor
     assert null != _memoizeType;
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = new $T<>( $T.areZonesEnabled() ? $N() : null, $T.areNativeComponentsEnabled() ? this.$N : null, " +
-               "$T.areNamesEnabled() ? $N() + $S : null, args -> super.$N(" );
+    sb.append(
+      "this.$N = new $T<>( $T.areZonesEnabled() ? $N() : null, $T.areNativeComponentsEnabled() ? this.$N : null, " +
+      "$T.areNamesEnabled() ? $N() + $S : null, args -> super.$N(" );
     parameters.add( getFieldName() );
     parameters.add( GeneratorUtil.MEMOIZE_CACHE_CLASSNAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
@@ -116,7 +122,11 @@ final class MemoizeDescriptor
       index++;
     }
 
-    sb.append( "), " ).append( _memoize.getParameters().size() ).append( ")" );
+    sb.append( "), " );
+    sb.append( _memoize.getParameters().size() );
+    sb.append( ", $T.$N )" );
+    parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
+    parameters.add( _priority );
 
     builder.addStatement( sb.toString(), parameters.toArray() );
   }

@@ -8,6 +8,7 @@ import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
 import arez.Observer;
+import arez.Priority;
 import arez.spy.ComponentInfo;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -41,11 +42,14 @@ public class MemoizeCacheTest
     };
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
+    final Priority priority = Priority.NORMAL;
     final MemoizeCache<String> cache =
-      new MemoizeCache<>( null, null, name, function, 2 );
+      new MemoizeCache<>( null, null, name, function, 2, priority );
 
     assertEquals( cache.isDisposed(), false );
     assertEquals( cache.getNextIndex(), 0 );
+
+    assertEquals( cache.getPriority(), priority );
 
     final Observer observer1 = context.autorun( () -> {
       observeADependency();
@@ -115,7 +119,7 @@ public class MemoizeCacheTest
     };
     final String name = ValueUtil.randomString();
     final MemoizeCache<String> cache =
-      new MemoizeCache<>( null, null, name, function, 2 );
+      new MemoizeCache<>( null, null, name, function, 2, Priority.NORMAL );
 
     final ComputedValue<String> computedValue1 = cache.getComputedValue( "a", "b" );
     final ComputedValue<String> computedValue1b = cache.getComputedValue( "a", "b" );
@@ -149,7 +153,7 @@ public class MemoizeCacheTest
 
     final String name = ValueUtil.randomString();
     final MemoizeCache<String> cache =
-      new MemoizeCache<>( null, component, name, function, 2 );
+      new MemoizeCache<>( null, component, name, function, 2, Priority.NORMAL );
 
     final ComputedValue<String> computedValue1 = cache.getComputedValue( "a", "b" );
 
@@ -176,7 +180,7 @@ public class MemoizeCacheTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
     final MemoizeCache<String> cache =
-      new MemoizeCache<>( null, null, name, function, 2 );
+      new MemoizeCache<>( null, null, name, function, 2, Priority.NORMAL );
 
     assertEquals( cache.isDisposed(), false );
     assertEquals( cache.getNextIndex(), 0 );
@@ -218,7 +222,7 @@ public class MemoizeCacheTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
     final MemoizeCache<String> cache =
-      new MemoizeCache<>( null, null, name, function, 2 );
+      new MemoizeCache<>( null, null, name, function, 2, Priority.NORMAL );
 
     assertEquals( cache.getNextIndex(), 0 );
 
@@ -235,7 +239,12 @@ public class MemoizeCacheTest
   public void disposeComputedValue_passedBadArgCounts()
   {
     final MemoizeCache<String> cache =
-      new MemoizeCache<>( null, null, ValueUtil.randomString(), args -> args[ 0 ] + "." + args[ 1 ], 2 );
+      new MemoizeCache<>( null,
+                          null,
+                          ValueUtil.randomString(),
+                          args -> args[ 0 ] + "." + args[ 1 ],
+                          2,
+                          Priority.NORMAL );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> cache.disposeComputedValue( "a" ) );
@@ -248,7 +257,12 @@ public class MemoizeCacheTest
   public void get_passedBadArgCounts()
   {
     final MemoizeCache<String> cache =
-      new MemoizeCache<>( null, null, ValueUtil.randomString(), args -> args[ 0 ] + "." + args[ 1 ], 2 );
+      new MemoizeCache<>( null,
+                          null,
+                          ValueUtil.randomString(),
+                          args -> args[ 0 ] + "." + args[ 1 ],
+                          2,
+                          Priority.NORMAL );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> cache.get( "a" ) );
@@ -261,7 +275,7 @@ public class MemoizeCacheTest
   public void get_invokedOnDisposed()
   {
     final MemoizeCache<String> cache =
-      new MemoizeCache<>( null, null, "X", args -> args[ 0 ] + "." + args[ 1 ], 2 );
+      new MemoizeCache<>( null, null, "X", args -> args[ 0 ] + "." + args[ 1 ], 2, Priority.NORMAL );
 
     cache.dispose();
 
@@ -278,7 +292,7 @@ public class MemoizeCacheTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 1 ) );
+                    () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 1, Priority.NORMAL ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0159: MemoizeCache passed a name 'X' but Arez.areNamesEnabled() is false" );
@@ -289,7 +303,7 @@ public class MemoizeCacheTest
   {
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 0 ) );
+                    () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 0, Priority.NORMAL ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0160: MemoizeCache constructed with invalid argCount: 0. Expected positive value." );
@@ -302,7 +316,7 @@ public class MemoizeCacheTest
     ArezTestUtil.resetState();
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new MemoizeCache<>( Arez.context(), null, null, args -> args[ 0 ], 1 ) );
+                    () -> new MemoizeCache<>( Arez.context(), null, null, args -> args[ 0 ], 1, Priority.NORMAL ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-174: MemoizeCache passed a context but Arez.areZonesEnabled() is false" );

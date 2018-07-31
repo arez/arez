@@ -45,4 +45,11 @@ public @interface Memoize
    */
   @Nonnull
   String name() default "<default>";
+
+  /**
+   * The priority of the underlying ComputedValue observer
+   *
+   * @return the priority of the ComputedValue observer.
+   */
+  Priority priority() default Priority.NORMAL;
 }

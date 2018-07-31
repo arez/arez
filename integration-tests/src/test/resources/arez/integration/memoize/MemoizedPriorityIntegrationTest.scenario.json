@@ -1,0 +1,2104 @@
+
+[
+    {
+        "action": "Transaction@1",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@1"
+    },
+    {
+        "observable": "Model.0.name",
+        "type": "ObservableChanged",
+        "value": "bl"
+    },
+    {
+        "observer": "Model.0.search1.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search1.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search1.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@1"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@1",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "Model.0.search2.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.0"
+    },
+    {
+        "observable": "Model.0.search2.0",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "observer": "search2(b)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.0"
+    },
+    {
+        "computedValue": "Model.0.search2.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search2(b)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search2(b)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search2(b)",
+        "type": "TransactionStarted",
+        "transaction": "search2(b)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search2(b)",
+        "type": "TransactionCompleted",
+        "transaction": "search2(b)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search2(b)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search2(b)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search2.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.1"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.1"
+    },
+    {
+        "computedValue": "Model.0.search2.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search2.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.2"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.2"
+    },
+    {
+        "computedValue": "Model.0.search2.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.0"
+    },
+    {
+        "observable": "Model.0.search3.0",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "observer": "search3(b)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.0"
+    },
+    {
+        "computedValue": "Model.0.search3.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search3(b)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search3(b)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search3(b)",
+        "type": "TransactionStarted",
+        "transaction": "search3(b)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search3(b)",
+        "type": "TransactionCompleted",
+        "transaction": "search3(b)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search3(b)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search3(b)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.1"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.1"
+    },
+    {
+        "computedValue": "Model.0.search3.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.2"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.2"
+    },
+    {
+        "computedValue": "Model.0.search3.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.0"
+    },
+    {
+        "observable": "Model.0.search1.0",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "observer": "search1(b)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.0"
+    },
+    {
+        "computedValue": "Model.0.search1.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search1(b)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search1(b)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search1(b)",
+        "type": "TransactionStarted",
+        "transaction": "search1(b)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search1(b)",
+        "type": "TransactionCompleted",
+        "transaction": "search1(b)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search1(b)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search1(b)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.1"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.1"
+    },
+    {
+        "computedValue": "Model.0.search1.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.2"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.2"
+    },
+    {
+        "computedValue": "Model.0.search1.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "action": "Transaction@2",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@2"
+    },
+    {
+        "observable": "Model.0.name",
+        "type": "ObservableChanged",
+        "value": "blu"
+    },
+    {
+        "observer": "Model.0.search1.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search1.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search1.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@2"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@2",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "Model.0.search2.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.0"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.0"
+    },
+    {
+        "computedValue": "Model.0.search2.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search2.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.1"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.1"
+    },
+    {
+        "computedValue": "Model.0.search2.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search2.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.2"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.2"
+    },
+    {
+        "computedValue": "Model.0.search2.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.0"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.0"
+    },
+    {
+        "computedValue": "Model.0.search3.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.1"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.1"
+    },
+    {
+        "computedValue": "Model.0.search3.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.2"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.2"
+    },
+    {
+        "computedValue": "Model.0.search3.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.0"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.0"
+    },
+    {
+        "computedValue": "Model.0.search1.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.1"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.1"
+    },
+    {
+        "computedValue": "Model.0.search1.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.2"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.2"
+    },
+    {
+        "computedValue": "Model.0.search1.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "action": "Transaction@3",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@3"
+    },
+    {
+        "observable": "Model.0.name",
+        "type": "ObservableChanged",
+        "value": "blue and"
+    },
+    {
+        "observer": "Model.0.search1.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search1.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search1.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@3"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@3",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "Model.0.search2.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.0"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.0"
+    },
+    {
+        "computedValue": "Model.0.search2.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search2.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.1"
+    },
+    {
+        "observable": "Model.0.search2.1",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "observer": "search2(blue)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.1"
+    },
+    {
+        "computedValue": "Model.0.search2.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search2(blue)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search2(blue)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search2(blue)",
+        "type": "TransactionStarted",
+        "transaction": "search2(blue)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search2(blue)",
+        "type": "TransactionCompleted",
+        "transaction": "search2(blue)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search2(blue)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search2(blue)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search2.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.2"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.2"
+    },
+    {
+        "computedValue": "Model.0.search2.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.0"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.0"
+    },
+    {
+        "computedValue": "Model.0.search3.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.1"
+    },
+    {
+        "observable": "Model.0.search3.1",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "observer": "search3(blue)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.1"
+    },
+    {
+        "computedValue": "Model.0.search3.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search3(blue)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search3(blue)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search3(blue)",
+        "type": "TransactionStarted",
+        "transaction": "search3(blue)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search3(blue)",
+        "type": "TransactionCompleted",
+        "transaction": "search3(blue)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search3(blue)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search3(blue)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.2"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.2"
+    },
+    {
+        "computedValue": "Model.0.search3.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.0"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.0"
+    },
+    {
+        "computedValue": "Model.0.search1.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.1"
+    },
+    {
+        "observable": "Model.0.search1.1",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "observer": "search1(blue)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.1"
+    },
+    {
+        "computedValue": "Model.0.search1.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search1(blue)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search1(blue)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search1(blue)",
+        "type": "TransactionStarted",
+        "transaction": "search1(blue)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search1(blue)",
+        "type": "TransactionCompleted",
+        "transaction": "search1(blue)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search1(blue)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search1(blue)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.2"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.2"
+    },
+    {
+        "computedValue": "Model.0.search1.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "action": "Transaction@4",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@4"
+    },
+    {
+        "observable": "Model.0.name",
+        "type": "ObservableChanged",
+        "value": "blue and red"
+    },
+    {
+        "observer": "Model.0.search1.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search1.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search1.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@4"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@4",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "Model.0.search2.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.0"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.0"
+    },
+    {
+        "computedValue": "Model.0.search2.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search2.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.1"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.1"
+    },
+    {
+        "computedValue": "Model.0.search2.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search2.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.2"
+    },
+    {
+        "observable": "Model.0.search2.2",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "observer": "search2(r)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.2"
+    },
+    {
+        "computedValue": "Model.0.search2.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search2(r)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search2(r)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search2(r)",
+        "type": "TransactionStarted",
+        "transaction": "search2(r)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search2(r)",
+        "type": "TransactionCompleted",
+        "transaction": "search2(r)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search2(r)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search2(r)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.0"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.0"
+    },
+    {
+        "computedValue": "Model.0.search3.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.1"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.1"
+    },
+    {
+        "computedValue": "Model.0.search3.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.2"
+    },
+    {
+        "observable": "Model.0.search3.2",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "observer": "search3(r)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.2"
+    },
+    {
+        "computedValue": "Model.0.search3.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search3(r)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search3(r)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search3(r)",
+        "type": "TransactionStarted",
+        "transaction": "search3(r)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search3(r)",
+        "type": "TransactionCompleted",
+        "transaction": "search3(r)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search3(r)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search3(r)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.0"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.0"
+    },
+    {
+        "computedValue": "Model.0.search1.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.1"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.1"
+    },
+    {
+        "computedValue": "Model.0.search1.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.2"
+    },
+    {
+        "observable": "Model.0.search1.2",
+        "type": "ObservableChanged",
+        "value": true
+    },
+    {
+        "observer": "search1(r)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.2"
+    },
+    {
+        "computedValue": "Model.0.search1.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search1(r)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search1(r)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search1(r)",
+        "type": "TransactionStarted",
+        "transaction": "search1(r)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search1(r)",
+        "type": "TransactionCompleted",
+        "transaction": "search1(r)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search1(r)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search1(r)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "action": "Transaction@5",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Transaction@5"
+    },
+    {
+        "observable": "Model.0.name",
+        "type": "ObservableChanged",
+        "value": "XXXXX"
+    },
+    {
+        "observer": "Model.0.search1.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.0",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search1.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search1.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search2.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Model.0.search3.2",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Transaction@5"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Transaction@5",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "computedValue": "Model.0.search2.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.0"
+    },
+    {
+        "observable": "Model.0.search2.0",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "observer": "search2(b)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.0"
+    },
+    {
+        "computedValue": "Model.0.search2.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search2(b)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search2(b)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search2(b)",
+        "type": "TransactionStarted",
+        "transaction": "search2(b)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search2(b)",
+        "type": "TransactionCompleted",
+        "transaction": "search2(b)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search2(b)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search2(b)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search2.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.1"
+    },
+    {
+        "observable": "Model.0.search2.1",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "observer": "search2(blue)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.1"
+    },
+    {
+        "computedValue": "Model.0.search2.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search2(blue)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search2(blue)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search2(blue)",
+        "type": "TransactionStarted",
+        "transaction": "search2(blue)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search2(blue)",
+        "type": "TransactionCompleted",
+        "transaction": "search2(blue)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search2(blue)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search2(blue)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search2.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search2.2"
+    },
+    {
+        "observable": "Model.0.search2.2",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "observer": "search2(r)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search2.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search2.2"
+    },
+    {
+        "computedValue": "Model.0.search2.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search2(r)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search2(r)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search2(r)",
+        "type": "TransactionStarted",
+        "transaction": "search2(r)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search2(r)",
+        "type": "TransactionCompleted",
+        "transaction": "search2(r)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search2(r)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search2(r)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.0"
+    },
+    {
+        "observable": "Model.0.search3.0",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "observer": "search3(b)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.0"
+    },
+    {
+        "computedValue": "Model.0.search3.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search3(b)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search3(b)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search3(b)",
+        "type": "TransactionStarted",
+        "transaction": "search3(b)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search3(b)",
+        "type": "TransactionCompleted",
+        "transaction": "search3(b)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search3(b)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search3(b)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.1"
+    },
+    {
+        "observable": "Model.0.search3.1",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "observer": "search3(blue)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.1"
+    },
+    {
+        "computedValue": "Model.0.search3.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search3(blue)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search3(blue)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search3(blue)",
+        "type": "TransactionStarted",
+        "transaction": "search3(blue)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search3(blue)",
+        "type": "TransactionCompleted",
+        "transaction": "search3(blue)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search3(blue)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search3(blue)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search3.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search3.2"
+    },
+    {
+        "observable": "Model.0.search3.2",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "observer": "search3(r)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search3.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search3.2"
+    },
+    {
+        "computedValue": "Model.0.search3.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search3(r)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search3(r)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search3(r)",
+        "type": "TransactionStarted",
+        "transaction": "search3(r)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search3(r)",
+        "type": "TransactionCompleted",
+        "transaction": "search3(r)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search3(r)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search3(r)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.0",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.0",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.0"
+    },
+    {
+        "observable": "Model.0.search1.0",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "observer": "search1(b)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.0",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.0"
+    },
+    {
+        "computedValue": "Model.0.search1.0",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search1(b)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search1(b)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search1(b)",
+        "type": "TransactionStarted",
+        "transaction": "search1(b)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search1(b)",
+        "type": "TransactionCompleted",
+        "transaction": "search1(b)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search1(b)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search1(b)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.1",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.1",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.1"
+    },
+    {
+        "observable": "Model.0.search1.1",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "observer": "search1(blue)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.1",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.1"
+    },
+    {
+        "computedValue": "Model.0.search1.1",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search1(blue)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search1(blue)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search1(blue)",
+        "type": "TransactionStarted",
+        "transaction": "search1(blue)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search1(blue)",
+        "type": "TransactionCompleted",
+        "transaction": "search1(blue)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search1(blue)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search1(blue)",
+        "type": "ReactionCompleted"
+    },
+    {
+        "computedValue": "Model.0.search1.2",
+        "type": "ComputeStarted"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.2",
+        "type": "TransactionStarted",
+        "transaction": "Model.0.search1.2"
+    },
+    {
+        "observable": "Model.0.search1.2",
+        "type": "ObservableChanged",
+        "value": false
+    },
+    {
+        "observer": "search1(r)",
+        "type": "ReactionScheduled"
+    },
+    {
+        "mutation": false,
+        "tracker": "Model.0.search1.2",
+        "type": "TransactionCompleted",
+        "transaction": "Model.0.search1.2"
+    },
+    {
+        "computedValue": "Model.0.search1.2",
+        "type": "ComputeCompleted"
+    },
+    {
+        "observer": "search1(r)",
+        "type": "ReactionStarted"
+    },
+    {
+        "action": "search1(r)",
+        "tracked": true,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "tracker": "search1(r)",
+        "type": "TransactionStarted",
+        "transaction": "search1(r)"
+    },
+    {
+        "mutation": false,
+        "tracker": "search1(r)",
+        "type": "TransactionCompleted",
+        "transaction": "search1(r)"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "search1(r)",
+        "tracked": true,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observer": "search1(r)",
+        "type": "ReactionCompleted"
+    }
+]

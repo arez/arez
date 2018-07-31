@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
+import arez.Priority;
 import arez.Procedure;
 import arez.SafeFunction;
 import java.util.HashMap;
@@ -69,6 +70,11 @@ public final class MemoizeCache<T>
    */
   private final int _argCount;
   /**
+   * The priority of the created computeds.
+   */
+  @Nonnull
+  private final Priority _priority;
+  /**
    * The index of the next ComputedValue created.
    * This is only used when creating unique names for ComputedValues.
    */
@@ -91,7 +97,8 @@ public final class MemoizeCache<T>
                        @Nullable final Component component,
                        @Nullable final String name,
                        @Nonnull final Function<T> function,
-                       final int argCount )
+                       final int argCount,
+                       @Nonnull final Priority priority )
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -108,6 +115,7 @@ public final class MemoizeCache<T>
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
     _function = Objects.requireNonNull( function );
     _argCount = argCount;
+    _priority = Objects.requireNonNull( priority );
   }
 
   /**
@@ -224,7 +232,8 @@ public final class MemoizeCache<T>
                                        null,
                                        onDeactivate,
                                        null,
-                                       null );
+                                       null,
+                                       _priority );
   }
 
   /**
@@ -277,5 +286,11 @@ public final class MemoizeCache<T>
   int getNextIndex()
   {
     return _nextIndex;
+  }
+
+  @Nonnull
+  Priority getPriority()
+  {
+    return _priority;
   }
 }
