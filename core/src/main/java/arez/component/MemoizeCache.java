@@ -75,6 +75,10 @@ public final class MemoizeCache<T>
   @Nonnull
   private final Priority _priority;
   /**
+   * Parameter passed to created computeds .
+   */
+  private final boolean _observeLowerPriorityDependencies;
+  /**
    * The index of the next ComputedValue created.
    * This is only used when creating unique names for ComputedValues.
    */
@@ -98,7 +102,8 @@ public final class MemoizeCache<T>
                        @Nullable final String name,
                        @Nonnull final Function<T> function,
                        final int argCount,
-                       @Nonnull final Priority priority )
+                       @Nonnull final Priority priority,
+                       final boolean observeLowerPriorityDependencies )
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -116,6 +121,7 @@ public final class MemoizeCache<T>
     _function = Objects.requireNonNull( function );
     _argCount = argCount;
     _priority = Objects.requireNonNull( priority );
+    _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
   }
 
   /**
@@ -233,7 +239,10 @@ public final class MemoizeCache<T>
                                        onDeactivate,
                                        null,
                                        null,
-                                       _priority );
+                                       _priority,
+                                       false,
+                                       true,
+                                       _observeLowerPriorityDependencies );
   }
 
   /**
@@ -292,5 +301,10 @@ public final class MemoizeCache<T>
   Priority getPriority()
   {
     return _priority;
+  }
+
+  boolean canObserveLowerPriorityDependencies()
+  {
+    return _observeLowerPriorityDependencies;
   }
 }

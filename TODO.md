@@ -8,8 +8,6 @@ complete as there is too much un-said.
 
 * Should `anyPropsDisposed()` occur in separate transaction?
 
-* Add `observeLowerPriorityDependencies` parameters to `@Memoize`
-
 * References handled specially ...? Is this only importing reference tools from Replicant?
   - `Verifiable`: To verify that:
     * the entity is not disposed.

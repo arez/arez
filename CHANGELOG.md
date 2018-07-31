@@ -2,8 +2,9 @@
 
 ### Unreleased
 
-* **\[core\]** Add the `priority` parameter to the `@Memoize` annotation. This parameter controls the priority
-  of the `ComputedValue` instances created by the `MemoizeCache`
+* **\[core\]** Add the `priority` and `observeLowerPriorityDependencies` parameters to the `@Memoize`
+  annotation. These parameters control the same named parameters on the `ComputedValue` instances created
+  by the `MemoizeCache`.
 
 ### [v0.103](https://github.com/arez/arez/tree/v0.103) (2018-07-30)
 [Full Changelog](https://github.com/arez/arez/compare/v0.102...v0.103)

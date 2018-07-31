@@ -32,6 +32,7 @@ final class MemoizeDescriptor
   private final String _name;
   @Nonnull
   private final String _priority;
+  private final boolean _observeLowerPriorityDependencies;
   @Nullable
   private ExecutableElement _memoize;
   @Nullable
@@ -39,11 +40,13 @@ final class MemoizeDescriptor
 
   MemoizeDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
                      @Nonnull final String name,
-                     @Nonnull final String priority )
+                     @Nonnull final String priority,
+                     final boolean observeLowerPriorityDependencies )
   {
     _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     _priority = Objects.requireNonNull( priority );
+    _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
   }
 
   @Nonnull
@@ -124,7 +127,9 @@ final class MemoizeDescriptor
 
     sb.append( "), " );
     sb.append( _memoize.getParameters().size() );
-    sb.append( ", $T.$N )" );
+    sb.append( ", $T.$N," );
+    sb.append( _observeLowerPriorityDependencies );
+    sb.append( " )" );
     parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
     parameters.add( _priority );
 

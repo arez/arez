@@ -756,10 +756,12 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     final String name = deriveMemoizeName( method, annotation );
+    final boolean observeLowerPriorityDependencies =
+      getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
     final VariableElement priorityElement = getAnnotationParameter( annotation, "priority" );
     final String priority = priorityElement.getSimpleName().toString();
     checkNameUnique( name, method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
-    _memoizes.computeIfAbsent( name, n -> new MemoizeDescriptor( this, n, priority ) ).setMemoize( method, methodType );
+    _memoizes.computeIfAbsent( name, n -> new MemoizeDescriptor( this, n, priority, observeLowerPriorityDependencies ) ).setMemoize( method, methodType );
   }
 
   @Nonnull
