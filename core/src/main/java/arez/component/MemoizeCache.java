@@ -91,11 +91,13 @@ public final class MemoizeCache<T>
   /**
    * Create the Memoize method cache.
    *
-   * @param context   the context in which to create ComputedValue instances.
-   * @param component the associated native component if any. This should only be set if {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name      a human consumable prefix for computed values.
-   * @param function  the memoized function.
-   * @param argCount  the number of arguments expected to be passed to memoized function.
+   * @param context                          the context in which to create ComputedValue instances.
+   * @param component                        the associated native component if any. This should only be set if {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name                             a human consumable prefix for computed values.
+   * @param function                         the memoized function.
+   * @param argCount                         the number of arguments expected to be passed to memoized function.
+   * @param priority                         the priority that used to create the ComputedValue instances.
+   * @param observeLowerPriorityDependencies the observeLowerPriorityDependencies flag that used when creating ComputedValue instances.
    */
   public MemoizeCache( @Nullable final ArezContext context,
                        @Nullable final Component component,
