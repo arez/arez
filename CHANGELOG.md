@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
+[Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)
 
 * **\[core\]** Add the `priority` and `observeLowerPriorityDependencies` parameters to the `@Memoize`
   annotation. These parameters control the same named parameters on the `ComputedValue` instances created
