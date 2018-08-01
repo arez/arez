@@ -35,7 +35,7 @@ complete as there is too much un-said.
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
-* Move all these Arez component ideas into arez/arez issue tracker and label them as good first issue. 
+* Move all these Arez component ideas into arez/arez issue tracker and label them as good first issue.
 
 * Add new browser based library:
   - `arez-localstorage`: stores a value under a key and updates store if changed. Will need a serializer
