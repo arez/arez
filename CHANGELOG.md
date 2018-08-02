@@ -2,9 +2,9 @@
 
 ### Unreleased
 
-* **\[core\]** Introduce `arez.component.EntityLocator` and `arez.component.AbstractEntityLocator` as the
-  first step to creating reference properties within Arez component framework. This has been extracted from
-  replicant and other downstream libraries.
+* **\[core\]** Introduce `EntityLocator`, `AbstractEntityLocator` and `AggregateEntityLocator` inside the
+  `arez.component` package as the first step to creating reference properties within Arez component framework.
+  This has been extracted from replicant and other downstream libraries.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)
