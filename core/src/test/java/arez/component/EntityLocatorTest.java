@@ -12,7 +12,7 @@ public class EntityLocatorTest
   @Test
   public void basicOperation()
   {
-    final EntityLocator locator = new EntityLocator();
+    final TestEntityLocator locator = new TestEntityLocator();
 
     {
       assertNull( locator.findById( A.class, 23 ) );
@@ -42,7 +42,7 @@ public class EntityLocatorTest
   @Test
   public void registerLookup_duplicate()
   {
-    final EntityLocator locator = new EntityLocator();
+    final TestEntityLocator locator = new TestEntityLocator();
 
     locator.registerLookup( A.class, i -> new A() );
 
@@ -56,7 +56,7 @@ public class EntityLocatorTest
   {
   }
 
-  private static class EntityLocator
+  private static class TestEntityLocator
     extends AbstractEntityLocator
   {
   }
