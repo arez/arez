@@ -189,6 +189,8 @@ final class ComponentDescriptor
                                                 isDeprecated( e.getOnDeactivate() ) ||
                                                 isDeprecated( e.getOnStale() ) ||
                                                 isDeprecated( e.getOnDispose() ) ) ||
+           _observerRefs.values().stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
+           _roDependencies.stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
            _roActions.stream().anyMatch( e -> isDeprecated( e.getAction() ) ) ||
            _roAutoruns.stream().anyMatch( e -> isDeprecated( e.getAutorun() ) ) ||
            _roMemoizes.stream().anyMatch( e -> isDeprecated( e.getMemoize() ) ) ||
