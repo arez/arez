@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* **\[core\]** Introduce `EntityLocator`, `AbstractEntityLocator` and `AggregateEntityLocator` inside the
+* **\[core\]** Introduce the `*EntityLocator` classes and the `Linkable` interface inside the
   `arez.component` package as the first step to creating reference properties within Arez component framework.
   This has been extracted from replicant and other downstream libraries.
 
