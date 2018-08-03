@@ -182,6 +182,13 @@ final class ComponentDescriptor
   private boolean hasDeprecatedElements()
   {
     return isDeprecated( _postConstruct ) ||
+           isDeprecated( _componentId ) ||
+           isDeprecated( _componentRef ) ||
+           isDeprecated( _contextRef ) ||
+           isDeprecated( _componentTypeNameRef ) ||
+           isDeprecated( _componentNameRef ) ||
+           isDeprecated( _preDispose ) ||
+           isDeprecated( _postDispose ) ||
            _roObservables.stream().anyMatch( e -> ( e.hasSetter() && isDeprecated( e.getSetter() ) ) ||
                                                   ( e.hasGetter() && isDeprecated( e.getGetter() ) ) ) ||
            _roComputeds.stream().anyMatch( e -> ( e.hasComputed() && isDeprecated( e.getComputed() ) ) ||
