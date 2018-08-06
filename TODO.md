@@ -24,6 +24,8 @@ complete as there is too much un-said.
 * Replace `arez-entity` with next iteration and merge functionality into annotation processor. One package
   is removed then merge `integration-qa-support` into `integration-tests`
 
+* Add `Observable.reportObservedIfTracking()` helper function and reorganize code generator to reduce code size.
+
 * Move when observer out into a top-level project
 
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
@@ -34,6 +36,8 @@ complete as there is too much un-said.
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
 * Move all these Arez component ideas into arez/arez issue tracker and label them as good first issue.
+
+* Bug Fix up `@Dependency` so that it appears on same method as `@Observable` it works.
 
 * Add new browser based library:
   - `arez-localstorage`: stores a value under a key and updates store if changed. Will need a serializer
