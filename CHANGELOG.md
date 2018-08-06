@@ -8,6 +8,9 @@
 * **\[processor\]** Adding `@Deprecated` to methods annotated with `@ComponentId`, `@ComponentRef`,
   `@ContextRef`, `@ContextTypeNameRef`, `@ComponentNameRef`, `@DependencyRef`, `@ObserverRef`, `@ObserverRef`
   `@PreDispose` and `@PostDispose` no longer generates a compiler warning.
+* **\[processor\]** Avoid name collisions in generated code between an existing constructor parameters name and
+  the name of an observable with an initializer by prefixing the synthesized name parameters in the generated
+  constructor with an arez prefix if the prefix is needed.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)

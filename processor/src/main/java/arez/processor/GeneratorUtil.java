@@ -54,6 +54,10 @@ final class GeneratorUtil
    */
   static final String FRAMEWORK_PREFIX = "$$arezi$$_";
   /**
+   * For constructor initializer args where it collides with existing name.
+   */
+  static final String INITIALIZER_PREFIX = "$$arezip$$_";
+  /**
    * For variables used within generated methods that need a unique name.
    */
   static final String VARIABLE_PREFIX = "$$arezv$$_";

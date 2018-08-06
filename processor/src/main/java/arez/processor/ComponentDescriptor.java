@@ -2639,6 +2639,8 @@ final class ComponentDescriptor
       builder.addAnnotation( GeneratorUtil.INJECT_CLASSNAME );
     }
 
+    final List<ObservableDescriptor> initializers = getInitializers();
+
     final StringBuilder superCall = new StringBuilder();
     superCall.append( "super(" );
     final ArrayList<String> parameterNames = new ArrayList<>();
@@ -2661,30 +2663,29 @@ final class ComponentDescriptor
 
     superCall.append( ")" );
     builder.addStatement( superCall.toString(), parameterNames.toArray() );
-    final List<ObservableDescriptor> initializers =
-      getObservables()
-        .stream()
-        .filter( ObservableDescriptor::requireInitializer )
-        .collect( Collectors.toList() );
     for ( final ObservableDescriptor observable : initializers )
     {
+      final String candidateName = observable.getName();
+      final String name = isNameCollision( constructor, Collections.emptyList(), candidateName ) ?
+                          GeneratorUtil.INITIALIZER_PREFIX + candidateName :
+                          candidateName;
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
-                               observable.getName(),
+                               name,
                                Modifier.FINAL );
       ProcessorUtil.copyWhitelistedAnnotations( observable.getGetter(), param );
       builder.addParameter( param.build() );
       final boolean isPrimitive = TypeName.get( observable.getGetterType().getReturnType() ).isPrimitive();
       if ( isPrimitive )
       {
-        builder.addStatement( "this.$N = $N", observable.getDataFieldName(), observable.getName() );
+        builder.addStatement( "this.$N = $N", observable.getDataFieldName(), name );
       }
       else
       {
         builder.addStatement( "this.$N = $T.requireNonNull( $N )",
                               observable.getDataFieldName(),
                               Objects.class,
-                              observable.getName() );
+                              name );
       }
     }
 
@@ -2916,6 +2917,23 @@ final class ComponentDescriptor
 
     GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_READY" );
     return builder.build();
+  }
+
+  @Nonnull
+  private List<ObservableDescriptor> getInitializers()
+  {
+    return getObservables()
+      .stream()
+      .filter( ObservableDescriptor::requireInitializer )
+      .collect( Collectors.toList() );
+  }
+
+  private boolean isNameCollision( @Nonnull final ExecutableElement constructor,
+                                   @Nonnull final List<ObservableDescriptor> initializers,
+                                   @Nonnull final String name )
+  {
+    return constructor.getParameters().stream().anyMatch( p -> p.getSimpleName().toString().equals( name ) ) ||
+           initializers.stream().anyMatch( o -> o.getName().equals( name ) );
   }
 
   boolean shouldGenerateComponentDaggerModule()
@@ -3261,20 +3279,19 @@ final class ComponentDescriptor
       newCall.append( "$N" );
     }
 
-    final List<ObservableDescriptor> initializers =
-      getObservables()
-        .stream()
-        .filter( ObservableDescriptor::requireInitializer )
-        .collect( Collectors.toList() );
-    for ( final ObservableDescriptor observable : initializers )
+    for ( final ObservableDescriptor observable : getInitializers() )
     {
+      final String candidateName = observable.getName();
+      final String name = isNameCollision( constructor, Collections.emptyList(), candidateName ) ?
+                          GeneratorUtil.INITIALIZER_PREFIX + candidateName :
+                          candidateName;
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
-                               observable.getName(),
+                               name,
                                Modifier.FINAL );
       ProcessorUtil.copyWhitelistedAnnotations( observable.getGetter(), param );
       builder.addParameter( param.build() );
-      parameters.add( observable.getName() );
+      parameters.add( name );
       if ( !firstParam )
       {
         newCall.append( "," );
