@@ -53,6 +53,8 @@ final class ComponentDescriptor
   private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observer$" );
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
   private static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
+  private static final Pattern ID_GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)Id$" );
+  private static final Pattern RAW_ID_GETTER_PATTERN = Pattern.compile( "^(.*)Id$" );
   private static final Pattern ISSER_PATTERN = Pattern.compile( "^is([A-Z].*)$" );
   private static final List<String> OBJECT_METHODS =
     Arrays.asList( "hashCode", "equals", "clone", "toString", "finalize", "getClass", "wait", "notifyAll", "notify" );
@@ -108,6 +110,8 @@ final class ComponentDescriptor
   @Nullable
   private ExecutableElement _componentRef;
   @Nullable
+  private ExecutableElement _locatorRef;
+  @Nullable
   private ExecutableElement _contextRef;
   @Nullable
   private ExecutableElement _componentTypeNameRef;
@@ -139,6 +143,9 @@ final class ComponentDescriptor
   private final Map<ExecutableElement, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
   private final Collection<DependencyDescriptor> _roDependencies =
     Collections.unmodifiableCollection( _dependencies.values() );
+  private final Map<String, ReferenceDescriptor> _references = new LinkedHashMap<>();
+  private final Collection<ReferenceDescriptor> _roReferences =
+    Collections.unmodifiableCollection( _references.values() );
 
   ComponentDescriptor( @Nonnull final SourceVersion sourceVersion,
                        @Nonnull final Elements elements,
@@ -241,6 +248,12 @@ final class ComponentDescriptor
   }
 
   @Nonnull
+  private ReferenceDescriptor findOrCreateReference( @Nonnull final String name )
+  {
+    return _references.computeIfAbsent( name, n -> new ReferenceDescriptor( this, name ) );
+  }
+
+  @Nonnull
   private ObservableDescriptor findOrCreateObservable( @Nonnull final String name )
   {
     return _observables.computeIfAbsent( name, n -> new ObservableDescriptor( this, n ) );
@@ -252,9 +265,10 @@ final class ComponentDescriptor
     return _trackeds.computeIfAbsent( name, n -> new TrackedDescriptor( this, n ) );
   }
 
-  private void addObservable( @Nonnull final AnnotationMirror annotation,
-                              @Nonnull final ExecutableElement method,
-                              @Nonnull final ExecutableType methodType )
+  @Nonnull
+  private ObservableDescriptor addObservable( @Nonnull final AnnotationMirror annotation,
+                                              @Nonnull final ExecutableElement method,
+                                              @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
     MethodChecks.mustBeOverridable( getElement(), Constants.OBSERVABLE_ANNOTATION_CLASSNAME, method );
@@ -375,6 +389,7 @@ final class ComponentDescriptor
                                           "the paired observable method.", method );
       }
     }
+    return observable;
   }
 
   private void addObservableRef( @Nonnull final AnnotationMirror annotation,
@@ -904,6 +919,34 @@ final class ComponentDescriptor
     }
   }
 
+  private void setLocatorRef( @Nonnull final ExecutableElement method )
+    throws ArezProcessorException
+  {
+    MethodChecks.mustBeOverridable( getElement(), Constants.LOCATOR_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.LOCATOR_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustReturnAValue( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.LOCATOR_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.LOCATOR_REF_ANNOTATION_CLASSNAME, method );
+
+    final TypeMirror returnType = method.getReturnType();
+    if ( TypeKind.DECLARED != returnType.getKind() ||
+         !returnType.toString().equals( "arez.component.Locator" ) )
+    {
+      throw new ArezProcessorException( "@LocatorRef target must return an instance of " +
+                                        "arez.component.Locator", method );
+    }
+
+    if ( null != _locatorRef )
+    {
+      throw new ArezProcessorException( "@LocatorRef target duplicates existing method named " +
+                                        _locatorRef.getSimpleName(), method );
+    }
+    else
+    {
+      _locatorRef = Objects.requireNonNull( method );
+    }
+  }
+
   private void setComponentRef( @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
@@ -1075,6 +1118,7 @@ final class ComponentDescriptor
     _roObservables.forEach( ObservableDescriptor::validate );
     _roComputeds.forEach( ComputedDescriptor::validate );
     _roDependencies.forEach( DependencyDescriptor::validate );
+    _roReferences.forEach( ReferenceDescriptor::validate );
 
     if ( !_allowEmpty &&
          _roObservables.isEmpty() &&
@@ -1094,6 +1138,12 @@ final class ComponentDescriptor
       throw new ArezProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
                                         "annotation parameter but has no methods annotated with @Autorun, " +
                                         "@Dependency or @Computed(keepAlive=true)", _element );
+    }
+
+    if ( null != _locatorRef && _roReferences.isEmpty() )
+    {
+      throw new ArezProcessorException( "@LocatorRef target specified on component that has no annotated " +
+                                        "methods annotated with @Reference.", _locatorRef );
     }
   }
 
@@ -1200,6 +1250,7 @@ final class ComponentDescriptor
       }
       else if ( methodName.startsWith( GeneratorUtil.FIELD_PREFIX ) ||
                 methodName.startsWith( GeneratorUtil.OBSERVABLE_DATA_FIELD_PREFIX ) ||
+                methodName.startsWith( GeneratorUtil.REFERENCE_FIELD_PREFIX ) ||
                 methodName.startsWith( GeneratorUtil.FRAMEWORK_PREFIX ) )
       {
         throw new ArezProcessorException( "Method defined on a class annotated by @ArezComponent uses a name " +
@@ -1341,6 +1392,135 @@ final class ComponentDescriptor
     final DependencyDescriptor dependencyDescriptor =
       _dependencies.computeIfAbsent( method, this::createDependencyDescriptor );
     dependencyDescriptor.setObservable( observable );
+  }
+
+  private void addReferenceId( @Nonnull final AnnotationMirror annotation,
+                               @Nonnull final ObservableDescriptor observable,
+                               @Nonnull final ExecutableElement method )
+  {
+    MethodChecks.mustNotHaveAnyParameters( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeSubclassCallable( getElement(), Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustReturnAValue( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+
+    findOrCreateReference( getReferenceIdName( annotation, method ) ).setObservable( observable );
+  }
+
+  private void addReferenceId( @Nonnull final AnnotationMirror annotation,
+                               @Nonnull final ExecutableElement method,
+                               @Nonnull final ExecutableType methodType )
+  {
+    MethodChecks.mustNotHaveAnyParameters( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeSubclassCallable( getElement(), Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustReturnAValue( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+
+    final String name = getReferenceIdName( annotation, method );
+    findOrCreateReference( name ).setIdMethod( method, methodType );
+  }
+
+  @Nonnull
+  private String getReferenceIdName( @Nonnull final AnnotationMirror annotation,
+                                     @Nonnull final ExecutableElement method )
+  {
+    final String declaredName = getAnnotationParameter( annotation, "name" );
+    final String name;
+    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    {
+      final String candidate = ProcessorUtil.deriveName( method, ID_GETTER_PATTERN, declaredName );
+      if ( null == candidate )
+      {
+        final String candidate2 = ProcessorUtil.deriveName( method, RAW_ID_GETTER_PATTERN, declaredName );
+        if ( null == candidate2 )
+        {
+          throw new ArezProcessorException( "@ReferenceId target has not specified a name and does not follow " +
+                                            "the convention \"get[Name]Id\" or \"[name]Id\"", method );
+        }
+        else
+        {
+          name = candidate2;
+        }
+      }
+      else
+      {
+        name = candidate;
+      }
+    }
+    else
+    {
+      name = declaredName;
+      if ( !SourceVersion.isIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "@ReferenceId target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@ReferenceId target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
+      }
+    }
+    return name;
+  }
+
+  private void addReference( @Nonnull final AnnotationMirror annotation,
+                             @Nonnull final ExecutableElement method,
+                             @Nonnull final ExecutableType methodType )
+  {
+    MethodChecks.mustNotHaveAnyParameters( Constants.REFERENCE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeSubclassCallable( getElement(), Constants.REFERENCE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.REFERENCE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustReturnAValue( Constants.REFERENCE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.REFERENCE_ANNOTATION_CLASSNAME, method );
+
+    final String name = getReferenceName( annotation, method );
+    final String linkType = getLinkType( method );
+    findOrCreateReference( name ).setMethod( method, methodType, linkType );
+  }
+
+  @Nonnull
+  private String getReferenceName( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
+  {
+    final String declaredName = getAnnotationParameter( annotation, "name" );
+    final String name;
+    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    {
+      final String candidate = ProcessorUtil.deriveName( method, GETTER_PATTERN, declaredName );
+      if ( null == candidate )
+      {
+        name = method.getSimpleName().toString();
+      }
+      else
+      {
+        name = candidate;
+      }
+    }
+    else
+    {
+      name = declaredName;
+      if ( !SourceVersion.isIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "@Reference target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@Reference target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
+      }
+    }
+    return name;
+  }
+
+  @Nonnull
+  private String getLinkType( @Nonnull final ExecutableElement method )
+  {
+    final VariableElement injectParameter = (VariableElement)
+      ProcessorUtil.getAnnotationValue( _elements,
+                                        method,
+                                        Constants.REFERENCE_ANNOTATION_CLASSNAME,
+                                        "load" ).getValue();
+    return injectParameter.getSimpleName().toString();
   }
 
   private void addDependency( @Nonnull final ExecutableElement method )
@@ -1550,6 +1730,8 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentName =
       ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME );
+    final AnnotationMirror locatorRef =
+      ProcessorUtil.findAnnotationByType( method, Constants.LOCATOR_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror postConstruct =
       ProcessorUtil.findAnnotationByType( method, Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME );
     final AnnotationMirror ejbPostConstruct =
@@ -1576,10 +1758,18 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
     final AnnotationMirror dependency =
       ProcessorUtil.findAnnotationByType( method, Constants.DEPENDENCY_ANNOTATION_CLASSNAME );
+    final AnnotationMirror reference =
+      ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ANNOTATION_CLASSNAME );
+    final AnnotationMirror referenceId =
+      ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );
 
     if ( null != observable )
     {
-      addObservable( observable, method, methodType );
+      final ObservableDescriptor descriptor = addObservable( observable, method, methodType );
+      if ( null != referenceId )
+      {
+        addReferenceId( referenceId, descriptor, method );
+      }
       return true;
     }
     else if ( null != observableRef )
@@ -1615,6 +1805,11 @@ final class ComponentDescriptor
     else if ( null != contextRef )
     {
       setContextRef( method );
+      return true;
+    }
+    else if ( null != locatorRef )
+    {
+      setLocatorRef( method );
       return true;
     }
     else if ( null != computed )
@@ -1699,6 +1894,16 @@ final class ComponentDescriptor
       addDependency( method );
       return false;
     }
+    else if ( null != reference )
+    {
+      addReference( reference, method, methodType );
+      return true;
+    }
+    else if ( null != referenceId )
+    {
+      addReferenceId( referenceId, method, methodType );
+      return true;
+    }
     else
     {
       return false;
@@ -1755,6 +1960,7 @@ final class ComponentDescriptor
                     Constants.AUTORUN_ANNOTATION_CLASSNAME,
                     Constants.TRACK_ANNOTATION_CLASSNAME,
                     Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME,
+                    Constants.LOCATOR_REF_ANNOTATION_CLASSNAME,
                     Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
                     Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
                     Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME,
@@ -1769,6 +1975,8 @@ final class ComponentDescriptor
                     Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME,
                     Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME,
                     Constants.POST_DISPOSE_ANNOTATION_CLASSNAME,
+                    Constants.REFERENCE_ANNOTATION_CLASSNAME,
+                    Constants.REFERENCE_ID_ANNOTATION_CLASSNAME,
                     Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME,
                     Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
                     Constants.ON_DISPOSE_ANNOTATION_CLASSNAME,
@@ -1783,8 +1991,13 @@ final class ComponentDescriptor
         for ( int j = i + 1; j < annotationTypes.length; j++ )
         {
           final String type2 = annotationTypes[ j ];
-          if ( !type2.equals( Constants.DEPENDENCY_ANNOTATION_CLASSNAME ) ||
-               !type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) )
+          final boolean observableDependency =
+            type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
+            type2.equals( Constants.DEPENDENCY_ANNOTATION_CLASSNAME );
+          final boolean observableReferenceId =
+            type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
+            type2.equals( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );
+          if ( !observableDependency && !observableReferenceId )
           {
             final Object annotation2 = ProcessorUtil.findAnnotationByType( method, type2 );
             if ( null != annotation2 )
@@ -1879,6 +2092,10 @@ final class ComponentDescriptor
     {
       builder.addSuperinterface( GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME );
     }
+    if ( needsExplicitLink() )
+    {
+      builder.addSuperinterface( GeneratorUtil.LINKABLE_CLASSNAME );
+    }
 
     buildFields( builder );
 
@@ -1888,6 +2105,10 @@ final class ComponentDescriptor
     if ( null != _componentRef )
     {
       builder.addMethod( buildComponentRefMethod() );
+    }
+    if ( !_references.isEmpty() )
+    {
+      builder.addMethod( buildLocatorRefMethod() );
     }
     if ( null == _componentId )
     {
@@ -1914,12 +2135,18 @@ final class ComponentDescriptor
     builder.addMethod( buildIsDisposed() );
     builder.addMethod( buildDispose() );
 
+    if ( needsExplicitLink() )
+    {
+      builder.addMethod( buildLink() );
+    }
+
     _roObservables.forEach( e -> e.buildMethods( builder ) );
     _roAutoruns.forEach( e -> e.buildMethods( builder ) );
     _roActions.forEach( e -> e.buildMethods( builder ) );
     _roComputeds.forEach( e -> e.buildMethods( builder ) );
     _roMemoizes.forEach( e -> e.buildMethods( builder ) );
     _roTrackeds.forEach( e -> e.buildMethods( builder ) );
+    _roReferences.forEach( e -> e.buildMethods( builder ) );
 
     builder.addMethod( buildHashcodeMethod() );
     builder.addMethod( buildEqualsMethod() );
@@ -1930,6 +2157,11 @@ final class ComponentDescriptor
     }
 
     return builder.build();
+  }
+
+  private boolean needsExplicitLink()
+  {
+    return _roReferences.stream().anyMatch( r -> r.getLinkType().equals( "EXPLICIT" ) );
   }
 
   @Nonnull
@@ -2158,6 +2390,35 @@ final class ComponentDescriptor
   }
 
   @Nonnull
+  private MethodSpec buildLocatorRefMethod()
+    throws ArezProcessorException
+  {
+    final String methodName = getLocatorMethodName();
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
+      addModifiers( Modifier.FINAL ).
+      returns( GeneratorUtil.LOCATOR_CLASSNAME );
+
+    GeneratorUtil.generateNotInitializedInvariant( this, method, methodName );
+
+    method.addStatement( "return this.$N", GeneratorUtil.LOCATOR_FIELD_NAME );
+    if ( null != _locatorRef )
+    {
+      method.addAnnotation( Override.class );
+      ProcessorUtil.copyWhitelistedAnnotations( _locatorRef, method );
+      ProcessorUtil.copyAccessModifiers( _locatorRef, method );
+    }
+    return method.build();
+  }
+
+  @Nonnull
+  String getLocatorMethodName()
+  {
+    return null != _locatorRef ?
+           _locatorRef.getSimpleName().toString() :
+           GeneratorUtil.LOCATOR_FIELD_NAME;
+  }
+
+  @Nonnull
   private MethodSpec buildComponentRefMethod()
     throws ArezProcessorException
   {
@@ -2298,6 +2559,25 @@ final class ComponentDescriptor
 
     builder.returns( TypeName.get( String.class ) );
     builder.addStatement( "return $S", _type );
+    return builder.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildLink()
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "link" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class );
+
+    GeneratorUtil.generateNotDisposedInvariant( this, builder, "link" );
+
+    final List<ReferenceDescriptor> explicitReferences =
+      _roReferences.stream().filter( r -> r.getLinkType().equals( "EXPLICIT" ) ).collect( Collectors.toList() );
+    for ( final ReferenceDescriptor reference : explicitReferences )
+    {
+      builder.addStatement( "this.$N()", reference.getLinkMethodName() );
+    }
     return builder.build();
   }
 
@@ -2560,6 +2840,15 @@ final class ComponentDescriptor
       builder.addField( field.build() );
 
     }
+    if ( !_references.isEmpty() )
+    {
+      final FieldSpec.Builder field =
+        FieldSpec.builder( GeneratorUtil.LOCATOR_CLASSNAME,
+                           GeneratorUtil.LOCATOR_FIELD_NAME,
+                           Modifier.FINAL,
+                           Modifier.PRIVATE );
+      builder.addField( field.build() );
+    }
     if ( _observable )
     {
       final ParameterizedTypeName typeName =
@@ -2586,6 +2875,7 @@ final class ComponentDescriptor
     _roMemoizes.forEach( e -> e.buildFields( builder ) );
     _roAutoruns.forEach( autorun -> autorun.buildFields( builder ) );
     _roTrackeds.forEach( tracked -> tracked.buildFields( builder ) );
+    _roReferences.forEach( r -> r.buildFields( builder ) );
     if ( _disposeOnDeactivate )
     {
       final FieldSpec.Builder field =
@@ -2645,6 +2935,23 @@ final class ComponentDescriptor
     superCall.append( "super(" );
     final ArrayList<String> parameterNames = new ArrayList<>();
 
+    final String locatorParamName;
+    if ( !_references.isEmpty() )
+    {
+      locatorParamName =
+        isNameCollision( constructor, initializers, "locator" ) ? GeneratorUtil.LOCATOR_FIELD_NAME : "locator";
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( GeneratorUtil.LOCATOR_CLASSNAME,
+                               locatorParamName,
+                               Modifier.FINAL )
+          .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+      builder.addParameter( param.build() );
+    }
+    else
+    {
+      locatorParamName = null;
+    }
+
     boolean firstParam = true;
     for ( final VariableElement element : constructor.getParameters() )
     {
@@ -2663,6 +2970,11 @@ final class ComponentDescriptor
 
     superCall.append( ")" );
     builder.addStatement( superCall.toString(), parameterNames.toArray() );
+    if ( !_references.isEmpty() )
+    {
+      builder.addStatement( "this.$N = $N", GeneratorUtil.LOCATOR_FIELD_NAME, locatorParamName );
+    }
+
     for ( final ObservableDescriptor observable : initializers )
     {
       final String candidateName = observable.getName();
@@ -2894,6 +3206,13 @@ final class ComponentDescriptor
     }
 
     GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_CONSTRUCTED" );
+
+    final List<ReferenceDescriptor> eagerReferences =
+      _roReferences.stream().filter( r -> r.getLinkType().equals( "EAGER" ) ).collect( Collectors.toList() );
+    for ( final ReferenceDescriptor reference : eagerReferences )
+    {
+      builder.addStatement( "this.$N()", reference.getLinkMethodName() );
+    }
 
     final ExecutableElement postConstruct = getPostConstruct();
     if ( null != postConstruct )

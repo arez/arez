@@ -11,6 +11,7 @@ import arez.annotations.ComponentRef;
 import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
 import arez.annotations.ContextRef;
+import arez.annotations.LocatorRef;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
 import arez.annotations.ObserverRef;
@@ -20,7 +21,10 @@ import arez.annotations.OnDepsChanged;
 import arez.annotations.OnDispose;
 import arez.annotations.OnStale;
 import arez.annotations.PostConstruct;
+import arez.annotations.Reference;
+import arez.annotations.ReferenceId;
 import arez.annotations.Track;
+import arez.component.Locator;
 import javax.annotation.Nonnull;
 
 public abstract class BaseCompleteModel
@@ -105,6 +109,22 @@ public abstract class BaseCompleteModel
 
   @PostConstruct
   protected void postConstruct()
+  {
+  }
+
+  @Reference
+  protected abstract MyEntity getMyEntity();
+
+  @ReferenceId
+  protected int getMyEntityId()
+  {
+    return 0;
+  }
+
+  @LocatorRef
+  protected abstract Locator getLocator();
+
+  public static class MyEntity
   {
   }
 }

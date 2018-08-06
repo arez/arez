@@ -11,6 +11,8 @@ import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
+import arez.component.Locator;
+import com.example.inheritance.other.BaseCompleteModel;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -26,6 +28,8 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
   private final ArezContext $$arezi$$_context;
 
   private final Component $$arezi$$_component;
+
+  private final Locator $$arezi$$_locator;
 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
@@ -43,8 +47,12 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
   @Nonnull
   private final Observer $$arez$$_render;
 
-  Arez_CompleteModel() {
+  @Nullable
+  private BaseCompleteModel.MyEntity $$arezr$$_myEntity;
+
+  Arez_CompleteModel(@Nonnull final Locator locator) {
     super();
+    this.$$arezi$$_locator = locator;
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
@@ -58,6 +66,7 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
+    this.$$arezi$$_link_myEntity();
     super.postConstruct();
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
@@ -97,6 +106,14 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
       Guards.invariant( () -> Arez.areNativeComponentsEnabled(), () -> "Invoked @ComponentRef method 'getComponent' but Arez.areNativeComponentsEnabled() returned false." );
     }
     return this.$$arezi$$_component;
+  }
+
+  @Override
+  protected final Locator getLocator() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getLocator' invoked on uninitialized component of type 'CompleteModel'" );
+    }
+    return this.$$arezi$$_locator;
   }
 
   @Override
@@ -237,6 +254,30 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
       throw new IllegalStateException( $$arez_exception$$ );
+    }
+  }
+
+  @Override
+  protected BaseCompleteModel.MyEntity getMyEntity() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyEntity' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Nonnull reference method named 'getMyEntity' invoked on component named '" + getComponentName() + "' but reference has not been resolved yet is not lazy. Id = " + getMyEntityId() );
+    }
+    return this.$$arezr$$_myEntity;
+  }
+
+  private void $$arezi$$_link_myEntity() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_myEntity' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+    }
+    if ( null == this.$$arezr$$_myEntity ) {
+      final int id = this.getMyEntityId();
+      this.$$arezr$$_myEntity = this.getLocator().getById( BaseCompleteModel.MyEntity.class, id );
+      if ( Arez.shouldCheckApiInvariants() ) {
+        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + getComponentName() + "' missing related entity. Id = " + getMyEntityId() );
+      }
     }
   }
 

@@ -12,11 +12,6 @@ complete as there is too much un-said.
     * the `Locator` when passed own `ComponentId` and type returns self.
     * All relationships are verified.
   - `Verifiable` should be completely optimized out in production builds.
-  - `EntityLocator` should be passed in constructor to any entity that has relationships defined. The entity
-    uses the `EntityLocator` to lookup any relationships. The lookup can occur on access or lazily (typically
-    used for cross system links ala `acal` -> `calendar`). The lookup can also occur when `Linkable.link()`
-    is invoked (for all non-lazy relationships). `link()` is typically after a message/transaction has updated
-    all the required entities within the system.
 
 * Rename the "action" parameter to tracker and autorun as "reaction" or something similar to clearly
   differentiate from other actions.

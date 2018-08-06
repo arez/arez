@@ -52,6 +52,8 @@ final class ObservableDescriptor
   private ExecutableType _refMethodType;
   @Nullable
   private DependencyDescriptor _dependencyDescriptor;
+  @Nullable
+  private ReferenceDescriptor _referenceDescriptor;
 
   ObservableDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
                         @Nonnull final String name )
@@ -88,6 +90,11 @@ final class ObservableDescriptor
   void setReadOutsideTransaction( final boolean readOutsideTransaction )
   {
     _readOutsideTransaction = readOutsideTransaction;
+  }
+
+  boolean canReadOutsideTransaction()
+  {
+    return _readOutsideTransaction;
   }
 
   void setExpectSetter( final boolean expectSetter )
@@ -190,6 +197,11 @@ final class ObservableDescriptor
     _dependencyDescriptor = dependencyDescriptor;
   }
 
+  void setReferenceDescriptor( @Nullable final ReferenceDescriptor referenceDescriptor )
+  {
+    _referenceDescriptor = referenceDescriptor;
+  }
+
   void buildFields( @Nonnull final TypeSpec.Builder builder )
   {
     assert null != _getterType;
@@ -236,7 +248,7 @@ final class ObservableDescriptor
   }
 
   @Nonnull
-  private String getFieldName()
+  String getFieldName()
   {
     return GeneratorUtil.FIELD_PREFIX + getName();
   }
@@ -536,6 +548,18 @@ final class ObservableDescriptor
       }
     }
     codeBlock.addStatement( "this.$N.reportChanged()", getFieldName() );
+    if ( null != _referenceDescriptor )
+    {
+      if ( "EAGER".equals( _referenceDescriptor.getLinkType() ) )
+      {
+        codeBlock.addStatement( "this.$N()", _referenceDescriptor.getLinkMethodName() );
+      }
+      else
+      {
+        codeBlock.addStatement( "this.$N = null", _referenceDescriptor.getFieldName() );
+      }
+    }
+
     codeBlock.endControlFlow();
     builder.addCode( codeBlock.build() );
 

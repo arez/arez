@@ -41,6 +41,8 @@ final class GeneratorUtil
   static final ClassName DISPOSE_TRACKABLE_CLASSNAME = ClassName.get( "arez.component", "DisposeTrackable" );
   static final ClassName DISPOSE_NOTIFIER_CLASSNAME = ClassName.get( "arez.component", "DisposeNotifier" );
   static final ClassName COLLECTIONS_UTIL_CLASSNAME = ClassName.get( "arez.component", "CollectionsUtil" );
+  static final ClassName LOCATOR_CLASSNAME = ClassName.get( "arez.component", "Locator" );
+  static final ClassName LINKABLE_CLASSNAME = ClassName.get( "arez.component", "Linkable" );
   /**
    * Prefix for fields that are used to generate Arez elements.
    */
@@ -49,6 +51,10 @@ final class GeneratorUtil
    * For fields that are synthesized to hold data for abstract observable properties.
    */
   static final String OBSERVABLE_DATA_FIELD_PREFIX = "$$arezd$$_";
+  /**
+   * For fields that are synthesized to hold resolved references.
+   */
+  static final String REFERENCE_FIELD_PREFIX = "$$arezr$$_";
   /**
    * For fields/elements used internally for component to manage lifecycle.
    */
@@ -69,6 +75,7 @@ final class GeneratorUtil
    * The state of the entity.
    */
   static final String STATE_FIELD_NAME = FRAMEWORK_PREFIX + "state";
+  static final String LOCATOR_FIELD_NAME = FRAMEWORK_PREFIX + "locator";
   static final String DISPOSED_OBSERVABLE_FIELD_NAME = FRAMEWORK_PREFIX + "disposedObservable";
   static final String DISPOSE_NOTIFIER_FIELD_NAME = FRAMEWORK_PREFIX + "disposeNotifier";
   static final String DISPOSE_ON_DEACTIVATE_FIELD_NAME = FRAMEWORK_PREFIX + "disposeOnDeactivate";
