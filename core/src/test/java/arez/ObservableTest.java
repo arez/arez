@@ -531,7 +531,13 @@ public class ObservableTest
     setCurrentTransaction( observer );
 
     final Observable<?> observable =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false ).getObservable();
+      new ComputedValue<>( context,
+                           null,
+                           ValueUtil.randomString(),
+                           () -> "",
+                           Priority.NORMAL,
+                           false,
+                           false ).getObservable();
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final IllegalStateException exception =
@@ -562,7 +568,13 @@ public class ObservableTest
     setCurrentTransaction( observer );
 
     final Observable<?> observable =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false ).getObservable();
+      new ComputedValue<>( context,
+                           null,
+                           ValueUtil.randomString(),
+                           () -> "",
+                           Priority.NORMAL,
+                           false,
+                           false ).getObservable();
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     observable.addObserver( observer );
@@ -1682,7 +1694,13 @@ public class ObservableTest
 
     final String expectedValue = ValueUtil.randomString();
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> expectedValue, Priority.NORMAL, false, false );
+      new ComputedValue<>( context,
+                           null,
+                           ValueUtil.randomString(),
+                           () -> expectedValue,
+                           Priority.NORMAL,
+                           false,
+                           false );
     computedValue.setValue( expectedValue );
     final Observer derivation =
       computedValue.getObserver();
