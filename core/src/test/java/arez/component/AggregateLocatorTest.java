@@ -6,17 +6,17 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( "SuspiciousMethodCalls" )
-public class AggregateEntityLocatorTest
+public class AggregateLocatorTest
   extends AbstractArezTest
 {
   @Test
-  public void aggregateSingleEntityLocator()
+  public void aggregateSingleLocator()
   {
     final HashMap<Integer, A> entities1 = new HashMap<>();
-    final TestEntityLocator locator1 = new TestEntityLocator();
+    final TestLocator locator1 = new TestLocator();
     locator1.registerLookup( A.class, entities1::get );
 
-    final AggregateEntityLocator locator = new AggregateEntityLocator( locator1 );
+    final AggregateLocator locator = new AggregateLocator( locator1 );
 
     assertNull( locator.findById( A.class, 23 ) );
     assertEquals( expectThrows( NoSuchEntityException.class, () -> locator.getById( A.class, 23 ) ).getId(), 23 );
@@ -29,17 +29,17 @@ public class AggregateEntityLocatorTest
   }
 
   @Test
-  public void aggregateMultipleEntityLocator_disjoint_types()
+  public void aggregateMultipleLocator_disjoint_types()
   {
     final HashMap<Integer, A> entities1 = new HashMap<>();
-    final TestEntityLocator locator1 = new TestEntityLocator();
+    final TestLocator locator1 = new TestLocator();
     locator1.registerLookup( A.class, entities1::get );
 
     final HashMap<Integer, B> entities2 = new HashMap<>();
-    final TestEntityLocator locator2 = new TestEntityLocator();
+    final TestLocator locator2 = new TestLocator();
     locator2.registerLookup( B.class, entities2::get );
 
-    final AggregateEntityLocator locator = new AggregateEntityLocator( locator1, locator2 );
+    final AggregateLocator locator = new AggregateLocator( locator1, locator2 );
 
     assertNull( locator.findById( A.class, 23 ) );
     assertEquals( expectThrows( NoSuchEntityException.class, () -> locator.getById( A.class, 23 ) ).getId(), 23 );
@@ -64,17 +64,17 @@ public class AggregateEntityLocatorTest
   }
 
   @Test
-  public void aggregateMultipleEntityLocator_overlapping_types()
+  public void aggregateMultipleLocator_overlapping_types()
   {
     final HashMap<Integer, A> entities1 = new HashMap<>();
-    final TestEntityLocator locator1 = new TestEntityLocator();
+    final TestLocator locator1 = new TestLocator();
     locator1.registerLookup( A.class, entities1::get );
 
     final HashMap<Integer, A> entities2 = new HashMap<>();
-    final TestEntityLocator locator2 = new TestEntityLocator();
+    final TestLocator locator2 = new TestLocator();
     locator2.registerLookup( A.class, entities2::get );
 
-    final AggregateEntityLocator locator = new AggregateEntityLocator( locator1, locator2 );
+    final AggregateLocator locator = new AggregateLocator( locator1, locator2 );
 
     assertNull( locator.findById( A.class, 23 ) );
     assertEquals( expectThrows( NoSuchEntityException.class, () -> locator.getById( A.class, 23 ) ).getId(), 23 );
@@ -94,15 +94,15 @@ public class AggregateEntityLocatorTest
   @Test
   public void registerLookup_duplicate()
   {
-    final TestEntityLocator locator1 = new TestEntityLocator();
+    final TestLocator locator1 = new TestLocator();
 
-    final AggregateEntityLocator locator = new AggregateEntityLocator( locator1 );
+    final AggregateLocator locator = new AggregateLocator( locator1 );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> locator.registerEntityLocator( locator1 ) );
+      expectThrows( IllegalStateException.class, () -> locator.registerLocator( locator1 ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0189: Attempting to register entityLocator " + locator1 +
-                  " when the EntityLocator is already present." );
+                  "Arez-0189: Attempting to register locator " + locator1 +
+                  " when the Locator is already present." );
   }
 
   static class A
@@ -113,8 +113,8 @@ public class AggregateEntityLocatorTest
   {
   }
 
-  private static class TestEntityLocator
-    extends AbstractEntityLocator
+  private static class TestLocator
+    extends AbstractLocator
   {
   }
 }

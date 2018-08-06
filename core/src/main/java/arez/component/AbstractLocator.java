@@ -9,10 +9,10 @@ import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
- * An EntityLocator implementation that supports registration of methods for each type to resolve.
+ * An Locator implementation that supports registration of methods for each type to resolve.
  */
-public abstract class AbstractEntityLocator
-  implements EntityLocator
+public abstract class AbstractLocator
+  implements Locator
 {
   /**
    * Factory methods for looking entities up by type.
@@ -23,10 +23,9 @@ public abstract class AbstractEntityLocator
    * Register a function that will find entities of specified type by id.
    * This must not be invoked if another function has already been registered for type.
    *
-   * @param <T> the type of the entity.
-   * @param type the type of the entity.
+   * @param <T>              the type of the entity.
+   * @param type             the type of the entity.
    * @param findByIdFunction the function that looks up the entity by id.
-   *
    */
   protected final <T> void registerLookup( @Nonnull final Class<T> type,
                                            @Nonnull final Function<Object, T> findByIdFunction )

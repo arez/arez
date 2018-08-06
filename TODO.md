@@ -9,7 +9,7 @@ complete as there is too much un-said.
 * References handled specially ...? Is this only importing reference tools from Replicant?
   - `Verifiable`: To verify that:
     * the entity is not disposed.
-    * the `EntityLocator` when passed own `ComponentId` and type returns self.
+    * the `Locator` when passed own `ComponentId` and type returns self.
     * All relationships are verified.
   - `Verifiable` should be completely optimized out in production builds.
   - `EntityLocator` should be passed in constructor to any entity that has relationships defined. The entity

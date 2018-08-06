@@ -6,13 +6,13 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( "SuspiciousMethodCalls" )
-public class EntityLocatorTest
+public class LocatorTest
   extends AbstractArezTest
 {
   @Test
   public void basicOperation()
   {
-    final TestEntityLocator locator = new TestEntityLocator();
+    final TestLocator locator = new TestLocator();
 
     {
       assertNull( locator.findById( A.class, 23 ) );
@@ -42,22 +42,22 @@ public class EntityLocatorTest
   @Test
   public void registerLookup_duplicate()
   {
-    final TestEntityLocator locator = new TestEntityLocator();
+    final TestLocator locator = new TestLocator();
 
     locator.registerLookup( A.class, i -> new A() );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> locator.registerLookup( A.class, i -> new A() ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0188: Attempting to register lookup function for type class arez.component.EntityLocatorTest$A when a function for type already exists." );
+                  "Arez-0188: Attempting to register lookup function for type class arez.component.LocatorTest$A when a function for type already exists." );
   }
 
   static class A
   {
   }
 
-  private static class TestEntityLocator
-    extends AbstractEntityLocator
+  private static class TestLocator
+    extends AbstractLocator
   {
   }
 }

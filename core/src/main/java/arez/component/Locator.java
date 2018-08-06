@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
  * The interface used to look up components by type and id.
  * This is primarily used by components that represent entities that relate to other entities.
  */
-public interface EntityLocator
+public interface Locator
 {
   /**
    * Return the entity with the specified type and the specified id, throwing an exception if not present.

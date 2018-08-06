@@ -2,9 +2,9 @@
 
 ### Unreleased
 
-* **\[core\]** Introduce the `*EntityLocator` classes and the `Linkable` interface inside the
-  `arez.component` package as the first step to creating reference properties within Arez component framework.
-  This has been extracted from replicant and other downstream libraries.
+* **\[core\]** Introduce the `*Locator` classes and the `Linkable` interface inside the `arez.component` package
+  as the first step to creating reference properties within Arez component framework. This has been extracted from
+  replicant and other downstream libraries.
 * **\[processor\]** Adding `@Deprecated` to methods annotated with `@ComponentId`, `@ComponentRef`,
   `@ContextRef`, `@ContextTypeNameRef`, `@ComponentNameRef`, `@DependencyRef`, `@ObserverRef`, `@ObserverRef`
   `@PreDispose` and `@PostDispose` no longer generates a compiler warning.
