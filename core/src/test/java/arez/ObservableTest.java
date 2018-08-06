@@ -1344,6 +1344,33 @@ public class ObservableTest
   }
 
   @Test
+  public void reportObservedIfTrackingTransactionActive()
+    throws Exception
+  {
+    final ArezContext context = new ArezContext();
+
+    final Observable<?> observable = newObservable( context );
+
+    // Outside a transaction so perfectly safe
+    observable.reportObservedIfTrackingTransactionActive();
+
+    // This action does not verify that reads occurred so should not
+    // fail but will not actually observe
+    context.safeAction( null, false, false, observable::reportObservedIfTrackingTransactionActive );
+
+    // This action will raise an exception as no reads or writes occurred
+    // within scope and we asked to verify that reads or writes occurred
+    assertThrows( () -> context.safeAction( null,
+                                            false,
+                                            true,
+                                            observable::reportObservedIfTrackingTransactionActive ) );
+
+    // Now we use a tracking transaction
+    final Observer observer = context.autorun( observable::reportObservedIfTrackingTransactionActive );
+    assertEquals( observer.getDependencies().contains( observable ), true );
+  }
+
+  @Test
   public void preReportChanged()
     throws Exception
   {

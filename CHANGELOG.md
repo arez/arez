@@ -12,6 +12,9 @@
   the name of an observable with an initializer by prefixing the synthesized name parameters in the generated
   constructor with an arez prefix if the prefix is needed.
 * **\[core\]** Document that `@ContextRef` annotation method must not have parameters.
+* **\[core\]** Add the `Observable.reportObservedIfTracking()` method and use it from within generated code
+  to implement the `readOutsideTransaction` parameter on the `@Observable` annotation. This eliminates some code
+  duplication in generated classes and helps to reduce the code size when there is a large number of components.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)

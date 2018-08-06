@@ -481,6 +481,17 @@ public final class Observable<T>
   }
 
   /**
+   * Notify Arez that this observable has been "observed" if a tracking transaction is active.
+   */
+  public void reportObservedIfTrackingTransactionActive()
+  {
+    if ( getContext().isTrackingTransactionActive() )
+    {
+      reportObserved();
+    }
+  }
+
+  /**
    * Check that pre-conditions are satisfied before changing observable value.
    * In production mode this will typically be a no-op. This method should be invoked
    * before state is modified.
