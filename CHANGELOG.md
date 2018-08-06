@@ -11,6 +11,7 @@
 * **\[processor\]** Avoid name collisions in generated code between an existing constructor parameters name and
   the name of an observable with an initializer by prefixing the synthesized name parameters in the generated
   constructor with an arez prefix if the prefix is needed.
+* **\[core\]** Document that `@ContextRef` annotation method must not have parameters.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)
