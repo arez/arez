@@ -4,7 +4,6 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.annotation.Nonnull;
 
 @ArezComponent
 public abstract class ObservableSetModel
