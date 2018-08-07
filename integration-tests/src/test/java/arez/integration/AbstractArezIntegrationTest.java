@@ -4,6 +4,8 @@ import arez.Arez;
 import arez.ArezTestUtil;
 import arez.Observer;
 import arez.ObserverError;
+import arez.SafeFunction;
+import arez.SafeProcedure;
 import arez.integration.util.SpyEventRecorder;
 import java.io.File;
 import java.io.IOException;
@@ -72,6 +74,16 @@ public abstract class AbstractArezIntegrationTest
     {
       fail( "Unexpected Observer Errors: " + _observerErrors.stream().collect( Collectors.joining( "\n" ) ) );
     }
+  }
+
+  protected final void safeAction( @Nonnull final SafeProcedure action )
+  {
+    Arez.context().safeAction( action );
+  }
+
+  protected final <T> T safeAction( @Nonnull final SafeFunction<T> action )
+  {
+    return Arez.context().safeAction( action );
   }
 
   @Nonnull

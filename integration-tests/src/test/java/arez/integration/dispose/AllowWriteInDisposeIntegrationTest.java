@@ -30,12 +30,12 @@ public class AllowWriteInDisposeIntegrationTest
       callCount.incrementAndGet();
     } );
 
-    Arez.context().safeAction( () -> assertEquals( model1.getName(), name ) );
+    safeAction( () -> assertEquals( model1.getName(), name ) );
     assertEquals( callCount.get(), 1 );
 
     Disposable.dispose( model2 );
 
-    Arez.context().safeAction( () -> assertEquals( model1.getName(), "X" ) );
+    safeAction( () -> assertEquals( model1.getName(), "X" ) );
     assertEquals( callCount.get(), 2 );
   }
 

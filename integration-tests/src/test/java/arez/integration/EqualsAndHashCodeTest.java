@@ -48,7 +48,7 @@ public class EqualsAndHashCodeTest
     final PersonModel person1 = PersonModel.create( ValueUtil.randomString() );
     final PersonModel person2 = PersonModel.create( ValueUtil.randomString() );
     final PersonModel person3 =
-      Arez.context().safeAction( () -> PersonModel.create( person1.getFirstName() ) );
+      safeAction( () -> PersonModel.create( person1.getFirstName() ) );
 
     assertEquals( person1.hashCode(), person1.hashCode() );
     assertNotEquals( person1.hashCode(), person2.hashCode() );

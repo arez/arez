@@ -18,7 +18,7 @@ public class NonnullObservableIntegrationTest
     throws Throwable
   {
     final Model model = Model.create( ValueUtil.randomString() );
-    Arez.context().safeAction( () -> assertThrows( AssertionError.class, () -> model.setLastName( null ) ) );
+    safeAction( () -> assertThrows( AssertionError.class, () -> model.setLastName( null ) ) );
   }
 
   @SuppressWarnings( "ConstantConditions" )

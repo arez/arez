@@ -72,11 +72,11 @@ public class TrackNoNestActionTest
                   "Arez-0187: Attempting to nest READ_ONLY action named 'TestComponent1.0.myAction' inside transaction named 'TestComponent1.0.render' created by an observer that does not allow nested actions." );
 
     // This should not trigger renderDepsUpdated flag as render not observing as action obscures dependency
-    Arez.context().safeAction( () -> component.setTime( 33L ) );
+    safeAction( () -> component.setTime( 33L ) );
 
     assertEquals( component._depsChangedCallCount, 0 );
 
-    Arez.context().safeAction( () -> component.setTime2( 33L ) );
+    safeAction( () -> component.setTime2( 33L ) );
 
     assertEquals( component._depsChangedCallCount, 1 );
   }

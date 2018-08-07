@@ -37,29 +37,29 @@ public class MemoizedPriorityIntegrationTest
     Arez.context().getSpy().addSpyEventHandler( recorder );
 
     searches.clear();
-    Arez.context().safeAction( () -> model.setName( "bl" ) );
+    safeAction( () -> model.setName( "bl" ) );
 
     assertEquals( searches, Arrays.asList( "search2(b)", "search3(b)", "search1(b)" ), "Searches: " + searches );
 
     searches.clear();
-    Arez.context().safeAction( () -> model.setName( "blu" ) );
+    safeAction( () -> model.setName( "blu" ) );
 
     assertEquals( searches, Collections.emptyList() );
 
     searches.clear();
-    Arez.context().safeAction( () -> model.setName( "blue and" ) );
+    safeAction( () -> model.setName( "blue and" ) );
 
     assertEquals( searches,
                   Arrays.asList( "search2(blue)", "search3(blue)", "search1(blue)" ),
                   "Searches: " + searches );
 
     searches.clear();
-    Arez.context().safeAction( () -> model.setName( "blue and red" ) );
+    safeAction( () -> model.setName( "blue and red" ) );
 
     assertEquals( searches, Arrays.asList( "search2(r)", "search3(r)", "search1(r)" ), "Searches: " + searches );
 
     searches.clear();
-    Arez.context().safeAction( () -> model.setName( "XXXXX" ) );
+    safeAction( () -> model.setName( "XXXXX" ) );
 
     assertEquals( searches,
                   Arrays.asList( "NOT(search2(b))",

@@ -118,7 +118,7 @@ public class PrioritizedSchedulerTest
 
     component._calls.clear();
 
-    Arez.context().safeAction( () -> component.setValue1( "1" ) );
+    safeAction( () -> component.setValue1( "1" ) );
 
     assertEquals( component._calls.size(), 7 );
     assertEquals( component._calls.toString(),
@@ -126,14 +126,14 @@ public class PrioritizedSchedulerTest
 
     component._calls.clear();
 
-    Arez.context().safeAction( () -> component.setValue2( "2" ) );
+    safeAction( () -> component.setValue2( "2" ) );
 
     assertEquals( component._calls.size(), 2 );
     assertEquals( component._calls.toString(), "[autorun2a, autorun3a]" );
 
     component._calls.clear();
 
-    Arez.context().safeAction( () -> component.setValue3( "3" ) );
+    safeAction( () -> component.setValue3( "3" ) );
 
     assertEquals( component._calls.size(), 1 );
     assertEquals( component._calls.toString(), "[autorun3a]" );

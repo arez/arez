@@ -72,7 +72,7 @@ public class TrackNestNonRequiresNewActionTest
     assertEquals( component._depsChangedCallCount, 0 );
 
     // This will cause rescheduling as the action does not start a new transaction
-    Arez.context().safeAction( () -> component.setTime( 33L ) );
+    safeAction( () -> component.setTime( 33L ) );
 
     assertEquals( component._depsChangedCallCount, 1 );
 

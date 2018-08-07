@@ -16,7 +16,7 @@ public class ObserveRequireActionTest
       component = DisposeIntegrationTest.CodeModel.create( ValueUtil.randomString(), ValueUtil.randomString() );
     assertThrows( component::getName );
 
-    Arez.context().safeAction( component::getName );
+    safeAction( component::getName );
   }
 
   @Test
@@ -26,7 +26,7 @@ public class ObserveRequireActionTest
       component = DisposeIntegrationTest.CodeModel.create( ValueUtil.randomString(), ValueUtil.randomString() );
     assertThrows( () -> component.setName( "X" ) );
 
-    Arez.context().safeAction( () -> component.setName( "X" ) );
+    safeAction( () -> component.setName( "X" ) );
   }
 
   @Test
@@ -36,6 +36,6 @@ public class ObserveRequireActionTest
       component = DisposeIntegrationTest.CodeModel.create( ValueUtil.randomString(), ValueUtil.randomString() );
     assertThrows( component::getQualifiedName );
 
-    Arez.context().safeAction( component::getQualifiedName );
+    safeAction( component::getQualifiedName );
   }
 }

@@ -42,6 +42,6 @@ public class PostConstructCanChangeArezStateTest
     final TestComponent component = new PostConstructCanChangeArezStateTest_Arez_TestComponent();
 
     assertTrue( component._postConstructCalled );
-    assertEquals( Arez.context().safeAction( component::getValue ), (Integer) 42 );
+    assertEquals( safeAction( component::getValue ), (Integer) 42 );
   }
 }

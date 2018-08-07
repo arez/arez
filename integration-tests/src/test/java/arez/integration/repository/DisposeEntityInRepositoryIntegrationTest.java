@@ -64,7 +64,7 @@ public class DisposeEntityInRepositoryIntegrationTest
     assertTrue( Disposable.isDisposed( component1 ) );
     assertFalse( Disposable.isDisposed( component2 ) );
 
-    Arez.context().safeAction( () -> assertEquals( repository.findById( 1 ), null ) );
-    Arez.context().safeAction( () -> assertEquals( repository.findById( 2 ), component2 ) );
+    safeAction( () -> assertEquals( repository.findById( 1 ), null ) );
+    safeAction( () -> assertEquals( repository.findById( 2 ), component2 ) );
   }
 }

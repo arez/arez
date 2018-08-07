@@ -39,12 +39,12 @@ public class MemoizedObservesLowerPriorityIntegrationTest
                      true );
 
     searches.clear();
-    Arez.context().safeAction( () -> model.setName( "bl" ) );
+    safeAction( () -> model.setName( "bl" ) );
 
     assertEquals( searches, Collections.singletonList( "search1(b)" ) );
 
     searches.clear();
-    Arez.context().safeAction( () -> model.setName( "blu" ) );
+    safeAction( () -> model.setName( "blu" ) );
 
     assertEquals( searches, Collections.emptyList() );
   }
