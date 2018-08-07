@@ -110,8 +110,6 @@ final class ComponentDescriptor
   @Nullable
   private ExecutableElement _componentRef;
   @Nullable
-  private ExecutableElement _locatorRef;
-  @Nullable
   private ExecutableElement _contextRef;
   @Nullable
   private ExecutableElement _componentTypeNameRef;
@@ -919,33 +917,6 @@ final class ComponentDescriptor
     }
   }
 
-  private void setLocatorRef( @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
-  {
-    MethodChecks.mustBeOverridable( getElement(), Constants.LOCATOR_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.LOCATOR_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustReturnAValue( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.LOCATOR_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeAbstract( Constants.LOCATOR_REF_ANNOTATION_CLASSNAME, method );
-
-    final TypeMirror returnType = method.getReturnType();
-    if ( TypeKind.DECLARED != returnType.getKind() || !returnType.toString().equals( Constants.LOCATOR_CLASSNAME ) )
-    {
-      throw new ArezProcessorException( "@LocatorRef target must return an instance of " + Constants.LOCATOR_CLASSNAME,
-                                        method );
-    }
-
-    if ( null != _locatorRef )
-    {
-      throw new ArezProcessorException( "@LocatorRef target duplicates existing method named " +
-                                        _locatorRef.getSimpleName(), method );
-    }
-    else
-    {
-      _locatorRef = Objects.requireNonNull( method );
-    }
-  }
-
   private void setComponentRef( @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
@@ -1137,12 +1108,6 @@ final class ComponentDescriptor
       throw new ArezProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
                                         "annotation parameter but has no methods annotated with @Autorun, " +
                                         "@Dependency or @Computed(keepAlive=true)", _element );
-    }
-
-    if ( null != _locatorRef && _roReferences.isEmpty() )
-    {
-      throw new ArezProcessorException( "@LocatorRef target specified on component that has no annotated " +
-                                        "methods annotated with @Reference.", _locatorRef );
     }
   }
 
@@ -1729,8 +1694,6 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentName =
       ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME );
-    final AnnotationMirror locatorRef =
-      ProcessorUtil.findAnnotationByType( method, Constants.LOCATOR_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror postConstruct =
       ProcessorUtil.findAnnotationByType( method, Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME );
     final AnnotationMirror ejbPostConstruct =
@@ -1804,11 +1767,6 @@ final class ComponentDescriptor
     else if ( null != contextRef )
     {
       setContextRef( method );
-      return true;
-    }
-    else if ( null != locatorRef )
-    {
-      setLocatorRef( method );
       return true;
     }
     else if ( null != computed )
@@ -1959,7 +1917,6 @@ final class ComponentDescriptor
                     Constants.AUTORUN_ANNOTATION_CLASSNAME,
                     Constants.TRACK_ANNOTATION_CLASSNAME,
                     Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME,
-                    Constants.LOCATOR_REF_ANNOTATION_CLASSNAME,
                     Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
                     Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
                     Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME,
@@ -2392,7 +2349,7 @@ final class ComponentDescriptor
   private MethodSpec buildLocatorRefMethod()
     throws ArezProcessorException
   {
-    final String methodName = getLocatorMethodName();
+    final String methodName = GeneratorUtil.LOCATOR_METHOD_NAME;
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.FINAL ).
       returns( GeneratorUtil.LOCATOR_CLASSNAME );
@@ -2400,21 +2357,7 @@ final class ComponentDescriptor
     GeneratorUtil.generateNotInitializedInvariant( this, method, methodName );
 
     method.addStatement( "return $N().locator()", getContextMethodName() );
-    if ( null != _locatorRef )
-    {
-      method.addAnnotation( Override.class );
-      ProcessorUtil.copyWhitelistedAnnotations( _locatorRef, method );
-      ProcessorUtil.copyAccessModifiers( _locatorRef, method );
-    }
     return method.build();
-  }
-
-  @Nonnull
-  String getLocatorMethodName()
-  {
-    return null != _locatorRef ?
-           _locatorRef.getSimpleName().toString() :
-           GeneratorUtil.LOCATOR_METHOD_NAME;
   }
 
   @Nonnull

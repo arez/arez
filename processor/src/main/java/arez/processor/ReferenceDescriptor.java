@@ -240,7 +240,7 @@ final class ReferenceDescriptor
   {
     builder.addStatement( "this.$N = this.$N().findById( $T.class, id )",
                           getFieldName(),
-                          _componentDescriptor.getLocatorMethodName(),
+                          GeneratorUtil.LOCATOR_METHOD_NAME,
                           getMethod().getReturnType() );
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );

@@ -12,7 +12,7 @@
 * **\[core\]** Add the `Observable.reportObservedIfTracking()` method and use it from within generated code
   to implement the `readOutsideTransaction` parameter on the `@Observable` annotation. This eliminates some code
   duplication in generated classes and helps to reduce the code size when there is a large number of components.
-* **\[core\]** Introduce the `@Reference`, `@ReferenceId` and `@LocatorRef` annotations that supports references
+* **\[core\]** Introduce the `@Reference` and `@ReferenceId` annotations that supports references
   within an Arez component. A reference is retrieved from the `Locator` passed into the component using the type
   returned by the `@Reference` annotated method and the id supplied by the `@ReferenceId` annotated method. The
   lookup can occur lazily on access, eagerly on assign or with an explicit linking step. The `@ReferenceId`

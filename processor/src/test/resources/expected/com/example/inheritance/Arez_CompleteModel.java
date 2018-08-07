@@ -108,10 +108,9 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
     return this.$$arezi$$_component;
   }
 
-  @Override
-  protected final Locator getLocator() {
+  final Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getLocator' invoked on uninitialized component of type 'CompleteModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'CompleteModel'" );
     }
     return getContext().locator();
   }
@@ -274,7 +273,7 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
     }
     if ( null == this.$$arezr$$_myEntity ) {
       final int id = this.getMyEntityId();
-      this.$$arezr$$_myEntity = this.getLocator().findById( BaseCompleteModel.MyEntity.class, id );
+      this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( BaseCompleteModel.MyEntity.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
         Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + getComponentName() + "' missing related entity. Id = " + getMyEntityId() );
       }

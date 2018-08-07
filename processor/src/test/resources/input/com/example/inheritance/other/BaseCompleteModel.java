@@ -12,7 +12,6 @@ import arez.annotations.ComponentRef;
 import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
 import arez.annotations.ContextRef;
-import arez.annotations.LocatorRef;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
 import arez.annotations.ObserverRef;
@@ -120,9 +119,6 @@ public abstract class BaseCompleteModel
   {
     return 0;
   }
-
-  @LocatorRef
-  protected abstract Locator getLocator();
 
   public static class MyEntity
   {
