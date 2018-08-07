@@ -22,6 +22,9 @@
 * **\[core\]** Add the `arez.Locator` interface to support lookup of references by type and id.
 * **\[core\]** Add the `arez.component.TypeBasedLocator` implementation of `arez.Locator` that supports building
   a locator from per-type lookup functions.
+* **\[core\]** Add a compile configuration property `arez.enable_references` that defaults to `true` to enable or
+  disable support for references in the runtime. Setting the property to `false` when not needed will eliminate
+  unused reference support code.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)

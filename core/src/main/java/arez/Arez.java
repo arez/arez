@@ -50,6 +50,16 @@ public final class Arez
   }
 
   /**
+   * Return true if references are enabled.
+   *
+   * @return true if references are enabled, false otherwise.
+   */
+  public static boolean areReferencesEnabled()
+  {
+    return ArezConfig.areReferencesEnabled();
+  }
+
+  /**
    * Return true if observable properties, computed properties or query results that are of type collection are wrapped in unmodifiable variant prior to returning.
    *
    * @return true if observable properties, computed properties or query results that are of type collection are wrapped in unmodifiable variant prior to returning.

@@ -11,6 +11,9 @@ goog.define('arez.environment', 'production');
 goog.define('arez.enable_names', 'false');
 
 /** @define {string} */
+goog.define('arez.enable_references', 'true');
+
+/** @define {string} */
 goog.define('arez.enable_property_introspection', 'false');
 
 /** @define {string} */

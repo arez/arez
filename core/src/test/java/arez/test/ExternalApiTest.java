@@ -91,6 +91,16 @@ public class ExternalApiTest
   }
 
   @Test
+  public void areReferencesEnabled()
+  {
+    ArezTestUtil.disableReferences();
+    assertFalse( Arez.areReferencesEnabled() );
+    ArezTestUtil.enableReferences();
+    ArezTestUtil.resetState();
+    assertTrue( Arez.areReferencesEnabled() );
+  }
+
+  @Test
   public void areNativeComponentsEnabled()
   {
     assertTrue( Arez.areNativeComponentsEnabled() );

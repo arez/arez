@@ -56,6 +56,7 @@ public final class ArezTestUtil
       checkApiInvariants();
     }
     enableObserverErrorHandlers();
+    enableReferences();
     purgeReactionsWhenRunawayDetected();
     disableZones();
 
@@ -99,6 +100,32 @@ public final class ArezTestUtil
   private static void setEnableNames( final boolean value )
   {
     setConstant( "ENABLE_NAMES", value );
+  }
+
+  /**
+   * Set `arez.enable_references` setting to true.
+   */
+  public static void enableReferences()
+  {
+    setEnableReferences( true );
+  }
+
+  /**
+   * Set `arez.enable_references` setting to false.
+   */
+  public static void disableReferences()
+  {
+    setEnableReferences( false );
+  }
+
+  /**
+   * Configure the `arez.enable_references` setting.
+   *
+   * @param value the setting.
+   */
+  private static void setEnableReferences( final boolean value )
+  {
+    setConstant( "ENABLE_REFERENCES", value );
   }
 
   /**

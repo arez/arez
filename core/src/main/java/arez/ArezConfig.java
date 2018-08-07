@@ -11,6 +11,7 @@ final class ArezConfig
   private static boolean ENABLE_PROPERTY_INTROSPECTION = PROVIDER.arePropertyIntrospectorsEnabled();
   private static boolean PURGE_REACTIONS = PROVIDER.purgeReactionsWhenRunawayDetected();
   private static boolean ENFORCE_TRANSACTION_TYPE = PROVIDER.enforceTransactionType();
+  private static boolean ENABLE_REFERENCES = PROVIDER.areReferencesEnabled();
   private static boolean ENABLE_SPIES = PROVIDER.areSpiesEnabled();
   private static boolean ENABLE_ZONES = PROVIDER.areZonesEnabled();
   private static boolean COLLECTION_PROPERTIES_UNMODIFIABLE = PROVIDER.areCollectionsPropertiesUnmodifiable();
@@ -53,6 +54,11 @@ final class ArezConfig
   static boolean purgeReactionsWhenRunawayDetected()
   {
     return PURGE_REACTIONS;
+  }
+
+  static boolean areReferencesEnabled()
+  {
+    return ENABLE_REFERENCES;
   }
 
   static boolean areSpiesEnabled()
@@ -139,6 +145,13 @@ final class ArezConfig
     boolean purgeReactionsWhenRunawayDetected()
     {
       return "true".equals( System.getProperty( "arez.purge_reactions_when_runaway_detected", "true" ) );
+    }
+
+    @GwtIncompatible
+    @Override
+    boolean areReferencesEnabled()
+    {
+      return "true".equals( System.getProperty( "arez.enable_references", "true" ) );
     }
 
     @GwtIncompatible
@@ -231,6 +244,11 @@ final class ArezConfig
     boolean purgeReactionsWhenRunawayDetected()
     {
       return "true" == System.getProperty( "arez.purge_reactions_when_runaway_detected" );
+    }
+
+    boolean areReferencesEnabled()
+    {
+      return "true" == System.getProperty( "arez.arez.enable_references" );
     }
 
     boolean areSpiesEnabled()
