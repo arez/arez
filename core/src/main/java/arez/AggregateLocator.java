@@ -24,6 +24,7 @@ final class AggregateLocator
    * The Locator must not already be registered.
    *
    * @param locator the Locator to register.
+   * @return the disposable to dispose to deregister locator.
    */
   @Nonnull
   Disposable registerLocator( @Nonnull final Locator locator )
