@@ -2,7 +2,6 @@ package arez.component;
 
 import arez.Arez;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
