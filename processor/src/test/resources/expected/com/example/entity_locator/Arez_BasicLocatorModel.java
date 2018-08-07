@@ -27,16 +27,13 @@ final class Arez_BasicLocatorModel extends BasicLocatorModel implements Disposab
 
   private final Component $$arezi$$_component;
 
-  private final Locator $$arezi$$_locator;
-
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nullable
   private BasicLocatorModel.MyEntity $$arezr$$_myEntity;
 
-  Arez_BasicLocatorModel(@Nonnull final Locator locator) {
+  Arez_BasicLocatorModel() {
     super();
-    this.$$arezi$$_locator = locator;
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -68,7 +65,7 @@ final class Arez_BasicLocatorModel extends BasicLocatorModel implements Disposab
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getLocator' invoked on uninitialized component of type 'BasicLocatorModel'" );
     }
-    return this.$$arezi$$_locator;
+    return $$arezi$$_context().locator();
   }
 
   final int $$arezi$$_id() {

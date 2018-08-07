@@ -27,16 +27,13 @@ final class Arez_AnnotatedLocatorModel extends AnnotatedLocatorModel implements 
 
   private final Component $$arezi$$_component;
 
-  private final Locator $$arezi$$_locator;
-
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nullable
   private AnnotatedLocatorModel.MyEntity $$arezr$$_myEntity;
 
-  Arez_AnnotatedLocatorModel(@Nonnull final Locator locator) {
+  Arez_AnnotatedLocatorModel() {
     super();
-    this.$$arezi$$_locator = locator;
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -69,7 +66,7 @@ final class Arez_AnnotatedLocatorModel extends AnnotatedLocatorModel implements 
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getLocator' invoked on uninitialized component of type 'AnnotatedLocatorModel'" );
     }
-    return this.$$arezi$$_locator;
+    return $$arezi$$_context().locator();
   }
 
   final int $$arezi$$_id() {

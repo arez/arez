@@ -27,16 +27,13 @@ final class Arez_NonObservableReferenceModel extends NonObservableReferenceModel
 
   private final Component $$arezi$$_component;
 
-  private final Locator $$arezi$$_locator;
-
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nullable
   private NonObservableReferenceModel.MyEntity $$arezr$$_myEntity;
 
-  Arez_NonObservableReferenceModel(@Nonnull final Locator locator) {
+  Arez_NonObservableReferenceModel() {
     super();
-    this.$$arezi$$_locator = locator;
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -67,7 +64,7 @@ final class Arez_NonObservableReferenceModel extends NonObservableReferenceModel
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'NonObservableReferenceModel'" );
     }
-    return this.$$arezi$$_locator;
+    return $$arezi$$_context().locator();
   }
 
   final int $$arezi$$_id() {

@@ -271,6 +271,13 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void XXXX()
+    throws Exception
+  {
+    assertSuccessfulCompile( "com.example.reference.EagerLoadNulableObservableReferenceModel", false, false, false );
+  }
+
+  @Test
   public void processSuccessfulRepositoryIncludingExtension()
     throws Exception
   {

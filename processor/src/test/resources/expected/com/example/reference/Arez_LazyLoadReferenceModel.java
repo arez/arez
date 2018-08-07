@@ -27,16 +27,13 @@ final class Arez_LazyLoadReferenceModel extends LazyLoadReferenceModel implement
 
   private final Component $$arezi$$_component;
 
-  private final Locator $$arezi$$_locator;
-
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nullable
   private LazyLoadReferenceModel.MyEntity $$arezr$$_myEntity;
 
-  Arez_LazyLoadReferenceModel(@Nonnull final Locator locator) {
+  Arez_LazyLoadReferenceModel() {
     super();
-    this.$$arezi$$_locator = locator;
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -66,7 +63,7 @@ final class Arez_LazyLoadReferenceModel extends LazyLoadReferenceModel implement
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'LazyLoadReferenceModel'" );
     }
-    return this.$$arezi$$_locator;
+    return $$arezi$$_context().locator();
   }
 
   final int $$arezi$$_id() {

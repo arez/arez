@@ -28,8 +28,6 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel extends Lazy
 
   private final Component $$arezi$$_component;
 
-  private final Locator $$arezi$$_locator;
-
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
@@ -40,9 +38,8 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel extends Lazy
   @Nullable
   private LazyObservableReadOutsideTransactionReferenceModel.MyEntity $$arezr$$_myEntity;
 
-  Arez_LazyObservableReadOutsideTransactionReferenceModel(@Nonnull final Locator locator) {
+  Arez_LazyObservableReadOutsideTransactionReferenceModel() {
     super();
-    this.$$arezi$$_locator = locator;
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -73,7 +70,7 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel extends Lazy
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'LazyObservableReadOutsideTransactionReferenceModel'" );
     }
-    return this.$$arezi$$_locator;
+    return $$arezi$$_context().locator();
   }
 
   final int $$arezi$$_id() {

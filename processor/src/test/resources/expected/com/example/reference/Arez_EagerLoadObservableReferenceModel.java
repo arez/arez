@@ -28,8 +28,6 @@ final class Arez_EagerLoadObservableReferenceModel extends EagerLoadObservableRe
 
   private final Component $$arezi$$_component;
 
-  private final Locator $$arezi$$_locator;
-
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
@@ -40,9 +38,8 @@ final class Arez_EagerLoadObservableReferenceModel extends EagerLoadObservableRe
   @Nullable
   private EagerLoadObservableReferenceModel.MyEntity $$arezr$$_myEntity;
 
-  Arez_EagerLoadObservableReferenceModel(@Nonnull final Locator locator) {
+  Arez_EagerLoadObservableReferenceModel() {
     super();
-    this.$$arezi$$_locator = locator;
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -74,7 +71,7 @@ final class Arez_EagerLoadObservableReferenceModel extends EagerLoadObservableRe
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'EagerLoadObservableReferenceModel'" );
     }
-    return this.$$arezi$$_locator;
+    return $$arezi$$_context().locator();
   }
 
   final int $$arezi$$_id() {

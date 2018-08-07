@@ -2399,7 +2399,7 @@ final class ComponentDescriptor
 
     GeneratorUtil.generateNotInitializedInvariant( this, method, methodName );
 
-    method.addStatement( "return this.$N", GeneratorUtil.LOCATOR_FIELD_NAME );
+    method.addStatement( "return $N().locator()", getContextMethodName() );
     if ( null != _locatorRef )
     {
       method.addAnnotation( Override.class );
@@ -2414,7 +2414,7 @@ final class ComponentDescriptor
   {
     return null != _locatorRef ?
            _locatorRef.getSimpleName().toString() :
-           GeneratorUtil.LOCATOR_FIELD_NAME;
+           GeneratorUtil.LOCATOR_METHOD_NAME;
   }
 
   @Nonnull
@@ -2839,15 +2839,6 @@ final class ComponentDescriptor
       builder.addField( field.build() );
 
     }
-    if ( !_references.isEmpty() )
-    {
-      final FieldSpec.Builder field =
-        FieldSpec.builder( GeneratorUtil.LOCATOR_CLASSNAME,
-                           GeneratorUtil.LOCATOR_FIELD_NAME,
-                           Modifier.FINAL,
-                           Modifier.PRIVATE );
-      builder.addField( field.build() );
-    }
     if ( _observable )
     {
       final ParameterizedTypeName typeName =
@@ -2934,23 +2925,6 @@ final class ComponentDescriptor
     superCall.append( "super(" );
     final ArrayList<String> parameterNames = new ArrayList<>();
 
-    final String locatorParamName;
-    if ( !_references.isEmpty() )
-    {
-      locatorParamName =
-        isNameCollision( constructor, initializers, "locator" ) ? GeneratorUtil.LOCATOR_FIELD_NAME : "locator";
-      final ParameterSpec.Builder param =
-        ParameterSpec.builder( GeneratorUtil.LOCATOR_CLASSNAME,
-                               locatorParamName,
-                               Modifier.FINAL )
-          .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
-      builder.addParameter( param.build() );
-    }
-    else
-    {
-      locatorParamName = null;
-    }
-
     boolean firstParam = true;
     for ( final VariableElement element : constructor.getParameters() )
     {
@@ -2969,10 +2943,6 @@ final class ComponentDescriptor
 
     superCall.append( ")" );
     builder.addStatement( superCall.toString(), parameterNames.toArray() );
-    if ( !_references.isEmpty() )
-    {
-      builder.addStatement( "this.$N = $N", GeneratorUtil.LOCATOR_FIELD_NAME, locatorParamName );
-    }
 
     for ( final ObservableDescriptor observable : initializers )
     {

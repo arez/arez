@@ -29,8 +29,6 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
 
   private final Component $$arezi$$_component;
 
-  private final Locator $$arezi$$_locator;
-
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
@@ -50,9 +48,8 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
   @Nullable
   private BaseCompleteModel.MyEntity $$arezr$$_myEntity;
 
-  Arez_CompleteModel(@Nonnull final Locator locator) {
+  Arez_CompleteModel() {
     super();
-    this.$$arezi$$_locator = locator;
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
@@ -113,7 +110,7 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named 'getLocator' invoked on uninitialized component of type 'CompleteModel'" );
     }
-    return this.$$arezi$$_locator;
+    return getContext().locator();
   }
 
   @Override
