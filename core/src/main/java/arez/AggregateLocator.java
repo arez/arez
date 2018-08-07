@@ -1,8 +1,7 @@
-package arez.component;
+package arez;
 
-import arez.Arez;
-import arez.Locator;
 import java.util.ArrayList;
+import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
@@ -12,7 +11,7 @@ import static org.realityforge.braincheck.Guards.*;
  * This implementation will search through the list of registered locators whenever the query method
  * {@link #findById(Class, Object)} is invoked.
  */
-public class AggregateLocator
+final class AggregateLocator
   implements Locator
 {
   /**
@@ -21,25 +20,13 @@ public class AggregateLocator
   private final ArrayList<Locator> _locators = new ArrayList<>();
 
   /**
-   * Create the locator registering the supplied locators.
-   *
-   * @param locators the ordered list of locators to register.
-   */
-  public AggregateLocator( @Nonnull final Locator... locators )
-  {
-    for ( final Locator locator : locators )
-    {
-      registerLocator( locator );
-    }
-  }
-
-  /**
    * Register an entity locator to be searched.
    * The Locator must not already be registered.
    *
    * @param locator the Locator to register.
    */
-  protected final void registerLocator( @Nonnull final Locator locator )
+  @Nonnull
+  Disposable registerLocator( @Nonnull final Locator locator )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -48,6 +35,7 @@ public class AggregateLocator
                           "Locator is already present." );
     }
     _locators.add( locator );
+    return new LocatorEntry( locator );
   }
 
   /**
@@ -66,5 +54,45 @@ public class AggregateLocator
       }
     }
     return null;
+  }
+
+  @Nonnull
+  ArrayList<Locator> getLocators()
+  {
+    return _locators;
+  }
+
+  private class LocatorEntry
+    implements Disposable
+  {
+    private final Locator _locator;
+    private boolean _disposed;
+
+    LocatorEntry( @Nonnull final Locator locator )
+    {
+      _locator = Objects.requireNonNull( locator );
+    }
+
+    @Override
+    public void dispose()
+    {
+      if ( !_disposed )
+      {
+        _disposed = true;
+        if ( Arez.shouldCheckApiInvariants() )
+        {
+          apiInvariant( () -> _locators.contains( _locator ),
+                        () -> "Arez-0190: Attempting to de-register locator " + _locator + " but the " +
+                              "Locator is not present in list." );
+        }
+        _locators.remove( _locator );
+      }
+    }
+
+    @Override
+    public boolean isDisposed()
+    {
+      return _disposed;
+    }
   }
 }

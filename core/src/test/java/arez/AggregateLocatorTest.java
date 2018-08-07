@@ -1,6 +1,6 @@
-package arez.component;
+package arez;
 
-import arez.AbstractArezTest;
+import arez.component.TypeBasedLocator;
 import java.util.HashMap;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -10,13 +10,32 @@ public class AggregateLocatorTest
   extends AbstractArezTest
 {
   @Test
+  public void registerThenDeregister()
+  {
+    final TypeBasedLocator locator1 = new TypeBasedLocator();
+
+    final AggregateLocator locator = new AggregateLocator();
+    final Disposable disposable = locator.registerLocator( locator1 );
+
+    assertEquals( locator.getLocators().contains( locator1 ), true );
+
+    disposable.dispose();
+
+    assertEquals( locator.getLocators().contains( locator1 ), false );
+
+    // Should be no-op
+    disposable.dispose();
+  }
+
+  @Test
   public void aggregateSingleLocator()
   {
     final HashMap<Integer, A> entities1 = new HashMap<>();
     final TypeBasedLocator locator1 = new TypeBasedLocator();
     locator1.registerLookup( A.class, entities1::get );
 
-    final AggregateLocator locator = new AggregateLocator( locator1 );
+    final AggregateLocator locator = new AggregateLocator();
+    locator.registerLocator( locator1 );
 
     assertNull( locator.findById( A.class, 23 ) );
 
@@ -37,7 +56,9 @@ public class AggregateLocatorTest
     final TypeBasedLocator locator2 = new TypeBasedLocator();
     locator2.registerLookup( B.class, entities2::get );
 
-    final AggregateLocator locator = new AggregateLocator( locator1, locator2 );
+    final AggregateLocator locator = new AggregateLocator();
+    locator.registerLocator( locator1 );
+    locator.registerLocator( locator2 );
 
     assertNull( locator.findById( A.class, 23 ) );
     assertNull( locator.findById( B.class, 42 ) );
@@ -66,7 +87,9 @@ public class AggregateLocatorTest
     final TypeBasedLocator locator2 = new TypeBasedLocator();
     locator2.registerLookup( A.class, entities2::get );
 
-    final AggregateLocator locator = new AggregateLocator( locator1, locator2 );
+    final AggregateLocator locator = new AggregateLocator();
+    locator.registerLocator( locator1 );
+    locator.registerLocator( locator2 );
 
     assertNull( locator.findById( A.class, 23 ) );
 
@@ -85,13 +108,31 @@ public class AggregateLocatorTest
   {
     final TypeBasedLocator locator1 = new TypeBasedLocator();
 
-    final AggregateLocator locator = new AggregateLocator( locator1 );
+    final AggregateLocator locator = new AggregateLocator();
+    locator.registerLocator( locator1 );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> locator.registerLocator( locator1 ) );
     assertEquals( exception.getMessage(),
                   "Arez-0189: Attempting to register locator " + locator1 +
                   " when the Locator is already present." );
+  }
+
+  @Test
+  public void deregisterButMissing()
+  {
+    final TypeBasedLocator locator1 = new TypeBasedLocator();
+
+    final AggregateLocator locator = new AggregateLocator();
+    final Disposable disposable = locator.registerLocator( locator1 );
+
+    locator.getLocators().clear();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, disposable::dispose );
+    assertEquals( exception.getMessage(),
+                  "Arez-0190: Attempting to de-register locator " + locator1 +
+                  " but the Locator is not present in list." );
   }
 
   private static class A
