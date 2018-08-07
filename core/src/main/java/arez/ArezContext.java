@@ -13,6 +13,7 @@ import arez.spy.ReactionScheduledEvent;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
@@ -78,6 +79,11 @@ public final class ArezContext
    */
   @Nullable
   private final HashMap<String, Observer> _observers = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
+  /**
+   * Locator used to resolve references.
+   */
+  @Nullable
+  private final AggregateLocator _locator = Arez.areReferencesEnabled() ? new AggregateLocator() : null;
   /**
    * Flag indicating whether the scheduler should run next time it is triggered.
    * This should be active only when there is no uncommitted transaction for context.
@@ -2499,6 +2505,44 @@ public final class ArezContext
   int nextTransactionId()
   {
     return _nextTransactionId++;
+  }
+
+  /**
+   * Register an entity locator to use to resolve references.
+   * The Locator must not already be registered.
+   * This should not be invoked unless Arez.areReferencesEnabled() returns true.
+   *
+   * @param locator the Locator to register.
+   * @return the disposable to dispose to deregister locator.
+   */
+  @Nonnull
+  public Disposable registerLocator( @Nonnull final Locator locator )
+  {
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( Arez::areReferencesEnabled,
+                    () -> "Arez-0191: ArezContext.registerLocator invoked but Arez.areReferencesEnabled() returned false." );
+    }
+    assert null != _locator;
+    return _locator.registerLocator( Objects.requireNonNull( locator ) );
+  }
+
+  /**
+   * Return the locator that can be used to resolve references.
+   * This should not be invoked unless Arez.areReferencesEnabled() returns true.
+   *
+   * @return the Locator.
+   */
+  @Nonnull
+  public Locator locator()
+  {
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( Arez::areReferencesEnabled,
+                    () -> "Arez-0192: ArezContext.locator() invoked but Arez.areReferencesEnabled() returned false." );
+    }
+    assert null != _locator;
+    return _locator;
   }
 
   /**

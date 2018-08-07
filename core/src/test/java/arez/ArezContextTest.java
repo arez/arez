@@ -1,5 +1,6 @@
 package arez;
 
+import arez.component.TypeBasedLocator;
 import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
 import arez.spy.ComponentCreateStartedEvent;
@@ -3255,6 +3256,48 @@ public class ArezContextTest
 
     assertEquals( scheduler.getPendingDisposes().size(), 1 );
     assertEquals( scheduler.getPendingDisposes().contains( observer ), true );
+  }
+
+  @Test
+  public void locator()
+  {
+    final ArezContext context = Arez.context();
+
+    final Locator locator = context.locator();
+    assertNotNull( locator );
+
+    assertNull( locator.findById( String.class, "21" ) );
+
+    final TypeBasedLocator worker = new TypeBasedLocator();
+    worker.registerLookup( String.class, String::valueOf );
+
+    final Disposable disposable = context.registerLocator( worker );
+
+    assertEquals( locator.findById( String.class, "21" ), "21" );
+
+    disposable.dispose();
+
+    assertNull( locator.findById( String.class, "21" ) );
+  }
+
+  @Test
+  public void locator_referencesDisabled()
+  {
+    ArezTestUtil.disableReferences();
+    ArezTestUtil.resetState();
+
+    assertThrowsWithMessage( () -> Arez.context().locator(),
+                             "Arez-0192: ArezContext.locator() invoked but Arez.areReferencesEnabled() returned false." );
+  }
+
+  @Test
+  public void registerLocator_referencesDisabled()
+  {
+    ArezTestUtil.disableReferences();
+    ArezTestUtil.resetState();
+
+    assertThrowsWithMessage( () -> Arez.context().registerLocator( new TypeBasedLocator() ),
+                             "Arez-0191: ArezContext.registerLocator invoked but Arez.areReferencesEnabled() returned false." );
   }
 
   private void assertThrowsWithMessage( @Nonnull final ThrowingRunnable runnable, @Nonnull final String message )

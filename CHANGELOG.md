@@ -25,6 +25,8 @@
 * **\[core\]** Add a compile configuration property `arez.enable_references` that defaults to `true` to enable or
   disable support for references in the runtime. Setting the property to `false` when not needed will eliminate
   unused reference support code.
+* **\[core\]** Expose a per-context `arez.Locator` via `ArezContext.locator()`. This implementation delegates to
+  instances of `arez.Locator` registered via `ArezContext.registerLocator(...)`.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)
