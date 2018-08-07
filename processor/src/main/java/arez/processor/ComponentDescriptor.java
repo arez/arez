@@ -2943,6 +2943,19 @@ final class ComponentDescriptor
 
     superCall.append( ")" );
     builder.addStatement( superCall.toString(), parameterNames.toArray() );
+    if ( !_references.isEmpty() )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
+      block.addStatement( "$T.apiInvariant( () -> $T.areReferencesEnabled(), () -> \"Attempted to create instance " +
+                          "of component of type '$N' that contains references but Arez.areReferencesEnabled() " +
+                          "returns false. References need to be enabled to use this component\" )",
+                          GeneratorUtil.GUARDS_CLASSNAME,
+                          GeneratorUtil.AREZ_CLASSNAME,
+                          getType() );
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
 
     for ( final ObservableDescriptor observable : initializers )
     {

@@ -50,6 +50,9 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
 
   Arez_CompleteModel() {
     super();
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> Arez.areReferencesEnabled(), () -> "Attempted to create instance of component of type 'CompleteModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
+    }
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
