@@ -248,7 +248,7 @@ final class ArezConfig
 
     boolean areReferencesEnabled()
     {
-      return "true" == System.getProperty( "arez.arez.enable_references" );
+      return "true" == System.getProperty( "arez.enable_references" );
     }
 
     boolean areSpiesEnabled()
