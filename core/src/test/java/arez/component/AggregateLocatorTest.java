@@ -19,13 +19,11 @@ public class AggregateLocatorTest
     final AggregateLocator locator = new AggregateLocator( locator1 );
 
     assertNull( locator.findById( A.class, 23 ) );
-    assertEquals( expectThrows( NoSuchEntityException.class, () -> locator.getById( A.class, 23 ) ).getId(), 23 );
 
     final A entity = new A();
     entities1.put( 23, entity );
 
     assertEquals( locator.findById( A.class, 23 ), entity );
-    assertEquals( locator.getById( A.class, 23 ), entity );
   }
 
   @Test
@@ -42,25 +40,19 @@ public class AggregateLocatorTest
     final AggregateLocator locator = new AggregateLocator( locator1, locator2 );
 
     assertNull( locator.findById( A.class, 23 ) );
-    assertEquals( expectThrows( NoSuchEntityException.class, () -> locator.getById( A.class, 23 ) ).getId(), 23 );
     assertNull( locator.findById( B.class, 42 ) );
-    assertEquals( expectThrows( NoSuchEntityException.class, () -> locator.getById( B.class, 42 ) ).getId(), 42 );
 
     final A entity1 = new A();
     entities1.put( 23, entity1 );
 
     assertEquals( locator.findById( A.class, 23 ), entity1 );
-    assertEquals( locator.getById( A.class, 23 ), entity1 );
     assertNull( locator.findById( B.class, 42 ) );
-    assertEquals( expectThrows( NoSuchEntityException.class, () -> locator.getById( B.class, 42 ) ).getId(), 42 );
 
     final B entity2 = new B();
     entities2.put( 42, entity2 );
 
     assertEquals( locator.findById( A.class, 23 ), entity1 );
-    assertEquals( locator.getById( A.class, 23 ), entity1 );
     assertEquals( locator.findById( B.class, 42 ), entity2 );
-    assertEquals( locator.getById( B.class, 42 ), entity2 );
   }
 
   @Test
@@ -77,18 +69,15 @@ public class AggregateLocatorTest
     final AggregateLocator locator = new AggregateLocator( locator1, locator2 );
 
     assertNull( locator.findById( A.class, 23 ) );
-    assertEquals( expectThrows( NoSuchEntityException.class, () -> locator.getById( A.class, 23 ) ).getId(), 23 );
 
     final A entity1 = new A();
     entities2.put( 23, entity1 );
 
     assertEquals( locator.findById( A.class, 23 ), entity1 );
-    assertEquals( locator.getById( A.class, 23 ), entity1 );
     final A entity2 = new A();
     entities1.put( 23, entity2 );
 
     assertEquals( locator.findById( A.class, 23 ), entity2 );
-    assertEquals( locator.getById( A.class, 23 ), entity2 );
   }
 
   @Test

@@ -14,29 +14,18 @@ public class LocatorTest
   {
     final TestLocator locator = new TestLocator();
 
-    {
-      assertNull( locator.findById( A.class, 23 ) );
-      final NoSuchEntityException exception =
-        expectThrows( NoSuchEntityException.class, () -> locator.getById( A.class, 23 ) );
-      assertEquals( exception.getId(), 23 );
-    }
+    assertNull( locator.findById( A.class, 23 ) );
 
     final HashMap<Integer, A> entities = new HashMap<>();
 
     locator.registerLookup( A.class, entities::get );
 
-    {
-      assertNull( locator.findById( A.class, 23 ) );
-      final NoSuchEntityException exception =
-        expectThrows( NoSuchEntityException.class, () -> locator.getById( A.class, 23 ) );
-      assertEquals( exception.getId(), 23 );
-    }
+    assertNull( locator.findById( A.class, 23 ) );
 
     final A entity = new A();
     entities.put( 23, entity );
 
     assertEquals( locator.findById( A.class, 23 ), entity );
-    assertEquals( locator.getById( A.class, 23 ), entity );
   }
 
   @Test
