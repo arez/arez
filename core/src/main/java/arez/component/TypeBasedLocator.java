@@ -10,9 +10,9 @@ import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
- * An Locator implementation that supports registration of methods for each type to resolve.
+ * An Locator implementation where you can register a function-per type to be resolved.
  */
-public abstract class AbstractLocator
+public final class TypeBasedLocator
   implements Locator
 {
   /**
@@ -28,8 +28,8 @@ public abstract class AbstractLocator
    * @param type             the type of the entity.
    * @param findByIdFunction the function that looks up the entity by id.
    */
-  protected final <T> void registerLookup( @Nonnull final Class<T> type,
-                                           @Nonnull final Function<Object, T> findByIdFunction )
+  public final <T> void registerLookup( @Nonnull final Class<T> type,
+                                        @Nonnull final Function<Object, T> findByIdFunction )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {

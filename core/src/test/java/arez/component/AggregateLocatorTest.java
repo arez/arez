@@ -13,7 +13,7 @@ public class AggregateLocatorTest
   public void aggregateSingleLocator()
   {
     final HashMap<Integer, A> entities1 = new HashMap<>();
-    final TestLocator locator1 = new TestLocator();
+    final TypeBasedLocator locator1 = new TypeBasedLocator();
     locator1.registerLookup( A.class, entities1::get );
 
     final AggregateLocator locator = new AggregateLocator( locator1 );
@@ -30,11 +30,11 @@ public class AggregateLocatorTest
   public void aggregateMultipleLocator_disjoint_types()
   {
     final HashMap<Integer, A> entities1 = new HashMap<>();
-    final TestLocator locator1 = new TestLocator();
+    final TypeBasedLocator locator1 = new TypeBasedLocator();
     locator1.registerLookup( A.class, entities1::get );
 
     final HashMap<Integer, B> entities2 = new HashMap<>();
-    final TestLocator locator2 = new TestLocator();
+    final TypeBasedLocator locator2 = new TypeBasedLocator();
     locator2.registerLookup( B.class, entities2::get );
 
     final AggregateLocator locator = new AggregateLocator( locator1, locator2 );
@@ -59,11 +59,11 @@ public class AggregateLocatorTest
   public void aggregateMultipleLocator_overlapping_types()
   {
     final HashMap<Integer, A> entities1 = new HashMap<>();
-    final TestLocator locator1 = new TestLocator();
+    final TypeBasedLocator locator1 = new TypeBasedLocator();
     locator1.registerLookup( A.class, entities1::get );
 
     final HashMap<Integer, A> entities2 = new HashMap<>();
-    final TestLocator locator2 = new TestLocator();
+    final TypeBasedLocator locator2 = new TypeBasedLocator();
     locator2.registerLookup( A.class, entities2::get );
 
     final AggregateLocator locator = new AggregateLocator( locator1, locator2 );
@@ -83,7 +83,7 @@ public class AggregateLocatorTest
   @Test
   public void registerLookup_duplicate()
   {
-    final TestLocator locator1 = new TestLocator();
+    final TypeBasedLocator locator1 = new TypeBasedLocator();
 
     final AggregateLocator locator = new AggregateLocator( locator1 );
 
@@ -94,16 +94,11 @@ public class AggregateLocatorTest
                   " when the Locator is already present." );
   }
 
-  static class A
+  private static class A
   {
   }
 
-  static class B
-  {
-  }
-
-  private static class TestLocator
-    extends AbstractLocator
+  private static class B
   {
   }
 }
