@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
  * The interface used to look up components by type and id.
  * This is primarily used by components that represent entities that relate to other entities.
  */
+@FunctionalInterface
 public interface Locator
 {
   /**
