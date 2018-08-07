@@ -1,8 +1,8 @@
 package com.example.entity_locator;
 
+import arez.Locator;
 import arez.annotations.ArezComponent;
 import arez.annotations.LocatorRef;
-import arez.component.Locator;
 
 @ArezComponent( allowEmpty = true )
 abstract class NoReferencesModel

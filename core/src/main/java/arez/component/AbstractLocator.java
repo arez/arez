@@ -1,6 +1,7 @@
 package arez.component;
 
 import arez.Arez;
+import arez.Locator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;

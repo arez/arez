@@ -1,6 +1,7 @@
 package arez.component;
 
 import arez.Arez;
+import arez.Locator;
 import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

@@ -1,4 +1,4 @@
-package arez.component;
+package arez;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

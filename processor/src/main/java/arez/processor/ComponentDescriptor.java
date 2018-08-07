@@ -929,11 +929,10 @@ final class ComponentDescriptor
     MethodChecks.mustBeAbstract( Constants.LOCATOR_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = method.getReturnType();
-    if ( TypeKind.DECLARED != returnType.getKind() ||
-         !returnType.toString().equals( "arez.component.Locator" ) )
+    if ( TypeKind.DECLARED != returnType.getKind() || !returnType.toString().equals( Constants.LOCATOR_CLASSNAME ) )
     {
-      throw new ArezProcessorException( "@LocatorRef target must return an instance of " +
-                                        "arez.component.Locator", method );
+      throw new ArezProcessorException( "@LocatorRef target must return an instance of " + Constants.LOCATOR_CLASSNAME,
+                                        method );
     }
 
     if ( null != _locatorRef )

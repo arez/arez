@@ -674,7 +674,7 @@ public class ArezProcessorTest
                       "@ArezComponent target has specified the disposeTrackable = DISABLE annotation parameter but is also annotated with @Repository that requires disposeTrackable = ENABLE." },
 
         new Object[]{ "com.example.entity_locator.BadTypeModel",
-                      "@LocatorRef target must return an instance of arez.component.Locator" },
+                      "@LocatorRef target must return an instance of arez.Locator" },
         new Object[]{ "com.example.entity_locator.ConcreteModel", "@LocatorRef target must be abstract" },
         new Object[]{ "com.example.entity_locator.DuplicateModel",
                       "@LocatorRef target duplicates existing method named getLocator" },

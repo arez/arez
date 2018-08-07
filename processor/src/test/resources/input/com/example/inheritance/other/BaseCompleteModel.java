@@ -2,6 +2,7 @@ package com.example.inheritance.other;
 
 import arez.ArezContext;
 import arez.Component;
+import arez.Locator;
 import arez.Observer;
 import arez.annotations.Action;
 import arez.annotations.Autorun;
@@ -24,7 +25,6 @@ import arez.annotations.PostConstruct;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import arez.annotations.Track;
-import arez.component.Locator;
 import javax.annotation.Nonnull;
 
 public abstract class BaseCompleteModel

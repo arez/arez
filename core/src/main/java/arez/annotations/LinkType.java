@@ -1,7 +1,7 @@
 package arez.annotations;
 
+import arez.Locator;
 import arez.component.Linkable;
-import arez.component.Locator;
 
 /**
  * Defines the strategy for loading references from the {@link Locator}.
