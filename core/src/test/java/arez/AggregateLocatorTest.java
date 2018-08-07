@@ -18,10 +18,12 @@ public class AggregateLocatorTest
     final Disposable disposable = locator.registerLocator( locator1 );
 
     assertEquals( locator.getLocators().contains( locator1 ), true );
+    assertEquals( disposable.isDisposed(), false );
 
     disposable.dispose();
 
     assertEquals( locator.getLocators().contains( locator1 ), false );
+    assertEquals( disposable.isDisposed(), true );
 
     // Should be no-op
     disposable.dispose();
