@@ -2,9 +2,6 @@
 
 ### Unreleased
 
-* **\[core\]** Introduce the `*Locator` classes and the `Linkable` interface inside the `arez.component` package
-  as the first step to creating reference properties within Arez component framework. This has been extracted from
-  replicant and other downstream libraries.
 * **\[processor\]** Adding `@Deprecated` to methods annotated with `@ComponentId`, `@ComponentRef`,
   `@ContextRef`, `@ContextTypeNameRef`, `@ComponentNameRef`, `@DependencyRef`, `@ObserverRef`, `@ObserverRef`
   `@PreDispose` and `@PostDispose` no longer generates a compiler warning.
@@ -21,6 +18,10 @@
   lookup can occur lazily on access, eagerly on assign or with an explicit linking step. The `@ReferenceId`
   annotated method can also be annotated with `@Observable` if the id can change over time, otherwise it is assumed
   to return an immutable value.
+* **\[core\]** Add the `arez.component.Linkable` interface to support explicit linking of references.
+* **\[core\]** Add the `arez.Locator` interface to support lookup of references by type and id.
+* **\[core\]** Add the `arez.component.TypeBasedLocator` implementation of `arez.Locator` that supports building
+  a locator from per-type lookup functions.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)
