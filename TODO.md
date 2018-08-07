@@ -84,6 +84,8 @@ complete as there is too much un-said.
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
 
+* Document creation of component. i.e. The order of operations
+
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
