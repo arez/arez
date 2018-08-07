@@ -238,7 +238,7 @@ final class ReferenceDescriptor
 
   private void buildLookup( @Nonnull final CodeBlock.Builder builder )
   {
-    builder.addStatement( "this.$N = this.$N().getById( $T.class, id )",
+    builder.addStatement( "this.$N = this.$N().findById( $T.class, id )",
                           getFieldName(),
                           _componentDescriptor.getLocatorMethodName(),
                           getMethod().getReturnType() );

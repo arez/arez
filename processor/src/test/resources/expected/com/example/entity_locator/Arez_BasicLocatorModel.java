@@ -140,7 +140,7 @@ final class Arez_BasicLocatorModel extends BasicLocatorModel implements Disposab
     }
     if ( null == this.$$arezr$$_myEntity ) {
       final int id = this.getMyEntityId();
-      this.$$arezr$$_myEntity = this.getLocator().getById( BasicLocatorModel.MyEntity.class, id );
+      this.$$arezr$$_myEntity = this.getLocator().findById( BasicLocatorModel.MyEntity.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
         Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getMyEntityId() );
       }

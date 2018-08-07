@@ -141,7 +141,7 @@ final class Arez_AnnotatedLocatorModel extends AnnotatedLocatorModel implements 
     }
     if ( null == this.$$arezr$$_myEntity ) {
       final int id = this.getMyEntityId();
-      this.$$arezr$$_myEntity = this.getLocator().getById( AnnotatedLocatorModel.MyEntity.class, id );
+      this.$$arezr$$_myEntity = this.getLocator().findById( AnnotatedLocatorModel.MyEntity.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
         Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getMyEntityId() );
       }

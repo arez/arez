@@ -137,7 +137,7 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
     if ( null == this.$$arezr$$_myEntity ) {
       final Integer id = this.getMyEntityId();
       if ( null != id ) {
-        this.$$arezr$$_myEntity = this.$$arezi$$_locator().getById( NullableLazyLoadReferenceModel.MyEntity.class, id );
+        this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( NullableLazyLoadReferenceModel.MyEntity.class, id );
         if ( Arez.shouldCheckApiInvariants() ) {
           Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getMyEntityId() );
         }
