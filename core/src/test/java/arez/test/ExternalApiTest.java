@@ -101,6 +101,15 @@ public class ExternalApiTest
   }
 
   @Test
+  public void isVerifyEnabled()
+  {
+    ArezTestUtil.disableVerify();
+    assertFalse( Arez.isVerifyEnabled() );
+    ArezTestUtil.enableVerify();
+    assertTrue( Arez.isVerifyEnabled() );
+  }
+
+  @Test
   public void areNativeComponentsEnabled()
   {
     assertTrue( Arez.areNativeComponentsEnabled() );

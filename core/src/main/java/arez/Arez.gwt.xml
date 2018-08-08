@@ -15,6 +15,9 @@
   <define-property name='arez.enable_names' values='true,false'/>
   <set-property name='arez.enable_names' value='false'/>
 
+  <define-property name='arez.enable_verify' values='true,false'/>
+  <set-property name='arez.enable_verify' value='false'/>
+
   <define-property name='arez.enable_references' values='true,false'/>
   <set-property name='arez.enable_references' value='false'/>
 

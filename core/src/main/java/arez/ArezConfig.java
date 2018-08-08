@@ -8,6 +8,7 @@ final class ArezConfig
   private static final ConfigProvider PROVIDER = new ConfigProvider();
   private static final boolean PRODUCTION_MODE = PROVIDER.isProductionMode();
   private static boolean ENABLE_NAMES = PROVIDER.areNamesEnabled();
+  private static boolean ENABLE_VERIFY = PROVIDER.isVerifyEnabled();
   private static boolean ENABLE_PROPERTY_INTROSPECTION = PROVIDER.arePropertyIntrospectorsEnabled();
   private static boolean PURGE_REACTIONS = PROVIDER.purgeReactionsWhenRunawayDetected();
   private static boolean ENFORCE_TRANSACTION_TYPE = PROVIDER.enforceTransactionType();
@@ -34,6 +35,11 @@ final class ArezConfig
   static boolean areNamesEnabled()
   {
     return ENABLE_NAMES;
+  }
+
+  static boolean isVerifyEnabled()
+  {
+    return ENABLE_VERIFY;
   }
 
   static boolean arePropertyIntrospectorsEnabled()
@@ -170,6 +176,13 @@ final class ArezConfig
 
     @GwtIncompatible
     @Override
+    boolean isVerifyEnabled()
+    {
+      return "true".equals( System.getProperty( "arez.enable_verify", "false" ) );
+    }
+
+    @GwtIncompatible
+    @Override
     boolean areCollectionsPropertiesUnmodifiable()
     {
       return "true".equals( System.getProperty( "arez.collections_properties_unmodifiable",
@@ -259,6 +272,11 @@ final class ArezConfig
     boolean areZonesEnabled()
     {
       return "true" == System.getProperty( "arez.enable_zones" );
+    }
+
+    boolean isVerifyEnabled()
+    {
+      return "true" == System.getProperty( "arez.enable_verify" );
     }
 
     boolean areCollectionsPropertiesUnmodifiable()

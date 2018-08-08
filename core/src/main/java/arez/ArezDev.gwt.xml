@@ -7,6 +7,7 @@
   <set-property name='arez.environment' value='development'/>
 
   <set-property name='arez.enable_names' value='true'/>
+  <set-property name='arez.enable_verify' value='true'/>
   <set-property name='arez.enforce_transaction_type' value='true'/>
   <set-property name='arez.collections_properties_unmodifiable' value='true'/>
   <set-property name='arez.check_api_invariants' value='true'/>

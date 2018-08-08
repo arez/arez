@@ -1,5 +1,6 @@
 package arez;
 
+import arez.component.Verifiable;
 import javax.annotation.Nonnull;
 import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
@@ -34,6 +35,16 @@ public final class Arez
   public static boolean areNamesEnabled()
   {
     return ArezConfig.areNamesEnabled();
+  }
+
+  /**
+   * Return true if {@link Verifiable} will veriyf components be used, false if not.
+   *
+   * @return true if {@link Verifiable} will veriyf components be used, false if not.
+   */
+  public static boolean isVerifyEnabled()
+  {
+    return ArezConfig.isVerifyEnabled();
   }
 
   /**

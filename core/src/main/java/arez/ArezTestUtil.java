@@ -34,6 +34,7 @@ public final class ArezTestUtil
     if ( productionMode )
     {
       disableNames();
+      disableVerify();
       disablePropertyIntrospectors();
       noEnforceTransactionType();
       disableSpies();
@@ -46,6 +47,7 @@ public final class ArezTestUtil
     else
     {
       enableNames();
+      enableVerify();
       enablePropertyIntrospectors();
       enforceTransactionType();
       enableSpies();
@@ -126,6 +128,32 @@ public final class ArezTestUtil
   private static void setEnableReferences( final boolean value )
   {
     setConstant( "ENABLE_REFERENCES", value );
+  }
+
+  /**
+   * Set `arez.enable_verify` setting to true.
+   */
+  public static void enableVerify()
+  {
+    setEnableVerify( true );
+  }
+
+  /**
+   * Set `arez.enable_verify` setting to false.
+   */
+  public static void disableVerify()
+  {
+    setEnableVerify( false );
+  }
+
+  /**
+   * Configure the `arez.enable_verify` setting.
+   *
+   * @param value the setting.
+   */
+  private static void setEnableVerify( final boolean value )
+  {
+    setConstant( "ENABLE_VERIFY", value );
   }
 
   /**

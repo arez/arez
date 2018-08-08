@@ -17,6 +17,9 @@ goog.define('arez.enable_references', 'true');
 goog.define('arez.enable_property_introspection', 'false');
 
 /** @define {string} */
+goog.define('arez.enable_verify', 'false');
+
+/** @define {string} */
 goog.define('arez.enforce_transaction_type', 'false');
 
 /** @define {string} */
