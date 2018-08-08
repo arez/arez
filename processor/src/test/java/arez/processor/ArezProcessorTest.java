@@ -186,6 +186,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.reference.EagerLoadNulableObservableReferenceModel", false, false, false },
         new Object[]{ "com.example.reference.EagerLoadObservableReferenceModel", false, false, false },
         new Object[]{ "com.example.reference.EagerLoadReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.EagerObservableReadOutsideTransactionReferenceModel", false, false, false },
         new Object[]{ "com.example.reference.ExplicitLoadObservableReferenceModel", false, false, false },
         new Object[]{ "com.example.reference.ExplicitLoadReferenceModel", false, false, false },
         new Object[]{ "com.example.reference.LazyLoadObservableReferenceModel", false, false, false },

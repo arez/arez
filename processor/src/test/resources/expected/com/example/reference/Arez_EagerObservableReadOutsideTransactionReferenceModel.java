@@ -10,14 +10,13 @@ import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
-import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulableObservableReferenceModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends EagerObservableReadOutsideTransactionReferenceModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -32,24 +31,24 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<String> $$arez$$_myEntityId;
+  private final Observable<Integer> $$arez$$_myEntityId;
 
-  private String $$arezd$$_myEntityId;
+  private int $$arezd$$_myEntityId;
 
   @Nullable
-  private EagerLoadNulableObservableReferenceModel.MyEntity $$arezr$$_myEntity;
+  private EagerObservableReadOutsideTransactionReferenceModel.MyEntity $$arezr$$_myEntity;
 
-  Arez_EagerLoadNulableObservableReferenceModel() {
+  Arez_EagerObservableReadOutsideTransactionReferenceModel() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> Arez.areReferencesEnabled(), () -> "Attempted to create instance of component of type 'EagerLoadNulableObservableReferenceModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
+      Guards.apiInvariant( () -> Arez.areReferencesEnabled(), () -> "Attempted to create instance of component of type 'EagerObservableReadOutsideTransactionReferenceModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
     }
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "EagerLoadNulableObservableReferenceModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "EagerObservableReadOutsideTransactionReferenceModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_myEntityId = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myEntityId" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_myEntityId : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myEntityId = v : null );
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -66,14 +65,14 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'EagerLoadNulableObservableReferenceModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'EagerObservableReadOutsideTransactionReferenceModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
 
   final Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'EagerLoadNulableObservableReferenceModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'EagerObservableReadOutsideTransactionReferenceModel'" );
     }
     return $$arezi$$_context().locator();
   }
@@ -93,9 +92,9 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'EagerLoadNulableObservableReferenceModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'EagerObservableReadOutsideTransactionReferenceModel'" );
     }
-    return "EagerLoadNulableObservableReferenceModel." + $$arezi$$_id();
+    return "EagerObservableReadOutsideTransactionReferenceModel." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -131,24 +130,23 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
     }
   }
 
-  @Nullable
   @Override
-  String getMyEntityId() {
+  int getMyEntityId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyEntityId' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    this.$$arez$$_myEntityId.reportObserved();
+    this.$$arez$$_myEntityId.reportObservedIfTrackingTransactionActive();
     return this.$$arezd$$_myEntityId;
   }
 
   @Override
-  void setMyEntityId(@Nullable final String id) {
+  void setMyEntityId(final int id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setMyEntityId' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     this.$$arez$$_myEntityId.preReportChanged();
-    final String $$arezv$$_currentValue = this.$$arezd$$_myEntityId;
-    if ( !Objects.equals( id, $$arezv$$_currentValue ) ) {
+    final int $$arezv$$_currentValue = this.$$arezd$$_myEntityId;
+    if ( id != $$arezv$$_currentValue ) {
       this.$$arezd$$_myEntityId = id;
       this.$$arez$$_myEntityId.reportChanged();
       this.$$arezi$$_link_myEntity();
@@ -156,14 +154,14 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
   }
 
   @Override
-  EagerLoadNulableObservableReferenceModel.MyEntity getMyEntity() {
+  EagerObservableReadOutsideTransactionReferenceModel.MyEntity getMyEntity() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyEntity' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_myEntity && null != getMyEntityId(), () -> "Nullable reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' and reference has not been resolved yet is not lazy. Id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Nonnull reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getMyEntityId() );
     }
-    this.$$arez$$_myEntityId.reportObserved();
+    this.$$arez$$_myEntityId.reportObservedIfTrackingTransactionActive();
     return this.$$arezr$$_myEntity;
   }
 
@@ -171,12 +169,10 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_myEntity' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    final String id = this.getMyEntityId();
-    if ( null != id ) {
-      this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( EagerLoadNulableObservableReferenceModel.MyEntity.class, id );
-      if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getMyEntityId() );
-      }
+    final int id = this.getMyEntityId();
+    this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( EagerObservableReadOutsideTransactionReferenceModel.MyEntity.class, id );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getMyEntityId() );
     }
   }
 
@@ -194,10 +190,10 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_EagerLoadNulableObservableReferenceModel) ) {
+      } else if ( null == o || !(o instanceof Arez_EagerObservableReadOutsideTransactionReferenceModel) ) {
         return false;
       } else {
-        final Arez_EagerLoadNulableObservableReferenceModel that = (Arez_EagerLoadNulableObservableReferenceModel) o;;
+        final Arez_EagerObservableReadOutsideTransactionReferenceModel that = (Arez_EagerObservableReadOutsideTransactionReferenceModel) o;;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

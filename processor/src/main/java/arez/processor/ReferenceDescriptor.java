@@ -172,6 +172,18 @@ final class ReferenceDescriptor
       block.endControlFlow();
 
       builder.addCode( block.build() );
+
+      if ( null != _observable )
+      {
+        if ( _observable.canReadOutsideTransaction() )
+        {
+          builder.addStatement( "this.$N.reportObservedIfTrackingTransactionActive()", _observable.getFieldName() );
+        }
+        else
+        {
+          builder.addStatement( "this.$N.reportObserved()", _observable.getFieldName() );
+        }
+      }
     }
     else
     {

@@ -169,6 +169,7 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Nonnull reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getMyEntityId() );
     }
+    this.$$arez$$_myEntityId.reportObserved();
     return this.$$arezr$$_myEntity;
   }
 
