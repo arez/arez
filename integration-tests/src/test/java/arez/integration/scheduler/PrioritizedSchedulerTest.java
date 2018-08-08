@@ -1,6 +1,5 @@
 package arez.integration.scheduler;
 
-import arez.Arez;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Autorun;

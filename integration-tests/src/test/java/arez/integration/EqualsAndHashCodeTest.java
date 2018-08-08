@@ -1,6 +1,5 @@
 package arez.integration;
 
-import arez.Arez;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import javax.annotation.Nonnull;

@@ -1,6 +1,5 @@
 package arez.integration.post_construct;
 
-import arez.Arez;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;

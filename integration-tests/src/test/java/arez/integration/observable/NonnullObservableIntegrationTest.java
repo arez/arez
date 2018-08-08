@@ -1,6 +1,5 @@
 package arez.integration.observable;
 
-import arez.Arez;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;

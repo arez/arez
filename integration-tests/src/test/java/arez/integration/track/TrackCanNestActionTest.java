@@ -1,6 +1,5 @@
 package arez.integration.track;
 
-import arez.Arez;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;

@@ -1,6 +1,5 @@
 package arez.integration.repository;
 
-import arez.Arez;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
