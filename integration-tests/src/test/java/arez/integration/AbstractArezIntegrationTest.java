@@ -126,7 +126,7 @@ public abstract class AbstractArezIntegrationTest
 
   protected final void assertInvariant( @Nonnull final ThrowingRunnable runnable, @Nonnull final String message )
   {
-    assertEquals( expectThrows( IllegalStateException.class, runnable ).getMessage(), message );
+    assertThrowsWithMessage( IllegalStateException.class, runnable, message );
   }
 
   protected final <T extends Throwable> void assertThrowsWithMessage( @Nonnull final Class<T> exceptionType,
