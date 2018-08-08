@@ -1,7 +1,5 @@
 package arez.integration.collections;
 
-import arez.Arez;
-import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
@@ -30,31 +28,29 @@ public class UnmodifiableCollectionsIntegrationTest
   public void scenario()
     throws Throwable
   {
-    final ArezContext context = Arez.context();
-
     final Model1 m1 = Model1.create();
 
-    context.safeAction( () -> assertUnmodifiable( m1.getNames(), ValueUtil::randomString ) );
-    context.safeAction( () -> assertUnmodifiable( m1.getDates(), Date::new ) );
-    context.safeAction( () -> assertUnmodifiable( m1.getTimes(), ValueUtil::randomLong ) );
-    context.safeAction( () -> assertUnsupportedOperation( () -> m1.getPois().put( ValueUtil.randomString(),
-                                                                                  ValueUtil.randomString() ) ) );
+    safeAction( () -> assertUnmodifiable( m1.getNames(), ValueUtil::randomString ) );
+    safeAction( () -> assertUnmodifiable( m1.getDates(), Date::new ) );
+    safeAction( () -> assertUnmodifiable( m1.getTimes(), ValueUtil::randomLong ) );
+    safeAction( () -> assertUnsupportedOperation( () -> m1.getPois().put( ValueUtil.randomString(),
+                                                                          ValueUtil.randomString() ) ) );
 
-    context.safeAction( () -> assertNull( m1.getNames2() ) );
-    context.safeAction( () -> assertNull( m1.getDates2() ) );
-    context.safeAction( () -> assertNull( m1.getTimes2() ) );
-    context.safeAction( () -> assertNull( m1.getPois2() ) );
+    safeAction( () -> assertNull( m1.getNames2() ) );
+    safeAction( () -> assertNull( m1.getDates2() ) );
+    safeAction( () -> assertNull( m1.getTimes2() ) );
+    safeAction( () -> assertNull( m1.getPois2() ) );
 
     // Reference identity should be guaranteed
-    context.safeAction( () -> assertTrue( m1.getNames() == m1.getNames() ) );
-    context.safeAction( () -> assertTrue( m1.getDates() == m1.getDates() ) );
-    context.safeAction( () -> assertTrue( m1.getTimes() == m1.getTimes() ) );
-    context.safeAction( () -> assertTrue( m1.getPois() == m1.getPois() ) );
+    safeAction( () -> assertTrue( m1.getNames() == m1.getNames() ) );
+    safeAction( () -> assertTrue( m1.getDates() == m1.getDates() ) );
+    safeAction( () -> assertTrue( m1.getTimes() == m1.getTimes() ) );
+    safeAction( () -> assertTrue( m1.getPois() == m1.getPois() ) );
 
-    context.safeAction( () -> assertTrue( m1.getNames2() == m1.getNames2() ) );
-    context.safeAction( () -> assertTrue( m1.getDates2() == m1.getDates2() ) );
-    context.safeAction( () -> assertTrue( m1.getTimes2() == m1.getTimes2() ) );
-    context.safeAction( () -> assertTrue( m1.getPois2() == m1.getPois2() ) );
+    safeAction( () -> assertTrue( m1.getNames2() == m1.getNames2() ) );
+    safeAction( () -> assertTrue( m1.getDates2() == m1.getDates2() ) );
+    safeAction( () -> assertTrue( m1.getTimes2() == m1.getTimes2() ) );
+    safeAction( () -> assertTrue( m1.getPois2() == m1.getPois2() ) );
 
     final HashSet<String> names = new HashSet<>( Arrays.asList( "1", "2", "3" ) );
     final HashSet<Date> dates = new HashSet<>( Collections.singletonList( new Date() ) );
@@ -67,48 +63,48 @@ public class UnmodifiableCollectionsIntegrationTest
     final HashMap<String, String> pois2 = new HashMap<>();
     pois2.put( ValueUtil.randomString(), ValueUtil.randomString() );
 
-    context.safeAction( () -> m1.setNames( names ) );
-    context.safeAction( () -> m1.setDates( dates ) );
-    context.safeAction( () -> m1.setTimes( times ) );
-    context.safeAction( () -> m1.setPois( pois ) );
+    safeAction( () -> m1.setNames( names ) );
+    safeAction( () -> m1.setDates( dates ) );
+    safeAction( () -> m1.setTimes( times ) );
+    safeAction( () -> m1.setPois( pois ) );
 
-    context.safeAction( () -> m1.setNames2( names2 ) );
-    context.safeAction( () -> m1.setDates2( dates2 ) );
-    context.safeAction( () -> m1.setTimes2( times2 ) );
-    context.safeAction( () -> m1.setPois2( pois2 ) );
+    safeAction( () -> m1.setNames2( names2 ) );
+    safeAction( () -> m1.setDates2( dates2 ) );
+    safeAction( () -> m1.setTimes2( times2 ) );
+    safeAction( () -> m1.setPois2( pois2 ) );
 
-    context.safeAction( () -> assertUnmodifiable( m1.getNames(), ValueUtil::randomString ) );
-    context.safeAction( () -> assertUnmodifiable( m1.getDates(), Date::new ) );
-    context.safeAction( () -> assertUnmodifiable( m1.getTimes(), ValueUtil::randomLong ) );
-    context.safeAction( () -> assertUnsupportedOperation( () -> m1.getPois().put( ValueUtil.randomString(),
+    safeAction( () -> assertUnmodifiable( m1.getNames(), ValueUtil::randomString ) );
+    safeAction( () -> assertUnmodifiable( m1.getDates(), Date::new ) );
+    safeAction( () -> assertUnmodifiable( m1.getTimes(), ValueUtil::randomLong ) );
+    safeAction( () -> assertUnsupportedOperation( () -> m1.getPois().put( ValueUtil.randomString(),
                                                                                   ValueUtil.randomString() ) ) );
-    context.safeAction( () -> assertUnmodifiable( m1.getNames2(), ValueUtil::randomString ) );
-    context.safeAction( () -> assertUnmodifiable( m1.getDates2(), Date::new ) );
-    context.safeAction( () -> assertUnmodifiable( m1.getTimes2(), ValueUtil::randomLong ) );
-    context.safeAction( () -> assertUnsupportedOperation( () -> m1.getPois2().put( ValueUtil.randomString(),
+    safeAction( () -> assertUnmodifiable( m1.getNames2(), ValueUtil::randomString ) );
+    safeAction( () -> assertUnmodifiable( m1.getDates2(), Date::new ) );
+    safeAction( () -> assertUnmodifiable( m1.getTimes2(), ValueUtil::randomLong ) );
+    safeAction( () -> assertUnsupportedOperation( () -> m1.getPois2().put( ValueUtil.randomString(),
                                                                                    ValueUtil.randomString() ) ) );
 
     // Assert Collections contain expected
-    context.safeAction( () -> assertTrue( m1.getNames().contains( names.iterator().next() ) ) );
-    context.safeAction( () -> assertTrue( m1.getDates().contains( dates.iterator().next() ) ) );
-    context.safeAction( () -> assertTrue( m1.getTimes().contains( times.iterator().next() ) ) );
-    context.safeAction( () -> assertTrue( m1.getPois().containsKey( pois.keySet().iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getNames().contains( names.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getDates().contains( dates.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getTimes().contains( times.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getPois().containsKey( pois.keySet().iterator().next() ) ) );
 
-    context.safeAction( () -> assertTrue( m1.getNames2().contains( names2.iterator().next() ) ) );
-    context.safeAction( () -> assertTrue( m1.getDates2().contains( dates2.iterator().next() ) ) );
-    context.safeAction( () -> assertTrue( m1.getTimes2().contains( times2.iterator().next() ) ) );
-    context.safeAction( () -> assertTrue( m1.getPois2().containsKey( pois2.keySet().iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getNames2().contains( names2.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getDates2().contains( dates2.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getTimes2().contains( times2.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getPois2().containsKey( pois2.keySet().iterator().next() ) ) );
 
     // Reference identity should be guaranteed
-    context.safeAction( () -> assertTrue( m1.getNames() == m1.getNames() ) );
-    context.safeAction( () -> assertTrue( m1.getDates() == m1.getDates() ) );
-    context.safeAction( () -> assertTrue( m1.getTimes() == m1.getTimes() ) );
-    context.safeAction( () -> assertTrue( m1.getPois() == m1.getPois() ) );
+    safeAction( () -> assertTrue( m1.getNames() == m1.getNames() ) );
+    safeAction( () -> assertTrue( m1.getDates() == m1.getDates() ) );
+    safeAction( () -> assertTrue( m1.getTimes() == m1.getTimes() ) );
+    safeAction( () -> assertTrue( m1.getPois() == m1.getPois() ) );
 
-    context.safeAction( () -> assertTrue( m1.getNames2() == m1.getNames2() ) );
-    context.safeAction( () -> assertTrue( m1.getDates2() == m1.getDates2() ) );
-    context.safeAction( () -> assertTrue( m1.getTimes2() == m1.getTimes2() ) );
-    context.safeAction( () -> assertTrue( m1.getPois2() == m1.getPois2() ) );
+    safeAction( () -> assertTrue( m1.getNames2() == m1.getNames2() ) );
+    safeAction( () -> assertTrue( m1.getDates2() == m1.getDates2() ) );
+    safeAction( () -> assertTrue( m1.getTimes2() == m1.getTimes2() ) );
+    safeAction( () -> assertTrue( m1.getPois2() == m1.getPois2() ) );
   }
 
   @Test
@@ -117,30 +113,28 @@ public class UnmodifiableCollectionsIntegrationTest
   {
     ArezTestUtil.makeCollectionPropertiesModifiable();
 
-    final ArezContext context = Arez.context();
-
     final Model1 m1 = Model1.create();
 
-    context.safeAction( () -> assertNotNull( m1.getNames() ) );
-    context.safeAction( () -> assertNotNull( m1.getDates() ) );
-    context.safeAction( () -> assertNotNull( m1.getTimes() ) );
-    context.safeAction( () -> assertNotNull( m1.getPois() ) );
+    safeAction( () -> assertNotNull( m1.getNames() ) );
+    safeAction( () -> assertNotNull( m1.getDates() ) );
+    safeAction( () -> assertNotNull( m1.getTimes() ) );
+    safeAction( () -> assertNotNull( m1.getPois() ) );
 
-    context.safeAction( () -> assertNull( m1.getNames2() ) );
-    context.safeAction( () -> assertNull( m1.getDates2() ) );
-    context.safeAction( () -> assertNull( m1.getTimes2() ) );
-    context.safeAction( () -> assertNull( m1.getPois2() ) );
+    safeAction( () -> assertNull( m1.getNames2() ) );
+    safeAction( () -> assertNull( m1.getDates2() ) );
+    safeAction( () -> assertNull( m1.getTimes2() ) );
+    safeAction( () -> assertNull( m1.getPois2() ) );
 
     // Reference identity should be guaranteed
-    context.safeAction( () -> assertTrue( m1.getNames() == m1.getNames() ) );
-    context.safeAction( () -> assertTrue( m1.getDates() == m1.getDates() ) );
-    context.safeAction( () -> assertTrue( m1.getTimes() == m1.getTimes() ) );
-    context.safeAction( () -> assertTrue( m1.getPois() == m1.getPois() ) );
+    safeAction( () -> assertTrue( m1.getNames() == m1.getNames() ) );
+    safeAction( () -> assertTrue( m1.getDates() == m1.getDates() ) );
+    safeAction( () -> assertTrue( m1.getTimes() == m1.getTimes() ) );
+    safeAction( () -> assertTrue( m1.getPois() == m1.getPois() ) );
 
-    context.safeAction( () -> assertTrue( m1.getNames2() == m1.getNames2() ) );
-    context.safeAction( () -> assertTrue( m1.getDates2() == m1.getDates2() ) );
-    context.safeAction( () -> assertTrue( m1.getTimes2() == m1.getTimes2() ) );
-    context.safeAction( () -> assertTrue( m1.getPois2() == m1.getPois2() ) );
+    safeAction( () -> assertTrue( m1.getNames2() == m1.getNames2() ) );
+    safeAction( () -> assertTrue( m1.getDates2() == m1.getDates2() ) );
+    safeAction( () -> assertTrue( m1.getTimes2() == m1.getTimes2() ) );
+    safeAction( () -> assertTrue( m1.getPois2() == m1.getPois2() ) );
 
     final HashSet<String> names = new HashSet<>( Arrays.asList( "1", "2", "3" ) );
     final HashSet<Date> dates = new HashSet<>( Collections.singletonList( new Date() ) );
@@ -153,60 +147,60 @@ public class UnmodifiableCollectionsIntegrationTest
     final HashMap<String, String> pois2 = new HashMap<>();
     pois2.put( ValueUtil.randomString(), ValueUtil.randomString() );
 
-    context.safeAction( () -> m1.setNames( names ) );
-    context.safeAction( () -> m1.setDates( dates ) );
-    context.safeAction( () -> m1.setTimes( times ) );
-    context.safeAction( () -> m1.setPois( pois ) );
+    safeAction( () -> m1.setNames( names ) );
+    safeAction( () -> m1.setDates( dates ) );
+    safeAction( () -> m1.setTimes( times ) );
+    safeAction( () -> m1.setPois( pois ) );
 
-    context.safeAction( () -> m1.setNames2( names2 ) );
-    context.safeAction( () -> m1.setDates2( dates2 ) );
-    context.safeAction( () -> m1.setTimes2( times2 ) );
-    context.safeAction( () -> m1.setPois2( pois2 ) );
+    safeAction( () -> m1.setNames2( names2 ) );
+    safeAction( () -> m1.setDates2( dates2 ) );
+    safeAction( () -> m1.setTimes2( times2 ) );
+    safeAction( () -> m1.setPois2( pois2 ) );
 
     // assert collections all non null now
-    context.safeAction( () -> assertNotNull( m1.getNames() ) );
-    context.safeAction( () -> assertNotNull( m1.getDates() ) );
-    context.safeAction( () -> assertNotNull( m1.getTimes() ) );
-    context.safeAction( () -> assertNotNull( m1.getPois() ) );
+    safeAction( () -> assertNotNull( m1.getNames() ) );
+    safeAction( () -> assertNotNull( m1.getDates() ) );
+    safeAction( () -> assertNotNull( m1.getTimes() ) );
+    safeAction( () -> assertNotNull( m1.getPois() ) );
 
-    context.safeAction( () -> assertNotNull( m1.getNames2() ) );
-    context.safeAction( () -> assertNotNull( m1.getDates2() ) );
-    context.safeAction( () -> assertNotNull( m1.getTimes2() ) );
-    context.safeAction( () -> assertNotNull( m1.getPois2() ) );
+    safeAction( () -> assertNotNull( m1.getNames2() ) );
+    safeAction( () -> assertNotNull( m1.getDates2() ) );
+    safeAction( () -> assertNotNull( m1.getTimes2() ) );
+    safeAction( () -> assertNotNull( m1.getPois2() ) );
 
     // Assert Collections contain expected
-    context.safeAction( () -> assertTrue( m1.getNames().contains( names.iterator().next() ) ) );
-    context.safeAction( () -> assertTrue( m1.getDates().contains( dates.iterator().next() ) ) );
-    context.safeAction( () -> assertTrue( m1.getTimes().contains( times.iterator().next() ) ) );
-    context.safeAction( () -> assertTrue( m1.getPois().containsKey( pois.keySet().iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getNames().contains( names.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getDates().contains( dates.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getTimes().contains( times.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getPois().containsKey( pois.keySet().iterator().next() ) ) );
 
-    context.safeAction( () -> assertTrue( m1.getNames2().contains( names2.iterator().next() ) ) );
-    context.safeAction( () -> assertTrue( m1.getDates2().contains( dates2.iterator().next() ) ) );
-    context.safeAction( () -> assertTrue( m1.getTimes2().contains( times2.iterator().next() ) ) );
-    context.safeAction( () -> assertTrue( m1.getPois2().containsKey( pois2.keySet().iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getNames2().contains( names2.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getDates2().contains( dates2.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getTimes2().contains( times2.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getPois2().containsKey( pois2.keySet().iterator().next() ) ) );
 
     // Reference identity should be guaranteed
-    context.safeAction( () -> assertTrue( m1.getNames() == m1.getNames() ) );
-    context.safeAction( () -> assertTrue( m1.getDates() == m1.getDates() ) );
-    context.safeAction( () -> assertTrue( m1.getTimes() == m1.getTimes() ) );
-    context.safeAction( () -> assertTrue( m1.getPois() == m1.getPois() ) );
+    safeAction( () -> assertTrue( m1.getNames() == m1.getNames() ) );
+    safeAction( () -> assertTrue( m1.getDates() == m1.getDates() ) );
+    safeAction( () -> assertTrue( m1.getTimes() == m1.getTimes() ) );
+    safeAction( () -> assertTrue( m1.getPois() == m1.getPois() ) );
 
-    context.safeAction( () -> assertTrue( m1.getNames2() == m1.getNames2() ) );
-    context.safeAction( () -> assertTrue( m1.getDates2() == m1.getDates2() ) );
-    context.safeAction( () -> assertTrue( m1.getTimes2() == m1.getTimes2() ) );
-    context.safeAction( () -> assertTrue( m1.getPois2() == m1.getPois2() ) );
+    safeAction( () -> assertTrue( m1.getNames2() == m1.getNames2() ) );
+    safeAction( () -> assertTrue( m1.getDates2() == m1.getDates2() ) );
+    safeAction( () -> assertTrue( m1.getTimes2() == m1.getTimes2() ) );
+    safeAction( () -> assertTrue( m1.getPois2() == m1.getPois2() ) );
 
     // Reset to Null
-    context.safeAction( () -> m1.setNames2( null ) );
-    context.safeAction( () -> m1.setDates2( null ) );
-    context.safeAction( () -> m1.setTimes2( null ) );
-    context.safeAction( () -> m1.setPois2( null ) );
+    safeAction( () -> m1.setNames2( null ) );
+    safeAction( () -> m1.setDates2( null ) );
+    safeAction( () -> m1.setTimes2( null ) );
+    safeAction( () -> m1.setPois2( null ) );
 
     // Verify null
-    context.safeAction( () -> assertNull( m1.getNames2() ) );
-    context.safeAction( () -> assertNull( m1.getDates2() ) );
-    context.safeAction( () -> assertNull( m1.getTimes2() ) );
-    context.safeAction( () -> assertNull( m1.getPois2() ) );
+    safeAction( () -> assertNull( m1.getNames2() ) );
+    safeAction( () -> assertNull( m1.getDates2() ) );
+    safeAction( () -> assertNull( m1.getTimes2() ) );
+    safeAction( () -> assertNull( m1.getPois2() ) );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> collection, @Nonnull final Supplier<T> creator )
