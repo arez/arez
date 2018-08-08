@@ -236,6 +236,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.tracked.ProtectedAccessTrackedModel", false, false, false },
         new Object[]{ "com.example.tracked.TrackedAllTypesModel", false, false, false },
         new Object[]{ "com.example.type_access_levels.ReduceAccessLevelModel", false, false, false },
+        new Object[]{ "com.example.verifiable.DisableVerifyModel", false, false, false },
+        new Object[]{ "com.example.verifiable.EnableVerifyModel", false, false, false },
         new Object[]{ "DisposingModel", false, false, false },
         new Object[]{ "ObservableTypeParametersModel", false, false, false },
         new Object[]{ "TypeParametersOnModel", false, false, false },

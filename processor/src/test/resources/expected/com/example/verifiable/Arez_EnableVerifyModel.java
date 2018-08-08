@@ -1,10 +1,9 @@
-package com.example.reference;
+package com.example.verifiable;
 
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Locator;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -16,7 +15,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeTrackable {
+final class Arez_EnableVerifyModel extends EnableVerifyModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -30,25 +29,18 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
-  @Nullable
-  private CustomNameReferenceModel.MyEntity $$arezr$$_Blah;
-
-  Arez_CustomNameReferenceModel() {
+  Arez_EnableVerifyModel() {
     super();
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> Arez.areReferencesEnabled(), () -> "Attempted to create instance of component of type 'CustomNameReferenceModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
-    }
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "CustomNameReferenceModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "EnableVerifyModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
-    this.$$arezi$$_link_Blah();
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
@@ -59,16 +51,9 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'CustomNameReferenceModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'EnableVerifyModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
-  }
-
-  final Locator $$arezi$$_locator() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'CustomNameReferenceModel'" );
-    }
-    return $$arezi$$_context().locator();
   }
 
   final int $$arezi$$_id() {
@@ -86,9 +71,9 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'CustomNameReferenceModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'EnableVerifyModel'" );
     }
-    return "CustomNameReferenceModel." + $$arezi$$_id();
+    return "EnableVerifyModel." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -128,33 +113,6 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'verify' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
-      Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CustomNameReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type CustomNameReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CustomNameReferenceModel.class, $$arezi$$_id() ) );
-      this.$$arezr$$_Blah = null;
-      this.$$arezi$$_link_Blah();
-    }
-  }
-
-  @Override
-  CustomNameReferenceModel.MyEntity getMyEntity() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyEntity' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Nonnull reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getMyEntityId() );
-    }
-    return this.$$arezr$$_Blah;
-  }
-
-  private void $$arezi$$_link_Blah() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_Blah' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    final int id = this.getMyEntityId();
-    this.$$arezr$$_Blah = this.$$arezi$$_locator().findById( CustomNameReferenceModel.MyEntity.class, id );
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getMyEntityId() );
-    }
   }
 
   @Override
@@ -171,10 +129,10 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_CustomNameReferenceModel) ) {
+      } else if ( null == o || !(o instanceof Arez_EnableVerifyModel) ) {
         return false;
       } else {
-        final Arez_CustomNameReferenceModel that = (Arez_CustomNameReferenceModel) o;;
+        final Arez_EnableVerifyModel that = (Arez_EnableVerifyModel) o;;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

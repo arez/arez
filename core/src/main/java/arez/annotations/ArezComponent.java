@@ -172,4 +172,13 @@ public @interface ArezComponent
    * @return enum controlling whether a unique if of the component can be accessed via {@link arez.component.Identifiable#getArezId(Object)}.
    */
   Feature requireId() default Feature.AUTODETECT;
+
+  /**
+   * Indicates whether the component should implement the interface {@link arez.component.Verifiable}.
+   * This feature is ignored unless {@link Arez#isVerifyEnabled()} ()} is true. The {@link Feature#AUTODETECT}
+   * value will enable this feature if the component has an {@link Reference} methods.
+   *
+   * @return enum that indicates whether the component should implement the interface {@link arez.component.Verifiable}.
+   */
+  Feature verify() default Feature.AUTODETECT;
 }

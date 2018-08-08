@@ -91,6 +91,10 @@ final class ComponentDescriptor
    */
   private final boolean _requireEquals;
   /**
+   * Flag indicating whether generated component should implement arez.component.Verifiable.
+   */
+  private final boolean _verify;
+  /**
    * Scope annotation that is declared on component and should be transferred to injection providers.
    */
   private final AnnotationMirror _scopeAnnotation;
@@ -158,6 +162,7 @@ final class ComponentDescriptor
                        final boolean inject,
                        final boolean dagger,
                        final boolean requireEquals,
+                       final boolean verify,
                        @Nullable final AnnotationMirror scopeAnnotation,
                        final boolean deferSchedule,
                        final boolean generateToString,
@@ -177,6 +182,7 @@ final class ComponentDescriptor
     _inject = inject;
     _dagger = dagger;
     _requireEquals = requireEquals;
+    _verify = verify;
     _scopeAnnotation = scopeAnnotation;
     _deferSchedule = deferSchedule;
     _generateToString = generateToString;
@@ -2044,6 +2050,10 @@ final class ComponentDescriptor
     {
       builder.addSuperinterface( GeneratorUtil.COMPONENT_OBSERVABLE_CLASSNAME );
     }
+    if ( _verify )
+    {
+      builder.addSuperinterface( GeneratorUtil.VERIFIABLE_CLASSNAME );
+    }
     if ( _disposeTrackable )
     {
       builder.addSuperinterface( GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME );
@@ -2090,6 +2100,10 @@ final class ComponentDescriptor
     }
     builder.addMethod( buildIsDisposed() );
     builder.addMethod( buildDispose() );
+    if ( _verify )
+    {
+      builder.addMethod( buildVerify() );
+    }
 
     if ( needsExplicitLink() )
     {
@@ -2501,6 +2515,47 @@ final class ComponentDescriptor
 
     builder.returns( TypeName.get( String.class ) );
     builder.addStatement( "return $S", _type );
+    return builder.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildVerify()
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "verify" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class );
+
+    GeneratorUtil.generateNotDisposedInvariant( this, builder, "verify" );
+
+    if ( !_roReferences.isEmpty() )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() && $T.isVerifyEnabled() )",
+                              GeneratorUtil.AREZ_CLASSNAME,
+                              GeneratorUtil.AREZ_CLASSNAME );
+
+      block.addStatement( "$T.apiInvariant( () -> this == $N().findById( $T.class, $N() ), () -> \"Attempted to " +
+                          "lookup self in Locator with type $T and id '\" + $N() + \"' but unable to locate " +
+                          "self. Actual value: \" + $N().findById( $T.class, $N() ) )",
+                          GeneratorUtil.GUARDS_CLASSNAME,
+                          GeneratorUtil.LOCATOR_METHOD_NAME,
+                          getElement(),
+                          getIdMethodName(),
+                          getElement(),
+                          getIdMethodName(),
+                          GeneratorUtil.LOCATOR_METHOD_NAME,
+                          getElement(),
+                          getIdMethodName() );
+      for ( final ReferenceDescriptor reference : _roReferences )
+      {
+        block.addStatement( "this.$N = null", reference.getFieldName() );
+        block.addStatement( "this.$N()", reference.getLinkMethodName() );
+      }
+
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
     return builder.build();
   }
 

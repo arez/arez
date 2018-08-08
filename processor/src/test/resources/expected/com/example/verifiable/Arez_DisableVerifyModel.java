@@ -1,4 +1,4 @@
-package com.example.reference;
+package com.example.verifiable;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -10,14 +10,13 @@ import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
-import arez.component.Verifiable;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends EagerObservableReadOutsideTransactionReferenceModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeTrackable {
+final class Arez_DisableVerifyModel extends DisableVerifyModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -37,19 +36,19 @@ final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends Eag
   private int $$arezd$$_myEntityId;
 
   @Nullable
-  private EagerObservableReadOutsideTransactionReferenceModel.MyEntity $$arezr$$_myEntity;
+  private DisableVerifyModel.MyEntity $$arezr$$_myEntity;
 
-  Arez_EagerObservableReadOutsideTransactionReferenceModel() {
+  Arez_DisableVerifyModel() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> Arez.areReferencesEnabled(), () -> "Attempted to create instance of component of type 'EagerObservableReadOutsideTransactionReferenceModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
+      Guards.apiInvariant( () -> Arez.areReferencesEnabled(), () -> "Attempted to create instance of component of type 'DisableVerifyModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
     }
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "EagerObservableReadOutsideTransactionReferenceModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "DisableVerifyModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_myEntityId = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myEntityId" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_myEntityId : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myEntityId = v : null );
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -66,14 +65,14 @@ final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends Eag
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'EagerObservableReadOutsideTransactionReferenceModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'DisableVerifyModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
 
   final Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'EagerObservableReadOutsideTransactionReferenceModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'DisableVerifyModel'" );
     }
     return $$arezi$$_context().locator();
   }
@@ -93,9 +92,9 @@ final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends Eag
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'EagerObservableReadOutsideTransactionReferenceModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'DisableVerifyModel'" );
     }
-    return "EagerObservableReadOutsideTransactionReferenceModel." + $$arezi$$_id();
+    return "DisableVerifyModel." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -132,23 +131,11 @@ final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends Eag
   }
 
   @Override
-  public void verify() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'verify' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
-      Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( EagerObservableReadOutsideTransactionReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type EagerObservableReadOutsideTransactionReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( EagerObservableReadOutsideTransactionReferenceModel.class, $$arezi$$_id() ) );
-      this.$$arezr$$_myEntity = null;
-      this.$$arezi$$_link_myEntity();
-    }
-  }
-
-  @Override
   int getMyEntityId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyEntityId' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    this.$$arez$$_myEntityId.reportObservedIfTrackingTransactionActive();
+    this.$$arez$$_myEntityId.reportObserved();
     return this.$$arezd$$_myEntityId;
   }
 
@@ -167,14 +154,14 @@ final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends Eag
   }
 
   @Override
-  EagerObservableReadOutsideTransactionReferenceModel.MyEntity getMyEntity() {
+  DisableVerifyModel.MyEntity getMyEntity() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyEntity' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Nonnull reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getMyEntityId() );
     }
-    this.$$arez$$_myEntityId.reportObservedIfTrackingTransactionActive();
+    this.$$arez$$_myEntityId.reportObserved();
     return this.$$arezr$$_myEntity;
   }
 
@@ -183,7 +170,7 @@ final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends Eag
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_myEntity' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     final int id = this.getMyEntityId();
-    this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( EagerObservableReadOutsideTransactionReferenceModel.MyEntity.class, id );
+    this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( DisableVerifyModel.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getMyEntityId() );
     }
@@ -203,10 +190,10 @@ final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends Eag
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_EagerObservableReadOutsideTransactionReferenceModel) ) {
+      } else if ( null == o || !(o instanceof Arez_DisableVerifyModel) ) {
         return false;
       } else {
-        final Arez_EagerObservableReadOutsideTransactionReferenceModel that = (Arez_EagerObservableReadOutsideTransactionReferenceModel) o;;
+        final Arez_DisableVerifyModel that = (Arez_DisableVerifyModel) o;;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

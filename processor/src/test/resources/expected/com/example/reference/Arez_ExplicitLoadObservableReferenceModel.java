@@ -11,13 +11,14 @@ import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import arez.component.Linkable;
+import arez.component.Verifiable;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObservableReferenceModel implements Disposable, Identifiable<Integer>, DisposeTrackable, Linkable {
+final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObservableReferenceModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeTrackable, Linkable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -127,6 +128,18 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
       if ( Arez.shouldCheckApiInvariants() ) {
         this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
       }
+    }
+  }
+
+  @Override
+  public void verify() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'verify' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
+      Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ExplicitLoadObservableReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ExplicitLoadObservableReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ExplicitLoadObservableReferenceModel.class, $$arezi$$_id() ) );
+      this.$$arezr$$_myEntity = null;
+      this.$$arezi$$_link_myEntity();
     }
   }
 

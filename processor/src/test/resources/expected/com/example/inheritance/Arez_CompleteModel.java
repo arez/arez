@@ -12,6 +12,7 @@ import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
+import arez.component.Verifiable;
 import com.example.inheritance.other.BaseCompleteModel;
 import java.util.Objects;
 import javax.annotation.Generated;
@@ -21,7 +22,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-final class Arez_CompleteModel extends CompleteModel implements Disposable, Identifiable<Byte>, DisposeTrackable {
+final class Arez_CompleteModel extends CompleteModel implements Disposable, Identifiable<Byte>, Verifiable, DisposeTrackable {
   private byte $$arezi$$_state;
 
   @Nullable
@@ -161,6 +162,18 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
       if ( Arez.shouldCheckApiInvariants() ) {
         this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
       }
+    }
+  }
+
+  @Override
+  public void verify() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'verify' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
+      Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CompleteModel.class, getId() ), () -> "Attempted to lookup self in Locator with type CompleteModel and id '" + getId() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CompleteModel.class, getId() ) );
+      this.$$arezr$$_myEntity = null;
+      this.$$arezi$$_link_myEntity();
     }
   }
 

@@ -10,6 +10,7 @@ import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
+import arez.component.Verifiable;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -17,7 +18,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulableObservableReferenceModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulableObservableReferenceModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -128,6 +129,18 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
       if ( Arez.shouldCheckApiInvariants() ) {
         this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
       }
+    }
+  }
+
+  @Override
+  public void verify() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'verify' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
+      Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( EagerLoadNulableObservableReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type EagerLoadNulableObservableReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( EagerLoadNulableObservableReferenceModel.class, $$arezi$$_id() ) );
+      this.$$arezr$$_myEntity = null;
+      this.$$arezi$$_link_myEntity();
     }
   }
 

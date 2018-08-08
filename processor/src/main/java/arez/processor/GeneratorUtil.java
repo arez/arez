@@ -43,6 +43,7 @@ final class GeneratorUtil
   static final ClassName COLLECTIONS_UTIL_CLASSNAME = ClassName.get( "arez.component", "CollectionsUtil" );
   static final ClassName LOCATOR_CLASSNAME = ClassName.get( "arez", "Locator" );
   static final ClassName LINKABLE_CLASSNAME = ClassName.get( "arez.component", "Linkable" );
+  static final ClassName VERIFIABLE_CLASSNAME = ClassName.get( "arez.component", "Verifiable" );
   /**
    * Prefix for fields that are used to generate Arez elements.
    */

@@ -8,13 +8,6 @@ complete as there is too much un-said.
 
 * Document Reference, ReferenceId
 
-* References handled specially ...? Is this only importing reference tools from Replicant?
-  - `Verifiable`: To verify that:
-    * the entity is not disposed.
-    * the `Locator` when passed own `ComponentId` and type returns self.
-    * All relationships are verified.
-  - `Verifiable` should be completely optimized out in production builds.
-
 * Rename the "action" parameter to tracker and autorun as "reaction" or something similar to clearly
   differentiate from other actions.
 

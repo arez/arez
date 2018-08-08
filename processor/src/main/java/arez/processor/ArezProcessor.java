@@ -263,6 +263,7 @@ public final class ArezProcessor
     final boolean inject = isInjectionRequired( typeElement, scopeAnnotation );
     final boolean dagger = isDaggerRequired( typeElement, scopeAnnotation );
     final boolean requireEquals = isEqualsRequired( typeElement );
+    final boolean requireVerify = isVerifyRequired( typeElement );
     final boolean deferSchedule = getAnnotationParameter( arezComponent, "deferSchedule" );
 
     if ( !typeElement.getModifiers().contains( Modifier.ABSTRACT ) && !allowConcrete )
@@ -338,6 +339,7 @@ public final class ArezProcessor
                                dagger || inject,
                                dagger,
                                requireEquals,
+                               requireVerify,
                                scopeAnnotation,
                                deferSchedule,
                                generateToString,
@@ -484,6 +486,31 @@ public final class ArezProcessor
         return null != scopeAnnotation &&
                null != processingEnv.getElementUtils().getTypeElement( Constants.DAGGER_MODULE_CLASSNAME );
     }
+  }
+
+  private boolean isVerifyRequired( @Nonnull final TypeElement typeElement )
+  {
+    final VariableElement daggerParameter = (VariableElement)
+      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
+                                        typeElement,
+                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                                        "verify" ).getValue();
+    switch ( daggerParameter.getSimpleName().toString() )
+    {
+      case "ENABLE":
+        return true;
+      case "DISABLE":
+        return false;
+      default:
+        return ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() ).
+          stream().anyMatch( this::hasReferenceAnnotations );
+    }
+  }
+
+  private boolean hasReferenceAnnotations( @Nonnull final Element method )
+  {
+    return null != ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ANNOTATION_CLASSNAME ) ||
+           null != ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );
   }
 
   private boolean isEqualsRequired( @Nonnull final TypeElement typeElement )
