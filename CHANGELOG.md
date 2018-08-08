@@ -19,6 +19,9 @@
   annotated method can also be annotated with `@Observable` if the id can change over time, otherwise it is assumed
   to return an immutable value.
 * **\[core\]** Add the `arez.component.Linkable` interface to support explicit linking of references.
+* **\[core\]** Add the `arez.component.Verifiable` interface to support explicit verification of components
+  internal state. The annotation processor will generate components that implement this interface if the processor
+  determines that the component needs verification.
 * **\[core\]** Add the `arez.Locator` interface to support lookup of references by type and id.
 * **\[core\]** Add the `arez.component.TypeBasedLocator` implementation of `arez.Locator` that supports building
   a locator from per-type lookup functions.
