@@ -1,7 +1,5 @@
 package arez.integration.observable;
 
-import arez.Arez;
-import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
@@ -27,8 +25,6 @@ public class ObservableOutsideTransactionTest
   public void scenario()
     throws Throwable
   {
-    final ArezContext context = Arez.context();
-
     final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final MyComponent component = new ObservableOutsideTransactionTest_Arez_MyComponent();
@@ -38,7 +34,7 @@ public class ObservableOutsideTransactionTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    context.autorun( () -> {
+    autorun( () -> {
       component.getTime();
       callCount.incrementAndGet();
     } );

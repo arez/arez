@@ -168,7 +168,7 @@ public class BasicRepositoryIntegrationTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    context.autorun( () -> {
+    autorun( () -> {
       repository.findAll().forEach( ComponentObservable::observe );
       callCount.incrementAndGet();
     } );

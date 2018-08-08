@@ -4,6 +4,7 @@ import arez.Arez;
 import arez.ArezTestUtil;
 import arez.Observer;
 import arez.ObserverError;
+import arez.Procedure;
 import arez.SafeFunction;
 import arez.SafeProcedure;
 import arez.integration.util.SpyEventRecorder;
@@ -134,5 +135,14 @@ public abstract class AbstractArezIntegrationTest
                                                                       @Nonnull final String message )
   {
     assertEquals( expectThrows( exceptionType, runnable ).getMessage(), message );
+  }
+
+  @Nonnull
+  protected final Observer autorun( @Nonnull final Procedure procedure )
+  {
+    return Arez.context().autorun( () -> {
+      observeADependency();
+      procedure.call();
+    } );
   }
 }

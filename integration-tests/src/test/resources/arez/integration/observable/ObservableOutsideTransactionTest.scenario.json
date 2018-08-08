@@ -34,6 +34,10 @@
         "transaction": "Observer@1"
     },
     {
+        "observable": "Observable@2",
+        "type": "ObservableCreated"
+    },
+    {
         "mutation": false,
         "tracker": "Observer@1",
         "type": "TransactionCompleted",
@@ -55,7 +59,7 @@
         "type": "ReactionCompleted"
     },
     {
-        "action": "Transaction@2",
+        "action": "Transaction@3",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -65,7 +69,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@2"
+        "transaction": "Transaction@3"
     },
     {
         "observable": "MyComponent.0.time",
@@ -80,12 +84,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@2"
+        "transaction": "Transaction@3"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@2",
+        "action": "Transaction@3",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -109,6 +113,10 @@
         "tracker": "Observer@1",
         "type": "TransactionStarted",
         "transaction": "Observer@1"
+    },
+    {
+        "observable": "Observable@4",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
@@ -132,7 +140,7 @@
         "type": "ReactionCompleted"
     },
     {
-        "action": "Transaction@3",
+        "action": "Transaction@5",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -142,7 +150,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@3"
+        "transaction": "Transaction@5"
     },
     {
         "observable": "MyComponent.0.time",
@@ -157,12 +165,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@3"
+        "transaction": "Transaction@5"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@3",
+        "action": "Transaction@5",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -186,6 +194,10 @@
         "tracker": "Observer@1",
         "type": "TransactionStarted",
         "transaction": "Observer@1"
+    },
+    {
+        "observable": "Observable@6",
+        "type": "ObservableCreated"
     },
     {
         "mutation": false,
