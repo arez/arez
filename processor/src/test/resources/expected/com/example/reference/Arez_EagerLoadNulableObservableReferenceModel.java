@@ -177,6 +177,8 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
       if ( Arez.shouldCheckApiInvariants() ) {
         Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getMyEntityId() );
       }
+    } else {
+      this.$$arezr$$_myEntity = null;
     }
   }
 

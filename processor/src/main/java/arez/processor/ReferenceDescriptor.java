@@ -239,6 +239,8 @@ final class ReferenceDescriptor
         final CodeBlock.Builder nestedBlock = CodeBlock.builder();
         nestedBlock.beginControlFlow( "if ( null != id )" );
         buildLookup( nestedBlock );
+        nestedBlock.nextControlFlow( "else" );
+        nestedBlock.addStatement( "this.$N = null", getFieldName() );
         nestedBlock.endControlFlow();
         builder.addCode( nestedBlock.build() );
       }
