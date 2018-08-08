@@ -161,7 +161,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyEntity' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_myEntity && null != getMyEntityId(), () -> "Nullable reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' and reference has not been resolved yet is not lazy. Id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity || null == getMyEntityId(), () -> "Nullable reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' and reference has not been resolved yet is not lazy. Id = " + getMyEntityId() );
     }
     this.$$arez$$_myEntityId.reportObserved();
     return this.$$arezr$$_myEntity;

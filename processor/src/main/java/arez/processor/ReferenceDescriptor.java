@@ -148,7 +148,7 @@ final class ReferenceDescriptor
       block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
       if ( isNullable )
       {
-        block.addStatement( "$T.apiInvariant( () -> null != $N && null != $N(), () -> \"Nullable reference method " +
+        block.addStatement( "$T.apiInvariant( () -> null != $N || null == $N(), () -> \"Nullable reference method " +
                             "named '$N' invoked on component named '\" + $N() + \"' and reference has not been " +
                             "resolved yet is not lazy. Id = \" + $N() )",
                             GeneratorUtil.GUARDS_CLASSNAME,
