@@ -271,12 +271,10 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_myEntity' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
-    if ( null == this.$$arezr$$_myEntity ) {
-      final int id = this.getMyEntityId();
-      this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( BaseCompleteModel.MyEntity.class, id );
-      if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + getComponentName() + "' missing related entity. Id = " + getMyEntityId() );
-      }
+    final int id = this.getMyEntityId();
+    this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( BaseCompleteModel.MyEntity.class, id );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + getComponentName() + "' missing related entity. Id = " + getMyEntityId() );
     }
   }
 

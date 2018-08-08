@@ -137,12 +137,10 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_Blah' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( null == this.$$arezr$$_Blah ) {
-      final int id = this.getMyEntityId();
-      this.$$arezr$$_Blah = this.$$arezi$$_locator().findById( CustomNameReferenceModel.MyEntity.class, id );
-      if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getMyEntityId() );
-      }
+    final int id = this.getMyEntityId();
+    this.$$arezr$$_Blah = this.$$arezi$$_locator().findById( CustomNameReferenceModel.MyEntity.class, id );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getMyEntityId() );
     }
   }
 

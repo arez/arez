@@ -215,25 +215,66 @@ final class ReferenceDescriptor
       !getIdMethod().getReturnType().getKind().isPrimitive() &&
       null == ProcessorUtil.findAnnotationByType( getIdMethod(), Constants.NONNULL_ANNOTATION_CLASSNAME );
 
-    final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( null == this.$N )", getFieldName() );
-    block.addStatement( "final $T id = this.$N()", getIdMethod().getReturnType(), getIdMethod().getSimpleName() );
-    if ( isNullable )
+    if ( "EAGER".equals( getLinkType() ) )
     {
-      final CodeBlock.Builder nestedBlock = CodeBlock.builder();
-      nestedBlock.beginControlFlow( "if ( null != id )" );
-      buildLookup( nestedBlock );
-      nestedBlock.endControlFlow();
-      block.add( nestedBlock.build() );
+      /*
+       * Linking under eager should always proceed and does not need a null check
+       * as the link method only called when a link is required.
+       */
+      builder.addStatement( "final $T id = this.$N()", getIdMethod().getReturnType(), getIdMethod().getSimpleName() );
+      if ( isNullable )
+      {
+        final CodeBlock.Builder nestedBlock = CodeBlock.builder();
+        nestedBlock.beginControlFlow( "if ( null != id )" );
+        buildLookup( nestedBlock );
+        nestedBlock.endControlFlow();
+        builder.addCode( nestedBlock.build() );
+      }
+      else
+      {
+        buildLookup( builder );
+      }
     }
     else
     {
-      buildLookup( block );
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( null == this.$N )", getFieldName() );
+      block.addStatement( "final $T id = this.$N()", getIdMethod().getReturnType(), getIdMethod().getSimpleName() );
+      if ( isNullable )
+      {
+        final CodeBlock.Builder nestedBlock = CodeBlock.builder();
+        nestedBlock.beginControlFlow( "if ( null != id )" );
+        buildLookup( nestedBlock );
+        nestedBlock.endControlFlow();
+        block.add( nestedBlock.build() );
+      }
+      else
+      {
+        buildLookup( block );
+      }
+      block.endControlFlow();
+      builder.addCode( block.build() );
     }
+    return builder.build();
+  }
+
+  private void buildLookup( @Nonnull final MethodSpec.Builder builder )
+  {
+    builder.addStatement( "this.$N = this.$N().findById( $T.class, id )",
+                          getFieldName(),
+                          GeneratorUtil.LOCATOR_METHOD_NAME,
+                          getMethod().getReturnType() );
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
+    block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference method named '$N' " +
+                        "invoked on component named '\" + $N() + \"' missing related entity. Id = \" + $N() )",
+                        GeneratorUtil.GUARDS_CLASSNAME,
+                        getFieldName(),
+                        getMethod().getSimpleName(),
+                        _componentDescriptor.getComponentNameMethodName(),
+                        getIdMethod().getSimpleName() );
     block.endControlFlow();
     builder.addCode( block.build() );
-
-    return builder.build();
   }
 
   private void buildLookup( @Nonnull final CodeBlock.Builder builder )

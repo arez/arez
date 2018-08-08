@@ -137,12 +137,10 @@ final class Arez_NonObservableReferenceModel extends NonObservableReferenceModel
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_myEntity' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( null == this.$$arezr$$_myEntity ) {
-      final int id = this.getMyEntityId();
-      this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( NonObservableReferenceModel.MyEntity.class, id );
-      if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getMyEntityId() );
-      }
+    final int id = this.getMyEntityId();
+    this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( NonObservableReferenceModel.MyEntity.class, id );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getMyEntityId() );
     }
   }
 

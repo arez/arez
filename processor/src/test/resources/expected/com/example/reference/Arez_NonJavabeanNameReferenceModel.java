@@ -137,12 +137,10 @@ final class Arez_NonJavabeanNameReferenceModel extends NonJavabeanNameReferenceM
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_myEntity' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( null == this.$$arezr$$_myEntity ) {
-      final int id = this.myEntityId();
-      this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( NonJavabeanNameReferenceModel.MyEntity.class, id );
-      if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'myEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + myEntityId() );
-      }
+    final int id = this.myEntityId();
+    this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( NonJavabeanNameReferenceModel.MyEntity.class, id );
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'myEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + myEntityId() );
     }
   }
 
