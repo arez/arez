@@ -65,7 +65,7 @@ public class PriorityOrderingIntegrationTest
 
     assertEquals( runOrder.size(), 0 );
 
-    context.safeAction( observable::reportChanged );
+    safeAction( observable::reportChanged );
 
     assertEquals( runOrder.size(), 7 );
     assertEquals( runOrder, Arrays.asList( "AR6", "AR2", "AR7", "AR4", "AR5", "AR3", "AR1" ) );

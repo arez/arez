@@ -1,7 +1,5 @@
 package arez.integration.dependency;
 
-import arez.Arez;
-import arez.ArezContext;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Dependency;
@@ -18,8 +16,6 @@ public class SetNullOnDisposeIntegrationTest
   public void scenario()
     throws Throwable
   {
-    final ArezContext context = Arez.context();
-
     final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final Model1 model1a = Model1.create( "Model1A" );
@@ -46,7 +42,7 @@ public class SetNullOnDisposeIntegrationTest
     assertEquals( Disposable.isDisposed( model2a ), true );
     assertEquals( Disposable.isDisposed( model2b ), false );
 
-    assertNotNull( context.safeAction( model2b::getReference ) );
+    assertNotNull( safeAction( model2b::getReference ) );
     Disposable.dispose( model1b );
 
     assertEquals( Disposable.isDisposed( model1a ), true );
@@ -54,7 +50,7 @@ public class SetNullOnDisposeIntegrationTest
     assertEquals( Disposable.isDisposed( model2a ), true );
     assertEquals( Disposable.isDisposed( model2b ), false );
 
-    assertNull( context.safeAction( model2b::getReference ) );
+    assertNull( safeAction( model2b::getReference ) );
 
     assertMatchesFixture( recorder );
   }

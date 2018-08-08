@@ -1,7 +1,5 @@
 package arez.integration.collections;
 
-import arez.Arez;
-import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
@@ -23,54 +21,50 @@ public class UnmodifiableSetterlessCollectionsIntegrationTest
   public void scenario()
     throws Throwable
   {
-    final ArezContext context = Arez.context();
-
     final Model1 m1 = Model1.create();
 
     // In the future this should actuall no throw an exception
-    assertThrows( () -> context.safeAction( () -> assertUnmodifiable( m1.getValue(), ValueUtil::randomString ) ) );
+    assertThrows( () -> safeAction( () -> assertUnmodifiable( m1.getValue(), ValueUtil::randomString ) ) );
 
     // Reference identity should be guaranteed
-    context.safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
+    safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
 
     final HashSet<String> value = new HashSet<>( Arrays.asList( "1", "2", "3" ) );
 
-    context.safeAction( () -> m1.setValue( value ) );
+    safeAction( () -> m1.setValue( value ) );
 
     // In the future this should actuall no throw an exception
-    assertThrows( () -> context.safeAction( () -> assertUnmodifiable( m1.getValue(), ValueUtil::randomString ) ) );
+    assertThrows( () -> safeAction( () -> assertUnmodifiable( m1.getValue(), ValueUtil::randomString ) ) );
 
     // Assert Collections contain expected
-    context.safeAction( () -> assertTrue( m1.getValue().contains( value.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getValue().contains( value.iterator().next() ) ) );
 
     // Reference identity should be guaranteed
-    context.safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
+    safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
   }
 
   @Test
   public void scenario_when_CollectionPropertiesModifiable()
     throws Throwable
   {
-    final ArezContext context = Arez.context();
-
     final Model1 m1 = Model1.create();
 
-    assertThrows( () -> context.safeAction( () -> assertUnmodifiable( m1.getValue(), ValueUtil::randomString ) ) );
+    assertThrows( () -> safeAction( () -> assertUnmodifiable( m1.getValue(), ValueUtil::randomString ) ) );
 
     // Reference identity should be guaranteed
-    context.safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
+    safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
 
     final HashSet<String> value = new HashSet<>( Arrays.asList( "1", "2", "3" ) );
 
-    context.safeAction( () -> m1.setValue( value ) );
+    safeAction( () -> m1.setValue( value ) );
 
-    assertThrows( () -> context.safeAction( () -> assertUnmodifiable( m1.getValue(), ValueUtil::randomString ) ) );
+    assertThrows( () -> safeAction( () -> assertUnmodifiable( m1.getValue(), ValueUtil::randomString ) ) );
 
     // Assert Collections contain expected
-    context.safeAction( () -> assertTrue( m1.getValue().contains( value.iterator().next() ) ) );
+    safeAction( () -> assertTrue( m1.getValue().contains( value.iterator().next() ) ) );
 
     // Reference identity should be guaranteed
-    context.safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
+    safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> collection, @Nonnull final Supplier<T> creator )

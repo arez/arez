@@ -1,7 +1,5 @@
 package arez.integration.dependency;
 
-import arez.Arez;
-import arez.ArezContext;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Dependency;
@@ -18,8 +16,6 @@ public class ComplexDependencyIntegrationTest
   public void scenario()
     throws Throwable
   {
-    final ArezContext context = Arez.context();
-
     final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final Model1 model1a1 = Model1.create( "Model1A1" );
@@ -34,9 +30,9 @@ public class ComplexDependencyIntegrationTest
     assertEquals( Disposable.isDisposed( model1a4 ), false );
     assertEquals( Disposable.isDisposed( model2a ), false );
 
-    assertNotNull( context.safeAction( model2a::getReference1 ) );
+    assertNotNull( safeAction( model2a::getReference1 ) );
     Disposable.dispose( model1a1 );
-    assertNull( context.safeAction( model2a::getReference1 ) );
+    assertNull( safeAction( model2a::getReference1 ) );
 
     assertEquals( Disposable.isDisposed( model1a1 ), true );
     assertEquals( Disposable.isDisposed( model1a2 ), false );

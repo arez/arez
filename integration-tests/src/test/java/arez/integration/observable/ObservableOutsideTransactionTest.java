@@ -45,12 +45,12 @@ public class ObservableOutsideTransactionTest
 
     assertEquals( callCount.get(), 1 );
 
-    context.safeAction( () -> component.setTime( 37L ) );
+    safeAction( () -> component.setTime( 37L ) );
 
     // If gets here it reportObserved so autorun re-ran
     assertEquals( callCount.get(), 2 );
 
-    context.safeAction( () -> component.setTime( 42L ) );
+    safeAction( () -> component.setTime( 42L ) );
 
     assertEquals( callCount.get(), 3 );
 
