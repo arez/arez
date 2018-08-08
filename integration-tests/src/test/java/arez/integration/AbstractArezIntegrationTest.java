@@ -123,4 +123,16 @@ public abstract class AbstractArezIntegrationTest
   {
     return System.getProperty( "arez.output_fixture_data", "false" ).equals( "true" );
   }
+
+  protected final void assertInvariant( @Nonnull final ThrowingRunnable runnable, @Nonnull final String message )
+  {
+    assertEquals( expectThrows( IllegalStateException.class, runnable ).getMessage(), message );
+  }
+
+  protected final <T extends Throwable> void assertThrowsWithMessage( @Nonnull final Class<T> exceptionType,
+                                                                      @Nonnull final ThrowingRunnable runnable,
+                                                                      @Nonnull final String message )
+  {
+    assertEquals( expectThrows( exceptionType, runnable ).getMessage(), message );
+  }
 }

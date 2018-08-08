@@ -6,7 +6,6 @@ import arez.annotations.ComponentRef;
 import arez.annotations.PostConstruct;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
 public class ComponentRefCalledInPostConstructTest
   extends AbstractArezIntegrationTest
@@ -28,9 +27,7 @@ public class ComponentRefCalledInPostConstructTest
   public void scenario()
     throws Throwable
   {
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, ComponentRefCalledInPostConstructTest_Arez_TestComponent::new );
-    assertEquals( exception.getMessage(),
-                  "Method named 'getComponent' invoked on incomplete component named 'TestComponent.0'" );
+    assertInvariant( ComponentRefCalledInPostConstructTest_Arez_TestComponent::new,
+                     "Method named 'getComponent' invoked on incomplete component named 'TestComponent.0'" );
   }
 }

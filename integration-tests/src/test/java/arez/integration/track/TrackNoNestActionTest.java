@@ -1,6 +1,5 @@
 package arez.integration.track;
 
-import arez.Arez;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
@@ -62,14 +61,12 @@ public class TrackNoNestActionTest
     assertEquals( component._actionCallCount, 0 );
     assertEquals( component._depsChangedCallCount, 0 );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, component::render );
+    assertInvariant( component::render,
+                     "Arez-0187: Attempting to nest READ_ONLY action named 'TestComponent1.0.myAction' inside transaction named 'TestComponent1.0.render' created by an observer that does not allow nested actions." );
 
     assertEquals( component._renderCallCount, 1 );
     assertEquals( component._actionCallCount, 0 );
     assertEquals( component._depsChangedCallCount, 0 );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0187: Attempting to nest READ_ONLY action named 'TestComponent1.0.myAction' inside transaction named 'TestComponent1.0.render' created by an observer that does not allow nested actions." );
 
     // This should not trigger renderDepsUpdated flag as render not observing as action obscures dependency
     safeAction( () -> component.setTime( 33L ) );

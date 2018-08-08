@@ -4,7 +4,6 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentNameRef;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
 public class ComponentNameRefInvokedInCtorTest
   extends AbstractArezIntegrationTest
@@ -25,9 +24,7 @@ public class ComponentNameRefInvokedInCtorTest
   public void scenario()
     throws Throwable
   {
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, ComponentNameRefInvokedInCtorTest_Arez_TestComponent::new );
-    assertEquals( exception.getMessage(),
-                  "Method named 'getName' invoked on uninitialized component of type 'TestComponent'" );
+    assertInvariant( ComponentNameRefInvokedInCtorTest_Arez_TestComponent::new,
+                     "Method named 'getName' invoked on uninitialized component of type 'TestComponent'" );
   }
 }

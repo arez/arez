@@ -130,12 +130,8 @@ public class RequiresNewTransactionTest
     final TestSpyEventHandler recorder = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( recorder );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.safeAction( "MyWrapperAction", false, false, component::myAction ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0119: Attempting to create READ_WRITE transaction named 'MyComponent3.0.myAction' but it is nested in transaction named 'MyWrapperAction' with mode READ_ONLY which is not equal to READ_WRITE." );
+    assertInvariant( () -> context.safeAction( "MyWrapperAction", false, false, component::myAction ),
+                     "Arez-0119: Attempting to create READ_WRITE transaction named 'MyComponent3.0.myAction' but it is nested in transaction named 'MyWrapperAction' with mode READ_ONLY which is not equal to READ_WRITE." );
 
     recorder.assertEventCount( 6 );
     recorder.assertNextEvent( ActionStartedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );

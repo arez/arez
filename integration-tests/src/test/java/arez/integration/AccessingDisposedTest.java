@@ -50,10 +50,8 @@ public class AccessingDisposedTest
     Disposable.dispose( component );
 
     assertTrue( Disposable.isDisposed( component ) );
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, component::myAction );
-
-    assertEquals( exception.getMessage(),
-                  "Method named 'myAction' invoked on disposed component named 'TestComponent.0'" );
+    assertInvariant( component::myAction,
+                     "Method named 'myAction' invoked on disposed component named 'TestComponent.0'" );
   }
 
   @Test
@@ -70,9 +68,7 @@ public class AccessingDisposedTest
     Disposable.dispose( component );
 
     assertTrue( Disposable.isDisposed( component ) );
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, component::myAction );
-
-    assertEquals( exception.getMessage(),
-                  "Method named 'myAction' invoked on disposed component named 'TestSingletonComponent'" );
+    assertInvariant( component::myAction,
+                     "Method named 'myAction' invoked on disposed component named 'TestSingletonComponent'" );
   }
 }

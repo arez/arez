@@ -5,7 +5,6 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
 public class ContextRefReferencedInCtorTest
   extends AbstractArezIntegrationTest
@@ -26,9 +25,7 @@ public class ContextRefReferencedInCtorTest
   public void scenario()
     throws Throwable
   {
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, ContextRefReferencedInCtorTest_Arez_TestComponent::new );
-    assertEquals( exception.getMessage(),
-                  "Method named 'getContext' invoked on uninitialized component of type 'TestComponent'" );
+    assertInvariant( ContextRefReferencedInCtorTest_Arez_TestComponent::new,
+                     "Method named 'getContext' invoked on uninitialized component of type 'TestComponent'" );
   }
 }

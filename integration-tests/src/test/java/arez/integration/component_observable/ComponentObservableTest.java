@@ -41,9 +41,7 @@ public class ComponentObservableTest
     throws Throwable
   {
     final ComponentObservableTest_Arez_TestComponent2 component = new ComponentObservableTest_Arez_TestComponent2();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> ComponentObservable.observe( component ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0117: Attempting to get current transaction but no transaction is active." );
+    assertInvariant( () -> ComponentObservable.observe( component ),
+                     "Arez-0117: Attempting to get current transaction but no transaction is active." );
   }
 }

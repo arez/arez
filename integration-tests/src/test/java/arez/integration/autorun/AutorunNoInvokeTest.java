@@ -30,9 +30,8 @@ public class AutorunNoInvokeTest
 
     assertEquals( component._autorunCallCount, 1 );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, component::autorun );
-    assertEquals( exception.getMessage(),
-                  "Autorun method named 'autorun' invoked but @Autorun annotated methods should only be invoked by the runtime." );
+    assertInvariant( component::autorun,
+                     "Autorun method named 'autorun' invoked but @Autorun annotated methods should only be invoked by the runtime." );
     assertEquals( component._autorunCallCount, 1 );
   }
 }
