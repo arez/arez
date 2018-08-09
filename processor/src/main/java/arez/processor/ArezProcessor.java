@@ -252,7 +252,7 @@ public final class ArezProcessor
     final boolean nameIncludesId =
       null == nameIncludesIdValue ? nameIncludesIdDefault : (boolean) nameIncludesIdValue.getValue();
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
-    final boolean observableFlag = isComponentObservableRequired( typeElement, disposeOnDeactivate );
+    final boolean observableFlag = isComponentObservableRequired( arezComponent, typeElement, disposeOnDeactivate );
     final boolean disposeTrackableFlag =
       ProcessorUtil.isDisposableTrackableRequired( processingEnv.getElementUtils(), typeElement );
     final boolean allowConcrete = getAnnotationParameter( arezComponent, "allowConcrete" );
@@ -260,10 +260,10 @@ public final class ArezProcessor
     final List<AnnotationMirror> scopeAnnotations =
       typeElement.getAnnotationMirrors().stream().filter( this::isScopeAnnotation ).collect( Collectors.toList() );
     final AnnotationMirror scopeAnnotation = scopeAnnotations.isEmpty() ? null : scopeAnnotations.get( 0 );
-    final boolean inject = isInjectionRequired( typeElement, scopeAnnotation );
-    final boolean dagger = isDaggerRequired( typeElement, scopeAnnotation );
-    final boolean requireEquals = isEqualsRequired( typeElement );
-    final boolean requireVerify = isVerifyRequired( typeElement );
+    final boolean inject = isInjectionRequired( arezComponent, typeElement, scopeAnnotation );
+    final boolean dagger = isDaggerRequired( arezComponent, scopeAnnotation );
+    final boolean requireEquals = isEqualsRequired( arezComponent, typeElement );
+    final boolean requireVerify = isVerifyRequired( arezComponent, typeElement );
     final boolean deferSchedule = getAnnotationParameter( arezComponent, "deferSchedule" );
 
     if ( !typeElement.getModifiers().contains( Modifier.ABSTRACT ) && !allowConcrete )
@@ -377,8 +377,8 @@ public final class ArezProcessor
           map( typeMirror -> (TypeElement) processingEnv.getTypeUtils().asElement( typeMirror ) ).
           collect( Collectors.toList() );
       final String name = getAnnotationParameter( repository, "name" );
-      final String repositoryInjectConfig = getRepositoryInjectConfig( typeElement );
-      final String repositoryDaggerConfig = getRepositoryDaggerConfig( typeElement );
+      final String repositoryInjectConfig = getRepositoryInjectConfig( repository );
+      final String repositoryDaggerConfig = getRepositoryDaggerConfig( repository );
       descriptor.configureRepository( name, extensions, repositoryInjectConfig, repositoryDaggerConfig );
     }
     if ( !observableFlag && descriptor.hasRepository() )
@@ -402,7 +402,7 @@ public final class ArezProcessor
                                         "requires disposeTrackable = ENABLE.", typeElement );
     }
 
-    final boolean idRequired = isIdRequired( descriptor );
+    final boolean idRequired = isIdRequired( descriptor, arezComponent );
     descriptor.setIdRequired( idRequired );
     if ( !idRequired && descriptor.hasRepository() )
     {
@@ -426,14 +426,11 @@ public final class ArezProcessor
     return null != ProcessorUtil.findAnnotationByType( element, Constants.SCOPE_ANNOTATION_CLASSNAME );
   }
 
-  private boolean isComponentObservableRequired( @Nonnull final TypeElement typeElement,
+  private boolean isComponentObservableRequired( @Nonnull final AnnotationMirror arezComponent,
+                                                 @Nonnull final TypeElement typeElement,
                                                  final boolean disposeOnDeactivate )
   {
-    final VariableElement variableElement = (VariableElement)
-      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
-                                        typeElement,
-                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                        "observable" ).getValue();
+    final VariableElement variableElement = getAnnotationParameter( arezComponent, "observable" );
     switch ( variableElement.getSimpleName().toString() )
     {
       case "ENABLE":
@@ -446,14 +443,11 @@ public final class ArezProcessor
     }
   }
 
-  private boolean isInjectionRequired( @Nonnull final TypeElement typeElement,
+  private boolean isInjectionRequired( @Nonnull final AnnotationMirror arezComponent,
+                                       @Nonnull final TypeElement typeElement,
                                        @Nullable final AnnotationMirror scopeAnnotation )
   {
-    final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
-                                        typeElement,
-                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                        "inject" ).getValue();
+    final VariableElement injectParameter = getAnnotationParameter( arezComponent, "inject" );
     switch ( injectParameter.getSimpleName().toString() )
     {
       case "ENABLE":
@@ -468,14 +462,10 @@ public final class ArezProcessor
     }
   }
 
-  private boolean isDaggerRequired( @Nonnull final TypeElement typeElement,
+  private boolean isDaggerRequired( @Nonnull final AnnotationMirror arezComponent,
                                     @Nullable final AnnotationMirror scopeAnnotation )
   {
-    final VariableElement daggerParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
-                                        typeElement,
-                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                        "dagger" ).getValue();
+    final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "dagger" );
     switch ( daggerParameter.getSimpleName().toString() )
     {
       case "ENABLE":
@@ -488,13 +478,10 @@ public final class ArezProcessor
     }
   }
 
-  private boolean isVerifyRequired( @Nonnull final TypeElement typeElement )
+  private boolean isVerifyRequired( @Nonnull final AnnotationMirror arezComponent,
+                                    @Nonnull final TypeElement typeElement )
   {
-    final VariableElement daggerParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
-                                        typeElement,
-                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                        "verify" ).getValue();
+    final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "verify" );
     switch ( daggerParameter.getSimpleName().toString() )
     {
       case "ENABLE":
@@ -513,13 +500,10 @@ public final class ArezProcessor
            null != ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );
   }
 
-  private boolean isEqualsRequired( @Nonnull final TypeElement typeElement )
+  private boolean isEqualsRequired( @Nonnull final AnnotationMirror arezComponent,
+                                    @Nonnull final TypeElement typeElement )
   {
-    final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
-                                        typeElement,
-                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                        "requireEquals" ).getValue();
+    final VariableElement injectParameter = getAnnotationParameter( arezComponent, "requireEquals" );
     switch ( injectParameter.getSimpleName().toString() )
     {
       case "ENABLE":
@@ -531,13 +515,10 @@ public final class ArezProcessor
     }
   }
 
-  private boolean isIdRequired( @Nonnull final ComponentDescriptor descriptor )
+  private boolean isIdRequired( @Nonnull final ComponentDescriptor descriptor,
+                                @Nonnull final AnnotationMirror arezComponent )
   {
-    final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
-                                        descriptor.getElement(),
-                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                        "requireId" ).getValue();
+    final VariableElement injectParameter = getAnnotationParameter( arezComponent, "requireId" );
     switch ( injectParameter.getSimpleName().toString() )
     {
       case "ENABLE":
@@ -550,24 +531,16 @@ public final class ArezProcessor
   }
 
   @Nonnull
-  private String getRepositoryInjectConfig( @Nonnull final TypeElement typeElement )
+  private String getRepositoryInjectConfig( @Nonnull final AnnotationMirror repository )
   {
-    final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
-                                        typeElement,
-                                        Constants.REPOSITORY_ANNOTATION_CLASSNAME,
-                                        "inject" ).getValue();
+    final VariableElement injectParameter = getAnnotationParameter( repository, "inject" );
     return injectParameter.getSimpleName().toString();
   }
 
   @Nonnull
-  private String getRepositoryDaggerConfig( @Nonnull final TypeElement typeElement )
+  private String getRepositoryDaggerConfig( @Nonnull final AnnotationMirror repository )
   {
-    final VariableElement daggerParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
-                                        typeElement,
-                                        Constants.REPOSITORY_ANNOTATION_CLASSNAME,
-                                        "dagger" ).getValue();
+    final VariableElement daggerParameter = getAnnotationParameter( repository, "dagger" );
     return daggerParameter.getSimpleName().toString();
   }
 
