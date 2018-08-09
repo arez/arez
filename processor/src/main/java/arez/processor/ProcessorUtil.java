@@ -390,14 +390,15 @@ final class ProcessorUtil
     return values.get( annotationKey );
   }
 
+  @SuppressWarnings( "unchecked" )
   @Nonnull
-  static AnnotationValue getAnnotationValue( @Nonnull final Elements elements,
-                                             @Nonnull final AnnotationMirror annotation,
-                                             @Nonnull final String parameterName )
+  static <T> T getAnnotationValue( @Nonnull final Elements elements,
+                                   @Nonnull final AnnotationMirror annotation,
+                                   @Nonnull final String parameterName )
   {
     final AnnotationValue value = findAnnotationValue( elements, annotation, parameterName );
     assert null != value;
-    return value;
+    return (T) value.getValue();
   }
 
   @Nonnull

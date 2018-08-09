@@ -576,13 +576,10 @@ public final class ArezProcessor
     return null != ProcessorUtil.findAnnotationByType( method, Constants.INJECT_ANNOTATION_CLASSNAME );
   }
 
-  @SuppressWarnings( "unchecked" )
   private <T> T getAnnotationParameter( @Nonnull final AnnotationMirror annotation,
                                         @Nonnull final String parameterName )
   {
-    return (T) ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
-                                                 annotation,
-                                                 parameterName ).getValue();
+    return ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(), annotation, parameterName );
   }
 
   private void emitTypeSpec( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )

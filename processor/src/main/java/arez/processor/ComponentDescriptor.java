@@ -3646,13 +3646,10 @@ final class ComponentDescriptor
            TypeName.get( _componentIdMethodType.getReturnType() );
   }
 
-  @SuppressWarnings( "unchecked" )
   private <T> T getAnnotationParameter( @Nonnull final AnnotationMirror annotation,
                                         @Nonnull final String parameterName )
   {
-    return (T) ProcessorUtil.getAnnotationValue( _elements,
-                                                 annotation,
-                                                 parameterName ).getValue();
+    return ProcessorUtil.getAnnotationValue( _elements, annotation, parameterName );
   }
 
   private void addGeneratedAnnotation( @Nonnull final TypeSpec.Builder builder )
