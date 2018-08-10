@@ -8,6 +8,18 @@ complete as there is too much un-said.
 
 * Document Reference, ReferenceId
 
+* Add @Inverse ala
+
+```
+Crew
+  @Inverse( name = "positions", referenceName = "crew" )
+  Collection<Position> getPositions();
+
+Position
+  @Reference( inverse = AUTODETECT, inverseName = "positions", inverseMultiplicity = MANY )
+  Crew getCrew();
+```
+
 * Rename the "action" parameter to tracker and autorun as "reaction" or something similar to clearly
   differentiate from other actions.
 
