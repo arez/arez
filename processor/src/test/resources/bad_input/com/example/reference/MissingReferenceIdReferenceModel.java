@@ -3,7 +3,7 @@ package com.example.reference;
 import arez.annotations.ArezComponent;
 import arez.annotations.Reference;
 
-@ArezComponent( allowEmpty = true )
+@ArezComponent
 abstract class MissingReferenceIdReferenceModel
 {
   @Reference

@@ -536,7 +536,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component.BadTypeComponent2",
                       "@ArezComponent target specified an invalid type 'long'. The type must not be a java keyword." },
         new Object[]{ "com.example.component.EmptyComponent",
-                      "@ArezComponent target has no methods annotated with @Action, @Computed, @Memoize, @Observable, @Track or @Autorun" },
+                      "@ArezComponent target has no methods annotated with @Action, @Computed, @Memoize, @Observable, @Reference, @Dependency, @Track or @Autorun" },
         new Object[]{ "com.example.component.EmptyTypeComponent",
                       "@ArezComponent target specified an invalid type ''. The type must be a valid java identifier." },
         new Object[]{ "com.example.component.EnumModel", "@ArezComponent target must be a class" },

@@ -1103,10 +1103,11 @@ final class ComponentDescriptor
          _roMemoizes.isEmpty() &&
          _roTrackeds.isEmpty() &&
          _roDependencies.isEmpty() &&
+         _roReferences.isEmpty() &&
          _roAutoruns.isEmpty() )
     {
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
-                                        "@Computed, @Memoize, @Observable, @Track or @Autorun", _element );
+                                        "@Computed, @Memoize, @Observable, @Reference, @Dependency, @Track or @Autorun", _element );
     }
 
     if ( _deferSchedule && !requiresSchedule() )

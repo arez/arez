@@ -33,6 +33,8 @@
   instances of `arez.Locator` registered via `ArezContext.registerLocator(...)`.
 * **\[core\]** Add the `verify` parameter to the `@ArezComponent` annotation that controls whether the generated
   component will implement the `arez.component.Verifiable` interface and perform verification at runtime.
+* **\[processor\]** Update the compile time error generated when a component is empty so that it notes that if
+  `@Dependency` is present then the component is considered non-empty.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)
