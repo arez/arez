@@ -175,7 +175,7 @@ public @interface ArezComponent
 
   /**
    * Indicates whether the component should implement the interface {@link arez.component.Verifiable}.
-   * This feature is ignored unless {@link Arez#isVerifyEnabled()} ()} is true. The {@link Feature#AUTODETECT}
+   * This feature is ignored unless {@link Arez#isVerifyEnabled()} is true. The {@link Feature#AUTODETECT}
    * value will enable this feature if the component has an {@link Reference} methods.
    *
    * @return enum that indicates whether the component should implement the interface {@link arez.component.Verifiable}.
