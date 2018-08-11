@@ -2,7 +2,6 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/gwt'
 
-# * This class is used to wait until a condition is true, then run effect and remove watch.
 desc 'Arez-When: Arez watch that waits until a condition is true, then runs effect and removes watch'
 define 'arez-when' do
   project.group = 'org.realityforge.arez.when'
