@@ -19,7 +19,7 @@ The simplest way to use component;
 </dependency>
 ```
 
-* add the snippet `<inherits name="arez.when.When"/>` into the .gwt.xml file.
+* add the snippet `<inherits name="arez.when.When"/>` into the .gwt.xml file if you are using GWT.
 
 # More Information
 
