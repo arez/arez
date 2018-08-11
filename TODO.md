@@ -20,11 +20,11 @@ Position
   Crew getCrew();
 ```
 
-* Rename the "action" parameter to tracker and autorun as "reaction" or something similar to clearly
-  differentiate from other actions.
-
 * Replace `arez-entity` with next iteration and merge functionality into annotation processor. One package
   is removed then merge `integration-qa-support` into `integration-tests`
+
+* Rename the "action" parameter to tracker and autorun as "reaction" or something similar to clearly
+  differentiate from other actions.
 
 * Move when observer out into a top-level project
 
