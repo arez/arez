@@ -2,7 +2,7 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/gwt'
 
-desc 'Arez-When: Arez watch that waits until a condition is true, then runs effect and removes watch'
+desc 'Arez-When: An Arez component that waits until a condition is true and then runs an effect action'
 define 'arez-when' do
   project.group = 'org.realityforge.arez.when'
   compile.options.source = '1.8'
