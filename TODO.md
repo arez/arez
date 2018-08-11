@@ -24,6 +24,10 @@ Position
 * Rename the "action" parameter to tracker and autorun as "reaction" or something similar to clearly
   differentiate from other actions.
 
+* Expose priority in spy subsystem.
+
+* Expose OnDispose in api for creating autoruns.
+
 * Move when observer out into a top-level project. Add documentation to site to reflect change.
 
 * Generate an error if component is annotated with `@ArezComponent(allowEmpty=true)` but is not empty.
