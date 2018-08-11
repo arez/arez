@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Document Reference, ReferenceId
-
 * Add @Inverse ala
 
 ```
@@ -72,8 +70,6 @@ Position
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
 
-* Document creation of component. i.e. The order of operations
-
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
@@ -86,6 +82,10 @@ Position
   - https://github.com/siom79/japicmp
 
 ## Documentation
+
+* Document Reference, ReferenceId
+
+* Document creation of component. i.e. The order of operations
 
 * Performance testing and writeup?
 
