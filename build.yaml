@@ -1,0 +1,29 @@
+repositories:
+  remote:
+   - http://repo1.maven.org/maven2
+   - https://stocksoftware.jfrog.io/stocksoftware/public
+   - https://stocksoftware.jfrog.io/stocksoftware/oss
+   - https://stocksoftware.jfrog.io/stocksoftware/staging
+   - https://stocksoftware.jfrog.io/stocksoftware/thirdparty-local
+
+artifacts:
+  idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.13
+
+  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.95
+
+  javax_annotation: org.realityforge.javax.annotation:javax.annotation:jar:1.0.0
+
+  # GWT deps
+  gwt_user: com.google.gwt:gwt-user:jar:2.8.2
+  gwt_dev: com.google.gwt:gwt-dev:jar:2.8.2
+
+  jsinterop_annotations: com.google.jsinterop:jsinterop-annotations:jar:1.0.2
+
+  jsinterop_base: com.google.jsinterop:base:jar:1.0.0-RC1
+
+  arez_core: org.realityforge.arez:arez-core:jar:0.104
+  arez_processor: org.realityforge.arez:arez-processor:jar:0.104
+
+  braincheck: org.realityforge.braincheck:braincheck:jar:1.9.0
+
+  testng: org.testng:testng:jar:6.11
