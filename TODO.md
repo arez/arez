@@ -37,31 +37,7 @@ Position
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
-* Move all these Arez component ideas into arez/arez issue tracker and label them as good first issue.
-
 * Bug Fix up `@Dependency` so that it appears on same method as `@Observable` it works.
-
-* Add new browser based library:
-  - `arez-localstorage`: stores a value under a key and updates store if changed. Will need a serializer
-    to perform serialization to and from the string value in store
-
-* Add timer based observer that runs every N milliseconds and updates observable state base on state in
-  from external world. Useful when you want to scan an external element (i.e. `document.title`?) that has no
-  change events but you want to monitor for change.
-
-* `DeviceMotion` as an observable that listens to `"deviceMotion"` events and makes them observable.
-
-* `GeoPosition` as an observable...
-
-* Seems `react-fns` covers some of similar observables described above but as react components. May be a
-  source of inspiration?  https://github.com/jaredpalmer/react-fns/blob/master/README.md
-
-* Implement https://mobx.js.org/refguide/autorun-async.html - will need a timer abstraction that works in both
-  browser context and non-browser context. But after we do this then we can also implemented delayed whens in
-  extras (rather than browser-extras which would be required now). Could also moved TimedDisposer back to
-  extras as well.
-
-* Consider an abstraction like https://github.com/danielearwicker/computed-async-mobx/
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
