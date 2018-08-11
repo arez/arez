@@ -33,7 +33,12 @@ Position
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
   it via `requestAnimationFrame`
 
-* Enhance autorun with delay parameter. This is the milliseconds used to debounce the tracked function.
+* Enhance the track/autorun/computed with a `minimumDelay` parameter. The reaction will wait the `minimumDelay`
+  before triggering the tracked function. This is an effective mechanism to add de-bouncing to limit the number
+  of expensive calls (i.e. remote calls or accessing expensive local calls). Another variantion is to add
+  `throttleTime` which will track when the track/autorun/computed was invoked and will avoid rescheduling
+  the function until at least that amount of time has passed. This is similar to `minimumDelay`, except that the
+  initial run of the function happens immediately.
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
