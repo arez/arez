@@ -61,8 +61,6 @@ Position
 * Enhance `BuildOutputTest` test to test multiple variants where we patch the build time constants for different
   build types.
 
-* When actions should not necessarily autodispose. Non-autodispose ones could be added to annotation API.
-
 * Seriously consider enabling a compile-time option that allows pooling of Arez elements such as Observable,
   ComputedValues and Observers. This may reduce memory pressure, particularly when using CircularBuffer to
   implement the recycling.
