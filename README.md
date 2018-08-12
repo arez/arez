@@ -45,7 +45,7 @@ public class IntervalTickerExample
 
 # More Information
 
-For more information about component, please see the [Website](https://arez.github.io/arez-ticker). For the
+For more information about component, please see the [Website](https://arez.github.io/ticker). For the
 source code and project support please visit the [GitHub project](https://github.com/arez/arez-ticker).
 
 # Contributing
