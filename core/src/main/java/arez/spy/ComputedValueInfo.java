@@ -12,7 +12,7 @@ public interface ComputedValueInfo
   extends ElementInfo
 {
   /**
-   * Return true if the specified ComputedValue is "computing".
+   * Return true if the ComputedValue is "computing".
    * This implies that the current transaction or one of the parent transactions is calculating the
    * ComputedValue at the moment.
    *
