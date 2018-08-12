@@ -30,6 +30,7 @@ public class ObserverInfoImplTest
 
     assertEquals( info.isComputedValue(), false );
     assertEquals( info.isReadOnly(), true );
+    assertEquals( info.getPriority(), Priority.NORMAL );
     assertEquals( info.isRunning(), false );
     assertEquals( info.isScheduled(), false );
     assertEquals( info.isDisposed(), false );

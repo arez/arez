@@ -37,6 +37,7 @@ public class ComputedValueInfoImplTest
 
     assertEquals( info.isActive(), true );
     assertEquals( info.isComputing(), false );
+    assertEquals( info.getPriority(), Priority.NORMAL );
 
     assertEquals( info.getObservers().size(), 1 );
     assertEquals( info.getObservers().get( 0 ).getName(), observer.getName() );

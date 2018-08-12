@@ -93,6 +93,16 @@ final class ObserverInfoImpl
   /**
    * {@inheritDoc}
    */
+  @Nonnull
+  @Override
+  public Priority getPriority()
+  {
+    return _observer.getPriority();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ComputedValueInfo asComputedValue()
   {

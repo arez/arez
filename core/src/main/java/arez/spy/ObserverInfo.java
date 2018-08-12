@@ -1,6 +1,7 @@
 package arez.spy;
 
 import arez.Arez;
+import arez.Priority;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -42,6 +43,14 @@ public interface ObserverInfo
    * @see arez.Spy#isReadOnly(arez.Observer)
    */
   boolean isReadOnly();
+
+  /**
+   * Return the priority of the Observer.
+   *
+   * @return the priority of the Observer.
+   */
+  @Nonnull
+  Priority getPriority();
 
   /**
    * Convert the Observer to a ComputedValue.

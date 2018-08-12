@@ -66,6 +66,16 @@ final class ComputedValueInfoImpl
   /**
    * {@inheritDoc}
    */
+  @Nonnull
+  @Override
+  public Priority getPriority()
+  {
+    return _computedValue.getObserver().getPriority();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isActive()
   {

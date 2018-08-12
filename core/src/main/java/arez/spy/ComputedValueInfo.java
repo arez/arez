@@ -1,6 +1,7 @@
 package arez.spy;
 
 import arez.Arez;
+import arez.Priority;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -20,6 +21,14 @@ public interface ComputedValueInfo
    * @see arez.Spy#isComputing(arez.ComputedValue)
    */
   boolean isComputing();
+
+  /**
+   * Return the priority of the ComputedValue.
+   *
+   * @return the priority of the ComputedValue.
+   */
+  @Nonnull
+  Priority getPriority();
 
   /**
    * Return true if the ComputedValue is active.
