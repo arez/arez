@@ -46,7 +46,7 @@ public class IdleStatusExample
 
 # More Information
 
-For more information about component, please see the [Website](https://arez.github.io/arez-idlestatus). For the
+For more information about component, please see the [Website](https://arez.github.io/idlestatus). For the
 source code and project support please visit the [GitHub project](https://github.com/arez/arez-idlestatus).
 
 # Contributing
