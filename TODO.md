@@ -46,6 +46,9 @@ Position
 
 * Bug Fix up `@Dependency` so that it appears on same method as `@Observable` it works.
 
+* Figure out a way to use a single entrypoint for each of `observable()`, `autorun()`, `track()` by passing
+  in an options object? 
+
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
 * Setup testing with browser. Headless Chrome via selenium? GWT test case?
