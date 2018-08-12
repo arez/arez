@@ -57,7 +57,7 @@ public class TimedDisposerExample
 
 # More Information
 
-For more information about component, please see the [Website](https://arez.github.io/arez-timeddisposer). For the
+For more information about component, please see the [Website](https://arez.github.io/timeddisposer). For the
 source code and project support please visit the [GitHub project](https://github.com/arez/arez-timeddisposer).
 
 # Contributing
