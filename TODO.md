@@ -28,6 +28,8 @@ Position
 
 * Move when observer out into a top-level project. Add documentation to site to reflect change.
 
+* Add support for `@OnDispose` for autorun observers.
+
 * Generate an error if component is annotated with `@ArezComponent(allowEmpty=true)` but is not empty.
 
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
