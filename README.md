@@ -26,7 +26,7 @@ The simplest way to use component;
 
 # More Information
 
-For more information about component, please see the [Website](https://arez.github.io/arez-spytools). For the
+For more information about component, please see the [Website](https://arez.github.io/spytools). For the
 source code and project support please visit the [GitHub project](https://github.com/arez/arez-spytools).
 
 # Contributing
