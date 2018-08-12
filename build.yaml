@@ -21,8 +21,8 @@ artifacts:
 
   jsinterop_base: com.google.jsinterop:base:jar:1.0.0-RC1
 
-  arez_core: org.realityforge.arez:arez-core:jar:0.104
-  arez_processor: org.realityforge.arez:arez-processor:jar:0.104
+  arez_core: org.realityforge.arez:arez-core:jar:0.105
+  arez_processor: org.realityforge.arez:arez-processor:jar:0.105
 
   braincheck: org.realityforge.braincheck:braincheck:jar:1.9.0
 
