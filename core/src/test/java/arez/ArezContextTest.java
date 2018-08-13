@@ -2398,7 +2398,6 @@ public class ArezContextTest
                               ValueUtil.randomBoolean(),
                               disposeHookCallCount::incrementAndGet );
 
-
     assertEquals( disposeHookCallCount.get(), 0 );
 
     Disposable.dispose( observer );
