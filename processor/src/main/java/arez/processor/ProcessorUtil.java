@@ -348,22 +348,22 @@ final class ProcessorUtil
 
   @Nonnull
   static AnnotationValue getAnnotationValue( @Nonnull final Elements elements,
-                                             @Nonnull final Element typeElement,
+                                             @Nonnull final AnnotatedConstruct annotated,
                                              @Nonnull final String annotationClassName,
                                              @Nonnull final String parameterName )
   {
-    final AnnotationValue value = findAnnotationValue( elements, typeElement, annotationClassName, parameterName );
+    final AnnotationValue value = findAnnotationValue( elements, annotated, annotationClassName, parameterName );
     assert null != value;
     return value;
   }
 
   @Nullable
   private static AnnotationValue findAnnotationValue( @Nonnull final Elements elements,
-                                                      @Nonnull final Element typeElement,
+                                                      @Nonnull final AnnotatedConstruct annotated,
                                                       @Nonnull final String annotationClassName,
                                                       @Nonnull final String parameterName )
   {
-    final AnnotationMirror mirror = findAnnotationByType( typeElement, annotationClassName );
+    final AnnotationMirror mirror = findAnnotationByType( annotated, annotationClassName );
     return null == mirror ? null : findAnnotationValue( elements, mirror, parameterName );
   }
 
@@ -411,10 +411,10 @@ final class ProcessorUtil
   }
 
   @Nullable
-  static AnnotationMirror findAnnotationByType( @Nonnull final Element typeElement,
+  static AnnotationMirror findAnnotationByType( @Nonnull final AnnotatedConstruct annotated,
                                                 @Nonnull final String annotationClassName )
   {
-    return typeElement.getAnnotationMirrors().stream().
+    return annotated.getAnnotationMirrors().stream().
       filter( a -> a.getAnnotationType().toString().equals( annotationClassName ) ).findFirst().orElse( null );
   }
 
