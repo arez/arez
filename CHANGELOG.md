@@ -37,6 +37,8 @@
   `@Dependency` is present then the component is considered non-empty.
 * **\[core\]** Add the ability to retrieve the priority of an observer or a computed using the spy subsytem via
   either the `ObserverInfo.getPriority()` or the `ComputedValueInfo.getPriority()` methods.
+* **\[core\]** Add the ability to supply an `onDispose` hook method when creating an `autorun` observer via
+  `ArezContext.autorun(...)`. This hook method is invoked when the observer is disposed.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)

@@ -949,16 +949,52 @@ public final class ArezContext
                            final boolean observeLowerPriorityDependencies,
                            final boolean canNestActions )
   {
-    final Reaction reaction = new RunProcedureAsActionReaction( action );
+    return autorun( component,
+                    name,
+                    mutation,
+                    action,
+                    priority,
+                    runImmediately,
+                    observeLowerPriorityDependencies,
+                    canNestActions,
+                    null );
+  }
+
+  /**
+   * Create an autorun observer.
+   *
+   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name                             the name of the observer.
+   * @param mutation                         true if the action may modify state, false otherwise.
+   * @param action                           the action defining the observer.
+   * @param priority                         the priority of the observer.
+   * @param runImmediately                   true to invoke action immediately, false to schedule reaction for next reaction cycle.
+   * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
+   * @param canNestActions                   true if the tracker can start actions from tracker action.
+   * @param onDispose                        the hook function invoked when the autroun is disposed, if any.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer autorun( @Nullable final Component component,
+                           @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure action,
+                           @Nonnull final Priority priority,
+                           final boolean runImmediately,
+                           final boolean observeLowerPriorityDependencies,
+                           final boolean canNestActions,
+                           @Nullable final Procedure onDispose )
+  {
     final Observer observer =
       observer( component,
                 name,
                 mutation,
-                reaction,
+                new RunProcedureAsActionReaction( action ),
                 priority,
                 false,
                 observeLowerPriorityDependencies,
                 canNestActions );
+    observer.setOnDispose( onDispose );
     if ( runImmediately )
     {
       observer.invokeReaction();

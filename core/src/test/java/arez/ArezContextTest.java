@@ -2384,6 +2384,34 @@ public class ArezContextTest
   }
 
   @Test
+  public void autorun_disposeHook()
+    throws Exception
+  {
+    final AtomicInteger disposeHookCallCount = new AtomicInteger();
+    final Observer observer =
+      Arez.context().autorun( null,
+                              ValueUtil.randomString(),
+                              ValueUtil.randomBoolean(),
+                              AbstractArezTest::observeADependency,
+                              Priority.NORMAL,
+                              ValueUtil.randomBoolean(),
+                              ValueUtil.randomBoolean(),
+                              ValueUtil.randomBoolean(),
+                              disposeHookCallCount::incrementAndGet );
+
+
+    assertEquals( disposeHookCallCount.get(), 0 );
+
+    Disposable.dispose( observer );
+
+    assertEquals( disposeHookCallCount.get(), 1 );
+
+    Disposable.dispose( observer );
+
+    assertEquals( disposeHookCallCount.get(), 1 );
+  }
+
+  @Test
   public void autorun_notRunImmediately()
     throws Exception
   {
