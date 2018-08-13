@@ -3,7 +3,48 @@
 [![Build Status](https://secure.travis-ci.org/arez/arez-when.png?branch=master)](http://travis-ci.org/arez/arez-when)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez.when/arez-when.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez.when%22)
 
-An Arez component that waits until a condition is true and then runs an "effect" action.
+An Arez component that defines a a "when" observer. When observers contain two functions; the condition function
+and the effect callback. The condition function is the tracked function that re-executes anytime a dependency
+changes and returns a boolean value. When the condition callback returns true, the observer invokes the effect
+function as an action and disposes itself. i.e. "When" observers are used when the developer needs to perform
+an action when a condition is true.
+
+A when observer is more complex than other observers within Arez. The when observer is actually composed of
+an autorun observer, a computed property and an action. There are several `When.when(...)` methods that can be
+used to create when observers.
+
+An example of a basic autorun observer:
+
+```java
+When.when( () -> {
+  // Interact with arez observable state (or computed values) here
+  // and any time these changed this function will be re-run.
+  // This method should return true, when the effect is to be run
+  ...
+}, () -> {
+  // This action will be invoked when the condition block returns true
+  ...
+} );
+```
+
+A more complex example that passes several additional parameters:
+
+```java
+final String name = "MyWatcher";
+final boolean doesEffectMutateState = true;
+final Priority conditionPriority = Priority.HIGH;
+final boolean runImmediately = true;
+final Observer whenObserver =
+  When.when( name, doesEffectMutateState, () -> {
+    // Interact with arez observable state (or computed values) here
+    // and any time these changed this function will be re-run.
+    // This method should return true, when the effect is to be run
+    ...
+  }, () -> {
+    // This action will be invoked when the condition block returns true
+    ...
+  }, conditionPriority, runImmediately );
+```
 
 ## Quick Start
 
@@ -21,31 +62,7 @@ The simplest way to use component;
 
 * add the snippet `<inherits name="arez.when.When"/>` into the .gwt.xml file if you are using GWT.
 
-* Write some java code to wait until condition is true. The simplest code looks something like:
-
-```java
-final SafeFunction<Boolean> condition = () -> {
-  // Access some observable and/or computed properties to
-  // determine if condition is satisfied and effect should run
-  final boolean shouldInvokeEffect = ...;
-  return shouldInvokeEffect;
-};
-final SafeProcedure effect = () -> {
-  // Perform action in response to condition returning true.
-};
-When.when( condition, effect );
-```
-
-* It is also possible to pass more configuration parameters to the when component. i.e.
-  
-```java
-final String name = "MyWatcher";
-final boolean doesEffectMutateState = true;
-final Priority conditionPriority = Priority.HIGH;
-final boolean runImmediately = true;
-final Observer whenObserver =
-  When.when( name, doesEffectMutateState, conditionPriority, effect, priority, runImmediately );
-```
+* Write the java code to use the when observer.
 
 # More Information
 
