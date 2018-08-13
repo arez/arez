@@ -2299,6 +2299,7 @@ public class ArezContextTest
     assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.canNestActions(), false );
     assertEquals( callCount.get(), 1 );
   }
 
@@ -2362,6 +2363,24 @@ public class ArezContextTest
                               true );
 
     assertEquals( observer.canObserveLowerPriorityDependencies(), true );
+  }
+
+  @Test
+  public void autorun_canNestActions()
+    throws Exception
+  {
+    final boolean canNestActions = true;
+    final Observer observer =
+      Arez.context().autorun( null,
+                              ValueUtil.randomString(),
+                              ValueUtil.randomBoolean(),
+                              AbstractArezTest::observeADependency,
+                              Priority.NORMAL,
+                              ValueUtil.randomBoolean(),
+                              ValueUtil.randomBoolean(),
+                              canNestActions );
+
+    assertEquals( observer.canNestActions(), canNestActions );
   }
 
   @Test
