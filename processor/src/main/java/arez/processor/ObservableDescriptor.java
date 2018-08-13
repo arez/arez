@@ -54,6 +54,8 @@ final class ObservableDescriptor
   private DependencyDescriptor _dependencyDescriptor;
   @Nullable
   private ReferenceDescriptor _referenceDescriptor;
+  @Nullable
+  private InverseDescriptor _inverseDescriptor;
 
   ObservableDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
                         @Nonnull final String name )
@@ -199,7 +201,15 @@ final class ObservableDescriptor
 
   void setReferenceDescriptor( @Nullable final ReferenceDescriptor referenceDescriptor )
   {
+    assert null == _inverseDescriptor;
     _referenceDescriptor = referenceDescriptor;
+  }
+
+  void setInverseDescriptor( @Nullable final InverseDescriptor inverseDescriptor )
+  {
+    assert null == _referenceDescriptor;
+    _inverseDescriptor = inverseDescriptor;
+    setExpectSetter( false );
   }
 
   void buildFields( @Nonnull final TypeSpec.Builder builder )
@@ -242,7 +252,7 @@ final class ObservableDescriptor
   }
 
   @Nonnull
-  private String getCollectionCacheDataFieldName()
+  String getCollectionCacheDataFieldName()
   {
     return GeneratorUtil.OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + getName();
   }
@@ -722,7 +732,7 @@ final class ObservableDescriptor
 
   private boolean shouldGenerateUnmodifiableCollectionVariant()
   {
-    return hasSetter() && isCollectionType();
+    return ( hasSetter() || null != _inverseDescriptor ) && isCollectionType();
   }
 
   private boolean isCollectionType()
@@ -763,7 +773,7 @@ final class ObservableDescriptor
 
   void validate()
   {
-    if ( !expectSetter() && !hasRefMethod() )
+    if ( !expectSetter() && !hasRefMethod() && null == _inverseDescriptor )
     {
       throw new ArezProcessorException( "@Observable target defines expectSetter = false but there is no ref " +
                                         "method for observable and thus never possible to report it as changed " +
@@ -791,9 +801,12 @@ final class ObservableDescriptor
     {
       if ( !hasSetter() )
       {
-        throw new ArezProcessorException( "@Observable target defines expectSetter = false but is abstract. This " +
-                                          "is not compatible as there is no opportunity for the processor to " +
-                                          "generate the setter.", getGetter() );
+        if ( null == _inverseDescriptor )
+        {
+          throw new ArezProcessorException( "@Observable target defines expectSetter = false but is abstract. This " +
+                                            "is not compatible as there is no opportunity for the processor to " +
+                                            "generate the setter.", getGetter() );
+        }
       }
       else
       {

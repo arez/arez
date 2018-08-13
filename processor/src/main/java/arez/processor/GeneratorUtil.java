@@ -57,6 +57,10 @@ final class GeneratorUtil
    */
   static final String REFERENCE_FIELD_PREFIX = "$$arezr$$_";
   /**
+   * For fields that are synthesized to hold resolved references.
+   */
+  private static final String INVERSE_REFERENCE_METHOD_PREFIX = "$$arezir$$_";
+  /**
    * For fields/elements used internally for component to manage lifecycle.
    */
   static final String FRAMEWORK_PREFIX = "$$arezi$$_";
@@ -92,6 +96,30 @@ final class GeneratorUtil
 
   private GeneratorUtil()
   {
+  }
+
+  @Nonnull
+  static String getInverseAddMethodName( @Nonnull final String name )
+  {
+    return GeneratorUtil.INVERSE_REFERENCE_METHOD_PREFIX + name + "_add";
+  }
+
+  @Nonnull
+  static String getInverseRemoveMethodName( @Nonnull final String name )
+  {
+    return GeneratorUtil.INVERSE_REFERENCE_METHOD_PREFIX + name + "_remove";
+  }
+
+  @Nonnull
+  static String getInverseSetMethodName( @Nonnull final String name )
+  {
+    return GeneratorUtil.INVERSE_REFERENCE_METHOD_PREFIX + name + "_set";
+  }
+
+  @Nonnull
+  static String getInverseUnsetMethodName( @Nonnull final String name )
+  {
+    return GeneratorUtil.INVERSE_REFERENCE_METHOD_PREFIX + name + "_unset";
   }
 
   static void generateNotInitializedInvariant( @Nonnull final ComponentDescriptor descriptor,

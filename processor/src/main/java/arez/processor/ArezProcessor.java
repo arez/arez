@@ -497,7 +497,8 @@ public final class ArezProcessor
   private boolean hasReferenceAnnotations( @Nonnull final Element method )
   {
     return null != ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ANNOTATION_CLASSNAME ) ||
-           null != ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );
+           null != ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ID_ANNOTATION_CLASSNAME ) ||
+           null != ProcessorUtil.findAnnotationByType( method, Constants.INVERSE_ANNOTATION_CLASSNAME );
   }
 
   private boolean isEqualsRequired( @Nonnull final AnnotationMirror arezComponent,

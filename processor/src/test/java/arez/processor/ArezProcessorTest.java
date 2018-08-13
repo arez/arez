@@ -158,6 +158,15 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inject.NoInjectModel", false, false, false },
         new Object[]{ "com.example.inject.ScopedButNoDaggerModel", false, false, false },
         new Object[]{ "com.example.inject.ScopedInjectModel", true, false, false },
+        new Object[]{ "com.example.inverse.DefaultMultiplicityInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.DisableInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.NonGetterInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.NonObservableCollectionInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.ObservableCollectionInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.ObservableListInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.ObservableSetInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.OneMultiplicityInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.ZeroOrOneMultiplicityInverseModel", false, false, false },
         new Object[]{ "com.example.memoize.BasicMemoizeModel", false, false, false },
         new Object[]{ "com.example.memoize.CustomPriorityMemoizeModel", false, false, false },
         new Object[]{ "com.example.memoize.LocalTypeParamMemoizeModel", false, false, false },
@@ -335,8 +344,10 @@ public class ArezProcessorTest
       fixture( "input/com/example/inheritance/CompleteModel.java" );
     final JavaFileObject source2 =
       fixture( "input/com/example/inheritance/other/BaseCompleteModel.java" );
+    final JavaFileObject source3 =
+      fixture( "input/com/example/inheritance/other/Element.java" );
     final String output = "expected/com/example/inheritance/Arez_CompleteModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
+    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output ) );
   }
 
   @Test
@@ -536,7 +547,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component.BadTypeComponent2",
                       "@ArezComponent target specified an invalid type 'long'. The type must not be a java keyword." },
         new Object[]{ "com.example.component.EmptyComponent",
-                      "@ArezComponent target has no methods annotated with @Action, @Computed, @Memoize, @Observable, @Reference, @Dependency, @Track or @Autorun" },
+                      "@ArezComponent target has no methods annotated with @Action, @Computed, @Memoize, @Observable, @Inverse, @Reference, @Dependency, @Track or @Autorun" },
         new Object[]{ "com.example.component.EmptyTypeComponent",
                       "@ArezComponent target specified an invalid type ''. The type must be a valid java identifier." },
         new Object[]{ "com.example.component.EnumModel", "@ArezComponent target must be a class" },
@@ -687,6 +698,39 @@ public class ArezProcessorTest
                       "@ArezComponent target has specified a scope annotation but has more than one constructor and thus is not a candidate for injection" },
         new Object[]{ "com.example.inject.MultipleScopesModel",
                       "@ArezComponent target has specified multiple scope annotations: [javax.inject.Singleton, com.example.inject.MultipleScopesModel.MyScope]" },
+
+        new Object[]{ "com.example.inverse.BadCollectionTypeInverseModel",
+                      "@Inverse target expected to return a type annotated with arez.annotations.ArezComponent" },
+        new Object[]{ "com.example.inverse.BadInverseName1InverseModel",
+                      "@Reference target specified an invalid inverseName '-sxkw'. The inverseName must be a valid java identifier." },
+        new Object[]{ "com.example.inverse.BadInverseName2InverseModel",
+                      "@Reference target specified an invalid inverseName 'byte'. The inverseName must not be a java keyword." },
+        new Object[]{ "com.example.inverse.BadName1InverseModel",
+                      "@Inverse target specified an invalid name '-sss'. The name must be a valid java identifier." },
+        new Object[]{ "com.example.inverse.BadName2InverseModel",
+                      "@Inverse target specified an invalid name 'long'. The name must not be a java keyword." },
+        new Object[]{ "com.example.inverse.BadReferenceName1InverseModel",
+                      "@Inverse target specified an invalid referenceName '-sxkw'. The name must be a valid java identifier." },
+        new Object[]{ "com.example.inverse.BadReferenceName2InverseModel",
+                      "@Inverse target specified an invalid referenceName 'long'. The name must not be a java keyword." },
+        new Object[]{ "com.example.inverse.BadType1InverseModel",
+                      "@Inverse target expected to return a type annotated with arez.annotations.ArezComponent" },
+        new Object[]{ "com.example.inverse.BadType2InverseModel",
+                      "@Inverse target expected to return a type annotated with arez.annotations.ArezComponent" },
+        new Object[]{ "com.example.inverse.BadType3InverseModel",
+                      "@Inverse target expected to return a type annotated with arez.annotations.ArezComponent" },
+        new Object[]{ "com.example.inverse.BadType4InverseModel",
+                      "@Inverse target expected to be annotated with either javax.annotation.Nullable or javax.annotation.Nonnull" },
+        new Object[]{ "com.example.inverse.ConcreteInverseModel", "@Inverse target must be abstract" },
+        new Object[]{ "com.example.inverse.DuplicateInverseModel",
+                      "@Inverse target defines duplicate inverse for name 'myEntity'. The other inverse is getMyEntity2()" },
+        new Object[]{ "com.example.inverse.NoReturnInverseModel", "@Inverse target must return a value" },
+        new Object[]{ "com.example.inverse.ParametersInverseModel", "@Inverse target must not have any parameters" },
+        new Object[]{ "com.example.inverse.PrivateInverseModel", "@Inverse target must not be private" },
+        new Object[]{ "com.example.inverse.ReferenceSpecifiesNonComponentInverseModel",
+                      "@Reference target expected to return a type annotated with arez.annotations.ArezComponent if there is an inverse reference." },
+        new Object[]{ "com.example.inverse.StaticInverseModel", "@Inverse target must not be static" },
+        new Object[]{ "com.example.inverse.ThrowsInverseModel", "@Inverse target must not throw any exceptions" },
 
         new Object[]{ "com.example.observable_ref.BadNameModel",
                       "@ObservableRef target specified an invalid name '-ace'. The name must be a valid java identifier." },

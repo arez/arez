@@ -2,7 +2,6 @@ package com.example.inheritance.other;
 
 import arez.ArezContext;
 import arez.Component;
-import arez.Locator;
 import arez.Observer;
 import arez.annotations.Action;
 import arez.annotations.Autorun;
@@ -12,6 +11,7 @@ import arez.annotations.ComponentRef;
 import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
 import arez.annotations.ContextRef;
+import arez.annotations.Inverse;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
 import arez.annotations.ObserverRef;
@@ -24,6 +24,7 @@ import arez.annotations.PostConstruct;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import arez.annotations.Track;
+import java.util.List;
 import javax.annotation.Nonnull;
 
 public abstract class BaseCompleteModel
@@ -123,4 +124,8 @@ public abstract class BaseCompleteModel
   public static class MyEntity
   {
   }
+
+  @Observable
+  @Inverse
+  protected abstract List<Element> getElements();
 }

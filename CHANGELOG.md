@@ -44,6 +44,9 @@
   only include elements that are broadly used and/or need to use internal APIs. The when observer was not broadly
   used and exposing the `onDispose` hook method when creating autorun observers made it possible to implement this
   functionality in a separate project.
+* **\[core\]** Introduce the ability to pair `@Reference` methods with `@Inverse` so that the framework is able
+  to manage relationships in the reverse direction. For a complete description of this functionality, see the
+  javadocs and website documentation.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)

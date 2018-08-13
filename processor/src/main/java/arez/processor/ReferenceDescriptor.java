@@ -1,10 +1,12 @@
 package arez.processor;
 
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,6 +35,10 @@ final class ReferenceDescriptor
   private ExecutableElement _idMethod;
   @Nullable
   private ExecutableType _idMethodType;
+  @Nullable
+  private String _inverseName;
+  @Nullable
+  private Multiplicity _inverseMultiplicity;
 
   ReferenceDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
@@ -58,13 +64,22 @@ final class ReferenceDescriptor
 
   void setMethod( @Nonnull final ExecutableElement method,
                   @Nonnull final ExecutableType methodType,
-                  @Nonnull final String linkType )
+                  @Nonnull final String linkType,
+                  @Nullable final String inverseName,
+                  @Nullable final Multiplicity inverseMultiplicity )
   {
     assert null == _method;
     assert null == _methodType;
+    assert null == _linkType;
+    assert null == _inverseName;
+    assert null == _inverseMultiplicity;
+    assert ( null == inverseName && null == inverseMultiplicity ) ||
+           ( null != inverseName && null != inverseMultiplicity );
     _method = Objects.requireNonNull( method );
     _methodType = Objects.requireNonNull( methodType );
     _linkType = Objects.requireNonNull( linkType );
+    _inverseName = inverseName;
+    _inverseMultiplicity = inverseMultiplicity;
   }
 
   @Nonnull
@@ -95,9 +110,27 @@ final class ReferenceDescriptor
   }
 
   @Nonnull
+  private String getDelinkMethodName()
+  {
+    return GeneratorUtil.FRAMEWORK_PREFIX + "delink_" + _name;
+  }
+
+  @Nonnull
   String getFieldName()
   {
     return GeneratorUtil.REFERENCE_FIELD_PREFIX + _name;
+  }
+
+  private boolean hasInverse()
+  {
+    return null != _inverseName;
+  }
+
+  @Nonnull
+  Multiplicity getInverseMultiplicity()
+  {
+    assert null != _inverseMultiplicity;
+    return _inverseMultiplicity;
   }
 
   void buildFields( @Nonnull final TypeSpec.Builder builder )
@@ -116,6 +149,10 @@ final class ReferenceDescriptor
   {
     builder.addMethod( buildReferenceMethod() );
     builder.addMethod( buildLinkMethod() );
+    if ( hasInverse() )
+    {
+      builder.addMethod( buildDelinkMethod() );
+    }
   }
 
   @Nonnull
@@ -289,6 +326,15 @@ final class ReferenceDescriptor
                         getIdMethod().getSimpleName() );
     block.endControlFlow();
     builder.addCode( block.build() );
+    if ( hasInverse() )
+    {
+      assert null != _inverseName;
+      final String linkMethodName =
+        _inverseMultiplicity == Multiplicity.MANY ?
+        GeneratorUtil.getInverseAddMethodName( _inverseName ) :
+        GeneratorUtil.getInverseSetMethodName( _inverseName );
+      builder.addStatement( "( ($T) this.$N ).$N( this )", getArezClassName(), getFieldName(), linkMethodName );
+    }
   }
 
   private void buildLookup( @Nonnull final CodeBlock.Builder builder )
@@ -308,6 +354,76 @@ final class ReferenceDescriptor
                         getIdMethod().getSimpleName() );
     block.endControlFlow();
     builder.add( block.build() );
+    if ( hasInverse() )
+    {
+      assert null != _inverseName;
+      final String linkMethodName =
+        _inverseMultiplicity == Multiplicity.MANY ?
+        GeneratorUtil.getInverseAddMethodName( _inverseName ) :
+        GeneratorUtil.getInverseSetMethodName( _inverseName );
+      assert null != _method;
+      builder.addStatement( "( ($T) this.$N ).$N( this )", getArezClassName(), getFieldName(), linkMethodName );
+    }
+  }
+
+  void buildDisposer( @Nonnull final MethodSpec.Builder builder )
+  {
+    if ( hasInverse() )
+    {
+      builder.addStatement( "this.$N()", getDelinkMethodName() );
+    }
+  }
+
+  @Nonnull
+  private MethodSpec buildDelinkMethod()
+    throws ArezProcessorException
+  {
+    assert null != _method;
+    assert null != _inverseName;
+    final String methodName = getDelinkMethodName();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    builder.addModifiers( Modifier.PRIVATE );
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+
+    final CodeBlock.Builder nestedBlock = CodeBlock.builder();
+    nestedBlock.beginControlFlow( "if ( null != $N )", getFieldName() );
+    assert null != _inverseName;
+    assert null != _inverseName;
+    final String delinkMethodName =
+      _inverseMultiplicity == Multiplicity.MANY ?
+      GeneratorUtil.getInverseRemoveMethodName( _inverseName ) :
+      GeneratorUtil.getInverseUnsetMethodName( _inverseName );
+    nestedBlock.addStatement( "( ($T) this.$N ).$N( this )", getArezClassName(), getFieldName(), delinkMethodName );
+    nestedBlock.addStatement( "this.$N = null", getFieldName() );
+    nestedBlock.endControlFlow();
+    builder.addCode( nestedBlock.build() );
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private ClassName getArezClassName()
+  {
+    assert null != _method;
+    final ClassName other = (ClassName) TypeName.get( _method.getReturnType() );
+    final StringBuilder sb = new StringBuilder();
+    final String packageName = other.packageName();
+    if ( null != packageName )
+    {
+      sb.append( packageName );
+      sb.append( "." );
+    }
+
+    final List<String> simpleNames = other.simpleNames();
+    final int end = simpleNames.size() - 1;
+    for ( int i = 0; i < end; i++ )
+    {
+      sb.append( simpleNames.get( i ) );
+      sb.append( "_" );
+    }
+    sb.append( "Arez_" );
+    sb.append( simpleNames.get( end ) );
+    return ClassName.bestGuess( sb.toString() );
   }
 
   void validate()

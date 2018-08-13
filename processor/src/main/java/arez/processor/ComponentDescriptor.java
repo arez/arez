@@ -148,6 +148,9 @@ final class ComponentDescriptor
   private final Map<String, ReferenceDescriptor> _references = new LinkedHashMap<>();
   private final Collection<ReferenceDescriptor> _roReferences =
     Collections.unmodifiableCollection( _references.values() );
+  private final Map<String, InverseDescriptor> _inverses = new LinkedHashMap<>();
+  private final Collection<InverseDescriptor> _roInverses =
+    Collections.unmodifiableCollection( _inverses.values() );
 
   ComponentDescriptor( @Nonnull final SourceVersion sourceVersion,
                        @Nonnull final Elements elements,
@@ -1104,10 +1107,12 @@ final class ComponentDescriptor
          _roTrackeds.isEmpty() &&
          _roDependencies.isEmpty() &&
          _roReferences.isEmpty() &&
+         _roInverses.isEmpty() &&
          _roAutoruns.isEmpty() )
     {
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
-                                        "@Computed, @Memoize, @Observable, @Reference, @Dependency, @Track or @Autorun", _element );
+                                        "@Computed, @Memoize, @Observable, @Inverse, @Reference, @Dependency, @Track or @Autorun",
+                                        _element );
     }
 
     if ( _deferSchedule && !requiresSchedule() )
@@ -1434,6 +1439,175 @@ final class ComponentDescriptor
     return name;
   }
 
+  private void addInverse( @Nonnull final AnnotationMirror annotation,
+                           @Nonnull final ExecutableElement method,
+                           @Nonnull final ExecutableType methodType )
+  {
+    MethodChecks.mustNotHaveAnyParameters( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeSubclassCallable( getElement(), Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustReturnAValue( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+
+    final String name = getInverseName( annotation, method );
+    final ObservableDescriptor observable = findOrCreateObservable( name );
+    observable.setGetter( method, methodType );
+
+    addInverse( annotation, observable, method );
+  }
+
+  private void addInverse( @Nonnull final AnnotationMirror annotation,
+                           @Nonnull final ObservableDescriptor observable,
+                           @Nonnull final ExecutableElement method )
+  {
+    MethodChecks.mustNotHaveAnyParameters( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeSubclassCallable( getElement(), Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustReturnAValue( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+
+    final String name = getInverseName( annotation, method );
+    final InverseDescriptor existing = _inverses.get( name );
+    if ( null != existing )
+    {
+      throw new ArezProcessorException( "@Inverse target defines duplicate inverse for name '" + name +
+                                        "'. The other inverse is " + existing.getObservable().getGetter(),
+                                        method );
+    }
+    else
+    {
+      final TypeMirror type = method.getReturnType();
+
+      final Multiplicity multiplicity;
+      TypeElement targetType = getInverseManyTypeTarget( TypeName.get( method.getReturnType() ), method );
+      if ( null != targetType )
+      {
+        multiplicity = Multiplicity.MANY;
+      }
+      else
+      {
+        if ( !( type instanceof DeclaredType ) ||
+             null == ProcessorUtil.findAnnotationByType( ( (DeclaredType) type ).asElement(),
+                                                         Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
+        {
+          throw new ArezProcessorException( "@Inverse target expected to return a type annotated with " +
+                                            Constants.COMPONENT_ANNOTATION_CLASSNAME, method );
+        }
+        targetType = (TypeElement) ( (DeclaredType) type ).asElement();
+        if ( null != ProcessorUtil.findAnnotationByType( method, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
+        {
+          multiplicity = Multiplicity.ONE;
+        }
+        else if ( null != ProcessorUtil.findAnnotationByType( method, Constants.NULLABLE_ANNOTATION_CLASSNAME ) )
+        {
+          multiplicity = Multiplicity.ZERO_OR_ONE;
+        }
+        else
+        {
+          throw new ArezProcessorException( "@Inverse target expected to be annotated with either " +
+                                            Constants.NULLABLE_ANNOTATION_CLASSNAME + " or " +
+                                            Constants.NONNULL_ANNOTATION_CLASSNAME, method );
+        }
+      }
+      final String referenceName = getInverseReferenceNameParameter( method, targetType, multiplicity );
+      final InverseDescriptor descriptor =
+        new InverseDescriptor( this, observable, referenceName, multiplicity, targetType );
+      _inverses.put( name, descriptor );
+    }
+  }
+
+  @Nullable
+  private TypeElement getInverseManyTypeTarget( @Nonnull final TypeName typeName,
+                                                @Nonnull final ExecutableElement method )
+  {
+    if ( typeName instanceof ParameterizedTypeName )
+    {
+      final ParameterizedTypeName type = (ParameterizedTypeName) typeName;
+      if ( isSupportedInverseCollectionType( type.rawType.toString() ) && !type.typeArguments.isEmpty() )
+      {
+        final TypeElement typeElement = _elements.getTypeElement( type.typeArguments.get( 0 ).toString() );
+        if ( null != ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
+        {
+          return typeElement;
+        }
+        else
+        {
+          throw new ArezProcessorException( "@Inverse target expected to return a type annotated with " +
+                                            Constants.COMPONENT_ANNOTATION_CLASSNAME, method );
+        }
+      }
+    }
+    return null;
+  }
+
+  private boolean isSupportedInverseCollectionType( @Nonnull final String typeClassname )
+  {
+    return Collection.class.getName().equals( typeClassname ) ||
+           Set.class.getName().equals( typeClassname ) ||
+           List.class.getName().equals( typeClassname );
+  }
+
+  @Nonnull
+  private String getInverseReferenceNameParameter( @Nonnull final ExecutableElement method,
+                                                   @Nonnull final TypeElement targetType,
+                                                   @Nonnull final Multiplicity multiplicity )
+  {
+    final String declaredName =
+      (String) ProcessorUtil.getAnnotationValue( _elements,
+                                                 method,
+                                                 Constants.INVERSE_ANNOTATION_CLASSNAME,
+                                                 "referenceName" ).getValue();
+    final String name;
+    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    {
+      final String typeName = targetType.getSimpleName().toString();
+      name = Multiplicity.MANY == multiplicity ? typeName + "s" : typeName;
+    }
+    else
+    {
+      name = declaredName;
+      if ( !SourceVersion.isIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "@Inverse target specified an invalid referenceName '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@Inverse target specified an invalid referenceName '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
+      }
+    }
+    return name;
+  }
+
+  @Nonnull
+  private String getInverseName( @Nonnull final AnnotationMirror annotation,
+                                 @Nonnull final ExecutableElement method )
+  {
+    final String declaredName = getAnnotationParameter( annotation, "name" );
+    final String name;
+    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    {
+      final String candidate = ProcessorUtil.deriveName( method, GETTER_PATTERN, declaredName );
+      name = null == candidate ? method.getSimpleName().toString() : candidate;
+    }
+    else
+    {
+      name = declaredName;
+      if ( !SourceVersion.isIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "@Inverse target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@Inverse target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
+      }
+    }
+    return name;
+  }
+
   private void addReference( @Nonnull final AnnotationMirror annotation,
                              @Nonnull final ExecutableElement method,
                              @Nonnull final ExecutableType methodType )
@@ -1446,7 +1620,91 @@ final class ComponentDescriptor
 
     final String name = getReferenceName( annotation, method );
     final String linkType = getLinkType( method );
-    findOrCreateReference( name ).setMethod( method, methodType, linkType );
+    final String inverseName;
+    final Multiplicity inverseMultiplicity;
+    if ( hasInverse( annotation ) )
+    {
+      inverseMultiplicity = getReferenceInverseMultiplicity( annotation );
+      inverseName = getReferenceInverseName( annotation, method, inverseMultiplicity );
+      final TypeMirror returnType = method.getReturnType();
+      if ( !( returnType instanceof DeclaredType ) ||
+           null == ProcessorUtil.findAnnotationByType( ( (DeclaredType) returnType ).asElement(),
+                                                       Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
+      {
+        throw new ArezProcessorException( "@Reference target expected to return a type annotated with " +
+                                          Constants.COMPONENT_ANNOTATION_CLASSNAME + " if there is an " +
+                                          "inverse reference.", method );
+      }
+    }
+    else
+    {
+      inverseName = null;
+      inverseMultiplicity = null;
+    }
+    findOrCreateReference( name ).setMethod( method, methodType, linkType, inverseName, inverseMultiplicity );
+  }
+
+  private boolean hasInverse( @Nonnull final AnnotationMirror annotation )
+  {
+    final VariableElement variableElement = ProcessorUtil.getAnnotationValue( _elements, annotation, "inverse" );
+    switch ( variableElement.getSimpleName().toString() )
+    {
+      case "ENABLE":
+        return true;
+      case "DISABLE":
+        return false;
+      default:
+        return null != ProcessorUtil.findAnnotationValueNoDefaults( annotation, "inverseName" ) ||
+               null != ProcessorUtil.findAnnotationValueNoDefaults( annotation, "inverseMultiplicity" );
+    }
+  }
+
+  @Nonnull
+  private String getReferenceInverseName( @Nonnull final AnnotationMirror annotation,
+                                          @Nonnull final ExecutableElement method,
+                                          @Nonnull final Multiplicity multiplicity )
+  {
+    final String declaredName =
+      ProcessorUtil.getAnnotationValue( _elements, annotation, "inverseName" );
+    final String name;
+    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    {
+      final String baseName = getElement().getSimpleName().toString();
+      return Character.toLowerCase( baseName.charAt( 0 ) ) +
+             baseName.substring( 1 ) +
+             ( Multiplicity.MANY == multiplicity ? "s" : "" );
+    }
+    else
+    {
+      name = declaredName;
+      if ( !SourceVersion.isIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "@Reference target specified an invalid inverseName '" + name + "'. The " +
+                                          "inverseName must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@Reference target specified an invalid inverseName '" + name + "'. The " +
+                                          "inverseName must not be a java keyword.", method );
+      }
+    }
+    return name;
+  }
+
+  @Nonnull
+  private Multiplicity getReferenceInverseMultiplicity( @Nonnull final AnnotationMirror annotation )
+  {
+    final VariableElement variableElement =
+      ProcessorUtil.getAnnotationValue( _elements, annotation, "inverseMultiplicity" );
+    switch ( variableElement.getSimpleName().toString() )
+    {
+      case "MANY":
+        return Multiplicity.MANY;
+      case "ONE":
+        return Multiplicity.ONE;
+      default:
+        return Multiplicity.ZERO_OR_ONE;
+    }
   }
 
   @Nonnull
@@ -1731,6 +1989,8 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ANNOTATION_CLASSNAME );
     final AnnotationMirror referenceId =
       ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );
+    final AnnotationMirror inverse =
+      ProcessorUtil.findAnnotationByType( method, Constants.INVERSE_ANNOTATION_CLASSNAME );
 
     if ( null != observable )
     {
@@ -1738,6 +1998,10 @@ final class ComponentDescriptor
       if ( null != referenceId )
       {
         addReferenceId( referenceId, descriptor, method );
+      }
+      if ( null != inverse )
+      {
+        addInverse( inverse, descriptor, method );
       }
       return true;
     }
@@ -1866,6 +2130,11 @@ final class ComponentDescriptor
     else if ( null != referenceId )
     {
       addReferenceId( referenceId, method, methodType );
+      return true;
+    }
+    else if ( null != inverse )
+    {
+      addInverse( inverse, method, methodType );
       return true;
     }
     else
@@ -2073,7 +2342,7 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildComponentRefMethod() );
     }
-    if ( !_references.isEmpty() )
+    if ( !_references.isEmpty() || !_inverses.isEmpty() )
     {
       builder.addMethod( buildLocatorRefMethod() );
     }
@@ -2094,9 +2363,12 @@ final class ComponentDescriptor
       builder.addMethod( buildInternalObserve() );
       builder.addMethod( buildObserve() );
     }
-    if ( _disposeTrackable )
+    if ( _disposeTrackable || !_roReferences.isEmpty() )
     {
       builder.addMethod( buildInternalPreDispose() );
+    }
+    if ( _disposeTrackable )
+    {
       builder.addMethod( buildNotifierAccessor() );
     }
     builder.addMethod( buildIsDisposed() );
@@ -2118,6 +2390,7 @@ final class ComponentDescriptor
     _roMemoizes.forEach( e -> e.buildMethods( builder ) );
     _roTrackeds.forEach( e -> e.buildMethods( builder ) );
     _roReferences.forEach( e -> e.buildMethods( builder ) );
+    _roInverses.forEach( e -> e.buildMethods( builder ) );
 
     builder.addMethod( buildHashcodeMethod() );
     builder.addMethod( buildEqualsMethod() );
@@ -2529,7 +2802,7 @@ final class ComponentDescriptor
 
     GeneratorUtil.generateNotDisposedInvariant( this, builder, "verify" );
 
-    if ( !_roReferences.isEmpty() )
+    if ( !_roReferences.isEmpty() || !_roInverses.isEmpty() )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() && $T.isVerifyEnabled() )",
@@ -2552,6 +2825,11 @@ final class ComponentDescriptor
       {
         block.addStatement( "this.$N = null", reference.getFieldName() );
         block.addStatement( "this.$N()", reference.getLinkMethodName() );
+      }
+
+      for ( final InverseDescriptor inverse : _roInverses )
+      {
+        inverse.buildVerify( block );
       }
 
       block.endControlFlow();
@@ -2611,7 +2889,7 @@ final class ComponentDescriptor
                                   getComponentNameMethodName(),
                                   ".dispose" );
 
-    if ( _disposeTrackable )
+    if ( _disposeTrackable || !_roReferences.isEmpty() )
     {
       actionBlock.addStatement( "this.$N()", GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
     }
@@ -2711,7 +2989,7 @@ final class ComponentDescriptor
   }
 
   /**
-   * Generate the observe method.
+   * Generate the preDispose method.
    */
   @Nonnull
   private MethodSpec buildInternalPreDispose()
@@ -2725,41 +3003,45 @@ final class ComponentDescriptor
     {
       builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
     }
-    builder.addStatement( "$N.dispose()", GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME );
-    for ( final DependencyDescriptor dependency : _roDependencies )
+    _roReferences.forEach( r -> r.buildDisposer( builder ) );
+    if ( _disposeTrackable )
     {
-      final ExecutableElement method = dependency.getMethod();
-      final String methodName = method.getSimpleName().toString();
-      final boolean isNonnull =
-        null != ProcessorUtil.findAnnotationByType( method, Constants.NONNULL_ANNOTATION_CLASSNAME );
-      if ( isNonnull )
+      builder.addStatement( "$N.dispose()", GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME );
+      for ( final DependencyDescriptor dependency : _roDependencies )
       {
-        builder.addStatement( "$T.asDisposeTrackable( $N() ).getNotifier().removeOnDisposeListener( this )",
-                              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-                              methodName );
-      }
-      else
-      {
-        final String varName = GeneratorUtil.VARIABLE_PREFIX + methodName + "_dependency";
-        final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
-        if ( abstractObservables )
+        final ExecutableElement method = dependency.getMethod();
+        final String methodName = method.getSimpleName().toString();
+        final boolean isNonnull =
+          null != ProcessorUtil.findAnnotationByType( method, Constants.NONNULL_ANNOTATION_CLASSNAME );
+        if ( isNonnull )
         {
-          builder.addStatement( "final $T $N = this.$N",
-                                method.getReturnType(),
-                                varName,
-                                dependency.getObservable().getDataFieldName() );
+          builder.addStatement( "$T.asDisposeTrackable( $N() ).getNotifier().removeOnDisposeListener( this )",
+                                GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                methodName );
         }
         else
         {
-          builder.addStatement( "final $T $N = super.$N()", method.getReturnType(), varName, methodName );
+          final String varName = GeneratorUtil.VARIABLE_PREFIX + methodName + "_dependency";
+          final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
+          if ( abstractObservables )
+          {
+            builder.addStatement( "final $T $N = this.$N",
+                                  method.getReturnType(),
+                                  varName,
+                                  dependency.getObservable().getDataFieldName() );
+          }
+          else
+          {
+            builder.addStatement( "final $T $N = super.$N()", method.getReturnType(), varName, methodName );
+          }
+          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+          listenerBlock.beginControlFlow( "if ( null != $N )", varName );
+          listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
+                                      GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                      varName );
+          listenerBlock.endControlFlow();
+          builder.addCode( listenerBlock.build() );
         }
-        final CodeBlock.Builder listenerBlock = CodeBlock.builder();
-        listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-        listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
-                                    GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-                                    varName );
-        listenerBlock.endControlFlow();
-        builder.addCode( listenerBlock.build() );
       }
     }
 
@@ -3101,6 +3383,7 @@ final class ComponentDescriptor
     _roMemoizes.forEach( e -> e.buildInitializer( builder ) );
     _roAutoruns.forEach( autorun -> autorun.buildInitializer( builder ) );
     _roTrackeds.forEach( tracked -> tracked.buildInitializer( builder ) );
+    _roInverses.forEach( e -> e.buildInitializer( builder ) );
 
     for ( final DependencyDescriptor dep : _roDependencies )
     {

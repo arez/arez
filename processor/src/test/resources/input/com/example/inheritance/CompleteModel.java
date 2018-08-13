@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import com.example.inheritance.other.BaseCompleteModel;
 
 @ArezComponent
-abstract class CompleteModel
+public abstract class CompleteModel
   extends BaseCompleteModel
 {
 }

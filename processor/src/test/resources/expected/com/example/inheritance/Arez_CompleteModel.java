@@ -8,12 +8,16 @@ import arez.Disposable;
 import arez.Locator;
 import arez.Observable;
 import arez.Observer;
+import arez.component.CollectionsUtil;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import com.example.inheritance.other.BaseCompleteModel;
+import com.example.inheritance.other.Element;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -22,7 +26,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-final class Arez_CompleteModel extends CompleteModel implements Disposable, Identifiable<Byte>, Verifiable, DisposeTrackable {
+public final class Arez_CompleteModel extends CompleteModel implements Disposable, Identifiable<Byte>, Verifiable, DisposeTrackable {
   private byte $$arezi$$_state;
 
   @Nullable
@@ -38,6 +42,13 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
   private String $$arezd$$_myValue;
 
   @Nonnull
+  private final Observable<List<Element>> $$arez$$_elements;
+
+  private List<Element> $$arezd$$_elements;
+
+  private List<Element> $$arezd$$_$$cache$$_elements;
+
+  @Nonnull
   private final ComputedValue<Long> $$arez$$_time;
 
   @Nonnull
@@ -49,7 +60,7 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
   @Nullable
   private BaseCompleteModel.MyEntity $$arezr$$_myEntity;
 
-  Arez_CompleteModel() {
+  public Arez_CompleteModel() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> Arez.areReferencesEnabled(), () -> "Attempted to create instance of component of type 'CompleteModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
@@ -61,9 +72,12 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? getContext().component( "CompleteModel", getId(), Arez.areNamesEnabled() ? getComponentName() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_myValue = getContext().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_myValue : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myValue = v : null );
+    this.$$arez$$_elements = getContext().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".elements" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_elements : null, null );
     this.$$arez$$_time = getContext().computedValue( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".time" : null, () -> super.getTime(), this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, this::onTimeDispose );
     this.$$arez$$_myAutorun = getContext().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".myAutorun" : null, false, () -> super.myAutorun() );
     this.$$arez$$_render = getContext().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".render" : null, false, () -> super.onRenderDepsChanged() );
+    this.$$arezd$$_elements = new ArrayList<>();
+    this.$$arezd$$_$$cache$$_elements = null;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -157,6 +171,7 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
           this.$$arez$$_render.dispose();
           this.$$arez$$_time.dispose();
           this.$$arez$$_myValue.dispose();
+          this.$$arez$$_elements.dispose();
         } } );
       }
       if ( Arez.shouldCheckApiInvariants() ) {
@@ -174,6 +189,11 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CompleteModel.class, getId() ), () -> "Attempted to lookup self in Locator with type CompleteModel and id '" + getId() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CompleteModel.class, getId() ) );
       this.$$arezr$$_myEntity = null;
       this.$$arezi$$_link_myEntity();
+      for( final Element element : this.$$arezd$$_elements ) {
+        if ( Arez.shouldCheckApiInvariants() ) {
+          Guards.apiInvariant( () -> Disposable.isNotDisposed( element ), () -> "Inverse relationship named 'elements' on component named '" + getComponentName() + "' contains disposed element '" + element + "'" );
+        }
+      }
     }
   }
 
@@ -206,6 +226,23 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyValueObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
     return $$arez$$_myValue;
+  }
+
+  @Override
+  protected List<Element> getElements() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getElements' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+    }
+    this.$$arez$$_elements.reportObserved();
+    if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
+      final List<Element> $$ar$$_result = this.$$arezd$$_elements;
+      if ( null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result ) {
+        this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap( $$ar$$_result );
+      }
+      return $$arezd$$_$$cache$$_elements;
+    } else {
+      return this.$$arezd$$_elements;
+    }
   }
 
   @Override
@@ -289,6 +326,32 @@ final class Arez_CompleteModel extends CompleteModel implements Disposable, Iden
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + getComponentName() + "' missing related entity. Id = " + getMyEntityId() );
     }
+  }
+
+  public void $$arezir$$_elements_add(@Nonnull final Element element) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_elements_add' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+    }
+    this.$$arez$$_elements.preReportChanged();
+    if ( Arez.shouldCheckInvariants() ) {
+      Guards.invariant( () -> !this.$$arezd$$_elements.add( element ), () -> "Attempted to add reference 'element' to inverse 'elements' but inverse already contained element. Inverse = " + $$arez$$_elements );
+    }
+    this.$$arezd$$_elements.add( element );
+    this.$$arezd$$_$$cache$$_elements = null;
+    this.$$arez$$_elements.reportChanged();
+  }
+
+  public void $$arezir$$_elements_remove(@Nonnull final Element element) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_elements_remove' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+    }
+    this.$$arez$$_elements.preReportChanged();
+    if ( Arez.shouldCheckInvariants() ) {
+      Guards.invariant( () -> this.$$arezd$$_elements.contains( element ), () -> "Attempted to remove reference 'element' from inverse 'elements' but inverse does not contain element. Inverse = " + $$arez$$_elements );
+    }
+    this.$$arezd$$_elements.remove( element );
+    this.$$arezd$$_$$cache$$_elements = null;
+    this.$$arez$$_elements.reportChanged();
   }
 
   @Override

@@ -48,4 +48,35 @@ public @interface Reference
    */
   @Nonnull
   LinkType load() default LinkType.EAGER;
+
+  /**
+   * Return the enum controlling whether there is an inverse for reference.
+   * {@link Feature#ENABLE} tells the annotation processor to expect an inverse and add code
+   * to maintain the inverse. {@link Feature#DISABLE} will generate no code to maintain
+   * inverse module. {@link Feature#AUTODETECT} will be treated as {@link Feature#ENABLE}
+   * if either the {@link #inverseName} or {@link #inverseMultiplicity} is specified.
+   *
+   * @return the enum controlling whether there is an inverse for reference
+   */
+  @Nonnull
+  Feature inverse() default Feature.AUTODETECT;
+
+  /**
+   * Return the name of the inverse associated with the reference. The value must conform
+   * to the requirements of a java identifier. If not specified, the name will be derived
+   * by camelCasing the simple name of the class on which the {@link Reference} annotation
+   * is placed and then adding an s if {@link #inverseMultiplicity} is {@link Multiplicity#MANY}.
+   *
+   * @return the name of the reference relative to the component.
+   */
+  @Nonnull
+  String inverseName() default "<default>";
+
+  /**
+   * Define the expected multiplicity of the inverse associated with the reference.
+   *
+   * @return the expected multiplicity of the inverse associated with the reference.
+   */
+  @Nonnull
+  Multiplicity inverseMultiplicity() default Multiplicity.MANY;
 }
