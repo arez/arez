@@ -60,7 +60,8 @@ public final class BuildDownstream
                  "arez-idlestatus",
                  "arez-spytools",
                  "arez-ticker",
-                 "arez-timeddisposer" )
+                 "arez-timeddisposer",
+                 "arez-when" )
         .forEach( project -> FileUtil.inDirectory( workingDirectory, () -> {
           Gir.messenger().info( "Cloning " + project + " into " + workingDirectory );
           Git.clone( "https://github.com/arez/" + project + ".git", project );

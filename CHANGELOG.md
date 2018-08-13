@@ -39,6 +39,11 @@
   either the `ObserverInfo.getPriority()` or the `ComputedValueInfo.getPriority()` methods.
 * **\[core\]** Add the ability to supply an `onDispose` hook method when creating an `autorun` observer via
   `ArezContext.autorun(...)`. This hook method is invoked when the observer is disposed.
+* **\[core\]** The `"when"` observer that was previously part of the core Arez framework has been migrated to a
+  separate top-level project `arez-when`. The motivation for this was to reduce the complexity of the core and
+  only include elements that are broadly used and/or need to use internal APIs. The when observer was not broadly
+  used and exposing the `onDispose` hook method when creating autorun observers made it possible to implement this
+  functionality in a separate project.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)

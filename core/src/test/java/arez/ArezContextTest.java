@@ -19,7 +19,6 @@ import arez.spy.TransactionStartedEvent;
 import java.io.IOException;
 import java.security.AccessControlException;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
@@ -3085,118 +3084,6 @@ public class ArezContextTest
     assertThrowsWithMessage( () -> context.deregisterComputedValue( computedValue ),
                              "Arez-0035: ArezContext.deregisterComputedValue invoked with computed value named '" +
                              computedValue.getName() + "' but no computed value with that name is registered." );
-  }
-
-  @Test
-  public void when()
-    throws Throwable
-  {
-    final AtomicInteger conditionRun = new AtomicInteger();
-    final AtomicInteger effectRun = new AtomicInteger();
-
-    final String name = ValueUtil.randomString();
-    final SafeFunction<Boolean> condition = () -> {
-      observeADependency();
-      conditionRun.incrementAndGet();
-      return false;
-    };
-    final SafeProcedure procedure = effectRun::incrementAndGet;
-
-    final ArezContext context = Arez.context();
-    final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
-    final Observer node = context.when( component, name, true, condition, procedure, Priority.NORMAL, true );
-
-    assertEquals( node.getName(), name + ".watcher" );
-    assertEquals( node.getPriority(), Priority.NORMAL );
-    assertEquals( conditionRun.get(), 1 );
-    assertEquals( effectRun.get(), 0 );
-  }
-
-  @Test
-  public void when_effectNoVerifyAction()
-    throws Throwable
-  {
-    final AtomicInteger effectRun = new AtomicInteger();
-
-    final String name = ValueUtil.randomString();
-
-    final SafeFunction<Boolean> condition = () -> {
-      observeADependency();
-      return true;
-    };
-    final ArezContext context = Arez.context();
-    context.when( context.component( ValueUtil.randomString(), ValueUtil.randomString() ),
-                  name,
-                  true,
-                  false,
-                  condition,
-                  effectRun::incrementAndGet,
-                  Priority.NORMAL,
-                  true );
-
-    assertEquals( effectRun.get(), 1 );
-  }
-
-  @Test
-  public void when_effectVerifyActionButNoReadsOrWrites()
-    throws Throwable
-  {
-    setIgnoreObserverErrors( true );
-    setPrintObserverErrors( false );
-
-    final ArezContext context = Arez.context();
-
-    final AtomicInteger effectRun = new AtomicInteger();
-
-    final AtomicInteger errorCount = new AtomicInteger();
-    context.addObserverErrorHandler( ( observer, error, throwable ) -> {
-      errorCount.incrementAndGet();
-      assertNotNull( throwable );
-      assertEquals( throwable.getMessage(),
-                    "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
-    } );
-
-    final SafeFunction<Boolean> condition = () -> {
-      observeADependency();
-      return true;
-    };
-    context.when( context.component( ValueUtil.randomString(), ValueUtil.randomString() ),
-                  "X",
-                  true,
-                  true,
-                  condition,
-                  effectRun::incrementAndGet,
-                  Priority.NORMAL,
-                  true );
-    assertEquals( effectRun.get(), 1 );
-    assertEquals( errorCount.get(), 1 );
-  }
-
-  @Test
-  public void when_minimalParameters()
-    throws Throwable
-  {
-    final ArezContext context = Arez.context();
-    final Observable observable = context.observable();
-
-    final AtomicBoolean result = new AtomicBoolean();
-
-    final AtomicInteger conditionRun = new AtomicInteger();
-    final AtomicInteger effectRun = new AtomicInteger();
-
-    final SafeFunction<Boolean> condition = () -> {
-      conditionRun.incrementAndGet();
-      observable.reportObserved();
-      return result.get();
-    };
-    final SafeProcedure procedure = effectRun::incrementAndGet;
-
-    final Observer node = context.when( condition, procedure );
-
-    assertEquals( node.getName(), "When@2.watcher", "The name has @2 as one other Arez entity created (Observable)" );
-    assertEquals( node.getPriority(), Priority.NORMAL );
-    assertEquals( conditionRun.get(), 1 );
-    assertEquals( effectRun.get(), 0 );
   }
 
   @Test

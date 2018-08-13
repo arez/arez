@@ -29,6 +29,9 @@ to this page.
 * [arez-timeddisposer](https://github.com/arez/arez-timeddisposer) This library provides a utility class
   that will dispose a target object after a time delay.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/timeddisposer) · [GitHub Project](https://github.com/arez/arez-timeddisposer)**</span>
+* [arez-when](https://github.com/arez/arez-when) This library provides a when observer. A when observer watches
+  a condition until a condition returns true and then invokes an effect action.
+  <span style="font-size: smaller">**[API Docs](https://arez.github.io/when) · [GitHub Project](https://github.com/arez/arez-when)**</span>
 * [react4j](https://github.com/react4j/react4j) React4j is *'...an opinionated react java binding'* that allows
   you to write a web frontend using the react component model but writing the components in Java. The project
   has comprehensive support for Arez based react components. The Arez react4j components track which are properties

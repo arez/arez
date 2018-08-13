@@ -24,8 +24,6 @@ Position
 * Rename the "action" parameter to tracker and autorun as "reaction" or something similar to clearly
   differentiate from other actions.
 
-* Move when observer out into a top-level project. Add documentation to site to reflect change.
-
 * Add support for `@OnDispose` for autorun observers.
 
 * Generate an error if component is annotated with `@ArezComponent(allowEmpty=true)` but is not empty.
