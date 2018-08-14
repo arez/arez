@@ -1692,17 +1692,23 @@ final class ComponentDescriptor
           final AnnotationMirror a = ProcessorUtil.findAnnotationByType( m, Constants.INVERSE_ANNOTATION_CLASSNAME );
           if ( null != a && getInverseName( a, m ).equals( descriptor.getInverseName() ) )
           {
-            if ( null != getInverseManyTypeTarget( m ) )
+            final TypeElement target = getInverseManyTypeTarget( m );
+            if ( null != target )
             {
+              ensureTargetTypeAligns( descriptor, target.asType() );
               return Multiplicity.MANY;
-            }
-            else if ( null != ProcessorUtil.findAnnotationByType( m, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
-            {
-              return Multiplicity.ONE;
             }
             else
             {
-              return Multiplicity.ZERO_OR_ONE;
+              ensureTargetTypeAligns( descriptor, m.getReturnType() );
+              if ( null != ProcessorUtil.findAnnotationByType( m, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
+              {
+                return Multiplicity.ONE;
+              }
+              else
+              {
+                return Multiplicity.ZERO_OR_ONE;
+              }
             }
           }
           else
@@ -1727,6 +1733,16 @@ final class ComponentDescriptor
       throw new ArezProcessorException( "@Reference target has an inverseMultiplicity of " + inverseMultiplicity +
                                         " but that associated @Inverse has a multiplicity of " + multiplicity +
                                         ". The multiplicity must align.", descriptor.getMethod() );
+    }
+  }
+
+  private void ensureTargetTypeAligns( @Nonnull final ReferenceDescriptor descriptor, @Nonnull final TypeMirror target )
+  {
+    if ( !_typeUtils.isSameType( target, getElement().asType() ) )
+    {
+      throw new ArezProcessorException( "@Reference target expected to find an associated @Inverse annotation with " +
+                                        "a target type equal to " + getElement().getQualifiedName() + " but " +
+                                        "the actual target type is " + target, descriptor.getMethod() );
     }
   }
 
