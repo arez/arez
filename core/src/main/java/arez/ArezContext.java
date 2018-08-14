@@ -538,7 +538,7 @@ public final class ArezContext
    * @param priority                         the priority of the associated observer.
    * @param keepAlive                        true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
    * @param runImmediately                   ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
+   * @param observeLowerPriorityDependencies true if the computed can observe lower priority dependencies.
    * @return the ComputedValue instance.
    */
   @Nonnull
