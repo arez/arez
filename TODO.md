@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## 0.105 Changes
 
+* Document `@Reference`, `@ReferenceId`, `@Inverse`
+
 * Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
   if change so that glue code is correctly regenerated without forcing rebuild from tool.
 
@@ -77,8 +79,6 @@ complete as there is too much un-said.
   - https://github.com/siom79/japicmp
 
 ## Documentation
-
-* Document Reference, ReferenceId
 
 * Document creation of component. i.e. The order of operations
 
