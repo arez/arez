@@ -1509,7 +1509,7 @@ final class ComponentDescriptor
                                             Constants.NONNULL_ANNOTATION_CLASSNAME, method );
         }
       }
-      final String referenceName = getInverseReferenceNameParameter( method, targetType, multiplicity );
+      final String referenceName = getInverseReferenceNameParameter( method );
       final InverseDescriptor descriptor =
         new InverseDescriptor( this, observable, referenceName, multiplicity, targetType );
       _inverses.put( name, descriptor );
@@ -1580,9 +1580,7 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  private String getInverseReferenceNameParameter( @Nonnull final ExecutableElement method,
-                                                   @Nonnull final TypeElement targetType,
-                                                   @Nonnull final Multiplicity multiplicity )
+  private String getInverseReferenceNameParameter( @Nonnull final ExecutableElement method )
   {
     final String declaredName =
       (String) ProcessorUtil.getAnnotationValue( _elements,
