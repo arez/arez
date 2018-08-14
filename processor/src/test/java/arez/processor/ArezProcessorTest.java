@@ -706,6 +706,8 @@ public class ArezProcessorTest
                       "@Reference target specified an invalid inverseName '-sxkw'. The inverseName must be a valid java identifier." },
         new Object[]{ "com.example.inverse.BadInverseName2InverseModel",
                       "@Reference target specified an invalid inverseName 'byte'. The inverseName must not be a java keyword." },
+        new Object[]{ "com.example.inverse.BadInverseType1InverseModel",
+                      "@Inverse target expected to find an associated @Reference annotation with a target type equal to com.example.inverse.BadInverseType1InverseModel.OtherEntity but the actual target type is com.example.inverse.BadInverseType1InverseModel.MyEntity" },
         new Object[]{ "com.example.inverse.BadMultiplicity1InverseModel",
                       "@Inverse target has a multiplicity of MANY but that associated @Reference has a multiplicity of ONE. The multiplicity must align." },
         new Object[]{ "com.example.inverse.BadMultiplicity2InverseModel",

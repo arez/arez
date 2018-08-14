@@ -21,8 +21,6 @@ Position
   Crew getCrew();
 ```
 
-* Add validation that @Inverse/@Reference annotations match other-side
-
 * Add lots of integration tests for references. Including making sure that inverse relationships managed
   during dispose, creation etc. Make sure it is tested the differences between lazy back-refs etc.
 

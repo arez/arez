@@ -1525,9 +1525,15 @@ final class ComponentDescriptor
         .stream()
         .map( m -> {
           final AnnotationMirror a = ProcessorUtil.findAnnotationByType( m, Constants.REFERENCE_ANNOTATION_CLASSNAME );
-          return null != a && getReferenceName( a, m ).equals( descriptor.getReferenceName() ) ?
-                 getReferenceInverseMultiplicity( a ) :
-                 null;
+          if ( null != a && getReferenceName( a, m ).equals( descriptor.getReferenceName() ) )
+          {
+            ensureTargetTypeAligns( descriptor, m.getReturnType() );
+            return getReferenceInverseMultiplicity( a );
+          }
+          else
+          {
+            return null;
+          }
         } )
         .filter( Objects::nonNull )
         .findAny()
@@ -1545,6 +1551,16 @@ final class ComponentDescriptor
       throw new ArezProcessorException( "@Inverse target has a multiplicity of " + descriptor.getMultiplicity() +
                                         " but that associated @Reference has a multiplicity of " + multiplicity +
                                         ". The multiplicity must align.", descriptor.getObservable().getGetter() );
+    }
+  }
+
+  private void ensureTargetTypeAligns( @Nonnull final InverseDescriptor descriptor, @Nonnull final TypeMirror target )
+  {
+    if ( !_typeUtils.isSameType( target, getElement().asType() ) )
+    {
+      throw new ArezProcessorException( "@Inverse target expected to find an associated @Reference annotation with " +
+                                        "a target type equal to " + descriptor.getTargetType() + " but the actual " +
+                                        "target type is " + target, descriptor.getObservable().getGetter() );
     }
   }
 
