@@ -23,8 +23,9 @@ Position
 
 * Consider changing default of disposeTrackable to DISABLE
 
-* Rename the "action" parameter to tracker and autorun as "reaction" or something similar to clearly
-  differentiate from other actions.
+* Rename the "action" parameter to tracker and autorun to "trackerFunction" or something similar to clearly
+  differentiate from other actions. Make the other parameters that use the term "action" into "executor" (This
+  follows conventions use in WEB API).
 
 * Add support for `@OnDispose` for autorun observers.
 
