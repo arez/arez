@@ -127,48 +127,6 @@ define 'arez' do
     iml.test_source_directories << _('src/test/resources/bad_input')
   end
 
-  desc 'Arez Integration Test Support'
-  define 'integration-qa-support' do
-    compile.with :javax_json,
-                 :jsonassert,
-                 :android_json,
-                 :testng,
-                 project('core').package(:jar),
-                 project('core').compile.dependencies
-    package(:jar)
-    package(:sources)
-    package(:javadoc)
-  end
-
-  desc 'Arez Entity Support'
-  define 'entity' do
-    pom.include_transitive_dependencies << project('core').package(:jar)
-    pom.dependency_filter = Proc.new {|dep| dep[:scope].to_s != 'test' && !project('core').compile.dependencies.include?(dep[:artifact]) && !project('processor').compile.dependencies.include?(dep[:artifact])}
-
-    compile.with project('core').package(:jar),
-                 project('core').compile.dependencies,
-                 project('processor').package(:jar),
-                 project('processor').compile.dependencies
-
-    test.options[:properties] = AREZ_TEST_OPTIONS.merge('arez.entity_fixture_dir' => _('src/test/resources'))
-    test.options[:java_args] = ['-ea']
-
-    gwt_enhance(project)
-
-    package(:jar)
-    package(:sources)
-    package(:javadoc)
-
-    test.using :testng
-    test.compile.with TEST_DEPS,
-                      project('integration-qa-support').package(:jar),
-                      project('integration-qa-support').compile.dependencies
-
-    # The generators are configured to generate to here.
-    iml.main_source_directories << _('generated/processors/main/java')
-    iml.test_source_directories << _('generated/processors/test/java')
-  end
-
   desc 'Arez Integration Tests'
   define 'integration-tests' do
     test.options[:properties] = AREZ_TEST_OPTIONS.merge('arez.integration_fixture_dir' => _('src/test/resources'))
@@ -178,10 +136,11 @@ define 'arez' do
     test.compile.with TEST_DEPS,
                       DAGGER_DEPS,
                       GWT_DEPS,
+                      :javax_json,
+                      :jsonassert,
+                      :android_json,
                       project('core').package(:jar),
                       project('core').compile.dependencies,
-                      project('integration-qa-support').package(:jar),
-                      project('integration-qa-support').compile.dependencies,
                       project('processor').package(:jar),
                       project('processor').compile.dependencies
 
@@ -223,7 +182,7 @@ define 'arez' do
 
     local_test_repository_url = URI.join('file:///', project._(:target, :local_test_repository)).to_s
     compile.enhance do
-      projects_to_upload = projects(%w(core entity processor))
+      projects_to_upload = projects(%w(core processor))
       old_release_to = repositories.release_to
       begin
         # First we install them in a local repository so we don't have to access the network during local builds
@@ -324,7 +283,7 @@ define 'arez' do
   iml.excluded_directories << project._('tmp/gwt')
   iml.excluded_directories << project._('tmp')
 
-  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.entity_fixture_dir=entity/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.current.version=X -Darez.next.version=X -Darez.core.compile_target=target/arez_core/idea/classes')
+  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.current.version=X -Darez.next.version=X -Darez.core.compile_target=target/arez_core/idea/classes')
   ipr.add_component_from_artifact(:idea_codestyle)
 
   DOC_EXAMPLES.each do |gwt_module|
@@ -366,9 +325,6 @@ define 'arez' do
       end
     end
   end
-
-  project('integration-qa-support').task('install').actions.clear
-  project('integration-qa-support').task('upload').actions.clear
 end
 
 Buildr.projects.each do |project|

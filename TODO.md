@@ -12,9 +12,6 @@ complete as there is too much un-said.
 * Add lots of integration tests for references. Including making sure that inverse relationships managed
   during dispose, creation etc. Make sure it is tested the differences between lazy back-refs etc.
 
-* Replace `arez-entity` with next iteration and merge functionality into annotation processor. One package
-  is removed then merge `integration-qa-support` into `integration-tests`
-
 * Consider changing default of disposeTrackable to DISABLE
 
 * Rename the "action" parameter to tracker and autorun to "trackerFunction" or something similar to clearly
