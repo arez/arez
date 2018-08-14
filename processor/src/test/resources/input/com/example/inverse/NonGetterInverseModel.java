@@ -19,10 +19,10 @@ abstract class NonGetterInverseModel
   static abstract class Element
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
-    abstract NonGetterInverseModel getOther();
+    abstract NonGetterInverseModel getNonGetterInverseModel();
 
     @ReferenceId
-    int getOtherId()
+    int getNonGetterInverseModelId()
     {
       return 0;
     }

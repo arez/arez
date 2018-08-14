@@ -31,7 +31,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nullable
-  private NonGetterInverseModel $$arezr$$_other;
+  private NonGetterInverseModel $$arezr$$_nonGetterInverseModel;
 
   NonGetterInverseModel_Arez_Element() {
     super();
@@ -48,7 +48,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
-    this.$$arezi$$_link_other();
+    this.$$arezi$$_link_nonGetterInverseModel();
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
@@ -92,7 +92,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
   }
 
   private void $$arezi$$_preDispose() {
-    this.$$arezi$$_delink_other();
+    this.$$arezi$$_delink_nonGetterInverseModel();
     $$arezi$$_disposeNotifier.dispose();
   }
 
@@ -131,41 +131,41 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonGetterInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonGetterInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonGetterInverseModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezr$$_other = null;
-      this.$$arezi$$_link_other();
+      this.$$arezr$$_nonGetterInverseModel = null;
+      this.$$arezi$$_link_nonGetterInverseModel();
     }
   }
 
   @Override
-  NonGetterInverseModel getOther() {
+  NonGetterInverseModel getNonGetterInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getOther' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getNonGetterInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Nonnull reference method named 'getOther' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_nonGetterInverseModel, () -> "Nonnull reference method named 'getNonGetterInverseModel' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getNonGetterInverseModelId() );
     }
-    return this.$$arezr$$_other;
+    return this.$$arezr$$_nonGetterInverseModel;
   }
 
-  private void $$arezi$$_link_other() {
+  private void $$arezi$$_link_nonGetterInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_other' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_nonGetterInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    final int id = this.getOtherId();
-    this.$$arezr$$_other = this.$$arezi$$_locator().findById( NonGetterInverseModel.class, id );
+    final int id = this.getNonGetterInverseModelId();
+    this.$$arezr$$_nonGetterInverseModel = this.$$arezi$$_locator().findById( NonGetterInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference method named 'getOther' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_nonGetterInverseModel, () -> "Reference method named 'getNonGetterInverseModel' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getNonGetterInverseModelId() );
     }
-    ( (Arez_NonGetterInverseModel) this.$$arezr$$_other ).$$arezir$$_elements_add( this );
+    ( (Arez_NonGetterInverseModel) this.$$arezr$$_nonGetterInverseModel ).$$arezir$$_elements_add( this );
   }
 
-  private void $$arezi$$_delink_other() {
+  private void $$arezi$$_delink_nonGetterInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_other' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_nonGetterInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( null != $$arezr$$_other ) {
-      ( (Arez_NonGetterInverseModel) this.$$arezr$$_other ).$$arezir$$_elements_remove( this );
-      this.$$arezr$$_other = null;
+    if ( null != $$arezr$$_nonGetterInverseModel ) {
+      ( (Arez_NonGetterInverseModel) this.$$arezr$$_nonGetterInverseModel ).$$arezir$$_elements_remove( this );
+      this.$$arezr$$_nonGetterInverseModel = null;
     }
   }
 

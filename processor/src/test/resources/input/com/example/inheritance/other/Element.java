@@ -10,10 +10,10 @@ import com.example.inheritance.CompleteModel;
 public abstract class Element
 {
   @Reference( inverseMultiplicity = Multiplicity.MANY )
-  protected abstract CompleteModel getOther();
+  protected abstract CompleteModel getCompleteModel();
 
   @ReferenceId
-  protected int getOtherId()
+  protected int getCompleteModelId()
   {
     return 0;
   }

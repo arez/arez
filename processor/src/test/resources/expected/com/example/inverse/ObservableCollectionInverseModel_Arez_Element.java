@@ -31,7 +31,7 @@ final class ObservableCollectionInverseModel_Arez_Element extends ObservableColl
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nullable
-  private ObservableCollectionInverseModel $$arezr$$_other;
+  private ObservableCollectionInverseModel $$arezr$$_observableCollectionInverseModel;
 
   ObservableCollectionInverseModel_Arez_Element() {
     super();
@@ -48,7 +48,7 @@ final class ObservableCollectionInverseModel_Arez_Element extends ObservableColl
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
-    this.$$arezi$$_link_other();
+    this.$$arezi$$_link_observableCollectionInverseModel();
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
@@ -92,7 +92,7 @@ final class ObservableCollectionInverseModel_Arez_Element extends ObservableColl
   }
 
   private void $$arezi$$_preDispose() {
-    this.$$arezi$$_delink_other();
+    this.$$arezi$$_delink_observableCollectionInverseModel();
     $$arezi$$_disposeNotifier.dispose();
   }
 
@@ -131,41 +131,41 @@ final class ObservableCollectionInverseModel_Arez_Element extends ObservableColl
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ObservableCollectionInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ObservableCollectionInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ObservableCollectionInverseModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezr$$_other = null;
-      this.$$arezi$$_link_other();
+      this.$$arezr$$_observableCollectionInverseModel = null;
+      this.$$arezi$$_link_observableCollectionInverseModel();
     }
   }
 
   @Override
-  ObservableCollectionInverseModel getOther() {
+  ObservableCollectionInverseModel getObservableCollectionInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getOther' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getObservableCollectionInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Nonnull reference method named 'getOther' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableCollectionInverseModel, () -> "Nonnull reference method named 'getObservableCollectionInverseModel' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getObservableCollectionInverseModelId() );
     }
-    return this.$$arezr$$_other;
+    return this.$$arezr$$_observableCollectionInverseModel;
   }
 
-  private void $$arezi$$_link_other() {
+  private void $$arezi$$_link_observableCollectionInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_other' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_observableCollectionInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    final int id = this.getOtherId();
-    this.$$arezr$$_other = this.$$arezi$$_locator().findById( ObservableCollectionInverseModel.class, id );
+    final int id = this.getObservableCollectionInverseModelId();
+    this.$$arezr$$_observableCollectionInverseModel = this.$$arezi$$_locator().findById( ObservableCollectionInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference method named 'getOther' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableCollectionInverseModel, () -> "Reference method named 'getObservableCollectionInverseModel' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getObservableCollectionInverseModelId() );
     }
-    ( (Arez_ObservableCollectionInverseModel) this.$$arezr$$_other ).$$arezir$$_elements_add( this );
+    ( (Arez_ObservableCollectionInverseModel) this.$$arezr$$_observableCollectionInverseModel ).$$arezir$$_elements_add( this );
   }
 
-  private void $$arezi$$_delink_other() {
+  private void $$arezi$$_delink_observableCollectionInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_other' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_observableCollectionInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( null != $$arezr$$_other ) {
-      ( (Arez_ObservableCollectionInverseModel) this.$$arezr$$_other ).$$arezir$$_elements_remove( this );
-      this.$$arezr$$_other = null;
+    if ( null != $$arezr$$_observableCollectionInverseModel ) {
+      ( (Arez_ObservableCollectionInverseModel) this.$$arezr$$_observableCollectionInverseModel ).$$arezir$$_elements_remove( this );
+      this.$$arezr$$_observableCollectionInverseModel = null;
     }
   }
 

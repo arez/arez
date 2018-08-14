@@ -20,10 +20,10 @@ abstract class DuplicateInverseModel
   static abstract class MyEntity
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
-    abstract DuplicateInverseModel getOther();
+    abstract DuplicateInverseModel getDuplicateInverseModel();
 
     @ReferenceId
-    int getOtherId()
+    int getDuplicateInverseModelId()
     {
       return 0;
     }

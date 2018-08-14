@@ -31,7 +31,7 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nullable
-  private ObservableListInverseModel $$arezr$$_other;
+  private ObservableListInverseModel $$arezr$$_observableListInverseModel;
 
   ObservableListInverseModel_Arez_Element() {
     super();
@@ -48,7 +48,7 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
-    this.$$arezi$$_link_other();
+    this.$$arezi$$_link_observableListInverseModel();
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
@@ -92,7 +92,7 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
   }
 
   private void $$arezi$$_preDispose() {
-    this.$$arezi$$_delink_other();
+    this.$$arezi$$_delink_observableListInverseModel();
     $$arezi$$_disposeNotifier.dispose();
   }
 
@@ -131,41 +131,41 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ObservableListInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ObservableListInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ObservableListInverseModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezr$$_other = null;
-      this.$$arezi$$_link_other();
+      this.$$arezr$$_observableListInverseModel = null;
+      this.$$arezi$$_link_observableListInverseModel();
     }
   }
 
   @Override
-  ObservableListInverseModel getOther() {
+  ObservableListInverseModel getObservableListInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getOther' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getObservableListInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Nonnull reference method named 'getOther' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableListInverseModel, () -> "Nonnull reference method named 'getObservableListInverseModel' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getObservableListInverseModelId() );
     }
-    return this.$$arezr$$_other;
+    return this.$$arezr$$_observableListInverseModel;
   }
 
-  private void $$arezi$$_link_other() {
+  private void $$arezi$$_link_observableListInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_other' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_observableListInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    final int id = this.getOtherId();
-    this.$$arezr$$_other = this.$$arezi$$_locator().findById( ObservableListInverseModel.class, id );
+    final int id = this.getObservableListInverseModelId();
+    this.$$arezr$$_observableListInverseModel = this.$$arezi$$_locator().findById( ObservableListInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference method named 'getOther' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableListInverseModel, () -> "Reference method named 'getObservableListInverseModel' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getObservableListInverseModelId() );
     }
-    ( (Arez_ObservableListInverseModel) this.$$arezr$$_other ).$$arezir$$_elements_add( this );
+    ( (Arez_ObservableListInverseModel) this.$$arezr$$_observableListInverseModel ).$$arezir$$_elements_add( this );
   }
 
-  private void $$arezi$$_delink_other() {
+  private void $$arezi$$_delink_observableListInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_other' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_observableListInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( null != $$arezr$$_other ) {
-      ( (Arez_ObservableListInverseModel) this.$$arezr$$_other ).$$arezir$$_elements_remove( this );
-      this.$$arezr$$_other = null;
+    if ( null != $$arezr$$_observableListInverseModel ) {
+      ( (Arez_ObservableListInverseModel) this.$$arezr$$_observableListInverseModel ).$$arezir$$_elements_remove( this );
+      this.$$arezr$$_observableListInverseModel = null;
     }
   }
 

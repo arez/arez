@@ -19,10 +19,10 @@ abstract class ObservableSetInverseModel
   static abstract class Element
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
-    abstract ObservableSetInverseModel getOther();
+    abstract ObservableSetInverseModel getObservableSetInverseModel();
 
     @ReferenceId
-    int getOtherId()
+    int getObservableSetInverseModelId()
     {
       return 0;
     }

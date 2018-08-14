@@ -31,7 +31,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nullable
-  private ZeroOrOneMultiplicityInverseModel $$arezr$$_other;
+  private ZeroOrOneMultiplicityInverseModel $$arezr$$_zeroOrOneMultiplicityInverseModel;
 
   ZeroOrOneMultiplicityInverseModel_Arez_Element() {
     super();
@@ -48,7 +48,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
-    this.$$arezi$$_link_other();
+    this.$$arezi$$_link_zeroOrOneMultiplicityInverseModel();
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
@@ -92,7 +92,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
   }
 
   private void $$arezi$$_preDispose() {
-    this.$$arezi$$_delink_other();
+    this.$$arezi$$_delink_zeroOrOneMultiplicityInverseModel();
     $$arezi$$_disposeNotifier.dispose();
   }
 
@@ -131,41 +131,41 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ZeroOrOneMultiplicityInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ZeroOrOneMultiplicityInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ZeroOrOneMultiplicityInverseModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezr$$_other = null;
-      this.$$arezi$$_link_other();
+      this.$$arezr$$_zeroOrOneMultiplicityInverseModel = null;
+      this.$$arezi$$_link_zeroOrOneMultiplicityInverseModel();
     }
   }
 
   @Override
-  ZeroOrOneMultiplicityInverseModel getOther() {
+  ZeroOrOneMultiplicityInverseModel getZeroOrOneMultiplicityInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getOther' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getZeroOrOneMultiplicityInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Nonnull reference method named 'getOther' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_zeroOrOneMultiplicityInverseModel, () -> "Nonnull reference method named 'getZeroOrOneMultiplicityInverseModel' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getZeroOrOneMultiplicityInverseModelId() );
     }
-    return this.$$arezr$$_other;
+    return this.$$arezr$$_zeroOrOneMultiplicityInverseModel;
   }
 
-  private void $$arezi$$_link_other() {
+  private void $$arezi$$_link_zeroOrOneMultiplicityInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_other' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_zeroOrOneMultiplicityInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    final int id = this.getOtherId();
-    this.$$arezr$$_other = this.$$arezi$$_locator().findById( ZeroOrOneMultiplicityInverseModel.class, id );
+    final int id = this.getZeroOrOneMultiplicityInverseModelId();
+    this.$$arezr$$_zeroOrOneMultiplicityInverseModel = this.$$arezi$$_locator().findById( ZeroOrOneMultiplicityInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference method named 'getOther' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_zeroOrOneMultiplicityInverseModel, () -> "Reference method named 'getZeroOrOneMultiplicityInverseModel' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getZeroOrOneMultiplicityInverseModelId() );
     }
-    ( (Arez_ZeroOrOneMultiplicityInverseModel) this.$$arezr$$_other ).$$arezir$$_element_set( this );
+    ( (Arez_ZeroOrOneMultiplicityInverseModel) this.$$arezr$$_zeroOrOneMultiplicityInverseModel ).$$arezir$$_element_set( this );
   }
 
-  private void $$arezi$$_delink_other() {
+  private void $$arezi$$_delink_zeroOrOneMultiplicityInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_other' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_zeroOrOneMultiplicityInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( null != $$arezr$$_other ) {
-      ( (Arez_ZeroOrOneMultiplicityInverseModel) this.$$arezr$$_other ).$$arezir$$_element_unset( this );
-      this.$$arezr$$_other = null;
+    if ( null != $$arezr$$_zeroOrOneMultiplicityInverseModel ) {
+      ( (Arez_ZeroOrOneMultiplicityInverseModel) this.$$arezr$$_zeroOrOneMultiplicityInverseModel ).$$arezir$$_element_unset( this );
+      this.$$arezr$$_zeroOrOneMultiplicityInverseModel = null;
     }
   }
 

@@ -18,10 +18,10 @@ abstract class OneMultiplicityInverseModel
   static abstract class Element
   {
     @Reference( inverseMultiplicity = Multiplicity.ONE )
-    abstract OneMultiplicityInverseModel getOther();
+    abstract OneMultiplicityInverseModel getOneMultiplicityInverseModel();
 
     @ReferenceId
-    int getOtherId()
+    int getOneMultiplicityInverseModelId()
     {
       return 0;
     }

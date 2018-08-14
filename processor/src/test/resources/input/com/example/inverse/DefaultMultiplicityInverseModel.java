@@ -17,10 +17,10 @@ abstract class DefaultMultiplicityInverseModel
   static abstract class Element
   {
     @Reference( inverse = Feature.ENABLE )
-    abstract DefaultMultiplicityInverseModel getOther();
+    abstract DefaultMultiplicityInverseModel getDefaultMultiplicityInverseModel();
 
     @ReferenceId
-    int getOtherId()
+    int getDefaultMultiplicityInverseModelId()
     {
       return 0;
     }

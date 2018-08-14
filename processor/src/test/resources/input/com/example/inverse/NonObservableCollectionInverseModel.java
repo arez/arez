@@ -18,10 +18,10 @@ abstract class NonObservableCollectionInverseModel
   static abstract class Element
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
-    abstract NonObservableCollectionInverseModel getOther();
+    abstract NonObservableCollectionInverseModel getNonObservableCollectionInverseModel();
 
     @ReferenceId
-    int getOtherId()
+    int getNonObservableCollectionInverseModelId()
     {
       return 0;
     }

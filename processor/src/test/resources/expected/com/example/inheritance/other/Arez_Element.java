@@ -33,7 +33,7 @@ public final class Arez_Element extends Element implements Disposable, Identifia
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nullable
-  private CompleteModel $$arezr$$_other;
+  private CompleteModel $$arezr$$_completeModel;
 
   public Arez_Element() {
     super();
@@ -50,7 +50,7 @@ public final class Arez_Element extends Element implements Disposable, Identifia
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
-    this.$$arezi$$_link_other();
+    this.$$arezi$$_link_completeModel();
     if ( Arez.areNativeComponentsEnabled() ) {
       this.$$arezi$$_component.complete();
     }
@@ -94,7 +94,7 @@ public final class Arez_Element extends Element implements Disposable, Identifia
   }
 
   private void $$arezi$$_preDispose() {
-    this.$$arezi$$_delink_other();
+    this.$$arezi$$_delink_completeModel();
     $$arezi$$_disposeNotifier.dispose();
   }
 
@@ -133,41 +133,41 @@ public final class Arez_Element extends Element implements Disposable, Identifia
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( Element.class, $$arezi$$_id() ) );
-      this.$$arezr$$_other = null;
-      this.$$arezi$$_link_other();
+      this.$$arezr$$_completeModel = null;
+      this.$$arezi$$_link_completeModel();
     }
   }
 
   @Override
-  protected CompleteModel getOther() {
+  protected CompleteModel getCompleteModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getOther' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getCompleteModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Nonnull reference method named 'getOther' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_completeModel, () -> "Nonnull reference method named 'getCompleteModel' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getCompleteModelId() );
     }
-    return this.$$arezr$$_other;
+    return this.$$arezr$$_completeModel;
   }
 
-  private void $$arezi$$_link_other() {
+  private void $$arezi$$_link_completeModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_other' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_completeModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    final int id = this.getOtherId();
-    this.$$arezr$$_other = this.$$arezi$$_locator().findById( CompleteModel.class, id );
+    final int id = this.getCompleteModelId();
+    this.$$arezr$$_completeModel = this.$$arezi$$_locator().findById( CompleteModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference method named 'getOther' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_completeModel, () -> "Reference method named 'getCompleteModel' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getCompleteModelId() );
     }
-    ( (Arez_CompleteModel) this.$$arezr$$_other ).$$arezir$$_elements_add( this );
+    ( (Arez_CompleteModel) this.$$arezr$$_completeModel ).$$arezir$$_elements_add( this );
   }
 
-  private void $$arezi$$_delink_other() {
+  private void $$arezi$$_delink_completeModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_other' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_completeModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( null != $$arezr$$_other ) {
-      ( (Arez_CompleteModel) this.$$arezr$$_other ).$$arezir$$_elements_remove( this );
-      this.$$arezr$$_other = null;
+    if ( null != $$arezr$$_completeModel ) {
+      ( (Arez_CompleteModel) this.$$arezr$$_completeModel ).$$arezir$$_elements_remove( this );
+      this.$$arezr$$_completeModel = null;
     }
   }
 
