@@ -127,6 +127,13 @@ final class ReferenceDescriptor
   }
 
   @Nonnull
+  String getInverseName()
+  {
+    assert null != _inverseName;
+    return _inverseName;
+  }
+
+  @Nonnull
   Multiplicity getInverseMultiplicity()
   {
     assert null != _inverseMultiplicity;
