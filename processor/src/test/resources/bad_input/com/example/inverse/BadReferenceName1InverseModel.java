@@ -10,7 +10,7 @@ import java.util.Collection;
 @ArezComponent
 abstract class BadReferenceName1InverseModel
 {
-  @Inverse(referenceName = "-sxkw")
+  @Inverse( referenceName = "-sxkw" )
   abstract Collection<MyEntity> getMyEntity();
 
   @ArezComponent

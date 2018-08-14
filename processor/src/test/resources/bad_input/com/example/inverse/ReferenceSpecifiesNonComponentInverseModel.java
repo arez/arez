@@ -2,7 +2,6 @@ package com.example.inverse;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
-import arez.annotations.Multiplicity;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.Collection;
