@@ -6,11 +6,11 @@ import javax.annotation.Nonnull;
 final class RunProcedureReaction
   implements Reaction
 {
-  private final Procedure _action;
+  private final Procedure _executable;
 
-  RunProcedureReaction( @Nonnull final Procedure action )
+  RunProcedureReaction( @Nonnull final Procedure executable )
   {
-    _action = Objects.requireNonNull( action );
+    _executable = Objects.requireNonNull( executable );
   }
 
   /**
@@ -20,6 +20,6 @@ final class RunProcedureReaction
   public void react( @Nonnull final Observer observer )
     throws Throwable
   {
-    _action.call();
+    _executable.call();
   }
 }
