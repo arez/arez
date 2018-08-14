@@ -613,111 +613,111 @@ public final class ArezContext
   /**
    * Create a read-only autorun observer and run immediately.
    *
-   * @param action the action defining the observer.
+   * @param executable the executable defining the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nonnull final Procedure action )
+  public Observer autorun( @Nonnull final Procedure executable )
   {
-    return autorun( null, action );
+    return autorun( null, executable );
   }
 
   /**
    * Create a read-only autorun observer and run immediately.
    *
-   * @param name   the name of the observer.
-   * @param action the action defining the observer.
+   * @param name       the name of the observer.
+   * @param executable the executable defining the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final String name, @Nonnull final Procedure action )
+  public Observer autorun( @Nullable final String name, @Nonnull final Procedure executable )
   {
-    return autorun( name, false, action );
+    return autorun( name, false, executable );
   }
 
   /**
    * Create an autorun observer and run immediately.
    *
-   * @param mutation true if the action may modify state, false otherwise.
-   * @param action   the action defining the observer.
+   * @param mutation   true if the executable may modify state, false otherwise.
+   * @param executable the executable defining the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( final boolean mutation, @Nonnull final Procedure action )
+  public Observer autorun( final boolean mutation, @Nonnull final Procedure executable )
   {
-    return autorun( null, mutation, action );
+    return autorun( null, mutation, executable );
   }
 
   /**
    * Create an autorun observer and run immediately.
    *
-   * @param name     the name of the observer.
-   * @param mutation true if the action may modify state, false otherwise.
-   * @param action   the action defining the observer.
+   * @param name       the name of the observer.
+   * @param mutation   true if the executable may modify state, false otherwise.
+   * @param executable the executable defining the observer.
    * @return the new Observer.
    */
   @Nonnull
   public Observer autorun( @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure action )
+                           @Nonnull final Procedure executable )
   {
-    return autorun( name, mutation, action, true );
+    return autorun( name, mutation, executable, true );
   }
 
   /**
    * Create an autorun observer.
    *
    * @param name           the name of the observer.
-   * @param mutation       true if the action may modify state, false otherwise.
-   * @param action         the action defining the observer.
-   * @param runImmediately true to invoke action immediately, false to schedule reaction for next reaction cycle.
+   * @param mutation       true if the executable may modify state, false otherwise.
+   * @param executable     the executable defining the observer.
+   * @param runImmediately true to invoke executable immediately, false to schedule for next reaction cycle.
    * @return the new Observer.
    */
   @Nonnull
   public Observer autorun( @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure action,
+                           @Nonnull final Procedure executable,
                            final boolean runImmediately )
   {
-    return autorun( name, mutation, action, Priority.NORMAL, runImmediately );
+    return autorun( name, mutation, executable, Priority.NORMAL, runImmediately );
   }
 
   /**
    * Create an autorun observer.
    *
    * @param name           the name of the observer.
-   * @param mutation       true if the action may modify state, false otherwise.
-   * @param action         the action defining the observer.
+   * @param mutation       true if the executable may modify state, false otherwise.
+   * @param executable     the executable defining the observer.
    * @param priority       the priority of the observer.
-   * @param runImmediately true to invoke action immediately, false to schedule reaction for next reaction cycle.
+   * @param runImmediately true to invoke executable immediately, false to schedule for next reaction cycle.
    * @return the new Observer.
    */
   @Nonnull
   public Observer autorun( @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure action,
+                           @Nonnull final Procedure executable,
                            @Nonnull final Priority priority,
                            final boolean runImmediately )
   {
-    return autorun( null, name, mutation, action, priority, runImmediately );
+    return autorun( null, name, mutation, executable, priority, runImmediately );
   }
 
   /**
    * Create an autorun observer.
    *
-   * @param component the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name      the name of the observer.
-   * @param mutation  true if the action may modify state, false otherwise.
-   * @param action    the action defining the observer.
+   * @param component  the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name       the name of the observer.
+   * @param mutation   true if the executable may modify state, false otherwise.
+   * @param executable the executable defining the observer.
    * @return the new Observer.
    */
   @Nonnull
   public Observer autorun( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure action )
+                           @Nonnull final Procedure executable )
   {
-    return autorun( component, name, mutation, action, Priority.NORMAL, false );
+    return autorun( component, name, mutation, executable, Priority.NORMAL, false );
   }
 
   /**
@@ -725,21 +725,21 @@ public final class ArezContext
    *
    * @param component      the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name           the name of the observer.
-   * @param mutation       true if the action may modify state, false otherwise.
-   * @param action         the action defining the observer.
+   * @param mutation       true if the executable may modify state, false otherwise.
+   * @param executable     the executable defining the observer.
    * @param priority       the priority of the observer.
-   * @param runImmediately true to invoke action immediately, false to schedule reaction for next reaction cycle.
+   * @param runImmediately true to invoke executable immediately, false to schedule for next reaction cycle.
    * @return the new Observer.
    */
   @Nonnull
   public Observer autorun( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure action,
+                           @Nonnull final Procedure executable,
                            @Nonnull final Priority priority,
                            final boolean runImmediately )
   {
-    return autorun( component, name, mutation, action, priority, runImmediately, false );
+    return autorun( component, name, mutation, executable, priority, runImmediately, false );
   }
 
   /**
@@ -747,18 +747,18 @@ public final class ArezContext
    *
    * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name                             the name of the observer.
-   * @param mutation                         true if the action may modify state, false otherwise.
-   * @param action                           the action defining the observer.
+   * @param mutation                         true if the executable may modify state, false otherwise.
+   * @param executable                       the executable defining the observer.
    * @param priority                         the priority of the observer.
-   * @param runImmediately                   true to invoke action immediately, false to schedule reaction for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
+   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
+   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
    * @return the new Observer.
    */
   @Nonnull
   public Observer autorun( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure action,
+                           @Nonnull final Procedure executable,
                            @Nonnull final Priority priority,
                            final boolean runImmediately,
                            final boolean observeLowerPriorityDependencies )
@@ -766,7 +766,7 @@ public final class ArezContext
     return autorun( component,
                     name,
                     mutation,
-                    action,
+                    executable,
                     priority,
                     runImmediately,
                     observeLowerPriorityDependencies,
@@ -778,19 +778,19 @@ public final class ArezContext
    *
    * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name                             the name of the observer.
-   * @param mutation                         true if the action may modify state, false otherwise.
-   * @param action                           the action defining the observer.
+   * @param mutation                         true if the executable may modify state, false otherwise.
+   * @param executable                       the executable defining the observer.
    * @param priority                         the priority of the observer.
-   * @param runImmediately                   true to invoke action immediately, false to schedule reaction for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
-   * @param canNestActions                   true if the tracker can start actions from tracker action.
+   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
+   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
+   * @param canNestActions                   true if the observer can start actions from autorun.
    * @return the new Observer.
    */
   @Nonnull
   public Observer autorun( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure action,
+                           @Nonnull final Procedure executable,
                            @Nonnull final Priority priority,
                            final boolean runImmediately,
                            final boolean observeLowerPriorityDependencies,
@@ -799,7 +799,7 @@ public final class ArezContext
     return autorun( component,
                     name,
                     mutation,
-                    action,
+                    executable,
                     priority,
                     runImmediately,
                     observeLowerPriorityDependencies,
@@ -812,12 +812,12 @@ public final class ArezContext
    *
    * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name                             the name of the observer.
-   * @param mutation                         true if the action may modify state, false otherwise.
-   * @param action                           the action defining the observer.
+   * @param mutation                         true if the executable may modify state, false otherwise.
+   * @param executable                       the executable defining the observer.
    * @param priority                         the priority of the observer.
-   * @param runImmediately                   true to invoke action immediately, false to schedule reaction for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
-   * @param canNestActions                   true if the tracker can start actions from tracker action.
+   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
+   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
+   * @param canNestActions                   true if the observer can start actions from autorun.
    * @param onDispose                        the hook function invoked when the autroun is disposed, if any.
    * @return the new Observer.
    */
@@ -825,7 +825,7 @@ public final class ArezContext
   public Observer autorun( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure action,
+                           @Nonnull final Procedure executable,
                            @Nonnull final Priority priority,
                            final boolean runImmediately,
                            final boolean observeLowerPriorityDependencies,
@@ -836,7 +836,7 @@ public final class ArezContext
       observer( component,
                 name,
                 mutation,
-                new RunProcedureAsActionReaction( action ),
+                new RunProcedureAsActionReaction( executable ),
                 priority,
                 false,
                 observeLowerPriorityDependencies,

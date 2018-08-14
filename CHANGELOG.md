@@ -51,9 +51,9 @@
   `ArezContext.track(...)` methods to clearly articulate the the value is only used when generating spy events.
 * **\[core\]** Use consistent terminology within `ArezContext`. The `@FunctionalInterface` interfaces (i.e.
   `arez.Procedure`, `arez.SafeProcedure`, `arez.Function` and `arez.SafeFunction`) that are passed to the
-  `ArezContext.action(...)` and `ArezContext.track(...)` methods as parameters were previously named `action`
-  which is confusing given that there is a separate domain concept for `Action`. The parameters have been renamed
-  to `executable` within the javadocs to reduce the potential for confusion.
+  `ArezContext.action(...)`, `ArezContext.autorun(...)` and `ArezContext.track(...)` methods as parameters
+  were previously named `action` which is confusing given that there is a separate domain concept for `Action`.
+  The parameters have been renamed to `executable` within the javadocs to reduce the potential for confusion.
 * Remove the `arez-entity` module as no longer needed once `@Reference` and `@Inverse` infrastructure has been
   added to the library. This also involved merging the `integration-qa-support` module back into the
   `integration-tests` module.

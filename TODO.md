@@ -16,7 +16,6 @@ complete as there is too much un-said.
 
 * Rename the "action" parameters.
     - Tracker : trackerExecutable, schedulerExecutable
-    - Autorun : executable
 
 * Add support for `@OnDispose` for autorun observers.
 
