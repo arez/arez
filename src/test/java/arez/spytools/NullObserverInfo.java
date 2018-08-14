@@ -1,5 +1,6 @@
 package arez.spytools;
 
+import arez.Priority;
 import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
 import arez.spy.ObservableInfo;
@@ -29,6 +30,13 @@ final class NullObserverInfo
   public boolean isComputedValue()
   {
     return false;
+  }
+
+  @Nonnull
+  @Override
+  public Priority getPriority()
+  {
+    return Priority.NORMAL;
   }
 
   @Override
