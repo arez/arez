@@ -1532,6 +1532,14 @@ final class ComponentDescriptor
         .filter( Objects::nonNull )
         .findAny()
         .orElse( null );
+    if ( null == multiplicity )
+    {
+      throw new ArezProcessorException( "@Inverse target expected to find an associated @Reference annotation with " +
+                                        "a name parameter equal to '" + descriptor.getReferenceName() + "' on class " +
+                                        descriptor.getTargetType().getQualifiedName() + " but is unable to " +
+                                        "locate a matching method.", descriptor.getObservable().getGetter() );
+    }
+
     if ( descriptor.getMultiplicity() != multiplicity )
     {
       throw new ArezProcessorException( "@Inverse target has a multiplicity of " + descriptor.getMultiplicity() +

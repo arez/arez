@@ -737,6 +737,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inverse.ConcreteInverseModel", "@Inverse target must be abstract" },
         new Object[]{ "com.example.inverse.DuplicateInverseModel",
                       "@Inverse target defines duplicate inverse for name 'myEntity'. The other inverse is getMyEntity2()" },
+        new Object[]{ "com.example.inverse.MissingReference1InverseModel",
+                      "@Inverse target expected to find an associated @Reference annotation with a name parameter equal to 'missingReference1InverseModel' on class com.example.inverse.MissingReference1InverseModel.MyEntity but is unable to locate a matching method." },
         new Object[]{ "com.example.inverse.NoReturnInverseModel", "@Inverse target must return a value" },
         new Object[]{ "com.example.inverse.ParametersInverseModel", "@Inverse target must not have any parameters" },
         new Object[]{ "com.example.inverse.PrivateInverseModel", "@Inverse target must not be private" },
