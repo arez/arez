@@ -1479,7 +1479,7 @@ final class ComponentDescriptor
       final TypeMirror type = method.getReturnType();
 
       final Multiplicity multiplicity;
-      TypeElement targetType = getInverseManyTypeTarget( TypeName.get( method.getReturnType() ), method );
+      TypeElement targetType = getInverseManyTypeTarget( method );
       if ( null != targetType )
       {
         multiplicity = Multiplicity.MANY;
@@ -1549,9 +1549,9 @@ final class ComponentDescriptor
   }
 
   @Nullable
-  private TypeElement getInverseManyTypeTarget( @Nonnull final TypeName typeName,
-                                                @Nonnull final ExecutableElement method )
+  private TypeElement getInverseManyTypeTarget( @Nonnull final ExecutableElement method )
   {
+    final TypeName typeName = TypeName.get( method.getReturnType() );
     if ( typeName instanceof ParameterizedTypeName )
     {
       final ParameterizedTypeName type = (ParameterizedTypeName) typeName;
