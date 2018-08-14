@@ -1373,83 +1373,85 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied action in a read-write transaction.
+   * Execute the supplied executable in a read-write transaction.
    * The name is synthesized if {@link Arez#areNamesEnabled()} returns true.
-   * The action may throw an exception.
+   * The executable may throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param action     the action to execute.
-   * @return the value returned from the action.
-   * @throws Exception if the action throws an an exception.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
+   * @return the value returned from the executable.
+   * @throws Exception if the executable throws an an exception.
    */
-  public <T> T action( @Nonnull final Function<T> action, @Nonnull final Object... parameters )
+  public <T> T action( @Nonnull final Function<T> executable, @Nonnull final Object... parameters )
     throws Throwable
   {
-    return action( true, action, parameters );
+    return action( true, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a transaction.
+   * Execute the supplied executable in a transaction.
    * The name is synthesized if {@link Arez#areNamesEnabled()} returns true.
-   * The action may throw an exception.
+   * The executable may throw an exception.
    *
    * @param <T>        the type of return value.
    * @param mutation   true if the action may modify state, false otherwise.
-   * @param action     the action to execute.
+   * @param executable the function to execute.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the action.
-   * @throws Exception if the action throws an an exception.
+   * @return the value returned from the executable.
+   * @throws Exception if the executable throws an an exception.
    */
-  public <T> T action( final boolean mutation, @Nonnull final Function<T> action, @Nonnull final Object... parameters )
-    throws Throwable
-  {
-    return action( null, mutation, action, parameters );
-  }
-
-  /**
-   * Execute the supplied action in a transaction.
-   * The action may throw an exception.
-   *
-   * @param <T>        the type of return value.
-   * @param name       the name of the transaction.
-   * @param action     the action to execute.
-   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the action.
-   * @throws Exception if the action throws an an exception.
-   */
-  public <T> T action( @Nullable final String name,
-                       @Nonnull final Function<T> action,
+  public <T> T action( final boolean mutation,
+                       @Nonnull final Function<T> executable,
                        @Nonnull final Object... parameters )
     throws Throwable
   {
-    return action( name, true, action, parameters );
+    return action( null, mutation, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a transaction.
-   * The action may throw an exception.
+   * Execute the supplied executable in a transaction.
+   * The executable may throw an exception.
+   *
+   * @param <T>        the type of return value.
+   * @param name       the name of the transaction.
+   * @param executable the executable.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
+   * @return the value returned from the executable.
+   * @throws Exception if the executable throws an an exception.
+   */
+  public <T> T action( @Nullable final String name,
+                       @Nonnull final Function<T> executable,
+                       @Nonnull final Object... parameters )
+    throws Throwable
+  {
+    return action( name, true, executable, parameters );
+  }
+
+  /**
+   * Execute the supplied executable in a transaction.
+   * The executable may throw an exception.
    *
    * @param <T>        the type of return value.
    * @param name       the name of the transaction.
    * @param mutation   true if the action may modify state, false otherwise.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the action.
-   * @throws Exception if the action throws an an exception.
+   * @return the value returned from the executable.
+   * @throws Exception if the executable throws an an exception.
    */
   public <T> T action( @Nullable final String name,
                        final boolean mutation,
-                       @Nonnull final Function<T> action,
+                       @Nonnull final Function<T> executable,
                        @Nonnull final Object... parameters )
     throws Throwable
   {
-    return action( name, mutation, true, action, parameters );
+    return action( name, mutation, true, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a transaction.
-   * The action may throw an exception.
+   * Execute the supplied executable in a transaction.
+   * The executable may throw an exception.
    *
    * @param <T>                  the type of return value.
    * @param name                 the name of the transaction.
@@ -1457,24 +1459,24 @@ public final class ArezContext
    * @param verifyActionRequired true if the action will add invariant checks to ensure reads or writes occur within
    *                             the scope of the action. If no reads or writes occur, the action need not be an
    *                             action.
-   * @param action               the action to execute.
+   * @param executable           the executable.
    * @param parameters           the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the action.
-   * @throws Exception if the action throws an an exception.
+   * @return the value returned from the executable.
+   * @throws Exception if the executable throws an an exception.
    */
   public <T> T action( @Nullable final String name,
                        final boolean mutation,
                        final boolean verifyActionRequired,
-                       @Nonnull final Function<T> action,
+                       @Nonnull final Function<T> executable,
                        @Nonnull final Object... parameters )
     throws Throwable
   {
-    return action( name, mutation, verifyActionRequired, true, action, parameters );
+    return action( name, mutation, verifyActionRequired, true, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a transaction.
-   * The action may throw an exception.
+   * Execute the supplied executable in a transaction.
+   * The executable may throw an exception.
    *
    * @param <T>                   the type of return value.
    * @param name                  the name of the transaction.
@@ -1483,16 +1485,16 @@ public final class ArezContext
    *                              the scope of the action. If no reads or writes occur, the action need not be an
    *                              action.
    * @param requireNewTransaction true if a new transaction should be created, false if can use the current transaction.
-   * @param action                the action to execute.
+   * @param executable            the executable.
    * @param parameters            the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the action.
-   * @throws Exception if the action throws an an exception.
+   * @return the value returned from the executable.
+   * @throws Exception if the executable throws an an exception.
    */
   public <T> T action( @Nullable final String name,
                        final boolean mutation,
                        final boolean verifyActionRequired,
                        final boolean requireNewTransaction,
-                       @Nonnull final Function<T> action,
+                       @Nonnull final Function<T> executable,
                        @Nonnull final Object... parameters )
     throws Throwable
   {
@@ -1500,25 +1502,25 @@ public final class ArezContext
                    mutationToTransactionMode( mutation ),
                    verifyActionRequired,
                    requireNewTransaction,
-                   action,
+                   executable,
                    null,
                    parameters );
   }
 
   /**
-   * Execute the supplied action with the specified Observer as the tracker.
+   * Execute the supplied executable with the specified Observer as the tracker.
    * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
-   * The action may throw an exception.
+   * The executable may throw an exception.
    *
    * @param <T>        the type of return value.
    * @param tracker    the tracking Observer.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the action.
-   * @throws Exception if the action throws an an exception.
+   * @return the value returned from the executable.
+   * @throws Exception if the executable throws an an exception.
    */
   public <T> T track( @Nonnull final Observer tracker,
-                      @Nonnull final Function<T> action,
+                      @Nonnull final Function<T> executable,
                       @Nonnull final Object... parameters )
     throws Throwable
   {
@@ -1532,7 +1534,7 @@ public final class ArezContext
                    Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
                    false,
                    true,
-                   action,
+                   executable,
                    tracker,
                    parameters );
   }
@@ -1541,7 +1543,7 @@ public final class ArezContext
                         @Nullable final TransactionMode mode,
                         final boolean verifyActionRequired,
                         final boolean requireNewTransaction,
-                        @Nonnull final Function<T> action,
+                        @Nonnull final Function<T> executable,
                         @Nullable final Observer tracker,
                         @Nonnull final Object... parameters )
     throws Throwable
@@ -1562,7 +1564,7 @@ public final class ArezContext
       verifyActionNestingAllowed( name, mode );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
-        result = action.call();
+        result = executable.call();
       }
       else
       {
@@ -1570,7 +1572,7 @@ public final class ArezContext
           Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
         try
         {
-          result = action.call();
+          result = executable.call();
           verifyActionRequired( transaction, name, verifyActionRequired );
         }
         finally
@@ -1608,75 +1610,75 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied action in a read-write transaction.
-   * The action is expected to not throw an exception.
+   * Execute the supplied executable in a read-write transaction.
+   * The executable is should not throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the action.
+   * @return the value returned from the executable.
    */
-  public <T> T safeAction( @Nonnull final SafeFunction<T> action, @Nonnull final Object... parameters )
+  public <T> T safeAction( @Nonnull final SafeFunction<T> executable, @Nonnull final Object... parameters )
   {
-    return safeAction( true, action, parameters );
+    return safeAction( true, executable, parameters );
   }
 
   /**
    * Execute the supplied function in a transaction.
-   * The action is expected to not throw an exception.
+   * The executable is should not throw an exception.
    *
    * @param <T>        the type of return value.
    * @param mutation   true if the action may modify state, false otherwise.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the action.
+   * @return the value returned from the executable.
    */
   public <T> T safeAction( final boolean mutation,
-                           @Nonnull final SafeFunction<T> action,
+                           @Nonnull final SafeFunction<T> executable,
                            @Nonnull final Object... parameters )
   {
-    return safeAction( null, mutation, action, parameters );
+    return safeAction( null, mutation, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a read-write transaction.
-   * The action is expected to not throw an exception.
+   * Execute the supplied executable in a read-write transaction.
+   * The executable is should not throw an exception.
    *
    * @param <T>        the type of return value.
    * @param name       the name of the transaction.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the action.
+   * @return the value returned from the executable.
    */
   public <T> T safeAction( @Nullable final String name,
-                           @Nonnull final SafeFunction<T> action,
+                           @Nonnull final SafeFunction<T> executable,
                            @Nonnull final Object... parameters )
   {
-    return safeAction( name, true, action, parameters );
+    return safeAction( name, true, executable, parameters );
   }
 
   /**
-   * Execute the supplied action.
-   * The action is expected to not throw an exception.
+   * Execute the supplied executable.
+   * The executable is should not throw an exception.
    *
    * @param <T>        the type of return value.
    * @param name       the name of the transaction.
    * @param mutation   true if the action may modify state, false otherwise.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the action.
+   * @return the value returned from the executable.
    */
   public <T> T safeAction( @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final SafeFunction<T> action,
+                           @Nonnull final SafeFunction<T> executable,
                            @Nonnull final Object... parameters )
   {
-    return safeAction( name, mutation, true, action, parameters );
+    return safeAction( name, mutation, true, executable, parameters );
   }
 
   /**
-   * Execute the supplied action.
-   * The action is expected to not throw an exception.
+   * Execute the supplied executable.
+   * The executable is should not throw an exception.
    *
    * @param <T>                  the type of return value.
    * @param name                 the name of the transaction.
@@ -1684,22 +1686,22 @@ public final class ArezContext
    * @param verifyActionRequired true if the action will add invariant checks to ensure reads or writes occur within
    *                             the scope of the action. If no reads or writes occur, the action need not be an
    *                             action.
-   * @param action               the action to execute.
+   * @param executable           the executable.
    * @param parameters           the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the action.
+   * @return the value returned from the executable.
    */
   public <T> T safeAction( @Nullable final String name,
                            final boolean mutation,
                            final boolean verifyActionRequired,
-                           @Nonnull final SafeFunction<T> action,
+                           @Nonnull final SafeFunction<T> executable,
                            @Nonnull final Object... parameters )
   {
-    return safeAction( name, mutation, verifyActionRequired, true, action, parameters );
+    return safeAction( name, mutation, verifyActionRequired, true, executable, parameters );
   }
 
   /**
-   * Execute the supplied action.
-   * The action is expected to not throw an exception.
+   * Execute the supplied executable.
+   * The executable is should not throw an exception.
    *
    * @param <T>                   the type of return value.
    * @param name                  the name of the transaction.
@@ -1708,39 +1710,39 @@ public final class ArezContext
    *                              the scope of the action. If no reads or writes occur, the action need not be an
    *                              action.
    * @param requireNewTransaction true if a new transaction should be created, false if can use the current transaction.
-   * @param action                the action to execute.
+   * @param executable            the executable.
    * @param parameters            the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the action.
+   * @return the value returned from the executable.
    */
   public <T> T safeAction( @Nullable final String name,
                            final boolean mutation,
                            final boolean verifyActionRequired,
                            final boolean requireNewTransaction,
-                           @Nonnull final SafeFunction<T> action,
+                           @Nonnull final SafeFunction<T> executable,
                            @Nonnull final Object... parameters )
   {
     return safeAction( generateNodeName( "Transaction", name ),
                        mutationToTransactionMode( mutation ),
                        verifyActionRequired,
                        requireNewTransaction,
-                       action,
+                       executable,
                        null,
                        parameters );
   }
 
   /**
-   * Execute the supplied action with the specified Observer as the tracker.
+   * Execute the supplied executable with the specified Observer as the tracker.
    * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
-   * The action is expected to not throw an exception.
+   * The executable is should not throw an exception.
    *
    * @param <T>        the type of return value.
    * @param tracker    the tracking Observer.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the action.
+   * @return the value returned from the executable.
    */
   public <T> T safeTrack( @Nonnull final Observer tracker,
-                          @Nonnull final SafeFunction<T> action,
+                          @Nonnull final SafeFunction<T> executable,
                           @Nonnull final Object... parameters )
   {
     if ( Arez.shouldCheckApiInvariants() )
@@ -1753,7 +1755,7 @@ public final class ArezContext
                        Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
                        false,
                        true,
-                       action,
+                       executable,
                        tracker,
                        parameters );
   }
@@ -1762,7 +1764,7 @@ public final class ArezContext
                             @Nullable final TransactionMode mode,
                             final boolean verifyActionRequired,
                             final boolean requireNewTransaction,
-                            @Nonnull final SafeFunction<T> action,
+                            @Nonnull final SafeFunction<T> executable,
                             @Nullable final Observer tracker,
                             @Nonnull final Object... parameters )
   {
@@ -1782,7 +1784,7 @@ public final class ArezContext
       verifyActionNestingAllowed( name, mode );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
-        result = action.call();
+        result = executable.call();
       }
       else
       {
@@ -1790,7 +1792,7 @@ public final class ArezContext
           Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
         try
         {
-          result = action.call();
+          result = executable.call();
           verifyActionRequired( transaction, name, verifyActionRequired );
         }
         finally
@@ -1828,96 +1830,96 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied action in a read-write transaction.
+   * Execute the supplied executable in a read-write transaction.
    * The procedure may throw an exception.
    *
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
-  public void action( @Nonnull final Procedure action, @Nonnull final Object... parameters )
+  public void action( @Nonnull final Procedure executable, @Nonnull final Object... parameters )
     throws Throwable
   {
-    action( true, action, parameters );
+    action( true, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a transaction.
-   * The action may throw an exception.
+   * Execute the supplied executable in a transaction.
+   * The executable may throw an exception.
    *
    * @param mutation   true if the action may modify state, false otherwise.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
-  public void action( final boolean mutation, @Nonnull final Procedure action, @Nonnull final Object... parameters )
+  public void action( final boolean mutation, @Nonnull final Procedure executable, @Nonnull final Object... parameters )
     throws Throwable
   {
-    action( null, mutation, action, parameters );
+    action( null, mutation, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a read-write transaction.
-   * The action may throw an exception.
+   * Execute the supplied executable in a read-write transaction.
+   * The executable may throw an exception.
    *
    * @param name       the name of the transaction.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
   public void action( @Nullable final String name,
-                      @Nonnull final Procedure action,
+                      @Nonnull final Procedure executable,
                       @Nonnull final Object... parameters )
     throws Throwable
   {
-    action( name, true, action, true, parameters );
+    action( name, true, executable, true, parameters );
   }
 
   /**
-   * Execute the supplied action in a transaction.
-   * The action may throw an exception.
+   * Execute the supplied executable in a transaction.
+   * The executable may throw an exception.
    *
    * @param name       the name of the transaction.
    * @param mutation   true if the action may modify state, false otherwise.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
   public void action( @Nullable final String name,
                       final boolean mutation,
-                      @Nonnull final Procedure action,
+                      @Nonnull final Procedure executable,
                       @Nonnull final Object... parameters )
     throws Throwable
   {
-    action( name, mutation, true, action, parameters );
+    action( name, mutation, true, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a transaction.
-   * The action may throw an exception.
+   * Execute the supplied executable in a transaction.
+   * The executable may throw an exception.
    *
    * @param name                 the name of the transaction.
    * @param mutation             true if the action may modify state, false otherwise.
    * @param verifyActionRequired true if the action will add invariant checks to ensure reads or writes occur within
    *                             the scope of the action. If no reads or writes occur, the action need not be an
    *                             action.
-   * @param action               the action to execute.
+   * @param executable           the executable.
    * @param parameters           the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
   public void action( @Nullable final String name,
                       final boolean mutation,
                       final boolean verifyActionRequired,
-                      @Nonnull final Procedure action,
+                      @Nonnull final Procedure executable,
                       @Nonnull final Object... parameters )
     throws Throwable
   {
-    action( name, mutation, verifyActionRequired, true, action, parameters );
+    action( name, mutation, verifyActionRequired, true, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a transaction.
-   * The action may throw an exception.
+   * Execute the supplied executable in a transaction.
+   * The executable may throw an exception.
    *
    * @param name                  the name of the transaction.
    * @param mutation              true if the action may modify state, false otherwise.
@@ -1925,7 +1927,7 @@ public final class ArezContext
    *                              the scope of the action. If no reads or writes occur, the action need not be an
    *                              action.
    * @param requireNewTransaction true if a new transaction should be created, false if can use the current transaction.
-   * @param action                the action to execute.
+   * @param executable            the executable.
    * @param parameters            the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
@@ -1933,7 +1935,7 @@ public final class ArezContext
                       final boolean mutation,
                       final boolean verifyActionRequired,
                       final boolean requireNewTransaction,
-                      @Nonnull final Procedure action,
+                      @Nonnull final Procedure executable,
                       @Nonnull final Object... parameters )
     throws Throwable
   {
@@ -1941,24 +1943,24 @@ public final class ArezContext
             mutationToTransactionMode( mutation ),
             verifyActionRequired,
             requireNewTransaction,
-            action,
+            executable,
             true,
             null,
             parameters );
   }
 
   /**
-   * Execute the supplied action with the specified Observer as the tracker.
+   * Execute the supplied executable with the specified Observer as the tracker.
    * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
-   * The action may throw an exception.
+   * The executable may throw an exception.
    *
    * @param tracker    the tracking Observer.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
   public void track( @Nonnull final Observer tracker,
-                     @Nonnull final Procedure action,
+                     @Nonnull final Procedure executable,
                      @Nonnull final Object... parameters )
     throws Throwable
   {
@@ -1972,7 +1974,7 @@ public final class ArezContext
             Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
             false,
             true,
-            action,
+            executable,
             true,
             tracker,
             parameters );
@@ -1988,7 +1990,7 @@ public final class ArezContext
                @Nullable final TransactionMode mode,
                final boolean verifyActionRequired,
                final boolean requireNewTransaction,
-               @Nonnull final Procedure action,
+               @Nonnull final Procedure executable,
                final boolean reportAction,
                @Nullable final Observer tracker,
                @Nonnull final Object... parameters )
@@ -2009,7 +2011,7 @@ public final class ArezContext
       verifyActionNestingAllowed( name, mode );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
-        action.call();
+        executable.call();
       }
       else
       {
@@ -2017,7 +2019,7 @@ public final class ArezContext
           Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
         try
         {
-          action.call();
+          executable.call();
           verifyActionRequired( transaction, name, verifyActionRequired );
         }
         finally
@@ -2054,88 +2056,88 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied action in a read-write transaction.
-   * The action is expected to not throw an exception.
+   * Execute the supplied executable in a read-write transaction.
+   * The executable is should not throw an exception.
    *
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
-  public void safeAction( @Nonnull final SafeProcedure action, @Nonnull final Object... parameters )
+  public void safeAction( @Nonnull final SafeProcedure executable, @Nonnull final Object... parameters )
   {
-    safeAction( true, action, parameters );
+    safeAction( true, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a transaction.
-   * The action is expected to not throw an exception.
+   * Execute the supplied executable in a transaction.
+   * The executable is should not throw an exception.
    *
    * @param mutation   true if the action may modify state, false otherwise.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeAction( final boolean mutation,
-                          @Nonnull final SafeProcedure action,
+                          @Nonnull final SafeProcedure executable,
                           @Nonnull final Object... parameters )
   {
-    safeAction( null, mutation, action, parameters );
+    safeAction( null, mutation, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a read-write transaction.
-   * The action is expected to not throw an exception.
+   * Execute the supplied executable in a read-write transaction.
+   * The executable is should not throw an exception.
    *
    * @param name       the name of the transaction.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeAction( @Nullable final String name,
-                          @Nonnull final SafeProcedure action,
+                          @Nonnull final SafeProcedure executable,
                           @Nonnull final Object... parameters )
   {
-    safeAction( name, true, action, parameters );
+    safeAction( name, true, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a transaction.
-   * The action is expected to not throw an exception.
+   * Execute the supplied executable in a transaction.
+   * The executable is should not throw an exception.
    *
    * @param name       the name of the transaction.
    * @param mutation   true if the action may modify state, false otherwise.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeAction( @Nullable final String name,
                           final boolean mutation,
-                          @Nonnull final SafeProcedure action,
+                          @Nonnull final SafeProcedure executable,
                           @Nonnull final Object... parameters )
   {
-    safeAction( name, mutation, true, action, parameters );
+    safeAction( name, mutation, true, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a transaction.
-   * The action is expected to not throw an exception.
+   * Execute the supplied executable in a transaction.
+   * The executable is should not throw an exception.
    *
    * @param name                 the name of the transaction.
    * @param mutation             true if the action may modify state, false otherwise.
    * @param verifyActionRequired true if the action will add invariant checks to ensure reads or writes occur within
    *                             the scope of the action. If no reads or writes occur, the action need not be an
    *                             action.
-   * @param action               the action to execute.
+   * @param executable           the executable.
    * @param parameters           the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeAction( @Nullable final String name,
                           final boolean mutation,
                           final boolean verifyActionRequired,
-                          @Nonnull final SafeProcedure action,
+                          @Nonnull final SafeProcedure executable,
                           @Nonnull final Object... parameters )
   {
-    safeAction( name, mutation, verifyActionRequired, true, action, parameters );
+    safeAction( name, mutation, verifyActionRequired, true, executable, parameters );
   }
 
   /**
-   * Execute the supplied action in a transaction.
-   * The action is expected to not throw an exception.
+   * Execute the supplied executable in a transaction.
+   * The executable is should not throw an exception.
    *
    * @param name                  the name of the transaction.
    * @param mutation              true if the action may modify state, false otherwise.
@@ -2143,36 +2145,36 @@ public final class ArezContext
    *                              the scope of the action. If no reads or writes occur, the action need not be an
    *                              action.
    * @param requireNewTransaction true if a new transaction should be created, false if can use the current transaction.
-   * @param action                the action to execute.
+   * @param executable            the executable.
    * @param parameters            the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeAction( @Nullable final String name,
                           final boolean mutation,
                           final boolean verifyActionRequired,
                           final boolean requireNewTransaction,
-                          @Nonnull final SafeProcedure action,
+                          @Nonnull final SafeProcedure executable,
                           @Nonnull final Object... parameters )
   {
     safeAction( generateNodeName( "Transaction", name ),
                 mutationToTransactionMode( mutation ),
                 verifyActionRequired,
                 requireNewTransaction,
-                action,
+                executable,
                 null,
                 parameters );
   }
 
   /**
-   * Execute the supplied action with the specified Observer as the tracker.
+   * Execute the supplied executable with the specified Observer as the tracker.
    * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
-   * The action is expected to not throw an exception.
+   * The executable is should not throw an exception.
    *
    * @param tracker    the tracking Observer.
-   * @param action     the action to execute.
+   * @param executable the executable.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeTrack( @Nonnull final Observer tracker,
-                         @Nonnull final SafeProcedure action,
+                         @Nonnull final SafeProcedure executable,
                          @Nonnull final Object... parameters )
   {
     if ( Arez.shouldCheckApiInvariants() )
@@ -2185,7 +2187,7 @@ public final class ArezContext
                 Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
                 false,
                 true,
-                action,
+                executable,
                 tracker,
                 parameters );
   }
@@ -2194,7 +2196,7 @@ public final class ArezContext
                    @Nullable final TransactionMode mode,
                    final boolean verifyActionRequired,
                    final boolean requireNewTransaction,
-                   @Nonnull final SafeProcedure action,
+                   @Nonnull final SafeProcedure executable,
                    @Nullable final Observer tracker,
                    @Nonnull final Object... parameters )
   {
@@ -2213,7 +2215,7 @@ public final class ArezContext
       verifyActionNestingAllowed( name, mode );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
-        action.call();
+        executable.call();
       }
       else
       {
@@ -2221,7 +2223,7 @@ public final class ArezContext
           Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
         try
         {
-          action.call();
+          executable.call();
           verifyActionRequired( transaction, name, verifyActionRequired );
         }
         finally
@@ -2289,19 +2291,19 @@ public final class ArezContext
    * Execute the specified action outside of a transaction.
    * The transaction is suspended for the duration of the action and the action must not
    * attempt to create a nested transaction.
-   * The action may throw an exception.
+   * The executable may throw an exception.
    *
-   * @param action the action to execute.
+   * @param executable the executable.
    * @throws Throwable if the action throws an an exception.
    */
-  public void noTxAction( @Nonnull final Procedure action )
+  public void noTxAction( @Nonnull final Procedure executable )
     throws Throwable
   {
     final Transaction current = Transaction.current();
     Transaction.suspend( current );
     try
     {
-      action.call();
+      executable.call();
     }
     finally
     {
@@ -2313,21 +2315,21 @@ public final class ArezContext
    * Execute the specified action outside of a transaction.
    * The transaction is suspended for the duration of the action and the action must not
    * attempt to create a nested transaction.
-   * The action may throw an exception.
+   * The executable may throw an exception.
    *
-   * @param <T>    the type of return value.
-   * @param action the action to execute.
-   * @return the value returned from the action.
+   * @param <T>        the type of return value.
+   * @param executable the executable.
+   * @return the value returned from the executable.
    * @throws Throwable if the action throws an an exception.
    */
-  public <T> T noTxAction( @Nonnull final Function<T> action )
+  public <T> T noTxAction( @Nonnull final Function<T> executable )
     throws Throwable
   {
     final Transaction current = Transaction.current();
     Transaction.suspend( current );
     try
     {
-      return action.call();
+      return executable.call();
     }
     finally
     {
@@ -2340,15 +2342,15 @@ public final class ArezContext
    * The transaction is suspended for the duration of the action and the action must not
    * attempt to create a nested transaction.
    *
-   * @param action the action to execute.
+   * @param executable the executable.
    */
-  public void safeNoTxAction( @Nonnull final SafeProcedure action )
+  public void safeNoTxAction( @Nonnull final SafeProcedure executable )
   {
     final Transaction current = Transaction.current();
     Transaction.suspend( current );
     try
     {
-      action.call();
+      executable.call();
     }
     finally
     {
@@ -2361,17 +2363,17 @@ public final class ArezContext
    * The transaction is suspended for the duration of the action and the action must not
    * attempt to create a nested transaction.
    *
-   * @param <T>    the type of return value.
-   * @param action the action to execute.
-   * @return the value returned from the action.
+   * @param <T>        the type of return value.
+   * @param executable the executable.
+   * @return the value returned from the executable.
    */
-  public <T> T safeNoTxAction( @Nonnull final SafeFunction<T> action )
+  public <T> T safeNoTxAction( @Nonnull final SafeFunction<T> executable )
   {
     final Transaction current = Transaction.current();
     Transaction.suspend( current );
     try
     {
-      return action.call();
+      return executable.call();
     }
     finally
     {

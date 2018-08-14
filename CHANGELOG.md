@@ -49,6 +49,11 @@
   javadocs and website documentation.
 * **\[core\]** Update the javadocs for the `parameters` parameter passed to the `ArezContext.action(...)` and
   `ArezContext.track(...)` methods to clearly articulate the the value is only used when generating spy events.
+* **\[core\]** Use consistent terminology within `ArezContext`. The `@FunctionalInterface` interfaces (i.e.
+  `arez.Procedure`, `arez.SafeProcedure`, `arez.Function` and `arez.SafeFunction`) that are passed to the
+  `ArezContext.action(...)` and `ArezContext.track(...)` methods as parameters were previously named `action`
+  which is confusing given that there is a separate domain concept for `Action`. The parameters have been renamed
+  to `executable` within the javadocs to reduce the potential for confusion.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)
