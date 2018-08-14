@@ -70,7 +70,7 @@ public class VerifyIntegrationTest
                      "Method named 'verify' invoked on disposed component named 'Model1.0'" );
   }
 
-  @ArezComponent( allowEmpty = true )
+  @ArezComponent
   static abstract class Model1
   {
     @Nonnull

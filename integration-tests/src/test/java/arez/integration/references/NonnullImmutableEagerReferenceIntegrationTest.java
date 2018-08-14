@@ -53,7 +53,7 @@ public class NonnullImmutableEagerReferenceIntegrationTest
     assertInvariant( model1::getModel2, "Method named 'getModel2' invoked on disposed component named 'Model1.0'" );
   }
 
-  @ArezComponent( allowEmpty = true )
+  @ArezComponent
   static abstract class Model1
   {
     @Nonnull

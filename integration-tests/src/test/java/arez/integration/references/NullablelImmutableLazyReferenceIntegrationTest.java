@@ -63,7 +63,7 @@ public class NullablelImmutableLazyReferenceIntegrationTest
     assertEquals( findCallCount.get(), 0 );
   }
 
-  @ArezComponent( allowEmpty = true )
+  @ArezComponent
   static abstract class Model1
   {
     @Nullable
