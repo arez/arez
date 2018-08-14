@@ -3,6 +3,7 @@ package arez.integration.references;
 import arez.Arez;
 import arez.Disposable;
 import arez.Observer;
+import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.LinkType;
 import arez.annotations.Observable;
@@ -110,14 +111,17 @@ public class NonnullObservableLazyReferenceIntegrationTest
 
     void setModel2Id( @Nonnull Object model2Id )
     {
-
       _model2Id = model2Id;
     }
   }
 
   @Repository
-  @ArezComponent( allowEmpty = true )
+  @ArezComponent
   static abstract class Model2
   {
+    @Action
+    void doStuff()
+    {
+    }
   }
 }

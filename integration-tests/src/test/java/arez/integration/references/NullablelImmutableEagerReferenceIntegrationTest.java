@@ -2,6 +2,7 @@ package arez.integration.references;
 
 import arez.Arez;
 import arez.Disposable;
+import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
@@ -12,7 +13,6 @@ import arez.integration.AbstractArezIntegrationTest;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -91,8 +91,12 @@ public class NullablelImmutableEagerReferenceIntegrationTest
   }
 
   @Repository
-  @ArezComponent( allowEmpty = true )
+  @ArezComponent
   static abstract class Model2
   {
+    @Action
+    void doStuff()
+    {
+    }
   }
 }

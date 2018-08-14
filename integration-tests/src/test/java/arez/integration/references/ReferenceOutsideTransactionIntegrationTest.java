@@ -1,8 +1,8 @@
 package arez.integration.references;
 
 import arez.Arez;
-import arez.Disposable;
 import arez.Observer;
+import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
@@ -107,8 +107,12 @@ public class ReferenceOutsideTransactionIntegrationTest
   }
 
   @Repository
-  @ArezComponent( allowEmpty = true )
+  @ArezComponent
   static abstract class Model2
   {
+    @Action
+    void doStuff()
+    {
+    }
   }
 }
