@@ -14,9 +14,6 @@ complete as there is too much un-said.
 * Add lots of integration tests for references. Including making sure that inverse relationships managed
   during dispose, creation etc. Make sure it is tested the differences between lazy back-refs etc.
 
-* Rename the "action" parameters.
-    - Tracker : trackerExecutable, schedulerExecutable
-
 * Add support for `@OnDispose` for autorun observers.
 
 * Bug Fix up `@Dependency` so that it appears on same method as `@Observable` it works.

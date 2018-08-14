@@ -855,136 +855,136 @@ public final class ArezContext
 
   /**
    * Create a "tracker" observer that tracks code using a read-only transaction.
-   * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
+   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
    *
-   * @param action the action invoked as the reaction.
+   * @param executable the executable invoked as the reaction.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer tracker( @Nonnull final Procedure action )
+  public Observer tracker( @Nonnull final Procedure executable )
   {
-    return tracker( false, action );
+    return tracker( false, executable );
   }
 
   /**
    * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
+   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
    *
-   * @param mutation true if the observer may modify state during tracking, false otherwise.
-   * @param action   the action invoked as the reaction.
+   * @param mutation   true if the observer may modify state during tracking, false otherwise.
+   * @param executable the executable invoked as the reaction.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer tracker( final boolean mutation, @Nonnull final Procedure action )
+  public Observer tracker( final boolean mutation, @Nonnull final Procedure executable )
   {
-    return tracker( null, mutation, action );
+    return tracker( null, mutation, executable );
   }
 
   /**
    * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
+   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
    *
-   * @param name     the name of the observer.
-   * @param mutation true if the observer may modify state during tracking, false otherwise.
-   * @param action   the action invoked as the reaction.
+   * @param name       the name of the observer.
+   * @param mutation   true if the observer may modify state during tracking, false otherwise.
+   * @param executable the executable invoked as the reaction.
    * @return the new Observer.
    */
   @Nonnull
   public Observer tracker( @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure action )
+                           @Nonnull final Procedure executable )
   {
-    return tracker( null, name, mutation, action );
+    return tracker( null, name, mutation, executable );
   }
 
   /**
    * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
+   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
    *
-   * @param component the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name      the name of the observer.
-   * @param mutation  true if the observer may modify state during tracking, false otherwise.
-   * @param action    the action invoked as the reaction.
+   * @param component  the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name       the name of the observer.
+   * @param mutation   true if the observer may modify state during tracking, false otherwise.
+   * @param executable the executable invoked as the reaction.
    * @return the new Observer.
    */
   @Nonnull
   public Observer tracker( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure action )
+                           @Nonnull final Procedure executable )
   {
-    return tracker( component, name, mutation, action, Priority.NORMAL );
+    return tracker( component, name, mutation, executable, Priority.NORMAL );
   }
 
   /**
    * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
+   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
    *
-   * @param component the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name      the name of the observer.
-   * @param mutation  true if the observer may modify state during tracking, false otherwise.
-   * @param priority  the priority of the observer.
-   * @param action    the action invoked as the reaction.
+   * @param component  the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name       the name of the observer.
+   * @param mutation   true if the observer may modify state during tracking, false otherwise.
+   * @param priority   the priority of the observer.
+   * @param executable the executable invoked as the reaction.
    * @return the new Observer.
    */
   @Nonnull
   public Observer tracker( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure action,
+                           @Nonnull final Procedure executable,
                            @Nonnull final Priority priority )
   {
-    return tracker( component, name, mutation, action, priority, false );
+    return tracker( component, name, mutation, executable, priority, false );
   }
 
   /**
    * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
+   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
    *
    * @param component                        the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name                             the name of the observer.
    * @param mutation                         true if the observer may modify state during tracking, false otherwise.
    * @param priority                         the priority of the observer.
-   * @param action                           the action invoked as the reaction.
-   * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
+   * @param executable                       the executable invoked as the reaction.
+   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
    * @return the new Observer.
    */
   @Nonnull
   public Observer tracker( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure action,
+                           @Nonnull final Procedure executable,
                            @Nonnull final Priority priority,
                            final boolean observeLowerPriorityDependencies )
   {
-    return tracker( component, name, mutation, action, priority, observeLowerPriorityDependencies, false );
+    return tracker( component, name, mutation, executable, priority, observeLowerPriorityDependencies, false );
   }
 
   /**
    * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified action any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an action method like {@link #track(Observer, Function, Object...)}.
+   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
    *
    * @param component                        the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name                             the name of the observer.
    * @param mutation                         true if the observer may modify state during tracking, false otherwise.
    * @param priority                         the priority of the observer.
-   * @param action                           the action invoked as the reaction.
-   * @param observeLowerPriorityDependencies true if the tracker can observe lower priority dependencies.
-   * @param canNestActions                   true if the tracker can start actions from tracker action.
+   * @param executable                       the executable invoked as the reaction.
+   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
+   * @param canNestActions                   true if the observer can start actions from tracker action.
    * @return the new Observer.
    */
   @Nonnull
   public Observer tracker( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure action,
+                           @Nonnull final Procedure executable,
                            @Nonnull final Priority priority,
                            final boolean observeLowerPriorityDependencies,
                            final boolean canNestActions )
@@ -992,7 +992,7 @@ public final class ArezContext
     return observer( component,
                      name,
                      mutation,
-                     new RunProcedureReaction( action ),
+                     new RunProcedureReaction( executable ),
                      priority,
                      true,
                      observeLowerPriorityDependencies,
