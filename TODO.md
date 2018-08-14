@@ -84,6 +84,8 @@ complete as there is too much un-said.
 
 * Performance testing and writeup?
 
+* Add Disposable to doco - i.e. explain how can dispose both components and reactive elments
+
 * Add graph reflecting size of TodoMVC over time
 
 * Enhance runtime so we link to website documentation for each numbered error. i.e. Arez-0022 could be linked
