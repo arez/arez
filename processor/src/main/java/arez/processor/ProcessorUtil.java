@@ -314,7 +314,7 @@ final class ProcessorUtil
       if ( matcher.find() )
       {
         final String candidate = matcher.group( 1 );
-        return Character.toLowerCase( candidate.charAt( 0 ) ) + candidate.substring( 1 );
+        return firstCharacterToLowerCase( candidate );
       }
       else
       {
@@ -325,6 +325,12 @@ final class ProcessorUtil
     {
       return name;
     }
+  }
+
+  @Nonnull
+  static String firstCharacterToLowerCase( @Nonnull final String name )
+  {
+    return Character.toLowerCase( name.charAt( 0 ) ) + name.substring( 1 );
   }
 
   static boolean isSentinelName( @Nonnull final String name )

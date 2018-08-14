@@ -47,7 +47,7 @@ final class InverseDescriptor
     _targetType = Objects.requireNonNull( targetType );
     _observable.setInverseDescriptor( this );
     final String targetName = _targetType.getSimpleName().toString();
-    _otherName = Character.toLowerCase( targetName.charAt( 0 ) ) + targetName.substring( 1 );
+    _otherName = ProcessorUtil.firstCharacterToLowerCase( targetName );
   }
 
   @Nonnull

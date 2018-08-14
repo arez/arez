@@ -1670,9 +1670,7 @@ final class ComponentDescriptor
     if ( ProcessorUtil.isSentinelName( declaredName ) )
     {
       final String baseName = getElement().getSimpleName().toString();
-      return Character.toLowerCase( baseName.charAt( 0 ) ) +
-             baseName.substring( 1 ) +
-             ( Multiplicity.MANY == multiplicity ? "s" : "" );
+      return ProcessorUtil.firstCharacterToLowerCase( baseName ) + ( Multiplicity.MANY == multiplicity ? "s" : "" );
     }
     else
     {
