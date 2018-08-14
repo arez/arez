@@ -9,18 +9,6 @@ complete as there is too much un-said.
 * Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
   if change so that glue code is correctly regenerated without forcing rebuild from tool.
 
-* Add @Inverse ala
-
-```
-Crew
-  @Inverse( name = "positions", referenceName = "crew" )
-  Collection<Position> getPositions();
-
-Position
-  @Reference( inverse = AUTODETECT, inverseName = "positions", inverseMultiplicity = MANY )
-  Crew getCrew();
-```
-
 * Add lots of integration tests for references. Including making sure that inverse relationships managed
   during dispose, creation etc. Make sure it is tested the differences between lazy back-refs etc.
 
