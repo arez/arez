@@ -1379,9 +1379,9 @@ public final class ArezContext
    *
    * @param <T>        the type of return value.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
   public <T> T action( @Nonnull final Function<T> action, @Nonnull final Object... parameters )
     throws Throwable
@@ -1397,7 +1397,7 @@ public final class ArezContext
    * @param <T>        the type of return value.
    * @param mutation   true if the action may modify state, false otherwise.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
@@ -1414,7 +1414,7 @@ public final class ArezContext
    * @param <T>        the type of return value.
    * @param name       the name of the transaction.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
@@ -1434,7 +1434,7 @@ public final class ArezContext
    * @param name       the name of the transaction.
    * @param mutation   true if the action may modify state, false otherwise.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
@@ -1458,7 +1458,7 @@ public final class ArezContext
    *                             the scope of the action. If no reads or writes occur, the action need not be an
    *                             action.
    * @param action               the action to execute.
-   * @param parameters           the action parameters if any.
+   * @param parameters           the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
@@ -1484,7 +1484,7 @@ public final class ArezContext
    *                              action.
    * @param requireNewTransaction true if a new transaction should be created, false if can use the current transaction.
    * @param action                the action to execute.
-   * @param parameters            the action parameters if any.
+   * @param parameters            the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
@@ -1513,7 +1513,7 @@ public final class ArezContext
    * @param <T>        the type of return value.
    * @param tracker    the tracking Observer.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the action.
    * @throws Exception if the action throws an an exception.
    */
@@ -1613,7 +1613,7 @@ public final class ArezContext
    *
    * @param <T>        the type of return value.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the action.
    */
   public <T> T safeAction( @Nonnull final SafeFunction<T> action, @Nonnull final Object... parameters )
@@ -1628,7 +1628,7 @@ public final class ArezContext
    * @param <T>        the type of return value.
    * @param mutation   true if the action may modify state, false otherwise.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the action.
    */
   public <T> T safeAction( final boolean mutation,
@@ -1645,7 +1645,7 @@ public final class ArezContext
    * @param <T>        the type of return value.
    * @param name       the name of the transaction.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the action.
    */
   public <T> T safeAction( @Nullable final String name,
@@ -1663,7 +1663,7 @@ public final class ArezContext
    * @param name       the name of the transaction.
    * @param mutation   true if the action may modify state, false otherwise.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the action.
    */
   public <T> T safeAction( @Nullable final String name,
@@ -1685,7 +1685,7 @@ public final class ArezContext
    *                             the scope of the action. If no reads or writes occur, the action need not be an
    *                             action.
    * @param action               the action to execute.
-   * @param parameters           the action parameters if any.
+   * @param parameters           the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the action.
    */
   public <T> T safeAction( @Nullable final String name,
@@ -1709,7 +1709,7 @@ public final class ArezContext
    *                              action.
    * @param requireNewTransaction true if a new transaction should be created, false if can use the current transaction.
    * @param action                the action to execute.
-   * @param parameters            the action parameters if any.
+   * @param parameters            the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the action.
    */
   public <T> T safeAction( @Nullable final String name,
@@ -1736,7 +1736,7 @@ public final class ArezContext
    * @param <T>        the type of return value.
    * @param tracker    the tracking Observer.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the action.
    */
   public <T> T safeTrack( @Nonnull final Observer tracker,
@@ -1832,7 +1832,7 @@ public final class ArezContext
    * The procedure may throw an exception.
    *
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
   public void action( @Nonnull final Procedure action, @Nonnull final Object... parameters )
@@ -1847,7 +1847,7 @@ public final class ArezContext
    *
    * @param mutation   true if the action may modify state, false otherwise.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
   public void action( final boolean mutation, @Nonnull final Procedure action, @Nonnull final Object... parameters )
@@ -1862,7 +1862,7 @@ public final class ArezContext
    *
    * @param name       the name of the transaction.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
   public void action( @Nullable final String name,
@@ -1880,7 +1880,7 @@ public final class ArezContext
    * @param name       the name of the transaction.
    * @param mutation   true if the action may modify state, false otherwise.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
   public void action( @Nullable final String name,
@@ -1902,7 +1902,7 @@ public final class ArezContext
    *                             the scope of the action. If no reads or writes occur, the action need not be an
    *                             action.
    * @param action               the action to execute.
-   * @param parameters           the action parameters if any.
+   * @param parameters           the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
   public void action( @Nullable final String name,
@@ -1926,7 +1926,7 @@ public final class ArezContext
    *                              action.
    * @param requireNewTransaction true if a new transaction should be created, false if can use the current transaction.
    * @param action                the action to execute.
-   * @param parameters            the action parameters if any.
+   * @param parameters            the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
   public void action( @Nullable final String name,
@@ -1954,7 +1954,7 @@ public final class ArezContext
    *
    * @param tracker    the tracking Observer.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
   public void track( @Nonnull final Observer tracker,
@@ -2058,7 +2058,7 @@ public final class ArezContext
    * The action is expected to not throw an exception.
    *
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeAction( @Nonnull final SafeProcedure action, @Nonnull final Object... parameters )
   {
@@ -2071,7 +2071,7 @@ public final class ArezContext
    *
    * @param mutation   true if the action may modify state, false otherwise.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeAction( final boolean mutation,
                           @Nonnull final SafeProcedure action,
@@ -2086,7 +2086,7 @@ public final class ArezContext
    *
    * @param name       the name of the transaction.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeAction( @Nullable final String name,
                           @Nonnull final SafeProcedure action,
@@ -2102,7 +2102,7 @@ public final class ArezContext
    * @param name       the name of the transaction.
    * @param mutation   true if the action may modify state, false otherwise.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeAction( @Nullable final String name,
                           final boolean mutation,
@@ -2122,7 +2122,7 @@ public final class ArezContext
    *                             the scope of the action. If no reads or writes occur, the action need not be an
    *                             action.
    * @param action               the action to execute.
-   * @param parameters           the action parameters if any.
+   * @param parameters           the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeAction( @Nullable final String name,
                           final boolean mutation,
@@ -2144,7 +2144,7 @@ public final class ArezContext
    *                              action.
    * @param requireNewTransaction true if a new transaction should be created, false if can use the current transaction.
    * @param action                the action to execute.
-   * @param parameters            the action parameters if any.
+   * @param parameters            the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeAction( @Nullable final String name,
                           final boolean mutation,
@@ -2169,7 +2169,7 @@ public final class ArezContext
    *
    * @param tracker    the tracking Observer.
    * @param action     the action to execute.
-   * @param parameters the action parameters if any.
+   * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeTrack( @Nonnull final Observer tracker,
                          @Nonnull final SafeProcedure action,

@@ -47,6 +47,8 @@
 * **\[core\]** Introduce the ability to pair `@Reference` methods with `@Inverse` so that the framework is able
   to manage relationships in the reverse direction. For a complete description of this functionality, see the
   javadocs and website documentation.
+* **\[core\]** Update the javadocs for the `parameters` parameter passed to the `ArezContext.action(...)` and
+  `ArezContext.track(...)` methods to clearly articulate the the value is only used when generating spy events.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)
