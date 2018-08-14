@@ -121,7 +121,7 @@ final class ReferenceDescriptor
     return GeneratorUtil.REFERENCE_FIELD_PREFIX + _name;
   }
 
-  private boolean hasInverse()
+  boolean hasInverse()
   {
     return null != _inverseName;
   }
