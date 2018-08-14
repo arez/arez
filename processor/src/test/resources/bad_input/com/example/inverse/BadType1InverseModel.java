@@ -18,7 +18,7 @@ abstract class BadType1InverseModel
   static abstract class MyEntity
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
-    abstract DuplicateInverseModel getOther();
+    abstract BadType1InverseModel getOther();
 
     @ReferenceId
     int getOtherId()
