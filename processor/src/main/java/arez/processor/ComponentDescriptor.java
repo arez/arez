@@ -1513,6 +1513,30 @@ final class ComponentDescriptor
       final InverseDescriptor descriptor =
         new InverseDescriptor( this, observable, referenceName, multiplicity, targetType );
       _inverses.put( name, descriptor );
+      verifyMultiplicityOfAssociatedReferenceMethod( descriptor );
+    }
+  }
+
+  private void verifyMultiplicityOfAssociatedReferenceMethod( @Nonnull final InverseDescriptor descriptor )
+  {
+    final Multiplicity multiplicity =
+      ProcessorUtil
+        .getMethods( descriptor.getTargetType(), _elements, _typeUtils )
+        .stream()
+        .map( m -> {
+          final AnnotationMirror a = ProcessorUtil.findAnnotationByType( m, Constants.REFERENCE_ANNOTATION_CLASSNAME );
+          return null != a && getReferenceName( a, m ).equals( descriptor.getReferenceName() ) ?
+                 getReferenceInverseMultiplicity( a ) :
+                 null;
+        } )
+        .filter( Objects::nonNull )
+        .findAny()
+        .orElse( null );
+    if ( descriptor.getMultiplicity() != multiplicity )
+    {
+      throw new ArezProcessorException( "@Inverse target has a multiplicity of " + descriptor.getMultiplicity() +
+                                        " but that associated @Reference has a multiplicity of " + multiplicity +
+                                        ". The multiplicity must align.", descriptor.getObservable().getGetter() );
     }
   }
 
