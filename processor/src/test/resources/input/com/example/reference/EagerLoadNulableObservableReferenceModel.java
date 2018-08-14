@@ -7,7 +7,7 @@ import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import javax.annotation.Nullable;
 
-@ArezComponent( allowEmpty = true )
+@ArezComponent
 abstract class EagerLoadNulableObservableReferenceModel
 {
   @Reference( load = LinkType.EAGER )

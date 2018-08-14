@@ -6,7 +6,7 @@ import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import javax.annotation.Nonnull;
 
-@ArezComponent( allowEmpty = true )
+@ArezComponent
 abstract class NonnullLazyLoadReferenceModel
 {
   @Reference( load = LinkType.LAZY )

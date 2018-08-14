@@ -57,6 +57,8 @@
 * Remove the `arez-entity` module as no longer needed once `@Reference` and `@Inverse` infrastructure has been
   added to the library. This also involved merging the `integration-qa-support` module back into the
   `integration-tests` module.
+* **\[processor\]** Generate an invariant failure if the `allowEmpty` parameter of the `@ArezComponent` is
+  `true` but the component has methods annotated with arez annotations and thus is not considered empty.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)

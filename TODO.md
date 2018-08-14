@@ -20,8 +20,6 @@ complete as there is too much un-said.
 
 * Add support for `@OnDispose` for autorun observers.
 
-* Generate an error if component is annotated with `@ArezComponent(allowEmpty=true)` but is not empty.
-
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
   it via `requestAnimationFrame`
 

@@ -5,7 +5,7 @@ import arez.annotations.LinkType;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 
-@ArezComponent( allowEmpty = true )
+@ArezComponent
 abstract class ExplicitLoadReferenceModel
 {
   @Reference( load = LinkType.EXPLICIT )

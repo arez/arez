@@ -1099,18 +1099,26 @@ final class ComponentDescriptor
     _roDependencies.forEach( DependencyDescriptor::validate );
     _roReferences.forEach( ReferenceDescriptor::validate );
 
-    if ( !_allowEmpty &&
-         _roObservables.isEmpty() &&
-         _roActions.isEmpty() &&
-         _roComputeds.isEmpty() &&
-         _roMemoizes.isEmpty() &&
-         _roTrackeds.isEmpty() &&
-         _roDependencies.isEmpty() &&
-         _roReferences.isEmpty() &&
-         _roInverses.isEmpty() &&
-         _roAutoruns.isEmpty() )
+    final boolean hasReactiveElements =
+      _roObservables.isEmpty() &&
+      _roActions.isEmpty() &&
+      _roComputeds.isEmpty() &&
+      _roMemoizes.isEmpty() &&
+      _roTrackeds.isEmpty() &&
+      _roDependencies.isEmpty() &&
+      _roReferences.isEmpty() &&
+      _roInverses.isEmpty() &&
+      _roAutoruns.isEmpty();
+
+    if ( !_allowEmpty && hasReactiveElements )
     {
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
+                                        "@Computed, @Memoize, @Observable, @Inverse, @Reference, @Dependency, @Track or @Autorun",
+                                        _element );
+    }
+    else if ( _allowEmpty && !hasReactiveElements )
+    {
+      throw new ArezProcessorException( "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, " +
                                         "@Computed, @Memoize, @Observable, @Inverse, @Reference, @Dependency, @Track or @Autorun",
                                         _element );
     }

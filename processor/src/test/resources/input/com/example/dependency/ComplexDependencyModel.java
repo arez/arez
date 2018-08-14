@@ -5,8 +5,8 @@ import arez.annotations.Dependency;
 import arez.annotations.Observable;
 import arez.component.DisposeTrackable;
 
-@ArezComponent( allowEmpty = true )
-public abstract class ComplexDependencyModel
+@ArezComponent
+abstract class ComplexDependencyModel
 {
   @Dependency
   final DisposeTrackable getValue1()

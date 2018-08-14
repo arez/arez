@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_ComplexDependencyModel extends ComplexDependencyModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+final class Arez_ComplexDependencyModel extends ComplexDependencyModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -33,7 +33,7 @@ public final class Arez_ComplexDependencyModel extends ComplexDependencyModel im
   @Nonnull
   private final Observable<DisposeTrackable> $$arez$$_value3;
 
-  public Arez_ComplexDependencyModel() {
+  Arez_ComplexDependencyModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;

@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_ScheduleDeferredDependencyModel extends ScheduleDeferredDependencyModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+final class Arez_ScheduleDeferredDependencyModel extends ScheduleDeferredDependencyModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -28,7 +28,7 @@ public final class Arez_ScheduleDeferredDependencyModel extends ScheduleDeferred
 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
-  public Arez_ScheduleDeferredDependencyModel() {
+  Arez_ScheduleDeferredDependencyModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;

@@ -5,7 +5,7 @@ import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 
-@ArezComponent( allowEmpty = true )
+@ArezComponent
 abstract class ObservableReferenceModel
 {
   @Reference
