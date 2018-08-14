@@ -1670,7 +1670,64 @@ final class ComponentDescriptor
       inverseName = null;
       inverseMultiplicity = null;
     }
-    findOrCreateReference( name ).setMethod( method, methodType, linkType, inverseName, inverseMultiplicity );
+    final ReferenceDescriptor descriptor = findOrCreateReference( name );
+    descriptor.setMethod( method, methodType, linkType, inverseName, inverseMultiplicity );
+    verifyMultiplicityOfAssociatedInverseMethod( descriptor );
+  }
+
+  private void verifyMultiplicityOfAssociatedInverseMethod( @Nonnull final ReferenceDescriptor descriptor )
+  {
+    if ( !descriptor.hasInverse() )
+    {
+      return;
+    }
+
+    final TypeElement element = (TypeElement) _typeUtils.asElement( descriptor.getMethod().getReturnType() );
+
+    final Multiplicity multiplicity =
+      ProcessorUtil
+        .getMethods( element, _elements, _typeUtils )
+        .stream()
+        .map( m -> {
+          final AnnotationMirror a = ProcessorUtil.findAnnotationByType( m, Constants.INVERSE_ANNOTATION_CLASSNAME );
+          if ( null != a && getInverseName( a, m ).equals( descriptor.getInverseName() ) )
+          {
+            if ( null != getInverseManyTypeTarget( m ) )
+            {
+              return Multiplicity.MANY;
+            }
+            else if ( null != ProcessorUtil.findAnnotationByType( m, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
+            {
+              return Multiplicity.ONE;
+            }
+            else
+            {
+              return Multiplicity.ZERO_OR_ONE;
+            }
+          }
+          else
+          {
+            return null;
+          }
+        } )
+        .filter( Objects::nonNull )
+        .findAny()
+        .orElse( null );
+    if ( null == multiplicity )
+    {
+      throw new ArezProcessorException( "@Reference target expected to find an associated @Inverse annotation with " +
+                                        "a name parameter equal to '" + descriptor.getInverseName() + "' on class " +
+                                        descriptor.getMethod().getReturnType() + " but is unable to " +
+                                        "locate a matching method.", descriptor.getMethod() );
+    }
+
+    final Multiplicity inverseMultiplicity = descriptor.getInverseMultiplicity();
+    if ( inverseMultiplicity != multiplicity )
+    {
+      throw new ArezProcessorException( "@Reference target has an inverseMultiplicity of " + inverseMultiplicity +
+                                        " but that associated @Inverse has a multiplicity of " + multiplicity +
+                                        ". The multiplicity must align.", descriptor.getMethod() );
+    }
   }
 
   private boolean hasInverse( @Nonnull final AnnotationMirror annotation )
