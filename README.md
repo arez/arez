@@ -50,7 +50,7 @@ final Observer whenObserver =
 
 The simplest way to use component;
 
-* add the dependency into the build system. i.e. add the following snippet to Maven or equivalent. 
+* add the dependency into the build system. i.e. add the following snippet to Maven or equivalent.
 
 ```xml
 <dependency>
