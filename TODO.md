@@ -6,6 +6,9 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
+  if change so that glue code is correctly regenerated without forcing rebuild from tool.
+
 * Add @Inverse ala
 
 ```
@@ -17,6 +20,11 @@ Position
   @Reference( inverse = AUTODETECT, inverseName = "positions", inverseMultiplicity = MANY )
   Crew getCrew();
 ```
+
+* Add validation that @Inverse/@Reference annotations match other-side
+
+* Add lots of integration tests for references. Including making sure that inverse relationships managed
+  during dispose, creation etc. Make sure it is tested the differences between lazy back-refs etc.
 
 * Replace `arez-entity` with next iteration and merge functionality into annotation processor. One package
   is removed then merge `integration-qa-support` into `integration-tests`
