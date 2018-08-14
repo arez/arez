@@ -4,7 +4,7 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
-## Enhancements
+## 0.105 Changes
 
 * Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
   if change so that glue code is correctly regenerated without forcing rebuild from tool.
@@ -18,6 +18,10 @@ complete as there is too much un-said.
 
 * Add support for `@OnDispose` for autorun observers.
 
+* Bug Fix up `@Dependency` so that it appears on same method as `@Observable` it works.
+
+## Enhancements
+
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
   it via `requestAnimationFrame`
 
@@ -29,8 +33,6 @@ complete as there is too much un-said.
   initial run of the function happens immediately.
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
-
-* Bug Fix up `@Dependency` so that it appears on same method as `@Observable` it works.
 
 * Figure out a way to use a single entrypoint for each of `observable()`, `autorun()`, `track()` by passing
   in an options object? 
