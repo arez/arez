@@ -14,9 +14,9 @@ complete as there is too much un-said.
 * Add lots of integration tests for references. Including making sure that inverse relationships managed
   during dispose, creation etc. Make sure it is tested the differences between lazy back-refs etc.
 
-* Rename the "action" parameter to tracker and autorun to "trackerFunction" or something similar to clearly
-  differentiate from other actions. Make the other parameters that use the term "action" into "executor" (This
-  follows conventions use in WEB API).
+* Rename the "action" parameters.
+    - Tracker : trackerExecutable, schedulerExecutable
+    - Autorun : executable
 
 * Add support for `@OnDispose` for autorun observers.
 
