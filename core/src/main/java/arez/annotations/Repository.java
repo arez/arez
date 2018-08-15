@@ -18,29 +18,29 @@ import javax.annotation.Nonnull;
  *
  * <p>Annotating a class with this annotation will result in a class named "[MyComponent]Repository"</p>
  *
- * <p>The way to add custom queries or \@Computed queries is to define an interface that
+ * <p>The way to add custom queries or {@link Computed} queries is to define an interface that
  * defines an abstract <code>self()</code> that returns the underlying repository. Using this
  * combined with default methods, you can define as many new queries and mutations as is desired.
  * The extension class then needs to be registered by setting the appropriate parameter on this
  * annotation.</p>
  *
- * <p>An example of what an extension may look like for a <code>Todo</code> component. See below:</p>
+ * <p>An example of what an extension may look like for a <code>Issue</code> component. See below:</p>
  *
  * <pre>{@code
- * public interface MyTodoRepositoryExtension
+ * public interface MyIssueRepositoryExtension
  * {
- *   default Todo findByTitle( final String title )
+ *   default Issue findByTitle( final String title )
  *   {
- *     return self().findByQuery( todo -> todo.getTitle().equals( title ) );
+ *     return self().findByQuery( issue -> issue.getTitle().equals( title ) );
  *   }
  *
  *   \@Computed
- *   default List<Todo> findAllCompleted()
+ *   default List<Issue> findAllCompleted()
  *   {
- *     return self().findAllByQuery( Todo::isCompleted );
+ *     return self().findAllByQuery( Issue::isCompleted );
  *   }
  *
- *   MyTodoRepository self();
+ *   MyIssueRepository self();
  * }
  * }</pre>
  */
