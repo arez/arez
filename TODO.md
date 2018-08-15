@@ -13,8 +13,6 @@ complete as there is too much un-said.
 
 * Add support for `@OnDispose` for autorun observers.
 
-* Bug Fix up `@Dependency` so that it appears on same method as `@Observable` it works.
-
 ## Enhancements
 
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule

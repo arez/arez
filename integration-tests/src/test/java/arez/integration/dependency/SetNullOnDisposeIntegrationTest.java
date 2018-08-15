@@ -97,13 +97,13 @@ public class SetNullOnDisposeIntegrationTest
       _reference = reference;
     }
 
+    @Observable
     @Dependency( action = Dependency.Action.SET_NULL )
     Model1 getReference()
     {
       return _reference;
     }
 
-    @Observable
     void setReference( final Model1 reference )
     {
       _reference = reference;
