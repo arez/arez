@@ -1098,6 +1098,7 @@ final class ComponentDescriptor
     _roComputeds.forEach( ComputedDescriptor::validate );
     _roDependencies.forEach( DependencyDescriptor::validate );
     _roReferences.forEach( ReferenceDescriptor::validate );
+    _roInverses.forEach( InverseDescriptor::validate );
 
     final boolean hasReactiveElements =
       _roObservables.isEmpty() &&

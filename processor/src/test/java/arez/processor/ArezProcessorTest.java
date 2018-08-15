@@ -756,6 +756,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inverse.ConcreteInverseModel", "@Inverse target must be abstract" },
         new Object[]{ "com.example.inverse.DuplicateInverseModel",
                       "@Inverse target defines duplicate inverse for name 'myEntity'. The other inverse is getMyEntity2()" },
+        new Object[]{ "com.example.inverse.InitializerWithInverseModel",
+                      "@Inverse target also specifies @Observable(initializer=ENABLE) but it is not valid to define an initializer for an inverse." },
         new Object[]{ "com.example.inverse.MissingInverseOnReferenceModel",
                       "@Inverse target found an associated @Reference on the method 'getCar' on type 'com.example.inverse.MissingInverseOnReferenceModel.Wheel' but the annotation has not configured an inverse." },
         new Object[]{ "com.example.inverse.MissingInverseReferenceModel",

@@ -74,6 +74,16 @@ final class InverseDescriptor
     return _targetType;
   }
 
+  void validate()
+  {
+    if ( _observable.requireInitializer() )
+    {
+      throw new ArezProcessorException( "@Inverse target also specifies @Observable(initializer=ENABLE) but " +
+                                        "it is not valid to define an initializer for an inverse.",
+                                        _observable.getGetter() );
+    }
+  }
+
   void buildInitializer( @Nonnull final MethodSpec.Builder builder )
   {
     if ( Multiplicity.MANY == _multiplicity )
