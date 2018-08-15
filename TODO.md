@@ -73,7 +73,7 @@ complete as there is too much un-said.
 
 * Performance testing and writeup?
 
-* Add Disposable to doco - i.e. explain how can dispose both components and reactive elments
+* Add Disposable to doco - i.e. explain how can dispose both components and reactive elements
 
 * Add graph reflecting size of TodoMVC over time
 
