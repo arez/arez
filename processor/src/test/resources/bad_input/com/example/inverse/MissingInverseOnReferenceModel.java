@@ -10,6 +10,13 @@ import java.util.Collection;
 public class MissingInverseOnReferenceModel
 {
   @ArezComponent
+  static abstract class Car
+  {
+    @Inverse
+    abstract Collection<Wheel> getWheels();
+  }
+
+  @ArezComponent
   static abstract class Wheel
   {
     @Reference
@@ -20,12 +27,5 @@ public class MissingInverseOnReferenceModel
     abstract int getCarId();
 
     abstract void setCarId( int carId );
-  }
-
-  @ArezComponent
-  static abstract class Car
-  {
-    @Inverse
-    abstract Collection<Wheel> getWheels();
   }
 }
