@@ -768,6 +768,8 @@ public class ArezProcessorTest
                       "@Reference target expected to return a type annotated with arez.annotations.ArezComponent if there is an inverse reference." },
         new Object[]{ "com.example.inverse.StaticInverseModel", "@Inverse target must not be static" },
         new Object[]{ "com.example.inverse.ThrowsInverseModel", "@Inverse target must not throw any exceptions" },
+        new Object[]{ "com.example.inverse.UnexpectedInverseForReferenceModel",
+                      "@Reference target has not configured an inverse but there is an associated @Inverse annotated method named 'getWheels' on type 'com.example.inverse.UnexpectedInverseForReferenceModel.Car'." },
 
         new Object[]{ "com.example.observable_ref.BadNameModel",
                       "@ObservableRef target specified an invalid name '-ace'. The name must be a valid java identifier." },
