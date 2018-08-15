@@ -18,7 +18,6 @@ import arez.annotations.ObserverRef;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import arez.annotations.OnDepsChanged;
-import arez.annotations.OnDispose;
 import arez.annotations.OnStale;
 import arez.annotations.PostConstruct;
 import arez.annotations.Reference;
@@ -77,11 +76,6 @@ public abstract class BaseCompleteModel
 
   @OnStale
   protected final void onTimeStale()
-  {
-  }
-
-  @OnDispose
-  protected final void onTimeDispose()
   {
   }
 

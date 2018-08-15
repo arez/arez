@@ -14,10 +14,9 @@ A basic example:
 
 The component model supports the definition of callback methods as described in the
 [computed values](computed_values.md) document. This is done through the annotations:
-{@api_url: annotations.OnActivate}, {@api_url: annotations.OnDeactivate},  {@api_url: annotations.OnStale} and
-{@api_url: annotations.OnDispose}. These methods are associated with a `@Computed` annotated method via naming
-conventions or through explicit configuration. The exact requirements for methods annotated by these annotations
-is defined in the API documentation.
+{@api_url: annotations.OnActivate}, {@api_url: annotations.OnDeactivate} and {@api_url: annotations.OnStale}.
+These methods are associated with a `@Computed` annotated method via naming conventions or through explicit
+configuration. The exact requirements for methods annotated by these annotations is defined in the API documentation.
 
 A simpl-ish example that uses the callbacks to register a listener on the underlying browser objects and
 updates the computed value is as follows. This is extracted and simplified from an existing component that

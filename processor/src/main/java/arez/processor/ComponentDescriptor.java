@@ -208,8 +208,7 @@ final class ComponentDescriptor
            _roComputeds.stream().anyMatch( e -> ( e.hasComputed() && isDeprecated( e.getComputed() ) ) ||
                                                 isDeprecated( e.getOnActivate() ) ||
                                                 isDeprecated( e.getOnDeactivate() ) ||
-                                                isDeprecated( e.getOnStale() ) ||
-                                                isDeprecated( e.getOnDispose() ) ) ||
+                                                isDeprecated( e.getOnStale() ) ) ||
            _observerRefs.values().stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
            _roDependencies.stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
            _roActions.stream().anyMatch( e -> isDeprecated( e.getAction() ) ) ||
@@ -857,16 +856,6 @@ final class ComponentDescriptor
                       "Stale",
                       getAnnotationParameter( annotation, "name" ) );
     findOrCreateComputed( name ).setOnStale( method );
-  }
-
-  private void addOnDispose( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
-  {
-    final String name = deriveHookName( method,
-                                        ComputedDescriptor.ON_DISPOSE_PATTERN,
-                                        "Dispose",
-                                        getAnnotationParameter( annotation, "name" ) );
-    findOrCreateComputed( name ).setOnDispose( method );
   }
 
   @Nonnull
@@ -2121,8 +2110,6 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME );
     final AnnotationMirror onStale =
       ProcessorUtil.findAnnotationByType( method, Constants.ON_STALE_ANNOTATION_CLASSNAME );
-    final AnnotationMirror onDispose =
-      ProcessorUtil.findAnnotationByType( method, Constants.ON_DISPOSE_ANNOTATION_CLASSNAME );
     final AnnotationMirror track =
       ProcessorUtil.findAnnotationByType( method, Constants.TRACK_ANNOTATION_CLASSNAME );
     final AnnotationMirror onDepsChanged =
@@ -2260,11 +2247,6 @@ final class ComponentDescriptor
       addOnStale( onStale, method );
       return true;
     }
-    else if ( null != onDispose )
-    {
-      addOnDispose( onDispose, method );
-      return true;
-    }
     else if ( null != dependency )
     {
       addDependency( method );
@@ -2355,7 +2337,6 @@ final class ComponentDescriptor
                     Constants.REFERENCE_ID_ANNOTATION_CLASSNAME,
                     Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME,
                     Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
-                    Constants.ON_DISPOSE_ANNOTATION_CLASSNAME,
                     Constants.ON_STALE_ANNOTATION_CLASSNAME,
                     Constants.DEPENDENCY_ANNOTATION_CLASSNAME };
     for ( int i = 0; i < annotationTypes.length; i++ )

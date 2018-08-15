@@ -11,8 +11,6 @@ complete as there is too much un-said.
 * Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
   if change so that glue code is correctly regenerated without forcing rebuild from tool.
 
-* Add support for `@OnDispose` for autorun observers.
-
 ## Enhancements
 
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule

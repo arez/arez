@@ -23,7 +23,6 @@ final class Constants
   static final String ON_ACTIVATE_ANNOTATION_CLASSNAME = "arez.annotations.OnActivate";
   static final String ON_DEACTIVATE_ANNOTATION_CLASSNAME = "arez.annotations.OnDeactivate";
   static final String ON_DEPS_CHANGED_ANNOTATION_CLASSNAME = "arez.annotations.OnDepsChanged";
-  static final String ON_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.OnDispose";
   static final String ON_STALE_ANNOTATION_CLASSNAME = "arez.annotations.OnStale";
   static final String POST_CONSTRUCT_ANNOTATION_CLASSNAME = "arez.annotations.PostConstruct";
   static final String POST_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.PostDispose";

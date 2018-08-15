@@ -34,7 +34,6 @@ final class ComputedDescriptor
   static final Pattern ON_ACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Activate$" );
   static final Pattern ON_DEACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Deactivate$" );
   static final Pattern ON_STALE_PATTERN = Pattern.compile( "^on([A-Z].*)Stale$" );
-  static final Pattern ON_DISPOSE_PATTERN = Pattern.compile( "^on([A-Z].*)Dispose$" );
   @Nonnull
   private final ComponentDescriptor _componentDescriptor;
   @Nonnull
@@ -52,8 +51,6 @@ final class ComputedDescriptor
   private ExecutableElement _onDeactivate;
   @Nullable
   private ExecutableElement _onStale;
-  @Nullable
-  private ExecutableElement _onDispose;
   @Nullable
   private ExecutableElement _refMethod;
   @Nullable
@@ -115,12 +112,6 @@ final class ComputedDescriptor
   ExecutableElement getOnStale()
   {
     return _onStale;
-  }
-
-  @Nullable
-  ExecutableElement getOnDispose()
-  {
-    return _onDispose;
   }
 
   void setComputed( @Nonnull final ExecutableElement computed,
@@ -228,24 +219,6 @@ final class ComputedDescriptor
     }
   }
 
-  void setOnDispose( @Nonnull final ExecutableElement onDispose )
-    throws ArezProcessorException
-  {
-    MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
-                                      Constants.ON_DISPOSE_ANNOTATION_CLASSNAME,
-                                      onDispose );
-
-    if ( null != _onDispose )
-    {
-      throw new ArezProcessorException( "@OnDispose target duplicates existing method named " +
-                                        _onDispose.getSimpleName(), onDispose );
-    }
-    else
-    {
-      _onDispose = Objects.requireNonNull( onDispose );
-    }
-  }
-
   void validate()
     throws ArezProcessorException
   {
@@ -260,11 +233,6 @@ final class ComputedDescriptor
       {
         throw new ArezProcessorException( "@OnDeactivate exists but there is no corresponding @Computed",
                                           _onDeactivate );
-      }
-      else if ( null != _onDispose )
-      {
-        throw new ArezProcessorException( "@OnDispose exists but there is no corresponding @Computed",
-                                          _onDispose );
       }
       else if ( null != _refMethod )
       {
@@ -468,15 +436,7 @@ final class ComputedDescriptor
 
     sb.append( ", " );
 
-    if ( null != _onDispose )
-    {
-      sb.append( "this::$N" );
-      parameters.add( _onDispose.getSimpleName().toString() );
-    }
-    else
-    {
-      sb.append( "null" );
-    }
+    sb.append( "null" );
     if ( hasNonNormalPriority() || _keepAlive || _observeLowerPriorityDependencies )
     {
       if ( _keepAlive || _observeLowerPriorityDependencies )
@@ -521,7 +481,7 @@ final class ComputedDescriptor
 
   private boolean hasHooks()
   {
-    return null != _onActivate || null != _onDeactivate || null != _onStale || null != _onDispose;
+    return null != _onActivate || null != _onDeactivate || null != _onStale;
   }
 
   void buildDisposer( @Nonnull final CodeBlock.Builder codeBlock )
