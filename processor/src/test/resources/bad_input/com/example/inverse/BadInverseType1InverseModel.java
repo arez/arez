@@ -1,6 +1,7 @@
 package com.example.inverse;
 
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.Inverse;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
@@ -15,7 +16,7 @@ abstract class BadInverseType1InverseModel
   @ArezComponent()
   static abstract class OtherEntity
   {
-    @Reference
+    @Reference( inverse = Feature.ENABLE )
     abstract MyEntity getBadInverseType1InverseModel();
 
     @ReferenceId
