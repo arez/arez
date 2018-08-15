@@ -162,9 +162,6 @@ public final class Arez_Element extends Element implements Disposable, Identifia
   }
 
   private void $$arezi$$_delink_completeModel() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_completeModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
     if ( null != $$arezr$$_completeModel ) {
       ( (Arez_CompleteModel) this.$$arezr$$_completeModel ).$$arezir$$_elements_remove( this );
       this.$$arezr$$_completeModel = null;

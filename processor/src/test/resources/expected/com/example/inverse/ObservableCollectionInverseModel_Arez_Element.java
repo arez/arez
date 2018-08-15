@@ -160,9 +160,6 @@ final class ObservableCollectionInverseModel_Arez_Element extends ObservableColl
   }
 
   private void $$arezi$$_delink_observableCollectionInverseModel() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_observableCollectionInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
     if ( null != $$arezr$$_observableCollectionInverseModel ) {
       ( (Arez_ObservableCollectionInverseModel) this.$$arezr$$_observableCollectionInverseModel ).$$arezir$$_elements_remove( this );
       this.$$arezr$$_observableCollectionInverseModel = null;

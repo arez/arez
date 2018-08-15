@@ -160,9 +160,6 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
   }
 
   private void $$arezi$$_delink_nonGetterInverseModel() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_nonGetterInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
     if ( null != $$arezr$$_nonGetterInverseModel ) {
       ( (Arez_NonGetterInverseModel) this.$$arezr$$_nonGetterInverseModel ).$$arezir$$_elements_remove( this );
       this.$$arezr$$_nonGetterInverseModel = null;

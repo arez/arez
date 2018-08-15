@@ -160,9 +160,6 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
   }
 
   private void $$arezi$$_delink_zeroOrOneMultiplicityInverseModel() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_zeroOrOneMultiplicityInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
     if ( null != $$arezr$$_zeroOrOneMultiplicityInverseModel ) {
       ( (Arez_ZeroOrOneMultiplicityInverseModel) this.$$arezr$$_zeroOrOneMultiplicityInverseModel ).$$arezir$$_element_unset( this );
       this.$$arezr$$_zeroOrOneMultiplicityInverseModel = null;

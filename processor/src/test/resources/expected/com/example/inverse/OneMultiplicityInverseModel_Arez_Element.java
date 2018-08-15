@@ -160,9 +160,6 @@ final class OneMultiplicityInverseModel_Arez_Element extends OneMultiplicityInve
   }
 
   private void $$arezi$$_delink_oneMultiplicityInverseModel() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_oneMultiplicityInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
     if ( null != $$arezr$$_oneMultiplicityInverseModel ) {
       ( (Arez_OneMultiplicityInverseModel) this.$$arezr$$_oneMultiplicityInverseModel ).$$arezir$$_element_unset( this );
       this.$$arezr$$_oneMultiplicityInverseModel = null;

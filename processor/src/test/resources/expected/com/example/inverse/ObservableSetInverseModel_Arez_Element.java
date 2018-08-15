@@ -160,9 +160,6 @@ final class ObservableSetInverseModel_Arez_Element extends ObservableSetInverseM
   }
 
   private void $$arezi$$_delink_observableSetInverseModel() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_observableSetInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
     if ( null != $$arezr$$_observableSetInverseModel ) {
       ( (Arez_ObservableSetInverseModel) this.$$arezr$$_observableSetInverseModel ).$$arezir$$_elements_remove( this );
       this.$$arezr$$_observableSetInverseModel = null;

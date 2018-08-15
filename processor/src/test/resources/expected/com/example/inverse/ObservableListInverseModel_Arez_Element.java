@@ -160,9 +160,6 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
   }
 
   private void $$arezi$$_delink_observableListInverseModel() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_observableListInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
     if ( null != $$arezr$$_observableListInverseModel ) {
       ( (Arez_ObservableListInverseModel) this.$$arezr$$_observableListInverseModel ).$$arezir$$_elements_remove( this );
       this.$$arezr$$_observableListInverseModel = null;

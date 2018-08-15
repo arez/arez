@@ -160,9 +160,6 @@ final class DefaultMultiplicityInverseModel_Arez_Element extends DefaultMultipli
   }
 
   private void $$arezi$$_delink_defaultMultiplicityInverseModel() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_defaultMultiplicityInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
     if ( null != $$arezr$$_defaultMultiplicityInverseModel ) {
       ( (Arez_DefaultMultiplicityInverseModel) this.$$arezr$$_defaultMultiplicityInverseModel ).$$arezir$$_elements_remove( this );
       this.$$arezr$$_defaultMultiplicityInverseModel = null;

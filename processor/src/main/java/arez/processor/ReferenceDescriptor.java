@@ -390,7 +390,6 @@ final class ReferenceDescriptor
     final String methodName = getDelinkMethodName();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     builder.addModifiers( Modifier.PRIVATE );
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
     final CodeBlock.Builder nestedBlock = CodeBlock.builder();
     nestedBlock.beginControlFlow( "if ( null != $N )", getFieldName() );

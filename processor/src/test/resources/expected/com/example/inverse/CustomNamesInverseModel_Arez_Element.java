@@ -160,9 +160,6 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
   }
 
   private void $$arezi$$_delink_zoom() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_zoom' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
     if ( null != $$arezr$$_zoom ) {
       ( (Arez_CustomNamesInverseModel) this.$$arezr$$_zoom ).$$arezir$$_zap_remove( this );
       this.$$arezr$$_zoom = null;

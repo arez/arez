@@ -160,9 +160,6 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
   }
 
   private void $$arezi$$_delink_nonObservableCollectionInverseModel() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_delink_nonObservableCollectionInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
     if ( null != $$arezr$$_nonObservableCollectionInverseModel ) {
       ( (Arez_NonObservableCollectionInverseModel) this.$$arezr$$_nonObservableCollectionInverseModel ).$$arezir$$_elements_remove( this );
       this.$$arezr$$_nonObservableCollectionInverseModel = null;
