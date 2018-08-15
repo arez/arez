@@ -2316,7 +2316,8 @@ final class ComponentDescriptor
              (
                // Getter
                element.getReturnType().getKind() != TypeKind.VOID &&
-               null != ProcessorUtil.findAnnotationByType( element, Constants.NONNULL_ANNOTATION_CLASSNAME )
+               null != ProcessorUtil.findAnnotationByType( element, Constants.NONNULL_ANNOTATION_CLASSNAME ) &&
+               null == ProcessorUtil.findAnnotationByType( element, Constants.INVERSE_ANNOTATION_CLASSNAME )
              ) ||
              (
                // Setter

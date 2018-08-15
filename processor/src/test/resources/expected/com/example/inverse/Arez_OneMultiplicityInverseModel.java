@@ -11,7 +11,6 @@ import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
-import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,9 +36,8 @@ final class Arez_OneMultiplicityInverseModel extends OneMultiplicityInverseModel
 
   private OneMultiplicityInverseModel.Element $$arezd$$_element;
 
-  Arez_OneMultiplicityInverseModel(@Nonnull final OneMultiplicityInverseModel.Element element) {
+  Arez_OneMultiplicityInverseModel() {
     super();
-    this.$$arezd$$_element = Objects.requireNonNull( element );
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
