@@ -125,7 +125,7 @@ final class InverseDescriptor
 
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
-    block.addStatement( "$T.invariant( () -> !this.$N.add( $N ), " +
+    block.addStatement( "$T.invariant( () -> !this.$N.contains( $N ), " +
                         "() -> \"Attempted to add reference '$N' to inverse '$N' " +
                         "but inverse already contained element. Inverse = \" + $N )",
                         GeneratorUtil.GUARDS_CLASSNAME,

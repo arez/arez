@@ -169,7 +169,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel impleme
     }
     this.$$arez$$_zap.preReportChanged();
     if ( Arez.shouldCheckInvariants() ) {
-      Guards.invariant( () -> !this.$$arezd$$_zap.add( element ), () -> "Attempted to add reference 'element' to inverse 'zap' but inverse already contained element. Inverse = " + $$arez$$_zap );
+      Guards.invariant( () -> !this.$$arezd$$_zap.contains( element ), () -> "Attempted to add reference 'element' to inverse 'zap' but inverse already contained element. Inverse = " + $$arez$$_zap );
     }
     this.$$arezd$$_zap.add( element );
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {

@@ -169,7 +169,7 @@ final class Arez_DefaultMultiplicityInverseModel extends DefaultMultiplicityInve
     }
     this.$$arez$$_elements.preReportChanged();
     if ( Arez.shouldCheckInvariants() ) {
-      Guards.invariant( () -> !this.$$arezd$$_elements.add( element ), () -> "Attempted to add reference 'element' to inverse 'elements' but inverse already contained element. Inverse = " + $$arez$$_elements );
+      Guards.invariant( () -> !this.$$arezd$$_elements.contains( element ), () -> "Attempted to add reference 'element' to inverse 'elements' but inverse already contained element. Inverse = " + $$arez$$_elements );
     }
     this.$$arezd$$_elements.add( element );
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
