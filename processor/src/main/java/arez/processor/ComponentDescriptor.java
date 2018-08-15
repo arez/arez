@@ -1335,8 +1335,7 @@ final class ComponentDescriptor
         }
         else
         {
-          final boolean initializer =
-            autodetectInitializer( observable.getGetter() );
+          final boolean initializer = autodetectInitializer( observable.getGetter() );
           observable.setInitializer( initializer );
         }
       }
@@ -2296,14 +2295,9 @@ final class ComponentDescriptor
   {
     final AnnotationMirror annotation =
       ProcessorUtil.findAnnotationByType( element, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
-    final AnnotationValue injectParameter =
-      null == annotation ?
-      null :
-      ProcessorUtil.findAnnotationValueNoDefaults( annotation, "initializer" );
-    final String value =
-      null == injectParameter ?
-      "AUTODETECT" :
-      ( (VariableElement) injectParameter.getValue() ).getSimpleName().toString();
+    final AnnotationValue v =
+      null == annotation ? null : ProcessorUtil.findAnnotationValueNoDefaults( annotation, "initializer" );
+    final String value = null == v ? "AUTODETECT" : ( (VariableElement) v.getValue() ).getSimpleName().toString();
     switch ( value )
     {
       case "ENABLE":
