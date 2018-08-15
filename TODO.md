@@ -11,9 +11,6 @@ complete as there is too much un-said.
 * Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
   if change so that glue code is correctly regenerated without forcing rebuild from tool.
 
-* Add lots of integration tests for references. Including making sure that inverse relationships managed
-  during dispose, creation etc. Make sure it is tested the differences between lazy back-refs etc.
-
 * Add support for `@OnDispose` for autorun observers.
 
 * Bug Fix up `@Dependency` so that it appears on same method as `@Observable` it works.
