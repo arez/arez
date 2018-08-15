@@ -1112,15 +1112,15 @@ final class ComponentDescriptor
 
     if ( !_allowEmpty && hasReactiveElements )
     {
-      throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
-                                        "@Computed, @Memoize, @Observable, @Inverse, @Reference, @Dependency, @Track or @Autorun",
+      throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, @Computed, " +
+                                        "@Memoize, @Observable, @Inverse, @Reference, @Dependency, @Track or @Autorun",
                                         _element );
     }
     else if ( _allowEmpty && !hasReactiveElements )
     {
-      throw new ArezProcessorException( "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, " +
-                                        "@Computed, @Memoize, @Observable, @Inverse, @Reference, @Dependency, @Track or @Autorun",
-                                        _element );
+      throw new ArezProcessorException( "@ArezComponent target has specified allowEmpty = true but has methods " +
+                                        "annotated with @Action, @Computed, @Memoize, @Observable, @Inverse, " +
+                                        "@Reference, @Dependency, @Track or @Autorun", _element );
     }
 
     if ( _deferSchedule && !requiresSchedule() )
