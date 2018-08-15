@@ -1535,7 +1535,6 @@ final class ComponentDescriptor
           final AnnotationMirror a = ProcessorUtil.findAnnotationByType( m, Constants.REFERENCE_ANNOTATION_CLASSNAME );
           if ( null != a && getReferenceName( a, m ).equals( descriptor.getReferenceName() ) )
           {
-            ensureTargetTypeAligns( descriptor, m.getReturnType() );
             if ( null == ProcessorUtil.findAnnotationValueNoDefaults( a, "inverse" ) &&
                  null == ProcessorUtil.findAnnotationValueNoDefaults( a, "inverseName" ) &&
                  null == ProcessorUtil.findAnnotationValueNoDefaults( a, "inverseMultiplicity" ) )
@@ -1546,7 +1545,7 @@ final class ComponentDescriptor
                                                 "annotation has not configured an inverse.",
                                                 descriptor.getObservable().getGetter() );
             }
-
+            ensureTargetTypeAligns( descriptor, m.getReturnType() );
             return getReferenceInverseMultiplicity( a );
           }
           else
