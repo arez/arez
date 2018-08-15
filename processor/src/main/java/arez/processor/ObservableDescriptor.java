@@ -560,6 +560,10 @@ final class ObservableDescriptor
     codeBlock.addStatement( "this.$N.reportChanged()", getFieldName() );
     if ( null != _referenceDescriptor )
     {
+      if ( _referenceDescriptor.hasInverse() )
+      {
+        codeBlock.addStatement( "this.$N()", _referenceDescriptor.getDelinkMethodName() );
+      }
       if ( "EAGER".equals( _referenceDescriptor.getLinkType() ) )
       {
         codeBlock.addStatement( "this.$N()", _referenceDescriptor.getLinkMethodName() );

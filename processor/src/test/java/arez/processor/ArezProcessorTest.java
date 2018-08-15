@@ -165,6 +165,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inverse.NonObservableCollectionInverseModel", false, false, false },
         new Object[]{ "com.example.inverse.ObservableCollectionInverseModel", false, false, false },
         new Object[]{ "com.example.inverse.ObservableListInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.ObservableReferenceInverseModel", false, false, false },
         new Object[]{ "com.example.inverse.ObservableSetInverseModel", false, false, false },
         new Object[]{ "com.example.inverse.OneMultiplicityInverseModel", false, false, false },
         new Object[]{ "com.example.inverse.ZeroOrOneMultiplicityInverseModel", false, false, false },

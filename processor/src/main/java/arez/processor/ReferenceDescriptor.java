@@ -110,7 +110,7 @@ final class ReferenceDescriptor
   }
 
   @Nonnull
-  private String getDelinkMethodName()
+  String getDelinkMethodName()
   {
     return GeneratorUtil.FRAMEWORK_PREFIX + "delink_" + _name;
   }
