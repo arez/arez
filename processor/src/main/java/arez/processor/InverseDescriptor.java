@@ -138,7 +138,12 @@ final class InverseDescriptor
     builder.addCode( block.build() );
 
     builder.addStatement( "this.$N.add( $N )", _observable.getDataFieldName(), _otherName );
-    builder.addStatement( "this.$N = null", _observable.getCollectionCacheDataFieldName() );
+    final CodeBlock.Builder clearCacheBlock = CodeBlock.builder();
+    clearCacheBlock.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )",
+                                      GeneratorUtil.AREZ_CLASSNAME );
+    clearCacheBlock.addStatement( "this.$N = null", _observable.getCollectionCacheDataFieldName() );
+    clearCacheBlock.endControlFlow();
+    builder.addCode( clearCacheBlock.build() );
     builder.addStatement( "this.$N.reportChanged()", _observable.getFieldName() );
 
     return builder.build();
@@ -177,7 +182,12 @@ final class InverseDescriptor
     builder.addCode( block.build() );
 
     builder.addStatement( "this.$N.remove( $N )", _observable.getDataFieldName(), _otherName );
-    builder.addStatement( "this.$N = null", _observable.getCollectionCacheDataFieldName() );
+    final CodeBlock.Builder clearCacheBlock = CodeBlock.builder();
+    clearCacheBlock.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )",
+                                      GeneratorUtil.AREZ_CLASSNAME );
+    clearCacheBlock.addStatement( "this.$N = null", _observable.getCollectionCacheDataFieldName() );
+    clearCacheBlock.endControlFlow();
+    builder.addCode( clearCacheBlock.build() );
     builder.addStatement( "this.$N.reportChanged()", _observable.getFieldName() );
 
     return builder.build();

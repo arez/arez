@@ -337,7 +337,9 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
       Guards.invariant( () -> !this.$$arezd$$_elements.add( element ), () -> "Attempted to add reference 'element' to inverse 'elements' but inverse already contained element. Inverse = " + $$arez$$_elements );
     }
     this.$$arezd$$_elements.add( element );
-    this.$$arezd$$_$$cache$$_elements = null;
+    if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
+      this.$$arezd$$_$$cache$$_elements = null;
+    }
     this.$$arez$$_elements.reportChanged();
   }
 
@@ -350,7 +352,9 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
       Guards.invariant( () -> this.$$arezd$$_elements.contains( element ), () -> "Attempted to remove reference 'element' from inverse 'elements' but inverse does not contain element. Inverse = " + $$arez$$_elements );
     }
     this.$$arezd$$_elements.remove( element );
-    this.$$arezd$$_$$cache$$_elements = null;
+    if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
+      this.$$arezd$$_$$cache$$_elements = null;
+    }
     this.$$arez$$_elements.reportChanged();
   }
 
