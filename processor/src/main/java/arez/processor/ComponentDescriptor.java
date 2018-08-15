@@ -1536,6 +1536,17 @@ final class ComponentDescriptor
           if ( null != a && getReferenceName( a, m ).equals( descriptor.getReferenceName() ) )
           {
             ensureTargetTypeAligns( descriptor, m.getReturnType() );
+            if ( null == ProcessorUtil.findAnnotationValueNoDefaults( a, "inverse" ) &&
+                 null == ProcessorUtil.findAnnotationValueNoDefaults( a, "inverseName" ) &&
+                 null == ProcessorUtil.findAnnotationValueNoDefaults( a, "inverseMultiplicity" ) )
+            {
+              throw new ArezProcessorException( "@Inverse target found an associated @Reference on the method '" +
+                                                m.getSimpleName() + "' on type '" +
+                                                descriptor.getTargetType().getQualifiedName() + "' but the " +
+                                                "annotation has not configured an inverse.",
+                                                descriptor.getObservable().getGetter() );
+            }
+
             return getReferenceInverseMultiplicity( a );
           }
           else
