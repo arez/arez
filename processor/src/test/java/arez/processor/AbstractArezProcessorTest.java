@@ -6,6 +6,7 @@ import com.google.testing.compile.Compiler;
 import com.google.testing.compile.JavaFileObjects;
 import com.google.testing.compile.JavaSourcesSubjectFactory;
 import java.io.File;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -172,15 +173,28 @@ abstract class AbstractArezProcessorTest
       for ( final JavaFileObject fileObject : fileObjects )
       {
         final Path target = fixtureDir().resolve( "expected/" + fileObject.getName().replace( "/SOURCE_OUTPUT/", "" ) );
-        if ( Files.exists( target ) )
-        {
-          Files.delete( target );
-        }
 
         final File dir = target.getParent().toFile();
         if ( !dir.exists() )
         {
           assertTrue( dir.mkdirs() );
+        }
+        if ( Files.exists( target ) )
+        {
+          final byte[] existing = Files.readAllBytes( target );
+          final InputStream generated = fileObject.openInputStream();
+          final byte[] data = new byte[ generated.available() ];
+          assertEquals( generated.read( data ), data.length );
+          if ( Arrays.equals( existing, data ) )
+          {
+            /*
+             * If the data on the filesystem is identical to data generated then do not write
+             * to filesystem. The writing can be slow and it can also trigger the IDE or other
+             * tools to recompile code which is problematic.
+             */
+            continue;
+          }
+          Files.delete( target );
         }
         Files.copy( fileObject.openInputStream(), target );
       }
