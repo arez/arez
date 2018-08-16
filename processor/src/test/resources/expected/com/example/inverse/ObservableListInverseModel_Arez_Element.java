@@ -154,7 +154,7 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
     final int id = this.getObservableListInverseModelId();
     this.$$arezr$$_observableListInverseModel = this.$$arezi$$_locator().findById( ObservableListInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_observableListInverseModel, () -> "Reference method named 'getObservableListInverseModel' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type " + ObservableListInverseModel.class + " and id = " + getObservableListInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableListInverseModel, () -> "Reference method named 'getObservableListInverseModel' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.ObservableListInverseModel and id = " + getObservableListInverseModelId() );
     }
     ( (Arez_ObservableListInverseModel) this.$$arezr$$_observableListInverseModel ).$$arezir$$_elements_add( this );
   }

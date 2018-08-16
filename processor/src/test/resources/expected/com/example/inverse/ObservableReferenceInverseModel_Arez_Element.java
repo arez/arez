@@ -187,7 +187,7 @@ final class ObservableReferenceInverseModel_Arez_Element extends ObservableRefer
     final int id = this.getObservableReferenceInverseModelId();
     this.$$arezr$$_observableReferenceInverseModel = this.$$arezi$$_locator().findById( ObservableReferenceInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_observableReferenceInverseModel, () -> "Reference method named 'getObservableReferenceInverseModel' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type " + ObservableReferenceInverseModel.class + " and id = " + getObservableReferenceInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableReferenceInverseModel, () -> "Reference method named 'getObservableReferenceInverseModel' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.ObservableReferenceInverseModel and id = " + getObservableReferenceInverseModelId() );
     }
     ( (Arez_ObservableReferenceInverseModel) this.$$arezr$$_observableReferenceInverseModel ).$$arezir$$_elements_add( this );
   }

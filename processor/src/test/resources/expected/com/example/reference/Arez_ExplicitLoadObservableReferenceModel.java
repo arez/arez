@@ -194,7 +194,7 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
       final int id = this.getMyEntityId();
       this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( ExplicitLoadObservableReferenceModel.MyEntity.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type " + ExplicitLoadObservableReferenceModel.MyEntity.class + " and id = " + getMyEntityId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.reference.ExplicitLoadObservableReferenceModel.MyEntity and id = " + getMyEntityId() );
       }
     }
   }

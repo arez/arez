@@ -151,7 +151,7 @@ final class Arez_LazyLoadReferenceModel extends LazyLoadReferenceModel implement
       final int id = this.getMyEntityId();
       this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( LazyLoadReferenceModel.MyEntity.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type " + LazyLoadReferenceModel.MyEntity.class + " and id = " + getMyEntityId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.reference.LazyLoadReferenceModel.MyEntity and id = " + getMyEntityId() );
       }
     }
   }

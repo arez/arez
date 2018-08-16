@@ -154,7 +154,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
     final int id = this.getNonGetterInverseModelId();
     this.$$arezr$$_nonGetterInverseModel = this.$$arezi$$_locator().findById( NonGetterInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_nonGetterInverseModel, () -> "Reference method named 'getNonGetterInverseModel' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type " + NonGetterInverseModel.class + " and id = " + getNonGetterInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_nonGetterInverseModel, () -> "Reference method named 'getNonGetterInverseModel' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.NonGetterInverseModel and id = " + getNonGetterInverseModelId() );
     }
     ( (Arez_NonGetterInverseModel) this.$$arezr$$_nonGetterInverseModel ).$$arezir$$_elements_add( this );
   }

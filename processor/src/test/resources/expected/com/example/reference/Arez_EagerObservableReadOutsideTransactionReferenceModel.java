@@ -185,7 +185,7 @@ final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends Eag
     final int id = this.getMyEntityId();
     this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( EagerObservableReadOutsideTransactionReferenceModel.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type " + EagerObservableReadOutsideTransactionReferenceModel.MyEntity.class + " and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.reference.EagerObservableReadOutsideTransactionReferenceModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 

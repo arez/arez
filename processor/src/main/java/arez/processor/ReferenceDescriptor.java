@@ -325,13 +325,13 @@ final class ReferenceDescriptor
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
     block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference method named '$N' " +
-                        "invoked on component named '\" + $N() + \"' is unable to resolve entity of type \" + " +
-                        "$T.class + \" and id = \" + $N() )",
+                        "invoked on component named '\" + $N() + \"' is unable to resolve entity of type $N " +
+                        "and id = \" + $N() )",
                         GeneratorUtil.GUARDS_CLASSNAME,
                         getFieldName(),
                         getMethod().getSimpleName(),
                         _componentDescriptor.getComponentNameMethodName(),
-                        getMethod().getReturnType(),
+                        getMethod().getReturnType().toString(),
                         getIdMethod().getSimpleName() );
     block.endControlFlow();
     builder.addCode( block.build() );
@@ -357,13 +357,13 @@ final class ReferenceDescriptor
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
     block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference method named '$N' " +
-                        "invoked on component named '\" + $N() + \"' is unable to resolve entity of type \" + " +
-                        "$T.class + \" and id = \" + $N() )",
+                        "invoked on component named '\" + $N() + \"' is unable to resolve entity of type $N " +
+                        "and id = \" + $N() )",
                         GeneratorUtil.GUARDS_CLASSNAME,
                         getFieldName(),
                         getMethod().getSimpleName(),
                         _componentDescriptor.getComponentNameMethodName(),
-                        getMethod().getReturnType(),
+                        getMethod().getReturnType().toString(),
                         getIdMethod().getSimpleName() );
     block.endControlFlow();
     builder.add( block.build() );

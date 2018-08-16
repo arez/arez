@@ -188,7 +188,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
     if ( null != id ) {
       this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( EagerLoadNulableObservableReferenceModel.MyEntity.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type " + EagerLoadNulableObservableReferenceModel.MyEntity.class + " and id = " + getMyEntityId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.reference.EagerLoadNulableObservableReferenceModel.MyEntity and id = " + getMyEntityId() );
       }
     } else {
       this.$$arezr$$_myEntity = null;

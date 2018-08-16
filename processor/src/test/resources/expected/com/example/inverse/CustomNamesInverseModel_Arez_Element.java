@@ -154,7 +154,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
     final int id = this.getXId();
     this.$$arezr$$_zoom = this.$$arezi$$_locator().findById( CustomNamesInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_zoom, () -> "Reference method named 'getX' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type " + CustomNamesInverseModel.class + " and id = " + getXId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_zoom, () -> "Reference method named 'getX' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.CustomNamesInverseModel and id = " + getXId() );
     }
     ( (Arez_CustomNamesInverseModel) this.$$arezr$$_zoom ).$$arezir$$_zap_add( this );
   }
