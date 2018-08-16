@@ -3309,7 +3309,15 @@ final class ComponentDescriptor
                                        final boolean requiresDeprecatedSuppress )
   {
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
-    ProcessorUtil.copyAccessModifiers( constructor, builder );
+    if ( constructor.getModifiers().contains( Modifier.PUBLIC ) )
+    {
+      /*
+       * The constructor MUST be public if annotated class is public as that implies that we expect
+       * that code outside the package may construct the component.
+       */
+      builder.addModifiers( Modifier.PUBLIC );
+    }
+
     ProcessorUtil.copyExceptions( constructorType, builder );
     ProcessorUtil.copyTypeParameters( constructorType, builder );
 

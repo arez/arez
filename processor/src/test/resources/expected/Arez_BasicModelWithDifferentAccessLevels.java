@@ -56,7 +56,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
     }
   }
 
-  protected Arez_BasicModelWithDifferentAccessLevels(final String value) {
+  Arez_BasicModelWithDifferentAccessLevels(final String value) {
     super(value);
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;

@@ -62,6 +62,9 @@
 * **\[core\]** Remove the `arez.annotations.OnDispose` annotation as the same behaviour can be achieved by
   the use of `@PreDispose` and/or `@PostDispose` and this results in a more consistent mechanism for hooking
   into the component dispose mechanisms.
+* **\[processor\]** Omit the `protected` access modifier on the constructor of generated component classes as
+  the generated classes are `final` and thus the `protected` access modifier is equivalent to package access.
+
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)

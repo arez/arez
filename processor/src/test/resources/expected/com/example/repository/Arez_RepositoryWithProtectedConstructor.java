@@ -36,7 +36,7 @@ final class Arez_RepositoryWithProtectedConstructor extends RepositoryWithProtec
   @Nonnull
   private final Observable<String> $$arez$$_name;
 
-  protected Arez_RepositoryWithProtectedConstructor(@Nonnull final String name) {
+  Arez_RepositoryWithProtectedConstructor(@Nonnull final String name) {
     super(name);
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = $$arezi$$_nextId++;
