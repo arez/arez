@@ -11,6 +11,12 @@ complete as there is too much un-said.
 * Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
   if change so that glue code is correctly regenerated without forcing rebuild from tool.
 
+* ArezBuildAsserts: Add tests when ArezComponent.requireEquals = DISABLE to ensure no hashCode or equals
+
+* ArezBuildAsserts: assert no Observable.preReportChanged if assertions disabled
+
+* BuildOutputTest: Update to test previous asserts
+
 ## Enhancements
 
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
