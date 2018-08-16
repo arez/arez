@@ -763,7 +763,7 @@ final class ObservableDescriptor
     }
   }
 
-  private boolean isGetterNonnull()
+  boolean isGetterNonnull()
   {
     return null != ProcessorUtil.findAnnotationByType( getGetter(), Constants.NONNULL_ANNOTATION_CLASSNAME );
   }

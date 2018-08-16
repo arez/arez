@@ -70,6 +70,8 @@
   annotated method that has a target type in a different package and the component class does not have a public
   constructor. This is required so that the generated classes can interact with the synthetic methods added
   to component class to manage the inverse.
+* **\[processor\]** Fix bug where an `@Observable`, `@Nullable` property would be generated requiring that a
+  non-null value passed into the initializer.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)

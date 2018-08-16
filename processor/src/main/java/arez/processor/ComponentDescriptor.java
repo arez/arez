@@ -3396,12 +3396,16 @@ final class ComponentDescriptor
       {
         builder.addStatement( "this.$N = $N", observable.getDataFieldName(), name );
       }
-      else
+      else if ( observable.isGetterNonnull() )
       {
         builder.addStatement( "this.$N = $T.requireNonNull( $N )",
                               observable.getDataFieldName(),
                               Objects.class,
                               name );
+      }
+      else
+      {
+        builder.addStatement( "this.$N = $N", observable.getDataFieldName(), name );
       }
     }
 
