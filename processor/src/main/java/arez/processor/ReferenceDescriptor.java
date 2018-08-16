@@ -339,7 +339,9 @@ final class ReferenceDescriptor
       final String linkMethodName =
         _inverseMultiplicity == Multiplicity.MANY ?
         GeneratorUtil.getInverseAddMethodName( _inverseName ) :
-        GeneratorUtil.getInverseSetMethodName( _inverseName );
+        _inverseMultiplicity == Multiplicity.ONE ?
+        GeneratorUtil.getInverseSetMethodName( _inverseName ) :
+        GeneratorUtil.getInverseZSetMethodName( _inverseName );
       builder.addStatement( "( ($T) this.$N ).$N( this )", getArezClassName(), getFieldName(), linkMethodName );
     }
   }
@@ -396,9 +398,11 @@ final class ReferenceDescriptor
     assert null != _inverseName;
     assert null != _inverseName;
     final String delinkMethodName =
-      _inverseMultiplicity == Multiplicity.MANY ?
+      Multiplicity.MANY == _inverseMultiplicity ?
       GeneratorUtil.getInverseRemoveMethodName( _inverseName ) :
-      GeneratorUtil.getInverseUnsetMethodName( _inverseName );
+      Multiplicity.ONE == _inverseMultiplicity ?
+      GeneratorUtil.getInverseUnsetMethodName( _inverseName ) :
+      GeneratorUtil.getInverseZUnsetMethodName( _inverseName );
     nestedBlock.addStatement( "( ($T) this.$N ).$N( this )", getArezClassName(), getFieldName(), delinkMethodName );
     nestedBlock.addStatement( "this.$N = null", getFieldName() );
     nestedBlock.endControlFlow();

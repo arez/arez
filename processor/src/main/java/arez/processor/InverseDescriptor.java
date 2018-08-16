@@ -207,17 +207,26 @@ final class InverseDescriptor
   private MethodSpec buildSetMethod()
     throws ArezProcessorException
   {
-    final String methodName = GeneratorUtil.getInverseSetMethodName( _observable.getName() );
+    final String methodName =
+      Multiplicity.ONE == _multiplicity ?
+      GeneratorUtil.getInverseSetMethodName( _observable.getName() ) :
+      GeneratorUtil.getInverseZSetMethodName( _observable.getName() );
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     if ( !isReferenceInSamePackage() )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
-    final ParameterSpec parameter =
-      ParameterSpec.builder( TypeName.get( _targetType.asType() ), _otherName, Modifier.FINAL )
-        .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
-        .build();
-    builder.addParameter( parameter );
+    final ParameterSpec.Builder parameter =
+      ParameterSpec.builder( TypeName.get( _targetType.asType() ), _otherName, Modifier.FINAL );
+    if ( Multiplicity.ONE == _multiplicity )
+    {
+      parameter.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+    }
+    else
+    {
+      parameter.addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME );
+    }
+    builder.addParameter( parameter.build() );
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
     builder.addStatement( "this.$N.preReportChanged()", _observable.getFieldName() );
@@ -231,7 +240,10 @@ final class InverseDescriptor
   private MethodSpec buildUnsetMethod()
     throws ArezProcessorException
   {
-    final String methodName = GeneratorUtil.getInverseUnsetMethodName( _observable.getName() );
+    final String methodName =
+      Multiplicity.ONE == _multiplicity ?
+      GeneratorUtil.getInverseUnsetMethodName( _observable.getName() ) :
+      GeneratorUtil.getInverseZUnsetMethodName( _observable.getName() );
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     if ( !isReferenceInSamePackage() )
     {

@@ -147,18 +147,18 @@ final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicity
     return this.$$arezd$$_element;
   }
 
-  void $$arezir$$_element_set(@Nonnull final ZeroOrOneMultiplicityInverseModel.Element element) {
+  void $$arezir$$_element_zset(@Nullable final ZeroOrOneMultiplicityInverseModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_element_set' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_element_zset' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     this.$$arez$$_element.preReportChanged();
     this.$$arezd$$_element = element;
     this.$$arez$$_element.reportChanged();
   }
 
-  void $$arezir$$_element_unset(@Nonnull final ZeroOrOneMultiplicityInverseModel.Element element) {
+  void $$arezir$$_element_zunset(@Nonnull final ZeroOrOneMultiplicityInverseModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_element_unset' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_element_zunset' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     this.$$arez$$_element.preReportChanged();
     if ( this.$$arezd$$_element == element ) {

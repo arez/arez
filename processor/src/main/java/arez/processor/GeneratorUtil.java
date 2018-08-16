@@ -122,6 +122,21 @@ final class GeneratorUtil
     return GeneratorUtil.INVERSE_REFERENCE_METHOD_PREFIX + name + "_unset";
   }
 
+  @Nonnull
+  static String getInverseZSetMethodName( @Nonnull final String name )
+  {
+    // Use different names for linking/unlinking if there is different multiplicities to
+    // avoid scenario where classes that are not consistent will be able to be loaded
+    // by the jvm
+    return GeneratorUtil.INVERSE_REFERENCE_METHOD_PREFIX + name + "_zset";
+  }
+
+  @Nonnull
+  static String getInverseZUnsetMethodName( @Nonnull final String name )
+  {
+    return GeneratorUtil.INVERSE_REFERENCE_METHOD_PREFIX + name + "_zunset";
+  }
+
   static void generateNotInitializedInvariant( @Nonnull final ComponentDescriptor descriptor,
                                                @Nonnull final MethodSpec.Builder builder,
                                                @Nonnull final String methodName )
