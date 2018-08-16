@@ -373,7 +373,9 @@ final class ReferenceDescriptor
       final String linkMethodName =
         _inverseMultiplicity == Multiplicity.MANY ?
         GeneratorUtil.getInverseAddMethodName( _inverseName ) :
-        GeneratorUtil.getInverseSetMethodName( _inverseName );
+        _inverseMultiplicity == Multiplicity.ONE ?
+        GeneratorUtil.getInverseSetMethodName( _inverseName ) :
+        GeneratorUtil.getInverseZSetMethodName( _inverseName );
       assert null != _method;
       builder.addStatement( "( ($T) this.$N ).$N( this )", getArezClassName(), getFieldName(), linkMethodName );
     }
