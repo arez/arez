@@ -394,6 +394,18 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void processSuccessfulInverseInDifferentPackage()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      fixture( "input/com/example/inverse/PackageAccessWithDifferentPackageInverseModel.java" );
+    final JavaFileObject source2 =
+      fixture( "input/com/example/inverse/other/Element.java" );
+    final String output = "expected/com/example/inverse/Arez_PackageAccessWithDifferentPackageInverseModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
+  }
+
+  @Test
   public void processSuccessfulToStringInPresent()
     throws Exception
   {

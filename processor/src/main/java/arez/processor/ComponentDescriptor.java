@@ -41,6 +41,7 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
+import static arez.processor.ProcessorUtil.*;
 
 /**
  * The class that represents the parsed state of ArezComponent annotated class.
@@ -2428,7 +2429,13 @@ final class ComponentDescriptor
         stream().
         anyMatch( c -> c.getModifiers().contains( Modifier.PUBLIC ) ) &&
       getElement().getModifiers().contains( Modifier.PUBLIC );
-    if ( publicType )
+    final boolean hasInverseReferencedOutsideClass =
+      _roInverses.stream().anyMatch( inverse -> {
+        final PackageElement targetPackageElement = ProcessorUtil.getPackageElement( inverse.getTargetType() );
+        final PackageElement selfPackageElement = getPackageElement( getElement() );
+        return !Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
+      } );
+    if ( publicType || hasInverseReferencedOutsideClass )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
