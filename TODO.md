@@ -26,7 +26,7 @@ complete as there is too much un-said.
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
 * Figure out a way to use a single entrypoint for each of `observable()`, `autorun()`, `track()` by passing
-  in an options object? 
+  in an options object?
 
 * Update ArezProcessor so that all errors for class are reported rather than just the first one then aborting the build.
 
