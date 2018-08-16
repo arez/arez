@@ -3309,7 +3309,8 @@ final class ComponentDescriptor
                                        final boolean requiresDeprecatedSuppress )
   {
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
-    if ( constructor.getModifiers().contains( Modifier.PUBLIC ) )
+    if ( constructor.getModifiers().contains( Modifier.PUBLIC ) &&
+         getElement().getModifiers().contains( Modifier.PUBLIC ) )
     {
       /*
        * The constructor MUST be public if annotated class is public as that implies that we expect

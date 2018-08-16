@@ -44,6 +44,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.autorun.ScheduleAfterConstructedModel", false, false, false },
         new Object[]{ "com.example.autorun.ScheduleDeferredModel", false, false, false },
         new Object[]{ "com.example.component.AnnotatedConcreteModel", false, false, false },
+        new Object[]{ "com.example.component.PublicCtorNonPublicModel", false, false, false },
         new Object[]{ "com.example.collections.AbstractCollectionObservableModel", false, false, false },
         new Object[]{ "com.example.collections.AbstractListObservableModel", false, false, false },
         new Object[]{ "com.example.collections.AbstractMapObservableModel", false, false, false },

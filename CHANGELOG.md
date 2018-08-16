@@ -64,6 +64,8 @@
   into the component dispose mechanisms.
 * **\[processor\]** Omit the `protected` access modifier on the constructor of generated component classes as
   the generated classes are `final` and thus the `protected` access modifier is equivalent to package access.
+* **\[processor\]** Omit the `public` access modifier on the constructor of generated component classes if
+  the component class is not `public`.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)
