@@ -172,7 +172,7 @@ final class Arez_DisableVerifyModel extends DisableVerifyModel implements Dispos
     final int id = this.getMyEntityId();
     this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( DisableVerifyModel.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type " + DisableVerifyModel.MyEntity.class + " and id = " + getMyEntityId() );
     }
   }
 

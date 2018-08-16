@@ -154,7 +154,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
     final int id = this.getZeroOrOneMultiplicityInverseModelId();
     this.$$arezr$$_zeroOrOneMultiplicityInverseModel = this.$$arezi$$_locator().findById( ZeroOrOneMultiplicityInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_zeroOrOneMultiplicityInverseModel, () -> "Reference method named 'getZeroOrOneMultiplicityInverseModel' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getZeroOrOneMultiplicityInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_zeroOrOneMultiplicityInverseModel, () -> "Reference method named 'getZeroOrOneMultiplicityInverseModel' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type " + ZeroOrOneMultiplicityInverseModel.class + " and id = " + getZeroOrOneMultiplicityInverseModelId() );
     }
     ( (Arez_ZeroOrOneMultiplicityInverseModel) this.$$arezr$$_zeroOrOneMultiplicityInverseModel ).$$arezir$$_element_zset( this );
   }

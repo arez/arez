@@ -153,7 +153,7 @@ final class Arez_NonJavabeanNameReferenceModel extends NonJavabeanNameReferenceM
     final int id = this.myEntityId();
     this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( NonJavabeanNameReferenceModel.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'myEntity' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + myEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'myEntity' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type " + NonJavabeanNameReferenceModel.MyEntity.class + " and id = " + myEntityId() );
     }
   }
 

@@ -154,7 +154,7 @@ final class ObservableCollectionInverseModel_Arez_Element extends ObservableColl
     final int id = this.getObservableCollectionInverseModelId();
     this.$$arezr$$_observableCollectionInverseModel = this.$$arezi$$_locator().findById( ObservableCollectionInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_observableCollectionInverseModel, () -> "Reference method named 'getObservableCollectionInverseModel' invoked on component named '" + $$arezi$$_name() + "' missing related entity. Id = " + getObservableCollectionInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableCollectionInverseModel, () -> "Reference method named 'getObservableCollectionInverseModel' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type " + ObservableCollectionInverseModel.class + " and id = " + getObservableCollectionInverseModelId() );
     }
     ( (Arez_ObservableCollectionInverseModel) this.$$arezr$$_observableCollectionInverseModel ).$$arezir$$_elements_add( this );
   }
