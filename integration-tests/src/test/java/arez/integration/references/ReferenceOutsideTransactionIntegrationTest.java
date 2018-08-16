@@ -1,7 +1,6 @@
 package arez.integration.references;
 
 import arez.Arez;
-import arez.Observer;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
@@ -54,7 +53,7 @@ public class ReferenceOutsideTransactionIntegrationTest
     assertEquals( findCallCount.get(), 1 );
 
     final AtomicInteger observerCallCount = new AtomicInteger();
-    final Observer observer = autorun( () -> {
+    autorun( () -> {
       model1.getModel2();
       observerCallCount.incrementAndGet();
     } );
