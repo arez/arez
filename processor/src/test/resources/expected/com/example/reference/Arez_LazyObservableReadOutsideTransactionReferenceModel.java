@@ -137,7 +137,7 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel extends Lazy
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( LazyObservableReadOutsideTransactionReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type LazyObservableReadOutsideTransactionReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( LazyObservableReadOutsideTransactionReferenceModel.class, $$arezi$$_id() ) );
-      this.$$arezr$$_myEntity = null;
+      this.$$arezi$$_delink_myEntity();
       this.$$arezi$$_link_myEntity();
     }
   }
@@ -189,6 +189,10 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel extends Lazy
         Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.reference.LazyObservableReadOutsideTransactionReferenceModel.MyEntity and id = " + getMyEntityId() );
       }
     }
+  }
+
+  private void $$arezi$$_delink_myEntity() {
+    this.$$arezr$$_myEntity = null;
   }
 
   @Override

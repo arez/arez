@@ -130,7 +130,7 @@ final class Arez_NonJavabeanNameReferenceModel extends NonJavabeanNameReferenceM
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonJavabeanNameReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonJavabeanNameReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonJavabeanNameReferenceModel.class, $$arezi$$_id() ) );
-      this.$$arezr$$_myEntity = null;
+      this.$$arezi$$_delink_myEntity();
       this.$$arezi$$_link_myEntity();
     }
   }
@@ -155,6 +155,10 @@ final class Arez_NonJavabeanNameReferenceModel extends NonJavabeanNameReferenceM
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'myEntity' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.reference.NonJavabeanNameReferenceModel.MyEntity and id = " + myEntityId() );
     }
+  }
+
+  private void $$arezi$$_delink_myEntity() {
+    this.$$arezr$$_myEntity = null;
   }
 
   @Override

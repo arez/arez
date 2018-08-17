@@ -131,7 +131,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CustomNamesInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type CustomNamesInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CustomNamesInverseModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezr$$_zoom = null;
+      this.$$arezi$$_delink_zoom();
       this.$$arezi$$_link_zoom();
     }
   }

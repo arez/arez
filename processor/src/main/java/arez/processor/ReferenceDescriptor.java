@@ -156,7 +156,7 @@ final class ReferenceDescriptor
   {
     builder.addMethod( buildReferenceMethod() );
     builder.addMethod( buildLinkMethod() );
-    if ( hasInverse() )
+    if ( hasInverse() || _componentDescriptor.shouldVerify() )
     {
       builder.addMethod( buildDelinkMethod() );
     }
@@ -394,24 +394,28 @@ final class ReferenceDescriptor
     throws ArezProcessorException
   {
     assert null != _method;
-    assert null != _inverseName;
     final String methodName = getDelinkMethodName();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     builder.addModifiers( Modifier.PRIVATE );
 
-    final CodeBlock.Builder nestedBlock = CodeBlock.builder();
-    nestedBlock.beginControlFlow( "if ( null != $N )", getFieldName() );
-    assert null != _inverseName;
-    final String delinkMethodName =
-      Multiplicity.MANY == _inverseMultiplicity ?
-      GeneratorUtil.getInverseRemoveMethodName( _inverseName ) :
-      Multiplicity.ONE == _inverseMultiplicity ?
-      GeneratorUtil.getInverseUnsetMethodName( _inverseName ) :
-      GeneratorUtil.getInverseZUnsetMethodName( _inverseName );
-    nestedBlock.addStatement( "( ($T) this.$N ).$N( this )", getArezClassName(), getFieldName(), delinkMethodName );
-    nestedBlock.addStatement( "this.$N = null", getFieldName() );
-    nestedBlock.endControlFlow();
-    builder.addCode( nestedBlock.build() );
+    if ( null != _inverseName )
+    {
+      final CodeBlock.Builder nestedBlock = CodeBlock.builder();
+      nestedBlock.beginControlFlow( "if ( null != $N && $T.isNotDisposed( $N ) )",
+                                    getFieldName(),
+                                    GeneratorUtil.DISPOSABLE_CLASSNAME,
+                                    getFieldName() );
+      final String delinkMethodName =
+        Multiplicity.MANY == _inverseMultiplicity ?
+        GeneratorUtil.getInverseRemoveMethodName( _inverseName ) :
+        Multiplicity.ONE == _inverseMultiplicity ?
+        GeneratorUtil.getInverseUnsetMethodName( _inverseName ) :
+        GeneratorUtil.getInverseZUnsetMethodName( _inverseName );
+      nestedBlock.addStatement( "( ($T) this.$N ).$N( this )", getArezClassName(), getFieldName(), delinkMethodName );
+      nestedBlock.endControlFlow();
+      builder.addCode( nestedBlock.build() );
+    }
+    builder.addStatement( "this.$N = null", getFieldName() );
 
     return builder.build();
   }

@@ -187,7 +187,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CompleteModel.class, getId() ), () -> "Attempted to lookup self in Locator with type CompleteModel and id '" + getId() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CompleteModel.class, getId() ) );
-      this.$$arezr$$_myEntity = null;
+      this.$$arezi$$_delink_myEntity();
       this.$$arezi$$_link_myEntity();
       for( final Element element : this.$$arezd$$_elements ) {
         if ( Arez.shouldCheckApiInvariants() ) {
@@ -326,6 +326,10 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + getComponentName() + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.MyEntity and id = " + getMyEntityId() );
     }
+  }
+
+  private void $$arezi$$_delink_myEntity() {
+    this.$$arezr$$_myEntity = null;
   }
 
   public void $$arezir$$_elements_add(@Nonnull final Element element) {

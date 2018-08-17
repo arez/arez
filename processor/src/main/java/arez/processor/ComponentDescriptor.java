@@ -226,6 +226,11 @@ final class ComponentDescriptor
     _idRequired = idRequired;
   }
 
+  boolean shouldVerify()
+  {
+    return _verify;
+  }
+
   boolean isDisposeTrackable()
   {
     return _disposeTrackable;
@@ -2955,7 +2960,7 @@ final class ComponentDescriptor
                           getIdMethodName() );
       for ( final ReferenceDescriptor reference : _roReferences )
       {
-        block.addStatement( "this.$N = null", reference.getFieldName() );
+        block.addStatement( "this.$N()", reference.getDelinkMethodName() );
         block.addStatement( "this.$N()", reference.getLinkMethodName() );
       }
 

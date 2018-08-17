@@ -131,7 +131,7 @@ final class ObservableSetInverseModel_Arez_Element extends ObservableSetInverseM
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ObservableSetInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ObservableSetInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ObservableSetInverseModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezr$$_observableSetInverseModel = null;
+      this.$$arezi$$_delink_observableSetInverseModel();
       this.$$arezi$$_link_observableSetInverseModel();
     }
   }

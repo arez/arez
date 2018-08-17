@@ -131,7 +131,7 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonObservableCollectionInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonObservableCollectionInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonObservableCollectionInverseModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezr$$_nonObservableCollectionInverseModel = null;
+      this.$$arezi$$_delink_nonObservableCollectionInverseModel();
       this.$$arezi$$_link_nonObservableCollectionInverseModel();
     }
   }

@@ -131,7 +131,7 @@ final class DefaultMultiplicityInverseModel_Arez_Element extends DefaultMultipli
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( DefaultMultiplicityInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type DefaultMultiplicityInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( DefaultMultiplicityInverseModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezr$$_defaultMultiplicityInverseModel = null;
+      this.$$arezi$$_delink_defaultMultiplicityInverseModel();
       this.$$arezi$$_link_defaultMultiplicityInverseModel();
     }
   }

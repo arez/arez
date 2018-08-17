@@ -131,7 +131,7 @@ final class NonObservableNullableZeroOrOneReferenceModel_Arez_Element extends No
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonObservableNullableZeroOrOneReferenceModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonObservableNullableZeroOrOneReferenceModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonObservableNullableZeroOrOneReferenceModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezr$$_nonObservableNullableZeroOrOneReferenceModel = null;
+      this.$$arezi$$_delink_nonObservableNullableZeroOrOneReferenceModel();
       this.$$arezi$$_link_nonObservableNullableZeroOrOneReferenceModel();
     }
   }

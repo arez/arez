@@ -136,9 +136,9 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation.class, $$arezi$$_id() ) );
-      this.$$arezr$$_parent = null;
+      this.$$arezi$$_delink_parent();
       this.$$arezi$$_link_parent();
-      this.$$arezr$$_child = null;
+      this.$$arezi$$_delink_child();
       this.$$arezi$$_link_child();
     }
   }
