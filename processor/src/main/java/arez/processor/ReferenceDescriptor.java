@@ -402,7 +402,6 @@ final class ReferenceDescriptor
     final CodeBlock.Builder nestedBlock = CodeBlock.builder();
     nestedBlock.beginControlFlow( "if ( null != $N )", getFieldName() );
     assert null != _inverseName;
-    assert null != _inverseName;
     final String delinkMethodName =
       Multiplicity.MANY == _inverseMultiplicity ?
       GeneratorUtil.getInverseRemoveMethodName( _inverseName ) :
