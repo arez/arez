@@ -11,6 +11,9 @@ complete as there is too much un-said.
 * Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
   if change so that glue code is correctly regenerated without forcing rebuild from tool.
 
+* Add integration test for verify - in particular both inverse as well as normal references of all multiplicities
+  Make sure test when both sides disposed
+
 ## Enhancements
 
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
