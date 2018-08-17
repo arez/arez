@@ -34,6 +34,9 @@ public final class ArezBuildAsserts
 
     // This should be eliminated as only used during invariant checking
     index.assertNoMemberMatches( "arez\\.Observable", "preReportChanged" );
+
+    // No repository should have equals defined
+    assertEquals( index, ".*(\\.|_)Arez_[^\\.]Repository", false );
   }
 
   /**
@@ -224,6 +227,20 @@ public final class ArezBuildAsserts
   {
     index.assertSymbol( classNamePattern, "$$arezi$$_id", enabled );
     index.assertSymbol( classNamePattern, "$$arezi$$_nextId", enabled );
+  }
+
+  /**
+   * Assert that the equals method is not present, usually applied to select generated classes.
+   *
+   * @param index            the index that contains all symbols for output target.
+   * @param classNamePattern the pattern that determine which classes should be matched.
+   * @param enabled          true if equals should be present, false otherwise.
+   */
+  public static void assertEquals( @Nonnull final SymbolEntryIndex index,
+                                   @RegExp( prefix = "^", suffix = "$" ) @Nonnull final String classNamePattern,
+                                   final boolean enabled )
+  {
+    index.assertSymbol( classNamePattern, "\\$equals", enabled );
   }
 
   /**

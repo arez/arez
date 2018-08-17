@@ -24,7 +24,12 @@ public class BuildOutputTest
     // This pattern should apply if nameIncludeId is false (or @Singleton present), no @Repository annotation and !Arez.areNativeComponentsEnabled()
     ArezBuildAsserts.assertSyntheticId( index, "arez\\.browser\\.extras\\.Arez_BrowserLocation", false );
 
-    //TODO: Add tests when ArezComponent.requireEquals = DISABLE to ensure no hashCode or equals
+    // No services should have equals defined
+    ArezBuildAsserts.assertEquals( index, "react4j\\.todomvc\\.model\\.Arez_ViewService", false );
+    ArezBuildAsserts.assertEquals( index, "react4j\\.todomvc\\.model\\.Arez_TodoService", false );
+
+    // Part of a repository so needs an equals
+    ArezBuildAsserts.assertEquals( index, "react4j\\.todomvc\\.model\\.Arez_Todo", true );
   }
 
   @Nonnull
