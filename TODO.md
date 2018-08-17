@@ -18,7 +18,7 @@ complete as there is too much un-said.
 
 * Enhance the track/autorun/computed with a `minimumDelay` parameter. The reaction will wait the `minimumDelay`
   before triggering the tracked function. This is an effective mechanism to add de-bouncing to limit the number
-  of expensive calls (i.e. remote calls or accessing expensive local calls). Another variantion is to add
+  of expensive calls (i.e. remote calls or accessing expensive local calls). Another variation is to add
   `throttleTime` which will track when the track/autorun/computed was invoked and will avoid rescheduling
   the function until at least that amount of time has passed. This is similar to `minimumDelay`, except that the
   initial run of the function happens immediately.
