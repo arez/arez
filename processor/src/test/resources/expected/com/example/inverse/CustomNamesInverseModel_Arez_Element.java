@@ -160,10 +160,10 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
   }
 
   private void $$arezi$$_delink_zoom() {
-    if ( null != $$arezr$$_zoom ) {
+    if ( null != $$arezr$$_zoom && Disposable.isNotDisposed( $$arezr$$_zoom ) ) {
       ( (Arez_CustomNamesInverseModel) this.$$arezr$$_zoom ).$$arezir$$_zap_remove( this );
-      this.$$arezr$$_zoom = null;
     }
+    this.$$arezr$$_zoom = null;
   }
 
   @Override

@@ -160,10 +160,10 @@ final class ObservableCollectionInverseModel_Arez_Element extends ObservableColl
   }
 
   private void $$arezi$$_delink_observableCollectionInverseModel() {
-    if ( null != $$arezr$$_observableCollectionInverseModel ) {
+    if ( null != $$arezr$$_observableCollectionInverseModel && Disposable.isNotDisposed( $$arezr$$_observableCollectionInverseModel ) ) {
       ( (Arez_ObservableCollectionInverseModel) this.$$arezr$$_observableCollectionInverseModel ).$$arezir$$_elements_remove( this );
-      this.$$arezr$$_observableCollectionInverseModel = null;
     }
+    this.$$arezr$$_observableCollectionInverseModel = null;
   }
 
   @Override

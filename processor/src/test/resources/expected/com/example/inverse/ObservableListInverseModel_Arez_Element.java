@@ -160,10 +160,10 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
   }
 
   private void $$arezi$$_delink_observableListInverseModel() {
-    if ( null != $$arezr$$_observableListInverseModel ) {
+    if ( null != $$arezr$$_observableListInverseModel && Disposable.isNotDisposed( $$arezr$$_observableListInverseModel ) ) {
       ( (Arez_ObservableListInverseModel) this.$$arezr$$_observableListInverseModel ).$$arezir$$_elements_remove( this );
-      this.$$arezr$$_observableListInverseModel = null;
     }
+    this.$$arezr$$_observableListInverseModel = null;
   }
 
   @Override

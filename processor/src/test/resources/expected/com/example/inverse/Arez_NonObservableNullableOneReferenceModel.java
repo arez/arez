@@ -132,7 +132,6 @@ final class Arez_NonObservableNullableOneReferenceModel extends NonObservableNul
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonObservableNullableOneReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonObservableNullableOneReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonObservableNullableOneReferenceModel.class, $$arezi$$_id() ) );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null == this.$$arezd$$_element, () -> "Inverse relationship named 'element' on component named '" + $$arezi$$_name() + "' is null but should be non-null" );
         Guards.apiInvariant( () -> Disposable.isNotDisposed( this.$$arezd$$_element ), () -> "Inverse relationship named 'element' on component named '" + $$arezi$$_name() + "' contains disposed element '" + this.$$arezd$$_element + "'" );
       }
     }

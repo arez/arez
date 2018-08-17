@@ -282,43 +282,16 @@ final class InverseDescriptor
     {
       buildManyVerify( code );
     }
-    else if ( Multiplicity.ONE == _multiplicity )
-    {
-      buildOneVerify( code );
-    }
     else
     {
-      buildZeroOrOneVerify( code );
+      buildSingularVerify( code );
     }
   }
 
-  private void buildZeroOrOneVerify( @Nonnull final CodeBlock.Builder code )
+  private void buildSingularVerify( @Nonnull final CodeBlock.Builder code )
   {
     final CodeBlock.Builder builder = CodeBlock.builder();
     builder.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
-    builder.addStatement( "$T.apiInvariant( () -> $T.isNotDisposed( this.$N ), () -> \"Inverse relationship " +
-                          "named '$N' on component named '\" + $N() + \"' contains disposed element '\" + this.$N + \"'\" )",
-                          GeneratorUtil.GUARDS_CLASSNAME,
-                          GeneratorUtil.DISPOSABLE_CLASSNAME,
-                          _observable.getDataFieldName(),
-                          _observable.getName(),
-                          _componentDescriptor.getComponentNameMethodName(),
-                          _observable.getDataFieldName() );
-    builder.endControlFlow();
-    code.add( builder.build() );
-
-  }
-
-  private void buildOneVerify( @Nonnull final CodeBlock.Builder code )
-  {
-    final CodeBlock.Builder builder = CodeBlock.builder();
-    builder.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
-    builder.addStatement( "$T.apiInvariant( () -> null == this.$N, () -> \"Inverse relationship " +
-                          "named '$N' on component named '\" + $N() + \"' is null but should be non-null\" )",
-                          GeneratorUtil.GUARDS_CLASSNAME,
-                          _observable.getDataFieldName(),
-                          _observable.getName(),
-                          _componentDescriptor.getComponentNameMethodName() );
     builder.addStatement( "$T.apiInvariant( () -> $T.isNotDisposed( this.$N ), () -> \"Inverse relationship " +
                           "named '$N' on component named '\" + $N() + \"' contains disposed element '\" + this.$N + \"'\" )",
                           GeneratorUtil.GUARDS_CLASSNAME,

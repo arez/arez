@@ -162,10 +162,10 @@ public final class Arez_Element extends Element implements Disposable, Identifia
   }
 
   private void $$arezi$$_delink_completeModel() {
-    if ( null != $$arezr$$_completeModel ) {
+    if ( null != $$arezr$$_completeModel && Disposable.isNotDisposed( $$arezr$$_completeModel ) ) {
       ( (Arez_CompleteModel) this.$$arezr$$_completeModel ).$$arezir$$_elements_remove( this );
-      this.$$arezr$$_completeModel = null;
     }
+    this.$$arezr$$_completeModel = null;
   }
 
   @Override

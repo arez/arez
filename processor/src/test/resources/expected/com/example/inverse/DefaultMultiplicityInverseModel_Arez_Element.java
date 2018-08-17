@@ -160,10 +160,10 @@ final class DefaultMultiplicityInverseModel_Arez_Element extends DefaultMultipli
   }
 
   private void $$arezi$$_delink_defaultMultiplicityInverseModel() {
-    if ( null != $$arezr$$_defaultMultiplicityInverseModel ) {
+    if ( null != $$arezr$$_defaultMultiplicityInverseModel && Disposable.isNotDisposed( $$arezr$$_defaultMultiplicityInverseModel ) ) {
       ( (Arez_DefaultMultiplicityInverseModel) this.$$arezr$$_defaultMultiplicityInverseModel ).$$arezir$$_elements_remove( this );
-      this.$$arezr$$_defaultMultiplicityInverseModel = null;
     }
+    this.$$arezr$$_defaultMultiplicityInverseModel = null;
   }
 
   @Override

@@ -179,10 +179,10 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   }
 
   private void $$arezi$$_delink_parent() {
-    if ( null != $$arezr$$_parent ) {
+    if ( null != $$arezr$$_parent && Disposable.isNotDisposed( $$arezr$$_parent ) ) {
       ( (MultipleReferenceWithInverseWithSameTarget_Arez_RoleType) this.$$arezr$$_parent ).$$arezir$$_childGeneralisations_remove( this );
-      this.$$arezr$$_parent = null;
     }
+    this.$$arezr$$_parent = null;
   }
 
   @Nonnull
@@ -212,10 +212,10 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   }
 
   private void $$arezi$$_delink_child() {
-    if ( null != $$arezr$$_child ) {
+    if ( null != $$arezr$$_child && Disposable.isNotDisposed( $$arezr$$_child ) ) {
       ( (MultipleReferenceWithInverseWithSameTarget_Arez_RoleType) this.$$arezr$$_child ).$$arezir$$_parentGeneralisation_zunset( this );
-      this.$$arezr$$_child = null;
     }
+    this.$$arezr$$_child = null;
   }
 
   @Override

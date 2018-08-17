@@ -193,10 +193,10 @@ final class ObservableOneReferenceModel_Arez_Element extends ObservableOneRefere
   }
 
   private void $$arezi$$_delink_observableOneReferenceModel() {
-    if ( null != $$arezr$$_observableOneReferenceModel ) {
+    if ( null != $$arezr$$_observableOneReferenceModel && Disposable.isNotDisposed( $$arezr$$_observableOneReferenceModel ) ) {
       ( (Arez_ObservableOneReferenceModel) this.$$arezr$$_observableOneReferenceModel ).$$arezir$$_element_unset( this );
-      this.$$arezr$$_observableOneReferenceModel = null;
     }
+    this.$$arezr$$_observableOneReferenceModel = null;
   }
 
   @Override
