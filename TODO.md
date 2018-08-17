@@ -13,8 +13,6 @@ complete as there is too much un-said.
 
 * ArezBuildAsserts: Add tests when ArezComponent.requireEquals = DISABLE to ensure no hashCode or equals
 
-* ArezBuildAsserts: assert no Observable.preReportChanged if assertions disabled
-
 * BuildOutputTest: Update to test previous asserts
 
 ## Enhancements
