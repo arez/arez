@@ -49,7 +49,7 @@ public class VerifyIntegrationTest
 
       // Fail to verify as related is missing
       assertInvariant( () -> Verifiable.verify( model1 ),
-                       "Reference method named 'getModel2' invoked on component named 'Model1.0' missing related entity. Id = 0" );
+                       "Reference method named 'getModel2' invoked on component named 'Model1.0' is unable to resolve entity of type arez.integration.verify.VerifyIntegrationTest.Model2 and id = 0" );
       entities2.put( model2aId, model2a );
     }
 
