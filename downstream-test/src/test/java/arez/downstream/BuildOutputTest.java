@@ -25,7 +25,6 @@ public class BuildOutputTest
     ArezBuildAsserts.assertSyntheticId( index, "arez\\.browser\\.extras\\.Arez_BrowserLocation", false );
 
     //TODO: Add tests when ArezComponent.requireEquals = DISABLE to ensure no hashCode or equals
-    //TODO: assert no Observable.preReportChanged if assertions disabled
   }
 
   @Nonnull

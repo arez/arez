@@ -72,6 +72,8 @@
   to component class to manage the inverse.
 * **\[processor\]** Fix bug where an `@Observable`, `@Nullable` property would be generated requiring that a
   non-null value passed into the initializer.
+* **\[gwt-output-qa\]** Add assertion to `arez.gwt.qa.ArezBuildAsserts` that ensures that the method
+  `arez.Observable.preReportChanged()` is not present in production code.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)

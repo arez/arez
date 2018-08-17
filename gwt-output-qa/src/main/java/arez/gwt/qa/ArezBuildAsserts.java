@@ -31,6 +31,9 @@ public final class ArezBuildAsserts
 
     // This should be eliminated as it will improve the ability for GWT compiler to dead-code-eliminate
     index.assertNoMemberMatches( "arez\\.Arez", "$clinit" );
+
+    // This should be eliminated as only used during invariant checking
+    index.assertNoMemberMatches( "arez\\.Observable", "preReportChanged" );
   }
 
   /**
