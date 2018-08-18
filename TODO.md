@@ -16,6 +16,12 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
+
+* Add configuration parameter to `@Observable` that will verify that the setter actually modified value
+  before propagating change as sometimes the setter will validate or normalize value which may not result in
+  actual change. Use the same equals() test that is used to check if setter call is required.
+
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
   it via `requestAnimationFrame`
 
@@ -50,12 +56,31 @@ complete as there is too much un-said.
   ComputedValues and Observers. This may reduce memory pressure, particularly when using CircularBuffer to
   implement the recycling.
 
+* Consider renaming `arez.Observable` to `arez.ObservableValue`. Consistency with Mobx and also means no longer
+  have two classes with the same name.
+
+* Consider writing a function that builds a computed. The initial value comes from a supplier function called
+  on `@OnObserve` which also triggers an async function. Subsequent values comes from the async function supplying
+  a value to a sink function. The user can force a refresh by explicitly invoking `refresh()`. This should cover
+  off the use case from of `LazyObservable` and `fromResource` from mobx.
+
+* Consider exposing something like `ComputedValue.reportPossiblyChanged()` to force recalculation of values.
+
 * Completed the `arez-devtools` project.
 
-* Consider supporting `OnChanged`, `OnActivate` and `OnDeactivate` for `@Observable` properties.
-  Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
+* Consider supporting `OnObserved` and `OnUnobserved` on `@Observable` properties. It may not be necessary if we
+  consider `@Computed` as potentially computed from non-arez elements.
+
+* Support `@OnChanged` for `@Observable` and `@Computed` properties. This hook is called immediately after the
+  change and includes the old value and the new value. The nullability annotations on the hook method should
+  match expectations.
+
+* Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
+
+* Mobx has interesting output from `trace()` call (a.k.a. WhyRun in Arez terms) that formats nicely in DevTools
+  debugger. How does it do this?
 
 ## Process
 
