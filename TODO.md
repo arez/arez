@@ -14,6 +14,10 @@ complete as there is too much un-said.
 * Add integration test for verify - in particular both inverse as well as normal references of all multiplicities
   Make sure test when both sides disposed
 
+* Renaming `arez.Observable` to `arez.ObservableValue`
+
+* Expose `ComputedValue.reportPossiblyChanged()` so can force recalculation of computed.
+
 ## Enhancements
 
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
@@ -27,7 +31,8 @@ complete as there is too much un-said.
 
 * Only set `OnDispose` if non-null.
 
-* Remove `OnStale` as not very useful
+* Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
+  `@OnChange` has been introduced.
 
 * Rename function parameter to computable to executable
 
@@ -69,15 +74,10 @@ complete as there is too much un-said.
   ComputedValues and Observers. This may reduce memory pressure, particularly when using CircularBuffer to
   implement the recycling.
 
-* Consider renaming `arez.Observable` to `arez.ObservableValue`. Consistency with Mobx and also means no longer
-  have two classes with the same name.
-
 * Consider writing a function that builds a computed. The initial value comes from a supplier function called
   on `@OnObserve` which also triggers an async function. Subsequent values comes from the async function supplying
   a value to a sink function. The user can force a refresh by explicitly invoking `refresh()`. This should cover
   off the use case from of `LazyObservable` and `fromResource` from mobx.
-
-* Consider exposing something like `ComputedValue.reportPossiblyChanged()` to force recalculation of values.
 
 * Completed the `arez-devtools` project.
 
