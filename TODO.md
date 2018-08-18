@@ -18,6 +18,12 @@ complete as there is too much un-said.
 
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
 
+* `OnBecome*Observed` to `ComputedValue` and only set them if non-null.
+
+* Only set `OnDispose` if non-null.
+
+* Remove `OnStale` as not very useful
+
 * Add configuration parameter to `@Observable` that will verify that the setter actually modified value
   before propagating change as sometimes the setter will validate or normalize value which may not result in
   actual change. Use the same equals() test that is used to check if setter call is required.
