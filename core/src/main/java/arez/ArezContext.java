@@ -542,10 +542,28 @@ public final class ArezContext
                            keepAlive,
                            observeLowerPriorityDependencies );
     final Observer observer = computedValue.getObserver();
-    observer.setOnActivate( onActivate );
-    observer.setOnDeactivate( onDeactivate );
-    observer.setOnStale( onStale );
-    observer.setOnDispose( onDispose );
+    // Null check before setting hook fields. It seems that this decreases runtime memory pressure
+    // in some environments with the penalty of a slight increase in code size. This will need to be
+    // rechecked once we move off GWT2.x/ES3 and onto J2CL and preferably added to an automated performance
+    // test. This is possibly only due to the way ES3 is optimized. It should be noted that in several
+    // applications it did not have an impact on code-size and could actually decrease code-size in J2CL
+    // if these hook methods were unused
+    if ( null != onActivate )
+    {
+      observer.setOnActivate( onActivate );
+    }
+    if ( null != onDeactivate )
+    {
+      observer.setOnDeactivate( onDeactivate );
+    }
+    if ( null != onStale )
+    {
+      observer.setOnStale( onStale );
+    }
+    if ( null != onDispose )
+    {
+      observer.setOnDispose( onDispose );
+    }
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ComputedValueCreatedEvent( new ComputedValueInfoImpl( getSpy(), computedValue ) ) );
@@ -812,7 +830,11 @@ public final class ArezContext
                 false,
                 observeLowerPriorityDependencies,
                 canNestActions );
-    observer.setOnDispose( onDispose );
+    // See similar code in computed(...) implementation for explanation of this code
+    if ( null != onDispose )
+    {
+      observer.setOnDispose( onDispose );
+    }
     if ( runImmediately )
     {
       observer.invokeReaction();
