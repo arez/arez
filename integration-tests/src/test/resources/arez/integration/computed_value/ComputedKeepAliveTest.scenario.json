@@ -13,7 +13,7 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "PersonModel.0.fullName",
+        "computed": "PersonModel.0.fullName",
         "type": "ComputedValueCreated"
     },
     {
@@ -25,7 +25,7 @@
         "type": "ComponentCreateCompleted"
     },
     {
-        "computedValue": "PersonModel.0.fullName",
+        "computed": "PersonModel.0.fullName",
         "type": "ComputeStarted"
     },
     {
@@ -46,7 +46,7 @@
         "transaction": "PersonModel.0.fullName"
     },
     {
-        "computedValue": "PersonModel.0.fullName",
+        "computed": "PersonModel.0.fullName",
         "type": "ComputeCompleted"
     },
     {
@@ -89,7 +89,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.0.fullName",
+        "computed": "PersonModel.0.fullName",
         "type": "ComputeStarted"
     },
     {
@@ -110,7 +110,7 @@
         "transaction": "PersonModel.0.fullName"
     },
     {
-        "computedValue": "PersonModel.0.fullName",
+        "computed": "PersonModel.0.fullName",
         "type": "ComputeCompleted"
     },
     {
@@ -153,7 +153,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.0.fullName",
+        "computed": "PersonModel.0.fullName",
         "type": "ComputeStarted"
     },
     {
@@ -174,7 +174,7 @@
         "transaction": "PersonModel.0.fullName"
     },
     {
-        "computedValue": "PersonModel.0.fullName",
+        "computed": "PersonModel.0.fullName",
         "type": "ComputeCompleted"
     }
 ]

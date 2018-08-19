@@ -21,11 +21,11 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "Model2.0.disposeOnDeactivate",
+        "computed": "Model2.0.disposeOnDeactivate",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "Model2.0.someValue",
+        "computed": "Model2.0.someValue",
         "type": "ComputedValueCreated"
     },
     {
@@ -37,7 +37,7 @@
         "type": "ComponentCreateCompleted"
     },
     {
-        "computedValue": "Model2.0.someValue",
+        "computed": "Model2.0.someValue",
         "type": "ComputeStarted"
     },
     {
@@ -58,7 +58,7 @@
         "transaction": "Model2.0.someValue"
     },
     {
-        "computedValue": "Model2.0.someValue",
+        "computed": "Model2.0.someValue",
         "type": "ComputeCompleted"
     },
     {
@@ -95,7 +95,7 @@
         "transaction": "Model3.0.myAutorun"
     },
     {
-        "computedValue": "Model2.0.disposeOnDeactivate",
+        "computed": "Model2.0.disposeOnDeactivate",
         "type": "ComputeStarted"
     },
     {
@@ -116,7 +116,7 @@
         "transaction": "Model2.0.disposeOnDeactivate"
     },
     {
-        "computedValue": "Model2.0.disposeOnDeactivate",
+        "computed": "Model2.0.disposeOnDeactivate",
         "type": "ComputeCompleted"
     },
     {
@@ -210,7 +210,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "computedValue": "Model2.0.disposeOnDeactivate",
+        "computed": "Model2.0.disposeOnDeactivate",
         "type": "ComputedValueDeactivated"
     },
     {
@@ -282,7 +282,7 @@
         ]
     },
     {
-        "computedValue": "Model2.0.disposeOnDeactivate",
+        "computed": "Model2.0.disposeOnDeactivate",
         "type": "ComputedValueDisposed"
     },
     {
@@ -381,7 +381,7 @@
         ]
     },
     {
-        "computedValue": "Model2.0.someValue",
+        "computed": "Model2.0.someValue",
         "type": "ComputedValueDisposed"
     },
     {

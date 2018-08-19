@@ -1,19 +1,19 @@
 
 [
     {
-        "computedValue": "ComputedValue@1",
+        "computed": "ComputedValue@1",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "ComputedValue@2",
+        "computed": "ComputedValue@2",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "ComputedValue@3",
+        "computed": "ComputedValue@3",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "ComputedValue@4",
+        "computed": "ComputedValue@4",
         "type": "ComputedValueCreated"
     },
     {
@@ -38,7 +38,7 @@
         "transaction": "AR1"
     },
     {
-        "computedValue": "ComputedValue@1",
+        "computed": "ComputedValue@1",
         "type": "ComputeStarted"
     },
     {
@@ -63,7 +63,7 @@
         "transaction": "ComputedValue@1"
     },
     {
-        "computedValue": "ComputedValue@1",
+        "computed": "ComputedValue@1",
         "type": "ComputeCompleted"
     },
     {
@@ -109,7 +109,7 @@
         "transaction": "AR4"
     },
     {
-        "computedValue": "ComputedValue@4",
+        "computed": "ComputedValue@4",
         "type": "ComputeStarted"
     },
     {
@@ -119,7 +119,7 @@
         "transaction": "ComputedValue@4"
     },
     {
-        "computedValue": "ComputedValue@3",
+        "computed": "ComputedValue@3",
         "type": "ComputeStarted"
     },
     {
@@ -129,7 +129,7 @@
         "transaction": "ComputedValue@3"
     },
     {
-        "computedValue": "ComputedValue@2",
+        "computed": "ComputedValue@2",
         "type": "ComputeStarted"
     },
     {
@@ -150,7 +150,7 @@
         "transaction": "ComputedValue@2"
     },
     {
-        "computedValue": "ComputedValue@2",
+        "computed": "ComputedValue@2",
         "type": "ComputeCompleted"
     },
     {
@@ -165,7 +165,7 @@
         "transaction": "ComputedValue@3"
     },
     {
-        "computedValue": "ComputedValue@3",
+        "computed": "ComputedValue@3",
         "type": "ComputeCompleted"
     },
     {
@@ -180,7 +180,7 @@
         "transaction": "ComputedValue@4"
     },
     {
-        "computedValue": "ComputedValue@4",
+        "computed": "ComputedValue@4",
         "type": "ComputeCompleted"
     },
     {

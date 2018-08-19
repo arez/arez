@@ -42,11 +42,11 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "PersonModel.3.doesFullSearchMatch.0",
+        "computed": "PersonModel.3.doesFullSearchMatch.0",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "PersonModel.3.doesFullSearchMatch.0",
+        "computed": "PersonModel.3.doesFullSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -67,7 +67,7 @@
         "transaction": "PersonModel.3.doesFullSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.3.doesFullSearchMatch.0",
+        "computed": "PersonModel.3.doesFullSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
@@ -143,7 +143,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.3.doesFullSearchMatch.0",
+        "computed": "PersonModel.3.doesFullSearchMatch.0",
         "type": "ComputedValueDisposed"
     },
     {

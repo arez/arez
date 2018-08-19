@@ -42,11 +42,11 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -67,7 +67,7 @@
         "transaction": "PersonModel.0.doesSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
@@ -121,11 +121,11 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.1",
+        "computed": "PersonModel.0.doesSearchMatch.1",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.1",
+        "computed": "PersonModel.0.doesSearchMatch.1",
         "type": "ComputeStarted"
     },
     {
@@ -146,7 +146,7 @@
         "transaction": "PersonModel.0.doesSearchMatch.1"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.1",
+        "computed": "PersonModel.0.doesSearchMatch.1",
         "type": "ComputeCompleted"
     },
     {
@@ -200,11 +200,11 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -225,7 +225,7 @@
         "transaction": "PersonModel.0.doesFullSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
@@ -279,11 +279,11 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputeStarted"
     },
     {
@@ -304,7 +304,7 @@
         "transaction": "PersonModel.0.doesFullSearchMatch.1"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputeCompleted"
     },
     {
@@ -384,7 +384,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -400,11 +400,11 @@
         "transaction": "PersonModel.0.doesSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.1",
+        "computed": "PersonModel.0.doesSearchMatch.1",
         "type": "ComputeStarted"
     },
     {
@@ -420,11 +420,11 @@
         "transaction": "PersonModel.0.doesSearchMatch.1"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.1",
+        "computed": "PersonModel.0.doesSearchMatch.1",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -440,11 +440,11 @@
         "transaction": "PersonModel.0.doesFullSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputeStarted"
     },
     {
@@ -460,7 +460,7 @@
         "transaction": "PersonModel.0.doesFullSearchMatch.1"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputeCompleted"
     },
     {
@@ -515,7 +515,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -540,11 +540,11 @@
         "transaction": "PersonModel.0.doesSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.1",
+        "computed": "PersonModel.0.doesSearchMatch.1",
         "type": "ComputeStarted"
     },
     {
@@ -569,11 +569,11 @@
         "transaction": "PersonModel.0.doesSearchMatch.1"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.1",
+        "computed": "PersonModel.0.doesSearchMatch.1",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -589,11 +589,11 @@
         "transaction": "PersonModel.0.doesFullSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputeStarted"
     },
     {
@@ -618,7 +618,7 @@
         "transaction": "PersonModel.0.doesFullSearchMatch.1"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputeCompleted"
     },
     {
@@ -811,7 +811,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -836,11 +836,11 @@
         "transaction": "PersonModel.0.doesSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.1",
+        "computed": "PersonModel.0.doesSearchMatch.1",
         "type": "ComputeStarted"
     },
     {
@@ -856,11 +856,11 @@
         "transaction": "PersonModel.0.doesSearchMatch.1"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.1",
+        "computed": "PersonModel.0.doesSearchMatch.1",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -876,11 +876,11 @@
         "transaction": "PersonModel.0.doesFullSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputeStarted"
     },
     {
@@ -905,7 +905,7 @@
         "transaction": "PersonModel.0.doesFullSearchMatch.1"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputeCompleted"
     },
     {
@@ -1014,7 +1014,7 @@
         "transaction": "SearchResult - ill.dispose"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.1",
+        "computed": "PersonModel.0.doesSearchMatch.1",
         "type": "ComputedValueDeactivated"
     },
     {
@@ -1065,7 +1065,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.1",
+        "computed": "PersonModel.0.doesSearchMatch.1",
         "type": "ComputedValueDisposed"
     },
     {
@@ -1185,7 +1185,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -1210,11 +1210,11 @@
         "transaction": "PersonModel.0.doesSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -1230,11 +1230,11 @@
         "transaction": "PersonModel.0.doesFullSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputeStarted"
     },
     {
@@ -1259,7 +1259,7 @@
         "transaction": "PersonModel.0.doesFullSearchMatch.1"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputeCompleted"
     },
     {
@@ -1402,7 +1402,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -1427,11 +1427,11 @@
         "transaction": "PersonModel.0.doesSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -1447,11 +1447,11 @@
         "transaction": "PersonModel.0.doesFullSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputeStarted"
     },
     {
@@ -1476,7 +1476,7 @@
         "transaction": "PersonModel.0.doesFullSearchMatch.1"
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputeCompleted"
     },
     {
@@ -1619,7 +1619,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.0.doesSearchMatch.0",
+        "computed": "PersonModel.0.doesSearchMatch.0",
         "type": "ComputedValueDisposed"
     },
     {
@@ -1722,7 +1722,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.0",
+        "computed": "PersonModel.0.doesFullSearchMatch.0",
         "type": "ComputedValueDisposed"
     },
     {
@@ -1825,7 +1825,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.0.doesFullSearchMatch.1",
+        "computed": "PersonModel.0.doesFullSearchMatch.1",
         "type": "ComputedValueDisposed"
     },
     {

@@ -13,7 +13,7 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "PersonModel.0.fullName",
+        "computed": "PersonModel.0.fullName",
         "type": "ComputedValueCreated"
     },
     {
@@ -33,7 +33,7 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "PersonModel.1.fullName",
+        "computed": "PersonModel.1.fullName",
         "type": "ComputedValueCreated"
     },
     {

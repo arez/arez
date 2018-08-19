@@ -30,11 +30,11 @@
         "transaction": "Query 1"
     },
     {
-        "computedValue": "PersonModel.1.doesSearchMatch.0",
+        "computed": "PersonModel.1.doesSearchMatch.0",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "PersonModel.1.doesSearchMatch.0",
+        "computed": "PersonModel.1.doesSearchMatch.0",
         "type": "ComputeStarted"
     },
     {
@@ -55,11 +55,11 @@
         "transaction": "PersonModel.1.doesSearchMatch.0"
     },
     {
-        "computedValue": "PersonModel.1.doesSearchMatch.0",
+        "computed": "PersonModel.1.doesSearchMatch.0",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.1.doesSearchMatch.0",
+        "computed": "PersonModel.1.doesSearchMatch.0",
         "type": "ComputedValueDeactivated"
     },
     {
@@ -110,7 +110,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.1.doesSearchMatch.0",
+        "computed": "PersonModel.1.doesSearchMatch.0",
         "type": "ComputedValueDisposed"
     },
     {
@@ -192,11 +192,11 @@
         "transaction": "Query 2"
     },
     {
-        "computedValue": "PersonModel.1.doesSearchMatch.1",
+        "computed": "PersonModel.1.doesSearchMatch.1",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "PersonModel.1.doesSearchMatch.1",
+        "computed": "PersonModel.1.doesSearchMatch.1",
         "type": "ComputeStarted"
     },
     {
@@ -217,11 +217,11 @@
         "transaction": "PersonModel.1.doesSearchMatch.1"
     },
     {
-        "computedValue": "PersonModel.1.doesSearchMatch.1",
+        "computed": "PersonModel.1.doesSearchMatch.1",
         "type": "ComputeCompleted"
     },
     {
-        "computedValue": "PersonModel.1.doesSearchMatch.1",
+        "computed": "PersonModel.1.doesSearchMatch.1",
         "type": "ComputedValueDeactivated"
     },
     {
@@ -272,7 +272,7 @@
         ]
     },
     {
-        "computedValue": "PersonModel.1.doesSearchMatch.1",
+        "computed": "PersonModel.1.doesSearchMatch.1",
         "type": "ComputedValueDisposed"
     },
     {

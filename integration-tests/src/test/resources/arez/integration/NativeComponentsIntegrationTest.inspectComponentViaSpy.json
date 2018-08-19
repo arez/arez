@@ -13,7 +13,7 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "Attr3",
+        "computed": "Attr3",
         "type": "ComputedValueCreated"
     },
     {
@@ -106,7 +106,7 @@
         ]
     },
     {
-        "computedValue": "Attr3",
+        "computed": "Attr3",
         "type": "ComputedValueDisposed"
     },
     {

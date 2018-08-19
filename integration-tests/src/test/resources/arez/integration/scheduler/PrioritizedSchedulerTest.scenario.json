@@ -17,15 +17,15 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "TestComponent.0.computed1",
+        "computed": "TestComponent.0.computed1",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "TestComponent.0.computed2",
+        "computed": "TestComponent.0.computed2",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "TestComponent.0.computed3",
+        "computed": "TestComponent.0.computed3",
         "type": "ComputedValueCreated"
     },
     {
@@ -136,7 +136,7 @@
         "transaction": "TestComponent.0.autorun1b"
     },
     {
-        "computedValue": "TestComponent.0.computed1",
+        "computed": "TestComponent.0.computed1",
         "type": "ComputeStarted"
     },
     {
@@ -152,7 +152,7 @@
         "transaction": "TestComponent.0.computed1"
     },
     {
-        "computedValue": "TestComponent.0.computed1",
+        "computed": "TestComponent.0.computed1",
         "type": "ComputeCompleted"
     },
     {
@@ -418,7 +418,7 @@
         "type": "ReactionCompleted"
     },
     {
-        "computedValue": "TestComponent.0.computed1",
+        "computed": "TestComponent.0.computed1",
         "type": "ComputeStarted"
     },
     {
@@ -451,7 +451,7 @@
         "transaction": "TestComponent.0.computed1"
     },
     {
-        "computedValue": "TestComponent.0.computed1",
+        "computed": "TestComponent.0.computed1",
         "type": "ComputeCompleted"
     },
     {
@@ -1092,7 +1092,7 @@
         ]
     },
     {
-        "computedValue": "TestComponent.0.computed1",
+        "computed": "TestComponent.0.computed1",
         "type": "ComputedValueDisposed"
     },
     {
@@ -1191,7 +1191,7 @@
         ]
     },
     {
-        "computedValue": "TestComponent.0.computed2",
+        "computed": "TestComponent.0.computed2",
         "type": "ComputedValueDisposed"
     },
     {
@@ -1290,7 +1290,7 @@
         ]
     },
     {
-        "computedValue": "TestComponent.0.computed3",
+        "computed": "TestComponent.0.computed3",
         "type": "ComputedValueDisposed"
     },
     {

@@ -26,16 +26,16 @@ public class CoreCanNotObserveLowerPriorityIntegrationTest
       return 42;
     };
     final ComputedValue<Integer> computedValue1 =
-      context.computedValue( null,
-                             null,
-                             f1,
-                             null,
-                             null,
-                             null,
-                             null,
-                             Priority.LOWEST );
+      context.computed( null,
+                        null,
+                        f1,
+                        null,
+                        null,
+                        null,
+                        null,
+                        Priority.LOWEST );
     // Attempts to observe lower priority
-    final ComputedValue<Integer> computedValue2 = context.computedValue( () -> computedValue1.get() + 42 );
+    final ComputedValue<Integer> computedValue2 = context.computed( () -> computedValue1.get() + 42 );
 
     autorun( computedValue2::get );
 

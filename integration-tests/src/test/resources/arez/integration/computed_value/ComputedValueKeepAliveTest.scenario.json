@@ -1,11 +1,11 @@
 
 [
     {
-        "computedValue": "TestComputed",
+        "computed": "TestComputed",
         "type": "ComputedValueCreated"
     },
     {
-        "computedValue": "TestComputed",
+        "computed": "TestComputed",
         "type": "ComputeStarted"
     },
     {
@@ -30,7 +30,7 @@
         "transaction": "TestComputed"
     },
     {
-        "computedValue": "TestComputed",
+        "computed": "TestComputed",
         "type": "ComputeCompleted"
     },
     {
@@ -124,7 +124,7 @@
         ]
     },
     {
-        "computedValue": "TestComputed",
+        "computed": "TestComputed",
         "type": "ComputedValueDisposed"
     },
     {

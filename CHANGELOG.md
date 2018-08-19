@@ -77,6 +77,9 @@
 * **\[gwt-output-qa\]** Add assertion `arez.gwt.qa.ArezBuildAsserts.assertEquals(...)` that can be used to
   ensure generated classes do or do not have equals defined. Add assertions into standard asserts that ensure
   that no repositories have an `equals(...)` method defined.
+* 💥 **\[core\]** Rename `ArezContext.computedValue(...)` methods to `ArezContext.computed(...)` for consistency.
+  Rename the value of the `type` property in the serialization of `ComputedValue` spy events from `computedValue`
+  to `computed`.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)

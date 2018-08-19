@@ -9,7 +9,7 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "Model1.0.disposeOnDeactivate",
+        "computed": "Model1.0.disposeOnDeactivate",
         "type": "ComputedValueCreated"
     },
     {
@@ -42,7 +42,7 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "Model1.0.disposeOnDeactivate",
+        "computed": "Model1.0.disposeOnDeactivate",
         "type": "ComputeStarted"
     },
     {
@@ -63,7 +63,7 @@
         "transaction": "Model1.0.disposeOnDeactivate"
     },
     {
-        "computedValue": "Model1.0.disposeOnDeactivate",
+        "computed": "Model1.0.disposeOnDeactivate",
         "type": "ComputeCompleted"
     },
     {
@@ -101,7 +101,7 @@
         "transaction": "Observer@1.dispose"
     },
     {
-        "computedValue": "Model1.0.disposeOnDeactivate",
+        "computed": "Model1.0.disposeOnDeactivate",
         "type": "ComputedValueDeactivated"
     },
     {
@@ -169,7 +169,7 @@
         ]
     },
     {
-        "computedValue": "Model1.0.disposeOnDeactivate",
+        "computed": "Model1.0.disposeOnDeactivate",
         "type": "ComputedValueDisposed"
     },
     {

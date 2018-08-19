@@ -111,7 +111,7 @@ public class ComponentTest
     final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
     final Observable observable1 = context.observable();
-    final ComputedValue computedValue1 = context.computedValue( () -> "" );
+    final ComputedValue computedValue1 = context.computed( () -> "" );
     final Observer observer1 = context.autorun( AbstractArezTest::observeADependency );
 
     component.addObservable( observable1 );
@@ -365,8 +365,8 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final ComputedValue computedValue1 = context.computedValue( () -> "" );
-    final ComputedValue computedValue2 = context.computedValue( () -> "" );
+    final ComputedValue computedValue1 = context.computed( () -> "" );
+    final ComputedValue computedValue2 = context.computed( () -> "" );
 
     assertEquals( component.getComputedValues().size(), 0 );
 
@@ -401,7 +401,7 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final ComputedValue computedValue1 = context.computedValue( () -> "" );
+    final ComputedValue computedValue1 = context.computed( () -> "" );
 
     component.addComputedValue( computedValue1 );
 
@@ -426,7 +426,7 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final ComputedValue computedValue1 = context.computedValue( () -> "" );
+    final ComputedValue computedValue1 = context.computed( () -> "" );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> component.removeComputedValue( computedValue1 ) );
@@ -446,20 +446,20 @@ public class ComponentTest
 
     final Observable observable1 = context.observable( component, ValueUtil.randomString(), null, null );
     final Observable observable2 = context.observable( component, ValueUtil.randomString(), null, null );
-    final ComputedValue computedValue1 = context.computedValue( component,
-                                                                ValueUtil.randomString(),
-                                                                () -> "",
-                                                                null,
-                                                                null,
-                                                                null,
-                                                                null );
-    final ComputedValue computedValue2 = context.computedValue( component,
-                                                                ValueUtil.randomString(),
-                                                                () -> "",
-                                                                null,
-                                                                null,
-                                                                null,
-                                                                null );
+    final ComputedValue computedValue1 = context.computed( component,
+                                                           ValueUtil.randomString(),
+                                                           () -> "",
+                                                           null,
+                                                           null,
+                                                           null,
+                                                           null );
+    final ComputedValue computedValue2 = context.computed( component,
+                                                           ValueUtil.randomString(),
+                                                           () -> "",
+                                                           null,
+                                                           null,
+                                                           null,
+                                                           null );
     final Procedure action = AbstractArezTest::observeADependency;
     final Observer observer1 =
       context.autorun( component, ValueUtil.randomString(), true, action, Priority.NORMAL, false );

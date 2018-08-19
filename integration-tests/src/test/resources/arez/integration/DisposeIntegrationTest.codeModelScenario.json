@@ -17,7 +17,7 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "CodeModel.0.qualifiedName",
+        "computed": "CodeModel.0.qualifiedName",
         "type": "ComputedValueCreated"
     },
     {
@@ -50,7 +50,7 @@
         "type": "ObservableCreated"
     },
     {
-        "computedValue": "CodeModel.0.qualifiedName",
+        "computed": "CodeModel.0.qualifiedName",
         "type": "ComputeStarted"
     },
     {
@@ -71,7 +71,7 @@
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "computedValue": "CodeModel.0.qualifiedName",
+        "computed": "CodeModel.0.qualifiedName",
         "type": "ComputeCompleted"
     },
     {
@@ -139,7 +139,7 @@
         ]
     },
     {
-        "computedValue": "CodeModel.0.qualifiedName",
+        "computed": "CodeModel.0.qualifiedName",
         "type": "ComputeStarted"
     },
     {
@@ -164,7 +164,7 @@
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "computedValue": "CodeModel.0.qualifiedName",
+        "computed": "CodeModel.0.qualifiedName",
         "type": "ComputeCompleted"
     },
     {
@@ -253,7 +253,7 @@
         ]
     },
     {
-        "computedValue": "CodeModel.0.qualifiedName",
+        "computed": "CodeModel.0.qualifiedName",
         "type": "ComputeStarted"
     },
     {
@@ -278,7 +278,7 @@
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "computedValue": "CodeModel.0.qualifiedName",
+        "computed": "CodeModel.0.qualifiedName",
         "type": "ComputeCompleted"
     },
     {
@@ -367,7 +367,7 @@
         ]
     },
     {
-        "computedValue": "CodeModel.0.qualifiedName",
+        "computed": "CodeModel.0.qualifiedName",
         "type": "ComputeStarted"
     },
     {
@@ -392,7 +392,7 @@
         "transaction": "CodeModel.0.qualifiedName"
     },
     {
-        "computedValue": "CodeModel.0.qualifiedName",
+        "computed": "CodeModel.0.qualifiedName",
         "type": "ComputeCompleted"
     },
     {
@@ -455,7 +455,7 @@
         "transaction": "Printer.dispose"
     },
     {
-        "computedValue": "CodeModel.0.qualifiedName",
+        "computed": "CodeModel.0.qualifiedName",
         "type": "ComputedValueDeactivated"
     },
     {
@@ -527,7 +527,7 @@
         ]
     },
     {
-        "computedValue": "CodeModel.0.qualifiedName",
+        "computed": "CodeModel.0.qualifiedName",
         "type": "ComputedValueDisposed"
     },
     {

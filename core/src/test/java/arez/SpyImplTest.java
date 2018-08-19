@@ -627,14 +627,14 @@ public class SpyImplTest
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
     final ComputedValue<Object> computedValue1 =
-      context.computedValue( component,
-                             ValueUtil.randomString(),
-                             () -> "",
-                             null,
-                             null,
-                             null,
-                             null );
-    final ComputedValue<Object> computedValue2 = context.computedValue( () -> "" );
+      context.computed( component,
+                        ValueUtil.randomString(),
+                        () -> "",
+                        null,
+                        null,
+                        null,
+                        null );
+    final ComputedValue<Object> computedValue2 = context.computed( () -> "" );
 
     final ComponentInfo info = spy.getComponent( computedValue1 );
     assertNotNull( info );
@@ -650,7 +650,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final ComputedValue<Object> value = context.computedValue( () -> "" );
+    final ComputedValue<Object> value = context.computed( () -> "" );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
@@ -830,7 +830,7 @@ public class SpyImplTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue<String> computedValue = context.computedValue( () -> "" );
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
 
     final Spy spy = context.getSpy();
 
@@ -1040,7 +1040,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final ComputedValue<String> computedValue1 = context.computedValue( () -> {
+    final ComputedValue<String> computedValue1 = context.computed( () -> {
       observeADependency();
       return "42";
     } );
@@ -1059,7 +1059,7 @@ public class SpyImplTest
       observeADependency();
       return "42";
     };
-    final ComputedValue<String> computedValue1 = context.computedValue( function );
+    final ComputedValue<String> computedValue1 = context.computed( function );
     context.autorun( computedValue1::get );
 
     assertEquals( spy.getValue( computedValue1 ), "42" );
@@ -1074,7 +1074,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final ComputedValue<Integer> computedValue1 = context.computedValue( () -> 42 );
+    final ComputedValue<Integer> computedValue1 = context.computed( () -> 42 );
 
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.getValue( computedValue1 ) ) );
@@ -1116,7 +1116,7 @@ public class SpyImplTest
   public void asComputedValueInfo()
   {
     final ArezContext context = Arez.context();
-    final ComputedValue<String> computedValue = context.computedValue( () -> "" );
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
     final ComputedValueInfo info = context.getSpy().asComputedValueInfo( computedValue );
 
     assertEquals( info.getName(), computedValue.getName() );

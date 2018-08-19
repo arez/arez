@@ -343,9 +343,9 @@ public final class ArezContext
    * @return the ComputedValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computedValue( @Nonnull final SafeFunction<T> function )
+  public <T> ComputedValue<T> computed( @Nonnull final SafeFunction<T> function )
   {
-    return computedValue( null, function );
+    return computed( null, function );
   }
 
   /**
@@ -357,10 +357,9 @@ public final class ArezContext
    * @return the ComputedValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computedValue( @Nullable final String name,
-                                             @Nonnull final SafeFunction<T> function )
+  public <T> ComputedValue<T> computed( @Nullable final String name, @Nonnull final SafeFunction<T> function )
   {
-    return computedValue( null, name, function );
+    return computed( null, name, function );
   }
 
   /**
@@ -373,17 +372,11 @@ public final class ArezContext
    * @return the ComputedValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computedValue( @Nullable final Component component,
-                                             @Nullable final String name,
-                                             @Nonnull final SafeFunction<T> function )
+  public <T> ComputedValue<T> computed( @Nullable final Component component,
+                                        @Nullable final String name,
+                                        @Nonnull final SafeFunction<T> function )
   {
-    return computedValue( component,
-                          name,
-                          function,
-                          null,
-                          null,
-                          null,
-                          null );
+    return computed( component, name, function, null, null, null, null );
   }
 
   /**
@@ -399,20 +392,14 @@ public final class ArezContext
    * @return the ComputedValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computedValue( @Nullable final String name,
-                                             @Nonnull final SafeFunction<T> function,
-                                             @Nullable final Procedure onActivate,
-                                             @Nullable final Procedure onDeactivate,
-                                             @Nullable final Procedure onStale,
-                                             @Nullable final Procedure onDispose )
+  public <T> ComputedValue<T> computed( @Nullable final String name,
+                                        @Nonnull final SafeFunction<T> function,
+                                        @Nullable final Procedure onActivate,
+                                        @Nullable final Procedure onDeactivate,
+                                        @Nullable final Procedure onStale,
+                                        @Nullable final Procedure onDispose )
   {
-    return computedValue( null,
-                          name,
-                          function,
-                          onActivate,
-                          onDeactivate,
-                          onStale,
-                          onDispose );
+    return computed( null, name, function, onActivate, onDeactivate, onStale, onDispose );
   }
 
   /**
@@ -429,22 +416,15 @@ public final class ArezContext
    * @return the ComputedValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computedValue( @Nullable final Component component,
-                                             @Nullable final String name,
-                                             @Nonnull final SafeFunction<T> function,
-                                             @Nullable final Procedure onActivate,
-                                             @Nullable final Procedure onDeactivate,
-                                             @Nullable final Procedure onStale,
-                                             @Nullable final Procedure onDispose )
+  public <T> ComputedValue<T> computed( @Nullable final Component component,
+                                        @Nullable final String name,
+                                        @Nonnull final SafeFunction<T> function,
+                                        @Nullable final Procedure onActivate,
+                                        @Nullable final Procedure onDeactivate,
+                                        @Nullable final Procedure onStale,
+                                        @Nullable final Procedure onDispose )
   {
-    return computedValue( component,
-                          name,
-                          function,
-                          onActivate,
-                          onDeactivate,
-                          onStale,
-                          onDispose,
-                          Priority.NORMAL );
+    return computed( component, name, function, onActivate, onDeactivate, onStale, onDispose, Priority.NORMAL );
   }
 
   /**
@@ -462,25 +442,16 @@ public final class ArezContext
    * @return the ComputedValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computedValue( @Nullable final Component component,
-                                             @Nullable final String name,
-                                             @Nonnull final SafeFunction<T> function,
-                                             @Nullable final Procedure onActivate,
-                                             @Nullable final Procedure onDeactivate,
-                                             @Nullable final Procedure onStale,
-                                             @Nullable final Procedure onDispose,
-                                             @Nonnull final Priority priority )
+  public <T> ComputedValue<T> computed( @Nullable final Component component,
+                                        @Nullable final String name,
+                                        @Nonnull final SafeFunction<T> function,
+                                        @Nullable final Procedure onActivate,
+                                        @Nullable final Procedure onDeactivate,
+                                        @Nullable final Procedure onStale,
+                                        @Nullable final Procedure onDispose,
+                                        @Nonnull final Priority priority )
   {
-    return computedValue( component,
-                          name,
-                          function,
-                          onActivate,
-                          onDeactivate,
-                          onStale,
-                          onDispose,
-                          priority,
-                          false,
-                          false );
+    return computed( component, name, function, onActivate, onDeactivate, onStale, onDispose, priority, false, false );
   }
 
   /**
@@ -500,28 +471,28 @@ public final class ArezContext
    * @return the ComputedValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computedValue( @Nullable final Component component,
-                                             @Nullable final String name,
-                                             @Nonnull final SafeFunction<T> function,
-                                             @Nullable final Procedure onActivate,
-                                             @Nullable final Procedure onDeactivate,
-                                             @Nullable final Procedure onStale,
-                                             @Nullable final Procedure onDispose,
-                                             @Nonnull final Priority priority,
-                                             final boolean keepAlive,
-                                             final boolean runImmediately )
+  public <T> ComputedValue<T> computed( @Nullable final Component component,
+                                        @Nullable final String name,
+                                        @Nonnull final SafeFunction<T> function,
+                                        @Nullable final Procedure onActivate,
+                                        @Nullable final Procedure onDeactivate,
+                                        @Nullable final Procedure onStale,
+                                        @Nullable final Procedure onDispose,
+                                        @Nonnull final Priority priority,
+                                        final boolean keepAlive,
+                                        final boolean runImmediately )
   {
-    return computedValue( component,
-                          name,
-                          function,
-                          onActivate,
-                          onDeactivate,
-                          onStale,
-                          onDispose,
-                          priority,
-                          keepAlive,
-                          runImmediately,
-                          false );
+    return computed( component,
+                     name,
+                     function,
+                     onActivate,
+                     onDeactivate,
+                     onStale,
+                     onDispose,
+                     priority,
+                     keepAlive,
+                     runImmediately,
+                     false );
   }
 
   /**
@@ -542,24 +513,24 @@ public final class ArezContext
    * @return the ComputedValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computedValue( @Nullable final Component component,
-                                             @Nullable final String name,
-                                             @Nonnull final SafeFunction<T> function,
-                                             @Nullable final Procedure onActivate,
-                                             @Nullable final Procedure onDeactivate,
-                                             @Nullable final Procedure onStale,
-                                             @Nullable final Procedure onDispose,
-                                             @Nonnull final Priority priority,
-                                             final boolean keepAlive,
-                                             final boolean runImmediately,
-                                             final boolean observeLowerPriorityDependencies )
+  public <T> ComputedValue<T> computed( @Nullable final Component component,
+                                        @Nullable final String name,
+                                        @Nonnull final SafeFunction<T> function,
+                                        @Nullable final Procedure onActivate,
+                                        @Nullable final Procedure onDeactivate,
+                                        @Nullable final Procedure onStale,
+                                        @Nullable final Procedure onDispose,
+                                        @Nonnull final Priority priority,
+                                        final boolean keepAlive,
+                                        final boolean runImmediately,
+                                        final boolean observeLowerPriorityDependencies )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> !keepAlive || null == onActivate,
-                    () -> "Arez-0039: ArezContext.computedValue() specified keepAlive = true and did not pass a null for onActivate." );
+                    () -> "Arez-0039: ArezContext.computed() specified keepAlive = true and did not pass a null for onActivate." );
       apiInvariant( () -> !keepAlive || null == onDeactivate,
-                    () -> "Arez-0045: ArezContext.computedValue() specified keepAlive = true and did not pass a null for onDeactivate." );
+                    () -> "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
     }
 
     final ComputedValue<T> computedValue =
