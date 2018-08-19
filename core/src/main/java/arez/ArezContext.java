@@ -550,15 +550,15 @@ public final class ArezContext
     // if these hook methods were unused
     if ( null != onActivate )
     {
-      observer.setOnActivate( onActivate );
+      computedValue.setOnActivate( onActivate );
     }
     if ( null != onDeactivate )
     {
-      observer.setOnDeactivate( onDeactivate );
+      computedValue.setOnDeactivate( onDeactivate );
     }
     if ( null != onStale )
     {
-      observer.setOnStale( onStale );
+      computedValue.setOnStale( onStale );
     }
     if ( null != onDispose )
     {

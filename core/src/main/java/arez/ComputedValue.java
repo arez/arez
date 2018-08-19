@@ -60,6 +60,21 @@ public final class ComputedValue<T>
    * Flag indicating whether dispose() method has been invoked.
    */
   private boolean _disposed;
+  /**
+   * Hook action called when the ComputedValue moves to observed state.
+   */
+  @Nullable
+  private Procedure _onActivate;
+  /**
+   * Hook action called when the ComputedValue moves to un-observed state from any other state.
+   */
+  @Nullable
+  private Procedure _onDeactivate;
+  /**
+   * Hook action called when the ComputedValue moves from the UP_TO_DATE state to STALE or POSSIBLY_STALE.
+   */
+  @Nullable
+  private Procedure _onStale;
 
   ComputedValue( @Nullable final ArezContext context,
                  @Nullable final Component component,
@@ -225,6 +240,69 @@ public final class ComputedValue<T>
   Observable<T> getObservable()
   {
     return (Observable<T>) getObserver().getDerivedValue();
+  }
+
+  /**
+   * Set the onActivate hook.
+   *
+   * @param onActivate the hook.
+   */
+  void setOnActivate( @Nullable final Procedure onActivate )
+  {
+    _onActivate = onActivate;
+  }
+
+  /**
+   * Return the onActivate hook.
+   *
+   * @return the onActivate hook.
+   */
+  @Nullable
+  Procedure getOnActivate()
+  {
+    return _onActivate;
+  }
+
+  /**
+   * Set the onDeactivate hook.
+   *
+   * @param onDeactivate the hook.
+   */
+  void setOnDeactivate( @Nullable final Procedure onDeactivate )
+  {
+    _onDeactivate = onDeactivate;
+  }
+
+  /**
+   * Return the onDeactivate hook.
+   *
+   * @return the onDeactivate hook.
+   */
+  @Nullable
+  Procedure getOnDeactivate()
+  {
+    return _onDeactivate;
+  }
+
+  /**
+   * Set the onStale hook.
+   *
+   * @param onStale the hook.
+   */
+  void setOnStale( @Nullable final Procedure onStale )
+  {
+    _onStale = onStale;
+  }
+
+  /**
+   * Return the onStale hook.
+   *
+   * @return the onStale hook.
+   */
+  @Nullable
+  Procedure getOnStale()
+  {
+    return _onStale;
   }
 
   /**

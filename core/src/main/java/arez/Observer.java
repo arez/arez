@@ -32,21 +32,6 @@ public final class Observer
   @Nullable
   private final ComputedValue<?> _computedValue;
   /**
-   * Hook action called when the Observer changes from the INACTIVE state to any other state.
-   */
-  @Nullable
-  private Procedure _onActivate;
-  /**
-   * Hook action called when the Observer changes to the INACTIVE state to any other state.
-   */
-  @Nullable
-  private Procedure _onDeactivate;
-  /**
-   * Hook action called when the Observer changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE.
-   */
-  @Nullable
-  private Procedure _onStale;
-  /**
    * Hook action called when the Observer is disposed.
    */
   @Nullable
@@ -407,7 +392,6 @@ public final class Observer
       _state = state;
       if ( null == _derivedValue && ObserverState.STALE == state )
       {
-        runHook( getOnStale(), ObserverError.ON_STALE_ERROR );
         if ( schedule )
         {
           schedule();
@@ -420,7 +404,7 @@ public final class Observer
         // Have to check _derivedValue here as isDerivation() will be true
         // during construction, prior to _derivedValue being set.
         _derivedValue.reportPossiblyChanged();
-        runHook( getOnStale(), ObserverError.ON_STALE_ERROR );
+        runHook( getComputedValue().getOnStale(), ObserverError.ON_STALE_ERROR );
         if ( schedule )
         {
           schedule();
@@ -428,10 +412,11 @@ public final class Observer
       }
       else if ( ObserverState.INACTIVE == _state )
       {
-        runHook( getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR );
         if ( isDerivation() )
         {
-          getComputedValue().setValue( null );
+          final ComputedValue<?> computedValue = getComputedValue();
+          runHook( computedValue.getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR );
+          computedValue.setValue( null );
         }
         clearDependencies();
       }
@@ -442,7 +427,10 @@ public final class Observer
           invariant( this::isNotDisposed,
                      () -> "Arez-0087: Attempted to activate disposed observer named '" + getName() + "'." );
         }
-        runHook( getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
+        if ( isDerivation() )
+        {
+          runHook( getComputedValue().getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
+        }
       }
       if ( Arez.shouldCheckInvariants() )
       {
@@ -469,69 +457,6 @@ public final class Observer
         getContext().reportObserverError( this, error, t );
       }
     }
-  }
-
-  /**
-   * Set the onActivate hook.
-   *
-   * @param onActivate the hook.
-   */
-  void setOnActivate( @Nullable final Procedure onActivate )
-  {
-    _onActivate = onActivate;
-  }
-
-  /**
-   * Return the onActivate hook.
-   *
-   * @return the onActivate hook.
-   */
-  @Nullable
-  Procedure getOnActivate()
-  {
-    return _onActivate;
-  }
-
-  /**
-   * Set the onDeactivate hook.
-   *
-   * @param onDeactivate the hook.
-   */
-  void setOnDeactivate( @Nullable final Procedure onDeactivate )
-  {
-    _onDeactivate = onDeactivate;
-  }
-
-  /**
-   * Return the onDeactivate hook.
-   *
-   * @return the onDeactivate hook.
-   */
-  @Nullable
-  Procedure getOnDeactivate()
-  {
-    return _onDeactivate;
-  }
-
-  /**
-   * Set the onStale hook.
-   *
-   * @param onStale the hook.
-   */
-  void setOnStale( @Nullable final Procedure onStale )
-  {
-    _onStale = onStale;
-  }
-
-  /**
-   * Return the onStale hook.
-   *
-   * @return the onStale hook.
-   */
-  @Nullable
-  Procedure getOnStale()
-  {
-    return _onStale;
   }
 
   /**

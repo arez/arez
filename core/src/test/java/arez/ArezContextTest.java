@@ -1981,11 +1981,11 @@ public class ArezContextTest
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.isKeepAlive(), false );
-    assertEquals( computedValue.getObserver().getName(), name );
     assertEquals( computedValue.getObservable().getName(), name );
-    assertEquals( computedValue.getObserver().getOnActivate(), onActivate );
-    assertEquals( computedValue.getObserver().getOnDeactivate(), onDeactivate );
-    assertEquals( computedValue.getObserver().getOnStale(), onStale );
+    assertEquals( computedValue.getOnActivate(), onActivate );
+    assertEquals( computedValue.getOnDeactivate(), onDeactivate );
+    assertEquals( computedValue.getOnStale(), onStale );
+    assertEquals( computedValue.getObserver().getName(), name );
     assertEquals( computedValue.getObserver().getOnDispose(), onDispose );
     assertEquals( computedValue.getObserver().getPriority(), Priority.HIGH );
   }
@@ -2108,9 +2108,9 @@ public class ArezContextTest
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.getObserver().getName(), name );
     assertEquals( computedValue.getObservable().getName(), name );
-    assertEquals( computedValue.getObserver().getOnActivate(), null );
-    assertEquals( computedValue.getObserver().getOnDeactivate(), null );
-    assertEquals( computedValue.getObserver().getOnStale(), null );
+    assertEquals( computedValue.getOnActivate(), null );
+    assertEquals( computedValue.getOnDeactivate(), null );
+    assertEquals( computedValue.getOnStale(), null );
     assertEquals( computedValue.getObserver().getOnDispose(), null );
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
   }
@@ -2133,10 +2133,10 @@ public class ArezContextTest
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.getObserver().getName(), name );
     assertEquals( computedValue.getObservable().getName(), name );
-    assertEquals( computedValue.getObserver().getOnActivate(), null );
-    assertEquals( computedValue.getObserver().getOnDeactivate(), null );
-    assertEquals( computedValue.getObserver().getOnStale(), null );
-    assertEquals( computedValue.getObserver().getOnDeactivate(), null );
+    assertEquals( computedValue.getOnActivate(), null );
+    assertEquals( computedValue.getOnDeactivate(), null );
+    assertEquals( computedValue.getOnStale(), null );
+    assertEquals( computedValue.getObserver().getOnDispose(), null );
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
     assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), false );
   }

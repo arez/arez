@@ -27,8 +27,6 @@ complete as there is too much un-said.
 * Reorg code so that `ComputedValue` can exist without an Observer. Useful if computed is derived from
   external state or an active process. 
 
-* Move `OnBecome*Observed` to `ComputedValue`.
-
 * Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
   `@OnChange` has been introduced.
 

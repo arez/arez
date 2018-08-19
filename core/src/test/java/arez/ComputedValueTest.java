@@ -33,6 +33,24 @@ public class ComputedValueTest
     // Value starts out as null
     assertEquals( computedValue.getValue(), null );
 
+    final Procedure onActivate = new NoopProcedure();
+    final Procedure onDeactivate = new NoopProcedure();
+    final Procedure onStale = new NoopProcedure();
+
+    // All the hooks start out null
+    assertEquals( computedValue.getOnActivate(), null );
+    assertEquals( computedValue.getOnDeactivate(), null );
+    assertEquals( computedValue.getOnStale(), null );
+
+    // Ensure hooks can be modified
+    computedValue.setOnActivate( onActivate );
+    computedValue.setOnDeactivate( onDeactivate );
+    computedValue.setOnStale( onStale );
+
+    assertEquals( computedValue.getOnActivate(), onActivate );
+    assertEquals( computedValue.getOnDeactivate(), onDeactivate );
+    assertEquals( computedValue.getOnStale(), onStale );
+
     // Verify the linking of all child elements
     assertEquals( computedValue.getObserver().getName(), name );
     assertEquals( computedValue.getObserver().isDerivation(), true );
