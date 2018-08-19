@@ -27,7 +27,7 @@ complete as there is too much un-said.
 * Reorg code so that `ComputedValue` can exist without an Observer. Useful if computed is derived from
   external state or an active process. 
 
-* `OnBecome*Observed` to `ComputedValue` and only set them if non-null.
+* Move `OnBecome*Observed` to `ComputedValue` and only set them if non-null.
 
 * Only set `OnDispose` if non-null.
 
