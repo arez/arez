@@ -83,7 +83,7 @@
 * **\[core\]** The `OnStale`, `OnActivate`, `OnDeactivate` and `OnDispose` hook methods that can be added to an
   instance of `arez.ComputedValue` and the `OnDispose` hook method that can be added to `arez.Observer` are only
   set on the object if the hooks are non-null. In some scenarios this decreased runtime memory usage with the
-  potential for a slight increase in code size in seom applications. It should be noted that In J2CL, this change
+  potential for a slight increase in code size in some applications. It should be noted that In J2CL, this change
   actually resulted in a code size decrease if the application does not make use of the hooks.
 * **\[core\]** Move the `OnStale`, `OnActivate` and `OnDeactivate` hook methods from `arez.Observer` to
   `arez.ComputedValue` to decrease memory pressure at runtime as the hooks are not required except for computed
