@@ -93,14 +93,14 @@ final class Watcher
     _verifyActionRequired = verifyActionRequired;
     _effect = Objects.requireNonNull( effect );
     _condition =
-      getContext().computedValue( Arez.areNativeComponentsEnabled() ? component : null,
-                                  Arez.areNamesEnabled() ? getName() + ".condition" : null,
-                                  Objects.requireNonNull( condition ),
-                                  null,
-                                  this::dispose,
-                                  null,
-                                  null,
-                                  priority );
+      getContext().computed( Arez.areNativeComponentsEnabled() ? component : null,
+                             Arez.areNamesEnabled() ? getName() + ".condition" : null,
+                             Objects.requireNonNull( condition ),
+                             null,
+                             this::dispose,
+                             null,
+                             null,
+                             priority );
     _watcher =
       getContext().autorun( Arez.areNativeComponentsEnabled() ? component : null,
                             Arez.areNamesEnabled() ? getName() + ".watcher" : null,
