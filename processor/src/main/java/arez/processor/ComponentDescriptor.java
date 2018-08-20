@@ -2446,7 +2446,19 @@ final class ComponentDescriptor
         final PackageElement selfPackageElement = getPackageElement( getElement() );
         return !Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
       } );
-    if ( publicType || hasInverseReferencedOutsideClass )
+    final boolean hasReferenceWithInverseOutsidePackage =
+      _roReferences
+        .stream()
+        .filter( ReferenceDescriptor::hasInverse )
+        .anyMatch( reference -> {
+          final TypeElement typeElement =
+            (TypeElement) _typeUtils.asElement( reference.getMethod().getReturnType() );
+
+          final PackageElement targetPackageElement = ProcessorUtil.getPackageElement( typeElement );
+          final PackageElement selfPackageElement = getPackageElement( getElement() );
+          return !Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
+        } );
+    if ( publicType || hasInverseReferencedOutsideClass || hasReferenceWithInverseOutsidePackage )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }

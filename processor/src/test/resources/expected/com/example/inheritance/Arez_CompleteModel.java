@@ -50,6 +50,11 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   private List<Element> $$arezd$$_$$cache$$_elements;
 
   @Nonnull
+  private final Observable<Element> $$arez$$_parentGeneralisation;
+
+  private Element $$arezd$$_parentGeneralisation;
+
+  @Nonnull
   private final ComputedValue<Long> $$arez$$_time;
 
   @Nonnull
@@ -74,6 +79,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_myValue = getContext().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_myValue : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myValue = v : null );
     this.$$arez$$_elements = getContext().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".elements" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_elements : null, null );
+    this.$$arez$$_parentGeneralisation = getContext().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".parentGeneralisation" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_parentGeneralisation : null, null );
     this.$$arez$$_time = getContext().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".time" : null, () -> super.getTime(), this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, null );
     this.$$arez$$_myAutorun = getContext().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".myAutorun" : null, false, () -> super.myAutorun() );
     this.$$arez$$_render = getContext().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".render" : null, false, () -> super.onRenderDepsChanged() );
@@ -148,6 +154,9 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     for ( final Element other : new ArrayList<>( $$arezd$$_elements ) ) {
       ( (Arez_Element) other ).$$arezi$$_delink_completeModel();
     }
+    if ( null != $$arezd$$_parentGeneralisation ) {
+      ( (Arez_Element) $$arezd$$_parentGeneralisation ).$$arezi$$_delink_child();
+    }
     $$arezi$$_disposeNotifier.dispose();
   }
 
@@ -176,6 +185,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
           this.$$arez$$_time.dispose();
           this.$$arez$$_myValue.dispose();
           this.$$arez$$_elements.dispose();
+          this.$$arez$$_parentGeneralisation.dispose();
         } } );
       }
       if ( Arez.shouldCheckApiInvariants() ) {
@@ -197,6 +207,9 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
         if ( Arez.shouldCheckApiInvariants() ) {
           Guards.apiInvariant( () -> Disposable.isNotDisposed( element ), () -> "Inverse relationship named 'elements' on component named '" + getComponentName() + "' contains disposed element '" + element + "'" );
         }
+      }
+      if ( Arez.shouldCheckApiInvariants() ) {
+        Guards.apiInvariant( () -> Disposable.isNotDisposed( this.$$arezd$$_parentGeneralisation ), () -> "Inverse relationship named 'parentGeneralisation' on component named '" + getComponentName() + "' contains disposed element '" + this.$$arezd$$_parentGeneralisation + "'" );
       }
     }
   }
@@ -247,6 +260,16 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     } else {
       return this.$$arezd$$_elements;
     }
+  }
+
+  @Nullable
+  @Override
+  Element getParentGeneralisation() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getParentGeneralisation' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+    }
+    this.$$arez$$_parentGeneralisation.reportObserved();
+    return this.$$arezd$$_parentGeneralisation;
   }
 
   @Override
@@ -364,6 +387,26 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
       this.$$arezd$$_$$cache$$_elements = null;
     }
     this.$$arez$$_elements.reportChanged();
+  }
+
+  public void $$arezir$$_parentGeneralisation_zset(@Nullable final Element element) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_parentGeneralisation_zset' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+    }
+    this.$$arez$$_parentGeneralisation.preReportChanged();
+    this.$$arezd$$_parentGeneralisation = element;
+    this.$$arez$$_parentGeneralisation.reportChanged();
+  }
+
+  public void $$arezir$$_parentGeneralisation_zunset(@Nonnull final Element element) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_parentGeneralisation_zunset' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+    }
+    this.$$arez$$_parentGeneralisation.preReportChanged();
+    if ( this.$$arezd$$_parentGeneralisation == element ) {
+      this.$$arezd$$_parentGeneralisation = null;
+      this.$$arez$$_parentGeneralisation.reportChanged();
+    }
   }
 
   @Override

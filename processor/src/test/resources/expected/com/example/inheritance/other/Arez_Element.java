@@ -9,6 +9,7 @@ import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
+import arez.component.Linkable;
 import arez.component.Verifiable;
 import com.example.inheritance.Arez_CompleteModel;
 import com.example.inheritance.CompleteModel;
@@ -18,7 +19,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_Element extends Element implements Disposable, Identifiable<Integer>, Verifiable, DisposeTrackable {
+public final class Arez_Element extends Element implements Disposable, Identifiable<Integer>, Verifiable, DisposeTrackable, Linkable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -34,6 +35,9 @@ public final class Arez_Element extends Element implements Disposable, Identifia
 
   @Nullable
   private CompleteModel $$arezr$$_completeModel;
+
+  @Nullable
+  private CompleteModel $$arezr$$_child;
 
   public Arez_Element() {
     super();
@@ -95,6 +99,7 @@ public final class Arez_Element extends Element implements Disposable, Identifia
 
   private void $$arezi$$_preDispose() {
     this.$$arezi$$_delink_completeModel();
+    this.$$arezi$$_delink_child();
     $$arezi$$_disposeNotifier.dispose();
   }
 
@@ -135,7 +140,17 @@ public final class Arez_Element extends Element implements Disposable, Identifia
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( Element.class, $$arezi$$_id() ) );
       this.$$arezi$$_delink_completeModel();
       this.$$arezi$$_link_completeModel();
+      this.$$arezi$$_delink_child();
+      this.$$arezi$$_link_child();
     }
+  }
+
+  @Override
+  public void link() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'link' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    this.$$arezi$$_link_child();
   }
 
   @Override
@@ -166,6 +181,39 @@ public final class Arez_Element extends Element implements Disposable, Identifia
       ( (Arez_CompleteModel) this.$$arezr$$_completeModel ).$$arezir$$_elements_remove( this );
     }
     this.$$arezr$$_completeModel = null;
+  }
+
+  @Nonnull
+  @Override
+  CompleteModel getChild() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getChild' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != $$arezr$$_child, () -> "Nonnull reference method named 'getChild' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getChildId() );
+    }
+    return this.$$arezr$$_child;
+  }
+
+  private void $$arezi$$_link_child() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_child' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    if ( null == this.$$arezr$$_child ) {
+      final int id = this.getChildId();
+      this.$$arezr$$_child = this.$$arezi$$_locator().findById( CompleteModel.class, id );
+      if ( Arez.shouldCheckApiInvariants() ) {
+        Guards.apiInvariant( () -> null != $$arezr$$_child, () -> "Reference method named 'getChild' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inheritance.CompleteModel and id = " + getChildId() );
+      }
+      ( (Arez_CompleteModel) this.$$arezr$$_child ).$$arezir$$_parentGeneralisation_zset( this );
+    }
+  }
+
+  public void $$arezi$$_delink_child() {
+    if ( null != $$arezr$$_child && Disposable.isNotDisposed( $$arezr$$_child ) ) {
+      ( (Arez_CompleteModel) this.$$arezr$$_child ).$$arezir$$_parentGeneralisation_zunset( this );
+    }
+    this.$$arezr$$_child = null;
   }
 
   @Override
