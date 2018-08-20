@@ -37,7 +37,7 @@ public final class Observer
   @Nullable
   private Procedure _onDispose;
   /**
-   * The stalest state of the associated observables that are also derivations.
+   * The state of the observer relative to the observers dependencies.
    */
   @Nonnull
   private ObserverState _state = ObserverState.INACTIVE;
