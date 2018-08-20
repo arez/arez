@@ -72,9 +72,6 @@ complete as there is too much un-said.
 
 * Completed the `arez-devtools` project.
 
-* Consider supporting `OnObserved` and `OnUnobserved` on `@Observable` properties. It may not be necessary if we
-  consider `@Computed` as potentially computed from non-arez elements.
-
 * Support `@OnChanged` for `@Observable` and `@Computed` properties. This hook is called immediately after the
   change and includes the old value and the new value. The nullability annotations on the hook method should
   match expectations.
