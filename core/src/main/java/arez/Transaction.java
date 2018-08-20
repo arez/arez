@@ -831,7 +831,9 @@ final class Transaction
     // as that is what it was set to in beginTracking. However if an observer adds a
     // new observable, the tracker itself is stale and the observable has a LeastStaleObserverState
     // of STALE due to another observer, the newDerivationState value can be incorrect
-    ObserverState newDerivationState = _tracker.getState();
+    // The state tracker can also be disposed within the scope of the transaction which will lead to
+    // DISPOSED or DISPOSING state.
+    ObserverState newDerivationState = ObserverState.getLeastStaleObserverState( _tracker.getState() );
 
     boolean dependenciesChanged = false;
     int currentIndex = 0;
