@@ -178,7 +178,7 @@ public final class ComputedValue<T>
    * may or may not change as a result of the dependency change but Arez will recalculate
    * the ComputedValue during the normal reaction cycle or when next accessed and will propagate
    * the change at that time if required. This method must be explicitly invoked by the
-   * developer if the ComputedValue is derived from non-arez data and that data changes.</p>
+   * developer if the ComputedValue is derived from non-arez data and that data changes.
    */
   public void reportPossiblyChanged()
   {
