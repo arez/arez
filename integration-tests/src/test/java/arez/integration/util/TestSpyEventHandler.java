@@ -12,7 +12,7 @@ public final class TestSpyEventHandler
 {
   private final ArrayList<Object> _events = new ArrayList<>();
   /**
-   * When ussing assertNextEvent this tracks the index that we are up to.
+   * When using assertNextEvent this tracks the index that we are up to.
    */
   private int _currentAssertIndex;
 
