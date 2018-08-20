@@ -366,7 +366,7 @@ public final class Observer
                 ( ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state ) )
       {
         _computedValue.getObservable().reportPossiblyChanged();
-        runHook( getComputedValue().getOnStale(), ObserverError.ON_STALE_ERROR );
+        runHook( _computedValue.getOnStale(), ObserverError.ON_STALE_ERROR );
         if ( schedule )
         {
           schedule();
