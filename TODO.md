@@ -13,6 +13,12 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Change component spy events to use `ComponentInfo`
+
+* Change spy event `ComputeCompletedEvent` to include value completed and whether it was a change?
+
+* Add tests for all spy events
+
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
 
 * Rename `disposeOnDeactivate` parameter to `disposeOnBecomeUnobserved`
