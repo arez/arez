@@ -137,6 +137,18 @@ final class GeneratorUtil
     return GeneratorUtil.INVERSE_REFERENCE_METHOD_PREFIX + name + "_zunset";
   }
 
+  @Nonnull
+  static String getLinkMethodName( @Nonnull final String name )
+  {
+    return GeneratorUtil.FRAMEWORK_PREFIX + "link_" + name;
+  }
+
+  @Nonnull
+  static String getDelinkMethodName( @Nonnull final String name )
+  {
+    return GeneratorUtil.FRAMEWORK_PREFIX + "delink_" + name;
+  }
+
   static void generateNotInitializedInvariant( @Nonnull final ComponentDescriptor descriptor,
                                                @Nonnull final MethodSpec.Builder builder,
                                                @Nonnull final String methodName )

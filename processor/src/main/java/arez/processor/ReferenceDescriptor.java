@@ -106,13 +106,13 @@ final class ReferenceDescriptor
   @Nonnull
   String getLinkMethodName()
   {
-    return GeneratorUtil.FRAMEWORK_PREFIX + "link_" + _name;
+    return GeneratorUtil.getDelinkMethodName( _name );
   }
 
   @Nonnull
   String getDelinkMethodName()
   {
-    return GeneratorUtil.FRAMEWORK_PREFIX + "delink_" + _name;
+    return GeneratorUtil.getDelinkMethodName( _name );
   }
 
   @Nonnull
