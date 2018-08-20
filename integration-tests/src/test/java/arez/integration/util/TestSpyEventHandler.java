@@ -41,11 +41,6 @@ public final class TestSpyEventHandler
     assertEquals( eventCount(), count, "Actual events: " + _events );
   }
 
-  public void assertEventCountAtLeast( final int count )
-  {
-    assertTrue( eventCount() >= count, "Expected more than " + count + ". Actual events: " + _events );
-  }
-
   /**
    * Assert "next" Event is of specific type.
    * Increment the next counter.
