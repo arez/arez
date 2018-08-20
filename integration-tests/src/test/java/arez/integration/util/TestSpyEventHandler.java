@@ -64,8 +64,7 @@ public final class TestSpyEventHandler
   @Nonnull
   public <T> T assertNextEvent( @Nonnull final Class<T> type, @Nonnull final Consumer<T> action )
   {
-    final T event = assertEvent( type, _currentAssertIndex );
-    _currentAssertIndex++;
+    final T event = assertNextEvent( type );
     action.accept( event );
     return event;
   }
