@@ -110,6 +110,7 @@
    * Rename class `arez.spy.ObservableDisposedEvent` to `arez.spy.ObservableValueDisposedEvent`.
    * Rename the type field in serialized form of the `arez.spy.Observable*Event` classes to replace
      `Observable...` with `ObservableValue...`.
+* 💥 **\[core\]** Remove the unused class `arez.component.AbstractEntityReference`.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)
