@@ -400,8 +400,7 @@ public final class ObservableValue<T>
     }
     getObservers().add( observer );
 
-    final ObserverState state =
-      ObserverState.isNotActive( observer.getState() ) ? ObserverState.UP_TO_DATE : observer.getState();
+    final ObserverState state = ObserverState.getLeastStaleObserverState( observer.getState() );
     if ( _leastStaleObserverState.ordinal() > state.ordinal() )
     {
       _leastStaleObserverState = state;

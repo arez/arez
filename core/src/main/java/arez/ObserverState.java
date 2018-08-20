@@ -59,4 +59,17 @@ enum ObserverState
   {
     return !isActive( state );
   }
+
+  /**
+   * Return the least stale observer state. if the state is not active
+   * then the {@link #UP_TO_DATE} will be returned.
+   *
+   * @param state the state to check.
+   * @return the least stale observer state.
+   */
+  @Nonnull
+  static ObserverState getLeastStaleObserverState( @Nonnull final ObserverState state )
+  {
+    return isNotActive( state ) ? ObserverState.UP_TO_DATE : state;
+  }
 }
