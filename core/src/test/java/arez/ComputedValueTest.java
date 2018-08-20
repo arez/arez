@@ -389,7 +389,7 @@ public class ComputedValueTest
     computedValue.dispose();
 
     assertEquals( observer.isDisposed(), true );
-    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.getState(), ObserverState.DISPOSED );
   }
 
   @Test
@@ -414,7 +414,7 @@ public class ComputedValueTest
     computedValue.dispose();
 
     assertEquals( observer.isDisposed(), true );
-    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.getState(), ObserverState.DISPOSED );
 
     handler.assertEventCount( 14 );
 
@@ -592,7 +592,7 @@ public class ComputedValueTest
     observer.setState( ObserverState.STALE );
     computedValue.setValue( "XXX" );
 
-    observer.setDisposed( true );
+    observer.markAsDisposed();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, computedValue::get );

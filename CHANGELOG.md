@@ -99,6 +99,8 @@
   several source code analysis tools. This is usually not a problem as it is generated code from an annotation
   processor but recent updates to the tool chains can add the generated source code to analysis paths in some
   circumstances.
+* **\[core\]** Replace the usage of the `_disposed` an `_disposing` fields on `Observer` with existing `_state`
+  field. This reduces the runtime memory size of the `Observer` object by eliminating two properties.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)

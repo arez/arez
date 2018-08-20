@@ -508,8 +508,7 @@ public class TransactionTest
 
     tracker.markDependenciesLeastStaleObserverAsUpToDate();
     tracker.clearDependencies();
-    tracker.setDisposed( true );
-    tracker.setState( ObserverState.INACTIVE );
+    tracker.setState( ObserverState.DISPOSED );
 
     // This dependency "retained" (until tracker disposed)
     final Observable<?> observable1 = newObservable( context );
@@ -531,7 +530,7 @@ public class TransactionTest
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.INACTIVE );
+    assertEquals( tracker.getState(), ObserverState.DISPOSED );
     final ArrayList<Observable<?>> dependencies1 = tracker.getDependencies();
     assertTrue( dependencies1 != dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );

@@ -401,7 +401,7 @@ public final class Observable<T>
     getObservers().add( observer );
 
     final ObserverState state =
-      ObserverState.INACTIVE == observer.getState() ? ObserverState.UP_TO_DATE : observer.getState();
+      ObserverState.isNotActive( observer.getState() ) ? ObserverState.UP_TO_DATE : observer.getState();
     if ( _leastStaleObserverState.ordinal() > state.ordinal() )
     {
       _leastStaleObserverState = state;
@@ -459,9 +459,9 @@ public final class Observable<T>
       invariant( () -> getContext().isTransactionActive(),
                  () -> "Arez-0074: Attempt to invoke setLeastStaleObserverState on observable named '" + getName() +
                        "' when there is no active transaction." );
-      invariant( () -> ObserverState.INACTIVE != leastStaleObserverState,
+      invariant( () -> ObserverState.isActive( leastStaleObserverState ),
                  () -> "Arez-0075: Attempt to invoke setLeastStaleObserverState on observable named '" + getName() +
-                       "' with invalid value INACTIVE." );
+                       "' with invalid value " + leastStaleObserverState + "." );
     }
     _leastStaleObserverState = leastStaleObserverState;
   }
@@ -578,7 +578,7 @@ public final class Observable<T>
     {
       final ObserverState leastStaleObserverState =
         getObservers().stream().
-          map( Observer::getState ).map( s -> s == ObserverState.INACTIVE ? ObserverState.UP_TO_DATE : s ).
+          map( Observer::getState ).map( s -> ObserverState.isNotActive( s ) ? ObserverState.UP_TO_DATE : s ).
           min( Comparator.comparing( Enum::ordinal ) ).orElse( ObserverState.UP_TO_DATE );
       invariant( () -> leastStaleObserverState.ordinal() >= _leastStaleObserverState.ordinal(),
                  () -> "Arez-0078: Calculated leastStaleObserverState on observable named '" + getName() +

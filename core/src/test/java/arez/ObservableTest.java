@@ -593,7 +593,7 @@ public class ObservableTest
     final Observable<?> observable = newObservable( context );
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    observer.setDisposed( true );
+    observer.markAsDisposed();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );

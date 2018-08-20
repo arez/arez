@@ -83,14 +83,6 @@ public final class Observer
    * Flag set to true if the Observer allows nested actions.
    */
   private final boolean _canNestActions;
-  /**
-   * Flag set to true after Observer has been disposed.
-   */
-  private boolean _disposed;
-  /**
-   * Flag set to true when disposing observer.
-   */
-  private boolean _disposing;
 
   Observer( @Nullable final ArezContext context,
             @Nullable final Component component,
@@ -198,9 +190,9 @@ public final class Observer
   @Override
   public void dispose()
   {
-    if ( !_disposed && !_disposing )
+    if ( ObserverState.DISPOSED != _state && ObserverState.DISPOSING != _state )
     {
-      _disposing = true;
+      _state = ObserverState.DISPOSING;
       runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
       getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
                                true,
@@ -225,7 +217,7 @@ public final class Observer
       {
         _computedValue.dispose();
       }
-      _disposing = false;
+      _state = ObserverState.DISPOSED;
     }
   }
 
@@ -234,13 +226,11 @@ public final class Observer
     getContext().getTransaction().reportDispose( this );
     markDependenciesLeastStaleObserverAsUpToDate();
     clearDependencies();
-    setDisposed( true );
-    setState( ObserverState.INACTIVE );
   }
 
-  void setDisposed( final boolean disposed )
+  void markAsDisposed()
   {
-    _disposed = disposed;
+    _state = ObserverState.DISPOSED;
   }
 
   /**
@@ -249,7 +239,7 @@ public final class Observer
   @Override
   public boolean isDisposed()
   {
-    return _disposed;
+    return ObserverState.DISPOSED == _state;
   }
 
   /**
@@ -259,7 +249,7 @@ public final class Observer
    */
   boolean isDisposing()
   {
-    return _disposing;
+    return ObserverState.DISPOSING == _state;
   }
 
   /**
@@ -298,7 +288,8 @@ public final class Observer
 
   /**
    * Return true if the observer is active.
-   * Being "active" means that the state of the observer is not {@link ObserverState#INACTIVE}.
+   * Being "active" means that the state of the observer is not {@link ObserverState#INACTIVE},
+   * {@link ObserverState#DISPOSING} or {@link ObserverState#DISPOSED}.
    *
    * <p>An inactive observer has no dependencies and depending on the type of observer may
    * have other consequences. i.e. An inactive observer will never be scheduled even if it has a
@@ -308,7 +299,7 @@ public final class Observer
    */
   boolean isActive()
   {
-    return ObserverState.INACTIVE != getState();
+    return ObserverState.isActive( getState() );
   }
 
   /**
@@ -384,14 +375,16 @@ public final class Observer
       }
       else if ( ObserverState.INACTIVE == originalState )
       {
-        if ( Arez.shouldCheckInvariants() )
-        {
-          invariant( this::isNotDisposed,
-                     () -> "Arez-0087: Attempted to activate disposed observer named '" + getName() + "'." );
-        }
         if ( isComputedValue() )
         {
           runHook( getComputedValue().getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
+        }
+      }
+      else if ( ObserverState.DISPOSED == originalState )
+      {
+        if ( Arez.shouldCheckInvariants() )
+        {
+          fail( () -> "Arez-0087: Attempted to activate disposed observer named '" + getName() + "'." );
         }
       }
       if ( Arez.shouldCheckInvariants() )
@@ -723,9 +716,8 @@ public final class Observer
       }
       if ( isComputedValue() && isNotDisposed() )
       {
-        invariant( () -> Objects.equals( getComputedValue().getObservable().hasOwner() ?
-                                         getComputedValue().getObservable().getOwner() : null,
-                                         this ),
+        final Observable<?> observable = getComputedValue().getObservable();
+        invariant( () -> Objects.equals( observable.hasOwner() ? observable.getOwner() : null, this ),
                    () -> "Arez-0093: Observer named '" + getName() + "' is associated with an ObservableValue that " +
                          "does not link back to observer." );
       }

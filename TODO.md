@@ -15,8 +15,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Collapse `Observer._disposed` and `Observer._disposing` into `Observer._state`
-
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
 
 * Rename `disposeOnDeactivate` parameter to `disposeOnBecomeUnobserved`

@@ -810,19 +810,13 @@ public class ObserverTest
 
     assertEquals( observer.getState(), ObserverState.INACTIVE );
 
-    observer.setDisposed( true );
+    observer.markAsDisposed();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> observer.setState( ObserverState.UP_TO_DATE ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0087: Attempted to activate disposed observer named '" + observer.getName() + "'." );
-
-    observer.setDisposed( false );
-
-    observer.setState( ObserverState.UP_TO_DATE );
-
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
@@ -874,20 +868,11 @@ public class ObserverTest
 
     final Observer observer = newReadOnlyObserver();
 
-    observer.setState( ObserverState.UP_TO_DATE );
-    observer.setDisposed( true );
-
-    assertEquals( observer.isScheduled(), false );
+    observer.setState( ObserverState.DISPOSED );
 
     observer.schedule();
 
     assertEquals( observer.isScheduled(), false );
-
-    observer.setDisposed( false );
-
-    observer.schedule();
-
-    assertEquals( observer.isScheduled(), true );
   }
 
   @Test
@@ -920,7 +905,7 @@ public class ObserverTest
 
     observer.dispose();
 
-    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.getState(), ObserverState.DISPOSED );
     assertEquals( observer.isNotDisposed(), false );
     assertEquals( observer.isDisposed(), true );
 
@@ -956,7 +941,7 @@ public class ObserverTest
 
     observer.dispose();
 
-    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.getState(), ObserverState.DISPOSED );
     assertEquals( observer.isNotDisposed(), false );
     assertEquals( observer.isDisposed(), true );
     assertEquals( observable.getObservers().size(), 0 );
@@ -1144,7 +1129,7 @@ public class ObserverTest
   {
     final Observer observer = newComputedValueObserver();
 
-    observer.setDisposed( true );
+    observer.markAsDisposed();
 
     // Should be able to do this because sometimes when we dispose ComputedValue it gets deactivated and
     // part of dispose of observer needs to access ComputedValue to send out a spy message
@@ -1303,13 +1288,11 @@ public class ObserverTest
                     false,
                     true );
 
-    observer.setDisposed( true );
-
     observer.invokeReaction();
 
-    assertEquals( reaction.getCallCount(), 0 );
+    assertEquals( reaction.getCallCount(), 1 );
 
-    observer.setDisposed( false );
+    observer.markAsDisposed();
 
     observer.invokeReaction();
 
