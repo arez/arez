@@ -15,6 +15,7 @@ import arez.SafeFunction;
 import arez.SpyEventHandler;
 import arez.Zone;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -147,6 +148,54 @@ public class ExternalApiTest
 
       assertThrows( computedValue::get );
     } );
+  }
+
+  @Test
+  public void ComputedValue_reportPossiblyChanged()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger computedCallCount = new AtomicInteger();
+    final AtomicInteger autorunCallCount = new AtomicInteger();
+    final AtomicInteger result = new AtomicInteger();
+    final AtomicReference<String> expected = new AtomicReference<>();
+
+    final String name = ValueUtil.randomString();
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      computedCallCount.incrementAndGet();
+      return String.valueOf( result.get() );
+    };
+    final ComputedValue<String> computedValue = context.computed( name, function );
+
+    assertEquals( autorunCallCount.get(), 0 );
+    assertEquals( computedCallCount.get(), 0 );
+
+    expected.set( "0" );
+
+    context.autorun( () -> {
+      autorunCallCount.incrementAndGet();
+      assertEquals( computedValue.get(), expected.get() );
+    } );
+
+    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( computedCallCount.get(), 1 );
+
+    context.safeAction( computedValue::reportPossiblyChanged );
+
+    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( computedCallCount.get(), 2 );
+
+    result.set( 23 );
+    expected.set( "23" );
+
+    assertEquals( computedCallCount.get(), 2 );
+
+    context.safeAction( computedValue::reportPossiblyChanged );
+
+    assertEquals( autorunCallCount.get(), 2 );
+    assertEquals( computedCallCount.get(), 3 );
   }
 
   @Test

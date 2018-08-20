@@ -648,6 +648,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
+      _readOrWriteOccurred = true;
       invariant( observable::isNotDisposed,
                  () -> "Arez-0146: Invoked reportPossiblyChanged on transaction named '" + getName() + "' for " +
                        "observable named '" + observable.getName() + "' where the observable is disposed." );

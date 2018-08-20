@@ -16,8 +16,6 @@ complete as there is too much un-said.
 
 * Renaming `arez.Observable` to `arez.ObservableValue`
 
-* Expose `ComputedValue.reportPossiblyChanged()` so can force recalculation of computed.
-
 ## Enhancements
 
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.

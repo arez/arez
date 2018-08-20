@@ -6,11 +6,13 @@ import arez.spy.ComputedValueDisposedEvent;
 import arez.spy.ObservableChangedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+@SuppressWarnings( "Duplicates" )
 public class ComputedValueTest
   extends AbstractArezTest
 {
@@ -647,5 +649,144 @@ public class ComputedValueTest
     computedValue.setDisposed( false );
 
     assertEquals( computedValue.getObservable().getName(), computedValue.getName() );
+  }
+
+  @Test
+  public void reportPossiblyChanged_observerUpToDate()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger computedCallCount = new AtomicInteger();
+    final AtomicInteger autorunCallCount = new AtomicInteger();
+    final AtomicInteger result = new AtomicInteger();
+    final AtomicReference<String> expected = new AtomicReference<>();
+
+    final Observable<Object> observable = context.observable();
+
+    final String name = ValueUtil.randomString();
+    final SafeFunction<String> function = () -> {
+      observable.reportObserved();
+      computedCallCount.incrementAndGet();
+      return String.valueOf( result.get() );
+    };
+    final ComputedValue<String> computedValue = context.computed( name, function );
+
+    assertEquals( autorunCallCount.get(), 0 );
+    assertEquals( computedCallCount.get(), 0 );
+
+    expected.set( "0" );
+
+    context.autorun( () -> {
+      autorunCallCount.incrementAndGet();
+      assertEquals( computedValue.get(), expected.get() );
+    } );
+
+    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( computedCallCount.get(), 1 );
+
+    context.safeAction( computedValue::reportPossiblyChanged );
+
+    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( computedCallCount.get(), 2 );
+
+    result.set( 23 );
+    expected.set( "23" );
+
+    assertEquals( computedCallCount.get(), 2 );
+
+    context.safeAction( computedValue::reportPossiblyChanged );
+
+    assertEquals( autorunCallCount.get(), 2 );
+    assertEquals( computedCallCount.get(), 3 );
+
+    context.safeAction( observable::reportChanged );
+
+    assertEquals( autorunCallCount.get(), 2 );
+    assertEquals( computedCallCount.get(), 4 );
+  }
+
+  @Test
+  public void reportPossiblyChanged_readOnlyTransaction()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger computedCallCount = new AtomicInteger();
+    final AtomicInteger autorunCallCount = new AtomicInteger();
+
+    final Observable<Object> observable = context.observable();
+
+    final String name = ValueUtil.randomString();
+    final SafeFunction<String> function = () -> {
+      observable.reportObserved();
+      computedCallCount.incrementAndGet();
+      return "";
+    };
+    final ComputedValue<String> computedValue = context.computed( name, function );
+
+    assertEquals( autorunCallCount.get(), 0 );
+    assertEquals( computedCallCount.get(), 0 );
+
+    context.autorun( () -> {
+      autorunCallCount.incrementAndGet();
+      computedValue.get();
+    } );
+
+    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( computedCallCount.get(), 1 );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> context.safeAction( false, computedValue::reportPossiblyChanged ) );
+
+    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( computedCallCount.get(), 1 );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0152: Transaction named 'Transaction@3' attempted to change observable named '" +
+                  computedValue.getName() + "' but the transaction mode is READ_ONLY." );
+  }
+
+
+  @Test
+  public void reportPossiblyChanged_computedAlreadyScheduled()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger computedCallCount = new AtomicInteger();
+    final AtomicInteger autorunCallCount = new AtomicInteger();
+
+    final Observable<Object> observable = context.observable();
+
+    final String name = ValueUtil.randomString();
+    final SafeFunction<String> function = () -> {
+      observable.reportObserved();
+      computedCallCount.incrementAndGet();
+      return "";
+    };
+    final ComputedValue<String> computedValue = context.computed( name, function );
+
+    assertEquals( autorunCallCount.get(), 0 );
+    assertEquals( computedCallCount.get(), 0 );
+
+    context.autorun( () -> {
+      autorunCallCount.incrementAndGet();
+      computedValue.get();
+    } );
+
+    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( computedCallCount.get(), 1 );
+
+    context.safeAction( () -> {
+      observable.reportChanged();
+      assertTrue( computedValue.getObserver().isScheduled() );
+      computedValue.reportPossiblyChanged();
+      assertTrue( computedValue.getObserver().isScheduled() );
+    } );
+
+    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( computedCallCount.get(), 2 );
   }
 }

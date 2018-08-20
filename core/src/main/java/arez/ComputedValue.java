@@ -174,6 +174,22 @@ public final class ComputedValue<T>
   }
 
   /**
+   * Invoked when a non-arez dependency of the ComputedValue has changed. The ComputedValue
+   * may or may not change as a result of the dependency change but Arez will recalculate
+   * the ComputedValue during the normal reaction cycle or when next accessed and will propagate
+   * the change at that time if required. This method must be explicitly invoked by the
+   * developer if the ComputedValue is derived from non-arez data and that data changes.</p>
+   */
+  public void reportPossiblyChanged()
+  {
+    Transaction.current().verifyWriteAllowed( getObservable() );
+    if ( ObserverState.UP_TO_DATE == getObserver().getState() )
+    {
+      getObserver().setState( ObserverState.POSSIBLY_STALE );
+    }
+  }
+
+  /**
    * Dispose the ComputedValue so that it can no longer be used.
    */
   @Override
