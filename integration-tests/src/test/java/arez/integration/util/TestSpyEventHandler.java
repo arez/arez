@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 import static org.testng.Assert.*;
 
+@SuppressWarnings( { "UnusedReturnValue", "WeakerAccess" } )
 public final class TestSpyEventHandler
   implements SpyEventHandler
 {
