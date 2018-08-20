@@ -1920,7 +1920,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer derivation = newDerivation();
+    final Observer derivation = newComputedValueObserver();
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 

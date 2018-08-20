@@ -141,6 +141,11 @@
         "transaction": "TestComputed.dispose"
     },
     {
+        "observable": "TestComputed",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -169,11 +174,6 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "TestComputed.dispose"
-    },
-    {
-        "observable": "TestComputed",
-        "type": "ObservableChanged",
-        "value": null
     },
     {
         "mutation": true,

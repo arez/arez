@@ -214,7 +214,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    final Observer observer = newDerivation( context );
+    final Observer observer = newComputedValueObserver( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
     assertEquals( spy.isActive( computedValue ), false );
@@ -231,7 +231,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    final Observer observer = newDerivation( context );
+    final Observer observer = newComputedValueObserver( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
     assertEquals( spy.isComputing( computedValue ), false );
@@ -247,7 +247,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    final ComputedValue<?> computedValue = newDerivation( context ).getComputedValue();
+    final ComputedValue<?> computedValue = newComputedValueObserver( context ).getComputedValue();
 
     assertEquals( spy.getObservers( computedValue ).size(), 0 );
 
@@ -270,7 +270,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    final Observer observer = newDerivation( context );
+    final Observer observer = newComputedValueObserver( context );
     final Observer observer2 = newReadOnlyObserver( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
@@ -299,7 +299,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    final Observer observer = newDerivation( context );
+    final Observer observer = newComputedValueObserver( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
     computedValue.setComputing( true );
@@ -322,7 +322,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    final Observer observer = newDerivation( context );
+    final Observer observer = newComputedValueObserver( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
     assertEquals( spy.getDependencies( computedValue ).size(), 0 );
@@ -346,7 +346,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    final Observer observer = newDerivation( context );
+    final Observer observer = newComputedValueObserver( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
     final Observable<?> observable = newObservable( context );
@@ -383,7 +383,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    assertEquals( spy.isComputedValue( newDerivation( context ).getDerivedValue() ), true );
+    assertEquals( spy.isComputedValue( newComputedValueObserver( context ).getComputedValue().getObservable() ), true );
     assertEquals( spy.isComputedValue( newObservable( context ) ), false );
   }
 
@@ -395,8 +395,8 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    final Observer observer = newDerivation( context );
-    final Observable<?> observable = observer.getDerivedValue();
+    final Observer observer = newComputedValueObserver( context );
+    final Observable<?> observable = observer.getComputedValue().getObservable();
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
     assertEquals( spy.asComputedValue( observable ).getName(), computedValue.getName() );
@@ -432,7 +432,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    assertEquals( spy.isComputedValue( newDerivation( context ) ), true );
+    assertEquals( spy.isComputedValue( newComputedValueObserver( context ) ), true );
     assertEquals( spy.isComputedValue( newReadOnlyObserver( context ) ), false );
   }
 
@@ -444,7 +444,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    final Observer observer = newDerivation( context );
+    final Observer observer = newComputedValueObserver( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
     assertEquals( spy.asComputedValue( observer ).getName(), computedValue.getName() );
@@ -581,7 +581,7 @@ public class SpyImplTest
     final SpyImpl spy = new SpyImpl( context );
 
     assertEquals( spy.isReadOnly( newReadOnlyObserver( context ) ), true );
-    assertEquals( spy.isReadOnly( newDerivation( context ) ), true );
+    assertEquals( spy.isReadOnly( newComputedValueObserver( context ) ), true );
     assertEquals( spy.isReadOnly( newReadWriteObserver( context ) ), false );
   }
 

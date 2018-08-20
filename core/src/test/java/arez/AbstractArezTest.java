@@ -96,8 +96,8 @@ public abstract class AbstractArezTest
   {
     final Observer randomObserver = newReadOnlyObserver( observer.getContext() );
     randomObserver.setState( ObserverState.UP_TO_DATE );
-    observer.getDerivedValue().addObserver( randomObserver );
-    randomObserver.getDependencies().add( observer.getDerivedValue() );
+    observer.getComputedValue().getObservable().addObserver( randomObserver );
+    randomObserver.getDependencies().add( observer.getComputedValue().getObservable() );
     return randomObserver;
   }
 
@@ -123,13 +123,13 @@ public abstract class AbstractArezTest
   }
 
   @Nonnull
-  final Observer newDerivation()
+  final Observer newComputedValueObserver()
   {
-    return newDerivation( Arez.context() );
+    return newComputedValueObserver( Arez.context() );
   }
 
   @Nonnull
-  final Observer newDerivation( @Nonnull final ArezContext context )
+  final Observer newComputedValueObserver( @Nonnull final ArezContext context )
   {
     return newComputedValue( context ).getObserver();
   }

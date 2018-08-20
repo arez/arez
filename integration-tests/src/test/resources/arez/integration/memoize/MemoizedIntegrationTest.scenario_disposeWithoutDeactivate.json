@@ -160,6 +160,15 @@
         "transaction": "PersonModel.3.doesFullSearchMatch.0.dispose"
     },
     {
+        "observable": "PersonModel.3.doesFullSearchMatch.0",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
+        "observer": "SearchResult - red - 20",
+        "type": "ReactionScheduled"
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -188,15 +197,6 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "PersonModel.3.doesFullSearchMatch.0.dispose"
-    },
-    {
-        "observable": "PersonModel.3.doesFullSearchMatch.0",
-        "type": "ObservableChanged",
-        "value": null
-    },
-    {
-        "observer": "SearchResult - red - 20",
-        "type": "ReactionScheduled"
     },
     {
         "mutation": true,

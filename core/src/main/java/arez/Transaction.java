@@ -933,11 +933,11 @@ final class Transaction
     }
 
     if ( Disposable.isNotDisposed( _tracker ) &&
-         _tracker.isDerivation() &&
-         !_tracker.getDerivedValue().hasObservers() &&
+         _tracker.isComputedValue() &&
+         !_tracker.getComputedValue().getObservable().hasObservers() &&
          !_tracker.getComputedValue().isKeepAlive() )
     {
-      queueForDeactivation( _tracker.getDerivedValue() );
+      queueForDeactivation( _tracker.getComputedValue().getObservable() );
     }
 
     /*

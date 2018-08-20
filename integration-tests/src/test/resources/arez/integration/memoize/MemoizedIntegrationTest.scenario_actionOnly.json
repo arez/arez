@@ -127,6 +127,11 @@
         "transaction": "PersonModel.1.doesSearchMatch.0.dispose"
     },
     {
+        "observable": "PersonModel.1.doesSearchMatch.0",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -155,11 +160,6 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "PersonModel.1.doesSearchMatch.0.dispose"
-    },
-    {
-        "observable": "PersonModel.1.doesSearchMatch.0",
-        "type": "ObservableChanged",
-        "value": null
     },
     {
         "mutation": true,
@@ -289,6 +289,11 @@
         "transaction": "PersonModel.1.doesSearchMatch.1.dispose"
     },
     {
+        "observable": "PersonModel.1.doesSearchMatch.1",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -317,11 +322,6 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "PersonModel.1.doesSearchMatch.1.dispose"
-    },
-    {
-        "observable": "PersonModel.1.doesSearchMatch.1",
-        "type": "ObservableChanged",
-        "value": null
     },
     {
         "mutation": true,

@@ -120,7 +120,7 @@ public final class Observable<T>
       // check in this scenario.
       if ( Arez.shouldCheckInvariants() )
       {
-        invariant( () -> !Arez.shouldEnforceTransactionType() || _owner.isDerivation(),
+        invariant( () -> !Arez.shouldEnforceTransactionType() || _owner.isComputedValue(),
                    () -> "Arez-0057: Observable named '" + getName() + "' has owner specified " +
                          "but owner is not a derivation." );
       }
@@ -554,7 +554,7 @@ public final class Observable<T>
   {
     if ( Arez.shouldCheckInvariants() && null != _owner )
     {
-      invariant( () -> Objects.equals( _owner.getDerivedValue(), this ),
+      invariant( () -> Objects.equals( _owner.getComputedValue().getObservable(), this ),
                  () -> "Arez-0076: Observable named '" + getName() + "' has owner specified but owner does " +
                        "not link to observable as derived value." );
     }

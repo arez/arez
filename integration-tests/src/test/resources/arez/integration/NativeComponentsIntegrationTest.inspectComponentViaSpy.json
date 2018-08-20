@@ -123,6 +123,11 @@
         "transaction": "Attr3.dispose"
     },
     {
+        "observable": "Attr3",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -151,11 +156,6 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Attr3.dispose"
-    },
-    {
-        "observable": "Attr3",
-        "type": "ObservableChanged",
-        "value": null
     },
     {
         "mutation": true,

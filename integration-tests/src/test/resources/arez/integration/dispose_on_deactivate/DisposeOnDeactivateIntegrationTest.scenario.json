@@ -186,6 +186,11 @@
         "transaction": "Model1.0.disposeOnDeactivate.dispose"
     },
     {
+        "observable": "Model1.0.disposeOnDeactivate",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -214,11 +219,6 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model1.0.disposeOnDeactivate.dispose"
-    },
-    {
-        "observable": "Model1.0.disposeOnDeactivate",
-        "type": "ObservableChanged",
-        "value": null
     },
     {
         "mutation": true,

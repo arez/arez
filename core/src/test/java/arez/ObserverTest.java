@@ -58,7 +58,7 @@ public class ObserverTest
     assertEquals( observer.getReaction(), reaction );
     assertEquals( observer.isScheduled(), false );
 
-    assertEquals( observer.isDerivation(), false );
+    assertEquals( observer.isComputedValue(), false );
 
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
@@ -69,18 +69,19 @@ public class ObserverTest
   }
 
   @Test
-  public void initialStateForDerivation()
+  public void initialStateForComputedValueObserver()
     throws Exception
   {
-    final Observer observer = newDerivation();
+    final ComputedValue<String> computedValue = newComputedValue();
+    final Observer observer = computedValue.getObserver();
 
-    assertEquals( observer.isDerivation(), true );
+    assertEquals( observer.isComputedValue(), true );
 
-    assertEquals( observer.getDerivedValue().getName(), observer.getName() );
-    assertEquals( observer.getDerivedValue().getOwner(), observer );
+    assertEquals( computedValue.getObservable().getName(), observer.getName() );
+    assertEquals( computedValue.getObservable().getOwner(), observer );
 
-    assertEquals( observer.getComputedValue().getName(), observer.getName() );
-    assertEquals( observer.getComputedValue().getObserver(), observer );
+    assertEquals( computedValue.getName(), observer.getName() );
+    assertEquals( computedValue.getObserver(), observer );
   }
 
   @Test
@@ -177,7 +178,7 @@ public class ObserverTest
   {
     final String name = ValueUtil.randomString();
 
-    final ComputedValue<?> computedValue = newDerivation().getComputedValue();
+    final ComputedValue<?> computedValue = newComputedValueObserver().getComputedValue();
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
                     () -> new Observer( Arez.context(),
@@ -200,7 +201,7 @@ public class ObserverTest
   public void construct_with_canExplicitlyTrack_and_ComputableValue()
     throws Exception
   {
-    final ComputedValue<?> computedValue = newDerivation().getComputedValue();
+    final ComputedValue<?> computedValue = newComputedValueObserver().getComputedValue();
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
                     () -> new Observer( Arez.context(),
@@ -380,57 +381,58 @@ public class ObserverTest
   public void invariantState_derivedNotLinkBack()
     throws Exception
   {
-    final Observer observer = newDerivation();
+    final Observer observer = newComputedValueObserver();
+    final ComputedValue<?> computedValue = observer.getComputedValue();
 
     observer.invariantState();
 
-    setField( observer, "_derivedValue", newObservable() );
+    setField( computedValue, "_observable", newObservable() );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observer::invariantState );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0093: Observer named '" + observer.getName() + "' has a derived value " +
-                  "that does not link back to observer." );
+                  "Arez-0093: Observer named '" + observer.getName() + "' is associated with an " +
+                  "ObservableValue that does not link back to observer." );
   }
 
   @Test
   public void invariantDerivationState()
     throws Exception
   {
-    final Observer observer = newDerivation();
+    final Observer observer = newComputedValueObserver();
 
-    observer.invariantDerivationState();
+    observer.invariantComputedValueObserverState();
 
     setCurrentTransaction( newReadOnlyObserver() );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observer::invariantDerivationState );
+      expectThrows( IllegalStateException.class, observer::invariantComputedValueObserverState );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0094: Observer named '" + observer.getName() + "' is a derivation and " +
-                  "active but the derived value has no observers." );
+                  "Arez-0094: Observer named '" + observer.getName() + "' is a ComputedValue and " +
+                  "active but the associated ObservableValue has no observers." );
 
     ensureDerivationHasObserver( observer );
 
-    observer.invariantDerivationState();
+    observer.invariantComputedValueObserverState();
   }
 
   @Test
   public void invariantDerivationState_observerCanHaveNoDependenciesIfItIsTracker()
     throws Exception
   {
-    final Observer observer = newDerivation();
+    final Observer observer = newComputedValueObserver();
 
-    observer.invariantDerivationState();
+    observer.invariantComputedValueObserverState();
 
     setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    observer.invariantDerivationState();
+    observer.invariantComputedValueObserverState();
   }
 
   @Test
@@ -655,7 +657,7 @@ public class ObserverTest
   {
     setupReadWriteTransaction();
 
-    final Observer observer = newDerivation();
+    final Observer observer = newComputedValueObserver();
 
     assertEquals( observer.getState(), ObserverState.INACTIVE );
 
@@ -803,7 +805,7 @@ public class ObserverTest
   public void setState_activateWhenDisposed()
     throws Exception
   {
-    final Observer observer = newDerivation();
+    final Observer observer = newComputedValueObserver();
     setCurrentTransaction( observer );
 
     assertEquals( observer.getState(), ObserverState.INACTIVE );
@@ -936,7 +938,7 @@ public class ObserverTest
   public void dispose_onComputedValue()
     throws Exception
   {
-    final Observer observer = newDerivation();
+    final Observer observer = newComputedValueObserver();
     setCurrentTransaction( observer );
     observer.setState( ObserverState.STALE );
 
@@ -974,7 +976,7 @@ public class ObserverTest
   public void dispose_invokedHook()
     throws Exception
   {
-    final Observer observer = newDerivation();
+    final Observer observer = newComputedValueObserver();
     setCurrentTransaction( observer );
     observer.setState( ObserverState.UP_TO_DATE );
     final AtomicInteger callCount = new AtomicInteger();
@@ -1023,9 +1025,9 @@ public class ObserverTest
   public void dispose_does_not_generate_spyEvent_forDerivedValues()
     throws Exception
   {
-    final Observer observer = newDerivation();
-    final Observable<?> derivedValue = observer.getDerivedValue();
+    final Observer observer = newComputedValueObserver();
     final ComputedValue<?> computedValue = observer.getComputedValue();
+    final Observable<?> derivedValue = computedValue.getObservable();
     setCurrentTransaction( observer );
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -1078,7 +1080,7 @@ public class ObserverTest
       hasErrorOccurred.set( true );
       fail();
     } );
-    final Observer observer = newDerivation();
+    final Observer observer = newComputedValueObserver();
     final ComputedValue<?> computedValue = observer.getComputedValue();
     setCurrentTransaction( observer );
     observer.setState( ObserverState.UP_TO_DATE );
@@ -1104,16 +1106,16 @@ public class ObserverTest
     handler.assertNextEvent( ActionCompletedEvent.class );
     handler.assertNextEvent( ComputedValueDisposedEvent.class );
 
-    // This is the part that disposes the Observer
-    handler.assertNextEvent( ActionStartedEvent.class );
-    handler.assertNextEvent( TransactionStartedEvent.class );
-    handler.assertNextEvent( TransactionCompletedEvent.class );
-    handler.assertNextEvent( ActionCompletedEvent.class );
-
     // This is the part that disposes the associated Observable
     handler.assertNextEvent( ActionStartedEvent.class );
     handler.assertNextEvent( TransactionStartedEvent.class );
     handler.assertNextEvent( ObservableChangedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
+
+    // This is the part that disposes the Observer
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
     handler.assertNextEvent( TransactionCompletedEvent.class );
     handler.assertNextEvent( ActionCompletedEvent.class );
 
@@ -1122,46 +1124,12 @@ public class ObserverTest
   }
 
   @Test
-  public void getDerivedValue_throwsExceptionWhenNotDerived()
-    throws Exception
-  {
-    final Observer observer = newReadOnlyObserver();
-
-    assertEquals( observer.isDerivation(), false );
-
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::getDerivedValue );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0085: Attempted to invoke getDerivedValue on observer named '" + observer.getName() +
-                  "' when is not a computed observer." );
-  }
-
-  @Test
-  public void getDerivedValue_onDisposedObserver()
-    throws Exception
-  {
-    final Observer observer = newDerivation();
-
-    observer.setDisposed( true );
-
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::getDerivedValue );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0084: Attempted to invoke getDerivedValue on disposed observer named '" +
-                  observer.getName() + "'." );
-
-    observer.setDisposed( false );
-
-    assertEquals( observer.getDerivedValue().getName(), observer.getName() );
-  }
-
-  @Test
   public void getComputedValue_throwsExceptionWhenNotDerived()
     throws Exception
   {
     final Observer observer = newReadOnlyObserver();
 
-    assertEquals( observer.isDerivation(), false );
+    assertEquals( observer.isComputedValue(), false );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::getComputedValue );
 
@@ -1174,7 +1142,7 @@ public class ObserverTest
   public void getComputedValue_whenDisposed()
     throws Exception
   {
-    final Observer observer = newDerivation();
+    final Observer observer = newComputedValueObserver();
 
     observer.setDisposed( true );
 

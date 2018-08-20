@@ -40,6 +40,11 @@ public final class ComputedValue<T>
    */
   private final boolean _keepAlive;
   /**
+   * The associated observable value.
+   */
+  @Nonnull
+  private final Observable<T> _observable;
+  /**
    * The cached value of the computation.
    */
   private T _value;
@@ -112,6 +117,13 @@ public final class ComputedValue<T>
                               false,
                               observeLowerPriorityDependencies,
                               false );
+    _observable =
+      new Observable<>( context,
+                        null,
+                        name,
+                        _observer,
+                        Arez.arePropertyIntrospectorsEnabled() ? this::getValue : null,
+                        null );
     if ( null != _component )
     {
       _component.addComputedValue( this );
@@ -193,6 +205,7 @@ public final class ComputedValue<T>
       {
         getContext().deregisterComputedValue( this );
       }
+      _observable.dispose();
       if ( !_observer.isDisposing() )
       {
         _observer.dispose();
@@ -239,7 +252,13 @@ public final class ComputedValue<T>
   @Nonnull
   Observable<T> getObservable()
   {
-    return (Observable<T>) getObserver().getDerivedValue();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( this::isNotDisposed,
+                 () -> "Arez-0084: Attempted to invoke getObservable on disposed ComputedValue " +
+                       "named '" + getName() + "'." );
+    }
+    return _observable;
   }
 
   /**
@@ -399,6 +418,11 @@ public final class ComputedValue<T>
   void setError( final Throwable error )
   {
     _error = error;
+  }
+
+  void setDisposed( final boolean disposed )
+  {
+    _disposed = disposed;
   }
 
   void setComputing( final boolean computing )

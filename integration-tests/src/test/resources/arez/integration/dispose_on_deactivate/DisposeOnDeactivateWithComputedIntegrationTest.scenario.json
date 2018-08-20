@@ -299,6 +299,11 @@
         "transaction": "Model2.0.disposeOnDeactivate.dispose"
     },
     {
+        "observable": "Model2.0.disposeOnDeactivate",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -327,11 +332,6 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.0.disposeOnDeactivate.dispose"
-    },
-    {
-        "observable": "Model2.0.disposeOnDeactivate",
-        "type": "ObservableChanged",
-        "value": null
     },
     {
         "mutation": true,
@@ -398,6 +398,11 @@
         "transaction": "Model2.0.someValue.dispose"
     },
     {
+        "observable": "Model2.0.someValue",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -426,11 +431,6 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "Model2.0.someValue.dispose"
-    },
-    {
-        "observable": "Model2.0.someValue",
-        "type": "ObservableChanged",
-        "value": null
     },
     {
         "mutation": true,

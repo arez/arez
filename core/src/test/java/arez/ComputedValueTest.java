@@ -53,7 +53,7 @@ public class ComputedValueTest
 
     // Verify the linking of all child elements
     assertEquals( computedValue.getObserver().getName(), name );
-    assertEquals( computedValue.getObserver().isDerivation(), true );
+    assertEquals( computedValue.getObserver().isComputedValue(), true );
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
     assertEquals( computedValue.getObserver().getState(), ObserverState.INACTIVE );
@@ -93,7 +93,7 @@ public class ComputedValueTest
 
     // Verify the linking of all child elements
     assertEquals( computedValue.getObserver().getName(), name );
-    assertEquals( computedValue.getObserver().isDerivation(), true );
+    assertEquals( computedValue.getObserver().isComputedValue(), true );
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
     assertEquals( computedValue.getObserver().getState(), ObserverState.UP_TO_DATE );
@@ -219,7 +219,7 @@ public class ComputedValueTest
 
     final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getDerivedValue().addObserver( observer );
+    computedValue.getObserver().getComputedValue().getObservable().addObserver( observer );
     observer.getDependencies().add( computedValue.getObservable() );
 
     computedValue.getObservable().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
@@ -255,7 +255,7 @@ public class ComputedValueTest
 
     final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getDerivedValue().addObserver( observer );
+    computedValue.getObserver().getComputedValue().getObservable().addObserver( observer );
     observer.getDependencies().add( computedValue.getObservable() );
 
     computedValue.getObservable().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
@@ -293,7 +293,7 @@ public class ComputedValueTest
 
     final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getDerivedValue().addObserver( observer );
+    computedValue.getObserver().getComputedValue().getObservable().addObserver( observer );
     observer.getDependencies().add( computedValue.getObservable() );
 
     computedValue.getObservable().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
@@ -329,7 +329,7 @@ public class ComputedValueTest
 
     final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getDerivedValue().addObserver( observer );
+    computedValue.getObserver().getComputedValue().getObservable().addObserver( observer );
     observer.getDependencies().add( computedValue.getObservable() );
 
     computedValue.getObservable().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
@@ -374,7 +374,7 @@ public class ComputedValueTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = newDerivation( context );
+    final Observer observer = newComputedValueObserver( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
     setCurrentTransaction( observer );
@@ -396,7 +396,7 @@ public class ComputedValueTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = newDerivation( context );
+    final Observer observer = newComputedValueObserver( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
     setCurrentTransaction( observer );
@@ -425,16 +425,16 @@ public class ComputedValueTest
     handler.assertNextEvent( ComputedValueDisposedEvent.class,
                              e -> assertEquals( e.getComputedValue().getName(), computedValue.getName() ) );
 
-    // This is the part that disposes the Observer
-    handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-
     // This is the part that disposes the associated Observable
     handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
     handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
     handler.assertNextEvent( ObservableChangedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+
+    // This is the part that disposes the Observer
+    handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
     handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
     handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
   }
@@ -627,5 +627,25 @@ public class ComputedValueTest
 
     assertEquals( computedValue.get(), "XXX" );
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+  }
+
+  @Test
+  public void getObservable_onDisposedObserver()
+    throws Exception
+  {
+    final ComputedValue<String> computedValue = newComputedValue();
+
+    computedValue.setDisposed( true );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, computedValue::getObservable );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0084: Attempted to invoke getObservable on disposed ComputedValue named '" +
+                  computedValue.getName() + "'." );
+
+    computedValue.setDisposed( false );
+
+    assertEquals( computedValue.getObservable().getName(), computedValue.getName() );
   }
 }

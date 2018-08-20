@@ -67,11 +67,6 @@ public final class Observer
   @Nonnull
   private final Reaction _reaction;
   /**
-   * The memoized observable value created by observer if any.
-   */
-  @Nullable
-  private final Observable<?> _derivedValue;
-  /**
    * The priority of the observer.
    */
   @Nonnull
@@ -152,19 +147,8 @@ public final class Observer
     _canTrackExplicitly = canTrackExplicitly;
     _observeLowerPriorityDependencies = Arez.shouldCheckInvariants() && observeLowerPriorityDependencies;
     _canNestActions = Arez.shouldCheckApiInvariants() && canNestActions;
-    if ( null != _computedValue )
+    if ( null == _computedValue )
     {
-      _derivedValue =
-        new Observable<>( context,
-                          null,
-                          name,
-                          this,
-                          Arez.arePropertyIntrospectorsEnabled() ? _computedValue::getValue : null,
-                          null );
-    }
-    else
-    {
-      _derivedValue = null;
       if ( null != _component )
       {
         _component.addObserver( this );
@@ -174,22 +158,6 @@ public final class Observer
         getContext().registerObserver( this );
       }
     }
-  }
-
-  @Nonnull
-  Observable<?> getDerivedValue()
-  {
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( this::isNotDisposed,
-                 () -> "Arez-0084: Attempted to invoke getDerivedValue on disposed observer " +
-                       "named '" + getName() + "'." );
-      invariant( this::isDerivation,
-                 () -> "Arez-0085: Attempted to invoke getDerivedValue on observer named '" +
-                       getName() + "' when is not a computed observer." );
-    }
-    assert null != _derivedValue;
-    return _derivedValue;
   }
 
   @Nonnull
@@ -213,14 +181,14 @@ public final class Observer
     return _observeLowerPriorityDependencies;
   }
 
-  boolean isDerivation()
+  boolean isComputedValue()
   {
     /*
      * We do not use "null != _derivedValue" as it is called from constructor of observable
      * prior to assigning it to _derivedValue. However it is only called if Arez.shouldEnforceTransactionType()
      * so we can use "null != _derivedValue" when not enabled.
      */
-    return Arez.shouldEnforceTransactionType() ? TransactionMode.READ_WRITE_OWNED == getMode() : null != _derivedValue;
+    return Arez.shouldEnforceTransactionType() ? TransactionMode.READ_WRITE_OWNED == getMode() : null != _computedValue;
   }
 
   /**
@@ -238,7 +206,7 @@ public final class Observer
                                true,
                                false,
                                this::performDispose );
-      if ( !isDerivation() )
+      if ( !isComputedValue() )
       {
         if ( willPropagateSpyEvents() )
         {
@@ -256,10 +224,6 @@ public final class Observer
       if ( null != _computedValue )
       {
         _computedValue.dispose();
-      }
-      if ( null != _derivedValue )
-      {
-        _derivedValue.dispose();
       }
       _disposing = false;
     }
@@ -390,20 +354,18 @@ public final class Observer
     {
       final ObserverState originalState = _state;
       _state = state;
-      if ( null == _derivedValue && ObserverState.STALE == state )
+      if ( null == _computedValue && ObserverState.STALE == state )
       {
         if ( schedule )
         {
           schedule();
         }
       }
-      else if ( null != _derivedValue &&
+      else if ( null != _computedValue &&
                 ObserverState.UP_TO_DATE == originalState &&
                 ( ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state ) )
       {
-        // Have to check _derivedValue here as isDerivation() will be true
-        // during construction, prior to _derivedValue being set.
-        _derivedValue.reportPossiblyChanged();
+        _computedValue.getObservable().reportPossiblyChanged();
         runHook( getComputedValue().getOnStale(), ObserverError.ON_STALE_ERROR );
         if ( schedule )
         {
@@ -412,7 +374,7 @@ public final class Observer
       }
       else if ( ObserverState.INACTIVE == _state )
       {
-        if ( isDerivation() )
+        if ( isComputedValue() )
         {
           final ComputedValue<?> computedValue = getComputedValue();
           runHook( computedValue.getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR );
@@ -427,7 +389,7 @@ public final class Observer
           invariant( this::isNotDisposed,
                      () -> "Arez-0087: Attempted to activate disposed observer named '" + getName() + "'." );
         }
-        if ( isDerivation() )
+        if ( isComputedValue() )
         {
           runHook( getComputedValue().getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
         }
@@ -554,7 +516,7 @@ public final class Observer
       if ( willPropagateSpyEvents() )
       {
         start = System.currentTimeMillis();
-        if ( isDerivation() )
+        if ( isComputedValue() )
         {
           reportSpyEvent( new ComputeStartedEvent( new ComputedValueInfoImpl( getSpy(), getComputedValue() ) ) );
         }
@@ -582,7 +544,7 @@ public final class Observer
       if ( willPropagateSpyEvents() )
       {
         final long duration = System.currentTimeMillis() - start;
-        if ( isDerivation() )
+        if ( isComputedValue() )
         {
           reportSpyEvent( new ComputeCompletedEvent( new ComputedValueInfoImpl( getSpy(), getComputedValue() ),
                                                      duration ) );
@@ -726,7 +688,7 @@ public final class Observer
                                                     "' has dependency observable named '" + observable.getName() +
                                                     "' which does not contain the observer in the list of " +
                                                     "observers." ) );
-      invariantDerivationState();
+      invariantComputedValueObserverState();
     }
   }
 
@@ -742,7 +704,7 @@ public final class Observer
                                               () -> "Arez-0091: Observer named '" + getName() + "' has dependency " +
                                                     "observable named '" + observable.getName() +
                                                     "' which is disposed." ) );
-      invariantDerivationState();
+      invariantComputedValueObserverState();
     }
   }
 
@@ -759,25 +721,27 @@ public final class Observer
                    () -> "Arez-0092: Observer named '" + getName() + "' is inactive but still has dependencies: " +
                          getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ) + "." );
       }
-      if ( isDerivation() && isNotDisposed() )
+      if ( isComputedValue() && isNotDisposed() )
       {
-        invariant( () -> Objects.equals( getDerivedValue().hasOwner() ? getDerivedValue().getOwner() : null, this ),
-                   () -> "Arez-0093: Observer named '" + getName() + "' has a derived value that does not " +
-                         "link back to observer." );
+        invariant( () -> Objects.equals( getComputedValue().getObservable().hasOwner() ?
+                                         getComputedValue().getObservable().getOwner() : null,
+                                         this ),
+                   () -> "Arez-0093: Observer named '" + getName() + "' is associated with an ObservableValue that " +
+                         "does not link back to observer." );
       }
     }
   }
 
-  void invariantDerivationState()
+  void invariantComputedValueObserverState()
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      if ( isDerivation() && isActive() && isNotDisposed() )
+      if ( isComputedValue() && isActive() && isNotDisposed() )
       {
-        invariant( () -> !getDerivedValue().getObservers().isEmpty() ||
+        invariant( () -> !getComputedValue().getObservable().getObservers().isEmpty() ||
                          Objects.equals( getContext().getTransaction().getTracker(), this ),
-                   () -> "Arez-0094: Observer named '" + getName() + "' is a derivation and active but the " +
-                         "derived value has no observers." );
+                   () -> "Arez-0094: Observer named '" + getName() + "' is a ComputedValue and active but the " +
+                         "associated ObservableValue has no observers." );
       }
     }
   }
@@ -794,7 +758,7 @@ public final class Observer
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( this::isDerivation,
+      invariant( this::isComputedValue,
                  () -> "Arez-0095: Attempted to invoke getComputedValue on observer named '" + getName() + "' when " +
                        "is not a computed observer." );
     }

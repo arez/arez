@@ -1109,6 +1109,11 @@
         "transaction": "TestComponent.0.computed1.dispose"
     },
     {
+        "observable": "TestComponent.0.computed1",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -1137,11 +1142,6 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "TestComponent.0.computed1.dispose"
-    },
-    {
-        "observable": "TestComponent.0.computed1",
-        "type": "ObservableChanged",
-        "value": null
     },
     {
         "mutation": true,
@@ -1208,6 +1208,11 @@
         "transaction": "TestComponent.0.computed2.dispose"
     },
     {
+        "observable": "TestComponent.0.computed2",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -1236,11 +1241,6 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "TestComponent.0.computed2.dispose"
-    },
-    {
-        "observable": "TestComponent.0.computed2",
-        "type": "ObservableChanged",
-        "value": null
     },
     {
         "mutation": true,
@@ -1307,6 +1307,11 @@
         "transaction": "TestComponent.0.computed3.dispose"
     },
     {
+        "observable": "TestComponent.0.computed3",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -1335,11 +1340,6 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "TestComponent.0.computed3.dispose"
-    },
-    {
-        "observable": "TestComponent.0.computed3",
-        "type": "ObservableChanged",
-        "value": null
     },
     {
         "mutation": true,

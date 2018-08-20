@@ -544,6 +544,11 @@
         "transaction": "CodeModel.0.qualifiedName.dispose"
     },
     {
+        "observable": "CodeModel.0.qualifiedName",
+        "type": "ObservableChanged",
+        "value": null
+    },
+    {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
@@ -572,11 +577,6 @@
         "tracker": null,
         "type": "TransactionStarted",
         "transaction": "CodeModel.0.qualifiedName.dispose"
-    },
-    {
-        "observable": "CodeModel.0.qualifiedName",
-        "type": "ObservableChanged",
-        "value": null
     },
     {
         "mutation": true,

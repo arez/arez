@@ -66,10 +66,10 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
     assertEquals( observable.getOwner(), derivation );
     assertEquals( observable.getComponent(), null );
     assertEquals( observable.canDeactivate(), true );
@@ -274,8 +274,8 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
 
-    final Observer observer = newDerivation( context );
-    final Observable<?> observable = observer.getDerivedValue();
+    final Observer observer = newComputedValueObserver( context );
+    final Observable<?> observable = observer.getComputedValue().getObservable();
 
     setupReadOnlyTransaction( context );
 
@@ -700,9 +700,9 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
 
     assertEquals( observable.getObservers().size(), 0 );
     assertEquals( observable.hasObservers(), false );
@@ -883,7 +883,7 @@ public class ObservableTest
     final Observer observer1 = newReadOnlyObserver();
     final Observer observer2 = newReadOnlyObserver();
     final Observer observer3 = newReadOnlyObserver();
-    final Observer observer4 = newDerivation();
+    final Observer observer4 = newComputedValueObserver();
 
     observer1.setState( ObserverState.UP_TO_DATE );
     observer2.setState( ObserverState.POSSIBLY_STALE );
@@ -924,7 +924,7 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer observer = newDerivation( context );
+    final Observer observer = newComputedValueObserver( context );
 
     final Observable<?> observable = new Observable<>( context, null, observer.getName(), observer, null, null );
 
@@ -981,10 +981,10 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
 
     assertEquals( observable.isPendingDeactivation(), false );
 
@@ -1004,10 +1004,10 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
 
     observable.markAsPendingDeactivation();
 
@@ -1024,10 +1024,10 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
 
     assertEquals( observable.isPendingDeactivation(), false );
 
@@ -1067,10 +1067,10 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
 
     assertEquals( observable.isPendingDeactivation(), false );
 
@@ -1093,10 +1093,10 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
     observable.markAsPendingDeactivation();
 
     assertEquals( observable.isPendingDeactivation(), true );
@@ -1113,10 +1113,10 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
 
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
 
@@ -1132,10 +1132,10 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
 
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
 
@@ -1158,10 +1158,10 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
 
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
 
@@ -1182,9 +1182,9 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
 
     observable.deactivate();
 
@@ -1236,10 +1236,10 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.INACTIVE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
 
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
 
@@ -1255,10 +1255,10 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.INACTIVE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
 
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
 
@@ -1282,10 +1282,10 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.INACTIVE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
 
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
 
@@ -1306,10 +1306,10 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observable::activate );
@@ -1600,10 +1600,10 @@ public class ObservableTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
     observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     observable.addObserver( observer );
@@ -1627,10 +1627,10 @@ public class ObservableTest
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
     observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
     observable.addObserver( observer );
@@ -1654,10 +1654,10 @@ public class ObservableTest
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
     observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
     observable.addObserver( observer );
@@ -1706,7 +1706,7 @@ public class ObservableTest
       computedValue.getObserver();
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
     observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
     observable.addObserver( observer );
@@ -1741,10 +1741,10 @@ public class ObservableTest
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 
-    final Observer derivation = newDerivation( context );
+    final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getDerivedValue();
+    final Observable<?> observable = derivation.getComputedValue().getObservable();
     observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
     observable.addObserver( observer );
