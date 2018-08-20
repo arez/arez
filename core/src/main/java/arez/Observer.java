@@ -72,7 +72,7 @@ public final class Observer
   @Nonnull
   private final Priority _priority;
   /**
-   * Flag set to true if Observer can be passed as tracker into one of the transaction methods.
+   * Flag set to true if Observer can be passed as tracker into one of the {@link ArezContext#track(Observer, Function, Object...)} methods.
    */
   private final boolean _canTrackExplicitly;
   /**
