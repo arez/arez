@@ -22,23 +22,6 @@ public final class TestSpyEventHandler
   }
 
   /**
-   * Assert Event exists in list and return it.
-   */
-  @Nonnull
-  <T> T assertEvent( @Nonnull final Class<T> type )
-  {
-    for ( final Object event : _events )
-    {
-      if ( type.isInstance( event ) )
-      {
-        return type.cast( event );
-      }
-    }
-    fail( "Unable to locate event of type " + type + " in event list " + _events );
-    return null;
-  }
-
-  /**
    * Assert Event at index is of specific type and return it.
    */
   @Nonnull
