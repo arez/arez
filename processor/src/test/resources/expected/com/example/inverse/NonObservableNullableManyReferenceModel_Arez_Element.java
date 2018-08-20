@@ -164,7 +164,7 @@ final class NonObservableNullableManyReferenceModel_Arez_Element extends NonObse
     }
   }
 
-  private void $$arezi$$_delink_nonObservableNullableManyReferenceModel() {
+  void $$arezi$$_delink_nonObservableNullableManyReferenceModel() {
     if ( null != $$arezr$$_nonObservableNullableManyReferenceModel && Disposable.isNotDisposed( $$arezr$$_nonObservableNullableManyReferenceModel ) ) {
       ( (Arez_NonObservableNullableManyReferenceModel) this.$$arezr$$_nonObservableNullableManyReferenceModel ).$$arezir$$_elements_remove( this );
     }

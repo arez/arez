@@ -159,7 +159,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
     ( (Arez_ZeroOrOneMultiplicityInverseModel) this.$$arezr$$_zeroOrOneMultiplicityInverseModel ).$$arezir$$_element_zset( this );
   }
 
-  private void $$arezi$$_delink_zeroOrOneMultiplicityInverseModel() {
+  void $$arezi$$_delink_zeroOrOneMultiplicityInverseModel() {
     if ( null != $$arezr$$_zeroOrOneMultiplicityInverseModel && Disposable.isNotDisposed( $$arezr$$_zeroOrOneMultiplicityInverseModel ) ) {
       ( (Arez_ZeroOrOneMultiplicityInverseModel) this.$$arezr$$_zeroOrOneMultiplicityInverseModel ).$$arezir$$_element_zunset( this );
     }

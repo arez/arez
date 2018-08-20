@@ -161,7 +161,7 @@ public final class Arez_Element extends Element implements Disposable, Identifia
     ( (Arez_PackageAccessWithDifferentPackageInverseModel) this.$$arezr$$_packageAccessWithDifferentPackageInverseModel ).$$arezir$$_elements_add( this );
   }
 
-  private void $$arezi$$_delink_packageAccessWithDifferentPackageInverseModel() {
+  public void $$arezi$$_delink_packageAccessWithDifferentPackageInverseModel() {
     if ( null != $$arezr$$_packageAccessWithDifferentPackageInverseModel && Disposable.isNotDisposed( $$arezr$$_packageAccessWithDifferentPackageInverseModel ) ) {
       ( (Arez_PackageAccessWithDifferentPackageInverseModel) this.$$arezr$$_packageAccessWithDifferentPackageInverseModel ).$$arezir$$_elements_remove( this );
     }

@@ -159,7 +159,7 @@ final class ObservableSetInverseModel_Arez_Element extends ObservableSetInverseM
     ( (Arez_ObservableSetInverseModel) this.$$arezr$$_observableSetInverseModel ).$$arezir$$_elements_add( this );
   }
 
-  private void $$arezi$$_delink_observableSetInverseModel() {
+  void $$arezi$$_delink_observableSetInverseModel() {
     if ( null != $$arezr$$_observableSetInverseModel && Disposable.isNotDisposed( $$arezr$$_observableSetInverseModel ) ) {
       ( (Arez_ObservableSetInverseModel) this.$$arezr$$_observableSetInverseModel ).$$arezir$$_elements_remove( this );
     }

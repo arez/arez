@@ -159,7 +159,7 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
     ( (Arez_NonObservableCollectionInverseModel) this.$$arezr$$_nonObservableCollectionInverseModel ).$$arezir$$_elements_add( this );
   }
 
-  private void $$arezi$$_delink_nonObservableCollectionInverseModel() {
+  void $$arezi$$_delink_nonObservableCollectionInverseModel() {
     if ( null != $$arezr$$_nonObservableCollectionInverseModel && Disposable.isNotDisposed( $$arezr$$_nonObservableCollectionInverseModel ) ) {
       ( (Arez_NonObservableCollectionInverseModel) this.$$arezr$$_nonObservableCollectionInverseModel ).$$arezir$$_elements_remove( this );
     }

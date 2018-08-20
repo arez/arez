@@ -159,7 +159,7 @@ final class OneMultiplicityInverseModel_Arez_Element extends OneMultiplicityInve
     ( (Arez_OneMultiplicityInverseModel) this.$$arezr$$_oneMultiplicityInverseModel ).$$arezir$$_element_set( this );
   }
 
-  private void $$arezi$$_delink_oneMultiplicityInverseModel() {
+  void $$arezi$$_delink_oneMultiplicityInverseModel() {
     if ( null != $$arezr$$_oneMultiplicityInverseModel && Disposable.isNotDisposed( $$arezr$$_oneMultiplicityInverseModel ) ) {
       ( (Arez_OneMultiplicityInverseModel) this.$$arezr$$_oneMultiplicityInverseModel ).$$arezir$$_element_unset( this );
     }

@@ -12,6 +12,7 @@ import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Generated;
@@ -99,6 +100,9 @@ final class Arez_NonGetterInverseModel extends NonGetterInverseModel implements 
   }
 
   private void $$arezi$$_preDispose() {
+    for ( final NonGetterInverseModel.Element other : new ArrayList<>( $$arezd$$_elements ) ) {
+      ( (NonGetterInverseModel_Arez_Element) other ).$$arezi$$_delink_nonGetterInverseModel();
+    }
     $$arezi$$_disposeNotifier.dispose();
   }
 

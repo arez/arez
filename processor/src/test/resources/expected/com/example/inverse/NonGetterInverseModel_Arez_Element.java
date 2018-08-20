@@ -159,7 +159,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
     ( (Arez_NonGetterInverseModel) this.$$arezr$$_nonGetterInverseModel ).$$arezir$$_elements_add( this );
   }
 
-  private void $$arezi$$_delink_nonGetterInverseModel() {
+  void $$arezi$$_delink_nonGetterInverseModel() {
     if ( null != $$arezr$$_nonGetterInverseModel && Disposable.isNotDisposed( $$arezr$$_nonGetterInverseModel ) ) {
       ( (Arez_NonGetterInverseModel) this.$$arezr$$_nonGetterInverseModel ).$$arezir$$_elements_remove( this );
     }

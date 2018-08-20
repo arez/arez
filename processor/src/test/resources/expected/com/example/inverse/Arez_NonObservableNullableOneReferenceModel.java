@@ -92,6 +92,9 @@ final class Arez_NonObservableNullableOneReferenceModel extends NonObservableNul
   }
 
   private void $$arezi$$_preDispose() {
+    if ( null != $$arezd$$_element ) {
+      ( (NonObservableNullableOneReferenceModel_Arez_Element) $$arezd$$_element ).$$arezi$$_delink_nonObservableNullableOneReferenceModel();
+    }
     $$arezi$$_disposeNotifier.dispose();
   }
 

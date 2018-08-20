@@ -14,6 +14,7 @@ import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
+import com.example.inheritance.other.Arez_Element;
 import com.example.inheritance.other.BaseCompleteModel;
 import com.example.inheritance.other.Element;
 import java.util.ArrayList;
@@ -144,6 +145,9 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   private void $$arezi$$_preDispose() {
+    for ( final Element other : new ArrayList<>( $$arezd$$_elements ) ) {
+      ( (Arez_Element) other ).$$arezi$$_delink_completeModel();
+    }
     $$arezi$$_disposeNotifier.dispose();
   }
 
@@ -328,7 +332,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     }
   }
 
-  private void $$arezi$$_delink_myEntity() {
+  public void $$arezi$$_delink_myEntity() {
     this.$$arezr$$_myEntity = null;
   }
 

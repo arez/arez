@@ -99,6 +99,9 @@ final class Arez_NonObservableNullableManyReferenceModel extends NonObservableNu
   }
 
   private void $$arezi$$_preDispose() {
+    for ( final NonObservableNullableManyReferenceModel.Element other : new ArrayList<>( $$arezd$$_elements ) ) {
+      ( (NonObservableNullableManyReferenceModel_Arez_Element) other ).$$arezi$$_delink_nonObservableNullableManyReferenceModel();
+    }
     $$arezi$$_disposeNotifier.dispose();
   }
 

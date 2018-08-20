@@ -192,7 +192,7 @@ final class ObservableZeroOrOneReferenceModel_Arez_Element extends ObservableZer
     ( (Arez_ObservableZeroOrOneReferenceModel) this.$$arezr$$_observableZeroOrOneReferenceModel ).$$arezir$$_element_zset( this );
   }
 
-  private void $$arezi$$_delink_observableZeroOrOneReferenceModel() {
+  void $$arezi$$_delink_observableZeroOrOneReferenceModel() {
     if ( null != $$arezr$$_observableZeroOrOneReferenceModel && Disposable.isNotDisposed( $$arezr$$_observableZeroOrOneReferenceModel ) ) {
       ( (Arez_ObservableZeroOrOneReferenceModel) this.$$arezr$$_observableZeroOrOneReferenceModel ).$$arezir$$_element_zunset( this );
     }

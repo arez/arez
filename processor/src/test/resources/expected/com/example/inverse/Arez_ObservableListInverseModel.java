@@ -99,6 +99,9 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel i
   }
 
   private void $$arezi$$_preDispose() {
+    for ( final ObservableListInverseModel.Element other : new ArrayList<>( $$arezd$$_elements ) ) {
+      ( (ObservableListInverseModel_Arez_Element) other ).$$arezi$$_delink_observableListInverseModel();
+    }
     $$arezi$$_disposeNotifier.dispose();
   }
 

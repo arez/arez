@@ -194,6 +194,12 @@ final class ComponentDescriptor
     _element = Objects.requireNonNull( element );
   }
 
+  @Nonnull
+  Types getTypeUtils()
+  {
+    return _typeUtils;
+  }
+
   private boolean hasDeprecatedElements()
   {
     return isDeprecated( _postConstruct ) ||
@@ -2500,7 +2506,7 @@ final class ComponentDescriptor
       builder.addMethod( buildInternalObserve() );
       builder.addMethod( buildObserve() );
     }
-    if ( _disposeTrackable || !_roReferences.isEmpty() )
+    if ( _disposeTrackable || !_roReferences.isEmpty() || !_roInverses.isEmpty() )
     {
       builder.addMethod( buildInternalPreDispose() );
     }
@@ -3026,7 +3032,7 @@ final class ComponentDescriptor
                                   getComponentNameMethodName(),
                                   ".dispose" );
 
-    if ( _disposeTrackable || !_roReferences.isEmpty() )
+    if ( _disposeTrackable || !_roReferences.isEmpty() || !_roInverses.isEmpty() )
     {
       actionBlock.addStatement( "this.$N()", GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
     }
@@ -3141,6 +3147,7 @@ final class ComponentDescriptor
       builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
     }
     _roReferences.forEach( r -> r.buildDisposer( builder ) );
+    _roInverses.forEach( r -> r.buildDisposer( builder ) );
     if ( _disposeTrackable )
     {
       builder.addStatement( "$N.dispose()", GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME );

@@ -99,6 +99,9 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
   }
 
   private void $$arezi$$_preDispose() {
+    for ( final ObservableManyReferenceModel.Element other : new ArrayList<>( $$arezd$$_elements ) ) {
+      ( (ObservableManyReferenceModel_Arez_Element) other ).$$arezi$$_delink_observableManyReferenceModel();
+    }
     $$arezi$$_disposeNotifier.dispose();
   }
 

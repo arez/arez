@@ -159,7 +159,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
     ( (Arez_CustomNamesInverseModel) this.$$arezr$$_zoom ).$$arezir$$_zap_add( this );
   }
 
-  private void $$arezi$$_delink_zoom() {
+  void $$arezi$$_delink_zoom() {
     if ( null != $$arezr$$_zoom && Disposable.isNotDisposed( $$arezr$$_zoom ) ) {
       ( (Arez_CustomNamesInverseModel) this.$$arezr$$_zoom ).$$arezir$$_zap_remove( this );
     }

@@ -12,6 +12,7 @@ import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import javax.annotation.Generated;
@@ -99,6 +100,9 @@ final class Arez_ObservableReferenceInverseModel extends ObservableReferenceInve
   }
 
   private void $$arezi$$_preDispose() {
+    for ( final ObservableReferenceInverseModel.Element other : new ArrayList<>( $$arezd$$_elements ) ) {
+      ( (ObservableReferenceInverseModel_Arez_Element) other ).$$arezi$$_delink_observableReferenceInverseModel();
+    }
     $$arezi$$_disposeNotifier.dispose();
   }
 

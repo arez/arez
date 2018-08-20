@@ -192,7 +192,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
     ( (Arez_ObservableManyReferenceModel) this.$$arezr$$_observableManyReferenceModel ).$$arezir$$_elements_add( this );
   }
 
-  private void $$arezi$$_delink_observableManyReferenceModel() {
+  void $$arezi$$_delink_observableManyReferenceModel() {
     if ( null != $$arezr$$_observableManyReferenceModel && Disposable.isNotDisposed( $$arezr$$_observableManyReferenceModel ) ) {
       ( (Arez_ObservableManyReferenceModel) this.$$arezr$$_observableManyReferenceModel ).$$arezir$$_elements_remove( this );
     }

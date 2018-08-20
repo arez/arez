@@ -192,7 +192,7 @@ final class ObservableReferenceInverseModel_Arez_Element extends ObservableRefer
     ( (Arez_ObservableReferenceInverseModel) this.$$arezr$$_observableReferenceInverseModel ).$$arezir$$_elements_add( this );
   }
 
-  private void $$arezi$$_delink_observableReferenceInverseModel() {
+  void $$arezi$$_delink_observableReferenceInverseModel() {
     if ( null != $$arezr$$_observableReferenceInverseModel && Disposable.isNotDisposed( $$arezr$$_observableReferenceInverseModel ) ) {
       ( (Arez_ObservableReferenceInverseModel) this.$$arezr$$_observableReferenceInverseModel ).$$arezir$$_elements_remove( this );
     }

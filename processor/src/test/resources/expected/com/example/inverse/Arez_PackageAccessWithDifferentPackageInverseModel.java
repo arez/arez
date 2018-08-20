@@ -12,6 +12,7 @@ import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
+import com.example.inverse.other.Arez_Element;
 import com.example.inverse.other.Element;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +101,9 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel extends Pa
   }
 
   private void $$arezi$$_preDispose() {
+    for ( final Element other : new ArrayList<>( $$arezd$$_elements ) ) {
+      ( (Arez_Element) other ).$$arezi$$_delink_packageAccessWithDifferentPackageInverseModel();
+    }
     $$arezi$$_disposeNotifier.dispose();
   }
 

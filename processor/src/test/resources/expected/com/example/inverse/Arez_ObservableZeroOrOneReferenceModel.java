@@ -92,6 +92,9 @@ final class Arez_ObservableZeroOrOneReferenceModel extends ObservableZeroOrOneRe
   }
 
   private void $$arezi$$_preDispose() {
+    if ( null != $$arezd$$_element ) {
+      ( (ObservableZeroOrOneReferenceModel_Arez_Element) $$arezd$$_element ).$$arezi$$_delink_observableZeroOrOneReferenceModel();
+    }
     $$arezi$$_disposeNotifier.dispose();
   }
 

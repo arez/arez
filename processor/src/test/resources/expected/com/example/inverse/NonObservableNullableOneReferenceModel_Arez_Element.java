@@ -164,7 +164,7 @@ final class NonObservableNullableOneReferenceModel_Arez_Element extends NonObser
     }
   }
 
-  private void $$arezi$$_delink_nonObservableNullableOneReferenceModel() {
+  void $$arezi$$_delink_nonObservableNullableOneReferenceModel() {
     if ( null != $$arezr$$_nonObservableNullableOneReferenceModel && Disposable.isNotDisposed( $$arezr$$_nonObservableNullableOneReferenceModel ) ) {
       ( (Arez_NonObservableNullableOneReferenceModel) this.$$arezr$$_nonObservableNullableOneReferenceModel ).$$arezir$$_element_unset( this );
     }

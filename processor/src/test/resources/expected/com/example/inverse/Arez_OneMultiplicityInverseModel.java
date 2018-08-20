@@ -92,6 +92,9 @@ final class Arez_OneMultiplicityInverseModel extends OneMultiplicityInverseModel
   }
 
   private void $$arezi$$_preDispose() {
+    if ( null != $$arezd$$_element ) {
+      ( (OneMultiplicityInverseModel_Arez_Element) $$arezd$$_element ).$$arezi$$_delink_oneMultiplicityInverseModel();
+    }
     $$arezi$$_disposeNotifier.dispose();
   }
 

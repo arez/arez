@@ -12,7 +12,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.ExecutableType;
+import static arez.processor.ProcessorUtil.*;
 
 /**
  * Declaration of a reference.
@@ -106,7 +109,7 @@ final class ReferenceDescriptor
   @Nonnull
   String getLinkMethodName()
   {
-    return GeneratorUtil.getDelinkMethodName( _name );
+    return GeneratorUtil.getLinkMethodName( _name );
   }
 
   @Nonnull
@@ -389,6 +392,16 @@ final class ReferenceDescriptor
     }
   }
 
+  private boolean isReferenceInSamePackage()
+  {
+    assert null != _method;
+    final TypeElement typeElement =
+      (TypeElement) _componentDescriptor.getTypeUtils().asElement( _method.getReturnType() );
+    final PackageElement targetPackageElement = ProcessorUtil.getPackageElement( typeElement );
+    final PackageElement selfPackageElement = getPackageElement( _componentDescriptor.getElement() );
+    return Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
+  }
+
   @Nonnull
   private MethodSpec buildDelinkMethod()
     throws ArezProcessorException
@@ -396,7 +409,14 @@ final class ReferenceDescriptor
     assert null != _method;
     final String methodName = getDelinkMethodName();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    builder.addModifiers( Modifier.PRIVATE );
+    if ( !isReferenceInSamePackage() )
+    {
+      builder.addModifiers( Modifier.PUBLIC );
+    }
+    else if ( !hasInverse() )
+    {
+      builder.addModifiers( Modifier.PRIVATE );
+    }
 
     if ( null != _inverseName )
     {

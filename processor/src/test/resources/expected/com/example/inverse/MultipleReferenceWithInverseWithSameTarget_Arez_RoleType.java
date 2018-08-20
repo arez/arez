@@ -105,6 +105,12 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType extends Mul
   }
 
   private void $$arezi$$_preDispose() {
+    for ( final MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation other : new ArrayList<>( $$arezd$$_childGeneralisations ) ) {
+      ( (MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation) other ).$$arezi$$_delink_parent();
+    }
+    if ( null != $$arezd$$_parentGeneralisation ) {
+      ( (MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation) $$arezd$$_parentGeneralisation ).$$arezi$$_delink_child();
+    }
     $$arezi$$_disposeNotifier.dispose();
   }
 
