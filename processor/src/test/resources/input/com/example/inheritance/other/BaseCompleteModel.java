@@ -2,6 +2,7 @@ package com.example.inheritance.other;
 
 import arez.ArezContext;
 import arez.Component;
+import arez.ObservableValue;
 import arez.Observer;
 import arez.annotations.Action;
 import arez.annotations.Autorun;
@@ -89,7 +90,7 @@ public abstract class BaseCompleteModel
 
   @Nonnull
   @ObservableRef
-  protected abstract arez.Observable<String> getMyValueObservable();
+  protected abstract ObservableValue<String> getMyValueObservable();
 
   @Track
   public void render( final long time, float someOtherParameter )

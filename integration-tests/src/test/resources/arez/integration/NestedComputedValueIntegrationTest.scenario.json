@@ -6,7 +6,7 @@
     },
     {
         "observable": "FilterContext.0.filter",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "FilterContext.0",
@@ -18,7 +18,7 @@
     },
     {
         "observable": "Node.0.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.0.visible",
@@ -34,7 +34,7 @@
     },
     {
         "observable": "Node.1.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.1.visible",
@@ -50,7 +50,7 @@
     },
     {
         "observable": "Node.2.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.2.visible",
@@ -66,7 +66,7 @@
     },
     {
         "observable": "Node.3.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.3.visible",
@@ -82,7 +82,7 @@
     },
     {
         "observable": "Node.4.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.4.visible",
@@ -98,7 +98,7 @@
     },
     {
         "observable": "Node.5.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.5.visible",
@@ -114,7 +114,7 @@
     },
     {
         "observable": "Node.6.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.6.visible",
@@ -130,7 +130,7 @@
     },
     {
         "observable": "Node.7.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.7.visible",
@@ -146,7 +146,7 @@
     },
     {
         "observable": "Node.8.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.8.visible",
@@ -162,7 +162,7 @@
     },
     {
         "observable": "Node.9.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.9.visible",
@@ -178,7 +178,7 @@
     },
     {
         "observable": "Node.10.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.10.visible",
@@ -194,7 +194,7 @@
     },
     {
         "observable": "Node.11.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.11.visible",
@@ -210,7 +210,7 @@
     },
     {
         "observable": "Node.12.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.12.visible",
@@ -226,7 +226,7 @@
     },
     {
         "observable": "Node.13.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.13.visible",
@@ -242,7 +242,7 @@
     },
     {
         "observable": "Node.14.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.14.visible",
@@ -258,7 +258,7 @@
     },
     {
         "observable": "Node.15.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.15.visible",
@@ -274,7 +274,7 @@
     },
     {
         "observable": "Node.16.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.16.visible",
@@ -290,7 +290,7 @@
     },
     {
         "observable": "Node.17.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.17.visible",
@@ -306,7 +306,7 @@
     },
     {
         "observable": "Node.18.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.18.visible",
@@ -322,7 +322,7 @@
     },
     {
         "observable": "Node.19.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.19.visible",
@@ -354,8 +354,8 @@
         "transaction": "Observer@1"
     },
     {
-        "observable": "Observable@2",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@2",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.0.visible",
@@ -389,7 +389,7 @@
     },
     {
         "observable": "Node.2.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -404,7 +404,7 @@
     },
     {
         "observable": "Node.1.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -419,7 +419,7 @@
     },
     {
         "observable": "Node.0.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -475,8 +475,8 @@
         "transaction": "Observer@3"
     },
     {
-        "observable": "Observable@4",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@4",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -521,8 +521,8 @@
         "transaction": "Observer@5"
     },
     {
-        "observable": "Observable@6",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@6",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -567,8 +567,8 @@
         "transaction": "Observer@7"
     },
     {
-        "observable": "Observable@8",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@8",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.3.visible",
@@ -582,7 +582,7 @@
     },
     {
         "observable": "Node.3.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -638,8 +638,8 @@
         "transaction": "Observer@9"
     },
     {
-        "observable": "Observable@10",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@10",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.4.visible",
@@ -653,7 +653,7 @@
     },
     {
         "observable": "Node.4.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -709,8 +709,8 @@
         "transaction": "Observer@11"
     },
     {
-        "observable": "Observable@12",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@12",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.5.visible",
@@ -724,7 +724,7 @@
     },
     {
         "observable": "Node.5.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -780,8 +780,8 @@
         "transaction": "Observer@13"
     },
     {
-        "observable": "Observable@14",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@14",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.6.visible",
@@ -825,7 +825,7 @@
     },
     {
         "observable": "Node.9.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -840,7 +840,7 @@
     },
     {
         "observable": "Node.8.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -855,7 +855,7 @@
     },
     {
         "observable": "Node.7.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -870,7 +870,7 @@
     },
     {
         "observable": "Node.6.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -926,8 +926,8 @@
         "transaction": "Observer@15"
     },
     {
-        "observable": "Observable@16",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@16",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -972,8 +972,8 @@
         "transaction": "Observer@17"
     },
     {
-        "observable": "Observable@18",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@18",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -1018,8 +1018,8 @@
         "transaction": "Observer@19"
     },
     {
-        "observable": "Observable@20",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@20",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -1064,8 +1064,8 @@
         "transaction": "Observer@21"
     },
     {
-        "observable": "Observable@22",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@22",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.10.visible",
@@ -1079,7 +1079,7 @@
     },
     {
         "observable": "Node.10.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1135,8 +1135,8 @@
         "transaction": "Observer@23"
     },
     {
-        "observable": "Observable@24",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@24",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.11.visible",
@@ -1150,7 +1150,7 @@
     },
     {
         "observable": "Node.11.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1206,8 +1206,8 @@
         "transaction": "Observer@25"
     },
     {
-        "observable": "Observable@26",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@26",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.12.visible",
@@ -1241,7 +1241,7 @@
     },
     {
         "observable": "Node.14.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1256,7 +1256,7 @@
     },
     {
         "observable": "Node.13.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1271,7 +1271,7 @@
     },
     {
         "observable": "Node.12.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1327,8 +1327,8 @@
         "transaction": "Observer@27"
     },
     {
-        "observable": "Observable@28",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@28",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -1373,8 +1373,8 @@
         "transaction": "Observer@29"
     },
     {
-        "observable": "Observable@30",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@30",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -1419,8 +1419,8 @@
         "transaction": "Observer@31"
     },
     {
-        "observable": "Observable@32",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@32",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.15.visible",
@@ -1434,7 +1434,7 @@
     },
     {
         "observable": "Node.15.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1490,8 +1490,8 @@
         "transaction": "Observer@33"
     },
     {
-        "observable": "Observable@34",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@34",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.16.visible",
@@ -1505,7 +1505,7 @@
     },
     {
         "observable": "Node.16.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1561,8 +1561,8 @@
         "transaction": "Observer@35"
     },
     {
-        "observable": "Observable@36",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@36",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.17.visible",
@@ -1586,7 +1586,7 @@
     },
     {
         "observable": "Node.18.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1601,7 +1601,7 @@
     },
     {
         "observable": "Node.17.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1657,8 +1657,8 @@
         "transaction": "Observer@37"
     },
     {
-        "observable": "Observable@38",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@38",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -1703,8 +1703,8 @@
         "transaction": "Observer@39"
     },
     {
-        "observable": "Observable@40",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@40",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.19.visible",
@@ -1718,7 +1718,7 @@
     },
     {
         "observable": "Node.19.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1767,7 +1767,7 @@
     },
     {
         "observable": "FilterContext.0.filter",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "o"
     },
     {
@@ -1947,7 +1947,7 @@
     },
     {
         "observable": "Node.3.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1976,7 +1976,7 @@
     },
     {
         "observable": "Node.4.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -2005,7 +2005,7 @@
     },
     {
         "observable": "Node.5.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -2044,7 +2044,7 @@
     },
     {
         "observable": "Node.9.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -2083,7 +2083,7 @@
     },
     {
         "observable": "Node.10.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -2112,7 +2112,7 @@
     },
     {
         "observable": "Node.11.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -2131,7 +2131,7 @@
     },
     {
         "observable": "Node.8.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -2348,7 +2348,7 @@
     },
     {
         "observable": "Node.18.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -2377,7 +2377,7 @@
     },
     {
         "observable": "Node.19.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -2396,7 +2396,7 @@
     },
     {
         "observable": "Node.17.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -2447,8 +2447,8 @@
         "transaction": "Observer@7"
     },
     {
-        "observable": "Observable@42",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@42",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -2489,8 +2489,8 @@
         "transaction": "Observer@9"
     },
     {
-        "observable": "Observable@43",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@43",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -2531,8 +2531,8 @@
         "transaction": "Observer@11"
     },
     {
-        "observable": "Observable@44",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@44",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -2573,8 +2573,8 @@
         "transaction": "Observer@19"
     },
     {
-        "observable": "Observable@45",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@45",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -2615,8 +2615,8 @@
         "transaction": "Observer@21"
     },
     {
-        "observable": "Observable@46",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@46",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -2657,8 +2657,8 @@
         "transaction": "Observer@23"
     },
     {
-        "observable": "Observable@47",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@47",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -2699,8 +2699,8 @@
         "transaction": "Observer@17"
     },
     {
-        "observable": "Observable@48",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@48",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -2741,8 +2741,8 @@
         "transaction": "Observer@37"
     },
     {
-        "observable": "Observable@49",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@49",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -2783,8 +2783,8 @@
         "transaction": "Observer@39"
     },
     {
-        "observable": "Observable@50",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@50",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -2825,8 +2825,8 @@
         "transaction": "Observer@35"
     },
     {
-        "observable": "Observable@51",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@51",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -2864,7 +2864,7 @@
     },
     {
         "observable": "FilterContext.0.filter",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "ob"
     },
     {
@@ -3174,7 +3174,7 @@
     },
     {
         "observable": "Node.14.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -3213,7 +3213,7 @@
     },
     {
         "observable": "Node.15.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -3242,7 +3242,7 @@
     },
     {
         "observable": "Node.16.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -3261,7 +3261,7 @@
     },
     {
         "observable": "Node.13.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -3330,7 +3330,7 @@
     },
     {
         "observable": "Node.12.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -3359,7 +3359,7 @@
     },
     {
         "observable": "Node.7.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -3378,7 +3378,7 @@
     },
     {
         "observable": "Node.6.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -3541,8 +3541,8 @@
         "transaction": "Observer@29"
     },
     {
-        "observable": "Observable@53",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@53",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -3583,8 +3583,8 @@
         "transaction": "Observer@31"
     },
     {
-        "observable": "Observable@54",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@54",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -3625,8 +3625,8 @@
         "transaction": "Observer@33"
     },
     {
-        "observable": "Observable@55",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@55",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -3667,8 +3667,8 @@
         "transaction": "Observer@27"
     },
     {
-        "observable": "Observable@56",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@56",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -3709,8 +3709,8 @@
         "transaction": "Observer@25"
     },
     {
-        "observable": "Observable@57",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@57",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -3751,8 +3751,8 @@
         "transaction": "Observer@15"
     },
     {
-        "observable": "Observable@58",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@58",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -3793,8 +3793,8 @@
         "transaction": "Observer@13"
     },
     {
-        "observable": "Observable@59",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@59",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -3832,7 +3832,7 @@
     },
     {
         "observable": "FilterContext.0.filter",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "obb"
     },
     {
@@ -3954,7 +3954,7 @@
     },
     {
         "observable": "Node.2.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -4043,7 +4043,7 @@
     },
     {
         "observable": "Node.1.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -4062,7 +4062,7 @@
     },
     {
         "observable": "Node.0.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -4481,8 +4481,8 @@
         "transaction": "Observer@5"
     },
     {
-        "observable": "Observable@61",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@61",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -4523,8 +4523,8 @@
         "transaction": "Observer@3"
     },
     {
-        "observable": "Observable@62",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@62",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -4565,8 +4565,8 @@
         "transaction": "Observer@1"
     },
     {
-        "observable": "Observable@63",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@63",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -4604,7 +4604,7 @@
     },
     {
         "observable": "FilterContext.0.filter",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "ob"
     },
     {
@@ -4726,7 +4726,7 @@
     },
     {
         "observable": "Node.2.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -4755,7 +4755,7 @@
     },
     {
         "observable": "Node.1.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -4774,7 +4774,7 @@
     },
     {
         "observable": "Node.0.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -5229,8 +5229,8 @@
         "transaction": "Observer@5"
     },
     {
-        "observable": "Observable@65",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@65",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -5271,8 +5271,8 @@
         "transaction": "Observer@3"
     },
     {
-        "observable": "Observable@66",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@66",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -5313,8 +5313,8 @@
         "transaction": "Observer@1"
     },
     {
-        "observable": "Observable@67",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@67",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,

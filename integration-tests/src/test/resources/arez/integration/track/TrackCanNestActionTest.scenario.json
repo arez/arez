@@ -6,11 +6,11 @@
     },
     {
         "observable": "TestComponent1.0.time",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "TestComponent1.0.time2",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observer": "TestComponent1.0.render",
@@ -95,7 +95,7 @@
     },
     {
         "observable": "TestComponent1.0.time",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": 33
     },
     {
@@ -130,7 +130,7 @@
     },
     {
         "observable": "TestComponent1.0.time2",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": 33
     },
     {

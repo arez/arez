@@ -26,7 +26,7 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
 /**
- * The class that represents the parsed state of Observable properties on a @ArezComponent annotated class.
+ * The class that represents the parsed state of ObservableValue properties on a @ArezComponent annotated class.
  */
 @SuppressWarnings( "Duplicates" )
 final class ObservableDescriptor
@@ -364,7 +364,7 @@ final class ObservableDescriptor
   }
 
   /**
-   * Generate the setter that reports that ensures that the access is reported as Observable.
+   * Generate the setter that reports that ensures that the access is reported as ObservableValue.
    */
   @Nonnull
   private MethodSpec buildObservableSetter()

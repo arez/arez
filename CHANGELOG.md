@@ -101,6 +101,15 @@
   circumstances.
 * **\[core\]** Replace the usage of the `_disposed` an `_disposing` fields on `Observer` with existing `_state`
   field. This reduces the runtime memory size of the `Observer` object by eliminating two properties.
+* 💥 **\[core\]** Rename the class `arez.Observable` to `arez.ObservableValue` and rename supporting classes and
+  methods. The API changes include;
+   * Rename interface `arez.spy.ObservableInfo` to `arez.spy.ObservableValueInfo`.
+   * Rename method `asObservableValueInfo(...)` to `asObservableValueInfo(...)` on the class `arez.Spy`.
+   * Rename class `arez.spy.ObservableChangedEvent` to `arez.spy.ObservableValueChangedEvent`.
+   * Rename class `arez.spy.ObservableCreatedEvent` to `arez.spy.ObservableValueCreatedEvent`.
+   * Rename class `arez.spy.ObservableDisposedEvent` to `arez.spy.ObservableValueDisposedEvent`.
+   * Rename the type field in serialized form of the `arez.spy.Observable*Event` classes to replace
+     `Observable...` with `ObservableValue...`.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)

@@ -6,11 +6,11 @@
     },
     {
         "observable": "PersonModel.0.firstName",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "PersonModel.0.lastName",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "PersonModel.0.fullName",
@@ -42,8 +42,8 @@
         "transaction": "FirstNamePrinter"
     },
     {
-        "observable": "Observable@1",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@1",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -92,8 +92,8 @@
         "transaction": "FullNamePrinter"
     },
     {
-        "observable": "Observable@2",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@2",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "PersonModel.0.fullName",
@@ -107,7 +107,7 @@
     },
     {
         "observable": "PersonModel.0.fullName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Bill Smith"
     },
     {
@@ -160,7 +160,7 @@
     },
     {
         "observable": "PersonModel.0.firstName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Fred"
     },
     {
@@ -206,8 +206,8 @@
         "transaction": "FirstNamePrinter"
     },
     {
-        "observable": "Observable@3",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@3",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -246,7 +246,7 @@
     },
     {
         "observable": "PersonModel.0.fullName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Fred Smith"
     },
     {
@@ -281,8 +281,8 @@
         "transaction": "FullNamePrinter"
     },
     {
-        "observable": "Observable@4",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@4",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -324,7 +324,7 @@
     },
     {
         "observable": "PersonModel.0.lastName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Donaldo"
     },
     {
@@ -360,7 +360,7 @@
     },
     {
         "observable": "PersonModel.0.fullName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Fred Donaldo"
     },
     {
@@ -395,8 +395,8 @@
         "transaction": "FullNamePrinter"
     },
     {
-        "observable": "Observable@5",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@5",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",

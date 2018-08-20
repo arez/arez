@@ -3,7 +3,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.Observer;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -32,7 +32,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_myField;
+  private final ObservableValue<Long> $$arez$$_myField;
 
   @Nonnull
   private final ComputedValue<Integer> $$arez$$_myComputed;

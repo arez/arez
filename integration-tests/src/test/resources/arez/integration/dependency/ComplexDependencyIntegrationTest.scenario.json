@@ -6,7 +6,7 @@
     },
     {
         "observable": "Model1.0.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "Model1.0",
@@ -18,7 +18,7 @@
     },
     {
         "observable": "Model1.1.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "Model1.1",
@@ -30,7 +30,7 @@
     },
     {
         "observable": "Model1.2.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "Model1.2",
@@ -42,7 +42,7 @@
     },
     {
         "observable": "Model1.3.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "Model1.3",
@@ -54,19 +54,19 @@
     },
     {
         "observable": "Model2.0.reference1",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "Model2.0.reference2",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "Model2.0.reference3",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "Model2.0.reference4",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "Model2.0",
@@ -110,7 +110,7 @@
     },
     {
         "observable": "Model2.0.reference1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -128,7 +128,7 @@
     },
     {
         "observable": "Model1.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Model1A1"
     },
     {
@@ -150,7 +150,7 @@
     },
     {
         "observable": "Model1.0.name",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,
@@ -252,7 +252,7 @@
     },
     {
         "observable": "Model2.0.reference1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -274,7 +274,7 @@
     },
     {
         "observable": "Model2.0.reference1",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "action": "Model2.0.reference2.dispose",
@@ -308,7 +308,7 @@
     },
     {
         "observable": "Model2.0.reference2",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "action": "Model2.0.reference3.dispose",
@@ -342,7 +342,7 @@
     },
     {
         "observable": "Model2.0.reference3",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "action": "Model2.0.reference4.dispose",
@@ -376,7 +376,7 @@
     },
     {
         "observable": "Model2.0.reference4",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,
@@ -414,7 +414,7 @@
     },
     {
         "observable": "Model1.2.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Model1A3"
     },
     {
@@ -436,7 +436,7 @@
     },
     {
         "observable": "Model1.2.name",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,

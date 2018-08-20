@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -34,16 +34,16 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Collection<String>> $$arez$$_collection;
+  private final ObservableValue<Collection<String>> $$arez$$_collection;
 
   @Nonnull
-  private final Observable<Set<String>> $$arez$$_set;
+  private final ObservableValue<Set<String>> $$arez$$_set;
 
   @Nonnull
-  private final Observable<List<String>> $$arez$$_list;
+  private final ObservableValue<List<String>> $$arez$$_list;
 
   @Nonnull
-  private final Observable<Map<String, String>> $$arez$$_map;
+  private final ObservableValue<Map<String, String>> $$arez$$_map;
 
   public Arez_ObservableNoSettersModel() {
     super();
@@ -142,7 +142,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
   }
 
   @Override
-  protected Observable getCollectionObservable() {
+  protected ObservableValue getCollectionObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getCollectionObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
@@ -159,7 +159,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
   }
 
   @Override
-  protected Observable getSetObservable() {
+  protected ObservableValue getSetObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getSetObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
@@ -176,7 +176,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
   }
 
   @Override
-  protected Observable getListObservable() {
+  protected ObservableValue getListObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getListObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
@@ -193,7 +193,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
   }
 
   @Override
-  protected Observable getMapObservable() {
+  protected ObservableValue getMapObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMapObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

@@ -2,7 +2,7 @@ package arez;
 
 import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
-import arez.spy.ObservableInfo;
+import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import java.util.Collections;
 import java.util.List;
@@ -17,14 +17,14 @@ final class ComponentInfoImpl
 {
   private final Spy _spy;
   private final Component _component;
-  private final List<Observable<?>> _observables;
+  private final List<ObservableValue<?>> _observableValues;
   private final List<ComputedValue<?>> _computedValues;
 
   ComponentInfoImpl( @Nonnull final Spy spy, @Nonnull final Component component )
   {
     _spy = Objects.requireNonNull( spy );
     _component = Objects.requireNonNull( component );
-    _observables = Collections.unmodifiableList( _component.getObservables() );
+    _observableValues = Collections.unmodifiableList( _component.getObservableValues() );
     _computedValues = Collections.unmodifiableList( _component.getComputedValues() );
   }
 
@@ -62,9 +62,9 @@ final class ComponentInfoImpl
    * {@inheritDoc}
    */
   @Override
-  public List<ObservableInfo> getObservables()
+  public List<ObservableValueInfo> getObservableValues()
   {
-    return ObservableInfoImpl.asUnmodifiableInfos( _spy, _observables );
+    return ObservableValueInfoImpl.asUnmodifiableInfos( _spy, _observableValues );
   }
 
   /**

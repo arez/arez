@@ -4,7 +4,7 @@ import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
@@ -319,7 +319,7 @@ public class ContainerTest
   static class MyEntity
     implements Identifiable<Integer>, Disposable, ComponentObservable, DisposeTrackable
   {
-    private final Observable<Object> _observable = Arez.context().observable();
+    private final ObservableValue<Object> _observableValue = Arez.context().observable();
     private int _arezId;
     private boolean _disposed;
     private final DisposeNotifier _notifier = new DisposeNotifier();
@@ -342,7 +342,7 @@ public class ContainerTest
       final boolean isDisposed = isDisposed();
       if ( !isDisposed )
       {
-        _observable.reportObserved();
+        _observableValue.reportObserved();
       }
       return !isDisposed;
     }
@@ -353,7 +353,7 @@ public class ContainerTest
       Arez.context().safeAction( null, true, false, () -> {
         _disposed = true;
         _notifier.dispose();
-        _observable.dispose();
+        _observableValue.dispose();
       } );
     }
 
@@ -374,7 +374,7 @@ public class ContainerTest
   static class MyContainer
     extends AbstractContainer<Integer, MyEntity>
   {
-    private final Observable<Object> _observable = Arez.context().observable();
+    private final ObservableValue<Object> _observableValue = Arez.context().observable();
 
     static MyContainer create()
     {
@@ -389,9 +389,9 @@ public class ContainerTest
 
     @Nonnull
     @Override
-    protected Observable getEntitiesObservable()
+    protected ObservableValue getEntitiesObservable()
     {
-      return _observable;
+      return _observableValue;
     }
   }
 }

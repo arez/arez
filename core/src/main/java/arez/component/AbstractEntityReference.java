@@ -2,6 +2,7 @@ package arez.component;
 
 import arez.Arez;
 import arez.Disposable;
+import arez.ObservableValue;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
 import arez.annotations.PreDispose;
@@ -59,7 +60,7 @@ public abstract class AbstractEntityReference<T>
    */
   @ObservableRef
   @Nonnull
-  protected abstract arez.Observable getEntityObservable();
+  protected abstract ObservableValue getEntityObservable();
 
   /**
    * Set the entity that this reference points to.

@@ -70,8 +70,8 @@
         "transaction": "Transaction@2"
     },
     {
-        "observable": "Observable@1",
-        "type": "ObservableChanged",
+        "observable": "ObservableValue@1",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {

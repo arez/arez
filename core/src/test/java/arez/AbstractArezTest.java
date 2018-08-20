@@ -96,8 +96,8 @@ public abstract class AbstractArezTest
   {
     final Observer randomObserver = newReadOnlyObserver( observer.getContext() );
     randomObserver.setState( ObserverState.UP_TO_DATE );
-    observer.getComputedValue().getObservable().addObserver( randomObserver );
-    randomObserver.getDependencies().add( observer.getComputedValue().getObservable() );
+    observer.getComputedValue().getObservableValue().addObserver( randomObserver );
+    randomObserver.getDependencies().add( observer.getComputedValue().getObservableValue() );
     return randomObserver;
   }
 
@@ -174,15 +174,15 @@ public abstract class AbstractArezTest
   }
 
   @Nonnull
-  final Observable<?> newObservable()
+  final ObservableValue<?> newObservable()
   {
     return newObservable( Arez.context() );
   }
 
   @Nonnull
-  final Observable<?> newObservable( final ArezContext context )
+  final ObservableValue<?> newObservable( final ArezContext context )
   {
-    return new Observable<>( context, null, ValueUtil.randomString(), null, null, null );
+    return new ObservableValue<>( context, null, ValueUtil.randomString(), null, null, null );
   }
 
   final void setupReadOnlyTransaction()

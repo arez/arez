@@ -5,7 +5,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -128,7 +128,7 @@ public class EntityReferenceTest
   static class MyEntity
     implements Identifiable<Integer>, Disposable, ComponentObservable, DisposeTrackable
   {
-    private final Observable<Object> _observable = Arez.context().observable();
+    private final ObservableValue<Object> _observableValue = Arez.context().observable();
     private int _arezId;
     private boolean _disposed;
     private final DisposeNotifier _notifier = new DisposeNotifier();
@@ -154,7 +154,7 @@ public class EntityReferenceTest
       }
       else
       {
-        _observable.reportObserved();
+        _observableValue.reportObserved();
         return true;
       }
     }
@@ -165,7 +165,7 @@ public class EntityReferenceTest
       Arez.context().safeAction( null, true, false, () -> {
         _disposed = true;
         _notifier.dispose();
-        _observable.dispose();
+        _observableValue.dispose();
       } );
     }
 
@@ -188,7 +188,7 @@ public class EntityReferenceTest
     implements Disposable
   {
     private final Component _component = Arez.context().component( "MyEntityReference", "1" );
-    private final Observable _observable = Arez.context().observable();
+    private final ObservableValue _observableValue = Arez.context().observable();
 
     static MyEntityReference create()
     {
@@ -207,31 +207,31 @@ public class EntityReferenceTest
       Arez.context().safeAction( null, true, false, () -> {
         preDispose();
         _component.dispose();
-        _observable.dispose();
+        _observableValue.dispose();
       } );
     }
 
     @Nonnull
     @Override
-    protected Observable getEntityObservable()
+    protected ObservableValue getEntityObservable()
     {
-      return _observable;
+      return _observableValue;
     }
 
     @Nullable
     @Override
     protected MyEntity getEntity()
     {
-      _observable.reportObserved();
+      _observableValue.reportObserved();
       return super.getEntity();
     }
 
     @Override
     protected void setEntity( @Nullable final MyEntity entity )
     {
-      _observable.preReportChanged();
+      _observableValue.preReportChanged();
       super.setEntity( entity );
-      _observable.reportChanged();
+      _observableValue.reportChanged();
     }
   }
 }

@@ -1,5 +1,6 @@
 package arez.doc.examples.at_observable;
 
+import arez.ObservableValue;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
@@ -20,7 +21,7 @@ public abstract class ReactComponent
 
   //This will be overridden and implemented in the Arez subclass
   @ObservableRef
-  abstract arez.Observable<Props> getPropsObservable();
+  abstract ObservableValue<Props> getPropsObservable();
 
   // This method is wrapped in an Action to ensure change is propagated
   // correctly in arez system.

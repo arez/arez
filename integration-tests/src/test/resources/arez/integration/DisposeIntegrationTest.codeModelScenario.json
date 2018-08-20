@@ -6,15 +6,15 @@
     },
     {
         "observable": "CodeModel.0.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "CodeModel.0.packageName",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "CodeModel.0.rawQualifiedName",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "CodeModel.0.qualifiedName",
@@ -46,8 +46,8 @@
         "transaction": "Printer"
     },
     {
-        "observable": "Observable@1",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@1",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "CodeModel.0.qualifiedName",
@@ -61,7 +61,7 @@
     },
     {
         "observable": "CodeModel.0.qualifiedName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "com.example.MyType"
     },
     {
@@ -114,7 +114,7 @@
     },
     {
         "observable": "CodeModel.0.rawQualifiedName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "com.biz.Fred"
     },
     {
@@ -150,7 +150,7 @@
     },
     {
         "observable": "CodeModel.0.qualifiedName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "com.biz.Fred"
     },
     {
@@ -185,8 +185,8 @@
         "transaction": "Printer"
     },
     {
-        "observable": "Observable@2",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@2",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -228,7 +228,7 @@
     },
     {
         "observable": "CodeModel.0.rawQualifiedName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -264,7 +264,7 @@
     },
     {
         "observable": "CodeModel.0.qualifiedName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "com.example.MyType"
     },
     {
@@ -299,8 +299,8 @@
         "transaction": "Printer"
     },
     {
-        "observable": "Observable@3",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@3",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -342,7 +342,7 @@
     },
     {
         "observable": "CodeModel.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "MyType2"
     },
     {
@@ -378,7 +378,7 @@
     },
     {
         "observable": "CodeModel.0.qualifiedName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "com.example.MyType2"
     },
     {
@@ -413,8 +413,8 @@
         "transaction": "Printer"
     },
     {
-        "observable": "Observable@4",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@4",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -545,7 +545,7 @@
     },
     {
         "observable": "CodeModel.0.qualifiedName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -610,7 +610,7 @@
     },
     {
         "observable": "CodeModel.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "MyType2"
     },
     {
@@ -632,7 +632,7 @@
     },
     {
         "observable": "CodeModel.0.name",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "action": "CodeModel.0.packageName.dispose",
@@ -649,7 +649,7 @@
     },
     {
         "observable": "CodeModel.0.packageName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "com.example"
     },
     {
@@ -671,7 +671,7 @@
     },
     {
         "observable": "CodeModel.0.packageName",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "action": "CodeModel.0.rawQualifiedName.dispose",
@@ -688,7 +688,7 @@
     },
     {
         "observable": "CodeModel.0.rawQualifiedName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -710,7 +710,7 @@
     },
     {
         "observable": "CodeModel.0.rawQualifiedName",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,

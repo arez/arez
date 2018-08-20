@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.CollectionsUtil;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -35,7 +35,7 @@ final class Arez_NonObservableNullableManyReferenceModel extends NonObservableNu
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<List<NonObservableNullableManyReferenceModel.Element>> $$arez$$_elements;
+  private final ObservableValue<List<NonObservableNullableManyReferenceModel.Element>> $$arez$$_elements;
 
   private List<NonObservableNullableManyReferenceModel.Element> $$arezd$$_elements;
 

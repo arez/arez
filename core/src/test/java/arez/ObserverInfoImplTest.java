@@ -15,8 +15,8 @@ public class ObserverInfoImplTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final Observable<Object> observable = context.observable();
-    final Observer observer = context.autorun( name, false, observable::reportObserved );
+    final ObservableValue<Object> observableValue = context.observable();
+    final Observer observer = context.autorun( name, false, observableValue::reportObserved );
 
     final ObserverInfoImpl info = new ObserverInfoImpl( context.getSpy(), observer );
 
@@ -25,7 +25,7 @@ public class ObserverInfoImplTest
     assertEquals( info.toString(), name );
 
     assertEquals( info.getDependencies().size(), 1 );
-    assertEquals( info.getDependencies().get( 0 ).getName(), observable.getName() );
+    assertEquals( info.getDependencies().get( 0 ).getName(), observableValue.getName() );
     assertUnmodifiable( info.getDependencies() );
 
     assertEquals( info.isComputedValue(), false );
@@ -64,9 +64,9 @@ public class ObserverInfoImplTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observable<Object> observable = context.observable();
-    final Observer observer1 = context.autorun( ValueUtil.randomString(), false, observable::reportObserved );
-    final Observer observer2 = context.autorun( ValueUtil.randomString(), false, observable::reportObserved );
+    final ObservableValue<Object> observableValue = context.observable();
+    final Observer observer1 = context.autorun( ValueUtil.randomString(), false, observableValue::reportObserved );
+    final Observer observer2 = context.autorun( ValueUtil.randomString(), false, observableValue::reportObserved );
 
     final ObserverInfoImpl info1a = new ObserverInfoImpl( context.getSpy(), observer1 );
     final ObserverInfoImpl info1b = new ObserverInfoImpl( context.getSpy(), observer1 );

@@ -2,8 +2,8 @@ package arez;
 
 import arez.spy.ComputedValueActivatedEvent;
 import arez.spy.ComputedValueDeactivatedEvent;
-import arez.spy.ObservableChangedEvent;
-import arez.spy.ObservableDisposedEvent;
+import arez.spy.ObservableValueChangedEvent;
+import arez.spy.ObservableValueDisposedEvent;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import java.util.ArrayList;
@@ -16,11 +16,11 @@ import static org.realityforge.braincheck.Guards.*;
 /**
  * The observable represents state that can be observed within the system.
  */
-public final class Observable<T>
+public final class ObservableValue<T>
   extends Node
 {
   /**
-   * The value of _workState when the Observable is should longer be used.
+   * The value of _workState when the ObservableValue is should longer be used.
    */
   static final int DISPOSED = -2;
   /**
@@ -86,12 +86,12 @@ public final class Observable<T>
   @Nullable
   private final PropertyMutator<T> _mutator;
 
-  Observable( @Nullable final ArezContext context,
-              @Nullable final Component component,
-              @Nullable final String name,
-              @Nullable final Observer owner,
-              @Nullable final PropertyAccessor<T> accessor,
-              @Nullable final PropertyMutator<T> mutator )
+  ObservableValue( @Nullable final ArezContext context,
+                   @Nullable final Component component,
+                   @Nullable final String name,
+                   @Nullable final Observer owner,
+                   @Nullable final PropertyAccessor<T> accessor,
+                   @Nullable final PropertyMutator<T> mutator )
   {
     super( context, name );
     _component = Arez.areNativeComponentsEnabled() ? component : null;
@@ -101,16 +101,16 @@ public final class Observable<T>
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
-                 () -> "Arez-0054: Observable named '" + getName() + "' has component specified but " +
+                 () -> "Arez-0054: ObservableValue named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
     }
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> Arez.arePropertyIntrospectorsEnabled() || null == accessor,
-                    () -> "Arez-0055: Observable named '" + getName() + "' has accessor specified but " +
+                    () -> "Arez-0055: ObservableValue named '" + getName() + "' has accessor specified but " +
                           "Arez.arePropertyIntrospectorsEnabled() is false." );
       apiInvariant( () -> Arez.arePropertyIntrospectorsEnabled() || null == mutator,
-                    () -> "Arez-0056: Observable named '" + getName() + "' has mutator specified but " +
+                    () -> "Arez-0056: ObservableValue named '" + getName() + "' has mutator specified but " +
                           "Arez.arePropertyIntrospectorsEnabled() is false." );
     }
     if ( null != _owner )
@@ -121,7 +121,7 @@ public final class Observable<T>
       if ( Arez.shouldCheckInvariants() )
       {
         invariant( () -> !Arez.shouldEnforceTransactionType() || _owner.isComputedValue(),
-                   () -> "Arez-0057: Observable named '" + getName() + "' has owner specified " +
+                   () -> "Arez-0057: ObservableValue named '" + getName() + "' has owner specified " +
                          "but owner is not a derivation." );
       }
       assert !Arez.areNamesEnabled() || _owner.getName().equals( name );
@@ -130,11 +130,11 @@ public final class Observable<T>
     {
       if ( null != _component )
       {
-        _component.addObservable( this );
+        _component.addObservableValue( this );
       }
       else if ( Arez.areRegistriesEnabled() )
       {
-        getContext().registerObservable( this );
+        getContext().registerObservableValue( this );
       }
     }
   }
@@ -149,10 +149,10 @@ public final class Observable<T>
     {
       getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, this::performDispose );
       // All dependencies should have been released by the time it comes to deactivate phase.
-      // The Observable has been marked as changed, forcing all observers to re-evaluate and
-      // ultimately this will result in their removal of this Observable as a dependency as
+      // The ObservableValue has been marked as changed, forcing all observers to re-evaluate and
+      // ultimately this will result in their removal of this ObservableValue as a dependency as
       // it is an error to invoke reportObserved(). Once all dependencies are removed then
-      // this Observable will be deactivated if it is a ComputedValue. Thus no need to call
+      // this ObservableValue will be deactivated if it is a ComputedValue. Thus no need to call
       // queueForDeactivation() here.
       if ( hasOwner() )
       {
@@ -166,15 +166,15 @@ public final class Observable<T>
       {
         if ( willPropagateSpyEvents() )
         {
-          reportSpyEvent( new ObservableDisposedEvent( new ObservableInfoImpl( getSpy(), this ) ) );
+          reportSpyEvent( new ObservableValueDisposedEvent( new ObservableValueInfoImpl( getSpy(), this ) ) );
         }
         if ( null != _component )
         {
-          _component.removeObservable( this );
+          _component.removeObservableValue( this );
         }
         else if ( Arez.areRegistriesEnabled() )
         {
-          getContext().deregisterObservable( this );
+          getContext().deregisterObservableValue( this );
         }
       }
     }
@@ -202,7 +202,7 @@ public final class Observable<T>
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( Arez::arePropertyIntrospectorsEnabled,
-                 () -> "Arez-0058: Attempt to invoke getAccessor() on observable named '" + getName() +
+                 () -> "Arez-0058: Attempt to invoke getAccessor() on ObservableValue named '" + getName() +
                        "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
     }
     return _accessor;
@@ -214,7 +214,7 @@ public final class Observable<T>
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( Arez::arePropertyIntrospectorsEnabled,
-                 () -> "Arez-0059: Attempt to invoke getMutator() on observable named '" + getName() +
+                 () -> "Arez-0059: Attempt to invoke getMutator() on ObservableValue named '" + getName() +
                        "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
     }
     return _mutator;
@@ -307,12 +307,12 @@ public final class Observable<T>
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> getContext().isTransactionActive(),
-                 () -> "Arez-0060: Attempt to invoke deactivate on observable named '" + getName() +
+                 () -> "Arez-0060: Attempt to invoke deactivate on ObservableValue named '" + getName() +
                        "' when there is no active transaction." );
       invariant( this::canDeactivate,
-                 () -> "Arez-0061: Invoked deactivate on observable named '" + getName() + "' but observable " +
-                       "can not be deactivated. Either owner is null or the associated ComputedValue " +
-                       "has keepAlive enabled." );
+                 () -> "Arez-0061: Invoked deactivate on ObservableValue named '" + getName() + "' but " +
+                       "ObservableValue can not be deactivated. Either owner is null or the associated " +
+                       "ComputedValue has keepAlive enabled." );
     }
     assert null != _owner;
     if ( _owner.isActive() )
@@ -339,14 +339,14 @@ public final class Observable<T>
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> getContext().isTransactionActive(),
-                 () -> "Arez-0062: Attempt to invoke activate on observable named '" + getName() + "' when there " +
-                       "is no active transaction." );
+                 () -> "Arez-0062: Attempt to invoke activate on ObservableValue named '" + getName() +
+                       "' when there is no active transaction." );
       invariant( () -> null != _owner,
-                 () -> "Arez-0063: Invoked activate on observable named '" + getName() + "' when owner is null." );
+                 () -> "Arez-0063: Invoked activate on ObservableValue named '" + getName() + "' when owner is null." );
       assert null != _owner;
       invariant( _owner::isInactive,
-                 () -> "Arez-0064: Invoked activate on observable named '" + getName() + "' when " +
-                       "observable is already active." );
+                 () -> "Arez-0064: Invoked activate on ObservableValue named '" + getName() + "' when " +
+                       "ObservableValue is already active." );
     }
     assert null != _owner;
     _owner.setState( ObserverState.UP_TO_DATE );
@@ -378,24 +378,24 @@ public final class Observable<T>
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> getContext().isTransactionActive(),
-                 () -> "Arez-0065: Attempt to invoke addObserver on observable named '" + getName() +
+                 () -> "Arez-0065: Attempt to invoke addObserver on ObservableValue named '" + getName() +
                        "' when there is no active transaction." );
       invariantObserversLinked();
       invariant( () -> !hasObserver( observer ),
-                 () -> "Arez-0066: Attempting to add observer named '" + observer.getName() + "' to " +
-                       "observable named '" + getName() + "' when observer is already observing observable." );
+                 () -> "Arez-0066: Attempting to add observer named '" + observer.getName() + "' to ObservableValue " +
+                       "named '" + getName() + "' when observer is already observing ObservableValue." );
       invariant( this::isNotDisposed,
                  () -> "Arez-0067: Attempting to add observer named '" + observer.getName() + "' to " +
-                       "observable named '" + getName() + "' when observable is disposed." );
+                       "ObservableValue named '" + getName() + "' when ObservableValue is disposed." );
       invariant( observer::isNotDisposed,
-                 () -> "Arez-0068: Attempting to add observer named '" + observer.getName() + "' to observable " +
+                 () -> "Arez-0068: Attempting to add observer named '" + observer.getName() + "' to ObservableValue " +
                        "named '" + getName() + "' when observer is disposed." );
       invariant( () -> !hasOwner() ||
                        observer.canObserveLowerPriorityDependencies() ||
                        observer.getPriority().ordinal() >= getOwner().getPriority().ordinal(),
-                 () -> "Arez-0183: Attempting to add observer named '" + observer.getName() + "' to observable " +
+                 () -> "Arez-0183: Attempting to add observer named '" + observer.getName() + "' to ObservableValue " +
                        "named '" + getName() + "' where the observer is scheduled at a " + observer.getPriority() +
-                       " priority but the observables owner is scheduled at a " +
+                       " priority but the ObservableValue's owner is scheduled at a " +
                        getOwner().getPriority() + " priority." );
     }
     getObservers().add( observer );
@@ -413,12 +413,12 @@ public final class Observable<T>
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> getContext().isTransactionActive(),
-                 () -> "Arez-0069: Attempt to invoke removeObserver on observable named '" + getName() + "' " +
+                 () -> "Arez-0069: Attempt to invoke removeObserver on ObservableValue named '" + getName() + "' " +
                        "when there is no active transaction." );
       invariantObserversLinked();
       invariant( () -> hasObserver( observer ),
-                 () -> "Arez-0070: Attempting to remove observer named '" + observer.getName() + "' from observable " +
-                       "named '" + getName() + "' when observer is not observing observable." );
+                 () -> "Arez-0070: Attempting to remove observer named '" + observer.getName() + "' from " +
+                       "ObservableValue named '" + getName() + "' when observer is not observing ObservableValue." );
     }
     final ArrayList<Observer> observers = getObservers();
     observers.remove( observer );
@@ -437,14 +437,14 @@ public final class Observable<T>
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> getContext().isTransactionActive(),
-                 () -> "Arez-0071: Attempt to invoke queueForDeactivation on observable named '" + getName() +
+                 () -> "Arez-0071: Attempt to invoke queueForDeactivation on ObservableValue named '" + getName() +
                        "' when there is no active transaction." );
       invariant( this::canDeactivate,
-                 () -> "Arez-0072: Attempted to invoke queueForDeactivation() on observable named '" + getName() +
-                       "' but observable is not able to be deactivated." );
+                 () -> "Arez-0072: Attempted to invoke queueForDeactivation() on ObservableValue named '" + getName() +
+                       "' but ObservableValue is not able to be deactivated." );
       invariant( () -> !hasObservers(),
-                 () -> "Arez-0073: Attempted to invoke queueForDeactivation() on observable named '" + getName() +
-                       "' but observable has observers." );
+                 () -> "Arez-0073: Attempted to invoke queueForDeactivation() on ObservableValue named '" + getName() +
+                       "' but ObservableValue has observers." );
     }
     if ( !isPendingDeactivation() )
     {
@@ -457,11 +457,11 @@ public final class Observable<T>
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> getContext().isTransactionActive(),
-                 () -> "Arez-0074: Attempt to invoke setLeastStaleObserverState on observable named '" + getName() +
-                       "' when there is no active transaction." );
+                 () -> "Arez-0074: Attempt to invoke setLeastStaleObserverState on ObservableValue named '" +
+                       getName() + "' when there is no active transaction." );
       invariant( () -> ObserverState.isActive( leastStaleObserverState ),
-                 () -> "Arez-0075: Attempt to invoke setLeastStaleObserverState on observable named '" + getName() +
-                       "' with invalid value " + leastStaleObserverState + "." );
+                 () -> "Arez-0075: Attempt to invoke setLeastStaleObserverState on ObservableValue named '" +
+                       getName() + "' with invalid value " + leastStaleObserverState + "." );
     }
     _leastStaleObserverState = leastStaleObserverState;
   }
@@ -512,7 +512,7 @@ public final class Observable<T>
   {
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObservableChangedEvent( new ObservableInfoImpl( getSpy(), this ), getObservableValue() ) );
+      reportSpyEvent( new ObservableValueChangedEvent( new ObservableValueInfoImpl( getSpy(), this ), getObservableValue() ) );
     }
     getContext().getTransaction().reportChanged( this );
   }
@@ -521,7 +521,7 @@ public final class Observable<T>
   {
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObservableChangedEvent( new ObservableInfoImpl( getSpy(), this ), getObservableValue() ) );
+      reportSpyEvent( new ObservableValueChangedEvent( new ObservableValueInfoImpl( getSpy(), this ), getObservableValue() ) );
     }
     getContext().getTransaction().reportChangeConfirmed( this );
   }
@@ -554,9 +554,9 @@ public final class Observable<T>
   {
     if ( Arez.shouldCheckInvariants() && null != _owner )
     {
-      invariant( () -> Objects.equals( _owner.getComputedValue().getObservable(), this ),
-                 () -> "Arez-0076: Observable named '" + getName() + "' has owner specified but owner does " +
-                       "not link to observable as derived value." );
+      invariant( () -> Objects.equals( _owner.getComputedValue().getObservableValue(), this ),
+                 () -> "Arez-0076: ObservableValue named '" + getName() + "' has owner specified but owner does " +
+                       "not link to ObservableValue as derived value." );
     }
   }
 
@@ -566,9 +566,9 @@ public final class Observable<T>
     {
       getObservers().forEach( observer ->
                                 invariant( () -> observer.getDependencies().contains( this ),
-                                           () -> "Arez-0077: Observable named '" + getName() + "' has observer " +
+                                           () -> "Arez-0077: ObservableValue named '" + getName() + "' has observer " +
                                                  "named '" + observer.getName() + "' which does not contain " +
-                                                 "observable as dependency." ) );
+                                                 "ObservableValue as dependency." ) );
     }
   }
 
@@ -581,7 +581,7 @@ public final class Observable<T>
           map( Observer::getState ).map( s -> ObserverState.isNotActive( s ) ? ObserverState.UP_TO_DATE : s ).
           min( Comparator.comparing( Enum::ordinal ) ).orElse( ObserverState.UP_TO_DATE );
       invariant( () -> leastStaleObserverState.ordinal() >= _leastStaleObserverState.ordinal(),
-                 () -> "Arez-0078: Calculated leastStaleObserverState on observable named '" + getName() +
+                 () -> "Arez-0078: Calculated leastStaleObserverState on ObservableValue named '" + getName() +
                        "' is '" + leastStaleObserverState.name() + "' which is unexpectedly less " +
                        "than cached value '" + _leastStaleObserverState.name() + "'." );
     }

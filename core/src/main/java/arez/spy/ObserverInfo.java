@@ -72,7 +72,7 @@ public interface ObserverInfo
    * @see arez.Spy#getDependencies(arez.Observer)
    */
   @Nonnull
-  List<ObservableInfo> getDependencies();
+  List<ObservableValueInfo> getDependencies();
 
   /**
    * Return the component for the specified Observer.

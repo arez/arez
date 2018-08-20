@@ -1,5 +1,6 @@
 package com.example.observable_ref;
 
+import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
@@ -24,5 +25,5 @@ public abstract class GenericObservableRefModel
 
   @Nonnull
   @ObservableRef
-  public abstract arez.Observable<MyValue<String>> getMyValueObservable();
+  public abstract ObservableValue<MyValue<String>> getMyValueObservable();
 }

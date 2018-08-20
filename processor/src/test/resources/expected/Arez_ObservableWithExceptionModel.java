@@ -2,7 +2,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -28,7 +28,7 @@ public final class Arez_ObservableWithExceptionModel extends ObservableWithExcep
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_time;
+  private final ObservableValue<Long> $$arez$$_time;
 
   public Arez_ObservableWithExceptionModel() {
     super();

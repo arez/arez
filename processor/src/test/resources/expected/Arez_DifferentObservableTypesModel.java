@@ -2,7 +2,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -29,31 +29,31 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Boolean> $$arez$$_v1;
+  private final ObservableValue<Boolean> $$arez$$_v1;
 
   @Nonnull
-  private final Observable<Byte> $$arez$$_v2;
+  private final ObservableValue<Byte> $$arez$$_v2;
 
   @Nonnull
-  private final Observable<Character> $$arez$$_v3;
+  private final ObservableValue<Character> $$arez$$_v3;
 
   @Nonnull
-  private final Observable<Short> $$arez$$_v4;
+  private final ObservableValue<Short> $$arez$$_v4;
 
   @Nonnull
-  private final Observable<Integer> $$arez$$_v5;
+  private final ObservableValue<Integer> $$arez$$_v5;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_v6;
+  private final ObservableValue<Long> $$arez$$_v6;
 
   @Nonnull
-  private final Observable<Float> $$arez$$_v7;
+  private final ObservableValue<Float> $$arez$$_v7;
 
   @Nonnull
-  private final Observable<Double> $$arez$$_v8;
+  private final ObservableValue<Double> $$arez$$_v8;
 
   @Nonnull
-  private final Observable<Object> $$arez$$_v9;
+  private final ObservableValue<Object> $$arez$$_v9;
 
   public Arez_DifferentObservableTypesModel() {
     super();

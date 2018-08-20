@@ -3,7 +3,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.Observer;
 import arez.component.ComponentState;
 import arez.component.Identifiable;
@@ -30,7 +30,7 @@ public final class Arez_ImplicitSingletonModel extends ImplicitSingletonModel im
   private final Component $$arezi$$_component;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_time;
+  private final ObservableValue<Long> $$arez$$_time;
 
   @Nonnull
   private final ComputedValue<Integer> $$arez$$_someValue;

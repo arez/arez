@@ -6,11 +6,11 @@
     },
     {
         "observable": "PersonModel.0.firstName",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "PersonModel.0.lastName",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "PersonModel.0.fullName",
@@ -26,11 +26,11 @@
     },
     {
         "observable": "PersonModel.1.firstName",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "PersonModel.1.lastName",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "PersonModel.1.fullName",
@@ -247,7 +247,7 @@
     },
     {
         "observable": "PersonModel.0.firstName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Fred"
     },
     {
@@ -282,7 +282,7 @@
     },
     {
         "observable": "PersonModel.0.lastName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Donaldo"
     },
     {
@@ -317,7 +317,7 @@
     },
     {
         "observable": "PersonModel.1.lastName",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Donaldo"
     },
     {

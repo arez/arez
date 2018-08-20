@@ -50,7 +50,7 @@ public final class Observer
    * This list should contain no duplicates.
    */
   @Nonnull
-  private ArrayList<Observable<?>> _dependencies = new ArrayList<>();
+  private ArrayList<ObservableValue<?>> _dependencies = new ArrayList<>();
   /**
    * Flag indicating whether this observer has been scheduled.
    * Should always be false unless _reaction is non-null.
@@ -242,6 +242,11 @@ public final class Observer
     return ObserverState.DISPOSED == _state;
   }
 
+  boolean isDisposedOrDisposing()
+  {
+    return ObserverState.DISPOSING.ordinal() >= _state.ordinal();
+  }
+
   /**
    * Return true during invocation of dispose, false otherwise.
    *
@@ -356,7 +361,7 @@ public final class Observer
                 ObserverState.UP_TO_DATE == originalState &&
                 ( ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state ) )
       {
-        _computedValue.getObservable().reportPossiblyChanged();
+        _computedValue.getObservableValue().reportPossiblyChanged();
         runHook( _computedValue.getOnStale(), ObserverError.ON_STALE_ERROR );
         if ( schedule )
         {
@@ -556,7 +561,7 @@ public final class Observer
    */
   void markDependenciesLeastStaleObserverAsUpToDate()
   {
-    for ( final Observable dependency : getDependencies() )
+    for ( final ObservableValue dependency : getDependencies() )
     {
       dependency.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
     }
@@ -587,11 +592,11 @@ public final class Observer
         return true;
       case POSSIBLY_STALE:
       {
-        for ( final Observable observable : getDependencies() )
+        for ( final ObservableValue observableValue : getDependencies() )
         {
-          if ( observable.hasOwner() )
+          if ( observableValue.hasOwner() )
           {
-            final Observer owner = observable.getOwner();
+            final Observer owner = observableValue.getOwner();
             final ComputedValue computedValue = owner.getComputedValue();
             try
             {
@@ -622,7 +627,7 @@ public final class Observer
    * @return the dependencies.
    */
   @Nonnull
-  ArrayList<Observable<?>> getDependencies()
+  ArrayList<ObservableValue<?>> getDependencies()
   {
     return _dependencies;
   }
@@ -633,7 +638,7 @@ public final class Observer
    *
    * @param dependencies the new set of dependencies.
    */
-  void replaceDependencies( @Nonnull final ArrayList<Observable<?>> dependencies )
+  void replaceDependencies( @Nonnull final ArrayList<ObservableValue<?>> dependencies )
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -678,7 +683,7 @@ public final class Observer
       getDependencies().forEach( observable ->
                                    invariant( () -> observable.getObservers().contains( this ),
                                               () -> "Arez-0090: " + context + ": Observer named '" + getName() +
-                                                    "' has dependency observable named '" + observable.getName() +
+                                                    "' has ObservableValue dependency named '" + observable.getName() +
                                                     "' which does not contain the observer in the list of " +
                                                     "observers." ) );
       invariantComputedValueObserverState();
@@ -694,8 +699,8 @@ public final class Observer
     {
       getDependencies().forEach( observable ->
                                    invariant( observable::isNotDisposed,
-                                              () -> "Arez-0091: Observer named '" + getName() + "' has dependency " +
-                                                    "observable named '" + observable.getName() +
+                                              () -> "Arez-0091: Observer named '" + getName() + "' has " +
+                                                    "ObservableValue dependency named '" + observable.getName() +
                                                     "' which is disposed." ) );
       invariantComputedValueObserverState();
     }
@@ -716,8 +721,8 @@ public final class Observer
       }
       if ( isComputedValue() && isNotDisposed() )
       {
-        final Observable<?> observable = getComputedValue().getObservable();
-        invariant( () -> Objects.equals( observable.hasOwner() ? observable.getOwner() : null, this ),
+        final ObservableValue<?> observableValue = getComputedValue().getObservableValue();
+        invariant( () -> Objects.equals( observableValue.hasOwner() ? observableValue.getOwner() : null, this ),
                    () -> "Arez-0093: Observer named '" + getName() + "' is associated with an ObservableValue that " +
                          "does not link back to observer." );
       }
@@ -730,7 +735,7 @@ public final class Observer
     {
       if ( isComputedValue() && isActive() && isNotDisposed() )
       {
-        invariant( () -> !getComputedValue().getObservable().getObservers().isEmpty() ||
+        invariant( () -> !getComputedValue().getObservableValue().getObservers().isEmpty() ||
                          Objects.equals( getContext().getTransaction().getTracker(), this ),
                    () -> "Arez-0094: Observer named '" + getName() + "' is a ComputedValue and active but the " +
                          "associated ObservableValue has no observers." );

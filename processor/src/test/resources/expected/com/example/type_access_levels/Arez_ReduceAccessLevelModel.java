@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -30,7 +30,7 @@ final class Arez_ReduceAccessLevelModel extends ReduceAccessLevelModel implement
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_time;
+  private final ObservableValue<Long> $$arez$$_time;
 
   Arez_ReduceAccessLevelModel(final int foo) {
     super(foo);

@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -26,7 +26,7 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_field;
+  private final ObservableValue<Long> $$arez$$_field;
 
   public Arez_ComponentIdOnSingletonModel() {
     super();

@@ -1,5 +1,6 @@
 package com.example.reference;
 
+import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
@@ -20,7 +21,7 @@ abstract class BadExpectSetterObservableReferenceModel
   }
 
   @ObservableRef
-  protected abstract arez.Observable getMyEntityIdObservable();
+  protected abstract ObservableValue getMyEntityIdObservable();
 
   static class MyEntity
   {

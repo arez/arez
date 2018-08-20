@@ -9,7 +9,7 @@ import arez.annotations.ComponentId;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
 import arez.integration.AbstractArezIntegrationTest;
-import arez.spy.ObservableInfo;
+import arez.spy.ObservableValueInfo;
 import java.util.List;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -64,7 +64,7 @@ public class ComponentObservableRepositoryTest
 
     // When the entity is found then only observe the entity
     {
-      final List<ObservableInfo> dependencies = Arez.context().getSpy().getDependencies( observer );
+      final List<ObservableValueInfo> dependencies = Arez.context().getSpy().getDependencies( observer );
       assertEquals( dependencies.size(), 1 );
       assertEquals( dependencies.get( 0 ).getName(), "TestComponent.1.isDisposed" );
     }
@@ -73,7 +73,7 @@ public class ComponentObservableRepositoryTest
 
     // when the entity is not found then observe the set ... in case it is added in the future
     {
-      final List<ObservableInfo> dependencies = Arez.context().getSpy().getDependencies( observer );
+      final List<ObservableValueInfo> dependencies = Arez.context().getSpy().getDependencies( observer );
       assertEquals( dependencies.size(), 1 );
       assertEquals( dependencies.get( 0 ).getName(),
                     "ComponentObservableRepositoryTest_TestComponentRepository.entities" );

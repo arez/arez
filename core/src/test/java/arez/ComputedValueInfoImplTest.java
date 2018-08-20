@@ -16,7 +16,7 @@ public class ComputedValueInfoImplTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final Observable<Object> observable = context.observable();
+    final ObservableValue<Object> observableValue = context.observable();
 
     final AtomicReference<String> value = new AtomicReference<>();
     final String initialValue = ValueUtil.randomString();
@@ -24,7 +24,7 @@ public class ComputedValueInfoImplTest
 
     final ComputedValue<Object> computedValue =
       context.computed( name, () -> {
-        observable.reportObserved();
+        observableValue.reportObserved();
         return value.get();
       } );
     final Observer observer = context.autorun( computedValue::get );
@@ -44,7 +44,7 @@ public class ComputedValueInfoImplTest
     assertUnmodifiable( info.getObservers() );
 
     assertEquals( info.getDependencies().size(), 1 );
-    assertEquals( info.getDependencies().get( 0 ).getName(), observable.getName() );
+    assertEquals( info.getDependencies().get( 0 ).getName(), observableValue.getName() );
     assertUnmodifiable( info.getDependencies() );
 
     assertEquals( info.getValue(), initialValue );

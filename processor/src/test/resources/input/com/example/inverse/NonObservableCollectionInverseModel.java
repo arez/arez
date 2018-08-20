@@ -10,7 +10,7 @@ import java.util.Collection;
 @ArezComponent
 abstract class NonObservableCollectionInverseModel
 {
-  //No explicit @Observable
+  //No explicit @ObservableValue
   @Inverse
   abstract Collection<Element> getElements();
 

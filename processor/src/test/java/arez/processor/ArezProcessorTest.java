@@ -808,7 +808,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observable_ref.BadNameModel2",
                       "@ObservableRef target specified an invalid name 'const'. The name must not be a java keyword." },
         new Object[]{ "com.example.observable_ref.BadReturnTypeModel",
-                      "Method annotated with @ObservableRef must return an instance of arez.Observable" },
+                      "Method annotated with @ObservableRef must return an instance of arez.ObservableValue" },
         new Object[]{ "com.example.observable_ref.BadReturnTypeParameter2Model",
                       "@ObservableRef target has a type parameter of ? but @Observable method returns type of long" },
         new Object[]{ "com.example.observable_ref.BadReturnTypeParameterModel",

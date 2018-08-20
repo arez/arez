@@ -6,7 +6,7 @@ import arez.spy.ComputeCompletedEvent;
 import arez.spy.ComputeStartedEvent;
 import arez.spy.ComputedValueDeactivatedEvent;
 import arez.spy.ComputedValueDisposedEvent;
-import arez.spy.ObservableChangedEvent;
+import arez.spy.ObservableValueChangedEvent;
 import arez.spy.ObserverDisposedEvent;
 import arez.spy.ReactionCompletedEvent;
 import arez.spy.ReactionStartedEvent;
@@ -77,8 +77,8 @@ public class ObserverTest
 
     assertEquals( observer.isComputedValue(), true );
 
-    assertEquals( computedValue.getObservable().getName(), observer.getName() );
-    assertEquals( computedValue.getObservable().getOwner(), observer );
+    assertEquals( computedValue.getObservableValue().getName(), observer.getName() );
+    assertEquals( computedValue.getObservableValue().getOwner(), observer );
 
     assertEquals( computedValue.getName(), observer.getName() );
     assertEquals( computedValue.getObserver(), observer );
@@ -293,18 +293,18 @@ public class ObserverTest
     final Observer observer = newReadOnlyObserver();
     setCurrentTransaction( observer );
 
-    final Observable<?> observable = newObservable();
-    observer.getDependencies().add( observable );
+    final ObservableValue<?> observableValue = newObservable();
+    observer.getDependencies().add( observableValue );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> observer.invariantDependenciesBackLink( "TEST1" ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0090: TEST1: Observer named '" + observer.getName() + "' has dependency observable named '" +
-                  observable.getName() + "' which does not contain the observer in the list of observers." );
+                  "Arez-0090: TEST1: Observer named '" + observer.getName() + "' has ObservableValue dependency named '" +
+                  observableValue.getName() + "' which does not contain the observer in the list of observers." );
 
     //Setup correct back link
-    observable.addObserver( observer );
+    observableValue.addObserver( observer );
 
     // Back link created so should be good
     observer.invariantDependenciesBackLink( "TEST2" );
@@ -317,20 +317,20 @@ public class ObserverTest
     final Observer observer = newReadOnlyObserver();
     setCurrentTransaction( observer );
 
-    final Observable<?> observable = newObservable();
-    observer.getDependencies().add( observable );
-    observable.addObserver( observer );
+    final ObservableValue<?> observableValue = newObservable();
+    observer.getDependencies().add( observableValue );
+    observableValue.addObserver( observer );
 
-    observable.setWorkState( Observable.DISPOSED );
+    observableValue.setWorkState( ObservableValue.DISPOSED );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observer::invariantDependenciesNotDisposed );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0091: Observer named '" + observer.getName() + "' has dependency observable named '" +
-                  observable.getName() + "' which is disposed." );
+                  "Arez-0091: Observer named '" + observer.getName() + "' has ObservableValue dependency named '" +
+                  observableValue.getName() + "' which is disposed." );
 
-    observable.setWorkState( 0 );
+    observableValue.setWorkState( 0 );
 
     observer.invariantDependenciesNotDisposed();
   }
@@ -341,21 +341,21 @@ public class ObserverTest
   {
     final Observer observer = newReadOnlyObserver();
 
-    final Observable<?> observable = newObservable();
+    final ObservableValue<?> observableValue = newObservable();
 
-    observer.getDependencies().add( observable );
+    observer.getDependencies().add( observableValue );
 
     observer.invariantDependenciesUnique( "TEST1" );
 
     // Add a duplicate
-    observer.getDependencies().add( observable );
+    observer.getDependencies().add( observableValue );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> observer.invariantDependenciesUnique( "TEST2" ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0089: TEST2: The set of dependencies in observer named '" + observer.getName() +
-                  "' is not unique. Current list: '[" + observable.getName() + ", " + observable.getName() + "]'." );
+                  "' is not unique. Current list: '[" + observableValue.getName() + ", " + observableValue.getName() + "]'." );
   }
 
   @Test
@@ -366,15 +366,15 @@ public class ObserverTest
 
     observer.invariantState();
 
-    final Observable<?> observable = newObservable();
-    observer.getDependencies().add( observable );
+    final ObservableValue<?> observableValue = newObservable();
+    observer.getDependencies().add( observableValue );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observer::invariantState );
 
     assertEquals( exception.getMessage(),
                   "Arez-0092: Observer named '" + observer.getName() + "' is inactive " +
-                  "but still has dependencies: [" + observable.getName() + "]." );
+                  "but still has dependencies: [" + observableValue.getName() + "]." );
   }
 
   @Test
@@ -386,7 +386,7 @@ public class ObserverTest
 
     observer.invariantState();
 
-    setField( computedValue, "_observable", newObservable() );
+    setField( computedValue, "_observableValue", newObservable() );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observer::invariantState );
@@ -444,21 +444,21 @@ public class ObserverTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final ArrayList<Observable<?>> originalDependencies = observer.getDependencies();
+    final ArrayList<ObservableValue<?>> originalDependencies = observer.getDependencies();
 
     assertEquals( originalDependencies.isEmpty(), true );
 
-    final Observable<?> observable = newObservable();
+    final ObservableValue<?> observableValue = newObservable();
 
-    final ArrayList<Observable<?>> newDependencies = new ArrayList<>();
-    newDependencies.add( observable );
-    observable.addObserver( observer );
+    final ArrayList<ObservableValue<?>> newDependencies = new ArrayList<>();
+    newDependencies.add( observableValue );
+    observableValue.addObserver( observer );
 
     observer.replaceDependencies( newDependencies );
 
     assertEquals( observer.getDependencies().size(), 1 );
     assertTrue( observer.getDependencies() != originalDependencies );
-    assertTrue( observer.getDependencies().contains( observable ) );
+    assertTrue( observer.getDependencies().contains( observableValue ) );
   }
 
   @Test
@@ -470,16 +470,16 @@ public class ObserverTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final ArrayList<Observable<?>> originalDependencies = observer.getDependencies();
+    final ArrayList<ObservableValue<?>> originalDependencies = observer.getDependencies();
 
     assertEquals( originalDependencies.isEmpty(), true );
 
-    final Observable<?> observable = newObservable();
+    final ObservableValue<?> observableValue = newObservable();
 
-    final ArrayList<Observable<?>> newDependencies = new ArrayList<>();
-    newDependencies.add( observable );
-    newDependencies.add( observable );
-    observable.addObserver( observer );
+    final ArrayList<ObservableValue<?>> newDependencies = new ArrayList<>();
+    newDependencies.add( observableValue );
+    newDependencies.add( observableValue );
+    observableValue.addObserver( observer );
 
     assertThrows( () -> observer.replaceDependencies( newDependencies ) );
   }
@@ -493,14 +493,14 @@ public class ObserverTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final ArrayList<Observable<?>> originalDependencies = observer.getDependencies();
+    final ArrayList<ObservableValue<?>> originalDependencies = observer.getDependencies();
 
     assertEquals( originalDependencies.isEmpty(), true );
 
-    final Observable<?> observable = newObservable();
+    final ObservableValue<?> observableValue = newObservable();
 
-    final ArrayList<Observable<?>> newDependencies = new ArrayList<>();
-    newDependencies.add( observable );
+    final ArrayList<ObservableValue<?>> newDependencies = new ArrayList<>();
+    newDependencies.add( observableValue );
 
     assertThrows( () -> observer.replaceDependencies( newDependencies ) );
   }
@@ -514,23 +514,23 @@ public class ObserverTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable1 = newObservable();
-    final Observable<?> observable2 = newObservable();
+    final ObservableValue<?> observableValue1 = newObservable();
+    final ObservableValue<?> observableValue2 = newObservable();
 
-    observer.getDependencies().add( observable1 );
-    observer.getDependencies().add( observable2 );
-    observable1.addObserver( observer );
-    observable2.addObserver( observer );
+    observer.getDependencies().add( observableValue1 );
+    observer.getDependencies().add( observableValue2 );
+    observableValue1.addObserver( observer );
+    observableValue2.addObserver( observer );
 
     assertEquals( observer.getDependencies().size(), 2 );
-    assertEquals( observable1.getObservers().size(), 1 );
-    assertEquals( observable2.getObservers().size(), 1 );
+    assertEquals( observableValue1.getObservers().size(), 1 );
+    assertEquals( observableValue2.getObservers().size(), 1 );
 
     observer.clearDependencies();
 
     assertEquals( observer.getDependencies().size(), 0 );
-    assertEquals( observable1.getObservers().size(), 0 );
-    assertEquals( observable2.getObservers().size(), 0 );
+    assertEquals( observableValue1.getObservers().size(), 0 );
+    assertEquals( observableValue2.getObservers().size(), 0 );
   }
 
   @Test
@@ -630,25 +630,25 @@ public class ObserverTest
     assertEquals( observer.getState(), ObserverState.STALE );
     assertEquals( observer.isScheduled(), true );
 
-    final Observable<?> observable1 = newObservable();
-    final Observable<?> observable2 = newObservable();
+    final ObservableValue<?> observableValue1 = newObservable();
+    final ObservableValue<?> observableValue2 = newObservable();
 
-    observer.getDependencies().add( observable1 );
-    observer.getDependencies().add( observable2 );
-    observable1.addObserver( observer );
-    observable2.addObserver( observer );
+    observer.getDependencies().add( observableValue1 );
+    observer.getDependencies().add( observableValue2 );
+    observableValue1.addObserver( observer );
+    observableValue2.addObserver( observer );
 
     assertEquals( observer.getDependencies().size(), 2 );
-    assertEquals( observable1.getObservers().size(), 1 );
-    assertEquals( observable2.getObservers().size(), 1 );
+    assertEquals( observableValue1.getObservers().size(), 1 );
+    assertEquals( observableValue2.getObservers().size(), 1 );
 
     observer.setState( ObserverState.INACTIVE );
 
     assertEquals( observer.getState(), ObserverState.INACTIVE );
 
     assertEquals( observer.getDependencies().size(), 0 );
-    assertEquals( observable1.getObservers().size(), 0 );
-    assertEquals( observable2.getObservers().size(), 0 );
+    assertEquals( observableValue1.getObservers().size(), 0 );
+    assertEquals( observableValue2.getObservers().size(), 0 );
   }
 
   @Test
@@ -693,25 +693,25 @@ public class ObserverTest
     assertEquals( observer.getState(), ObserverState.STALE );
     assertEquals( observer.isScheduled(), false );
 
-    final Observable<?> observable1 = newObservable();
-    final Observable<?> observable2 = newObservable();
+    final ObservableValue<?> observableValue1 = newObservable();
+    final ObservableValue<?> observableValue2 = newObservable();
 
-    observer.getDependencies().add( observable1 );
-    observer.getDependencies().add( observable2 );
-    observable1.addObserver( observer );
-    observable2.addObserver( observer );
+    observer.getDependencies().add( observableValue1 );
+    observer.getDependencies().add( observableValue2 );
+    observableValue1.addObserver( observer );
+    observableValue2.addObserver( observer );
 
     assertEquals( observer.getDependencies().size(), 2 );
-    assertEquals( observable1.getObservers().size(), 1 );
-    assertEquals( observable2.getObservers().size(), 1 );
+    assertEquals( observableValue1.getObservers().size(), 1 );
+    assertEquals( observableValue2.getObservers().size(), 1 );
 
     observer.setState( ObserverState.INACTIVE, false );
 
     assertEquals( observer.getState(), ObserverState.INACTIVE );
 
     assertEquals( observer.getDependencies().size(), 0 );
-    assertEquals( observable1.getObservers().size(), 0 );
-    assertEquals( observable2.getObservers().size(), 0 );
+    assertEquals( observableValue1.getObservers().size(), 0 );
+    assertEquals( observableValue2.getObservers().size(), 0 );
   }
 
   @Test
@@ -721,7 +721,7 @@ public class ObserverTest
     setupReadWriteTransaction();
 
     final ComputedValue<String> computedValue = newComputedValue();
-    final Observable<String> derivedValue = computedValue.getObservable();
+    final ObservableValue<String> derivedValue = computedValue.getObservableValue();
     final Observer observer = computedValue.getObserver();
 
     final Observer watcher = ensureDerivationHasObserver( observer );
@@ -927,25 +927,25 @@ public class ObserverTest
     setCurrentTransaction( observer );
     observer.setState( ObserverState.STALE );
 
-    final Observable<?> observable = newObservable();
-    observable.setLeastStaleObserverState( ObserverState.STALE );
-    observable.getObservers().add( observer );
-    observer.getDependencies().add( observable );
+    final ObservableValue<?> observableValue = newObservable();
+    observableValue.setLeastStaleObserverState( ObserverState.STALE );
+    observableValue.getObservers().add( observer );
+    observer.getDependencies().add( observableValue );
 
     Transaction.setTransaction( null );
 
     assertEquals( observer.getState(), ObserverState.STALE );
     assertEquals( observer.isNotDisposed(), true );
     assertEquals( observer.isDisposed(), false );
-    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( observableValue.getObservers().size(), 1 );
 
     observer.dispose();
 
     assertEquals( observer.getState(), ObserverState.DISPOSED );
     assertEquals( observer.isNotDisposed(), false );
     assertEquals( observer.isDisposed(), true );
-    assertEquals( observable.getObservers().size(), 0 );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getObservers().size(), 0 );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     final ArezContext context = Arez.context();
 
@@ -1012,7 +1012,7 @@ public class ObserverTest
   {
     final Observer observer = newComputedValueObserver();
     final ComputedValue<?> computedValue = observer.getComputedValue();
-    final Observable<?> derivedValue = computedValue.getObservable();
+    final ObservableValue<?> derivedValue = computedValue.getObservableValue();
     setCurrentTransaction( observer );
     observer.setState( ObserverState.UP_TO_DATE );
 
@@ -1044,10 +1044,10 @@ public class ObserverTest
     handler.assertNextEvent( ActionCompletedEvent.class );
     handler.assertNextEvent( ComputedValueDisposedEvent.class );
 
-    // This is the part that disposes the associated Observable
+    // This is the part that disposes the associated ObservableValue
     handler.assertNextEvent( ActionStartedEvent.class );
     handler.assertNextEvent( TransactionStartedEvent.class );
-    handler.assertNextEvent( ObservableChangedEvent.class );
+    handler.assertNextEvent( ObservableValueChangedEvent.class );
     handler.assertNextEvent( TransactionCompletedEvent.class );
     handler.assertNextEvent( ActionCompletedEvent.class );
   }
@@ -1091,10 +1091,10 @@ public class ObserverTest
     handler.assertNextEvent( ActionCompletedEvent.class );
     handler.assertNextEvent( ComputedValueDisposedEvent.class );
 
-    // This is the part that disposes the associated Observable
+    // This is the part that disposes the associated ObservableValue
     handler.assertNextEvent( ActionStartedEvent.class );
     handler.assertNextEvent( TransactionStartedEvent.class );
-    handler.assertNextEvent( ObservableChangedEvent.class );
+    handler.assertNextEvent( ObservableValueChangedEvent.class );
     handler.assertNextEvent( TransactionCompletedEvent.class );
     handler.assertNextEvent( ActionCompletedEvent.class );
 
@@ -1141,29 +1141,29 @@ public class ObserverTest
   {
     final Observer observer = newReadOnlyObserver();
 
-    final Observable<?> observable1 = newObservable();
-    final Observable<?> observable2 = newObservable();
-    final Observable<?> observable3 = newObservable();
+    final ObservableValue<?> observableValue1 = newObservable();
+    final ObservableValue<?> observableValue2 = newObservable();
+    final ObservableValue<?> observableValue3 = newObservable();
 
-    observer.getDependencies().add( observable1 );
-    observer.getDependencies().add( observable2 );
-    observer.getDependencies().add( observable3 );
+    observer.getDependencies().add( observableValue1 );
+    observer.getDependencies().add( observableValue2 );
+    observer.getDependencies().add( observableValue3 );
 
     setCurrentTransaction( observer );
 
-    observable1.addObserver( observer );
-    observable2.addObserver( observer );
-    observable3.addObserver( observer );
+    observableValue1.addObserver( observer );
+    observableValue2.addObserver( observer );
+    observableValue3.addObserver( observer );
 
-    observable1.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
-    observable2.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
-    observable3.setLeastStaleObserverState( ObserverState.STALE );
+    observableValue1.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue2.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    observableValue3.setLeastStaleObserverState( ObserverState.STALE );
 
     observer.markDependenciesLeastStaleObserverAsUpToDate();
 
-    assertEquals( observable1.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observable2.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observable3.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue1.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue2.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue3.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
@@ -1238,12 +1238,12 @@ public class ObserverTest
   public void invokeReaction_ComputedValue_SpyEventHandlerPresent()
     throws Exception
   {
-    final Observable<Object> observable = Arez.context().observable();
+    final ObservableValue<Object> observableValue = Arez.context().observable();
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     Arez.context().getSpy().addSpyEventHandler( handler );
 
     final SafeFunction<Integer> function = () -> {
-      observable.reportObserved();
+      observableValue.reportObserved();
       return 1;
     };
     final ComputedValue<Integer> computedValue =
@@ -1259,8 +1259,8 @@ public class ObserverTest
     }
     handler.assertEvent( TransactionStartedEvent.class, 1 );
     {
-      final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 2 );
-      assertEquals( event.getObservable().getName(), computedValue.getObservable().getName() );
+      final ObservableValueChangedEvent event = handler.assertEvent( ObservableValueChangedEvent.class, 2 );
+      assertEquals( event.getObservable().getName(), computedValue.getObservableValue().getName() );
     }
     handler.assertEvent( ComputedValueDeactivatedEvent.class, 3 );
     handler.assertEvent( TransactionCompletedEvent.class, 4 );
@@ -1431,8 +1431,8 @@ public class ObserverTest
     final ComputedValue<String> computedValue2 =
       new ComputedValue<>( context, null, ValueUtil.randomString(), function2, Priority.NORMAL, false, false );
 
-    observer.getDependencies().add( computedValue2.getObservable() );
-    computedValue2.getObservable().addObserver( observer );
+    observer.getDependencies().add( computedValue2.getObservableValue() );
+    computedValue2.getObservableValue().addObserver( observer );
 
     // Set it to something random so it will change
     computedValue2.setValue( ValueUtil.randomString() );
@@ -1468,8 +1468,8 @@ public class ObserverTest
     final ComputedValue<String> computedValue2 =
       new ComputedValue<>( context, null, ValueUtil.randomString(), function, Priority.NORMAL, false, false );
 
-    observer.getDependencies().add( computedValue2.getObservable() );
-    computedValue2.getObservable().addObserver( observer );
+    observer.getDependencies().add( computedValue2.getObservableValue() );
+    computedValue2.getObservableValue().addObserver( observer );
 
     // Set it to something random so it will change
     computedValue2.setValue( ValueUtil.randomString() );
@@ -1504,8 +1504,8 @@ public class ObserverTest
     final ComputedValue<String> computedValue2 =
       new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), function, Priority.NORMAL, false, false );
 
-    observer.getDependencies().add( computedValue2.getObservable() );
-    computedValue2.getObservable().addObserver( observer );
+    observer.getDependencies().add( computedValue2.getObservableValue() );
+    computedValue2.getObservableValue().addObserver( observer );
 
     // Set it as state error so should not trigger a change in container
     computedValue2.setError( new IllegalStateException() );
@@ -1534,8 +1534,8 @@ public class ObserverTest
     final ComputedValue<String> computedValue2 =
       new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), function, Priority.NORMAL, false, false );
 
-    observer.getDependencies().add( computedValue2.getObservable() );
-    computedValue2.getObservable().addObserver( observer );
+    observer.getDependencies().add( computedValue2.getObservableValue() );
+    computedValue2.getObservableValue().addObserver( observer );
 
     // Set it to same so no change
     computedValue2.setValue( "" );
@@ -1561,9 +1561,9 @@ public class ObserverTest
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 
-    final Observable<?> observable = newObservable();
-    observer.getDependencies().add( observable );
-    observable.addObserver( observer );
+    final ObservableValue<?> observableValue = newObservable();
+    observer.getDependencies().add( observableValue );
+    observableValue.addObserver( observer );
 
     assertEquals( observer.shouldCompute(), false );
   }

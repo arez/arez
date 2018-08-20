@@ -8,7 +8,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObservableInfoImplTest
+public class ObservableValueInfoImplTest
   extends AbstractArezTest
 {
   @Test
@@ -17,10 +17,10 @@ public class ObservableInfoImplTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final Observable<Object> observable = context.observable( name );
-    final Observer observer = context.autorun( observable::reportObserved );
+    final ObservableValue<Object> observableValue = context.observable( name );
+    final Observer observer = context.autorun( observableValue::reportObserved );
 
-    final ObservableInfoImpl info = new ObservableInfoImpl( context.getSpy(), observable );
+    final ObservableValueInfoImpl info = new ObservableValueInfoImpl( context.getSpy(), observableValue );
 
     assertEquals( info.getComponent(), null );
     assertEquals( info.getName(), name );
@@ -36,10 +36,10 @@ public class ObservableInfoImplTest
     assertEquals( info.isComputedValue(), false );
     assertEquals( info.isDisposed(), false );
 
-    // Dispose observer to avoid accessing observable when it is disposed
+    // Dispose observer to avoid accessing observableValue when it is disposed
     observer.dispose();
 
-    observable.dispose();
+    observableValue.dispose();
 
     assertEquals( info.isDisposed(), true );
   }
@@ -54,10 +54,10 @@ public class ObservableInfoImplTest
     final AtomicReference<String> value = new AtomicReference<>();
     String initialValue = ValueUtil.randomString();
     value.set( initialValue );
-    final Observable<String> observable = context.observable( component, name, value::get, value::set );
-    final Observer observer = context.autorun( observable::reportObserved );
+    final ObservableValue<String> observableValue = context.observable( component, name, value::get, value::set );
+    final Observer observer = context.autorun( observableValue::reportObserved );
 
-    final ObservableInfoImpl info = new ObservableInfoImpl( context.getSpy(), observable );
+    final ObservableValueInfoImpl info = new ObservableValueInfoImpl( context.getSpy(), observableValue );
 
     final ComponentInfo componentInfo = info.getComponent();
     assertNotNull( componentInfo );
@@ -81,10 +81,10 @@ public class ObservableInfoImplTest
     assertEquals( info.isComputedValue(), false );
     assertEquals( info.isDisposed(), false );
 
-    // Dispose observer to avoid accessing observable when it is disposed
+    // Dispose observer to avoid accessing observableValue when it is disposed
     observer.dispose();
 
-    observable.dispose();
+    observableValue.dispose();
 
     assertEquals( info.isDisposed(), true );
   }
@@ -97,9 +97,9 @@ public class ObservableInfoImplTest
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue = context.computed( name, () -> "" );
 
-    final Observable<String> observable = computedValue.getObservable();
+    final ObservableValue<String> observableValue = computedValue.getObservableValue();
 
-    final ObservableInfoImpl info = new ObservableInfoImpl( context.getSpy(), observable );
+    final ObservableValueInfoImpl info = new ObservableValueInfoImpl( context.getSpy(), observableValue );
 
     assertEquals( info.getName(), name );
 
@@ -113,12 +113,12 @@ public class ObservableInfoImplTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observable<Object> observable1 = context.observable();
-    final Observable<Object> observable2 = context.observable();
+    final ObservableValue<Object> observableValue1 = context.observable();
+    final ObservableValue<Object> observableValue2 = context.observable();
 
-    final ObservableInfoImpl info1a = new ObservableInfoImpl( context.getSpy(), observable1 );
-    final ObservableInfoImpl info1b = new ObservableInfoImpl( context.getSpy(), observable1 );
-    final ObservableInfoImpl info2 = new ObservableInfoImpl( context.getSpy(), observable2 );
+    final ObservableValueInfoImpl info1a = new ObservableValueInfoImpl( context.getSpy(), observableValue1 );
+    final ObservableValueInfoImpl info1b = new ObservableValueInfoImpl( context.getSpy(), observableValue1 );
+    final ObservableValueInfoImpl info2 = new ObservableValueInfoImpl( context.getSpy(), observableValue2 );
 
     //noinspection EqualsBetweenInconvertibleTypes
     assertEquals( info1a.equals( "" ), false );
@@ -135,9 +135,9 @@ public class ObservableInfoImplTest
     assertEquals( info2.equals( info1b ), false );
     assertEquals( info2.equals( info2 ), true );
 
-    assertEquals( info1a.hashCode(), observable1.hashCode() );
+    assertEquals( info1a.hashCode(), observableValue1.hashCode() );
     assertEquals( info1a.hashCode(), info1b.hashCode() );
-    assertEquals( info2.hashCode(), observable2.hashCode() );
+    assertEquals( info2.hashCode(), observableValue2.hashCode() );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> collection )

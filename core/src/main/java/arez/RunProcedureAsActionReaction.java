@@ -29,12 +29,12 @@ final class RunProcedureAsActionReaction
         _action.call();
         final Transaction current = Transaction.current();
 
-        final ArrayList<Observable<?>> observables = current.getObservables();
+        final ArrayList<ObservableValue<?>> observableValues = current.getObservableValues();
         invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
-                         ( null != observables && !observables.isEmpty() ),
+                         ( null != observableValues && !observableValues.isEmpty() ),
                    () -> "Arez-0172: Autorun observer named '" + observer.getName() + "' completed " +
-                         "reaction but is not observing any observables and thus will never be rescheduled. " +
-                         "This may not be an autorun candidate." );
+                         "reaction but is not observing any properties. As a result the observer will never " +
+                         "be rescheduled. This may not be an autorun candidate." );
       };
     }
     else

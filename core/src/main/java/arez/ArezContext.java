@@ -4,7 +4,7 @@ import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
 import arez.spy.ComponentCreateStartedEvent;
 import arez.spy.ComputedValueCreatedEvent;
-import arez.spy.ObservableCreatedEvent;
+import arez.spy.ObservableValueCreatedEvent;
 import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverErrorEvent;
 import arez.spy.PropertyAccessor;
@@ -34,7 +34,7 @@ public final class ArezContext
   /**
    * Id of next transaction to be created.
    *
-   * This needs to start at 1 as {@link Observable#NOT_IN_CURRENT_TRACKING} is used
+   * This needs to start at 1 as {@link ObservableValue#NOT_IN_CURRENT_TRACKING} is used
    * to optimize dependency tracking in transactions.
    */
   private int _nextTransactionId = 1;
@@ -65,7 +65,7 @@ public final class ArezContext
    * These are all the Observables instances not contained within a component.
    */
   @Nullable
-  private final HashMap<String, Observable<?>> _observables = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
+  private final HashMap<String, ObservableValue<?>> _observables = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
    * Registry of top level computed values.
    * These are all the ComputedValue instances not contained within a component.
@@ -1032,107 +1032,107 @@ public final class ArezContext
   }
 
   /**
-   * Create an Observable synthesizing name if required.
+   * Create an ObservableValue synthesizing name if required.
    *
    * @param <T> the type of observable.
-   * @return the new Observable.
+   * @return the new ObservableValue.
    */
   @Nonnull
-  public <T> Observable<T> observable()
+  public <T> ObservableValue<T> observable()
   {
     return observable( null );
   }
 
   /**
-   * Create an Observable with the specified name.
+   * Create an ObservableValue with the specified name.
    *
-   * @param name the name of the Observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param name the name of the ObservableValue. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param <T>  the type of observable.
-   * @return the new Observable.
+   * @return the new ObservableValue.
    */
   @Nonnull
-  public <T> Observable<T> observable( @Nullable final String name )
+  public <T> ObservableValue<T> observable( @Nullable final String name )
   {
     return observable( name, null, null );
   }
 
   /**
-   * Create an Observable.
+   * Create an ObservableValue.
    *
    * @param name     the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param accessor the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @param mutator  the mutator for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @param <T>      the type of observable.
-   * @return the new Observable.
+   * @return the new ObservableValue.
    */
   @Nonnull
-  public <T> Observable<T> observable( @Nullable final String name,
-                                       @Nullable final PropertyAccessor<T> accessor,
-                                       @Nullable final PropertyMutator<T> mutator )
+  public <T> ObservableValue<T> observable( @Nullable final String name,
+                                            @Nullable final PropertyAccessor<T> accessor,
+                                            @Nullable final PropertyMutator<T> mutator )
   {
     return observable( null, name, accessor, mutator );
   }
 
   /**
-   * Create an Observable.
+   * Create an ObservableValue.
    *
    * @param <T>       The type of the value that is observable.
    * @param component the component containing observable if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name      the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
-   * @return the new Observable.
+   * @return the new ObservableValue.
    */
   @Nonnull
-  public <T> Observable<T> observable( @Nullable final Component component,
-                                       @Nullable final String name )
+  public <T> ObservableValue<T> observable( @Nullable final Component component,
+                                            @Nullable final String name )
   {
     return observable( component, name, null );
   }
 
   /**
-   * Create an Observable.
+   * Create an ObservableValue.
    *
    * @param <T>       The type of the value that is observable.
    * @param component the component containing observable if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name      the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param accessor  the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
-   * @return the new Observable.
+   * @return the new ObservableValue.
    */
   @Nonnull
-  public <T> Observable<T> observable( @Nullable final Component component,
-                                       @Nullable final String name,
-                                       @Nullable final PropertyAccessor<T> accessor )
+  public <T> ObservableValue<T> observable( @Nullable final Component component,
+                                            @Nullable final String name,
+                                            @Nullable final PropertyAccessor<T> accessor )
   {
     return observable( component, name, accessor, null );
   }
 
   /**
-   * Create an Observable.
+   * Create an ObservableValue.
    *
    * @param <T>       The type of the value that is observable.
    * @param component the component containing observable if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name      the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param accessor  the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @param mutator   the mutator for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
-   * @return the new Observable.
+   * @return the new ObservableValue.
    */
   @Nonnull
-  public <T> Observable<T> observable( @Nullable final Component component,
-                                       @Nullable final String name,
-                                       @Nullable final PropertyAccessor<T> accessor,
-                                       @Nullable final PropertyMutator<T> mutator )
+  public <T> ObservableValue<T> observable( @Nullable final Component component,
+                                            @Nullable final String name,
+                                            @Nullable final PropertyAccessor<T> accessor,
+                                            @Nullable final PropertyMutator<T> mutator )
   {
-    final Observable<T> observable =
-      new Observable<>( Arez.areZonesEnabled() ? this : null,
-                        component,
-                        generateNodeName( "Observable", name ),
-                        null,
-                        accessor,
-                        mutator );
+    final ObservableValue<T> observableValue =
+      new ObservableValue<>( Arez.areZonesEnabled() ? this : null,
+                             component,
+                             generateNodeName( "ObservableValue", name ),
+                             null,
+                             accessor,
+                             mutator );
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ObservableCreatedEvent( new ObservableInfoImpl( getSpy(), observable ) ) );
+      getSpy().reportSpyEvent( new ObservableValueCreatedEvent( new ObservableValueInfoImpl( getSpy(), observableValue ) ) );
     }
-    return observable;
+    return observableValue;
   }
 
   /**
@@ -2543,40 +2543,40 @@ public final class ArezContext
            null;
   }
 
-  void registerObservable( @Nonnull final Observable observable )
+  void registerObservableValue( @Nonnull final ObservableValue observableValue )
   {
-    final String name = observable.getName();
+    final String name = observableValue.getName();
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( Arez::areRegistriesEnabled,
-                 () -> "Arez-0022: ArezContext.registerObservable invoked when Arez.areRegistriesEnabled() returns false." );
+                 () -> "Arez-0022: ArezContext.registerObservableValue invoked when Arez.areRegistriesEnabled() returns false." );
       assert null != _observables;
       invariant( () -> !_observables.containsKey( name ),
-                 () -> "Arez-0023: ArezContext.registerObservable invoked with observable named '" + name +
-                       "' but an existing observable with that name is already registered." );
+                 () -> "Arez-0023: ArezContext.registerObservableValue invoked with observableValue named '" + name +
+                       "' but an existing observableValue with that name is already registered." );
     }
     assert null != _observables;
-    _observables.put( name, observable );
+    _observables.put( name, observableValue );
   }
 
-  void deregisterObservable( @Nonnull final Observable observable )
+  void deregisterObservableValue( @Nonnull final ObservableValue observableValue )
   {
-    final String name = observable.getName();
+    final String name = observableValue.getName();
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( Arez::areRegistriesEnabled,
-                 () -> "Arez-0024: ArezContext.deregisterObservable invoked when Arez.areRegistriesEnabled() returns false." );
+                 () -> "Arez-0024: ArezContext.deregisterObservableValue invoked when Arez.areRegistriesEnabled() returns false." );
       assert null != _observables;
       invariant( () -> _observables.containsKey( name ),
-                 () -> "Arez-0025: ArezContext.deregisterObservable invoked with observable named '" + name +
-                       "' but no observable with that name is registered." );
+                 () -> "Arez-0025: ArezContext.deregisterObservableValue invoked with observableValue named '" + name +
+                       "' but no observableValue with that name is registered." );
     }
     assert null != _observables;
     _observables.remove( name );
   }
 
   @Nonnull
-  HashMap<String, Observable<?>> getTopLevelObservables()
+  HashMap<String, ObservableValue<?>> getTopLevelObservables()
   {
     if ( Arez.shouldCheckInvariants() )
     {

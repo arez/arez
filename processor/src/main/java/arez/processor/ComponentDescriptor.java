@@ -422,10 +422,10 @@ final class ComponentDescriptor
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
-         !toRawType( returnType ).toString().equals( "arez.Observable" ) )
+         !toRawType( returnType ).toString().equals( "arez.ObservableValue" ) )
     {
       throw new ArezProcessorException( "Method annotated with @ObservableRef must return an instance of " +
-                                        "arez.Observable", method );
+                                        "arez.ObservableValue", method );
     }
 
     final String declaredName = getAnnotationParameter( annotation, "name" );

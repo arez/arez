@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -32,7 +32,7 @@ final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicity
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<ZeroOrOneMultiplicityInverseModel.Element> $$arez$$_element;
+  private final ObservableValue<ZeroOrOneMultiplicityInverseModel.Element> $$arez$$_element;
 
   private ZeroOrOneMultiplicityInverseModel.Element $$arezd$$_element;
 

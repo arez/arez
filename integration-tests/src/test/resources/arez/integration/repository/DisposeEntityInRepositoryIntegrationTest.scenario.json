@@ -32,7 +32,7 @@
     },
     {
         "observable": "TestComponent.1.isDisposed",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -54,7 +54,7 @@
     },
     {
         "observable": "TestComponent.1.isDisposed",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "action": "TestComponent.1.value.dispose",
@@ -71,7 +71,7 @@
     },
     {
         "observable": "TestComponent.1.value",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "S1"
     },
     {
@@ -93,7 +93,7 @@
     },
     {
         "observable": "TestComponent.1.value",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,

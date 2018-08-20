@@ -5,7 +5,7 @@ import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
 import arez.spy.ComponentCreateStartedEvent;
 import arez.spy.ComputedValueCreatedEvent;
-import arez.spy.ObservableCreatedEvent;
+import arez.spy.ObservableValueCreatedEvent;
 import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverErrorEvent;
 import arez.spy.ObserverInfo;
@@ -144,8 +144,8 @@ public class ArezContextTest
 
     final Observer observer =
       context.autorun( ValueUtil.randomString(), false, () -> {
-        final Observable<Object> observable = Arez.context().observable();
-        observable.reportObserved();
+        final ObservableValue<Object> observableValue = Arez.context().observable();
+        observableValue.reportObserved();
         callCount.incrementAndGet();
         assertEquals( environment.get(), "RED" );
 
@@ -402,8 +402,8 @@ public class ArezContextTest
 
     final String expectedValue = ValueUtil.randomString();
 
-    final Observable<?> observable = newObservable( context );
-    assertEquals( observable.getObservers().size(), 0 );
+    final ObservableValue<?> observableValue = newObservable( context );
+    assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
@@ -426,14 +426,14 @@ public class ArezContextTest
         assertEquals( transaction.getId(), nextNodeId );
         assertEquals( transaction.getMode(), TransactionMode.READ_ONLY );
 
-        assertEquals( observable.getObservers().size(), 0 );
-        assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+        assertEquals( observableValue.getObservers().size(), 0 );
+        assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
 
-        observable.reportObserved();
+        observableValue.reportObserved();
 
         //Not tracking so no state updated
-        assertEquals( observable.getObservers().size(), 0 );
-        assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+        assertEquals( observableValue.getObservers().size(), 0 );
+        assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
 
         return expectedValue;
       }, param1, param2, param3 );
@@ -442,9 +442,9 @@ public class ArezContextTest
 
     assertEquals( v0, expectedValue );
 
-    //Observable still not updated
-    assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
-    assertEquals( observable.getObservers().size(), 0 );
+    //ObservableValue still not updated
+    assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
+    assertEquals( observableValue.getObservers().size(), 0 );
 
     handler.assertEventCount( 4 );
 
@@ -740,7 +740,7 @@ public class ArezContextTest
 
     final String expectedValue = ValueUtil.randomString();
 
-    final Observable<Object> observable = context.observable();
+    final ObservableValue<Object> observableValue = context.observable();
     final int nextNodeId = context.getNextNodeId();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
@@ -748,7 +748,7 @@ public class ArezContextTest
 
     final String v0 =
       context.action( () -> {
-        observable.reportObserved();
+        observableValue.reportObserved();
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), "Transaction@" + nextNodeId );
@@ -804,8 +804,8 @@ public class ArezContextTest
 
     final Observer tracker = context.tracker( true, callCount::incrementAndGet );
 
-    final Observable<?> observable = newObservable( context );
-    assertEquals( observable.getObservers().size(), 0 );
+    final ObservableValue<?> observableValue = newObservable( context );
+    assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
 
@@ -823,17 +823,17 @@ public class ArezContextTest
         assertEquals( transaction.getName(), tracker.getName() );
         assertEquals( transaction.getMode(), tracker.getMode() );
 
-        assertEquals( observable.getObservers().size(), 0 );
-        assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+        assertEquals( observableValue.getObservers().size(), 0 );
+        assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
 
-        observable.reportObserved();
+        observableValue.reportObserved();
 
         // Tracking so state updated
-        final ArrayList<Observable<?>> observables = transaction.getObservables();
-        assertNotNull( observables );
-        assertEquals( observables.size(), 1 );
-        assertEquals( observable.getObservers().size(), 0 );
-        assertEquals( observable.getLastTrackerTransactionId(), nextNodeId );
+        final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+        assertNotNull( observableValues );
+        assertEquals( observableValues.size(), 1 );
+        assertEquals( observableValue.getObservers().size(), 0 );
+        assertEquals( observableValue.getLastTrackerTransactionId(), nextNodeId );
 
         return expectedValue;
       }, param1, param2, param3 );
@@ -843,17 +843,17 @@ public class ArezContextTest
 
     assertEquals( v0, expectedValue );
 
-    assertEquals( observable.getLastTrackerTransactionId(), 0 );
-    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( observableValue.getLastTrackerTransactionId(), 0 );
+    assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( tracker.getDependencies().size(), 1 );
 
     // Reaction not called as the function sets up initial tracking
     assertEquals( callCount.get(), 0 );
 
-    context.action( observable::reportChanged );
+    context.action( observableValue::reportChanged );
 
     assertEquals( callCount.get(), 1 );
-    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( tracker.getDependencies().size(), 1 );
 
     handler.assertEventCount( 4 );
@@ -925,8 +925,8 @@ public class ArezContextTest
 
     final String expectedValue = ValueUtil.randomString();
 
-    final Observable<?> observable = newObservable( context );
-    assertEquals( observable.getObservers().size(), 0 );
+    final ObservableValue<?> observableValue = newObservable( context );
+    assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
@@ -949,14 +949,14 @@ public class ArezContextTest
         assertEquals( transaction.getId(), nextNodeId );
         assertEquals( transaction.getMode(), TransactionMode.READ_ONLY );
 
-        assertEquals( observable.getObservers().size(), 0 );
-        assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+        assertEquals( observableValue.getObservers().size(), 0 );
+        assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
 
-        observable.reportObserved();
+        observableValue.reportObserved();
 
         //Not tracking so no state updated
-        assertEquals( observable.getObservers().size(), 0 );
-        assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+        assertEquals( observableValue.getObservers().size(), 0 );
+        assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
 
         return expectedValue;
       }, param1, param2, param3 );
@@ -965,9 +965,9 @@ public class ArezContextTest
 
     assertEquals( v0, expectedValue );
 
-    //Observable still not updated
-    assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
-    assertEquals( observable.getObservers().size(), 0 );
+    //ObservableValue still not updated
+    assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
+    assertEquals( observableValue.getObservers().size(), 0 );
 
     handler.assertEventCount( 4 );
 
@@ -1134,8 +1134,8 @@ public class ArezContextTest
 
     final Observer tracker = context.tracker( callCount::incrementAndGet );
 
-    final Observable<?> observable = newObservable( context );
-    assertEquals( observable.getObservers().size(), 0 );
+    final ObservableValue<?> observableValue = newObservable( context );
+    assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
 
@@ -1146,17 +1146,17 @@ public class ArezContextTest
         assertEquals( transaction.getName(), tracker.getName() );
         assertEquals( transaction.getMode(), tracker.getMode() );
 
-        assertEquals( observable.getObservers().size(), 0 );
-        assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+        assertEquals( observableValue.getObservers().size(), 0 );
+        assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
 
-        observable.reportObserved();
+        observableValue.reportObserved();
 
         // Tracking so state updated
-        final ArrayList<Observable<?>> observables = transaction.getObservables();
-        assertNotNull( observables );
-        assertEquals( observables.size(), 1 );
-        assertEquals( observable.getObservers().size(), 0 );
-        assertEquals( observable.getLastTrackerTransactionId(), nextNodeId );
+        final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+        assertNotNull( observableValues );
+        assertEquals( observableValues.size(), 1 );
+        assertEquals( observableValue.getObservers().size(), 0 );
+        assertEquals( observableValue.getLastTrackerTransactionId(), nextNodeId );
 
         return expectedValue;
       } );
@@ -1165,17 +1165,17 @@ public class ArezContextTest
 
     assertEquals( v0, expectedValue );
 
-    assertEquals( observable.getLastTrackerTransactionId(), 0 );
-    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( observableValue.getLastTrackerTransactionId(), 0 );
+    assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( tracker.getDependencies().size(), 1 );
 
     // Reaction not called as the function sets up initial tracking
     assertEquals( callCount.get(), 0 );
 
-    context.action( observable::reportChanged );
+    context.action( observableValue::reportChanged );
 
     assertEquals( callCount.get(), 1 );
-    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( tracker.getDependencies().size(), 1 );
   }
 
@@ -1312,8 +1312,8 @@ public class ArezContextTest
 
     final Observer tracker = context.tracker( callCount::incrementAndGet );
 
-    final Observable<?> observable = newObservable( context );
-    assertEquals( observable.getObservers().size(), 0 );
+    final ObservableValue<?> observableValue = newObservable( context );
+    assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
 
@@ -1323,32 +1323,32 @@ public class ArezContextTest
       assertEquals( transaction.getName(), tracker.getName() );
       assertEquals( transaction.getMode(), tracker.getMode() );
 
-      assertEquals( observable.getObservers().size(), 0 );
-      assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+      assertEquals( observableValue.getObservers().size(), 0 );
+      assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
 
-      observable.reportObserved();
+      observableValue.reportObserved();
 
       // Tracking so state updated
-      final ArrayList<Observable<?>> observables = transaction.getObservables();
-      assertNotNull( observables );
-      assertEquals( observables.size(), 1 );
-      assertEquals( observable.getObservers().size(), 0 );
-      assertEquals( observable.getLastTrackerTransactionId(), nextNodeId );
+      final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      assertNotNull( observableValues );
+      assertEquals( observableValues.size(), 1 );
+      assertEquals( observableValue.getObservers().size(), 0 );
+      assertEquals( observableValue.getLastTrackerTransactionId(), nextNodeId );
     } );
 
     assertFalse( context.isTransactionActive() );
 
-    assertEquals( observable.getLastTrackerTransactionId(), 0 );
-    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( observableValue.getLastTrackerTransactionId(), 0 );
+    assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( tracker.getDependencies().size(), 1 );
 
     // Reaction not called as the function sets up initial tracking
     assertEquals( callCount.get(), 0 );
 
-    context.action( observable::reportChanged );
+    context.action( observableValue::reportChanged );
 
     assertEquals( callCount.get(), 1 );
-    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( tracker.getDependencies().size(), 1 );
   }
 
@@ -1433,8 +1433,8 @@ public class ArezContextTest
 
     final Observer tracker = context.tracker( callCount::incrementAndGet );
 
-    final Observable<?> observable = newObservable( context );
-    assertEquals( observable.getObservers().size(), 0 );
+    final ObservableValue<?> observableValue = newObservable( context );
+    assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
 
@@ -1444,32 +1444,32 @@ public class ArezContextTest
       assertEquals( transaction.getName(), tracker.getName() );
       assertEquals( transaction.getMode(), tracker.getMode() );
 
-      assertEquals( observable.getObservers().size(), 0 );
-      assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+      assertEquals( observableValue.getObservers().size(), 0 );
+      assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
 
-      observable.reportObserved();
+      observableValue.reportObserved();
 
       // Tracking so state updated
-      final ArrayList<Observable<?>> observables = transaction.getObservables();
-      assertNotNull( observables );
-      assertEquals( observables.size(), 1 );
-      assertEquals( observable.getObservers().size(), 0 );
-      assertEquals( observable.getLastTrackerTransactionId(), nextNodeId );
+      final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      assertNotNull( observableValues );
+      assertEquals( observableValues.size(), 1 );
+      assertEquals( observableValue.getObservers().size(), 0 );
+      assertEquals( observableValue.getLastTrackerTransactionId(), nextNodeId );
     } );
 
     assertFalse( context.isTransactionActive() );
 
-    assertEquals( observable.getLastTrackerTransactionId(), 0 );
-    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( observableValue.getLastTrackerTransactionId(), 0 );
+    assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( tracker.getDependencies().size(), 1 );
 
     // Reaction not called as the function sets up initial tracking
     assertEquals( callCount.get(), 0 );
 
-    context.action( observable::reportChanged );
+    context.action( observableValue::reportChanged );
 
     assertEquals( callCount.get(), 1 );
-    assertEquals( observable.getObservers().size(), 1 );
+    assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( tracker.getDependencies().size(), 1 );
   }
 
@@ -1483,8 +1483,8 @@ public class ArezContextTest
     assertThrowsWithMessage( context::getTransaction,
                              "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
-    final Observable<?> observable = newObservable( context );
-    assertEquals( observable.getObservers().size(), 0 );
+    final ObservableValue<?> observableValue = newObservable( context );
+    assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
@@ -1505,21 +1505,21 @@ public class ArezContextTest
       assertEquals( transaction.getContext(), context );
       assertEquals( transaction.getId(), nextNodeId );
 
-      assertEquals( observable.getObservers().size(), 0 );
-      assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+      assertEquals( observableValue.getObservers().size(), 0 );
+      assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
 
-      observable.reportObserved();
+      observableValue.reportObserved();
 
       //Not tracking so no state updated
-      assertEquals( observable.getObservers().size(), 0 );
-      assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+      assertEquals( observableValue.getObservers().size(), 0 );
+      assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
     }, param1, param2, param3 );
 
     assertFalse( context.isTransactionActive() );
 
-    //Observable still not updated
-    assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
-    assertEquals( observable.getObservers().size(), 0 );
+    //ObservableValue still not updated
+    assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
+    assertEquals( observableValue.getObservers().size(), 0 );
 
     handler.assertEventCount( 4 );
 
@@ -1570,8 +1570,8 @@ public class ArezContextTest
     assertThrowsWithMessage( context::getTransaction,
                              "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
-    final Observable<?> observable = newObservable( context );
-    assertEquals( observable.getObservers().size(), 0 );
+    final ObservableValue<?> observableValue = newObservable( context );
+    assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
     final String name = ValueUtil.randomString();
@@ -1580,14 +1580,14 @@ public class ArezContextTest
     final Object param2 = null;
     final int param3 = 3;
 
-    final Observable<Object> observable1 = Arez.context().observable();
+    final ObservableValue<Object> observableValue1 = Arez.context().observable();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
     final boolean mutation = false;
     context.action( name, mutation, () -> {
-      observable1.reportObserved();
+      observableValue1.reportObserved();
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
       assertEquals( transaction.getName(), name );
@@ -1595,21 +1595,21 @@ public class ArezContextTest
       assertEquals( transaction.getContext(), context );
       assertEquals( transaction.getId(), nextNodeId );
 
-      assertEquals( observable.getObservers().size(), 0 );
-      assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+      assertEquals( observableValue.getObservers().size(), 0 );
+      assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
 
-      observable.reportObserved();
+      observableValue.reportObserved();
 
       //Not tracking so no state updated
-      assertEquals( observable.getObservers().size(), 0 );
-      assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
+      assertEquals( observableValue.getObservers().size(), 0 );
+      assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
     }, param1, param2, param3 );
 
     assertFalse( context.isTransactionActive() );
 
-    //Observable still not updated
-    assertNotEquals( nextNodeId, observable.getLastTrackerTransactionId() );
-    assertEquals( observable.getObservers().size(), 0 );
+    //ObservableValue still not updated
+    assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
+    assertEquals( observableValue.getObservers().size(), 0 );
 
     handler.assertEventCount( 4 );
 
@@ -1667,14 +1667,14 @@ public class ArezContextTest
     final Object param2 = null;
     final int param3 = 3;
 
-    final Observable observable = Arez.context().observable();
+    final ObservableValue observableValue = Arez.context().observable();
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
     final boolean mutation = false;
     final Procedure procedure = () -> {
-      observable.reportObserved();
+      observableValue.reportObserved();
       throw ioException;
     };
     assertThrows( IOException.class, () -> context.action( name, mutation, procedure, param1, param2, param3 ) );
@@ -1981,7 +1981,7 @@ public class ArezContextTest
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.isKeepAlive(), false );
-    assertEquals( computedValue.getObservable().getName(), name );
+    assertEquals( computedValue.getObservableValue().getName(), name );
     assertEquals( computedValue.getOnActivate(), onActivate );
     assertEquals( computedValue.getOnDeactivate(), onDeactivate );
     assertEquals( computedValue.getOnStale(), onStale );
@@ -2107,7 +2107,7 @@ public class ArezContextTest
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.getObserver().getName(), name );
-    assertEquals( computedValue.getObservable().getName(), name );
+    assertEquals( computedValue.getObservableValue().getName(), name );
     assertEquals( computedValue.getOnActivate(), null );
     assertEquals( computedValue.getOnDeactivate(), null );
     assertEquals( computedValue.getOnStale(), null );
@@ -2132,7 +2132,7 @@ public class ArezContextTest
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.getObserver().getName(), name );
-    assertEquals( computedValue.getObservable().getName(), name );
+    assertEquals( computedValue.getObservableValue().getName(), name );
     assertEquals( computedValue.getOnActivate(), null );
     assertEquals( computedValue.getOnDeactivate(), null );
     assertEquals( computedValue.getOnStale(), null );
@@ -2233,7 +2233,7 @@ public class ArezContextTest
 
     assertEquals( getObserverErrors().size(), 1 );
     assertEquals( getObserverErrors().get( 0 ),
-                  "Observer: Observer@22 Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0172: Autorun observer named 'Observer@22' completed reaction but is not observing any observables and thus will never be rescheduled. This may not be an autorun candidate." );
+                  "Observer: Observer@22 Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0172: Autorun observer named 'Observer@22' completed reaction but is not observing any properties. As a result the observer will never be rescheduled. This may not be an autorun candidate." );
   }
 
   @Test
@@ -2309,14 +2309,14 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable<Object> observable = Arez.context().observable();
+    final ObservableValue<Object> observableValue = Arez.context().observable();
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
     final Observer observer = context.autorun( name, true, () -> {
-      observable.reportObserved();
+      observableValue.reportObserved();
       callCount.incrementAndGet();
     }, true );
 
@@ -2569,12 +2569,12 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     context.setNextNodeId( 22 );
-    final Observable<?> observable = context.observable();
+    final ObservableValue<?> observableValue = context.observable();
 
-    assertNotNull( observable.getName() );
-    assertEquals( observable.getName(), "Observable@22" );
-    assertNull( observable.getAccessor() );
-    assertNull( observable.getMutator() );
+    assertNotNull( observableValue.getName() );
+    assertEquals( observableValue.getName(), "ObservableValue@22" );
+    assertNull( observableValue.getAccessor() );
+    assertNull( observableValue.getMutator() );
   }
 
   @Test
@@ -2584,11 +2584,11 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
-    final Observable<?> observable = context.observable( name );
+    final ObservableValue<?> observableValue = context.observable( name );
 
-    assertEquals( observable.getName(), name );
-    assertEquals( observable.getAccessor(), null );
-    assertEquals( observable.getMutator(), null );
+    assertEquals( observableValue.getName(), name );
+    assertEquals( observableValue.getAccessor(), null );
+    assertEquals( observableValue.getMutator(), null );
   }
 
   @Test
@@ -2601,11 +2601,11 @@ public class ArezContextTest
     final PropertyAccessor<String> accessor = () -> "";
     final PropertyMutator<String> mutator = v -> {
     };
-    final Observable<?> observable = context.observable( name, accessor, mutator );
+    final ObservableValue<?> observableValue = context.observable( name, accessor, mutator );
 
-    assertEquals( observable.getName(), name );
-    assertEquals( observable.getAccessor(), accessor );
-    assertEquals( observable.getMutator(), mutator );
+    assertEquals( observableValue.getName(), name );
+    assertEquals( observableValue.getAccessor(), accessor );
+    assertEquals( observableValue.getMutator(), mutator );
   }
 
   @Test
@@ -2619,10 +2619,10 @@ public class ArezContextTest
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
-    final Observable<String> observable = context.observable( component, name );
+    final ObservableValue<String> observableValue = context.observable( component, name );
 
-    assertEquals( observable.getName(), name );
-    assertEquals( observable.getComponent(), component );
+    assertEquals( observableValue.getName(), name );
+    assertEquals( observableValue.getComponent(), component );
   }
 
   @Test
@@ -2635,12 +2635,12 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
-    final Observable<?> observable = context.observable( name );
+    final ObservableValue<?> observableValue = context.observable( name );
 
-    assertEquals( observable.getName(), name );
+    assertEquals( observableValue.getName(), name );
     handler.assertEventCount( 1 );
-    final ObservableCreatedEvent event = handler.assertEvent( ObservableCreatedEvent.class, 0 );
-    assertEquals( event.getObservable().getName(), observable.getName() );
+    final ObservableValueCreatedEvent event = handler.assertEvent( ObservableValueCreatedEvent.class, 0 );
+    assertEquals( event.getObservable().getName(), observableValue.getName() );
   }
 
   @Test
@@ -2651,9 +2651,9 @@ public class ArezContextTest
 
     final ArezContext context = Arez.context();
 
-    final Observable<?> observable = context.observable( null );
+    final ObservableValue<?> observableValue = context.observable( null );
 
-    assertNotNull( observable );
+    assertNotNull( observableValue );
   }
 
   @Test
@@ -2989,14 +2989,14 @@ public class ArezContextTest
 
     final ArezContext context = Arez.context();
 
-    final Observable<Object> observable = context.observable();
+    final ObservableValue<Object> observableValue = context.observable();
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = context.autorun( AbstractArezTest::observeADependency );
 
-    assertThrowsWithMessage( () -> context.registerObservable( observable ),
-                             "Arez-0022: ArezContext.registerObservable invoked when Arez.areRegistriesEnabled() returns false." );
-    assertThrowsWithMessage( () -> context.deregisterObservable( observable ),
-                             "Arez-0024: ArezContext.deregisterObservable invoked when Arez.areRegistriesEnabled() returns false." );
+    assertThrowsWithMessage( () -> context.registerObservableValue( observableValue ),
+                             "Arez-0022: ArezContext.registerObservableValue invoked when Arez.areRegistriesEnabled() returns false." );
+    assertThrowsWithMessage( () -> context.deregisterObservableValue( observableValue ),
+                             "Arez-0024: ArezContext.deregisterObservableValue invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( context::getTopLevelObservables,
                              "Arez-0026: ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false." );
     assertThrowsWithMessage( () -> context.registerObserver( observer ),
@@ -3018,23 +3018,23 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable<Object> observable = context.observable();
+    final ObservableValue<Object> observableValue = context.observable();
 
     assertEquals( context.getTopLevelObservables().size(), 1 );
-    assertEquals( context.getTopLevelObservables().get( observable.getName() ), observable );
+    assertEquals( context.getTopLevelObservables().get( observableValue.getName() ), observableValue );
 
-    assertThrowsWithMessage( () -> context.registerObservable( observable ),
-                             "Arez-0023: ArezContext.registerObservable invoked with observable named '" +
-                             observable.getName() + "' but an existing observable with that name is " +
+    assertThrowsWithMessage( () -> context.registerObservableValue( observableValue ),
+                             "Arez-0023: ArezContext.registerObservableValue invoked with observableValue named '" +
+                             observableValue.getName() + "' but an existing observableValue with that name is " +
                              "already registered." );
 
     assertEquals( context.getTopLevelObservables().size(), 1 );
     context.getTopLevelObservables().clear();
     assertEquals( context.getTopLevelObservables().size(), 0 );
 
-    assertThrowsWithMessage( () -> context.deregisterObservable( observable ),
-                             "Arez-0025: ArezContext.deregisterObservable invoked with observable named '" +
-                             observable.getName() + "' but no observable with that name is registered." );
+    assertThrowsWithMessage( () -> context.deregisterObservableValue( observableValue ),
+                             "Arez-0025: ArezContext.deregisterObservableValue invoked with observableValue named '" +
+                             observableValue.getName() + "' but no observableValue with that name is registered." );
   }
 
   @Test

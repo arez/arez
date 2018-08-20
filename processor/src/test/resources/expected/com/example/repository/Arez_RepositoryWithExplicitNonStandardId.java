@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -25,12 +25,12 @@ final class Arez_RepositoryWithExplicitNonStandardId extends RepositoryWithExpli
 
   private final Component $$arezi$$_component;
 
-  private final Observable<Boolean> $$arezi$$_disposedObservable;
+  private final ObservableValue<Boolean> $$arezi$$_disposedObservable;
 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<String> $$arez$$_name;
+  private final ObservableValue<String> $$arez$$_name;
 
   Arez_RepositoryWithExplicitNonStandardId(@Nonnull final String packageName,
       @Nonnull final String name) {

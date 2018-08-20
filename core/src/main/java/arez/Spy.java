@@ -2,7 +2,7 @@ package arez;
 
 import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
-import arez.spy.ObservableInfo;
+import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.TransactionInfo;
 import java.util.Collection;
@@ -102,34 +102,34 @@ public interface Spy
    * @return the list of dependencies for ComputedValue.
    */
   @Nonnull
-  List<ObservableInfo> getDependencies( @Nonnull ComputedValue<?> computedValue );
+  List<ObservableValueInfo> getDependencies( @Nonnull ComputedValue<?> computedValue );
 
   /**
-   * Return true if the Observable is a ComputedValue.
+   * Return true if the ObservableValue is a ComputedValue.
    *
-   * @param observable the Observable.
-   * @return true if the Observable is a ComputedValue.
+   * @param observableValue the ObservableValue.
+   * @return true if the ObservableValue is a ComputedValue.
    */
-  boolean isComputedValue( @Nonnull Observable<?> observable );
+  boolean isComputedValue( @Nonnull ObservableValue<?> observableValue );
 
   /**
-   * Convert the Observable to a ComputedValue.
-   * This method should only be called if {@link #isComputedValue(Observable)} returns true.
+   * Convert the ObservableValue to a ComputedValue.
+   * This method should only be called if {@link #isComputedValue(ObservableValue)} returns true.
    *
-   * @param observable the Observable.
+   * @param observableValue the ObservableValue.
    * @return the ComputedValue instance.
    */
-  ComputedValueInfo asComputedValue( @Nonnull Observable<?> observable );
+  ComputedValueInfo asComputedValue( @Nonnull ObservableValue<?> observableValue );
 
   /**
-   * Return the list of observers for the Observable.
-   * The list is an immutable copy of the observers of the {@link Observable}.
+   * Return the list of observers for the ObservableValue.
+   * The list is an immutable copy of the observers of the {@link ObservableValue}.
    *
-   * @param observable the Observable.
-   * @return the list of observers for Observable.
+   * @param observableValue the ObservableValue.
+   * @return the list of observers for ObservableValue.
    */
   @Nonnull
-  List<ObserverInfo> getObservers( @Nonnull Observable<?> observable );
+  List<ObserverInfo> getObservers( @Nonnull ObservableValue<?> observableValue );
 
   /**
    * Return true if the Observer is currently running.
@@ -189,17 +189,17 @@ public interface Spy
    * @see arez.spy.ObserverInfo#getDependencies()
    */
   @Nonnull
-  List<ObservableInfo> getDependencies( @Nonnull Observer observer );
+  List<ObservableValueInfo> getDependencies( @Nonnull Observer observer );
 
   /**
-   * Return the component for specified Observable.
+   * Return the component for specified ObservableValue.
    * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
    *
-   * @param observable the Observable.
-   * @return the component that contains Observable if any.
+   * @param observableValue the ObservableValue.
+   * @return the component that contains ObservableValue if any.
    */
   @Nullable
-  ComponentInfo getComponent( @Nonnull Observable<?> observable );
+  ComponentInfo getComponent( @Nonnull ObservableValue<?> observableValue );
 
   /**
    * Return the component for specified Observer.
@@ -260,7 +260,7 @@ public interface Spy
    * @return the collection of observables not contained by a native component.
    */
   @Nonnull
-  Collection<ObservableInfo> findAllTopLevelObservables();
+  Collection<ObservableValueInfo> findAllTopLevelObservableValues();
 
   /**
    * Find all the collection of observers not contained by a native component.
@@ -283,50 +283,50 @@ public interface Spy
   Collection<ComputedValueInfo> findAllTopLevelComputedValues();
 
   /**
-   * Return true if the specified Observable has an accessor.
+   * Return true if the specified ObservableValue has an accessor.
    * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
    *
-   * @param <T>        The type of the value that is observable.
-   * @param observable the Observable.
+   * @param <T>        The type of the value that is observableValue.
+   * @param observableValue the ObservableValue.
    * @return true if an accessor is available.
    */
-  <T> boolean hasAccessor( @Nonnull Observable<T> observable );
+  <T> boolean hasAccessor( @Nonnull ObservableValue<T> observableValue );
 
   /**
-   * Return the value of the specified Observable.
+   * Return the value of the specified ObservableValue.
    * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true
-   * and {@link #hasAccessor(Observable)} for the same element returns true.
+   * and {@link #hasAccessor(ObservableValue)} for the same element returns true.
    *
-   * @param <T>        The type of the value that is observable.
-   * @param observable the Observable.
-   * @return the value of the observable.
+   * @param <T>        The type of the value that is observableValue.
+   * @param observableValue the ObservableValue.
+   * @return the value of the observableValue.
    * @throws Throwable if the property accessor throws an exception.
    */
   @Nullable
-  <T> T getValue( @Nonnull Observable<T> observable )
+  <T> T getValue( @Nonnull ObservableValue<T> observableValue )
     throws Throwable;
 
   /**
-   * Return true if the specified Observable has a mutator.
+   * Return true if the specified ObservableValue has a mutator.
    * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
    *
-   * @param <T>        The type of the value that is observable.
-   * @param observable the Observable.
+   * @param <T>        The type of the value that is observableValue.
+   * @param observableValue the ObservableValue.
    * @return true if a mutator is available.
    */
-  <T> boolean hasMutator( @Nonnull Observable<T> observable );
+  <T> boolean hasMutator( @Nonnull ObservableValue<T> observableValue );
 
   /**
-   * Set the value of the specified Observable.
+   * Set the value of the specified ObservableValue.
    * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true
-   * and {@link #hasMutator(Observable)} for the same element returns true.
+   * and {@link #hasMutator(ObservableValue)} for the same element returns true.
    *
-   * @param <T>        The type of the value that is observable.
-   * @param observable the Observable.
+   * @param <T>        The type of the value that is observableValue.
+   * @param observableValue the ObservableValue.
    * @param value      the value to set
    * @throws Throwable if the property accessor throws an exception.
    */
-  <T> void setValue( @Nonnull Observable<T> observable, @Nullable T value )
+  <T> void setValue( @Nonnull ObservableValue<T> observableValue, @Nullable T value )
     throws Throwable;
 
   /**
@@ -343,10 +343,10 @@ public interface Spy
     throws Throwable;
 
   /**
-   * Convert the specified observer into an ObserverInfo.
+   * Convert the specified component into an ComponentInfo.
    *
    * @param component the Component.
-   * @return the ObservableInfo wrapping observable.
+   * @return the ComponentInfo.
    */
   @Nonnull
   ComponentInfo asComponentInfo( @Nonnull Component component );
@@ -355,20 +355,20 @@ public interface Spy
    * Convert the specified observer into an ObserverInfo.
    *
    * @param observer the Observer.
-   * @return the ObservableInfo wrapping observable.
+   * @return the ObserverInfo.
    */
   @Nonnull
   ObserverInfo asObserverInfo( @Nonnull Observer observer );
 
   /**
-   * Convert the specified observable into an ObservableInfo.
+   * Convert the specified observableValue into an ObservableValueInfo.
    *
-   * @param <T>        The type of the value that is observable.
-   * @param observable the Observable.
-   * @return the ObservableInfo wrapping observable.
+   * @param <T>        The type of the value that is observableValue.
+   * @param observableValue the ObservableValue.
+   * @return the ObservableValueInfo wrapping observableValue.
    */
   @Nonnull
-  <T> ObservableInfo asObservableInfo( @Nonnull Observable<T> observable );
+  <T> ObservableValueInfo asObservableValueInfo( @Nonnull ObservableValue<T> observableValue );
 
   /**
    * Convert the specified computedValue into an ComputedValueInfo.

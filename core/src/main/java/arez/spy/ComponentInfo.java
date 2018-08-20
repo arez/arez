@@ -34,7 +34,7 @@ public interface ComponentInfo
    *
    * @return the associated observables.
    */
-  List<ObservableInfo> getObservables();
+  List<ObservableValueInfo> getObservableValues();
 
   /**
    * Return the Observers associated with the component.

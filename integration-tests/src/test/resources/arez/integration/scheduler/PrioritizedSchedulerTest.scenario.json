@@ -6,15 +6,15 @@
     },
     {
         "observable": "TestComponent.0.value1",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "TestComponent.0.value2",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "TestComponent.0.value3",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "TestComponent.0.computed1",
@@ -343,7 +343,7 @@
     },
     {
         "observable": "TestComponent.0.value1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "1"
     },
     {
@@ -429,7 +429,7 @@
     },
     {
         "observable": "TestComponent.0.computed1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "1"
     },
     {
@@ -659,7 +659,7 @@
     },
     {
         "observable": "TestComponent.0.value2",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "2"
     },
     {
@@ -778,7 +778,7 @@
     },
     {
         "observable": "TestComponent.0.value3",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "3"
     },
     {
@@ -1110,7 +1110,7 @@
     },
     {
         "observable": "TestComponent.0.computed1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -1209,7 +1209,7 @@
     },
     {
         "observable": "TestComponent.0.computed2",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -1308,7 +1308,7 @@
     },
     {
         "observable": "TestComponent.0.computed3",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -1373,7 +1373,7 @@
     },
     {
         "observable": "TestComponent.0.value1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "1"
     },
     {
@@ -1395,7 +1395,7 @@
     },
     {
         "observable": "TestComponent.0.value1",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "action": "TestComponent.0.value2.dispose",
@@ -1412,7 +1412,7 @@
     },
     {
         "observable": "TestComponent.0.value2",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "2"
     },
     {
@@ -1434,7 +1434,7 @@
     },
     {
         "observable": "TestComponent.0.value2",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "action": "TestComponent.0.value3.dispose",
@@ -1451,7 +1451,7 @@
     },
     {
         "observable": "TestComponent.0.value3",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "3"
     },
     {
@@ -1473,7 +1473,7 @@
     },
     {
         "observable": "TestComponent.0.value3",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,

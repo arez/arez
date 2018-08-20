@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -32,7 +32,7 @@ public final class Arez_SubpackageModel extends SubpackageModel implements Dispo
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_time;
+  private final ObservableValue<Long> $$arez$$_time;
 
   @Nonnull
   private final ComputedValue<Integer> $$arez$$_someValue;

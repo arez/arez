@@ -22,8 +22,8 @@
         "transaction": "TransportType"
     },
     {
-        "observable": "Observable@2",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@2",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -72,8 +72,8 @@
         "transaction": "ResolvedType"
     },
     {
-        "observable": "Observable@3",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@3",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -115,7 +115,7 @@
     },
     {
         "observable": "TestComponent.0.otherID",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": 22
     },
     {
@@ -161,8 +161,8 @@
         "transaction": "TransportType"
     },
     {
-        "observable": "Observable@4",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@4",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -207,8 +207,8 @@
         "transaction": "ResolvedType"
     },
     {
-        "observable": "Observable@5",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@5",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",

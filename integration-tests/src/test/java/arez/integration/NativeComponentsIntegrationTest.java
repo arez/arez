@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.Observer;
 import arez.integration.util.SpyEventRecorder;
 import arez.spy.ComponentInfo;
@@ -32,8 +32,8 @@ public class NativeComponentsIntegrationTest
 
     assertTrue( context.isComponentPresent( type, id ) );
 
-    final Observable<String> observable1 = context.observable( component, "Attr1", null, null );
-    final Observable<String> observable2 = context.observable( component, "Attr2", null, null );
+    final ObservableValue<String> observableValue1 = context.observable( component, "Attr1", null, null );
+    final ObservableValue<String> observableValue2 = context.observable( component, "Attr2", null, null );
 
     final ComputedValue<String> computedValue1 =
       context.computed( component, "Attr3", () -> "", null, null, null, null );
@@ -51,9 +51,9 @@ public class NativeComponentsIntegrationTest
     assertNotNull( info );
     assertEquals( info.getId(), id );
     assertEquals( info.getName(), component.getName() );
-    assertEquals( info.getObservables().size(), 2 );
-    assertEquals( info.getObservables().get( 0 ).getName(), observable1.getName() );
-    assertEquals( info.getObservables().get( 1 ).getName(), observable2.getName() );
+    assertEquals( info.getObservableValues().size(), 2 );
+    assertEquals( info.getObservableValues().get( 0 ).getName(), observableValue1.getName() );
+    assertEquals( info.getObservableValues().get( 1 ).getName(), observableValue2.getName() );
     assertEquals( info.getObservers().size(), 1 );
     assertEquals( info.getObservers().iterator().next().getName(), observer1.getName() );
     assertEquals( info.getComputedValues().size(), 1 );
@@ -68,8 +68,8 @@ public class NativeComponentsIntegrationTest
     Disposable.dispose( component );
 
     assertTrue( Disposable.isDisposed( component ) );
-    assertTrue( Disposable.isDisposed( observable1 ) );
-    assertTrue( Disposable.isDisposed( observable2 ) );
+    assertTrue( Disposable.isDisposed( observableValue1 ) );
+    assertTrue( Disposable.isDisposed( observableValue2 ) );
     assertTrue( Disposable.isDisposed( computedValue1 ) );
     assertTrue( Disposable.isDisposed( observer1 ) );
 

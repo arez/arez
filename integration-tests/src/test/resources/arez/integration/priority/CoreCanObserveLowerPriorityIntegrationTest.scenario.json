@@ -48,12 +48,12 @@
         "transaction": "ComputedValue@1"
     },
     {
-        "observable": "Observable@5",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@5",
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "ComputedValue@1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": 42
     },
     {
@@ -140,7 +140,7 @@
     },
     {
         "observable": "ComputedValue@2",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": 84
     },
     {
@@ -155,7 +155,7 @@
     },
     {
         "observable": "ComputedValue@3",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": 126
     },
     {
@@ -170,7 +170,7 @@
     },
     {
         "observable": "ComputedValue@4",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": 168
     },
     {

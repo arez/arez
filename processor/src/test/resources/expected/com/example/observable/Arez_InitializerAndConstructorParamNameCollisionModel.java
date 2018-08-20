@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -30,7 +30,7 @@ final class Arez_InitializerAndConstructorParamNameCollisionModel extends Initia
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_time;
+  private final ObservableValue<Long> $$arez$$_time;
 
   private long $$arezd$$_time;
 

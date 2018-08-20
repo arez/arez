@@ -9,7 +9,7 @@ import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.TestSpyEventHandler;
 import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
-import arez.spy.ObservableChangedEvent;
+import arez.spy.ObservableValueChangedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import org.testng.annotations.Test;
@@ -52,7 +52,7 @@ public class RequiresNewTransactionTest
     recorder.assertNextEvent( ActionStartedEvent.class, a -> assertEquals( a.getName(), "MyComponent.0.myAction" ) );
     recorder.assertNextEvent( TransactionStartedEvent.class,
                               a -> assertEquals( a.getName(), "MyComponent.0.myAction" ) );
-    recorder.assertNextEvent( ObservableChangedEvent.class,
+    recorder.assertNextEvent( ObservableValueChangedEvent.class,
                               a -> assertEquals( a.getObservable().getName(), "MyComponent.0.time" ) );
     recorder.assertNextEvent( TransactionCompletedEvent.class,
                               a -> assertEquals( a.getName(), "MyComponent.0.myAction" ) );
@@ -94,7 +94,7 @@ public class RequiresNewTransactionTest
     recorder.assertNextEvent( ActionStartedEvent.class, a -> assertEquals( a.getName(), "MyComponent2.0.myAction" ) );
     recorder.assertNextEvent( TransactionStartedEvent.class,
                               a -> assertEquals( a.getName(), "MyComponent2.0.myAction" ) );
-    recorder.assertNextEvent( ObservableChangedEvent.class,
+    recorder.assertNextEvent( ObservableValueChangedEvent.class,
                               a -> assertEquals( a.getObservable().getName(), "MyComponent2.0.time" ) );
     recorder.assertNextEvent( TransactionCompletedEvent.class,
                               a -> assertEquals( a.getName(), "MyComponent2.0.myAction" ) );

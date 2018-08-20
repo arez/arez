@@ -67,11 +67,11 @@
     },
     {
         "observable": "TestComponent.3.isDisposed",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "TestComponent.3.value",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "TestComponent.3",
@@ -144,7 +144,7 @@
     },
     {
         "observable": "TestComponent.3.value",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "S3b"
     },
     {
@@ -209,7 +209,7 @@
     },
     {
         "observable": "TestComponent.1.isDisposed",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -231,7 +231,7 @@
     },
     {
         "observable": "TestComponent.1.isDisposed",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "action": "TestComponent.1.value.dispose",
@@ -248,7 +248,7 @@
     },
     {
         "observable": "TestComponent.1.value",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "S1"
     },
     {
@@ -270,7 +270,7 @@
     },
     {
         "observable": "TestComponent.1.value",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,
@@ -401,7 +401,7 @@
     },
     {
         "observable": "TestComponent.2.isDisposed",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -423,7 +423,7 @@
     },
     {
         "observable": "TestComponent.2.isDisposed",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "action": "TestComponent.2.value.dispose",
@@ -440,7 +440,7 @@
     },
     {
         "observable": "TestComponent.2.value",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "S2"
     },
     {
@@ -462,7 +462,7 @@
     },
     {
         "observable": "TestComponent.2.value",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,

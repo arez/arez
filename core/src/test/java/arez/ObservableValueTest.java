@@ -5,8 +5,8 @@ import arez.spy.ActionStartedEvent;
 import arez.spy.ComputedValueActivatedEvent;
 import arez.spy.ComputedValueDeactivatedEvent;
 import arez.spy.ComputedValueDisposedEvent;
-import arez.spy.ObservableChangedEvent;
-import arez.spy.ObservableDisposedEvent;
+import arez.spy.ObservableValueChangedEvent;
+import arez.spy.ObservableValueDisposedEvent;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import arez.spy.ReactionScheduledEvent;
@@ -18,7 +18,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObservableTest
+public class ObservableValueTest
   extends AbstractArezTest
 {
   @Test
@@ -30,34 +30,34 @@ public class ObservableTest
     final PropertyAccessor<String> accessor = () -> "";
     final PropertyMutator<String> mutator = value -> {
     };
-    final Observable<?> observable = new Observable<>( context, null, name, null, accessor, mutator );
-    assertEquals( observable.getName(), name );
-    assertEquals( observable.getContext(), context );
-    assertEquals( observable.toString(), name );
-    assertEquals( observable.isPendingDeactivation(), false );
-    assertEquals( observable.getObservers().size(), 0 );
-    assertEquals( observable.hasObservers(), false );
-    assertEquals( observable.getComponent(), null );
+    final ObservableValue<?> observableValue = new ObservableValue<>( context, null, name, null, accessor, mutator );
+    assertEquals( observableValue.getName(), name );
+    assertEquals( observableValue.getContext(), context );
+    assertEquals( observableValue.toString(), name );
+    assertEquals( observableValue.isPendingDeactivation(), false );
+    assertEquals( observableValue.getObservers().size(), 0 );
+    assertEquals( observableValue.hasObservers(), false );
+    assertEquals( observableValue.getComponent(), null );
 
     //All the same stuff
-    assertEquals( observable.getLastTrackerTransactionId(), 0 );
-    assertEquals( observable.getWorkState(), 0 );
-    assertEquals( observable.isInCurrentTracking(), false );
+    assertEquals( observableValue.getLastTrackerTransactionId(), 0 );
+    assertEquals( observableValue.getWorkState(), 0 );
+    assertEquals( observableValue.isInCurrentTracking(), false );
 
     // Fields for calculated observables in this non-calculated variant
-    assertEquals( observable.hasOwner(), false );
-    assertEquals( observable.canDeactivate(), false );
+    assertEquals( observableValue.hasOwner(), false );
+    assertEquals( observableValue.canDeactivate(), false );
 
-    assertEquals( observable.hasOwner(), false );
+    assertEquals( observableValue.hasOwner(), false );
 
-    assertEquals( observable.isActive(), true );
+    assertEquals( observableValue.isActive(), true );
 
-    assertEquals( observable.getAccessor(), accessor );
-    assertEquals( observable.getMutator(), mutator );
+    assertEquals( observableValue.getAccessor(), accessor );
+    assertEquals( observableValue.getMutator(), mutator );
 
-    observable.invariantLeastStaleObserverState();
+    observableValue.invariantLeastStaleObserverState();
 
-    assertTrue( context.getTopLevelObservables().containsKey( observable.getName() ) );
+    assertTrue( context.getTopLevelObservables().containsKey( observableValue.getName() ) );
   }
 
   @Test
@@ -69,21 +69,21 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
-    assertEquals( observable.getOwner(), derivation );
-    assertEquals( observable.getComponent(), null );
-    assertEquals( observable.canDeactivate(), true );
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    assertEquals( observableValue.getOwner(), derivation );
+    assertEquals( observableValue.getComponent(), null );
+    assertEquals( observableValue.canDeactivate(), true );
 
-    assertEquals( observable.hasOwner(), true );
+    assertEquals( observableValue.hasOwner(), true );
 
-    assertEquals( observable.isActive(), true );
+    assertEquals( observableValue.isActive(), true );
 
-    assertNotNull( observable.getAccessor() );
-    assertNull( observable.getMutator() );
+    assertNotNull( observableValue.getAccessor() );
+    assertNull( observableValue.getMutator() );
 
-    observable.invariantLeastStaleObserverState();
+    observableValue.invariantLeastStaleObserverState();
 
-    assertFalse( context.getTopLevelObservables().containsKey( observable.getName() ) );
+    assertFalse( context.getTopLevelObservables().containsKey( observableValue.getName() ) );
   }
 
   @Test
@@ -103,9 +103,9 @@ public class ObservableTest
 
     final String name = ValueUtil.randomString();
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> new Observable<>( context, component, name, null, null, null ) );
+      expectThrows( IllegalStateException.class, () -> new ObservableValue<>( context, component, name, null, null, null ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0054: Observable named '" + name + "' has component specified but " +
+                  "Arez-0054: ObservableValue named '" + name + "' has component specified but " +
                   "Arez.areNativeComponentsEnabled() is false." );
   }
 
@@ -123,16 +123,16 @@ public class ObservableTest
                      null );
 
     final String name = ValueUtil.randomString();
-    final Observable<String> observable = new Observable<>( context, component, name, null, null, null );
-    assertEquals( observable.getName(), name );
-    assertEquals( observable.getComponent(), component );
+    final ObservableValue<String> observableValue = new ObservableValue<>( context, component, name, null, null, null );
+    assertEquals( observableValue.getName(), name );
+    assertEquals( observableValue.getComponent(), component );
 
-    assertFalse( context.getTopLevelObservables().containsKey( observable.getName() ) );
-    assertTrue( component.getObservables().contains( observable ) );
+    assertFalse( context.getTopLevelObservables().containsKey( observableValue.getName() ) );
+    assertTrue( component.getObservableValues().contains( observableValue ) );
 
-    observable.dispose();
+    observableValue.dispose();
 
-    assertFalse( component.getObservables().contains( observable ) );
+    assertFalse( component.getObservableValues().contains( observableValue ) );
   }
 
   @Test
@@ -144,10 +144,10 @@ public class ObservableTest
     final PropertyAccessor<String> accessor = () -> "";
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new Observable<>( new ArezContext(), null, name, null, accessor, null ) );
+                    () -> new ObservableValue<>( new ArezContext(), null, name, null, accessor, null ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0055: Observable named '" + name +
+                  "Arez-0055: ObservableValue named '" + name +
                   "' has accessor specified but Arez.arePropertyIntrospectorsEnabled() is false." );
   }
 
@@ -161,10 +161,10 @@ public class ObservableTest
     };
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new Observable<>( new ArezContext(), null, name, null, null, mutator ) );
+                    () -> new ObservableValue<>( new ArezContext(), null, name, null, null, mutator ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0056: Observable named '" + name +
+                  "Arez-0056: ObservableValue named '" + name +
                   "' has mutator specified but Arez.arePropertyIntrospectorsEnabled() is false." );
   }
 
@@ -173,13 +173,13 @@ public class ObservableTest
     throws Exception
   {
     ArezTestUtil.disablePropertyIntrospectors();
-    final Observable<?> observable = newObservable( new ArezContext() );
+    final ObservableValue<?> observableValue = newObservable( new ArezContext() );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::getAccessor );
+      expectThrows( IllegalStateException.class, observableValue::getAccessor );
     assertEquals( exception.getMessage(),
-                  "Arez-0058: Attempt to invoke getAccessor() on observable named '" + observable.getName() +
-                  "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
+                  "Arez-0058: Attempt to invoke getAccessor() on ObservableValue named '" +
+                  observableValue.getName() + "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
   @Test
@@ -187,13 +187,13 @@ public class ObservableTest
     throws Exception
   {
     ArezTestUtil.disablePropertyIntrospectors();
-    final Observable<?> observable = newObservable( new ArezContext() );
+    final ObservableValue<?> observableValue = newObservable( new ArezContext() );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::getMutator );
+      expectThrows( IllegalStateException.class, observableValue::getMutator );
     assertEquals( exception.getMessage(),
-                  "Arez-0059: Attempt to invoke getMutator() on observable named '" + observable.getName() +
-                  "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
+                  "Arez-0059: Attempt to invoke getMutator() on ObservableValue named '" +
+                  observableValue.getName() + "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
   @Test
@@ -201,38 +201,38 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
     final Observer observer = newReadOnlyObserver( context );
 
     setupReadOnlyTransaction( context );
 
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
     observer.setState( ObserverState.UP_TO_DATE );
 
-    observable.getObservers().add( observer );
-    observer.getDependencies().add( observable );
+    observableValue.getObservers().add( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertEquals( observable.isDisposed(), false );
+    assertEquals( observableValue.isDisposed(), false );
 
     // Reset transaction before calling dispose
     Transaction.setTransaction( null );
 
     final int currentNextTransactionId = context.currentNextTransactionId();
 
-    assertTrue( context.getTopLevelObservables().containsKey( observable.getName() ) );
+    assertTrue( context.getTopLevelObservables().containsKey( observableValue.getName() ) );
 
-    observable.dispose();
+    observableValue.dispose();
 
     // Multiple transactions created. 1 for dispose operation and one for reaction
     assertEquals( context.currentNextTransactionId(), currentNextTransactionId + 2 );
 
-    assertEquals( observable.isDisposed(), true );
-    assertEquals( observable.getWorkState(), Observable.DISPOSED );
+    assertEquals( observableValue.isDisposed(), true );
+    assertEquals( observableValue.getWorkState(), ObservableValue.DISPOSED );
 
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
 
-    assertFalse( context.getTopLevelObservables().containsKey( observable.getName() ) );
+    assertFalse( context.getTopLevelObservables().containsKey( observableValue.getName() ) );
   }
 
   @Test
@@ -240,32 +240,32 @@ public class ObservableTest
     throws Exception
   {
     final ArezContext context = new ArezContext();
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
     final Observer observer = newReadOnlyObserver( context );
 
     setupReadOnlyTransaction( context );
 
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
     observer.setState( ObserverState.UP_TO_DATE );
 
-    observable.getObservers().add( observer );
-    observer.getDependencies().add( observable );
+    observableValue.getObservers().add( observer );
+    observer.getDependencies().add( observableValue );
 
     Transaction.setTransaction( null );
 
-    assertEquals( observable.isDisposed(), false );
+    assertEquals( observableValue.isDisposed(), false );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    observable.dispose();
+    observableValue.dispose();
 
-    assertEquals( observable.isDisposed(), true );
+    assertEquals( observableValue.isDisposed(), true );
 
-    final ObservableDisposedEvent event = handler.assertEvent( ObservableDisposedEvent.class );
+    final ObservableValueDisposedEvent event = handler.assertEvent( ObservableValueDisposedEvent.class );
 
-    assertEquals( event.getObservable().getName(), observable.getName() );
+    assertEquals( event.getObservable().getName(), observableValue.getName() );
   }
 
   @Test
@@ -275,33 +275,33 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
 
     final Observer observer = newComputedValueObserver( context );
-    final Observable<?> observable = observer.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = observer.getComputedValue().getObservableValue();
 
     setupReadOnlyTransaction( context );
 
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
     observer.setState( ObserverState.UP_TO_DATE );
 
-    observable.getObservers().add( observer );
-    observer.getDependencies().add( observable );
+    observableValue.getObservers().add( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertEquals( observable.isDisposed(), false );
+    assertEquals( observableValue.isDisposed(), false );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
     setCurrentTransaction( newReadWriteObserver( context ) );
 
-    observable.dispose();
+    observableValue.dispose();
 
-    assertEquals( observable.isDisposed(), true );
+    assertEquals( observableValue.isDisposed(), true );
 
     handler.assertEventCount( 15 );
 
-    // This is the part that disposes the associated Observable
+    // This is the part that disposes the associated ObservableValue
     handler.assertNextEvent( ActionStartedEvent.class );
     handler.assertNextEvent( TransactionStartedEvent.class );
-    handler.assertNextEvent( ObservableChangedEvent.class );
+    handler.assertNextEvent( ObservableValueChangedEvent.class );
     handler.assertNextEvent( ReactionScheduledEvent.class );
     handler.assertNextEvent( TransactionCompletedEvent.class );
     handler.assertNextEvent( ActionCompletedEvent.class );
@@ -326,29 +326,29 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
     final Observer observer = newReadOnlyObserver( context );
 
     setCurrentTransaction( newReadWriteObserver( context ) );
 
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
     observer.setState( ObserverState.UP_TO_DATE );
 
-    observable.getObservers().add( observer );
-    observer.getDependencies().add( observable );
+    observableValue.getObservers().add( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertEquals( observable.isDisposed(), false );
+    assertEquals( observableValue.isDisposed(), false );
 
     final int currentNextTransactionId = context.currentNextTransactionId();
 
-    observable.dispose();
+    observableValue.dispose();
 
     // No transaction created so new id
     assertEquals( context.currentNextTransactionId(), currentNextTransactionId + 1 );
 
-    assertEquals( observable.isDisposed(), true );
-    assertEquals( observable.getWorkState(), Observable.DISPOSED );
+    assertEquals( observableValue.isDisposed(), true );
+    assertEquals( observableValue.getWorkState(), ObservableValue.DISPOSED );
 
     assertEquals( observer.getState(), ObserverState.STALE );
   }
@@ -359,19 +359,19 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
     final Observer observer = newReadOnlyObserver( context );
 
     setCurrentTransaction( newReadOnlyObserver( context ) );
 
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
     observer.setState( ObserverState.UP_TO_DATE );
 
-    observable.getObservers().add( observer );
-    observer.getDependencies().add( observable );
+    observableValue.getObservers().add( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertEquals( observable.isDisposed(), false );
+    assertEquals( observableValue.isDisposed(), false );
 
     Transaction.setTransaction( null );
 
@@ -382,7 +382,7 @@ public class ObservableTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
                     () -> context.safeAction( false,
-                                              () -> context.safeAction( name, (SafeProcedure) observable::dispose ) ) );
+                                              () -> context.safeAction( name, (SafeProcedure) observableValue::dispose ) ) );
 
     assertTrue( exception.getMessage().startsWith( "Arez-0119: Attempting to create READ_WRITE transaction named '" +
                                                    name + "' but it is nested in transaction named '" ) );
@@ -391,7 +391,7 @@ public class ObservableTest
     // No transaction created so new id
     assertEquals( context.currentNextTransactionId(), currentNextTransactionId + 1 );
 
-    assertEquals( observable.isDisposed(), false );
+    assertEquals( observableValue.isDisposed(), false );
   }
 
   @Test
@@ -404,46 +404,46 @@ public class ObservableTest
 
     final String name = ValueUtil.randomString();
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> new Observable<>( context, null, name, owner, null, null ) );
+      expectThrows( IllegalStateException.class, () -> new ObservableValue<>( context, null, name, owner, null, null ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0057: Observable named '" + name + "' has owner specified but owner is not a derivation." );
+                  "Arez-0057: ObservableValue named '" + name + "' has owner specified but owner is not a derivation." );
   }
 
   @Test
   public void currentTrackingWorkValue()
     throws Exception
   {
-    final Observable<?> observable = newObservable( new ArezContext() );
+    final ObservableValue<?> observableValue = newObservable( new ArezContext() );
 
-    assertEquals( observable.getWorkState(), 0 );
-    assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
-    assertEquals( observable.isInCurrentTracking(), false );
+    assertEquals( observableValue.getWorkState(), 0 );
+    assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
+    assertEquals( observableValue.isInCurrentTracking(), false );
 
-    observable.putInCurrentTracking();
+    observableValue.putInCurrentTracking();
 
-    assertEquals( observable.isInCurrentTracking(), true );
-    assertEquals( observable.getWorkState(), Observable.IN_CURRENT_TRACKING );
+    assertEquals( observableValue.isInCurrentTracking(), true );
+    assertEquals( observableValue.getWorkState(), ObservableValue.IN_CURRENT_TRACKING );
 
-    observable.removeFromCurrentTracking();
+    observableValue.removeFromCurrentTracking();
 
-    assertEquals( observable.getWorkState(), Observable.NOT_IN_CURRENT_TRACKING );
-    assertEquals( observable.isInCurrentTracking(), false );
+    assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
+    assertEquals( observableValue.isInCurrentTracking(), false );
   }
 
   @Test
   public void lastTrackerTransactionId()
     throws Exception
   {
-    final Observable<?> observable = newObservable( new ArezContext() );
+    final ObservableValue<?> observableValue = newObservable( new ArezContext() );
 
-    assertEquals( observable.getWorkState(), 0 );
-    assertEquals( observable.getLastTrackerTransactionId(), 0 );
+    assertEquals( observableValue.getWorkState(), 0 );
+    assertEquals( observableValue.getLastTrackerTransactionId(), 0 );
 
-    observable.setLastTrackerTransactionId( 23 );
+    observableValue.setLastTrackerTransactionId( 23 );
 
-    assertEquals( observable.getLastTrackerTransactionId(), 23 );
-    assertEquals( observable.getWorkState(), 23 );
+    assertEquals( observableValue.getLastTrackerTransactionId(), 23 );
+    assertEquals( observableValue.getWorkState(), 23 );
   }
 
   @Test
@@ -454,21 +454,21 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
-    assertEquals( observable.getObservers().size(), 0 );
-    assertEquals( observable.hasObservers(), false );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getObservers().size(), 0 );
+    assertEquals( observableValue.hasObservers(), false );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     // Handle addition of observer in correct state
-    observable.addObserver( observer );
+    observableValue.addObserver( observer );
 
-    assertEquals( observable.getObservers().size(), 1 );
-    assertEquals( observable.hasObservers(), true );
-    assertEquals( observable.hasObserver( observer ), true );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getObservers().size(), 1 );
+    assertEquals( observableValue.hasObservers(), true );
+    assertEquals( observableValue.hasObserver( observer ), true );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
-    observable.invariantLeastStaleObserverState();
+    observableValue.invariantLeastStaleObserverState();
   }
 
   @Test
@@ -479,16 +479,16 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable<?> observable = newObservable( context );
-    observable.setLeastStaleObserverState( ObserverState.STALE );
+    final ObservableValue<?> observableValue = newObservable( context );
+    observableValue.setLeastStaleObserverState( ObserverState.STALE );
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 
-    observable.addObserver( observer );
+    observableValue.addObserver( observer );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
 
-    observable.invariantLeastStaleObserverState();
+    observableValue.invariantLeastStaleObserverState();
   }
 
   @Test
@@ -499,17 +499,17 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable<?> observable = newObservable( context );
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    final ObservableValue<?> observableValue = newObservable( context );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    observable.setWorkState( Observable.DISPOSED );
+    observableValue.setWorkState( ObservableValue.DISPOSED );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
+      expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0067: Attempting to add observer named '" + observer.getName() + "' to observable " +
-                  "named '" + observable.getName() + "' when observable is disposed." );
+                  "Arez-0067: Attempting to add observer named '" + observer.getName() + "' to " +
+                  "ObservableValue named '" + observableValue.getName() + "' when ObservableValue is disposed." );
   }
 
   @Test
@@ -530,23 +530,23 @@ public class ObservableTest
                     true );
     setCurrentTransaction( observer );
 
-    final Observable<?> observable =
+    final ObservableValue<?> observableValue =
       new ComputedValue<>( context,
                            null,
                            ValueUtil.randomString(),
                            () -> "",
                            Priority.NORMAL,
                            false,
-                           false ).getObservable();
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+                           false ).getObservableValue();
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
+      expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0183: Attempting to add observer named '" + observer.getName() + "' to observable " +
-                  "named '" + observable.getName() + "' where the observer is scheduled at a HIGH priority but " +
-                  "the observables owner is scheduled at a NORMAL priority." );
+                  "Arez-0183: Attempting to add observer named '" + observer.getName() + "' to " +
+                  "ObservableValue named '" + observableValue.getName() + "' where the observer is scheduled at " +
+                  "a HIGH priority but the ObservableValue's owner is scheduled at a NORMAL priority." );
   }
 
   @Test
@@ -567,19 +567,19 @@ public class ObservableTest
                     true );
     setCurrentTransaction( observer );
 
-    final Observable<?> observable =
+    final ObservableValue<?> observableValue =
       new ComputedValue<>( context,
                            null,
                            ValueUtil.randomString(),
                            () -> "",
                            Priority.NORMAL,
                            false,
-                           false ).getObservable();
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+                           false ).getObservableValue();
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    observable.addObserver( observer );
+    observableValue.addObserver( observer );
 
-    assertEquals( observable.getObservers().contains( observer ), true );
+    assertEquals( observableValue.getObservers().contains( observer ), true );
   }
 
   @Test
@@ -590,17 +590,17 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable<?> observable = newObservable( context );
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    final ObservableValue<?> observableValue = newObservable( context );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     observer.markAsDisposed();
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
+      expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0068: Attempting to add observer named '" + observer.getName() + "' to " +
-                  "observable named '" + observable.getName() + "' when observer is disposed." );
+                  "ObservableValue named '" + observableValue.getName() + "' when observer is disposed." );
   }
 
   @Test
@@ -611,31 +611,32 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
-    assertEquals( observable.getObservers().size(), 0 );
-    assertEquals( observable.hasObservers(), false );
+    assertEquals( observableValue.getObservers().size(), 0 );
+    assertEquals( observableValue.hasObservers(), false );
 
     // Handle addition of observer in correct state
-    observable.addObserver( observer );
-    observer.getDependencies().add( observable );
+    observableValue.addObserver( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertEquals( observable.getObservers().size(), 1 );
-    assertEquals( observable.hasObservers(), true );
-    assertEquals( observable.hasObserver( observer ), true );
+    assertEquals( observableValue.getObservers().size(), 1 );
+    assertEquals( observableValue.hasObservers(), true );
+    assertEquals( observableValue.hasObserver( observer ), true );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
+      expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0066: Attempting to add observer named '" + observer.getName() + "' to observable " +
-                  "named '" + observable.getName() + "' when observer is already observing observable." );
+                  "Arez-0066: Attempting to add observer named '" + observer.getName() + "' to " +
+                  "ObservableValue named '" + observableValue.getName() + "' when observer is already " +
+                  "observing ObservableValue." );
 
-    assertEquals( observable.getObservers().size(), 1 );
-    assertEquals( observable.hasObservers(), true );
-    assertEquals( observable.hasObserver( observer ), true );
+    assertEquals( observableValue.getObservers().size(), 1 );
+    assertEquals( observableValue.hasObservers(), true );
+    assertEquals( observableValue.hasObserver( observer ), true );
 
-    observable.invariantLeastStaleObserverState();
+    observableValue.invariantLeastStaleObserverState();
   }
 
   @Test
@@ -645,19 +646,19 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observable.addObserver( observer ) );
+      expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0065: Attempt to invoke addObserver on observable named '" +
-                  observable.getName() + "' when there is no active transaction." );
+                  "Arez-0065: Attempt to invoke addObserver on ObservableValue named '" +
+                  observableValue.getName() + "' when there is no active transaction." );
 
-    assertEquals( observable.getObservers().size(), 0 );
-    assertEquals( observable.hasObservers(), false );
+    assertEquals( observableValue.getObservers().size(), 0 );
+    assertEquals( observableValue.hasObservers(), false );
 
-    observable.invariantLeastStaleObserverState();
+    observableValue.invariantLeastStaleObserverState();
   }
 
   @Test
@@ -668,28 +669,28 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
-    assertEquals( observable.getObservers().size(), 0 );
-    assertEquals( observable.hasObservers(), false );
+    assertEquals( observableValue.getObservers().size(), 0 );
+    assertEquals( observableValue.hasObservers(), false );
 
     observer.setState( ObserverState.UP_TO_DATE );
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
-    observable.getObservers().add( observer );
-    observer.getDependencies().add( observable );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.getObservers().add( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertEquals( observable.getObservers().size(), 1 );
-    assertEquals( observable.hasObservers(), true );
-    assertEquals( observable.hasObserver( observer ), true );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getObservers().size(), 1 );
+    assertEquals( observableValue.hasObservers(), true );
+    assertEquals( observableValue.hasObserver( observer ), true );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
-    observable.removeObserver( observer );
+    observableValue.removeObserver( observer );
 
-    assertEquals( observable.getObservers().size(), 0 );
-    assertEquals( observable.hasObservers(), false );
-    assertEquals( observable.hasObserver( observer ), false );
+    assertEquals( observableValue.getObservers().size(), 0 );
+    assertEquals( observableValue.hasObservers(), false );
+    assertEquals( observableValue.hasObserver( observer ), false );
     // It should be updated that it is not removeObserver that updates LeastStaleObserverState
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
@@ -702,34 +703,34 @@ public class ObservableTest
 
     final Observer derivation = newComputedValueObserver( context );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
-    assertEquals( observable.getObservers().size(), 0 );
-    assertEquals( observable.hasObservers(), false );
+    assertEquals( observableValue.getObservers().size(), 0 );
+    assertEquals( observableValue.hasObservers(), false );
 
     observer.setState( ObserverState.UP_TO_DATE );
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
-    observable.getObservers().add( observer );
-    observer.getDependencies().add( observable );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.getObservers().add( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertEquals( observable.getObservers().size(), 1 );
-    assertEquals( observable.hasObservers(), true );
-    assertEquals( observable.hasObserver( observer ), true );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getObservers().size(), 1 );
+    assertEquals( observableValue.hasObservers(), true );
+    assertEquals( observableValue.hasObserver( observer ), true );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
-    observable.removeObserver( observer );
+    observableValue.removeObserver( observer );
 
-    assertEquals( observable.getObservers().size(), 0 );
-    assertEquals( observable.hasObservers(), false );
-    assertEquals( observable.hasObserver( observer ), false );
+    assertEquals( observableValue.getObservers().size(), 0 );
+    assertEquals( observableValue.hasObservers(), false );
+    assertEquals( observableValue.hasObserver( observer ), false );
     // It should be updated that it is not removeObserver that updates LeastStaleObserverState
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
-    assertEquals( observable.isPendingDeactivation(), true );
-    final ArrayList<Observable> pendingDeactivations = context.getTransaction().getPendingDeactivations();
+    assertEquals( observableValue.isPendingDeactivation(), true );
+    final ArrayList<ObservableValue> pendingDeactivations = context.getTransaction().getPendingDeactivations();
     assertNotNull( pendingDeactivations );
     assertEquals( pendingDeactivations.size(), 1 );
-    assertEquals( pendingDeactivations.contains( observable ), true );
+    assertEquals( pendingDeactivations.contains( observableValue ), true );
   }
 
   @Test
@@ -740,34 +741,34 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
-    assertEquals( observable.getObservers().size(), 0 );
-    assertEquals( observable.hasObservers(), false );
+    assertEquals( observableValue.getObservers().size(), 0 );
+    assertEquals( observableValue.hasObservers(), false );
 
     observer.setState( ObserverState.UP_TO_DATE );
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
-    observable.getObservers().add( observer );
-    observer.getDependencies().add( observable );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.getObservers().add( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertEquals( observable.getObservers().size(), 1 );
-    assertEquals( observable.hasObservers(), true );
-    assertEquals( observable.hasObserver( observer ), true );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getObservers().size(), 1 );
+    assertEquals( observableValue.hasObservers(), true );
+    assertEquals( observableValue.hasObserver( observer ), true );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     Transaction.setTransaction( null );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observable.removeObserver( observer ) );
+      expectThrows( IllegalStateException.class, () -> observableValue.removeObserver( observer ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0069: Attempt to invoke removeObserver on observable named '" +
-                  observable.getName() + "' when there is no active transaction." );
+                  "Arez-0069: Attempt to invoke removeObserver on ObservableValue named '" +
+                  observableValue.getName() + "' when there is no active transaction." );
 
-    assertEquals( observable.getObservers().size(), 1 );
-    assertEquals( observable.hasObservers(), true );
-    assertEquals( observable.hasObserver( observer ), true );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getObservers().size(), 1 );
+    assertEquals( observableValue.hasObservers(), true );
+    assertEquals( observableValue.hasObserver( observer ), true );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
@@ -778,19 +779,19 @@ public class ObservableTest
     final Observer observer = newReadOnlyObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
-    assertEquals( observable.getObservers().size(), 0 );
-    assertEquals( observable.hasObservers(), false );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getObservers().size(), 0 );
+    assertEquals( observableValue.hasObservers(), false );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observable.removeObserver( observer ) );
+      expectThrows( IllegalStateException.class, () -> observableValue.removeObserver( observer ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0070: Attempting to remove observer named '" + observer.getName() +
-                  "' from observable named '" + observable.getName() + "' when observer is not " +
-                  "observing observable." );
+                  "' from ObservableValue named '" + observableValue.getName() + "' when observer is not " +
+                  "observing ObservableValue." );
   }
 
   @Test
@@ -800,12 +801,12 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
     setCurrentTransaction( observer );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
@@ -814,19 +815,19 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE ) );
+                    () -> observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0074: Attempt to invoke setLeastStaleObserverState on observable named '" +
-                  observable.getName() + "' when there is no active transaction." );
+                  "Arez-0074: Attempt to invoke setLeastStaleObserverState on ObservableValue named '" +
+                  observableValue.getName() + "' when there is no active transaction." );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
@@ -836,20 +837,20 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     final Observer observer = newReadOnlyObserver( context );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
     setCurrentTransaction( observer );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> observable.setLeastStaleObserverState( ObserverState.INACTIVE ) );
+                    () -> observableValue.setLeastStaleObserverState( ObserverState.INACTIVE ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0075: Attempt to invoke setLeastStaleObserverState on observable named '" +
-                  observable.getName() + "' with invalid value INACTIVE." );
+                  "Arez-0075: Attempt to invoke setLeastStaleObserverState on ObservableValue named '" +
+                  observableValue.getName() + "' with invalid value INACTIVE." );
 
-    assertEquals( observable.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
   }
 
   @Test
@@ -858,20 +859,21 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
-    observable.setLeastStaleObserverState( ObserverState.STALE );
+    observableValue.setLeastStaleObserverState( ObserverState.STALE );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::invariantLeastStaleObserverState );
+      expectThrows( IllegalStateException.class, observableValue::invariantLeastStaleObserverState );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0078: Calculated leastStaleObserverState on observable named '" +
-                  observable.getName() + "' is 'UP_TO_DATE' which is unexpectedly less than cached value 'STALE'." );
+                  "Arez-0078: Calculated leastStaleObserverState on ObservableValue named '" +
+                  observableValue.getName() + "' is 'UP_TO_DATE' which is unexpectedly less than " +
+                  "cached value 'STALE'." );
 
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    observable.invariantLeastStaleObserverState();
+    observableValue.invariantLeastStaleObserverState();
   }
 
   @Test
@@ -890,30 +892,31 @@ public class ObservableTest
     observer3.setState( ObserverState.STALE );
     observer4.setState( ObserverState.INACTIVE );
 
-    final Observable<?> observable = newObservable();
+    final ObservableValue<?> observableValue = newObservable();
 
-    observer1.getDependencies().add( observable );
-    observer2.getDependencies().add( observable );
-    observer3.getDependencies().add( observable );
-    observer4.getDependencies().add( observable );
+    observer1.getDependencies().add( observableValue );
+    observer2.getDependencies().add( observableValue );
+    observer3.getDependencies().add( observableValue );
+    observer4.getDependencies().add( observableValue );
 
-    observable.addObserver( observer1 );
-    observable.addObserver( observer2 );
-    observable.addObserver( observer3 );
-    observable.addObserver( observer4 );
+    observableValue.addObserver( observer1 );
+    observableValue.addObserver( observer2 );
+    observableValue.addObserver( observer3 );
+    observableValue.addObserver( observer4 );
 
-    observable.setLeastStaleObserverState( ObserverState.STALE );
+    observableValue.setLeastStaleObserverState( ObserverState.STALE );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::invariantLeastStaleObserverState );
+      expectThrows( IllegalStateException.class, observableValue::invariantLeastStaleObserverState );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0078: Calculated leastStaleObserverState on observable named '" +
-                  observable.getName() + "' is 'UP_TO_DATE' which is unexpectedly less than cached value 'STALE'." );
+                  "Arez-0078: Calculated leastStaleObserverState on ObservableValue named '" +
+                  observableValue.getName() + "' is 'UP_TO_DATE' which is unexpectedly less than " +
+                  "cached value 'STALE'." );
 
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    observable.invariantLeastStaleObserverState();
+    observableValue.invariantLeastStaleObserverState();
   }
 
   @Test
@@ -926,14 +929,15 @@ public class ObservableTest
 
     final Observer observer = newComputedValueObserver( context );
 
-    final Observable<?> observable = new Observable<>( context, null, observer.getName(), observer, null, null );
+    final ObservableValue<?>
+      observableValue = new ObservableValue<>( context, null, observer.getName(), observer, null, null );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::invariantOwner );
+      expectThrows( IllegalStateException.class, observableValue::invariantOwner );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0076: Observable named '" + observable.getName() + "' has owner specified but owner " +
-                  "does not link to observable as derived value." );
+                  "Arez-0076: ObservableValue named '" + observableValue.getName() + "' has owner " +
+                  "specified but owner does not link to ObservableValue as derived value." );
   }
 
   @Test
@@ -950,28 +954,28 @@ public class ObservableTest
     observer2.setState( ObserverState.POSSIBLY_STALE );
     observer3.setState( ObserverState.STALE );
 
-    final Observable<?> observable = newObservable();
+    final ObservableValue<?> observableValue = newObservable();
 
-    observer1.getDependencies().add( observable );
-    observer2.getDependencies().add( observable );
-    //observer3.getDependencies().add( observable );
+    observer1.getDependencies().add( observableValue );
+    observer2.getDependencies().add( observableValue );
+    //observer3.getDependencies().add( observableValue );
 
-    observable.addObserver( observer1 );
-    observable.addObserver( observer2 );
-    observable.addObserver( observer3 );
+    observableValue.addObserver( observer1 );
+    observableValue.addObserver( observer2 );
+    observableValue.addObserver( observer3 );
 
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::invariantObserversLinked );
+      expectThrows( IllegalStateException.class, observableValue::invariantObserversLinked );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0077: Observable named '" + observable.getName() + "' has observer named '" +
-                  observer3.getName() + "' which does not contain observable as dependency." );
+                  "Arez-0077: ObservableValue named '" + observableValue.getName() + "' has observer named '" +
+                  observer3.getName() + "' which does not contain ObservableValue as dependency." );
 
-    observer3.getDependencies().add( observable );
+    observer3.getDependencies().add( observableValue );
 
-    observable.invariantObserversLinked();
+    observableValue.invariantObserversLinked();
   }
 
   @Test
@@ -984,17 +988,17 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
-    assertEquals( observable.isPendingDeactivation(), false );
+    assertEquals( observableValue.isPendingDeactivation(), false );
 
-    observable.queueForDeactivation();
+    observableValue.queueForDeactivation();
 
-    assertEquals( observable.isPendingDeactivation(), true );
-    final ArrayList<Observable> pendingDeactivations = context.getTransaction().getPendingDeactivations();
+    assertEquals( observableValue.isPendingDeactivation(), true );
+    final ArrayList<ObservableValue> pendingDeactivations = context.getTransaction().getPendingDeactivations();
     assertNotNull( pendingDeactivations );
     assertEquals( pendingDeactivations.size(), 1 );
-    assertEquals( pendingDeactivations.contains( observable ), true );
+    assertEquals( pendingDeactivations.contains( observableValue ), true );
   }
 
   @Test
@@ -1007,11 +1011,11 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
-    observable.markAsPendingDeactivation();
+    observableValue.markAsPendingDeactivation();
 
-    observable.queueForDeactivation();
+    observableValue.queueForDeactivation();
 
     // No activation pending
     assertNull( context.getTransaction().getPendingDeactivations() );
@@ -1027,18 +1031,18 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
-    assertEquals( observable.isPendingDeactivation(), false );
+    assertEquals( observableValue.isPendingDeactivation(), false );
 
     Transaction.setTransaction( null );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::queueForDeactivation );
+      expectThrows( IllegalStateException.class, observableValue::queueForDeactivation );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0071: Attempt to invoke queueForDeactivation on observable named '" +
-                  observable.getName() + "' when there is no active transaction." );
+                  "Arez-0071: Attempt to invoke queueForDeactivation on ObservableValue named '" +
+                  observableValue.getName() + "' when there is no active transaction." );
   }
 
   @Test
@@ -1048,16 +1052,16 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
-    assertEquals( observable.isPendingDeactivation(), false );
+    assertEquals( observableValue.isPendingDeactivation(), false );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::queueForDeactivation );
+      expectThrows( IllegalStateException.class, observableValue::queueForDeactivation );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0072: Attempted to invoke queueForDeactivation() on observable named '" +
-                  observable.getName() + "' but observable is not able to be deactivated." );
+                  "Arez-0072: Attempted to invoke queueForDeactivation() on ObservableValue named '" +
+                  observableValue.getName() + "' but ObservableValue is not able to be deactivated." );
   }
 
   @Test
@@ -1070,20 +1074,20 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
-    assertEquals( observable.isPendingDeactivation(), false );
+    assertEquals( observableValue.isPendingDeactivation(), false );
 
     final Observer observer = newReadOnlyObserver( context );
-    observable.addObserver( observer );
-    observer.getDependencies().add( observable );
+    observableValue.addObserver( observer );
+    observer.getDependencies().add( observableValue );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::queueForDeactivation );
+      expectThrows( IllegalStateException.class, observableValue::queueForDeactivation );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0073: Attempted to invoke queueForDeactivation() on observable named '" +
-                  observable.getName() + "' but observable has observers." );
+                  "Arez-0073: Attempted to invoke queueForDeactivation() on ObservableValue named '" +
+                  observableValue.getName() + "' but ObservableValue has observers." );
   }
 
   @Test
@@ -1096,14 +1100,14 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
-    observable.markAsPendingDeactivation();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    observableValue.markAsPendingDeactivation();
 
-    assertEquals( observable.isPendingDeactivation(), true );
+    assertEquals( observableValue.isPendingDeactivation(), true );
 
-    observable.resetPendingDeactivation();
+    observableValue.resetPendingDeactivation();
 
-    assertEquals( observable.isPendingDeactivation(), false );
+    assertEquals( observableValue.isPendingDeactivation(), false );
   }
 
   @Test
@@ -1116,11 +1120,11 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
 
-    observable.deactivate();
+    observableValue.deactivate();
 
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
   }
@@ -1135,14 +1139,14 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    observable.deactivate();
+    observableValue.deactivate();
 
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
 
@@ -1161,18 +1165,18 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
 
     Transaction.setTransaction( null );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::deactivate );
+      expectThrows( IllegalStateException.class, observableValue::deactivate );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0060: Attempt to invoke deactivate on observable named '" +
-                  observable.getName() + "' when there is no active transaction." );
+                  "Arez-0060: Attempt to invoke deactivate on ObservableValue named '" +
+                  observableValue.getName() + "' when there is no active transaction." );
   }
 
   @Test
@@ -1184,9 +1188,9 @@ public class ObservableTest
 
     final Observer derivation = newComputedValueObserver( context );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
-    observable.deactivate();
+    observableValue.deactivate();
 
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
   }
@@ -1198,14 +1202,14 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::deactivate );
+      expectThrows( IllegalStateException.class, observableValue::deactivate );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0061: Invoked deactivate on observable named '" +
-                  observable.getName() + "' but observable can not be deactivated. Either owner is " +
+                  "Arez-0061: Invoked deactivate on ObservableValue named '" +
+                  observableValue.getName() + "' but ObservableValue can not be deactivated. Either owner is " +
                   "null or the associated ComputedValue has keepAlive enabled." );
   }
 
@@ -1218,14 +1222,14 @@ public class ObservableTest
 
     final ComputedValue<String> computedValue =
       new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, true, false );
-    final Observable<?> observable = computedValue.getObservable();
+    final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::deactivate );
+      expectThrows( IllegalStateException.class, observableValue::deactivate );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0061: Invoked deactivate on observable named '" +
-                  observable.getName() + "' but observable can not be deactivated. Either owner is " +
+                  "Arez-0061: Invoked deactivate on ObservableValue named '" +
+                  observableValue.getName() + "' but ObservableValue can not be deactivated. Either owner is " +
                   "null or the associated ComputedValue has keepAlive enabled." );
   }
 
@@ -1239,11 +1243,11 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.INACTIVE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
 
-    observable.activate();
+    observableValue.activate();
 
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
   }
@@ -1258,14 +1262,14 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.INACTIVE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    observable.activate();
+    observableValue.activate();
 
     assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
 
@@ -1285,18 +1289,18 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.INACTIVE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     assertEquals( derivation.getState(), ObserverState.INACTIVE );
 
     Transaction.setTransaction( null );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::activate );
+      expectThrows( IllegalStateException.class, observableValue::activate );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0062: Attempt to invoke activate on observable named '" +
-                  observable.getName() + "' when there is no active transaction." );
+                  "Arez-0062: Attempt to invoke activate on ObservableValue named '" +
+                  observableValue.getName() + "' when there is no active transaction." );
   }
 
   @Test
@@ -1309,14 +1313,14 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::activate );
+      expectThrows( IllegalStateException.class, observableValue::activate );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0064: Invoked activate on observable named '" +
-                  observable.getName() + "' when observable is already active." );
+                  "Arez-0064: Invoked activate on ObservableValue named '" +
+                  observableValue.getName() + "' when ObservableValue is already active." );
   }
 
   @Test
@@ -1326,14 +1330,14 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::activate );
+      expectThrows( IllegalStateException.class, observableValue::activate );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0063: Invoked activate on observable named '" +
-                  observable.getName() + "' when owner is null." );
+                  "Arez-0063: Invoked activate on ObservableValue named '" +
+                  observableValue.getName() + "' when owner is null." );
   }
 
   @Test
@@ -1343,16 +1347,16 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setupReadOnlyTransaction( context );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
-    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
-    observable.reportObserved();
+    observableValue.reportObserved();
 
-    assertEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 1 );
-    assertEquals( context.getTransaction().safeGetObservables().contains( observable ), true );
+    assertEquals( context.getTransaction().safeGetObservables().contains( observableValue ), true );
   }
 
   @Test
@@ -1361,25 +1365,25 @@ public class ObservableTest
   {
     final ArezContext context = new ArezContext();
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
     // Outside a transaction so perfectly safe
-    observable.reportObservedIfTrackingTransactionActive();
+    observableValue.reportObservedIfTrackingTransactionActive();
 
     // This action does not verify that reads occurred so should not
     // fail but will not actually observe
-    context.safeAction( null, false, false, observable::reportObservedIfTrackingTransactionActive );
+    context.safeAction( null, false, false, observableValue::reportObservedIfTrackingTransactionActive );
 
     // This action will raise an exception as no reads or writes occurred
     // within scope and we asked to verify that reads or writes occurred
     assertThrows( () -> context.safeAction( null,
                                             false,
                                             true,
-                                            observable::reportObservedIfTrackingTransactionActive ) );
+                                            observableValue::reportObservedIfTrackingTransactionActive ) );
 
     // Now we use a tracking transaction
-    final Observer observer = context.autorun( observable::reportObservedIfTrackingTransactionActive );
-    assertEquals( observer.getDependencies().contains( observable ), true );
+    final Observer observer = context.autorun( observableValue::reportObservedIfTrackingTransactionActive );
+    assertEquals( observer.getDependencies().contains( observableValue ), true );
   }
 
   @Test
@@ -1390,9 +1394,9 @@ public class ObservableTest
     final Observer observer = newReadWriteObserver( context );
     setCurrentTransaction( observer );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
-    observable.preReportChanged();
+    observableValue.preReportChanged();
   }
 
   @Test
@@ -1402,14 +1406,14 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( newReadWriteObserver( context ) );
 
-    final Observable<?> observable = newObservable( context );
-    observable.setWorkState( Observable.DISPOSED );
+    final ObservableValue<?> observableValue = newObservable( context );
+    observableValue.setWorkState( ObservableValue.DISPOSED );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::preReportChanged );
+      expectThrows( IllegalStateException.class, observableValue::preReportChanged );
     assertEquals( exception.getMessage(), "Arez-0144: Invoked reportChanged on transaction named '" +
-                                          Transaction.current().getName() + "' for observable named '" +
-                                          observable.getName() + "' where the observable is disposed." );
+                                          Transaction.current().getName() + "' for ObservableValue named '" +
+                                          observableValue.getName() + "' where the ObservableValue is disposed." );
   }
 
   @Test
@@ -1419,12 +1423,12 @@ public class ObservableTest
     final ArezContext context = new ArezContext();
     setCurrentTransaction( newReadOnlyObserver( context ) );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observable::preReportChanged );
+      expectThrows( IllegalStateException.class, observableValue::preReportChanged );
     assertEquals( exception.getMessage(), "Arez-0152: Transaction named '" + Transaction.current().getName() +
-                                          "' attempted to change observable named '" + observable.getName() +
+                                          "' attempted to change ObservableValue named '" + observableValue.getName() +
                                           "' but the transaction mode is READ_ONLY." );
   }
 
@@ -1438,16 +1442,16 @@ public class ObservableTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = newObservable( context );
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    final ObservableValue<?> observableValue = newObservable( context );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    observable.addObserver( observer );
-    observer.getDependencies().add( observable );
+    observableValue.addObserver( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
-    observable.reportChanged();
+    observableValue.reportChanged();
 
     assertEquals( observer.getState(), ObserverState.STALE );
   }
@@ -1462,26 +1466,26 @@ public class ObservableTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = newObservable( context );
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    final ObservableValue<?> observableValue = newObservable( context );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    observable.addObserver( observer );
-    observer.getDependencies().add( observable );
+    observableValue.addObserver( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    observable.reportChanged();
+    observableValue.reportChanged();
 
     assertEquals( observer.getState(), ObserverState.STALE );
 
     handler.assertEventCount( 2 );
 
-    final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 0 );
-    assertEquals( event.getObservable().getName(), observable.getName() );
+    final ObservableValueChangedEvent event = handler.assertEvent( ObservableValueChangedEvent.class, 0 );
+    assertEquals( event.getObservable().getName(), observableValue.getName() );
     assertEquals( event.getValue(), null );
 
     handler.assertEvent( ReactionScheduledEvent.class, 1 );
@@ -1497,18 +1501,18 @@ public class ObservableTest
     observer.setState( ObserverState.UP_TO_DATE );
 
     final String currentValue = ValueUtil.randomString();
-    final Observable<?> observable =
-      new Observable<>( context, null, ValueUtil.randomString(), null, () -> currentValue, null );
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    final ObservableValue<?> observableValue =
+      new ObservableValue<>( context, null, ValueUtil.randomString(), null, () -> currentValue, null );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    observable.reportChanged();
+    observableValue.reportChanged();
     handler.assertEventCount( 1 );
 
-    final ObservableChangedEvent event = handler.assertNextEvent( ObservableChangedEvent.class );
-    assertEquals( event.getObservable().getName(), observable.getName() );
+    final ObservableValueChangedEvent event = handler.assertNextEvent( ObservableValueChangedEvent.class );
+    assertEquals( event.getObservable().getName(), observableValue.getName() );
     assertEquals( event.getValue(), currentValue );
   }
 
@@ -1527,26 +1531,26 @@ public class ObservableTest
 
     observer.setState( ObserverState.POSSIBLY_STALE );
 
-    final Observable<?> observable = context.observable( name, accessor, null );
-    observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    final ObservableValue<?> observableValue = context.observable( name, accessor, null );
+    observableValue.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
-    observable.addObserver( observer );
-    observer.getDependencies().add( observable );
+    observableValue.addObserver( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    observable.reportChanged();
+    observableValue.reportChanged();
 
     assertEquals( observer.getState(), ObserverState.STALE );
 
     handler.assertEventCount( 2 );
 
-    final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 0 );
-    assertEquals( event.getObservable().getName(), observable.getName() );
+    final ObservableValueChangedEvent event = handler.assertEvent( ObservableValueChangedEvent.class, 0 );
+    assertEquals( event.getObservable().getName(), observableValue.getName() );
     assertEquals( event.getValue(), null );
 
     assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver().getName(), observer.getName() );
@@ -1562,32 +1566,32 @@ public class ObservableTest
 
     observer.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = newObservable( context );
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    final ObservableValue<?> observableValue = newObservable( context );
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    observable.addObserver( observer );
-    observer.getDependencies().add( observable );
+    observableValue.addObserver( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    observable.reportChanged();
-    observable.reportChanged();
-    observable.reportChanged();
+    observableValue.reportChanged();
+    observableValue.reportChanged();
+    observableValue.reportChanged();
 
     assertEquals( observer.getState(), ObserverState.STALE );
 
     handler.assertEventCount( 4 );
 
-    final ObservableChangedEvent event = handler.assertNextEvent( ObservableChangedEvent.class );
-    assertEquals( event.getObservable().getName(), observable.getName() );
+    final ObservableValueChangedEvent event = handler.assertNextEvent( ObservableValueChangedEvent.class );
+    assertEquals( event.getObservable().getName(), observableValue.getName() );
 
     handler.assertNextEvent( ReactionScheduledEvent.class );
-    handler.assertNextEvent( ObservableChangedEvent.class );
-    handler.assertNextEvent( ObservableChangedEvent.class );
+    handler.assertNextEvent( ObservableValueChangedEvent.class );
+    handler.assertNextEvent( ObservableValueChangedEvent.class );
   }
 
   @Test
@@ -1603,16 +1607,16 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
-    observable.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
-    observable.addObserver( observer );
-    observer.getDependencies().add( observable );
+    observableValue.addObserver( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
-    observable.reportPossiblyChanged();
+    observableValue.reportPossiblyChanged();
 
     assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
   }
@@ -1630,16 +1634,16 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
-    observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    observableValue.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
-    observable.addObserver( observer );
-    observer.getDependencies().add( observable );
+    observableValue.addObserver( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
-    observable.reportChangeConfirmed();
+    observableValue.reportChangeConfirmed();
 
     assertEquals( observer.getState(), ObserverState.STALE );
   }
@@ -1657,26 +1661,26 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
-    observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    observableValue.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
-    observable.addObserver( observer );
-    observer.getDependencies().add( observable );
+    observableValue.addObserver( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    observable.reportChangeConfirmed();
+    observableValue.reportChangeConfirmed();
 
     assertEquals( observer.getState(), ObserverState.STALE );
 
     handler.assertEventCount( 2 );
 
-    final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 0 );
-    assertEquals( event.getObservable().getName(), observable.getName() );
+    final ObservableValueChangedEvent event = handler.assertEvent( ObservableValueChangedEvent.class, 0 );
+    assertEquals( event.getObservable().getName(), observableValue.getName() );
     assertEquals( event.getValue(), null );
 
     assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver().getName(), observer.getName() );
@@ -1706,26 +1710,26 @@ public class ObservableTest
       computedValue.getObserver();
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
-    observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    observableValue.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
-    observable.addObserver( observer );
-    observer.getDependencies().add( observable );
+    observableValue.addObserver( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    observable.reportChangeConfirmed();
+    observableValue.reportChangeConfirmed();
 
     assertEquals( observer.getState(), ObserverState.STALE );
 
     handler.assertEventCount( 2 );
 
-    final ObservableChangedEvent event = handler.assertEvent( ObservableChangedEvent.class, 0 );
-    assertEquals( event.getObservable().getName(), observable.getName() );
+    final ObservableValueChangedEvent event = handler.assertEvent( ObservableValueChangedEvent.class, 0 );
+    assertEquals( event.getObservable().getName(), observableValue.getName() );
     assertEquals( event.getValue(), expectedValue );
 
     assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver().getName(), observer.getName() );
@@ -1744,32 +1748,32 @@ public class ObservableTest
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
-    final Observable<?> observable = derivation.getComputedValue().getObservable();
-    observable.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    observableValue.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
-    observable.addObserver( observer );
-    observer.getDependencies().add( observable );
+    observableValue.addObserver( observer );
+    observer.getDependencies().add( observableValue );
 
-    assertNotEquals( observable.getLastTrackerTransactionId(), context.getTransaction().getId() );
+    assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    observable.reportChangeConfirmed();
-    observable.reportChangeConfirmed();
-    observable.reportChangeConfirmed();
+    observableValue.reportChangeConfirmed();
+    observableValue.reportChangeConfirmed();
+    observableValue.reportChangeConfirmed();
 
     assertEquals( observer.getState(), ObserverState.STALE );
 
     handler.assertEventCount( 4 );
-    assertEquals( handler.assertNextEvent( ObservableChangedEvent.class ).getObservable().getName(),
-                  observable.getName() );
+    assertEquals( handler.assertNextEvent( ObservableValueChangedEvent.class ).getObservable().getName(),
+                  observableValue.getName() );
     assertEquals( handler.assertNextEvent( ReactionScheduledEvent.class ).getObserver().getName(), observer.getName() );
-    assertEquals( handler.assertNextEvent( ObservableChangedEvent.class ).getObservable().getName(),
-                  observable.getName() );
-    assertEquals( handler.assertNextEvent( ObservableChangedEvent.class ).getObservable().getName(),
-                  observable.getName() );
+    assertEquals( handler.assertNextEvent( ObservableValueChangedEvent.class ).getObservable().getName(),
+                  observableValue.getName() );
+    assertEquals( handler.assertNextEvent( ObservableValueChangedEvent.class ).getObservable().getName(),
+                  observableValue.getName() );
   }
 
   @Test
@@ -1779,14 +1783,14 @@ public class ObservableTest
     final AtomicReference<String> value = new AtomicReference<>();
     final String initialValue = ValueUtil.randomString();
     value.set( initialValue );
-    final Observable<?> observable =
-      new Observable<>( new ArezContext(), null, ValueUtil.randomString(), null, value::get, value::set );
+    final ObservableValue<?> observableValue =
+      new ObservableValue<>( new ArezContext(), null, ValueUtil.randomString(), null, value::get, value::set );
 
-    assertNotNull( observable.getAccessor() );
-    assertNotNull( observable.getMutator() );
-    assertEquals( observable.getAccessor().get(), initialValue );
+    assertNotNull( observableValue.getAccessor() );
+    assertNotNull( observableValue.getMutator() );
+    assertEquals( observableValue.getAccessor().get(), initialValue );
     final String secondValue = ValueUtil.randomString();
     value.set( secondValue );
-    assertEquals( observable.getAccessor().get(), secondValue );
+    assertEquals( observableValue.getAccessor().get(), secondValue );
   }
 }

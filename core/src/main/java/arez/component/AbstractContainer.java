@@ -2,7 +2,7 @@ package arez.component;
 
 import arez.Arez;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.annotations.ObservableRef;
 import arez.annotations.PreDispose;
 import java.util.HashMap;
@@ -173,7 +173,7 @@ public abstract class AbstractContainer<K, T>
    */
   @ObservableRef
   @Nonnull
-  protected abstract Observable getEntitiesObservable();
+  protected abstract ObservableValue getEntitiesObservable();
 
   /**
    * Return a stream of all entities in the container.

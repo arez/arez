@@ -6,7 +6,7 @@
     },
     {
         "observable": "FilterContext.1.filter",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "FilterContext.1",
@@ -18,7 +18,7 @@
     },
     {
         "observable": "Node.20.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.20.visible",
@@ -34,7 +34,7 @@
     },
     {
         "observable": "Node.21.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.21.visible",
@@ -50,7 +50,7 @@
     },
     {
         "observable": "Node.22.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Node.22.visible",
@@ -85,7 +85,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -154,7 +154,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -169,7 +169,7 @@
     },
     {
         "observable": "Node.21.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -252,7 +252,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -267,7 +267,7 @@
     },
     {
         "observable": "Node.21.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -282,7 +282,7 @@
     },
     {
         "observable": "Node.20.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -339,7 +339,7 @@
     },
     {
         "observable": "FilterContext.1.filter",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "o"
     },
     {
@@ -384,7 +384,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -453,7 +453,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -468,7 +468,7 @@
     },
     {
         "observable": "Node.21.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -551,7 +551,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -566,7 +566,7 @@
     },
     {
         "observable": "Node.21.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -581,7 +581,7 @@
     },
     {
         "observable": "Node.20.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -638,7 +638,7 @@
     },
     {
         "observable": "FilterContext.1.filter",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "ob"
     },
     {
@@ -683,7 +683,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -752,7 +752,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -767,7 +767,7 @@
     },
     {
         "observable": "Node.21.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -850,7 +850,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -865,7 +865,7 @@
     },
     {
         "observable": "Node.21.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -880,7 +880,7 @@
     },
     {
         "observable": "Node.20.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -937,7 +937,7 @@
     },
     {
         "observable": "FilterContext.1.filter",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "obb"
     },
     {
@@ -982,7 +982,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1051,7 +1051,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1066,7 +1066,7 @@
     },
     {
         "observable": "Node.21.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1149,7 +1149,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1164,7 +1164,7 @@
     },
     {
         "observable": "Node.21.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1179,7 +1179,7 @@
     },
     {
         "observable": "Node.20.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1236,7 +1236,7 @@
     },
     {
         "observable": "FilterContext.1.filter",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "ob"
     },
     {
@@ -1281,7 +1281,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1350,7 +1350,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1365,7 +1365,7 @@
     },
     {
         "observable": "Node.21.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1448,7 +1448,7 @@
     },
     {
         "observable": "Node.22.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1463,7 +1463,7 @@
     },
     {
         "observable": "Node.21.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1478,7 +1478,7 @@
     },
     {
         "observable": "Node.20.visible",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {

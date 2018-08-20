@@ -6,7 +6,7 @@ import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
 import arez.Locator;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.Observer;
 import arez.component.CollectionsUtil;
 import arez.component.ComponentState;
@@ -38,19 +38,19 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<String> $$arez$$_myValue;
+  private final ObservableValue<String> $$arez$$_myValue;
 
   private String $$arezd$$_myValue;
 
   @Nonnull
-  private final Observable<List<Element>> $$arez$$_elements;
+  private final ObservableValue<List<Element>> $$arez$$_elements;
 
   private List<Element> $$arezd$$_elements;
 
   private List<Element> $$arezd$$_$$cache$$_elements;
 
   @Nonnull
-  private final Observable<Element> $$arez$$_parentGeneralisation;
+  private final ObservableValue<Element> $$arez$$_parentGeneralisation;
 
   private Element $$arezd$$_parentGeneralisation;
 
@@ -238,7 +238,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Nonnull
   @Override
-  protected Observable<String> getMyValueObservable() {
+  protected ObservableValue<String> getMyValueObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyValueObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }

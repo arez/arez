@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.CollectionsUtil;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -33,7 +33,7 @@ public final class Arez_ObservableListModel extends ObservableListModel implemen
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<List<String>> $$arez$$_myValue;
+  private final ObservableValue<List<String>> $$arez$$_myValue;
 
   private List<String> $$arezd$$_$$cache$$_myValue;
 

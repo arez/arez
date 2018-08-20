@@ -3,7 +3,7 @@ package arez;
 import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
 import arez.spy.ElementInfo;
-import arez.spy.ObservableInfo;
+import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -252,12 +252,12 @@ public class SpyImplTest
     assertEquals( spy.getObservers( computedValue ).size(), 0 );
 
     final Observer observer = newReadOnlyObserver( context );
-    observer.getDependencies().add( computedValue.getObservable() );
-    computedValue.getObservable().getObservers().add( observer );
+    observer.getDependencies().add( computedValue.getObservableValue() );
+    computedValue.getObservableValue().getObservers().add( observer );
 
     assertEquals( spy.getObservers( computedValue ).size(), 1 );
     // Ensure the underlying list has the Observer in places
-    assertEquals( computedValue.getObservable().getObservers().size(), 1 );
+    assertEquals( computedValue.getObservableValue().getObservers().size(), 1 );
 
     assertUnmodifiable( spy.getObservers( computedValue ) );
   }
@@ -327,13 +327,13 @@ public class SpyImplTest
 
     assertEquals( spy.getDependencies( computedValue ).size(), 0 );
 
-    final Observable<?> observable = newObservable( context );
-    observable.getObservers().add( computedValue.getObserver() );
-    computedValue.getObserver().getDependencies().add( observable );
+    final ObservableValue<?> observableValue = newObservable( context );
+    observableValue.getObservers().add( computedValue.getObserver() );
+    computedValue.getObserver().getDependencies().add( observableValue );
 
-    final List<ObservableInfo> dependencies = spy.getDependencies( computedValue );
+    final List<ObservableValueInfo> dependencies = spy.getDependencies( computedValue );
     assertEquals( dependencies.size(), 1 );
-    assertEquals( dependencies.iterator().next().getName(), observable.getName() );
+    assertEquals( dependencies.iterator().next().getName(), observableValue.getName() );
 
     assertUnmodifiable( dependencies );
   }
@@ -349,12 +349,12 @@ public class SpyImplTest
     final Observer observer = newComputedValueObserver( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
-    final Observable<?> observable = newObservable( context );
-    final Observable<?> observable2 = newObservable( context );
-    final Observable<?> observable3 = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue2 = newObservable( context );
+    final ObservableValue<?> observableValue3 = newObservable( context );
 
-    observable.getObservers().add( computedValue.getObserver() );
-    computedValue.getObserver().getDependencies().add( observable );
+    observableValue.getObservers().add( computedValue.getObserver() );
+    computedValue.getObserver().getDependencies().add( observableValue );
 
     computedValue.setComputing( true );
 
@@ -362,15 +362,15 @@ public class SpyImplTest
 
     assertEquals( spy.getDependencies( computedValue ).size(), 0 );
 
-    context.getTransaction().safeGetObservables().add( observable2 );
-    context.getTransaction().safeGetObservables().add( observable3 );
-    context.getTransaction().safeGetObservables().add( observable2 );
+    context.getTransaction().safeGetObservables().add( observableValue2 );
+    context.getTransaction().safeGetObservables().add( observableValue3 );
+    context.getTransaction().safeGetObservables().add( observableValue2 );
 
     final List<String> dependencies = spy.getDependencies( computedValue ).stream().
       map( ElementInfo::getName ).collect( Collectors.toList() );
     assertEquals( dependencies.size(), 2 );
-    assertEquals( dependencies.contains( observable2.getName() ), true );
-    assertEquals( dependencies.contains( observable3.getName() ), true );
+    assertEquals( dependencies.contains( observableValue2.getName() ), true );
+    assertEquals( dependencies.contains( observableValue3.getName() ), true );
 
     assertUnmodifiable( spy.getDependencies( computedValue ) );
   }
@@ -383,7 +383,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    assertEquals( spy.isComputedValue( newComputedValueObserver( context ).getComputedValue().getObservable() ), true );
+    assertEquals( spy.isComputedValue( newComputedValueObserver( context ).getComputedValue().getObservableValue() ), true );
     assertEquals( spy.isComputedValue( newObservable( context ) ), false );
   }
 
@@ -396,10 +396,10 @@ public class SpyImplTest
     final SpyImpl spy = new SpyImpl( context );
 
     final Observer observer = newComputedValueObserver( context );
-    final Observable<?> observable = observer.getComputedValue().getObservable();
+    final ObservableValue<?> observableValue = observer.getComputedValue().getObservableValue();
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
-    assertEquals( spy.asComputedValue( observable ).getName(), computedValue.getName() );
+    assertEquals( spy.asComputedValue( observableValue ).getName(), computedValue.getName() );
   }
 
   @Test
@@ -410,14 +410,14 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    final Observable<?> observable = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
 
-    assertEquals( spy.getObservers( observable ).size(), 0 );
+    assertEquals( spy.getObservers( observableValue ).size(), 0 );
 
     final Observer observer = newReadOnlyObserver( context );
-    observable.getObservers().add( observer );
+    observableValue.getObservers().add( observer );
 
-    final List<ObserverInfo> observers = spy.getObservers( observable );
+    final List<ObserverInfo> observers = spy.getObservers( observableValue );
     assertEquals( observers.size(), 1 );
     assertEquals( observers.iterator().next().getName(), observer.getName() );
 
@@ -527,13 +527,13 @@ public class SpyImplTest
 
     assertEquals( spy.getDependencies( observer ).size(), 0 );
 
-    final Observable<?> observable = newObservable( context );
-    observable.getObservers().add( observer );
-    observer.getDependencies().add( observable );
+    final ObservableValue<?> observableValue = newObservable( context );
+    observableValue.getObservers().add( observer );
+    observer.getDependencies().add( observableValue );
 
-    final List<ObservableInfo> dependencies = spy.getDependencies( observer );
+    final List<ObservableValueInfo> dependencies = spy.getDependencies( observer );
     assertEquals( dependencies.size(), 1 );
-    assertEquals( dependencies.get( 0 ).getName(), observable.getName() );
+    assertEquals( dependencies.get( 0 ).getName(), observableValue.getName() );
 
     assertUnmodifiable( dependencies );
   }
@@ -548,26 +548,26 @@ public class SpyImplTest
 
     final Observer observer = newReadOnlyObserver( context );
 
-    final Observable<?> observable = newObservable( context );
-    final Observable<?> observable2 = newObservable( context );
-    final Observable<?> observable3 = newObservable( context );
+    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue2 = newObservable( context );
+    final ObservableValue<?> observableValue3 = newObservable( context );
 
-    observable.getObservers().add( observer );
-    observer.getDependencies().add( observable );
+    observableValue.getObservers().add( observer );
+    observer.getDependencies().add( observableValue );
 
     setCurrentTransaction( observer );
 
     assertEquals( spy.getDependencies( observer ).size(), 0 );
 
-    context.getTransaction().safeGetObservables().add( observable2 );
-    context.getTransaction().safeGetObservables().add( observable3 );
-    context.getTransaction().safeGetObservables().add( observable2 );
+    context.getTransaction().safeGetObservables().add( observableValue2 );
+    context.getTransaction().safeGetObservables().add( observableValue3 );
+    context.getTransaction().safeGetObservables().add( observableValue2 );
 
     final List<String> dependencies = spy.getDependencies( observer ).stream().
       map( ElementInfo::getName ).collect( Collectors.toList() );
     assertEquals( dependencies.size(), 2 );
-    assertEquals( dependencies.contains( observable2.getName() ), true );
-    assertEquals( dependencies.contains( observable3.getName() ), true );
+    assertEquals( dependencies.contains( observableValue2.getName() ), true );
+    assertEquals( dependencies.contains( observableValue3.getName() ), true );
 
     assertUnmodifiable( spy.getDependencies( observer ) );
   }
@@ -593,13 +593,13 @@ public class SpyImplTest
 
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
-    final Observable<Object> observable1 = context.observable( component, ValueUtil.randomString(), null, null );
-    final Observable<Object> observable2 = context.observable();
+    final ObservableValue<Object> observableValue1 = context.observable( component, ValueUtil.randomString(), null, null );
+    final ObservableValue<Object> observableValue2 = context.observable();
 
-    final ComponentInfo info = spy.getComponent( observable1 );
+    final ComponentInfo info = spy.getComponent( observableValue1 );
     assertNotNull( info );
     assertEquals( info.getName(), component.getName() );
-    assertEquals( spy.getComponent( observable2 ), null );
+    assertEquals( spy.getComponent( observableValue2 ), null );
   }
 
   @Test
@@ -610,7 +610,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Object> value = context.observable();
+    final ObservableValue<Object> value = context.observable();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
@@ -800,13 +800,13 @@ public class SpyImplTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable<String> observable = context.observable();
+    final ObservableValue<String> observableValue = context.observable();
 
     final Spy spy = context.getSpy();
 
-    final Collection<ObservableInfo> values = spy.findAllTopLevelObservables();
+    final Collection<ObservableValueInfo> values = spy.findAllTopLevelObservableValues();
     assertEquals( values.size(), 1 );
-    assertEquals( values.iterator().next().getName(), observable.getName() );
+    assertEquals( values.iterator().next().getName(), observableValue.getName() );
     assertUnmodifiable( values );
   }
 
@@ -819,7 +819,7 @@ public class SpyImplTest
     final Spy spy = context.getSpy();
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, spy::findAllTopLevelObservables );
+      expectThrows( IllegalStateException.class, spy::findAllTopLevelObservableValues );
 
     assertEquals( exception.getMessage(),
                   "Arez-0026: ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false." );
@@ -840,7 +840,7 @@ public class SpyImplTest
     assertUnmodifiable( values );
 
     assertEquals( spy.findAllTopLevelObservers().size(), 0 );
-    assertEquals( spy.findAllTopLevelObservables().size(), 0 );
+    assertEquals( spy.findAllTopLevelObservableValues().size(), 0 );
   }
 
   @Test
@@ -900,37 +900,37 @@ public class SpyImplTest
     final AtomicReference<String> value2 = new AtomicReference<>();
     value2.set( "42" );
 
-    final Observable<String> observable1 =
+    final ObservableValue<String> observableValue1 =
       context.observable( ValueUtil.randomString(), value1::get, value1::set );
-    final Observable<String> observable2 = context.observable( ValueUtil.randomString(), value2::get, null );
-    final Observable<String> observable3 = context.observable( ValueUtil.randomString(), null, null );
+    final ObservableValue<String> observableValue2 = context.observable( ValueUtil.randomString(), value2::get, null );
+    final ObservableValue<String> observableValue3 = context.observable( ValueUtil.randomString(), null, null );
 
-    assertTrue( spy.hasAccessor( observable1 ) );
-    assertTrue( spy.hasAccessor( observable2 ) );
-    assertFalse( spy.hasAccessor( observable3 ) );
+    assertTrue( spy.hasAccessor( observableValue1 ) );
+    assertTrue( spy.hasAccessor( observableValue2 ) );
+    assertFalse( spy.hasAccessor( observableValue3 ) );
 
-    assertTrue( spy.hasMutator( observable1 ) );
-    assertFalse( spy.hasMutator( observable2 ) );
-    assertFalse( spy.hasMutator( observable3 ) );
+    assertTrue( spy.hasMutator( observableValue1 ) );
+    assertFalse( spy.hasMutator( observableValue2 ) );
+    assertFalse( spy.hasMutator( observableValue3 ) );
 
-    assertEquals( spy.getValue( observable1 ), "23" );
-    assertEquals( spy.getValue( observable2 ), "42" );
+    assertEquals( spy.getValue( observableValue1 ), "23" );
+    assertEquals( spy.getValue( observableValue2 ), "42" );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> spy.getValue( observable3 ) );
+      expectThrows( IllegalStateException.class, () -> spy.getValue( observableValue3 ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0112: Spy.getValue invoked on observable named '" + observable3.getName() + "' but " +
-                  "observable has no property accessor." );
+                  "Arez-0112: Spy.getValue invoked on ObservableValue named '" + observableValue3.getName() + "' but " +
+                  "ObservableValue has no property accessor." );
 
-    spy.setValue( observable1, "71" );
+    spy.setValue( observableValue1, "71" );
 
-    assertEquals( spy.getValue( observable1 ), "71" );
+    assertEquals( spy.getValue( observableValue1 ), "71" );
 
     final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> spy.setValue( observable2, "71" ) );
+      expectThrows( IllegalStateException.class, () -> spy.setValue( observableValue2, "71" ) );
     assertEquals( exception2.getMessage(),
-                  "Arez-0115: Spy.setValue invoked on observable named '" + observable2.getName() + "' but " +
-                  "observable has no property mutator." );
+                  "Arez-0115: Spy.setValue invoked on ObservableValue named '" + observableValue2.getName() +
+                  "' but ObservableValue has no property mutator." );
   }
 
   @Test
@@ -942,7 +942,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Integer> computedValue1 = context.observable();
+    final ObservableValue<Integer> computedValue1 = context.observable();
 
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.getValue( computedValue1 ) ) );
@@ -959,10 +959,10 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Integer> observable = context.observable();
+    final ObservableValue<Integer> observableValue = context.observable();
 
     final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.hasAccessor( observable ) ) );
+      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.hasAccessor( observableValue ) ) );
     assertEquals( exception2.getMessage(),
                   "Arez-0110: Spy.hasAccessor invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
@@ -976,10 +976,10 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Integer> observable = context.observable();
+    final ObservableValue<Integer> observableValue = context.observable();
 
     final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.hasMutator( observable ) ) );
+      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.hasMutator( observableValue ) ) );
     assertEquals( exception2.getMessage(),
                   "Arez-0113: Spy.hasMutator invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
@@ -991,13 +991,13 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Integer> observable = context.observable();
+    final ObservableValue<Integer> observableValue = context.observable();
 
     final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.getValue( observable ) ) );
+      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.getValue( observableValue ) ) );
     assertEquals( exception2.getMessage(),
-                  "Arez-0112: Spy.getValue invoked on observable named '" + observable.getName() +
-                  "' but observable has no property accessor." );
+                  "Arez-0112: Spy.getValue invoked on ObservableValue named '" + observableValue.getName() +
+                  "' but ObservableValue has no property accessor." );
   }
 
   @Test
@@ -1009,7 +1009,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Integer> computedValue1 = context.observable();
+    final ObservableValue<Integer> computedValue1 = context.observable();
 
     final IllegalStateException exception2 =
       expectThrows( IllegalStateException.class, () -> context.action( () -> spy.setValue( computedValue1, 44 ) ) );
@@ -1024,13 +1024,13 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observable<Integer> observable = context.observable();
+    final ObservableValue<Integer> observableValue = context.observable();
 
     final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.setValue( observable, 44 ) ) );
+      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.setValue( observableValue, 44 ) ) );
     assertEquals( exception2.getMessage(),
-                  "Arez-0115: Spy.setValue invoked on observable named '" + observable.getName() +
-                  "' but observable has no property mutator." );
+                  "Arez-0115: Spy.setValue invoked on ObservableValue named '" + observableValue.getName() +
+                  "' but ObservableValue has no property mutator." );
   }
 
   @Test
@@ -1106,10 +1106,10 @@ public class SpyImplTest
   public void asObservableInfo()
   {
     final ArezContext context = Arez.context();
-    final Observable<Object> observable = context.observable( ValueUtil.randomString() );
-    final ObservableInfo info = context.getSpy().asObservableInfo( observable );
+    final ObservableValue<Object> observableValue = context.observable( ValueUtil.randomString() );
+    final ObservableValueInfo info = context.getSpy().asObservableValueInfo( observableValue );
 
-    assertEquals( info.getName(), observable.getName() );
+    assertEquals( info.getName(), observableValue.getName() );
   }
 
   @Test

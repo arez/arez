@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -32,7 +32,7 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel imple
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Integer> $$arez$$_myEntityId;
+  private final ObservableValue<Integer> $$arez$$_myEntityId;
 
   private int $$arezd$$_myEntityId;
 

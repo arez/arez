@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -31,7 +31,7 @@ final class Arez_InjectDisabledRepositoryRepository extends InjectDisabledReposi
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Stream<InjectDisabledRepository>> $$arez$$_entities;
+  private final ObservableValue<Stream<InjectDisabledRepository>> $$arez$$_entities;
 
   Arez_InjectDisabledRepositoryRepository() {
     super();
@@ -127,7 +127,7 @@ final class Arez_InjectDisabledRepositoryRepository extends InjectDisabledReposi
 
   @Nonnull
   @Override
-  protected Observable getEntitiesObservable() {
+  protected ObservableValue getEntitiesObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getEntitiesObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

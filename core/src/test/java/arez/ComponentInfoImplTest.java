@@ -18,12 +18,12 @@ public class ComponentInfoImplTest
     final String id = ValueUtil.randomString();
     final String name = ValueUtil.randomString();
     final Observer observer = context.autorun( AbstractArezTest::observeADependency );
-    final Observable observable = context.observable();
+    final ObservableValue observableValue = context.observable();
     final ComputedValue computedValue = context.computed( () -> "" );
 
     final Component component = context.component( type, id, name );
     component.addObserver( observer );
-    component.addObservable( observable );
+    component.addObservableValue( observableValue );
     component.addComputedValue( computedValue );
 
     final ComponentInfoImpl info = new ComponentInfoImpl( context.getSpy(), component );
@@ -33,9 +33,9 @@ public class ComponentInfoImplTest
     assertEquals( info.getName(), name );
     assertEquals( info.toString(), name );
 
-    assertEquals( info.getObservables().size(), 1 );
-    assertEquals( info.getObservables().get( 0 ).getName(), observable.getName() );
-    assertUnmodifiable( info.getObservables() );
+    assertEquals( info.getObservableValues().size(), 1 );
+    assertEquals( info.getObservableValues().get( 0 ).getName(), observableValue.getName() );
+    assertUnmodifiable( info.getObservableValues() );
 
     assertEquals( info.getObservers().size(), 1 );
     assertEquals( info.getObservers().get( 0 ).getName(), observer.getName() );

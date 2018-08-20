@@ -7,7 +7,7 @@ import arez.ArezObserverTestUtil;
 import arez.ArezTestUtil;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.Observer;
 import arez.ObserverErrorHandler;
 import arez.Procedure;
@@ -280,7 +280,7 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.observable();
+    final ObservableValue observableValue = context.observable();
 
     final AtomicInteger reactionCount = new AtomicInteger();
 
@@ -288,7 +288,7 @@ public class ExternalApiTest
       context.autorun( ValueUtil.randomString(),
                        false,
                        () -> {
-                         observable.reportObserved();
+                         observableValue.reportObserved();
                          reactionCount.incrementAndGet();
                        },
                        true );
@@ -296,7 +296,7 @@ public class ExternalApiTest
     assertEquals( reactionCount.get(), 1 );
     assertEquals( ArezObserverTestUtil.isActive( observer ), true );
 
-    context.safeAction( ValueUtil.randomString(), true, observable::reportChanged );
+    context.safeAction( ValueUtil.randomString(), true, observableValue::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( ArezObserverTestUtil.isActive( observer ), true );
@@ -308,7 +308,7 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.observable();
+    final ObservableValue observableValue = context.observable();
 
     final AtomicInteger reactionCount = new AtomicInteger();
 
@@ -316,7 +316,7 @@ public class ExternalApiTest
       context.autorun( ValueUtil.randomString(),
                        false,
                        () -> {
-                         observable.reportObserved();
+                         observableValue.reportObserved();
                          reactionCount.incrementAndGet();
                        },
                        true );
@@ -325,7 +325,7 @@ public class ExternalApiTest
     assertEquals( ArezObserverTestUtil.isActive( observer ), true );
 
     // Run an "action"
-    context.action( ValueUtil.randomString(), true, observable::reportChanged );
+    context.action( ValueUtil.randomString(), true, observableValue::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( ArezObserverTestUtil.isActive( observer ), true );
@@ -337,10 +337,10 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable1 = context.observable();
-    final Observable observable2 = context.observable();
-    final Observable observable3 = context.observable();
-    final Observable observable4 = context.observable();
+    final ObservableValue observableValue1 = context.observable();
+    final ObservableValue observableValue2 = context.observable();
+    final ObservableValue observableValue3 = context.observable();
+    final ObservableValue observableValue4 = context.observable();
 
     final AtomicInteger reactionCount = new AtomicInteger();
 
@@ -348,9 +348,9 @@ public class ExternalApiTest
       context.autorun( ValueUtil.randomString(),
                        false,
                        () -> {
-                         observable1.reportObserved();
-                         observable2.reportObserved();
-                         observable3.reportObserved();
+                         observableValue1.reportObserved();
+                         observableValue2.reportObserved();
+                         observableValue3.reportObserved();
                          reactionCount.incrementAndGet();
                        },
                        true );
@@ -359,7 +359,7 @@ public class ExternalApiTest
     assertEquals( ArezObserverTestUtil.isActive( observer ), true );
 
     // Run an "action"
-    context.action( ValueUtil.randomString(), true, observable1::reportChanged );
+    context.action( ValueUtil.randomString(), true, observableValue1::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( ArezObserverTestUtil.isActive( observer ), true );
@@ -368,8 +368,8 @@ public class ExternalApiTest
     context.action( ValueUtil.randomString(),
                     true,
                     () -> {
-                      observable1.reportChanged();
-                      observable2.reportChanged();
+                      observableValue1.reportChanged();
+                      observableValue2.reportChanged();
                     } );
 
     assertEquals( reactionCount.get(), 3 );
@@ -378,15 +378,15 @@ public class ExternalApiTest
     context.action( ValueUtil.randomString(),
                     true,
                     () -> {
-                      observable3.reportChanged();
-                      observable4.reportChanged();
+                      observableValue3.reportChanged();
+                      observableValue4.reportChanged();
                     } );
 
     assertEquals( reactionCount.get(), 4 );
     assertEquals( ArezObserverTestUtil.isActive( observer ), true );
 
-    // observable4 should not cause a reaction as not observed
-    context.action( ValueUtil.randomString(), true, observable4::reportChanged );
+    // observableValue4 should not cause a reaction as not observed
+    context.action( ValueUtil.randomString(), true, observableValue4::reportChanged );
 
     assertEquals( reactionCount.get(), 4 );
     assertEquals( ArezObserverTestUtil.isActive( observer ), true );
@@ -398,19 +398,19 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.observable();
+    final ObservableValue observableValue = context.observable();
 
-    assertNotInTransaction( context, observable );
+    assertNotInTransaction( context, observableValue );
 
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
       context.action( ValueUtil.randomString(), false, () -> {
-        assertInTransaction( context, observable );
+        assertInTransaction( context, observableValue );
         return expectedValue;
       } );
 
-    assertNotInTransaction( context, observable );
+    assertNotInTransaction( context, observableValue );
 
     assertEquals( v0, expectedValue );
   }
@@ -421,19 +421,19 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.observable();
+    final ObservableValue observableValue = context.observable();
 
-    assertNotInTransaction( context, observable );
+    assertNotInTransaction( context, observableValue );
 
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
       context.safeAction( ValueUtil.randomString(), false, () -> {
-        assertInTransaction( context, observable );
+        assertInTransaction( context, observableValue );
         return expectedValue;
       } );
 
-    assertNotInTransaction( context, observable );
+    assertNotInTransaction( context, observableValue );
 
     assertEquals( v0, expectedValue );
   }
@@ -443,27 +443,27 @@ public class ExternalApiTest
     throws Throwable
   {
     final ArezContext context = Arez.context();
-    final Observable observable = context.observable();
+    final ObservableValue observableValue = context.observable();
 
-    assertNotInTransaction( context, observable );
+    assertNotInTransaction( context, observableValue );
 
     context.action( ValueUtil.randomString(), false, () -> {
-      assertInTransaction( context, observable );
+      assertInTransaction( context, observableValue );
 
       //First nested exception
       context.action( ValueUtil.randomString(), false, () -> {
-        assertInTransaction( context, observable );
+        assertInTransaction( context, observableValue );
 
         //Second nested exception
-        context.action( ValueUtil.randomString(), false, () -> assertInTransaction( context, observable ) );
+        context.action( ValueUtil.randomString(), false, () -> assertInTransaction( context, observableValue ) );
 
-        assertInTransaction( context, observable );
+        assertInTransaction( context, observableValue );
       } );
 
-      assertInTransaction( context, observable );
+      assertInTransaction( context, observableValue );
     } );
 
-    assertNotInTransaction( context, observable );
+    assertNotInTransaction( context, observableValue );
   }
 
   @Test
@@ -472,38 +472,38 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.observable();
+    final ObservableValue observableValue = context.observable();
 
-    assertNotInTransaction( context, observable );
+    assertNotInTransaction( context, observableValue );
 
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
       context.action( ValueUtil.randomString(), false, () -> {
-        assertInTransaction( context, observable );
+        assertInTransaction( context, observableValue );
 
         //First nested exception
         final String v1 =
           context.action( ValueUtil.randomString(), false, () -> {
-            assertInTransaction( context, observable );
+            assertInTransaction( context, observableValue );
 
             //Second nested exception
             final String v2 =
               context.action( ValueUtil.randomString(), false, () -> {
-                assertInTransaction( context, observable );
+                assertInTransaction( context, observableValue );
                 return expectedValue;
               } );
 
-            assertInTransaction( context, observable );
+            assertInTransaction( context, observableValue );
 
             return v2;
           } );
 
-        assertInTransaction( context, observable );
+        assertInTransaction( context, observableValue );
         return v1;
       } );
 
-    assertNotInTransaction( context, observable );
+    assertNotInTransaction( context, observableValue );
 
     assertEquals( v0, expectedValue );
   }
@@ -517,52 +517,52 @@ public class ExternalApiTest
 
     final ArezContext context1 = zone1.getContext();
     final ArezContext context2 = zone2.getContext();
-    final Observable observable1 = context1.observable();
-    final Observable observable2 = context2.observable();
+    final ObservableValue observableValue1 = context1.observable();
+    final ObservableValue observableValue2 = context2.observable();
 
     final AtomicInteger autorunCallCount1 = new AtomicInteger();
     final AtomicInteger autorunCallCount2 = new AtomicInteger();
 
     context1.autorun( () -> {
-      observable1.reportObserved();
+      observableValue1.reportObserved();
       autorunCallCount1.incrementAndGet();
     } );
 
     context2.autorun( () -> {
-      observable2.reportObserved();
+      observableValue2.reportObserved();
       autorunCallCount2.incrementAndGet();
     } );
 
     assertEquals( autorunCallCount1.get(), 1 );
     assertEquals( autorunCallCount2.get(), 1 );
 
-    assertNotInTransaction( context1, observable1 );
-    assertNotInTransaction( context2, observable2 );
+    assertNotInTransaction( context1, observableValue1 );
+    assertNotInTransaction( context2, observableValue2 );
 
     context1.action( () -> {
-      assertInTransaction( context1, observable1 );
+      assertInTransaction( context1, observableValue1 );
 
       //First nested exception
       context1.action( () -> {
-        assertInTransaction( context1, observable1 );
-        observable1.reportChanged();
+        assertInTransaction( context1, observableValue1 );
+        observableValue1.reportChanged();
 
         //Second nested exception
-        context1.action( () -> assertInTransaction( context1, observable1 ) );
+        context1.action( () -> assertInTransaction( context1, observableValue1 ) );
 
         context2.action( () -> {
-          assertNotInTransaction( context1, observable1 );
-          assertInTransaction( context2, observable2 );
-          observable2.reportChanged();
+          assertNotInTransaction( context1, observableValue1 );
+          assertInTransaction( context2, observableValue2 );
+          observableValue2.reportChanged();
 
           context2.action( () -> {
-            assertNotInTransaction( context1, observable1 );
-            assertInTransaction( context2, observable2 );
-            observable2.reportChanged();
+            assertNotInTransaction( context1, observableValue1 );
+            assertInTransaction( context2, observableValue2 );
+            observableValue2.reportChanged();
           } );
 
           assertEquals( autorunCallCount1.get(), 1 );
-          context1.action( () -> assertInTransaction( context1, observable1 ) );
+          context1.action( () -> assertInTransaction( context1, observableValue1 ) );
           // Still no autorun reaction as it has transaction up the stack
           assertEquals( autorunCallCount1.get(), 1 );
 
@@ -572,19 +572,19 @@ public class ExternalApiTest
         // Second context runs now as it got to it's top level trnsaction
         assertEquals( autorunCallCount2.get(), 2 );
 
-        assertInTransaction( context1, observable1 );
-        assertNotInTransaction( context2, observable2 );
+        assertInTransaction( context1, observableValue1 );
+        assertNotInTransaction( context2, observableValue2 );
       } );
 
-      assertInTransaction( context1, observable1 );
-      assertNotInTransaction( context2, observable2 );
+      assertInTransaction( context1, observableValue1 );
+      assertNotInTransaction( context2, observableValue2 );
     } );
 
     assertEquals( autorunCallCount1.get(), 2 );
     assertEquals( autorunCallCount2.get(), 2 );
 
-    assertNotInTransaction( context1, observable1 );
-    assertNotInTransaction( context2, observable2 );
+    assertNotInTransaction( context1, observableValue1 );
+    assertNotInTransaction( context2, observableValue2 );
   }
 
   @Test
@@ -625,20 +625,20 @@ public class ExternalApiTest
   }
 
   /**
-   * Test we are in a transaction by trying to observe an observable.
+   * Test we are in a transaction by trying to observe an observableValue.
    */
-  private void assertInTransaction( @Nonnull final ArezContext context, @Nonnull final Observable observable )
+  private void assertInTransaction( @Nonnull final ArezContext context, @Nonnull final ObservableValue observableValue )
   {
     assertEquals( context.isTransactionActive(), true );
-    observable.reportObserved();
+    observableValue.reportObserved();
   }
 
   /**
-   * Test we are not in a transaction by trying to observe an observable.
+   * Test we are not in a transaction by trying to observe an observableValue.
    */
-  private void assertNotInTransaction( @Nonnull final ArezContext context, @Nonnull final Observable observable )
+  private void assertNotInTransaction( @Nonnull final ArezContext context, @Nonnull final ObservableValue observableValue )
   {
     assertEquals( context.isTransactionActive(), false );
-    assertThrows( observable::reportObserved );
+    assertThrows( observableValue::reportObserved );
   }
 }

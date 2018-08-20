@@ -6,7 +6,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
-import arez.spy.ObservableInfo;
+import arez.spy.ObservableValueInfo;
 import java.util.List;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -31,7 +31,7 @@ public class ComponentObservableTest
     final ComponentObservableTest_Arez_TestComponent component = new ComponentObservableTest_Arez_TestComponent();
     // The base class will verify that there are no observer errors triggered in autorun
     final Observer observer = Arez.context().autorun( () -> ComponentObservable.observe( component ) );
-    final List<ObservableInfo> dependencies = Arez.context().getSpy().getDependencies( observer );
+    final List<ObservableValueInfo> dependencies = Arez.context().getSpy().getDependencies( observer );
     assertEquals( dependencies.size(), 1 );
     assertEquals( dependencies.get( 0 ).getName(), "TestComponent.0.isDisposed" );
   }

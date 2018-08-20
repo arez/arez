@@ -1,5 +1,6 @@
 package arez.integration.collections;
 
+import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
@@ -105,6 +106,6 @@ public class UnmodifiableSetterlessCollectionsIntegrationTest
     }
 
     @ObservableRef
-    abstract arez.Observable getValueObservable();
+    abstract ObservableValue getValueObservable();
   }
 }

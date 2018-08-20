@@ -6,11 +6,11 @@
     },
     {
         "observable": "Attr1",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "Attr2",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "Attr3",
@@ -124,7 +124,7 @@
     },
     {
         "observable": "Attr3",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -189,7 +189,7 @@
     },
     {
         "observable": "Attr1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -211,7 +211,7 @@
     },
     {
         "observable": "Attr1",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "action": "Attr2.dispose",
@@ -228,7 +228,7 @@
     },
     {
         "observable": "Attr2",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -250,7 +250,7 @@
     },
     {
         "observable": "Attr2",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,

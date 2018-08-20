@@ -3,7 +3,7 @@ package arez;
 import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
 import arez.spy.ComputedValueDisposedEvent;
-import arez.spy.ObservableChangedEvent;
+import arez.spy.ObservableValueChangedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -59,9 +59,9 @@ public class ComputedValueTest
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
     assertEquals( computedValue.getObserver().getState(), ObserverState.INACTIVE );
-    assertEquals( computedValue.getObservable().getName(), name );
-    assertEquals( computedValue.getObservable().hasOwner(), true );
-    assertEquals( computedValue.getObservable().getOwner(), computedValue.getObserver() );
+    assertEquals( computedValue.getObservableValue().getName(), name );
+    assertEquals( computedValue.getObservableValue().hasOwner(), true );
+    assertEquals( computedValue.getObservableValue().getOwner(), computedValue.getObserver() );
 
     assertEquals( context.getTopLevelComputedValues().get( computedValue.getName() ), computedValue );
     assertEquals( context.getTopLevelObservers().size(), 0 );
@@ -73,10 +73,10 @@ public class ComputedValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observable<Object> observable = Arez.context().observable();
+    final ObservableValue<Object> observableValue = Arez.context().observable();
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> {
-      observable.reportObserved();
+      observableValue.reportObserved();
       return "";
     };
     final ComputedValue<String> computedValue =
@@ -99,9 +99,9 @@ public class ComputedValueTest
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
     assertEquals( computedValue.getObserver().getState(), ObserverState.UP_TO_DATE );
-    assertEquals( computedValue.getObservable().getName(), name );
-    assertEquals( computedValue.getObservable().hasOwner(), true );
-    assertEquals( computedValue.getObservable().getOwner(), computedValue.getObserver() );
+    assertEquals( computedValue.getObservableValue().getName(), name );
+    assertEquals( computedValue.getObservableValue().hasOwner(), true );
+    assertEquals( computedValue.getObservableValue().getOwner(), computedValue.getObserver() );
 
     assertEquals( context.getTopLevelComputedValues().get( computedValue.getName() ), computedValue );
     assertEquals( context.getTopLevelObservers().size(), 0 );
@@ -162,10 +162,10 @@ public class ComputedValueTest
     assertEquals( computedValue.getComponent(), component );
 
     assertEquals( computedValue.getObserver().getComponent(), null );
-    assertEquals( computedValue.getObservable().getComponent(), null );
+    assertEquals( computedValue.getObservableValue().getComponent(), null );
 
     // Don't register the worker observables/observers just the computed values
-    assertEquals( component.getObservables().size(), 0 );
+    assertEquals( component.getObservableValues().size(), 0 );
     assertEquals( component.getObservers().size(), 0 );
 
     assertTrue( component.getComputedValues().contains( computedValue ) );
@@ -221,10 +221,10 @@ public class ComputedValueTest
 
     final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getComputedValue().getObservable().addObserver( observer );
-    observer.getDependencies().add( computedValue.getObservable() );
+    computedValue.getObserver().getComputedValue().getObservableValue().addObserver( observer );
+    observer.getDependencies().add( computedValue.getObservableValue() );
 
-    computedValue.getObservable().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
     computedValue.setValue( value1 );
 
@@ -257,10 +257,10 @@ public class ComputedValueTest
 
     final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getComputedValue().getObservable().addObserver( observer );
-    observer.getDependencies().add( computedValue.getObservable() );
+    computedValue.getObserver().getComputedValue().getObservableValue().addObserver( observer );
+    observer.getDependencies().add( computedValue.getObservableValue() );
 
-    computedValue.getObservable().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
     computedValue.setValue( null );
     computedValue.setError( new IllegalStateException() );
@@ -295,10 +295,10 @@ public class ComputedValueTest
 
     final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getComputedValue().getObservable().addObserver( observer );
-    observer.getDependencies().add( computedValue.getObservable() );
+    computedValue.getObserver().getComputedValue().getObservableValue().addObserver( observer );
+    observer.getDependencies().add( computedValue.getObservableValue() );
 
-    computedValue.getObservable().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
     value.set( value1 );
     computedValue.setValue( value1 );
@@ -331,10 +331,10 @@ public class ComputedValueTest
 
     final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getComputedValue().getObservable().addObserver( observer );
-    observer.getDependencies().add( computedValue.getObservable() );
+    computedValue.getObserver().getComputedValue().getObservableValue().addObserver( observer );
+    observer.getDependencies().add( computedValue.getObservableValue() );
 
-    computedValue.getObservable().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
     computedValue.setValue( value1 );
 
@@ -365,9 +365,9 @@ public class ComputedValueTest
 
     assertEquals( getObserverErrors().size(), 1 );
     assertEquals( getObserverErrors().get( 0 ),
-                  "Observer: XYZ Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0173: ComputedValue named 'XYZ' completed compute but is not observing any observables and thus will never be rescheduled. This is not a ComputedValue candidate." );
+                  "Observer: XYZ Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0173: ComputedValue named 'XYZ' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputedValue candidate." );
     assertEquals( exception.getMessage(),
-                  "Arez-0173: ComputedValue named 'XYZ' completed compute but is not observing any observables and thus will never be rescheduled. This is not a ComputedValue candidate." );
+                  "Arez-0173: ComputedValue named 'XYZ' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputedValue candidate." );
   }
 
   @Test
@@ -427,10 +427,10 @@ public class ComputedValueTest
     handler.assertNextEvent( ComputedValueDisposedEvent.class,
                              e -> assertEquals( e.getComputedValue().getName(), computedValue.getName() ) );
 
-    // This is the part that disposes the associated Observable
+    // This is the part that disposes the associated ObservableValue
     handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
     handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( ObservableChangedEvent.class );
+    handler.assertNextEvent( ObservableValueChangedEvent.class );
     handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
     handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
 
@@ -447,11 +447,11 @@ public class ComputedValueTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable<Object> observable = context.observable( "Y" );
+    final ObservableValue<Object> observableValue = context.observable( "Y" );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> context.action( "X", false, (Procedure) observable::dispose ) );
+                    () -> context.action( "X", false, (Procedure) observableValue::dispose ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0119: Attempting to create READ_WRITE transaction named 'Y.dispose' but it is nested in transaction named 'X' with mode READ_ONLY which is not equal to READ_WRITE." );
@@ -640,15 +640,15 @@ public class ComputedValueTest
     computedValue.setDisposed( true );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, computedValue::getObservable );
+      expectThrows( IllegalStateException.class, computedValue::getObservableValue );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0084: Attempted to invoke getObservable on disposed ComputedValue named '" +
+                  "Arez-0084: Attempted to invoke getObservableValue on disposed ComputedValue named '" +
                   computedValue.getName() + "'." );
 
     computedValue.setDisposed( false );
 
-    assertEquals( computedValue.getObservable().getName(), computedValue.getName() );
+    assertEquals( computedValue.getObservableValue().getName(), computedValue.getName() );
   }
 
   @Test
@@ -662,11 +662,11 @@ public class ComputedValueTest
     final AtomicInteger result = new AtomicInteger();
     final AtomicReference<String> expected = new AtomicReference<>();
 
-    final Observable<Object> observable = context.observable();
+    final ObservableValue<Object> observableValue = context.observable();
 
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> {
-      observable.reportObserved();
+      observableValue.reportObserved();
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
@@ -700,7 +700,7 @@ public class ComputedValueTest
     assertEquals( autorunCallCount.get(), 2 );
     assertEquals( computedCallCount.get(), 3 );
 
-    context.safeAction( observable::reportChanged );
+    context.safeAction( observableValue::reportChanged );
 
     assertEquals( autorunCallCount.get(), 2 );
     assertEquals( computedCallCount.get(), 4 );
@@ -715,11 +715,11 @@ public class ComputedValueTest
     final AtomicInteger computedCallCount = new AtomicInteger();
     final AtomicInteger autorunCallCount = new AtomicInteger();
 
-    final Observable<Object> observable = context.observable();
+    final ObservableValue<Object> observableValue = context.observable();
 
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> {
-      observable.reportObserved();
+      observableValue.reportObserved();
       computedCallCount.incrementAndGet();
       return "";
     };
@@ -744,7 +744,7 @@ public class ComputedValueTest
     assertEquals( computedCallCount.get(), 1 );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0152: Transaction named 'Transaction@3' attempted to change observable named '" +
+                  "Arez-0152: Transaction named 'Transaction@3' attempted to change ObservableValue named '" +
                   computedValue.getName() + "' but the transaction mode is READ_ONLY." );
   }
 
@@ -758,11 +758,11 @@ public class ComputedValueTest
     final AtomicInteger computedCallCount = new AtomicInteger();
     final AtomicInteger autorunCallCount = new AtomicInteger();
 
-    final Observable<Object> observable = context.observable();
+    final ObservableValue<Object> observableValue = context.observable();
 
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> {
-      observable.reportObserved();
+      observableValue.reportObserved();
       computedCallCount.incrementAndGet();
       return "";
     };
@@ -780,7 +780,7 @@ public class ComputedValueTest
     assertEquals( computedCallCount.get(), 1 );
 
     context.safeAction( () -> {
-      observable.reportChanged();
+      observableValue.reportChanged();
       assertTrue( computedValue.getObserver().isScheduled() );
       computedValue.reportPossiblyChanged();
       assertTrue( computedValue.getObserver().isScheduled() );

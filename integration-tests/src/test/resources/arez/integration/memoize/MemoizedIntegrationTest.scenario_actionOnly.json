@@ -6,11 +6,11 @@
     },
     {
         "observable": "PersonModel.1.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "PersonModel.1.age",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "PersonModel.1",
@@ -45,7 +45,7 @@
     },
     {
         "observable": "PersonModel.1.doesSearchMatch.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -128,7 +128,7 @@
     },
     {
         "observable": "PersonModel.1.doesSearchMatch.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -207,7 +207,7 @@
     },
     {
         "observable": "PersonModel.1.doesSearchMatch.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -290,7 +290,7 @@
     },
     {
         "observable": "PersonModel.1.doesSearchMatch.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {

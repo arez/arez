@@ -2,6 +2,7 @@ package arez.integration;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.ObservableValue;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
@@ -21,7 +22,7 @@ public class ObservableRefNoSetterTest
     private String _other;
 
     @ObservableRef
-    abstract arez.Observable getOtherIDObservable();
+    abstract ObservableValue getOtherIDObservable();
 
     String getOther()
     {

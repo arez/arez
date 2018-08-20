@@ -1,5 +1,6 @@
 package com.example.observable_ref;
 
+import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
@@ -20,5 +21,5 @@ public abstract class DefaultRefNameModel
 
   @Nonnull
   @ObservableRef
-  public abstract arez.Observable<Long> getTimeObservable();
+  public abstract ObservableValue<Long> getTimeObservable();
 }

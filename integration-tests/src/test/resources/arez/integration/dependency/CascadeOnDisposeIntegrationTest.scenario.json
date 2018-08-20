@@ -6,7 +6,7 @@
     },
     {
         "observable": "Model1.0.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "Model1.0",
@@ -18,7 +18,7 @@
     },
     {
         "observable": "Model1.1.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "Model1.1",
@@ -30,7 +30,7 @@
     },
     {
         "observable": "Model2.0.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "Model2.0",
@@ -42,7 +42,7 @@
     },
     {
         "observable": "Model2.1.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "Model2.1",
@@ -80,7 +80,7 @@
     },
     {
         "observable": "Model2.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Model2A"
     },
     {
@@ -102,7 +102,7 @@
     },
     {
         "observable": "Model2.0.name",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,
@@ -157,7 +157,7 @@
     },
     {
         "observable": "Model1.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Model1A"
     },
     {
@@ -179,7 +179,7 @@
     },
     {
         "observable": "Model1.0.name",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,
@@ -251,7 +251,7 @@
     },
     {
         "observable": "Model2.1.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Model2B"
     },
     {
@@ -273,7 +273,7 @@
     },
     {
         "observable": "Model2.1.name",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,
@@ -311,7 +311,7 @@
     },
     {
         "observable": "Model1.1.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Model1B"
     },
     {
@@ -333,7 +333,7 @@
     },
     {
         "observable": "Model1.1.name",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,

@@ -7,25 +7,25 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Notification when Observable has changed.
+ * Notification when ObservableValue has changed.
  */
-public final class ObservableChangedEvent
+public final class ObservableValueChangedEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( ObservableChangedEvent.class );
+  public static final String TYPE_NAME = EventUtil.getName( ObservableValueChangedEvent.class );
   @Nonnull
-  private final ObservableInfo _observable;
+  private final ObservableValueInfo _observable;
   @Nullable
   private final Object _value;
 
-  public ObservableChangedEvent( @Nonnull final ObservableInfo observable, @Nullable final Object value )
+  public ObservableValueChangedEvent( @Nonnull final ObservableValueInfo observable, @Nullable final Object value )
   {
     _observable = Objects.requireNonNull( observable );
     _value = value;
   }
 
   @Nonnull
-  public ObservableInfo getObservable()
+  public ObservableValueInfo getObservable()
   {
     return _observable;
   }

@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.Priority;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
@@ -30,7 +30,7 @@ public final class Arez_DisposeOnDeactivateModel extends DisposeOnDeactivateMode
 
   private final Component $$arezi$$_component;
 
-  private final Observable<Boolean> $$arezi$$_disposedObservable;
+  private final ObservableValue<Boolean> $$arezi$$_disposedObservable;
 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 

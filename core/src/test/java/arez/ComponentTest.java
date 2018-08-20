@@ -110,11 +110,11 @@ public class ComponentTest
 
     final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
-    final Observable observable1 = context.observable();
+    final ObservableValue observableValue1 = context.observable();
     final ComputedValue computedValue1 = context.computed( () -> "" );
     final Observer observer1 = context.autorun( AbstractArezTest::observeADependency );
 
-    component.addObservable( observable1 );
+    component.addObservableValue( observableValue1 );
     component.addComputedValue( computedValue1 );
     component.addObserver( observer1 );
 
@@ -124,7 +124,7 @@ public class ComponentTest
 
     assertEquals( component.isComplete(), true );
 
-    assertEquals( component.getObservables().size(), 1 );
+    assertEquals( component.getObservableValues().size(), 1 );
     assertEquals( component.getComputedValues().size(), 1 );
     assertEquals( component.getObservers().size(), 1 );
   }
@@ -265,30 +265,30 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final Observable observable1 = context.observable();
-    final Observable observable2 = context.observable();
+    final ObservableValue observableValue1 = context.observable();
+    final ObservableValue observableValue2 = context.observable();
 
-    assertEquals( component.getObservables().size(), 0 );
+    assertEquals( component.getObservableValues().size(), 0 );
 
-    component.addObservable( observable1 );
+    component.addObservableValue( observableValue1 );
 
-    assertEquals( component.getObservables().size(), 1 );
-    assertEquals( component.getObservables().contains( observable1 ), true );
+    assertEquals( component.getObservableValues().size(), 1 );
+    assertEquals( component.getObservableValues().contains( observableValue1 ), true );
 
-    component.addObservable( observable2 );
+    component.addObservableValue( observableValue2 );
 
-    assertEquals( component.getObservables().size(), 2 );
-    assertEquals( component.getObservables().contains( observable1 ), true );
-    assertEquals( component.getObservables().contains( observable2 ), true );
+    assertEquals( component.getObservableValues().size(), 2 );
+    assertEquals( component.getObservableValues().contains( observableValue1 ), true );
+    assertEquals( component.getObservableValues().contains( observableValue2 ), true );
 
-    component.removeObservable( observable1 );
+    component.removeObservableValue( observableValue1 );
 
-    assertEquals( component.getObservables().size(), 1 );
-    assertEquals( component.getObservables().contains( observable2 ), true );
+    assertEquals( component.getObservableValues().size(), 1 );
+    assertEquals( component.getObservableValues().contains( observableValue2 ), true );
 
-    component.removeObservable( observable2 );
+    component.removeObservableValue( observableValue2 );
 
-    assertEquals( component.getObservables().size(), 0 );
+    assertEquals( component.getObservableValues().size(), 0 );
   }
 
   @Test
@@ -301,19 +301,19 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final Observable observable1 = context.observable();
+    final ObservableValue observableValue1 = context.observable();
 
-    component.addObservable( observable1 );
+    component.addObservableValue( observableValue1 );
 
-    assertEquals( component.getObservables().size(), 1 );
+    assertEquals( component.getObservableValues().size(), 1 );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> component.addObservable( observable1 ) );
-    assertEquals( exception.getMessage(), "Arez-0043: Component.addObservable invoked on component '" + name +
-                                          "' specifying observable named '" + observable1.getName() +
-                                          "' when observable already exists for component." );
+      expectThrows( IllegalStateException.class, () -> component.addObservableValue( observableValue1 ) );
+    assertEquals( exception.getMessage(), "Arez-0043: Component.addObservableValue invoked on component '" + name +
+                                          "' specifying ObservableValue named '" + observableValue1.getName() +
+                                          "' when ObservableValue already exists for component." );
 
-    assertEquals( component.getObservables().size(), 1 );
+    assertEquals( component.getObservableValues().size(), 1 );
   }
 
   @Test
@@ -327,12 +327,12 @@ public class ComponentTest
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
     component.complete();
 
-    final Observable observable1 = context.observable();
+    final ObservableValue observableValue1 = context.observable();
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> component.addObservable( observable1 ) );
-    assertEquals( exception.getMessage(), "Arez-0042: Component.addObservable invoked on component '" + name +
-                                          "' specifying observable named '" + observable1.getName() +
+      expectThrows( IllegalStateException.class, () -> component.addObservableValue( observableValue1 ) );
+    assertEquals( exception.getMessage(), "Arez-0042: Component.addObservableValue invoked on component '" + name +
+                                          "' specifying ObservableValue named '" + observableValue1.getName() +
                                           "' when component.complete() has already been called." );
   }
 
@@ -346,13 +346,13 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final Observable observable1 = context.observable();
+    final ObservableValue observableValue1 = context.observable();
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> component.removeObservable( observable1 ) );
-    assertEquals( exception.getMessage(), "Arez-0044: Component.removeObservable invoked on component '" + name +
-                                          "' specifying observable named '" + observable1.getName() +
-                                          "' when observable does not exist for component." );
+      expectThrows( IllegalStateException.class, () -> component.removeObservableValue( observableValue1 ) );
+    assertEquals( exception.getMessage(), "Arez-0044: Component.removeObservableValue invoked on component '" + name +
+                                          "' specifying ObservableValue named '" + observableValue1.getName() +
+                                          "' when ObservableValue does not exist for component." );
   }
 
   @Test
@@ -444,8 +444,8 @@ public class ComponentTest
 
     final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
-    final Observable observable1 = context.observable( component, ValueUtil.randomString(), null, null );
-    final Observable observable2 = context.observable( component, ValueUtil.randomString(), null, null );
+    final ObservableValue observableValue1 = context.observable( component, ValueUtil.randomString(), null, null );
+    final ObservableValue observableValue2 = context.observable( component, ValueUtil.randomString(), null, null );
     final ComputedValue computedValue1 = context.computed( component,
                                                            ValueUtil.randomString(),
                                                            () -> "",
@@ -466,13 +466,13 @@ public class ComponentTest
     final Observer observer2 =
       context.autorun( component, ValueUtil.randomString(), true, action, Priority.NORMAL, false );
 
-    assertEquals( component.getObservables().size(), 2 );
+    assertEquals( component.getObservableValues().size(), 2 );
     assertEquals( component.getComputedValues().size(), 2 );
     assertEquals( component.getObservers().size(), 2 );
 
     assertFalse( Disposable.isDisposed( component ) );
-    assertFalse( Disposable.isDisposed( observable1 ) );
-    assertFalse( Disposable.isDisposed( observable2 ) );
+    assertFalse( Disposable.isDisposed( observableValue1 ) );
+    assertFalse( Disposable.isDisposed( observableValue2 ) );
     assertFalse( Disposable.isDisposed( observer1 ) );
     assertFalse( Disposable.isDisposed( observer2 ) );
     assertFalse( Disposable.isDisposed( computedValue1 ) );
@@ -484,13 +484,13 @@ public class ComponentTest
 
     assertFalse( context.isComponentPresent( component.getType(), component.getId() ) );
 
-    assertEquals( component.getObservables().size(), 0 );
+    assertEquals( component.getObservableValues().size(), 0 );
     assertEquals( component.getComputedValues().size(), 0 );
     assertEquals( component.getObservers().size(), 0 );
 
     assertTrue( Disposable.isDisposed( component ) );
-    assertTrue( Disposable.isDisposed( observable1 ) );
-    assertTrue( Disposable.isDisposed( observable2 ) );
+    assertTrue( Disposable.isDisposed( observableValue1 ) );
+    assertTrue( Disposable.isDisposed( observableValue2 ) );
     assertTrue( Disposable.isDisposed( observer1 ) );
     assertTrue( Disposable.isDisposed( observer2 ) );
     assertTrue( Disposable.isDisposed( computedValue1 ) );
@@ -504,23 +504,23 @@ public class ComponentTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
-    final AtomicReference<Observable> observable = new AtomicReference<>();
+    final AtomicReference<ObservableValue> observable = new AtomicReference<>();
 
     final SafeProcedure preDispose = () -> assertFalse( Disposable.isDisposed( observable.get() ) );
     final SafeProcedure postDispose = () -> assertTrue( Disposable.isDisposed( observable.get() ) );
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), name, preDispose, postDispose );
 
-    final Observable observable1 = context.observable( component, ValueUtil.randomString(), null, null );
+    final ObservableValue observableValue1 = context.observable( component, ValueUtil.randomString(), null, null );
 
-    observable.set( observable1 );
+    observable.set( observableValue1 );
 
     component.complete();
 
-    assertEquals( component.getObservables().size(), 1 );
+    assertEquals( component.getObservableValues().size(), 1 );
 
     assertFalse( Disposable.isDisposed( component ) );
-    assertFalse( Disposable.isDisposed( observable1 ) );
+    assertFalse( Disposable.isDisposed( observableValue1 ) );
 
     assertTrue( context.isComponentPresent( component.getType(), component.getId() ) );
 
@@ -528,10 +528,10 @@ public class ComponentTest
 
     assertFalse( context.isComponentPresent( component.getType(), component.getId() ) );
 
-    assertEquals( component.getObservables().size(), 0 );
+    assertEquals( component.getObservableValues().size(), 0 );
 
     assertTrue( Disposable.isDisposed( component ) );
-    assertTrue( Disposable.isDisposed( observable1 ) );
+    assertTrue( Disposable.isDisposed( observableValue1 ) );
   }
 
   @Test

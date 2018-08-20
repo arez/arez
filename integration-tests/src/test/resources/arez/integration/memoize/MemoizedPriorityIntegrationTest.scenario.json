@@ -15,7 +15,7 @@
     },
     {
         "observable": "Model.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "bl"
     },
     {
@@ -83,7 +83,7 @@
     },
     {
         "observable": "Model.0.search2.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -190,7 +190,7 @@
     },
     {
         "observable": "Model.0.search3.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -297,7 +297,7 @@
     },
     {
         "observable": "Model.0.search1.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -407,7 +407,7 @@
     },
     {
         "observable": "Model.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "blu"
     },
     {
@@ -658,7 +658,7 @@
     },
     {
         "observable": "Model.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "blue and"
     },
     {
@@ -746,7 +746,7 @@
     },
     {
         "observable": "Model.0.search2.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -853,7 +853,7 @@
     },
     {
         "observable": "Model.0.search3.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -960,7 +960,7 @@
     },
     {
         "observable": "Model.0.search1.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1050,7 +1050,7 @@
     },
     {
         "observable": "Model.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "blue and red"
     },
     {
@@ -1158,7 +1158,7 @@
     },
     {
         "observable": "Model.0.search2.2",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1265,7 +1265,7 @@
     },
     {
         "observable": "Model.0.search3.2",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1372,7 +1372,7 @@
     },
     {
         "observable": "Model.0.search1.2",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1442,7 +1442,7 @@
     },
     {
         "observable": "Model.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "XXXXX"
     },
     {
@@ -1510,7 +1510,7 @@
     },
     {
         "observable": "Model.0.search2.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1577,7 +1577,7 @@
     },
     {
         "observable": "Model.0.search2.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1644,7 +1644,7 @@
     },
     {
         "observable": "Model.0.search2.2",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1711,7 +1711,7 @@
     },
     {
         "observable": "Model.0.search3.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1778,7 +1778,7 @@
     },
     {
         "observable": "Model.0.search3.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1845,7 +1845,7 @@
     },
     {
         "observable": "Model.0.search3.2",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1912,7 +1912,7 @@
     },
     {
         "observable": "Model.0.search1.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1979,7 +1979,7 @@
     },
     {
         "observable": "Model.0.search1.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -2046,7 +2046,7 @@
     },
     {
         "observable": "Model.0.search1.2",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {

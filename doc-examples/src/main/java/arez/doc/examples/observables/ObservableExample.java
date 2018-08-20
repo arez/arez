@@ -1,15 +1,15 @@
 package arez.doc.examples.observables;
 
-import arez.Observable;
+import arez.ObservableValue;
 
 public class ObservableExample
 {
-  private Observable<Integer> _valueObservable;
+  private ObservableValue<Integer> _valueObservableValue;
   private int _value;
 
   public int getValue()
   {
-    _valueObservable.reportObserved();
+    _valueObservableValue.reportObserved();
     return _value;
   }
 
@@ -18,7 +18,7 @@ public class ObservableExample
     if ( value != _value )
     {
       _value = value;
-      _valueObservable.reportChanged();
+      _valueObservableValue.reportChanged();
     }
   }
 }

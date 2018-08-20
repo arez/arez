@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -31,7 +31,7 @@ public final class Arez_WildcardGenericObservableModel<T> extends WildcardGeneri
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<WildcardGenericObservableModel.MyValue<T>> $$arez$$_myValue;
+  private final ObservableValue<WildcardGenericObservableModel.MyValue<T>> $$arez$$_myValue;
 
   public Arez_WildcardGenericObservableModel() {
     super();

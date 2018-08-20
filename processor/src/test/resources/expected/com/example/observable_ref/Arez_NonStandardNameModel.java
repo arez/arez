@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -30,7 +30,7 @@ public final class Arez_NonStandardNameModel extends NonStandardNameModel implem
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_time;
+  private final ObservableValue<Long> $$arez$$_time;
 
   public Arez_NonStandardNameModel() {
     super();
@@ -137,7 +137,7 @@ public final class Arez_NonStandardNameModel extends NonStandardNameModel implem
 
   @Nonnull
   @Override
-  public Observable<Long> timeObservable() {
+  public ObservableValue<Long> timeObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'timeObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

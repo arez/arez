@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.CollectionsUtil;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -37,7 +37,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel extends Pa
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<List<Element>> $$arez$$_elements;
+  private final ObservableValue<List<Element>> $$arez$$_elements;
 
   private List<Element> $$arezd$$_elements;
 

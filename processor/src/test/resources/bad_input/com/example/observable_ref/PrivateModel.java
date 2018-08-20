@@ -1,5 +1,6 @@
 package com.example.observable_ref;
 
+import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
@@ -20,7 +21,7 @@ public abstract class PrivateModel
 
   @Nonnull
   @ObservableRef
-  private arez.Observable getTimeObservable()
+  private ObservableValue getTimeObservable()
   {
     throw new IllegalStateException();
   }

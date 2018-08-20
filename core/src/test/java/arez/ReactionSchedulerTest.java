@@ -520,7 +520,7 @@ public class ReactionSchedulerTest
     final int round2Size = 4;
     final int round3Size = 1;
     final Observer[] observers = new Observer[ round1Size ];
-    final Observable<?>[] observables = new Observable[ observers.length ];
+    final ObservableValue<?>[] observableValues = new ObservableValue[ observers.length ];
     final TestReaction[] reactions = new TestReaction[ observers.length ];
     for ( int i = 0; i < observers.length; i++ )
     {
@@ -555,11 +555,11 @@ public class ReactionSchedulerTest
                       false,
                       false,
                       true );
-      observables[ i ] = newObservable();
+      observableValues[ i ] = newObservable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
-      observables[ i ].addObserver( observers[ i ] );
-      observers[ i ].getDependencies().add( observables[ i ] );
+      observableValues[ i ].addObserver( observers[ i ] );
+      observers[ i ].getDependencies().add( observableValues[ i ] );
 
       //observer has reaction so setStale should result in reschedule
       observers[ i ].setState( ObserverState.STALE );
@@ -659,11 +659,11 @@ public class ReactionSchedulerTest
                     false,
                     false,
                     true );
-    final Observable<?> observable = newObservable();
+    final ObservableValue<?> observableValue = newObservable();
 
     toSchedule.setState( ObserverState.UP_TO_DATE );
-    observable.addObserver( toSchedule );
-    toSchedule.getDependencies().add( observable );
+    observableValue.addObserver( toSchedule );
+    toSchedule.getDependencies().add( observableValue );
 
     //observer has reaction so setStale should result in reschedule
     toSchedule.setState( ObserverState.STALE );
@@ -729,11 +729,11 @@ public class ReactionSchedulerTest
                     false,
                     false,
                     true );
-    final Observable<?> observable = newObservable();
+    final ObservableValue<?> observableValue = newObservable();
 
     toSchedule.setState( ObserverState.UP_TO_DATE );
-    observable.addObserver( toSchedule );
-    toSchedule.getDependencies().add( observable );
+    observableValue.addObserver( toSchedule );
+    toSchedule.getDependencies().add( observableValue );
 
     //observer has reaction so setStale should result in reschedule
     toSchedule.setState( ObserverState.STALE );
@@ -775,7 +775,7 @@ public class ReactionSchedulerTest
     }
 
     final Observer[] observers = new Observer[ 10 ];
-    final Observable[] observables = new Observable[ observers.length ];
+    final ObservableValue[] observableValues = new ObservableValue[ observers.length ];
     final TestReaction[] reactions = new TestReaction[ observers.length ];
     for ( int i = 0; i < observers.length; i++ )
     {
@@ -810,11 +810,11 @@ public class ReactionSchedulerTest
                       false,
                       false,
                       true );
-      observables[ i ] = newObservable();
+      observableValues[ i ] = newObservable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
-      observables[ i ].addObserver( observers[ i ] );
-      observers[ i ].getDependencies().add( observables[ i ] );
+      observableValues[ i ].addObserver( observers[ i ] );
+      observers[ i ].getDependencies().add( observableValues[ i ] );
 
       //observer has reaction so setStale should result in reschedule
       observers[ i ].setState( ObserverState.STALE );
@@ -848,7 +848,7 @@ public class ReactionSchedulerTest
     setupReadWriteTransaction();
 
     final Observer[] observers = new Observer[ 10 ];
-    final Observable[] observables = new Observable[ observers.length ];
+    final ObservableValue[] observableValues = new ObservableValue[ observers.length ];
     final TestReaction[] reactions = new TestReaction[ observers.length ];
     for ( int i = 0; i < observers.length; i++ )
     {
@@ -883,11 +883,11 @@ public class ReactionSchedulerTest
                       false,
                       false,
                       true );
-      observables[ i ] = newObservable();
+      observableValues[ i ] = newObservable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
-      observables[ i ].addObserver( observers[ i ] );
-      observers[ i ].getDependencies().add( observables[ i ] );
+      observableValues[ i ].addObserver( observers[ i ] );
+      observers[ i ].getDependencies().add( observableValues[ i ] );
 
       //observer has reaction so setStale should result in reschedule
       observers[ i ].setState( ObserverState.STALE );

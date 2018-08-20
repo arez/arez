@@ -6,7 +6,7 @@
     },
     {
         "observable": "MyComponent.0.time",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "MyComponent.0",
@@ -34,8 +34,8 @@
         "transaction": "Observer@1"
     },
     {
-        "observable": "Observable@2",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@2",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -73,7 +73,7 @@
     },
     {
         "observable": "MyComponent.0.time",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": 37
     },
     {
@@ -115,8 +115,8 @@
         "transaction": "Observer@1"
     },
     {
-        "observable": "Observable@4",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@4",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -154,7 +154,7 @@
     },
     {
         "observable": "MyComponent.0.time",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": 42
     },
     {
@@ -196,8 +196,8 @@
         "transaction": "Observer@1"
     },
     {
-        "observable": "Observable@6",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@6",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,

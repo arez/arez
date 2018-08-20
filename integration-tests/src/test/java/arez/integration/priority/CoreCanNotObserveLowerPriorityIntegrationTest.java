@@ -41,6 +41,6 @@ public class CoreCanNotObserveLowerPriorityIntegrationTest
 
     assertEquals( getObserverErrors().size(), 1 );
     assertEquals( getObserverErrors().get( 0 ),
-                  "Observer: ComputedValue@2 Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0183: Attempting to add observer named 'ComputedValue@2' to observable named 'ComputedValue@1' where the observer is scheduled at a NORMAL priority but the observables owner is scheduled at a LOWEST priority." );
+                  "Observer: ComputedValue@2 Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0183: Attempting to add observer named 'ComputedValue@2' to ObservableValue named 'ComputedValue@1' where the observer is scheduled at a NORMAL priority but the ObservableValue's owner is scheduled at a LOWEST priority." );
   }
 }

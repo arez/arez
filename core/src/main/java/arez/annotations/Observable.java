@@ -1,12 +1,13 @@
 package arez.annotations;
 
+import arez.ObservableValue;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
 
 /**
- * Annotation applied to methods that expose an Observable value in Arez.
+ * Annotation applied to methods that expose an ObservableValue value in Arez.
  * Methods annotated with this either query state or mutate state. The query
  * method is expected to have 0 parameters and return a value and by default
  * is named with "get" or "is" prefixed to the property name. The mutation
@@ -36,14 +37,14 @@ import javax.annotation.Nonnull;
 public @interface Observable
 {
   /**
-   * Return the name of the Observable relative to the component. If not specified
+   * Return the name of the ObservableValue relative to the component. If not specified
    * will default to the name of the property by convention as described above.
    * The value must conform to the requirements of a java identifier.
    * The name must also be unique across {@link Observable}s,
    * {@link Computed}s and {@link Action}s within the scope of the
    * {@link ArezComponent} annotated element.
    *
-   * @return the name of the Observable relative to the component.
+   * @return the name of the ObservableValue relative to the component.
    */
   @Nonnull
   String name() default "<default>";
@@ -73,7 +74,7 @@ public @interface Observable
 
   /**
    * Return true if the observable be read outside a transaction.
-   * If the observable can be read outside a transaction then {@link arez.Observable#reportObserved()} will
+   * If the observable can be read outside a transaction then {@link ObservableValue#reportObserved()} will
    * only be invoked in a tracking transaction (i.e. when an {@link arez.Observer} created the transaction).
    * Thus {@link Action} annotated methods that only access observables that set the readOutsideTransaction
    * parameter to true and neither access nor modify other arez elements no longer need to be annotated with

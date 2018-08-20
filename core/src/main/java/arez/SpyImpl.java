@@ -2,7 +2,7 @@ package arez;
 
 import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
-import arez.spy.ObservableInfo;
+import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
@@ -165,7 +165,7 @@ final class SpyImpl
   @Override
   public List<ObserverInfo> getObservers( @Nonnull final ComputedValue<?> computedValue )
   {
-    return ObserverInfoImpl.asUnmodifiableInfos( this, computedValue.getObservable().getObservers() );
+    return ObserverInfoImpl.asUnmodifiableInfos( this, computedValue.getObservableValue().getObservers() );
   }
 
   /**
@@ -173,26 +173,26 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public List<ObservableInfo> getDependencies( @Nonnull final ComputedValue<?> computedValue )
+  public List<ObservableValueInfo> getDependencies( @Nonnull final ComputedValue<?> computedValue )
   {
     if ( computedValue.isComputing() )
     {
       final Transaction transaction = getTransactionComputing( computedValue );
-      final ArrayList<Observable<?>> observables = transaction.getObservables();
-      if ( null == observables )
+      final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      if ( null == observableValues )
       {
         return Collections.emptyList();
       }
       else
       {
         // Copy the list removing any duplicates that may exist.
-        final List<Observable<?>> list = observables.stream().distinct().collect( Collectors.toList() );
-        return ObservableInfoImpl.asUnmodifiableInfos( this, list );
+        final List<ObservableValue<?>> list = observableValues.stream().distinct().collect( Collectors.toList() );
+        return ObservableValueInfoImpl.asUnmodifiableInfos( this, list );
       }
     }
     else
     {
-      return ObservableInfoImpl.asUnmodifiableInfos( this, computedValue.getObserver().getDependencies() );
+      return ObservableValueInfoImpl.asUnmodifiableInfos( this, computedValue.getObserver().getDependencies() );
     }
   }
 
@@ -250,18 +250,18 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
-  public boolean isComputedValue( @Nonnull final Observable<?> observable )
+  public boolean isComputedValue( @Nonnull final ObservableValue<?> observableValue )
   {
-    return observable.hasOwner();
+    return observableValue.hasOwner();
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public ComputedValueInfo asComputedValue( @Nonnull final Observable<?> observable )
+  public ComputedValueInfo asComputedValue( @Nonnull final ObservableValue<?> observableValue )
   {
-    return new ComputedValueInfoImpl( this, observable.getOwner().getComputedValue() );
+    return new ComputedValueInfoImpl( this, observableValue.getOwner().getComputedValue() );
   }
 
   /**
@@ -269,9 +269,9 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public List<ObserverInfo> getObservers( @Nonnull final Observable<?> observable )
+  public List<ObserverInfo> getObservers( @Nonnull final ObservableValue<?> observableValue )
   {
-    return ObserverInfoImpl.asUnmodifiableInfos( this, observable.getObservers() );
+    return ObserverInfoImpl.asUnmodifiableInfos( this, observableValue.getObservers() );
   }
 
   /**
@@ -306,26 +306,26 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public List<ObservableInfo> getDependencies( @Nonnull final Observer observer )
+  public List<ObservableValueInfo> getDependencies( @Nonnull final Observer observer )
   {
     final Transaction transaction = isTransactionActive() ? getTrackerTransaction( observer ) : null;
     if ( null != transaction )
     {
-      final ArrayList<Observable<?>> observables = transaction.getObservables();
-      if ( null == observables )
+      final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      if ( null == observableValues )
       {
         return Collections.emptyList();
       }
       else
       {
         // Copy the list removing any duplicates that may exist.
-        final List<Observable<?>> list = observables.stream().distinct().collect( Collectors.toList() );
-        return ObservableInfoImpl.asUnmodifiableInfos( this, list );
+        final List<ObservableValue<?>> list = observableValues.stream().distinct().collect( Collectors.toList() );
+        return ObservableValueInfoImpl.asUnmodifiableInfos( this, list );
       }
     }
     else
     {
-      return ObservableInfoImpl.asUnmodifiableInfos( this, observer.getDependencies() );
+      return ObservableValueInfoImpl.asUnmodifiableInfos( this, observer.getDependencies() );
     }
   }
 
@@ -334,14 +334,14 @@ final class SpyImpl
    */
   @Nullable
   @Override
-  public ComponentInfo getComponent( @Nonnull final Observable<?> observable )
+  public ComponentInfo getComponent( @Nonnull final ObservableValue<?> observableValue )
   {
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( Arez::areNativeComponentsEnabled,
                  () -> "Arez-0107: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
     }
-    final Component component = observable.getComponent();
+    final Component component = observableValue.getComponent();
     return null == component ? null : new ComponentInfoImpl( this, component );
   }
 
@@ -417,9 +417,9 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public Collection<ObservableInfo> findAllTopLevelObservables()
+  public Collection<ObservableValueInfo> findAllTopLevelObservableValues()
   {
-    return ObservableInfoImpl.asUnmodifiableInfos( this, getContext().getTopLevelObservables().values() );
+    return ObservableValueInfoImpl.asUnmodifiableInfos( this, getContext().getTopLevelObservables().values() );
   }
 
   /**
@@ -446,14 +446,14 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
-  public <T> boolean hasAccessor( @Nonnull final Observable<T> observable )
+  public <T> boolean hasAccessor( @Nonnull final ObservableValue<T> observableValue )
   {
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( Arez::arePropertyIntrospectorsEnabled,
                  () -> "Arez-0110: Spy.hasAccessor invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
     }
-    return null != observable.getAccessor();
+    return null != observableValue.getAccessor();
   }
 
   /**
@@ -461,7 +461,7 @@ final class SpyImpl
    */
   @Nullable
   @Override
-  public <T> T getValue( @Nonnull final Observable<T> observable )
+  public <T> T getValue( @Nonnull final ObservableValue<T> observableValue )
     throws Throwable
   {
     if ( Arez.shouldCheckInvariants() )
@@ -469,12 +469,12 @@ final class SpyImpl
       invariant( Arez::arePropertyIntrospectorsEnabled,
                  () -> "Arez-0111: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
     }
-    final PropertyAccessor<T> accessor = observable.getAccessor();
+    final PropertyAccessor<T> accessor = observableValue.getAccessor();
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> null != accessor,
-                    () -> "Arez-0112: Spy.getValue invoked on observable named '" + observable.getName() + "' but " +
-                          "observable has no property accessor." );
+                    () -> "Arez-0112: Spy.getValue invoked on ObservableValue named '" + observableValue.getName() + "' but " +
+                          "ObservableValue has no property accessor." );
     }
     assert null != accessor;
     return accessor.get();
@@ -484,21 +484,21 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
-  public <T> boolean hasMutator( @Nonnull final Observable<T> observable )
+  public <T> boolean hasMutator( @Nonnull final ObservableValue<T> observableValue )
   {
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( Arez::arePropertyIntrospectorsEnabled,
                  () -> "Arez-0113: Spy.hasMutator invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
     }
-    return null != observable.getMutator();
+    return null != observableValue.getMutator();
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public <T> void setValue( @Nonnull final Observable<T> observable, @Nullable final T value )
+  public <T> void setValue( @Nonnull final ObservableValue<T> observableValue, @Nullable final T value )
     throws Throwable
   {
     if ( Arez.shouldCheckInvariants() )
@@ -506,12 +506,12 @@ final class SpyImpl
       invariant( Arez::arePropertyIntrospectorsEnabled,
                  () -> "Arez-0114: Spy.setValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
     }
-    final PropertyMutator<T> mutator = observable.getMutator();
+    final PropertyMutator<T> mutator = observableValue.getMutator();
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> null != mutator,
-                    () -> "Arez-0115: Spy.setValue invoked on observable named '" + observable.getName() +
-                          "' but observable has no property mutator." );
+                    () -> "Arez-0115: Spy.setValue invoked on ObservableValue named '" + observableValue.getName() +
+                          "' but ObservableValue has no property mutator." );
     }
     assert null != mutator;
     mutator.set( value );
@@ -530,7 +530,7 @@ final class SpyImpl
       invariant( Arez::arePropertyIntrospectorsEnabled,
                  () -> "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
     }
-    final PropertyAccessor<T> accessor = computedValue.getObservable().getAccessor();
+    final PropertyAccessor<T> accessor = computedValue.getObservableValue().getAccessor();
     assert null != accessor;
     return accessor.get();
   }
@@ -560,9 +560,9 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public <T> ObservableInfo asObservableInfo( @Nonnull final Observable<T> observable )
+  public <T> ObservableValueInfo asObservableValueInfo( @Nonnull final ObservableValue<T> observableValue )
   {
-    return new ObservableInfoImpl( this, observable );
+    return new ObservableValueInfoImpl( this, observableValue );
   }
 
   /**

@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -30,7 +30,7 @@ public final class Arez_ObservableWithNoSetter extends ObservableWithNoSetter im
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_time;
+  private final ObservableValue<Long> $$arez$$_time;
 
   public Arez_ObservableWithNoSetter() {
     super();
@@ -123,7 +123,7 @@ public final class Arez_ObservableWithNoSetter extends ObservableWithNoSetter im
   }
 
   @Override
-  protected Observable getTimeObservable() {
+  protected ObservableValue getTimeObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTimeObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

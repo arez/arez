@@ -2,7 +2,7 @@ package arez;
 
 import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
-import arez.spy.ObservableInfo;
+import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import java.util.Collection;
 import java.util.Collections;
@@ -13,35 +13,35 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * A implementation of {@link ObservableInfo} that proxies to a {@link Observable}.
+ * A implementation of {@link ObservableValueInfo} that proxies to a {@link ObservableValue}.
  */
-final class ObservableInfoImpl
-  implements ObservableInfo
+final class ObservableValueInfoImpl
+  implements ObservableValueInfo
 {
   private final Spy _spy;
-  private final Observable<?> _observable;
+  private final ObservableValue<?> _observableValue;
 
-  ObservableInfoImpl( @Nonnull final Spy spy, @Nonnull final Observable<?> observable )
+  ObservableValueInfoImpl( @Nonnull final Spy spy, @Nonnull final ObservableValue<?> observableValue )
   {
     _spy = Objects.requireNonNull( spy );
-    _observable = Objects.requireNonNull( observable );
+    _observableValue = Objects.requireNonNull( observableValue );
   }
 
   @Nonnull
-  private static List<ObservableInfo> asInfos( @Nonnull final Spy spy,
-                                               @Nonnull final Collection<Observable<?>> observables )
+  private static List<ObservableValueInfo> asInfos( @Nonnull final Spy spy,
+                                                    @Nonnull final Collection<ObservableValue<?>> observableValues )
   {
-    return observables
+    return observableValues
       .stream()
-      .map( o -> new ObservableInfoImpl( spy, o ) )
+      .map( o -> new ObservableValueInfoImpl( spy, o ) )
       .collect( Collectors.toList() );
   }
 
   @Nonnull
-  static List<ObservableInfo> asUnmodifiableInfos( @Nonnull final Spy spy,
-                                                   @Nonnull final Collection<Observable<?>> observables )
+  static List<ObservableValueInfo> asUnmodifiableInfos( @Nonnull final Spy spy,
+                                                        @Nonnull final Collection<ObservableValue<?>> observableValues )
   {
-    return Collections.unmodifiableList( asInfos( spy, observables ) );
+    return Collections.unmodifiableList( asInfos( spy, observableValues ) );
   }
 
   /**
@@ -51,7 +51,7 @@ final class ObservableInfoImpl
   @Override
   public String getName()
   {
-    return _observable.getName();
+    return _observableValue.getName();
   }
 
   /**
@@ -60,7 +60,7 @@ final class ObservableInfoImpl
   @Override
   public boolean isComputedValue()
   {
-    return _spy.isComputedValue( _observable );
+    return _spy.isComputedValue( _observableValue );
   }
 
   /**
@@ -69,7 +69,7 @@ final class ObservableInfoImpl
   @Override
   public ComputedValueInfo asComputedValue()
   {
-    return _spy.asComputedValue( _observable );
+    return _spy.asComputedValue( _observableValue );
   }
 
   /**
@@ -79,7 +79,7 @@ final class ObservableInfoImpl
   @Override
   public List<ObserverInfo> getObservers()
   {
-    return _spy.getObservers( _observable );
+    return _spy.getObservers( _observableValue );
   }
 
   /**
@@ -89,7 +89,7 @@ final class ObservableInfoImpl
   @Override
   public ComponentInfo getComponent()
   {
-    return _spy.getComponent( _observable );
+    return _spy.getComponent( _observableValue );
   }
 
   /**
@@ -98,7 +98,7 @@ final class ObservableInfoImpl
   @Override
   public boolean hasAccessor()
   {
-    return _spy.hasAccessor( _observable );
+    return _spy.hasAccessor( _observableValue );
   }
 
   /**
@@ -109,7 +109,7 @@ final class ObservableInfoImpl
   public Object getValue()
     throws Throwable
   {
-    return _spy.getValue( _observable );
+    return _spy.getValue( _observableValue );
   }
 
   /**
@@ -118,7 +118,7 @@ final class ObservableInfoImpl
   @Override
   public boolean hasMutator()
   {
-    return _spy.hasMutator( _observable );
+    return _spy.hasMutator( _observableValue );
   }
 
   /**
@@ -129,7 +129,7 @@ final class ObservableInfoImpl
   public void setValue( @Nullable final Object value )
     throws Throwable
   {
-    _spy.setValue( (Observable<Object>) _observable, value );
+    _spy.setValue( (ObservableValue<Object>) _observableValue, value );
   }
 
   /**
@@ -138,7 +138,7 @@ final class ObservableInfoImpl
   @Override
   public boolean isDisposed()
   {
-    return _observable.isDisposed();
+    return _observableValue.isDisposed();
   }
 
   /**
@@ -147,7 +147,7 @@ final class ObservableInfoImpl
   @Override
   public String toString()
   {
-    return _observable.toString();
+    return _observableValue.toString();
   }
 
   @Override
@@ -163,14 +163,14 @@ final class ObservableInfoImpl
     }
     else
     {
-      final ObservableInfoImpl that = (ObservableInfoImpl) o;
-      return _observable.equals( that._observable );
+      final ObservableValueInfoImpl that = (ObservableValueInfoImpl) o;
+      return _observableValue.equals( that._observableValue );
     }
   }
 
   @Override
   public int hashCode()
   {
-    return _observable.hashCode();
+    return _observableValue.hashCode();
   }
 }

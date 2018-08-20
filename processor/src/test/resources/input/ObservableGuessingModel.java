@@ -44,7 +44,7 @@ public abstract class ObservableGuessingModel
   {
   }
 
-  //Neither setter not getter has @Observable so should be ignored
+  //Neither setter not getter has @ObservableValue so should be ignored
   public void setXString( String v )
   {
   }

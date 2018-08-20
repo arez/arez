@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -27,18 +27,18 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
 
   private final Component $$arezi$$_component;
 
-  private final Observable<Boolean> $$arezi$$_disposedObservable;
+  private final ObservableValue<Boolean> $$arezi$$_disposedObservable;
 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<String> $$arez$$_name;
+  private final ObservableValue<String> $$arez$$_name;
 
   @Nonnull
-  private final Observable<String> $$arez$$_packageName;
+  private final ObservableValue<String> $$arez$$_packageName;
 
   @Nonnull
-  private final Observable<String> $$arez$$_rawQualifiedName;
+  private final ObservableValue<String> $$arez$$_rawQualifiedName;
 
   @Nonnull
   private final ComputedValue<String> $$arez$$_qualifiedName;

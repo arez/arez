@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentObservable;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -28,7 +28,7 @@ final class Arez_RepositoryExample extends RepositoryExample implements Disposab
 
   private final Component $$arezi$$_component;
 
-  private final Observable<Boolean> $$arezi$$_disposedObservable;
+  private final ObservableValue<Boolean> $$arezi$$_disposedObservable;
 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 

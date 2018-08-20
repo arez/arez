@@ -35,7 +35,7 @@ public final class Arez_Element extends Element implements Disposable, Identifia
   @Nullable
   private PackageAccessWithDifferentPackageInverseModel $$arezr$$_packageAccessWithDifferentPackageInverseModel;
 
-  public Arez_Element() {
+  Arez_Element() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> Arez.areReferencesEnabled(), () -> "Attempted to create instance of component of type 'Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );

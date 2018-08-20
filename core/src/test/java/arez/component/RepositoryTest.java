@@ -4,7 +4,7 @@ import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -330,7 +330,7 @@ public class RepositoryTest
     private int _arezId;
     private boolean _disposed;
     private final DisposeNotifier _notifier = new DisposeNotifier();
-    private final Observable<Object> _observable = Arez.context().observable();
+    private final ObservableValue<Object> _observableValue = Arez.context().observable();
 
     MyEntity( final int arezId )
     {
@@ -347,7 +347,7 @@ public class RepositoryTest
     @Override
     public boolean observe()
     {
-      _observable.reportObserved();
+      _observableValue.reportObserved();
       return isNotDisposed();
     }
 
@@ -377,7 +377,7 @@ public class RepositoryTest
   static class MyRepository
     extends AbstractRepository<Integer, MyEntity, MyRepository>
   {
-    private final Observable<Object> _observable = Arez.context().observable();
+    private final ObservableValue<Object> _observableValue = Arez.context().observable();
 
     static MyRepository create()
     {
@@ -386,16 +386,16 @@ public class RepositoryTest
 
     @Nonnull
     @Override
-    protected Observable getEntitiesObservable()
+    protected ObservableValue getEntitiesObservable()
     {
-      return _observable;
+      return _observableValue;
     }
 
     @Nonnull
     @Override
     public Stream<MyEntity> entities()
     {
-      _observable.reportObserved();
+      _observableValue.reportObserved();
       return super.entities();
     }
   }

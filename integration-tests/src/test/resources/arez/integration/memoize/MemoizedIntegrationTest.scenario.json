@@ -6,11 +6,11 @@
     },
     {
         "observable": "PersonModel.0.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "PersonModel.0.age",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "PersonModel.0",
@@ -38,8 +38,8 @@
         "transaction": "SearchResult - red"
     },
     {
-        "observable": "Observable@1",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@1",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "PersonModel.0.doesSearchMatch.0",
@@ -57,7 +57,7 @@
     },
     {
         "observable": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -117,8 +117,8 @@
         "transaction": "SearchResult - ill"
     },
     {
-        "observable": "Observable@2",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@2",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "PersonModel.0.doesSearchMatch.1",
@@ -136,7 +136,7 @@
     },
     {
         "observable": "PersonModel.0.doesSearchMatch.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -196,8 +196,8 @@
         "transaction": "SearchResult - red - 20"
     },
     {
-        "observable": "Observable@3",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@3",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "PersonModel.0.doesFullSearchMatch.0",
@@ -215,7 +215,7 @@
     },
     {
         "observable": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -275,8 +275,8 @@
         "transaction": "SearchResult - red - 5"
     },
     {
-        "observable": "Observable@4",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@4",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "PersonModel.0.doesFullSearchMatch.1",
@@ -294,7 +294,7 @@
     },
     {
         "observable": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -347,7 +347,7 @@
     },
     {
         "observable": "PersonModel.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Gill"
     },
     {
@@ -478,7 +478,7 @@
     },
     {
         "observable": "PersonModel.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Fred"
     },
     {
@@ -526,7 +526,7 @@
     },
     {
         "observable": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -555,7 +555,7 @@
     },
     {
         "observable": "PersonModel.0.doesSearchMatch.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -604,7 +604,7 @@
     },
     {
         "observable": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -639,8 +639,8 @@
         "transaction": "SearchResult - red"
     },
     {
-        "observable": "Observable@5",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@5",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -685,8 +685,8 @@
         "transaction": "SearchResult - ill"
     },
     {
-        "observable": "Observable@6",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@6",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -731,8 +731,8 @@
         "transaction": "SearchResult - red - 5"
     },
     {
-        "observable": "Observable@7",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@7",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -774,7 +774,7 @@
     },
     {
         "observable": "PersonModel.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Donald"
     },
     {
@@ -822,7 +822,7 @@
     },
     {
         "observable": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -891,7 +891,7 @@
     },
     {
         "observable": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -926,8 +926,8 @@
         "transaction": "SearchResult - red"
     },
     {
-        "observable": "Observable@8",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@8",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -972,8 +972,8 @@
         "transaction": "SearchResult - red - 5"
     },
     {
-        "observable": "Observable@9",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@9",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -1083,7 +1083,7 @@
     },
     {
         "observable": "PersonModel.0.doesSearchMatch.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -1152,7 +1152,7 @@
     },
     {
         "observable": "PersonModel.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Fred"
     },
     {
@@ -1196,7 +1196,7 @@
     },
     {
         "observable": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1245,7 +1245,7 @@
     },
     {
         "observable": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": true
     },
     {
@@ -1280,8 +1280,8 @@
         "transaction": "SearchResult - red"
     },
     {
-        "observable": "Observable@10",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@10",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -1326,8 +1326,8 @@
         "transaction": "SearchResult - red - 5"
     },
     {
-        "observable": "Observable@11",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@11",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -1369,7 +1369,7 @@
     },
     {
         "observable": "PersonModel.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Bill"
     },
     {
@@ -1413,7 +1413,7 @@
     },
     {
         "observable": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1462,7 +1462,7 @@
     },
     {
         "observable": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -1497,8 +1497,8 @@
         "transaction": "SearchResult - red"
     },
     {
-        "observable": "Observable@12",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@12",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -1543,8 +1543,8 @@
         "transaction": "SearchResult - red - 5"
     },
     {
-        "observable": "Observable@13",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@13",
+        "type": "ObservableValueCreated"
     },
     {
         "type": "usermark",
@@ -1637,7 +1637,7 @@
     },
     {
         "observable": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -1740,7 +1740,7 @@
     },
     {
         "observable": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -1843,7 +1843,7 @@
     },
     {
         "observable": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -1912,7 +1912,7 @@
     },
     {
         "observable": "PersonModel.0.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Bill"
     },
     {
@@ -1934,7 +1934,7 @@
     },
     {
         "observable": "PersonModel.0.name",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "action": "PersonModel.0.age.dispose",
@@ -1951,7 +1951,7 @@
     },
     {
         "observable": "PersonModel.0.age",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": 15
     },
     {
@@ -1973,7 +1973,7 @@
     },
     {
         "observable": "PersonModel.0.age",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,
@@ -2010,8 +2010,8 @@
         "transaction": "SearchResult - red"
     },
     {
-        "observable": "Observable@14",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@14",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -2052,8 +2052,8 @@
         "transaction": "SearchResult - red - 20"
     },
     {
-        "observable": "Observable@15",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@15",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,
@@ -2094,8 +2094,8 @@
         "transaction": "SearchResult - red - 5"
     },
     {
-        "observable": "Observable@16",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@16",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,

@@ -1,5 +1,6 @@
 package com.example.collections;
 
+import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
@@ -21,7 +22,7 @@ public abstract class ObservableNoSettersModel
   }
 
   @ObservableRef
-  protected abstract arez.Observable getCollectionObservable();
+  protected abstract ObservableValue getCollectionObservable();
 
   @Observable( expectSetter = false )
   public Set<String> getSet()
@@ -30,7 +31,7 @@ public abstract class ObservableNoSettersModel
   }
 
   @ObservableRef
-  protected abstract arez.Observable getSetObservable();
+  protected abstract ObservableValue getSetObservable();
 
   @Observable( expectSetter = false )
   public List<String> getList()
@@ -39,7 +40,7 @@ public abstract class ObservableNoSettersModel
   }
 
   @ObservableRef
-  protected abstract arez.Observable getListObservable();
+  protected abstract ObservableValue getListObservable();
 
   @Observable( expectSetter = false )
   public Map<String, String> getMap()
@@ -48,5 +49,5 @@ public abstract class ObservableNoSettersModel
   }
 
   @ObservableRef
-  protected abstract arez.Observable getMapObservable();
+  protected abstract ObservableValue getMapObservable();
 }

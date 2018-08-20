@@ -1,14 +1,15 @@
 package arez.annotations;
 
+import arez.ObservableValue;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
 
 /**
- * Marks a template method that returns the {@link arez.Observable} instance for
+ * Marks a template method that returns the {@link ObservableValue} instance for
  * the {@link Observable} annotated property. Each property marked with the {@link Observable} annotation is backed
- * by an {@link arez.Observable} instance and some frameworks make use of this value to implement
+ * by an {@link ObservableValue} instance and some frameworks make use of this value to implement
  * advanced functionality.
  *
  * <p>The method that is annotated with @ObservableRef must also comply with the following constraints:</p>
@@ -19,7 +20,7 @@ import javax.annotation.Nonnull;
  * <li>Must not be final</li>
  * <li>Must be abstract</li>
  * <li>Must not throw any exceptions</li>
- * <li>Must return an instance of {@link arez.Observable}.</li>
+ * <li>Must return an instance of {@link ObservableValue}.</li>
  * </ul>
  */
 @Documented
@@ -27,11 +28,11 @@ import javax.annotation.Nonnull;
 public @interface ObservableRef
 {
   /**
-   * Return the name of the associated Observable property that this ref relates to.
+   * Return the name of the associated ObservableValue property that this ref relates to.
    * This value will be derived if the method name matches the pattern "get[Name]Observable",
    * otherwise it must be specified.
    *
-   * @return the name of the associated Observable.
+   * @return the name of the associated ObservableValue.
    */
   @Nonnull
   String name() default "<default>";

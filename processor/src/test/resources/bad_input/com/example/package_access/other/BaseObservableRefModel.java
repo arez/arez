@@ -1,5 +1,6 @@
 package com.example.package_access.other;
 
+import arez.ObservableValue;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
 import javax.annotation.Nonnull;
@@ -13,5 +14,5 @@ public abstract class BaseObservableRefModel
 
   @Nonnull
   @ObservableRef
-  abstract arez.Observable<String> getMyValueObservable();
+  abstract ObservableValue<String> getMyValueObservable();
 }

@@ -5,22 +5,22 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 /**
- * Notification when Observable is created.
+ * Notification when ObservableValue is disposed.
  */
-public final class ObservableCreatedEvent
+public final class ObservableValueDisposedEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( ObservableCreatedEvent.class );
+  public static final String TYPE_NAME = EventUtil.getName( ObservableValueDisposedEvent.class );
   @Nonnull
-  private final ObservableInfo _observable;
+  private final ObservableValueInfo _observable;
 
-  public ObservableCreatedEvent( @Nonnull final ObservableInfo observable )
+  public ObservableValueDisposedEvent( @Nonnull final ObservableValueInfo observable )
   {
     _observable = Objects.requireNonNull( observable );
   }
 
   @Nonnull
-  public ObservableInfo getObservable()
+  public ObservableValueInfo getObservable()
   {
     return _observable;
   }

@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -31,7 +31,7 @@ public final class Arez_GenericObservableRefModel extends GenericObservableRefMo
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<GenericObservableRefModel.MyValue<String>> $$arez$$_myValue;
+  private final ObservableValue<GenericObservableRefModel.MyValue<String>> $$arez$$_myValue;
 
   public Arez_GenericObservableRefModel() {
     super();
@@ -138,7 +138,7 @@ public final class Arez_GenericObservableRefModel extends GenericObservableRefMo
 
   @Nonnull
   @Override
-  public Observable<GenericObservableRefModel.MyValue<String>> getMyValueObservable() {
+  public ObservableValue<GenericObservableRefModel.MyValue<String>> getMyValueObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyValueObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

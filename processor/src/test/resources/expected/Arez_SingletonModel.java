@@ -3,7 +3,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.Observer;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -31,7 +31,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_time;
+  private final ObservableValue<Long> $$arez$$_time;
 
   @Nonnull
   private final ComputedValue<Integer> $$arez$$_someValue;

@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.CollectionsUtil;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -36,7 +36,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel impleme
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Collection<CustomNamesInverseModel.Element>> $$arez$$_zap;
+  private final ObservableValue<Collection<CustomNamesInverseModel.Element>> $$arez$$_zap;
 
   private Collection<CustomNamesInverseModel.Element> $$arezd$$_zap;
 

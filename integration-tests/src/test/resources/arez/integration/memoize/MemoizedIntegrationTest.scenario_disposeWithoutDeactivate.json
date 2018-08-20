@@ -6,11 +6,11 @@
     },
     {
         "observable": "PersonModel.3.name",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "observable": "PersonModel.3.age",
-        "type": "ObservableCreated"
+        "type": "ObservableValueCreated"
     },
     {
         "component": "PersonModel.3",
@@ -38,8 +38,8 @@
         "transaction": "SearchResult - red - 20"
     },
     {
-        "observable": "Observable@1",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@1",
+        "type": "ObservableValueCreated"
     },
     {
         "computed": "PersonModel.3.doesFullSearchMatch.0",
@@ -57,7 +57,7 @@
     },
     {
         "observable": "PersonModel.3.doesFullSearchMatch.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": false
     },
     {
@@ -161,7 +161,7 @@
     },
     {
         "observable": "PersonModel.3.doesFullSearchMatch.0",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": null
     },
     {
@@ -230,7 +230,7 @@
     },
     {
         "observable": "PersonModel.3.name",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": "Bill"
     },
     {
@@ -252,7 +252,7 @@
     },
     {
         "observable": "PersonModel.3.name",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "action": "PersonModel.3.age.dispose",
@@ -269,7 +269,7 @@
     },
     {
         "observable": "PersonModel.3.age",
-        "type": "ObservableChanged",
+        "type": "ObservableValueChanged",
         "value": 15
     },
     {
@@ -291,7 +291,7 @@
     },
     {
         "observable": "PersonModel.3.age",
-        "type": "ObservableDisposed"
+        "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,
@@ -328,8 +328,8 @@
         "transaction": "SearchResult - red - 20"
     },
     {
-        "observable": "Observable@2",
-        "type": "ObservableCreated"
+        "observable": "ObservableValue@2",
+        "type": "ObservableValueCreated"
     },
     {
         "mutation": false,

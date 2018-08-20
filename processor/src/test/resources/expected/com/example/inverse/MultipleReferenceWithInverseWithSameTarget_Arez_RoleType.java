@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.CollectionsUtil;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -35,14 +35,14 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType extends Mul
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation>> $$arez$$_childGeneralisations;
+  private final ObservableValue<List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation>> $$arez$$_childGeneralisations;
 
   private List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation> $$arezd$$_childGeneralisations;
 
   private List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation> $$arezd$$_$$cache$$_childGeneralisations;
 
   @Nonnull
-  private final Observable<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation> $$arez$$_parentGeneralisation;
+  private final ObservableValue<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation> $$arez$$_parentGeneralisation;
 
   private MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation $$arezd$$_parentGeneralisation;
 

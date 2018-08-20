@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -31,7 +31,7 @@ final class Arez_ResolvedModel extends ResolvedModel implements Disposable, Iden
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Integer> $$arez$$_value;
+  private final ObservableValue<Integer> $$arez$$_value;
 
   Arez_ResolvedModel() {
     super();

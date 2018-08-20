@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -33,7 +33,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<String> $$arez$$_myEntityId;
+  private final ObservableValue<String> $$arez$$_myEntityId;
 
   private String $$arezd$$_myEntityId;
 

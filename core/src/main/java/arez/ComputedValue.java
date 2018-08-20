@@ -8,11 +8,11 @@ import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
- * The ComputedValue represents an Observable derived from other observables within
+ * The ComputedValue represents an ObservableValue derived from other ObservableValues within
  * the Arez system. The value is calculated lazily. i.e. The ComputedValue will only
  * be calculated if there is current observers on the calculated value.
  *
- * <p>It should be notes that the ComputedValue is backed by both an Observable and
+ * <p>It should be noted that the ComputedValue is backed by both an ObservableValue and
  * an Observer. The id's of each of these nodes differ but they share the name and
  * thus while debugging appear to be a single element.</p>
  */
@@ -43,7 +43,7 @@ public final class ComputedValue<T>
    * The associated observable value.
    */
   @Nonnull
-  private final Observable<T> _observable;
+  private final ObservableValue<T> _observableValue;
   /**
    * The cached value of the computation.
    */
@@ -117,13 +117,13 @@ public final class ComputedValue<T>
                               false,
                               observeLowerPriorityDependencies,
                               false );
-    _observable =
-      new Observable<>( context,
-                        null,
-                        name,
-                        _observer,
-                        Arez.arePropertyIntrospectorsEnabled() ? this::getValue : null,
-                        null );
+    _observableValue =
+      new ObservableValue<>( context,
+                             null,
+                             name,
+                             _observer,
+                             Arez.arePropertyIntrospectorsEnabled() ? this::getValue : null,
+                             null );
     if ( null != _component )
     {
       _component.addComputedValue( this );
@@ -148,7 +148,7 @@ public final class ComputedValue<T>
       apiInvariant( _observer::isNotDisposed,
                     () -> "Arez-0050: ComputedValue named '" + getName() + "' accessed after it has been disposed." );
     }
-    getObservable().reportObserved();
+    getObservableValue().reportObserved();
     if ( _observer.shouldCompute() )
     {
       _observer.invokeReaction();
@@ -182,7 +182,7 @@ public final class ComputedValue<T>
    */
   public void reportPossiblyChanged()
   {
-    Transaction.current().verifyWriteAllowed( getObservable() );
+    Transaction.current().verifyWriteAllowed( getObservableValue() );
     if ( ObserverState.UP_TO_DATE == getObserver().getState() )
     {
       getObserver().setState( ObserverState.POSSIBLY_STALE );
@@ -221,7 +221,7 @@ public final class ComputedValue<T>
       {
         getContext().deregisterComputedValue( this );
       }
-      _observable.dispose();
+      _observableValue.dispose();
       if ( !_observer.isDisposing() )
       {
         _observer.dispose();
@@ -266,15 +266,15 @@ public final class ComputedValue<T>
    */
   @SuppressWarnings( "unchecked" )
   @Nonnull
-  Observable<T> getObservable()
+  ObservableValue<T> getObservableValue()
   {
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( this::isNotDisposed,
-                 () -> "Arez-0084: Attempted to invoke getObservable on disposed ComputedValue " +
+                 () -> "Arez-0084: Attempted to invoke getObservableValue on disposed ComputedValue " +
                        "named '" + getName() + "'." );
     }
-    return _observable;
+    return _observableValue;
   }
 
   /**
@@ -354,14 +354,14 @@ public final class ComputedValue<T>
       {
         _value = newValue;
         _error = null;
-        getObservable().reportChangeConfirmed();
+        getObservableValue().reportChangeConfirmed();
       }
       if ( Arez.shouldCheckInvariants() )
       {
-        final ArrayList<Observable<?>> observables = Transaction.current().getObservables();
-        invariant( () -> null != observables && !observables.isEmpty(),
+        final ArrayList<ObservableValue<?>> observableValues = Transaction.current().getObservableValues();
+        invariant( () -> null != observableValues && !observableValues.isEmpty(),
                    () -> "Arez-0173: ComputedValue named '" + getName() + "' completed compute but is not " +
-                         "observing any observables and thus will never be rescheduled. " +
+                         "observing any properties. As a result compute will never be rescheduled. " +
                          "This is not a ComputedValue candidate." );
       }
     }
@@ -375,7 +375,7 @@ public final class ComputedValue<T>
          */
         _value = null;
         _error = e;
-        getObservable().reportChangeConfirmed();
+        getObservableValue().reportChangeConfirmed();
       }
       throw e;
     }

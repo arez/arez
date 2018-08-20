@@ -1,5 +1,6 @@
 package com.example.observable;
 
+import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
@@ -16,5 +17,5 @@ public abstract class TypeArgumentsOnObservableGetterModel
 
   @Nonnull
   @ObservableRef
-  public abstract arez.Observable getFieldObservable();
+  public abstract ObservableValue getFieldObservable();
 }

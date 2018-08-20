@@ -11,7 +11,7 @@ import static org.realityforge.braincheck.Guards.*;
 
 /**
  * The component is an abstraction representation of a reactive component within Arez.
- * Each component is made up of one or more of the core Arez reactive elements: {@link Observable}s,
+ * Each component is made up of one or more of the core Arez reactive elements: {@link ObservableValue}s,
  * {@link Observer}s or {@link ComputedValue}s.
  */
 public final class Component
@@ -39,7 +39,7 @@ public final class Component
    */
   @Nullable
   private final String _name;
-  private final ArrayList<Observable<?>> _observables = new ArrayList<>();
+  private final ArrayList<ObservableValue<?>> _observableValues = new ArrayList<>();
   private final ArrayList<Observer> _observers = new ArrayList<>();
   private final ArrayList<ComputedValue<?>> _computedValues = new ArrayList<>();
   /**
@@ -152,7 +152,7 @@ public final class Component
          */
         new ArrayList<>( _observers ).forEach( o -> Disposable.dispose( o ) );
         new ArrayList<>( _computedValues ).forEach( v -> Disposable.dispose( v ) );
-        new ArrayList<>( _observables ).forEach( o -> Disposable.dispose( o ) );
+        new ArrayList<>( _observableValues ).forEach( o -> Disposable.dispose( o ) );
         if ( null != _postDispose )
         {
           _postDispose.call();
@@ -203,7 +203,7 @@ public final class Component
 
   /**
    * The toolkit user should call this method when the component is complete.
-   * After this method has been invoked the user should not attempt to define any more {@link Observable}s,
+   * After this method has been invoked the user should not attempt to define any more {@link ObservableValue}s,
    * {@link Observer}s or {@link ComputedValue}s on the component.
    */
   public void complete()
@@ -269,49 +269,49 @@ public final class Component
    * @return the observables associated with the component.
    */
   @Nonnull
-  ArrayList<Observable<?>> getObservables()
+  ArrayList<ObservableValue<?>> getObservableValues()
   {
-    return _observables;
+    return _observableValues;
   }
 
   /**
-   * Add observable to component.
-   * Observable should not be part of component.
+   * Add observableValue to component.
+   * ObservableValue should not be part of component.
    *
-   * @param observable the observable.
+   * @param observableValue the observableValue.
    */
-  void addObservable( @Nonnull final Observable observable )
+  void addObservableValue( @Nonnull final ObservableValue observableValue )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> !_complete,
-                    () -> "Arez-0042: Component.addObservable invoked on component '" + getName() + "' " +
-                          "specifying observable named '" + observable.getName() + "' when component.complete() " +
+                    () -> "Arez-0042: Component.addObservableValue invoked on component '" + getName() + "' " +
+                          "specifying ObservableValue named '" + observableValue.getName() + "' when component.complete() " +
                           "has already been called." );
-      apiInvariant( () -> !_observables.contains( observable ),
-                    () -> "Arez-0043: Component.addObservable invoked on component '" + getName() + "' " +
-                          "specifying observable named '" + observable.getName() + "' when observable already " +
+      apiInvariant( () -> !_observableValues.contains( observableValue ),
+                    () -> "Arez-0043: Component.addObservableValue invoked on component '" + getName() + "' " +
+                          "specifying ObservableValue named '" + observableValue.getName() + "' when ObservableValue already " +
                           "exists for component." );
     }
-    _observables.add( observable );
+    _observableValues.add( observableValue );
   }
 
   /**
-   * Remove observable from the component.
-   * Observable should be part of component.
+   * Remove observableValue from the component.
+   * ObservableValue should be part of component.
    *
-   * @param observable the observable.
+   * @param observableValue the observableValue.
    */
-  void removeObservable( @Nonnull final Observable observable )
+  void removeObservableValue( @Nonnull final ObservableValue observableValue )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> _observables.contains( observable ),
-                    () -> "Arez-0044: Component.removeObservable invoked on component '" + getName() + "' " +
-                          "specifying observable named '" + observable.getName() + "' when observable does not " +
+      apiInvariant( () -> _observableValues.contains( observableValue ),
+                    () -> "Arez-0044: Component.removeObservableValue invoked on component '" + getName() + "' " +
+                          "specifying ObservableValue named '" + observableValue.getName() + "' when ObservableValue does not " +
                           "exist for component." );
     }
-    _observables.remove( observable );
+    _observableValues.remove( observableValue );
   }
 
   /**

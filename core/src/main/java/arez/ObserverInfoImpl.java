@@ -2,7 +2,7 @@ package arez;
 
 import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
-import arez.spy.ObservableInfo;
+import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import java.util.Collection;
 import java.util.Collections;
@@ -114,7 +114,7 @@ final class ObserverInfoImpl
    */
   @Nonnull
   @Override
-  public List<ObservableInfo> getDependencies()
+  public List<ObservableValueInfo> getDependencies()
   {
     return _spy.getDependencies( _observer );
   }

@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.Identifiable;
 import java.util.stream.Stream;
@@ -30,7 +30,7 @@ final class Arez_RepositoryExampleRepository extends RepositoryExampleRepository
   private final Component $$arezi$$_component;
 
   @Nonnull
-  private final Observable<Stream<RepositoryExample>> $$arez$$_entities;
+  private final ObservableValue<Stream<RepositoryExample>> $$arez$$_entities;
 
   @Inject
   Arez_RepositoryExampleRepository() {
@@ -115,7 +115,7 @@ final class Arez_RepositoryExampleRepository extends RepositoryExampleRepository
 
   @Nonnull
   @Override
-  protected Observable getEntitiesObservable() {
+  protected ObservableValue getEntitiesObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getEntitiesObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

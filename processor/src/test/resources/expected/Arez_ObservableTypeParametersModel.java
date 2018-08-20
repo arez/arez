@@ -2,7 +2,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -29,7 +29,7 @@ public final class Arez_ObservableTypeParametersModel<T extends Integer> extends
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<T> $$arez$$_time;
+  private final ObservableValue<T> $$arez$$_time;
 
   public Arez_ObservableTypeParametersModel() {
     super();

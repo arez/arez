@@ -2,7 +2,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -29,13 +29,13 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observable<Long> $$arez$$_time;
+  private final ObservableValue<Long> $$arez$$_time;
 
   @Nonnull
-  private final Observable<Boolean> $$arez$$_foo;
+  private final ObservableValue<Boolean> $$arez$$_foo;
 
   @Nonnull
-  private final Observable<String> $$arez$$_string;
+  private final ObservableValue<String> $$arez$$_string;
 
   public Arez_ObservableGuessingModel() {
     super();
